@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -118,8 +119,8 @@ PodContainerTerminationTable.defaultProps = {
 };
 
 PodContainerTerminationTable.propTypes = {
-  className: React.PropTypes.string,
-  containers: React.PropTypes.array.isRequired
+  className: PropTypes.string,
+  containers: PropTypes.array.isRequired
 };
 
 module.exports = PodContainerTerminationTable;

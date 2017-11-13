@@ -1,4 +1,5 @@
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 class FilterBar extends React.Component {
@@ -61,10 +62,10 @@ class FilterBar extends React.Component {
 }
 
 FilterBar.propTypes = {
-  className: React.PropTypes.string,
-  rightAlignLastNChildren: React.PropTypes.number,
-  leftChildrenClass: React.PropTypes.string,
-  rightChildrenClass: React.PropTypes.string
+  className: PropTypes.string,
+  rightAlignLastNChildren: PropTypes.number,
+  leftChildrenClass: PropTypes.string,
+  rightChildrenClass: PropTypes.string
 };
 
 FilterBar.defaultProps = {

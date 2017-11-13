@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Pod from "../structs/Pod";
@@ -16,9 +17,9 @@ const HighOrderServiceDebug = function(props) {
 };
 
 HighOrderServiceDebug.propTypes = {
-  service: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Pod),
-    React.PropTypes.instanceOf(Service)
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(Pod),
+    PropTypes.instanceOf(Service)
   ])
 };
 

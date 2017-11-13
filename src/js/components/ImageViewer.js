@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import ImageViewerModal from "./modals/ImageViewerModal";
 
@@ -90,7 +91,7 @@ ImageViewer.defaultProps = {
 };
 
 ImageViewer.propTypes = {
-  images: React.PropTypes.arrayOf(React.PropTypes.string)
+  images: PropTypes.arrayOf(PropTypes.string)
 };
 
 module.exports = ImageViewer;

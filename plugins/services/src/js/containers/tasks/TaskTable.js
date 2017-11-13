@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -450,11 +451,11 @@ TaskTable.contextTypes = {
 };
 
 TaskTable.propTypes = {
-  checkedItemsMap: React.PropTypes.object,
-  className: React.PropTypes.string,
-  onCheckboxChange: React.PropTypes.func,
-  params: React.PropTypes.object.isRequired,
-  tasks: React.PropTypes.array.isRequired
+  checkedItemsMap: PropTypes.object,
+  className: PropTypes.string,
+  onCheckboxChange: PropTypes.func,
+  params: PropTypes.object.isRequired,
+  tasks: PropTypes.array.isRequired
 };
 
 TaskTable.defaultProps = {

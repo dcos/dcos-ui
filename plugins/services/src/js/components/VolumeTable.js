@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -175,9 +176,9 @@ class VolumeTable extends React.Component {
 }
 
 VolumeTable.propTypes = {
-  volumes: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Volume)),
-  params: React.PropTypes.object.isRequired,
-  routes: React.PropTypes.array.isRequired
+  volumes: PropTypes.arrayOf(PropTypes.instanceOf(Volume)),
+  params: PropTypes.object.isRequired,
+  routes: PropTypes.array.isRequired
 };
 
 module.exports = VolumeTable;

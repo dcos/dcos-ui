@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import FieldError from "./FieldError";
@@ -45,27 +46,27 @@ FormGroup.defaultProps = {
   hasNarrowMargins: false
 };
 
-const classPropType = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 FormGroup.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
   // Optional boolean to display error
-  showError: React.PropTypes.bool,
+  showError: PropTypes.bool,
 
   // Classes
   className: classPropType,
   // Class to be toggled, can be overridden by className
-  errorClassName: React.PropTypes.string,
+  errorClassName: PropTypes.string,
   // When true, will add padding to the top of the form group to vertically
   // align it with its siblings that have labels.
-  applyLabelOffset: React.PropTypes.bool,
+  applyLabelOffset: PropTypes.bool,
   // When true, the component will apply specific styles for use with the delete
   // row button
-  hasNarrowMargins: React.PropTypes.bool
+  hasNarrowMargins: PropTypes.bool
 };
 
 module.exports = FormGroup;

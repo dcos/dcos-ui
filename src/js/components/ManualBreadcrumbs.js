@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import DeepEqual from "deep-equal";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import BreadcrumbSegmentLink from "./BreadcrumbSegmentLink";

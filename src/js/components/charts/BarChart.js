@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import d3 from "d3";
 import deepEqual from "deep-equal";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -15,17 +16,17 @@ var BarChart = React.createClass({
   mixins: [ChartMixin, InternalStorageMixin],
 
   propTypes: {
-    axisConfiguration: React.PropTypes.object,
-    data: React.PropTypes.array.isRequired,
+    axisConfiguration: PropTypes.object,
+    data: PropTypes.array.isRequired,
     // `height` and `width` are required if this
     // module isn't used as a child of the `Chart` component
     // Otherwise Chart will automatically calculate this.
-    height: React.PropTypes.number,
-    inverseStyle: React.PropTypes.bool,
-    peakline: React.PropTypes.bool,
-    refreshRate: React.PropTypes.number.isRequired,
-    y: React.PropTypes.string,
-    width: React.PropTypes.number
+    height: PropTypes.number,
+    inverseStyle: PropTypes.bool,
+    peakline: PropTypes.bool,
+    refreshRate: PropTypes.number.isRequired,
+    y: PropTypes.string,
+    width: PropTypes.number
   },
 
   getDefaultProps() {

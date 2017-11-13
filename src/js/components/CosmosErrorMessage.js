@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Alert from "./Alert";
@@ -118,12 +119,12 @@ CosmosErrorMessage.defaultProps = {
 };
 
 CosmosErrorMessage.propTypes = {
-  error: React.PropTypes.shape({
-    message: React.PropTypes.node,
-    type: React.PropTypes.string,
-    data: React.PropTypes.object
+  error: PropTypes.shape({
+    message: PropTypes.node,
+    type: PropTypes.string,
+    data: PropTypes.object
   }),
-  flushBottom: React.PropTypes.bool
+  flushBottom: PropTypes.bool
 };
 
 module.exports = CosmosErrorMessage;

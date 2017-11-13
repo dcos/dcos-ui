@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 class FullScreenModalHeaderActions extends React.Component {
@@ -47,22 +48,22 @@ class FullScreenModalHeaderActions extends React.Component {
   }
 }
 
-const classProps = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classProps = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 FullScreenModalHeaderActions.propTypes = {
-  actions: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
+  actions: PropTypes.arrayOf(
+    PropTypes.shape({
       className: classProps,
-      clickHandler: React.PropTypes.func,
-      label: React.PropTypes.node
+      clickHandler: PropTypes.func,
+      label: PropTypes.node
     })
   ),
   className: classProps,
-  type: React.PropTypes.oneOf(["primary", "secondary"]).isRequired
+  type: PropTypes.oneOf(["primary", "secondary"]).isRequired
 };
 
 module.exports = FullScreenModalHeaderActions;

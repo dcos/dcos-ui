@@ -1,4 +1,5 @@
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMapHeading from "./ConfigurationMapHeading";
@@ -111,15 +112,15 @@ HashMapDisplay.defaultProps = {
 };
 
 HashMapDisplay.propTypes = {
-  headingLevel: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
-  headlineClassName: React.PropTypes.string,
-  headline: React.PropTypes.node,
-  hash: React.PropTypes.object,
-  key: React.PropTypes.string,
+  headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+  headlineClassName: PropTypes.string,
+  headline: PropTypes.node,
+  hash: PropTypes.object,
+  key: PropTypes.string,
   // Optional object with keys consisting of keys in `props.hash` to be
   // replaced, and with corresponding values of the replacement to be rendered.
-  renderKeys: React.PropTypes.object,
-  emptyValue: React.PropTypes.string
+  renderKeys: PropTypes.object,
+  emptyValue: PropTypes.string
 };
 
 module.exports = HashMapDisplay;

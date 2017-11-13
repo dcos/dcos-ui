@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 class FullScreenModalHeaderTitle extends React.Component {
@@ -14,14 +15,14 @@ class FullScreenModalHeaderTitle extends React.Component {
   }
 }
 
-const classProps = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classProps = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 FullScreenModalHeaderTitle.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
   className: classProps
 };
 

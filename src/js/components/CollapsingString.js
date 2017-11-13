@@ -1,4 +1,5 @@
 import DeepEqual from "deep-equal";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -167,16 +168,16 @@ CollapsingString.defaultProps = {
 
 CollapsingString.propTypes = {
   // The number of characters to keep visible at the end of the string.
-  endLength: React.PropTypes.number,
-  fullStringClassName: React.PropTypes.string,
+  endLength: PropTypes.number,
+  fullStringClassName: PropTypes.string,
   // The selector for the parent whose width should be referenced. By default,
   // the node's direct parent will be used.
-  parentSelector: React.PropTypes.string,
-  string: React.PropTypes.string.isRequired,
-  truncatedStringEndClassName: React.PropTypes.string,
-  truncatedStringStartClassName: React.PropTypes.string,
-  truncatedWrapperClassName: React.PropTypes.string,
-  wrapperClassName: React.PropTypes.string
+  parentSelector: PropTypes.string,
+  string: PropTypes.string.isRequired,
+  truncatedStringEndClassName: PropTypes.string,
+  truncatedStringStartClassName: PropTypes.string,
+  truncatedWrapperClassName: PropTypes.string,
+  wrapperClassName: PropTypes.string
 };
 
 module.exports = CollapsingString;

@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -43,15 +44,15 @@ PageHeader.defaultProps = {
 };
 
 PageHeader.propTypes = {
-  actions: React.PropTypes.array,
-  addButton: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.object),
-    React.PropTypes.object
+  actions: PropTypes.array,
+  addButton: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.object
   ]),
-  breadcrumbs: React.PropTypes.node,
-  supplementalContent: React.PropTypes.node,
-  tabs: React.PropTypes.array,
-  disabledActions: React.PropTypes.bool
+  breadcrumbs: PropTypes.node,
+  supplementalContent: PropTypes.node,
+  tabs: PropTypes.array,
+  disabledActions: PropTypes.bool
 };
 
 var Page = React.createClass({
@@ -60,20 +61,14 @@ var Page = React.createClass({
   mixins: [InternalStorageMixin, StoreMixin],
 
   propTypes: {
-    className: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object,
-      React.PropTypes.string
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
     ]),
-    dontScroll: React.PropTypes.bool,
-    navigation: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.string
-    ]),
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.string
-    ])
+    dontScroll: PropTypes.bool,
+    navigation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    title: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   },
 
   componentWillMount() {

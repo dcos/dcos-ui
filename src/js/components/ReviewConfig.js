@@ -1,4 +1,5 @@
 import GeminiScrollbar from "react-gemini-scrollbar";
+import PropTypes from "prop-types";
 import React from "react";
 
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -103,11 +104,11 @@ ReviewConfig.defaultProps = {
 };
 
 ReviewConfig.propTypes = {
-  className: React.PropTypes.string,
-  configuration: React.PropTypes.object.isRequired,
-  packageIcon: React.PropTypes.string,
-  packageName: React.PropTypes.string,
-  packageVersion: React.PropTypes.string
+  className: PropTypes.string,
+  configuration: PropTypes.object.isRequired,
+  packageIcon: PropTypes.string,
+  packageName: PropTypes.string,
+  packageVersion: PropTypes.string
 };
 
 module.exports = ReviewConfig;

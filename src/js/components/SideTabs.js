@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 class SideTabs extends React.Component {
@@ -110,10 +111,10 @@ SideTabs.defaultProps = {
 };
 
 SideTabs.propTypes = {
-  className: React.PropTypes.string,
-  onTabClick: React.PropTypes.func,
-  selectedTab: React.PropTypes.string,
-  tabs: React.PropTypes.array
+  className: PropTypes.string,
+  onTabClick: PropTypes.func,
+  selectedTab: PropTypes.string,
+  tabs: PropTypes.array
 };
 
 module.exports = SideTabs;

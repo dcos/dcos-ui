@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 const ModalHeading = props => {
@@ -19,8 +20,8 @@ ModalHeading.defaultProps = {
 };
 
 ModalHeading.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  level: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+  children: PropTypes.node.isRequired,
+  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
 module.exports = ModalHeading;

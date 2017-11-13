@@ -1,5 +1,6 @@
 import { Tooltip } from "reactjs-components";
 import { MountService } from "foundation-ui";
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -287,11 +288,11 @@ EnvironmentFormSection.defaultProps = {
 };
 
 EnvironmentFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func,
-  mountType: React.PropTypes.string
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func,
+  mountType: PropTypes.string
 };
 
 EnvironmentFormSection.configReducers = {

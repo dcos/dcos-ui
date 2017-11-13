@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
@@ -112,9 +113,9 @@ ServiceConfigDisplay.defaultProps = {
 };
 
 ServiceConfigDisplay.propTypes = {
-  appConfig: React.PropTypes.object.isRequired,
-  errors: React.PropTypes.array,
-  onEditClick: React.PropTypes.func
+  appConfig: PropTypes.object.isRequired,
+  errors: PropTypes.array,
+  onEditClick: PropTypes.func
 };
 
 module.exports = ServiceConfigDisplay;

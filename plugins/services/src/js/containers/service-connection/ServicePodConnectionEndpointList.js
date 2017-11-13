@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -138,9 +139,9 @@ class ServicePodConnectionEndpointList extends React.Component {
 }
 
 ServicePodConnectionEndpointList.propTypes = {
-  onEditClick: React.PropTypes.func,
-  errors: React.PropTypes.array,
-  service: React.PropTypes.instanceOf(Service)
+  onEditClick: PropTypes.func,
+  errors: PropTypes.array,
+  service: PropTypes.instanceOf(Service)
 };
 
 ServicePodConnectionEndpointList.contextTypes = {

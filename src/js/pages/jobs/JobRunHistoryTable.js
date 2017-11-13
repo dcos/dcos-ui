@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 
 import moment from "moment";
@@ -398,7 +399,7 @@ class JobRunHistoryTable extends React.Component {
 }
 
 JobRunHistoryTable.propTypes = {
-  params: React.PropTypes.object
+  params: PropTypes.object
 };
 
 module.exports = JobRunHistoryTable;

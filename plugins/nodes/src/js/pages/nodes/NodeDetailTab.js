@@ -1,4 +1,5 @@
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -116,7 +117,7 @@ class NodeDetailTab extends React.Component {
 }
 
 NodeDetailTab.propTypes = {
-  node: React.PropTypes.instanceOf(Node).isRequired
+  node: PropTypes.instanceOf(Node).isRequired
 };
 
 module.exports = NodeDetailTab;

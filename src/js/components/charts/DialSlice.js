@@ -1,12 +1,13 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 var DialSlice = React.createClass({
   displayName: "DialSlice",
 
   propTypes: {
-    colorIndex: React.PropTypes.node,
-    path: React.PropTypes.string.isRequired
+    colorIndex: PropTypes.node,
+    path: PropTypes.string.isRequired
   },
 
   render() {

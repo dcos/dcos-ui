@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { routerShape } from "react-router";
 
 import { DCOS_CHANGE, MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";

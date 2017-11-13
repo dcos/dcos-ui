@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Link } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
 
@@ -25,7 +26,7 @@ var NodesTable = React.createClass({
   mixins: [PureRender],
 
   propTypes: {
-    hosts: React.PropTypes.instanceOf(NodesList).isRequired
+    hosts: PropTypes.instanceOf(NodesList).isRequired
   },
 
   getDefaultProps() {

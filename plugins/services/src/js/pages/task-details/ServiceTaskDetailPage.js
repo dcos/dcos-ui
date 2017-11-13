@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -50,8 +51,8 @@ class ServiceTaskDetailPage extends React.Component {
 }
 
 ServiceTaskDetailPage.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
+  params: PropTypes.object,
+  routes: PropTypes.array
 };
 
 module.exports = ServiceTaskDetailPage;

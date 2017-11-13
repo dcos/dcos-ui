@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Config from "../config/Config";
@@ -59,13 +60,13 @@ RequestErrorMsg.defaultProps = {
 };
 
 RequestErrorMsg.propTypes = {
-  columnClasses: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  columnClasses: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  header: React.PropTypes.node,
-  message: React.PropTypes.node
+  header: PropTypes.node,
+  message: PropTypes.node
 };
 
 module.exports = RequestErrorMsg;

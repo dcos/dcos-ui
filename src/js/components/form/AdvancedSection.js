@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import AdvancedSectionContent from "./AdvancedSectionContent";
@@ -50,12 +51,12 @@ class AdvancedSection extends React.Component {
 }
 
 AdvancedSection.propTypes = {
-  initialIsExpanded: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  initialIsExpanded: PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

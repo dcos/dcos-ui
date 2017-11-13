@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "./Icon";
@@ -40,10 +41,10 @@ Alert.defaultProps = {
 };
 
 Alert.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  flushBottom: React.PropTypes.bool,
-  showIcon: React.PropTypes.bool,
-  type: React.PropTypes.oneOf(["danger", "success"])
+  children: PropTypes.node.isRequired,
+  flushBottom: PropTypes.bool,
+  showIcon: PropTypes.bool,
+  type: PropTypes.oneOf(["danger", "success"])
 };
 
 module.exports = Alert;

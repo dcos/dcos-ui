@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
@@ -145,8 +146,8 @@ const PodContainerConfigSection = ({
 };
 
 PodContainerConfigSection.propTypes = {
-  index: React.PropTypes.number,
-  onEditClick: React.PropTypes.func
+  index: PropTypes.number,
+  onEditClick: PropTypes.func
 };
 
 module.exports = PodContainerConfigSection;

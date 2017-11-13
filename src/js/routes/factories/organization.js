@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+
+import React from "react";
 /* eslint-enable no-unused-vars */
 import { Route, Redirect } from "react-router";
 

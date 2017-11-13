@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Tooltip } from "reactjs-components";
@@ -432,11 +433,11 @@ SchemaForm.defaultProps = {
 };
 
 SchemaForm.propTypes = {
-  getTriggerSubmit: React.PropTypes.func,
-  schema: React.PropTypes.object,
-  packageIcon: React.PropTypes.string,
-  packageName: React.PropTypes.string,
-  packageVersion: React.PropTypes.string
+  getTriggerSubmit: PropTypes.func,
+  schema: PropTypes.object,
+  packageIcon: PropTypes.string,
+  packageName: PropTypes.string,
+  packageVersion: PropTypes.string
 };
 
 module.exports = SchemaForm;

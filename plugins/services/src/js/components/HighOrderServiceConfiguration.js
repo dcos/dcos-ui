@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
@@ -30,10 +31,10 @@ const HighOrderServiceConfiguration = function(props) {
 };
 
 HighOrderServiceConfiguration.propTypes = {
-  errors: React.PropTypes.array,
-  service: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Pod),
-    React.PropTypes.instanceOf(Service)
+  errors: PropTypes.array,
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(Pod),
+    PropTypes.instanceOf(Service)
   ])
 };
 

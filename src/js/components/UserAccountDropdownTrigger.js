@@ -1,4 +1,5 @@
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -65,9 +66,9 @@ UserAccountDropdownTrigger.defaultProps = {
 };
 
 UserAccountDropdownTrigger.propTypes = {
-  clusterName: React.PropTypes.node,
-  onUpdate: React.PropTypes.func,
-  showCaret: React.PropTypes.bool
+  clusterName: PropTypes.node,
+  onUpdate: PropTypes.func,
+  showCaret: PropTypes.bool
 };
 
 module.exports = UserAccountDropdownTrigger;

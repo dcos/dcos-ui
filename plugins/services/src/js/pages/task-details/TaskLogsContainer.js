@@ -1,4 +1,5 @@
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -80,11 +81,11 @@ class TaskLogsContainer extends mixin(StoreMixin) {
 }
 
 TaskLogsContainer.propTypes = {
-  directory: React.PropTypes.instanceOf(TaskDirectory),
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array,
-  selectedLogFile: React.PropTypes.object,
-  task: React.PropTypes.instanceOf(Task)
+  directory: PropTypes.instanceOf(TaskDirectory),
+  params: PropTypes.object,
+  routes: PropTypes.array,
+  selectedLogFile: PropTypes.object,
+  task: PropTypes.instanceOf(Task)
 };
 
 module.exports = TaskLogsContainer;

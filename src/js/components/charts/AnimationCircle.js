@@ -1,4 +1,5 @@
 import d3 from "d3";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -6,12 +7,12 @@ var AnimationCircle = React.createClass({
   displayName: "AnimationCircle",
 
   propTypes: {
-    className: React.PropTypes.string,
-    transitionTime: React.PropTypes.number.isRequired,
-    position: React.PropTypes.array.isRequired,
-    radius: React.PropTypes.number,
-    cx: React.PropTypes.number,
-    cy: React.PropTypes.number
+    className: PropTypes.string,
+    transitionTime: PropTypes.number.isRequired,
+    position: PropTypes.array.isRequired,
+    radius: PropTypes.number,
+    cx: PropTypes.number,
+    cy: PropTypes.number
   },
 
   getInitialState() {

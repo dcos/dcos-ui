@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
@@ -78,7 +79,7 @@ class TaskVolumeContainer extends React.Component {
 }
 
 TaskVolumeContainer.propTypes = {
-  params: React.PropTypes.object.isRequired
+  params: PropTypes.object.isRequired
 };
 
 module.exports = TaskVolumeContainer;

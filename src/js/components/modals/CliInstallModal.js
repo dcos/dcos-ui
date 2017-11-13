@@ -1,6 +1,7 @@
 import browserInfo from "browser-info";
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ClickToSelect from "../ClickToSelect";
@@ -204,11 +205,11 @@ class CliInstallModal extends React.Component {
 }
 
 CliInstallModal.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  subHeaderContent: React.PropTypes.string,
-  showFooter: React.PropTypes.bool.isRequired,
-  footer: React.PropTypes.node,
-  onClose: React.PropTypes.func.isRequired
+  title: PropTypes.string.isRequired,
+  subHeaderContent: PropTypes.string,
+  showFooter: PropTypes.bool.isRequired,
+  footer: PropTypes.node,
+  onClose: PropTypes.func.isRequired
 };
 
 module.exports = CliInstallModal;

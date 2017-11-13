@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -156,8 +157,8 @@ class ConfigurationMapTable extends React.Component {
 }
 
 ConfigurationMapTable.propTypes = {
-  onEditClick: React.PropTypes.func,
-  tabViewID: React.PropTypes.string
+  onEditClick: PropTypes.func,
+  tabViewID: PropTypes.string
 };
 
 module.exports = ConfigurationMapTable;

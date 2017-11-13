@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
@@ -521,11 +522,11 @@ MultiContainerHealthChecksFormSection.defaultProps = {
 };
 
 MultiContainerHealthChecksFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  handleTabChange: React.PropTypes.func,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  handleTabChange: PropTypes.func,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func
 };
 
 module.exports = MultiContainerHealthChecksFormSection;

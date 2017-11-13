@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import PureRender from "react-addons-pure-render-mixin";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 
 import StringUtil from "../utils/StringUtil";
 

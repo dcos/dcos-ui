@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -176,9 +177,9 @@ SearchLog.defaultProps = {
 };
 
 SearchLog.propTypes = {
-  logFiles: React.PropTypes.array,
-  actions: React.PropTypes.node,
-  children: React.PropTypes.node
+  logFiles: PropTypes.array,
+  actions: PropTypes.node,
+  children: PropTypes.node
 };
 
 module.exports = SearchLog;

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 import DetailViewSectionHeading from "./DetailViewSectionHeading";
@@ -19,12 +20,12 @@ ConfigurationMapHeading.defaultProps = {
 };
 
 ConfigurationMapHeading.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  level: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
 module.exports = ConfigurationMapHeading;

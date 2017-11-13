@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import { findNestedPropertyInObject, omit } from "../../utils/Util";
@@ -44,17 +45,17 @@ const FieldLabel = props => {
 };
 
 FieldLabel.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
   // Vertically center the element based on the height of input fields
-  matchInputHeight: React.PropTypes.bool,
+  matchInputHeight: PropTypes.bool,
   // Optional boolean to show a required indicator
-  required: React.PropTypes.bool,
+  required: PropTypes.bool,
 
   // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -256,11 +257,11 @@ ContainerServiceFormAdvancedSection.defaultProps = {
 };
 
 ContainerServiceFormAdvancedSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func,
-  path: React.PropTypes.string
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func,
+  path: PropTypes.string
 };
 
 ContainerServiceFormAdvancedSection.configReducers = {

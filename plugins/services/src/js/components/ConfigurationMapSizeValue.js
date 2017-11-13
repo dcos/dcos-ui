@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
@@ -47,16 +48,13 @@ ConfigurationMapSizeValue.defaultProps = {
 };
 
 ConfigurationMapSizeValue.propTypes = {
-  decimals: React.PropTypes.number,
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  multiplier: React.PropTypes.number,
-  scale: React.PropTypes.number,
-  threshold: React.PropTypes.number,
-  units: React.PropTypes.array,
-  value: React.PropTypes.number
+  decimals: PropTypes.number,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  multiplier: PropTypes.number,
+  scale: PropTypes.number,
+  threshold: PropTypes.number,
+  units: PropTypes.array,
+  value: PropTypes.number
 };
 
 module.exports = ConfigurationMapSizeValue;

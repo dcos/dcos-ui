@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -112,12 +113,12 @@ class ArtifactsSection extends Component {
 }
 
 ArtifactsSection.propTypes = {
-  data: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      uri: React.PropTypes.string
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      uri: PropTypes.string
     })
   ),
-  path: React.PropTypes.string
+  path: PropTypes.string
 };
 
 module.exports = ArtifactsSection;

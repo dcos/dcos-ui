@@ -1,4 +1,5 @@
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { hashHistory } from "react-router";
 import { Table } from "reactjs-components";
@@ -173,9 +174,9 @@ class HealthTab extends React.Component {
 }
 
 HealthTab.propTypes = {
-  node: React.PropTypes.object.isRequired,
-  units: React.PropTypes.object.isRequired,
-  params: React.PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
+  units: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired
 };
 
 module.exports = HealthTab;

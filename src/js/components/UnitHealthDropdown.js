@@ -1,5 +1,6 @@
 import { Dropdown } from "reactjs-components";
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import UnitHealthStatus from "../constants/UnitHealthStatus";
@@ -69,10 +70,10 @@ class UnitHealthDropdown extends React.Component {
 }
 
 UnitHealthDropdown.propTypes = {
-  className: React.PropTypes.string,
-  dropdownMenuClassName: React.PropTypes.string,
-  initialID: React.PropTypes.string,
-  onHealthSelection: React.PropTypes.func
+  className: PropTypes.string,
+  dropdownMenuClassName: PropTypes.string,
+  initialID: PropTypes.string,
+  onHealthSelection: PropTypes.func
 };
 
 UnitHealthDropdown.defaultProps = {

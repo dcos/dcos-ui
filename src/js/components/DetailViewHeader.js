@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import CollapsingString from "./CollapsingString";
@@ -118,10 +119,10 @@ class DetailViewHeader extends React.Component {
   }
 }
 
-const classPropType = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 DetailViewHeader.defaultProps = {
@@ -129,11 +130,11 @@ DetailViewHeader.defaultProps = {
 };
 
 DetailViewHeader.propTypes = {
-  actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
-  icon: React.PropTypes.node,
-  navigationTabs: React.PropTypes.node,
-  subTitle: React.PropTypes.node,
-  title: React.PropTypes.string,
+  actionButtons: PropTypes.arrayOf(PropTypes.element),
+  icon: PropTypes.node,
+  navigationTabs: PropTypes.node,
+  subTitle: PropTypes.node,
+  title: PropTypes.string,
 
   className: classPropType,
   detailViewHeaderClassNames: classPropType,

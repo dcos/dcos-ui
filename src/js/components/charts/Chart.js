@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -11,8 +12,8 @@ var Chart = React.createClass({
   mixins: [InternalStorageMixin, StoreMixin],
 
   propTypes: {
-    calcHeight: React.PropTypes.func,
-    delayRender: React.PropTypes.bool
+    calcHeight: PropTypes.func,
+    delayRender: PropTypes.bool
   },
 
   getDefaultProps() {

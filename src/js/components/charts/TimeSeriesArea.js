@@ -1,4 +1,5 @@
 import d3 from "d3";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -6,11 +7,11 @@ var TimeSeriesArea = React.createClass({
   displayName: "TimeSeriesArea",
 
   propTypes: {
-    className: React.PropTypes.string,
-    line: React.PropTypes.string.isRequired,
-    path: React.PropTypes.string.isRequired,
-    position: React.PropTypes.array.isRequired,
-    transitionTime: React.PropTypes.number.isRequired
+    className: PropTypes.string,
+    line: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    position: PropTypes.array.isRequired,
+    transitionTime: PropTypes.number.isRequired
   },
 
   componentDidMount() {

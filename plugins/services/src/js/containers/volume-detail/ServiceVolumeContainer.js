@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
@@ -77,7 +78,7 @@ class ServiceVolumeContainer extends React.Component {
 }
 
 ServiceVolumeContainer.propTypes = {
-  params: React.PropTypes.object.isRequired
+  params: PropTypes.object.isRequired
 };
 
 module.exports = ServiceVolumeContainer;

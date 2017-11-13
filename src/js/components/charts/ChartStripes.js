@@ -1,12 +1,13 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 var ChartStripes = React.createClass({
   displayName: "ChartStripes",
 
   propTypes: {
-    count: React.PropTypes.number.isRequired,
-    height: React.PropTypes.number.isRequired,
-    width: React.PropTypes.number.isRequired
+    count: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired
   },
 
   getStripes(props) {

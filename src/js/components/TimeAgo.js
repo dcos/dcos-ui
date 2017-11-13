@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import DateUtil from "../utils/DateUtil";
@@ -86,14 +87,11 @@ TimeAgo.defaultProps = {
 };
 
 TimeAgo.propTypes = {
-  autoUpdate: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  prefix: React.PropTypes.node,
-  suppressSuffix: React.PropTypes.bool,
-  time: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.number
-  ])
+  autoUpdate: PropTypes.bool,
+  className: PropTypes.string,
+  prefix: PropTypes.node,
+  suppressSuffix: PropTypes.bool,
+  time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
 
 module.exports = TimeAgo;

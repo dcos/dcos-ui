@@ -1,5 +1,6 @@
 import { Link, formatPattern } from "react-router";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 
 class BreadcrumbSegmentLink extends React.Component {
   render() {

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
@@ -41,15 +42,12 @@ ConfigurationMapBooleanValue.defaultProps = {
 };
 
 ConfigurationMapBooleanValue.propTypes = {
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  options: React.PropTypes.shape({
-    truthy: React.PropTypes.any,
-    falsy: React.PropTypes.any
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  options: PropTypes.shape({
+    truthy: PropTypes.any,
+    falsy: PropTypes.any
   }),
-  value: React.PropTypes.any
+  value: PropTypes.any
 };
 
 module.exports = ConfigurationMapBooleanValue;

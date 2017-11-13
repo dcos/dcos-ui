@@ -1,4 +1,5 @@
 import { Dropdown } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "./Icon";
@@ -76,14 +77,11 @@ PageHeaderNavigationDropdown.defaultProps = {
 };
 
 PageHeaderNavigationDropdown.propTypes = {
-  items: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-      ]).isRequired,
-      isActive: React.PropTypes.bool.isRequired,
-      label: React.PropTypes.node.isRequired
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      isActive: PropTypes.bool.isRequired,
+      label: PropTypes.node.isRequired
     })
   )
 };

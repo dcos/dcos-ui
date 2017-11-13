@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -314,7 +315,7 @@ VirtualNetworkTaskTab.contextTypes = {
 };
 
 VirtualNetworkTaskTab.propTypes = {
-  overlay: React.PropTypes.instanceOf(Overlay)
+  overlay: PropTypes.instanceOf(Overlay)
 };
 
 module.exports = VirtualNetworkTaskTab;

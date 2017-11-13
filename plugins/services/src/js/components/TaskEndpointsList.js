@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import deepEqual from "deep-equal";
 
@@ -163,9 +164,9 @@ TaskEndpointsList.defaultProps = {
 };
 
 TaskEndpointsList.propTypes = {
-  portLimit: React.PropTypes.number,
-  task: React.PropTypes.object,
-  node: React.PropTypes.object
+  portLimit: PropTypes.number,
+  task: PropTypes.object,
+  node: PropTypes.object
 };
 
 module.exports = TaskEndpointsList;

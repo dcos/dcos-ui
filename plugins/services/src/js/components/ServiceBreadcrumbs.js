@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 
@@ -257,10 +258,10 @@ ServiceBreadcrumbs.defaultProps = {
 };
 
 ServiceBreadcrumbs.propTypes = {
-  extra: React.PropTypes.arrayOf(React.PropTypes.node),
-  serviceID: React.PropTypes.string,
-  taskID: React.PropTypes.string,
-  taskName: React.PropTypes.string
+  extra: PropTypes.arrayOf(PropTypes.node),
+  serviceID: PropTypes.string,
+  taskID: PropTypes.string,
+  taskName: PropTypes.string
 };
 
 module.exports = ServiceBreadcrumbs;

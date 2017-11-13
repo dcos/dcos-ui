@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -92,23 +93,23 @@ class TabButton extends React.Component {
   }
 }
 
-const classProps = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classProps = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 TabButton.propTypes = {
-  active: React.PropTypes.bool,
-  children: React.PropTypes.node,
+  active: PropTypes.bool,
+  children: PropTypes.node,
   className: classProps,
-  id: React.PropTypes.string.isRequired,
-  label: React.PropTypes.node,
+  id: PropTypes.string.isRequired,
+  label: PropTypes.node,
   labelClassName: classProps,
-  showErrorBadge: React.PropTypes.bool,
-  count: React.PropTypes.number,
-  description: React.PropTypes.string,
-  onClickBadge: React.PropTypes.func
+  showErrorBadge: PropTypes.bool,
+  count: PropTypes.number,
+  description: PropTypes.string,
+  onClickBadge: PropTypes.func
 };
 
 module.exports = TabButton;

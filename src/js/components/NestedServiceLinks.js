@@ -1,6 +1,7 @@
 import classNames from "classnames/dedupe";
 import { Link } from "react-router";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 
 import Icon from "./Icon";
 

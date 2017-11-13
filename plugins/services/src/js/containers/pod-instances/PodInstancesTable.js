@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import deepEqual from "deep-equal";
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
@@ -484,11 +485,11 @@ PodInstancesTable.defaultProps = {
 };
 
 PodInstancesTable.propTypes = {
-  filterText: React.PropTypes.string,
-  instances: React.PropTypes.instanceOf(PodInstanceList),
-  inverseStyle: React.PropTypes.bool,
-  onSelectionChange: React.PropTypes.func,
-  pod: React.PropTypes.instanceOf(Pod).isRequired
+  filterText: PropTypes.string,
+  instances: PropTypes.instanceOf(PodInstanceList),
+  inverseStyle: PropTypes.bool,
+  onSelectionChange: PropTypes.func,
+  pod: PropTypes.instanceOf(Pod).isRequired
 };
 
 module.exports = PodInstancesTable;

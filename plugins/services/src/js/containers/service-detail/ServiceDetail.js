@@ -1,6 +1,7 @@
 import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
 

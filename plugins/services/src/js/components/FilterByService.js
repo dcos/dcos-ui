@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown } from "reactjs-components";
 
@@ -9,10 +10,10 @@ var FilterByService = React.createClass({
   displayName: "FilterByService",
 
   propTypes: {
-    byServiceFilter: React.PropTypes.string,
-    services: React.PropTypes.array.isRequired,
-    totalHostsCount: React.PropTypes.number.isRequired,
-    handleFilterChange: React.PropTypes.func
+    byServiceFilter: PropTypes.string,
+    services: PropTypes.array.isRequired,
+    totalHostsCount: PropTypes.number.isRequired,
+    handleFilterChange: PropTypes.func
   },
 
   getDefaultProps() {

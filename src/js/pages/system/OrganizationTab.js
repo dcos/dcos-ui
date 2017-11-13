@@ -3,6 +3,7 @@ import { Dropdown, Form, Table } from "reactjs-components";
 import { Hooks } from "PluginSDK";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -518,9 +519,9 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 }
 
 OrganizationTab.propTypes = {
-  items: React.PropTypes.array.isRequired,
-  itemID: React.PropTypes.string.isRequired,
-  itemName: React.PropTypes.string.isRequired
+  items: PropTypes.array.isRequired,
+  itemID: PropTypes.string.isRequired,
+  itemName: PropTypes.string.isRequired
 };
 
 module.exports = OrganizationTab;

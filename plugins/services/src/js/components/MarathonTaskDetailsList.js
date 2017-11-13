@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -190,7 +191,7 @@ class MarathonTaskDetailsList extends React.Component {
 }
 
 MarathonTaskDetailsList.propTypes = {
-  taskID: React.PropTypes.string.isRequired
+  taskID: PropTypes.string.isRequired
 };
 
 module.exports = MarathonTaskDetailsList;

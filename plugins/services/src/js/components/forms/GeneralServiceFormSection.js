@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm, Tooltip } from "reactjs-components";
 
@@ -420,11 +421,11 @@ GeneralServiceFormSection.defaultProps = {
 };
 
 GeneralServiceFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func,
-  onClickItem: React.PropTypes.func
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func,
+  onClickItem: PropTypes.func
 };
 
 GeneralServiceFormSection.configReducers = General;

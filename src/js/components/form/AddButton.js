@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "../Icon";
@@ -24,14 +25,14 @@ AddButton.defaultProps = {
 };
 
 AddButton.propTypes = {
-  children: React.PropTypes.node,
-  onClick: React.PropTypes.func,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  icon: React.PropTypes.node
+  icon: PropTypes.node
 };
 
 module.exports = AddButton;

@@ -1,4 +1,5 @@
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { routerShape, formatPattern } from "react-router";
@@ -366,8 +367,8 @@ TaskDetail.contextTypes = {
 };
 
 TaskDetail.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
+  params: PropTypes.object,
+  routes: PropTypes.array
 };
 
 module.exports = TaskDetail;

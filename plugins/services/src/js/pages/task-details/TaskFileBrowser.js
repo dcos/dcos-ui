@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import TaskDirectoryTable from "../../components/TaskDirectoryTable";
@@ -33,8 +34,8 @@ class TaskFileBrowser extends React.Component {
 }
 
 TaskFileBrowser.propTypes = {
-  directory: React.PropTypes.object,
-  task: React.PropTypes.object
+  directory: PropTypes.object,
+  task: PropTypes.object
 };
 
 TaskFileBrowser.defaultProps = {

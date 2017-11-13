@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMap from "../../../components/ConfigurationMap";
@@ -40,7 +41,7 @@ class VirtualNetworkDetailsTab extends React.Component {
 }
 
 VirtualNetworkDetailsTab.propTypes = {
-  overlay: React.PropTypes.instanceOf(Overlay)
+  overlay: PropTypes.instanceOf(Overlay)
 };
 
 module.exports = VirtualNetworkDetailsTab;

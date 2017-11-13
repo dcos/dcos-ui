@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
@@ -184,12 +185,12 @@ class ServiceStatusIcon extends Component {
 }
 
 ServiceStatusIcon.propTypes = {
-  showTooltip: React.PropTypes.bool,
-  tooltipContent: React.PropTypes.string,
-  service: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(Service),
-    React.PropTypes.instanceOf(ServiceTree),
-    React.PropTypes.instanceOf(Pod)
+  showTooltip: PropTypes.bool,
+  tooltipContent: PropTypes.string,
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(Service),
+    PropTypes.instanceOf(ServiceTree),
+    PropTypes.instanceOf(Pod)
   ])
 };
 

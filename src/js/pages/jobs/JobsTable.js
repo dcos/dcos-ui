@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Link } from "react-router";
 import prettycron from "prettycron";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
 
@@ -265,7 +266,7 @@ class JobsTable extends React.Component {
 }
 
 JobsTable.propTypes = {
-  jobs: React.PropTypes.array.isRequired
+  jobs: PropTypes.array.isRequired
 };
 
 module.exports = JobsTable;

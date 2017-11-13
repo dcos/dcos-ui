@@ -2,6 +2,7 @@ import classNames from "classnames/dedupe";
 import { Form, Tooltip } from "reactjs-components";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "./Icon";
@@ -235,24 +236,24 @@ TabForm.defaultProps = {
   onTabClick() {}
 };
 
-const classPropType = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 TabForm.propTypes = {
   className: classPropType,
-  defaultTab: React.PropTypes.string,
-  definition: React.PropTypes.object.isRequired,
+  defaultTab: PropTypes.string,
+  definition: PropTypes.object.isRequired,
   formContentClassNames: classPropType,
   formRowClass: classPropType,
-  getTriggerSubmit: React.PropTypes.func,
+  getTriggerSubmit: PropTypes.func,
   navigationContentClassNames: classPropType,
-  onError: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onSubmit: React.PropTypes.func,
-  onTabClick: React.PropTypes.func
+  onError: PropTypes.func,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  onTabClick: PropTypes.func
 };
 
 module.exports = TabForm;

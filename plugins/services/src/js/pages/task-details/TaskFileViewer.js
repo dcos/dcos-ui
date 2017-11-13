@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Dropdown, Tooltip } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape, formatPattern } from "react-router";
 
@@ -233,10 +234,10 @@ TaskFileViewer.defaultProps = {
 };
 
 TaskFileViewer.propTypes = {
-  directory: React.PropTypes.instanceOf(TaskDirectory),
-  limitLogFiles: React.PropTypes.arrayOf(React.PropTypes.string),
-  selectedLogFile: React.PropTypes.object,
-  task: React.PropTypes.object
+  directory: PropTypes.instanceOf(TaskDirectory),
+  limitLogFiles: PropTypes.arrayOf(PropTypes.string),
+  selectedLogFile: PropTypes.object,
+  task: PropTypes.object
 };
 
 module.exports = TaskFileViewer;

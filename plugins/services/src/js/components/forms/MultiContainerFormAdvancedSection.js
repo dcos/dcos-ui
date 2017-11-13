@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -45,8 +46,8 @@ MultiContainerFormAdvancedSection.defaultProps = {
 };
 
 MultiContainerFormAdvancedSection.propTypes = {
-  data: React.PropTypes.object,
-  path: React.PropTypes.string
+  data: PropTypes.object,
+  path: PropTypes.string
 };
 
 module.exports = MultiContainerFormAdvancedSection;

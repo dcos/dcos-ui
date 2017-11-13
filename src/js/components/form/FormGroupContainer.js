@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import classNames from "classnames";
@@ -43,9 +44,9 @@ FormGroupContainer.defaultProps = {
 };
 
 FormGroupContainer.propTypes = {
-  children: React.PropTypes.node,
-  onRemove: React.PropTypes.func,
-  onClick: React.PropTypes.func
+  children: PropTypes.node,
+  onRemove: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 module.exports = FormGroupContainer;

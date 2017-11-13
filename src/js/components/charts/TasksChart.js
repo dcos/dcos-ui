@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import deepEqual from "deep-equal";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Chart from "./Chart";
@@ -27,7 +28,7 @@ var TasksChart = React.createClass({
 
   propTypes: {
     // {TASK_RUNNING: 0, TASK_STAGING: 4}
-    tasks: React.PropTypes.object.isRequired
+    tasks: PropTypes.object.isRequired
   },
 
   shouldComponentUpdate(nextProps) {

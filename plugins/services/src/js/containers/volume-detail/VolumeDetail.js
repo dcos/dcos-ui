@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 
@@ -123,8 +124,8 @@ class VolumeDetail extends React.Component {
 }
 
 VolumeDetail.propTypes = {
-  service: React.PropTypes.object.isRequired,
-  volume: React.PropTypes.object.isRequired
+  service: PropTypes.object.isRequired,
+  volume: PropTypes.object.isRequired
 };
 
 module.exports = VolumeDetail;

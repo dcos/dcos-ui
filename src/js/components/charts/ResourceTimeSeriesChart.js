@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Chart from "./Chart";
@@ -9,12 +10,12 @@ var ResourceTimeSeriesChart = React.createClass({
   displayName: "ResourceTimeSeriesChart",
 
   propTypes: {
-    colorIndex: React.PropTypes.number.isRequired,
-    usedResources: React.PropTypes.object.isRequired,
-    totalResources: React.PropTypes.object.isRequired,
-    usedResourcesStates: React.PropTypes.object.isRequired,
-    mode: React.PropTypes.string,
-    refreshRate: React.PropTypes.number.isRequired
+    colorIndex: PropTypes.number.isRequired,
+    usedResources: PropTypes.object.isRequired,
+    totalResources: PropTypes.object.isRequired,
+    usedResourcesStates: PropTypes.object.isRequired,
+    mode: PropTypes.string,
+    refreshRate: PropTypes.number.isRequired
   },
 
   getDefaultProps() {

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 const AlertPanelHeader = function(props) {
@@ -9,7 +10,7 @@ const AlertPanelHeader = function(props) {
 };
 
 AlertPanelHeader.propTypes = {
-  children: React.PropTypes.node
+  children: PropTypes.node
 };
 
 module.exports = AlertPanelHeader;

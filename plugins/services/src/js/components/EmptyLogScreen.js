@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 
 function EmptyLogScreen({ logName }) {
   // Append space if logName is defined

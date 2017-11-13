@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "./Icon";
@@ -203,11 +204,11 @@ CollapsibleErrorMessage.defaultProps = {
 };
 
 CollapsibleErrorMessage.propTypes = {
-  className: React.PropTypes.string,
-  details: React.PropTypes.array,
-  expanded: React.PropTypes.bool,
-  message: React.PropTypes.node,
-  onToggle: React.PropTypes.func
+  className: PropTypes.string,
+  details: PropTypes.array,
+  expanded: PropTypes.bool,
+  message: PropTypes.node,
+  onToggle: PropTypes.func
 };
 
 module.exports = CollapsibleErrorMessage;

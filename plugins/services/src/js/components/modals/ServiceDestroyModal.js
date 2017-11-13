@@ -1,7 +1,8 @@
 import { Confirm } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { injectIntl, intlShape } from "react-intl";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";

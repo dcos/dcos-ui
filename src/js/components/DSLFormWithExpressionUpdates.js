@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 
 import DSLCombinerTypes from "../constants/DSLCombinerTypes";
 import DSLFilterTypes from "../constants/DSLFilterTypes";
