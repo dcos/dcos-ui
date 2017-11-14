@@ -36,7 +36,7 @@
   "SERVICE_ACTIONS.OPEN_SERVICE": "Open Service",
   "SERVICE_ACTIONS.SCALE": "Scale",
   "SERVICE_ACTIONS.SCALE_BY": "Scale By",
-  "SERVICE_ACTIONS.SUSPEND": "Suspend",
+  "SERVICE_ACTIONS.STOP": "Stop",
 
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1": "your group by",
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_2": "from the DC/OS CLI",
@@ -52,15 +52,15 @@
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_9":
     "Then, copy the command below into the DC/OS CLI",
 
-  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SUSPEND":
+  "SERVICE_ACTIONS.SDK_GROUP_UPDATE_STOP":
     "scaling each service to 0 instances",
   "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SCALE":
     "updating the number of instances of each service",
 
   "SERVICE_ACTIONS.SDK_SERVICE_RESTART":
     "Restart your service from the DC/OS CLI.",
-  "SERVICE_ACTIONS.SDK_SERVICE_SUSPEND":
-    "Suspend your service by scaling to 0 instances from the DC/OS CLI using an `options.json` file.",
+  "SERVICE_ACTIONS.SDK_SERVICE_STOP":
+    "Stop your service by scaling to 0 instances from the DC/OS CLI using an `options.json` file.",
   "SERVICE_ACTIONS.SDK_SERVICE_RESUME":
     "Resume your service by scaling to 1 or more instances from the DC/OS CLI using an `options.json` file.",
   "SERVICE_ACTIONS.SDK_SERVICE_SCALE":

@@ -38,8 +38,8 @@ class PodHeader extends React.Component {
         className: classNames({
           hidden: pod.getInstancesCount() === 0
         }),
-        id: PodActionItem.SUSPEND,
-        html: "Suspend"
+        id: PodActionItem.STOP,
+        html: "Stop"
       },
       {
         id: PodActionItem.DELETE,
@@ -87,8 +87,8 @@ class PodHeader extends React.Component {
 
   handleDropdownAction(action) {
     switch (action.id) {
-      case PodActionItem.SUSPEND:
-        this.props.onSuspend();
+      case PodActionItem.STOP:
+        this.props.onStop();
         break;
 
       case PodActionItem.DELETE:
@@ -173,7 +173,7 @@ PodHeader.defaultProps = {
   onDestroy() {},
   onEdit() {},
   onScale() {},
-  onSuspend() {},
+  onStop() {},
   pod: null,
   tabs: []
 };
@@ -182,7 +182,7 @@ PodHeader.propTypes = {
   onDestroy: React.PropTypes.func,
   onEdit: React.PropTypes.func,
   onScale: React.PropTypes.func,
-  onSuspend: React.PropTypes.func,
+  onStop: React.PropTypes.func,
   pod: React.PropTypes.instanceOf(Pod).isRequired,
   tabs: React.PropTypes.array
 };

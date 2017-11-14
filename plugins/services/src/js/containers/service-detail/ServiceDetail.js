@@ -28,7 +28,7 @@ import {
   RESTART,
   RESUME,
   SCALE,
-  SUSPEND
+  STOP
 } from "../../constants/ServiceActionItem";
 
 const METHODS_TO_BIND = [
@@ -132,8 +132,8 @@ class ServiceDetail extends mixin(TabsMixin) {
       case RESUME:
         modalHandlers.resumeService({ service });
         break;
-      case SUSPEND:
-        modalHandlers.suspendService({ service });
+      case STOP:
+        modalHandlers.stopService({ service });
         break;
       case DELETE:
         modalHandlers.deleteService({ service });
@@ -209,8 +209,8 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
-        label: "Suspend",
-        onItemSelect: this.onActionsItemSelection.bind(this, SUSPEND)
+        label: "Stop",
+        onItemSelect: this.onActionsItemSelection.bind(this, STOP)
       });
     }
 
@@ -303,7 +303,7 @@ ServiceDetail.contextTypes = {
   modalHandlers: PropTypes.shape({
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
-    suspendService: PropTypes.func,
+    stopService: PropTypes.func,
     deleteService: PropTypes.func,
     openService: PropTypes.func
   }).isRequired,

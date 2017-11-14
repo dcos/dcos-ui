@@ -26,7 +26,7 @@ import {
   RESTART,
   RESUME,
   SCALE,
-  SUSPEND
+  STOP
 } from "../../constants/ServiceActionItem";
 
 const METHODS_TO_BIND = [
@@ -123,8 +123,8 @@ class PodDetail extends mixin(TabsMixin) {
       case RESUME:
         modalHandlers.resumeService({ service: pod });
         break;
-      case SUSPEND:
-        modalHandlers.suspendService({ service: pod });
+      case STOP:
+        modalHandlers.stopService({ service: pod });
         break;
       case DELETE:
         modalHandlers.deleteService({ service: pod });
@@ -179,8 +179,8 @@ class PodDetail extends mixin(TabsMixin) {
 
     if (instanceCount > 0) {
       actions.push({
-        label: "Suspend",
-        onItemSelect: this.onActionsItemSelection.bind(this, SUSPEND)
+        label: "Stop",
+        onItemSelect: this.onActionsItemSelection.bind(this, STOP)
       });
     }
 
@@ -240,7 +240,7 @@ class PodDetail extends mixin(TabsMixin) {
             onDestroy={this.handleActionDestroy}
             onEdit={this.handleActionEdit}
             onScale={this.handleActionScale}
-            onSuspend={this.handleActionSuspend}
+            onStop={this.handleActionSuspend}
             pod={pod}
             tabs={this.getTabs()}
           />
@@ -260,7 +260,7 @@ class PodDetail extends mixin(TabsMixin) {
 PodDetail.contextTypes = {
   modalHandlers: PropTypes.shape({
     scaleService: PropTypes.func,
-    suspendService: PropTypes.func,
+    stopService: PropTypes.func,
     deleteService: PropTypes.func
   }).isRequired,
   router: routerShape

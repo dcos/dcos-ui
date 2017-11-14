@@ -639,7 +639,7 @@ describe("ServiceTree", function() {
       );
     });
 
-    it("returns correct status for suspended tree", function() {
+    it("returns correct status for stopped tree", function() {
       this.instance.add(
         new Application({
           tasksStaged: 0,
@@ -694,7 +694,7 @@ describe("ServiceTree", function() {
       expect(this.instance.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
 
-    it("returns correct status object for suspended tree", function() {
+    it("returns correct status object for stopped tree", function() {
       this.instance.add(
         new Application({
           tasksStaged: 0,

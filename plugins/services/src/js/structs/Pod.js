@@ -128,7 +128,7 @@ module.exports = class Pod extends Service {
     const nonterminalInstances = this.countNonTerminalInstances();
 
     if (nonterminalInstances === 0 && scalingInstances === 0) {
-      return ServiceStatus.SUSPENDED;
+      return ServiceStatus.STOPPED;
     }
 
     if (scalingInstances !== nonterminalInstances) {

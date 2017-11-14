@@ -391,7 +391,7 @@ describe("Service Actions", function() {
     });
   });
 
-  context("Suspend Action", function() {
+  context("Stop Action", function() {
     beforeEach(function() {
       cy.configureCluster({
         mesos: "1-for-each-health",
@@ -399,10 +399,10 @@ describe("Service Actions", function() {
       });
 
       cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-      clickHeaderAction("Suspend");
+      clickHeaderAction("Stop");
     });
 
-    it("opens the correct service suspend dialog", function() {
+    it("opens the correct service stop dialog", function() {
       cy
         .get(".confirm-modal p strong")
         .contains("cassandra-healthy")
@@ -495,10 +495,10 @@ describe("Service Actions", function() {
       cy.visitUrl({ url: "/services/detail/%2Fsleep" });
     });
 
-    it("hides the suspend option in the service action dropdown", function() {
+    it("hides the stop option in the service action dropdown", function() {
       cy.get(".page-header-actions .dropdown").click();
 
-      cy.get(".dropdown-menu-items li").should("not.contain", "Suspend");
+      cy.get(".dropdown-menu-items li").should("not.contain", "Stop");
     });
 
     it("shows the resume option in the service action dropdown", function() {
@@ -697,11 +697,11 @@ describe("Service Actions", function() {
         .should("not.exist");
     });
 
-    it("suspend should not exist", function() {
+    it("stop should not exist", function() {
       cy
         .get(".page-header-actions .dropdown")
         .click()
-        .contains("suspend")
+        .contains("stop")
         .should("not.exist");
     });
   });

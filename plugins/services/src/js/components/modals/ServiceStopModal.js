@@ -9,7 +9,7 @@ import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 
-class ServiceSuspendModal extends React.Component {
+class ServiceStopModal extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -99,13 +99,13 @@ class ServiceSuspendModal extends React.Component {
 
     return (
       <ModalHeading>
-        Suspend {serviceLabel}
+        Stop {serviceLabel}
       </ModalHeading>
     );
   }
 
   render() {
-    const { isPending, onClose, open, service, suspendItem } = this.props;
+    const { isPending, onClose, open, service, stopItem } = this.props;
     const serviceLabel = this.getServiceLabel();
     const serviceName = service.getName();
 
@@ -116,12 +116,12 @@ class ServiceSuspendModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        rightButtonText={`Suspend ${serviceLabel}`}
-        rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}
+        rightButtonText={`Stop ${serviceLabel}`}
+        rightButtonCallback={() => stopItem(this.shouldForceUpdate())}
         showHeader={true}
       >
         <p>
-          Suspending the
+          Stopping the
           {" "}
           <strong>{serviceName}</strong>
           {" "}
@@ -139,8 +139,8 @@ class ServiceSuspendModal extends React.Component {
   }
 }
 
-ServiceSuspendModal.propTypes = {
-  suspendItem: PropTypes.func.isRequired,
+ServiceStopModal.propTypes = {
+  stopItem: PropTypes.func.isRequired,
   errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
@@ -151,4 +151,4 @@ ServiceSuspendModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceSuspendModal;
+module.exports = ServiceStopModal;

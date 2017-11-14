@@ -6,7 +6,7 @@ const ServiceActionLabels = {
   open: "SERVICE_ACTIONS.OPEN_SERVICE",
   scale: "SERVICE_ACTIONS.SCALE",
   scale_by: "SERVICE_ACTIONS.SCALE_BY",
-  suspend: "SERVICE_ACTIONS.SUSPEND"
+  stop: "SERVICE_ACTIONS.STOP"
 };
 
 module.exports = ServiceActionLabels;

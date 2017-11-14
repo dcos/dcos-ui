@@ -229,10 +229,10 @@ describe("Services", function() {
         .get(".page-header-actions .dropdown")
         .click()
         .get(".dropdown-menu-items")
-        .contains("Suspend")
+        .contains("Stop")
         .click();
 
-      cy.root().contains("button", "Suspend Service").click();
+      cy.root().contains("button", "Stop Service").click();
 
       cy
         .get(".page-header-actions .dropdown")

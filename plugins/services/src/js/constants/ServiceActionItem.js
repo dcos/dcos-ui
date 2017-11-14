@@ -9,7 +9,7 @@ const ServiceActionItem = {
   RESTART: "restart",
   RESUME: "resume",
   SCALE: "scale",
-  SUSPEND: "suspend",
+  STOP: "stop",
   MORE: "more",
   KILL_POD_INSTANCES: "kill_pod_instances",
   KILL_TASKS: "kill_tasks"

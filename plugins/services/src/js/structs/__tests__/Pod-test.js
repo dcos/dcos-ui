@@ -157,7 +157,7 @@ describe("Pod", function() {
   });
 
   describe("#getServiceStatus", function() {
-    it("should properly detect SUSPENDED", function() {
+    it("should properly detect STOPPED", function() {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -168,7 +168,7 @@ describe("Pod", function() {
         instances: []
       });
 
-      expect(pod.getServiceStatus()).toEqual(ServiceStatus.SUSPENDED);
+      expect(pod.getServiceStatus()).toEqual(ServiceStatus.STOPPED);
     });
 
     it("should properly detect DEPLOYING", function() {
