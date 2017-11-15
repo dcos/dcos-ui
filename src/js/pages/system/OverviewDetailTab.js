@@ -38,7 +38,7 @@ const SystemOverviewBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Cluster">
       <BreadcrumbTextContent>
-        <Link to="/overview">Overview</Link>
+        <Link to="/cluster/overview">Overview</Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

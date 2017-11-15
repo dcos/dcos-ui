@@ -113,7 +113,7 @@ class SidebarHeader extends mixin(StoreMixin) {
         id: "overview",
         onClick: () => {
           SidebarActions.close();
-          this.context.router.push("/overview");
+          this.context.router.push("/cluster/overview");
         }
       },
       {
