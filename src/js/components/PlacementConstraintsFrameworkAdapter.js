@@ -75,7 +75,6 @@ export default class PlacementConstraintsFrameworkAdapter extends Component {
     const { batch } = this.state;
     const data = { constraints: batch.reduce(FormReducer) };
 
-    // TODO what to do about errors
     return (
       <BatchContainer batch={batch} onChange={this.handleBatchChange}>
         <PlacementConstraintsPartial data={data} />

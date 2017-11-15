@@ -104,6 +104,14 @@
               "media": {
                 "type": "application/x-yaml"
               }
+            },
+            "placement_constraints": {
+              "description": "Placement Constraints",
+              "media": {
+                "type": "application/x-region-zone-constraints+json"
+              },
+              "type": "string",
+              "default": "[[\"hostname\", \"UNIQUE\"]]"
             }
           },
           "required": [

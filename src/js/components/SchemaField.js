@@ -16,6 +16,8 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
+import PlacementConstraintsFrameworkAdapter
+  from "#SRC/js/components/PlacementConstraintsFrameworkAdapter";
 
 class SchemaField extends Component {
   shouldComponentUpdate(nextProps) {
@@ -269,6 +271,23 @@ class SchemaField extends Component {
     );
   }
 
+  renderPlacement(errorMessage, autoFocus, props) {
+    const { required, name, formData, schema, onChange } = props;
+
+    return (
+      <div>
+        <FieldLabel>
+          {this.getFieldHeading(required, name, schema.description)}
+        </FieldLabel>
+        <PlacementConstraintsFrameworkAdapter
+          onChange={onChange}
+          data={formData}
+        />
+        <FieldError>{errorMessage}</FieldError>
+      </div>
+    );
+  }
+
   getFieldHeading(required, name = "", description) {
     let requiredSymbol = null;
     if (required) {
@@ -317,6 +336,14 @@ class SchemaField extends Component {
 
         if (schema.enum && schema.enum.length > RADIO_SELECT_THRESHOLD) {
           return this.renderSelect(errorMessage, autofocus, this.props);
+        }
+
+        if (
+          schema.media &&
+          (schema.media.type === "application/x-region-zone-constraints+json" ||
+            schema.media.type === "application/x-zone-constraints+json")
+        ) {
+          return this.renderPlacement(errorMessage, autofocus, this.props);
         }
 
         return this.renderTextInput(errorMessage, autofocus, this.props);
