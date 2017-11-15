@@ -22,6 +22,13 @@ class ServiceEnvironmentVariablesConfigSection
   /**
    * @override
    */
+  getMountType() {
+    return "CreateService:ServiceConfigDisplay:App:EnvironmentVariables";
+  }
+
+  /**
+   * @override
+   */
   getDefinition() {
     const { onEditClick } = this.props;
 

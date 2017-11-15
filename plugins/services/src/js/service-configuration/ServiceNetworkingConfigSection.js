@@ -33,6 +33,13 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
+  getMountType() {
+    return "CreateService:ServiceConfigDisplay:App:Networking";
+  }
+
+  /**
+   * @override
+   */
   getDefinition() {
     const { onEditClick } = this.props;
 

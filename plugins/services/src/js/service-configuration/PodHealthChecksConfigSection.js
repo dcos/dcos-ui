@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -145,13 +146,19 @@ class PodHealthChecksConfigSection extends React.Component {
               Service Endpoint Health Checks
             </ConfigurationMapHeading>
             <ConfigurationMapSection key="pod-general-section">
-              <ConfigurationMapTable
-                columnDefaults={this.getDefaultEndpointsColumns()}
-                columns={this.getEndpointsColumns()}
-                data={healthChecks.endpoints}
+              <MountService.Mount
+                type="CreateService:ServiceConfigDisplay:Pod:HealthChecks:Endpoint"
+                appConfig={this.props.appConfig}
                 onEditClick={onEditClick}
-                tabViewID="multihealthChecks"
-              />
+              >
+                <ConfigurationMapTable
+                  columnDefaults={this.getDefaultEndpointsColumns()}
+                  columns={this.getEndpointsColumns()}
+                  data={healthChecks.endpoints}
+                  onEditClick={onEditClick}
+                  tabViewID="multihealthChecks"
+                />
+              </MountService.Mount>
             </ConfigurationMapSection>
           </div>}
 
@@ -161,13 +168,19 @@ class PodHealthChecksConfigSection extends React.Component {
               Command Health Checks
             </ConfigurationMapHeading>
             <ConfigurationMapSection key="pod-general-section">
-              <ConfigurationMapTable
-                columnDefaults={{ hideIfEmpty: true }}
-                columns={this.getCommandColumns()}
-                data={healthChecks.command}
+              <MountService.Mount
+                type="CreateService:ServiceConfigDisplay:Pod:HealthChecks:Command"
+                appConfig={this.props.appConfig}
                 onEditClick={onEditClick}
-                tabViewID="multihealthChecks"
-              />
+              >
+                <ConfigurationMapTable
+                  columnDefaults={{ hideIfEmpty: true }}
+                  columns={this.getCommandColumns()}
+                  data={healthChecks.command}
+                  onEditClick={onEditClick}
+                  tabViewID="multihealthChecks"
+                />
+              </MountService.Mount>
             </ConfigurationMapSection>
           </div>}
 

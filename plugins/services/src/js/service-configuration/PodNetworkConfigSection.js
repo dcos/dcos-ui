@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -105,28 +106,37 @@ class PodNetworkConfigSection extends React.Component {
       <div>
         <ConfigurationMapHeading level={1}>Network</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
-
-          {/* General section */}
-          <ConfigurationMapRow>
-            <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
-            <ConfigurationMapValueWithDefault
-              value={getNetworkTypes(appConfig.networks)}
-            />
-            {action}
-          </ConfigurationMapRow>
-
-          {/* Service endpoints */}
-          <ConfigurationMapHeading level={3}>
-            Service Endpoints
-          </ConfigurationMapHeading>
-          <ConfigurationMapTable
-            columnDefaults={{ hideIfEmpty: true }}
-            columns={this.getColumns()}
-            data={endpoints}
+          <MountService.Mount
+            type="CreateService:ServiceConfigDisplay:Pod:Network"
+            appConfig={appConfig}
             onEditClick={onEditClick}
-            tabViewID="networking"
-          />
-
+          >
+            {/* General section */}
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
+              <ConfigurationMapValueWithDefault
+                value={getNetworkTypes(appConfig.networks)}
+              />
+              {action}
+            </ConfigurationMapRow>
+          </MountService.Mount>
+          <MountService.Mount
+            type="CreateService:ServiceConfigDisplay:Pod:ServiceEndpoints"
+            appConfig={appConfig}
+            onEditClick={onEditClick}
+          >
+            {/* Service endpoints */}
+            <ConfigurationMapHeading level={3}>
+              Service Endpoints
+            </ConfigurationMapHeading>
+            <ConfigurationMapTable
+              columnDefaults={{ hideIfEmpty: true }}
+              columns={this.getColumns()}
+              data={endpoints}
+              onEditClick={onEditClick}
+              tabViewID="networking"
+            />
+          </MountService.Mount>
         </ConfigurationMapSection>
       </div>
     );
