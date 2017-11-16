@@ -707,7 +707,7 @@ class CreateServiceModalForm extends Component {
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
               <form
-                className="create-service-modal-form container container-wide"
+                className="create-service-modal-form container"
                 onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}
               >

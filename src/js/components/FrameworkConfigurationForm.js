@@ -274,7 +274,7 @@ class FrameworkConfigurationForm extends Component {
           />
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <div className="framework-configuration-form create-service-modal-form container container-wide">
+              <div className="framework-configuration-form create-service-modal-form container">
                 <Tabs
                   activeTab={activeTab}
                   handleTabChange={this.handleTabChange}
