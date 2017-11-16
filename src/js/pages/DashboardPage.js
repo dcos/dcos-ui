@@ -229,15 +229,12 @@ var DashboardPage = React.createClass({
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow panel"
               heading={this.getHeading(
-                "DASHBOARD.PANEL_HEADING.SERVICES_HEALTH"
+                "DASHBOARD.PANEL_HEADING.SERVICES_STATUS"
               )}
               footer={this.getViewAllServicesBtn()}
               footerClass="text-align-center"
             >
-              <ServiceList
-                healthProcessed={DCOSStore.serviceDataReceived}
-                services={this.getServicesList()}
-              />
+              <ServiceList services={this.getServicesList()} />
             </Panel>
           </div>
           <div className={columnClasses}>

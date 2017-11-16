@@ -1,21 +1,15 @@
-import classNames from "classnames";
 import deepEqual from "deep-equal";
-import { List, Tooltip } from "reactjs-components";
+import { List } from "reactjs-components";
 import React from "react";
 import { Link, routerShape } from "react-router";
 
-import Loader from "#SRC/js/components/Loader";
-
-import HealthLabels from "../constants/HealthLabels";
-import HealthStatus from "../constants/HealthStatus";
-import HealthTypesDescription from "../constants/HealthTypesDescription";
+import ServiceStatusIcon from "./ServiceStatusIcon";
 
 const ServiceList = React.createClass({
   displayName: "ServiceList",
 
   propTypes: {
-    services: React.PropTypes.array.isRequired,
-    healthProcessed: React.PropTypes.bool.isRequired
+    services: React.PropTypes.array.isRequired
   },
 
   contextTypes: {
@@ -49,33 +43,8 @@ const ServiceList = React.createClass({
     this.context.router.push(`/services/detail/${id}`);
   },
 
-  getServices(services, healthProcessed) {
+  getServices(services) {
     return services.map(service => {
-      const appHealth = service.getHealth();
-      let state = HealthStatus.NA;
-      let tooltipContent;
-
-      if (appHealth != null) {
-        state = HealthStatus[appHealth.key];
-
-        if (appHealth.key === HealthStatus.HEALTHY.key) {
-          tooltipContent = HealthTypesDescription.HEALTHY;
-        } else if (appHealth.key === HealthStatus.UNHEALTHY.key) {
-          tooltipContent = HealthTypesDescription.UNHEALTHY;
-        } else if (appHealth.key === HealthStatus.IDLE.key) {
-          tooltipContent = HealthTypesDescription.IDLE;
-        } else if (appHealth.key === HealthStatus.NA.key) {
-          tooltipContent = HealthTypesDescription.NA;
-        }
-      }
-
-      let healthLabel = HealthLabels[state.key];
-      if (!healthProcessed) {
-        healthLabel = <Loader size="small" type="ballBeat" />;
-      }
-
-      const classSet = classNames("tooltip-wrapper", state.classNames);
-
       return {
         content: [
           {
@@ -94,18 +63,7 @@ const ServiceList = React.createClass({
           },
           {
             className: "dashboard-health-list-health-label",
-            content: (
-              <Tooltip
-                anchor="end"
-                content={tooltipContent}
-                key="health"
-                wrapperClassName={classSet}
-                wrapText={true}
-                width={200}
-              >
-                {healthLabel}
-              </Tooltip>
-            ),
+            content: <ServiceStatusIcon key="icon" service={service} />,
             tag: "div"
           }
         ]
@@ -133,7 +91,7 @@ const ServiceList = React.createClass({
       <div className="dashboard-health-list">
         <List
           className="list list-unstyled"
-          content={this.getServices(props.services, props.healthProcessed)}
+          content={this.getServices(props.services)}
           transition={false}
           transitionName="something"
         />
