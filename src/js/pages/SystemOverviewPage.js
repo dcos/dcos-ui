@@ -9,9 +9,9 @@ class SystemOverviewPage extends React.Component {
 }
 
 SystemOverviewPage.routeConfig = {
-  label: "Overview",
+  label: "Cluster",
   icon: <Icon id="cluster-inverse" size="small" family="product" />,
-  matches: /^\/overview/
+  matches: /^\/cluster/
 };
 
 module.exports = SystemOverviewPage;
