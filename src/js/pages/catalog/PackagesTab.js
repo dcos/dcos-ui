@@ -8,6 +8,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import AlertPanel from "../../components/AlertPanel";
 import AlertPanelHeader from "../../components/AlertPanelHeader";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -236,12 +237,14 @@ class PackagesTab extends mixin(StoreMixin) {
       content = (
         <div className="container">
           <div className="pod flush-horizontal flush-top">
-            <FilterInputText
-              className="flex-grow"
-              placeholder="Search catalog"
-              searchString={state.searchString}
-              handleFilterChange={this.handleSearchStringChange}
-            />
+            <FieldAutofocus>
+              <FilterInputText
+                className="flex-grow"
+                placeholder="Search catalog"
+                searchString={state.searchString}
+                handleFilterChange={this.handleSearchStringChange}
+              />
+            </FieldAutofocus>
           </div>
           {this.getCertifiedPackagesGrid(selectedPackages)}
           {this.getCommunityPackagesGrid(communityPackages)}
