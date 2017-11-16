@@ -93,7 +93,7 @@ class CreateServiceJsonOnly extends React.Component {
     const { errors, onPropertyChange } = this.props;
 
     return (
-      <div className="create-service-modal-json-only container container-wide">
+      <div className="create-service-modal-json-only">
         <div className="create-service-modal-json-only-introduction">
           <FieldLabel>JSON Configuration</FieldLabel>
           <FieldHelp>
