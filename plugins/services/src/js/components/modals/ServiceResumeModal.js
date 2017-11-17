@@ -104,7 +104,7 @@ class ServiceResumeModal extends React.Component {
     if (service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       return (
         <p>
-          This service is currently suspended. Do you want to resume this service?
+          This service is currently stopped. Do you want to resume this service?
         </p>
       );
     }
@@ -112,7 +112,7 @@ class ServiceResumeModal extends React.Component {
     return (
       <div>
         <p>
-          This service is currently suspended. Do you want to resume this service? You can change the number of instances to resume by using the field below.
+          This service is currently stopped. Do you want to resume this service? You can change the number of instances to resume by using the field below.
         </p>
         <FormRow>
           <FormGroup className="column-12 column-small-6 column-small-offset-3 flush-bottom">

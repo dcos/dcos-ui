@@ -415,7 +415,7 @@ class ServicesContainer extends React.Component {
       restartService: props => set(ServiceActionItem.RESTART, props),
       resumeService: props => set(ServiceActionItem.RESUME, props),
       scaleService: props => set(ServiceActionItem.SCALE, props),
-      suspendService: props => set(ServiceActionItem.SUSPEND, props)
+      stopService: props => set(ServiceActionItem.STOP, props)
     };
   }
 
@@ -610,7 +610,7 @@ ServicesContainer.childContextTypes = {
     restartService: PropTypes.func,
     resumeService: PropTypes.func,
     scaleService: PropTypes.func,
-    suspendService: PropTypes.func,
+    stopService: PropTypes.func,
     openServiceUI: PropTypes.func
   })
 };

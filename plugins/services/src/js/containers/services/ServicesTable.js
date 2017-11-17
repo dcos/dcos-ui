@@ -27,7 +27,7 @@ import {
   RESTART,
   RESUME,
   SCALE,
-  SUSPEND
+  STOP
 } from "../../constants/ServiceActionItem";
 import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
@@ -121,8 +121,8 @@ class ServicesTable extends React.Component {
       case RESUME:
         modalHandlers.resumeService({ service });
         break;
-      case SUSPEND:
-        modalHandlers.suspendService({ service });
+      case STOP:
+        modalHandlers.stopService({ service });
         break;
       case DELETE:
         modalHandlers.deleteService({ service });
@@ -291,9 +291,9 @@ class ServicesTable extends React.Component {
 
     if (instancesCount > 0 && !isSDK) {
       actions.push({
-        id: SUSPEND,
+        id: STOP,
         html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[SUSPEND]
+          id: ServiceActionLabels[STOP]
         })
       });
     }
@@ -534,7 +534,7 @@ ServicesTable.contextTypes = {
     scaleService: PropTypes.func,
     restartService: PropTypes.func,
     resumeService: PropTypes.func,
-    suspendService: PropTypes.func,
+    stopService: PropTypes.func,
     deleteService: PropTypes.func
   }).isRequired,
   router: routerShape

@@ -17,7 +17,7 @@ import {
   RESTART,
   RESUME,
   SCALE,
-  SUSPEND
+  STOP
 } from "../../constants/ServiceActionItem";
 
 const METHODS_TO_BIND = ["handleTextCopy"];
@@ -84,14 +84,14 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 
-  getServiceSuspendMessage() {
+  getServiceStopMessage() {
     const { intl } = this.props;
     const command = this.getUpdateCommand();
 
     return (
       <div>
         <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SUSPEND" })}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_STOP" })}
           {" "}
           <a
             href={MetadataStore.buildDocsURI(
@@ -186,8 +186,8 @@ class ServiceActionDisabledModal extends React.Component {
     switch (actionID) {
       case RESTART:
         return this.getServiceRestartMessage();
-      case SUSPEND:
-        return this.getServiceSuspendMessage();
+      case STOP:
+        return this.getServiceStopMessage();
       case RESUME:
         return this.getServiceResumeMessage();
       case SCALE:
@@ -327,9 +327,9 @@ class ServiceActionDisabledModal extends React.Component {
     const { actionID, intl } = this.props;
 
     switch (actionID) {
-      case SUSPEND:
+      case STOP:
         return this.getGroupUpdateMessage(
-          intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SUSPEND" })
+          intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_STOP" })
         );
       case SCALE:
         return this.getGroupUpdateMessage(

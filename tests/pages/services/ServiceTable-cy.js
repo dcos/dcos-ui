@@ -48,10 +48,10 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview" });
     });
 
-    it("hides the suspend option in the service action dropdown", function() {
+    it("hides the stop option in the service action dropdown", function() {
       openDropdown("sleep");
 
-      cy.get(".dropdown-menu-items li").contains("Suspend").should("not.exist");
+      cy.get(".dropdown-menu-items li").contains("Stop").should("not.exist");
     });
 
     it("shows the resume option in the service action dropdown", function() {
@@ -246,10 +246,10 @@ describe("Service Table", function() {
       cy.get(".dropdown-menu-items").contains("restart").should("not.exist");
     });
 
-    it("suspend should not exist", function() {
+    it("stop should not exist", function() {
       openDropdown("sdk-sleep");
 
-      cy.get(".dropdown-menu-items").contains("suspend").should("not.exist");
+      cy.get(".dropdown-menu-items").contains("stop").should("not.exist");
     });
   });
 

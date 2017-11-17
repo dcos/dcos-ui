@@ -13,7 +13,7 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 const EXPRESSION_PARTS = {
   is_running: DSLExpressionPart.attribute("is", "running"),
   is_deploying: DSLExpressionPart.attribute("is", "deploying"),
-  is_suspended: DSLExpressionPart.attribute("is", "suspended"),
+  is_stopped: DSLExpressionPart.attribute("is", "stopped"),
   is_delayed: DSLExpressionPart.attribute("is", "delayed"),
   is_waiting: DSLExpressionPart.attribute("is", "waiting")
 };
@@ -58,12 +58,12 @@ class ServiceStatusDSLSection extends React.Component {
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
-                  checked={data.is_suspended}
+                  checked={data.is_stopped}
                   disabled={!enabled}
-                  name="is_suspended"
+                  name="is_stopped"
                   type="checkbox"
                 />
-                Suspended
+                Stopped
               </FieldLabel>
             </FormGroup>
           </div>
