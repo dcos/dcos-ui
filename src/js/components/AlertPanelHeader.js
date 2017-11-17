@@ -2,9 +2,9 @@ import React from "react";
 
 const AlertPanelHeader = function(props) {
   return (
-    <h3 className="flush-top">
+    <h2 className="flush-top">
       {props.children}
-    </h3>
+    </h2>
   );
 };
 
