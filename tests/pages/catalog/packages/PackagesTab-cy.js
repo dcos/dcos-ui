@@ -103,7 +103,7 @@ describe("Packages Tab", function() {
       })
       .visitUrl({ url: "/catalog", logIn: true });
 
-    cy.get(".panel-content h3").should("contain", "An Error Occurred");
+    cy.get(".panel-content h2").should("contain", "An Error Occurred");
   });
 
   context("searching", function() {
