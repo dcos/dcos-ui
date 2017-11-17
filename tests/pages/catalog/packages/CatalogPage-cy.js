@@ -22,7 +22,7 @@ describe("Catalog Page", function() {
   it("goes to the Packages Details tab when panel is clicked", function() {
     cy
       .visitUrl({ url: "/catalog/packages" })
-      .get(".h6")
+      .get(".h3")
       .contains("arangodb")
       .click();
     cy.hash().should("match", /catalog\/packages\/arangodb/);
