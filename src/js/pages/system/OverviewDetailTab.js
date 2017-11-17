@@ -75,7 +75,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     ];
 
     request({ type: "GET_FLAGS" }).subscribe(message => {
-      const cluster = message.get_flags.flags.find(
+      const cluster = JSON.parse(message).get_flags.flags.find(
         flag => flag.name === "cluster"
       );
 
@@ -85,7 +85,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     });
 
     request({ type: "GET_VERSION" }).subscribe(message => {
-      const info = message.get_version.version_info;
+      const info = JSON.parse(message).get_version.version_info;
 
       if (info) {
         this.setState({
@@ -97,7 +97,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     });
 
     request({ type: "GET_MASTER" }).subscribe(message => {
-      const masterInfo = message.get_master.master_info;
+      const masterInfo = JSON.parse(message).get_master.master_info;
 
       if (masterInfo) {
         this.setState({ masterInfo });
