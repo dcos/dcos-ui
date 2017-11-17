@@ -46,7 +46,7 @@ var TimeSeriesLabel = React.createClass({
           <sup className={percentageClassSet}>%</sup>
         </span>
         <span
-          className={"h4 unit-label flush-top path-color-" + props.colorIndex}
+          className={"h3 unit-label flush-top path-color-" + props.colorIndex}
         >
           {props.subHeading}
         </span>
