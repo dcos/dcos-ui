@@ -113,7 +113,7 @@ describe("Packages Tab", function() {
     });
 
     it("should hide certified panels", function() {
-      cy.get("h4").contains("Certified").should(function($certifiedHeading) {
+      cy.get("h1").contains("Certified").should(function($certifiedHeading) {
         expect($certifiedHeading.length).to.equal(0);
       });
     });
@@ -129,7 +129,7 @@ describe("Packages Tab", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/catalog", logIn: true });
       cy
-        .get("h4")
+        .get("h1")
         .contains("Certified")
         .closest(".pod")
         .find(".panel")
