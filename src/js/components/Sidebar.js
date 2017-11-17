@@ -141,9 +141,9 @@ var Sidebar = React.createClass({
 
       if (group.category !== "root") {
         heading = (
-          <h6 className="sidebar-section-header">
+          <h3 className="sidebar-section-header">
             {group.category}
-          </h6>
+          </h3>
         );
       }
 
