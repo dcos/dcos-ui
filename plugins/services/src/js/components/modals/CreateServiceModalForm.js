@@ -486,7 +486,13 @@ class CreateServiceModalForm extends Component {
             pathMapping={ServiceErrorPathMapping}
             hideTopLevelErrors={!showAllErrors}
           />
-          <MountService.Mount type="CreateService:MultiContainerPlacementSection">
+          <MountService.Mount
+            type="CreateService:MultiContainerPlacementSection"
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem}
+          >
             <PlacementSection
               data={data}
               errors={errorMap}
@@ -560,7 +566,13 @@ class CreateServiceModalForm extends Component {
           pathMapping={ServiceErrorPathMapping}
           hideTopLevelErrors={!showAllErrors}
         />
-        <MountService.Mount type="CreateService:PlacementSection">
+        <MountService.Mount
+          type="CreateService:PlacementSection"
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem}
+        >
           <PlacementSection
             data={data}
             errors={errorMap}
