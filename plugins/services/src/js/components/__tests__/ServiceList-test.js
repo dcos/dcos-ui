@@ -12,10 +12,7 @@ describe("ServiceList", function() {
       var services = new ServiceTree({ items: [{ name: "foo" }] });
       this.container = global.document.createElement("div");
       this.instance = ReactDOM.render(
-        <ServiceList
-          services={services.getServices().getItems()}
-          healthProcessed={false}
-        />,
+        <ServiceList services={services.getServices().getItems()} />,
         this.container
       );
     });
@@ -38,14 +35,24 @@ describe("ServiceList", function() {
   });
 
   describe("#getServices", function() {
+    const services = new ServiceTree({
+      items: [
+        {
+          name: "foo",
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: []
+        }
+      ]
+    });
+
     beforeEach(function() {
-      var services = new ServiceTree({ items: [{ name: "foo" }] });
       this.container = global.document.createElement("div");
       this.instance = ReactDOM.render(
-        <ServiceList
-          services={services.getServices().getItems()}
-          healthProcessed={false}
-        />,
+        <ServiceList services={services.getServices().getItems()} />,
         this.container
       );
     });
@@ -55,13 +62,10 @@ describe("ServiceList", function() {
     });
 
     it("returns services that have a value of two elements", function() {
-      var services = new ServiceTree({ items: [{ name: "foo" }] })
-        .getServices()
-        .getItems();
-      var result = this.instance.getServices(services, false);
+      var result = this.instance.getServices(services.getServices().getItems());
 
       expect(result[0].content[0].content.key).toEqual("title");
-      expect(result[0].content[1].content.key).toEqual("health");
+      expect(result[0].content[1].content.key).toEqual("icon");
     });
   });
 });
