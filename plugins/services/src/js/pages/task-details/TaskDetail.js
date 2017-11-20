@@ -7,7 +7,6 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
-import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import Loader from "#SRC/js/components/Loader";
 import ManualBreadcrumbs from "#SRC/js/components/ManualBreadcrumbs";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -49,7 +48,7 @@ const HIDE_BREADCRUMBS = [
   "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))"
 ];
 
-class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 

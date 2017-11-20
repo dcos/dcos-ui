@@ -9,7 +9,6 @@ import defaultServiceImage
 import FormUtil from "../utils/FormUtil";
 import Icon from "./Icon";
 import Image from "./Image";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import SchemaFormUtil from "../utils/SchemaFormUtil";
 import SchemaUtil from "../utils/SchemaUtil";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
@@ -26,7 +25,7 @@ const METHODS_TO_BIND = [
   "validateForm"
 ];
 
-class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
+class SchemaForm extends mixin(StoreMixin) {
   constructor() {
     super();
 
