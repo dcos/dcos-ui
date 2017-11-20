@@ -1,4 +1,8 @@
 var ValidatorUtil = {
+  isCallable(value) {
+    return Boolean(value && typeof value.call === "function");
+  },
+
   isDefined(value) {
     return (value != null && value !== "") || typeof value === "number";
   },
