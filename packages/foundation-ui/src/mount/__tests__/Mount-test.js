@@ -24,7 +24,7 @@ describe("Mount", function() {
     MountService.unregisterComponent(SecondTestComponent, "mount-test");
   });
 
-  it("should render the children by default", function() {
+  it("renders one by default", function() {
     const result = TestUtils.renderIntoDocument(
       <Mount type="children-test">
         <span>foo</span>
@@ -36,14 +36,30 @@ describe("Mount", function() {
     ).toBeDefined();
   });
 
-  it("should render null if no component is registered and no children defined", function() {
+  it("renders multiple children by default", function() {
+    const result = TestUtils.renderIntoDocument(
+      <Mount type="children-test">
+        <strong>foo</strong>
+        <em>bar</em>
+      </Mount>
+    );
+
+    expect(
+      TestUtils.findRenderedDOMComponentWithTag(result, "strong")
+    ).toBeDefined();
+    expect(
+      TestUtils.findRenderedDOMComponentWithTag(result, "em")
+    ).toBeDefined();
+  });
+
+  it("renders null if no component is registered and no children defined", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(<Mount type="children-test" />);
 
     expect(renderer.getRenderOutput()).toBe(null);
   });
 
-  it("should not wrap a single child", function() {
+  it("doesnt wrap a single child", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="foo">
@@ -56,7 +72,7 @@ describe("Mount", function() {
     );
   });
 
-  it("should always wrap elements if configured", function() {
+  it("always wraps elements if configured", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="foo" alwaysWrap={true}>
@@ -69,7 +85,7 @@ describe("Mount", function() {
     );
   });
 
-  it("should wrap elements with provided wrapper", function() {
+  it("wraps elements with provided wrapper", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="foo" wrapper="p" alwaysWrap={true}>
@@ -82,7 +98,7 @@ describe("Mount", function() {
     );
   });
 
-  it("should render registered components", function() {
+  it("renders registered components", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span>foo</span>
@@ -97,7 +113,7 @@ describe("Mount", function() {
     expect(result.length).toBe(1);
   });
 
-  it("should replace children with registered components", function() {
+  it("replaces children with registered components", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -109,7 +125,7 @@ describe("Mount", function() {
     expect(result.length).toBe(0);
   });
 
-  it("should update if new component was registered", function() {
+  it("updates if new component was registered", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -126,7 +142,7 @@ describe("Mount", function() {
     expect(result.length).toBe(2);
   });
 
-  it("should update if new component was unregistered", function() {
+  it("updates if new component was unregistered", function() {
     const dom = TestUtils.renderIntoDocument(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -140,7 +156,7 @@ describe("Mount", function() {
     expect(result.length).toBe(1);
   });
 
-  it("should pass down properties", function() {
+  it("passes down properties", function() {
     const renderer = TestUtils.createRenderer();
     renderer.render(
       <Mount type="mount-test" message="hello world">
