@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import deepEqual from "deep-equal";
 import React, { PropTypes, Component } from "react";
+import { MountService } from "foundation-ui";
 
 import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { pluralize } from "#SRC/js/utils/StringUtil";
@@ -39,6 +40,7 @@ import MultiContainerVolumesFormSection
   from "../forms/MultiContainerVolumesFormSection";
 import MultiContainerFormAdvancedSection
   from "../forms/MultiContainerFormAdvancedSection";
+import PlacementSection from "../forms/PlacementSection";
 import NetworkingFormSection from "../forms/NetworkingFormSection";
 import PodSpec from "../../structs/PodSpec";
 import ServiceErrorMessages from "../../constants/ServiceErrorMessages";
@@ -430,6 +432,7 @@ class CreateServiceModalForm extends Component {
 
     if (this.state.isPod) {
       tabList.push(
+        { id: "placement", key: "placement", label: "Placement" },
         { id: "networking", key: "multinetworking", label: "Networking" },
         { id: "volumes", key: "multivolumes", label: "Volumes" },
         {
@@ -441,6 +444,7 @@ class CreateServiceModalForm extends Component {
       );
     } else {
       tabList.push(
+        { id: "placement", key: "placement", label: "Placement" },
         { id: "networking", key: "networking", label: "Networking" },
         { id: "volumes", key: "volumes", label: "Volumes" },
         { id: "healthChecks", key: "healthChecks", label: "Health Checks" },
@@ -476,6 +480,27 @@ class CreateServiceModalForm extends Component {
 
     if (this.state.isPod) {
       return [
+        <TabView id="placement" key="placement">
+          <ErrorsAlert
+            errors={errors}
+            pathMapping={ServiceErrorPathMapping}
+            hideTopLevelErrors={!showAllErrors}
+          />
+          <MountService.Mount
+            type="CreateService:MultiContainerPlacementSection"
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem}
+          >
+            <PlacementSection
+              data={data}
+              errors={errorMap}
+              onRemoveItem={this.handleRemoveItem}
+              onAddItem={this.handleAddItem}
+            />
+          </MountService.Mount>
+        </TabView>,
         <TabView id="networking" key="multinetworking">
           <ErrorsAlert
             errors={errors}
@@ -535,6 +560,27 @@ class CreateServiceModalForm extends Component {
     }
 
     return [
+      <TabView id="placement" key="placement">
+        <ErrorsAlert
+          errors={errors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <MountService.Mount
+          type="CreateService:PlacementSection"
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem}
+        >
+          <PlacementSection
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem}
+          />
+        </MountService.Mount>
+      </TabView>,
       <TabView id="networking" key="networking">
         <ErrorsAlert
           errors={errors}

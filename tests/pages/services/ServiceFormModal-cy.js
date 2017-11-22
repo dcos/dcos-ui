@@ -575,20 +575,6 @@ describe("Service Form Modal", function() {
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Placement Constraints" section', function() {
-        cy
-          .get(".menu-tabbed-view")
-          .contains("Placement Constraints")
-          .should("to.have.length", 0);
-      });
-
-      it('Should not have a "Add Placement Constraint" link', function() {
-        cy
-          .get(".menu-tabbed-view .button.button-primary-link")
-          .contains("Add Placement Constraint")
-          .should("to.have.length", 0);
-      });
-
       it('Should not have a "Advanced Settings" section', function() {
         cy
           .get(".menu-tabbed-view")
@@ -638,56 +624,6 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-view").contains("Container Runtime");
       });
 
-      it('Should have a "Placement Constraints" section', function() {
-        cy.get(".menu-tabbed-view").contains("Placement Constraints");
-      });
-
-      it('Should have a "Add Placement Constraint" link', function() {
-        cy
-          .get(".menu-tabbed-view .button.button-primary-link")
-          .contains("Add Placement Constraint");
-      });
-
-      it("Should vertically align the placement constraint delete row button", function() {
-        cy
-          .get(".menu-tabbed-view .button.button-primary-link")
-          .contains("Add Placement Constraint")
-          .click();
-
-        cy
-          .focused()
-          .should("have.attr", "name")
-          .and("eq", "constraints.0.fieldName");
-
-        cy
-          .get('.menu-tabbed-view input[name="constraints.0.fieldName"')
-          .should(function($inputElement) {
-            const $wrappingLabel = $inputElement.closest(".form-group");
-            const $deleteButtonFormGroup = $wrappingLabel.siblings(
-              ".form-group-without-top-label"
-            );
-
-            const inputClientRect = $inputElement
-              .get(0)
-              .getBoundingClientRect();
-            const inputMidpoint =
-              inputClientRect.top + inputClientRect.height / 2;
-
-            const deleteButtonClientRect = $deleteButtonFormGroup
-              .find(".button")
-              .get(0)
-              .getBoundingClientRect();
-            const deleteButtonMidpoint =
-              deleteButtonClientRect.top + deleteButtonClientRect.height / 2;
-
-            const midpointDifference = Math.abs(
-              inputMidpoint - deleteButtonMidpoint
-            );
-
-            expect(midpointDifference <= alignmentThreshold).to.equal(true);
-          });
-      });
-
       it('Should have a "Advanced Settings" section', function() {
         cy.get(".menu-tabbed-view").contains("Advanced Settings");
       });
@@ -712,77 +648,6 @@ describe("Service Form Modal", function() {
         cy
           .get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Artifact");
-      });
-
-      context("Add Placement Constraint", function() {
-        beforeEach(function() {
-          cy
-            .get(".menu-tabbed-view .button.button-primary-link")
-            .contains("Add Placement Constraint")
-            .click();
-
-          cy.get(".menu-tabbed-view").as("tabView");
-        });
-
-        it('Should add rows when "Add Placement Constraint" link clicked', function() {
-          // Field
-          cy
-            .get("@tabView")
-            .find('.form-control[name="constraints.0.fieldName"]')
-            .should("exist");
-
-          // operator
-          cy
-            .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
-            .should("exist");
-
-          // value
-          cy
-            .get("@tabView")
-            .find('.form-control[name="constraints.0.value"]')
-            .should("exist");
-        });
-
-        it("Should remove rows when remove button clicked", function() {
-          cy.contains(".form-row", "Operator").within(function() {
-            // Click delete button
-            cy.get("a.button").click();
-          });
-
-          // Field
-          cy
-            .get("@tabView")
-            .find('.form-control[name="constraints.0.fieldName"]')
-            .should("not.exist");
-
-          // operator
-          cy
-            .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
-            .should("not.exist");
-
-          // value
-          cy
-            .get("@tabView")
-            .find('.form-control[name="constraints.0.value"]')
-            .should("not.exist");
-        });
-
-        it('Should hide the "value" when "Unique" is selected in operator dropdown', function() {
-          cy
-            .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
-            .select("UNIQUE");
-
-          // value
-          cy
-            .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
-            .parents(".form-group")
-            .next()
-            .should("have.class", "hidden");
-        });
       });
 
       context("Add Artifact", function() {
@@ -848,6 +713,122 @@ describe("Service Form Modal", function() {
           cy
             .contains("Grant Runtime Privileges")
             .should("have.class", "disabled");
+        });
+      });
+    });
+
+    context("Service: Placement", function() {
+      beforeEach(function() {
+        cy.get(".menu-tabbed-item").contains("Placement").click();
+      });
+
+      it("Should vertically align the placement constraint delete row button", function() {
+        cy
+          .get(".menu-tabbed-view .button.button-primary-link")
+          .contains("Add Placement Constraint")
+          .click();
+
+        cy
+          .focused()
+          .should("have.attr", "name")
+          .and("eq", "constraints.0.fieldName");
+
+        cy
+          .get('.menu-tabbed-view input[name="constraints.0.fieldName"')
+          .should(function($inputElement) {
+            const $wrappingLabel = $inputElement.closest(".form-group");
+            const $deleteButtonFormGroup = $wrappingLabel.siblings(
+              ".form-group-without-top-label"
+            );
+
+            const inputClientRect = $inputElement
+              .get(0)
+              .getBoundingClientRect();
+            const inputMidpoint =
+              inputClientRect.top + inputClientRect.height / 2;
+
+            const deleteButtonClientRect = $deleteButtonFormGroup
+              .find(".button")
+              .get(0)
+              .getBoundingClientRect();
+            const deleteButtonMidpoint =
+              deleteButtonClientRect.top + deleteButtonClientRect.height / 2;
+
+            const midpointDifference = Math.abs(
+              inputMidpoint - deleteButtonMidpoint
+            );
+
+            expect(midpointDifference <= alignmentThreshold).to.equal(true);
+          });
+      });
+
+      context("Add Placement Constraint", function() {
+        beforeEach(function() {
+          cy.get(".menu-tabbed-view").as("tabView");
+          cy
+            .get(".menu-tabbed-view .button.button-primary-link")
+            .contains("Add Placement Constraint")
+            .click();
+        });
+
+        it('Should add rows when "Add Placement Constraint" link clicked', function() {
+          // Field
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.fieldName"]')
+            .should("exist");
+
+          // operator
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .should("exist");
+
+          // value
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.value"]')
+            .should("exist");
+        });
+
+        it("Should remove rows when remove button clicked", function() {
+          cy.contains(".form-row", "Operator").within(function() {
+            // Click delete button
+            cy.get("a.button").click();
+          });
+
+          // Field
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.fieldName"]')
+            .should("not.exist");
+
+          // operator
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .should("not.exist");
+
+          // value
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.value"]')
+            .should("not.exist");
+        });
+
+        it('Should hide the "value" when "Unique" is selected in operator dropdown', function() {
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .select("UNIQUE");
+
+          // value
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .parents(".form-group")
+            .next()
+            .should("have.class", "hidden");
         });
       });
     });
@@ -1625,7 +1606,10 @@ describe("Service Form Modal", function() {
 
       it("Should add new container", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
-        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+        cy
+          .get(".menu-tabbed-view .button.button-primary-link")
+          .contains("Add Container")
+          .click();
         cy.get(".pod-narrow.pod-short").should("to.have.length", 2);
       });
 
@@ -1652,7 +1636,10 @@ describe("Service Form Modal", function() {
           .siblings()
           .should("to.have.length", 1);
 
-        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+        cy
+          .get(".menu-tabbed-view .button.button-primary-link")
+          .contains("Add Container")
+          .click();
 
         cy
           .get(".menu-tabbed-item-label")
@@ -1662,7 +1649,10 @@ describe("Service Form Modal", function() {
       });
 
       it("Should be right aligned of the parent", function() {
-        cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+        cy
+          .get(".menu-tabbed-view .button.button-primary-link")
+          .contains("Add Container")
+          .click();
 
         cy
           .get(".menu-tabbed-item-label")
@@ -1701,7 +1691,10 @@ describe("Service Form Modal", function() {
 
     it("Should contain two containers at review and run modal", function() {
       // Add a second container
-      cy.get(".menu-tabbed-view .button.button-primary-link").eq(3).click();
+      cy
+        .get(".menu-tabbed-view .button.button-primary-link")
+        .contains("Add Container")
+        .click();
 
       // Click review and run
       cy
