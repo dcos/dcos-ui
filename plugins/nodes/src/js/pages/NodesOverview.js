@@ -25,7 +25,7 @@ import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 
 const NODES_DISPLAY_LIMIT = 300;
-const SERVICE_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
+const NODES_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
 
 function getMesosHosts(state) {
   const { filterExpression = new DSLExpression("") } = state;
@@ -35,7 +35,7 @@ function getMesosHosts(state) {
 
   let filteredNodes = nodes;
   if (filterExpression && filterExpression.defined) {
-    filteredNodes = filterExpression.filter(SERVICE_FILTERS, filteredNodes);
+    filteredNodes = filterExpression.filter(NODES_FILTERS, filteredNodes);
   }
   const nodeIDs = filteredNodes.getItems().map(function(node) {
     return node.id;
@@ -273,7 +273,6 @@ var NodesOverview = React.createClass({
           onResetFilter={this.resetFilter}
           onResourceSelectionChange={this.onResourceSelectionChange}
           refreshRate={data.refreshRate}
-          selectedFilter={"all"}
           selectedResource={selectedResource}
           services={data.services}
           totalHostsResources={data.totalHostsResources}

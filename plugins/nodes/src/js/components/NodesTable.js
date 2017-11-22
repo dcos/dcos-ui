@@ -25,7 +25,7 @@ var NodesTable = React.createClass({
   mixins: [PureRender],
 
   propTypes: {
-    hosts: React.PropTypes.object.isRequired
+    hosts: React.PropTypes.instanceOf(NodesList).isRequired
   },
 
   getDefaultProps() {

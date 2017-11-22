@@ -8,12 +8,9 @@ const LABEL_TO_HEALTH = {
   unhealthy: "unhealthy"
 };
 
-/**
- * This filter handles the `health:status` for services using `getHealth`
- */
 class NodesHealthFilter extends DSLFilter {
   /**
-   * Handle all `health:XXXX` attribute filters that we can handle.
+   * Handle all `is:healthy||unhealthy` attribute filters that we can handle.
    *
    * @override
    */

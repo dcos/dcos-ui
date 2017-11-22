@@ -33,7 +33,7 @@ class NodesHealthDSLSection extends React.Component {
 
         <label>Health</label>
         <div className="row">
-          <div className="column-6">
+          <div className="column-12">
             <FormGroup>
               <FieldLabel>
                 <FieldInput
@@ -46,7 +46,7 @@ class NodesHealthDSLSection extends React.Component {
               </FieldLabel>
             </FormGroup>
           </div>
-          <div className="column-6">
+          <div className="column-12">
             <FormGroup>
               <FieldLabel>
                 <FieldInput

@@ -47,7 +47,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       newFilters.service = null;
     }
     const filters = Object.assign({}, this.state.filters, newFilters);
-    const filteredNodes = nodes.filter(filters); // this.getFilteredNodes(filters);
+    const filteredNodes = nodes.filter(filters);
 
     this.setState({ filters, filteredNodes }, callback);
   }

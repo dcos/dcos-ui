@@ -6,6 +6,7 @@ import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
+import NodesList from "#SRC/js/structs/NodesList";
 import ResourceBarChart from "#SRC/js/components/charts/ResourceBarChart";
 
 import FilterByService
@@ -15,9 +16,9 @@ import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
 
 import NodesHealthFilter from "../../filters/NodesHealthFilter";
 
-const SERVICE_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
+const NODES_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
 
-const METHODS_TO_BIND = ["onResetFilter"];
+const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
 
 class HostsPageContent extends React.Component {
   constructor() {
@@ -42,10 +43,16 @@ class HostsPageContent extends React.Component {
     }
   }
 
-  getFilterBar() {
-    // const { filters, onFilterExpressionChange } = this.props;
+  onFilterChangeHandler(event) {
+    this.props.onFilterChange(event);
+    this.setState({
+      expression: event.value,
+      filterExpression: new DSLExpression(event.value)
+    });
+  }
 
-    const filters = SERVICE_FILTERS;
+  getFilterBar() {
+    const filters = NODES_FILTERS;
     const filterExpression = this.state.filterExpression;
 
     return (
@@ -54,13 +61,7 @@ class HostsPageContent extends React.Component {
           filters={filters}
           formSections={[NodesHealthDSLSection]}
           expression={filterExpression}
-          onChange={function(event) {
-            this.props.onFilterChange(event);
-            this.setState({
-              expression: event.value,
-              filterExpression: new DSLExpression(event.value)
-            });
-          }.bind(this)}
+          onChange={this.onFilterChangeHandler}
         />
       </div>
     );
@@ -135,14 +136,13 @@ HostsPageContent.propTypes = {
   filterItemList: React.PropTypes.array.isRequired,
   filteredNodeCount: React.PropTypes.number.isRequired,
   handleFilterChange: React.PropTypes.func.isRequired,
-  hosts: React.PropTypes.object.isRequired,
+  hosts: React.PropTypes.instanceOf(NodesList).isRequired,
   isFiltering: React.PropTypes.bool,
   nodeCount: React.PropTypes.number.isRequired,
   onFilterChange: React.PropTypes.func,
   onResetFilter: React.PropTypes.func.isRequired,
   onResourceSelectionChange: React.PropTypes.func.isRequired,
   refreshRate: React.PropTypes.number.isRequired,
-  selectedFilter: React.PropTypes.string,
   selectedResource: React.PropTypes.string.isRequired,
   services: React.PropTypes.array.isRequired,
   totalHostsResources: React.PropTypes.object.isRequired,
