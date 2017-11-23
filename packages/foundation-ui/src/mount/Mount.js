@@ -99,7 +99,10 @@ Mount.defaultProps = {
 Mount.propTypes = {
   alwaysWrap: PropTypes.bool,
   limit: PropTypes.number,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   type: PropTypes.string.isRequired,
   wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
