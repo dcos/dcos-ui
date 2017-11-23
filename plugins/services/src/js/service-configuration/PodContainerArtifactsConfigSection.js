@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -74,7 +75,11 @@ class PodContainerArtifactsConfigSection extends React.Component {
     }
 
     return (
-      <div>
+      <MountService.Mount
+        type="CreateService:ServiceConfigDisplay:Pod:Container:General:Artifacts"
+        artifacts={artifacts}
+        onEditClick={onEditClick}
+      >
         <ConfigurationMapHeading level={3}>
           Container Artifacts
         </ConfigurationMapHeading>
@@ -85,7 +90,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
           onEditClick={onEditClick}
           tabViewID={tabViewID}
         />
-      </div>
+      </MountService.Mount>
     );
   }
 }

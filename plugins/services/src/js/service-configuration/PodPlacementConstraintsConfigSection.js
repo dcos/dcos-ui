@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ConfigurationMapHeading
@@ -57,12 +58,18 @@ class PodPlacementConstraintsConfigSection extends React.Component {
           Placement Constraints
         </ConfigurationMapHeading>
         <ConfigurationMapSection>
-          <ConfigurationMapTable
-            columns={this.getColumns()}
-            data={constraints}
+          <MountService.Mount
+            type="CreateService:ServiceConfigDisplay:Pod:PlacementConstraints"
+            appConfig={this.props.appConfig}
             onEditClick={onEditClick}
-            tabViewID="services"
-          />
+          >
+            <ConfigurationMapTable
+              columns={this.getColumns()}
+              data={constraints}
+              onEditClick={onEditClick}
+              tabViewID="services"
+            />
+          </MountService.Mount>
         </ConfigurationMapSection>
       </div>
     );

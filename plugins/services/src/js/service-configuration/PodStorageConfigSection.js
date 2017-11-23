@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -113,13 +114,19 @@ class PodStorageConfigSection extends React.Component {
       <div>
         <ConfigurationMapHeading level={1}>Storage</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
-          <ConfigurationMapTable
-            columnDefaults={{ hideIfEmpty: true }}
-            columns={this.getColumns()}
-            data={volumeSummary}
+          <MountService.Mount
+            type="CreateService:ServiceConfigDisplay:Pod:Storage"
+            appConfig={this.props.appConfig}
             onEditClick={onEditClick}
-            tabViewID="multivolumes"
-          />
+          >
+            <ConfigurationMapTable
+              columnDefaults={{ hideIfEmpty: true }}
+              columns={this.getColumns()}
+              data={volumeSummary}
+              onEditClick={onEditClick}
+              tabViewID="multivolumes"
+            />
+          </MountService.Mount>
         </ConfigurationMapSection>
       </div>
     );

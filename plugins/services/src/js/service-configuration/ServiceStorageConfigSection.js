@@ -27,6 +27,13 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
+  getMountType() {
+    return "CreateService:ServiceConfigDisplay:App:Storage";
+  }
+
+  /**
+   * @override
+   */
   getDefinition() {
     const { onEditClick } = this.props;
 

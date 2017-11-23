@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -73,13 +74,19 @@ class PodLabelsConfigSection extends React.Component {
       <div>
         <ConfigurationMapHeading level={1}>Labels</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
-          <ConfigurationMapTable
-            columnDefaults={{ hideIfEmpty: true }}
-            columns={this.getColumns()}
-            data={combinedLabels}
+          <MountService.Mount
+            type="CreateService:ServiceConfigDisplay:Pod:Labels"
+            appConfig={this.props.appConfig}
             onEditClick={onEditClick}
-            tabViewID="multienvironment"
-          />
+          >
+            <ConfigurationMapTable
+              columnDefaults={{ hideIfEmpty: true }}
+              columns={this.getColumns()}
+              data={combinedLabels}
+              onEditClick={onEditClick}
+              tabViewID="multienvironment"
+            />
+          </MountService.Mount>
         </ConfigurationMapSection>
       </div>
     );

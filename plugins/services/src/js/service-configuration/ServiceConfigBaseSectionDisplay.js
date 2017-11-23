@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ConfigurationMapHeading
@@ -27,6 +28,12 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
 
   getDefinition() {
     return { values: [] };
+  }
+
+  getMountType() {
+    throw Error(
+      "You have to implement this method in your class providing a unique MountPointName, Namespace: CreateService:ServiceConfigDisplay:App:"
+    );
   }
 
   render() {
@@ -91,7 +98,13 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        {configurationMapRows}
+        <MountService.Mount
+          appConfig={this.props.appConfig}
+          onEditClick={onEditClick}
+          type={this.getMountType()}
+        >
+          {configurationMapRows}
+        </MountService.Mount>
       </ConfigurationMapSection>
     );
   }

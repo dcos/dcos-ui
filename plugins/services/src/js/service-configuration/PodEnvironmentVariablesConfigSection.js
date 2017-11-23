@@ -1,4 +1,5 @@
 import React from "react";
+import { MountService } from "foundation-ui";
 
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -71,13 +72,19 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
         Environment Variables
       </ConfigurationMapHeading>
       <ConfigurationMapSection key="pod-general-section">
-        <ConfigurationMapTable
-          columnDefaults={{ hideIfEmpty: true }}
-          columns={columns}
-          data={combinedEnv}
+        <MountService.Mount
+          type="CreateService:ServiceConfigDisplay:Pod:EnvironmentVariables"
+          appConfig={this.props.appConfig}
           onEditClick={onEditClick}
-          tabViewID="multienvironment"
-        />
+        >
+          <ConfigurationMapTable
+            columnDefaults={{ hideIfEmpty: true }}
+            columns={columns}
+            data={combinedEnv}
+            onEditClick={onEditClick}
+            tabViewID="multienvironment"
+          />
+        </MountService.Mount>
       </ConfigurationMapSection>
     </div>
   );
