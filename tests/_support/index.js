@@ -35,6 +35,15 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   cy.chain().server();
 
   if (configuration.mesos === "1-task-healthy") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app")
       .route(
@@ -59,7 +68,6 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
-      .route(/state/, "fx:marathon-1-task/state")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
   }
 
@@ -75,6 +83,15 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-for-each-health") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(/service\/marathon\/v2\/apps/, "fx:1-app-for-each-health/app")
       .route(/service\/marathon\/v2\/groups/, "fx:1-app-for-each-health/groups")
@@ -86,11 +103,19 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(/history\/last/, "fx:1-app-for-each-health/summary")
       .route(/state-summary/, "fx:1-app-for-each-health/summary")
-      .route(/state/, "fx:1-app-for-each-health/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
   }
 
   if (configuration.mesos === "1-service-with-executor-task") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/1-service-with-executor-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(
         /service\/marathon\/v2\/apps/,
@@ -115,7 +140,6 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
         "fx:1-service-with-executor-task/history-minute"
       )
       .route(/history\/last/, "fx:1-service-with-executor-task/summary")
-      .route(/master\/state/, "fx:1-service-with-executor-task/state")
       .route(/state-summary/, "fx:1-service-with-executor-task/summary")
       .route(
         /agent\/.*\/slave\(1\)\/state/,
@@ -124,6 +148,15 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-task-with-volumes") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(/marathon\/v2\/apps/, "fx:marathon-1-task/app")
       .route(/marathon\/v2\/groups/, "fx:marathon-1-task-with-volumes/groups")
@@ -131,19 +164,26 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
-      .route(/state-summary/, "fx:marathon-1-task/summary")
-      .route(/state/, "fx:marathon-1-task/state");
+      .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
   if (configuration.mesos === "healthy-tasks-in-mesos-and-marathon") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/healthy-tasks-in-mesos-and-marathon/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(
         /marathon\/v2\/groups/,
         "fx:healthy-tasks-in-mesos-and-marathon/groups"
       )
       .route(/history\/last/, "fx:healthy-tasks-in-mesos-and-marathon/summary")
-      .route(/state-summary/, "fx:healthy-tasks-in-mesos-and-marathon/summary")
-      .route(/state/, "fx:healthy-tasks-in-mesos-and-marathon/state");
+      .route(/state-summary/, "fx:healthy-tasks-in-mesos-and-marathon/summary");
   }
 
   if (configuration.deployments === "one-deployment") {
@@ -153,6 +193,15 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-service-suspended") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app-suspended")
       .route(
@@ -165,11 +214,19 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
-      .route(/state-summary/, "fx:marathon-1-task/summary")
-      .route(/state/, "fx:marathon-1-task/state");
+      .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
   if (configuration.mesos === "1-sdk-service") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(
         /service\/marathon\/v2\/groups/,
@@ -185,11 +242,19 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
-      .route(/state-summary/, "fx:marathon-1-task/summary")
-      .route(/state/, "fx:marathon-1-task/state");
+      .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
   if (configuration.mesos === "1-suspended-sdk-service") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(
         /service\/marathon\/v2\/groups/,
@@ -201,11 +266,19 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
-      .route(/state-summary/, "fx:marathon-1-task/summary")
-      .route(/state/, "fx:marathon-1-task/state");
+      .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
   if (configuration.mesos === "1-service-suspended-single-instance") {
+    cy.route({
+      method: "POST",
+      url: /mesos\/api\/v1/,
+      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
     router
       .route(
         /service\/marathon\/v2\/apps/,
@@ -221,8 +294,7 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
-      .route(/state-summary/, "fx:marathon-1-task/summary")
-      .route(/state/, "fx:marathon-1-task/state");
+      .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
   if (configuration.networkVIPSummaries) {

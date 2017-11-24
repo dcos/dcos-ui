@@ -3,28 +3,17 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-var CompositeState = require("#SRC/js/structs/CompositeState");
 var NodesGridView = require("../NodesGridView");
 var MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 var NodesList = require("#SRC/js/structs/NodesList");
-
-MesosStateStore.addChangeListener = function() {};
+const ServicesList = require("../../../../../services/src/js/structs/ServicesList");
 
 describe("NodesGridView", function() {
   describe("#getActiveServiceIds", function() {
     beforeEach(function() {
-      MesosStateStore.processStateSuccess({
-        frameworks: [
-          { id: "a", tasks: [], completed_tasks: [] },
-          { id: "b", tasks: [], completed_tasks: [] },
-          { id: "c", tasks: [], completed_tasks: [] },
-          { id: "d", tasks: [], completed_tasks: [] },
-          { id: "e", tasks: [], completed_tasks: [] },
-          { id: "f", tasks: [], completed_tasks: [] },
-          { id: "g", tasks: [], completed_tasks: [] },
-          { id: "z", tasks: [], completed_tasks: [] }
-        ]
-      });
+      this.storeChangeListener = MesosStateStore.addChangeListener;
+      MesosStateStore.addChangeListener = function() {};
+
       this.hosts = new NodesList({
         items: [
           {
@@ -41,17 +30,34 @@ describe("NodesGridView", function() {
           }
         ]
       });
+      this.services = new ServicesList({
+        items: [
+          { id: "a", tasks: [] },
+          { id: "b", tasks: [] },
+          { id: "c", tasks: [] },
+          { id: "d", tasks: [] },
+          { id: "e", tasks: [] },
+          { id: "f", tasks: [] },
+          { id: "g", tasks: [] },
+          { id: "z", tasks: [] }
+        ]
+      });
+
       this.container = global.document.createElement("div");
       this.instance = ReactDOM.render(
         <NodesGridView
+          onShowServices={function() {}}
+          resourcesByFramework={{}}
+          serviceColors={{}}
           selectedResource={"mem"}
           hosts={this.hosts.getItems()}
-          services={CompositeState.getServiceList().getItems()}
+          services={this.services.getItems()}
         />,
         this.container
       );
     });
     afterEach(function() {
+      MesosStateStore.addChangeListener = this.storeChangeListener;
       ReactDOM.unmountComponentAtNode(this.container);
     });
 

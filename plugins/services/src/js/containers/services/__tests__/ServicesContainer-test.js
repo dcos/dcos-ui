@@ -6,11 +6,15 @@ const TestUtils = require("react-addons-test-utils");
 
 const JestUtil = require("#SRC/js/utils/JestUtil");
 const DSLExpression = require("#SRC/js/structs/DSLExpression");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
 const ServicesContainer = require("../ServicesContainer");
 
 describe("ServicesContainer", function() {
   beforeEach(function() {
+    this.storeChangeListener = MesosStateStore.addChangeListener;
+    MesosStateStore.addChangeListener = function() {};
+
     this.container = global.document.createElement("div");
     this.routerStubs = {
       getCurrentPathname() {
@@ -36,6 +40,7 @@ describe("ServicesContainer", function() {
   });
 
   afterEach(function() {
+    MesosStateStore.addChangeListener = this.storeChangeListener;
     ReactDOM.unmountComponentAtNode(this.container);
   });
 

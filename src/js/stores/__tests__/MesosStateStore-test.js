@@ -15,10 +15,10 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
-              name: "marathon",
-              tasks: [1, 2, 3]
+              name: "marathon"
             }
-          ]
+          ],
+          tasks: [1, 2, 3]
         };
       };
     });
@@ -46,18 +46,21 @@ describe("MesosStateStore", function() {
           frameworks: [
             {
               name: "marathon",
-              tasks: [
-                { name: "spark", id: "spark.1" },
-                { name: "alpha", id: "alpha.1" },
-                { name: "alpha", id: "alpha.2" }
-              ],
-              completed_tasks: [{ name: "alpha", id: "alpha.3" }]
+              id: "marathon_1"
             },
             {
               name: "spark",
-              tasks: [{ name: "1" }, { name: "2" }],
-              completed_tasks: [{ name: "3" }]
+              id: "spark_1"
             }
+          ],
+          tasks: [
+            { name: "spark", id: "spark.1", framework_id: "marathon_1" },
+            { name: "alpha", id: "alpha.1", framework_id: "marathon_1" },
+            { name: "alpha", id: "alpha.2", framework_id: "marathon_1" },
+            { name: "alpha", id: "alpha.3", framework_id: "marathon_1" },
+            { name: "1", framework_id: "spark_1" },
+            { name: "2", framework_id: "spark_1" },
+            { name: "3", framework_id: "spark_1" }
           ]
         };
       };
@@ -75,10 +78,10 @@ describe("MesosStateStore", function() {
         })
       );
       expect(tasks).toEqual([
-        { name: "spark", id: "spark.1" },
-        { name: "1" },
-        { name: "2" },
-        { name: "3" }
+        { name: "spark", id: "spark.1", framework_id: "marathon_1" },
+        { name: "1", framework_id: "spark_1" },
+        { name: "2", framework_id: "spark_1" },
+        { name: "3", framework_id: "spark_1" }
       ]);
     });
 
@@ -87,9 +90,9 @@ describe("MesosStateStore", function() {
         new Application({ id: "/alpha" })
       );
       expect(tasks).toEqual([
-        { name: "alpha", id: "alpha.1" },
-        { name: "alpha", id: "alpha.2" },
-        { name: "alpha", id: "alpha.3" }
+        { name: "alpha", id: "alpha.1", framework_id: "marathon_1" },
+        { name: "alpha", id: "alpha.2", framework_id: "marathon_1" },
+        { name: "alpha", id: "alpha.3", framework_id: "marathon_1" }
       ]);
     });
 
@@ -135,15 +138,11 @@ describe("MesosStateStore", function() {
     beforeEach(function() {
       this.get = MesosStateStore.get;
       const data = {
-        frameworks: [
-          {
-            tasks: [{ id: 1 }],
-            completed_tasks: [{ id: 2 }]
-          }
-        ]
+        frameworks: [{}],
+        tasks: [{ id: 1 }, { id: 2 }]
       };
-      MesosStateStore.processStateSuccess(data);
-      const taskCache = MesosStateStore.indexTasksByID(data);
+
+      const taskCache = MesosStateUtil.indexTasksByID(data);
       MesosStateStore.get = function(id) {
         if (id === "taskCache") {
           return taskCache;
@@ -192,20 +191,20 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
-              name: "marathon",
-              tasks: [
-                {
-                  id: "foo",
-                  labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "foo" }]
-                },
-                {
-                  id: "bar"
-                },
-                {
-                  id: "baz",
-                  labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "baz" }]
-                }
-              ]
+              name: "marathon"
+            }
+          ],
+          tasks: [
+            {
+              id: "foo",
+              labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "foo" }]
+            },
+            {
+              id: "bar"
+            },
+            {
+              id: "baz",
+              labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "baz" }]
             }
           ]
         };
@@ -229,12 +228,12 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
-              name: "marathon",
-              tasks: [
-                {
-                  id: "foo"
-                }
-              ]
+              name: "marathon"
+            }
+          ],
+          tasks: [
+            {
+              id: "foo"
             }
           ]
         };
@@ -252,16 +251,16 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
-              name: "marathon",
-              tasks: [
-                {
-                  id: "foo",
-                  labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "foo" }]
-                },
-                {
-                  id: "bar"
-                }
-              ]
+              name: "marathon"
+            }
+          ],
+          tasks: [
+            {
+              id: "foo",
+              labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "foo" }]
+            },
+            {
+              id: "bar"
             }
           ]
         };

@@ -2,7 +2,7 @@ import { RequestUtil } from "mesosphere-shared-reactjs";
 
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import Config from "#SRC/js/config/Config";
-import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
+import TaskUtil from "../utils/TaskUtil";
 
 import {
   REQUEST_NODE_STATE_ERROR,
@@ -69,7 +69,8 @@ var TaskDirectoryActions = {
   ),
 
   fetchDirectory(task, innerPath, nodeState) {
-    const path = MesosStateUtil.getTaskPath(nodeState, task, innerPath);
+    const path = TaskUtil.getTaskPath(nodeState, task, innerPath);
+
     if (path == null) {
       AppDispatcher.handleServerAction({
         type: REQUEST_TASK_DIRECTORY_ERROR,
