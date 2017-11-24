@@ -72,13 +72,11 @@ describe("Networks", function() {
     });
 
     it("allows users to filter the table", function() {
-      cy.getAPIResponse("/mesos/master/state", function(fixture) {
-        const taskID = fixture.frameworks[0].tasks[0].id;
-
-        cy.get("input.form-control").type(taskID);
-        cy.get("tbody tr").should(function($tableRows) {
-          expect(getVisibleTableRows($tableRows).length).to.equal(1);
-        });
+      cy
+        .get("input.form-control")
+        .type("sleep.7084272b-6b76-11e5-a953-08002719334a");
+      cy.get("tbody tr").should(function($tableRows) {
+        expect(getVisibleTableRows($tableRows).length).to.equal(1);
       });
     });
   });

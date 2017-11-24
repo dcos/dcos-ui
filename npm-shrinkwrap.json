@@ -3,9 +3,9 @@
   "version": "1.1.14",
   "dependencies": {
     "@dcos/connection-manager": {
-      "version": "0.1.2",
-      "from": "@dcos/connection-manager@0.1.2",
-      "resolved": "https://registry.npmjs.org/@dcos/connection-manager/-/connection-manager-0.1.2.tgz",
+      "version": "0.2.0",
+      "from": "@dcos/connection-manager@0.2.0",
+      "resolved": "https://registry.npmjs.org/@dcos/connection-manager/-/connection-manager-0.2.0.tgz",
       "dependencies": {
         "immutable": {
           "version": "3.8.2",
@@ -20,14 +20,14 @@
       "resolved": "https://registry.npmjs.org/@dcos/connections/-/connections-0.1.0.tgz"
     },
     "@dcos/http-service": {
-      "version": "0.1.0",
-      "from": "@dcos/http-service@0.1.0",
-      "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-0.1.0.tgz"
+      "version": "0.2.0",
+      "from": "@dcos/http-service@0.2.0",
+      "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-0.2.0.tgz"
     },
     "@dcos/mesos-client": {
-      "version": "0.1.6",
-      "from": "@dcos/mesos-client@0.1.6",
-      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.1.6.tgz"
+      "version": "0.1.7",
+      "from": "@dcos/mesos-client@0.1.7",
+      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.1.7.tgz"
     },
     "@dcos/recordio": {
       "version": "0.1.5",

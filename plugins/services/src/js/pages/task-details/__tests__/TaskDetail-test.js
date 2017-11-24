@@ -23,24 +23,12 @@ const TaskDetail = require("../TaskDetail");
 
 describe("TaskDetail", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.params = { id: "foo", taskID: "bar" };
-    this.instance = JestUtil.renderWithStubbedRouter(
-      TaskDetail,
-      {
-        params: this.params,
-        routes: [{ path: "/services/detail/:id/tasks/:taskID" }]
-      },
-      this.container,
-      {}
-    );
-    this.instance.setState = jasmine.createSpy("setState");
-    this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
     // Store original versions
     this.storeGetDirectory = TaskDirectoryStore.fetchDirectory;
     this.storeSetPath = TaskDirectoryStore.setPath;
     this.storeGet = MesosStateStore.get;
     this.storeChangeListener = MesosStateStore.addChangeListener;
+
     // Create mock functions
     MesosStateStore.get = function(key) {
       if (key === "lastMesosState") {
@@ -57,6 +45,20 @@ describe("TaskDetail", function() {
 
     TaskDirectoryStore.fetchDirectory = jasmine.createSpy("fetchDirectory");
     TaskDirectoryStore.setPath = jasmine.createSpy("setPath");
+
+    this.container = global.document.createElement("div");
+    this.params = { id: "foo", taskID: "bar" };
+    this.instance = JestUtil.renderWithStubbedRouter(
+      TaskDetail,
+      {
+        params: this.params,
+        routes: [{ path: "/services/detail/:id/tasks/:taskID" }]
+      },
+      this.container,
+      {}
+    );
+    this.instance.setState = jasmine.createSpy("setState");
+    this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
   });
 
   afterEach(function() {

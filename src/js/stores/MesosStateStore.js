@@ -1,9 +1,6 @@
 import PluginSDK from "PluginSDK";
+import { request } from "@dcos/mesos-client";
 
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-
-import AppDispatcher from "../events/AppDispatcher";
-import ActionTypes from "../constants/ActionTypes";
 import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
 import DCOSStore from "./DCOSStore";
@@ -11,60 +8,23 @@ import Framework from "../../../plugins/services/src/js/structs/Framework";
 import GetSetBaseStore from "./GetSetBaseStore";
 import {
   MESOS_STATE_CHANGE,
-  MESOS_STATE_REQUEST_ERROR,
-  VISIBILITY_CHANGE
+  MESOS_STATE_REQUEST_ERROR
 } from "../constants/EventTypes";
-import MesosStateActions from "../events/MesosStateActions";
 import MesosStateUtil from "../utils/MesosStateUtil";
+import pipe from "../utils/pipe";
 import Task from "../../../plugins/services/src/js/structs/Task";
-import VisibilityStore from "./VisibilityStore";
+import { MesosStreamType } from "../core/MesosStream";
+import container from "../container";
+import * as mesosStreamParsers from "./MesosStream/parsers";
 
-var requestInterval = null;
+const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
 
-function startPolling() {
-  if (requestInterval == null) {
-    MesosStateActions.fetchState();
-    requestInterval = setInterval(
-      MesosStateActions.fetchState,
-      Config.getRefreshRate()
-    );
-  }
-}
-
-function stopPolling() {
-  if (requestInterval != null) {
-    clearInterval(requestInterval);
-    requestInterval = null;
-  }
-}
-
-/**
- * Assigns a property to task if it is a scheduler task.
- * @param  {Object} task
- * @param  {Array} schedulerTasks Array of scheduler task
- * @return {Object} task
- */
-function assignSchedulerTaskField(task, schedulerTasks) {
-  if (schedulerTasks.some(({ id }) => task.id === id)) {
-    return Object.assign({}, task, { schedulerTask: true });
-  }
-
-  return task;
-}
-
-/**
- * Assigns a property to task if it belongs to an SDK service.
- * @param  {Object} task
- * @param  {Array} service task belongs to
- * @return {Object} task
- */
-function flagSDKTask(task, service) {
-  if (isSDKService(service)) {
-    return Object.assign({}, task, { sdkTask: true });
-  }
-
-  return task;
-}
+// Lots of things in DCOS UI rely on the MesosStateStore emitting
+// MESOS_STATE_CHANGE events but since we're switching to the stream there will
+// be no events comming. To avoid a bigger refactoring I decided to go with
+// a fake emitter that starts emitting evens once the initial state came through
+// TODO: https://jira.mesosphere.com/browse/DCOS-18277
+let legacyUpdateTimer;
 
 class MesosStateStore extends GetSetBaseStore {
   constructor() {
@@ -90,79 +50,41 @@ class MesosStateStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
-      if (payload.source !== ActionTypes.SERVER_ACTION) {
-        return false;
-      }
-
-      var action = payload.action;
-      switch (action.type) {
-        case ActionTypes.REQUEST_MESOS_STATE_SUCCESS:
-          this.processStateSuccess(action.data);
-          break;
-        case ActionTypes.REQUEST_MESOS_STATE_ERROR:
-          this.processStateError(action.xhr);
-          break;
-        case ActionTypes.REQUEST_MESOS_STATE_ONGOING:
-          this.processOngoingRequest();
-          break;
-      }
-
-      return true;
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
     });
-
-    VisibilityStore.addChangeListener(
-      VISIBILITY_CHANGE,
-      this.onVisibilityStoreChange.bind(this)
-    );
   }
 
   addChangeListener(eventName, callback) {
     this.on(eventName, callback);
 
-    if (this.shouldPoll()) {
-      startPolling();
+    if (this.shouldSubscribe()) {
+      this.subscribe();
     }
   }
 
   removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-
-    if (!this.shouldPoll()) {
-      stopPolling();
-    }
   }
 
-  onVisibilityStoreChange() {
-    if (!VisibilityStore.isInactive() && this.shouldPoll()) {
-      startPolling();
-
-      return;
-    }
-
-    stopPolling();
+  shouldSubscribe() {
+    return this.listeners(MESOS_STATE_CHANGE).length > 0 && !this.stream;
   }
 
-  shouldPoll() {
-    return this.listeners(MESOS_STATE_CHANGE).length > 0;
-  }
+  subscribe() {
+    const mesosStream = container.get(MesosStreamType);
+    const parsers = pipe(...Object.values(mesosStreamParsers));
+    const getMasterRequest = request({ type: "GET_MASTER" }).retry(3);
 
-  indexTasksByID(lastMesosState) {
-    const taskIndex = {};
-
-    lastMesosState.frameworks.forEach(function(service) {
-      const {
-        tasks = [],
-        completed_tasks = [],
-        unreachable_tasks = []
-      } = service;
-
-      tasks.concat(completed_tasks, unreachable_tasks).forEach(function(task) {
-        taskIndex[task.id] = task;
-      });
-    });
-
-    return taskIndex;
+    this.stream = mesosStream
+      .merge(getMasterRequest)
+      .map(message => parsers(this.get("lastMesosState"), JSON.parse(message)))
+      .map(MesosStateUtil.flagMarathonTasks)
+      .do(state => {
+        CompositeState.addState(state);
+        this.setState(state);
+      })
+      .subscribe(this.onStreamData, this.onStreamError);
   }
 
   getHostResourcesByFramework(filter) {
@@ -216,31 +138,27 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromNodeID(nodeID) {
-    const frameworks = this.get("lastMesosState").frameworks || [];
+    const { tasks, frameworks } = this.get("lastMesosState");
     const memberTasks = {};
 
     const schedulerTasks = this.getSchedulerTasks();
 
-    frameworks.forEach(framework => {
-      framework.tasks.forEach(function(task) {
-        if (task.slave_id === nodeID) {
-          // Need to get service from Marathon because we need the labels.
-          const service = DCOSStore.serviceTree.findItem(function(item) {
-            return (
-              item instanceof Framework &&
-              item.getFrameworkName() === framework.name
-            );
-          });
-          task = assignSchedulerTaskField(task, schedulerTasks);
-          task = flagSDKTask(task, service);
-          memberTasks[task.id] = task;
-        }
-      });
-      framework.completed_tasks.forEach(function(task) {
-        if (task.slave_id === nodeID) {
-          memberTasks[task.id] = task;
-        }
-      });
+    tasks.forEach(function(task) {
+      const framework = frameworks.find(
+        current => current.id === task.framework_id
+      );
+      if (task.slave_id === nodeID) {
+        // Need to get service from Marathon because we need the labels.
+        const service = DCOSStore.serviceTree.findItem(function(item) {
+          return (
+            item instanceof Framework &&
+            item.getFrameworkName() === framework.name
+          );
+        });
+        task = MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks);
+        task = MesosStateUtil.flagSDKTask(task, service);
+        memberTasks[task.id] = task;
+      }
     });
 
     return Object.values(memberTasks);
@@ -275,6 +193,10 @@ class MesosStateStore extends GetSetBaseStore {
     const tasks = this.getSchedulerTasks();
 
     return tasks.find(function({ labels }) {
+      if (!labels) {
+        return false;
+      }
+
       return labels.some(({ key, value }) => {
         return key === "DCOS_PACKAGE_FRAMEWORK_NAME" && value === serviceName;
       });
@@ -282,7 +204,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromServiceName(serviceName) {
-    const frameworks = this.get("lastMesosState").frameworks;
+    const { tasks, frameworks } = this.get("lastMesosState");
 
     if (!frameworks) {
       return null;
@@ -293,18 +215,16 @@ class MesosStateStore extends GetSetBaseStore {
     });
 
     if (framework) {
-      const activeTasks = framework.tasks || [];
-      const completedTasks = framework.completed_tasks || [];
-      const unreachableTasks = framework.unreachable_tasks || [];
-
-      return activeTasks.concat(completedTasks, unreachableTasks);
+      return tasks.filter(task => task != null).filter(task => {
+        return task.framework_id === framework.id;
+      });
     }
 
     return [];
   }
 
   getTasksByService(service) {
-    const frameworks = this.get("lastMesosState").frameworks;
+    const { frameworks, tasks = [] } = this.get("lastMesosState");
     const serviceName = service.getName();
 
     // Convert serviceId to Mesos task name
@@ -323,33 +243,34 @@ class MesosStateStore extends GetSetBaseStore {
     // Combine framework (if matching framework was found) and filtered
     // Marathon tasks. This will give you a list of framework tasks including
     // the scheduler tasks or a list of Marathon application tasks.
-    return frameworks.reduce(function(serviceTasks, framework) {
-      const {
-        tasks = [],
-        completed_tasks = [],
-        unreachable_tasks = [],
-        name
-      } = framework;
-      // Include tasks from framework match, if service is a Framework
-      if (serviceIsFramework && serviceFrameworkName === name) {
-        return serviceTasks
-          .concat(tasks, completed_tasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasks))
-          .map(task => flagSDKTask(task, service));
-      }
+    let serviceTasks = [];
+    if (serviceIsFramework) {
+      const framework = frameworks.find(function(framework) {
+        return framework.name === serviceFrameworkName;
+      });
 
-      // Filter marathon tasks by service name
-      if (name === "marathon") {
-        return tasks
-          .concat(completed_tasks, unreachable_tasks)
-          .filter(({ name }) => name === mesosTaskName)
-          .concat(serviceTasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasks))
-          .map(task => flagSDKTask(task, service));
+      if (framework) {
+        serviceTasks = tasks
+          .filter(task => task.framework_id === framework.id)
+          .map(task =>
+            MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
+          )
+          .map(task => MesosStateUtil.flagSDKTask(task, service));
       }
+    }
 
-      return serviceTasks;
-    }, []);
+    const marathon = frameworks.find(framework => {
+      return framework.name === "marathon";
+    });
+
+    return tasks
+      .filter(task => task.framework_id === marathon.id)
+      .filter(({ name }) => name === mesosTaskName)
+      .concat(serviceTasks)
+      .map(task =>
+        MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
+      )
+      .map(task => MesosStateUtil.flagSDKTask(task, service));
   }
 
   getTasksFromVirtualNetworkName(overlayName) {
@@ -359,19 +280,26 @@ class MesosStateStore extends GetSetBaseStore {
     );
   }
 
-  processStateSuccess(lastMesosState) {
-    CompositeState.addState(lastMesosState);
-    const taskCache = this.indexTasksByID(lastMesosState);
-    this.set({ lastMesosState, taskCache });
-    this.emit(MESOS_STATE_CHANGE);
+  setState(state) {
+    this.set({
+      lastMesosState: state,
+      taskCache: MesosStateUtil.indexTasksByID(state)
+    });
   }
 
-  processStateError(xhr) {
-    this.emit(MESOS_STATE_REQUEST_ERROR, xhr);
+  onStreamData(_state) {
+    if (!legacyUpdateTimer) {
+      this.emit(MESOS_STATE_CHANGE);
+
+      legacyUpdateTimer = setInterval(
+        () => this.emit(MESOS_STATE_CHANGE),
+        Config.getRefreshRate()
+      );
+    }
   }
 
-  processOngoingRequest() {
-    // Handle ongoing request here.
+  onStreamError(error) {
+    this.emit(MESOS_STATE_REQUEST_ERROR, error);
   }
 
   get storeID() {

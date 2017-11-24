@@ -2,6 +2,8 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 
+import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
+import ExecutorTypes from "#SRC/js/constants/ExecutorTypes";
 import Node from "#SRC/js/structs/Node";
 import Util from "#SRC/js/utils/Util";
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -178,6 +180,53 @@ const TaskUtil = {
       .last();
 
     return node;
+  },
+
+  /**
+   * @param {{frameworks:array, completed_frameworks:array}} state
+   * @param {{id:string, executor_id:string, framework_id:string}} task
+   * @param {string} path
+   * @returns {string} task path
+   */
+  getTaskPath(state, task, path = "") {
+    const {
+      id: taskID,
+      framework_id: frameworkID,
+      executor_id: executorID
+    } = task;
+    const framework = MesosStateUtil.getFramework(state, frameworkID);
+    if (state == null || task == null || framework == null) {
+      return "";
+    }
+
+    let taskPath = "";
+    // Find matching executor or task to construct the task path
+    []
+      .concat(framework.executors, framework.completed_executors)
+      .every(function(executor) {
+        if (executor.id === executorID || executor.id === taskID) {
+          // Use the executor task path construct if it's a "pod" / TaskGroup
+          // executor (type: DEFAULT), otherwise fallback to the default
+          // app/framework behavior.
+          if (executor.type === ExecutorTypes.DEFAULT) {
+            // For a detail documentation on how to construct the task path
+            // please see: https://reviews.apache.org/r/52376/
+            taskPath = `${executor.directory}/tasks/${taskID}/${path}`;
+
+            return false;
+          }
+
+          // Simply use the executors directory for "apps" and "frameworks",
+          // as well as any other executor
+          taskPath = `${executor.directory}/${path}`;
+
+          return false;
+        }
+
+        return true;
+      });
+
+    return taskPath;
   }
 };
 

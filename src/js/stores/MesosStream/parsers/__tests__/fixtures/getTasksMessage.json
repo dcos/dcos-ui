@@ -1,0 +1,117 @@
+{
+  "type": "GET_TASKS",
+  "get_tasks": {
+    "completed_tasks": [
+      {
+        "task_id": {
+          "value": "2"
+        },
+        "agent_id": {
+          "value": "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0"
+        },
+        "executor_id": {
+          "value": "default"
+        },
+        "framework_id": {
+          "value": "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-0000"
+        },
+        "resources": []
+      }
+    ],
+    "tasks": [
+      {
+        "agent_id": {
+          "value": "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0"
+        },
+        "executor_id": {
+          "value": "default"
+        },
+        "framework_id": {
+          "value": "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-0000"
+        },
+        "name": "test",
+        "resources": [
+          {
+            "name": "cpus",
+            "role": "*",
+            "scalar": {
+              "value": 2.0
+            },
+            "type": "SCALAR"
+          },
+          {
+            "name": "mem",
+            "role": "*",
+            "scalar": {
+              "value": 1024.0
+            },
+            "type": "SCALAR"
+          },
+          {
+            "name": "disk",
+            "role": "*",
+            "scalar": {
+              "value": 1024.0
+            },
+            "type": "SCALAR"
+          },
+          {
+            "name": "ports",
+            "ranges": {
+              "range": [
+                {
+                  "begin": 31000,
+                  "end": 32000
+                }
+              ]
+            },
+            "role": "*",
+            "type": "RANGES"
+          }
+        ],
+        "state": "TASK_RUNNING",
+        "status_update_state": "TASK_RUNNING",
+        "status_update_uuid": "ycLTRBo8TjKFTrh4vsBERg==",
+        "statuses": [
+          {
+            "agent_id": {
+              "value": "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0"
+            },
+            "container_status": {
+              "network_infos": [
+                {
+                  "ip_addresses": [
+                    {
+                      "ip_address": "127.0.1.1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "executor_id": {
+              "value": "default"
+            },
+            "source": "SOURCE_EXECUTOR",
+            "state": "TASK_RUNNING",
+            "task_id": {
+              "value": "1"
+            },
+            "timestamp": 1470820172.32565,
+            "uuid": "ycLTRBo8TjKFTrh4vsBERg=="
+          }
+        ],
+        "labels": {
+          "labels": [
+            {
+              "key": "LABEL_1",
+              "value": "VALUE_1"
+            }
+          ]
+        },
+        "task_id": {
+          "value": "1"
+        }
+      }
+    ]
+  }
+}

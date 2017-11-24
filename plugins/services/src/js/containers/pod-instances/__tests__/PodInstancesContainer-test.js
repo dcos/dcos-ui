@@ -7,6 +7,7 @@ const TestUtils = require("react-addons-test-utils");
 const PodInstancesContainer = require("../PodInstancesContainer");
 const Pod = require("../../../structs/Pod");
 const Util = require("#SRC/js/utils/Util");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
 const PodFixture = require("../../../../../../../tests/_fixtures/pods/PodFixture");
 
@@ -51,6 +52,15 @@ describe("PodInstancesContainer", function() {
   ).toString();
 
   const pod = new Pod(fixture);
+
+  beforeEach(function() {
+    this.storeChangeListener = MesosStateStore.addChangeListener;
+    MesosStateStore.addChangeListener = function() {};
+  });
+
+  afterEach(function() {
+    MesosStateStore.addChangeListener = this.storeChangeListener;
+  });
 
   describe("#render", function() {
     describe("search with instance name", function() {

@@ -11,78 +11,84 @@ module.exports = {
   frameworks: [
     {
       name: "marathon",
-      completed_tasks: [
+      id: "marathon_1"
+    }
+  ],
+  tasks: [
+    {
+      framework_id: "marathon_1",
+      id: "pod-p0.instance-inst-a1.container-c1",
+      name: "c1",
+      state: "TASK_FINISHED",
+      resources: { cpus: 0.1, mem: 16, disk: 16 },
+      statuses: [
         {
-          id: "pod-p0.instance-inst-a1.container-c1",
-          name: "c1",
-          state: "TASK_RUNNING",
-          resources: { cpus: 0.1, mem: 16, disk: 16 },
-          statuses: [
-            {
-              state: "TASK_STAGING",
-              timestamp: timestamp01
-            },
-            {
-              state: "TASK_RUNNING",
-              timestamp: timestamp02
-            }
-          ]
+          state: "TASK_STAGING",
+          timestamp: timestamp01
         },
         {
-          id: "pod-p0.instance-inst-a1.container-c2",
-          name: "c2",
-          state: "TASK_RUNNING",
-          resources: { cpus: 0.1, mem: 16, disk: 0 },
-          statuses: [
-            {
-              state: "TASK_STAGING",
-              timestamp: timestamp03
-            },
-            {
-              state: "TASK_RUNNING",
-              timestamp: timestamp04
-            }
-          ]
+          state: "TASK_FINISHED",
+          timestamp: timestamp02
+        }
+      ]
+    },
+    {
+      framework_id: "marathon_1",
+      id: "pod-p0.instance-inst-a1.container-c2",
+      name: "c2",
+      state: "TASK_FINISHED",
+      resources: { cpus: 0.1, mem: 16, disk: 0 },
+      statuses: [
+        {
+          state: "TASK_STAGING",
+          timestamp: timestamp03
         },
         {
-          id: "pod-p0.instance-inst-a1.container-c3",
-          name: "c3",
-          state: "TASK_RUNNING",
-          resources: { cpus: 0.2, mem: 16, disk: 0 },
-          statuses: [
-            {
-              state: "TASK_STAGING",
-              timestamp: timestamp05
-            },
-            {
-              state: "TASK_RUNNING",
-              timestamp: timestamp06
-            }
-          ]
+          state: "TASK_FINISHED",
+          timestamp: timestamp04
+        }
+      ]
+    },
+    {
+      framework_id: "marathon_1",
+      id: "pod-p0.instance-inst-a1.container-c3",
+      name: "c3",
+      state: "TASK_FINISHED",
+      resources: { cpus: 0.2, mem: 16, disk: 0 },
+      statuses: [
+        {
+          state: "TASK_STAGING",
+          timestamp: timestamp05
         },
         {
-          id: "pod-p0.instance-inst-a2.container-c4",
-          name: "c4",
-          state: "TASK_RUNNING",
-          resources: { cpus: 0.1, mem: 16, gpus: 1 },
-          statuses: [
-            {
-              state: "TASK_RUNNING",
-              timestamp: timestamp07
-            }
-          ]
-        },
+          state: "TASK_FINISHED",
+          timestamp: timestamp06
+        }
+      ]
+    },
+    {
+      framework_id: "marathon_1",
+      id: "pod-p0.instance-inst-a2.container-c4",
+      name: "c4",
+      state: "TASK_FINISHED",
+      resources: { cpus: 0.1, mem: 16, gpus: 1 },
+      statuses: [
         {
-          id: "pod-p1.instance-inst-a1.container-c1",
-          name: "c1",
-          state: "TASK_RUNNING",
-          resources: { cpus: 0.1, mem: 16, disk: 0 },
-          statuses: [
-            {
-              state: "TASK_RUNNING",
-              timestamp: timestamp08
-            }
-          ]
+          state: "TASK_FINISHED",
+          timestamp: timestamp07
+        }
+      ]
+    },
+    {
+      framework_id: "marathon_1",
+      id: "pod-p1.instance-inst-a1.container-c1",
+      name: "c1",
+      state: "TASK_FINISHED",
+      resources: { cpus: 0.1, mem: 16, disk: 0 },
+      statuses: [
+        {
+          state: "TASK_FINISHED",
+          timestamp: timestamp08
         }
       ]
     }

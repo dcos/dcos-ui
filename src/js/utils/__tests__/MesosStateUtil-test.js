@@ -5,22 +5,56 @@ const MESOS_STATE_WITH_HISTORY = require("./fixtures/MesosStateWithHistory");
 
 describe("MesosStateUtil", function() {
   describe("#flagMarathonTasks", function() {
+    it("returns state when frameworks is undefined", function() {
+      expect(MesosStateUtil.flagMarathonTasks({})).toEqual({});
+    });
+
+    it("returns state when there's no Marathon", function() {
+      const state = {
+        frameworks: [
+          {
+            name: "spark",
+            id: "spark_1"
+          }
+        ],
+        tasks: [
+          { name: "1", framework_id: "spark_1" },
+          { name: "2", framework_id: "spark_1" }
+        ]
+      };
+
+      expect(MesosStateUtil.flagMarathonTasks(state)).toEqual({
+        frameworks: [
+          {
+            name: "spark",
+            id: "spark_1"
+          }
+        ],
+        tasks: [
+          { name: "1", framework_id: "spark_1" },
+          { name: "2", framework_id: "spark_1" }
+        ]
+      });
+    });
+
     it("should assign a isStartedByMarathon flag to all tasks", function() {
       const state = {
         frameworks: [
           {
             name: "marathon",
-            tasks: [
-              { name: "spark", id: "spark.1" },
-              { name: "alpha", id: "alpha.1" }
-            ],
-            completed_tasks: [{ name: "alpha", id: "alpha.2" }]
+            id: "marathon_1"
           },
           {
             name: "spark",
-            tasks: [{ name: "1" }],
-            completed_tasks: [{ name: "2" }]
+            id: "spark_1"
           }
+        ],
+        tasks: [
+          { name: "spark", framework_id: "marathon_1", id: "spark.1" },
+          { name: "alpha", framework_id: "marathon_1", id: "alpha.1" },
+          { name: "alpha", framework_id: "marathon_1", id: "alpha.2" },
+          { name: "1", framework_id: "spark_1" },
+          { name: "2", framework_id: "spark_1" }
         ]
       };
 
@@ -28,19 +62,35 @@ describe("MesosStateUtil", function() {
         frameworks: [
           {
             name: "marathon",
-            tasks: [
-              { name: "spark", id: "spark.1", isStartedByMarathon: true },
-              { name: "alpha", id: "alpha.1", isStartedByMarathon: true }
-            ],
-            completed_tasks: [
-              { name: "alpha", id: "alpha.2", isStartedByMarathon: true }
-            ]
+            id: "marathon_1"
           },
           {
             name: "spark",
-            tasks: [{ name: "1", isStartedByMarathon: false }],
-            completed_tasks: [{ name: "2", isStartedByMarathon: false }]
+            id: "spark_1"
           }
+        ],
+        tasks: [
+          {
+            name: "spark",
+            id: "spark.1",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          {
+            name: "alpha",
+            id: "alpha.1",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          {
+            name: "alpha",
+            id: "alpha.2",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+
+          { name: "1", framework_id: "spark_1", isStartedByMarathon: false },
+          { name: "2", framework_id: "spark_1", isStartedByMarathon: false }
         ]
       });
     });
@@ -52,9 +102,7 @@ describe("MesosStateUtil", function() {
         {
           id: "framework-123",
           name: "test-1"
-        }
-      ],
-      completed_frameworks: [
+        },
         {
           id: "framework-abc",
           name: "test-2"
@@ -86,17 +134,13 @@ describe("MesosStateUtil", function() {
           frameworks: [
             { id: "foo" },
             { id: "bar" },
-            {
-              id: "baz",
-              tasks: [{ container: { network_infos: [{ name: "alpha" }] } }]
-            },
-            {
-              id: "qux",
-              tasks: [
-                { container: { network_infos: [{ name: "alpha" }] } },
-                { container: { network_infos: [{ name: "beta" }] } }
-              ]
-            }
+            { id: "baz" },
+            { id: "qux" }
+          ],
+          tasks: [
+            { container: { network_infos: [{ name: "alpha" }] } },
+            { container: { network_infos: [{ name: "alpha" }] } },
+            { container: { network_infos: [{ name: "beta" }] } }
           ]
         },
         "alpha"
@@ -133,147 +177,6 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#getTaskPath", function() {
-    describe("app/framework tasks", function() {
-      const state = {
-        frameworks: [
-          {
-            id: "framework-123",
-            name: "test-1",
-            executors: [
-              {
-                id: "executor-foo",
-                directory: "foo"
-              }
-            ],
-            completed_executors: [
-              {
-                id: "executor-bar",
-                directory: "bar"
-              }
-            ]
-          }
-        ]
-      };
-
-      it("gets the task path for a running task", function() {
-        const task = {
-          id: "executor-foo",
-          framework_id: "framework-123",
-          executor_id: "executor-bar"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task)).toEqual("foo/");
-      });
-
-      it("gets the task path form a completed task", function() {
-        const task = {
-          id: "executor-bar",
-          framework_id: "framework-123",
-          executor_id: "executor-bar"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task)).toEqual("bar/");
-      });
-
-      it("gets the task path for a task with unknown executor id", function() {
-        const task = {
-          id: "executor-bar",
-          framework_id: "framework-123"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task)).toEqual("bar/");
-      });
-
-      it("appends provided path", function() {
-        const task = {
-          id: "executor-bar",
-          framework_id: "framework-123"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task, "test")).toEqual(
-          "bar/test"
-        );
-      });
-    });
-
-    describe("pod tasks", function() {
-      const state = {
-        frameworks: [
-          {
-            id: "framework-123",
-            name: "test-1",
-            executors: [
-              {
-                id: "executor-foo",
-                directory: "foo",
-                completed_tasks: [{ id: "task-foo-completed" }],
-                tasks: [{ id: "task-foo-running" }],
-                type: "DEFAULT"
-              }
-            ],
-            completed_executors: [
-              {
-                id: "executor-bar",
-                directory: "bar",
-                completed_tasks: [{ id: "task-bar-completed" }],
-                type: "DEFAULT"
-              }
-            ]
-          }
-        ]
-      };
-
-      it("gets the task path for a running task", function() {
-        const task = {
-          id: "task-foo-running",
-          executor_id: "executor-foo",
-          framework_id: "framework-123"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task)).toEqual(
-          "foo/tasks/task-foo-running/"
-        );
-      });
-
-      it("gets the task path form a completed task", function() {
-        const task = {
-          id: "task-foo-completed",
-          executor_id: "executor-foo",
-          framework_id: "framework-123"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task)).toEqual(
-          "foo/tasks/task-foo-completed/"
-        );
-      });
-
-      it("gets the task path form a completed executor", function() {
-        const task = {
-          id: "task-bar-completed",
-          executor_id: "executor-bar",
-          framework_id: "framework-123"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task)).toEqual(
-          "bar/tasks/task-bar-completed/"
-        );
-      });
-
-      it("appends provided path", function() {
-        const task = {
-          id: "task-foo-running",
-          executor_id: "executor-foo",
-          framework_id: "framework-123"
-        };
-
-        expect(MesosStateUtil.getTaskPath(state, task, "test")).toEqual(
-          "foo/tasks/task-foo-running/test"
-        );
-      });
-    });
-  });
-
   describe("#getPodHistoricalInstances", function() {
     const state = MESOS_STATE_WITH_HISTORY;
 
@@ -299,7 +202,7 @@ describe("MesosStateUtil", function() {
       const pod = new Pod({ id: "/pod-p1" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
-      expect(instances[0].containers[0].status).toEqual("TASK_RUNNING");
+      expect(instances[0].containers[0].status).toEqual("TASK_FINISHED");
     });
 
     it("should add `lastChanged` property on containers", function() {

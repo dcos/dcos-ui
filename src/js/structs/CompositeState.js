@@ -106,7 +106,7 @@ class CompositeState {
   }
 
   getMasterNode() {
-    return new Node(this.data.leader_info);
+    return new Node(this.data.master_info);
   }
 }
 

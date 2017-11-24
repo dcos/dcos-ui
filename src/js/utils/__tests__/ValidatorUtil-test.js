@@ -1,6 +1,46 @@
 describe("ValidatorUtil", function() {
   const ValidatorUtil = require("../ValidatorUtil");
 
+  describe("#isCallable", function() {
+    describe("with a function", function() {
+      it("returns true", function() {
+        expect(ValidatorUtil.isCallable(function() {})).toBe(true);
+      });
+    });
+
+    describe("with a callable object", function() {
+      it("returns true", function() {
+        const callable = {
+          call() {}
+        };
+
+        expect(ValidatorUtil.isCallable(callable)).toBe(true);
+      });
+    });
+
+    describe("with an instance of a callable class", function() {
+      it("returns true", function() {
+        class Callable {
+          call() {}
+        }
+
+        expect(ValidatorUtil.isCallable(new Callable())).toBe(true);
+      });
+    });
+
+    describe("with a scalar value", function() {
+      it("returns false", function() {
+        expect(ValidatorUtil.isCallable("string")).toBe(false);
+      });
+    });
+
+    describe("with a null value", function() {
+      it("returns false", function() {
+        expect(ValidatorUtil.isCallable(null)).toBe(false);
+      });
+    });
+  });
+
   describe("#isDefined", function() {
     it("should properly handle empty strings", function() {
       expect(ValidatorUtil.isDefined("")).toBe(false);

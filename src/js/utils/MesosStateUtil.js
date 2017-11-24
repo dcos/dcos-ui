@@ -1,9 +1,15 @@
-import ExecutorTypes from "../constants/ExecutorTypes";
+import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import PodInstanceState
   from "../../../plugins/services/src/js/constants/PodInstanceState";
 import Util from "./Util";
+import TaskStates from "../../../plugins/services/src/js/constants/TaskStates";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
+const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(function(
+  taskState
+) {
+  return TaskStates[taskState].stateTypes.includes("completed");
+});
 
 // Based on the regex that marathon uses to validate task IDs,
 // but keeping only the 'instance-' prefix, that refers to pods.
@@ -12,9 +18,12 @@ const RESOURCE_KEYS = ["cpus", "disk", "mem"];
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
 const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)$/;
 
-function setIsStartedByMarathonFlag(name, tasks) {
+function setIsStartedByMarathonFlag(marathon_id, tasks) {
   return tasks.map(function(task) {
-    return Object.assign({ isStartedByMarathon: name === "marathon" }, task);
+    return Object.assign(
+      { isStartedByMarathon: marathon_id === task.framework_id },
+      task
+    );
   });
 }
 
@@ -36,18 +45,23 @@ const MesosStateUtil = {
   },
 
   flagMarathonTasks(state) {
-    const newState = Object.assign({}, state);
+    if (!state.frameworks) {
+      return state;
+    }
 
-    newState.frameworks = state.frameworks.map(function(framework) {
-      const { tasks = [], completed_tasks = [], name } = framework;
+    const marathon = state.frameworks.find(
+      framework => framework.name === "marathon"
+    );
 
-      return Object.assign({}, framework, {
-        tasks: setIsStartedByMarathonFlag(name, tasks),
-        completed_tasks: setIsStartedByMarathonFlag(name, completed_tasks)
-      });
+    if (!marathon) {
+      return state;
+    }
+
+    const { tasks = [] } = state;
+
+    return Object.assign(state, {
+      tasks: setIsStartedByMarathonFlag(marathon.id, tasks)
     });
-
-    return newState;
   },
 
   /**
@@ -56,7 +70,7 @@ const MesosStateUtil = {
    * @returns {{executors:Array, completed_executors:Array}|null} framework
    */
   getFramework(state, frameworkID) {
-    const { frameworks, completed_frameworks } = state;
+    const { frameworks, completed_frameworks = [] } = state;
 
     return []
       .concat(frameworks, completed_frameworks)
@@ -72,50 +86,40 @@ const MesosStateUtil = {
    * @returns {Object} A map of frameworks running on host
    */
   getHostResourcesByFramework(state, filter = []) {
-    return state.frameworks.reduce(function(memo, framework) {
-      framework.tasks.forEach(function(task) {
-        if (memo[task.slave_id] == null) {
-          memo[task.slave_id] = {};
-        }
+    return state.tasks.reduce(function(memo, task) {
+      if (memo[task.slave_id] == null) {
+        memo[task.slave_id] = {};
+      }
 
-        var frameworkKey = task.framework_id;
-        if (filter.includes(framework.id)) {
-          frameworkKey = "other";
-        }
+      let frameworkKey = task.framework_id;
+      if (filter.includes(frameworkKey)) {
+        frameworkKey = "other";
+      }
 
-        const resources = task.resources;
-        if (memo[task.slave_id][frameworkKey] == null) {
-          memo[task.slave_id][frameworkKey] = resources;
-        } else {
-          // Aggregates used resources from each executor
-          RESOURCE_KEYS.forEach(function(key) {
-            memo[task.slave_id][frameworkKey][key] += resources[key];
-          });
-        }
-      });
+      const resources = task.resources;
+      if (memo[task.slave_id][frameworkKey] == null) {
+        memo[task.slave_id][frameworkKey] = resources;
+      } else {
+        // Aggregates used resources from each executor
+        RESOURCE_KEYS.forEach(function(key) {
+          memo[task.slave_id][frameworkKey][key] += resources[key];
+        });
+      }
 
       return memo;
     }, {});
   },
 
-  getTasksFromVirtualNetworkName(state = {}, overlayName) {
-    const frameworks = state.frameworks || [];
+  getTasksFromVirtualNetworkName({ tasks = [] } = {}, overlayName) {
+    return tasks.filter(function(task) {
+      const appPath = "container.network_infos.0.name";
+      const podPath = "statuses.0.container_status.network_infos.0.name";
 
-    return frameworks.reduce(function(memo, framework) {
-      const tasks = framework.tasks || [];
-
-      return memo.concat(
-        tasks.filter(function(task) {
-          const appPath = "container.network_infos.0.name";
-          const podPath = "statuses.0.container_status.network_infos.0.name";
-
-          return (
-            Util.findNestedPropertyInObject(task, appPath) === overlayName ||
-            Util.findNestedPropertyInObject(task, podPath) === overlayName
-          );
-        })
+      return (
+        Util.findNestedPropertyInObject(task, appPath) === overlayName ||
+        Util.findNestedPropertyInObject(task, podPath) === overlayName
       );
-    }, []);
+    });
   },
 
   /**
@@ -127,62 +131,66 @@ const MesosStateUtil = {
    * @returns {Array} The array of historical instances
    */
   getPodHistoricalInstances(state, pod) {
-    const frameworks = state.frameworks || [];
-    const marathonFramework = frameworks.find(function(framework) {
+    const { frameworks = [], tasks = [] } = state;
+    const marathon = frameworks.find(function(framework) {
       return framework.name === "marathon";
     });
 
-    if (!marathonFramework) {
+    if (!marathon) {
       return [];
     }
 
-    const instancesMap = marathonFramework.completed_tasks.reduce(function(
-      memo,
-      task
-    ) {
-      if (MesosStateUtil.isPodTaskId(task.id)) {
-        const { podID, instanceID } = MesosStateUtil.decomposePodTaskId(
-          task.id
-        );
-        if (podID === pod.getMesosId()) {
-          const fullInstanceID = `${podID}.instance-${instanceID}`;
-          let containerArray = memo[fullInstanceID];
-          if (containerArray === undefined) {
-            containerArray = memo[fullInstanceID] = [];
-          }
-
-          // The last status can give us information about the time the
-          // container was last updated, so we need the latest status item
-          const lastStatus = task.statuses.reduce(function(memo, status) {
-            if (!memo || status.timestamp > memo.timestamp) {
-              return status;
+    const instancesMap = tasks
+      .filter(
+        task =>
+          task.framework_id === marathon.id &&
+          COMPLETED_TASK_STATES.includes(task.state)
+      )
+      .reduce(function(memo, task) {
+        if (MesosStateUtil.isPodTaskId(task.id)) {
+          const { podID, instanceID } = MesosStateUtil.decomposePodTaskId(
+            task.id
+          );
+          if (podID === pod.getMesosId()) {
+            const fullInstanceID = `${podID}.instance-${instanceID}`;
+            let containerArray = memo[fullInstanceID];
+            if (containerArray === undefined) {
+              containerArray = memo[fullInstanceID] = [];
             }
 
-            return memo;
-          }, null);
+            // The last status can give us information about the time the
+            // container was last updated, so we need the latest status item
+            const lastStatus = (task.statuses || [])
+              .reduce(function(memo, status) {
+                if (!memo || status.timestamp > memo.timestamp) {
+                  return status;
+                }
 
-          // Add additional fields to the task structure in order to make it
-          // as close as possible to something a PodContainer will understand.
-          containerArray.push(
-            Object.assign(
-              {
-                containerId: task.id,
-                status: task.state,
-                //
-                // NOTE: We are creating a Date object from this value, so we
-                //       should be OK with the timestamp
-                //
-                lastChanged: lastStatus.timestamp * 1000,
-                lastUpdated: lastStatus.timestamp * 1000
-              },
-              task
-            )
-          );
+                return memo;
+              }, null);
+
+            // Add additional fields to the task structure in order to make it
+            // as close as possible to something a PodContainer will understand.
+            containerArray.push(
+              Object.assign(
+                {
+                  containerId: task.id,
+                  status: task.state,
+                  //
+                  // NOTE: We are creating a Date object from this value, so we
+                  //       should be OK with the timestamp
+                  //
+                  lastChanged: lastStatus.timestamp * 1000,
+                  lastUpdated: lastStatus.timestamp * 1000
+                },
+                task
+              )
+            );
+          }
         }
-      }
 
-      return memo;
-    }, {});
+        return memo;
+      }, {});
 
     // Try to compose actual PodInstance structures from the information we
     // have so far. Obviously we don't have any details, but we can populate
@@ -226,53 +234,6 @@ const MesosStateUtil = {
     });
   },
 
-  /**
-   * @param {{frameworks:array, completed_frameworks:array}} state
-   * @param {{id:string, executor_id:string, framework_id:string}} task
-   * @param {string} path
-   * @returns {string} task path
-   */
-  getTaskPath(state, task, path = "") {
-    const {
-      id: taskID,
-      framework_id: frameworkID,
-      executor_id: executorID
-    } = task;
-    const framework = MesosStateUtil.getFramework(state, frameworkID);
-    if (state == null || task == null || framework == null) {
-      return "";
-    }
-
-    let taskPath = "";
-    // Find matching executor or task to construct the task path
-    []
-      .concat(framework.executors, framework.completed_executors)
-      .every(function(executor) {
-        if (executor.id === executorID || executor.id === taskID) {
-          // Use the executor task path construct if it's a "pod" / TaskGroup
-          // executor (type: DEFAULT), otherwise fallback to the default
-          // app/framework behavior.
-          if (executor.type === ExecutorTypes.DEFAULT) {
-            // For a detail documentation on how to construct the task path
-            // please see: https://reviews.apache.org/r/52376/
-            taskPath = `${executor.directory}/tasks/${taskID}/${path}`;
-
-            return false;
-          }
-
-          // Simply use the executors directory for "apps" and "frameworks",
-          // as well as any other executor
-          taskPath = `${executor.directory}/${path}`;
-
-          return false;
-        }
-
-        return true;
-      });
-
-    return taskPath;
-  },
-
   getTaskContainerID(task) {
     let container = Util.findNestedPropertyInObject(
       task,
@@ -300,6 +261,44 @@ const MesosStateUtil = {
    */
   isPodTaskId(taskID) {
     return POD_TASK_REGEX.test(taskID);
+  },
+
+  /**
+   * Assigns a property to task if it is a scheduler task.
+   * @param  {Object} task
+   * @param  {Array} schedulerTasks Array of scheduler task
+   * @return {Object} task
+   */
+  assignSchedulerTaskField(task, schedulerTasks) {
+    if (schedulerTasks.some(({ id }) => task.id === id)) {
+      return Object.assign({}, task, { schedulerTask: true });
+    }
+
+    return task;
+  },
+
+  /**
+   * Assigns a property to task if it belongs to an SDK service.
+   * @param  {Object} task
+   * @param  {Array} service task belongs to
+   * @return {Object} task
+   */
+  flagSDKTask(task, service) {
+    if (isSDKService(service)) {
+      return Object.assign({}, task, { sdkTask: true });
+    }
+
+    return task;
+  },
+
+  indexTasksByID(state) {
+    const { tasks = [] } = state;
+
+    return tasks.reduce((acc, task) => {
+      acc[task.id] = task;
+
+      return acc;
+    }, {});
   }
 };
 

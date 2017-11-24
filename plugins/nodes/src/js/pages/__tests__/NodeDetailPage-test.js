@@ -22,6 +22,7 @@ describe("NodeDetailPage", function() {
     this.storeGet = MesosStateStore.get;
     this.storeGetNode = MesosStateStore.getNodeFromID;
     this.getNodesList = CompositeState.getNodesList;
+    this.storeChangeListener = MesosStateStore.addChangeListener;
 
     this.container = global.document.createElement("div");
 
@@ -32,6 +33,9 @@ describe("NodeDetailPage", function() {
     MesosSummaryActions.fetchSummary = function() {
       return null;
     };
+
+    MesosStateStore.addChangeListener = function() {};
+
     MesosStateStore.getTasksFromNodeID = function() {
       return [];
     };
@@ -99,6 +103,7 @@ describe("NodeDetailPage", function() {
   });
 
   afterEach(function() {
+    MesosStateStore.addChangeListener = this.storeChangeListener;
     MesosSummaryActions.fetchSummary = this.fetchSummary;
     MesosStateStore.getTasksFromNodeID = this.getTasksFromNodeID;
     MesosStateStore.get = this.storeGet;
