@@ -13,12 +13,12 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: "Field Name",
-        prop: "fieldName"
-      },
-      {
         heading: "Operator",
         prop: "operator"
+      },
+      {
+        heading: "Field Name",
+        prop: "fieldName"
       },
       {
         heading: "Value",

@@ -4,7 +4,6 @@ import { Tooltip } from "reactjs-components";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
-import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -128,22 +127,6 @@ export default class PlacementSection extends Component {
           <FormGroup
             className={commonFieldsClassNames}
             required={true}
-            showError={Boolean(fieldNameError)}
-          >
-            {fieldLabel}
-            <FieldAutofocus>
-              <FieldInput
-                name={`constraints.${index}.fieldName`}
-                type="text"
-                placeholder="hostname"
-                value={constraint.fieldName}
-              />
-            </FieldAutofocus>
-            <FieldError>{fieldNameError}</FieldError>
-          </FormGroup>
-          <FormGroup
-            className={commonFieldsClassNames}
-            required={true}
             showError={Boolean(operatorError)}
           >
             {operatorLabel}
@@ -156,6 +139,20 @@ export default class PlacementSection extends Component {
               {this.getOperatorTypes()}
             </FieldSelect>
             <FieldError>{operatorError}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className={commonFieldsClassNames}
+            required={true}
+            showError={Boolean(fieldNameError)}
+          >
+            {fieldLabel}
+            <FieldInput
+              name={`constraints.${index}.fieldName`}
+              type="text"
+              placeholder="hostname"
+              value={constraint.fieldName}
+            />
+            <FieldError>{fieldNameError}</FieldError>
           </FormGroup>
           <FormGroup
             className={{
