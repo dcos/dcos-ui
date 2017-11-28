@@ -309,16 +309,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  getTermsConditionUrl() {
-    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
-
-    if (cosmosPackage.isCertified()) {
-      return "https://mesosphere.com/catalog-terms-conditions/#certified-services";
-    } else {
-      return "https://mesosphere.com/catalog-terms-conditions/#community-services";
-    }
-  }
-
   getPackageVersionsDropdown() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     const packageName = cosmosPackage.getName();
@@ -493,16 +483,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
-                <small>
-                  By deploying you agree to the {" "}
-                  <a
-                    href={this.getTermsConditionUrl()}
-                    target="_blank"
-                    title="Terms and Conditions"
-                  >
-                    terms and conditions
-                  </a>
-                </small>
               </div>
             </div>
           </div>

@@ -68,7 +68,13 @@ class UniversePackage extends Item {
   }
 
   getPreInstallNotes() {
-    return this.get("preInstallNotes");
+    // punctuate the end if not present
+    const notes = this.get("preInstallNotes");
+    if (notes.trim().slice(-1) !== ".") {
+      return `${notes.trim()}.`;
+    }
+
+    return notes;
   }
 
   getPostInstallNotes() {

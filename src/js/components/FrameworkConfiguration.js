@@ -198,32 +198,53 @@ class FrameworkConfiguration extends Component {
     return actions;
   }
 
+  getTermsAndConditions() {
+    const { packageDetails } = this.props;
+
+    const termsUrl = packageDetails.isCertified()
+      ? "https://mesosphere.com/catalog-terms-conditions/#certified-services"
+      : "https://mesosphere.com/catalog-terms-conditions/#community-services";
+
+    return {
+      __html: `By running this service you agree to the <a href=${termsUrl} target='_blank' title='Terms and Conditions'>terms and conditions</a>.`
+    };
+  }
+
+  getWarningMessage() {
+    const { packageDetails } = this.props;
+
+    const preInstallNotes = packageDetails.getPreInstallNotes();
+    if (preInstallNotes) {
+      const message = StringUtil.parseMarkdown(preInstallNotes);
+      message.__html = `<strong>Preinstall Notes: </strong>${message.__html} ${this.getTermsAndConditions().__html}`;
+
+      return (
+        <div
+          dangerouslySetInnerHTML={message}
+          className="pre-install-notes message message-warning"
+        />
+      );
+    }
+
+    return (
+      <div
+        dangerouslySetInnerHTML={this.getTermsAndConditions()}
+        className="pre-install-notes message message-warning"
+      />
+    );
+  }
+
   getReviewScreen() {
-    const {
-      packageDetails,
-      deployErrors,
-      isInitialDeploy,
-      formData
-    } = this.props;
+    const { deployErrors, isInitialDeploy, formData } = this.props;
 
     const fileName = "config.json";
     const configString = JSON.stringify(formData, null, 2);
 
     const renderKeys = this.getHashMapRenderKeys(formData);
 
-    const preInstallNotes = packageDetails.getPreInstallNotes();
-    let preinstall = null;
-    if (preInstallNotes && isInitialDeploy) {
-      const preInstallNotesParsed = StringUtil.parseMarkdown(preInstallNotes);
-      preInstallNotesParsed.__html =
-        "<strong>Preinstall Notes: </strong>" + preInstallNotesParsed.__html;
-
-      preinstall = (
-        <div
-          dangerouslySetInnerHTML={preInstallNotesParsed}
-          className="pre-install-notes message message-warning"
-        />
-      );
+    let warningMessage = null;
+    if (isInitialDeploy) {
+      warningMessage = this.getWarningMessage();
     }
 
     let errorsAlert = null;
@@ -235,7 +256,7 @@ class FrameworkConfiguration extends Component {
       <div className="flex-item-grow-1">
         <div className="container container-wide">
           {errorsAlert}
-          {preinstall}
+          {warningMessage}
           <div className="row">
             <div className="column-4">
               <h1 className="flush-top">Configuration</h1>
