@@ -120,21 +120,6 @@
         flex: 1 1 auto;
         font-weight: @page-header-breadcrumbs-muted-font-weight;
         min-width: 0;
-
-        .tooltip-wrapper {
-          align-items: center;
-          display: flex;
-          flex: 0 1 @page-header-breadcrumb-status-bar-width;
-          padding: @base-spacing-unit * 1/4 0;
-          width: @page-header-breadcrumb-status-bar-width;
-        }
-
-        .status-bar {
-          flex: 1 1 auto;
-          height: @page-header-breadcrumb-status-bar-height;
-          vertical-align: middle;
-          width: auto;
-        }
       }
     }
 
@@ -166,6 +151,7 @@
       .breadcrumb {
         margin-right: @page-header-breadcrumbs-margin-right-screen-small;
 
+        .push-right,
         &__content {
           margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-small;
         }
@@ -213,6 +199,7 @@
           }
         }
 
+        .push-right,
         &__content {
           margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-medium;
         }
@@ -230,6 +217,7 @@
       .breadcrumb {
         margin-right: @page-header-breadcrumbs-margin-right-screen-large;
 
+        .push-right,
         &__content {
           margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-large;
         }
@@ -247,6 +235,7 @@
       .breadcrumb {
         margin-right: @page-header-breadcrumbs-margin-right-screen-jumbo;
 
+        .push-right,
         &__content {
           margin-right: @page-header-breadcrumb-content-supplemental-margin-horizontal-screen-jumbo;
         }

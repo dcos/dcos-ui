@@ -162,11 +162,27 @@ class ServiceStatusIcon extends Component {
       return this.getUnableToLaunchWarning(service);
     }
 
+    if (this.props.showTooltip) {
+      return (
+        <Tooltip
+          interactive={true}
+          content={this.props.tooltipContent}
+          width={250}
+          wrapText={true}
+          wrapperClassName="tooltip-wrapper"
+        >
+          <Icon {...iconState} size="mini" />
+        </Tooltip>
+      );
+    }
+
     return <Icon {...iconState} size="mini" />;
   }
 }
 
 ServiceStatusIcon.propTypes = {
+  showTooltip: React.PropTypes.bool,
+  tooltipContent: React.PropTypes.string,
   service: React.PropTypes.oneOfType([
     React.PropTypes.instanceOf(Service),
     React.PropTypes.instanceOf(ServiceTree),
