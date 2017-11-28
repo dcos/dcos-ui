@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { Link } from "react-router";
 
+import StringUtil from "#SRC/js/utils/StringUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent
@@ -114,36 +115,43 @@ class ServiceBreadcrumbs extends React.Component {
     return this.lastStatusWidth;
   }
 
-  getHealthStatus(service) {
+  getServiceStatus(service) {
     if (service == null || !this.state.shouldRenderServiceStatus) {
       return null;
     }
 
-    const serviceStatus = service.getStatus();
-    const runningTasksCount = service.getTaskCount();
+    let progressBar = null;
+    let iconDisplay = null;
     const instancesCount = service.getInstancesCount();
+    const tasksRunning = service.getTaskCount();
+    const tooltipContent = `${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`;
 
-    if (instancesCount === 0) {
-      return null;
+    if (this.props.taskID == null && this.props.params != null) {
+      progressBar = (
+        <BreadcrumbSupplementalContent hasProgressBar={true}>
+          <ServiceStatusProgressBar key="status-bar" service={service} />
+        </BreadcrumbSupplementalContent>
+      );
     }
 
-    const taskCountDetails = runningTasksCount === instancesCount
-      ? `(${runningTasksCount})`
-      : `(${runningTasksCount} of ${instancesCount})`;
+    if (this.props.params != null || this.props.taskID != null) {
+      iconDisplay = (
+        <BreadcrumbSupplementalContent>
+          <ServiceStatusWarningWithDebugInformation
+            service={service}
+            showTooltip={true}
+            tooltipContent={tooltipContent}
+          />
+        </BreadcrumbSupplementalContent>
+      );
+    }
 
     return (
       <BreadcrumbSupplementalContent
         ref={ref => (this.breadcrumbStatusRef = ref)}
       >
-        <BreadcrumbSupplementalContent>
-          <span className="muted">
-            {serviceStatus} {taskCountDetails}
-          </span>
-          <ServiceStatusWarningWithDebugInformation service={service} />
-        </BreadcrumbSupplementalContent>
-        <BreadcrumbSupplementalContent hasProgressBar={true}>
-          <ServiceStatusProgressBar key="status-bar" service={service} />
-        </BreadcrumbSupplementalContent>
+        {iconDisplay}
+        {progressBar}
       </BreadcrumbSupplementalContent>
     );
   }
@@ -181,7 +189,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     if (serviceID != null && trimmedServiceID.length > 0) {
       const serviceCrumbs = ids.map((id, index) => {
-        let breadcrumbHealth = null;
+        let breadcrumbStatus = null;
         let serviceImage = null;
 
         aggregateIDs += encodeURIComponent(`/${id}`);
@@ -192,7 +200,7 @@ class ServiceBreadcrumbs extends React.Component {
           if (!(service instanceof ServiceTree)) {
             routePath = "/services/detail/" + aggregateIDs;
           }
-          breadcrumbHealth = this.getHealthStatus(service);
+          breadcrumbStatus = this.getServiceStatus(service);
           serviceImage = this.getServiceImage(service, aggregateIDs);
         }
 
@@ -206,7 +214,7 @@ class ServiceBreadcrumbs extends React.Component {
                 {id}
               </Link>
             </BreadcrumbTextContent>
-            {breadcrumbHealth}
+            {breadcrumbStatus}
           </Breadcrumb>
         );
       });

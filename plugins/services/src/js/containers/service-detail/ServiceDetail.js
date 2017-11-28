@@ -254,7 +254,9 @@ class ServiceDetail extends mixin(TabsMixin) {
   render() {
     const { children, actions, errors, params, routes, service } = this.props;
     const { actionDisabledModalOpen, actionDisabledID } = this.state;
-    const breadcrumbs = <ServiceBreadcrumbs serviceID={service.id} />;
+    const breadcrumbs = (
+      <ServiceBreadcrumbs params={params} serviceID={service.id} />
+    );
     const clonedProps = {
       params,
       routes,
