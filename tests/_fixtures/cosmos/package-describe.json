@@ -96,6 +96,14 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "custom_yml": {
+              "description": "Custom YAML to be appended to config.yml on each node. This field must be base64 encoded.",
+              "default": "ZGlzY292ZXJ5Og0KICAgIHplbjoNCiAgICAgICAgcGluZzoNCiAgICAgICAgICAgIG11bHRpY2FzdDoNCiAgICAgICAgICAgICAgICBlbmFibGVkOiBmYWxzZQ==",
+              "type": "string",
+              "media": {
+                "type": "application/x-yaml"
+              }
             }
           },
           "required": [
