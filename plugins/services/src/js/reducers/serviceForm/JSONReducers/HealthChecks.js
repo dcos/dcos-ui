@@ -28,11 +28,7 @@ function getMapHealthChecks(docker) {
 
       if (item.protocol.toUpperCase() !== COMMAND) {
         newItem.path = item.path ? item.path : null;
-        if (
-          item.ipProtocol &&
-          docker.type === "DOCKER" &&
-          docker.image !== ""
-        ) {
+        if (item.ipProtocol && docker.type === "DOCKER") {
           newItem.ipProtocol = item.ipProtocol ? item.ipProtocol : null;
         }
       }
@@ -51,9 +47,8 @@ module.exports = {
     if (this.docker == null) {
       // `this` is a context which is given to every reducer so it could
       // cache information.
-      // In this case we are caching the values for `container.type` and
-      // `container.docker.image` as we will need this information to render ipProtocol
-      this.docker = { type: "DOCKER", image: "" };
+      // In this case we are caching the values for `container.type`
+      this.docker = { type: "DOCKER" };
     }
 
     if (this.healthChecks == null) {
@@ -69,9 +64,6 @@ module.exports = {
 
     if (joinedPath === "container.type") {
       this.docker.type = value;
-    }
-    if (joinedPath === "container.docker.image") {
-      this.docker.image = value;
     }
     if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
       this.healthChecks = this.healthChecks
@@ -122,7 +114,8 @@ module.exports = {
           this.healthChecks[index].command = value;
         }
         if (`healthChecks.${index}.ipProtocol` === joinedPath) {
-          this.healthChecks[index].ipProtocol = value === true
+          this.healthChecks[index].ipProtocol = value === true ||
+            value === "IPv6"
             ? "IPv6"
             : "IPv4";
         }

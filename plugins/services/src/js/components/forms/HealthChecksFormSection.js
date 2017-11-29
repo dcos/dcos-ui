@@ -20,6 +20,7 @@ import FormGroupHeadingContent
   from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import {
   MESOS_HTTP,
@@ -222,7 +223,7 @@ class HealthChecksFormSection extends Component {
 
     return (
       <FormRow>
-        <FormGroup className="column-12" showError={Boolean(errors.value)}>
+        <FormGroup className="column-6" showError={Boolean(errors.value)}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -249,6 +250,34 @@ class HealthChecksFormSection extends Component {
     return data.portDefinitions.map((port, index) => {
       return <option key={index} value={index}>{port.name || index}</option>;
     });
+  }
+
+  getIpProtocol(data) {
+    const { healthCheck, key, errors } = data;
+    const runtime = findNestedPropertyInObject(
+      this.props.data,
+      "container.type"
+    );
+    // IPv6 Healthchecks is currently only supported in DOCKER runtime.
+    if (runtime !== "DOCKER") {
+      return null;
+    }
+
+    return (
+      <FormGroup showError={false} className="column-12">
+        <FieldLabel>
+          <FieldInput
+            checked={healthCheck.ipProtocol === "IPv6"}
+            name={`healthChecks.${key}.ipProtocol`}
+            type="checkbox"
+            value="IPv6"
+          />
+          {"Make "}
+          <span className="truecase">IPv6</span>
+        </FieldLabel>
+        <FieldError>{errors.ipProtocol}</FieldError>
+      </FormGroup>
+    );
   }
 
   getHTTPFields(healthCheck, key) {
@@ -341,6 +370,9 @@ class HealthChecksFormSection extends Component {
           </FieldLabel>
           <FieldError>{errors.protocol}</FieldError>
         </FormGroup>
+      </FormRow>,
+      <FormRow key="IPv6">
+        {this.getIpProtocol({ healthCheck, key, errors })}
       </FormRow>
     ];
   }
