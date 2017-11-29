@@ -166,5 +166,81 @@ describe("Package Detail Tab", function() {
         .contains("Success")
         .should("to.have.length", 1);
     });
+
+    context("Framework: Placement", function() {
+      beforeEach(function() {
+        cy.get(".modal button").contains("Edit Config").click();
+      });
+
+      context("Add Placement Constraint", function() {
+        beforeEach(function() {
+          cy.get(".menu-tabbed-view-container").as("tabView");
+          cy
+            .get(".button-primary-link")
+            .contains("Add Placement Constraint")
+            .click();
+        });
+
+        it('Should add rows when "Add Placement Constraint" link clicked', function() {
+          // Field
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.fieldName"]')
+            .should("exist");
+
+          // operator
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .should("exist");
+
+          // value
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.value"]')
+            .should("exist");
+        });
+
+        it("Should remove rows when remove button clicked", function() {
+          cy.contains(".form-row", "Operator").within(function() {
+            // Click delete button
+            cy.get("a.button").click();
+          });
+
+          // Field
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.fieldName"]')
+            .should("not.exist");
+
+          // operator
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .should("not.exist");
+
+          // value
+          cy
+            .get("@tabView")
+            .find('.form-control[name="constraints.0.value"]')
+            .should("not.exist");
+        });
+
+        it('Should hide the "value" when "Unique" is selected in operator dropdown', function() {
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .select("UNIQUE");
+
+          // value
+          cy
+            .get("@tabView")
+            .find('select[name="constraints.0.operator"]')
+            .parents(".form-group")
+            .next()
+            .should("have.class", "hidden");
+        });
+      });
+    });
   });
 });
