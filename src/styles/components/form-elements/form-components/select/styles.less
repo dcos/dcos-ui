@@ -1,0 +1,53 @@
+& when (@select-enabled) {
+  /*  Select (.dropdown-select) */
+
+  .form-group div.dropdown-select {
+    width: 100%;
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+
+      .dropdown-toggle {
+
+        &:after {
+          display: block;
+          position: absolute;
+          right: 1.25rem;
+          top: 50%;
+        }
+        background: none;
+        border: 1px #d6d8dc solid;
+        box-shadow: none;
+        display: block;
+        margin: 0;
+        text-align: left;
+        width: 100%;
+        z-index: 1;
+
+        & when not (@form-control-padding-right = null) and not (@form-control-caret-padding-right-offset = null) {
+          padding-right: @form-control-padding-right + @form-control-caret-padding-right-offset;
+        }
+      }
+    }
+  }
+
+  .dropdown-select.dropdown-menu {
+
+    .dropdown-menu-list-item.is-selected {
+
+      .dropdown-select-item-title {
+        color: @purple;
+      }
+    }
+
+    .dropdown-select-item-title {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .dropdown-select-item-description {
+      color: #a4a6a9;
+    }
+  }
+}
