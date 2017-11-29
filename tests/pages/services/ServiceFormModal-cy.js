@@ -729,11 +729,6 @@ describe("Service Form Modal", function() {
           .click();
 
         cy
-          .focused()
-          .should("have.attr", "name")
-          .and("eq", "constraints.0.fieldName");
-
-        cy
           .get('.menu-tabbed-view input[name="constraints.0.fieldName"')
           .should(function($inputElement) {
             const $wrappingLabel = $inputElement.closest(".form-group");
@@ -827,6 +822,7 @@ describe("Service Form Modal", function() {
             .get("@tabView")
             .find('select[name="constraints.0.operator"]')
             .parents(".form-group")
+            .next()
             .next()
             .should("have.class", "hidden");
         });
