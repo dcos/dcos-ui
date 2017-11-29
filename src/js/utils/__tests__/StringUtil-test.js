@@ -206,6 +206,38 @@ describe("StringUtil", function() {
     });
   });
 
+  describe("#punctuate", function() {
+    it("punctuates a sentence without a period", function() {
+      expect(StringUtil.punctuate("butterfly is nice")).toEqual(
+        "butterfly is nice."
+      );
+    });
+
+    it("punctuates a single word without a period", function() {
+      expect(StringUtil.punctuate("butterfly")).toEqual("butterfly.");
+    });
+
+    it("punctuates a whitespace padded sentence without a period", function() {
+      expect(StringUtil.punctuate("butterfly is nice ")).toEqual(
+        "butterfly is nice."
+      );
+    });
+
+    it("does not further punctuate a sentence with a period", function() {
+      expect(StringUtil.punctuate("butterfly is nice.")).toEqual(
+        "butterfly is nice."
+      );
+    });
+
+    it("returns empty string when parameter type not a string", function() {
+      expect(StringUtil.punctuate(1)).toEqual("");
+    });
+
+    it("punctuates empty string", function() {
+      expect(StringUtil.punctuate("")).toEqual(".");
+    });
+  });
+
   describe("#capitalize", function() {
     it("capitalizes the string correctly", function() {
       expect(StringUtil.capitalize("kenny")).toEqual("Kenny");

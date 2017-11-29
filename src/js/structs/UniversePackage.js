@@ -2,6 +2,7 @@ import Item from "./Item";
 import FrameworkUtil
   from "../../../plugins/services/src/js/utils/FrameworkUtil";
 import Util from "../utils/Util";
+import StringUtil from "../utils/StringUtil";
 
 class UniversePackage extends Item {
   getActiveBlock() {
@@ -68,13 +69,7 @@ class UniversePackage extends Item {
   }
 
   getPreInstallNotes() {
-    // punctuate the end if not present
-    const notes = this.get("preInstallNotes");
-    if (notes.trim().slice(-1) !== ".") {
-      return `${notes.trim()}.`;
-    }
-
-    return notes;
+    return StringUtil.punctuate(this.get("preInstallNotes"));
   }
 
   getPostInstallNotes() {

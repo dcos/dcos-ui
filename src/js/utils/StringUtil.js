@@ -84,6 +84,18 @@ const StringUtil = {
     return string;
   },
 
+  punctuate(string) {
+    if (typeof string !== "string") {
+      return "";
+    }
+
+    if (string.trim().slice(-1) !== ".") {
+      return `${string.trim()}.`;
+    }
+
+    return string;
+  },
+
   capitalize(string) {
     if (typeof string !== "string") {
       return null;
