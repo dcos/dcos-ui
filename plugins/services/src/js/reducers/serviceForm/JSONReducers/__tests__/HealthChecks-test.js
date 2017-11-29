@@ -160,6 +160,155 @@ describe("HealthChecks", function() {
         ]);
       }
     );
+    it("sets ipProtocol to IPv6 if set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "alpine")
+      );
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTP",
+          ipProtocol: "IPv6",
+          path: "/test"
+        }
+      ]);
+    });
+
+    it("sets https ipProtocol to IPv6 if set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "alpine")
+      );
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTPS",
+          ipProtocol: "IPv6",
+          path: "/test"
+        }
+      ]);
+    });
+
+    it("sets http ipProtocol to IPv6 if docker set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "alpine")
+      );
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTP",
+          ipProtocol: "IPv6",
+          path: "/test"
+        }
+      ]);
+    });
+
+    it("sets IPv4", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "alpine")
+      );
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], false)
+      );
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTP",
+          path: "/test",
+          ipProtocol: "IPv4"
+        }
+      ]);
+    });
+
+    it("sets https ipProtocol to IPv6 if docker set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "alpine")
+      );
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTPS",
+          ipProtocol: "IPv6",
+          path: "/test"
+        }
+      ]);
+    });
+
+    it("does not set ipProtocol to IPv6 if mesos is set (UCR)", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(
+        new Transaction(["container", "docker", "image"], "alpine")
+      );
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
+      batch = batch.add(new Transaction(["container", "type"], "MESOS"));
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTPS",
+          path: "/test"
+        }
+      ]);
+    });
   });
 
   describe("#JSONParser", function() {

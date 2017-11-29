@@ -64,6 +64,9 @@ module.exports = {
         if (`healthChecks.${index}.command` === joinedPath) {
           state[index].command = value;
         }
+        if (`healthChecks.${index}.ipProtocol` === joinedPath) {
+          state[index].ipProtocol = value === true ? "IPv6" : "IPv4";
+        }
         if (`healthChecks.${index}.path` === joinedPath) {
           state[index].path = value;
         }
