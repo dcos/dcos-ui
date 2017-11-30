@@ -13,12 +13,21 @@ function processTransaction(state, { type, path, value }) {
   let newState = state.slice();
 
   if (type === ADD_ITEM) {
-    newState.push({ fieldName: null, operator: null, value: null });
+    let defaultValue = { fieldName: null, operator: null, value: null };
+
+    if (value != null && value.type != null) {
+      defaultValue = Object.assign({}, defaultValue, value);
+    }
+
+    newState.push(defaultValue);
   }
   if (type === REMOVE_ITEM) {
     newState = newState.filter((item, index) => {
       return index !== value;
     });
+  }
+  if (type === SET && name === "type") {
+    newState[index].type = value;
   }
   if (
     type === SET &&

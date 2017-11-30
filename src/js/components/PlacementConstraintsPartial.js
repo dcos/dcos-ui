@@ -220,7 +220,8 @@ export default class PlacementSection extends Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path: "constraints"
+                path: "constraints",
+                value: { type: "default" }
               })}
             >
               Add Placement Constraint
