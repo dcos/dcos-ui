@@ -38,7 +38,7 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
     }
 
     return (
-      <header className="header">
+      <header className="header" onClick={this.props.onTrigger}>
         <a className="header-dropdown">
           <div className="header-content">
             <div className="header-image-wrapper">
@@ -62,7 +62,8 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
 }
 
 UserAccountDropdownTrigger.defaultProps = {
-  showCaret: false
+  showCaret: false,
+  onTrigger() {}
 };
 
 UserAccountDropdownTrigger.propTypes = {
