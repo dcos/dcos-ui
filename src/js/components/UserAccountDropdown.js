@@ -8,13 +8,9 @@ class UserAccountDropdown extends React.Component {
   }
 
   getTrigger() {
-    const { trigger, clusterName } = this.props;
+    const { clusterName } = this.props;
 
-    if (!trigger) {
-      return <UserAccountDropdownTrigger primaryContent={clusterName} />;
-    }
-
-    return trigger;
+    return <UserAccountDropdownTrigger primaryContent={clusterName} />;
   }
 
   handleItemSelection(item) {
