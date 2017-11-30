@@ -26,7 +26,9 @@ class UserAccountDropdown extends React.Component {
   render() {
     return (
       <Dropdown
-        triggerTag="div"
+        trigger={
+          <UserAccountDropdownTrigger primaryContent={this.props.clusterName} />
+        }
         dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.getMenuItems()}
