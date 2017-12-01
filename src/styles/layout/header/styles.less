@@ -81,6 +81,7 @@
 
     .header-image {
       background: @purple;
+      background-image: url('../../../img/layout/header/header-image-default.png');
       border-radius: 100px;
       display: block;
       height: 40px;
@@ -340,6 +341,22 @@
       .header-subtitle {
         .element-text-size(header-subtitle, screen-jumbo);
         .property-variant(header-subtitle, height, line-height, null, screen-jumbo);
+      }
+    }
+  }
+}
+
+& when (@screen-resolution-2x-enabled) {
+
+  @media only screen and (min-resolution: 2dppx) {
+
+    & when (@header-enabled) {
+
+      .header-image-wrapper {
+
+        .header-image {
+          background-image: url('../../../img/layout/header/header-image-default@2x.png');
+        }
       }
     }
   }
