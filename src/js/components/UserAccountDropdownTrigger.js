@@ -31,7 +31,7 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
       secondaryContent = null;
     } else if (secondaryContent) {
       secondaryContent = (
-        <div className="cluster-header-secondary">
+        <div className="header-subtitle">
           {secondaryContent}
         </div>
       );
@@ -50,9 +50,7 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
                   {primaryContent}
                 </span>
               </span>
-              <span className="header-subtitle">
-                {secondaryContent}
-              </span>
+              {secondaryContent}
             </div>
           </div>
         </a>
