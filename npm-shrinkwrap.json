@@ -8732,6 +8732,11 @@
         }
       }
     },
+    "react-test-renderer": {
+      "version": "15.4.1",
+      "from": "react-test-renderer@15.4.1",
+      "resolved": "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-15.4.1.tgz"
+    },
     "react-transform-catch-errors": {
       "version": "1.0.2",
       "from": "react-transform-catch-errors@>=1.0.2 <2.0.0",

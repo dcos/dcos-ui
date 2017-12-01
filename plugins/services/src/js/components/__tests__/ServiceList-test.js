@@ -3,6 +3,8 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
+const renderer = require("react-test-renderer");
+
 const ServiceList = require("../ServiceList");
 const ServiceTree = require("../../structs/ServiceTree");
 
@@ -62,10 +64,12 @@ describe("ServiceList", function() {
     });
 
     it("returns services that have a value of two elements", function() {
-      var result = this.instance.getServices(services.getServices().getItems());
+      const component = renderer.create(
+        <ServiceList services={services.getServices().getItems()} />
+      );
+      const tree = component.toJSON();
 
-      expect(result[0].content[0].content.key).toEqual("title");
-      expect(result[0].content[1].content.key).toEqual("icon");
+      expect(tree).toMatchSnapshot();
     });
   });
 });
