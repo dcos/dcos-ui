@@ -54,22 +54,14 @@ describe("#ServiceStatusProgressBar", function() {
 
   describe("Tooltip", function() {
     it("display Tooltip", function() {
+      const app = new Application({
+        queue: {
+          overdue: true
+        }
+      });
+
       this.instance = ReactDOM.render(
-        <ServiceStatusProgressBar
-          service={
-            new Application({
-              deployments: [
-                {
-                  id: "some-id"
-                }
-              ],
-              queue: {
-                delay: true
-              },
-              instances: 10
-            })
-          }
-        />,
+        <ServiceStatusProgressBar service={app} />,
         this.container
       );
 
@@ -81,7 +73,7 @@ describe("#ServiceStatusProgressBar", function() {
     it("get #getTooltipContent", function() {
       const childrenContent = this.instance.getTooltipContent().props.children
         .props.children;
-      expect(childrenContent).toEqual("1 instance running out of 1");
+      expect(childrenContent).toEqual("0 instances running out of 1");
     });
   });
 });
