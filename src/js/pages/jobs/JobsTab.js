@@ -185,7 +185,7 @@ class JobsTab extends mixin(StoreMixin) {
     return (
       <div className="button-collection flush-bottom">
         <button
-          className="button button-success"
+          className="button button-primary"
           onClick={this.handleOpenJobFormModal}
         >
           Create a Job

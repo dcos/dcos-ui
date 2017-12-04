@@ -48,7 +48,7 @@ describe("Installed Packages Tab", function() {
 
   it("displays uninstall modal when uninstall is clicked", function() {
     cy
-      .get(".button.button-link.button-danger")
+      .get(".button.button-danger-link")
       .eq(0)
       .invoke("show")
       .click({ force: true });

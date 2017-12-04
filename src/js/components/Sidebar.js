@@ -148,10 +148,7 @@ var Sidebar = React.createClass({
       }
 
       return (
-        <div
-          className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
-          key={index}
-        >
+        <div className="sidebar-section" key={index}>
           {heading}
           {menuItems}
         </div>
@@ -207,7 +204,8 @@ var Sidebar = React.createClass({
 
       const itemClassSet = classNames("sidebar-menu-item", {
         selected: isParentActive && !isChildActive,
-        open: isExpanded
+        open: isExpanded,
+        expandable: hasChildren
       });
 
       return (
@@ -367,14 +365,14 @@ var Sidebar = React.createClass({
             ref={ref => (this.geminiRef = ref)}
           >
             <div className="sidebar-content-wrapper">
-              <div className="sidebar-sections pod pod-narrow">
+              <div className="sidebar-sections pod">
                 {this.getNavigationSections()}
               </div>
             </div>
           </GeminiScrollbar>
-          <div className="sidebar-dock-container">
+          <div className="sidebar-footer">
             <Icon
-              className="sidebar-dock-trigger"
+              className="sidebar-dock-trigger icon-white"
               size="mini"
               id={dockIconID}
               onClick={this.toggleSidebarDocking}

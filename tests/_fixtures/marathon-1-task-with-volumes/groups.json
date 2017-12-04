@@ -6,7 +6,7 @@
       "args": null,
       "user": null,
       "env": {
-
+        
       },
       "instances": 1,
       "cpus": 1,
@@ -15,16 +15,16 @@
       "gpus": 0,
       "executor": "",
       "constraints": [
-
+        
       ],
       "uris": [
-
+        
       ],
       "fetch": [
-
+        
       ],
       "storeUrls": [
-
+        
       ],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
@@ -59,20 +59,20 @@
         ]
       },
       "healthChecks": [
-
+        
       ],
       "readinessChecks": [
-
+        
       ],
       "dependencies": [
-
+        
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 0.5,
         "maximumOverCapacity": 0
       },
       "labels": {
-
+        
       },
       "ipAddress": null,
       "version": "2017-02-10T17:02:51.890Z",
@@ -81,7 +81,7 @@
         "taskLostBehavior": "WAIT_FOREVER"
       },
       "secrets": {
-
+        
       },
       "taskKillGracePeriodSeconds": null,
       "unreachableStrategy": {
@@ -97,7 +97,7 @@
           "port": 10000,
           "protocol": "tcp",
           "labels": {
-
+            
           }
         }
       ],
@@ -111,7 +111,7 @@
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
       "deployments": [
-
+        
       ],
       "tasks": [
         {
@@ -195,7 +195,7 @@
     }
   ],
   "groups": [
-
+    
   ],
   "id": "/"
 }

@@ -1,20 +1,16 @@
 import { Dropdown } from "reactjs-components";
 import React from "react";
-
 import UserAccountDropdownTrigger from "./UserAccountDropdownTrigger";
 
 class UserAccountDropdown extends React.Component {
   getMenuItems() {
-    return [
-      {
-        className: "hidden",
-        html: (
-          <UserAccountDropdownTrigger primaryContent={this.props.clusterName} />
-        ),
-        id: "dropdown-trigger",
-        selectable: false
-      }
-    ].concat(this.props.menuItems);
+    return [this.props.menuItems];
+  }
+
+  getTrigger() {
+    const { clusterName } = this.props;
+
+    return <UserAccountDropdownTrigger primaryContent={clusterName} />;
   }
 
   handleItemSelection(item) {
@@ -26,14 +22,13 @@ class UserAccountDropdown extends React.Component {
   render() {
     return (
       <Dropdown
-        buttonClassName="user-account-dropdown-button text-no-transform"
+        trigger={this.getTrigger()}
         dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.getMenuItems()}
         onItemSelection={this.handleItemSelection}
         persistentID="dropdown-trigger"
         transition={true}
-        wrapperClassName="user-account-dropdown dropdown header flex-item-shrink-0"
       />
     );
   }

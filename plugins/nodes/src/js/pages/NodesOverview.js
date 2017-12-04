@@ -221,11 +221,11 @@ var NodesOverview = React.createClass({
   getViewTypeRadioButtons(resetFilter) {
     const isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
 
-    var listClassSet = classNames("button button-stroke", {
+    var listClassSet = classNames("button button-outline", {
       active: !isGridActive
     });
 
-    var gridClassSet = classNames("button button-stroke", {
+    var gridClassSet = classNames("button button-outline", {
       active: isGridActive
     });
 
