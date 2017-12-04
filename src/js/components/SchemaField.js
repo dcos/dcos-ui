@@ -3,8 +3,7 @@ import deepEqual from "deep-equal";
 import { Tooltip } from "reactjs-components";
 import DefaultSchemaField
   from "react-jsonschema-form/lib/components/fields/SchemaField";
-import AceEditor from "react-ace";
-import "brace/mode/yaml";
+import { MountService } from "foundation-ui";
 
 import Icon from "#SRC/js/components/Icon";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -16,8 +15,6 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
-import PlacementConstraintsFrameworkAdapter
-  from "#SRC/js/components/PlacementConstraintsFrameworkAdapter";
 
 class SchemaField extends Component {
   shouldComponentUpdate(nextProps) {
@@ -235,59 +232,6 @@ class SchemaField extends Component {
     );
   }
 
-  renderYamlEditor(errorMessage, props) {
-    const { required, name, schema, formData, onChange } = props;
-
-    let decodedValue;
-    try {
-      decodedValue = atob(formData);
-    } catch (error) {
-      if (error instanceof DOMException) {
-        decodedValue = "Invalid base64 encoding detected.";
-      }
-    }
-
-    return (
-      <div>
-        <FieldLabel>
-          {this.getFieldHeading(required, name, schema.description)}
-        </FieldLabel>
-        <div>
-          <AceEditor
-            mode="yaml"
-            value={decodedValue}
-            height="300"
-            width=""
-            className="framework-form-yaml-editor"
-            highlightActiveLine={false}
-            fontSize={14}
-            showPrintMargin={false}
-            tabSize={2}
-            onChange={value => onChange(btoa(value))}
-          />
-        </div>
-        <FieldError>{errorMessage}</FieldError>
-      </div>
-    );
-  }
-
-  renderPlacement(errorMessage, autoFocus, props) {
-    const { required, name, formData, schema, onChange } = props;
-
-    return (
-      <div>
-        <FieldLabel>
-          {this.getFieldHeading(required, name, schema.description)}
-        </FieldLabel>
-        <PlacementConstraintsFrameworkAdapter
-          onChange={onChange}
-          data={formData}
-        />
-        <FieldError>{errorMessage}</FieldError>
-      </div>
-    );
-  }
-
   getFieldHeading(required, name = "", description) {
     let requiredSymbol = null;
     if (required) {
@@ -319,31 +263,34 @@ class SchemaField extends Component {
   }
 
   getFieldContent(errorMessage, autofocus) {
-    const { schema } = this.props;
+    const { schema, required, name } = this.props;
     const RADIO_SELECT_THRESHOLD = 4;
+
+    if (schema.media) {
+      return (
+        <MountService.Mount
+          type={`SchemaField:${schema.media.type}`}
+          schema={schema}
+          errorMessage={errorMessage}
+          autofocus={autofocus}
+          fieldProps={this.props}
+          label={this.getFieldHeading(required, name, schema.description)}
+        >
+          {this.renderTextInput(errorMessage, autofocus, this.props)}
+        </MountService.Mount>
+      );
+    }
 
     switch (schema.type) {
       case "boolean":
         return this.renderCheckbox(errorMessage, this.props);
       case "string":
-        if (schema.media && schema.media.type === "application/x-yaml") {
-          return this.renderYamlEditor(errorMessage, this.props);
-        }
-
         if (schema.enum && schema.enum.length <= RADIO_SELECT_THRESHOLD) {
           return this.renderRadioButtons(errorMessage, this.props);
         }
 
         if (schema.enum && schema.enum.length > RADIO_SELECT_THRESHOLD) {
           return this.renderSelect(errorMessage, autofocus, this.props);
-        }
-
-        if (
-          schema.media &&
-          (schema.media.type === "application/x-region-zone-constraints+json" ||
-            schema.media.type === "application/x-zone-constraints+json")
-        ) {
-          return this.renderPlacement(errorMessage, autofocus, this.props);
         }
 
         return this.renderTextInput(errorMessage, autofocus, this.props);

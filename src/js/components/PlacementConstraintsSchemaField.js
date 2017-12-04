@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Batch from "#SRC/js/structs/Batch";
+
+import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FieldError from "#SRC/js/components/form/FieldError";
 import PlacementConstraintsPartial
   from "#SRC/js/components/PlacementConstraintsPartial";
 import BatchContainer from "#SRC/js/components/BatchContainer";
@@ -16,19 +19,20 @@ import CreateServiceModalFormUtil
 
 const jsonReducer = combineReducers({ constraints: JSONReducer });
 
-export default class PlacementConstraintsFrameworkAdapter extends Component {
+export default class PlacementConstraintsSchemaField extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      batch: this.generateBatchFromInput()
+      batch: new Batch()
     };
+    this.state.batch = this.generateBatchFromInput();
 
     this.handleBatchChange = this.handleBatchChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
+    if (nextProps.fieldProps.formData !== this.props.fieldProps.formData) {
       this.setState({
         batch: this.generateBatchFromInput(nextProps)
       });
@@ -36,18 +40,19 @@ export default class PlacementConstraintsFrameworkAdapter extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const propsChanged = nextProps.data !== this.props.data;
+    const propsChanged =
+      nextProps.fieldProps.formData !== this.props.fieldProps.formData;
     const stateChanged = nextState.batch !== this.state.batch;
 
     return propsChanged || stateChanged;
   }
 
   generateBatchFromInput(props = this.props) {
-    const { data } = props;
+    const { formData } = props.fieldProps;
 
     let json;
     try {
-      json = JSON.parse(data);
+      json = JSON.parse(formData);
     } catch (error) {
       return this.state.batch || new Batch();
     }
@@ -60,34 +65,49 @@ export default class PlacementConstraintsFrameworkAdapter extends Component {
   }
 
   handleBatchChange(batch) {
-    const { data } = this.props;
+    const { formData, onChange } = this.props.fieldProps;
     const newJson = batch.reduce(jsonReducer, []);
     const newData = JSON.stringify(newJson.constraints);
 
-    if (newData !== data) {
-      this.props.onChange(newData);
+    if (newData !== formData) {
+      onChange(newData);
     } else {
       this.setState({ batch });
     }
   }
 
   render() {
+    const { label, errorMessage } = this.props;
     const { batch } = this.state;
+
     const data = { constraints: batch.reduce(FormReducer) };
 
     return (
-      <BatchContainer batch={batch} onChange={this.handleBatchChange}>
-        <PlacementConstraintsPartial data={data} />
-      </BatchContainer>
+      <div>
+        <FieldLabel>
+          {label}
+        </FieldLabel>
+        <BatchContainer batch={batch} onChange={this.handleBatchChange}>
+          <PlacementConstraintsPartial data={data} />
+        </BatchContainer>
+        <FieldError>{errorMessage}</FieldError>
+      </div>
     );
   }
 }
 
-PlacementConstraintsFrameworkAdapter.defaultProps = {
+PlacementConstraintsSchemaField.defaultProps = {
   onChange() {}
 };
 
-PlacementConstraintsFrameworkAdapter.propTypes = {
-  onChange: React.PropTypes.func,
-  data: React.PropTypes.string
+PlacementConstraintsSchemaField.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  fieldProps: React.PropTypes.object.isRequired,
+  schema: React.PropTypes.object.isRequired,
+  errorMessage: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node
+  ]),
+  autofocus: React.PropTypes.boolean,
+  onChange: React.PropTypes.func
 };

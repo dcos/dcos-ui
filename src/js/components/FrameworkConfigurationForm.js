@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from "react";
 import classNames from "classnames";
 import SchemaForm from "react-jsonschema-form";
+import { MountService } from "foundation-ui";
+
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
@@ -13,6 +15,22 @@ import UniversePackage from "#SRC/js/structs/UniversePackage";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import SchemaField from "#SRC/js/components/SchemaField";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import PlacementConstraintsSchemaField
+  from "#SRC/js/components/PlacementConstraintsSchemaField";
+import YamlEditorSchemaField from "#SRC/js/components/YamlEditorSchemaField";
+
+MountService.MountService.registerComponent(
+  PlacementConstraintsSchemaField,
+  "SchemaField:application/x-region-zone-constraints+json"
+);
+MountService.MountService.registerComponent(
+  PlacementConstraintsSchemaField,
+  "SchemaField:application/x-zone-constraints+json"
+);
+MountService.MountService.registerComponent(
+  YamlEditorSchemaField,
+  "SchemaField:application/x-yaml"
+);
 
 const METHODS_TO_BIND = [
   "handleDropdownNavigationSelection",
