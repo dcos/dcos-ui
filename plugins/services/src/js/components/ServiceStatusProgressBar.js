@@ -11,7 +11,7 @@ import ServiceStatus from "../constants/ServiceStatus";
 class ServiceStatusProgressBar extends React.Component {
   getTooltipContent() {
     const { service } = this.props;
-    const { tasksRunning } = service.getTasksSummary();
+    const tasksRunning = service.getTaskCount();
     const instancesTotal = service.getInstancesCount();
 
     return (
@@ -27,7 +27,7 @@ class ServiceStatusProgressBar extends React.Component {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
     const serviceStatus = service.getServiceStatus();
-    const tasksRunning = service.getTaskCount();
+    let tasksRunning = service.getTaskCount();
 
     if (
       serviceStatus === ServiceStatus.RUNNING ||
@@ -37,19 +37,11 @@ class ServiceStatusProgressBar extends React.Component {
       return null;
     }
 
-    if (serviceStatus === ServiceStatus.DELETING) {
-      return (
-        <ProgressBar
-          className="status-bar--large"
-          data={[
-            {
-              className: "staged",
-              value: instancesCount
-            }
-          ]}
-          total={instancesCount}
-        />
-      );
+    if (
+      serviceStatus === ServiceStatus.DEPLOYING ||
+      serviceStatus === ServiceStatus.DELETING
+    ) {
+      tasksRunning = 0;
     }
 
     return (
