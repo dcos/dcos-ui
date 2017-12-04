@@ -166,9 +166,9 @@ var DashboardPage = React.createClass({
 
   getHeading(translationId) {
     return (
-      <h6 className="flush text-align-center">
+      <h3 className="flush text-align-center">
         <FormattedMessage id={translationId} />
-      </h6>
+      </h3>
     );
   },
 
