@@ -108,6 +108,19 @@ describe("Volumes", function() {
         { name: "foo", host: "hostpath" }
       ]);
     });
+    it("handles LOCAL_PERSISTENT type", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
+      batch = batch.add(
+        new Transaction(["volumeMounts", 0, "type"], "LOCAL_PERSISTENT")
+      );
+      batch = batch.add(new Transaction(["volumeMounts", 0, "size"], "1"));
+
+      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+        { name: "foo", persistent: { size: 1 } }
+      ]);
+    });
   });
 
   describe("#FormReducer", function() {
@@ -178,6 +191,19 @@ describe("Volumes", function() {
           name: "bar",
           mountPath: ["barfoo"]
         }
+      ]);
+    });
+    it("handles LOCAL_PERSISTENT type", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
+      batch = batch.add(
+        new Transaction(["volumeMounts", 0, "type"], "LOCAL_PERSISTENT")
+      );
+      batch = batch.add(new Transaction(["volumeMounts", 0, "size"], 1));
+
+      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+        { name: "foo", size: 1, type: "LOCAL_PERSISTENT", mountPath: [] }
       ]);
     });
   });
@@ -307,6 +333,40 @@ describe("Volumes", function() {
             {
               name: "unknown volume",
               unknownField: "foo"
+            }
+          ]
+        })
+      ).toEqual(expectedObject);
+    });
+    it("parses a persistent volume config", function() {
+      const expectedObject = [
+        {
+          type: ADD_ITEM,
+          value: { name: "foo", persistent: { size: 1 } },
+          path: ["volumeMounts"]
+        },
+        { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
+        {
+          type: SET,
+          value: "LOCAL_PERSISTENT",
+          path: ["volumeMounts", 0, "type"]
+        },
+        {
+          type: SET,
+          value: { size: 1 },
+          path: ["volumeMounts", 0, "persistent"]
+        }
+      ];
+
+      expect(
+        VolumeMounts.JSONParser({
+          containers: [],
+          volumes: [
+            {
+              name: "foo",
+              persistent: {
+                size: 1
+              }
             }
           ]
         })

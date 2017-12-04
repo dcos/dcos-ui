@@ -28,7 +28,10 @@ module.exports = {
     const [base, index, name] = path;
 
     if (this.hostPaths == null) {
-      this.hostPaths = {};
+      this.hostPaths = [];
+    }
+    if (this.localSize == null) {
+      this.localSize = [];
     }
 
     if (base !== "volumeMounts") {
@@ -43,14 +46,37 @@ module.exports = {
         break;
       case REMOVE_ITEM:
         newState = newState.filter((item, index) => index !== value);
+        this.hostPaths = this.hostPaths.filter(
+          (item, index) => index !== value
+        );
+        this.localSize = this.localSize.filter(
+          (item, index) => index !== value
+        );
         break;
     }
 
     if (name === "type" && value !== VolumeConstants.type.host) {
       delete newState[index].host;
     }
+    if (name === "type" && value !== VolumeConstants.type.localPersistent) {
+      delete newState[index].persistent;
+    }
     if (name === "type" && value === VolumeConstants.type.host) {
       newState[index].host = this.hostPaths[index];
+    }
+    if (name === "type" && value === VolumeConstants.type.localPersistent) {
+      newState[index].persistent = { size: this.localSize[index] };
+    }
+    if (name === "size") {
+      this.localSize[index] = value;
+      newState[index].persistent.size = parseInt(value, 10);
+    }
+    if (name === "persistent") {
+      if (value.size != null) {
+        this.localSize[index] = value.size;
+      }
+
+      newState[index].persistent = value;
     }
     if (name === "name") {
       newState[index].name = value;
@@ -106,6 +132,19 @@ module.exports = {
             new Transaction(
               ["volumeMounts", volumeIndexMap[volume.name], "hostPath"],
               volume.host
+            )
+          ];
+        }
+
+        if (volume.persistent != null) {
+          volumeTypeTransactions = [
+            new Transaction(
+              ["volumeMounts", volumeIndexMap[volume.name], "type"],
+              VolumeConstants.type.localPersistent
+            ),
+            new Transaction(
+              ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
+              volume.persistent
             )
           ];
         }
@@ -200,6 +239,12 @@ module.exports = {
     }
     if (name === "name") {
       newState[index].name = String(value);
+    }
+    if (name === "size") {
+      newState[index].size = parseFloat(value);
+    }
+    if (name === "persistent") {
+      newState[index].size = parseFloat(value.size);
     }
     if (name === "mountPath") {
       newState[index].mountPath[secondIndex] = String(value);
