@@ -8,7 +8,7 @@ import {
   MESOS_HTTPS
 } from "../../../constants/HealthCheckProtocols";
 
-function getMapHealthChecks(docker) {
+function getMapHealthChecks(runtime) {
   return function mapHealthChecks(item) {
     const newItem = Util.omit(item, [
       "path",
@@ -28,7 +28,7 @@ function getMapHealthChecks(docker) {
 
       if (item.protocol.toUpperCase() !== COMMAND) {
         newItem.path = item.path ? item.path : null;
-        if (item.ipProtocol && docker.type === "DOCKER") {
+        if (item.ipProtocol && runtime === "DOCKER") {
           newItem.ipProtocol = item.ipProtocol ? item.ipProtocol : null;
         }
       }
@@ -44,11 +44,11 @@ module.exports = {
       return state;
     }
 
-    if (this.docker == null) {
+    if (this.runtime == null) {
       // `this` is a context which is given to every reducer so it could
       // cache information.
       // In this case we are caching the values for `container.type`
-      this.docker = { type: "DOCKER" };
+      this.runtime = "DOCKER";
     }
 
     if (this.healthChecks == null) {
@@ -63,7 +63,7 @@ module.exports = {
     const joinedPath = path.join(".");
 
     if (joinedPath === "container.type") {
-      this.docker.type = value;
+      this.runtime = value;
     }
     if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
       this.healthChecks = this.healthChecks
@@ -96,7 +96,7 @@ module.exports = {
             break;
         }
 
-        return this.healthChecks.map(getMapHealthChecks(this.docker));
+        return this.healthChecks.map(getMapHealthChecks(this.runtime));
       }
 
       const index = joinedPath.match(/\d+/)[0];
@@ -147,7 +147,7 @@ module.exports = {
       }
     }
 
-    return this.healthChecks.map(getMapHealthChecks(this.docker));
+    return this.healthChecks.map(getMapHealthChecks(this.runtime));
   },
   JSONParser(state) {
     if (state.healthChecks == null) {
