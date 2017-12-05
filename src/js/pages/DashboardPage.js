@@ -49,7 +49,7 @@ const DashboardBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="graph" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="dashboard" breadcrumbs={crumbs} />;
 };
 
 var DashboardPage = React.createClass({
@@ -60,7 +60,7 @@ var DashboardPage = React.createClass({
   statics: {
     routeConfig: {
       label: "Dashboard",
-      icon: <Icon id="graph-inverse" size="small" family="product" />,
+      icon: <Icon id="dashboard-inverse" size="small" family="product" />,
       matches: /^\/dashboard/
     },
 
@@ -136,7 +136,7 @@ var DashboardPage = React.createClass({
     var componentCountWord = StringUtil.pluralize("Component", componentCount);
 
     return (
-      <Link to="/components" className="button button-rounded button-stroke">
+      <Link to="/components" className="button button-primary-link">
         {`View all ${componentCount} ${componentCountWord}`}
       </Link>
     );
@@ -153,7 +153,7 @@ var DashboardPage = React.createClass({
     }
 
     return (
-      <Link to="/services" className="button button-rounded button-stroke">
+      <Link to="/services" className="button button-primary-link">
         <FormattedMessage
           id="DASHBOARD.VIEW_ALL"
           values={{
@@ -166,9 +166,9 @@ var DashboardPage = React.createClass({
 
   getHeading(translationId) {
     return (
-      <h6 className="flush text-align-center">
+      <h3 className="flush text-align-center">
         <FormattedMessage id={translationId} />
-      </h6>
+      </h3>
     );
   },
 

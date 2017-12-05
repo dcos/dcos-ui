@@ -395,6 +395,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}
           leftButtonText="Cancel"
+          leftButtonClassName="button button-primary-link"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
           rightButtonText="Continue Rollback"
@@ -506,7 +507,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
     const footer = (
       <div className="text-align-center">
-        <button className="button" onClick={onClose}>Close</button>
+        <button className="button button-primary-link" onClick={onClose}>
+          Close
+        </button>
       </div>
     );
     const heading = (

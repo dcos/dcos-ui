@@ -856,7 +856,7 @@ class CreateServiceModal extends Component {
 
     return [
       {
-        className: "button-stroke",
+        className: "button-primary-link",
         clickHandler: this.handleGoBack,
         label
       }
@@ -896,6 +896,7 @@ class CreateServiceModal extends Component {
           open={this.state.isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
           leftButtonText="Cancel"
+          leftButtonClassName="button button-primary-link"
           leftButtonCallback={this.handleCloseConfirmModal}
           rightButtonText="Discard"
           rightButtonClassName="button button-danger"

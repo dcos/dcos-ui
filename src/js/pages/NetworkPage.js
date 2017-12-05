@@ -22,7 +22,7 @@ const NetworkingBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
 };
 
 class NetworkPage extends mixin(TabsMixin) {
@@ -69,7 +69,7 @@ NetworkPage.contextTypes = {
 
 NetworkPage.routeConfig = {
   label: "Networking",
-  icon: <Icon id="network-inverse" size="small" family="product" />,
+  icon: <Icon id="networking-inverse" size="small" family="product" />,
   matches: /^\/networking/
 };
 

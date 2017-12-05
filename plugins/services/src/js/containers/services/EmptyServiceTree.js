@@ -6,10 +6,10 @@ import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 const EmptyServiceTree = function({ onCreateGroup, onCreateService }) {
   const footer = (
     <div className="button-collection flush-bottom">
-      <button className="button button-stroke" onClick={onCreateGroup}>
-        Create Group
+      <button className="button button-primary-link" onClick={onCreateGroup}>
+        Create a Group
       </button>
-      <button className="button button-success" onClick={onCreateService}>
+      <button className="button button-primary" onClick={onCreateService}>
         Run a Service
       </button>
     </div>

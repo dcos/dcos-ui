@@ -20,7 +20,7 @@ describe("Add Repository Form Modal", function() {
 
   it("should display error if both fields aren't filled out", function() {
     cy
-      .get(".modal .modal-footer .button.button-success")
+      .get(".modal .modal-footer .button.button-primary")
       .contains("Add")
       .click();
 
@@ -37,7 +37,7 @@ describe("Add Repository Form Modal", function() {
 
   it("should display error if not a valid url", function() {
     cy
-      .get(".modal .modal-footer .button.button-success")
+      .get(".modal .modal-footer .button.button-primary")
       .contains("Add")
       .click();
 
@@ -57,7 +57,7 @@ describe("Add Repository Form Modal", function() {
       .get(".modal input")
       .eq(2)
       .type("0")
-      .get(".modal .modal-footer .button.button-success")
+      .get(".modal .modal-footer .button.button-primary")
       .contains("Add")
       .click();
 
@@ -68,7 +68,7 @@ describe("Add Repository Form Modal", function() {
       cy
         .get(".page-body-content")
         .contains("tr", "Here we go!")
-        .find(".button.button-link.button-danger")
+        .find(".button.button-primary-link.button-danger")
         .invoke("show")
         .click({ force: true });
       cy
@@ -100,7 +100,7 @@ describe("Add Repository Form Modal", function() {
       .eq(2)
       .type("0");
     cy
-      .get(".modal .modal-footer .button.button-success")
+      .get(".modal .modal-footer .button.button-primary")
       .contains("Add")
       .click();
 
@@ -127,7 +127,7 @@ describe("Add Repository Form Modal", function() {
       .eq(2)
       .type("0");
     cy
-      .get(".modal .modal-footer .button.button-success")
+      .get(".modal .modal-footer .button.button-primary")
       .contains("Add")
       .click();
 

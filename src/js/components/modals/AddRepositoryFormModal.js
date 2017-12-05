@@ -112,13 +112,13 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   getButtonDefinition() {
     return [
       {
-        text: "Close",
-        className: "button button-medium",
+        text: "Cancel",
+        className: "button button-primary-link",
         isClose: true
       },
       {
-        text: "Add",
-        className: "button button-success button-medium",
+        text: "Add Repository",
+        className: "button button-primary",
         isSubmit: true
       }
     ];

@@ -151,15 +151,13 @@ class SidebarHeader extends mixin(StoreMixin) {
     ];
 
     return (
-      <header className="header flex-item-shrink-0">
-        <MountService.Mount
-          type="Sidebar:UserAccountDropdown"
-          clusterName={this.getClusterName()}
-          limit={1}
-          menuItems={menuItems}
-          onUpdate={this.props.onUpdate}
-        />
-      </header>
+      <MountService.Mount
+        type="Sidebar:UserAccountDropdown"
+        clusterName={this.getClusterName()}
+        limit={1}
+        menuItems={menuItems}
+        onUpdate={this.props.onUpdate}
+      />
     );
   }
 }
