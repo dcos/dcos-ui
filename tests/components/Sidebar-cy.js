@@ -129,27 +129,6 @@ describe("Sidebar", function() {
         });
       });
     });
-
-    /*
-    TODO: When Header Dropdown Menu has been attached to new click target
-    uncomment and adjust this test.
-    SEE: https://jira.mesosphere.com/browse/DCOS-18942
-    */
-    // it.only("shows the IP address of the cluster with a copy link", function() {
-    //   cy.get(".header-dropdown").click();
-    //   cy
-    //     .get(".user-account-dropdown-menu li")
-    //     .contains("52.34.108.176")
-    //     .closest("li")
-    //     .as("ipAddressMenuItem");
-    //
-    //   cy.get("@ipAddressMenuItem").contains("Copy").should(function($copyLink) {
-    //     expect($copyLink.get().length).to.equal(1);
-    //     /* eslint-disable no-unused-expressions */
-    //     expect($copyLink).to.not.be.visible;
-    //     /* eslint-enable no-unused-expressions */
-    //   });
-    // });
   });
 
   context("Sidebar Docking", function() {
