@@ -67,6 +67,7 @@ import NetworkingFormSection from "../forms/NetworkingFormSection";
 import ServiceErrorTypes from "../../constants/ServiceErrorTypes";
 import VolumesFormSection from "../forms/VolumesFormSection";
 import VipLabelsValidators from "../../validators/VipLabelsValidators";
+import PlacementsValidators from "../../validators/PlacementsValidators";
 import { getBaseID, getServiceJSON } from "../../utils/ServiceUtil";
 
 const METHODS_TO_BIND = [
@@ -100,10 +101,15 @@ const APP_VALIDATORS = [
   MarathonAppValidators.validateConstraints,
   MarathonAppValidators.validateLabels,
   MarathonAppValidators.mustNotContainUris,
-  VipLabelsValidators.mustContainPort
+  VipLabelsValidators.mustContainPort,
+  PlacementsValidators.mustHaveUniqueOperatorField
 ];
 
-const POD_VALIDATORS = [PodValidators.Pod, VipLabelsValidators.mustContainPort];
+const POD_VALIDATORS = [
+  PodValidators.Pod,
+  VipLabelsValidators.mustContainPort,
+  PlacementsValidators.mustHaveUniqueOperatorField
+];
 
 class CreateServiceModal extends Component {
   constructor() {
