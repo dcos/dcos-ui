@@ -1,12 +1,12 @@
 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <linearGradient x1="50%" y1="3.49%" x2="50%" y2="97.401%" id="a">
-            <stop stop-color="#9351E5" stop-opacity=".2" offset="0%"/>
-            <stop stop-color="#9351E5" stop-opacity=".4" offset="100%"/>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
+            <stop stop-color="#9779FF" stop-opacity=".4" offset="0%"/>
+            <stop stop-color="#7D58FF" stop-opacity=".4" offset="100%"/>
         </linearGradient>
-        <linearGradient x1="50%" y1="96.106%" x2="50%" y2="6.251%" id="b">
-            <stop stop-color="#9351E5" offset="0%"/>
-            <stop stop-color="#9351E5" stop-opacity=".6" offset="100%"/>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="b">
+            <stop stop-color="#9779FF" offset="0%"/>
+            <stop stop-color="#7D58FF" offset="100%"/>
         </linearGradient>
     </defs>
     <g fill="none" fill-rule="evenodd">
