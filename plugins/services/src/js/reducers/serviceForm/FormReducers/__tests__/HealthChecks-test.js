@@ -175,5 +175,42 @@ describe("HealthChecks", function() {
         }
       ]);
     });
+
+    it("sets ipProtocol to IPv6 if set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+
+      expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTP",
+          ipProtocol: "IPv6"
+        }
+      ]);
+    });
+
+    it("sets https ipProtocol to IPv6 if set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+      );
+
+      expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTPS",
+          ipProtocol: "IPv6"
+        }
+      ]);
+    });
   });
 });

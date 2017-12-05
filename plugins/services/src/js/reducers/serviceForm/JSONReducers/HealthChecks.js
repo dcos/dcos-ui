@@ -8,29 +8,47 @@ import {
   MESOS_HTTPS
 } from "../../../constants/HealthCheckProtocols";
 
-function mapHealthChecks(item) {
-  const newItem = Util.omit(item, ["path", "command", "protocol", "https"]);
+function getMapHealthChecks(runtime) {
+  return function mapHealthChecks(item) {
+    const newItem = Util.omit(item, [
+      "path",
+      "command",
+      "protocol",
+      "https",
+      "ipProtocol"
+    ]);
 
-  if (item.protocol != null) {
-    newItem.protocol = item.protocol;
-    if (item.protocol.toUpperCase() === COMMAND && item.command != null) {
-      newItem.command = {
-        value: item.command
-      };
+    if (item.protocol != null) {
+      newItem.protocol = item.protocol;
+      if (item.protocol.toUpperCase() === COMMAND && item.command != null) {
+        newItem.command = {
+          value: item.command
+        };
+      }
+
+      if (item.protocol.toUpperCase() !== COMMAND) {
+        newItem.path = item.path ? item.path : null;
+        if (item.ipProtocol && runtime === "DOCKER") {
+          newItem.ipProtocol = item.ipProtocol ? item.ipProtocol : null;
+        }
+      }
     }
 
-    if (item.protocol.toUpperCase() !== COMMAND) {
-      newItem.path = item.path;
-    }
-  }
-
-  return newItem;
+    return newItem;
+  };
 }
 
 module.exports = {
   JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;
+    }
+
+    if (this.runtime == null) {
+      // `this` is a context which is given to every reducer so it could
+      // cache information.
+      // In this case we are caching the values for `container.type`
+      this.runtime = "DOCKER";
     }
 
     if (this.healthChecks == null) {
@@ -44,6 +62,9 @@ module.exports = {
 
     const joinedPath = path.join(".");
 
+    if (joinedPath === "container.type") {
+      this.runtime = value;
+    }
     if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
       this.healthChecks = this.healthChecks
         .map(item => {
@@ -75,7 +96,7 @@ module.exports = {
             break;
         }
 
-        return this.healthChecks.map(mapHealthChecks);
+        return this.healthChecks.map(getMapHealthChecks(this.runtime));
       }
 
       const index = joinedPath.match(/\d+/)[0];
@@ -91,6 +112,12 @@ module.exports = {
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           this.healthChecks[index].command = value;
+        }
+        if (`healthChecks.${index}.ipProtocol` === joinedPath) {
+          this.healthChecks[index].ipProtocol = value === true ||
+            value === "IPv6"
+            ? "IPv6"
+            : "IPv4";
         }
         if (`healthChecks.${index}.path` === joinedPath) {
           this.healthChecks[index].path = value;
@@ -120,7 +147,7 @@ module.exports = {
       }
     }
 
-    return this.healthChecks.map(mapHealthChecks);
+    return this.healthChecks.map(getMapHealthChecks(this.runtime));
   },
   JSONParser(state) {
     if (state.healthChecks == null) {
@@ -163,6 +190,7 @@ module.exports = {
       [
         "path",
         "portIndex",
+        "ipProtocol",
         "gracePeriodSeconds",
         "intervalSeconds",
         "timeoutSeconds",
