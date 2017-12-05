@@ -8,6 +8,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import ApplicationSpec from "../../structs/ApplicationSpec";
 import ServiceConfigDisplay
@@ -118,17 +119,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       );
     }
 
-    return [
-      <button
-        className="button button-primary-link"
-        disabled={isSDKService(service)}
-        key="version-button-edit"
-        onClick={() => this.handleEditButtonClick()}
-      >
-        Edit
-      </button>,
-      applyButton
-    ];
+    return [applyButton];
   }
 
   getVersionsDropdown() {
@@ -215,9 +206,46 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       );
     }
 
+    const fileName = "config.json";
+    const configString = JSON.stringify(config, null, 2);
+
     return (
       <div className="container">
-        {this.getVersionsActions()}
+        <div className="row">
+          <div className="column-6">
+            {this.getVersionsActions()}
+          </div>
+          <div className="column-6 text-align-right">
+            <button
+              className="button button-primary-link button-inline-flex"
+              onClick={this.handleEditButtonClick}
+            >
+              <Icon id="pencil" size="mini" family="system" />
+              <span className="form-group-heading-content">
+                {"Edit Config"}
+              </span>
+            </button>
+            <a
+              className="button button-primary-link flush-right"
+              download={fileName}
+              onClick={RouterUtil.triggerIEDownload.bind(
+                null,
+                fileName,
+                configString
+              )}
+              href={RouterUtil.getResourceDownloadPath(
+                "attachment/json",
+                fileName,
+                configString
+              )}
+            >
+              <Icon id="download" size="mini" family="system" />
+              <span className="form-group-heading-content">
+                {"Download Config"}
+              </span>
+            </a>
+          </div>
+        </div>
         <ServiceConfigDisplay appConfig={config} errors={errors} />
       </div>
     );
