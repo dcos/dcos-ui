@@ -7,6 +7,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
+import NodesList from "#SRC/js/structs/NodesList";
 
 import NodesGridView from "../../../components/NodesGridView";
 
@@ -19,7 +20,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     super(...arguments);
 
     this.state = {
-      filteredNodes: [],
+      filteredNodes: new NodesList([]),
       filters: { health: "all", name: "", service: null },
       hasLoadingError: false,
       hiddenServices: [],
@@ -49,7 +50,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   componentWillReceiveProps(props) {
-    const { services, location: { query } } = props;
+    const { services, location: { query }, hosts } = props;
     const ids = services.map(function(service) {
       return service.id;
     });
@@ -66,7 +67,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
       name: query.searchString || "",
       service: query.filterService || null
     };
-    this.setFilters(filters);
+    this.setFilters(hosts, filters);
   }
 
   computeServiceColors(services) {
@@ -93,15 +94,16 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   getFilteredNodes(filters = this.state.filters) {
-    return CompositeState.getNodesList().filter(filters).getItems();
+    return CompositeState.getNodesList().filter(filters);
   }
 
-  setFilters(newFilters, callback) {
+  // TODO: remove set Filters and only filter at the top level;
+  setFilters(nodes, newFilters, callback) {
     if (newFilters.service === "") {
       newFilters.service = null;
     }
     const filters = Object.assign({}, this.state.filters, newFilters);
-    const filteredNodes = this.getFilteredNodes(filters);
+    const filteredNodes = nodes.filter(filters);
 
     this.setState({ filters, filteredNodes }, callback);
   }
