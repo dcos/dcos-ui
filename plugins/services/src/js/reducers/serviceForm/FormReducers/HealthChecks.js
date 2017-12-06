@@ -65,9 +65,12 @@ module.exports = {
           state[index].command = value;
         }
         if (`healthChecks.${index}.ipProtocol` === joinedPath) {
-          state[index].ipProtocol = value === true || value === "IPv6"
-            ? "IPv6"
-            : "IPv4";
+          state[index].ipProtocolCheckbox = value === "IPv6";
+          state[index].ipProtocol = value;
+        }
+        if (`healthChecks.${index}.ipProtocolCheckbox` === joinedPath) {
+          state[index].ipProtocolCheckbox = value;
+          state[index].ipProtocol = value === true ? "IPv6" : "IPv4";
         }
         if (`healthChecks.${index}.path` === joinedPath) {
           state[index].path = value;
