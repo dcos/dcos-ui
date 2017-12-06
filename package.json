@@ -20,14 +20,17 @@
     "node": "4.4.x",
     "npm": "3.9.x"
   },
-  "browserslist": ["last 2 versions", "ie 11"],
+  "browserslist": [
+    "last 2 versions",
+    "ie 11"
+  ],
   "config": {
     "port": 4200,
     "externalplugins": ""
   },
   "dependencies": {
-    "@dcos/mesos-client": "0.1.8",
     "@dcos/http-service": "0.2.0",
+    "@dcos/mesos-client": "0.1.8",
     "babel-polyfill": "6.23.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
@@ -60,7 +63,7 @@
     "react-redux": "4.4.6",
     "react-router": "2.8.1",
     "react-transition-group": "1.2.1",
-    "reactjs-components": "0.17.1",
+    "reactjs-components": "0.18.0",
     "reactjs-mixin": "0.0.2",
     "redux": "3.3.1",
     "reflect-metadata": "0.1.10",
@@ -85,7 +88,7 @@
     "conventional-changelog-lint-config-angular": "0.4.1",
     "css-loader": "0.23.1",
     "eslint": "3.15.0",
-    "eslint-config-dcos": "github:dcos/javascript#v0.2.1",
+    "eslint-config-dcos": "0.2.0",
     "eslint-plugin-compat": "1.0.2",
     "eslint-plugin-destructuring": "2.1.0",
     "eslint-plugin-import": "1.13.0",
@@ -136,36 +139,25 @@
   "scripts": {
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist",
-    "shrinkwrap":
-      "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
+    "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
-    "build-assets":
-      "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
-    "build":
-      "npm run lint && npm test && npm run build-assets && npm run validate-build",
-    "build-with-external-plugins":
-      "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
+    "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
+    "build": "npm run lint && npm test && npm run build-assets && npm run validate-build",
+    "build-with-external-plugins": "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
     "lint": "npm run stylelint && npm run eslint",
-    "eslint":
-      "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/js,plugins,packages}/**/*.js\"; fi ; eslint --quiet ${opts}' 0",
-    "stylelint":
-      "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
+    "eslint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/js,plugins,packages}/**/*.js\"; fi ; eslint --quiet ${opts}' 0",
+    "stylelint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
     "conventional-changelog-lint": "conventional-changelog-lint",
-    "lint-plugins":
-      "PLUGINS=$npm_config_externalplugins; npm run eslint -- \"$PLUGINS/**/*.js\" && npm run stylelint -- \"$PLUGINS/**/*.less\"",
+    "lint-plugins": "PLUGINS=$npm_config_externalplugins; npm run eslint -- \"$PLUGINS/**/*.js\" && npm run stylelint -- \"$PLUGINS/**/*.less\"",
     "prebuild": "./scripts/validate-tests",
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
-    "scaffold":
-      "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
-    "start":
-      "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
-    "test":
-      "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
+    "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
+    "start": "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
+    "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
     "test:watch": "npm test -- --watch",
-    "testing":
-      "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
+    "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "validate-build": "scripts/validate-build dist/*.js"
   },
   "jest-webpack-alias": {
