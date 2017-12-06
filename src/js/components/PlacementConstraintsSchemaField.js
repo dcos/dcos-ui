@@ -6,6 +6,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import PlacementConstraintsPartial
   from "#SRC/js/components/PlacementConstraintsPartial";
 import BatchContainer from "#SRC/js/components/BatchContainer";
+import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import {
   JSONReducer,
   JSONParser
@@ -16,6 +17,8 @@ import {
 } from "#PLUGINS/services/src/js/reducers/serviceForm/FormReducers/Constraints";
 import CreateServiceModalFormUtil
   from "#PLUGINS/services/src/js/utils/CreateServiceModalFormUtil";
+import MarathonAppValidators
+  from "#PLUGINS/services/src/js/validators/MarathonAppValidators";
 
 const jsonReducer = combineReducers({ constraints: JSONReducer });
 
@@ -81,6 +84,11 @@ export default class PlacementConstraintsSchemaField extends Component {
     const { batch } = this.state;
 
     const data = { constraints: batch.reduce(FormReducer) };
+    const errors = DataValidatorUtil.errorArrayToMap(
+      MarathonAppValidators.validateConstraints(
+        batch.reduce(combineReducers({ constraints: JSONReducer }))
+      )
+    );
 
     return (
       <div>
@@ -88,7 +96,7 @@ export default class PlacementConstraintsSchemaField extends Component {
           {label}
         </FieldLabel>
         <BatchContainer batch={batch} onChange={this.handleBatchChange}>
-          <PlacementConstraintsPartial data={data} />
+          <PlacementConstraintsPartial errors={errors} data={data} />
         </BatchContainer>
         <FieldError>{errorMessage}</FieldError>
       </div>
