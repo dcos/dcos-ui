@@ -114,8 +114,10 @@ module.exports = {
           this.healthChecks[index].command = value;
         }
         if (`healthChecks.${index}.ipProtocol` === joinedPath) {
-          this.healthChecks[index].ipProtocol = value === true ||
-            value === "IPv6"
+          this.healthChecks[index].ipProtocol = value;
+        }
+        if (`healthChecks.${index}.ipProtocolCheckbox` === joinedPath) {
+          this.healthChecks[index].ipProtocol = value === true
             ? "IPv6"
             : "IPv4";
         }

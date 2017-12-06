@@ -183,13 +183,14 @@ describe("HealthChecks", function() {
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTP",
-          ipProtocol: "IPv6"
+          ipProtocol: "IPv6",
+          ipProtocolCheckbox: true
         }
       ]);
     });
@@ -202,13 +203,14 @@ describe("HealthChecks", function() {
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTPS",
-          ipProtocol: "IPv6"
+          ipProtocol: "IPv6",
+          ipProtocolCheckbox: true
         }
       ]);
     });

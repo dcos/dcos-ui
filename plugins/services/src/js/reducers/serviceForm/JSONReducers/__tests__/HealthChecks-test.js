@@ -172,7 +172,7 @@ describe("HealthChecks", function() {
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
@@ -197,7 +197,7 @@ describe("HealthChecks", function() {
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
@@ -221,7 +221,7 @@ describe("HealthChecks", function() {
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
@@ -236,19 +236,16 @@ describe("HealthChecks", function() {
     it("sets IPv4", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
-      batch = batch.add(
-        new Transaction(["container", "docker", "image"], "alpine")
-      );
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], false)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], false)
       );
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
@@ -260,19 +257,37 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets https ipProtocol to IPv6 if docker set", function() {
+    it("sets exact ipProtocol value", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
-      batch = batch.add(
-        new Transaction(["container", "docker", "image"], "alpine")
-      );
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocol"], "exact")
+      );
+
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
+        {
+          protocol: "MESOS_HTTP",
+          path: "/test",
+          ipProtocol: "exact"
+        }
+      ]);
+    });
+
+    it("sets https ipProtocol to IPv6 if docker set", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
 
@@ -297,7 +312,7 @@ describe("HealthChecks", function() {
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
+        new Transaction(["healthChecks", 0, "ipProtocolCheckbox"], true)
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
       batch = batch.add(new Transaction(["container", "type"], "MESOS"));

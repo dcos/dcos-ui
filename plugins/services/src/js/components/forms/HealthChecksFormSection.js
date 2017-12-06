@@ -267,10 +267,9 @@ class HealthChecksFormSection extends Component {
       <FormGroup showError={false} className="column-12">
         <FieldLabel>
           <FieldInput
-            checked={healthCheck.ipProtocol === "IPv6"}
-            name={`healthChecks.${key}.ipProtocol`}
+            checked={healthCheck.ipProtocolCheckbox === true}
+            name={`healthChecks.${key}.ipProtocolCheckbox`}
             type="checkbox"
-            value="IPv6"
           />
           {"Make "}
           <span className="truecase">IPv6</span>
