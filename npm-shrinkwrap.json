@@ -306,8 +306,7 @@
         "chokidar": {
           "version": "1.6.1",
           "from": "chokidar@>=1.6.1 <2.0.0",
-          "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.6.1.tgz",
-          "dependencies": {}
+          "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.6.1.tgz"
         },
         "core-js": {
           "version": "2.4.1",
@@ -1939,9 +1938,9 @@
       "resolved": "https://registry.npmjs.org/closest/-/closest-0.0.1.tgz"
     },
     "cnvs": {
-      "version": "1.1.11",
-      "from": "cnvs@1.1.11",
-      "resolved": "https://registry.npmjs.org/cnvs/-/cnvs-1.1.11.tgz"
+      "version": "1.1.14",
+      "from": "cnvs@1.1.14",
+      "resolved": "https://registry.npmjs.org/cnvs/-/cnvs-1.1.14.tgz"
     },
     "co": {
       "version": "3.1.0",
@@ -6891,9 +6890,9 @@
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.6.2.tgz"
     },
     "natives": {
-      "version": "1.1.0",
+      "version": "1.1.1",
       "from": "natives@>=1.1.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/natives/-/natives-1.1.0.tgz"
+      "resolved": "https://registry.npmjs.org/natives/-/natives-1.1.1.tgz"
     },
     "natural-compare": {
       "version": "1.4.0",
@@ -8177,9 +8176,9 @@
       }
     },
     "reactjs-components": {
-      "version": "0.17.1",
-      "from": "reactjs-components@0.17.1",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.17.1.tgz"
+      "version": "0.18.0",
+      "from": "reactjs-components@0.18.0",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.18.0.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",
@@ -8952,9 +8951,9 @@
       }
     },
     "stream-exhaust": {
-      "version": "1.0.1",
+      "version": "1.0.2",
       "from": "stream-exhaust@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/stream-exhaust/-/stream-exhaust-1.0.1.tgz"
+      "resolved": "https://registry.npmjs.org/stream-exhaust/-/stream-exhaust-1.0.2.tgz"
     },
     "stream-http": {
       "version": "2.6.3",
