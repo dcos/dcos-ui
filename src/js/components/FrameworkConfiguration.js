@@ -11,16 +11,15 @@ import FullScreenModalHeaderTitle
 import FullScreenModalHeaderSubTitle
   from "#SRC/js/components/modals/FullScreenModalHeaderSubTitle";
 import ToggleButton from "#SRC/js/components/ToggleButton";
-import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
-import Icon from "#SRC/js/components/Icon";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
-import RouterUtil from "#SRC/js/utils/RouterUtil";
 import FrameworkConfigurationForm
   from "#SRC/js/components/FrameworkConfigurationForm";
+import FrameworkConfigurationReviewScreen
+  from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 
 const METHODS_TO_BIND = [
   "handleJSONToggle",
@@ -74,23 +73,6 @@ class FrameworkConfiguration extends Component {
     const { activeTab, focusField } = this.getFirstTabAndField();
 
     this.setState({ reviewActive: false, activeTab, focusField });
-  }
-
-  getHashMapRenderKeys(formData) {
-    if (!Util.isObject(formData)) {
-      return {};
-    }
-
-    let renderKeys = {};
-    Object.keys(formData).forEach(key => {
-      renderKeys[key] = StringUtil.capitalizeEveryWord(key);
-      renderKeys = Object.assign(
-        renderKeys,
-        this.getHashMapRenderKeys(formData[key])
-      );
-    });
-
-    return renderKeys;
   }
 
   getFirstTabAndField() {
@@ -237,11 +219,6 @@ class FrameworkConfiguration extends Component {
   getReviewScreen() {
     const { deployErrors, isInitialDeploy, formData } = this.props;
 
-    const fileName = "config.json";
-    const configString = JSON.stringify(formData, null, 2);
-
-    const renderKeys = this.getHashMapRenderKeys(formData);
-
     let warningMessage = null;
     if (isInitialDeploy) {
       warningMessage = this.getWarningMessage();
@@ -257,46 +234,10 @@ class FrameworkConfiguration extends Component {
         <div className="container container-wide">
           {errorsAlert}
           {warningMessage}
-          <div className="row">
-            <div className="column-4">
-              <h1 className="flush-top">Configuration</h1>
-            </div>
-            <div className="column-8 text-align-right">
-              <button
-                className="button button-primary-link button-inline-flex"
-                onClick={this.handleEditConfigurationButtonClick}
-              >
-                <Icon id="pencil" size="mini" family="system" />
-                <span className="form-group-heading-content">
-                  {"Edit Config"}
-                </span>
-              </button>
-              <a
-                className="button button-primary-link flush-right"
-                download={fileName}
-                onClick={RouterUtil.triggerIEDownload.bind(
-                  null,
-                  fileName,
-                  configString
-                )}
-                href={RouterUtil.getResourceDownloadPath(
-                  "attachment/json",
-                  fileName,
-                  configString
-                )}
-              >
-                <Icon id="download" size="mini" family="system" />
-                <span className="form-group-heading-content">
-                  {"Download Config"}
-                </span>
-              </a>
-            </div>
-          </div>
-          <HashMapDisplay
-            hash={formData}
-            renderKeys={renderKeys}
-            headlineClassName={"text-capitalize"}
-            emptyValue={"\u2014"}
+          <FrameworkConfigurationReviewScreen
+            frameworkData={formData}
+            title={"Configuration"}
+            onEditClick={this.handleEditConfigurationButtonClick}
           />
         </div>
       </div>

@@ -108,33 +108,10 @@ describe("Service Versions", function() {
         cy.visitUrl({
           url: "/services/detail/%2Fservices%2Fsdk-sleep/configuration"
         });
-
-        cy.get(".services-version-select button").as("dropdown");
       });
 
-      it("disables edit and apply buttons for sdk service", function() {
-        cy
-          .get("@dropdown")
-          .get(".button span")
-          .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
-          .parent()
-          .click();
-
-        cy
-          .get("@dropdown")
-          .get(".dropdown-menu-list ul li")
-          .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString())
-          .click();
-
-        cy
-          .get(".page-body-content .button")
-          .contains("Edit")
-          .should("have.attr", "disabled");
-
-        cy
-          .get(".page-body-content .button")
-          .contains("Apply")
-          .should("have.attr", "disabled");
+      it("does not show version selection for sdk service", function() {
+        cy.get(".services-version-select button").should("not.exist");
       });
     });
   });
