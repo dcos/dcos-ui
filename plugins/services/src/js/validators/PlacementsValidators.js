@@ -3,15 +3,17 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 import { PROP_MISSING_ONE, SYNTAX_ERROR } from "../constants/ServiceErrorTypes";
 
-function checkDuplicateOperatorField(constraints, pathPrefix) {
-  if (!constraints || constraints.length === 0) {
+function checkDuplicateOperatorField(constraints) {
+  if (!constraints || ValidatorUtil.isEmpty(constraints)) {
     return [];
   }
 
   const uniques = [];
   const duplicates = [];
   constraints.forEach(function(item, index) {
-    item = !pathPrefix ? { fieldName: item[0], operator: item[1] } : item;
+    item = "operator" in item
+      ? item
+      : { fieldName: item[0], operator: item[1] };
 
     const isPresent = uniques.filter(function(elem) {
       return (
@@ -31,7 +33,7 @@ function checkDuplicateOperatorField(constraints, pathPrefix) {
 
   return duplicates.map(function(duplicate) {
     return {
-      path: pathPrefix.concat(["constraints", duplicate.index, "fieldName"]),
+      path: ["constraints", duplicate.index, "fieldName"],
       message: "Duplicate operator/ field set"
     };
   });
@@ -40,17 +42,15 @@ function checkDuplicateOperatorField(constraints, pathPrefix) {
 const PlacementsValidators = {
   mustHaveUniqueOperatorField(app) {
     let constraints = findNestedPropertyInObject(app, "constraints");
-    let pathPrefix = [];
 
     if (ValidatorUtil.isEmpty(constraints)) {
       constraints = findNestedPropertyInObject(
         app,
         "scheduling.placement.constraints"
       );
-      pathPrefix = ["scheduling", "placement"];
     }
 
-    return checkDuplicateOperatorField(constraints, pathPrefix);
+    return checkDuplicateOperatorField(constraints);
   },
   validateConstraints(constraints) {
     if (constraints != null && !Array.isArray(constraints)) {
