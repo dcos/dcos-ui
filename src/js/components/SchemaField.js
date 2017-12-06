@@ -270,6 +270,7 @@ class SchemaField extends Component {
       return (
         <MountService.Mount
           type={`SchemaField:${schema.media.type}`}
+          limit={1}
           schema={schema}
           errorMessage={errorMessage}
           autofocus={autofocus}
