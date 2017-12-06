@@ -52,7 +52,7 @@ export default class PlacementConstraintsSchemaField extends Component {
 
     let json;
     try {
-      json = JSON.parse(formData);
+      json = JSON.parse(formData.replace(/\\"/g, '"'));
     } catch (error) {
       return this.state.batch || new Batch();
     }
@@ -67,7 +67,7 @@ export default class PlacementConstraintsSchemaField extends Component {
   handleBatchChange(batch) {
     const { formData, onChange } = this.props.fieldProps;
     const newJson = batch.reduce(jsonReducer, []);
-    const newData = JSON.stringify(newJson.constraints);
+    const newData = JSON.stringify(newJson.constraints).replace(/"/g, '\\"');
 
     if (newData !== formData) {
       onChange(newData);
