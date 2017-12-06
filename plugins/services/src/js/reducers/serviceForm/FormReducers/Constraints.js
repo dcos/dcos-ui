@@ -21,18 +21,21 @@ function processTransaction(state, { type, path, value }) {
 
     newState.push(defaultValue);
   }
+
   if (type === REMOVE_ITEM) {
     newState = newState.filter((item, index) => {
       return index !== value;
     });
   }
+
   if (type === SET && name === "type") {
     newState[index].type = value;
   }
+
   if (
     type === SET &&
     CONSTRAINT_FIELDS.includes(name) &&
-    !requiresEmptyValue(newState[index].operator)
+    !(requiresEmptyValue(newState[index].operator) && name === "value")
   ) {
     newState[index][name] = value;
   }

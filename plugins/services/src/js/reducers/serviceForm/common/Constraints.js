@@ -26,7 +26,7 @@ function processTransaction(state, { type, path, value }) {
   if (
     type === SET &&
     CONSTRAINT_FIELDS.includes(name) &&
-    !requiresEmptyValue(newState[index].operator)
+    !(requiresEmptyValue(newState[index].operator) && name === "value")
   ) {
     newState[index][name] = value;
   }

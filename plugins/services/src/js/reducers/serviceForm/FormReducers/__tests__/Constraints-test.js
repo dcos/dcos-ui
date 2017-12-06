@@ -39,5 +39,38 @@ describe("Constraints", function() {
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), {})).toEqual({});
     });
+
+    it("add unique constraint", function() {
+      const batch = new Batch([
+        new Transaction(["constraints"], null, ADD_ITEM),
+        new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
+        new Transaction(["constraints", 0, "fieldName"], "HOSTNAME", SET)
+      ]);
+
+      expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([
+        {
+          fieldName: "HOSTNAME",
+          operator: "UNIQUE",
+          value: null
+        }
+      ]);
+    });
+
+    it("changes operator value from UNIQUE to CLUSTER", function() {
+      const batch = new Batch([
+        new Transaction(["constraints"], null, ADD_ITEM),
+        new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
+        new Transaction(["constraints", 0, "fieldName"], "LOCAL", SET),
+        new Transaction(["constraints", 0, "operator"], "CLUSTER", SET)
+      ]);
+
+      expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([
+        {
+          fieldName: "LOCAL",
+          operator: "CLUSTER",
+          value: null
+        }
+      ]);
+    });
   });
 });
