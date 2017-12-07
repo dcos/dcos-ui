@@ -19,7 +19,8 @@ describe("Nodes Page", function() {
     });
 
     it("should only show healthy node", function() {
-      cy.get("@filterBar").contains("Healthy").click();
+      cy.get(".filter-input-text").as("filterInputText");
+      cy.get("@filterInputText").type("is:healthy");
 
       cy
         .get("@hostnames")
@@ -29,7 +30,8 @@ describe("Nodes Page", function() {
     });
 
     it("should only show unhealthy node", function() {
-      cy.get("@filterBar").contains("Unhealthy").click();
+      cy.get(".filter-input-text").as("filterInputText");
+      cy.get("@filterInputText").type("is:unhealthy");
 
       cy
         .get("@hostnames")
@@ -102,7 +104,8 @@ describe("Nodes Page", function() {
       it("should only show unhealthy node", function() {
         cy.get("@filterBar").contains("Filter by Service").click();
         cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
-        cy.get("@filterBar").contains("Healthy").click();
+        cy.get(".filter-input-text").as("filterInputText");
+        cy.get("@filterInputText").type("is:unhealthy");
 
         cy
           .get(".nodes-grid-dials")
