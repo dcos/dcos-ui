@@ -126,14 +126,12 @@ describe("frameworks parser", function() {
       const message = {
         type: "FRAMEWORK_REMOVED",
         framework_removed: {
-          framework: {
-            framework_info: {
-              id: {
-                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000"
-              },
-              name: "default",
-              user: "root"
-            }
+          framework_info: {
+            id: {
+              value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000"
+            },
+            name: "default",
+            user: "root"
           }
         }
       };

@@ -61,9 +61,9 @@ export function frameworkRemovedAction(state, message) {
     return state;
   }
 
-  const removedFramework = processFramework(
-    message.framework_removed.framework
-  );
+  const removedFramework = processFramework({
+    framework_info: message.framework_removed.framework_info
+  });
   const frameworks = state.frameworks.filter(
     framework => removedFramework.id !== framework.id
   );
