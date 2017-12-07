@@ -171,9 +171,7 @@ describe("HealthChecks", function() {
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
         {
@@ -196,9 +194,7 @@ describe("HealthChecks", function() {
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
         {
@@ -220,9 +216,7 @@ describe("HealthChecks", function() {
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
         {
@@ -244,12 +238,8 @@ describe("HealthChecks", function() {
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], false)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], false));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
         {
@@ -271,9 +261,7 @@ describe("HealthChecks", function() {
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
@@ -296,9 +284,7 @@ describe("HealthChecks", function() {
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
       batch = batch.add(new Transaction(["container", "type"], "MESOS"));
 
