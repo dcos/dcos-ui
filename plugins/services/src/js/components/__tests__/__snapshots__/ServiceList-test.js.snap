@@ -16,11 +16,16 @@ exports[`ServiceList #getServices returns services that have a value of two elem
       </span>
       <div
         className="dashboard-health-list-health-label">
-        <svg
-          className="icon icon-light-grey icon-mini">
-          <use
-            xlinkHref="#icon-system--circle-minus" />
-        </svg>
+        <div
+          className="tooltip-wrapper"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}>
+          <svg
+            className="icon icon-light-grey icon-mini">
+            <use
+              xlinkHref="#icon-system--circle-minus" />
+          </svg>
+        </div>
       </div>
     </li>
   </ul>

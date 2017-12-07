@@ -354,11 +354,18 @@ class ServicesTable extends React.Component {
   renderStatus(prop, service) {
     const serviceStatusText = service.getStatus();
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
+    const instancesCount = service.getInstancesCount();
+    const tasksRunning = service.getTaskCount();
+    const tooltipContent = `${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`;
 
     return (
       <div className="flex">
         <div className={`${serviceStatusClassSet} service-status-icon-wrapper`}>
-          <ServiceStatusIcon service={service} />
+          <ServiceStatusIcon
+            service={service}
+            showTooltip={true}
+            tooltipContent={tooltipContent}
+          />
           <span className="status-bar-text">{serviceStatusText}</span>
         </div>
         <div className="service-status-progressbar-wrapper">

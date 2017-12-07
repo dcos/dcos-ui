@@ -115,6 +115,26 @@ class ServiceStatusIcon extends Component {
     );
   }
 
+  renderIcon(iconState) {
+    const icon = <Icon {...iconState} size="mini" />;
+
+    if (this.props.showTooltip) {
+      return (
+        <Tooltip
+          interactive={true}
+          content={this.props.tooltipContent}
+          width={250}
+          wrapText={true}
+          wrapperClassName="tooltip-wrapper"
+        >
+          {icon}
+        </Tooltip>
+      );
+    }
+
+    return icon;
+  }
+
   render() {
     const { service } = this.props;
     const serviceStatus = service.getServiceStatus();
@@ -146,10 +166,7 @@ class ServiceStatusIcon extends Component {
     }
 
     if (service instanceof ServiceTree) {
-      return (
-        this.getServiceTreeWarning(service) ||
-        <Icon {...iconState} size="mini" />
-      );
+      return this.getServiceTreeWarning(service) || this.renderIcon(iconState);
     }
 
     // Display the declined offers warning if that's causing a delay.
@@ -162,21 +179,7 @@ class ServiceStatusIcon extends Component {
       return this.getUnableToLaunchWarning(service);
     }
 
-    if (this.props.showTooltip) {
-      return (
-        <Tooltip
-          interactive={true}
-          content={this.props.tooltipContent}
-          width={250}
-          wrapText={true}
-          wrapperClassName="tooltip-wrapper"
-        >
-          <Icon {...iconState} size="mini" />
-        </Tooltip>
-      );
-    }
-
-    return <Icon {...iconState} size="mini" />;
+    return this.renderIcon(iconState);
   }
 }
 
