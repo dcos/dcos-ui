@@ -15,6 +15,7 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
+              active: true,
               name: "marathon"
             }
           ],
@@ -198,6 +199,7 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
+              active: true,
               name: "marathon"
             }
           ],
@@ -235,6 +237,7 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
+              active: true,
               name: "marathon"
             }
           ],
@@ -258,6 +261,7 @@ describe("MesosStateStore", function() {
         return {
           frameworks: [
             {
+              active: true,
               name: "marathon"
             }
           ],
