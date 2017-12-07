@@ -361,8 +361,12 @@ describe("Service Form Modal", function() {
             const currentElementHeight = $elements[i].clientHeight;
 
             if (
-              currentElementWidth !== firstElementWidth ||
-              currentElementHeight !== firstElementHeight
+              !(currentElementWidth === firstElementWidth ||
+                currentElementWidth === firstElementWidth - 1 ||
+                currentElementWidth === firstElementWidth + 1) &&
+              !(currentElementHeight === firstElementHeight ||
+                currentElementHeight === firstElementHeight - 1 ||
+                currentElementHeight === firstElementHeight + 1)
             ) {
               isPanesSameSize = false;
             }
