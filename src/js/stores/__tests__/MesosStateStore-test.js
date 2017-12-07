@@ -46,11 +46,18 @@ describe("MesosStateStore", function() {
           frameworks: [
             {
               name: "marathon",
-              id: "marathon_1"
+              id: "marathon_1",
+              active: true
             },
             {
               name: "spark",
-              id: "spark_1"
+              id: "spark_0",
+              active: false
+            },
+            {
+              name: "spark",
+              id: "spark_1",
+              active: true
             }
           ],
           tasks: [
