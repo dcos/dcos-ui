@@ -38,7 +38,7 @@ module.exports = {
       if (joinedPath === "healthChecks") {
         switch (type) {
           case ADD_ITEM:
-            state.push(value || {});
+            state.push(Object.assign({}, value) || {});
             break;
           case REMOVE_ITEM:
             state = state.filter((item, index) => {
@@ -64,10 +64,8 @@ module.exports = {
         if (`healthChecks.${index}.command` === joinedPath) {
           state[index].command = value;
         }
-        if (`healthChecks.${index}.ipProtocol` === joinedPath) {
-          state[index].ipProtocol = value === true || value === "IPv6"
-            ? "IPv6"
-            : "IPv4";
+        if (`healthChecks.${index}.isIPv6` === joinedPath) {
+          state[index].isIPv6 = value;
         }
         if (`healthChecks.${index}.path` === joinedPath) {
           state[index].path = value;

@@ -113,11 +113,8 @@ module.exports = {
         if (`healthChecks.${index}.command` === joinedPath) {
           this.healthChecks[index].command = value;
         }
-        if (`healthChecks.${index}.ipProtocol` === joinedPath) {
-          this.healthChecks[index].ipProtocol = value === true ||
-            value === "IPv6"
-            ? "IPv6"
-            : "IPv4";
+        if (`healthChecks.${index}.isIPv6` === joinedPath) {
+          this.healthChecks[index].ipProtocol = value ? "IPv6" : "IPv4";
         }
         if (`healthChecks.${index}.path` === joinedPath) {
           this.healthChecks[index].path = value;
@@ -187,10 +184,19 @@ module.exports = {
           );
         }
       }
+      if (item.ipProtocol != null) {
+        memo.push(
+          new Transaction(
+            ["healthChecks", index, "isIPv6"],
+            item.ipProtocol === "IPv6",
+            SET
+          )
+        );
+      }
+
       [
         "path",
         "portIndex",
-        "ipProtocol",
         "gracePeriodSeconds",
         "intervalSeconds",
         "timeoutSeconds",

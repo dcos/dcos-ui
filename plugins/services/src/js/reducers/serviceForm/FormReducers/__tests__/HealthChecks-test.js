@@ -176,39 +176,35 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets ipProtocol to IPv6 if set", function() {
+    it("sets isIPv6 to true if set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTP",
-          ipProtocol: "IPv6"
+          isIPv6: true
         }
       ]);
     });
 
-    it("sets https ipProtocol to IPv6 if set", function() {
+    it("sets https isIPv6 to IPv6 if set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
       );
       batch = batch.add(new Transaction(["healthChecks", 0, "https"], true));
-      batch = batch.add(
-        new Transaction(["healthChecks", 0, "ipProtocol"], true)
-      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "isIPv6"], true));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTPS",
-          ipProtocol: "IPv6"
+          isIPv6: true
         }
       ]);
     });
