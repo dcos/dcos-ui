@@ -65,7 +65,7 @@ const ResourceTableUtil = {
             content={this.helpText}
             wrapText={true}
             interactive={true}
-            wrapperClassName="tooltip-wrapper text-align-center table-header-help-icon"
+            wrapperClassName="tooltip-wrapper text-align-center table-header-icon"
           >
             <Icon id="circle-question" size="mini" color="grey" />
           </Tooltip>

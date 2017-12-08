@@ -101,7 +101,7 @@ class ServiceEnvironmentVariablesConfigSection
             return (
               <Table
                 key="secrets-table"
-                className="table table-simple table-flush table-borderless-outer table-borderless-inner-columns table-align-top table-break-word table-fixed-layout flush-bottom"
+                className="table table-simple table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={data}
               />

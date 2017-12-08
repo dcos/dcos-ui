@@ -2,251 +2,275 @@
 
   .table {
 
-    th,
-    td {
+    &.table-header-nowrap {
 
-      &.active {
-        background-color: inherit;
+      th {
+        white-space: nowrap;
       }
     }
 
-    // Remove active styling from row hover state
-    &.table-hover {
+    &.table-hide-header {
 
-      tr {
+      thead {
+        display: none;
+      }
+    }
 
-        &:hover {
+    &.table-break-word {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
 
-          td {
+    &.table-fixed-layout {
+      table-layout: fixed;
+    }
 
-            &.active {
-              background-color: @table-cell-hover-background-color;
+    // When VirtualList is used, the first and last rows in tbody are the
+    // spacer cells.
+    &.table-borderless-outer {
+
+      & > tbody.table-virtual-list {
+
+        tr {
+
+          &:nth-child(2) {
+
+            td,
+            th {
+              border-top: 0;
+            }
+          }
+
+          &:nth-last-child(2) {
+
+            td,
+            th {
+              border-bottom: 0;
             }
           }
         }
       }
     }
-  }
 
-  tr,
-  .table-row {
+    tr,
+    .table-row {
 
-    &.inactive {
+      &.inactive {
 
-      .expanding-table-primary-cell,
-      .icon-grey,
-      .status-text,
-      .table-cell-link-primary,
-      .table-cell-link-secondary,
-      .table-cell-value {
-        color: @table-cell-inactive-color;
-        text-decoration: none;
-      }
+        .expanding-table-primary-cell,
+        .icon-grey,
+        .status-text,
+        .table-cell-link-primary,
+        .table-cell-link-secondary,
+        .table-cell-value {
+          .property-variant(table-cell, color, disabled-color, null, null);
+          .property-variant(table-cell, text-decoration, null, null);
+        }
 
-      .expanding-table-primary-cell {
+        .expanding-table-primary-cell {
 
-        &.is-expandable {
+          &.is-expandable {
 
-          &:before {
-            border-left-color: @table-cell-inactive-color;
+            &:before {
+              //border-left-color: @table-cell-inactive-color;
+            }
           }
         }
-      }
 
-      .task-status-error,
-      .task-status-failed,
-      .text-error-state {
-        color: @danger-color;
-      }
-    }
-
-    .table-display-on-row-hover {
-      visibility: hidden;
-    }
-
-    &:hover {
-
-      .table-display-on-row-hover {
-        visibility: visible;
-      }
-    }
-
-    // Because dropdown menus render at the root of the body tag, the :hover
-    // pseudoclass doesn't apply when the user's mouse enters the dropdown.
-    // This forces the button to stay visible while the dropdown menu is open.
-    .dropdown {
-
-      &.open {
-
-        .table-display-on-row-hover {
-          visibility: visible;
+        .task-status-error,
+        .task-status-failed,
+        .text-error-state {
+          .property-variant(table-cell-danger, color, null, null);
         }
       }
-    }
-  }
 
-  th {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    vertical-align: middle;
-
-    &.clickable {
-
-      .caret {
-        display: inline-block;
+      .table-display-on-row-hover {
         visibility: hidden;
       }
 
       &:hover {
 
-        .caret {
+        .table-display-on-row-hover {
           visibility: visible;
         }
       }
-    }
-  }
 
-  td {
-    // This property is necessary for table cells to respect the text-overflow
-    // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
-    max-width: 0;
-    vertical-align: middle;
+      // Because dropdown menus render at the root of the body tag, the :hover
+      // pseudoclass doesn't apply when the user's mouse enters the dropdown.
+      // This forces the button to stay visible while the dropdown menu is open.
+      .dropdown {
 
-    &.active {
-      background-color: inherit;
-    }
-  }
+        &.open {
 
-  .table-header-title {
-    vertical-align: middle;
-  }
-
-  .table-header-help-icon {
-    margin-left: @base-spacing-unit * 0.25;
-  }
-
-  &.table-header-nowrap {
-
-    th {
-      white-space: nowrap;
-    }
-  }
-
-  .table-cell-emphasized {
-    color: @table-cell-highlight-color;
-    font-weight: 700;
-  }
-
-  .flush-left {
-    padding-left: 0;
-  }
-
-  .table-cell-link-primary,
-  .table-cell-link-secondary {
-    color: @table-cell-highlight-color;
-    text-decoration: none;
-
-    &:hover {
-      color: @table-cell-highlight-color;
-      text-decoration: underline;
-    }
-  }
-
-  .table-cell-link-primary {
-    font-weight: 700;
-  }
-
-  .table-hide-header {
-
-    thead {
-      display: none;
-    }
-  }
-
-  .table-cell-flex-box {
-    align-items: center;
-    display: flex;
-  }
-
-  .table-cell-icon {
-    flex: 0 0 auto;
-  }
-
-  .table-cell-value {
-    flex: 1 1 auto;
-    // This property is necessary for table cells to respect the text-overflow
-    // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
-    line-height: normal;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  // TODO: Is there a better way to handle this?
-  .table-cell-details-secondary {
-    font-size: 0.85rem;
-    line-height: 1.16rem;
-  }
-
-  // TODO: Should this match the CNVS padding size conventions?
-  .table-cell-short {
-    padding-bottom: @table-cell-padding-bottom * 3/4;
-    padding-top: @table-cell-padding-top * 3/4;
-  }
-
-  .table-cell-word-wrap {
-    word-wrap: break-word;
-  }
-
-  // When VirtualList is used, the first and last rows in tbody are the
-  // spacer cells.
-  .table-virtual-list {
-
-    tr {
-
-      &:nth-last-child(2) {
-
-        td {
-          border-bottom: none;
-          border-radius: 0 0 @table-border-radius @table-border-radius;
+          .table-display-on-row-hover {
+            visibility: visible;
+          }
         }
       }
     }
-  }
 
-  .table-break-word {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
+    th,
+    td {
+      // This property is necessary for table cells to respect the text-overflow
+      // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+      max-width: 0;
+      vertical-align: middle;
 
-  .table-column-tooltip {
-    width: @icon-mini-width + @base-spacing-unit * 1/6;
-  }
+      & when not (@table-cell-content-margin-horizontal = null) {
 
-  .table-fixed-layout {
-    table-layout: fixed;
-  }
+        & > *,
+        span > * {
+          box-sizing: content-box;
+          margin-right: @table-cell-content-margin-horizontal;
 
-  &.table-align {
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
 
-    &-top {
+      &.clickable {
 
-      td {
-        vertical-align: top;
+        .caret {
+          .triangle-base();
+          .triangle-color('down', @table-cell-caret-color);
+          content: '';
+          display: inline-block;
+          margin-left: 0;
+          visibility: hidden;
+
+          & when not (@table-cell-caret-width = null) {
+            .triangle-size-width('down', @table-cell-caret-width);
+          }
+
+          & when not (@table-cell-caret-height = null) {
+            .triangle-size-height('down', @table-cell-caret-height);
+          }
+
+          &--asc {
+            transform: rotate(0);
+          }
+
+          &--desc {
+            transform: rotate(180deg);
+          }
+        }
+
+        &.active,
+        &:hover {
+
+          .caret {
+            visibility: visible;
+          }
+        }
+      }
+
+      .table-cell-emphasized,
+      &.table-cell-emphasized {
+        font-weight: 700;
+      }
+
+      [class^='table-cell-link-'],
+      &[class^='table-cell-link-'] {
+        .element-text-style(table-cell-link);
+
+        &.selectable {
+
+          &:hover {
+            .element-text-style(table-cell-link-hover);
+          }
+        }
+
+        &.disabled {
+          .element-text-style(table-cell-link-disabled);
+        }
+
+        // Cell active
+
+        &.active,
+        &.highlight {
+          .element-text-style(table-cell-link-active);
+
+          &.selectable {
+
+            &:hover {
+              .element-text-style(table-cell-link-active-hover);
+            }
+          }
+
+          &.disabled {
+            .element-text-style(table-cell-link-active-disabled);
+          }
+        }
+      }
+
+      .table-cell-link-primary,
+      &.table-cell-link-primary {
+        font-weight: 600;
+      }
+
+      .table-cell-value,
+      &.table-cell-value {
+        flex: 1 1 auto;
+        // This property is necessary for table cells to respect the text-overflow
+        // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+        line-height: normal;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .table-cell-details-secondary,
+      &.table-cell-details-secondary {
+        .element-text-size(small, null);
+      }
+
+      .table-cell-word-wrap,
+      &.table-cell-word-wrap {
+        word-wrap: break-word;
+      }
+
+      .table-cell-flex-box,
+      &.table-cell-flex-box {
+        align-items: center;
+        display: flex;
+      }
+
+      .table-cell-icon {
+        flex: 0 0 auto;
       }
     }
+  }
 
-    &-middle {
+  & when (@table-inverse-enabled) {
 
-      td {
-        vertical-align: middle;
+    .table.table-inverse {
+
+      tr,
+      .table-row {
+
+        &.inactive {
+
+          .expanding-table-primary-cell,
+          .icon-grey,
+          .status-text,
+          .table-cell-link-primary,
+          .table-cell-link-secondary,
+          .table-cell-value {
+            .property-variant(table-cell-inverse, color, disabled-color, null, null);
+          }
+        }
       }
-    }
 
-    &-bottom {
-
+      th,
       td {
-        vertical-align: bottom;
+
+        &.clickable {
+
+          .caret {
+            .triangle-color('down', @table-cell-inverse-caret-color);
+          }
+        }
       }
     }
   }
@@ -256,8 +280,38 @@
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .table-column-tooltip {
-      width: @icon-mini-width + @base-spacing-unit-screen-small * 1/6;
+    .table {
+
+      th,
+      td {
+
+        & when not (@table-cell-content-margin-horizontal-screen-small = null) {
+
+          & > *,
+          span > * {
+            margin-right: @table-cell-content-margin-horizontal-screen-small;
+          }
+        }
+
+        &.clickable {
+
+          .caret {
+
+            & when not (@table-cell-caret-width-screen-small = null) {
+              .triangle-size-width('down', @table-cell-caret-width-screen-small);
+            }
+
+            & when not (@table-cell-caret-height-screen-small = null) {
+              .triangle-size-height('down', @table-cell-caret-height-screen-small);
+            }
+          }
+        }
+
+        .table-cell-details-secondary,
+        &.table-cell-details-secondary {
+          .element-text-size(small, screen-small);
+        }
+      }
     }
   }
 }
@@ -266,8 +320,38 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .table-column-tooltip {
-      width: @icon-mini-width + @base-spacing-unit-screen-medium * 1/6;
+    .table {
+
+      th,
+      td {
+
+        & when not (@table-cell-content-margin-horizontal-screen-medium = null) {
+
+          & > *,
+          span > * {
+            margin-right: @table-cell-content-margin-horizontal-screen-medium;
+          }
+        }
+
+        &.clickable {
+
+          .caret {
+
+            & when not (@table-cell-caret-width-screen-medium = null) {
+              .triangle-size-width('down', @table-cell-caret-width-screen-medium);
+            }
+
+            & when not (@table-cell-caret-height-screen-medium = null) {
+              .triangle-size-height('down', @table-cell-caret-height-screen-medium);
+            }
+          }
+        }
+
+        .table-cell-details-secondary,
+        &.table-cell-details-secondary {
+          .element-text-size(small, screen-medium);
+        }
+      }
     }
   }
 }
@@ -276,8 +360,38 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .table-column-tooltip {
-      width: @icon-mini-width + @base-spacing-unit-screen-large * 1/6;
+    .table {
+
+      th,
+      td {
+
+        & when not (@table-cell-content-margin-horizontal-screen-large = null) {
+
+          & > *,
+          span > * {
+            margin-right: @table-cell-content-margin-horizontal-screen-large;
+          }
+        }
+
+        &.clickable {
+
+          .caret {
+
+            & when not (@table-cell-caret-width-screen-large = null) {
+              .triangle-size-width('down', @table-cell-caret-width-screen-large);
+            }
+
+            & when not (@table-cell-caret-height-screen-large = null) {
+              .triangle-size-height('down', @table-cell-caret-height-screen-large);
+            }
+          }
+        }
+
+        .table-cell-details-secondary,
+        &.table-cell-details-secondary {
+          .element-text-size(small, screen-large);
+        }
+      }
     }
   }
 }
@@ -286,8 +400,38 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .table-column-tooltip {
-      width: @icon-mini-width + @base-spacing-unit-screen-jumbo * 1/6;
+    .table {
+
+      th,
+      td {
+
+        & when not (@table-cell-content-margin-horizontal-screen-jumbo = null) {
+
+          & > *,
+          span > * {
+            margin-right: @table-cell-content-margin-horizontal-screen-jumbo;
+          }
+        }
+
+        &.clickable {
+
+          .caret {
+
+            & when not (@table-cell-caret-width-screen-jumbo = null) {
+              .triangle-size-width('down', @table-cell-caret-width-screen-jumbo);
+            }
+
+            & when not (@table-cell-caret-height-screen-jumbo = null) {
+              .triangle-size-height('down', @table-cell-caret-height-screen-jumbo);
+            }
+          }
+        }
+
+        .table-cell-details-secondary,
+        &.table-cell-details-secondary {
+          .element-text-size(small, screen-jumbo);
+        }
+      }
     }
   }
 }
