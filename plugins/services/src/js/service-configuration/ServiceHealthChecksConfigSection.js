@@ -182,7 +182,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
               </ConfigurationMapHeading>,
               <Table
                 key="service-endpoint-health-checks"
-                className="table table-simple table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
+                className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={serviceEndpointHealthChecks}
               />
@@ -288,7 +288,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
               </ConfigurationMapHeading>,
               <Table
                 key="command-health-checks"
-                className="table table-simple table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
+                className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={commandHealthChecks}
               />
