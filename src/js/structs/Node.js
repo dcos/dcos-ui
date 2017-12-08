@@ -26,7 +26,7 @@ class Node extends Item {
       "fault_domain.region.name"
     );
 
-    return nodeRegionName || "(Local)";
+    return nodeRegionName || "N/A";
   }
 
   getZoneName() {
@@ -35,7 +35,7 @@ class Node extends Item {
       "fault_domain.zone.name"
     );
 
-    return nodeZoneName || "(Local)";
+    return nodeZoneName || "N/A";
   }
 
   getUsageStats(resource) {

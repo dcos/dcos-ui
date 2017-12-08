@@ -141,10 +141,10 @@ describe("TaskUtil", function() {
         return new Node(MasterNodeLocal);
       };
     });
-    it("returns (Local) when no region name exists", function() {
+    it("returns N/A when no region name exists", function() {
       const task = Object.assign({}, NodeTask);
       task.slave_id = "2";
-      expect(TaskUtil.getRegionName(task)).toEqual("(Local)");
+      expect(TaskUtil.getRegionName(task)).toEqual("N/A");
     });
     it("adds (Local) when no slave/ master in the same region", function() {
       expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2 (Local)");
@@ -166,10 +166,10 @@ describe("TaskUtil", function() {
         return new Node(MasterNodeLocal);
       };
     });
-    it("returns (Local) when no zone name exists", function() {
+    it("returns N/A when no zone name exists", function() {
       const task = Object.assign({}, NodeTask);
       task.slave_id = "2";
-      expect(TaskUtil.getZoneName(task)).toEqual("(Local)");
+      expect(TaskUtil.getZoneName(task)).toEqual("N/A");
     });
     it("adds (Local) when no slave/ master in the same zone", function() {
       expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a (Local)");

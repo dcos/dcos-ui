@@ -119,50 +119,44 @@ const TaskUtil = {
 
   getRegionName(task) {
     const node = this.getNode(task);
+
     if (!node) {
-      return "(Local)";
+      return "N/A";
     }
 
-    const masterNode = CompositeState.getMasterNode();
     const nodeRegionName = node.getRegionName();
-    const regionNameParts = [];
-
-    if (nodeRegionName) {
-      regionNameParts.push(nodeRegionName);
-    }
+    const masterNode = CompositeState.getMasterNode();
 
     if (
-      !nodeRegionName ||
-      (masterNode && nodeRegionName === masterNode.getRegionName())
+      masterNode &&
+      nodeRegionName === masterNode.getRegionName() &&
+      nodeRegionName !== "N/A"
     ) {
-      regionNameParts.push("(Local)");
+      return `${nodeRegionName} (Local)`;
     }
 
-    return regionNameParts.join(" ");
+    return nodeRegionName;
   },
 
   getZoneName(task) {
     const node = this.getNode(task);
+
     if (!node) {
-      return "(Local)";
+      return "N/A";
     }
 
-    const masterNode = CompositeState.getMasterNode();
     const nodeZoneName = node.getZoneName();
-    const zoneNameParts = [];
-
-    if (nodeZoneName) {
-      zoneNameParts.push(nodeZoneName);
-    }
+    const masterNode = CompositeState.getMasterNode();
 
     if (
-      !nodeZoneName ||
-      (masterNode && nodeZoneName === masterNode.getZoneName())
+      masterNode &&
+      nodeZoneName === masterNode.getZoneName() &&
+      nodeZoneName !== "N/A"
     ) {
-      zoneNameParts.push("(Local)");
+      return `${nodeZoneName} (Local)`;
     }
 
-    return zoneNameParts.join(" ");
+    return nodeZoneName;
   },
 
   getHostName(task) {
