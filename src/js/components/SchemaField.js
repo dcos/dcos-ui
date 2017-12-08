@@ -147,6 +147,16 @@ class SchemaField extends Component {
       onFocus
     } = props;
 
+    const handleChange = event => {
+      const value = event.target.value;
+
+      if (value === "" && !required) {
+        onChange(undefined);
+      } else {
+        onChange(value);
+      }
+    };
+
     let field = (
       <FieldInput
         id={name}
@@ -155,7 +165,7 @@ class SchemaField extends Component {
         autoFocus={autofocus}
         name={name}
         value={formData}
-        onChange={event => onChange(event.target.value)}
+        onChange={handleChange}
         onBlur={onBlur && (event => onBlur(name, event.target.value))}
         onFocus={onFocus && (event => onFocus(name, event.target.value))}
       />
@@ -193,7 +203,9 @@ class SchemaField extends Component {
     const handleChange = event => {
       const value = event.target.value;
 
-      if (value === "") {
+      if (value === "" && !required) {
+        onChange(undefined);
+      } else if (value === "") {
         onChange("");
       } else {
         onChange(Number(value));
@@ -208,7 +220,7 @@ class SchemaField extends Component {
         autoFocus={autofocus}
         name={name}
         value={formData}
-        onChange={handleChange.bind(this)}
+        onChange={handleChange}
         onBlur={onBlur && (event => onBlur(name, event.target.value))}
         onFocus={onFocus && (event => onFocus(name, event.target.value))}
       />
