@@ -211,7 +211,7 @@ class MesosStateStore extends GetSetBaseStore {
     }
 
     const framework = frameworks.find(function(framework) {
-      return framework.name === serviceName;
+      return framework.active && framework.name === serviceName;
     });
 
     if (framework) {

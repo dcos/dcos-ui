@@ -95,16 +95,8 @@ describe("agents parser", function() {
       const message = {
         type: "AGENT_REMOVED",
         agent_removed: {
-          agent: {
-            active: true,
-            agent_info: {
-              hostname: "myhost",
-              id: {
-                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0"
-              }
-            },
-            pid: "slave(3)@127.0.1.1:34626",
-            version: "1.1.0"
+          agent_id: {
+            value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0"
           }
         }
       };

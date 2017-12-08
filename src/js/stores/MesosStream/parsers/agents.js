@@ -46,8 +46,8 @@ export function agentRemovedAction(state, message) {
     return state;
   }
 
-  const removedAgent = processAgent(message.agent_removed.agent);
-  const slaves = state.slaves.filter(agent => removedAgent.id !== agent.id);
+  const removedAgentID = scalar(message.agent_removed.agent_id);
+  const slaves = state.slaves.filter(agent => removedAgentID !== agent.id);
 
   return Object.assign({}, state, { slaves });
 }
