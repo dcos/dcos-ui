@@ -3,6 +3,7 @@ import { List } from "reactjs-components";
 import React from "react";
 import { Link, routerShape } from "react-router";
 
+import StringUtil from "#SRC/js/utils/StringUtil";
 import ServiceStatusIcon from "./ServiceStatusIcon";
 
 const ServiceList = React.createClass({
@@ -45,6 +46,10 @@ const ServiceList = React.createClass({
 
   getServices(services) {
     return services.map(service => {
+      const instancesCount = service.getInstancesCount();
+      const tasksRunning = service.getTaskCount();
+      const tooltipContent = `${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`;
+
       return {
         content: [
           {
@@ -63,7 +68,14 @@ const ServiceList = React.createClass({
           },
           {
             className: "dashboard-health-list-health-label",
-            content: <ServiceStatusIcon key="icon" service={service} />,
+            content: (
+              <ServiceStatusIcon
+                key="icon"
+                service={service}
+                showTooltip={true}
+                tooltipContent={tooltipContent}
+              />
+            ),
             tag: "div"
           }
         ]
