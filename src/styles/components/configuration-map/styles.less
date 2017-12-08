@@ -27,6 +27,17 @@
     &-row {
       display: flex;
 
+      .table-display-on-row-hover {
+        visibility: hidden;
+      }
+
+      &:hover {
+
+        .table-display-on-row-hover {
+          visibility: visible;
+        }
+      }
+
       & + .configuration-map {
 
         &-row {
@@ -84,7 +95,6 @@
       flex: 0 0 @configuration-map-label-width;
       font-weight: 700;
       padding-right: @configuration-map-label-padding-right;
-      text-transform: uppercase;
     }
 
     &-label-no-text-transform {
