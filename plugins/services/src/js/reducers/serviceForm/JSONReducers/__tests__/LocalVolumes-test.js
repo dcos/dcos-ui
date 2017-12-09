@@ -48,16 +48,16 @@ describe("LocalVolumes", function() {
             persistent: { size: 1024 },
             mode: "RW"
           },
-          path: ["localVolumes"]
+          path: ["volumes"]
         },
-        { type: SET, value: "PERSISTENT", path: ["localVolumes", 0, "type"] },
-        { type: SET, value: 1024, path: ["localVolumes", 0, "size"] },
+        { type: SET, value: "PERSISTENT", path: ["volumes", 0, "type"] },
+        { type: SET, value: 1024, path: ["volumes", 0, "size"] },
         {
           type: SET,
           value: "/dev/null",
-          path: ["localVolumes", 0, "containerPath"]
+          path: ["volumes", 0, "containerPath"]
         },
-        { type: SET, value: "RW", path: ["localVolumes", 0, "mode"] }
+        { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
       ]);
     });
 
@@ -92,16 +92,16 @@ describe("LocalVolumes", function() {
             persistent: { size: 1024 },
             mode: "RW"
           },
-          path: ["localVolumes"]
+          path: ["volumes"]
         },
-        { type: SET, value: "PERSISTENT", path: ["localVolumes", 0, "type"] },
-        { type: SET, value: 1024, path: ["localVolumes", 0, "size"] },
+        { type: SET, value: "PERSISTENT", path: ["volumes", 0, "type"] },
+        { type: SET, value: 1024, path: ["volumes", 0, "size"] },
         {
           type: SET,
           value: "/dev/null",
-          path: ["localVolumes", 0, "containerPath"]
+          path: ["volumes", 0, "containerPath"]
         },
-        { type: SET, value: "RW", path: ["localVolumes", 0, "mode"] }
+        { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
       ]);
     });
 
@@ -125,16 +125,16 @@ describe("LocalVolumes", function() {
             persistent: { size: 1024 },
             mode: "READ"
           },
-          path: ["localVolumes"]
+          path: ["volumes"]
         },
-        { type: SET, value: "PERSISTENT", path: ["localVolumes", 0, "type"] },
-        { type: SET, value: 1024, path: ["localVolumes", 0, "size"] },
+        { type: SET, value: "PERSISTENT", path: ["volumes", 0, "type"] },
+        { type: SET, value: 1024, path: ["volumes", 0, "size"] },
         {
           type: SET,
           value: "/dev/null",
-          path: ["localVolumes", 0, "containerPath"]
+          path: ["volumes", 0, "containerPath"]
         },
-        { type: SET, value: "READ", path: ["localVolumes", 0, "mode"] }
+        { type: SET, value: "READ", path: ["volumes", 0, "mode"] }
       ]);
     });
   });

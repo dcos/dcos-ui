@@ -24,7 +24,7 @@ import {
   FormReducer as externalVolumes
 } from "../../reducers/serviceForm/FormReducers/ExternalVolumes";
 import {
-  FormReducer as localVolumes
+  FormReducer as volumes
 } from "../../reducers/serviceForm/FormReducers/LocalVolumes";
 
 const { type: { DOCKER } } = ContainerConstants;
@@ -69,7 +69,7 @@ class VolumesFormSection extends Component {
           </FieldLabel>
           <FieldAutofocus>
             <FieldInput
-              name={`localVolumes.${key}.size`}
+              name={`volumes.${key}.size`}
               type="number"
               value={volume.size}
             />
@@ -95,7 +95,7 @@ class VolumesFormSection extends Component {
             </FormGroupHeading>
           </FieldLabel>
           <FieldInput
-            name={`localVolumes.${key}.containerPath`}
+            name={`volumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}
           />
@@ -140,7 +140,7 @@ class VolumesFormSection extends Component {
           </FieldLabel>
           <FieldAutofocus>
             <FieldInput
-              name={`localVolumes.${key}.hostPath`}
+              name={`volumes.${key}.hostPath`}
               value={volume.hostPath}
             />
           </FieldAutofocus>
@@ -165,7 +165,7 @@ class VolumesFormSection extends Component {
             </FormGroupHeading>
           </FieldLabel>
           <FieldInput
-            name={`localVolumes.${key}.containerPath`}
+            name={`volumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}
           />
@@ -179,7 +179,7 @@ class VolumesFormSection extends Component {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldSelect name={`localVolumes.${key}.mode`} value={volume.mode}>
+          <FieldSelect name={`volumes.${key}.mode`} value={volume.mode}>
             <option value="RW">Read and Write</option>
             <option value="RO">Read Only</option>
           </FieldSelect>
@@ -197,7 +197,7 @@ class VolumesFormSection extends Component {
           key={key}
           onRemove={this.props.onRemoveItem.bind(this, {
             value: key,
-            path: "localVolumes"
+            path: "volumes"
           })}
         >
           <FormRow>
@@ -209,10 +209,7 @@ class VolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldSelect
-                name={`localVolumes.${key}.type`}
-                value={volume.type}
-              >
+              <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
                 <option>Select...</option>
                 <option value="HOST">
                   Host Volume
@@ -400,11 +397,11 @@ class VolumesFormSection extends Component {
             More information
           </a>.
         </p>
-        {this.getLocalVolumesLines(data.localVolumes)}
+        {this.getLocalVolumesLines(data.volumes)}
         <div>
           <AddButton
             onClick={this.props.onAddItem.bind(this, {
-              path: "localVolumes"
+              path: "volumes"
             })}
           >
             Add Local Volume
@@ -432,7 +429,7 @@ class VolumesFormSection extends Component {
         </p>
         {this.getExternalVolumesLines(
           data.externalVolumes,
-          data.localVolumes.length
+          data.volumes.length
         )}
         <FormRow>
           <FormGroup className="column-12">
@@ -466,11 +463,11 @@ VolumesFormSection.propTypes = {
 
 VolumesFormSection.configReducers = {
   externalVolumes,
-  localVolumes
+  volumes
 };
 
 VolumesFormSection.validationReducers = {
-  localVolumes() {
+  volumes() {
     return [];
   },
   externalVolumes() {

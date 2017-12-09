@@ -11,7 +11,7 @@ module.exports = {
       .filter(item => item.hostPath != null || item.persistent != null)
       .reduce(function(memo, item, index) {
         /**
-         * For the localVolumes we have a special case as all the volumes
+         * For the volumes we have a special case as all the volumes
          * are present in the `container.volumes` But in this parser we only
          * want to parse the local volumes. which means that we first filter
          * those and only keep local volumes (decision based on if
@@ -19,34 +19,32 @@ module.exports = {
          * stuff which we do not handle in the form yet. These steps are:
          * 1) Add a new Item to the path with the index equal to index.
          * 2) Set the size from `volume.persistent.size`on the path
-         *    `localVolumes.${index}.size`.
+         *    `volumes.${index}.size`.
          * 3) Set the containerPath from `volume.containerPath on the path
-         *    `localVolumes.${index}.containerPath`
+         *    `volumes.${index}.containerPath`
          * 4) Set the mode from `volume.mode` on the path
-         *    `localVolumes.${index}.mode`
+         *    `volumes.${index}.mode`
          */
-        memo.push(new Transaction(["localVolumes"], item, ADD_ITEM));
+        memo.push(new Transaction(["volumes"], item, ADD_ITEM));
 
         if (item.persistent != null && item.persistent.size != null) {
           memo.push(
-            new Transaction(["localVolumes", index, "type"], "PERSISTENT", SET)
+            new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
           );
 
           memo.push(
             new Transaction(
-              ["localVolumes", index, "size"],
+              ["volumes", index, "size"],
               item.persistent.size,
               SET
             )
           );
         } else {
-          memo.push(
-            new Transaction(["localVolumes", index, "type"], "HOST", SET)
-          );
+          memo.push(new Transaction(["volumes", index, "type"], "HOST", SET));
 
           memo.push(
             new Transaction(
-              ["localVolumes", index, "hostPath"],
+              ["volumes", index, "hostPath"],
               item.hostPath || "",
               SET
             )
@@ -56,7 +54,7 @@ module.exports = {
         if (item.containerPath != null) {
           memo.push(
             new Transaction(
-              ["localVolumes", index, "containerPath"],
+              ["volumes", index, "containerPath"],
               item.containerPath,
               SET
             )
@@ -65,7 +63,7 @@ module.exports = {
 
         if (item.mode != null) {
           memo.push(
-            new Transaction(["localVolumes", index, "mode"], item.mode, SET)
+            new Transaction(["volumes", index, "mode"], item.mode, SET)
           );
         }
 
