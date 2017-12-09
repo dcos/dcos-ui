@@ -9,8 +9,8 @@ module.exports = {
 
     const joinedPath = path.join(".");
 
-    if (joinedPath.search("localVolumes") !== -1) {
-      if (joinedPath === "localVolumes") {
+    if (joinedPath.search("volumes") !== -1) {
+      if (joinedPath === "volumes") {
         switch (type) {
           case ADD_ITEM:
             const defaultVolume = {
@@ -31,22 +31,19 @@ module.exports = {
       }
 
       const index = joinedPath.match(/\d+/)[0];
-      if (type === SET && `localVolumes.${index}.type` === joinedPath) {
+      if (type === SET && `volumes.${index}.type` === joinedPath) {
         state[index].type = String(value);
       }
-      if (type === SET && `localVolumes.${index}.size` === joinedPath) {
+      if (type === SET && `volumes.${index}.size` === joinedPath) {
         state[index].size = parseIntValue(value);
       }
-      if (type === SET && `localVolumes.${index}.mode` === joinedPath) {
+      if (type === SET && `volumes.${index}.mode` === joinedPath) {
         state[index].mode = String(value);
       }
-      if (
-        type === SET &&
-        `localVolumes.${index}.containerPath` === joinedPath
-      ) {
+      if (type === SET && `volumes.${index}.containerPath` === joinedPath) {
         state[index].containerPath = String(value);
       }
-      if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {
+      if (type === SET && `volumes.${index}.hostPath` === joinedPath) {
         state[index].hostPath = String(value);
       }
     }

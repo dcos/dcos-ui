@@ -73,7 +73,7 @@ const CONSTANTLY_UNMUTED_ERRORS = [
   /^constraints\.[0-9]+\./,
   /^portDefinitions\.[0-9]+\./,
   /^container.docker.portMappings\.[0-9]+\./,
-  /^localVolumes\.[0-9]+\./
+  /^volumes\.[0-9]+\./
 ];
 
 class CreateServiceModalForm extends Component {
