@@ -1,1 +1,55 @@
 @login-modal-enabled: true;
+
+/*
+ * Responsive Scaling
+ */
+
+@login-modal-screen-small-enabled: true;
+@login-modal-screen-medium-enabled: true;
+@login-modal-screen-large-enabled: true;
+@login-modal-screen-jumbo-enabled: true;
+
+/*
+ * Login Background
+ */
+
+@login-background-src: '../../../../img/layout/login/login-background.png';
+@login-background-src2x: '../../../../img/layout/login/login-background@2x.png';
+
+@login-background-src-width: 1280px;
+@login-background-src-height: 800px;
+
+/*
+ * Login Modal Logo
+ */
+
+@login-modal-logo-src: '../../../../img/layout/login/login-modal-product-logo.png';
+@login-modal-logo-src2x: '../../../../img/layout/login/login-modal-product-logo@2x.png';
+
+@login-modal-logo-inverse-src: '../../../../img/layout/login/login-modal-product-logo-inverse.png';
+@login-modal-logo-inverse-src2x: '../../../../img/layout/login/login-modal-product-logo-inverse@2x.png';
+
+@login-modal-logo-src-width: 278px;
+@login-modal-logo-src-height: 26px;
+
+@login-modal-logo-scale: 1;
+@login-modal-logo-scale-screen-small: 1;
+@login-modal-logo-scale-screen-medium: 1;
+@login-modal-logo-scale-screen-large: 1;
+@login-modal-logo-scale-screen-jumbo: 1;
+
+@login-modal-logo-name-vertical-offset: -(16px + (1 * @base-spacing-unit) + (@login-modal-logo-scale * @login-modal-logo-src-height));
+@login-modal-logo-name-vertical-offset-screen-small: -(16px + (1 * @base-spacing-unit-screen-small) + (@login-modal-logo-scale-screen-small * @login-modal-logo-src-height));
+@login-modal-logo-name-vertical-offset-screen-medium: -(16px + (1 * @base-spacing-unit-screen-medium) + (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-height));
+@login-modal-logo-name-vertical-offset-screen-large: -(16px + (1 * @base-spacing-unit-screen-large) + (@login-modal-logo-scale-screen-large * @login-modal-logo-src-height));
+@login-modal-logo-name-vertical-offset-screen-jumbo: -(16px + (0.75 * @base-spacing-unit-screen-jumbo) + (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-height));
+
+/*
+ * Login Modal Product Name
+ */
+
+@login-modal-product-name-vertical-offset: -(16px + (1 * @base-spacing-unit));
+@login-modal-product-name-vertical-offset-screen-small: -(16px + (1 * @base-spacing-unit-screen-small));
+@login-modal-product-name-vertical-offset-screen-medium: -(16px + (1 * @base-spacing-unit-screen-medium));
+@login-modal-product-name-vertical-offset-screen-large: -(16px + (1 * @base-spacing-unit-screen-large));
+@login-modal-product-name-vertical-offset-screen-jumbo: -(16px + (0.75 * @base-spacing-unit-screen-jumbo));
