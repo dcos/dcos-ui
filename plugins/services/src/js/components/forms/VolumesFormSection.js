@@ -377,26 +377,6 @@ class VolumesFormSection extends Component {
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
-        <h3 className="short-bottom">
-          <FormGroupHeading>
-            <FormGroupHeadingContent primary={true}>
-              Local Volumes
-            </FormGroupHeadingContent>
-          </FormGroupHeading>
-        </h3>
-        <p>
-          {
-            "Choose a local persistent volume if you need quick access to stored data. "
-          }
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/storage/persistent-volume/"
-            )}
-            target="_blank"
-          >
-            More information
-          </a>.
-        </p>
         {this.getLocalVolumesLines(data.volumes)}
         <div>
           <AddButton
@@ -404,7 +384,7 @@ class VolumesFormSection extends Component {
               path: "volumes"
             })}
           >
-            Add Local Volume
+            Add Volume
           </AddButton>
         </div>
         <h3 className="short-bottom">
