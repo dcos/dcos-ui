@@ -13,7 +13,7 @@ import {
 import {
   JSONParser as healthChecks
 } from "./serviceForm/JSONReducers/HealthChecks";
-import { JSONParser as volumes } from "./serviceForm/JSONReducers/LocalVolumes";
+import { JSONParser as volumes } from "./serviceForm/JSONReducers/Volumes";
 import { JSONParser as labels } from "./serviceForm/JSONReducers/Labels";
 import { JSONParser as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONParser as portMappings } from "./serviceForm/PortMappings";
