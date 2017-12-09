@@ -14,9 +14,7 @@ import {
   JSONParser as healthChecks
 } from "./serviceForm/JSONReducers/HealthChecks";
 import { JSONParser as labels } from "./serviceForm/JSONReducers/Labels";
-import {
-  JSONParser as localVolumes
-} from "./serviceForm/JSONReducers/LocalVolumes";
+import { JSONParser as volumes } from "./serviceForm/JSONReducers/LocalVolumes";
 import {
   JSONParser as unknownVolumes
 } from "./serviceForm/JSONReducers/UnknownVolumes";
@@ -43,7 +41,7 @@ module.exports = [
   fetch,
   healthChecks,
   labels,
-  localVolumes,
+  volumes,
   networks,
   portDefinitions,
   portMappings, // Note: must come after portDefinitions, as it uses its information!
