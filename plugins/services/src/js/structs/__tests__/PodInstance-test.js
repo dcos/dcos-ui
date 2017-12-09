@@ -226,7 +226,7 @@ describe("PodInstance", function() {
       expect(podInstance.hasHealthChecks()).toBeTruthy();
     });
 
-    it("should return false if even one container has no checks", function() {
+    it("returns true if at least one container has checks", function() {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -242,7 +242,7 @@ describe("PodInstance", function() {
         ]
       });
 
-      expect(podInstance.hasHealthChecks()).toBeFalsy();
+      expect(podInstance.hasHealthChecks()).toEqual(true);
     });
 
     it("should return true if instance state is not STABLE", function() {
