@@ -1170,9 +1170,9 @@ describe("Container", function() {
     it("should return a local volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
+        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
@@ -1218,9 +1218,9 @@ describe("Container", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
+        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
       );
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
@@ -1252,13 +1252,13 @@ describe("Container", function() {
     it("should return an empty array if all volumes have been removed", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["localVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(["localVolumes", 0, "type"], "PERSISTENT", SET)
+        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
       );
       batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["externalVolumes"], 0, REMOVE_ITEM));
-      batch = batch.add(new Transaction(["localVolumes"], 0, REMOVE_ITEM));
+      batch = batch.add(new Transaction(["volumes"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         portMappings: null,

@@ -7,31 +7,31 @@ module.exports = {
       return state;
     }
 
-    if (this.localVolumes == null) {
-      this.localVolumes = [];
+    if (this.volumes == null) {
+      this.volumes = [];
     }
 
     const joinedPath = path.join(".");
 
-    if (joinedPath.search("localVolumes") !== -1) {
-      if (joinedPath === "localVolumes") {
+    if (joinedPath.search("volumes") !== -1) {
+      if (joinedPath === "volumes") {
         switch (type) {
           case ADD_ITEM:
-            this.localVolumes.push(false);
+            this.volumes.push(false);
             break;
           case REMOVE_ITEM:
-            this.localVolumes = this.localVolumes.filter((item, index) => {
+            this.volumes = this.volumes.filter((item, index) => {
               return index !== value;
             });
             break;
         }
       }
       const index = path[1];
-      if (type === SET && `localVolumes.${index}.type` === joinedPath) {
-        this.localVolumes[index] = value === "PERSISTENT";
+      if (type === SET && `volumes.${index}.type` === joinedPath) {
+        this.volumes[index] = value === "PERSISTENT";
       }
 
-      const hasLocalVolumes = this.localVolumes.find(value => {
+      const hasLocalVolumes = this.volumes.find(value => {
         return value;
       });
       if (hasLocalVolumes && this.residency == null) {

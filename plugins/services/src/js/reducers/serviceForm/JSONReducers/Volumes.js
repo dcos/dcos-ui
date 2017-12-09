@@ -39,7 +39,7 @@ function reduceVolumes(state, { type, path, value }) {
 
   // `this` is a context which is given to every reducer so it could
   // cache information.
-  // In this case we are caching an two array's one for the localVolumes
+  // In this case we are caching an two array's one for the volumes
   // and one for externalVolumes we need this so that there index is
   // fitting with the ones in ExternalVolumes. we combine them before
   // returning.
@@ -47,8 +47,8 @@ function reduceVolumes(state, { type, path, value }) {
     this.externalVolumes = [];
   }
 
-  if (this.localVolumes == null) {
-    this.localVolumes = [];
+  if (this.volumes == null) {
+    this.volumes = [];
   }
 
   if (this.unknownVolumes == null) {
@@ -102,18 +102,18 @@ function reduceVolumes(state, { type, path, value }) {
       }
 
       /**
-       * localVolumes and externalVolumes share the same reducer and
+       * volumes and externalVolumes share the same reducer and
        * the section in the form but representing quite different things.
        *
        * Reducer should use the same format therefore we need to pick either
-       * localVolumes format or externalVolumes format.
+       * volumes format or externalVolumes format.
        * We picked externalVolumes format. External Volumes are just external volumes.
        *
-       * The following code converts localVolumes by filtering HOST volumes and
+       * The following code converts volumes by filtering HOST volumes and
        * mapping them to the common structure
        */
       return [].concat(
-        this.localVolumes.map(mapLocalVolumes),
+        this.volumes.map(mapLocalVolumes),
         this.externalVolumes,
         this.unknownVolumes
       );
@@ -144,11 +144,11 @@ function reduceVolumes(state, { type, path, value }) {
     }
   }
 
-  if (joinedPath.search("localVolumes") !== -1) {
-    if (joinedPath === "localVolumes") {
+  if (joinedPath.search("volumes") !== -1) {
+    if (joinedPath === "volumes") {
       switch (type) {
         case ADD_ITEM:
-          this.localVolumes.push(
+          this.volumes.push(
             value || {
               containerPath: null,
               persistent: { size: null },
@@ -157,42 +157,42 @@ function reduceVolumes(state, { type, path, value }) {
           );
           break;
         case REMOVE_ITEM:
-          this.localVolumes = this.localVolumes.filter((item, index) => {
+          this.volumes = this.volumes.filter((item, index) => {
             return index !== value;
           });
           break;
       }
 
       return [].concat(
-        this.localVolumes.map(mapLocalVolumes),
+        this.volumes.map(mapLocalVolumes),
         this.externalVolumes,
         this.unknownVolumes
       );
     }
 
     const index = path[1];
-    if (type === SET && `localVolumes.${index}.size` === joinedPath) {
-      if (this.localVolumes[index].persistent == null) {
-        this.localVolumes[index].persistent = { size: null };
+    if (type === SET && `volumes.${index}.size` === joinedPath) {
+      if (this.volumes[index].persistent == null) {
+        this.volumes[index].persistent = { size: null };
       }
-      this.localVolumes[index].persistent.size = parseIntValue(value);
+      this.volumes[index].persistent.size = parseIntValue(value);
     }
-    if (type === SET && `localVolumes.${index}.type` === joinedPath) {
-      this.localVolumes[index].type = String(value);
+    if (type === SET && `volumes.${index}.type` === joinedPath) {
+      this.volumes[index].type = String(value);
     }
-    if (type === SET && `localVolumes.${index}.mode` === joinedPath) {
-      this.localVolumes[index].mode = String(value);
+    if (type === SET && `volumes.${index}.mode` === joinedPath) {
+      this.volumes[index].mode = String(value);
     }
-    if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {
-      this.localVolumes[index].hostPath = String(value);
+    if (type === SET && `volumes.${index}.hostPath` === joinedPath) {
+      this.volumes[index].hostPath = String(value);
     }
-    if (type === SET && `localVolumes.${index}.containerPath` === joinedPath) {
-      this.localVolumes[index].containerPath = String(value);
+    if (type === SET && `volumes.${index}.containerPath` === joinedPath) {
+      this.volumes[index].containerPath = String(value);
     }
   }
 
   return [].concat(
-    this.localVolumes.map(mapLocalVolumes),
+    this.volumes.map(mapLocalVolumes),
     this.externalVolumes.map(mapExternalVolumes.bind(this)),
     this.unknownVolumes
   );
