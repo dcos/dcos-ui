@@ -82,7 +82,8 @@ describe("Volumes", function() {
     it("should return an external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes", 0, "type"], "EXTERNAL"));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -102,22 +103,17 @@ describe("Volumes", function() {
     it("should parse wrong values in external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(["externalVolumes", 0, "provider"], 123, SET)
+        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
       );
+      batch = batch.add(new Transaction(["volumes", 0, "provider"], 123, SET));
+      batch = batch.add(new Transaction(["volumes", 0, "name"], 123, SET));
       batch = batch.add(
-        new Transaction(["externalVolumes", 0, "name"], 123, SET)
+        new Transaction(["volumes", 0, "containerPath"], 123, SET)
       );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "containerPath"], 123, SET)
-      );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "size"], "123", SET)
-      );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "mode"], 123, SET)
-      );
+      batch = batch.add(new Transaction(["volumes", 0, "size"], "123", SET));
+      batch = batch.add(new Transaction(["volumes", 0, "mode"], 123, SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -138,10 +134,13 @@ describe("Volumes", function() {
     it("should return a local and an external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
+      );
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["volumes", 1, "type"], "EXTERNAL", SET)
       );
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
@@ -193,30 +192,21 @@ describe("Volumes", function() {
     it("should return a fully filled external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 0, "containerPath"],
-          "/dev/null",
-          SET
-        )
+        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
       );
       batch = batch.add(
-        new Transaction(["externalVolumes", 0, "name"], "null", SET)
+        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+      );
+      batch = batch.add(new Transaction(["volumes", 0, "name"], "null", SET));
+      batch = batch.add(
+        new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
       );
       batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 0, "options"],
-          { someValue: true },
-          SET
-        )
+        new Transaction(["volumes", 0, "provider"], "provider", SET)
       );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "provider"], "provider", SET)
-      );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "size"], 1024, SET)
-      );
+      batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -270,39 +260,29 @@ describe("Volumes", function() {
     it("should remove the right external volume", function() {
       let batch = new Batch();
 
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 0, "containerPath"],
-          "/dev/null",
-          SET
-        )
+        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
+      );
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["volumes", 1, "type"], "EXTERNAL", SET)
       );
       batch = batch.add(
-        new Transaction(["externalVolumes", 0, "name"], "null", SET)
+        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+      );
+      batch = batch.add(new Transaction(["volumes", 0, "name"], "null", SET));
+      batch = batch.add(
+        new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
       );
       batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 0, "options"],
-          { someValue: true },
-          SET
-        )
+        new Transaction(["volumes", 0, "provider"], "provider", SET)
       );
       batch = batch.add(
-        new Transaction(["externalVolumes", 0, "provider"], "provider", SET)
+        new Transaction(["volumes", 1, "containerPath"], "/dev/one", SET)
       );
-      batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 1, "containerPath"],
-          "/dev/one",
-          SET
-        )
-      );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 1, "name"], "one", SET)
-      );
-      batch = batch.add(new Transaction(["externalVolumes"], 0, REMOVE_ITEM));
+      batch = batch.add(new Transaction(["volumes", 1, "name"], "one", SET));
+      batch = batch.add(new Transaction(["volumes"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -323,74 +303,46 @@ describe("Volumes", function() {
       let batch = new Batch();
 
       // Add the first external Volume
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 0, "containerPath"],
-          "/dev/null",
-          SET
-        )
-      );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "name"], "null", SET)
-      );
-      batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 0, "options"],
-          { someValue: true },
-          SET
-        )
-      );
-      batch = batch.add(
-        new Transaction(["externalVolumes", 0, "provider"], "provider", SET)
-      );
-      // Add the first local Volume
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-      );
+      batch = batch.add(new Transaction(["volumes", 0, "type"], "EXTERNAL"));
       batch = batch.add(
         new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
       );
-      batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], "READ", SET));
-      // Add the second external Volume
-      batch = batch.add(new Transaction(["externalVolumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes", 0, "name"], "null", SET));
       batch = batch.add(
-        new Transaction(
-          ["externalVolumes", 1, "containerPath"],
-          "/dev/one",
-          SET
-        )
+        new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
       );
       batch = batch.add(
-        new Transaction(["externalVolumes", 1, "name"], "one", SET)
+        new Transaction(["volumes", 0, "provider"], "provider", SET)
       );
-      // Add the second local Volume
+      // Add the first local Volume
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(
         new Transaction(["volumes", 1, "type"], "PERSISTENT", SET)
       );
       batch = batch.add(
-        new Transaction(["volumes", 1, "containerPath"], "/dev/one", SET)
+        new Transaction(["volumes", 1, "containerPath"], "/dev/null", SET)
       );
-      batch = batch.add(new Transaction(["volumes", 1, "size"], 512, SET));
+      batch = batch.add(new Transaction(["volumes", 1, "size"], 1024, SET));
+      batch = batch.add(new Transaction(["volumes", 1, "mode"], "READ", SET));
+      // Add the second external Volume
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes", 2, "type"], "EXTERNAL"));
+      batch = batch.add(
+        new Transaction(["volumes", 2, "containerPath"], "/dev/one", SET)
+      );
+      batch = batch.add(new Transaction(["volumes", 2, "name"], "one", SET));
+      // Add the second local Volume
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["volumes", 3, "type"], "PERSISTENT", SET)
+      );
+      batch = batch.add(
+        new Transaction(["volumes", 3, "containerPath"], "/dev/one", SET)
+      );
+      batch = batch.add(new Transaction(["volumes", 3, "size"], 512, SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
-        {
-          containerPath: "/dev/null",
-          persistent: {
-            size: 1024
-          },
-          mode: "READ"
-        },
-        {
-          containerPath: "/dev/one",
-          persistent: {
-            size: 512
-          },
-          mode: "RW"
-        },
         {
           containerPath: "/dev/null",
           external: {
@@ -403,6 +355,13 @@ describe("Volumes", function() {
           mode: "RW"
         },
         {
+          containerPath: "/dev/null",
+          persistent: {
+            size: 1024
+          },
+          mode: "READ"
+        },
+        {
           containerPath: "/dev/one",
           external: {
             name: "one",
@@ -410,6 +369,13 @@ describe("Volumes", function() {
             options: {
               "dvdi/driver": "rexray"
             }
+          },
+          mode: "RW"
+        },
+        {
+          containerPath: "/dev/one",
+          persistent: {
+            size: 512
           },
           mode: "RW"
         }
@@ -422,75 +388,10 @@ describe("Volumes", function() {
         expect(Volumes.JSONParser({})).toEqual([]);
       });
 
-      it("should return an empty array if only external volumes are present", function() {
-        const state = {
-          container: {
-            volumes: [
-              {
-                containerPath: "/mnt/volume",
-                external: {
-                  name: "someVolume",
-                  provider: "dvdi",
-                  options: {
-                    "dvdi/driver": "rexray"
-                  }
-                },
-                mode: "RW"
-              }
-            ]
-          }
-        };
-        expect(Volumes.JSONParser(state)).toEqual([]);
-      });
-
       it("should contain the transaction for one local volume", function() {
         const state = {
           container: {
             volumes: [
-              {
-                containerPath: "/dev/null",
-                persistent: { size: 1024 },
-                mode: "RW"
-              }
-            ]
-          }
-        };
-        expect(Volumes.JSONParser(state)).toEqual([
-          {
-            type: ADD_ITEM,
-            value: {
-              containerPath: "/dev/null",
-              persistent: { size: 1024 },
-              mode: "RW"
-            },
-            path: ["volumes"]
-          },
-          { type: SET, value: "PERSISTENT", path: ["volumes", 0, "type"] },
-          { type: SET, value: 1024, path: ["volumes", 0, "size"] },
-          {
-            type: SET,
-            value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
-          },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
-        ]);
-      });
-
-      it("should exclude the external volumes", function() {
-        const state = {
-          container: {
-            volumes: [
-              {
-                containerPath: "/mnt/volume",
-                external: {
-                  name: "someVolume",
-                  provider: "dvdi",
-                  options: {
-                    "dvdi/driver": "rexray"
-                  }
-                },
-                mode: "RW"
-              },
               {
                 containerPath: "/dev/null",
                 persistent: { size: 1024 },
@@ -550,6 +451,232 @@ describe("Volumes", function() {
             path: ["volumes", 0, "containerPath"]
           },
           { type: SET, value: "READ", path: ["volumes", 0, "mode"] }
+        ]);
+      });
+    });
+  });
+  describe("External Volumes", function() {
+    describe("#JSONParser", function() {
+      it("should contain the transaction for one external volume", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                containerPath: "/dev/null",
+                external: {
+                  name: "null",
+                  provider: "dvdi",
+                  options: {
+                    "dvdi/driver": "rexray"
+                  }
+                },
+                mode: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([
+          {
+            type: ADD_ITEM,
+            value: {
+              containerPath: "/dev/null",
+              external: {
+                name: "null",
+                provider: "dvdi",
+                options: {
+                  "dvdi/driver": "rexray"
+                }
+              },
+              mode: "RW"
+            },
+            path: ["volumes"]
+          },
+          { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
+          { type: SET, value: "null", path: ["volumes", 0, "name"] },
+          {
+            type: SET,
+            value: {
+              "dvdi/driver": "rexray"
+            },
+            path: ["volumes", 0, "options"]
+          },
+          { type: SET, value: "dvdi", path: ["volumes", 0, "provider"] },
+          {
+            type: SET,
+            value: "/dev/null",
+            path: ["volumes", 0, "containerPath"]
+          },
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+        ]);
+      });
+
+      it("should include a unknown value for provider", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                containerPath: "/dev/null",
+                external: {
+                  name: "null",
+                  provider: "provider",
+                  options: {
+                    "dvdi/driver": "rexray"
+                  }
+                },
+                mode: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([
+          {
+            type: ADD_ITEM,
+            value: {
+              containerPath: "/dev/null",
+              external: {
+                name: "null",
+                provider: "provider",
+                options: {
+                  "dvdi/driver": "rexray"
+                }
+              },
+              mode: "RW"
+            },
+            path: ["volumes"]
+          },
+          { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
+          { type: SET, value: "null", path: ["volumes", 0, "name"] },
+          {
+            type: SET,
+            value: {
+              "dvdi/driver": "rexray"
+            },
+            path: ["volumes", 0, "options"]
+          },
+          {
+            type: SET,
+            value: "provider",
+            path: ["volumes", 0, "provider"]
+          },
+          {
+            type: SET,
+            value: "/dev/null",
+            path: ["volumes", 0, "containerPath"]
+          },
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+        ]);
+      });
+
+      it("should include a unknown value for options", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                containerPath: "/dev/null",
+                external: {
+                  name: "null",
+                  provider: "provider",
+                  options: {
+                    someValue: true
+                  }
+                },
+                mode: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([
+          {
+            type: ADD_ITEM,
+            value: {
+              containerPath: "/dev/null",
+              external: {
+                name: "null",
+                provider: "provider",
+                options: {
+                  someValue: true
+                }
+              },
+              mode: "RW"
+            },
+            path: ["volumes"]
+          },
+          { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
+          { type: SET, value: "null", path: ["volumes", 0, "name"] },
+          {
+            type: SET,
+            value: {
+              someValue: true
+            },
+            path: ["volumes", 0, "options"]
+          },
+          {
+            type: SET,
+            value: "provider",
+            path: ["volumes", 0, "provider"]
+          },
+          {
+            type: SET,
+            value: "/dev/null",
+            path: ["volumes", 0, "containerPath"]
+          },
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+        ]);
+      });
+
+      it("should include a size value", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                containerPath: "/dev/null",
+                external: {
+                  size: 1024,
+                  name: "null",
+                  provider: "dvdi",
+                  options: {
+                    "dvdi/driver": "rexray"
+                  }
+                },
+                mode: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([
+          {
+            type: ADD_ITEM,
+            value: {
+              containerPath: "/dev/null",
+              external: {
+                size: 1024,
+                name: "null",
+                provider: "dvdi",
+                options: {
+                  "dvdi/driver": "rexray"
+                }
+              },
+              mode: "RW"
+            },
+            path: ["volumes"]
+          },
+          { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
+          { type: SET, value: "null", path: ["volumes", 0, "name"] },
+          { type: SET, value: 1024, path: ["volumes", 0, "size"] },
+          {
+            type: SET,
+            value: {
+              "dvdi/driver": "rexray"
+            },
+            path: ["volumes", 0, "options"]
+          },
+          { type: SET, value: "dvdi", path: ["volumes", 0, "provider"] },
+          {
+            type: SET,
+            value: "/dev/null",
+            path: ["volumes", 0, "containerPath"]
+          },
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
         ]);
       });
     });
