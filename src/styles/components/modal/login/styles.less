@@ -1,8 +1,20 @@
 & when (@login-modal-enabled) {
 
+  .modal-backdrop.login-modal-backdrop {
+    background-image: url('@{login-background-src}');
+    background-size: @login-background-src-width @login-background-src-height;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
   .modal {
 
     &.login-modal {
+      margin-top: -0.5 * @login-modal-logo-name-vertical-offset;
       overflow: visible;
 
       .modal-header,
@@ -11,7 +23,6 @@
       }
 
       .modal-header {
-        height: 144px;
         padding: 0;
       }
 
@@ -26,19 +37,162 @@
       }
 
       .login-modal-product-logo {
+        background-image: url('@{login-modal-logo-src}');
+        background-size: (@login-modal-logo-scale * @login-modal-logo-src-width) (@login-modal-logo-scale * @login-modal-logo-src-height);
+        display: block;
+        height: (@login-modal-logo-scale * @login-modal-logo-src-height);
         left: 50%;
         position: absolute;
-        top: -55px;
+        top: @login-modal-logo-name-vertical-offset;
         transform: translateX(-50%);
+        width: (@login-modal-logo-scale * @login-modal-logo-src-width);
+
+        &.inverse {
+          background-image: url('@{login-modal-logo-inverse-src}');
+        }
       }
 
       .login-modal-product-name {
-        bottom: @base-spacing-unit * -2;
-        font-size: 0.9rem;
+        bottom: @login-modal-product-name-vertical-offset;
         left: 50%;
         position: absolute;
         transform: translateX(-50%);
         width: 100%;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@login-modal-enabled) and (@login-modal-screen-small-enabled) {
+
+      .modal {
+
+        &.login-modal {
+          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-small;
+
+          .login-modal-product-logo {
+            background-size: (@login-modal-logo-scale-screen-small * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-small * @login-modal-logo-src-height);
+            height: (@login-modal-logo-scale-screen-small * @login-modal-logo-src-height);
+            top: @login-modal-logo-name-vertical-offset-screen-small;
+            width: (@login-modal-logo-scale-screen-small * @login-modal-logo-src-width);
+          }
+
+          .login-modal-product-name {
+            bottom: @login-modal-product-name-vertical-offset-screen-small;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@login-modal-enabled) and (@login-modal-screen-medium-enabled) {
+
+      .modal {
+
+        &.login-modal {
+          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-medium;
+
+          .login-modal-product-logo {
+            background-size: (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-height);
+            height: (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-height);
+            top: @login-modal-logo-name-vertical-offset-screen-medium;
+            width: (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-width);
+          }
+
+          .login-modal-product-name {
+            bottom: @login-modal-product-name-vertical-offset-screen-medium;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@login-modal-enabled) and (@login-modal-screen-large-enabled) {
+
+      .modal {
+
+        &.login-modal {
+          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-large;
+
+          .login-modal-product-logo {
+            background-size: (@login-modal-logo-scale-screen-large * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-large * @login-modal-logo-src-height);
+            height: (@login-modal-logo-scale-screen-large * @login-modal-logo-src-height);
+            top: @login-modal-logo-name-vertical-offset-screen-large;
+            width: (@login-modal-logo-scale-screen-large * @login-modal-logo-src-width);
+          }
+
+          .login-modal-product-name {
+            bottom: @login-modal-product-name-vertical-offset-screen-large;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@login-modal-enabled) and (@login-modal-screen-jumbo-enabled) {
+
+      .modal {
+
+        &.login-modal {
+          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-jumbo;
+
+          .login-modal-product-logo {
+            background-size: (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-height);
+            height: (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-height);
+            top: @login-modal-logo-name-vertical-offset-screen-jumbo;
+            width: (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-width);
+          }
+
+          .login-modal-product-name {
+            bottom: @login-modal-product-name-vertical-offset-screen-jumbo;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-resolution-2x-enabled) {
+
+  @media only screen and (min-resolution: 2dppx) {
+
+    & when (@login-modal-enabled) {
+
+      .modal-backdrop.login-modal-backdrop {
+        background-image: url('@{login-background-src2x}');
+      }
+
+      .modal {
+
+        &.login-modal {
+
+          .login-modal-product-logo {
+            background-image: url('@{login-modal-logo-src2x}');
+
+            &.inverse {
+              background-image: url('@{login-modal-logo-inverse-src2x}');
+            }
+          }
+        }
       }
     }
   }
