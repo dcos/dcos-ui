@@ -59,24 +59,7 @@ class VolumesFormSection extends Component {
 
     return (
       <FormRow>
-        <FormGroup className="column-3" showError={Boolean(sizeError)}>
-          <FieldLabel className="text-no-transform">
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                SIZE (MiB)
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumes.${key}.size`}
-              type="number"
-              value={volume.size}
-            />
-          </FieldAutofocus>
-          <FieldError>{sizeError}</FieldError>
-        </FormGroup>
-        <FormGroup className="column-6" showError={Boolean(containerPathError)}>
+        <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
@@ -100,6 +83,23 @@ class VolumesFormSection extends Component {
             value={volume.containerPath}
           />
           <FieldError>{containerPathError}</FieldError>
+        </FormGroup>
+        <FormGroup className="column-2" showError={Boolean(sizeError)}>
+          <FieldLabel className="text-no-transform">
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                SIZE (MiB)
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldAutofocus>
+            <FieldInput
+              name={`volumes.${key}.size`}
+              type="number"
+              value={volume.size}
+            />
+          </FieldAutofocus>
+          <FieldError>{sizeError}</FieldError>
         </FormGroup>
       </FormRow>
     );
@@ -188,6 +188,104 @@ class VolumesFormSection extends Component {
     );
   }
 
+  getExternalVolumeConfig(volume, key) {
+    if (volume.type !== "EXTERNAL") {
+      return null;
+    }
+
+    const nameError = errorsLens
+      .at(key, {})
+      .attr("external", {})
+      .get(this.props.errors).name;
+
+    const sizeError = errorsLens
+      .at(key, {})
+      .attr("external", {})
+      .get(this.props.errors).size;
+
+    const containerPathError = errorsLens.at(key, {}).get(this.props.errors)
+      .containerPath;
+
+    const runtimeType = findNestedPropertyInObject(
+      this.props.data,
+      "container.type"
+    );
+
+    let sizeField = (
+      <Tooltip
+        content="Docker Runtime only supports the default size for implicit volumes, please select Universal Container Runtime (UCR) if you want to modify the size."
+        width={300}
+        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
+        wrapText={true}
+      >
+        <FieldInput
+          name={`volumes.${key}.size`}
+          type="number"
+          disabled={true}
+          value={""}
+        />
+      </Tooltip>
+    );
+
+    if (runtimeType !== DOCKER) {
+      sizeField = (
+        <FieldInput
+          name={`volumes.${key}.size`}
+          type="number"
+          value={volume.size}
+        />
+      );
+    }
+
+    return (
+      <FormRow>
+        <FormGroup className="column-4" showError={Boolean(nameError)}>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Name
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldAutofocus>
+            <FieldInput
+              name={`volumes.${key}.name`}
+              type="text"
+              value={volume.name}
+            />
+          </FieldAutofocus>
+          <FieldError>{nameError}</FieldError>
+        </FormGroup>
+        <FormGroup className="column-4" showError={Boolean(containerPathError)}>
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Container Path
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldInput
+            name={`volumes.${key}.containerPath`}
+            type="text"
+            value={volume.containerPath}
+          />
+          <FieldError>{containerPathError}</FieldError>
+        </FormGroup>
+        <FormGroup className="column-2" showError={Boolean(sizeError)}>
+          <FieldLabel className="text-no-transform">
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                SIZE (GiB)
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          {sizeField}
+          <FieldError>{sizeError}</FieldError>
+        </FormGroup>
+      </FormRow>
+    );
+  }
+
   getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = errorsLens.at(key, {}).get(this.props.errors).type;
@@ -201,7 +299,7 @@ class VolumesFormSection extends Component {
           })}
         >
           <FormRow>
-            <FormGroup className="column-6" showError={Boolean(typeError)}>
+            <FormGroup className="column-4" showError={Boolean(typeError)}>
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -215,11 +313,13 @@ class VolumesFormSection extends Component {
                   Host Volume
                 </option>
                 <option value="PERSISTENT">Persistent Volume</option>
+                <option value="EXTERNAL">External Volume</option>
               </FieldSelect>
             </FormGroup>
           </FormRow>
           {this.getPersistentVolumeConfig(volume, key)}
           {this.getHostVolumeConfig(volume, key)}
+          {this.getExternalVolumeConfig(volume, key)}
         </FormGroupContainer>
       );
     });
