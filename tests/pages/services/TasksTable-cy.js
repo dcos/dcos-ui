@@ -150,7 +150,7 @@ describe("Tasks Table", function() {
 
     it("Shows the correct region", function() {
       cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
-      cy.get("td.task-table-column-zone-address").eq(1).contains("(Local)");
+      cy.get("td.task-table-column-zone-address").eq(1).contains("N/A");
     });
   });
 });
