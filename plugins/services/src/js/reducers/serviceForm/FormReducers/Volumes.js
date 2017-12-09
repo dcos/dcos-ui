@@ -37,6 +37,9 @@ module.exports = {
       if (type === SET && `volumes.${index}.size` === joinedPath) {
         state[index].size = parseIntValue(value);
       }
+      if (type === SET && `volumes.${index}.name` === joinedPath) {
+        state[index].name = String(value);
+      }
       if (type === SET && `volumes.${index}.mode` === joinedPath) {
         state[index].mode = String(value);
       }

@@ -8,6 +8,13 @@ import ContainerConstants from "../../../constants/ContainerConstants";
 const { type: { MESOS, DOCKER } } = ContainerConstants;
 
 const mapVolumes = function(volume) {
+  if (volume.type === "EXTERNAL") {
+    return {
+      external: volume.external,
+      mode: volume.mode,
+      containerPath: volume.containerPath
+    };
+  }
   if (volume.type === "PERSISTENT") {
     return {
       persistent: volume.persistent,
@@ -153,6 +160,11 @@ function reduceVolumes(state, { type, path, value }) {
             value || {
               containerPath: null,
               persistent: { size: null },
+              external: {
+                name: null,
+                provider: "dvdi",
+                options: { "dvdi/driver": "rexray" }
+              },
               mode: "RW"
             }
           );
@@ -176,10 +188,24 @@ function reduceVolumes(state, { type, path, value }) {
       if (this.volumes[index].persistent == null) {
         this.volumes[index].persistent = { size: null };
       }
+      if (this.volumes[index].external == null) {
+        this.volumes[index].external = { size: null };
+      }
       this.volumes[index].persistent.size = parseIntValue(value);
+      this.volumes[index].external.size = parseIntValue(value);
     }
     if (type === SET && `volumes.${index}.type` === joinedPath) {
       this.volumes[index].type = String(value);
+    }
+    if (type === SET && `volumes.${index}.name` === joinedPath) {
+      this.volumes[index].external.name = String(value);
+    }
+    if (type === SET && `volumes.${index}.provider` === joinedPath) {
+      this.volumes[index].external.provider = String(value);
+    }
+    if (type === SET && `volumes.${index}.options` === joinedPath) {
+      // Options is of type object, so we are not processing it
+      this.volumes[index].external.options = value;
     }
     if (type === SET && `volumes.${index}.mode` === joinedPath) {
       this.volumes[index].mode = String(value);
@@ -206,10 +232,8 @@ module.exports = {
       return [];
     }
 
-    return state.container.volumes
-      .filter(item => item.hostPath != null || item.persistent != null)
-      .reduce(function(memo, item, index) {
-        /**
+    return state.container.volumes.reduce(function(memo, item, index) {
+      /**
          * For the volumes we have a special case as all the volumes
          * are present in the `container.volumes` But in this parser we only
          * want to parse the local volumes. which means that we first filter
@@ -224,49 +248,77 @@ module.exports = {
          * 4) Set the mode from `volume.mode` on the path
          *    `volumes.${index}.mode`
          */
-        memo.push(new Transaction(["volumes"], item, ADD_ITEM));
+      memo.push(new Transaction(["volumes"], item, ADD_ITEM));
 
-        if (item.persistent != null && item.persistent.size != null) {
+      if (item.persistent != null && item.persistent.size != null) {
+        memo.push(
+          new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
+        );
+
+        memo.push(
+          new Transaction(["volumes", index, "size"], item.persistent.size, SET)
+        );
+      } else if (item.external != null && item.external.name != null) {
+        memo.push(new Transaction(["volumes", index, "type"], "EXTERNAL", SET));
+
+        if (item.external.name != null) {
           memo.push(
-            new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
+            new Transaction(["volumes", index, "name"], item.external.name, SET)
           );
+        }
 
+        if (item.external.size != null) {
+          memo.push(
+            new Transaction(["volumes", index, "size"], item.external.size, SET)
+          );
+        }
+
+        if (item.external.options != null) {
           memo.push(
             new Transaction(
-              ["volumes", index, "size"],
-              item.persistent.size,
-              SET
-            )
-          );
-        } else {
-          memo.push(new Transaction(["volumes", index, "type"], "HOST", SET));
-
-          memo.push(
-            new Transaction(
-              ["volumes", index, "hostPath"],
-              item.hostPath || "",
+              ["volumes", index, "options"],
+              item.external.options,
               SET
             )
           );
         }
 
-        if (item.containerPath != null) {
+        if (item.external.provider != null) {
           memo.push(
             new Transaction(
-              ["volumes", index, "containerPath"],
-              item.containerPath,
+              ["volumes", index, "provider"],
+              item.external.provider,
               SET
             )
           );
         }
+      } else {
+        memo.push(new Transaction(["volumes", index, "type"], "HOST", SET));
 
-        if (item.mode != null) {
-          memo.push(
-            new Transaction(["volumes", index, "mode"], item.mode, SET)
-          );
-        }
+        memo.push(
+          new Transaction(
+            ["volumes", index, "hostPath"],
+            item.hostPath || "",
+            SET
+          )
+        );
+      }
 
-        return memo;
-      }, []);
+      if (item.containerPath != null) {
+        memo.push(
+          new Transaction(
+            ["volumes", index, "containerPath"],
+            item.containerPath,
+            SET
+          )
+        );
+      }
+
+      if (item.mode != null) {
+        memo.push(new Transaction(["volumes", index, "mode"], item.mode, SET));
+      }
+
+      return memo;
+    }, []);
   }
 };
