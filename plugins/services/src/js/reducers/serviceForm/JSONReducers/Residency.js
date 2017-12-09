@@ -31,15 +31,15 @@ module.exports = {
         this.volumes[index] = value === "PERSISTENT";
       }
 
-      const hasLocalVolumes = this.volumes.find(value => {
+      const hasVolumes = this.volumes.find(value => {
         return value;
       });
-      if (hasLocalVolumes && this.residency == null) {
+      if (hasVolumes && this.residency == null) {
         return {
           relaunchEscalationTimeoutSeconds: 10,
           taskLostBehavior: "WAIT_FOREVER"
         };
-      } else if (!hasLocalVolumes) {
+      } else if (!hasVolumes) {
         return;
       } else {
         return this.residency;

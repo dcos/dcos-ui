@@ -25,7 +25,7 @@ import {
 } from "../../reducers/serviceForm/FormReducers/ExternalVolumes";
 import {
   FormReducer as volumes
-} from "../../reducers/serviceForm/FormReducers/LocalVolumes";
+} from "../../reducers/serviceForm/FormReducers/Volumes";
 
 const { type: { DOCKER } } = ContainerConstants;
 
@@ -188,7 +188,7 @@ class VolumesFormSection extends Component {
     );
   }
 
-  getLocalVolumesLines(data) {
+  getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = errorsLens.at(key, {}).get(this.props.errors).type;
 
@@ -377,7 +377,7 @@ class VolumesFormSection extends Component {
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>
-        {this.getLocalVolumesLines(data.volumes)}
+        {this.getVolumesLines(data.volumes)}
         <div>
           <AddButton
             onClick={this.props.onAddItem.bind(this, {

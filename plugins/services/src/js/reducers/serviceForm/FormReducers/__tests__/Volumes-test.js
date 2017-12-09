@@ -1,15 +1,15 @@
 const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
-const LocalVolumes = require("../LocalVolumes");
+const Volumes = require("../Volumes");
 
-describe("LocalVolumes", function() {
+describe("Volumes", function() {
   describe("#FormReducer", function() {
     it("should return an Array with one item", function() {
       const batch = new Batch()
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
         { size: null, containerPath: null, mode: "RW", type: "PERSISTENT" }
       ]);
     });
@@ -20,7 +20,7 @@ describe("LocalVolumes", function() {
         .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
         .add(new Transaction(["volumes", 0, "size"], 1024))
         .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"));
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
         {
           size: 1024,
           containerPath: "/dev/null",
@@ -38,7 +38,7 @@ describe("LocalVolumes", function() {
       batch = batch.add(new Transaction(["volumes", 0, "containerPath"], 123));
       batch = batch.add(new Transaction(["volumes", 0, "size"], "1024"));
       batch = batch.add(new Transaction(["volumes", 0, "mode"], 123));
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
         {
           size: 1024,
           hostPath: "123",
@@ -59,7 +59,7 @@ describe("LocalVolumes", function() {
         .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
         .add(new Transaction(["volumes", 1, "size"], 512))
         .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"));
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
         {
           size: 1024,
           containerPath: "/dev/null",
@@ -87,7 +87,7 @@ describe("LocalVolumes", function() {
         .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"))
         .add(new Transaction(["volumes"], 0, REMOVE_ITEM));
 
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
         {
           size: 512,
           containerPath: "/dev/dev2",
@@ -105,7 +105,7 @@ describe("LocalVolumes", function() {
         .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
         .add(new Transaction(["volumes", 0, "mode"], "READ"));
 
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
         {
           size: 1024,
           containerPath: "/dev/null",
