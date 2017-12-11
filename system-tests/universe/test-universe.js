@@ -61,7 +61,9 @@ describe("Universe", function() {
     // Should give error that package already installed
     cy
       .get(".alert-danger")
-      .contains("Package is already installed")
+      .contains(
+        "A service with the same name already exists. Try a different name."
+      )
       .should("exist");
   });
 

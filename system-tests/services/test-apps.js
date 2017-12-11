@@ -499,13 +499,6 @@ describe("Services", function() {
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      // Get the table row and look for health
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
-
       // Now click on the name
       cy
         .get(".page-body-content table")
@@ -513,6 +506,15 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
+
+      // Get the table row and look for health
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get(".dot.flush.success", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       // open edit screen
       cy
@@ -1500,13 +1502,6 @@ describe("Services", function() {
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      // Get the table row and look for health
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
-
       // Now click on the name
       cy
         .get(".page-body-content table")
@@ -1514,6 +1509,15 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
+
+      // Get the table row and look for health
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get(".dot.flush.success", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       // open edit screen
       cy

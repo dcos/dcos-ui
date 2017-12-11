@@ -98,7 +98,7 @@ describe("Dashboard", function() {
       );
       cy
         .get(".panel-header")
-        .contains("Services Health")
+        .contains("Services Status")
         .parents(".panel")
         .find("li")
         .contains(serviceName);
@@ -180,7 +180,7 @@ describe("Dashboard", function() {
       );
       cy
         .get(".panel-header")
-        .contains("Services Health")
+        .contains("Services Status")
         .parents(".panel")
         .contains(serviceName)
         .should("not.exist");
