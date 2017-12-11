@@ -1963,6 +1963,14 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist")
+        .as("serviceName");
+
+      cy
+        .get("@serviceName")
+        .parents("tr")
+        .first()
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
       cy
