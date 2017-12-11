@@ -41,17 +41,17 @@ We want to guarantee that our project DC/OS UI works as it should within DC/OS a
 
   This should show a new icon on your desktop menu bar.
 
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-desktop-icon.png?raw=true)
+  ![img](../../../../../../../dcos/dcos-ui/blob/master/docs/images/cypress-desktop-icon.png?raw=true)
 
 4. Login with Github. Click on the icon on your desktop menu bar and login.
 
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-login.png?raw=true)
+  ![img](../../../../../../../dcos/dcos-ui/blob/master/docs/images/cypress-login.png?raw=true)
 
 5. Add project to Cypress app
 
   Once you've logged in click on the plus button and add the `dcos-ui` folder.
 
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
+  ![img](../../../../../../../dcos/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
 
 ### Running Integration Tests
 
@@ -63,6 +63,6 @@ We want to guarantee that our project DC/OS UI works as it should within DC/OS a
 
 2. Click on the project in the Cypress app to start the server
 
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-project.png?raw=true)
+  ![img](../../../../../../../dcos/dcos-ui/blob/master/docs/images/cypress-project.png?raw=true)
 
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-server-running.png?raw=true)
+  ![img](../../../../../../../dcos/dcos-ui/blob/master/docs/images/cypress-server-running.png?raw=true)
