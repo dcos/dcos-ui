@@ -36,7 +36,7 @@ RUN set -x \
   # Install cypress
   && cypress install --cypress-version ${CYPRESS_VERSION} \
   # Install dcos-launch
-  && curl 'https://downloads.dcos.io/dcos-test-utils/bin/linux/dcos-launch' > /usr/local/bin/dcos-launch \
+  && curl 'https://downloads.dcos.io/dcos-launch/bin/linux/dcos-launch' > /usr/local/bin/dcos-launch \
   && chmod +x /usr/local/bin/dcos-launch \
   # Ensure entrypoint is executable
   && chmod +x /usr/local/bin/dcos-ui-docker-entrypoint \

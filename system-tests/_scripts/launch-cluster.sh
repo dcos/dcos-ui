@@ -20,7 +20,7 @@ installer_url: ${1:-$INSTALLER_URL}
 platform: aws
 provider: onprem
 aws_region: us-west-2
-os_name: cent-os-7
+os_name: cent-os-7-dcos-prereqs
 instance_type: m4.large
 dcos_config:
   cluster_name: DC/OS UI System Integration Tests
