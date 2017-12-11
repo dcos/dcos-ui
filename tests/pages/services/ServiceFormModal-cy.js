@@ -1156,7 +1156,7 @@ describe("Service Form Modal", function() {
         beforeEach(function() {
           cy
             .get(".menu-tabbed-view .button.button-primary-link")
-            .contains("Add Local Volume")
+            .contains("Add Volume")
             .click();
         });
 
@@ -1165,35 +1165,33 @@ describe("Service Form Modal", function() {
             .get("@tabView")
             .contains(".form-group", "Volume Type")
             .within(function() {
-              cy
-                .get("select")
-                .should("have.attr", "name", "localVolumes.0.type");
+              cy.get("select").should("have.attr", "name", "volumes.0.type");
             });
         });
 
         it('Should add new set of form fields when "Persistent Volume" is selected as volume type', function() {
           cy
             .get("@tabView")
-            .find('select[name="localVolumes.0.type"]')
+            .find('select[name="volumes.0.type"]')
             .select("PERSISTENT");
 
           // Size input
           cy
             .get("@tabView")
-            .find('.form-control[name="localVolumes.0.size"]')
+            .find('.form-control[name="volumes.0.size"]')
             .should("exist");
 
           // Container Path input
           cy
             .get("@tabView")
-            .find('.form-control[name="localVolumes.0.containerPath"]')
+            .find('.form-control[name="volumes.0.containerPath"]')
             .should("exist");
         });
 
         it('Should remove "Volume" form fields when remove button clicked', function() {
           cy
             .get("@tabView")
-            .find('select[name="localVolumes.0.type"]')
+            .find('select[name="volumes.0.type"]')
             .parents(".panel")
             .within(function() {
               // Click delete button
@@ -1202,7 +1200,7 @@ describe("Service Form Modal", function() {
 
           cy
             .get("@tabView")
-            .find('.form-control[name="localVolumes.0.type"]')
+            .find('.form-control[name="volumes.0.type"]')
             .should("not.exist");
         });
       });
