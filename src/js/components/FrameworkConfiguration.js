@@ -217,11 +217,28 @@ class FrameworkConfiguration extends Component {
   }
 
   getReviewScreen() {
-    const { deployErrors, isInitialDeploy, formData } = this.props;
+    const {
+      deployErrors,
+      isInitialDeploy,
+      formData,
+      defaultConfigWarning
+    } = this.props;
 
     let warningMessage = null;
     if (isInitialDeploy) {
       warningMessage = this.getWarningMessage();
+    }
+
+    let defaultConfigWarningMessage = null;
+    if (defaultConfigWarning) {
+      const message = {};
+      message.__html = `<strong>Warning: </strong>${defaultConfigWarning}`;
+      defaultConfigWarningMessage = (
+        <div
+          dangerouslySetInnerHTML={message}
+          className="message message-warning"
+        />
+      );
     }
 
     let errorsAlert = null;
@@ -234,6 +251,7 @@ class FrameworkConfiguration extends Component {
         <div className="container">
           {errorsAlert}
           {warningMessage}
+          {defaultConfigWarningMessage}
           <FrameworkConfigurationReviewScreen
             frameworkData={formData}
             title={"Configuration"}
@@ -285,7 +303,8 @@ class FrameworkConfiguration extends Component {
       formErrors,
       formData,
       onFormDataChange,
-      onFormErrorChange
+      onFormErrorChange,
+      defaultConfigWarning
     } = this.props;
 
     let pageContents;
@@ -294,17 +313,18 @@ class FrameworkConfiguration extends Component {
     } else {
       pageContents = (
         <FrameworkConfigurationForm
-          packageDetails={packageDetails}
           jsonEditorActive={jsonEditorActive}
-          formData={formData}
-          formErrors={formErrors}
           focusField={focusField}
           activeTab={activeTab}
+          handleActiveTabChange={this.handleActiveTabChange}
+          handleFocusFieldChange={this.handleFocusFieldChange}
+          formData={formData}
+          formErrors={formErrors}
+          packageDetails={packageDetails}
           deployErrors={deployErrors}
           onFormDataChange={onFormDataChange}
           onFormErrorChange={onFormErrorChange}
-          handleActiveTabChange={this.handleActiveTabChange}
-          handleFocusFieldChange={this.handleFocusFieldChange}
+          defaultConfigWarning={defaultConfigWarning}
         />
       );
     }
@@ -339,12 +359,15 @@ class FrameworkConfiguration extends Component {
 
 FrameworkConfiguration.propTypes = {
   formData: PropTypes.object.isRequired,
+  formErrors: PropTypes.object.isRequired,
   onFormDataChange: PropTypes.func.isRequired,
+  onFormErrorChange: PropTypes.func.isRequired,
   packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
   handleRun: PropTypes.func.isRequired,
   handleGoBack: PropTypes.func.isRequired,
   isInitialDeploy: PropTypes.bool.isRequired,
-  deployErrors: PropTypes.object
+  deployErrors: PropTypes.object,
+  defaultConfigWarning: PropTypes.string
 };
 
 module.exports = FrameworkConfiguration;

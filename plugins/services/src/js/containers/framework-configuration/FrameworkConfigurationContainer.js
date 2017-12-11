@@ -9,9 +9,9 @@ import FrameworkConfigurationReviewScreen
 import Loader from "src/js/components/Loader";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import { COSMOS_SERVICE_DESCRIBE_CHANGE } from "#SRC/js/constants/EventTypes";
+import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 const METHODS_TO_BIND = [
-  "reorderResolvedOptions",
   "handleEditClick",
   "onCosmosPackagesStoreServiceDescriptionSuccess"
 ];
@@ -51,23 +51,14 @@ class FrameworkConfigurationContainer extends React.Component {
     const fullPackage = CosmosPackagesStore.getServiceDetails();
     const packageDetails = new UniversePackage(fullPackage.package);
 
-    // necessary to have review screen same order of tabs as the form
-    const frameworkData = this.reorderResolvedOptions(
+    const schema = packageDetails.getConfig();
+    const frameworkData = getDefaultFormState(
+      schema,
       fullPackage.resolvedOptions,
-      packageDetails.getConfig()
+      schema.definitions
     );
 
     this.setState({ frameworkData });
-  }
-
-  reorderResolvedOptions(resolvedOptions, config) {
-    const order = Object.keys(config.properties);
-    const orderedResolvedOptions = {};
-    order.forEach(tab => {
-      orderedResolvedOptions[tab] = resolvedOptions[tab];
-    });
-
-    return orderedResolvedOptions;
   }
 
   handleEditClick() {

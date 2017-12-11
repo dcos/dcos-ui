@@ -6,7 +6,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import Icon from "#SRC/js/components/Icon";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-const METHODS_TO_BIND = ["reorderResolvedOptions", "getHashMapRenderKeys"];
+const METHODS_TO_BIND = ["getHashMapRenderKeys"];
 
 class FrameworkConfigurationReviewScreen extends React.Component {
   constructor(props) {
@@ -15,16 +15,6 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  reorderResolvedOptions(resolvedOptions, config) {
-    const order = Object.keys(config.properties);
-    const orderedResolvedOptions = {};
-    order.forEach(tab => {
-      orderedResolvedOptions[tab] = resolvedOptions[tab];
-    });
-
-    return orderedResolvedOptions;
   }
 
   getHashMapRenderKeys(formData) {

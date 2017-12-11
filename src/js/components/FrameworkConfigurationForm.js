@@ -239,7 +239,8 @@ class FrameworkConfigurationForm extends Component {
       jsonEditorActive,
       formData,
       activeTab,
-      deployErrors
+      deployErrors,
+      defaultConfigWarning
     } = this.props;
 
     const TitleField = props => {
@@ -261,6 +262,18 @@ class FrameworkConfigurationForm extends Component {
     let errorsAlert = null;
     if (deployErrors) {
       errorsAlert = <CosmosErrorMessage error={deployErrors} />;
+    }
+
+    let defaultConfigWarningMessage = null;
+    if (defaultConfigWarning) {
+      const message = {};
+      message.__html = `<strong>Warning: </strong>${defaultConfigWarning}`;
+      defaultConfigWarningMessage = (
+        <div
+          dangerouslySetInnerHTML={message}
+          className="message message-warning"
+        />
+      );
     }
 
     return (
@@ -286,6 +299,7 @@ class FrameworkConfigurationForm extends Component {
                   </TabButtonList>
                   <div className="menu-tabbed-view-container">
                     {errorsAlert}
+                    {defaultConfigWarningMessage}
                     <SchemaForm
                       schema={packageDetails.getConfig()}
                       formData={formData}
@@ -327,13 +341,15 @@ FrameworkConfigurationForm.propTypes = {
   packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
   jsonEditorActive: PropTypes.bool.isRequired,
   formData: PropTypes.object.isRequired,
+  formErrors: PropTypes.object.isRequired,
   focusField: PropTypes.string.isRequired,
   activeTab: PropTypes.string.isRequired,
   deployErrors: PropTypes.object,
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
   handleActiveTabChange: PropTypes.func.isRequired,
-  handleFocusFieldChange: PropTypes.func.isRequired
+  handleFocusFieldChange: PropTypes.func.isRequired,
+  defaultConfigWarning: PropTypes.string
 };
 
 module.exports = FrameworkConfigurationForm;
