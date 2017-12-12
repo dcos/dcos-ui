@@ -3,6 +3,7 @@ import json
 import os
 import base64
 import requests
+from requests.adapters import HTTPAdapter
 
 requests.packages.urllib3.disable_warnings()
 
@@ -25,7 +26,9 @@ credentials = {
 }
 
 # Try to login
-response = requests.post('%s/acs/api/v1/auth/login' % os.environ['CLUSTER_URL'], json=credentials, verify=False)
+session = requests.Session()
+session.mount('http://', HTTPAdapter(max_retries=3))
+response = session.post('%s/acs/api/v1/auth/login' % os.environ['CLUSTER_URL'], json=credentials, verify=False)
 
 # Echo results
 print(json.dumps({
