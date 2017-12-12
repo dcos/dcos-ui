@@ -234,7 +234,7 @@ describe("PodContainer", function() {
       expect(podContainer.hasHealthChecks()).toBeFalsy();
     });
 
-    it("should return false if healthy is not defined everywhere", function() {
+    it("returns true if 'healthy' is defined for at least one container", function() {
       const podContainer = new PodContainer({
         endpoints: [
           { name: "nginx", allocatedHostPort: 31001, healthy: true },
@@ -242,7 +242,7 @@ describe("PodContainer", function() {
         ]
       });
 
-      expect(podContainer.hasHealthChecks()).toBeFalsy();
+      expect(podContainer.hasHealthChecks()).toEqual(true);
     });
 
     it("should return true if at least one check has failed", function() {

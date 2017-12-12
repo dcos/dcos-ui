@@ -101,8 +101,7 @@ module.exports = class PodInstance extends Item {
   }
 
   hasHealthChecks() {
-    // If for any reason any of the containers has at least 1 health
-    // check that is failing, assume that we have health checks
+    // Assume we have health checks if instance isn't healthy
     if (!this.isHealthy()) {
       return true;
     }
@@ -113,8 +112,7 @@ module.exports = class PodInstance extends Item {
       return false;
     }
 
-    // Otherwise ALL container must have health checks in order to be
-    // considered healthy.
+    // If there are containers ALL of them must have health checks
     return containers.every(function(container) {
       return container.hasHealthChecks();
     });
