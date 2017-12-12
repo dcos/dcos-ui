@@ -74,7 +74,7 @@ describe("Networks", function() {
     it("allows users to filter the table", function() {
       cy
         .get(".filter-bar-item .filter-input-text")
-        .type("sleep.7084272b-6b76-11e5-a953-08002719334a");
+        .type("sleep.7084272b-6b76-11e5-a953-08002719334a", { force: true });
       cy.get("tbody tr").should(function($tableRows) {
         expect(getVisibleTableRows($tableRows).length).to.equal(1);
       });
