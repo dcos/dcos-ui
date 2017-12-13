@@ -2,7 +2,7 @@
 pipeline {
   agent {
     dockerfile {
-      args  '--shm-size=1g'
+      args  '--shm-size=2g'
     }
   }
 
