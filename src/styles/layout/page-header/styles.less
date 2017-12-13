@@ -1,0 +1,163 @@
+/* Page Header */
+
+& when (@page-header-enabled) {
+
+  .page-header {
+    .clearfix();
+    box-shadow: 0 0 0 1px fade(@grey-dark, 15%);
+    flex: 0 0 auto;
+    position: relative;
+    z-index: @z-index-page-header;
+
+    .page-header-section {
+      align-items: center;
+      display: flex;
+
+      & > * {
+
+        &:not(.page-header-content):not(a) {
+          flex-grow: 0;
+        }
+
+        & when not (@page-header-section-content-padding-horizontal = null) {
+          box-sizing: content-box;
+          flex-grow: 1;
+          padding-right: @page-header-section-content-padding-horizontal;
+
+          &:last-child:not(a) {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+
+    .page-header-section-primary {
+      .property-variant(page-header-section-primary, min-height, height, null, null);
+    }
+
+    .page-header-sidebar-toggle {
+      cursor: pointer;
+      display: block;
+      flex: 0 0 auto;
+
+      .page-header-sidebar-toggle-label {
+        display: none;
+      }
+    }
+
+    .page-header-actions-inner {
+      display: flex;
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
+
+      .page-header {
+
+        .page-header-section {
+
+          & > * {
+
+            & when not (@page-header-section-content-padding-horizontal-screen-small = null) {
+              padding-right: @page-header-section-content-padding-horizontal-screen-small;
+            }
+          }
+        }
+
+        .page-header-section-primary {
+          .property-variant(page-header-section-primary, min-height, height, null, screen-small);
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-medium-enabled) {
+
+      .page-header {
+
+        .page-header-section {
+
+          & > * {
+
+            & when not (@page-header-section-content-padding-horizontal-screen-medium = null) {
+              padding-right: @page-header-section-content-padding-horizontal-screen-medium;
+            }
+          }
+        }
+
+        .page-header-section-primary {
+          .property-variant(page-header-section-primary, min-height, height, null, screen-medium);
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
+
+      .sidebar-docked {
+
+        .page-header-sidebar-toggle {
+          display: none;
+        }
+      }
+
+      .page-header {
+
+        .page-header-section {
+
+          & > * {
+
+            & when not (@page-header-section-content-padding-horizontal-screen-large = null) {
+              padding-right: @page-header-section-content-padding-horizontal-screen-large;
+            }
+          }
+        }
+
+        .page-header-section-primary {
+          .property-variant(page-header-section-primary, min-height, height, null, screen-large);
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
+
+      .page-header {
+
+        .page-header-section {
+
+          & > * {
+
+            & when not (@page-header-section-content-padding-horizontal-screen-jumbo = null) {
+              padding-right: @page-header-section-content-padding-horizontal-screen-jumbo;
+            }
+          }
+        }
+
+        .page-header-section-primary {
+          .property-variant(page-header-section-primary, min-height, height, null, screen-jumbo);
+        }
+      }
+    }
+  }
+}

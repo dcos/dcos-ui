@@ -130,7 +130,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         className: classNameFn,
         headerClassName: classNameFn,
-        heading: ResourceTableUtil.renderHeading({ name: "NAME" }),
+        heading: ResourceTableUtil.renderHeading({ name: "Name" }),
         prop: "name",
         render: this.renderUnit,
         sortable: true,
@@ -139,7 +139,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         className: classNameFn,
         headerClassName: classNameFn,
-        heading: ResourceTableUtil.renderHeading({ health: "HEALTH" }),
+        heading: ResourceTableUtil.renderHeading({ health: "Health" }),
         prop: "health",
         render: this.renderHealth,
         sortable: true,
@@ -211,7 +211,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
           </div>
           <div className="page-body-content-fill flex-grow flex-container-col">
             <Table
-              className="table table-borderless-outer
+              className="table table-flush table-borderless-outer
                 table-borderless-inner-columns table-hover flush-bottom"
               columns={this.getColumns()}
               colGroup={this.getColGroup()}

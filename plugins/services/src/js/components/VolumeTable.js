@@ -61,12 +61,12 @@ class VolumeTable extends React.Component {
 
     const headingStrings = {
       id: "ID",
-      host: "HOST",
-      type: "TYPE",
-      path: "PATH",
-      size: "SIZE",
-      mode: "MODE",
-      status: "STATUS"
+      host: "Host",
+      type: "Type",
+      path: "Path",
+      size: "Size",
+      mode: "Mode",
+      status: "Status"
     };
 
     return (
@@ -164,7 +164,7 @@ class VolumeTable extends React.Component {
   render() {
     return (
       <Table
-        className="table table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
+        className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.getData(this.props.service.getVolumes().getItems())}

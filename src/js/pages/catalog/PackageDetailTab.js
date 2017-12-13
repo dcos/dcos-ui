@@ -41,7 +41,7 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="catalog" breadcrumbs={crumbs} />;
 };
 
 const METHODS_TO_BIND = [
@@ -198,9 +198,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
         className="pod pod-shorter flush-top flush-right flush-left"
         key={key}
       >
-        <h5 className="short-bottom">
+        <h2 className="short-bottom">
           {label}
-        </h5>
+        </h2>
         {value}
       </div>
     );

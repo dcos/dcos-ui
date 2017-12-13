@@ -9,7 +9,7 @@ describe("Tasks Table", function() {
 
     it("displays task detail page on task click", function() {
       cy.visitUrl({ url: "/services/detail/%2Fcassandra" });
-      cy.get('a[title="server-0_10a"]').click();
+      cy.get('a[title="server-0_10a"]').click({ force: true });
       cy.get(".page-header").should("contain", "server-0");
     });
 
@@ -103,10 +103,13 @@ describe("Tasks Table", function() {
 
     function assertActionButtons() {
       cy
-        .get(".filter-bar .button-collection .button-link > span")
+        .get(".filter-bar .button-collection .button-primary-link > span")
         .eq(0)
         .contains("Restart");
-      cy.get(".button-collection .button-link > span").eq(1).contains("Stop");
+      cy
+        .get(".button-collection .button-primary-link > span")
+        .eq(1)
+        .contains("Stop");
     }
 
     it("Select all tasks available and confirm action buttons exist", function() {

@@ -20,9 +20,9 @@ import VirtualNetworkUtil from "../../../utils/VirtualNetworkUtil";
 import Util from "../../../utils/Util";
 
 const headerMapping = {
-  id: "TASK",
-  ip_address: "CONTAINER IP",
-  port_mappings: "PORT MAPPINGS"
+  id: "Task",
+  ip_address: "Container IP",
+  port_mappings: "Port Mappings"
 };
 const METHODS_TO_BIND = [
   "handleSearchStringChange",
@@ -299,7 +299,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
           />
         </FilterBar>
         <Table
-          className="table table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
+          className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={filteredTasks}

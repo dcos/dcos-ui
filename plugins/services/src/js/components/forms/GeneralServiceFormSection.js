@@ -384,10 +384,11 @@ class GeneralServiceFormSection extends Component {
           header={<ModalHeading>Switching to a pod service</ModalHeading>}
           open={this.state.convertToPodModalOpen}
           onClose={this.handleCloseConvertToPodModal}
-          leftButtonText="Close"
+          leftButtonText="Cancel"
+          leftButtonClassName="button button-primary-link"
           leftButtonCallback={this.handleCloseConvertToPodModal}
-          rightButtonText="Continue"
-          rightButtonClassName="button button-success"
+          rightButtonText="Switch to Pod"
+          rightButtonClassName="button button-primary"
           rightButtonCallback={this.handleConvertToPod}
           showHeader={true}
         >

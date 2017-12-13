@@ -1,0 +1,151 @@
+& when (@page-header-navigation-enabled) {
+
+  .page-header-navigation {
+    align-items: stretch;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+  }
+
+  .page-header-navigation-tabs,
+  .page-header-navigation-tabs.menu-tabbed {
+    .element-spacing(page-header-navigation-tabs, null, null);
+    display: none;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .page-header-navigation-dropdown {
+    .element-text-size(page-header-navigation-dropdown, null);
+    .element-text-style(page-header-navigation-dropdown);
+    .element-spacing(page-header-navigation-dropdown, null, null);
+    .property-variant(page-header-navigation-dropdown, height, null, null);
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    .button {
+      .element-text-size(page-header-navigation-dropdown, null);
+      .element-text-style(page-header-navigation-dropdown);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      flex-basis: auto;
+      flex-grow: 1;
+      flex-shrink: 1;
+      height: auto;
+
+      & when not (@pod-margin-right = null) {
+        margin-right: -@pod-margin-right;
+        padding-right: @pod-margin-right;
+      }
+
+      & when not (@pod-margin-left = null) {
+        margin-left: -@pod-margin-left;
+        padding-left: @pod-margin-left;
+      }
+
+      .page-header-navigation-dropdown-active-item {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .modal-full-screen {
+
+    .page-header-navigation-dropdown {
+      box-shadow: 0 0 0 1px fade(@grey-dark, 15%);
+      flex-grow: 0;
+      margin: 0;
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-small-enabled) {
+
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
+        .element-spacing(page-header-navigation-tabs, null, screen-small);
+      }
+
+      .page-header-navigation-dropdown {
+        .element-text-size(page-header-navigation-dropdown, screen-small);
+        .element-spacing(page-header-navigation-dropdown, null, screen-small);
+        .property-variant(page-header-navigation-dropdown, height, null, screen-small);
+
+        .button {
+          .element-text-size(page-header-navigation-dropdown, screen-small);
+
+          & when not (@pod-margin-right-screen-small = null) {
+            margin-right: -@pod-margin-right-screen-small;
+            padding-right: @pod-margin-right-screen-small;
+          }
+
+          & when not (@pod-margin-left-screen-small = null) {
+            margin-left: -@pod-margin-left-screen-small;
+            padding-left: @pod-margin-left-screen-small;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-medium-enabled) {
+
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
+        .element-spacing(page-header-navigation-tabs, null, screen-medium);
+        display: block;
+      }
+
+      .page-header-navigation-dropdown {
+        display: none;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-large-enabled) {
+
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
+        .element-spacing(page-header-navigation-tabs, null, screen-large);
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@page-header-navigation-enabled) and (@page-header-navigation-screen-jumbo-enabled) {
+
+      .page-header-navigation-tabs,
+      .page-header-navigation-tabs.menu-tabbed {
+        .element-spacing(page-header-navigation-tabs, null, screen-jumbo);
+      }
+    }
+  }
+}

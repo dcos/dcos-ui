@@ -27,7 +27,7 @@ const NetworksBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="network" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
 };
 
 const METHODS_TO_BIND = [

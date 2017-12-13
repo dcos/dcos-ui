@@ -53,7 +53,7 @@ const UsersBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="users" breadcrumbs={crumbs} />;
+  return <Page.Header.Breadcrumbs iconID="organization" breadcrumbs={crumbs} />;
 };
 
 class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
@@ -497,7 +497,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
           <div className="page-body-content-fill flex-grow flex-container-col">
             <Table
               buildRowOptions={this.getTableRowOptions}
-              className="table table-borderless-outer
+              className="table table-flush table-borderless-outer
                 table-borderless-inner-columns table-hover flush-bottom"
               columns={this.getColumns()}
               colGroup={this.getColGroup()}

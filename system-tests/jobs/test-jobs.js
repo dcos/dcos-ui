@@ -94,7 +94,7 @@ describe("Jobs", function() {
 
     // Click 'Create a job'
     // Note: The current group contains the previous job
-    cy.get(".button.button-link.button-narrow").click();
+    cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
     cy.get(".modal-header").contains("New Job").should("exist");
@@ -199,7 +199,7 @@ describe("Jobs", function() {
 
     // Click 'Create a job'
     // Note: The current group contains the previous jobs
-    cy.get(".button.button-link.button-narrow").click();
+    cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
     // Note: The current group contains the previous two jobs
@@ -368,7 +368,7 @@ describe("Jobs", function() {
 
     // Click 'Create a job'
     // Note: The current group contains the previous jobs
-    cy.get(".button.button-link.button-narrow").click();
+    cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
     cy.get(".modal-header").contains("New Job").should("exist");

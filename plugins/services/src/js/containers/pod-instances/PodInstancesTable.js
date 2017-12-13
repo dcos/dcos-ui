@@ -124,7 +124,7 @@ class PodInstancesTable extends React.Component {
 
   getColumnClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
-      highlight: prop === sortBy.prop,
+      active: prop === sortBy.prop,
       clickable: row == null
     });
   }
@@ -456,7 +456,7 @@ class PodInstancesTable extends React.Component {
     return (
       <ExpandingTable
         allowMultipleSelect={true}
-        className="task-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="task-table expanding-table table table-hover table-flush table-borderless-outer table-borderless-inner-columns flush-bottom"
         childRowClassName="expanding-table-child"
         checkedItemsMap={checkedItems}
         columns={this.getColumns()}

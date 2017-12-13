@@ -173,7 +173,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     return (
       <div className="flex-align-right">
         <a
-          className="button button-link button-danger table-display-on-row-hover"
+          className="button button-danger-link table-display-on-row-hover"
           onClick={this.handleOpenConfirm.bind(this, repositoryToRemove)}
         >
           {StringUtil.capitalize(UserActions.DELETE)}
@@ -216,7 +216,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     return (
       <div>
         <Table
-          className="table table-borderless-outer table-borderless-inner-columns flush-bottom table-hover"
+          className="table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom table-hover"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={props.repositories.getItems().slice()}
@@ -229,6 +229,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
           open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}
+          leftButtonClassName="button button-primary-link"
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
           rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} Repository`}

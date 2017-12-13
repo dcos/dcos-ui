@@ -113,7 +113,7 @@ class TasksView extends mixin(SaveStateMixin) {
     const { inverseStyle, params } = this.props;
 
     const classSet = classNames({
-      "table table-borderless-outer table-borderless-inner-columns": true,
+      "table table-flush table-borderless-outer table-borderless-inner-columns": true,
       "flush-bottom": true,
       inverse: inverseStyle
     });
@@ -188,10 +188,10 @@ class TasksView extends mixin(SaveStateMixin) {
       handleStopClick = this.handleActionClick.bind(this, "stop");
     }
 
-    const restartButtonClasses = classNames("button button-link", {
+    const restartButtonClasses = classNames("button button-primary-link", {
       disabled: isDeploying || isSDK
     });
-    const stopButtonClasses = classNames("button button-link", {
+    const stopButtonClasses = classNames("button button-primary-link", {
       disabled: hasSchedulerTask
     });
 

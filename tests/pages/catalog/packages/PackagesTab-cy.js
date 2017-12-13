@@ -21,7 +21,7 @@ describe("Packages Tab", function() {
       .visitUrl({ url: "/catalog/packages", logIn: true });
 
     cy
-      .get(".page-body-content .alert-content")
+      .get(".page-body-content .message")
       .should(
         "contain",
         "The url for Invalid does not have correct syntax. You can go to the Repositories Settings page to change installed repositories."
@@ -43,7 +43,7 @@ describe("Packages Tab", function() {
       .visitUrl({ url: "/catalog", logIn: true });
 
     cy
-      .get(".page-body-content .alert-content")
+      .get(".page-body-content .message")
       .should(
         "contain",
         "The index file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories."
@@ -65,7 +65,7 @@ describe("Packages Tab", function() {
       .visitUrl({ url: "/catalog", logIn: true });
 
     cy
-      .get(".page-body-content .alert-content")
+      .get(".page-body-content .message")
       .should(
         "contain",
         "The package file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories."
@@ -86,7 +86,7 @@ describe("Packages Tab", function() {
       .visitUrl({ url: "/catalog", logIn: true });
 
     cy
-      .get(".page-body-content .alert-content")
+      .get(".page-body-content .message")
       .should(
         "contain",
         "The package file is missing in a repository. You can go to the Repositories Settings page to change installed repositories."
@@ -103,7 +103,7 @@ describe("Packages Tab", function() {
       })
       .visitUrl({ url: "/catalog", logIn: true });
 
-    cy.get(".panel-content h3").should("contain", "An Error Occurred");
+    cy.get(".panel-content h2").should("contain", "An Error Occurred");
   });
 
   context("searching", function() {
@@ -113,7 +113,7 @@ describe("Packages Tab", function() {
     });
 
     it("should hide certified panels", function() {
-      cy.get("h4").contains("Certified").should(function($certifiedHeading) {
+      cy.get("h1").contains("Certified").should(function($certifiedHeading) {
         expect($certifiedHeading.length).to.equal(0);
       });
     });
@@ -129,7 +129,7 @@ describe("Packages Tab", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/catalog", logIn: true });
       cy
-        .get("h4")
+        .get("h1")
         .contains("Certified")
         .closest(".pod")
         .find(".panel")

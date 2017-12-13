@@ -231,7 +231,7 @@ class FrameworkConfiguration extends Component {
 
     return (
       <div className="flex-item-grow-1">
-        <div className="container container-wide">
+        <div className="container">
           {errorsAlert}
           {warningMessage}
           <FrameworkConfigurationReviewScreen

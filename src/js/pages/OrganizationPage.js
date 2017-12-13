@@ -10,7 +10,7 @@ class OrganizationPage extends React.Component {
 
 OrganizationPage.routeConfig = {
   label: "Organization",
-  icon: <Icon id="users-inverse" size="small" family="product" />,
+  icon: <Icon id="organization-inverse" size="small" family="product" />,
   matches: /^\/organization/
 };
 

@@ -64,7 +64,7 @@ class TaskTable extends React.Component {
 
   getClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
-      highlight: prop === sortBy.prop,
+      active: prop === sortBy.prop,
       clickable: row == null && prop !== "logs" // this is a header
     });
   }
@@ -458,7 +458,7 @@ TaskTable.propTypes = {
 };
 
 TaskTable.defaultProps = {
-  className: "table table-borderless-outer table-borderless-inner-columns flush-bottom",
+  className: "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
   tasks: []
 };
 

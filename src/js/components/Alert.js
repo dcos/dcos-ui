@@ -4,8 +4,8 @@ import React from "react";
 import Icon from "./Icon";
 
 const Alert = ({ children, flushBottom, showIcon, type }) => {
-  const classes = classNames("alert", {
-    [`alert-${type}`]: type != null,
+  const classes = classNames("message", {
+    [`message-${type}`]: type != null,
     "flush-bottom": flushBottom === true
   });
   let icon = null;
@@ -17,7 +17,7 @@ const Alert = ({ children, flushBottom, showIcon, type }) => {
     };
 
     icon = (
-      <div className="alert-icon">
+      <div className="message-icon">
         <Icon id={ids[type]} size="mini" />
       </div>
     );
@@ -26,7 +26,7 @@ const Alert = ({ children, flushBottom, showIcon, type }) => {
   return (
     <div className={classes}>
       {icon}
-      <div className="alert-content">
+      <div className="message-content message-type-style">
         {children}
       </div>
     </div>

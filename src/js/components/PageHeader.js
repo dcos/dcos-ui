@@ -13,26 +13,39 @@ class PageHeader extends React.Component {
         actions,
         addButton,
         breadcrumbs,
-        className,
-        innerClassName,
-        primaryContentClassName,
+        pageHeaderClassName,
+        pageHeaderInnerClassName,
+        pageHeaderSectionPrimaryClassName,
         secondaryContentDetail,
-        secondaryContentClassName,
+        pageHeaderSectionSecondaryClassName,
         supplementalContent,
         tabs,
-        disabledActions
+        disabledActions,
+        pageHeaderContentClassName,
+        pageHeaderActionsPrimaryClassName
       }
     } = this;
 
-    const classes = classNames("page-header", className);
-    const innerClasses = classNames("page-header-inner pod", innerClassName);
-    const primaryContentClasses = classNames(
-      "page-header-content-section page-header-content-section-primary",
-      primaryContentClassName
+    const pageHeaderClasses = classNames("page-header", pageHeaderClassName);
+    const pageHeaderInnerClasses = classNames(
+      "page-header-inner pod",
+      pageHeaderInnerClassName
     );
-    const secondaryContentClasses = classNames(
-      "page-header-content-section page-header-content-section-secondary",
-      secondaryContentClassName
+    const pageHeaderSectionPrimaryClasses = classNames(
+      "page-header-section page-header-section-primary",
+      pageHeaderSectionPrimaryClassName
+    );
+    const pageHeaderSectionSecondaryClasses = classNames(
+      "page-header-section page-header-section-secondary",
+      pageHeaderSectionSecondaryClassName
+    );
+    const pageHeaderContentClasses = classNames(
+      "page-header-content",
+      pageHeaderContentClassName
+    );
+    const pageHeaderActionsPrimaryClasses = classNames(
+      "page-header-actions page-header-action-primary",
+      pageHeaderActionsPrimaryClassName
     );
     let secondaryContentDetailElement = null;
 
@@ -45,19 +58,23 @@ class PageHeader extends React.Component {
     }
 
     return (
-      <div className={classes}>
-        <div className={innerClasses}>
-          <div className={primaryContentClasses}>
+      <div className={pageHeaderClasses}>
+        <div className={pageHeaderInnerClasses}>
+          <div className={pageHeaderSectionPrimaryClasses}>
             <SidebarToggle />
-            {breadcrumbs}
-            <PageHeaderActions
-              actions={actions}
-              addButton={addButton}
-              supplementalContent={supplementalContent}
-              disabledActions={disabledActions}
-            />
+            <div className={pageHeaderContentClasses}>
+              {breadcrumbs}
+            </div>
+            <div className={pageHeaderActionsPrimaryClasses}>
+              <PageHeaderActions
+                actions={actions}
+                addButton={addButton}
+                supplementalContent={supplementalContent}
+                disabledActions={disabledActions}
+              />
+            </div>
           </div>
-          <div className={secondaryContentClasses}>
+          <div className={pageHeaderSectionSecondaryClasses}>
             <PageHeaderTabs tabs={tabs} />
             {secondaryContentDetailElement}
           </div>
@@ -86,14 +103,16 @@ PageHeader.propTypes = {
   ]),
   actions: React.PropTypes.array,
   breadcrumbs: React.PropTypes.node.isRequired,
-  className: classProps,
-  innerClassName: classProps,
-  primaryContentClassName: classProps,
-  secondaryContentClassName: classProps,
+  pageHeaderClassName: classProps,
+  pageHeaderInnerClassName: classProps,
+  pageHeaderSectionPrimaryClassName: classProps,
+  pageHeaderSectionSecondaryClassName: classProps,
   secondaryContentDetail: React.PropTypes.node,
   supplementalContent: React.PropTypes.node,
   tabs: React.PropTypes.array,
-  disabledActions: React.PropTypes.bool
+  disabledActions: React.PropTypes.bool,
+  pageHeaderContentClassName: classProps,
+  pageHeaderActionsPrimaryClassNam: classProps
 };
 
 PageHeader.Breadcrumbs = PageHeaderBreadcrumbs;

@@ -31,9 +31,9 @@ class UnitHealthNodesTable extends React.Component {
   getColumns() {
     const classNameFn = ResourceTableUtil.getClassName;
     const headings = ResourceTableUtil.renderHeading({
-      health: "HEALTH",
-      host_ip: "NODE",
-      role: "ROLE"
+      health: "Health",
+      host_ip: "Node",
+      role: "Role"
     });
 
     const sortFunction = TableUtil.getSortFunction("host_ip", function(
@@ -113,7 +113,7 @@ class UnitHealthNodesTable extends React.Component {
   render() {
     return (
       <Table
-        className="table table-borderless-outer
+        className="table table-flush table-borderless-outer
           table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}

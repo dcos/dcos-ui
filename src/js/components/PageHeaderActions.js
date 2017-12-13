@@ -51,7 +51,7 @@ class PageHeaderActions extends React.Component {
     if (addButton != null) {
       const { label, onItemSelect, className } = addButton;
       const buttonClasses = classNames(
-        "button button-link button-narrow",
+        "button button-primary-link button-narrow",
         className
       );
 
@@ -81,7 +81,7 @@ class PageHeaderActions extends React.Component {
 
   render() {
     return (
-      <div className="page-header-actions">
+      <div className="page-header-actions-inner">
         {this.renderSupplementalContent()}
         <div className="button-collection-flush-bottom">
           {this.renderAddButton()}

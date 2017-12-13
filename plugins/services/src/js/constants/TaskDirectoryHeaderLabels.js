@@ -1,9 +1,9 @@
 var TaskDirectoryHeaderLabels = {
-  path: "NAME",
-  mode: "PERMISSIONS",
-  uid: "OWNER",
-  size: "SIZE",
-  mtime: "MODIFIED"
+  path: "Name",
+  mode: "Permissions",
+  uid: "Owner",
+  size: "Size",
+  mtime: "Modified"
 };
 
 module.exports = TaskDirectoryHeaderLabels;
