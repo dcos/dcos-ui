@@ -74,7 +74,7 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
       <ConfigurationMapSection key="pod-general-section">
         <MountService.Mount
           type="CreateService:ServiceConfigDisplay:Pod:EnvironmentVariables"
-          appConfig={this.props.appConfig}
+          appConfig={appConfig}
           onEditClick={onEditClick}
         >
           <ConfigurationMapTable
