@@ -104,9 +104,12 @@ gulp.task("serve", function() {
 // remove 'fsevents' from shrinkwrap, since it causes errors on non-Mac hosts
 // see https://github.com/npm/npm/issues/2679
 gulp.task("fixShrinkwrap", function(done) {
-  delete shrinkwrap.dependencies.fsevents;
-  delete shrinkwrap
-    .dependencies["babel-cli"].dependencies.chokidar.dependencies.fsevents;
+  try {
+    delete shrinkwrap.dependencies.fsevents;
+    delete shrinkwrap
+      .dependencies["babel-cli"].dependencies.chokidar.dependencies.fsevents;
+  } catch (e) {}
+
   var shrinkwrapString = JSON.stringify(shrinkwrap, null, "  ") + "\n";
   fs.writeFile("./npm-shrinkwrap.json", shrinkwrapString, done);
 });
