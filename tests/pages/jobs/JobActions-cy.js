@@ -25,15 +25,12 @@ describe("Job Actions", function() {
         response: [],
         delay: 0
       });
-      cy
-        .get(".modal .button-collection .button-primary")
-        .contains("Save Job")
-        .click();
+      cy.get(".modal .button-primary").contains("Save Job").click();
       cy.get(".modal").should("to.have.length", 0);
     });
 
     it("closes modal on secondary button click", function() {
-      cy.get(".modal .button-collection .button").contains("Cancel").click();
+      cy.get(".modal .button").contains("Cancel").click();
       cy.get(".modal").should("to.have.length", 0);
     });
   });

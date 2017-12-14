@@ -322,7 +322,7 @@ describe("Service Actions", function() {
         response: []
       });
       cy
-        .get(".modal-footer .button-collection .button-primary")
+        .get(".modal-footer .button-primary")
         .click()
         .should("have.class", "disabled");
     });
@@ -333,7 +333,7 @@ describe("Service Actions", function() {
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
         response: []
       });
-      cy.get(".modal-footer .button-collection .button-primary").click();
+      cy.get(".modal-footer .button-primary").click();
       cy.get(".modal-body").should("to.have.length", 0);
     });
 
@@ -346,7 +346,7 @@ describe("Service Actions", function() {
           message: "App is locked by one or more deployments."
         }
       });
-      cy.get(".modal-footer .button-collection .button-primary").click();
+      cy.get(".modal-footer .button-primary").click();
       cy
         .get(".modal-body .text-danger")
         .should("to.have.text", "App is locked by one or more deployments.");
@@ -361,7 +361,7 @@ describe("Service Actions", function() {
           message: "Not Authorized to perform this action!"
         }
       });
-      cy.get(".modal-footer .button-collection .button-primary").click();
+      cy.get(".modal-footer .button-primary").click();
       cy
         .get(".modal-body .text-danger")
         .should("to.have.text", "Not Authorized to perform this action!");
@@ -374,19 +374,13 @@ describe("Service Actions", function() {
         response: [],
         delay: SERVER_RESPONSE_DELAY
       });
-      cy
-        .get(".modal-footer .button-collection .button-primary")
-        .as("primaryButton")
-        .click();
+      cy.get(".modal-footer .button-primary").as("primaryButton").click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
 
     it("closes dialog on secondary button click", function() {
-      cy
-        .get(".modal-footer .button-collection .button")
-        .contains("Cancel")
-        .click();
+      cy.get(".modal-footer .button").contains("Cancel").click();
       cy.get(".modal-body").should("to.have.length", 0);
     });
   });
@@ -546,7 +540,7 @@ describe("Service Actions", function() {
       clickHeaderAction("Resume");
 
       cy
-        .get(".modal-footer .button-collection .button-primary")
+        .get(".modal-footer .button-primary")
         .click()
         .should("have.class", "disabled");
     });
@@ -560,7 +554,7 @@ describe("Service Actions", function() {
 
       clickHeaderAction("Resume");
 
-      cy.get(".modal-footer .button-collection .button-primary").click();
+      cy.get(".modal-footer .button-primary").click();
       cy.get(".modal-body").should("to.have.length", 0);
     });
 
@@ -576,7 +570,7 @@ describe("Service Actions", function() {
 
       clickHeaderAction("Resume");
 
-      cy.get(".modal-footer .button-collection .button-primary").click();
+      cy.get(".modal-footer .button-primary").click();
       cy
         .get(".modal-body .text-danger")
         .should("to.have.text", "App is locked by one or more deployments.");
@@ -594,7 +588,7 @@ describe("Service Actions", function() {
 
       clickHeaderAction("Resume");
 
-      cy.get(".modal-footer .button-collection .button-primary").click();
+      cy.get(".modal-footer .button-primary").click();
       cy
         .get(".modal-body .text-danger")
         .should("to.have.text", "Not Authorized to perform this action!");
@@ -610,10 +604,7 @@ describe("Service Actions", function() {
 
       clickHeaderAction("Resume");
 
-      cy
-        .get(".modal-footer .button-collection .button-primary")
-        .as("primaryButton")
-        .click();
+      cy.get(".modal-footer .button-primary").as("primaryButton").click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
@@ -621,10 +612,7 @@ describe("Service Actions", function() {
     it("closes dialog on secondary button click", function() {
       clickHeaderAction("Resume");
 
-      cy
-        .get(".modal-footer .button-collection .button")
-        .contains("Cancel")
-        .click();
+      cy.get(".modal-footer .button").contains("Cancel").click();
       cy.get(".modal-body").should("to.have.length", 0);
     });
   });
