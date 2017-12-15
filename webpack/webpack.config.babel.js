@@ -5,11 +5,7 @@ import less from "less";
 import path from "path";
 import postcss from "postcss";
 import purifycss from "purify-css";
-import React from "react";
-import ReactDOMServer from "react-dom/server";
 import StringReplacePlugin from "string-replace-webpack-plugin";
-
-import IconDCOSLogoMark from "../src/js/components/icons/IconDCOSLogoMark.js";
 
 function absPath() {
   const args = [].slice.apply(arguments);
@@ -59,10 +55,7 @@ function requireFromString(src, filename) {
 }
 
 const bootstrap = {
-  CSS: "",
-  HTML: ReactDOMServer.renderToStaticMarkup(
-    React.createElement(IconDCOSLogoMark)
-  )
+  CSS: ""
 };
 
 module.exports = {
@@ -81,12 +74,11 @@ module.exports = {
             {
               pattern: /<!--\[if\sBOOTSTRAP-HTML\]><!\[endif\]-->/g,
               replacement() {
-                return (
-                  '<div class="application-loading-indicator ' +
-                  'vertical-center">' +
-                  bootstrap.HTML +
-                  "</div>"
-                );
+                return `
+                  <div class="application-preloader">
+                    <div class="application-preloader-spinner"></div>
+                    <div class="application-preloader-logo"></div>
+                  </div>`;
               }
             }
           ]

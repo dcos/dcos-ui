@@ -1,0 +1,67 @@
+& when (@application-preloader-enabled) {
+
+  @keyframes application-preloader-logo {
+
+    0% {
+      opacity: 0.4;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes application-preloader-spinner {
+
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+  .application-preloader {
+    display: block;
+    height: 100px;
+    left: 50%;
+    margin-left: -(100px / 2);
+    margin-top: -(100px / 2);
+    position: fixed;
+    top: 50%;
+    width: 100px;
+  }
+
+  .application-preloader-logo {
+    .inline-svg-background-image(escape(~'<?xml version="1.0" encoding="UTF-8"?><svg width="40px" height="32px" viewBox="0 0 40 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch --><title>application-preloader-logo</title><desc>Created with Sketch.</desc><defs><linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1"><stop stop-color="#7D58FF" offset="0%"></stop><stop stop-color="#FF007D" offset="100%"></stop></linearGradient></defs><g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-30.000000, -36.000000)"><path d="M36.305112,38.6935824 L51.5292424,47.6233136 L64.3604165,38.6935824 L36.305112,38.6935824 Z M54.0882461,49.1237655 L58.2427773,51.5615815 L64.0684945,42.1785678 L54.0882461,49.1237655 Z M35.3644003,41.2646379 L42.9978909,53.5601754 L49.0947742,49.3179338 L35.3644003,41.2646379 Z M60.5667704,52.924107 L67.3064176,56.8771049 L67.3064176,42.0694319 L60.5667704,52.924107 Z M32.6935824,42.0694319 L32.6935824,60.73101 L40.7837033,55.1008001 L32.6935824,42.0694319 Z M44.4206756,55.8520304 L50,64.8373339 L56.8220013,53.8500887 L51.6531084,50.8183857 L44.4206756,55.8520304 Z M49.9993305,67.7344582 C49.1275819,67.7344582 48.3247966,67.2463593 47.7958555,66.3946972 L47.7958555,66.3940277 L42.2064879,57.3926551 L33.7648555,63.2679187 C32.907837,63.8644839 31.9744903,63.9769676 31.2078605,63.5759097 C30.4398915,63.1748519 30,62.3459543 30,61.3007934 L30,39.3550936 C30,38.0508185 30.7478826,36.9179472 31.837903,36.3635633 C32.1706672,36.1519869 32.6534097,36.0006695 33.3524154,36 L33.3530849,36 L33.3557631,36 L66.6442369,36 L66.6469151,36 L66.6475846,36 C67.2990526,36.0006695 67.7643869,36.1372569 68.0971511,36.3307556 C69.2219879,36.8730876 70,38.0247062 70,39.3550936 L70,57.2199123 C70,58.2423086 69.568143,59.0765626 68.8142345,59.5090891 C68.0596565,59.9402765 67.1202839,59.8913997 66.2391617,59.3745104 L59.1453249,55.2132838 L52.2034749,66.3940277 C51.6745338,67.2463593 50.8717485,67.7344582 49.9993305,67.7344582 Z" id="application-preloader-logo" fill="url(#linearGradient-1)"></path></g></svg>'));
+    animation: application-preloader-logo 4s ease infinite;
+    background-size: 40px 32px;
+    display: block;
+    height: 32px;
+    left: 50%;
+    margin-left: -(40px / 2);
+    margin-top: -(32px / 2) + 2px;
+    position: absolute;
+    top: 50%;
+    width: 40px;
+  }
+
+  .application-preloader-spinner {
+    animation: application-preloader-spinner 1s linear infinite;
+    background-image: url('../../../img/components/application-preloader/application-preloader-spinner.png');
+    background-size: 100px 100px;
+    display: block;
+    height: 100px;
+    left: 50%;
+    margin-left: -(100px / 2);
+    margin-top: -(100px / 2);
+    position: absolute;
+    top: 50%;
+    width: 100px;
+  }
+}
