@@ -57,8 +57,153 @@ describe("Service Actions", function() {
   });
 
   context("Edit Action", function() {
-    // when API migrated: https://jira.mesosphere.com/browse/DCOS-19824
-    // re-add test from https://github.com/dcos/dcos-ui/commit/087cbe0a191e48685d82d087a5723088bef4777b#diff-aaa1f5e99d424cc576e3a866c4d89c3e
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true,
+        universePackages: true
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
+
+      clickHeaderAction("Edit");
+    });
+
+    it("navigates to the correct route", function() {
+      cy
+        .location()
+        .its("hash")
+        .should("include", "#/services/detail/%2Fcassandra-healthy/edit");
+    });
+
+    it("opens the correct service edit modal", function() {
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .should("to.have.value", "elastic");
+    });
+
+    it("closes modal on successful API request", function() {
+      cy.get(".modal .modal-header .button").contains("Review & Run").click();
+      cy.get(".modal .modal-header .button").contains("Run Service").click();
+      cy.get(".modal").should("to.have.length", 0);
+    });
+
+    it("opens confirm after edits", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
+      cy.get(".modal .modal-header .button").contains("Cancel").click();
+
+      cy.get(".confirm-modal").should("to.have.length", 1);
+    });
+
+    it("closes both confirm and edit modal after confirmation", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
+      cy.get(".modal .modal-header .button").contains("Cancel").click();
+      cy.get(".confirm-modal .button").contains("Discard").click();
+
+      cy.get(".confirm-modal").should("to.have.length", 0);
+      cy.get(".modal").should("to.have.length", 0);
+    });
+
+    it("it stays in the edit modal after cancelling confirmation", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
+      cy.get(".modal .modal-header .button").contains("Cancel").click();
+      cy.get(".confirm-modal .button").contains("Cancel").click();
+
+      cy.get(".confirm-modal").should("to.have.length", 0);
+      cy.get(".modal").should("to.have.length", 1);
+    });
+
+    it("opens and closes the JSON mode after clicking toggle", function() {
+      cy.get(".modal .modal-header span").contains("JSON Editor").click();
+
+      cy
+        .get(".modal .modal-full-screen-side-panel.is-visible")
+        .should("to.have.length", 1);
+
+      cy.get(".modal .modal-header span").contains("JSON Editor").click();
+
+      cy
+        .get(".modal .modal-full-screen-side-panel.is-visible")
+        .should("to.have.length", 0);
+    });
+
+    it("shows tab error badge when error in form section", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+
+      cy
+        .get(".modal .menu-tabbed-container .badge.badge-danger")
+        .should("to.have.length", 1);
+    });
+
+    it("shows anchored error when error in form section", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+
+      cy
+        .get(".modal .menu-tabbed-container .form-control-feedback")
+        .contains("Expecting a string here")
+        .should("to.have.length", 1);
+    });
+
+    it("shows error message in JSON when form error", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+
+      cy
+        .get(".modal .modal-full-screen-side-panel .ace_gutter-cell.ace_error")
+        .should("to.have.length", 1);
+    });
+
+    it("disables Review & Run button when error", function() {
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+
+      cy
+        .get(".modal .modal-header button[disabled]")
+        .contains("Review & Run")
+        .should("to.have.length", 1);
+    });
+
+    it("change JSON editor contents when form content change", function() {
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .type(`{selectall}elast`);
+
+      cy
+        .get(".modal .modal-full-screen-side-panel .ace_line")
+        .contains("elast")
+        .should("to.have.length", 1);
+    });
+
+    it("shows review screen when Review & Run clicked", function() {
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy
+        .get(".modal .configuration-map-label")
+        .contains("Name")
+        .should("to.have.length", 1);
+    });
+
+    it("back button on review screen goes back to form", function() {
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .type(`{selectall}elast`);
+
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy.get(".modal .modal-header button").contains("Back").click();
+
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .should("to.have.value", "elast");
+    });
+
+    it("shows edit config button on review screen that opens form", function() {
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
+
+      cy.get(".modal button").contains("Edit Config").click();
+
+      cy
+        .get('.modal .menu-tabbed-container input[name="name"]')
+        .should("to.have.value", "elastic");
+    });
   });
 
   context("Destroy Action", function() {
