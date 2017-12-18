@@ -5,7 +5,7 @@ import TaskUtil from "../utils/TaskUtil";
 const LABEL = "region";
 
 /**
- * This filter handles the `is:state` for tasks
+ * This filter handles the `region:XXXX` for tasks
  */
 class TasksRegionFilter extends DSLFilter {
   constructor(regions) {
@@ -32,7 +32,7 @@ class TasksRegionFilter extends DSLFilter {
   }
 
   /**
-   * Keep only tasks whose state matches the value of
+   * Keep only tasks whose region matches the value of
    * the `region` label
    *
    * @override

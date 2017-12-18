@@ -5,7 +5,7 @@ import TaskUtil from "../utils/TaskUtil";
 const LABEL = "zone";
 
 /**
- * This filter handles the `zone:state` for tasks
+ * This filter handles the `zone:XXXX` for tasks
  */
 class TasksZoneFilter extends DSLFilter {
   constructor(zones) {
@@ -32,7 +32,7 @@ class TasksZoneFilter extends DSLFilter {
   }
 
   /**
-   * Keep only tasks whose state matches the value of
+   * Keep only tasks whose zone matches the value of
    * the `zone` label
    *
    * @override

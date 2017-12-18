@@ -111,18 +111,16 @@ class TasksContainer extends React.Component {
   }
 
   propsToState(props) {
+    const {
+      defaultFilterData: { regions },
+      defaultFilterData: { zones }
+    } = this.state;
+
     let query = props.location.query["q"];
+
     if (query === undefined) {
       query = "is:active";
     }
-
-    const filterQuery = query || "";
-
-    const {
-      defaultFilterData: { regions },
-      defaultFilterData: { zones },
-      filterExpression
-    } = this.state;
 
     const newZones = Array.from(
       new Set(
@@ -144,13 +142,12 @@ class TasksContainer extends React.Component {
       )
     );
 
-    // If filter is the same return
+    // If no region/ zones added from props return
     if (
       newRegions.length === regions.length &&
       regions.every((v, i) => v === newRegions[i]) &&
       (newZones.length === zones.length &&
-        zones.every((v, i) => v === newZones[i])) &&
-      filterExpression.value === filterQuery
+        zones.every((v, i) => v === newZones[i]))
     ) {
       return;
     }
@@ -163,7 +160,7 @@ class TasksContainer extends React.Component {
     ]);
 
     this.setState({
-      filterExpression: new DSLExpression(filterQuery),
+      filterExpression: new DSLExpression(query),
       filters,
       defaultFilterData: { regions: newRegions, zones: newZones }
     });
@@ -270,7 +267,7 @@ class TasksContainer extends React.Component {
   }
 
   render() {
-    const { tasks } = this.props;
+    const { tasks, params } = this.props;
     const { filterExpression, filters, defaultFilterData } = this.state;
 
     let filteredTasks = new Tree({ items: tasks });
@@ -285,7 +282,7 @@ class TasksContainer extends React.Component {
     return (
       <div>
         <TasksView
-          params={this.props.params}
+          params={params}
           tasks={filteredTasks.getItems()}
           totalTasks={tasks.length}
           handleExpressionChange={this.handleExpressionChange}
