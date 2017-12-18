@@ -144,6 +144,47 @@ describe("Tasks Table", function() {
     });
   });
 
+  context("Task DSL filters", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-service-with-executor-task"
+      });
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
+    });
+
+    it("Has by default the is:active filter", function() {
+      cy.get(".form-control.filter-input-text").should(function($input) {
+        expect($input.val()).to.equal("is:active");
+      });
+    });
+
+    it("Filters tasks that name contains 'server-'", function() {
+      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text").type("server-");
+      cy.get("table tr td.task-table-column-name").should("to.have.length", 3);
+    });
+
+    it("Filters tasks that are in active state", function() {
+      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text").type("is:active");
+      cy.get("table tr td.task-table-column-name").should("to.have.length", 4);
+    });
+
+    it("Filters tasks by region", function() {
+      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text").type("region:eu-central-1");
+      cy.get("table tr td.task-table-column-name").should("to.have.length", 1);
+      cy.get("td.task-table-column-region-address").contains("eu-central-1");
+    });
+
+    it("Filters tasks by zone", function() {
+      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text").type("zone:eu-central-1b");
+      cy.get("table tr td.task-table-column-name").should("to.have.length", 1);
+      cy.get("td.task-table-column-zone-address").contains("eu-central-1b");
+    });
+  });
+
   context("Service tasks region", function() {
     beforeEach(function() {
       cy.configureCluster({

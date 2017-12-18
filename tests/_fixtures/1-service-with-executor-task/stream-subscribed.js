@@ -255,6 +255,7 @@ var response = JSON.stringify({
       get_tasks: {
         tasks: [
           {
+            slave_id: "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S5",
             task_id: {
               value: "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
             },
