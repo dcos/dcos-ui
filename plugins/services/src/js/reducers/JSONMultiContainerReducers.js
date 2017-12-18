@@ -9,6 +9,9 @@ import {
 import {
   JSONReducer as environment
 } from "./serviceForm/JSONReducers/EnvironmentVariables";
+import {
+  JSONReducer as residency
+} from "./serviceForm/JSONReducers/MultiContainerResidency";
 import { JSONReducer as fetch } from "./serviceForm/JSONReducers/Artifacts";
 import { JSONReducer as scaling } from "./serviceForm/MultiContainerScaling";
 import { JSONReducer as labels } from "./serviceForm/JSONReducers/Labels";
@@ -21,10 +24,18 @@ module.exports = {
   environment,
   scaling,
   labels,
-  scheduling(state, transaction) {
+  scheduling(
+    state = { residency: {}, placement: { constraints: [] } },
+    transaction
+  ) {
+    const constraintsState = state != null && state.placement != null
+      ? state.placement.constraints
+      : [];
+
     return {
+      residency: residency.bind(this)(state.residency, transaction),
       placement: {
-        constraints: constraints.bind(this)(state, transaction)
+        constraints: constraints.bind(this)(constraintsState, transaction)
       }
     };
   },

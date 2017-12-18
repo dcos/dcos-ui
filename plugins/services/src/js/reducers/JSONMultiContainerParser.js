@@ -19,7 +19,9 @@ import {
 import { JSONParser as labels } from "./serviceForm/JSONReducers/Labels";
 import { JSONParser as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONParser as portMappings } from "./serviceForm/PortMappings";
-import { JSONParser as residency } from "./serviceForm/JSONReducers/Residency";
+import {
+  JSONParser as residency
+} from "./serviceForm/JSONReducers/MultiContainerResidency";
 import { JSONParser as scaling } from "./serviceForm/MultiContainerScaling";
 import { JSONParser as networks } from "./serviceForm/JSONReducers/Networks";
 import {
