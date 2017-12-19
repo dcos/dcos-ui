@@ -1,6 +1,7 @@
 import { Tooltip } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
+import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -283,15 +284,22 @@ class VolumesFormSection extends Component {
     );
   }
 
-  getUnknownVolumeConfig(volume) {
-    return [
-      <FieldLabel>
-        Unable to edit this Volume{" "}
-      </FieldLabel>,
-      <pre>
-        {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
-      </pre>
-    ];
+  getUnknownVolumeConfig(volume, key) {
+    return (
+      <MountService.Mount
+        type="CreateService:SingleContainerVolumes:UnknownVolumes"
+        volume={volume}
+        index={key}
+        errors={this.props.errors}
+      >
+        <FieldLabel>
+          Unable to edit this Volume{" "}
+        </FieldLabel>
+        <pre>
+          {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
+        </pre>
+      </MountService.Mount>
+    );
   }
 
   getVolumesLines(data) {
@@ -332,14 +340,20 @@ class VolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
-                <option>Select...</option>
-                <option value="HOST">
-                  Host Volume
-                </option>
-                <option value="PERSISTENT">Persistent Volume</option>
-                <option value="EXTERNAL">External Volume</option>
-              </FieldSelect>
+              <MountService.Mount
+                type="CreateService:SingleContainerVolumes:Types"
+                volume={volume}
+                index={key}
+              >
+                <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
+                  <option>Select...</option>
+                  <option value="HOST">
+                    Host Volume
+                  </option>
+                  <option value="PERSISTENT">Persistent Volume</option>
+                  <option value="EXTERNAL">External Volume</option>
+                </FieldSelect>
+              </MountService.Mount>
             </FormGroup>
           </FormRow>
           {this.getPersistentVolumeConfig(volume, key)}
