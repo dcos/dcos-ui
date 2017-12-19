@@ -33,7 +33,7 @@ describe("Service Table", function() {
         response: []
       });
       cy
-        .get(".confirm-modal .button-collection .button-danger")
+        .get(".modal-small .flush-bottom .button-danger")
         .should("have.class", "disabled");
     });
   });

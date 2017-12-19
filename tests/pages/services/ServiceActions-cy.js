@@ -92,24 +92,24 @@ describe("Service Actions", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
 
-      cy.get(".confirm-modal").should("to.have.length", 1);
+      cy.get(".modal-small").should("to.have.length", 1);
     });
 
     it("closes both confirm and edit modal after confirmation", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
-      cy.get(".confirm-modal .button").contains("Discard").click();
+      cy.get(".modal-small .button").contains("Discard").click();
 
-      cy.get(".confirm-modal").should("to.have.length", 0);
+      cy.get(".modal-small").should("to.have.length", 0);
       cy.get(".modal").should("to.have.length", 0);
     });
 
     it("it stays in the edit modal after cancelling confirmation", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
       cy.get(".modal .modal-header .button").contains("Cancel").click();
-      cy.get(".confirm-modal .button").contains("Cancel").click();
+      cy.get(".modal-small .button").contains("Cancel").click();
 
-      cy.get(".confirm-modal").should("to.have.length", 0);
+      cy.get(".modal-small").should("to.have.length", 0);
       cy.get(".modal").should("to.have.length", 1);
     });
 
@@ -227,7 +227,7 @@ describe("Service Actions", function() {
 
       it("disable danger button while service name isn't correct", function() {
         cy
-          .get(".confirm-modal .button-collection .button-danger")
+          .get(".modal-small .flush-bottom .button-danger")
           .should("have.class", "disabled");
       });
 
@@ -238,8 +238,8 @@ describe("Service Actions", function() {
           response: []
         });
         cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".confirm-modal .button-collection .button-danger").click();
-        cy.get(".confirm-modal").should("to.have.length", 0);
+        cy.get(".modal-small .flush-bottom .button-danger").click();
+        cy.get(".modal-small").should("to.have.length", 0);
       });
 
       it("shows error message on conflict", function() {
@@ -250,7 +250,7 @@ describe("Service Actions", function() {
           response: { message: "App is locked by one or more deployments." }
         });
         cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".confirm-modal .button-collection .button-danger").click();
+        cy.get(".modal-small .flush-bottom .button-danger").click();
         cy
           .get(".modal-body .text-danger")
           .should("to.have.text", "App is locked by one or more deployments.");
@@ -264,7 +264,7 @@ describe("Service Actions", function() {
           response: { message: "Not Authorized to perform this action!" }
         });
         cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".confirm-modal .button-collection .button-danger").click();
+        cy.get(".modal-small .flush-bottom .button-danger").click();
         cy
           .get(".modal-body .text-danger")
           .should("to.have.text", "Not Authorized to perform this action!");
@@ -280,19 +280,14 @@ describe("Service Actions", function() {
           },
           delay: SERVER_RESPONSE_DELAY
         });
-        cy
-          .get(".confirm-modal .button-collection .button-danger")
-          .as("dangerButton");
+        cy.get(".modal-small .flush-bottom .button-danger").as("dangerButton");
         cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get("@dangerButton").should("not.have.class", "disabled");
       });
 
       it("closes dialog on secondary button click", function() {
-        cy
-          .get(".confirm-modal .button-collection .button")
-          .contains("Cancel")
-          .click();
-        cy.get(".confirm-modal").should("to.have.length", 0);
+        cy.get(".modal-small .flush-bottom .button").contains("Cancel").click();
+        cy.get(".modal-small").should("to.have.length", 0);
       });
     });
   });
@@ -398,7 +393,7 @@ describe("Service Actions", function() {
 
     it("opens the correct service stop dialog", function() {
       cy
-        .get(".confirm-modal p strong")
+        .get(".modal-small p strong")
         .contains("cassandra-healthy")
         .should("to.have.length", 1);
     });
@@ -410,7 +405,7 @@ describe("Service Actions", function() {
         response: []
       });
       cy
-        .get(".confirm-modal .button-collection .button-primary")
+        .get(".modal-small .flush-bottom .button-primary")
         .click()
         .should("have.class", "disabled");
     });
@@ -421,8 +416,8 @@ describe("Service Actions", function() {
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
         response: []
       });
-      cy.get(".confirm-modal .button-collection .button-primary").click();
-      cy.get(".confirm-modal").should("to.have.length", 0);
+      cy.get(".modal-small .flush-bottom .button-primary").click();
+      cy.get(".modal-small").should("to.have.length", 0);
     });
 
     it("shows error message on conflict", function() {
@@ -434,9 +429,9 @@ describe("Service Actions", function() {
           message: "App is locked by one or more deployments."
         }
       });
-      cy.get(".confirm-modal .button-collection .button-primary").click();
+      cy.get(".modal-small .flush-bottom .button-primary").click();
       cy
-        .get(".confirm-modal .text-danger")
+        .get(".modal-small .text-danger")
         .should("to.have.text", "App is locked by one or more deployments.");
     });
 
@@ -449,9 +444,9 @@ describe("Service Actions", function() {
           message: "Not Authorized to perform this action!"
         }
       });
-      cy.get(".confirm-modal .button-collection .button-primary").click();
+      cy.get(".modal-small .flush-bottom .button-primary").click();
       cy
-        .get(".confirm-modal .text-danger")
+        .get(".modal-small .text-danger")
         .should("to.have.text", "Not Authorized to perform this action!");
     });
 
@@ -463,7 +458,7 @@ describe("Service Actions", function() {
         delay: SERVER_RESPONSE_DELAY
       });
       cy
-        .get(".confirm-modal .button-collection .button-primary")
+        .get(".modal-small .flush-bottom .button-primary")
         .as("primaryButton")
         .click();
       cy.get("@primaryButton").should("have.class", "disabled");
@@ -471,11 +466,8 @@ describe("Service Actions", function() {
     });
 
     it("closes dialog on secondary button click", function() {
-      cy
-        .get(".confirm-modal .button-collection .button")
-        .contains("Cancel")
-        .click();
-      cy.get(".confirm-modal").should("to.have.length", 0);
+      cy.get(".modal-small .flush-bottom .button").contains("Cancel").click();
+      cy.get(".modal-small").should("to.have.length", 0);
     });
   });
 
