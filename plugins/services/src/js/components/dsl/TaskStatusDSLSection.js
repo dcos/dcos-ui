@@ -61,9 +61,14 @@ class TasksStatusDSLSection extends React.Component {
   }
 }
 
+TasksStatusDSLSection.defaultProps = {
+  expression: new DSLExpression(""),
+  onChange() {}
+};
+
 TasksStatusDSLSection.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 module.exports = TasksStatusDSLSection;

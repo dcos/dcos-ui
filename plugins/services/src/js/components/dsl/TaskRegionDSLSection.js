@@ -19,7 +19,7 @@ class TaskRegionDSLSection extends React.Component {
 
     if (regions) {
       regions.forEach(function(region) {
-        EXPRESSION_PARTS["region_" + region] = DSLExpressionPart.attribute(
+        EXPRESSION_PARTS[`region_${region}`] = DSLExpressionPart.attribute(
           "region",
           region
         );
@@ -67,9 +67,14 @@ class TaskRegionDSLSection extends React.Component {
   }
 }
 
+TaskRegionDSLSection.defaultProps = {
+  expression: new DSLExpression(""),
+  onChange() {}
+};
+
 TaskRegionDSLSection.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 module.exports = TaskRegionDSLSection;

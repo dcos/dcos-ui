@@ -2,7 +2,7 @@ import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 import DSLFilter from "#SRC/js/structs/DSLFilter";
 
 /**
- * This filter handles the `text` attributes against taks's `getName` value
+ * This filter handles the `text` attributes against taks's `name` value
  */
 class TaskNameTextFilter extends DSLFilter {
   /**
@@ -17,7 +17,7 @@ class TaskNameTextFilter extends DSLFilter {
   }
 
   /**
-   * Keep only services whose status
+   * Keep only tasks whose name contains part of the filter's text
    *
    * @override
    */

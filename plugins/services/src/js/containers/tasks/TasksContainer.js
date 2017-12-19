@@ -145,9 +145,9 @@ class TasksContainer extends React.Component {
     // If no region/ zones added from props return
     if (
       newRegions.length === regions.length &&
-      regions.every((v, i) => v === newRegions[i]) &&
-      (newZones.length === zones.length &&
-        zones.every((v, i) => v === newZones[i]))
+      newRegions.every(region => regions.indexOf(region) !== -1) &&
+      newZones.length === zones.length &&
+      newZones.every(zone => zones.indexOf(zone) !== -1)
     ) {
       return;
     }
