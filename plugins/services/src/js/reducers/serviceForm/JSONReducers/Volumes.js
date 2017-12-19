@@ -29,6 +29,14 @@ const mapVolumes = function(volume) {
   }
   if (volume.type === "PERSISTENT") {
     return {
+      persistent: omit(volume.persistent, ["profileName"]),
+      mode: volume.mode,
+      containerPath: volume.containerPath
+    };
+  }
+
+  if (volume.type === "DSS") {
+    return {
       persistent: volume.persistent,
       mode: volume.mode,
       containerPath: volume.containerPath
@@ -87,7 +95,7 @@ function reduceVolumes(state, { type, path, value }) {
           this.volumes.push(
             value || {
               containerPath: null,
-              persistent: { size: null },
+              persistent: { size: null, profileName: null },
               external: {
                 name: null,
                 provider: "dvdi",
@@ -113,13 +121,19 @@ function reduceVolumes(state, { type, path, value }) {
     const index = path[1];
     if (type === SET && `volumes.${index}.size` === joinedPath) {
       if (this.volumes[index].persistent == null) {
-        this.volumes[index].persistent = { size: null };
+        this.volumes[index].persistent = { size: null, profileName: null };
       }
       if (this.volumes[index].external == null) {
         this.volumes[index].external = { size: null };
       }
       this.volumes[index].persistent.size = parseIntValue(value);
       this.volumes[index].external.size = parseIntValue(value);
+    }
+    if (type === SET && `volumes.${index}.profileName` === joinedPath) {
+      if (this.volumes[index].persistent == null) {
+        this.volumes[index].persistent = { size: null, profileName: null };
+      }
+      this.volumes[index].persistent.profileName = String(value);
     }
     if (type === SET && `volumes.${index}.type` === joinedPath) {
       this.volumes[index].type = String(value);
@@ -180,9 +194,21 @@ module.exports = {
       memo.push(new Transaction(["volumes"], item, ADD_ITEM));
 
       if (item.persistent != null && item.persistent.size != null) {
-        memo.push(
-          new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
-        );
+        if (item.persistent.profileName == null) {
+          memo.push(
+            new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
+          );
+        } else {
+          memo.push(new Transaction(["volumes", index, "type"], "DSS", SET));
+
+          memo.push(
+            new Transaction(
+              ["volumes", index, "profileName"],
+              item.persistent.profileName,
+              SET
+            )
+          );
+        }
 
         memo.push(
           new Transaction(["volumes", index, "size"], item.persistent.size, SET)
