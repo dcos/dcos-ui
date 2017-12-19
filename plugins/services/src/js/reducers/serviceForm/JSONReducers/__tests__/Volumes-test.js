@@ -681,4 +681,87 @@ describe("Volumes", function() {
       });
     });
   });
+  describe("DSS Volumes", function() {
+    describe("#JSONParser", function() {
+      it("should contain the transaction for one external volume", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                containerPath: "/dev/null",
+                persistent: {
+                  size: 1,
+                  profileName: "devnull"
+                },
+                mode: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([
+          {
+            type: ADD_ITEM,
+            value: {
+              containerPath: "/dev/null",
+              persistent: {
+                size: 1,
+                profileName: "devnull"
+              },
+              mode: "RW"
+            },
+            path: ["volumes"]
+          },
+          { type: SET, value: "DSS", path: ["volumes", 0, "type"] },
+          { type: SET, value: "devnull", path: ["volumes", 0, "profileName"] },
+          { type: SET, value: 1, path: ["volumes", 0, "size"] },
+          {
+            type: SET,
+            value: "/dev/null",
+            path: ["volumes", 0, "containerPath"]
+          },
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+        ]);
+      });
+    });
+    describe("#JSONReducer", function() {
+      it("should return a DSS volume", function() {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
+
+        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          {
+            containerPath: null,
+            persistent: {
+              size: null,
+              profileName: null
+            },
+            mode: "RW"
+          }
+        ]);
+      });
+
+      it("should return a DSS volume with profileName", function() {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
+        batch = batch.add(
+          new Transaction(["volumes", 0, "profileName"], "dev", SET)
+        );
+
+        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          {
+            containerPath: null,
+            persistent: {
+              size: null,
+              profileName: "dev"
+            },
+            mode: "RW"
+          }
+        ]);
+      });
+    });
+  });
 });

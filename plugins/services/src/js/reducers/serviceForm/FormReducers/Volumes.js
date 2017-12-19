@@ -16,6 +16,7 @@ module.exports = {
             const defaultVolume = {
               containerPath: null,
               size: null,
+              profileName: null,
               mode: "RW"
             };
             state.push(Object.assign({}, value || defaultVolume));
@@ -36,6 +37,9 @@ module.exports = {
       }
       if (type === SET && `volumes.${index}.size` === joinedPath) {
         state[index].size = parseIntValue(value);
+      }
+      if (type === SET && `volumes.${index}.profileName` === joinedPath) {
+        state[index].profileName = String(value);
       }
       if (type === SET && `volumes.${index}.name` === joinedPath) {
         state[index].name = String(value);
