@@ -10,7 +10,13 @@ describe("Volumes", function() {
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
       expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
-        { size: null, containerPath: null, mode: "RW", type: "PERSISTENT" }
+        {
+          size: null,
+          containerPath: null,
+          mode: "RW",
+          profileName: null,
+          type: "PERSISTENT"
+        }
       ]);
     });
 
@@ -25,6 +31,7 @@ describe("Volumes", function() {
           size: 1024,
           containerPath: "/dev/null",
           mode: "RW",
+          profileName: null,
           type: "PERSISTENT"
         }
       ]);
@@ -44,6 +51,7 @@ describe("Volumes", function() {
           hostPath: "123",
           containerPath: "123",
           mode: "123",
+          profileName: null,
           type: "123"
         }
       ]);
@@ -64,12 +72,14 @@ describe("Volumes", function() {
           size: 1024,
           containerPath: "/dev/null",
           mode: "RW",
+          profileName: null,
           type: "PERSISTENT"
         },
         {
           size: 512,
           containerPath: "/dev/dev2",
           mode: "RW",
+          profileName: null,
           type: "PERSISTENT"
         }
       ]);
@@ -92,6 +102,7 @@ describe("Volumes", function() {
           size: 512,
           containerPath: "/dev/dev2",
           mode: "RW",
+          profileName: null,
           type: "PERSISTENT"
         }
       ]);
@@ -110,6 +121,7 @@ describe("Volumes", function() {
           size: 1024,
           containerPath: "/dev/null",
           mode: "READ",
+          profileName: null,
           type: "PERSISTENT"
         }
       ]);

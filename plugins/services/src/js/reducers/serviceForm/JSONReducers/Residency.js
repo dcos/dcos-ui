@@ -28,7 +28,7 @@ module.exports = {
       }
       const index = path[1];
       if (type === SET && `volumes.${index}.type` === joinedPath) {
-        this.volumes[index] = value === "PERSISTENT";
+        this.volumes[index] = value === "PERSISTENT" || value === "DSS";
       }
 
       const hasVolumes = this.volumes.find(value => {
