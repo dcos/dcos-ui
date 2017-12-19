@@ -15,7 +15,7 @@ end_of_line = lf
 [*.js]
 continuation_indent_size = 2
 indent_brace_style = OTBS
-quote_type = single
+quote_type = double
 spaces_around_operators = true
 spaces_around_brackets = false
 
