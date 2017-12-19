@@ -219,7 +219,7 @@ describe("#ProgressBar", function() {
                 value: 6
               }
             ]}
-            scale={100}
+            total={100}
             className="test-bar"
           />,
           this.container
