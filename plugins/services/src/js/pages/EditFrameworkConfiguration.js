@@ -8,6 +8,7 @@ import UniversePackage from "#SRC/js/structs/UniversePackage";
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 class EditFrameworkConfiguration extends mixin(StoreMixin) {
   constructor(props) {
@@ -18,7 +19,8 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       deployErrors: null,
       formData: null,
       formErrors: {},
-      hasError: false
+      hasError: false,
+      defaultConfigWarning: null
     };
 
     this.store_listeners = [
@@ -40,13 +42,18 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
     const fullPackage = CosmosPackagesStore.getServiceDetails();
     const packageDetails = new UniversePackage(fullPackage.package);
 
-    // necessary to have review screen same order of tabs as the form
-    const formData = this.reorderResolvedOptions(
+    const schema = packageDetails.getConfig();
+    const formData = getDefaultFormState(
+      schema,
       fullPackage.resolvedOptions,
-      packageDetails.getConfig()
+      schema.definitions
     );
 
-    this.setState({ packageDetails, formData });
+    const defaultConfigWarning = fullPackage.resolvedOptions
+      ? null
+      : "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration.";
+
+    this.setState({ packageDetails, formData, defaultConfigWarning });
   }
 
   onCosmosPackagesStoreServiceDescriptionError() {
@@ -59,16 +66,6 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
 
   onCosmosPackagesStoreServiceUpdateError(deployErrors) {
     this.setState({ deployErrors });
-  }
-
-  reorderResolvedOptions(resolvedOptions, config) {
-    const order = Object.keys(config.properties);
-    const orderedResolvedOptions = {};
-    order.forEach(tab => {
-      orderedResolvedOptions[tab] = resolvedOptions[tab];
-    });
-
-    return orderedResolvedOptions;
   }
 
   handleRun() {
@@ -104,9 +101,10 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
     const {
       packageDetails,
       deployErrors,
-      formErrors,
       formData,
-      hasError
+      formErrors,
+      hasError,
+      defaultConfigWarning
     } = this.state;
 
     if (packageDetails == null) {
@@ -119,15 +117,16 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
 
     return (
       <FrameworkConfiguration
-        packageDetails={packageDetails}
-        formData={formData}
-        formErrors={formErrors}
-        deployErrors={deployErrors}
         handleGoBack={this.handleGoBack.bind(this)}
         handleRun={this.handleRun.bind(this)}
-        isInitialDeploy={false}
         onFormDataChange={this.onFormDataChange.bind(this)}
         onFormErrorChange={this.onFormErrorChange.bind(this)}
+        isInitialDeploy={false}
+        packageDetails={packageDetails}
+        deployErrors={deployErrors}
+        formData={formData}
+        formErrors={formErrors}
+        defaultConfigWarning={defaultConfigWarning}
       />
     );
   }

@@ -5,10 +5,10 @@ import deepEqual from "deep-equal";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { routerShape } from "react-router";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
-import Util from "#SRC/js/utils/Util";
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 const METHODS_TO_BIND = [
   "handleGoBack",
@@ -52,7 +52,8 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 
   onCosmosPackagesStorePackageDescriptionSuccess() {
     const packageDetails = CosmosPackagesStore.getPackageDetails();
-    const formData = this.initializeFormDataFromSchema(packageDetails.config);
+    const schema = packageDetails.getConfig();
+    const formData = getDefaultFormState(schema, undefined, schema.definitions);
     this.setState({ packageDetails, formData });
   }
 
@@ -75,24 +76,6 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 
   onCosmosPackagesStoreInstallError(deployErrors) {
     this.setState({ deployErrors });
-  }
-
-  initializeFormDataFromSchema(value) {
-    if (!Util.isObject(value)) {
-      return value;
-    }
-    if (!value.properties) {
-      return value.default;
-    }
-
-    const defaults = {};
-    Object.keys(value.properties).forEach(property => {
-      defaults[property] = this.initializeFormDataFromSchema(
-        value.properties[property]
-      );
-    });
-
-    return defaults;
   }
 
   handleRun() {
