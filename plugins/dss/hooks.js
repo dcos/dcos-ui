@@ -124,7 +124,7 @@ module.exports = {
   initialize() {
     MountService.MountService.registerComponent(
       getDSSVolumeConfig,
-      "CreateService:SingleContainerVolumes:UnknonwVolumes"
+      "CreateService:SingleContainerVolumes:UnknownVolumes"
     );
 
     MountService.MountService.registerComponent(
