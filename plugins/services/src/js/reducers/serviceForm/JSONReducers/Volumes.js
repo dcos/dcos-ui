@@ -9,7 +9,11 @@ const { type: { MESOS, DOCKER } } = ContainerConstants;
 
 const mapVolumes = function(volume) {
   if (volume.type === "EXTERNAL") {
-    if (this.runtimeType === DOCKER && volume.external.size != null) {
+    if (
+      this.runtimeType === DOCKER &&
+      volume.external != null &&
+      volume.external.size != null
+    ) {
       return {
         external: omit(volume.external, ["size"]),
         mode: volume.mode,
@@ -121,6 +125,9 @@ function reduceVolumes(state, { type, path, value }) {
       this.volumes[index].type = String(value);
     }
     if (type === SET && `volumes.${index}.name` === joinedPath) {
+      if (this.volumes[index].external == null) {
+        this.volumes[index].external = { name: null, size: null };
+      }
       this.volumes[index].external.name = String(value);
     }
     if (type === SET && `volumes.${index}.provider` === joinedPath) {

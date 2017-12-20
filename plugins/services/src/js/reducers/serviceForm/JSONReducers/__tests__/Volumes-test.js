@@ -131,6 +131,36 @@ describe("Volumes", function() {
       ]);
     });
 
+    it("will change from host to external volume", function() {
+      let batch = new Batch();
+
+      batch = batch.add(
+        new Transaction(
+          ["volumes"],
+          {
+            containerPath: "test",
+            hostPath: "test",
+            mode: "RW"
+          },
+          ADD_ITEM
+        )
+      );
+      batch = batch.add(
+        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
+      );
+      batch = batch.add(new Transaction(["volumes", 0, "name"], "test", SET));
+
+      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+        {
+          mode: "RW",
+          containerPath: "test",
+          external: {
+            name: "test",
+            size: null
+          }
+        }
+      ]);
+    });
     it("should return a local and an external volume", function() {
       let batch = new Batch();
 
