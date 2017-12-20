@@ -287,5 +287,29 @@
     ],
     "vtep_mac_oui": "70:B3:D5:00:00:00",
     "vtep_subnet": "198.15.0.0\/20"
-  }
+  },
+  "frameworks": [
+    {
+      "tasks": [
+        {
+          "id": "sleep.7084272b-6b76-11e5-a953-08002719334a",
+          "statuses": [
+            {
+              "container_status": {
+                "network_infos": [
+                  {
+                    "ip_addresses": [
+                      {
+                        "ip_address": "9.0.2.34"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

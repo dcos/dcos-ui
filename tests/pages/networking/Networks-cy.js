@@ -52,7 +52,7 @@ describe("Networks", function() {
     });
 
     it("displays all columns for each network", function() {
-      cy.getAPIResponse("/mesos/master/state", function(fixture) {
+      cy.getAPIResponse("/mesos/overlay-master/state", function(fixture) {
         cy.get("tbody tr").should(function($tableRows) {
           getVisibleTableRows($tableRows).forEach(function(tableRow) {
             const tableCells = tableRow.querySelectorAll("td");
