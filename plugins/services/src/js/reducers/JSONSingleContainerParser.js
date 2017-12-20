@@ -6,9 +6,6 @@ import { JSONParser as container } from "./serviceForm/Container";
 import {
   JSONParser as environmentVariables
 } from "./serviceForm/JSONReducers/EnvironmentVariables";
-import {
-  JSONParser as externalVolumes
-} from "./serviceForm/JSONReducers/ExternalVolumes";
 import { JSONParser as fetch } from "./serviceForm/JSONReducers/Artifacts";
 import {
   JSONParser as healthChecks
@@ -37,7 +34,6 @@ module.exports = [
   constraints,
   container,
   environmentVariables,
-  externalVolumes,
   fetch,
   healthChecks,
   labels,

@@ -9,6 +9,14 @@ const { type: { MESOS, DOCKER } } = ContainerConstants;
 
 const mapVolumes = function(volume) {
   if (volume.type === "EXTERNAL") {
+    if (this.runtimeType === DOCKER && volume.external.size != null) {
+      return {
+        external: omit(volume.external, ["size"]),
+        mode: volume.mode,
+        containerPath: volume.containerPath
+      };
+    }
+
     return {
       external: volume.external,
       mode: volume.mode,
@@ -30,16 +38,6 @@ const mapVolumes = function(volume) {
   };
 };
 
-const mapExternalVolumes = function(volume) {
-  if (this.runtimeType === DOCKER && volume.external.size != null) {
-    return Object.assign({}, volume, {
-      external: omit(volume.external, ["size"])
-    });
-  }
-
-  return volume;
-};
-
 function reduceVolumes(state, { type, path, value }) {
   if (path == null) {
     return state;
@@ -47,14 +45,6 @@ function reduceVolumes(state, { type, path, value }) {
 
   // `this` is a context which is given to every reducer so it could
   // cache information.
-  // In this case we are caching an two array's one for the volumes
-  // and one for externalVolumes we need this so that there index is
-  // fitting with the ones in ExternalVolumes. we combine them before
-  // returning.
-  if (this.externalVolumes == null) {
-    this.externalVolumes = [];
-  }
-
   if (this.volumes == null) {
     this.volumes = [];
   }
@@ -86,72 +76,6 @@ function reduceVolumes(state, { type, path, value }) {
     this.unknownVolumes.push(value);
   }
 
-  if (path[0] === "externalVolumes") {
-    if (joinedPath === "externalVolumes") {
-      switch (type) {
-        case ADD_ITEM:
-          this.externalVolumes.push(
-            value || {
-              containerPath: null,
-              external: {
-                name: null,
-                provider: "dvdi",
-                options: { "dvdi/driver": "rexray" }
-              },
-              mode: "RW"
-            }
-          );
-          break;
-        case REMOVE_ITEM:
-          this.externalVolumes = this.externalVolumes.filter((item, index) => {
-            return index !== value;
-          });
-          break;
-      }
-
-      /**
-       * volumes and externalVolumes share the same reducer and
-       * the section in the form but representing quite different things.
-       *
-       * Reducer should use the same format therefore we need to pick either
-       * volumes format or externalVolumes format.
-       * We picked externalVolumes format. External Volumes are just external volumes.
-       *
-       * The following code converts volumes by filtering HOST volumes and
-       * mapping them to the common structure
-       */
-      return [].concat(
-        this.volumes.map(mapVolumes),
-        this.externalVolumes,
-        this.unknownVolumes
-      );
-    }
-
-    const index = path[1];
-    if (type === SET && `externalVolumes.${index}.provider` === joinedPath) {
-      this.externalVolumes[index].external.provider = String(value);
-    }
-    if (type === SET && `externalVolumes.${index}.options` === joinedPath) {
-      // Options is of type object, so we are not processing it
-      this.externalVolumes[index].external.options = value;
-    }
-    if (type === SET && `externalVolumes.${index}.name` === joinedPath) {
-      this.externalVolumes[index].external.name = String(value);
-    }
-    if (
-      type === SET &&
-      `externalVolumes.${index}.containerPath` === joinedPath
-    ) {
-      this.externalVolumes[index].containerPath = String(value);
-    }
-    if (type === SET && `externalVolumes.${index}.size` === joinedPath) {
-      this.externalVolumes[index].external.size = parseIntValue(value);
-    }
-    if (type === SET && `externalVolumes.${index}.mode` === joinedPath) {
-      this.externalVolumes[index].mode = String(value);
-    }
-  }
-
   if (joinedPath.search("volumes") !== -1) {
     if (joinedPath === "volumes") {
       switch (type) {
@@ -177,8 +101,7 @@ function reduceVolumes(state, { type, path, value }) {
       }
 
       return [].concat(
-        this.volumes.map(mapVolumes),
-        this.externalVolumes,
+        this.volumes.map(mapVolumes.bind(this)),
         this.unknownVolumes
       );
     }
@@ -219,8 +142,7 @@ function reduceVolumes(state, { type, path, value }) {
   }
 
   return [].concat(
-    this.volumes.map(mapVolumes),
-    this.externalVolumes.map(mapExternalVolumes.bind(this)),
+    this.volumes.map(mapVolumes.bind(this)),
     this.unknownVolumes
   );
 }
