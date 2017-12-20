@@ -105,7 +105,7 @@ describe("Nodes Page", function() {
         cy.get("@filterBar").contains("Filter by Service").click();
         cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
         cy.get(".filter-input-text").as("filterInputText");
-        cy.get("@filterInputText").type("is:unhealthy");
+        cy.get("@filterInputText").type("is:healthy");
 
         cy
           .get(".nodes-grid-dials")
