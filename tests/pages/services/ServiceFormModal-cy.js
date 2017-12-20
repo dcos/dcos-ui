@@ -1204,52 +1204,6 @@ describe("Service Form Modal", function() {
             .should("not.exist");
         });
       });
-
-      context("External Volumes", function() {
-        beforeEach(function() {
-          cy
-            .get(".menu-tabbed-view .button.button-primary-link")
-            .contains("Add External Volume")
-            .click();
-        });
-
-        it('Should add new set of form fields when "Add External Volume" link clicked', function() {
-          // Name input focused
-          cy
-            .focused()
-            .should("have.attr", "name")
-            .and("eq", "externalVolumes.0.name");
-          // Name input
-          cy
-            .get("@tabView")
-            .find('.form-control[name="externalVolumes.0.name"]')
-            .should("exist");
-
-          // Size input
-          cy
-            .get("@tabView")
-            .find('.form-control[name="externalVolumes.0.size"]')
-            .should("exist");
-
-          // Container Path input
-          cy
-            .get("@tabView")
-            .find('.form-control[name="externalVolumes.0.containerPath"]')
-            .should("exist");
-        });
-
-        it('Should remove "Volume" form fields when remove button clicked', function() {
-          cy.contains(".panel", "Name").within(function() {
-            // Click delete button
-            cy.get("a.button").click();
-          });
-
-          cy.should(
-            "not.contain",
-            '.form-control[name="externalVolumes.0.name"]'
-          );
-        });
-      });
     });
 
     context("Service: Health Checks", function() {
