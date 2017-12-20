@@ -106,7 +106,7 @@ var NodesTable = React.createClass({
         <ProgressBar
           className="hidden-medium-down"
           data={[{ value, className: COLOR_CLASSNAMES[prop] }]}
-          scale={100}
+          total={100}
         />
         <span className="label">{value}%</span>
       </span>
