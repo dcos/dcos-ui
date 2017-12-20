@@ -5,6 +5,7 @@ import React from "react";
 
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import NodesList from "#SRC/js/structs/NodesList";
 
 import NodesGridDials from "./NodesGridDials";
 
@@ -19,7 +20,7 @@ var NodesGridView = React.createClass({
   propTypes: {
     hasLoadingError: React.PropTypes.bool,
     hiddenServices: React.PropTypes.array,
-    hosts: React.PropTypes.array.isRequired,
+    hosts: React.PropTypes.instanceOf(NodesList).isRequired,
     receivedEmptyMesosState: React.PropTypes.bool,
     receivedNodeHealthResponse: React.PropTypes.bool,
     onShowServices: React.PropTypes.func.isRequired,
@@ -139,7 +140,7 @@ var NodesGridView = React.createClass({
         </div>
 
         <NodesGridDials
-          hosts={props.hosts}
+          hosts={props.hosts.getItems()}
           resourcesByFramework={props.resourcesByFramework}
           selectedResource={props.selectedResource}
           serviceColors={props.serviceColors}

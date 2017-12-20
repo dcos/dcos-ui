@@ -1,22 +1,34 @@
 import PureRender from "react-addons-pure-render-mixin";
 import React from "react";
 
+import DSLExpression from "#SRC/js/structs/DSLExpression";
+import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import FilterBar from "#SRC/js/components/FilterBar";
-import FilterButtons from "#SRC/js/components/FilterButtons";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
+import NodesList from "#SRC/js/structs/NodesList";
 import ResourceBarChart from "#SRC/js/components/charts/ResourceBarChart";
 
 import FilterByService
   from "../../../../../services/src/js/components/FilterByService";
 
-const HEALTH_FILTER_BUTTONS = ["all", "healthy", "unhealthy"];
+import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
 
-const METHODS_TO_BIND = ["onResetFilter"];
+import NodesHealthFilter from "../../filters/NodesHealthFilter";
+
+const NODES_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
+
+const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
 
 class HostsPageContent extends React.Component {
   constructor() {
     super(...arguments);
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
+
+    this.state = {
+      expression: "",
+      filterExpression: new DSLExpression("")
+    };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -31,22 +43,42 @@ class HostsPageContent extends React.Component {
     }
   }
 
+  onFilterChangeHandler(event) {
+    this.props.onFilterChange(event);
+    this.setState({
+      expression: event.value,
+      filterExpression: new DSLExpression(event.value)
+    });
+  }
+
+  getFilterBar() {
+    const filters = NODES_FILTERS;
+    const filterExpression = this.state.filterExpression;
+
+    return (
+      <div className="column-12">
+        <DSLFilterField
+          filters={filters}
+          formSections={[NodesHealthDSLSection]}
+          expression={filterExpression}
+          onChange={this.onFilterChangeHandler}
+        />
+      </div>
+    );
+  }
+
   render() {
     const {
       byServiceFilter,
       children,
-      filterButtonContent,
       filterInputText,
-      filterItemList,
       filteredNodeCount,
       handleFilterChange,
       hosts,
       isFiltering,
       nodeCount,
-      onFilterChange,
       onResourceSelectionChange,
       refreshRate,
-      selectedFilter,
       selectedResource,
       services,
       totalHostsResources,
@@ -75,14 +107,7 @@ class HostsPageContent extends React.Component {
         />
         <FilterBar rightAlignLastNChildren={1}>
           {filterInputText}
-          <FilterButtons
-            filterByKey="title"
-            filters={HEALTH_FILTER_BUTTONS}
-            itemList={filterItemList}
-            onFilterChange={onFilterChange}
-            renderButtonContent={filterButtonContent}
-            selectedFilter={selectedFilter}
-          />
+          {this.getFilterBar()}
           <div className="form-group flush-bottom">
             <FilterByService
               byServiceFilter={byServiceFilter}
@@ -111,14 +136,13 @@ HostsPageContent.propTypes = {
   filterItemList: React.PropTypes.array.isRequired,
   filteredNodeCount: React.PropTypes.number.isRequired,
   handleFilterChange: React.PropTypes.func.isRequired,
-  hosts: React.PropTypes.array.isRequired,
+  hosts: React.PropTypes.instanceOf(NodesList).isRequired,
   isFiltering: React.PropTypes.bool,
   nodeCount: React.PropTypes.number.isRequired,
   onFilterChange: React.PropTypes.func,
   onResetFilter: React.PropTypes.func.isRequired,
   onResourceSelectionChange: React.PropTypes.func.isRequired,
   refreshRate: React.PropTypes.number.isRequired,
-  selectedFilter: React.PropTypes.string,
   selectedResource: React.PropTypes.string.isRequired,
   services: React.PropTypes.array.isRequired,
   totalHostsResources: React.PropTypes.object.isRequired,
