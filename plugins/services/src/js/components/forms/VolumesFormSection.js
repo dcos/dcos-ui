@@ -21,9 +21,6 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ContainerConstants from "../../constants/ContainerConstants";
 
 import {
-  FormReducer as externalVolumes
-} from "../../reducers/serviceForm/FormReducers/ExternalVolumes";
-import {
   FormReducer as volumes
 } from "../../reducers/serviceForm/FormReducers/Volumes";
 
@@ -325,124 +322,6 @@ class VolumesFormSection extends Component {
     });
   }
 
-  /**
-   * getExternalVolumesLines
-   *
-   * @param  {Object} data
-   * @param  {Number} offset as we have two independent sections that are 0
-   *                  based we need to add an offset to the second one
-   * @return {Array} elements
-   */
-  getExternalVolumesLines(data, offset) {
-    return data.map((volume, key) => {
-      const nameError = errorsLens
-        .at(key + offset, {})
-        .attr("external", {})
-        .get(this.props.errors).name;
-
-      const sizeError = errorsLens
-        .at(key, {})
-        .attr("external", {})
-        .get(this.props.errors).size;
-
-      const containerPathError = errorsLens
-        .at(key + offset, {})
-        .get(this.props.errors).containerPath;
-
-      const runtimeType = findNestedPropertyInObject(
-        this.props.data,
-        "container.type"
-      );
-
-      let sizeField = (
-        <Tooltip
-          content="Docker Runtime only supports the default size for implicit volumes, please select Universal Container Runtime (UCR) if you want to modify the size."
-          width={300}
-          wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
-          wrapText={true}
-        >
-          <FieldInput
-            name={`externalVolumes.${key}.size`}
-            type="number"
-            disabled={true}
-            value={""}
-          />
-        </Tooltip>
-      );
-
-      if (runtimeType !== DOCKER) {
-        sizeField = (
-          <FieldInput
-            name={`externalVolumes.${key}.size`}
-            type="number"
-            value={volume.size}
-          />
-        );
-      }
-
-      return (
-        <FormGroupContainer
-          key={key}
-          onRemove={this.props.onRemoveItem.bind(this, {
-            value: key,
-            path: "externalVolumes"
-          })}
-        >
-          <FormRow>
-            <FormGroup className="column-6" showError={Boolean(nameError)}>
-              <FieldLabel>
-                <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
-                    Name
-                  </FormGroupHeadingContent>
-                </FormGroupHeading>
-              </FieldLabel>
-              <FieldAutofocus>
-                <FieldInput
-                  name={`externalVolumes.${key}.name`}
-                  type="text"
-                  value={volume.name}
-                />
-              </FieldAutofocus>
-              <FieldError>{nameError}</FieldError>
-            </FormGroup>
-          </FormRow>
-          <FormRow>
-            <FormGroup className="column-3" showError={Boolean(sizeError)}>
-              <FieldLabel className="text-no-transform">
-                <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
-                    SIZE (GiB)
-                  </FormGroupHeadingContent>
-                </FormGroupHeading>
-              </FieldLabel>
-              {sizeField}
-              <FieldError>{sizeError}</FieldError>
-            </FormGroup>
-            <FormGroup
-              className="column-9"
-              showError={Boolean(containerPathError)}
-            >
-              <FieldLabel>
-                <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
-                    Container Path
-                  </FormGroupHeadingContent>
-                </FormGroupHeading>
-              </FieldLabel>
-              <FieldInput
-                name={`externalVolumes.${key}.containerPath`}
-                type="text"
-                value={volume.containerPath}
-              />
-              <FieldError>{containerPathError}</FieldError>
-            </FormGroup>
-          </FormRow>
-        </FormGroupContainer>
-      );
-    });
-  }
-
   render() {
     const { data } = this.props;
 
@@ -487,41 +366,6 @@ class VolumesFormSection extends Component {
             Add Volume
           </AddButton>
         </div>
-        <h3 className="short-bottom">
-          <FormGroupHeading>
-            <FormGroupHeadingContent primary={true}>
-              External Volumes
-            </FormGroupHeadingContent>
-          </FormGroupHeading>
-        </h3>
-        <p>
-          {
-            "Choose an external persistent volume if fault-tolerance is crucial for your service. "
-          }
-          <a
-            href={MetadataStore.buildDocsURI(
-              "/usage/storage/external-storage/"
-            )}
-            target="_blank"
-          >
-            More information
-          </a>.
-        </p>
-        {this.getExternalVolumesLines(
-          data.externalVolumes,
-          data.volumes.length
-        )}
-        <FormRow>
-          <FormGroup className="column-12">
-            <AddButton
-              onClick={this.props.onAddItem.bind(this, {
-                path: "externalVolumes"
-              })}
-            >
-              Add External Volume
-            </AddButton>
-          </FormGroup>
-        </FormRow>
       </div>
     );
   }
@@ -542,15 +386,11 @@ VolumesFormSection.propTypes = {
 };
 
 VolumesFormSection.configReducers = {
-  externalVolumes,
   volumes
 };
 
 VolumesFormSection.validationReducers = {
   volumes() {
-    return [];
-  },
-  externalVolumes() {
     return [];
   }
 };
