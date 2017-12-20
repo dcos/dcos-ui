@@ -8176,9 +8176,9 @@
       }
     },
     "reactjs-components": {
-      "version": "0.18.0",
-      "from": "reactjs-components@0.18.0",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.18.0.tgz"
+      "version": "0.20.1",
+      "from": "reactjs-components@0.20.1",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.20.1.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",
