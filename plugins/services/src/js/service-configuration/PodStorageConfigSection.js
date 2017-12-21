@@ -64,6 +64,9 @@ class PodStorageConfigSection extends React.Component {
       if (volume.host != null) {
         type = VolumeConstants.type.host;
       }
+      if (volume.persistent != null) {
+        type = VolumeConstants.type.localPersistent;
+      }
       if (Object.keys(volume).length === 1 && volume.name != null) {
         type = VolumeConstants.type.ephemeral;
       }

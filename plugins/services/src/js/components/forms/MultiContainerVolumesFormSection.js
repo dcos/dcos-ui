@@ -119,6 +119,9 @@ class MultiContainerVolumesFormSection extends Component {
                 <option value={VolumeConstants.type.ephemeral}>
                   Ephemeral Volume
                 </option>
+                <option value={VolumeConstants.type.localPersistent}>
+                  Local Persistent Volume
+                </option>
               </FieldSelect>
             </FormGroup>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
@@ -138,6 +141,7 @@ class MultiContainerVolumesFormSection extends Component {
             </FormGroup>
           </FormRow>
           {this.getHostPathInput(volumes, key)}
+          {this.getLocalPersistentInput(volumes, key)}
           {this.getContainerMounts(containers, key)}
         </FormGroupContainer>
       );
@@ -167,6 +171,33 @@ class MultiContainerVolumesFormSection extends Component {
         </FormRow>
       );
     }
+  }
+
+  getLocalPersistentInput(volumes, key) {
+    if (volumes.type !== VolumeConstants.type.localPersistent) {
+      return null;
+    }
+
+    return (
+      <FormRow>
+        <FormGroup className="column-3">
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Size (GiB)
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldAutofocus>
+            <FieldInput
+              name={`volumeMounts.${key}.size`}
+              type="number"
+              value={volumes.size}
+            />
+          </FieldAutofocus>
+        </FormGroup>
+      </FormRow>
+    );
   }
 
   getHeadline() {
