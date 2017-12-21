@@ -226,7 +226,7 @@ describe("Package Detail Tab", function() {
             .should("not.exist");
         });
 
-        it('Should hide the "value" when "Unique" is selected in operator dropdown', function() {
+        it("Should disable the field value when Unique is selected in operator dropdown", function() {
           cy
             .get("@tabView")
             .find('select[name="constraints.0.operator"]')
@@ -235,10 +235,8 @@ describe("Package Detail Tab", function() {
           // value
           cy
             .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
-            .parents(".form-group")
-            .next()
-            .should("have.class", "hidden");
+            .find('input[name="constraints.0.value"]')
+            .should("be.disabled");
         });
       });
     });

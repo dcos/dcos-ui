@@ -14,53 +14,30 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent
   from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
 
 import OperatorTypes from "#PLUGINS/services/src/js/constants/OperatorTypes";
 import PlacementConstraintsUtil
   from "#PLUGINS/services/src/js/utils/PlacementConstraintsUtil";
 
-function placementConstraintLabel(name, tooltipText, options = {}) {
-  const { isRequired = false, linkText = "More information" } = options;
-
-  const tooltipContent = (
-    <span>
-      {`${tooltipText} `}
-      <a
-        href="https://mesosphere.github.io/marathon/docs/constraints.html"
-        target="_blank"
-      >
-        {linkText}
-      </a>.
-    </span>
-  );
-
-  return (
-    <FieldLabel>
-      <FormGroupHeading required={isRequired}>
-        <FormGroupHeadingContent primary={true}>
-          {name}
-        </FormGroupHeadingContent>
-        <FormGroupHeadingContent>
-          <Tooltip
-            content={tooltipContent}
-            interactive={true}
-            maxWidth={300}
-            wrapText={true}
-          >
-            <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
-        </FormGroupHeadingContent>
-      </FormGroupHeading>
-    </FieldLabel>
-  );
-}
-
 export default class PlacementSection extends Component {
-  getOperatorTypes() {
-    return Object.keys(OperatorTypes).map((type, index) => {
-      return <option key={index} value={type}>{type}</option>;
-    });
+  getPlacementConstraintLabel(name) {
+    return (
+      <FieldLabel>
+        <FormGroupHeading>
+          <FormGroupHeadingContent primary={true}>
+            {name}
+          </FormGroupHeadingContent>
+        </FormGroupHeading>
+      </FieldLabel>
+    );
+  }
+
+  getToolTip(fieldValue, content) {
+    return (
+      <Tooltip content={content} wrapperClassName="advanced-constraints">
+        {fieldValue}
+      </Tooltip>
+    );
   }
 
   getPlacementConstraintsFields(data = []) {
@@ -68,9 +45,6 @@ export default class PlacementSection extends Component {
       this.props.errors,
       "constraints"
     );
-    const hasOneRequiredValue = data.some(function(constraint) {
-      return PlacementConstraintsUtil.requiresValue(constraint.operator);
-    });
     const hideValueColumn = data.every(function(constraint) {
       return PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
     });
@@ -79,6 +53,8 @@ export default class PlacementSection extends Component {
       let fieldLabel = null;
       let operatorLabel = null;
       let valueLabel = null;
+      const isFirstConstraint = index === 0;
+
       const valueIsRequired = PlacementConstraintsUtil.requiresValue(
         constraint.operator
       );
@@ -97,30 +73,22 @@ export default class PlacementSection extends Component {
         constraintsErrors,
         `${index}.value`
       );
-      const commonFieldsClassNames = {
-        "column-4": !hideValueColumn,
-        "column-6": hideValueColumn
-      };
+      const commonFieldsClassNames = "column-4";
 
-      if (index === 0) {
-        fieldLabel = placementConstraintLabel(
-          "Field",
-          "If you enter `hostname`, the constraint will map to the agent node hostname. If you do not enter an agent node hostname, the field will be treated as a Mesos agent node attribute, which allows you to tag an agent node.",
-          { isRequired: true }
-        );
-        operatorLabel = placementConstraintLabel(
-          "Operator",
-          "Operators specify where your app will run.",
-          { isRequired: true }
-        );
+      if (isFirstConstraint) {
+        fieldLabel = this.getPlacementConstraintLabel("Field");
+        operatorLabel = this.getPlacementConstraintLabel("Operator");
+        valueLabel = this.getPlacementConstraintLabel("Value");
       }
-      if (index === 0 && !hideValueColumn) {
-        valueLabel = placementConstraintLabel(
-          "Value",
-          "Values allow you to further specify your constraint.",
-          { linkText: "Learn more", isRequired: hasOneRequiredValue }
-        );
-      }
+
+      const fieldValue = (
+        <FieldInput
+          name={`constraints.${index}.value`}
+          type="text"
+          value={constraint.value}
+          disabled={!!valueIsRequiredEmpty}
+        />
+      );
 
       return (
         <FormRow key={index}>
@@ -136,8 +104,17 @@ export default class PlacementSection extends Component {
               value={String(constraint.operator)}
             >
               <option value="">Select</option>
-              {this.getOperatorTypes()}
+              {Object.keys(OperatorTypes).map((type, index) => {
+                return (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                );
+              })}
             </FieldSelect>
+            <FieldHelp>
+              Specify where your app will run.
+            </FieldHelp>
             <FieldError>{operatorError}</FieldError>
           </FormGroup>
           <FormGroup
@@ -152,27 +129,27 @@ export default class PlacementSection extends Component {
               placeholder="hostname"
               value={constraint.fieldName}
             />
+            <FieldHelp>
+              E.g hostname.
+            </FieldHelp>
             <FieldError>{fieldNameError}</FieldError>
           </FormGroup>
           <FormGroup
-            className={{
-              "column-4": !hideValueColumn,
-              hidden: hideValueColumn
-            }}
+            className={commonFieldsClassNames}
             required={valueIsRequired}
             showError={Boolean(valueError)}
           >
             {valueLabel}
-            <FieldInput
-              className={{ hidden: valueIsRequiredEmpty }}
-              name={`constraints.${index}.value`}
-              type="text"
-              value={constraint.value}
-            />
-            <FieldHelp
-              className={{ hidden: valueIsRequired || valueIsRequiredEmpty }}
-            >
-              This field is optional
+            {valueIsRequiredEmpty
+              ? this.getToolTip(
+                  fieldValue,
+                  OperatorTypes[constraint.operator].tooltipContent
+                )
+              : fieldValue}
+            <FieldHelp>
+              {OperatorTypes[constraint.operator]
+                ? OperatorTypes[constraint.operator].helpContent
+                : "A string, integer or regex value."}
             </FieldHelp>
             <FieldError className={{ hidden: hideValueColumn }}>
               {valueError}
