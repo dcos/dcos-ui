@@ -62,7 +62,7 @@ class DSLFormDropdownPanel extends React.Component {
    */
   render() {
     const { expression } = this.state;
-    const { sections, isVisible } = this.props;
+    const { sections, isVisible, defaultData } = this.props;
 
     const dropdownPanelClasses = classNames({
       "dsl-dropdown-panel dropdown-panel dropdown-panel-animated panel": true,
@@ -77,6 +77,7 @@ class DSLFormDropdownPanel extends React.Component {
             onChange={this.handleChange}
             onApply={this.handleApply}
             sections={sections}
+            defaultData={defaultData}
           />
         </div>
         <div className="panel-cell panel-cell-short flush-top text-align-right">

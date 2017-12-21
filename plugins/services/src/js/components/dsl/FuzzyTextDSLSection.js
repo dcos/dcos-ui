@@ -34,6 +34,7 @@ class FuzzyTextDSLSection extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { expression } = nextProps;
     const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
+
     this.setState({ data });
   }
 
@@ -69,7 +70,7 @@ class FuzzyTextDSLSection extends React.Component {
             name="text"
             onChange={this.handleTextChange}
             placeholder="Enter words found in name"
-            value={data.text}
+            value={data.text || ""}
           />
         </FormGroup>
 

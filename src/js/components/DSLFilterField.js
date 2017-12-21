@@ -94,7 +94,7 @@ class DSLFilterField extends React.Component {
   }
 
   render() {
-    const { expression, formSections, onChange } = this.props;
+    const { expression, formSections, onChange, defaultData } = this.props;
     const { dropdownVisible } = this.state;
     const hasForm = formSections.length > 0;
 
@@ -119,6 +119,7 @@ class DSLFilterField extends React.Component {
           onChange={onChange}
           onClose={this.handleDropdownClose}
           sections={formSections}
+          defaultData={defaultData}
         />
       </div>
     );

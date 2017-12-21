@@ -8,12 +8,18 @@ import ServiceInstancesContainer
   from "../containers/service-instances/ServiceInstancesContainer";
 
 const HighOrderServiceInstances = function(props) {
-  const { service, params } = props;
+  const { service, params, location } = props;
   if (service instanceof Pod) {
     return <PodInstancesContainer pod={service} />;
   }
 
-  return <ServiceInstancesContainer service={service} params={params} />;
+  return (
+    <ServiceInstancesContainer
+      service={service}
+      params={params}
+      location={location}
+    />
+  );
 };
 
 HighOrderServiceInstances.propTypes = {
