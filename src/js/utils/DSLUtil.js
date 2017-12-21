@@ -110,7 +110,11 @@ const DSLUtil = {
         // Require only testing properties to match
         const compareParamNames = Object.keys(compareFilterParams);
         const comparePropMatches = compareParamNames.every(prop => {
-          return filterParams[prop] === compareFilterParams[prop];
+          return (
+            filterParams[prop] === compareFilterParams[prop] ||
+            (compareFilterParams[prop] === undefined &&
+              compareFilterParams[prop] !== filterParams[prop])
+          );
         });
 
         if (compareParamNames.length === 0 || comparePropMatches) {
@@ -170,7 +174,13 @@ const DSLUtil = {
         // Properties created through attribute filter will get a boolean value
         //
         case DSLFilterTypes.ATTRIB:
-          memo[prop] = matchingNodes.length === 1;
+          if (matchAgainst.filterParams.text === undefined) {
+            memo[prop] = matchingNodes.map(function(matchingNode) {
+              return matchingNode.filterParams.text;
+            });
+          } else {
+            memo[prop] = matchingNodes.length === 1;
+          }
 
           return memo;
         //
