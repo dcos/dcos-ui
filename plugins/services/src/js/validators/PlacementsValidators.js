@@ -8,35 +8,32 @@ function checkDuplicateOperatorField(constraints) {
     return [];
   }
 
-  const uniques = [];
-  const duplicates = [];
-  constraints.forEach(function(item, index) {
-    item = "operator" in item
-      ? item
-      : { fieldName: item[0], operator: item[1] };
+  const errors = [];
+  const visitedOperatorFieldPairs = [];
+  constraints.map(function(constraint, index) {
+    const operatorFieldPair = "operator" in constraint
+      ? { fieldName: constraint.fieldName, operator: constraint.operator }
+      : { fieldName: constraint[0], operator: constraint[1] };
+    const key = `{${operatorFieldPair.operator}}{${operatorFieldPair.fieldName}}`;
 
-    const isPresent = uniques.filter(function(elem) {
-      return (
-        elem.fieldName === item.fieldName && elem.operator === item.operator
+    if (visitedOperatorFieldPairs.indexOf(key) !== -1) {
+      errors.push(
+        [].concat([
+          {
+            path: ["constraints", index, "fieldName"],
+            message: "Duplicate operator/ field set"
+          },
+          {
+            path: ["constraints", index, "operator"],
+            message: "Duplicate operator/ field set"
+          }
+        ])
       );
-    });
-    if (isPresent.length === 0) {
-      uniques.push(item);
-    } else {
-      duplicates.push({
-        operator: item.operator,
-        field: item.fieldName,
-        index
-      });
     }
+    visitedOperatorFieldPairs.push(key);
   });
 
-  return duplicates.map(function(duplicate) {
-    return {
-      path: ["constraints", duplicate.index, "fieldName"],
-      message: "Duplicate operator/ field set"
-    };
-  });
+  return [].concat(errors);
 }
 
 const PlacementsValidators = {
