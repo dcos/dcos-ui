@@ -18,7 +18,7 @@ function checkDuplicateOperatorField(constraints) {
 
     if (visitedOperatorFieldPairs.indexOf(key) !== -1) {
       errors.push(
-        [].concat([
+        ...[
           {
             path: ["constraints", index, "fieldName"],
             message: "Duplicate operator/ field set"
@@ -27,13 +27,13 @@ function checkDuplicateOperatorField(constraints) {
             path: ["constraints", index, "operator"],
             message: "Duplicate operator/ field set"
           }
-        ])
+        ]
       );
     }
     visitedOperatorFieldPairs.push(key);
   });
 
-  return [].concat(errors);
+  return errors;
 }
 
 const PlacementsValidators = {
