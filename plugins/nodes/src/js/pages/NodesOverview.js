@@ -19,23 +19,23 @@ import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
-import NodesHealthFilter from "#PLUGINS/nodes/src/js/filters/NodesHealthFilter";
-
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 
 const NODES_DISPLAY_LIMIT = 300;
-const NODES_FILTERS = new DSLFilterList([new NodesHealthFilter()]);
 
 function getMesosHosts(state) {
-  const { filterExpression = new DSLExpression("") } = state;
+  const {
+    filterExpression = new DSLExpression(""),
+    filters = new DSLFilterList([])
+  } = state;
   const states = MesosSummaryStore.get("states");
   const lastState = states.lastSuccessful();
   const nodes = CompositeState.getNodesList();
 
   let filteredNodes = nodes;
   if (filterExpression && filterExpression.defined) {
-    filteredNodes = filterExpression.filter(NODES_FILTERS, filteredNodes);
+    filteredNodes = filterExpression.filter(filters, filteredNodes);
   }
   const nodeIDs = filteredNodes.getItems().map(function(node) {
     return node.id;
@@ -173,9 +173,9 @@ var NodesOverview = React.createClass({
     this.setQueryParam("filterService", byServiceFilter);
   },
 
-  handleHealthFilterChange(filterExpression) {
-    this.internalStorage_update(getMesosHosts({ filterExpression }));
-    this.setState({ filterExpression });
+  handleHealthFilterChange(filterExpression, filters) {
+    this.internalStorage_update(getMesosHosts({ filterExpression, filters }));
+    this.setState({ filterExpression, filters });
     this.setQueryParam("filterExpression", filterExpression.value);
   },
 
@@ -267,6 +267,8 @@ var NodesOverview = React.createClass({
           )}
           handleFilterChange={this.handleByServiceFilterChange}
           hosts={nodesList}
+          allHosts={CompositeState.getNodesList()}
+          location={this.props.location}
           isFiltering={isFiltering}
           nodeCount={data.nodes.getItems().length}
           onFilterChange={this.handleHealthFilterChange}
