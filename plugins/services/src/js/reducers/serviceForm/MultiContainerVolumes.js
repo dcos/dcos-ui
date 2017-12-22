@@ -58,18 +58,29 @@ module.exports = {
     if (name === "type" && value !== VolumeConstants.type.host) {
       delete newState[index].host;
     }
-    if (name === "type" && value !== VolumeConstants.type.localPersistent) {
+    if (
+      name === "type" &&
+      value !== VolumeConstants.type.localPersistent &&
+      value !== VolumeConstants.type.dss
+    ) {
       delete newState[index].persistent;
     }
     if (name === "type" && value === VolumeConstants.type.host) {
       newState[index].host = this.hostPaths[index];
     }
-    if (name === "type" && value === VolumeConstants.type.localPersistent) {
+    if (
+      name === "type" &&
+      (value === VolumeConstants.type.localPersistent ||
+        value === VolumeConstants.type.dss)
+    ) {
       newState[index].persistent = { size: this.localSize[index] };
     }
     if (name === "size") {
       this.localSize[index] = value;
       newState[index].persistent.size = parseInt(value, 10);
+    }
+    if (name === "profileName") {
+      newState[index].persistent.profileName = value;
     }
     if (name === "persistent") {
       if (value.size != null) {
@@ -137,16 +148,33 @@ module.exports = {
         }
 
         if (volume.persistent != null) {
-          volumeTypeTransactions = [
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "type"],
-              VolumeConstants.type.localPersistent
-            ),
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
-              volume.persistent
-            )
-          ];
+          if (volume.persistent.profileName == null) {
+            volumeTypeTransactions = [
+              new Transaction(
+                ["volumeMounts", volumeIndexMap[volume.name], "type"],
+                VolumeConstants.type.localPersistent
+              ),
+              new Transaction(
+                ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
+                volume.persistent
+              )
+            ];
+          } else {
+            volumeTypeTransactions = [
+              new Transaction(
+                ["volumeMounts", volumeIndexMap[volume.name], "type"],
+                VolumeConstants.type.dss
+              ),
+              new Transaction(
+                ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
+                volume.persistent
+              ),
+              new Transaction(
+                ["volumeMounts", volumeIndexMap[volume.name], "profileName"],
+                volume.persistent.profileName
+              )
+            ];
+          }
         }
 
         return memo.concat(
@@ -224,7 +252,7 @@ module.exports = {
 
     switch (type) {
       case ADD_ITEM:
-        newState.push({ mountPath: [] });
+        newState.push(Object.assign({}, { mountPath: [] }, value));
         break;
       case REMOVE_ITEM:
         newState = newState.filter((item, index) => index !== value);
@@ -236,6 +264,9 @@ module.exports = {
     }
     if (name === "hostPath") {
       newState[index].hostPath = String(value);
+    }
+    if (name === "profileName") {
+      newState[index].profileName = String(value);
     }
     if (name === "name") {
       newState[index].name = String(value);
