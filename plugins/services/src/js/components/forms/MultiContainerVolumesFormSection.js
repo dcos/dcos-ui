@@ -156,9 +156,6 @@ class MultiContainerVolumesFormSection extends Component {
                   <option value={VolumeConstants.type.localPersistent}>
                     Local Persistent Volume
                   </option>
-                  <option value={VolumeConstants.type.dss}>
-                    DC/OS Storage Service
-                  </option>
                 </FieldSelect>
               </MountService.Mount>
             </FormGroup>
@@ -222,7 +219,7 @@ class MultiContainerVolumesFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Size (GiB)
+                Size (MiB)
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
