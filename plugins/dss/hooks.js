@@ -21,7 +21,7 @@ const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 function getVolumeTypes(props) {
   return (
     <FieldSelect name={`volumes.${props.index}.type`} value={props.volume.type}>
-      <option>Select...</option>,
+      <option value="">Select...</option>,
       <option value="HOST">
         Host Volume
       </option>,
