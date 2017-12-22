@@ -20,7 +20,7 @@ import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
 import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
-import GraphQLTaskUtil from "../../utils/GraphQLTaskUtil";
+import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import TaskTable from "./TaskTable";
 
@@ -238,7 +238,7 @@ class TasksView extends mixin(SaveStateMixin) {
       rightAlignLastNChildren = 1;
     }
 
-    const mergedTasks = tasks.map(GraphQLTaskUtil.mergeData);
+    const mergedTasks = tasks.map(TaskMergeDataUtil.mergeData);
 
     return (
       <div className="flex-container-col flex-grow">
