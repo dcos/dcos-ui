@@ -1,6 +1,7 @@
 import { Tooltip } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
+import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -8,7 +9,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { findNestedPropertyInObject, omit } from "#SRC/js/utils/Util";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -283,9 +284,44 @@ class VolumesFormSection extends Component {
     );
   }
 
+  getUnknownVolumeConfig(volume, key) {
+    return (
+      <MountService.Mount
+        type="CreateService:SingleContainerVolumes:UnknownVolumes"
+        volume={volume}
+        index={key}
+        errors={this.props.errors}
+      >
+        <FieldLabel>
+          Unable to edit this Volume{" "}
+        </FieldLabel>
+        <pre>
+          {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
+        </pre>
+      </MountService.Mount>
+    );
+  }
+
   getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = errorsLens.at(key, {}).get(this.props.errors).type;
+
+      if (
+        volume.type != null &&
+        !["EXTERNAL", "HOST", "PERSISTENT"].includes(volume.type)
+      ) {
+        return (
+          <FormGroupContainer
+            key={key}
+            onRemove={this.props.onRemoveItem.bind(this, {
+              value: key,
+              path: "volumes"
+            })}
+          >
+            {this.getUnknownVolumeConfig(volume, key)}
+          </FormGroupContainer>
+        );
+      }
 
       return (
         <FormGroupContainer
@@ -304,14 +340,20 @@ class VolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
-                <option>Select...</option>
-                <option value="HOST">
-                  Host Volume
-                </option>
-                <option value="PERSISTENT">Persistent Volume</option>
-                <option value="EXTERNAL">External Volume</option>
-              </FieldSelect>
+              <MountService.Mount
+                type="CreateService:SingleContainerVolumes:Types"
+                volume={volume}
+                index={key}
+              >
+                <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
+                  <option>Select...</option>
+                  <option value="HOST">
+                    Host Volume
+                  </option>
+                  <option value="PERSISTENT">Persistent Volume</option>
+                  <option value="EXTERNAL">External Volume</option>
+                </FieldSelect>
+              </MountService.Mount>
             </FormGroup>
           </FormRow>
           {this.getPersistentVolumeConfig(volume, key)}
