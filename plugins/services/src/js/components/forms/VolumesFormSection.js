@@ -308,7 +308,7 @@ class VolumesFormSection extends Component {
 
       if (
         volume.type != null &&
-        !["EXTERNAL", "HOST", "PERSISTENT"].includes(volume.type)
+        !["EXTERNAL", "HOST", "PERSISTENT", ""].includes(volume.type)
       ) {
         return (
           <FormGroupContainer
@@ -346,7 +346,7 @@ class VolumesFormSection extends Component {
                 index={key}
               >
                 <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
-                  <option>Select...</option>
+                  <option value="">Select...</option>
                   <option value="HOST">
                     Host Volume
                   </option>
