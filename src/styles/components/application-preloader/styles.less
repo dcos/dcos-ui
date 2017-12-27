@@ -65,3 +65,16 @@
     width: 100px;
   }
 }
+
+& when (@screen-resolution-2x-enabled) {
+
+  @media only screen and (min-resolution: 2dppx) {
+
+    & when (@application-preloader-enabled) {
+
+      .application-preloader-spinner {
+        background-image: url('../../../img/components/application-preloader/application-preloader-spinner@2x.png');
+      }
+    }
+  }
+}
