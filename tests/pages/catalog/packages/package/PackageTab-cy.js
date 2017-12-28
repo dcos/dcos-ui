@@ -191,7 +191,7 @@ describe("Package Detail Tab", function() {
           // operator
           cy
             .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
+            .find('[name="constraints.0.operator"]')
             .should("exist");
 
           // value
@@ -216,7 +216,7 @@ describe("Package Detail Tab", function() {
           // operator
           cy
             .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
+            .find('[name="constraints.0.operator"]')
             .should("not.exist");
 
           // value
@@ -227,15 +227,14 @@ describe("Package Detail Tab", function() {
         });
 
         it("Should disable the field value when Unique is selected in operator dropdown", function() {
-          cy
-            .get("@tabView")
-            .find('select[name="constraints.0.operator"]')
-            .select("UNIQUE");
+          cy.get("@tabView").find(".button.dropdown-toggle").click();
+
+          cy.contains(".dropdown-select-item-title", "Unique").click();
 
           // value
           cy
             .get("@tabView")
-            .find('input[name="constraints.0.value"]')
+            .find('[name="constraints.0.value"]')
             .should("be.disabled");
         });
       });
