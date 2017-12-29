@@ -35,14 +35,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   cy.chain().server();
 
   if (configuration.mesos === "1-task-healthy") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app")
@@ -83,14 +92,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-for-each-health") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:1-app-for-each-health/app")
@@ -107,14 +125,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-service-with-executor-task") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/1-service-with-executor-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/1-service-with-executor-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:1-service-with-executor-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(
@@ -148,14 +175,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-task-with-volumes") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(/marathon\/v2\/apps/, "fx:marathon-1-task/app")
@@ -168,14 +204,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "healthy-tasks-in-mesos-and-marathon") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/healthy-tasks-in-mesos-and-marathon/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/healthy-tasks-in-mesos-and-marathon//mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(
@@ -193,14 +238,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-service-suspended") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app-suspended")
@@ -218,14 +272,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-sdk-service") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(
@@ -246,14 +309,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-suspended-sdk-service") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(
@@ -270,14 +342,23 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-service-suspended-single-instance") {
-    cy.route({
-      method: "POST",
-      url: /mesos\/api\/v1/,
-      response: require("../_fixtures/marathon-1-task/stream-subscribed"),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
     router
       .route(
