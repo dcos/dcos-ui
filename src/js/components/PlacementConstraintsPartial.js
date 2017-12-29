@@ -18,7 +18,7 @@ import OperatorTypes from "#PLUGINS/services/src/js/constants/OperatorTypes";
 import PlacementConstraintsUtil
   from "#PLUGINS/services/src/js/utils/PlacementConstraintsUtil";
 
-export default class PlacementSection extends Component {
+export default class PlacementConstraintsPartial extends Component {
   getPlacementConstraintLabel(name) {
     return (
       <FieldLabel>
