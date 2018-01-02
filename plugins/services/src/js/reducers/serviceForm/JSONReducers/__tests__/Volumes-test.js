@@ -156,7 +156,8 @@ describe("Volumes", function() {
           containerPath: "test",
           external: {
             name: "test",
-            size: null
+            provider: "dvdi",
+            options: { "dvdi/driver": "rexray" }
           }
         }
       ]);
