@@ -73,11 +73,6 @@ describe("Networks", function() {
 
     it("allows users to filter the table", function() {
       cy
-        // Even though this is a anti pattern and almost always not needed
-        // Wait a bit so "Cannot Connect With The Server" isn't displayed
-        // 2 secs is based on the time "Cannot Connect With The Server" was displayed
-        // before the nodes table is displayed
-        .wait(2000)
         .get(".filter-bar-item .filter-input-text")
         .type("sleep.7084272b-6b76-11e5-a953-08002719334a");
       cy.get("tbody tr").should(function($tableRows) {

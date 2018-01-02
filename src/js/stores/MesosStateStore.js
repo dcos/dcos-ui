@@ -74,7 +74,10 @@ class MesosStateStore extends GetSetBaseStore {
   subscribe() {
     const mesosStream = container.get(MesosStreamType);
     const parsers = pipe(...Object.values(mesosStreamParsers));
-    const getMasterRequest = request({ type: "GET_MASTER" }).retry(3);
+    const getMasterRequest = request(
+      { type: "GET_MASTER" },
+      "/mesos/api/v1?get_master"
+    ).retry(3);
 
     this.stream = mesosStream
       .merge(getMasterRequest)

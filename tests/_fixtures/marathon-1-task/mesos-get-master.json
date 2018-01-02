@@ -1,0 +1,33 @@
+{
+  "get_master": {
+    "master_info": {
+      "address": {
+        "hostname": "172.17.8.101",
+        "ip": "172.17.8.101",
+        "port": 5050
+      },
+      "capabilities": [
+        {
+          "type": "AGENT_UPDATE"
+        }
+      ],
+      "domain": {
+        "fault_domain": {
+          "region": {
+            "name": "region-1"
+          },
+          "zone": {
+            "name": "zone-1"
+          }
+        }
+      },
+      "hostname": "172.17.8.101",
+      "id": "20151004-214809-1695027628-5050-12268",
+      "ip": 2198274058,
+      "pid": "master@172.17.8.101:5050",
+      "port": 5050,
+      "version": "0.23.0"
+    }
+  },
+  "type": "GET_MASTER"
+}

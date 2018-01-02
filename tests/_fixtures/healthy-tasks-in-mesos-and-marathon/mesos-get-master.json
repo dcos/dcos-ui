@@ -1,0 +1,33 @@
+{
+  "get_master": {
+    "master_info": {
+      "address": {
+        "hostname": "10.0.4.58",
+        "ip": "10.0.4.58",
+        "port": 5050
+      },
+      "capabilities": [
+        {
+          "type": "AGENT_UPDATE"
+        }
+      ],
+      "domain": {
+        "fault_domain": {
+          "region": {
+            "name": "region-1"
+          },
+          "zone": {
+            "name": "zone-1"
+          }
+        }
+      },
+      "hostname": "10.0.4.58",
+      "id": "74f1836b-6784-4030-816e-aacbdd45ff57",
+      "ip": 2198274058,
+      "pid": "master@10.0.4.58:5050",
+      "port": 5050,
+      "version": "1.2.0"
+    }
+  },
+  "type": "GET_MASTER"
+}
