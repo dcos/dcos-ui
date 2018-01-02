@@ -93,16 +93,20 @@ function reduceVolumes(state, { type, path, value }) {
       switch (type) {
         case ADD_ITEM:
           this.volumes.push(
-            value || {
-              containerPath: null,
-              persistent: { size: null, profileName: null },
-              external: {
-                name: null,
-                provider: "dvdi",
-                options: { "dvdi/driver": "rexray" }
+            Object.assign(
+              {},
+              {
+                containerPath: null,
+                persistent: { size: null, profileName: null },
+                external: {
+                  name: null,
+                  provider: "dvdi",
+                  options: { "dvdi/driver": "rexray" }
+                },
+                mode: "RW"
               },
-              mode: "RW"
-            }
+              value
+            )
           );
           break;
         case REMOVE_ITEM:
