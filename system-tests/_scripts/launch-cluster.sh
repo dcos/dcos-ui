@@ -29,6 +29,7 @@ dcos_config:
     - 8.8.8.8
   dns_search: mesos
   master_discovery: static
+  exhibitor_storage_backend: static
 num_masters: 1
 num_private_agents: 1
 num_public_agents: 1
