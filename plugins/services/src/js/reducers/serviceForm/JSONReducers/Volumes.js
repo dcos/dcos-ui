@@ -179,8 +179,17 @@ module.exports = {
       return [];
     }
 
-    return state.container.volumes.reduce(function(memo, item, index) {
-      /**
+    return state.container.volumes
+      .filter(function(item) {
+        return (
+          item.persistent != null ||
+          item.external != null ||
+          item.hostPath != null ||
+          item.mode != null
+        );
+      })
+      .reduce(function(memo, item, index) {
+        /**
          * For the volumes we have a special case as all the volumes
          * are present in the `container.volumes` But in this parser we only
          * want to parse the local volumes. which means that we first filter
@@ -195,89 +204,105 @@ module.exports = {
          * 4) Set the mode from `volume.mode` on the path
          *    `volumes.${index}.mode`
          */
-      memo.push(new Transaction(["volumes"], item, ADD_ITEM));
+        memo.push(new Transaction(["volumes"], item, ADD_ITEM));
 
-      if (item.persistent != null && item.persistent.size != null) {
-        if (item.persistent.profileName == null) {
-          memo.push(
-            new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
-          );
-        } else {
-          memo.push(new Transaction(["volumes", index, "type"], "DSS", SET));
+        if (item.persistent != null && item.persistent.size != null) {
+          if (item.persistent.profileName == null) {
+            memo.push(
+              new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
+            );
+          } else {
+            memo.push(new Transaction(["volumes", index, "type"], "DSS", SET));
+
+            memo.push(
+              new Transaction(
+                ["volumes", index, "profileName"],
+                item.persistent.profileName,
+                SET
+              )
+            );
+          }
 
           memo.push(
             new Transaction(
-              ["volumes", index, "profileName"],
-              item.persistent.profileName,
+              ["volumes", index, "size"],
+              item.persistent.size,
+              SET
+            )
+          );
+        } else if (item.external != null && item.external.name != null) {
+          memo.push(
+            new Transaction(["volumes", index, "type"], "EXTERNAL", SET)
+          );
+
+          if (item.external.name != null) {
+            memo.push(
+              new Transaction(
+                ["volumes", index, "name"],
+                item.external.name,
+                SET
+              )
+            );
+          }
+
+          if (item.external.size != null) {
+            memo.push(
+              new Transaction(
+                ["volumes", index, "size"],
+                item.external.size,
+                SET
+              )
+            );
+          }
+
+          if (item.external.options != null) {
+            memo.push(
+              new Transaction(
+                ["volumes", index, "options"],
+                item.external.options,
+                SET
+              )
+            );
+          }
+
+          if (item.external.provider != null) {
+            memo.push(
+              new Transaction(
+                ["volumes", index, "provider"],
+                item.external.provider,
+                SET
+              )
+            );
+          }
+        } else if (item.hostPath != null) {
+          memo.push(new Transaction(["volumes", index, "type"], "HOST", SET));
+
+          memo.push(
+            new Transaction(
+              ["volumes", index, "hostPath"],
+              item.hostPath || "",
               SET
             )
           );
         }
 
-        memo.push(
-          new Transaction(["volumes", index, "size"], item.persistent.size, SET)
-        );
-      } else if (item.external != null && item.external.name != null) {
-        memo.push(new Transaction(["volumes", index, "type"], "EXTERNAL", SET));
-
-        if (item.external.name != null) {
-          memo.push(
-            new Transaction(["volumes", index, "name"], item.external.name, SET)
-          );
-        }
-
-        if (item.external.size != null) {
-          memo.push(
-            new Transaction(["volumes", index, "size"], item.external.size, SET)
-          );
-        }
-
-        if (item.external.options != null) {
+        if (item.containerPath != null) {
           memo.push(
             new Transaction(
-              ["volumes", index, "options"],
-              item.external.options,
+              ["volumes", index, "containerPath"],
+              item.containerPath,
               SET
             )
           );
         }
 
-        if (item.external.provider != null) {
+        if (item.mode != null) {
           memo.push(
-            new Transaction(
-              ["volumes", index, "provider"],
-              item.external.provider,
-              SET
-            )
+            new Transaction(["volumes", index, "mode"], item.mode, SET)
           );
         }
-      } else {
-        memo.push(new Transaction(["volumes", index, "type"], "HOST", SET));
 
-        memo.push(
-          new Transaction(
-            ["volumes", index, "hostPath"],
-            item.hostPath || "",
-            SET
-          )
-        );
-      }
-
-      if (item.containerPath != null) {
-        memo.push(
-          new Transaction(
-            ["volumes", index, "containerPath"],
-            item.containerPath,
-            SET
-          )
-        );
-      }
-
-      if (item.mode != null) {
-        memo.push(new Transaction(["volumes", index, "mode"], item.mode, SET));
-      }
-
-      return memo;
-    }, []);
+        return memo;
+      }, []);
   }
 };
