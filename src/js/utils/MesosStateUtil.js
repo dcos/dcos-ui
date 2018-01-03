@@ -86,7 +86,7 @@ const MesosStateUtil = {
    * @returns {Object} A map of frameworks running on host
    */
   getHostResourcesByFramework(state, filter = []) {
-    return state.tasks.reduce(function(memo, task) {
+    return (state.tasks || []).reduce(function(memo, task) {
       if (memo[task.slave_id] == null) {
         memo[task.slave_id] = {};
       }
