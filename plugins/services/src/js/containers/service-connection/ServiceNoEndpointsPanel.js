@@ -16,7 +16,7 @@ const ServiceNoEndpointPanel = props => {
         You can edit the configuration to add service endpoints.
       </p>
       <div className="button-collection flush-bottom">
-        <button className="button" onClick={onClick}>
+        <button className="button-primary-link" onClick={onClick}>
           Edit Configuration
         </button>
       </div>

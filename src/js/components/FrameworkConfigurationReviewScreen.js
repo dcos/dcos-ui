@@ -52,7 +52,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               onClick={onEditClick}
             >
               <Icon id="pencil" size="mini" family="system" />
-              <span className="form-group-heading-content">
+              <span>
                 {"Edit Config"}
               </span>
             </button>
@@ -71,7 +71,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               )}
             >
               <Icon id="download" size="mini" family="system" />
-              <span className="form-group-heading-content">
+              <span>
                 {"Download Config"}
               </span>
             </a>
