@@ -12,7 +12,8 @@ module.exports = {
         return (
           item.persistent == null &&
           item.external == null &&
-          item.hostPath == null
+          item.hostPath == null &&
+          item.mode == null
         );
       })
       .reduce(function(memo, item) {

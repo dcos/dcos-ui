@@ -419,6 +419,45 @@ describe("Volumes", function() {
         expect(Volumes.JSONParser({})).toEqual([]);
       });
 
+      it("returns an empty array for unknown values", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                test: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([]);
+      });
+
+      it("returns an array consisting of one transaction", function() {
+        const state = {
+          container: {
+            volumes: [
+              {
+                mode: "RW"
+              }
+            ]
+          }
+        };
+        expect(Volumes.JSONParser(state)).toEqual([
+          {
+            type: ADD_ITEM,
+            value: {
+              mode: "RW"
+            },
+            path: ["volumes"]
+          },
+          {
+            type: SET,
+            value: "RW",
+            path: ["volumes", 0, "mode"]
+          }
+        ]);
+      });
+
       it("should contain the transaction for one local volume", function() {
         const state = {
           container: {
