@@ -403,7 +403,7 @@ describe("Service Actions", function() {
         response: []
       });
       cy
-        .get(".modal-small .button-primary")
+        .get(".modal-small .button-danger")
         .click()
         .should("have.class", "disabled");
     });
@@ -414,7 +414,7 @@ describe("Service Actions", function() {
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
         response: []
       });
-      cy.get(".modal-small .button-primary").click();
+      cy.get(".modal-small .button-danger").click();
       cy.get(".modal-small").should("to.have.length", 0);
     });
 
@@ -427,7 +427,7 @@ describe("Service Actions", function() {
           message: "App is locked by one or more deployments."
         }
       });
-      cy.get(".modal-small .button-primary").click();
+      cy.get(".modal-small .button-danger").click();
       cy
         .get(".modal-small .text-danger")
         .should("to.have.text", "App is locked by one or more deployments.");
@@ -442,7 +442,7 @@ describe("Service Actions", function() {
           message: "Not Authorized to perform this action!"
         }
       });
-      cy.get(".modal-small .button-primary").click();
+      cy.get(".modal-small .button-danger").click();
       cy
         .get(".modal-small .text-danger")
         .should("to.have.text", "Not Authorized to perform this action!");
@@ -455,7 +455,7 @@ describe("Service Actions", function() {
         response: [],
         delay: SERVER_RESPONSE_DELAY
       });
-      cy.get(".modal-small .button-primary").as("primaryButton").click();
+      cy.get(".modal-small .button-danger").as("primaryButton").click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
