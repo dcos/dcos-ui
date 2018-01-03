@@ -34,6 +34,12 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   router.clearRoutes();
   cy.chain().server();
 
+    // This aims to reduce the flakiness by making requests a bit more realistic
+  cy.route({
+    delay: 50,
+  });
+
+
   if (configuration.mesos === "1-task-healthy") {
     cy
       .route({
