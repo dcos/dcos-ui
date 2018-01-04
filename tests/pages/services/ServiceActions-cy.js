@@ -184,7 +184,7 @@ describe("Service Actions", function() {
     it("back button on review screen goes back to form", function() {
       cy
         .get('.modal .menu-tabbed-container input[name="name"]')
-        .type(`{selectall}elast`);
+        .type(`{selectall}elast`, { delay: 0 });
 
       cy.get(".modal .modal-header button").contains("Review & Run").click();
 
