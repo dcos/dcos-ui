@@ -52,5 +52,5 @@ fi
 echo "http://$(dcos-launch describe -i ${CLUSTER_INFO} | python -c \
                 'import sys, json; \
                  contents = json.load(sys.stdin); \
-                 print(contents["masters"][0]["public_ip"], end="")')"
+                 sys.stdout.write(str(contents["masters"][0]["public_ip"]))')"
 exit 0
