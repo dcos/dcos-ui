@@ -8,14 +8,9 @@ import {
   JSONParser as environmentVariables
 } from "./serviceForm/JSONReducers/MultiContainerEnvironmentVariables";
 import {
-  JSONParser as externalVolumes
-} from "./serviceForm/JSONReducers/ExternalVolumes";
-import {
   JSONParser as healthChecks
 } from "./serviceForm/JSONReducers/HealthChecks";
-import {
-  JSONParser as localVolumes
-} from "./serviceForm/JSONReducers/LocalVolumes";
+import { JSONParser as volumes } from "./serviceForm/JSONReducers/Volumes";
 import { JSONParser as labels } from "./serviceForm/JSONReducers/Labels";
 import { JSONParser as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONParser as portMappings } from "./serviceForm/PortMappings";
@@ -45,11 +40,10 @@ module.exports = [
   constraints,
   containers,
   environmentVariables,
-  externalVolumes,
   fetch,
   healthChecks,
   labels,
-  localVolumes,
+  volumes,
   multiContainerNetwork,
   networks,
   portDefinitions,

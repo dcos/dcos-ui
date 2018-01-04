@@ -1,0 +1,130 @@
+const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
+const Batch = require("#SRC/js/structs/Batch");
+const Transaction = require("#SRC/js/structs/Transaction");
+const Volumes = require("../Volumes");
+
+describe("Volumes", function() {
+  describe("#FormReducer", function() {
+    it("should return an Array with one item", function() {
+      const batch = new Batch()
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+        {
+          size: null,
+          containerPath: null,
+          mode: "RW",
+          profileName: null,
+          type: "PERSISTENT"
+        }
+      ]);
+    });
+
+    it("should contain one full local Volumes item", function() {
+      const batch = new Batch()
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+        .add(new Transaction(["volumes", 0, "size"], 1024))
+        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"));
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+        {
+          size: 1024,
+          containerPath: "/dev/null",
+          mode: "RW",
+          profileName: null,
+          type: "PERSISTENT"
+        }
+      ]);
+    });
+
+    it("should parse wrong typed values correctly", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumes", 0, "type"], 123));
+      batch = batch.add(new Transaction(["volumes", 0, "hostPath"], 123));
+      batch = batch.add(new Transaction(["volumes", 0, "containerPath"], 123));
+      batch = batch.add(new Transaction(["volumes", 0, "size"], "1024"));
+      batch = batch.add(new Transaction(["volumes", 0, "mode"], 123));
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+        {
+          size: 1024,
+          hostPath: "123",
+          containerPath: "123",
+          mode: "123",
+          profileName: null,
+          type: "123"
+        }
+      ]);
+    });
+
+    it("should contain two full local Volumes items", function() {
+      const batch = new Batch()
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+        .add(new Transaction(["volumes", 1, "type"], "PERSISTENT"))
+        .add(new Transaction(["volumes", 0, "size"], 1024))
+        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+        .add(new Transaction(["volumes", 1, "size"], 512))
+        .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"));
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+        {
+          size: 1024,
+          containerPath: "/dev/null",
+          mode: "RW",
+          profileName: null,
+          type: "PERSISTENT"
+        },
+        {
+          size: 512,
+          containerPath: "/dev/dev2",
+          mode: "RW",
+          profileName: null,
+          type: "PERSISTENT"
+        }
+      ]);
+    });
+
+    it("should remove the right row.", function() {
+      const batch = new Batch()
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+        .add(new Transaction(["volumes", 1, "type"], "PERSISTENT"))
+        .add(new Transaction(["volumes", 0, "size"], 1024))
+        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+        .add(new Transaction(["volumes", 1, "size"], 512))
+        .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"))
+        .add(new Transaction(["volumes"], 0, REMOVE_ITEM));
+
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+        {
+          size: 512,
+          containerPath: "/dev/dev2",
+          mode: "RW",
+          profileName: null,
+          type: "PERSISTENT"
+        }
+      ]);
+    });
+
+    it("should set the right mode.", function() {
+      const batch = new Batch()
+        .add(new Transaction(["volumes"], null, ADD_ITEM))
+        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+        .add(new Transaction(["volumes", 0, "size"], 1024))
+        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+        .add(new Transaction(["volumes", 0, "mode"], "READ"));
+
+      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+        {
+          size: 1024,
+          containerPath: "/dev/null",
+          mode: "READ",
+          profileName: null,
+          type: "PERSISTENT"
+        }
+      ]);
+    });
+  });
+});

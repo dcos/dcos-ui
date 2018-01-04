@@ -40,7 +40,7 @@ const containerJSONReducer = combineReducers({
       this.hasImage = !ValidatorUtil.isEmpty(value);
     }
 
-    if (path[0] === "localVolumes" || path[0] === "externalVolumes") {
+    if (path[0] === "volumes") {
       switch (type) {
         case ADD_ITEM:
           this.hasVolumes.push(true);
