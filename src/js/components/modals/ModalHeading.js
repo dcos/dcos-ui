@@ -14,20 +14,12 @@ const ModalHeading = props => {
 };
 
 ModalHeading.defaultProps = {
-  align: "left",
   flush: true,
   level: 2
 };
 
 ModalHeading.propTypes = {
-  align: React.PropTypes.oneOf(["left", "right", "center"]),
   children: React.PropTypes.node.isRequired,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
-  ]),
-  flush: React.PropTypes.bool,
   level: React.PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
