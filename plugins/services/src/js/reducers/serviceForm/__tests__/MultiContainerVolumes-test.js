@@ -108,12 +108,12 @@ describe("Volumes", function() {
         { name: "foo", host: "hostpath" }
       ]);
     });
-    it("handles LOCAL_PERSISTENT type", function() {
+    it("handles PERSISTENT type", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(
-        new Transaction(["volumeMounts", 0, "type"], "LOCAL_PERSISTENT")
+        new Transaction(["volumeMounts", 0, "type"], "PERSISTENT")
       );
       batch = batch.add(new Transaction(["volumeMounts", 0, "size"], "1"));
 
@@ -193,17 +193,17 @@ describe("Volumes", function() {
         }
       ]);
     });
-    it("handles LOCAL_PERSISTENT type", function() {
+    it("handles PERSISTENT type", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(
-        new Transaction(["volumeMounts", 0, "type"], "LOCAL_PERSISTENT")
+        new Transaction(["volumeMounts", 0, "type"], "PERSISTENT")
       );
       batch = batch.add(new Transaction(["volumeMounts", 0, "size"], 1));
 
       expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
-        { name: "foo", size: 1, type: "LOCAL_PERSISTENT", mountPath: [] }
+        { name: "foo", size: 1, type: "PERSISTENT", mountPath: [] }
       ]);
     });
   });
@@ -348,7 +348,7 @@ describe("Volumes", function() {
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
         {
           type: SET,
-          value: "LOCAL_PERSISTENT",
+          value: "PERSISTENT",
           path: ["volumeMounts", 0, "type"]
         },
         {
