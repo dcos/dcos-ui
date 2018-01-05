@@ -1,7 +1,7 @@
 const Volume = require("../Volume");
 const VolumeStatus = require("../../constants/VolumeStatus");
-const VolumeTypes = require("../../constants/VolumeTypes");
 const VolumeProfile = require("../../constants/VolumeProfile");
+const VolumeDefinitions = require("../../constants/VolumeDefinitions");
 
 describe("Volume", function() {
   describe("#getContainerPath", function() {
@@ -89,10 +89,10 @@ describe("Volume", function() {
   describe("#getType", function() {
     it("returns correct type", function() {
       const service = new Volume({
-        type: VolumeTypes.PERSISTENT
+        type: VolumeDefinitions.PERSISTENT.type
       });
 
-      expect(service.getType()).toEqual(VolumeTypes.PERSISTENT);
+      expect(service.getType()).toEqual(VolumeDefinitions.PERSISTENT.type);
     });
   });
 

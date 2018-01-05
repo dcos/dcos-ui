@@ -1161,46 +1161,35 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add Local Volume" link clicked', function() {
+          cy.get("@tabView").contains("Add Volume").click();
+
           cy
-            .get("@tabView")
-            .contains(".form-group", "Volume Type")
-            .within(function() {
-              cy.get("select").should("have.attr", "name", "volumes.0.type");
-            });
+            .get('.form-group-heading-content[title="Volume Type"]')
+            .should("have.length", 2);
         });
 
         it('Should add new set of form fields when "Persistent Volume" is selected as volume type', function() {
+          cy.get("@tabView").contains(".form-group", "Volume Type");
+          cy.get("@tabView").find(".button.dropdown-toggle").click();
           cy
-            .get("@tabView")
-            .find('select[name="volumes.0.type"]')
-            .select("PERSISTENT");
-
-          // Size input
+            .contains(".dropdown-select-item-title", "Local Persistent Volume")
+            .click();
           cy
-            .get("@tabView")
-            .find('.form-control[name="volumes.0.size"]')
+            .get('.form-control[name="volumes.0.containerPath"]')
             .should("exist");
-
-          // Container Path input
-          cy
-            .get("@tabView")
-            .find('.form-control[name="volumes.0.containerPath"]')
-            .should("exist");
+          cy.get('.form-control[name="volumes.0.size"]').should("exist");
         });
 
         it('Should remove "Volume" form fields when remove button clicked', function() {
+          cy.get("@tabView").find(".button.dropdown-toggle").click();
           cy
-            .get("@tabView")
-            .find('select[name="volumes.0.type"]')
-            .parents(".panel")
-            .within(function() {
-              // Click delete button
-              cy.get("a.button").click();
-            });
+            .contains(".dropdown-select-item-title", "Local Persistent Volume")
+            .click();
+
+          cy.get("@tabView").find(".panel .button.button-primary-link").click();
 
           cy
-            .get("@tabView")
-            .find('.form-control[name="volumes.0.type"]')
+            .get('.form-control[name="volumes.0.containerPath"]')
             .should("not.exist");
         });
       });

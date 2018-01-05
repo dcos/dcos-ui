@@ -2,6 +2,7 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import Objektiv from "objektiv";
+import { Select, SelectOption } from "reactjs-components";
 
 import { MountService } from "foundation-ui";
 
@@ -22,7 +23,11 @@ import {
 } from "#PLUGINS/services/src/js/utils/ServiceConfigDisplayUtil";
 import { omit } from "#SRC/js/utils/Util";
 
+import VolumeDefinitions
+  from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
+const excludedTypes = ["EPHEMERAL"];
 
 function getContainerMounts(containers, volumeMountIndex, volumeMounts) {
   return containers.map((container, containerIndex) => {
@@ -206,15 +211,34 @@ function DSSInput(props) {
 
 function VolumeTypeSelect(props) {
   return (
-    <FieldSelect name={`volumes.${props.index}.type`} value={props.volume.type}>
-      <option value="">Select...</option>,
-      <option value="HOST">
-        Host Volume
-      </option>,
-      <option value="DSS">DC/OS Storage Service</option>,
-      <option value="PERSISTENT">Persistent Volume</option>,
-      <option value="EXTERNAL">External Volume</option>
-    </FieldSelect>
+    <Select
+      name={`volumes.${props.index}.type`}
+      value={props.volume.type}
+      placeholder="Select ..."
+    >
+      {Object.keys(VolumeDefinitions)
+        .filter(type => !excludedTypes.includes(type))
+        .map((type, index) => {
+          if (type === "EPHEMERAL") {
+            return <noscript />;
+          }
+
+          return (
+            <SelectOption
+              key={index}
+              value={type}
+              label={VolumeDefinitions[type].type}
+            >
+              <span className="dropdown-select-item-title">
+                {VolumeDefinitions[type].name}
+              </span>
+              <span className="dropdown-select-item-description">
+                {VolumeDefinitions[type].description}
+              </span>
+            </SelectOption>
+          );
+        })}
+    </Select>
   );
 }
 
@@ -239,7 +263,7 @@ function DSSVolumeConfig(props) {
   return (
     <div>
       <FormRow>
-        <FormGroup className="column-4" showError={Boolean(typeError)}>
+        <FormGroup className="column-5" showError={Boolean(typeError)}>
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
