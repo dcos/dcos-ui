@@ -21,4 +21,12 @@ module.exports = class Overlay extends Item {
   getSubnet() {
     return this.get("info").subnet;
   }
+
+  getPrefix6() {
+    return this.get("info").prefix6;
+  }
+
+  getSubnet6() {
+    return this.get("info").subnet6;
+  }
 };
