@@ -206,6 +206,26 @@ describe("Service Actions", function() {
     });
   });
 
+  context("Top Level Edit Action", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-for-each-health",
+        nodeHealth: true,
+        universePackages: true
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
+    });
+    it("shows a Edit button on top level", function() {
+      cy.get(".button").contains("Edit").click();
+
+      cy
+        .location()
+        .its("hash")
+        .should("include", "#/services/detail/%2Fcassandra-healthy/edit");
+    });
+  });
+
   context("Destroy Action", function() {
     context("Application", function() {
       beforeEach(function() {
