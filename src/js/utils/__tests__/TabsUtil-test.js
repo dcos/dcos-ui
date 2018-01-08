@@ -51,7 +51,7 @@ describe("TabsUtil", function() {
       expect(tabs[2].props.className).toEqual("menu-tabbed-item active");
     });
 
-    it("should highlight all routes which prefix the current tab name", function() {
+    it("highlights all routes which prefix the current tab name", function() {
       var tabs = TabsUtil.getTabs(
         this.hierarchicalTabs,
         "foobar",
