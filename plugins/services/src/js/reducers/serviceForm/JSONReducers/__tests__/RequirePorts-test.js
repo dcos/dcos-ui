@@ -15,7 +15,7 @@ describe("RequirePorts", function() {
   });
 
   describe("#JSONParser", function() {
-    it("it should return true as default", function() {
+    it("returns true as default", function() {
       expect(RequirePorts.JSONParser({})).toEqual(
         new Transaction(["portsAutoAssign"], true)
       );
