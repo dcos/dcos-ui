@@ -7,7 +7,7 @@ const VolumeList = require("../VolumeList");
 
 describe("Application", function() {
   describe("#getDeployments", function() {
-    it("should return an empty array", function() {
+    it("returns an empty array", function() {
       const service = new Application({
         deployments: []
       });
@@ -15,7 +15,7 @@ describe("Application", function() {
       expect(service.getDeployments()).toEqual([]);
     });
 
-    it("should return an array with one deployment", function() {
+    it("returns an array with one deployment", function() {
       const service = new Application({
         deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7" }]
       });
@@ -203,7 +203,7 @@ describe("Application", function() {
   });
 
   describe("#getResources", function() {
-    it("should return correct resource data", function() {
+    it("returns correct resource data", function() {
       const service = new Application({
         cpus: 1,
         mem: 2,
@@ -220,7 +220,7 @@ describe("Application", function() {
       });
     });
 
-    it("should multiply resource by the number instances", function() {
+    it("multiplies resources by the number of instances", function() {
       const service = new Application({
         cpus: 1,
         mem: 2,
@@ -568,7 +568,7 @@ describe("Application", function() {
   });
 
   describe("#getSpec", function() {
-    it("should clean-up JSON when getting the spec", function() {
+    it("cleans up JSON when getting the spec", function() {
       const item = new Application({ foo: "bar", baz: "qux", uris: [] });
       const spec = item.getSpec();
       expect(JSON.stringify(spec)).toEqual('{"foo":"bar","baz":"qux"}');
