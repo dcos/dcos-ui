@@ -6,7 +6,6 @@ import Icon from "#SRC/js/components/Icon";
 import Pod from "../../structs/Pod";
 import PodInstanceList from "../../structs/PodInstanceList";
 import PodInstancesTable from "./PodInstancesTable";
-import PodInstanceStatus from "../../constants/PodInstanceStatus";
 import PodUtil from "../../utils/PodUtil";
 import PodViewFilter from "./PodViewFilter";
 
@@ -36,22 +35,15 @@ class PodInstancesView extends React.Component {
   }
 
   getInstanceFilterStatus(instance) {
-    const status = instance.getInstanceStatus();
-    switch (status) {
-      case PodInstanceStatus.STAGED:
-        return "staged";
-
-      case PodInstanceStatus.HEALTHY:
-      case PodInstanceStatus.UNHEALTHY:
-      case PodInstanceStatus.RUNNING:
-        return "active";
-
-      case PodInstanceStatus.KILLED:
-        return "completed";
-
-      default:
-        return "";
+    if (instance.isStaging()) {
+      return "staged";
     }
+
+    if (instance.isRunning()) {
+      return "active";
+    }
+
+    return "completed";
   }
 
   getKillButtons() {
