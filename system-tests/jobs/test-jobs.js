@@ -474,4 +474,51 @@ describe("Jobs", function() {
       .getFormGroupInputFor("Cron Schedule *")
       .should("have.value", "* * * * *");
   });
+
+  it("should remove job from table when deleted", function() {
+    // first create a simple job
+    const jobName = "job-to-delete";
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+
+    // Visit jobs
+    cy.visitUrl("jobs/overview");
+    cy.get(".button.button-primary-link.button-narrow").click();
+    cy.get(".modal-header").contains("New Job").should("exist");
+
+    // Fill-in the input elements
+    cy.root().getFormGroupInputFor("ID *").type(`{selectall}${fullJobName}`);
+    cy.root().getFormGroupInputFor("Command").type(cmdline);
+
+    // Click create job
+    cy.contains("Create Job").click();
+
+    // Switch to the group that will contain the service
+    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
+
+    // Wait for the table and the service to appear
+    cy
+      .get(".page-body-content table")
+      .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
+      .get("a.table-cell-link-primary")
+      .contains(`${jobName}`)
+      .click();
+
+    // open edit screen
+    cy
+      .get(".page-header-actions .dropdown")
+      .click()
+      .get(".dropdown-menu-items")
+      .contains("Delete")
+      .click();
+
+    // click delete
+    cy.get(".modal .button-danger").contains("Delete Job").click();
+
+    // Switch to the group that will contain the service
+    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
+
+    // The job should no longer be in the table
+    cy.get(".page-body-content table").contains(jobName).should("not.exist");
+  });
 });
