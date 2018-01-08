@@ -13,13 +13,13 @@ describe("MetronomeUtil", function() {
       ]);
     });
 
-    it("should throw error if the provided id  starts with a dot", function() {
+    it("throws an error if the provided id  starts with a dot", function() {
       expect(function() {
         MetronomeUtil.parseJobs({ id: ".malformed.id" });
       }).toThrow();
     });
 
-    it("should throw error if the provided id ends with a dot", function() {
+    it("throws an error if the provided id ends with a dot", function() {
       expect(function() {
         MetronomeUtil.parseJobs({ id: "malformed.id." });
       }).toThrow();
@@ -39,7 +39,7 @@ describe("MetronomeUtil", function() {
       expect(jobs.items[0].items[0].items[0].id).toEqual("name.foo.bar");
     });
 
-    it("should throw error if item is not an object with id", function() {
+    it("throws an error if item is not an object with id", function() {
       expect(function() {
         MetronomeUtil.parseJobs({});
       }).toThrow();
@@ -51,7 +51,7 @@ describe("MetronomeUtil", function() {
       }).toThrow();
     });
 
-    it("should return root namespace if empty array is passed", function() {
+    it("returns root namespace if empty array is passed", function() {
       const jobs = MetronomeUtil.parseJobs([]);
 
       expect(jobs.id).toEqual("");
@@ -181,27 +181,27 @@ describe("MetronomeUtil", function() {
       });
     });
 
-    it("should just do nothing if history is undefined", function() {
+    it("does nothing if history is undefined", function() {
       const job = MetronomeUtil.parseJob({ id: "foo" });
 
       expect(job).toEqual({ id: "foo" });
     });
 
-    it("should add the proper status to the failed finished runs", function() {
+    it("adds the proper status to the failed finished runs", function() {
       expect(this.job.history.failedFinishedRuns[0].status).toEqual("FAILED");
     });
 
-    it("should add the job id to the failed finished runs", function() {
+    it("adds the job id to the failed finished runs", function() {
       expect(this.job.history.failedFinishedRuns[0].jobId).toEqual("foo");
     });
 
-    it("should add the proper status to the successful finished runs", function() {
+    it("adds the proper status to the successful finished runs", function() {
       expect(this.job.history.successfulFinishedRuns[0].status).toEqual(
         "COMPLETED"
       );
     });
 
-    it("should add the job id to the successful finished runs", function() {
+    it("adds the job id to the successful finished runs", function() {
       expect(this.job.history.successfulFinishedRuns[0].jobId).toEqual("foo");
     });
   });
