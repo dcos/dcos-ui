@@ -37,7 +37,15 @@ class VirtualNetworksTable extends React.Component {
       {
         className: getClassName,
         getValue(overlay) {
-          return overlay.getSubnet();
+          if (overlay.getSubnet() && overlay.getSubnet6()) {
+            return (
+              <span>
+                IPv4: {overlay.getSubnet()}<br />IPv6: {overlay.getSubnet6()}
+              </span>
+            );
+          }
+
+          return overlay.getSubnet() || overlay.getSubnet6();
         },
         headerClassName: getClassName,
         heading,
@@ -47,7 +55,15 @@ class VirtualNetworksTable extends React.Component {
       {
         className: getClassName,
         getValue(overlay) {
-          return overlay.getPrefix();
+          if (overlay.getPrefix() && overlay.getPrefix6()) {
+            return (
+              <span>
+                IPv4: {overlay.getPrefix()}<br />IPv6: {overlay.getPrefix6()}
+              </span>
+            );
+          }
+
+          return overlay.getPrefix() || overlay.getPrefix6();
         },
         headerClassName: getClassName,
         heading,
