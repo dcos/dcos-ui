@@ -17,7 +17,7 @@ var VolumeDefinitions = {
   HOST: {
     name: "Host Persistent Volume",
     type: "Host",
-    description: "A Host volume ...... needs copy blablabla"
+    description: "Map a directory on the host into one or more containers running on the same host."
   },
   EPHEMERAL: {
     name: "Ephemeral Storage",
