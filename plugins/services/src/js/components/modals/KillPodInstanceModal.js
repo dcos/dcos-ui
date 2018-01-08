@@ -88,10 +88,9 @@ class KillPodInstanceModal extends React.Component {
     const instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize("Instance", selectedItemsLength)}`;
 
     return (
-      <div className="text-align-center">
+      <div>
         <p>
           You are about to {action.toLowerCase()} {instanceCountContent}.
-          <br />
           Are you sure you want to continue?
         </p>
         {this.getErrorMessage()}
@@ -141,7 +140,7 @@ class KillPodInstanceModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonText="Cancel"
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
         rightButtonClassName="button button-danger"

@@ -116,9 +116,10 @@ class ServiceStopModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         rightButtonText={`Stop ${serviceLabel}`}
         rightButtonCallback={() => stopItem(this.shouldForceUpdate())}
+        rightButtonClassName="button button-danger"
         showHeader={true}
       >
         <p>

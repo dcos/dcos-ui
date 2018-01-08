@@ -221,7 +221,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               onClick={this.handleEditButtonClick}
             >
               <Icon id="pencil" size="mini" family="system" />
-              <span className="form-group-heading-content">
+              <span>
                 {"Edit Config"}
               </span>
             </button>
@@ -240,7 +240,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               )}
             >
               <Icon id="download" size="mini" family="system" />
-              <span className="form-group-heading-content">
+              <span>
                 {"Download Config"}
               </span>
             </a>

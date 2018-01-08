@@ -27,7 +27,7 @@ const DisabledGroupDestroyModal = props => {
       showFooter={true}
       showHeader={true}
     >
-      <div className="modal-service-delete-center">
+      <div>
         This group needs to be empty to delete it. Please delete any services in the group first.
       </div>
     </Modal>

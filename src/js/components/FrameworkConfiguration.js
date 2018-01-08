@@ -141,7 +141,7 @@ class FrameworkConfiguration extends Component {
 
     return [
       {
-        className: "button-stroke",
+        className: "button-primary-link",
         clickHandler: this.handleGoBack,
         label: reviewActive ? " Back" : "Cancel"
       }

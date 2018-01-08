@@ -113,7 +113,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     return [
       {
         text: "Cancel",
-        className: "button button-primary-link",
+        className: "button button-primary-link flush-left",
         isClose: true
       },
       {

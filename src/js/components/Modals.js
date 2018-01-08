@@ -125,11 +125,8 @@ var Modals = React.createClass({
       showFooter: true,
       footer: (
         <div>
-          <div className="row text-align-center">
-            <button
-              className="button button-primary button-medium"
-              onClick={onClose}
-            >
+          <div className="text-align-center">
+            <button className="button button-primary-link" onClick={onClose}>
               Close
             </button>
           </div>

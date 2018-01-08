@@ -163,7 +163,6 @@ class CliInstallModal extends React.Component {
   getContent() {
     return (
       <div className="install-cli-modal-content">
-        <h4 className="flush-top">Installation</h4>
         <p>
           {
             "Choose your operating system and follow the instructions. For any issues or questions, please refer to our "
@@ -185,7 +184,7 @@ class CliInstallModal extends React.Component {
 
   render() {
     const { footer, open, showFooter, title } = this.props;
-    const header = <ModalHeading align="left" level={5}>{title}</ModalHeading>;
+    const header = <ModalHeading>{title}</ModalHeading>;
 
     return (
       <Modal

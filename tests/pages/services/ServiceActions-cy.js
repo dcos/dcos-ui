@@ -226,9 +226,7 @@ describe("Service Actions", function() {
       });
 
       it("disable danger button while service name isn't correct", function() {
-        cy
-          .get(".modal-small .flush-bottom .button-danger")
-          .should("have.class", "disabled");
+        cy.get(".modal-small .button-danger").should("have.class", "disabled");
       });
 
       it("closes dialog when user type correct service name", function() {
@@ -238,7 +236,7 @@ describe("Service Actions", function() {
           response: []
         });
         cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".modal-small .flush-bottom .button-danger").click();
+        cy.get(".modal-small .button-danger").click();
         cy.get(".modal-small").should("to.have.length", 0);
       });
 
@@ -250,7 +248,7 @@ describe("Service Actions", function() {
           response: { message: "App is locked by one or more deployments." }
         });
         cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".modal-small .flush-bottom .button-danger").click();
+        cy.get(".modal-small .button-danger").click();
         cy
           .get(".modal-body .text-danger")
           .should("to.have.text", "App is locked by one or more deployments.");
@@ -264,7 +262,7 @@ describe("Service Actions", function() {
           response: { message: "Not Authorized to perform this action!" }
         });
         cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".modal-small .flush-bottom .button-danger").click();
+        cy.get(".modal-small .button-danger").click();
         cy
           .get(".modal-body .text-danger")
           .should("to.have.text", "Not Authorized to perform this action!");
@@ -280,13 +278,13 @@ describe("Service Actions", function() {
           },
           delay: SERVER_RESPONSE_DELAY
         });
-        cy.get(".modal-small .flush-bottom .button-danger").as("dangerButton");
+        cy.get(".modal-small .button-danger").as("dangerButton");
         cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get("@dangerButton").should("not.have.class", "disabled");
       });
 
       it("closes dialog on secondary button click", function() {
-        cy.get(".modal-small .flush-bottom .button").contains("Cancel").click();
+        cy.get(".modal-small .button").contains("Cancel").click();
         cy.get(".modal-small").should("to.have.length", 0);
       });
     });
@@ -405,7 +403,7 @@ describe("Service Actions", function() {
         response: []
       });
       cy
-        .get(".modal-small .flush-bottom .button-primary")
+        .get(".modal-small .button-danger")
         .click()
         .should("have.class", "disabled");
     });
@@ -416,7 +414,7 @@ describe("Service Actions", function() {
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
         response: []
       });
-      cy.get(".modal-small .flush-bottom .button-primary").click();
+      cy.get(".modal-small .button-danger").click();
       cy.get(".modal-small").should("to.have.length", 0);
     });
 
@@ -429,7 +427,7 @@ describe("Service Actions", function() {
           message: "App is locked by one or more deployments."
         }
       });
-      cy.get(".modal-small .flush-bottom .button-primary").click();
+      cy.get(".modal-small .button-danger").click();
       cy
         .get(".modal-small .text-danger")
         .should("to.have.text", "App is locked by one or more deployments.");
@@ -444,7 +442,7 @@ describe("Service Actions", function() {
           message: "Not Authorized to perform this action!"
         }
       });
-      cy.get(".modal-small .flush-bottom .button-primary").click();
+      cy.get(".modal-small .button-danger").click();
       cy
         .get(".modal-small .text-danger")
         .should("to.have.text", "Not Authorized to perform this action!");
@@ -457,16 +455,13 @@ describe("Service Actions", function() {
         response: [],
         delay: SERVER_RESPONSE_DELAY
       });
-      cy
-        .get(".modal-small .flush-bottom .button-primary")
-        .as("primaryButton")
-        .click();
+      cy.get(".modal-small .button-danger").as("primaryButton").click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
 
     it("closes dialog on secondary button click", function() {
-      cy.get(".modal-small .flush-bottom .button").contains("Cancel").click();
+      cy.get(".modal-small .button").contains("Cancel").click();
       cy.get(".modal-small").should("to.have.length", 0);
     });
   });

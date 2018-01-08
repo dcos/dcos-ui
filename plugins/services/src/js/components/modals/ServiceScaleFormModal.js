@@ -91,7 +91,6 @@ class ServiceScaleFormModal extends React.Component {
     return [
       {
         fieldType: "number",
-        formElementClass: "horizontal-center",
         min: 0,
         name: "instances",
         placeholder: instancesCount,
@@ -118,7 +117,7 @@ class ServiceScaleFormModal extends React.Component {
   }
 
   getBodyText() {
-    let bodyText = "How many instances would you like to scale to?";
+    let bodyText = "How many instances?";
 
     if (this.props.service instanceof ServiceTree) {
       bodyText =
@@ -126,7 +125,7 @@ class ServiceScaleFormModal extends React.Component {
     }
 
     return (
-      <p className="text-align-center flush-top">
+      <p>
         {bodyText}
       </p>
     );
@@ -138,7 +137,7 @@ class ServiceScaleFormModal extends React.Component {
     const buttonDefinition = [
       {
         text: "Cancel",
-        className: "button button-primary-link",
+        className: "button button-primary-link flush-left",
         isClose: true
       },
       {

@@ -87,10 +87,9 @@ class KillTaskModal extends React.Component {
     const taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize("task", selectedItemsLength)}`;
 
     return (
-      <div className="text-align-center">
+      <div>
         <p>
           You are about to {action.toLowerCase()} {taskCountContent}.
-          <br />
           Are you sure you want to continue?
         </p>
         {this.getErrorMessage()}
@@ -108,7 +107,7 @@ class KillTaskModal extends React.Component {
       selectedItems
     } = this.props;
 
-    let buttonText = ACTION_DISPLAY_NAMES[action];
+    let buttonText = `${ACTION_DISPLAY_NAMES[action]} ${StringUtil.pluralize("Task", selectedItems.length)}`;
 
     if (this.shouldForceUpdate()) {
       buttonText = "Force " + buttonText;
@@ -121,7 +120,7 @@ class KillTaskModal extends React.Component {
       <ModalHeading className="text-danger">
         {ACTION_DISPLAY_NAMES[action]}
         {" "}
-        {StringUtil.pluralize("task", selectedItems.length)}
+        {StringUtil.pluralize("Task", selectedItems.length)}
       </ModalHeading>
     );
 
@@ -133,7 +132,7 @@ class KillTaskModal extends React.Component {
         open={open}
         onClose={onClose}
         leftButtonText="Cancel"
-        leftButtonClassName="button button-primary-link"
+        leftButtonClassName="button button-primary-link flush-left"
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
         rightButtonClassName="button button-danger"
