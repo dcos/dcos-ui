@@ -962,7 +962,7 @@ describe("Container", function() {
         });
       });
 
-      it("should't create portMappings when container.type is MESOS", function() {
+      it("doesn't create portMappings when container.type is MESOS", function() {
         let batch = new Batch();
         batch = batch.add(new Transaction(["container", "type"], "MESOS", SET));
         batch = batch.add(
