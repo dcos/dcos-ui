@@ -9,7 +9,7 @@ const Residency = require("../Residency");
 
 describe("Residency", function() {
   describe("#JSONReducer", function() {
-    it("it should return undefined as default", function() {
+    it("returns undefined as default", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["id"], "foo"));
