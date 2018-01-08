@@ -279,7 +279,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
-    const tasks = MesosStateStore.getTasksFromVirtualNetworkName(
+    const tasks = MesosStateStore.getRunningTasksFromVirtualNetworkName(
       overlay.getName()
     );
     const filteredTasks = this.getFilteredTasks(tasks, searchString);

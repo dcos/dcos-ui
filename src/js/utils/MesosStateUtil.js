@@ -1,8 +1,8 @@
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import PodInstanceState
   from "../../../plugins/services/src/js/constants/PodInstanceState";
 import Util from "./Util";
-import TaskStates from "../../../plugins/services/src/js/constants/TaskStates";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
 const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(function(
@@ -110,14 +110,15 @@ const MesosStateUtil = {
     }, {});
   },
 
-  getTasksFromVirtualNetworkName({ tasks = [] } = {}, overlayName) {
+  getRunningTasksFromVirtualNetworkName({ tasks = [] } = {}, overlayName) {
     return tasks.filter(function(task) {
       const appPath = "container.network_infos.0.name";
       const podPath = "statuses.0.container_status.network_infos.0.name";
 
       return (
-        Util.findNestedPropertyInObject(task, appPath) === overlayName ||
-        Util.findNestedPropertyInObject(task, podPath) === overlayName
+        TaskStates[task.state].stateTypes.includes("active") &&
+        (Util.findNestedPropertyInObject(task, appPath) === overlayName ||
+          Util.findNestedPropertyInObject(task, podPath) === overlayName)
       );
     });
   },
