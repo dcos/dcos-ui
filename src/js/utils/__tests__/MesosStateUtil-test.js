@@ -307,4 +307,130 @@ describe("MesosStateUtil", function() {
       });
     });
   });
+
+  describe("#getHostResourcesByFramework", function() {
+    beforeEach(function() {
+      this.mesosState = {
+        frameworks: [
+          {
+            name: "marathon",
+            id: "marathon_1"
+          },
+          {
+            name: "spark",
+            id: "spark_1"
+          }
+        ],
+        tasks: [
+          {
+            name: "spark",
+            framework_id: "marathon_1",
+            id: "spark.1",
+            slave_id: "slave-uid",
+            resources: { cpus: 1, mem: 128, disk: 100 }
+          },
+          {
+            name: "spark",
+            framework_id: "marathon_1",
+            id: "spark.2",
+            slave_id: "slave-uid",
+            resources: { cpus: 1, mem: 128, disk: 100 }
+          },
+          {
+            name: "alpha",
+            framework_id: "marathon_2",
+            id: "alpha.2",
+            slave_id: "slave-uid",
+            resources: { cpus: 0.5, mem: 256, disk: 150 }
+          },
+          {
+            name: "nginx",
+            framework_id: "marathon_3",
+            id: "nginx.1",
+            slave_id: "slave-uid",
+            resources: { cpus: 1, mem: 128, disk: 100 }
+          }
+        ]
+      };
+    });
+
+    it("aggregates resources by framework", function() {
+      expect(
+        MesosStateUtil.getHostResourcesByFramework(this.mesosState)
+      ).toEqual({
+        "slave-uid": {
+          marathon_1: {
+            cpus: 2,
+            mem: 256,
+            disk: 200
+          },
+          marathon_2: {
+            cpus: 0.5,
+            mem: 256,
+            disk: 150
+          },
+          marathon_3: {
+            cpus: 1,
+            mem: 128,
+            disk: 100
+          }
+        }
+      });
+    });
+
+    it("groups filtered frameworks into other", function() {
+      const filteredFrameworks = ["marathon_2", "marathon_3"];
+      expect(
+        MesosStateUtil.getHostResourcesByFramework(
+          this.mesosState,
+          filteredFrameworks
+        )
+      ).toEqual({
+        "slave-uid": {
+          marathon_1: {
+            cpus: 2,
+            mem: 256,
+            disk: 200
+          },
+          other: {
+            cpus: 1.5,
+            mem: 384,
+            disk: 250
+          }
+        }
+      });
+    });
+
+    it("ignores tasks on termination states", function() {
+      this.mesosState.tasks.push({
+        name: "spark",
+        framework_id: "marathon_1",
+        id: "spark.4",
+        slave_id: "slave-uid",
+        state: "TASK_FAILED",
+        resources: { cpus: 1, mem: 128, disk: 100 }
+      });
+      expect(
+        MesosStateUtil.getHostResourcesByFramework(this.mesosState)
+      ).toEqual({
+        "slave-uid": {
+          marathon_1: {
+            cpus: 2,
+            mem: 256,
+            disk: 200
+          },
+          marathon_2: {
+            cpus: 0.5,
+            mem: 256,
+            disk: 150
+          },
+          marathon_3: {
+            cpus: 1,
+            mem: 128,
+            disk: 100
+          }
+        }
+      });
+    });
+  });
 });
