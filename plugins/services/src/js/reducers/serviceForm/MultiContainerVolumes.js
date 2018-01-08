@@ -42,7 +42,7 @@ module.exports = {
 
     switch (type) {
       case ADD_ITEM:
-        newState.push(value || {});
+        newState.push(Object.assign({}, value));
         break;
       case REMOVE_ITEM:
         newState = newState.filter((item, index) => index !== value);
@@ -199,7 +199,7 @@ module.exports = {
         if (volumeIndexMap[name] == null) {
           volumeIndexMap[name] = volumes.push(name) - 1;
           memo = memo.concat(
-            new Transaction(["volumeMounts"], volumeMount, ADD_ITEM),
+            new Transaction(["volumeMounts"], { name }, ADD_ITEM),
             new Transaction(
               ["volumeMounts", volumeIndexMap[name], "name"],
               name
