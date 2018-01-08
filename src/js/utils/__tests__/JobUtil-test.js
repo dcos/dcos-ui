@@ -3,7 +3,7 @@ const JobUtil = require("../JobUtil");
 
 describe("JobUtil", function() {
   describe("#createJobFromFormModel", function() {
-    it("should return instance of Job", function() {
+    it("returns instance of Job", function() {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test" }
       });
@@ -11,15 +11,15 @@ describe("JobUtil", function() {
       expect(job).toEqual(jasmine.any(Job));
     });
 
-    it("should return instance Job if null is provided", function() {
+    it("returns instance Job if null is provided", function() {
       expect(JobUtil.createJobFromFormModel(null)).toEqual(jasmine.any(Job));
     });
 
-    it("should return instance Job if empty object is provided", function() {
+    it("returns instance Job if empty object is provided", function() {
       expect(JobUtil.createJobFromFormModel({})).toEqual(jasmine.any(Job));
     });
 
-    it("should convert form model to the corresponding job", function() {
+    it("converts form model to the corresponding job", function() {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" }
       });
@@ -28,7 +28,7 @@ describe("JobUtil", function() {
       expect(job.getCommand()).toEqual("sleep 1000;");
     });
 
-    it("should return job with schedule if actiavted", function() {
+    it("returns job with schedule if actiavted", function() {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
@@ -50,7 +50,7 @@ describe("JobUtil", function() {
       ]);
     });
 
-    it("should remove schedule if deactivated", function() {
+    it("removes schedule if deactivated", function() {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
@@ -67,7 +67,7 @@ describe("JobUtil", function() {
   });
 
   describe("#createFormModelFromSchema", function() {
-    it("should create the correct model", function() {
+    it("creates the correct model", function() {
       const schema = {
         type: "object",
         properties: {
@@ -99,7 +99,7 @@ describe("JobUtil", function() {
   });
 
   describe("#createJobSpecFromJob", function() {
-    it("should create the correct job", function() {
+    it("creates the correct job", function() {
       const job = new Job({
         id: "test",
         run: {
@@ -119,7 +119,7 @@ describe("JobUtil", function() {
       });
     });
 
-    it("should add concurrencyPolicy if schedule is defined", function() {
+    it("adds concurrencyPolicy if schedule is defined", function() {
       const job = new Job({
         id: "test",
         run: {

@@ -11,7 +11,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     this.mockItems = [new Framework(), new Application(), new Pod()];
   });
 
-  it("Should match Framework instances", function() {
+  it("matches Framework instances", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:catalog");
 
@@ -24,7 +24,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     ]);
   });
 
-  it("Should correctly keep nothing on unknown values", function() {
+  it("keeps nothing on unknown values", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -35,7 +35,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("Should be case-insensitive", function() {
+  it("is case-insensitive", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:CataLOg");
 

@@ -56,7 +56,7 @@ describe("DSLParserUtil", function() {
       this.op = DSLParserUtil.Operator.attribute("label", "text", 0, 5, 10, 20);
     });
 
-    it("should create the correct ast node", function() {
+    it("creates the correct ast node", function() {
       const { ast } = this.op;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
@@ -72,7 +72,7 @@ describe("DSLParserUtil", function() {
       });
     });
 
-    it("should create the correct filter function", function() {
+    it("creates the correct filter function", function() {
       const { filter } = this.op;
 
       expect(typeof filter).toEqual("function");
@@ -91,7 +91,7 @@ describe("DSLParserUtil", function() {
       this.op = DSLParserUtil.Operator.exact("text", 0, 10);
     });
 
-    it("should create the correct ast node", function() {
+    it("creates the correct ast node", function() {
       const { ast } = this.op;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
@@ -106,7 +106,7 @@ describe("DSLParserUtil", function() {
       });
     });
 
-    it("should create the correct filter function", function() {
+    it("creates the correct filter function", function() {
       const { filter } = this.op;
 
       expect(typeof filter).toEqual("function");
@@ -124,7 +124,7 @@ describe("DSLParserUtil", function() {
       this.op = DSLParserUtil.Operator.fuzzy("text", 0, 10);
     });
 
-    it("should create the correct ast node", function() {
+    it("creates the correct ast node", function() {
       const { ast } = this.op;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
@@ -139,7 +139,7 @@ describe("DSLParserUtil", function() {
       });
     });
 
-    it("should create the correct filter function", function() {
+    it("creates the correct filter function", function() {
       const { filter } = this.op;
 
       expect(typeof filter).toEqual("function");
@@ -167,7 +167,7 @@ describe("DSLParserUtil", function() {
       this.op = DSLParserUtil.Merge.and(this.opLeft, this.opRight);
     });
 
-    it("should create the correct ast node", function() {
+    it("creates the correct ast node", function() {
       const { ast } = this.op;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
@@ -179,7 +179,7 @@ describe("DSLParserUtil", function() {
       expect(ast.combinerType).toEqual(DSLCombinerTypes.AND);
     });
 
-    it("should create the correct filter function", function() {
+    it("creates the correct filter function", function() {
       const { filter } = this.op;
 
       expect(typeof filter).toEqual("function");
@@ -209,7 +209,7 @@ describe("DSLParserUtil", function() {
       this.op = DSLParserUtil.Merge.or(this.opLeft, this.opRight);
     });
 
-    it("should create the correct ast node", function() {
+    it("creates the correct ast node", function() {
       const { ast } = this.op;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
@@ -221,7 +221,7 @@ describe("DSLParserUtil", function() {
       expect(ast.combinerType).toEqual(DSLCombinerTypes.OR);
     });
 
-    it("should create the correct filter function", function() {
+    it("creates the correct filter function", function() {
       const { filter } = this.op;
 
       expect(typeof filter).toEqual("function");

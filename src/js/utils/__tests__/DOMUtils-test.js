@@ -3,7 +3,7 @@ const DOMUtils = require("../DOMUtils");
 describe("DOMUtils", function() {
   describe("#closest", function() {
     it(
-      "should return the parent element when provided a selector and " +
+      "returns the parent element when provided a selector and " +
         "element where the element is a child of the selection",
       function() {
         var el = {
@@ -24,7 +24,7 @@ describe("DOMUtils", function() {
     );
 
     it(
-      "should return null when provided a selector and element where " +
+      "returns null when provided a selector and element where " +
         "the element is not a child of the selection",
       function() {
         var el = {
@@ -40,7 +40,7 @@ describe("DOMUtils", function() {
     );
 
     it(
-      "should return the provided element when the provided element" +
+      "returns the provided element when the provided element" +
         "matches the selector AND has a parent element",
       function() {
         var el = {

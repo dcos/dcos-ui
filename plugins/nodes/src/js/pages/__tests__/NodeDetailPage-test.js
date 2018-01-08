@@ -115,7 +115,7 @@ describe("NodeDetailPage", function() {
   });
 
   describe("#getNode", function() {
-    it("should store an instance of Node", function() {
+    it("stores an instance of Node", function() {
       var node = this.instance.getNode({ params: { nodeID: "existingNode" } });
       expect(node instanceof Node).toEqual(true);
       this.instance = null;

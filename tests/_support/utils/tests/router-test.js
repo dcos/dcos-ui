@@ -19,7 +19,7 @@ describe("router", function() {
   });
 
   describe("#clearRoutes", function() {
-    it("should clear previously defined routes", function(done) {
+    it("clears previously defined routes", function(done) {
       router.route(/foo/, "fx:bar");
       router.clearRoutes();
       router.getAPIResponse("foo", function(foundFixture) {
@@ -40,19 +40,19 @@ describe("router", function() {
       delete this.returnValue;
     });
 
-    it("should call #route on the global cy object with all arguments", function() {
+    it("calls #route on the global cy object with all arguments", function() {
       expect(global.cy.route.calledWith(this.fooRegEx, "fx:bar")).to.equal(
         true
       );
     });
 
-    it("should return an instance of the router util", function() {
+    it("returns an instance of the router util", function() {
       expect(this.returnValue).to.equal(router);
     });
   });
 
   describe("#getAPIResponse", function() {
-    it("should call the callback with the fixture when found", function(done) {
+    it("calls the callback with the fixture when found", function(done) {
       router.route(/foo/, "fx:bar");
       router.getAPIResponse("foo", function(foundFixture) {
         expect(foundFixture).to.equal("bar");
@@ -60,7 +60,7 @@ describe("router", function() {
       });
     });
 
-    it("should call the callback with null when the fixture is not found", function(
+    it("calls the callback with null when the fixture is not found", function(
       done
     ) {
       router.getAPIResponse("baz", function(foundFixture) {

@@ -3,19 +3,19 @@ const JSONUtil = require("../JSONUtil");
 describe("JSONUtil", function() {
   describe("#getObjectInformation", function() {
     describe("Empty Object", function() {
-      it("should handle empty objects", function() {
+      it("handles empty objects", function() {
         var code = "{}";
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([]);
       });
 
-      it("should tolerate whitespaces before root object", function() {
+      it("tolerates whitespaces before root object", function() {
         var code = "    \t        \n \t   \t\n\t  {}";
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([]);
       });
 
-      it("should tolerate whitespaces after root object", function() {
+      it("tolerates whitespaces after root object", function() {
         var code = "{}    \t        \n \t   \t\n\t  ";
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([]);
@@ -23,35 +23,35 @@ describe("JSONUtil", function() {
     });
 
     describe("JSON Sanity Checks", function() {
-      it("should raise exception on invalid JSON content", function() {
+      it("raises exception on invalid JSON content", function() {
         var code = "A random {text} that has [nothing to do] with JSON!";
         expect(function() {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
-      it("should raise exception on incomplete JSON objects", function() {
+      it("raises exception on incomplete JSON objects", function() {
         var code = '{\n"name": {\n\t"value": 1\n\t}';
         expect(function() {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
-      it("should raise exception on non-quoted keys", function() {
+      it("raises exception on non-quoted keys", function() {
         var code = '{\nkey: "value"\n}';
         expect(function() {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
-      it("should raise exception on wrong keys (numeric)", function() {
+      it("raises exception on wrong keys (numeric)", function() {
         var code = '{\n929: "value"\n}';
         expect(function() {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
-      it("should raise exception on wrong keys (invalid characters)", function() {
+      it("raises exception on wrong keys (invalid characters)", function() {
         var code = '{\nkf@492!2$: "value"\n}';
         expect(function() {
           JSONUtil.getObjectInformation(code);
@@ -60,7 +60,7 @@ describe("JSONUtil", function() {
     });
 
     describe("Simple Primitives", function() {
-      it("should handle string values", function() {
+      it("handles string values", function() {
         var code = '{\n"name": "value"\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -74,7 +74,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle numeric values", function() {
+      it("handles numeric values", function() {
         var code = '{\n"name": 1\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -88,7 +88,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle `null` values", function() {
+      it("handles `null` values", function() {
         var code = '{\n"name": null\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -102,7 +102,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle `true` values", function() {
+      it("handles `true` values", function() {
         var code = '{\n"name": true\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -116,7 +116,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle `false` values", function() {
+      it("handles `false` values", function() {
         var code = '{\n"name": false\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -132,7 +132,7 @@ describe("JSONUtil", function() {
     });
 
     describe("Corner Cases", function() {
-      it("should handle repeated keys", function() {
+      it("handles repeated keys", function() {
         var code = '{\n"name": 1,\n"name": 2\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -153,7 +153,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle more than one keys on the same line", function() {
+      it("handles more than one keys on the same line", function() {
         var code = '{\n"name": 1, "nome": 2\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -174,7 +174,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle repeated keys on the same line", function() {
+      it("handles repeated keys on the same line", function() {
         var code = '{\n"name": 1, "name": 2\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -197,7 +197,7 @@ describe("JSONUtil", function() {
     });
 
     describe("Objects & Nesting", function() {
-      it("should handle single level-1 object nesting", function() {
+      it("handles single level-1 object nesting", function() {
         var code = '{\n"name": {\n\t"child": 1\n\t}\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -217,7 +217,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle single level-2 object nesting", function() {
+      it("handles single level-2 object nesting", function() {
         var code = '{\n"name": {\n\t"child": {\n\t\t"value": 1\n\t\t}\n\t}\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -243,7 +243,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle objects with multiple keys", function() {
+      it("handles objects with multiple keys", function() {
         var code = '{\n"key1": 1,\n"key2": 2,\n"key3": 3}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -271,7 +271,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle objects with multiple value types", function() {
+      it("handles objects with multiple value types", function() {
         var code =
           '{\n"key1": "string",\n"key2": 2,\n"key3": false,\n"key4": true,\n"key5": null\n}';
         var objects = JSONUtil.getObjectInformation(code);
@@ -314,7 +314,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle multiple objects with multiple keys", function() {
+      it("handles multiple objects with multiple keys", function() {
         var code =
           '{\n"obj1": {\n"key1": 1,\n"key2": 2\n}, "obj2": {\n"key3": 1,\n"key4": 2\n}, "obj3": {\n"key5": 1,\n"key6": 2\n}\n}';
         var objects = JSONUtil.getObjectInformation(code);
@@ -384,7 +384,7 @@ describe("JSONUtil", function() {
     });
 
     describe("Arrays & Nesting", function() {
-      it("should handle values in arrays", function() {
+      it("handles values in arrays", function() {
         var code = '{\n"name": [\n\t"child"\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -404,7 +404,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle objects in arrays", function() {
+      it("handles objects in arrays", function() {
         var code = '{\n"name": [\n\t{"child": 1}\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -430,7 +430,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle values in level-1 nested arrays", function() {
+      it("handles values in level-1 nested arrays", function() {
         var code = '{\n"name": [\n\t[\n\t\t"child"\n\t\t]\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -456,7 +456,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle objects in level-1 nested arrays", function() {
+      it("handles objects in level-1 nested arrays", function() {
         var code = '{\n"name": [\n\t[{"child": 1}]\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -488,7 +488,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle values in level-2 nested arrays", function() {
+      it("handles values in level-2 nested arrays", function() {
         var code = '{\n"name": [\n\t[\n\t\t["child"]\n\t\t]\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -520,7 +520,7 @@ describe("JSONUtil", function() {
         ]);
       });
 
-      it("should handle objects in level-2 nested arrays", function() {
+      it("handles objects in level-2 nested arrays", function() {
         var code = '{\n"name": [\n\t[\n\t\t[{"child": 1}]\n\t\t]\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
@@ -560,7 +560,7 @@ describe("JSONUtil", function() {
     });
 
     describe("Nixed Nesting", function() {
-      it("should handle nesting objects and arrays", function() {
+      it("handles nesting objects and arrays", function() {
         var code =
           '{\n"name": [\n\t{\n\t\t"child": [\n\t\t\t{"value":1}\n\t\t]\n\t\t}\n\t]\n}';
         var objects = JSONUtil.getObjectInformation(code);

@@ -9,7 +9,7 @@ describe("#ActionsPubSub", function() {
     this.unsubscribe1 = PluginSDK.onDispatch(this.mockFn1);
   });
 
-  it("should receive actions after subscribing", function() {
+  it("receives actions after subscribing", function() {
     PluginSDK.dispatch({ type: "foo" });
     expect(this.mockFn.mock.calls.length).toEqual(1);
     expect(this.mockFn1.mock.calls.length).toEqual(1);
@@ -19,7 +19,7 @@ describe("#ActionsPubSub", function() {
     });
   });
 
-  it("should stop receiving actions after unsubscribing", function() {
+  it("stops receiving actions after unsubscribing", function() {
     this.unsubscribe();
     PluginSDK.dispatch({ type: "foo" });
     expect(this.mockFn.mock.calls.length).toEqual(0);

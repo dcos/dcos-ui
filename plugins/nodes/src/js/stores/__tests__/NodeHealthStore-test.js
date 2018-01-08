@@ -21,7 +21,7 @@ describe("NodeHealthStore", function() {
     RequestUtil.json = this.requestFn;
   });
 
-  it("should return an instance of NodesList", function() {
+  it("returns an instance of NodesList", function() {
     Config.useFixtures = true;
     NodeHealthStore.fetchNodes();
     var nodes = NodeHealthStore.getNodes("nodes");
@@ -29,7 +29,7 @@ describe("NodeHealthStore", function() {
     Config.useFixtures = false;
   });
 
-  it("should return all of the nodes it was given", function() {
+  it("returns all of the nodes it was given", function() {
     Config.useFixtures = true;
     NodeHealthStore.fetchNodes();
     var nodes = NodeHealthStore.getNodes().getItems();

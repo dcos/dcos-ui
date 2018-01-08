@@ -15,22 +15,22 @@ describe("RepositoryList", function() {
   });
 
   describe("#getPriority", function() {
-    it("should return correct priority of existing item", function() {
+    it("returns correct priority of existing item", function() {
       var priority = this.instance.getPriority(this.instance.getItems()[1]);
       expect(priority).toEqual(1);
     });
 
-    it("should return -1 for non-existing item", function() {
+    it("returns -1 for non-existing item", function() {
       var priority = this.instance.getPriority({ not: "available" });
       expect(priority).toEqual(-1);
     });
 
-    it("should return -1 for undefined", function() {
+    it("returns -1 for undefined", function() {
       var priority = this.instance.getPriority(undefined);
       expect(priority).toEqual(-1);
     });
 
-    it("should return -1 for null", function() {
+    it("returns -1 for null", function() {
       var priority = this.instance.getPriority(null);
       expect(priority).toEqual(-1);
     });

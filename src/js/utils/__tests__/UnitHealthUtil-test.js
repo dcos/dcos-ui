@@ -11,7 +11,7 @@ describe("UnitHealthUnit", function() {
       this.healthWeight = UnitHealthUtil.getHealthSorting(unit);
     });
 
-    it("should return a number", function() {
+    it("returns a number", function() {
       expect(typeof this.healthWeight).toEqual("number");
     });
   });

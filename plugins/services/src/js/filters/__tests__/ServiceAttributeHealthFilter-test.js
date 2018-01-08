@@ -30,7 +30,7 @@ describe("ServiceAttributeHealthFilter", function() {
     ];
   });
 
-  it("Should correctly keep services in healthy state", function() {
+  it("keeps services in healthy state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:healthy");
 
@@ -41,7 +41,7 @@ describe("ServiceAttributeHealthFilter", function() {
     ]);
   });
 
-  it("Should correctly keep services in unhealthy state", function() {
+  it("keeps services in unhealthy state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:unhealthy");
 
@@ -52,7 +52,7 @@ describe("ServiceAttributeHealthFilter", function() {
     ]);
   });
 
-  it("Should correctly keep nothing on unknown states", function() {
+  it("keeps nothing on unknown states", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -61,7 +61,7 @@ describe("ServiceAttributeHealthFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("Should be case-insensitive", function() {
+  it("is case-insensitive", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:hEaLThY");
 

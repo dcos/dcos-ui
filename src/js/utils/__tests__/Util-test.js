@@ -2,7 +2,7 @@ const Util = require("../Util");
 
 describe("Util", function() {
   describe("#uniqueID", function() {
-    it("should return a unique ID each time it is called", function() {
+    it("returns a unique ID each time it is called", function() {
       const ids = Array(100).fill(null);
       ids.forEach(function(value, index) {
         ids[index] = Util.uniqueID("100");
@@ -15,13 +15,13 @@ describe("Util", function() {
       expect(result).toBeTruthy();
     });
 
-    it("should provide an integer", function() {
+    it("provides an integer", function() {
       const id = Util.uniqueID("integerID");
 
       expect(typeof id === "number" && id % 1 === 0).toBeTruthy();
     });
 
-    it("should start over from 0 for each namespace", function() {
+    it("starts over from 0 for each namespace", function() {
       Util.uniqueID("firstNamespace");
       Util.uniqueID("firstNamespace");
       const id1 = Util.uniqueID("firstNamespace");
@@ -33,7 +33,7 @@ describe("Util", function() {
   });
 
   describe("#omit", function() {
-    it("should return a copy of the object", function() {
+    it("returns a copy of the object", function() {
       var obj = { foo: "bar" };
       var newObject = Util.omit(obj, []);
 
@@ -42,7 +42,7 @@ describe("Util", function() {
       expect(obj.foo).toEqual("bar");
     });
 
-    it("should omit key given", function() {
+    it("omits key given", function() {
       var obj = {
         foo: "bar",
         qq: "zzz"
@@ -54,7 +54,7 @@ describe("Util", function() {
       expect(newObject.qq).toEqual(undefined);
     });
 
-    it("should omit multiple keys", function() {
+    it("omits multiple keys", function() {
       var obj = {
         foo: "bar",
         qq: "zzz",
@@ -96,21 +96,21 @@ describe("Util", function() {
     });
 
     describe("with correct input", function() {
-      it("should return the last element in an array", function() {
+      it("returns the last element in an array", function() {
         var array = [0, 1, 2, 3];
         var last = Util.last(array);
 
         expect(last).toEqual(3);
       });
 
-      it("should return the last element for an array of size 1", function() {
+      it("returns the last element for an array of size 1", function() {
         var array = [0];
         var last = Util.last(array);
 
         expect(last).toEqual(0);
       });
 
-      it("should return null when given empty array", function() {
+      it("returns null when given empty array", function() {
         var array = [];
         var last = Util.last(array);
 
@@ -120,28 +120,28 @@ describe("Util", function() {
   });
 
   describe("#findLastIndex", function() {
-    it("should return -1 if empty array", function() {
+    it("returns -1 if empty array", function() {
       var array = [];
       var index = Util.findLastIndex(array, function(obj) {
         return obj === 1;
       });
       expect(index).toEqual(-1);
     });
-    it("should return -1 if not found", function() {
+    it("returns -1 if not found", function() {
       var array = [1, 2, 3, 4, 5];
       var index = Util.findLastIndex(array, function(obj) {
         return obj === 6;
       });
       expect(index).toEqual(-1);
     });
-    it("should return 4", function() {
+    it("returns 4", function() {
       var array = [3, 3, 2, 3, 3, 5];
       var index = Util.findLastIndex(array, function(obj) {
         return obj === 3;
       });
       expect(index).toEqual(4);
     });
-    it("should return 1", function() {
+    it("returns 1", function() {
       var array = [
         { a: "a", b: "bbb" },
         { a: "a", b: "bbb" },
@@ -164,49 +164,49 @@ describe("Util", function() {
       this.searchString = "hello.is.it.me.you.are.looking.for";
     });
 
-    it("should find a nested defined property", function() {
+    it("finds a nested defined property", function() {
       expect(
         Util.findNestedPropertyInObject(this.searchObject, this.searchString)
       ).toEqual("?");
     });
 
-    it("should handle nested empty string definitions gracefully", function() {
+    it("handles nested empty string definitions gracefully", function() {
       expect(
         Util.findNestedPropertyInObject(this.searchObject, "hello.")
       ).toEqual(undefined);
     });
 
-    it("should handle null search object gracefully", function() {
+    it("handles null search object gracefully", function() {
       expect(Util.findNestedPropertyInObject(null, this.searchString)).toEqual(
         null
       );
     });
 
-    it("should handle undefined gracefully", function() {
+    it("handles undefined gracefully", function() {
       expect(
         Util.findNestedPropertyInObject(undefined, this.searchString)
       ).toEqual(null);
     });
 
-    it("should handle nested empty strings gracefully", function() {
+    it("handles nested empty strings gracefully", function() {
       expect(Util.findNestedPropertyInObject(this.searchObject, ".")).toEqual(
         undefined
       );
     });
 
-    it("should handle nested empty string definition gracefully", function() {
+    it("handles nested empty string definition gracefully", function() {
       expect(Util.findNestedPropertyInObject(this.searchObject, "")).toEqual(
         undefined
       );
     });
 
-    it("should handle null definition gracefully", function() {
+    it("handles null definition gracefully", function() {
       expect(Util.findNestedPropertyInObject(this.searchObject, null)).toEqual(
         null
       );
     });
 
-    it("should handle undefined definition gracefully", function() {
+    it("handles undefined definition gracefully", function() {
       expect(
         Util.findNestedPropertyInObject(this.searchObject, undefined)
       ).toEqual(null);
@@ -418,11 +418,11 @@ describe("Util", function() {
   });
 
   describe("#toLowerCaseIfString", function() {
-    it("should lower case string", function() {
+    it("lowers case string", function() {
       expect(Util.toLowerCaseIfString("Name")).toEqual("name");
     });
 
-    it("should return original param", function() {
+    it("returns original param", function() {
       const value = 10;
 
       expect(Util.toLowerCaseIfString(value)).toEqual(value);
@@ -430,11 +430,11 @@ describe("Util", function() {
   });
 
   describe("#toUpperCaseIfString", function() {
-    it("should upper case string", function() {
+    it("uppers case string", function() {
       expect(Util.toUpperCaseIfString("Name")).toEqual("NAME");
     });
 
-    it("should return original param", function() {
+    it("returns original param", function() {
       const value = 10;
 
       expect(Util.toUpperCaseIfString(value)).toEqual(value);
@@ -442,17 +442,17 @@ describe("Util", function() {
   });
 
   describe("#isString", function() {
-    it("should return true when argument is type string", function() {
+    it("returns true when argument is type string", function() {
       expect(Util.isString("Name")).toEqual(true);
     });
 
-    it("should return false when argument is NOT type string", function() {
+    it("returns false when argument is NOT type string", function() {
       expect(Util.isString(1)).toEqual(false);
     });
   });
 
   describe("#parseUrl", function() {
-    it("should return url object representation", function() {
+    it("returns url object representation", function() {
       const expectedResult = {
         hash: "",
         host: "google.com",
@@ -471,11 +471,11 @@ describe("Util", function() {
       expect(Util.parseUrl(url)).toEqual(expectedResult);
     });
 
-    it("should return null", function() {
+    it("returns null", function() {
       expect(Util.parseUrl(1)).toEqual(null);
     });
 
-    it("should return absolute url if doesn't have protocol", function() {
+    it("returns absolute url if doesn't have protocol", function() {
       const parsedUrl = Util.parseUrl("www.google.com");
       const expectedResult = "https://www.google.com/";
 

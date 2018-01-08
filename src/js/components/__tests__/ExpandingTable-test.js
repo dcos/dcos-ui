@@ -18,7 +18,7 @@ describe("ExpandingTable", function() {
 
   describe("#render", function() {
     describe("#expandRow", function() {
-      it("should add a row to state.expandedRows", function() {
+      it("adds a row to state.expandedRows", function() {
         const instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
@@ -41,7 +41,7 @@ describe("ExpandingTable", function() {
         expect(instance.state.expandedRows["foo"]).toBeFalsy();
       });
 
-      it("should allow multiple rows in state.expandedRows", function() {
+      it("allows multiple rows in state.expandedRows", function() {
         const instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
@@ -54,7 +54,7 @@ describe("ExpandingTable", function() {
         expect(instance.state.expandedRows["bar"]).toBeTruthy();
       });
 
-      it("should expand all rows on mount when expandRowsByDefault is true", function() {
+      it("expands all rows on mount when expandRowsByDefault is true", function() {
         const instance = ReactDOM.render(
           <ExpandingTable
             columns={this.columns}
@@ -76,7 +76,7 @@ describe("ExpandingTable", function() {
     });
 
     describe("#getRenderer", function() {
-      it("should proxy the render method on each column", function() {
+      it("proxies the render method on each column", function() {
         const renderSpy = jasmine.createSpy("renderSpy");
         this.columns[0].render = renderSpy;
 

@@ -16,7 +16,7 @@ describe("AppReducer", function() {
     qux: { foo: "bar" }
   };
 
-  it("should alter state correctly when no plugins loaded", function() {
+  it("alters state correctly when no plugins loaded", function() {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -34,7 +34,7 @@ describe("AppReducer", function() {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it("should alter state correctly after plugins loaded", function() {
+  it("alters state correctly after plugins loaded", function() {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -67,7 +67,7 @@ describe("AppReducer", function() {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it("should alter state correctly for storeID", function() {
+  it("alters state correctly for storeID", function() {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -85,7 +85,7 @@ describe("AppReducer", function() {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it("should not alter state if action dispatched from plugin", function() {
+  it("does not alter state if action dispatched from plugin", function() {
     var pluginDispatch;
     // Mock a fake plugin
     var mockPlugin = jest.genMockFunction().mockImplementation(function(SDK) {
@@ -112,7 +112,7 @@ describe("AppReducer", function() {
     expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
-  it("should clone state", function() {
+  it("clones state", function() {
     var nestedObj = {};
     var data = {
       foo: "bar",

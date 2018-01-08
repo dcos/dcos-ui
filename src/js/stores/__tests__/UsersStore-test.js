@@ -25,13 +25,13 @@ describe("UsersStore", function() {
     Config.useFixtures = this.useFixtures;
   });
 
-  it("should return an instance of UsersList", function() {
+  it("returns an instance of UsersList", function() {
     UsersStore.fetchUsers();
     var users = UsersStore.getUsers();
     expect(users instanceof UsersList).toBeTruthy();
   });
 
-  it("should return all of the users it was given", function() {
+  it("returns all of the users it was given", function() {
     UsersStore.fetchUsers();
     var users = UsersStore.getUsers().getItems();
     expect(users.length).toEqual(this.usersFixture.array.length);

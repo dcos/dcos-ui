@@ -7,54 +7,54 @@ const DSLUtil = require("../DSLUtil");
 
 describe("DSLUpdateUtil", function() {
   describe("#cleanupExpressionString", function() {
-    it("should remove extraneous whitespaces", function() {
+    it("removes extraneous whitespaces", function() {
       const expr = "foo  bar   baz ";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo bar baz");
     });
 
-    it("should remove repeating commas", function() {
+    it("removes repeating commas", function() {
       const expr = "foo,,  bar,  , baz";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo, bar, baz");
     });
 
-    it("should remove orphan commas (beginning)", function() {
+    it("removes orphan commas (beginning)", function() {
       const expr = " ,foo bar";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo bar");
     });
 
-    it("should remove orphan commas (ending)", function() {
+    it("removes orphan commas (ending)", function() {
       const expr = "foo bar ,";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo bar");
     });
 
-    it("should remove orphan commas (parenthesis-left)", function() {
+    it("removes orphan commas (parenthesis-left)", function() {
       const expr = "foo (, bar baz)";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo (bar baz)");
     });
 
-    it("should remove orphan commas (parenthesis-right)", function() {
+    it("removes orphan commas (parenthesis-right)", function() {
       const expr = "foo (bar baz , )";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo (bar baz)");
     });
 
-    it("should remove orphan commas (multi-value beginning)", function() {
+    it("removes orphan commas (multi-value beginning)", function() {
       const expr = "foo:,bar";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo:bar");
     });
 
-    it("should remove orphan commas (multi-value middle)", function() {
+    it("removes orphan commas (multi-value middle)", function() {
       const expr = "foo:bar,,baz";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo:bar,baz");
     });
 
-    it("should expand single parenthesis", function() {
+    it("expands single parenthesis", function() {
       const expr = "foo (bar) baz";
       expect(DSLUpdateUtil.cleanupExpressionString(expr)).toBe("foo bar baz");
     });
   });
 
   describe("#updateNodeTextString", function() {
-    it("should correctly update attribute nodes", function() {
+    it("updates attribute nodes", function() {
       const value = "label:foo";
 
       const node = new DSLExpression(value).ast;
@@ -68,7 +68,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly update multi-value attribute nodes", function() {
+    it("updates multi-value attribute nodes", function() {
       const value = "label:foo,baz";
 
       const node = new DSLExpression(value).ast.children[0];
@@ -82,7 +82,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly update fuzzy nodes", function() {
+    it("updates fuzzy nodes", function() {
       const value = "foo";
 
       const node = new DSLExpression(value).ast;
@@ -95,7 +95,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly update exact nodes", function() {
+    it("updates exact nodes", function() {
       const value = '"foo"';
 
       const node = new DSLExpression(value).ast;
@@ -108,7 +108,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should respect offset", function() {
+    it("respects offset", function() {
       const value = "some junk label:foo";
       const parseValue = "label:foo";
 
@@ -125,7 +125,7 @@ describe("DSLUpdateUtil", function() {
   });
 
   describe("#deleteNodeString", function() {
-    it("should correctly delete attribute nodes", function() {
+    it("deletes attribute nodes", function() {
       const value = "some fuzz label:foo";
 
       const node = new DSLExpression(value).ast.children[1];
@@ -133,7 +133,7 @@ describe("DSLUpdateUtil", function() {
       expect(DSLUpdateUtil.deleteNodeString(value, node)).toEqual("some fuzz");
     });
 
-    it("should correctly delete multi-value attribute nodes", function() {
+    it("deletes multi-value attribute nodes", function() {
       const value = "some fuzz label:foo,bar";
 
       const node = new DSLExpression(value).ast.children[1].children[1];
@@ -143,7 +143,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete fuzzy nodes", function() {
+    it("deletes fuzzy nodes", function() {
       const value = "some fuzz foo";
 
       const node = new DSLExpression(value).ast.children[1];
@@ -151,7 +151,7 @@ describe("DSLUpdateUtil", function() {
       expect(DSLUpdateUtil.deleteNodeString(value, node)).toEqual("some fuzz");
     });
 
-    it("should correctly delete exact nodes", function() {
+    it("deletes exact nodes", function() {
       const value = 'some fuzz "foo"';
 
       const node = new DSLExpression(value).ast.children[1];
@@ -159,7 +159,7 @@ describe("DSLUpdateUtil", function() {
       expect(DSLUpdateUtil.deleteNodeString(value, node)).toEqual("some fuzz");
     });
 
-    it("should correctly trim whitespaces on intermediate nodes", function() {
+    it("trims whitespaces on intermediate nodes", function() {
       const value = "some fuzz foo";
 
       const node = new DSLExpression(value).ast.children[0].children[1];
@@ -167,7 +167,7 @@ describe("DSLUpdateUtil", function() {
       expect(DSLUpdateUtil.deleteNodeString(value, node)).toEqual("some foo");
     });
 
-    it("should respect offset", function() {
+    it("respects offset", function() {
       const value = "some fuzz foo";
       const parseValue = "foo";
 
@@ -180,7 +180,7 @@ describe("DSLUpdateUtil", function() {
   });
 
   describe("#applyAdd", function() {
-    it("should correctly add one attribute node to an expression", function() {
+    it("adds one attribute node to an expression", function() {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
@@ -192,7 +192,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly add fuzzy node to an expression", function() {
+    it("adds fuzzy node to an expression", function() {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
         text: "text"
@@ -203,7 +203,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly add exact node to an expression", function() {
+    it("adds exact node to an expression", function() {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
         text: "text"
@@ -214,7 +214,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly add two attribute nodes to an expression", function() {
+    it("adds two attribute nodes to an expression", function() {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
@@ -226,7 +226,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly add one attribute node to an expression with OR", function() {
+    it("adds one attribute node to an expression with OR", function() {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
@@ -240,7 +240,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("foo bar, label:text");
     });
 
-    it("should correctly add fuzzy node to an expression with OR", function() {
+    it("adds fuzzy node to an expression with OR", function() {
       const expression = new DSLExpression('"not fuzzy"');
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
         text: "text"
@@ -253,7 +253,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual('"not fuzzy", text');
     });
 
-    it("should correctly add exact node to an expression with OR", function() {
+    it("adds exact node to an expression with OR", function() {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
         text: "text"
@@ -266,7 +266,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual('foo bar, "text"');
     });
 
-    it("should correctly create multi-value attribute when adding with OR", function() {
+    it("creates multi-value attribute when adding with OR", function() {
       const expression = new DSLExpression("foo bar label:some");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
@@ -280,7 +280,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("foo bar label:some,text");
     });
 
-    it("should correctly use custom nodeCompareFunction on newCombiner", function() {
+    it("uses custom nodeCompareFunction on newCombiner", function() {
       const customComparisionFunction = function(addingNode, astNode) {
         return astNode.filterParams.text === "here";
       };
@@ -309,7 +309,7 @@ describe("DSLUpdateUtil", function() {
   });
 
   describe("#applyReplace", function() {
-    it("should correctly replace one node", function() {
+    it("replaces one node", function() {
       const expression = new DSLExpression("foo bar is:working");
       const attribNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -326,7 +326,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("foo bar is:idle");
     });
 
-    it("should correctly replace more than one nodes", function() {
+    it("replaces more than one nodes", function() {
       const expression = new DSLExpression("some fuzzy nodes");
       const fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -346,7 +346,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("here can be");
     });
 
-    it("should correctly delete excess nodes", function() {
+    it("deletes excess nodes", function() {
       const expression = new DSLExpression("some fuzzy nodes that are gone");
       const fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -366,7 +366,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("here can be");
     });
 
-    it("should correctly add missing nodes", function() {
+    it("adds missing nodes", function() {
       const expression = new DSLExpression("few");
       const fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -386,7 +386,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("here can be");
     });
 
-    it("should correctly replace multi-value attribute nodes", function() {
+    it("replaces multi-value attribute nodes", function() {
       const expression = new DSLExpression("some fuzzy is:a,b,c nodes");
       const attribNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -413,7 +413,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("some fuzzy is:one,of,many nodes");
     });
 
-    it("should correctly add missing nodes using newCombiner=OR", function() {
+    it("adds missing nodes using newCombiner=OR", function() {
       const expression = new DSLExpression("previous");
       const fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -437,7 +437,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("here can be");
     });
 
-    it("should correctly add missing nodes using itemCombiner=OR", function() {
+    it("adds missing nodes using itemCombiner=OR", function() {
       const expression = new DSLExpression("few");
       const fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -459,7 +459,7 @@ describe("DSLUpdateUtil", function() {
       ).toEqual("here, can, be");
     });
 
-    it("should correctly continue with OR operator if itemCombiner=OR", function() {
+    it("continues with OR operator if itemCombiner=OR", function() {
       const expression = new DSLExpression("some label:foo");
       const fuzzyNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -490,7 +490,7 @@ describe("DSLUpdateUtil", function() {
   });
 
   describe("#applyDelete", function() {
-    it("should correctly delete one attribute node", function() {
+    it("deletes one attribute node", function() {
       const expression = new DSLExpression("is:attribute");
       const deleteNodes = [expression.ast];
 
@@ -499,7 +499,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete first in multiple attribute nodes", function() {
+    it("deletes first in multiple attribute nodes", function() {
       const expression = new DSLExpression("is:a is:b is:c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -514,7 +514,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete last in multiple attribute nodes", function() {
+    it("deletes last in multiple attribute nodes", function() {
       const expression = new DSLExpression("is:a is:b is:c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -529,7 +529,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete internal in multiple attribute nodes", function() {
+    it("deletes internal in multiple attribute nodes", function() {
       const expression = new DSLExpression("is:a is:b is:c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -544,7 +544,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete first in multi-value attribute nodes", function() {
+    it("deletes first in multi-value attribute nodes", function() {
       const expression = new DSLExpression("is:a,b,c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -559,7 +559,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete internal in multi-value attribute nodes", function() {
+    it("deletes internal in multi-value attribute nodes", function() {
       const expression = new DSLExpression("is:a,b,c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -574,7 +574,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete last in multi-value attribute nodes", function() {
+    it("deletes last in multi-value attribute nodes", function() {
       const expression = new DSLExpression("is:a,b,c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -589,7 +589,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete one in multiple attribute nodes", function() {
+    it("deletes one in multiple attribute nodes", function() {
       const expression = new DSLExpression("is:a is:b, is:c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -604,7 +604,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete one in multi-value attribute node", function() {
+    it("deletes one in multi-value attribute node", function() {
       const expression = new DSLExpression("is:a,b,c");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -619,7 +619,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete one fuzzy node", function() {
+    it("deletes one fuzzy node", function() {
       const expression = new DSLExpression("fuzz");
       const deleteNodes = [expression.ast];
 
@@ -628,7 +628,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete one exact node", function() {
+    it("deletes one exact node", function() {
       const expression = new DSLExpression('"exact"');
       const deleteNodes = [expression.ast];
 
@@ -637,7 +637,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete nodes between other nodes", function() {
+    it("deletes nodes between other nodes", function() {
       const expression = new DSLExpression(
         'some (fuzzy expression) "with" text'
       );
@@ -651,7 +651,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it("should correctly delete lingering comma operators", function() {
+    it("deletes lingering comma operators", function() {
       const expression = new DSLExpression("some, fuzz");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -663,7 +663,7 @@ describe("DSLUpdateUtil", function() {
       );
     });
 
-    it('should correctly delete is:c in "is:a,b,c is:d,c"', function() {
+    it('deletes is:c in "is:a,b,c is:d,c"', function() {
       const expression = new DSLExpression("is:a,b,c is:d,e");
       const deleteNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -680,7 +680,7 @@ describe("DSLUpdateUtil", function() {
   });
 
   describe("#defaultNodeCompareFunction", function() {
-    it("should return false when comparing nodes of different type", function() {
+    it("returns false when comparing nodes of different type", function() {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
         text: "text"
       });
@@ -693,7 +693,7 @@ describe("DSLUpdateUtil", function() {
       ).toBeFalsy();
     });
 
-    it("should return true when both fuzzy regardless of text", function() {
+    it("returns true when both fuzzy regardless of text", function() {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
         text: "text1"
       });
@@ -706,7 +706,7 @@ describe("DSLUpdateUtil", function() {
       ).toBeTruthy();
     });
 
-    it("should return true when both exact regardless of text", function() {
+    it("returns true when both exact regardless of text", function() {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
         text: "text1"
       });
@@ -719,7 +719,7 @@ describe("DSLUpdateUtil", function() {
       ).toBeTruthy();
     });
 
-    it("should return false when both attrib but different label", function() {
+    it("returns false when both attrib but different label", function() {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
         text: "text1",
         label: "label1"
@@ -734,7 +734,7 @@ describe("DSLUpdateUtil", function() {
       ).toBeFalsy();
     });
 
-    it("should return false when both attrib and same label", function() {
+    it("returns false when both attrib and same label", function() {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
         text: "text1",
         label: "label"

@@ -19,7 +19,7 @@ describe("TimeSeriesLabel", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it("should display the correct label", function() {
+  it("displays the correct label", function() {
     // Verify that percentage is set correctly
     var title = TestUtils.findRenderedDOMComponentWithClass(
       this.instance,
@@ -28,7 +28,7 @@ describe("TimeSeriesLabel", function() {
     expect(ReactDOM.findDOMNode(title).textContent).toEqual("10%");
   });
 
-  it("should display the correct sub heading", function() {
+  it("displays the correct sub heading", function() {
     // Verify that percentage is set correctly
     var label = TestUtils.findRenderedDOMComponentWithClass(
       this.instance,
@@ -37,7 +37,7 @@ describe("TimeSeriesLabel", function() {
     expect(ReactDOM.findDOMNode(label).textContent).toBe("Foo");
   });
 
-  it("should set sub heading text color", function() {
+  it("sets sub heading text color", function() {
     // Verify that percentage is set correctly
     var label = TestUtils.findRenderedDOMComponentWithClass(
       this.instance,

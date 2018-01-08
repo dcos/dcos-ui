@@ -194,12 +194,12 @@ describe("SchemaUtil", function() {
   });
 
   describe("#validateSchema", function() {
-    it("should return false for an invalid schema", function() {
+    it("returns false for an invalid schema", function() {
       var result = SchemaUtil.validateSchema({ random: "properties" });
       expect(result).toEqual(false);
     });
 
-    it("should return true for valid schema", function() {
+    it("returns true for valid schema", function() {
       var schema = {
         properties: {
           application: {

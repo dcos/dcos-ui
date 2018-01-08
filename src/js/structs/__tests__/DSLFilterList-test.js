@@ -2,7 +2,7 @@ const DSLFilter = require("../DSLFilter");
 const DSLFilterList = require("../DSLFilterList");
 
 describe("DSLFilterList", function() {
-  it("should return only matching filters", function() {
+  it("returns only matching filters", function() {
     class MatchFilter extends DSLFilter {
       filterCanHandle() {
         return false;

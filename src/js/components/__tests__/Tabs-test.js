@@ -60,7 +60,7 @@ describe("Tabs", function() {
     expect(this.handleTabChange.mock.calls[0]).toEqual(["bar"]);
   });
 
-  it("should update to the correct active tab", function() {
+  it("updates to the correct active tab", function() {
     let activeTab = ReactDOM.findDOMNode(this.instance).querySelector(
       ".menu-tabbed-item.active .menu-tabbed-item-label"
     );
@@ -104,7 +104,7 @@ describe("Tabs", function() {
     expect(activeTab.textContent).toEqual("Qux");
   });
 
-  it("should pass the activeTab prop to its children", function() {
+  it("passes the activeTab prop to its children", function() {
     const tabButtons = ReactDOM.findDOMNode(this.instance).querySelectorAll(
       ".menu-tabbed-item"
     );
@@ -127,7 +127,7 @@ describe("Tabs", function() {
     expect(tabButtonsInstance.props.activeTab).toEqual("foo");
   });
 
-  it("should pass the change handler to TabButtonList", function() {
+  it("passes the change handler to TabButtonList", function() {
     const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(
       this.instance,
       TabButtonList
@@ -135,7 +135,7 @@ describe("Tabs", function() {
     expect(tabButtonsInstance.props.onChange).toEqual(this.handleTabChange);
   });
 
-  it("should pass the vertical prop to TabButtonList", function() {
+  it("passes the vertical prop to TabButtonList", function() {
     const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(
       this.instance,
       TabButtonList

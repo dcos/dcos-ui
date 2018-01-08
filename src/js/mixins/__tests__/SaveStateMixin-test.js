@@ -30,14 +30,14 @@ describe("SaveStateMixin", function() {
       UserSettingsStore.getKey = this.prevGetKey;
     });
 
-    it("should set the previous state", function() {
+    it("sets the previous state", function() {
       this.instance.componentWillMount();
       expect(this.instance.setState).toHaveBeenCalledWith({ open: false });
     });
   });
 
   describe("#componentWillUnmount", function() {
-    it("should call #saveState_save", function() {
+    it("calls #saveState_save", function() {
       this.instance.saveState_save = jasmine.createSpy();
       this.instance.componentWillUnmount();
       expect(this.instance.saveState_save).toHaveBeenCalled();
@@ -64,13 +64,13 @@ describe("SaveStateMixin", function() {
       UserSettingsStore.setKey = this.prevSetKey;
     });
 
-    it("should not save any state", function() {
+    it("does not save any state", function() {
       this.instance.state = { open: false, errorCount: 9001 };
       this.instance.saveState_save();
       expect(UserSettingsStore.setKey).not.toHaveBeenCalled();
     });
 
-    it("should set the previous state", function() {
+    it("sets the previous state", function() {
       this.instance.saveState_properties = ["open", "errorCount"];
       this.instance.state = { open: false, errorCount: 9001 };
       this.instance.saveState_save();
@@ -79,7 +79,7 @@ describe("SaveStateMixin", function() {
       });
     });
 
-    it("should save specified keys", function() {
+    it("saves specified keys", function() {
       this.instance.saveState_properties = ["errorCount"];
       this.instance.state = { open: false, errorCount: 9001 };
       this.instance.saveState_save();

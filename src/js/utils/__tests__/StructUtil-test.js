@@ -20,32 +20,32 @@ describe("StructUtil", function() {
     // Create Item struct with embedded List Struct
     var itemStruct = new Item({ qux: "foo", items: listStruct });
 
-    it("should return original data if no structs", function() {
+    it("returns original data if no structs", function() {
       var fn = function() {};
       var originalObject = [1, "string", fn, true];
       var newObj = StructUtil.copyRawObject(originalObject);
       expect(deepEqual(newObj, originalObject)).toBeTruthy();
     });
 
-    it("should return original data from List struct", function() {
+    it("returns original data from List struct", function() {
       var newObj = StructUtil.copyRawObject(listStruct);
       expect(deepEqual(newObj, expectedArrayItems)).toBeTruthy();
     });
 
-    it("should clone Objects", function() {
+    it("clones Objects", function() {
       var array = [];
       var object = {};
       expect(StructUtil.copyRawObject(array) !== array).toBeTruthy();
       expect(StructUtil.copyRawObject(object) !== object).toBeTruthy();
     });
 
-    it("should clone Objects with structs", function() {
+    it("clones Objects with structs", function() {
       var newObj = StructUtil.copyRawObject(itemStruct);
       expect(itemStruct._itemData !== newObj).toBeTruthy();
       expect(newObj.items !== expectedArrayItems).toBeTruthy();
     });
 
-    it("should return original data with nested structs", function() {
+    it("returns original data with nested structs", function() {
       var fn = function() {};
       var nestedObj = {
         foo: listStruct,

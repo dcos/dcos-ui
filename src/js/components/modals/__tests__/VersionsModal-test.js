@@ -21,11 +21,11 @@ describe("VersionsModal", function() {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it("shouldn't call the callback after initialization", function() {
+    it("doesn't call the callback after initialization", function() {
       expect(this.callback).not.toHaveBeenCalled();
     });
 
-    it("should call the callback when #onClose is called", function() {
+    it("calls the callback when #onClose is called", function() {
       this.instance.onClose();
       expect(this.callback).toHaveBeenCalled();
     });
@@ -49,14 +49,14 @@ describe("VersionsModal", function() {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it("should return a pre element tag", function() {
+    it("returns a pre element tag", function() {
       var content = this.instance.getContent();
       var contentInstance = ReactDOM.render(content, this.container);
       var node = ReactDOM.findDOMNode(contentInstance);
       expect(node.tagName).toBe("PRE");
     });
 
-    it("should return a pre element tag", function() {
+    it("returns a pre element tag", function() {
       var content = this.instance.getContent();
       var contentInstance = ReactDOM.render(content, this.container);
       var node = ReactDOM.findDOMNode(contentInstance);

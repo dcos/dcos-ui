@@ -73,11 +73,11 @@ describe("TimeSeriesArea", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it("should render a path according to first data set", function() {
+  it("renders a path according to first data set", function() {
     checkPath(this.instance, this.props);
   });
 
-  it("should render a path according to second data set", function() {
+  it("renders a path according to second data set", function() {
     this.props.values = MockTimeSeriesData.secondSet;
     var area = this.areaDef(this.props.values);
     var valueLine = this.valueLineDef(this.props.values);
@@ -95,7 +95,7 @@ describe("TimeSeriesArea", function() {
     checkPath(this.instance, this.props);
   });
 
-  it("should check that the path is correctly updated", function() {
+  it("checks that the path is correctly updated", function() {
     checkPath(this.instance, this.props);
     this.props.values = MockTimeSeriesData.secondSet;
     var area = this.areaDef(this.props.values);

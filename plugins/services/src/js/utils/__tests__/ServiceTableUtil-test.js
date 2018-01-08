@@ -44,15 +44,15 @@ describe("ServiceTableUtil", function() {
           );
         });
 
-        it("should return -1 if type a comes beforeEach type b", function() {
+        it("returns -1 if type a comes beforeEach type b", function() {
           expect(this.compareFunction(serviceTree, healthyService)).toEqual(-1);
         });
 
-        it("should return 0 if type a is equal to type b", function() {
+        it("returns 0 if type a is equal to type b", function() {
           expect(this.compareFunction(serviceTree, serviceTree)).toEqual(0);
         });
 
-        it("should return 1 if type a comes after type b", function() {
+        it("returns 1 if type a comes after type b", function() {
           expect(this.compareFunction(healthyService, serviceTree)).toEqual(1);
         });
       });
@@ -65,15 +65,15 @@ describe("ServiceTableUtil", function() {
           );
         });
 
-        it("should return 1 if type a comes beforeEach type b", function() {
+        it("returns 1 if type a comes beforeEach type b", function() {
           expect(this.compareFunction(serviceTree, healthyService)).toEqual(1);
         });
 
-        it("should return 0 if type a is equal to type b", function() {
+        it("returns 0 if type a is equal to type b", function() {
           expect(this.compareFunction(serviceTree, serviceTree)).toEqual(0);
         });
 
-        it("should return -1 if type a comes after type b", function() {
+        it("returns -1 if type a comes after type b", function() {
           expect(this.compareFunction(healthyService, serviceTree)).toEqual(-1);
         });
       });
@@ -87,15 +87,15 @@ describe("ServiceTableUtil", function() {
         );
       });
 
-      it("should return 1 if type a comes beforeEach type b", function() {
+      it("returns 1 if type a comes beforeEach type b", function() {
         expect(this.compareFunction(serviceTree, healthyService)).toEqual(-1);
       });
 
-      it("should return 0 if type a is equal to type b", function() {
+      it("returns 0 if type a is equal to type b", function() {
         expect(this.compareFunction(serviceTree, serviceTree)).toEqual(0);
       });
 
-      it("should return -1 if type a comes after type b", function() {
+      it("returns -1 if type a comes after type b", function() {
         expect(this.compareFunction(healthyService, serviceTree)).toEqual(1);
       });
     });
@@ -108,17 +108,17 @@ describe("ServiceTableUtil", function() {
         );
       });
 
-      it("should return 1 if a has more running tasks than b", function() {
+      it("returns 1 if a has more running tasks than b", function() {
         expect(this.compareFunction(healthyService, unhealthyService)).toEqual(
           1
         );
       });
 
-      it("should return 0 if a has same number of running tasks as b", function() {
+      it("returns 0 if a has same number of running tasks as b", function() {
         expect(this.compareFunction(healthyService, healthyService)).toEqual(0);
       });
 
-      it("should return -1 if a has less running tasks than b", function() {
+      it("returns -1 if a has less running tasks than b", function() {
         expect(this.compareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );
@@ -133,17 +133,17 @@ describe("ServiceTableUtil", function() {
         );
       });
 
-      it("should return 1 if a comes after b in the status sorting", function() {
+      it("returns 1 if a comes after b in the status sorting", function() {
         expect(this.compareFunction(healthyService, unhealthyService)).toEqual(
           1
         );
       });
 
-      it("should return 0 if a has the same status as b", function() {
+      it("returns 0 if a has the same status as b", function() {
         expect(this.compareFunction(healthyService, healthyService)).toEqual(0);
       });
 
-      it("should return -1 if a comes beforeEach b in the status sorting", function() {
+      it("returns -1 if a comes beforeEach b in the status sorting", function() {
         expect(this.compareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );
@@ -157,17 +157,17 @@ describe("ServiceTableUtil", function() {
         );
       });
 
-      it("should return 1 if a has more cpus than b", function() {
+      it("returns 1 if a has more cpus than b", function() {
         expect(this.compareFunction(healthyService, unhealthyService)).toEqual(
           1
         );
       });
 
-      it("should return 0 if a has same number of cpus as b", function() {
+      it("returns 0 if a has same number of cpus as b", function() {
         expect(this.compareFunction(healthyService, healthyService)).toEqual(0);
       });
 
-      it("should return -1 if a has less cpus than b", function() {
+      it("returns -1 if a has less cpus than b", function() {
         expect(this.compareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );
@@ -181,17 +181,17 @@ describe("ServiceTableUtil", function() {
         );
       });
 
-      it("should return 1 if a has more mem than b", function() {
+      it("returns 1 if a has more mem than b", function() {
         expect(this.compareFunction(healthyService, unhealthyService)).toEqual(
           1
         );
       });
 
-      it("should return 0 if a has same number of mem as b", function() {
+      it("returns 0 if a has same number of mem as b", function() {
         expect(this.compareFunction(healthyService, healthyService)).toEqual(0);
       });
 
-      it("should return -1 if a has less mem than b", function() {
+      it("returns -1 if a has less mem than b", function() {
         expect(this.compareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );
@@ -205,17 +205,17 @@ describe("ServiceTableUtil", function() {
         );
       });
 
-      it("should return 1 if a has more disk than b", function() {
+      it("returns 1 if a has more disk than b", function() {
         expect(this.compareFunction(healthyService, unhealthyService)).toEqual(
           1
         );
       });
 
-      it("should return 0 if a has same number of disk as b", function() {
+      it("returns 0 if a has same number of disk as b", function() {
         expect(this.compareFunction(healthyService, healthyService)).toEqual(0);
       });
 
-      it("should return -1 if a has less disk than b", function() {
+      it("returns -1 if a has less disk than b", function() {
         expect(this.compareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );

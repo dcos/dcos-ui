@@ -9,11 +9,11 @@ describe("ConfigStore", function() {
       ConfigStore.processCCIDSuccess({ foo: "bar" });
     });
 
-    it("should emit an event", function() {
+    it("emits an event", function() {
       expect(this.handler).toBeCalled();
     });
 
-    it("should return stored info", function() {
+    it("returns stored info", function() {
       expect(ConfigStore.get("ccid")).toEqual({ foo: "bar" });
     });
   });

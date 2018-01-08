@@ -9,7 +9,7 @@ describe("TabButtonList", function() {
     this.changeHandler = jasmine.createSpy("change handler");
   });
 
-  it("should pass onChange as click handler for each TabButton instance", function() {
+  it("passes onChange as click handler for each TabButton instance", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabButtonList onChange={this.changeHandler}>
         <TabButton id="foo" />
@@ -28,7 +28,7 @@ describe("TabButtonList", function() {
     });
   });
 
-  it("should set only first child to active if no active tab is defined", function() {
+  it("sets only first child to active if no active tab is defined", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabButtonList>
         <TabButton id="foo" />
@@ -51,7 +51,7 @@ describe("TabButtonList", function() {
     });
   });
 
-  it("should pass active prop to instance whose ID matches activeTab", function() {
+  it("passes active prop to instance whose ID matches activeTab", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabButtonList activeTab="bar">
         <TabButton id="foo" />

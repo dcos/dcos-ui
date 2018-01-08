@@ -23,20 +23,20 @@ describe("MesosLogStore", function() {
   });
 
   describe("#startTailing", function() {
-    it("should return an instance of LogBuffer", function() {
+    it("returns an instance of LogBuffer", function() {
       var logBuffer = MesosLogStore.getLogBuffer("/bar");
       expect(logBuffer instanceof LogBuffer).toBeTruthy();
     });
   });
 
   describe("#stopTailing", function() {
-    it("should not clear the log buffer by default", function() {
+    it("does not clear the log buffer by default", function() {
       MesosLogStore.stopTailing("/bar");
 
       expect(MesosLogStore.getLogBuffer("/bar")).toBeInstanceOf(LogBuffer);
     });
 
-    it("should clear the log buffer if configured", function() {
+    it("clears the log buffer if configured", function() {
       MesosLogStore.stopTailing("/bar", true);
 
       expect(MesosLogStore.getLogBuffer("/bar")).toEqual(undefined);
@@ -160,18 +160,18 @@ describe("MesosLogStore", function() {
       this.logBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
-    it("should return all of the log items it was given", function() {
+    it("returns all of the log items it was given", function() {
       const items = this.logBuffer.getItems();
       jest.runAllTimers();
       expect(items.length).toEqual(2);
     });
 
-    it("should return the full log of items it was given", function() {
+    it("returns the full log of items it was given", function() {
       jest.runAllTimers();
       expect(this.logBuffer.getFullLog()).toEqual("foobar");
     });
 
-    it("should call the fetch log 4 times", function() {
+    it("calls the fetch log 4 times", function() {
       jest.runAllTimers();
       expect(RequestUtil.json.calls.count()).toEqual(4);
     });
@@ -200,21 +200,21 @@ describe("MesosLogStore", function() {
       MesosLogStore.emit = this.previousEmit;
     });
 
-    it("should return all of the log items it was given", function() {
+    it("returns all of the log items it was given", function() {
       const items = this.logBuffer.getItems();
       expect(items.length).toEqual(2);
     });
 
-    it("should return the full log of items it was given", function() {
+    it("returns the full log of items it was given", function() {
       expect(this.logBuffer.getFullLog()).toEqual("barfoo");
     });
 
-    it("should call the fetch log 2 times", function() {
+    it("calls the fetch log 2 times", function() {
       jest.runAllTimers();
       expect(RequestUtil.json.calls.count()).toEqual(2);
     });
 
-    it("should call emit with the correct event", function() {
+    it("calls emit with the correct event", function() {
       expect(MesosLogStore.emit).toHaveBeenCalledWith(
         EventTypes.MESOS_LOG_CHANGE,
         "/bar",
@@ -222,7 +222,7 @@ describe("MesosLogStore", function() {
       );
     });
 
-    it("should not call emit with an non-existent path", function() {
+    it("does not call emit with an non-existent path", function() {
       MesosLogStore.emit = jasmine.createSpy();
       MesosLogStore.processLogPrepend("foo", "wtf", { data: "", offset: 100 });
       expect(MesosLogStore.emit).not.toHaveBeenCalled();
@@ -234,7 +234,7 @@ describe("MesosLogStore", function() {
       this.logBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
-    it("should try to restart the tailing after error", function() {
+    it("tries to restart the tailing after error", function() {
       MesosLogStore.processLogError("foo", "/bar");
       jest.runAllTimers();
       expect(RequestUtil.json.calls.count()).toEqual(2);
@@ -256,20 +256,20 @@ describe("MesosLogStore", function() {
       MesosLogStore.emit = this.previousEmit;
     });
 
-    it("should try to restart the tailing after error", function() {
+    it("tries to restart the tailing after error", function() {
       MesosLogStore.processLogPrependError("foo", "/bar");
       jest.runAllTimers();
       expect(RequestUtil.json.calls.count()).toEqual(3);
     });
 
-    it("should call emit with the correct event", function() {
+    it("calls emit with the correct event", function() {
       expect(MesosLogStore.emit).toHaveBeenCalledWith(
         EventTypes.MESOS_LOG_REQUEST_ERROR,
         "/bar"
       );
     });
 
-    it("should not call emit with an non-existent path", function() {
+    it("does not call emit with an non-existent path", function() {
       MesosLogStore.emit = jasmine.createSpy();
       MesosLogStore.processLogPrepend("foo", "wtf", { data: "", offset: 100 });
       expect(MesosLogStore.emit).not.toHaveBeenCalled();
@@ -281,7 +281,7 @@ describe("MesosLogStore", function() {
       this.logBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
-    it("should not be initialized after error", function() {
+    it("does not be initialized after error", function() {
       MesosLogStore.processOffsetError("foo", "/bar");
       expect(this.logBuffer.isInitialized()).toEqual(false);
     });
@@ -292,7 +292,7 @@ describe("MesosLogStore", function() {
       this.logBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
-    it("should be initialized after initialize and before error", function() {
+    it("is initialized after initialize and before error", function() {
       // First item will be used to initialize
       MesosLogStore.processOffset("foo", "/bar", { data: "", offset: 100 });
       expect(this.logBuffer.isInitialized()).toEqual(true);

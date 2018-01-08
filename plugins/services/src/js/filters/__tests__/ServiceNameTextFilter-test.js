@@ -24,7 +24,7 @@ describe("ServiceNameTextFilter", function() {
     ];
   });
 
-  it("Should match parts of service name", function() {
+  it("matches parts of service name", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("foo");
 
@@ -36,7 +36,7 @@ describe("ServiceNameTextFilter", function() {
     ]);
   });
 
-  it("Should match exact parts of service name", function() {
+  it("matches exact parts of service name", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse('"foo bar"');
 

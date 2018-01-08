@@ -6,7 +6,7 @@ const { combineReducers } = require("#SRC/js/utils/ReducerUtil");
 
 describe("JSONSingleContainerReducers", function() {
   describe("#cmd", function() {
-    it("should return a cmd at the root level with a nested path", function() {
+    it("returns a cmd at the root level with a nested path", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["cmd"], "sleep 999", SET));
 

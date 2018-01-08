@@ -44,7 +44,7 @@ describe("Volume", function() {
   });
 
   describe("#getStatus", function() {
-    it("should return unavailable if no  status is defined", function() {
+    it("returns unavailable if no  status is defined", function() {
       const service = new Volume({});
 
       expect(service.getStatus()).toEqual(VolumeStatus.UNAVAILABLE);

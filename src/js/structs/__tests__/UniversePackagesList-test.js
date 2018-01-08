@@ -12,7 +12,7 @@ describe("UniversePackagesList", function() {
   });
 
   describe("#filterItemsByText", function() {
-    it("should filter by name", function() {
+    it("filters by name", function() {
       var items = [{ name: "foo" }, { name: "bar" }];
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("bar").getItems();
@@ -20,7 +20,7 @@ describe("UniversePackagesList", function() {
       expect(items[0].get("name")).toEqual("bar");
     });
 
-    it("should filter by description", function() {
+    it("filters by description", function() {
       var items = [{ description: "foo" }, { description: "bar" }];
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("foo").getItems();
@@ -28,7 +28,7 @@ describe("UniversePackagesList", function() {
       expect(items[0].get("description")).toEqual("foo");
     });
 
-    it("should filter by tags", function() {
+    it("filters by tags", function() {
       var items = [{ tags: ["foo", "bar"] }, { tags: ["foo"] }, { tags: [] }];
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("foo").getItems();
@@ -37,7 +37,7 @@ describe("UniversePackagesList", function() {
       expect(items[1].get("tags")).toEqual(["foo"]);
     });
 
-    it("should handle filter by tags with null elements", function() {
+    it("handles filter by tags with null elements", function() {
       var items = [{ tags: ["foo", "bar"] }, { tags: ["foo"] }, { tags: null }];
       var list = new UniversePackagesList({ items });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();

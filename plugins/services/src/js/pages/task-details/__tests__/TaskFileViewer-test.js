@@ -33,7 +33,7 @@ describe("TaskFileViewer", function() {
   });
 
   describe("#render", function() {
-    it("should set button disabled when file is not found", function() {
+    it("sets button disabled when file is not found", function() {
       this.instance = ReactDOM.render(
         <TaskFileViewer
           directory={new TaskDirectory({ items: [{ nlink: 1, path: "" }] })}
@@ -49,7 +49,7 @@ describe("TaskFileViewer", function() {
       expect(btn.attributes.disabled).toBeTruthy();
     });
 
-    it("should set button not disabled when file is found", function() {
+    it("sets button not disabled when file is found", function() {
       const btn = this.container.querySelector("a.button.button-primary-link");
       // If btn.props.disabled = false, then disabled attribute will be undefined
       expect(btn.attributes.disabled).toEqual(undefined);

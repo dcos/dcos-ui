@@ -38,7 +38,7 @@ describe("DCOSStore", function() {
   });
 
   describe("#constructor", function() {
-    it("should expose an empty deployments list", function() {
+    it("exposes an empty deployments list", function() {
       expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
     });
   });
@@ -114,15 +114,15 @@ describe("DCOSStore", function() {
         DCOSStore.onMarathonDeploymentsChange();
       });
 
-      it("should not update the deployments list", function() {
+      it("does not update the deployments list", function() {
         expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
       });
 
-      it("should not update the notification store", function() {
+      it("does not update the notification store", function() {
         expect(NotificationStore.addNotification).not.toHaveBeenCalled();
       });
 
-      it("should be called as soon as groups endpoint data arrives", function() {
+      it("is called as soon as groups endpoint data arrives", function() {
         spyOn(DCOSStore, "onMarathonDeploymentsChange");
         DCOSStore.onMarathonGroupsChange();
         expect(DCOSStore.onMarathonDeploymentsChange).toHaveBeenCalled();
@@ -135,18 +135,18 @@ describe("DCOSStore", function() {
         DCOSStore.onMarathonDeploymentsChange();
       });
 
-      it("should update the deployments list", function() {
+      it("updates the deployments list", function() {
         expect(DCOSStore.deploymentsList.getItems().length).toEqual(1);
         expect(DCOSStore.deploymentsList.last().id).toEqual("deployment-id");
       });
 
-      it("should populate the deployments with relevant services", function() {
+      it("populates the deployments with relevant services", function() {
         const deployment = DCOSStore.deploymentsList.last();
         const services = deployment.getAffectedServices();
         expect(services.length).toEqual(2);
       });
 
-      it("should update the notification store", function() {
+      it("updates the notification store", function() {
         expect(NotificationStore.addNotification).toHaveBeenCalledWith(
           "services-deployments",
           "deployment-count",
@@ -162,7 +162,7 @@ describe("DCOSStore", function() {
         DCOSStore.onMarathonGroupsChange();
       });
 
-      it("should trim stale services", function() {
+      it("trims stale services", function() {
         const deployment = DCOSStore.deploymentsList.last();
         const services = deployment.getAffectedServices();
         expect(services.length).toEqual(0);
@@ -194,7 +194,7 @@ describe("DCOSStore", function() {
       DCOSStore.onMesosSummaryChange();
     });
 
-    it("should update the service tree", function() {
+    it("updates the service tree", function() {
       expect(DCOSStore.serviceTree.getItems().length).toEqual(0);
 
       MarathonStore.__setKeyResponse(
@@ -213,7 +213,7 @@ describe("DCOSStore", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getId()).toEqual("/alpha");
     });
 
-    it("should replace old Marathon data", function() {
+    it("replaces old Marathon data", function() {
       MarathonStore.__setKeyResponse(
         "groups",
         new ServiceTree({
@@ -241,7 +241,7 @@ describe("DCOSStore", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getId()).toEqual("/beta");
     });
 
-    it("should merge (matching by id) summary data", function() {
+    it("merges (matching by id) summary data", function() {
       MarathonStore.__setKeyResponse(
         "groups",
         new ServiceTree({
@@ -259,7 +259,7 @@ describe("DCOSStore", function() {
       expect(DCOSStore.serviceTree.getItems()[0].get("bar")).toEqual("baz");
     });
 
-    it("should not merge summary data if it doesn't find a matching id", function() {
+    it("does not merge summary data if it doesn't find a matching id", function() {
       MarathonStore.__setKeyResponse(
         "groups",
         new ServiceTree({
@@ -276,7 +276,7 @@ describe("DCOSStore", function() {
       expect(DCOSStore.serviceTree.getItems()[0].get("bar")).toBeUndefined();
     });
 
-    it("should not include _itemData", function() {
+    it("does not include _itemData", function() {
       MarathonStore.__setKeyResponse(
         "groups",
         new ServiceTree({
@@ -323,7 +323,7 @@ describe("DCOSStore", function() {
       ]);
     });
 
-    it("should update the service tree", function() {
+    it("updates the service tree", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
         "Recovering"
       );
@@ -345,7 +345,7 @@ describe("DCOSStore", function() {
       );
     });
 
-    it("should correctly convert running apps from waiting state", function() {
+    it("converts running apps from waiting state", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
         "Recovering"
       );
@@ -355,7 +355,7 @@ describe("DCOSStore", function() {
       );
     });
 
-    it("should not include _itemData", function() {
+    it("does not include _itemData", function() {
       DCOSStore.onMarathonQueueChange([
         {
           app: {
@@ -395,7 +395,7 @@ describe("DCOSStore", function() {
       });
     });
 
-    it("should update the service tree", function() {
+    it("updates the service tree", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getVersions()).toEqual(
         new Map([[versionID]])
       );
@@ -411,7 +411,7 @@ describe("DCOSStore", function() {
       );
     });
 
-    it("should not include _itemData", function() {
+    it("does not include _itemData", function() {
       DCOSStore.onMarathonServiceVersionChange({
         serviceID: "/alpha",
         versionID,
@@ -442,7 +442,7 @@ describe("DCOSStore", function() {
       DCOSStore.onMarathonGroupsChange();
     });
 
-    it("should update the service tree", function() {
+    it("updates the service tree", function() {
       expect(DCOSStore.serviceTree.getItems()[0].getVersions()).toEqual(
         new Map()
       );
@@ -457,7 +457,7 @@ describe("DCOSStore", function() {
       );
     });
 
-    it("should merge existing version data", function() {
+    it("merges existing version data", function() {
       DCOSStore.onMarathonServiceVersionChange({
         serviceID: "/beta",
         versionID: firstVersionID,
@@ -474,7 +474,7 @@ describe("DCOSStore", function() {
       );
     });
 
-    it("should not include _itemData", function() {
+    it("does not include _itemData", function() {
       DCOSStore.onMarathonServiceVersionsChange({
         serviceID: "/beta",
         versions: new Map([[firstVersionID]])
@@ -502,7 +502,7 @@ describe("DCOSStore", function() {
       DCOSStore.onMarathonGroupsChange();
     });
 
-    it("should update the service tree", function() {
+    it("updates the service tree", function() {
       expect(DCOSStore.serviceTree.getItems()[0].get("bar")).toBeUndefined();
 
       MesosSummaryStore.__setKeyResponse(
@@ -523,7 +523,7 @@ describe("DCOSStore", function() {
       expect(DCOSStore.serviceTree.getItems()[0].get("bar")).toEqual("baz");
     });
 
-    it("should not include _itemData", function() {
+    it("does not include _itemData", function() {
       MesosSummaryStore.__setKeyResponse(
         "states",
         new SummaryList({
@@ -544,7 +544,7 @@ describe("DCOSStore", function() {
       ).not.toBeDefined();
     });
 
-    it("should replace old summary data", function() {
+    it("replaces old summary data", function() {
       MesosSummaryStore.__setKeyResponse(
         "states",
         new SummaryList({
@@ -578,7 +578,7 @@ describe("DCOSStore", function() {
       expect(DCOSStore.serviceTree.getItems()[0].get("bar")).toEqual("qux");
     });
 
-    it("should not merge Marathon data if it doesn't find a matching id", function() {
+    it("does not merge Marathon data if it doesn't find a matching id", function() {
       MesosSummaryStore.__setKeyResponse(
         "states",
         new SummaryList({
@@ -599,7 +599,7 @@ describe("DCOSStore", function() {
   });
 
   describe("#get storeID", function() {
-    it("should return 'dcos'", function() {
+    it("returns 'dcos'", function() {
       expect(DCOSStore.storeID).toEqual("dcos");
     });
   });

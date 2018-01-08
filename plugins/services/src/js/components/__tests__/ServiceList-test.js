@@ -23,12 +23,12 @@ describe("ServiceList", function() {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it("should allow update", function() {
+    it("allows update", function() {
       var shouldUpdate = this.instance.shouldComponentUpdate({ a: 1 });
       expect(shouldUpdate).toEqual(true);
     });
 
-    it("should not allow update", function() {
+    it("does not allow update", function() {
       var shouldUpdate = this.instance.shouldComponentUpdate(
         this.instance.props
       );

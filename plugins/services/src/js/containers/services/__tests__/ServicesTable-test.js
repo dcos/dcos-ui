@@ -34,7 +34,7 @@ describe("ServicesTable", function() {
   });
 
   describe("#renderStats", function() {
-    it("should render resources/stats cpus property", function() {
+    it("renders resources/stats cpus property", function() {
       var cpusCell = ReactDOM.render(
         this.instance.renderStats("cpus", healthyService),
         this.container
@@ -43,7 +43,7 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("1");
     });
 
-    it("should render resources/stats mem property", function() {
+    it("renders resources/stats mem property", function() {
       var memCell = ReactDOM.render(
         this.instance.renderStats("mem", healthyService),
         this.container
@@ -52,7 +52,7 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(memCell).textContent).toEqual("2 GiB");
     });
 
-    it("should render resources/stats disk property", function() {
+    it("renders resources/stats disk property", function() {
       var disksCell = ReactDOM.render(
         this.instance.renderStats("disk", healthyService),
         this.container
@@ -61,7 +61,7 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual("0 B");
     });
 
-    it("should render sum of resources/stats cpus property", function() {
+    it("renders sum of resources/stats cpus property", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
@@ -82,7 +82,7 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("2");
     });
 
-    it("should render sum of resources/stats mem property", function() {
+    it("renders sum of resources/stats mem property", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
@@ -103,7 +103,7 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(memCell).textContent).toEqual("4 GiB");
     });
 
-    it("should render sum of resources/stats disk property", function() {
+    it("renders sum of resources/stats disk property", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
