@@ -127,9 +127,9 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#getTasksFromVirtualNetworkName", function() {
+  describe("#getRunningTasksFromVirtualNetworkName", function() {
     beforeEach(function() {
-      this.instance = MesosStateUtil.getTasksFromVirtualNetworkName(
+      this.instance = MesosStateUtil.getRunningTasksFromVirtualNetworkName(
         {
           frameworks: [
             { id: "foo" },
@@ -138,9 +138,18 @@ describe("MesosStateUtil", function() {
             { id: "qux" }
           ],
           tasks: [
-            { container: { network_infos: [{ name: "alpha" }] } },
-            { container: { network_infos: [{ name: "alpha" }] } },
-            { container: { network_infos: [{ name: "beta" }] } }
+            {
+              state: "TASK_RUNNING",
+              container: { network_infos: [{ name: "alpha" }] }
+            },
+            {
+              state: "TASK_KILLED",
+              container: { network_infos: [{ name: "alpha" }] }
+            },
+            {
+              state: "TASK_RUNNING",
+              container: { network_infos: [{ name: "beta" }] }
+            }
           ]
         },
         "alpha"
@@ -148,31 +157,33 @@ describe("MesosStateUtil", function() {
     });
 
     it("should handle empty object well", function() {
-      expect(MesosStateUtil.getTasksFromVirtualNetworkName({}, "foo")).toEqual(
-        []
-      );
+      expect(
+        MesosStateUtil.getRunningTasksFromVirtualNetworkName({}, "foo")
+      ).toEqual([]);
     });
 
     it("should throw when a null state is provided", function() {
       expect(function() {
-        MesosStateUtil.getTasksFromVirtualNetworkName(null, "foo");
+        MesosStateUtil.getRunningTasksFromVirtualNetworkName(null, "foo");
       }).toThrow();
     });
 
     it("should handle empty undefined well", function() {
       expect(
-        MesosStateUtil.getTasksFromVirtualNetworkName(undefined, "foo")
+        MesosStateUtil.getRunningTasksFromVirtualNetworkName(undefined, "foo")
       ).toEqual([]);
     });
 
-    it("should filter tasks that doesn't have the overlay name", function() {
-      expect(this.instance.length).toEqual(2);
+    it("should filter running tasks that doesn't have the overlay name", function() {
+      expect(this.instance.length).toEqual(1);
     });
 
-    it("should find tasks from different frameworks", function() {
+    it("should find running tasks from different frameworks", function() {
       expect(this.instance).toEqual([
-        { container: { network_infos: [{ name: "alpha" }] } },
-        { container: { network_infos: [{ name: "alpha" }] } }
+        {
+          state: "TASK_RUNNING",
+          container: { network_infos: [{ name: "alpha" }] }
+        }
       ]);
     });
   });

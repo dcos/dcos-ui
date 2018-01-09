@@ -276,8 +276,8 @@ class MesosStateStore extends GetSetBaseStore {
       .map(task => MesosStateUtil.flagSDKTask(task, service));
   }
 
-  getTasksFromVirtualNetworkName(overlayName) {
-    return MesosStateUtil.getTasksFromVirtualNetworkName(
+  getRunningTasksFromVirtualNetworkName(overlayName) {
+    return MesosStateUtil.getRunningTasksFromVirtualNetworkName(
       this.get("lastMesosState"),
       overlayName
     );
