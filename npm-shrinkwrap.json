@@ -19,37 +19,25 @@
       "from": "@dcos/connections@0.1.0",
       "resolved": "https://registry.npmjs.org/@dcos/connections/-/connections-0.1.0.tgz"
     },
+    "@dcos/copychars": {
+      "version": "0.1.0",
+      "from": "@dcos/copychars@0.1.0",
+      "resolved": "https://registry.npmjs.org/@dcos/copychars/-/copychars-0.1.0.tgz"
+    },
     "@dcos/http-service": {
       "version": "0.2.1",
       "from": "@dcos/http-service@0.2.1",
       "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-0.2.1.tgz"
     },
     "@dcos/mesos-client": {
-      "version": "0.1.9",
-      "from": "@dcos/mesos-client@0.1.9",
-      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.1.9.tgz",
-      "dependencies": {
-        "@dcos/connection-manager": {
-          "version": "0.2.1",
-          "from": "@dcos/connection-manager@0.2.1",
-          "resolved": "https://registry.npmjs.org/@dcos/connection-manager/-/connection-manager-0.2.1.tgz"
-        },
-        "@dcos/http-service": {
-          "version": "0.2.1",
-          "from": "@dcos/http-service@0.2.1",
-          "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-0.2.1.tgz"
-        },
-        "immutable": {
-          "version": "3.8.2",
-          "from": "immutable@>=3.8.2 <4.0.0",
-          "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.8.2.tgz"
-        }
-      }
+      "version": "0.1.10",
+      "from": "@dcos/mesos-client@0.1.10",
+      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.1.10.tgz"
     },
     "@dcos/recordio": {
-      "version": "0.1.5",
-      "from": "@dcos/recordio@0.1.5",
-      "resolved": "https://registry.npmjs.org/@dcos/recordio/-/recordio-0.1.5.tgz"
+      "version": "0.1.6",
+      "from": "@dcos/recordio@0.1.6",
+      "resolved": "https://registry.npmjs.org/@dcos/recordio/-/recordio-0.1.6.tgz"
     },
     "abab": {
       "version": "1.0.3",
