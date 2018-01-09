@@ -311,16 +311,6 @@ describe("MesosStateUtil", function() {
   describe("#getHostResourcesByFramework", function() {
     beforeEach(function() {
       this.mesosState = {
-        frameworks: [
-          {
-            name: "marathon",
-            id: "marathon_1"
-          },
-          {
-            name: "spark",
-            id: "spark_1"
-          }
-        ],
         tasks: [
           {
             name: "spark",
@@ -431,6 +421,13 @@ describe("MesosStateUtil", function() {
           }
         }
       });
+    });
+
+    it("does not overwrite the resources of the original object", function() {
+      const previousMesosState = JSON.parse(JSON.stringify(this.mesosState));
+      MesosStateUtil.getHostResourcesByFramework(this.mesosState);
+
+      expect(this.mesosState).toEqual(previousMesosState);
     });
   });
 });

@@ -1,5 +1,8 @@
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+
+import StructUtil from "#SRC/js/utils/StructUtil";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
+
 import PodInstanceState
   from "../../../plugins/services/src/js/constants/PodInstanceState";
 import Util from "./Util";
@@ -103,7 +106,9 @@ const MesosStateUtil = {
 
         const resources = task.resources;
         if (memo[task.slave_id][frameworkKey] == null) {
-          memo[task.slave_id][frameworkKey] = resources;
+          memo[task.slave_id][frameworkKey] = StructUtil.copyRawObject(
+            resources
+          );
         } else {
           // Aggregates used resources from each executor
           RESOURCE_KEYS.forEach(function(key) {
