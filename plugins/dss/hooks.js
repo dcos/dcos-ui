@@ -219,10 +219,6 @@ function VolumeTypeSelect(props) {
       {Object.keys(VolumeDefinitions)
         .filter(type => !excludedTypes.includes(type))
         .map((type, index) => {
-          if (type === "EPHEMERAL") {
-            return <noscript />;
-          }
-
           return (
             <SelectOption
               key={index}
