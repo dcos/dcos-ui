@@ -1,6 +1,8 @@
 import classNames from "classnames/dedupe";
 import React from "react";
 
+import Icon from "#SRC/js/components/Icon";
+
 import PageHeaderActions from "./PageHeaderActions";
 import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
 import PageHeaderTabs from "./PageHeaderTabs";
@@ -44,7 +46,7 @@ class PageHeader extends React.Component {
       pageHeaderContentClassName
     );
     const pageHeaderActionsPrimaryClasses = classNames(
-      "page-header-actions page-header-action-primary",
+      "page-header-actions page-header-action-primary flex",
       pageHeaderActionsPrimaryClassName
     );
     let secondaryContentDetailElement = null;
@@ -57,6 +59,21 @@ class PageHeader extends React.Component {
       );
     }
 
+    const editIcon = <Icon id="pencil" size="mini" />;
+
+    const editButton = actions
+      .filter(action => action.label === "Edit")
+      .map(action => {
+        return (
+          <a className="button  button-primary" onClick={action.onItemSelect}>
+            {editIcon}
+            <span>
+              {action.label}
+            </span>
+          </a>
+        );
+      });
+
     return (
       <div className={pageHeaderClasses}>
         <div className={pageHeaderInnerClasses}>
@@ -66,6 +83,7 @@ class PageHeader extends React.Component {
               {breadcrumbs}
             </div>
             <div className={pageHeaderActionsPrimaryClasses}>
+              {editButton}
               <PageHeaderActions
                 actions={actions}
                 addButton={addButton}
