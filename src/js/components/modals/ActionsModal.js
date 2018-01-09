@@ -212,7 +212,7 @@ class ActionsModal extends mixin(StoreMixin) {
         } else {
           return (
             <p className="text-error-state" key={index}>
-              <span className="badge badge-danger badge-rounded">
+              <span className="badge badge-danger">
                 {`${repeatTimes}x`}
               </span>
               {` ${error}`}

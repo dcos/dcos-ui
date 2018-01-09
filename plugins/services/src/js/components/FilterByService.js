@@ -36,7 +36,7 @@ var FilterByService = React.createClass({
     return (
       <span className="badge-container">
         <span className="badge-container-text">{service.get("name")}</span>
-        <span className="badge badge-rounded">
+        <span className="badge">
           {service.getNodeIDs().length}
         </span>
       </span>
