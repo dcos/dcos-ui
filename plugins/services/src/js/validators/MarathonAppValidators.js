@@ -32,14 +32,27 @@ const MarathonAppValidators = {
     if (hasCmd && hasArgs) {
       const notBothMessage = "Please specify only one of `cmd` or `args`";
       const type = PROP_CONFLICT;
+      const isUnanchored = true;
       const variables = {
         feature1: "cmd",
         feature2: "args"
       };
 
       return [
-        { path: ["cmd"], message: notBothMessage, type, variables },
-        { path: ["args"], message: notBothMessage, type, variables }
+        {
+          path: ["cmd"],
+          message: notBothMessage,
+          type,
+          isUnanchored,
+          variables
+        },
+        {
+          path: ["args"],
+          message: notBothMessage,
+          type,
+          isUnanchored,
+          variables
+        }
       ];
     }
 
@@ -85,11 +98,18 @@ const MarathonAppValidators = {
     const variables = {
       names: "cmd, args, container.docker.image"
     };
+    const isUnanchored = true;
 
     return [
-      { path: ["cmd"], message, type, variables },
-      { path: ["args"], message, type, variables },
-      { path: ["container", "docker", "image"], message, type, variables }
+      { path: ["cmd"], message, type, isUnanchored, variables },
+      { path: ["args"], message, type, isUnanchored, variables },
+      {
+        path: ["container", "docker", "image"],
+        message,
+        type,
+        isUnanchored,
+        variables
+      }
     ];
   },
 

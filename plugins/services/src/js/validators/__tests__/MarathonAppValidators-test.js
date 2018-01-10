@@ -19,6 +19,7 @@ const CMDORDOCKERIMAGE_ERRORS = [
     path: ["cmd"],
     message: "You must specify a command, an argument or a container",
     type: "PROP_MISSING_ONE",
+    isUnanchored: true,
     variables: {
       names: "cmd, args, container.docker.image"
     }
@@ -27,6 +28,7 @@ const CMDORDOCKERIMAGE_ERRORS = [
     path: ["args"],
     message: "You must specify a command, an argument or a container",
     type: "PROP_MISSING_ONE",
+    isUnanchored: true,
     variables: {
       names: "cmd, args, container.docker.image"
     }
@@ -35,6 +37,7 @@ const CMDORDOCKERIMAGE_ERRORS = [
     path: ["container", "docker", "image"],
     message: "You must specify a command, an argument or a container",
     type: "PROP_MISSING_ONE",
+    isUnanchored: true,
     variables: {
       names: "cmd, args, container.docker.image"
     }
@@ -55,6 +58,7 @@ const NOTBOTHCMDARGS_ERRORS = [
     path: ["cmd"],
     message: "Please specify only one of `cmd` or `args`",
     type: "PROP_CONFLICT",
+    isUnanchored: true,
     variables: {
       feature1: "cmd",
       feature2: "args"
@@ -64,6 +68,7 @@ const NOTBOTHCMDARGS_ERRORS = [
     path: ["args"],
     message: "Please specify only one of `cmd` or `args`",
     type: "PROP_CONFLICT",
+    isUnanchored: true,
     variables: {
       feature1: "cmd",
       feature2: "args"
