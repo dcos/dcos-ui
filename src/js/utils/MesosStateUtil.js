@@ -1,10 +1,14 @@
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+
+import StructUtil from "#SRC/js/utils/StructUtil";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
+
 import PodInstanceState
   from "../../../plugins/services/src/js/constants/PodInstanceState";
 import Util from "./Util";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
+
 const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(function(
   taskState
 ) {
@@ -80,34 +84,40 @@ const MesosStateUtil = {
   },
 
   /**
+   * Returns resource usage of non completed tasks grouped by Host and Framework
+   *
    * @param  {Object} state A document of mesos state
    * @param  {Array} filter Allows us to filter by framework id
    *   All other frameworks will be put into an 'other' category
    * @returns {Object} A map of frameworks running on host
    */
   getHostResourcesByFramework(state, filter = []) {
-    return (state.tasks || []).reduce(function(memo, task) {
-      if (memo[task.slave_id] == null) {
-        memo[task.slave_id] = {};
-      }
+    return (state.tasks || [])
+      .filter(task => !COMPLETED_TASK_STATES.includes(task.state))
+      .reduce(function(memo, task) {
+        if (memo[task.slave_id] == null) {
+          memo[task.slave_id] = {};
+        }
 
-      let frameworkKey = task.framework_id;
-      if (filter.includes(frameworkKey)) {
-        frameworkKey = "other";
-      }
+        let frameworkKey = task.framework_id;
+        if (filter.includes(frameworkKey)) {
+          frameworkKey = "other";
+        }
 
-      const resources = task.resources;
-      if (memo[task.slave_id][frameworkKey] == null) {
-        memo[task.slave_id][frameworkKey] = resources;
-      } else {
-        // Aggregates used resources from each executor
-        RESOURCE_KEYS.forEach(function(key) {
-          memo[task.slave_id][frameworkKey][key] += resources[key];
-        });
-      }
+        const resources = task.resources;
+        if (memo[task.slave_id][frameworkKey] == null) {
+          memo[task.slave_id][frameworkKey] = StructUtil.copyRawObject(
+            resources
+          );
+        } else {
+          // Aggregates used resources from each executor
+          RESOURCE_KEYS.forEach(function(key) {
+            memo[task.slave_id][frameworkKey][key] += resources[key];
+          });
+        }
 
-      return memo;
-    }, {});
+        return memo;
+      }, {});
   },
 
   getRunningTasksFromVirtualNetworkName({ tasks = [] } = {}, overlayName) {
