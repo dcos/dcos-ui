@@ -11,6 +11,7 @@
   - [Breaking Changes](#breaking-changes)
   - [Examples](#examples)
 - [ReactJS Components](#reactjs-components)
+- [Testing](#testing)
 - [i18n](#i18n)
   - [Translation IDs](#translation-ids)
   - [Translation Strings](#translation-strings)
@@ -209,6 +210,9 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
       ]
     }
     ```
+## Testing
+
+Testing section to move here
 
 ## i18n
 
