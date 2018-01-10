@@ -204,7 +204,7 @@ function DSSInput(props) {
   );
 }
 
-function getVolumeTypes(props) {
+function VolumeTypeSelect(props) {
   return (
     <FieldSelect name={`volumes.${props.index}.type`} value={props.volume.type}>
       <option value="">Select...</option>,
@@ -218,7 +218,7 @@ function getVolumeTypes(props) {
   );
 }
 
-function getDSSVolumeConfig(props) {
+function DSSVolumeConfig(props) {
   const { volume, index } = props;
   if (volume.type !== "DSS") {
     return null;
@@ -309,7 +309,7 @@ function getDSSVolumeConfig(props) {
 module.exports = {
   initialize() {
     MountService.MountService.registerComponent(
-      getDSSVolumeConfig,
+      DSSVolumeConfig,
       "CreateService:SingleContainerVolumes:UnknownVolumes"
     );
 
@@ -322,7 +322,7 @@ module.exports = {
       "CreateService:MultiContainerVolumes:Types"
     );
     MountService.MountService.registerComponent(
-      getVolumeTypes,
+      VolumeTypeSelect,
       "CreateService:SingleContainerVolumes:Types"
     );
     // Hooks.addFilter etc.
