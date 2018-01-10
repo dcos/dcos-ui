@@ -18,6 +18,9 @@ import OperatorTypes from "#PLUGINS/services/src/js/constants/OperatorTypes";
 import PlacementConstraintsUtil
   from "#PLUGINS/services/src/js/utils/PlacementConstraintsUtil";
 
+// &nbsp; to space the table rows
+const NBSP = "\u00A0";
+
 export default class PlacementConstraintsPartial extends Component {
   getPlacementConstraintLabel(name) {
     return (
@@ -89,6 +92,8 @@ export default class PlacementConstraintsPartial extends Component {
         />
       );
 
+      const isLastField = index === data.length - 1;
+
       return (
         <FormRow key={index}>
           <FormGroup
@@ -119,10 +124,12 @@ export default class PlacementConstraintsPartial extends Component {
                 );
               })}
             </Select>
-            <FieldHelp>
-              Specify where your app will run.
-            </FieldHelp>
-            <FieldError>{operatorError}</FieldError>
+
+            {operatorError && <FieldError>{operatorError}</FieldError>}
+            {!operatorError &&
+              <FieldHelp>
+                {isLastField ? "Specify where your app will run." : NBSP}
+              </FieldHelp>}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -136,10 +143,9 @@ export default class PlacementConstraintsPartial extends Component {
               placeholder="hostname"
               value={constraint.fieldName}
             />
-            <FieldHelp>
-              E.g hostname.
-            </FieldHelp>
-            <FieldError>{fieldNameError}</FieldError>
+            {fieldNameError && <FieldError>{fieldNameError}</FieldError>}
+            {!fieldNameError &&
+              <FieldHelp>{isLastField ? "E.g hostname." : NBSP}</FieldHelp>}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -153,14 +159,16 @@ export default class PlacementConstraintsPartial extends Component {
                   OperatorTypes[constraint.operator].tooltipContent
                 )
               : fieldValue}
-            <FieldHelp>
-              {OperatorTypes[constraint.operator]
-                ? OperatorTypes[constraint.operator].helpContent
-                : "A string, integer or regex value."}
-            </FieldHelp>
-            <FieldError className={{ hidden: hideValueColumn }}>
-              {valueError}
-            </FieldError>
+            {valueError &&
+              <FieldError className={{ hidden: hideValueColumn }}>
+                {valueError}
+              </FieldError>}
+            {!valueError &&
+              <FieldHelp>
+                {isLastField ? "A string, integer or regex value. " : NBSP}
+                {OperatorTypes[constraint.operator] &&
+                  OperatorTypes[constraint.operator].helpContent}
+              </FieldHelp>}
           </FormGroup>
 
           <FormGroup applyLabelOffset={index === 0} hasNarrowMargins={true}>
