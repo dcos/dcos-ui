@@ -1,6 +1,7 @@
 import { Tooltip } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
+import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -16,6 +17,7 @@ import FormGroupHeadingContent
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import { omit } from "#SRC/js/utils/Util";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import {
@@ -74,6 +76,26 @@ class MultiContainerVolumesFormSection extends Component {
     });
   }
 
+  getUnknownVolumeConfig(volumes, key, offset) {
+    return (
+      <MountService.Mount
+        type="CreateService:MultiContainerVolumes:UnknownVolumes"
+        volumes={volumes}
+        index={key}
+        offset={offset}
+        data={this.props.data}
+        errors={this.props.errors}
+      >
+        <FieldLabel>
+          Unable to edit this Volume
+        </FieldLabel>
+        <pre>
+          {JSON.stringify(omit(volumes, ["type"]), null, 2)}
+        </pre>
+      </MountService.Mount>
+    );
+  }
+
   /**
    * getExternalVolumesLines
    *
@@ -95,8 +117,15 @@ class MultiContainerVolumesFormSection extends Component {
         path: "volumeMounts"
       });
 
-      if (volumes.type === VolumeConstants.type.unknown) {
-        return null;
+      if (
+        volumes.type === VolumeConstants.type.unknown ||
+        volumes.type === VolumeConstants.type.dss
+      ) {
+        return (
+          <FormGroupContainer key={key} onRemove={removeHandler}>
+            {this.getUnknownVolumeConfig(volumes, key, offset)}
+          </FormGroupContainer>
+        );
       }
 
       return (
@@ -110,19 +139,25 @@ class MultiContainerVolumesFormSection extends Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <FieldSelect
-                name={`volumeMounts.${key}.type`}
-                value={volumes.type}
+              <MountService.Mount
+                type="CreateService:MultiContainerVolumes:Types"
+                volumes={volumes}
+                index={key}
               >
-                <option>Select...</option>
-                <option value={VolumeConstants.type.host}>Host Volume</option>
-                <option value={VolumeConstants.type.ephemeral}>
-                  Ephemeral Volume
-                </option>
-                <option value={VolumeConstants.type.localPersistent}>
-                  Local Persistent Volume
-                </option>
-              </FieldSelect>
+                <FieldSelect
+                  name={`volumeMounts.${key}.type`}
+                  value={volumes.type}
+                >
+                  <option value="">Select...</option>
+                  <option value={VolumeConstants.type.host}>Host Volume</option>
+                  <option value={VolumeConstants.type.ephemeral}>
+                    Ephemeral Volume
+                  </option>
+                  <option value={VolumeConstants.type.localPersistent}>
+                    Local Persistent Volume
+                  </option>
+                </FieldSelect>
+              </MountService.Mount>
             </FormGroup>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
@@ -184,7 +219,7 @@ class MultiContainerVolumesFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Size (GiB)
+                Size (MiB)
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
