@@ -160,7 +160,7 @@ class MultiContainerVolumesFormSection extends Component {
                         <SelectOption
                           key={index}
                           value={type}
-                          label={VolumeDefinitions[type].type}
+                          label={VolumeDefinitions[type].name}
                         >
                           <span className="dropdown-select-item-title">
                             {VolumeDefinitions[type].name}
