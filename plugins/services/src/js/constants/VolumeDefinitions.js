@@ -15,7 +15,7 @@ var VolumeDefinitions = {
     description: "A REX-Ray backed volume that is mounted on the agent from network attached storage."
   },
   HOST: {
-    name: "Host Persistent Volume",
+    name: "Host Volume",
     type: "Host",
     description: "Map a directory on the host into one or more containers running on the same host."
   },
