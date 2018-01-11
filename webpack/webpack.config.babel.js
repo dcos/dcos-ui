@@ -77,7 +77,6 @@ module.exports = {
                 return `
                   <div class="application-preloader">
                     <div class="application-preloader-spinner"></div>
-                    <div class="application-preloader-logo"></div>
                   </div>`;
               }
             }
