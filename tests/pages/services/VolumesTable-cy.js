@@ -27,9 +27,9 @@ describe("Volumes", function() {
         );
         expect(children[1].textContent).to.equal("10.0.2.93");
         expect(children[2].textContent).to.equal("Persistent");
-        expect(children[3].textContent).to.equal("data-1");
-        expect(children[4].textContent).to.equal("1");
-        expect(children[5].textContent).to.equal("RW");
+        expect(children[3].textContent).to.equal("Not Available");
+        expect(children[4].textContent).to.equal("data-1");
+        expect(children[5].textContent).to.equal("1");
         expect(children[6].textContent).to.equal("Attached");
       });
     });

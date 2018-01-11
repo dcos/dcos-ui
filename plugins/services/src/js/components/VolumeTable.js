@@ -24,9 +24,9 @@ class VolumeTable extends React.Component {
         id: volume.getId(),
         host: volume.getHost(),
         type: volume.getType(),
+        profile: volume.getProfile(),
         path: volume.getContainerPath(),
         size: volume.getSize(),
-        mode: volume.getMode(),
         status: volume.getStatus()
       };
     });
@@ -40,7 +40,6 @@ class VolumeTable extends React.Component {
         <col style={{ width: "10%" }} />
         <col style={{ width: "10%" }} />
         <col style={{ width: "10%" }} />
-        <col style={{ width: "5%" }} />
         <col style={{ width: "10%" }} />
       </colgroup>
     );
@@ -49,7 +48,8 @@ class VolumeTable extends React.Component {
   getColumnClassName(prop, sortBy, row) {
     return classNames({
       active: prop === sortBy.prop,
-      clickable: row == null
+      clickable: row == null,
+      "text-overflow": prop === "profile"
     });
   }
 
@@ -62,10 +62,10 @@ class VolumeTable extends React.Component {
     const headingStrings = {
       id: "ID",
       host: "Host",
-      type: "Type",
+      type: "Volume Type",
+      profile: "Volume Profile",
       path: "Path",
       size: "Size",
-      mode: "Mode",
       status: "Status"
     };
 
@@ -101,6 +101,12 @@ class VolumeTable extends React.Component {
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
+        prop: "profile",
+        sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: this.getColumnHeading,
         prop: "path",
         sortable: true
       },
@@ -108,12 +114,6 @@ class VolumeTable extends React.Component {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "size",
-        sortable: true
-      },
-      {
-        className: this.getColumnClassName,
-        heading: this.getColumnHeading,
-        prop: "mode",
         sortable: true
       },
       {

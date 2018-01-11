@@ -1,6 +1,7 @@
 const Volume = require("../Volume");
 const VolumeStatus = require("../../constants/VolumeStatus");
 const VolumeTypes = require("../../constants/VolumeTypes");
+const VolumeProfile = require("../../constants/VolumeProfile");
 
 describe("Volume", function() {
   describe("#getContainerPath", function() {
@@ -40,6 +41,22 @@ describe("Volume", function() {
       });
 
       expect(service.getMode()).toEqual("rw");
+    });
+  });
+
+  describe("#getType", function() {
+    it("should return unavailable if no profile is defined", function() {
+      const service = new Volume({});
+
+      expect(service.getProfile()).toEqual(VolumeProfile.UNAVAILABLE);
+    });
+
+    it("returns correct profile", function() {
+      const service = new Volume({
+        profileName: "SSD"
+      });
+
+      expect(service.getProfile()).toEqual("SSD");
     });
   });
 
