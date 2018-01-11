@@ -210,9 +210,114 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
       ]
     }
     ```
+
 ## Testing
 
-Testing section to move here
+**Why is testing necessary?** 
+
+Many of us like to sleep at night. So to give us peace of mind when we release a
+new version of our software, we want to guarantee that the application works as it should, always. To accomplish this, we write two kinds of tests that will ensure that our applications behave as it should even as we add new features.
+
+## Organizing Tests
+
+It is common practice, to group automated tests in categories concerning how broad their scope is, and their execution requirements, that is often called the pyramid of testing (link reference). In DC/OS UI we use three levels of testing: Unit, Integration, and System.
+
+Unit Tests (link) are intended to verify functionality at the minimal level of isolation, for that purpose, they tend to be small, and mock/stub all its dependencies. They also tend to execute fast and in a reliable way.
+
+A system is often composed of a collection of components, that when tested in isolation perform correctly, but fail to do so together since specific problems only arise due to particular patterns of interaction between those elements. 
+
+Integration Tests (link) verify that those well-tested units do not fail when they interact with other parts of the system. When it comes to their execution, they tend to be harder to set up, more complex, slower than unit tests and it is often harder to exercise all possible scenarios. Those tests still rely on mocks/stubs for external services, or to create situations that do not come very often. They are also more prone to failure because of the environments they execute.
+
+While Integration Tests looks for the composition of the system,  System tests(link) try to be as close as possible to a real system (in the case of DC/OS, against a real cluster). They are harder to setup because of their need for many real running components, they tend to be slower and more often prone to fail ocasionaly due to network issues and latency.
+
+## Unit Tests
+
+To ensure that individual units of code (functions/methods) return the expected results with different inputs we write Unit Tests.
+
+Think of a `sum` function. When called as `sum(1)` we may expect a return value of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when called with no arguments, we may expect the result to fail with an error.
+
+
+
+**Why testing code matters?** 
+
+Many of us like to sleep at night. So to give us peace of mind when we release a 
+new version of our software, we want to guarantee that the application works as 
+it should, always. To accomplish this we write two kinds of tests that will 
+ensure that our applications behaves as it should even as we add new features.
+
+## Unit Tests
+
+These tests ensure that individual units of code (functions/methods) return the 
+expected results with different inputs.
+Think of a `sum` function. When called as `sum(1)` we may expect a return value 
+of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when
+ called with no arguments, we may expect an error to be thrown.
+
+### Running Unit Tests
+
+Make sure your packages are up to date by running `npm install`, and then run 
+tests with:
+
+```sh
+npm test
+```
+
+## Integration Tests
+
+We want to guarantee that our project DC/OS UI works as it should within DC/OS 
+as a product. To do this we want our integration tests to run against a DC/OS 
+cluster. For example we want to test that when an slave fails in a cluster, 
+the UI visually shows this slave failure. A different example is validating 
+that when a new service is installed on a cluster it will show up in the services page.
+
+### Integration Tests Setup
+
+1. Install Cypress CLI
+
+  ```sh
+  npm install -g cypress-cli
+  ```
+
+2. Install Cypress desktop app
+
+  ```sh
+  cypress install
+  ```
+
+3. Open Cypress
+
+  ```sh
+  cypress open
+  ```
+
+  This should show a new icon on your desktop menu bar.
+
+  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-desktop-icon.png?raw=true)
+
+4. Login with Github. Click on the icon on your desktop menu bar and login.
+
+  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-login.png?raw=true)
+
+5. Add project to Cypress app
+
+  Once you've logged in click on the plus button and add the `dcos-ui` folder.
+
+  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
+
+### Running Integration Tests
+
+1. Serve the integration test environment:
+
+  ```sh
+  npm run testing
+  ```
+
+2. Click on the project in the Cypress app to start the server
+
+  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-project.png?raw=true)
+
+  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-server-running.png?raw=true)
+
 
 ## i18n
 
