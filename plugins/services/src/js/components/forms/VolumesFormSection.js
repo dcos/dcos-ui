@@ -363,9 +363,16 @@ class VolumesFormSection extends Component {
                           value={type}
                           label={VolumeDefinitions[type].name}
                         >
-                          <span className="dropdown-select-item-title">
-                            {VolumeDefinitions[type].name}
-                          </span>
+                          <div className="dropdown-select-item-title">
+                            <span>
+                              {VolumeDefinitions[type].name}
+                            </span>
+                            {VolumeDefinitions[type].recommended
+                              ? <span className="dropdown-select-item-title__badge badge">
+                                  Recommended
+                                </span>
+                              : null}
+                          </div>
                           <span className="dropdown-select-item-description">
                             {VolumeDefinitions[type].description}
                           </span>

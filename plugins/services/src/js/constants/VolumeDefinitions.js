@@ -1,13 +1,14 @@
 var VolumeDefinitions = {
   DSS: {
-    name: "DC/OS Storage Service",
+    name: "DC/OS Storage Volume",
     type: "DC/OS",
     description: "A locally persistent volume pre-created by the operator according to a storage profile."
   },
   PERSISTENT: {
     name: "Local Persistent Volume",
     type: "Persistent",
-    description: "A locally persistent volume based upon the physical disks installed in the agent which has the capabilities of a single disk."
+    description: "A locally persistent volume based upon the physical disks installed in the agent which has the capabilities of a single disk.",
+    recommended: true
   },
   EXTERNAL: {
     name: "External Persistent Volume",
@@ -17,7 +18,7 @@ var VolumeDefinitions = {
   HOST: {
     name: "Host Volume",
     type: "Host",
-    description: "Map a directory on the host into one or more containers running on the same host."
+    description: "A host volume is a directory on the the local agent mapped to one in a container."
   },
   EPHEMERAL: {
     name: "Ephemeral Storage",
