@@ -211,40 +211,50 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
     }
     ```
 
-## Testing
-
 **Why is testing necessary?** 
 
 Many of us like to sleep at night. So to give us peace of mind when we release a
-new version of our software, we want to guarantee that the application works as it should, always. To accomplish this, we write two kinds of tests that will ensure that our applications behave as it should even as we add new features.
+new version of our software, we want to guarantee that the application works as 
+it should, always. To accomplish this, we write two kinds of tests that will 
+ensure that our applications behave as it should even as we add new features.
 
 ## Organizing Tests
 
-It is common practice, to group automated tests in categories concerning how broad their scope is, and their execution requirements, that is often called the pyramid of testing (link reference). In DC/OS UI we use three levels of testing: Unit, Integration, and System.
+It is common practice, to group automated tests in categories concerning how 
+broad their scope is, and their execution requirements, that is often called the 
+[testing pyramid](https://martinfowler.com/bliki/TestPyramid.html). In DC/OS UI 
+we use three levels of testing: Unit, Integration, and System.
 
-Unit Tests (link) are intended to verify functionality at the minimal level of isolation, for that purpose, they tend to be small, and mock/stub all its dependencies. They also tend to execute fast and in a reliable way.
+[Unit Tests](#unit-testing) are intended to verify functionality at the minimal 
+level of isolation, for that purpose, they tend to be small, and mock/stub all 
+its dependencies. They also tend to execute fast and in a reliable way.
 
-A system is often composed of a collection of components, that when tested in isolation perform correctly, but fail to do so together since specific problems only arise due to particular patterns of interaction between those elements. 
+A system is often composed of a collection of components, that when tested in 
+isolation perform correctly, but fail to do so together since specific problems 
+only arise due to particular patterns of interaction between those elements. 
 
-Integration Tests (link) verify that those well-tested units do not fail when they interact with other parts of the system. When it comes to their execution, they tend to be harder to set up, more complex, slower than unit tests and it is often harder to exercise all possible scenarios. Those tests still rely on mocks/stubs for external services, or to create situations that do not come very often. They are also more prone to failure because of the environments they execute.
+[Integration Tests](#integration-testing) verify that those well-tested units 
+do not fail when they interact with other parts of the system. When it comes to 
+their execution, they tend to be harder to set up, more complex, slower than 
+unit tests and it is often harder to exercise all possible scenarios. Those 
+tests still rely on mocks/stubs for external services, or to create situations 
+that do not come very often. They are also more prone to failure because of the 
+environments they execute.
 
-While Integration Tests looks for the composition of the system,  System tests(link) try to be as close as possible to a real system (in the case of DC/OS, against a real cluster). They are harder to setup because of their need for many real running components, they tend to be slower and more often prone to fail ocasionaly due to network issues and latency.
+While Integration Tests looks for the composition of the system, 
+[System tests](#system-testing) try to be as close as possible to a real system 
+(in the case of DC/OS, against a real cluster). They are harder to setup im 
+comparison to unit test since they do not fake the components they deppend on. 
+That also contribute to them being slower and more often prone to fail 
+occasionally due to network issues and latency.
 
-## Unit Tests
-
-To ensure that individual units of code (functions/methods) return the expected results with different inputs we write Unit Tests.
-
-Think of a `sum` function. When called as `sum(1)` we may expect a return value of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when called with no arguments, we may expect the result to fail with an error.
-
-
-
-**Why testing code matters?** 
-
-Many of us like to sleep at night. So to give us peace of mind when we release a 
-new version of our software, we want to guarantee that the application works as 
-it should, always. To accomplish this we write two kinds of tests that will 
-ensure that our applications behaves as it should even as we add new features.
-
+While Integration Tests looks for the composition of the system, 
+[System tests](#system-testing) try to be as close as possible to a real system 
+(in the case of DC/OS, against a real cluster). They are harder to set up in 
+comparison to unit test since they do not fake the components they depend on. 
+That also contributed to them being slower and more often prone to fail 
+occasionally due to network issues and latency.
+ 
 ## Unit Tests
 
 These tests ensure that individual units of code (functions/methods) return the 
