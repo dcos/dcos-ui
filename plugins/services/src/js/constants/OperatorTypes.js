@@ -1,5 +1,3 @@
-const OPTIONAL_HELP = "optional";
-
 const OperatorTypes = {
   UNIQUE: {
     requiresValue: false,
@@ -22,7 +20,6 @@ const OperatorTypes = {
     requiresEmptyValue: false,
     stringNumberValue: true,
     tooltipContent: null,
-    helpContent: OPTIONAL_HELP,
     name: "Group By",
     description: "Run app tasks evenly distributed across a certain attribute"
   },

@@ -164,7 +164,10 @@ export default class PlacementConstraintsPartial extends Component {
             {!valueError &&
               <FieldHelp>
                 {isLastField ? "A string, integer or regex value. " : NBSP}
-                {typeSettings && typeSettings.helpContent}
+                {typeSettings &&
+                  !typeSettings.requiresValue &&
+                  !typeSettings.requiresEmptyValue &&
+                  "This field is optional."}
               </FieldHelp>}
           </FormGroup>
 
