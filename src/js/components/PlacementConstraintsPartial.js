@@ -93,6 +93,7 @@ export default class PlacementConstraintsPartial extends Component {
       );
 
       const isLastField = index === data.length - 1;
+      const typeSettings = OperatorTypes[constraint.operator];
 
       return (
         <FormRow key={index}>
@@ -154,10 +155,7 @@ export default class PlacementConstraintsPartial extends Component {
           >
             {valueLabel}
             {valueIsRequiredEmpty
-              ? this.getToolTip(
-                  fieldValue,
-                  OperatorTypes[constraint.operator].tooltipContent
-                )
+              ? this.getToolTip(fieldValue, typeSettings.tooltipContent)
               : fieldValue}
             {valueError &&
               <FieldError className={{ hidden: hideValueColumn }}>
@@ -166,8 +164,7 @@ export default class PlacementConstraintsPartial extends Component {
             {!valueError &&
               <FieldHelp>
                 {isLastField ? "A string, integer or regex value. " : NBSP}
-                {OperatorTypes[constraint.operator] &&
-                  OperatorTypes[constraint.operator].helpContent}
+                {typeSettings && typeSettings.helpContent}
               </FieldHelp>}
           </FormGroup>
 
