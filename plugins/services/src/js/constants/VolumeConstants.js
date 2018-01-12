@@ -2,7 +2,7 @@ module.exports = {
   type: {
     host: "HOST",
     ephemeral: "EPHEMERAL",
-    localPersistent: "LOCAL_PERSISTENT",
+    localPersistent: "PERSISTENT",
     dss: "DSS",
     unknown: "UNKNOWN"
   },

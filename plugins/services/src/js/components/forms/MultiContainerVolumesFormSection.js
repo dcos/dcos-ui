@@ -1,4 +1,4 @@
-import { Tooltip } from "reactjs-components";
+import { Tooltip, Select, SelectOption } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
@@ -8,7 +8,6 @@ import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
-import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -19,6 +18,9 @@ import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { omit } from "#SRC/js/utils/Util";
 
+import VolumeDefinitions
+  from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import {
   FormReducer as volumeMounts
@@ -26,6 +28,7 @@ import {
 import VolumeConstants from "../../constants/VolumeConstants";
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
+const excludedTypes = ["DSS", "EXTERNAL"];
 
 class MultiContainerVolumesFormSection extends Component {
   getContainerMounts(containers, volumeMountIndex) {
@@ -131,7 +134,7 @@ class MultiContainerVolumesFormSection extends Component {
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
           <FormRow>
-            <FormGroup className="column-6" showError={false}>
+            <FormGroup className="column-5" showError={false}>
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -144,19 +147,38 @@ class MultiContainerVolumesFormSection extends Component {
                 volumes={volumes}
                 index={key}
               >
-                <FieldSelect
+
+                <Select
                   name={`volumeMounts.${key}.type`}
                   value={volumes.type}
+                  placeholder="Select ..."
                 >
-                  <option value="">Select...</option>
-                  <option value={VolumeConstants.type.host}>Host Volume</option>
-                  <option value={VolumeConstants.type.ephemeral}>
-                    Ephemeral Volume
-                  </option>
-                  <option value={VolumeConstants.type.localPersistent}>
-                    Local Persistent Volume
-                  </option>
-                </FieldSelect>
+                  {Object.keys(VolumeDefinitions)
+                    .filter(type => !excludedTypes.includes(type))
+                    .map((type, index) => {
+                      return (
+                        <SelectOption
+                          key={index}
+                          value={type}
+                          label={VolumeDefinitions[type].name}
+                        >
+                          <div className="dropdown-select-item-title">
+                            <span>
+                              {VolumeDefinitions[type].name}
+                            </span>
+                            {VolumeDefinitions[type].recommended
+                              ? <span className="dropdown-select-item-title__badge badge">
+                                  Recommended
+                                </span>
+                              : null}
+                          </div>
+                          <span className="dropdown-select-item-description">
+                            {VolumeDefinitions[type].description}
+                          </span>
+                        </SelectOption>
+                      );
+                    })}
+                </Select>
               </MountService.Mount>
             </FormGroup>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
