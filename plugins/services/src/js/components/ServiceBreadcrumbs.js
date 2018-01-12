@@ -121,7 +121,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     const serviceStatus = service.getStatus();
     const tasksSummary = service.getTasksSummary();
-    const runningTasksCount = service.getTaskCount();
+    const runningTasksCount = service.getRunningInstancesCount();
     const instancesCount = service.getInstancesCount();
     const isDeploying = serviceStatus === "Deploying";
 

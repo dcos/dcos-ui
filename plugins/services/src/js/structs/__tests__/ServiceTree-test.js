@@ -764,7 +764,7 @@ describe("ServiceTree", function() {
     });
   });
 
-  describe("#getTaskCount", function() {
+  describe("#getRunningInstancesCount", function() {
     const fooService = new Application();
     const barService = new Application({
       tasks: [{ foo: "bar" }, { bar: "baz" }]
@@ -780,7 +780,7 @@ describe("ServiceTree", function() {
       serviceTree.add(barService);
       serviceTree.add(bazService);
 
-      expect(serviceTree.getTaskCount()).toEqual(3);
+      expect(serviceTree.getRunningInstancesCount()).toEqual(3);
     });
   });
 

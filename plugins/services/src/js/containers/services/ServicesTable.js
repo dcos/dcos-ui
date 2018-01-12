@@ -346,7 +346,7 @@ class ServicesTable extends React.Component {
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
     const { key: serviceStatusKey } = service.getServiceStatus();
     const tasksSummary = service.getTasksSummary();
-    const tasksRunning = service.getTaskCount();
+    const tasksRunning = service.getRunningInstancesCount();
     const isDeploying =
       serviceStatusKey === ServiceStatusTypes.WAITING ||
       serviceStatusKey === ServiceStatusTypes.DEPLOYING;
@@ -388,6 +388,29 @@ class ServicesTable extends React.Component {
       <span>
         {Units.formatResource(prop, resource)}
       </span>
+    );
+  }
+
+  renderInstances(prop, service) {
+    const instancesCount = service.getInstancesCount();
+    const runningInstances = service.getRunningInstancesCount();
+    const overview = runningInstances === instancesCount
+      ? ` ${runningInstances}`
+      : ` ${runningInstances}/${instancesCount}`;
+
+    const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
+    const tooltipContent = (
+      <span>
+        {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`}
+      </span>
+    );
+
+    return (
+      <Tooltip content={tooltipContent}>
+        <span>
+          {content}
+        </span>
+      </Tooltip>
     );
   }
 
