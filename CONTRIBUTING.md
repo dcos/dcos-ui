@@ -243,27 +243,24 @@ environments they execute.
 
 While Integration Tests looks for the composition of the system, 
 [System tests](#system-testing) try to be as close as possible to a real system 
-(in the case of DC/OS, against a real cluster). They are harder to setup im 
-comparison to unit test since they do not fake the components they deppend on. 
-That also contribute to them being slower and more often prone to fail 
-occasionally due to network issues and latency.
-
-While Integration Tests looks for the composition of the system, 
-[System tests](#system-testing) try to be as close as possible to a real system 
 (in the case of DC/OS, against a real cluster). They are harder to set up in 
 comparison to unit test since they do not fake the components they depend on. 
 That also contributed to them being slower and more often prone to fail 
-occasionally due to network issues and latency.
- 
+occasionally, for example, because of network issues like latency.
+
 ## Unit Tests
 
-These tests ensure that individual units of code (functions/methods) return the 
-expected results with different inputs.
+To ensure that individual units of code (functions/methods) return the expected 
+results with different inputs we write Unit Tests.
+
 Think of a `sum` function. When called as `sum(1)` we may expect a return value 
 of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when
- called with no arguments, we may expect an error to be thrown.
+ called with no arguments, we may expect the result to fail with an error.
 
 ### Running Unit Tests
+
+Before you run any test, make sure you have set up your environment 
+(setup link).
 
 Make sure your packages are up to date by running `npm install`, and then run 
 tests with:
@@ -272,6 +269,57 @@ tests with:
 npm test
 ```
 
+Use `test:watch` if you want the tests to run automatically on change:
+
+
+
+```sh
+npm run test:watch
+```
+
+You can even pass parameters to the test engine (in this case jest), when you, 
+for instance, want to run a single spec, for instance, `MesosStateUtil`
+
+```sh
+npm run test -- --watch MesosStateUtil
+```
+
+### Example of a Unit Test
+
+This test verifies that unit `decomposePodTaskId` when given the input string 
+"podname.instance-instancename.taskname" returns an object with the `podID`, 
+`instanceID` and `taskName respectively`. 
+
+```js
+  describe("#decomposePodTaskId", function() {
+    it("should correctly de-compose", function() {
+      expect(
+        MesosStateUtil.decomposePodTaskId(
+          "podname.instance-instancename.taskname"
+        )
+      ).toEqual({
+        podID: "podname",
+        instanceID: "instancename",
+        taskName: "taskname"
+      });
+    });
+  });
+```
+
+### Writing Unit Tests
+
+A recommended reading is [Better Specs](http://www.betterspecs.org/), we put 
+[real effort](https://github.com/dcos/dcos-ui/pull/2524) in making sure we 
+follow these guidelines. Some of the most common ones to follow:
+
+- Single Expectation test: Every unit test should verify one behavior (and one behavior only).
+- Keep your descriptions concise (bellow 40 chars ideally): One easy way to achieve this one is avoiding using "should" (e.g. "it does not use should"  instead of "it should not be written with should")
+- Create only the data you need: Especially if you have a more complicated scenario, just generate the data that is relevant to that particular case.
+
+For more on this topic, and examples we recommend 
+[Better Specs](http://www.betterspecs.org/).
+
+ 
 ## Integration Tests
 
 We want to guarantee that our project DC/OS UI works as it should within DC/OS 
