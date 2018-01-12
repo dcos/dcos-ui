@@ -23,12 +23,16 @@ class NodesTable extends PureComponent {
   constructor() {
     super();
     this.displayName = "NodesTable";
+
+    this.renderHealth = this.renderHealth.bind(this);
+    this.renderRegion = this.renderRegion.bind(this);
   }
 
   renderRegion(_prop, node) {
     return (
       <span>
         {node.getRegionName()}
+        {this.props.masterRegion === node.getRegionName() ? " (Local)" : null}
       </span>
     );
   }
@@ -250,12 +254,14 @@ class NodesTable extends PureComponent {
 
 NodesTable.propTypes = {
   hosts: PropTypes.instanceOf(NodesList).isRequired,
-  nodeHealthResponse: PropTypes.bool
+  nodeHealthResponse: PropTypes.bool,
+  masterRegion: PropTypes.string
 };
 
 NodesTable.defaultProps = {
   hosts: new NodesList([]),
-  nodeHealthResponse: false
+  nodeHealthResponse: false,
+  masterRegion: ""
 };
 
 module.exports = NodesTable;
