@@ -203,7 +203,7 @@ describe("Services", function() {
         .should("have.value", "test");
     });
 
-    it("create an app that is persistent after suspension", function() {
+    it.skip("create an app that is persistent after suspension", function() {
       // This service is created using the external-volumes/setup script
       const serviceName = "external-volumes-single";
       const message = `TEST_OUTPUT_${Cypress.env("TEST_UUID")}`;

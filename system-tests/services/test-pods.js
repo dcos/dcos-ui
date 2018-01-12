@@ -1906,7 +1906,7 @@ describe("Services", function() {
       cy.get('input[name="labels.3.value"]').should("have.value", "test");
     });
 
-    it("should create a pod with communicating services", function() {
+    it.skip("should create a pod with communicating services", function() {
       const serviceName = "pod-with-communicating-services";
       const searchString = "Thank you for using nginx";
 
