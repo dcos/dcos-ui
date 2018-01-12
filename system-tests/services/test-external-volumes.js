@@ -157,13 +157,6 @@ describe("Services", function() {
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      // Get the table row and wait until it's Running
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
-
       // Now click on the name
       cy
         .get(".page-body-content table")

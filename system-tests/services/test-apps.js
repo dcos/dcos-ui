@@ -357,7 +357,7 @@ describe("Services", function() {
         .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
     });
 
-    it("should create an app with command health check", function() {
+    it.skip("should create an app with command health check", function() {
       const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
@@ -1352,7 +1352,7 @@ describe("Services", function() {
       cy.get('input[name="env.3.value"]').should("have.value", "test");
     });
 
-    it("should create an app with HTTP health check", function() {
+    it.skip("should create an app with HTTP health check", function() {
       const serviceName = "app-with-http-health-check";
 
       // Select 'Single Container'
