@@ -1,8 +1,7 @@
 import classNames from "classnames";
+import React, { PureComponent } from "react";
 import { Link } from "react-router";
-import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
-import React from "react";
 import { Table, Tooltip } from "reactjs-components";
 
 import NodesList from "#SRC/js/structs/NodesList";
@@ -20,20 +19,11 @@ const COLOR_CLASSNAMES = {
   disk: "color-3"
 };
 
-var NodesTable = React.createClass({
-  displayName: "NodesTable",
-
-  mixins: [PureRender],
-
-  propTypes: {
-    hosts: PropTypes.instanceOf(NodesList).isRequired
-  },
-
-  getDefaultProps() {
-    return {
-      hosts: new NodesList([])
-    };
-  },
+class NodesTable extends PureComponent {
+  constructor() {
+    super();
+    this.displayName = "NodesTable";
+  }
 
   renderRegion(_prop, node) {
     return (
@@ -41,7 +31,7 @@ var NodesTable = React.createClass({
         {node.getRegionName()}
       </span>
     );
-  },
+  }
 
   renderZone(_prop, node) {
     return (
@@ -49,7 +39,7 @@ var NodesTable = React.createClass({
         {node.getZoneName()}
       </span>
     );
-  },
+  }
 
   renderHeadline(prop, node) {
     let headline = node.get(prop);
@@ -74,10 +64,10 @@ var NodesTable = React.createClass({
         {headline}
       </Link>
     );
-  },
+  }
 
   renderHealth(prop, node) {
-    const requestReceived = this.props.receivedNodeHealthResponse;
+    const requestReceived = this.props.nodeHealthResponse;
 
     if (!requestReceived) {
       return <Loader size="small" type="ballBeat" />;
@@ -90,7 +80,7 @@ var NodesTable = React.createClass({
         {health.title}
       </span>
     );
-  },
+  }
 
   renderTask(prop, node) {
     return (
@@ -98,7 +88,7 @@ var NodesTable = React.createClass({
         {node[prop]}
       </span>
     );
-  },
+  }
 
   renderStats(prop, node) {
     var value = node.getUsageStats(prop).percentage;
@@ -113,7 +103,7 @@ var NodesTable = React.createClass({
         <span className="label">{value}%</span>
       </span>
     );
-  },
+  }
 
   getColumns() {
     const className = ResourceTableUtil.getClassName;
@@ -215,7 +205,7 @@ var NodesTable = React.createClass({
         heading
       }
     ];
-  },
+  }
 
   getColGroup() {
     return (
@@ -230,7 +220,7 @@ var NodesTable = React.createClass({
         <col className="hidden-small-down" />
       </colgroup>
     );
-  },
+  }
 
   getRowAttributes(node) {
     return {
@@ -238,7 +228,7 @@ var NodesTable = React.createClass({
         danger: node.isActive() === false
       })
     };
-  },
+  }
 
   render() {
     const { hosts } = this.props;
@@ -256,6 +246,16 @@ var NodesTable = React.createClass({
       />
     );
   }
-});
+}
+
+NodesTable.propTypes = {
+  hosts: PropTypes.instanceOf(NodesList).isRequired,
+  nodeHealthResponse: PropTypes.bool
+};
+
+NodesTable.defaultProps = {
+  hosts: new NodesList([]),
+  nodeHealthResponse: false
+};
 
 module.exports = NodesTable;

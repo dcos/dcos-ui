@@ -65,7 +65,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     return (
       <NodesTable
         hosts={filteredNodes}
-        receivedNodeHealthResponse={receivedNodeHealthResponse}
+        nodeHealthResponse={receivedNodeHealthResponse}
       />
     );
   }
