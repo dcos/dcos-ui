@@ -1,4 +1,4 @@
-import { Tooltip } from "reactjs-components";
+import { Tooltip, Select, SelectOption } from "reactjs-components";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
@@ -19,6 +19,9 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
+import VolumeDefinitions
+  from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+
 import ContainerConstants from "../../constants/ContainerConstants";
 
 import {
@@ -28,6 +31,7 @@ import {
 const { type: { DOCKER } } = ContainerConstants;
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
+const excludedTypes = ["EPHEMERAL", "DSS"];
 
 class VolumesFormSection extends Component {
   getPersistentVolumeConfig(volume, key) {
@@ -332,7 +336,7 @@ class VolumesFormSection extends Component {
           })}
         >
           <FormRow>
-            <FormGroup className="column-4" showError={Boolean(typeError)}>
+            <FormGroup className="column-5" showError={Boolean(typeError)}>
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
@@ -345,14 +349,37 @@ class VolumesFormSection extends Component {
                 volume={volume}
                 index={key}
               >
-                <FieldSelect name={`volumes.${key}.type`} value={volume.type}>
-                  <option value="">Select...</option>
-                  <option value="HOST">
-                    Host Volume
-                  </option>
-                  <option value="PERSISTENT">Persistent Volume</option>
-                  <option value="EXTERNAL">External Volume</option>
-                </FieldSelect>
+                <Select
+                  name={`volumes.${key}.type`}
+                  value={volume.type}
+                  placeholder="Select ..."
+                >
+                  {Object.keys(VolumeDefinitions)
+                    .filter(type => !excludedTypes.includes(type))
+                    .map((type, index) => {
+                      return (
+                        <SelectOption
+                          key={index}
+                          value={type}
+                          label={VolumeDefinitions[type].name}
+                        >
+                          <div className="dropdown-select-item-title">
+                            <span>
+                              {VolumeDefinitions[type].name}
+                            </span>
+                            {VolumeDefinitions[type].recommended
+                              ? <span className="dropdown-select-item-title__badge badge">
+                                  Recommended
+                                </span>
+                              : null}
+                          </div>
+                          <span className="dropdown-select-item-description">
+                            {VolumeDefinitions[type].description}
+                          </span>
+                        </SelectOption>
+                      );
+                    })}
+                </Select>
               </MountService.Mount>
             </FormGroup>
           </FormRow>

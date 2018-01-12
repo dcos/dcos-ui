@@ -1,4 +1,4 @@
-import VolumeTypes from "../constants/VolumeTypes";
+import VolumeDefinitions from "../constants/VolumeDefinitions";
 import VolumeStatus from "../constants/VolumeStatus";
 
 function parseApp(app) {
@@ -34,7 +34,7 @@ function parseApp(app) {
             id: external.name,
             mode,
             status: VolumeStatus.UNAVAILABLE,
-            type: VolumeTypes.EXTERNAL
+            type: VolumeDefinitions.EXTERNAL.type
           },
           external
         )
@@ -45,7 +45,7 @@ function parseApp(app) {
       const { size } = persistent;
 
       volumeDefinitionMap.set(containerPath, {
-        type: VolumeTypes.PERSISTENT,
+        type: VolumeDefinitions.PERSISTENT.type,
         mode,
         size
       });
