@@ -219,14 +219,14 @@ var NodesTable = React.createClass({
   getColGroup() {
     return (
       <colgroup>
-        <col />
-        <col />
-        <col />
-        <col style={{ width: "150px" }} />
-        <col style={{ width: "90px" }} />
-        <col className="hidden-small-down" />
-        <col className="hidden-small-down" />
-        <col className="hidden-small-down" />
+        <col className="node-table--col-hostname" />
+        <col className="node-table--col-region" />
+        <col className="node-table--col-zone" />
+        <col className="node-table--col-health" />
+        <col className="node-table--col-tasks" />
+        <col className="node-table--col-cpus hidden-small-down" />
+        <col className="node-table--col-mem hidden-small-down" />
+        <col className="node-table--col-disk hidden-small-down" />
       </colgroup>
     );
   },
@@ -245,7 +245,7 @@ var NodesTable = React.createClass({
     return (
       <Table
         buildRowOptions={this.getRowAttributes}
-        className="node-table table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
+        className="nodes-table table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
         containerSelector=".gm-scroll-view"
