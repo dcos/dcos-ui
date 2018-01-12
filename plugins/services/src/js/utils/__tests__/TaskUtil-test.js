@@ -162,17 +162,11 @@ describe("TaskUtil", function() {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeLocal);
-      };
     });
     it("returns N/A when no zone name exists", function() {
       const task = Object.assign({}, NodeTask);
       task.slave_id = "2";
       expect(TaskUtil.getZoneName(task)).toEqual("N/A");
-    });
-    it("adds (Local) when no slave/ master in the same zone", function() {
-      expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a (Local)");
     });
     it("returns zone when slave/ master in different zone", function() {
       CompositeState.getMasterNode = () => {

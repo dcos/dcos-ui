@@ -145,18 +145,7 @@ const TaskUtil = {
       return "N/A";
     }
 
-    const nodeZoneName = node.getZoneName();
-    const masterNode = CompositeState.getMasterNode();
-
-    if (
-      masterNode &&
-      nodeZoneName === masterNode.getZoneName() &&
-      nodeZoneName !== "N/A"
-    ) {
-      return `${nodeZoneName} (Local)`;
-    }
-
-    return nodeZoneName;
+    return node.getZoneName();
   },
 
   getHostName(task) {
