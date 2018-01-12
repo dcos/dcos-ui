@@ -324,28 +324,35 @@ follow these guidelines. Some of the most common ones to follow:
 For more on this topic, and examples we recommend 
 [Better Specs](http://www.betterspecs.org/).
 
- 
-### Integration Tests
+## Integration Tests
 
-We want to guarantee that our project DC/OS UI works as it should within DC/OS 
-as a product. To do this we want our integration tests to run against a DC/OS 
-cluster. For example we want to test that when an slave fails in a cluster, 
-the UI visually shows this slave failure. A different example is validating 
-that when a new service is installed on a cluster it will show up in the services page.
+At the integration level, we are interested in verifying that the composition of
+ components works, more than the components in independence. Integration tests 
+ should not test details of the business logic by going to deep into details 
+ that should be covered by unit testing.
 
-#### Integration Tests Setup
+Following the example of the `sum` function, imagine you are building a 
+graphical tool to display charts from data from a JSON API. An integration test 
+could be used to verify that the `plot` function works successfully by 
+leveraging the functions in the math library (like `sum`). For this test, 
+you should mock the external JSON API and provide a JSON with only the data 
+necessary to guarantee a particular graph is presented correctly.
+
+### Integration tests setup
+
+We use cypress to drive a browser and run the unit tests for DC/OS UI. This is 
+because we want to integrate our system as close as possible to the environment 
+it will run, the user browser.
+
+To setup cypress you need to follow the following steps:
 
 1. Install Cypress CLI
 
-  ```sh
-  npm install -g cypress-cli
-  ```
-
-2. Install Cypress desktop app
-
-  ```sh
-  cypress install
-  ```
+We rely on a very specific version of cypress, and cypress desktop app.
+```sh
+  npm install -g cypress-cli@0.14.0
+  cypress install —cypress-version 0.19.1
+```
 
 3. Open Cypress
 
@@ -353,33 +360,52 @@ that when a new service is installed on a cluster it will show up in the service
   cypress open
   ```
 
-  This should show a new icon on your desktop menu bar.
+4. The following window should open. Login via GitHub.
 
-  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-desktop-icon.png?raw=true)
+  ![img](docs/images/cypress-login.png?raw=true)
 
-4. Login with Github. Click on the icon on your desktop menu bar and login.
+5. Add project to Cypress
 
-  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-login.png?raw=true)
+Once you've logged in click on the Add Project +  button and add the `dcos-ui` 
+folder.
 
-5. Add project to Cypress app
+  ![img](docs/images/cypress-no-projects.png?raw=true)
 
-  Once you've logged in click on the plus button and add the `dcos-ui` folder.
+### Running Integration Tests
 
-  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
-
-#### Running Integration Tests
-
-1. Serve the integration test environment:
+1. Run DC/OS UI in testing mode (you have to close npm start)
 
   ```sh
   npm run testing
   ```
 
-2. Click on the project in the Cypress app to start the server
+2. Open the project and click on "Run All Tests" or in one of the test files, 
+e.g. (PackageTab-cy.js)
 
-  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-project.png?raw=true)
+![img](docs/images/cypress-run-tests.png?raw=true)
 
-  ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-server-running.png?raw=true)
+
+You should see a browser open and your tests running
+
+![img](docs/images/cypress-tests-running.png?raw=true)
+
+### Writing Integration Tests
+
+Writing unit testing can be harder than unit tests, we recommend following best 
+practices from the 
+[cypress best practices](https://docs.cypress.io/guides/references/best-practices.html) 
+that, among other things, include:
+
+- Avoid explicitly waiting for something with `cy.wait`: This will slow down your test suite, cypress is (usually) capable of wait and retry assertions automatically.
+
+- Mock the external but not the internal: It is ok to mock external services, especially API responses, but not other dependencies of your system.
+
+- Watch for flaky tests: Often some tests will sometimes fail and sometimes pass because of the way they are constructed. For instance, 90% of the time an assyncronous call will finish under a second, but when it doesn't, you test will fail.
+
+- Leverage videos and screenshots: Cypress can record an image/video when a test fails, use it to help you understand what is going wrong with your test.
+
+For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
+
 
 ### System Tests
 
