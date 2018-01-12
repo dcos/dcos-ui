@@ -21,11 +21,13 @@ function checkDuplicateOperatorField(constraints) {
         ...[
           {
             path: ["constraints", index, "fieldName"],
-            message: "Duplicate operator/ field set"
+            message: "Duplicate operator/ field set",
+            isPermissive: true
           },
           {
             path: ["constraints", index, "operator"],
-            message: "Duplicate operator/ field set"
+            message: "Duplicate operator/ field set",
+            isPermissive: true
           }
         ]
       );
