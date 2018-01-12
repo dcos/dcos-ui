@@ -47,8 +47,8 @@ const ServiceList = React.createClass({
   getServices(services) {
     return services.map(service => {
       const instancesCount = service.getInstancesCount();
-      const tasksRunning = service.getTaskCount();
-      const tooltipContent = `${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`;
+      const runningInstances = service.getRunningInstancesCount();
+      const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
 
       return {
         content: [

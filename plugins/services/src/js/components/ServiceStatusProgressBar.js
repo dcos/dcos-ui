@@ -11,13 +11,13 @@ import ServiceStatus from "../constants/ServiceStatus";
 class ServiceStatusProgressBar extends React.Component {
   getTooltipContent() {
     const { service } = this.props;
-    const tasksRunning = service.getTaskCount();
+    const runningInstances = service.getRunningInstancesCount();
     const instancesTotal = service.getInstancesCount();
 
     return (
       <div className="tooltip-line-item">
         <span>
-          {`${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesTotal}`}
+          {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesTotal}`}
         </span>
       </div>
     );
@@ -27,7 +27,7 @@ class ServiceStatusProgressBar extends React.Component {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
     const serviceStatus = service.getServiceStatus();
-    let tasksRunning = service.getTaskCount();
+    let runningInstances = service.getRunningInstancesCount();
 
     if (
       serviceStatus === ServiceStatus.RUNNING ||
@@ -41,7 +41,7 @@ class ServiceStatusProgressBar extends React.Component {
       serviceStatus === ServiceStatus.DEPLOYING ||
       serviceStatus === ServiceStatus.DELETING
     ) {
-      tasksRunning = 0;
+      runningInstances = 0;
     }
 
     return (
@@ -51,7 +51,7 @@ class ServiceStatusProgressBar extends React.Component {
           data={[
             {
               className: "success",
-              value: tasksRunning
+              value: runningInstances
             }
           ]}
           total={instancesCount}
