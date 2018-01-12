@@ -34,24 +34,7 @@ describe("Jobs", function() {
     cy.root().getFormGroupInputFor("Mem (MiB)").type("{selectall}32");
     cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-    // Check JSON mode
-    cy.contains("JSON mode").click();
-
-    // Check contents of the JSON editor
-    cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-      {
-        id: fullJobName,
-        run: {
-          cpus: 0.01,
-          mem: 32,
-          disk: 0,
-          cmd: cmdline
-        },
-        schedules: []
-      }
-    ]);
-
-    // Click crate job
+    // Click create job
     cy.contains("Create Job").click();
 
     // Switch to the group that will contain the service
@@ -120,26 +103,6 @@ describe("Jobs", function() {
 
     // Fill-in image
     cy.root().getFormGroupInputFor("Image").type("python:3");
-
-    // Check JSON mode
-    cy.contains("JSON mode").click();
-
-    // Check contents of the JSON editor
-    cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-      {
-        id: fullJobName,
-        run: {
-          cpus: 0.01,
-          mem: 32,
-          disk: 0,
-          cmd: cmdline,
-          docker: {
-            image: "python:3"
-          }
-        },
-        schedules: []
-      }
-    ]);
 
     // Click crate job
     cy.contains("Create Job").click();
@@ -248,29 +211,6 @@ describe("Jobs", function() {
     // Fill-in the fourth label
     cy.root().getFormGroupInputFor("Label Name").eq(3).type("UPPERCASE");
     cy.root().getFormGroupInputFor("Label Value").eq(3).type("test");
-
-    // Check JSON mode
-    cy.contains("JSON mode").click();
-
-    // Check contents of the JSON editor
-    cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-      {
-        id: fullJobName,
-        run: {
-          cpus: 0.01,
-          mem: 32,
-          disk: 0,
-          cmd: cmdline
-        },
-        labels: {
-          camelCase: "test",
-          snake_case: "test",
-          lowercase: "test",
-          UPPERCASE: "test"
-        },
-        schedules: []
-      }
-    ]);
 
     // Click crate job
     cy.contains("Create Job").click();
@@ -400,30 +340,6 @@ describe("Jobs", function() {
 
     // Enable schedule
     cy.contains("Enable").click();
-
-    // Check JSON mode
-    cy.contains("JSON mode").click();
-
-    // Check contents of the JSON editor
-    cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-      {
-        id: fullJobName,
-        run: {
-          cpus: 0.01,
-          mem: 32,
-          disk: 0,
-          cmd: cmdline
-        },
-        schedules: [
-          {
-            id: "default",
-            enabled: true,
-            cron: "* * * * *",
-            concurrencyPolicy: "ALLOW"
-          }
-        ]
-      }
-    ]);
 
     // Click crate job
     cy.contains("Create Job").click();
