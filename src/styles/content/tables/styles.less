@@ -69,20 +69,10 @@
           .property-variant(table-cell, text-decoration, null, null);
         }
 
-        .expanding-table-primary-cell {
-
-          &.is-expandable {
-
-            &:before {
-              //border-left-color: @table-cell-inactive-color;
-            }
-          }
-        }
-
         .task-status-error,
         .task-status-failed,
         .text-error-state {
-          .property-variant(table-cell-danger, color, null, null);
+          color: @red;
         }
       }
 
