@@ -12,6 +12,9 @@
   - [Examples](#examples)
 - [ReactJS Components](#reactjs-components)
 - [Testing](#testing)
+  - [Unit Tests](#unit-tests)
+  - [Integration Tests](#integration-tests)
+  - [System Tests](#system-tests)
 - [i18n](#i18n)
   - [Translation IDs](#translation-ids)
   - [Translation Strings](#translation-strings)
@@ -211,6 +214,8 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
     }
     ```
 
+## Testing
+
 **Why is testing necessary?** 
 
 Many of us like to sleep at night. So to give us peace of mind when we release a
@@ -218,14 +223,14 @@ new version of our software, we want to guarantee that the application works as
 it should, always. To accomplish this, we write two kinds of tests that will 
 ensure that our applications behave as it should even as we add new features.
 
-## Organizing Tests
+### Organizing Tests
 
 It is common practice, to group automated tests in categories concerning how 
 broad their scope is, and their execution requirements, that is often called the 
 [testing pyramid](https://martinfowler.com/bliki/TestPyramid.html). In DC/OS UI 
 we use three levels of testing: Unit, Integration, and System.
 
-[Unit Tests](#unit-testing) are intended to verify functionality at the minimal 
+[Unit Tests](#unit-tests) are intended to verify functionality at the minimal 
 level of isolation, for that purpose, they tend to be small, and mock/stub all 
 its dependencies. They also tend to execute fast and in a reliable way.
 
@@ -233,7 +238,7 @@ A system is often composed of a collection of components, that when tested in
 isolation perform correctly, but fail to do so together since specific problems 
 only arise due to particular patterns of interaction between those elements. 
 
-[Integration Tests](#integration-testing) verify that those well-tested units 
+[Integration Tests](#integration-tests) verify that those well-tested units 
 do not fail when they interact with other parts of the system. When it comes to 
 their execution, they tend to be harder to set up, more complex, slower than 
 unit tests and it is often harder to exercise all possible scenarios. Those 
@@ -242,13 +247,13 @@ that do not come very often. They are also more prone to failure because of the
 environments they execute.
 
 While Integration Tests looks for the composition of the system, 
-[System tests](#system-testing) try to be as close as possible to a real system 
+[System tests](#system-tests) try to be as close as possible to a real system 
 (in the case of DC/OS, against a real cluster). They are harder to set up in 
 comparison to unit test since they do not fake the components they depend on. 
 That also contributed to them being slower and more often prone to fail 
 occasionally, for example, because of network issues like latency.
 
-## Unit Tests
+### Unit Tests
 
 To ensure that individual units of code (functions/methods) return the expected 
 results with different inputs we write Unit Tests.
@@ -257,7 +262,7 @@ Think of a `sum` function. When called as `sum(1)` we may expect a return value
 of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when
  called with no arguments, we may expect the result to fail with an error.
 
-### Running Unit Tests
+#### Running Unit Tests
 
 Before you run any test, make sure you have set up your environment 
 (setup link).
@@ -284,7 +289,7 @@ for instance, want to run a single spec, for instance, `MesosStateUtil`
 npm run test -- --watch MesosStateUtil
 ```
 
-### Example of a Unit Test
+#### Example of a Unit Test
 
 This test verifies that unit `decomposePodTaskId` when given the input string 
 "podname.instance-instancename.taskname" returns an object with the `podID`, 
@@ -306,7 +311,7 @@ This test verifies that unit `decomposePodTaskId` when given the input string
   });
 ```
 
-### Writing Unit Tests
+#### Writing Unit Tests
 
 A recommended reading is [Better Specs](http://www.betterspecs.org/), we put 
 [real effort](https://github.com/dcos/dcos-ui/pull/2524) in making sure we 
@@ -320,7 +325,7 @@ For more on this topic, and examples we recommend
 [Better Specs](http://www.betterspecs.org/).
 
  
-## Integration Tests
+### Integration Tests
 
 We want to guarantee that our project DC/OS UI works as it should within DC/OS 
 as a product. To do this we want our integration tests to run against a DC/OS 
@@ -328,7 +333,7 @@ cluster. For example we want to test that when an slave fails in a cluster,
 the UI visually shows this slave failure. A different example is validating 
 that when a new service is installed on a cluster it will show up in the services page.
 
-### Integration Tests Setup
+#### Integration Tests Setup
 
 1. Install Cypress CLI
 
@@ -362,7 +367,7 @@ that when a new service is installed on a cluster it will show up in the service
 
   ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
 
-### Running Integration Tests
+#### Running Integration Tests
 
 1. Serve the integration test environment:
 
@@ -376,6 +381,9 @@ that when a new service is installed on a cluster it will show up in the service
 
   ![img](https://github.com/dcos/dcos-ui/blob/master/docs/images/cypress-server-running.png?raw=true)
 
+### System Tests
+
+TBD
 
 ## i18n
 
