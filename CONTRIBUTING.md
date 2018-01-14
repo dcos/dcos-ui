@@ -407,9 +407,28 @@ that, among other things, include:
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
 
 
-### System Tests
+### System Test
 
-TBD
+At the System Test level, you want to guarantee that your project works on the 
+context of the whole system, in the case of DC/OS UI, that it works within DC/OS
+ as a product. To do this, we want our tests to run against a DC/OS cluster. 
+ For example we want to test that when an slave fails in a cluster, the UI 
+ visually shows this slave failure. A different example is validating that 
+ when a new service is installed on a cluster, it will show up in the services 
+ page.
+
+### System Tests setup
+
+In the DC/OS UI, System Tests are executed with the dcos-system-test-driver 
+utility; This utility takes care of provisioning a cluster, launching the 
+integration tests and driving the setup and teardown process for every test.
+
+The system-test-driver-utility is currently **not available** for public use. 
+
+For contributing members of this repository. Comprehensive documentation on how 
+to run, write, debug and troubleshoot system tests are available in the 
+**System Tests in DC/OS UI** google document currently only available internally
+ at Mesosphere.
 
 ## i18n
 
