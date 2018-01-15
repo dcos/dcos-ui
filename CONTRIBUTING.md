@@ -298,7 +298,7 @@ This test verifies that unit `decomposePodTaskId` when given the input string
 
 ```js
   describe("#decomposePodTaskId", function() {
-    it("should correctly de-compose", function() {
+    it("de-composes task ids", function() {
       expect(
         MesosStateUtil.decomposePodTaskId(
           "podname.instance-instancename.taskname"
