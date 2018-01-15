@@ -8,7 +8,7 @@ const Task = require("../../../../plugins/services/src/js/structs/Task");
 const MESOS_STATE_WITH_HISTORY = require("../../utils/__tests__/fixtures/MesosStateWithHistory");
 
 describe("MesosStateStore", function() {
-  describe("#getTaskFromServiceName", function() {
+  describe("#getTasksFromServiceName", function() {
     beforeEach(function() {
       this.get = MesosStateStore.get;
       MesosStateStore.get = function() {
@@ -33,9 +33,100 @@ describe("MesosStateStore", function() {
       expect(result).toEqual([1, 2, 3]);
     });
 
-    it("nulls if no service matches", function() {
+    it("returns empty array if no service matches", function() {
       var result = MesosStateStore.getTasksFromServiceName("nonExistent");
       expect(result).toEqual([]);
+    });
+
+    it("returns empty array for an invalid state", function() {
+      MesosStateStore.get = () => null;
+      var result = MesosStateStore.getTasksFromServiceName("marathon");
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe("#getLastMesosState", function() {
+    beforeEach(function() {
+      this.get = MesosStateStore.get;
+    });
+
+    afterEach(function() {
+      MesosStateStore.get = this.get;
+    });
+
+    describe("fills empty fields with empty arrays", function() {
+      const testCases = [
+        [],
+        ["tasks"],
+        ["frameworks", "slaves"],
+        ["frameworks", "tasks", "executors"]
+      ];
+      const allFields = ["tasks", "frameworks", "slaves", "executors"];
+
+      testCases.map(function(testCase) {
+        it(`when [${testCase.join(", ")}] are set`, function() {
+          const returnObj = {};
+          testCase.forEach(field => (returnObj[field] = [{}]));
+          MesosStateStore.get = () => returnObj;
+
+          const lastState = MesosStateStore.getLastMesosState();
+
+          // eslint-disable-next-line guard-for-in
+          allFields.forEach(field =>
+            expect(lastState[field].length).toBe(
+              testCase.includes(field) ? 1 : 0
+            )
+          );
+        });
+      });
+    });
+
+    it("returns the original state if its complete", function() {
+      MesosStateStore.get = () => ({
+        tasks: [{}],
+        frameworks: [{}],
+        slaves: [{}],
+        executors: [{}]
+      });
+
+      const lastState = MesosStateStore.getLastMesosState();
+      expect(lastState.tasks.length).toBe(1);
+      expect(lastState.frameworks.length).toBe(1);
+      expect(lastState.slaves.length).toBe(1);
+      expect(lastState.executors.length).toBe(1);
+    });
+  });
+
+  describe("#getServiceFromName", function() {
+    beforeEach(function() {
+      this.get = MesosStateStore.get;
+    });
+
+    afterEach(function() {
+      MesosStateStore.get = this.get;
+    });
+
+    it("returns undefined on empty state", function() {
+      MesosStateStore.get = () => null;
+      expect(MesosStateStore.getServiceFromName("unknown")).toBeUndefined();
+
+      MesosStateStore.get = () => ({});
+      expect(MesosStateStore.getServiceFromName("unknown")).toBeUndefined();
+    });
+
+    it("returns the service with the name", function() {
+      MesosStateStore.get = () => ({
+        frameworks: [
+          { name: "marathon" },
+          { name: "zipkin", id: "zipkin_1" },
+          { name: "cassandra" }
+        ]
+      });
+
+      expect(MesosStateStore.getServiceFromName("zipkin")).toEqual({
+        name: "zipkin",
+        id: "zipkin_1"
+      });
     });
   });
 
@@ -110,9 +201,76 @@ describe("MesosStateStore", function() {
       );
       expect(tasks).toEqual([]);
     });
+
+    it("returns empty list for invalid state with applications", function() {
+      MesosStateStore.get = () => null;
+      var tasks = MesosStateStore.getTasksByService(
+        new Application({ id: "/alpha" })
+      );
+      expect(tasks).toEqual([]);
+    });
+
+    it("returns empty list for invalid state with frameworks", function() {
+      MesosStateStore.get = () => null;
+      var tasks = MesosStateStore.getTasksByService(
+        new Framework({
+          id: "/spark",
+          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" }
+        })
+      );
+      expect(tasks).toEqual([]);
+    });
   });
 
   describe("#getNodeFromID", function() {
+    afterEach(function() {
+      MesosStateStore.get = this.get;
+    });
+
+    context("when slave isn't falsey", function() {
+      beforeEach(function() {
+        this.get = MesosStateStore.get;
+        MesosStateStore.get = function() {
+          return {
+            slaves: [
+              {
+                id: "amazon-thing",
+                fakeProp: "fake"
+              }
+            ]
+          };
+        };
+      });
+
+      it("returns the node with the correct ID", function() {
+        var result = MesosStateStore.getNodeFromID("amazon-thing");
+        expect(result.fakeProp).toEqual("fake");
+      });
+
+      it("returns undefined if node not found", function() {
+        var result = MesosStateStore.getNodeFromID("nonExistentNode");
+        expect(result).toBeUndefined();
+      });
+    });
+
+    context("when slave is falsey", function() {
+      beforeEach(function() {
+        this.get = MesosStateStore.get;
+        MesosStateStore.set({
+          lastMesosState: {
+            slaves: null
+          }
+        });
+      });
+
+      it("returns null with invalid state", function() {
+        var result = MesosStateStore.getNodeFromID("nonExistentNode");
+        expect(result).toBeNull();
+      });
+    });
+  });
+
+  describe("#getNodeFromHostname", function() {
     beforeEach(function() {
       this.get = MesosStateStore.get;
       MesosStateStore.get = function() {
@@ -120,7 +278,8 @@ describe("MesosStateStore", function() {
           slaves: [
             {
               id: "amazon-thing",
-              fakeProp: "fake"
+              fakeProp: "fake",
+              hostname: "my-host"
             }
           ]
         };
@@ -131,14 +290,47 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("returns the node with the correct ID", function() {
-      var result = MesosStateStore.getNodeFromID("amazon-thing");
+    it("returns the node with the correct hostname", function() {
+      var result = MesosStateStore.getNodeFromHostname("my-host");
       expect(result.fakeProp).toEqual("fake");
     });
 
-    it("returns null if node not found", function() {
-      var result = MesosStateStore.getNodeFromID("nonExistentNode");
+    it("returns undefined if node not found", function() {
+      var result = MesosStateStore.getNodeFromHostname("nonExistentNode");
       expect(result).toEqual(undefined);
+    });
+
+    it("returns null with invalid state", function() {
+      MesosStateStore.get = () => null;
+
+      var result = MesosStateStore.getNodeFromHostname("nonExistentNode");
+      expect(result).toEqual(undefined);
+    });
+  });
+
+  describe("#getTasksFromNodeID", function() {
+    it("doesn't fail with invalid state", function() {
+      this.get = MesosStateStore.get;
+      MesosStateStore.get = () => null;
+
+      var result = MesosStateStore.getTasksFromNodeID("my-id");
+      expect(result).toEqual([]);
+
+      MesosStateStore.get = this.get;
+    });
+  });
+
+  describe("#getRunningTasksFromVirtualNetworkName", function() {
+    it("doesn't throw on invalid state", function() {
+      this.get = MesosStateStore.get;
+      MesosStateStore.get = () => null;
+
+      var result = MesosStateStore.getRunningTasksFromVirtualNetworkName(
+        "overlayName"
+      );
+      expect(result).toEqual([]);
+
+      MesosStateStore.get = this.get;
     });
   });
 
