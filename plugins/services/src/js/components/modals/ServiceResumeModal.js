@@ -18,7 +18,7 @@ class ServiceResumeModal extends React.Component {
     super(...arguments);
 
     this.state = {
-      instancesFieldValue: null,
+      instancesFieldValue: 1,
       errorMsg: null
     };
 
@@ -39,7 +39,12 @@ class ServiceResumeModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { errors } = nextProps;
+    const { errors, open } = nextProps;
+
+    if (open && !this.props.open) {
+      this.setState({ instancesFieldValue: 1 });
+    }
+
     if (!errors) {
       this.setState({ errorMsg: null });
 
@@ -120,7 +125,7 @@ class ServiceResumeModal extends React.Component {
               name="instances"
               onChange={this.handleInstancesFieldChange}
               type="number"
-              value="1"
+              value={this.state.instancesFieldValue}
             />
           </FormGroup>
         </FormRow>
