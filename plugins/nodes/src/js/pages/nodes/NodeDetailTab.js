@@ -1,6 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
+import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import CompositeState from "#SRC/js/structs/CompositeState";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
@@ -11,12 +14,42 @@ import ConfigurationMapSection
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
-import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Units from "#SRC/js/utils/Units";
 
 class NodeDetailTab extends PureComponent {
+  constructor() {
+    super(...arguments);
+
+    this.onMesosStateChange = this.onMesosStateChange.bind(this);
+
+    this.state = {
+      masterRegion: null
+    };
+  }
+
+  componentDidMount() {
+    MesosStateStore.addChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+    this.onMesosStateChange();
+  }
+
+  componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+  }
+
+  onMesosStateChange() {
+    this.setState({
+      masterRegion: CompositeState.getMasterNode().getRegionName()
+    });
+  }
+
   render() {
     const { node } = this.props;
     const resources = node.get("resources");
@@ -63,6 +96,9 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {node.getRegionName()}
+                {this.state.masterRegion === node.getRegionName()
+                  ? " (Local)"
+                  : null}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
