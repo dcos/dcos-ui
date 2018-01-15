@@ -59,13 +59,13 @@ describe("TasksChart", function() {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it("should allow update", function() {
+    it("allows update", function() {
       this.tasks.TASK_STAGING = 1;
       var shouldUpdate = this.instance.shouldComponentUpdate(this.tasks);
       expect(shouldUpdate).toEqual(true);
     });
 
-    it("should not allow update", function() {
+    it("does not allow update", function() {
       var shouldUpdate = this.instance.shouldComponentUpdate(
         this.instance.props
       );

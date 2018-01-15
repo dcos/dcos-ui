@@ -6,7 +6,7 @@ const ServiceUtil = require("../ServiceUtil");
 
 describe("ServiceUtil", function() {
   describe("#createServiceFromResponse", function() {
-    it("should correctly create Application instances", function() {
+    it("creates Application instances", function() {
       const instance = ServiceUtil.createServiceFromResponse({
         id: "/test",
         cmd: "sleep 1000;",
@@ -19,7 +19,7 @@ describe("ServiceUtil", function() {
       expect(instance instanceof Application).toBeTruthy();
     });
 
-    it("should correctly create Framework instances", function() {
+    it("creates Framework instances", function() {
       const instance = ServiceUtil.createServiceFromResponse({
         id: "/test",
         cmd: "sleep 1000;",
@@ -35,7 +35,7 @@ describe("ServiceUtil", function() {
       expect(instance instanceof Framework).toBeTruthy();
     });
 
-    it("should correctly create Pod instances", function() {
+    it("creates Pod instances", function() {
       const instance = ServiceUtil.createServiceFromResponse({
         id: "/test",
         spec: {
@@ -49,7 +49,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#createFormModelFromSchema", function() {
-    it("should create the correct model", function() {
+    it("creates the correct model", function() {
       const schema = {
         type: "object",
         properties: {
@@ -97,7 +97,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#getDefinitionFromSpec", function() {
-    it("should create the correct definition for ApplicationSpec", function() {
+    it("creates the correct definition for ApplicationSpec", function() {
       const service = new ApplicationSpec({
         id: "/test",
         cmd: "sleep 1000;"
@@ -111,7 +111,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#convertServiceLabelsToArray", function() {
-    it("should return an array of key-value tuples", function() {
+    it("returns an array of key-value tuples", function() {
       const service = new Application({
         id: "/test",
         cmd: "sleep 1000;",
@@ -129,7 +129,7 @@ describe("ServiceUtil", function() {
       ]);
     });
 
-    it("should return an empty array if no labels are found", function() {
+    it("returns an empty array if no labels are found", function() {
       const service = new Application({
         id: "/test",
         cmd: "sleep 1000;"
@@ -149,7 +149,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#isEqual", function() {
-    it("should return false if services have different type", function() {
+    it("returns false if services have different type", function() {
       const serviceA = new Application({
         id: "foo"
       });
@@ -160,7 +160,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
     });
 
-    it("should return false if same type but different content", function() {
+    it("returns false if same type but different content", function() {
       const serviceA = new Application({
         id: "foo"
       });
@@ -171,7 +171,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
     });
 
-    it("should return true if same type and same content", function() {
+    it("returns true if same type and same content", function() {
       const serviceA = new Application({
         id: "foo"
       });
@@ -184,7 +184,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#isSDKService", function() {
-    it("should return true if service does not have the proper label", function() {
+    it("returns true if service does not have the proper label", function() {
       const service = new Framework({
         id: "/foo",
         labels: {
@@ -195,7 +195,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isSDKService(service)).toEqual(true);
     });
 
-    it("should return false if service does not have the proper label", function() {
+    it("returns false if service does not have the proper label", function() {
       const service = new Framework({
         id: "/foo",
         labels: {

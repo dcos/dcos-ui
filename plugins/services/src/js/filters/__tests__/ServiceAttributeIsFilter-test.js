@@ -40,7 +40,7 @@ describe("ServiceAttributeIsFilter", function() {
     ];
   });
 
-  it("Should correctly keep services in delayed state", function() {
+  it("keeps services in delayed state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:delayed");
 
@@ -51,7 +51,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("Should correctly keep services in deploying state", function() {
+  it("keeps services in deploying state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:deploying");
 
@@ -62,7 +62,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("Should correctly keep services in running state", function() {
+  it("keeps services in running state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:running");
 
@@ -73,7 +73,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("Should correctly keep services in stopped state", function() {
+  it("keeps services in stopped state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:stopped");
 
@@ -84,7 +84,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("Should correctly keep services in waiting state", function() {
+  it("keeps services in waiting state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:waiting");
 
@@ -95,7 +95,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("Should correctly keep services in n/a state", function() {
+  it("keeps services in n/a state", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:na");
 
@@ -106,7 +106,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("Should correctly keep nothing on unknown states", function() {
+  it("keeps nothing on unknown states", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -115,7 +115,7 @@ describe("ServiceAttributeIsFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("Should be case-insensitive", function() {
+  it("is case-insensitive", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:dElAyED");
 

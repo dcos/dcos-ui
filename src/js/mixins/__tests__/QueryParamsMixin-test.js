@@ -37,7 +37,7 @@ describe("QueryParamsMixin", function() {
     );
   });
 
-  it("should transition to the right path with the given query params", function() {
+  it("transitions to the right path with the given query params", function() {
     const queryObject = {
       arrayValue: ["value1", "value2"],
       paramKey: "paramValue",
@@ -61,7 +61,7 @@ describe("QueryParamsMixin", function() {
     expect(decodedArrayString).toEqual(["a", "b", "c"]);
   });
 
-  it("should encode nested arrays in query params", function() {
+  it("encodes nested arrays in query params", function() {
     const queryObject = {
       arrayValue: ["value1", "value2"],
       nestedArray: ["1;2;3", "4;5;6", "", "7;;8", "non-array"],
@@ -87,7 +87,7 @@ describe("QueryParamsMixin", function() {
   });
 
   describe("#resetQueryParams", function() {
-    it("should reset all params by default", function() {
+    it("resets all params by default", function() {
       this.instance.resetQueryParams();
       expect(this.instance.context.router.push).toHaveBeenCalledWith({
         pathname: "/pathname",
@@ -95,7 +95,7 @@ describe("QueryParamsMixin", function() {
       });
     });
 
-    it("should reset only specified params, when present", function() {
+    it("resets only specified params, when present", function() {
       this.instance.resetQueryParams(["arrayValue"]);
       expect(this.instance.context.router.push).toHaveBeenCalledWith({
         pathname: "/pathname",
@@ -103,7 +103,7 @@ describe("QueryParamsMixin", function() {
       });
     });
 
-    it("should exit cleanly when called without a router", function() {
+    it("exits cleanly when called without a router", function() {
       expect(
         this.instance.resetQueryParams.bind({ context: {} })
       ).not.toThrow();

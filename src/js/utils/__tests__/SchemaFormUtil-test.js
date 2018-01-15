@@ -58,7 +58,7 @@ describe("SchemaFormUtil", function() {
       SchemaFormUtil.getDefinitionFromPath = this.getDefinitionFromPath;
     });
 
-    it("should return a model with same values", function() {
+    it("returns a model with same values", function() {
       var model = {
         key: "value",
         key2: "value2"
@@ -68,7 +68,7 @@ describe("SchemaFormUtil", function() {
       expect(model).toEqual(result);
     });
 
-    it("should replace undefined with [] when valueType is array", function() {
+    it("replaces undefined with [] when valueType is array", function() {
       this.definition.valueType = "array";
       var model = {
         key: undefined,
@@ -79,7 +79,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual([]);
     });
 
-    it("should omit null values for non-required fields", function() {
+    it("omits null values for non-required fields", function() {
       var model = {
         key: null,
         key2: "value2"
@@ -89,7 +89,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual(undefined);
     });
 
-    it("shouldn't omit null values for required fields", function() {
+    it("doesn't omit null values for required fields", function() {
       this.definition.isRequired = true;
       var model = {
         key: null,
@@ -100,7 +100,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual(null);
     });
 
-    it("should replace string with a number if integer", function() {
+    it("replaces string with a number if integer", function() {
       this.definition.valueType = "integer";
       var model = {
         key: "10",
@@ -111,7 +111,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual(10);
     });
 
-    it("should split string if array", function() {
+    it("splits string if array", function() {
       this.definition.valueType = "array";
       var model = {
         key: "10, 20, 30, 40",

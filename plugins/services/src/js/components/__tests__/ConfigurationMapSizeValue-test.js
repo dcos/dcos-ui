@@ -6,7 +6,7 @@ const TestUtils = require("react-addons-test-utils");
 const ConfigurationMapSizeValue = require("../ConfigurationMapSizeValue");
 
 describe("ConfigurationMapSizeValue", function() {
-  it("should assume default MB scale", function() {
+  it("assumes default MB scale", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue value={1.234} />
     );
@@ -19,7 +19,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(contentText).toEqual("1.23 MiB");
   });
 
-  it("should correctly handle `scale` property", function() {
+  it("handles `scale` property", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue scale={1} value={1024} />
     );
@@ -32,7 +32,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(contentText).toEqual("1 KiB");
   });
 
-  it("should correctly pass down to Units.filesize the `decimals`", function() {
+  it("passes down to Units.filesize the `decimals`", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue decimals={0} value={1.234} />
     );
@@ -45,7 +45,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(contentText).toEqual("1 MiB");
   });
 
-  it("should correctly pass down to Units.filesize the `multiplier`", function() {
+  it("passes down to Units.filesize the `multiplier`", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue multiplier={1000} value={1} />
     );
@@ -58,7 +58,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(contentText).toEqual("1.05 MiB");
   });
 
-  it("should correctly pass down to Units.filesize the `threshold`", function() {
+  it("passes down to Units.filesize the `threshold`", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue threshold={1} value={12.345} />
     );
@@ -71,7 +71,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(contentText).toEqual("0.01 GiB");
   });
 
-  it("should correctly pass down to Units.filesize the `units`", function() {
+  it("passes down to Units.filesize the `units`", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue
         units={["A", "KiA", "MiA", "GiA", "TiA", "PiA"]}
@@ -87,7 +87,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(contentText).toEqual("1 MiA");
   });
 
-  it("should correctly render `defaultValue` if empty", function() {
+  it("renders `defaultValue` if empty", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapSizeValue defaultValue="-" value={null} />
     );

@@ -49,13 +49,13 @@ describe("MesosLogContainer", function() {
   });
 
   describe("#componentDidMount", function() {
-    it("should call startTailing when component mounts", function() {
+    it("calls startTailing when component mounts", function() {
       expect(MesosLogStore.startTailing).toHaveBeenCalled();
     });
   });
 
   describe("#componentWillReceiveProps", function() {
-    it("should call startTailing when new path is provided", function() {
+    it("calls startTailing when new path is provided", function() {
       this.instance.componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
@@ -63,7 +63,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.startTailing.calls.count()).toEqual(2);
     });
 
-    it("should call stopTailing when new path is provided", function() {
+    it("calls stopTailing when new path is provided", function() {
       this.instance.componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
@@ -71,7 +71,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.stopTailing.calls.count()).toEqual(1);
     });
 
-    it("shouldn't call startTailing when same path is provided", function() {
+    it("doesn't call startTailing when same path is provided", function() {
       this.instance.componentWillReceiveProps({
         filePath: "/some/file/path",
         task: { slave_id: "foo" }
@@ -79,7 +79,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.startTailing.calls.count()).toEqual(1);
     });
 
-    it("shouldn't call stopTailing when same path is provided", function() {
+    it("doesn't call stopTailing when same path is provided", function() {
       this.instance.componentWillReceiveProps({
         filePath: "/some/file/path",
         task: { slave_id: "foo" }
@@ -89,7 +89,7 @@ describe("MesosLogContainer", function() {
   });
 
   describe("#componentWillUnmount", function() {
-    it("should call stopTailing when component unmounts", function() {
+    it("calls stopTailing when component unmounts", function() {
       this.instance.componentWillUnmount();
       expect(MesosLogStore.stopTailing).toHaveBeenCalled();
     });
@@ -100,12 +100,12 @@ describe("MesosLogContainer", function() {
       this.instance.setState = jasmine.createSpy("setState");
     });
 
-    it("should setState when path matches", function() {
+    it("setStates when path matches", function() {
       this.instance.onMesosLogStoreError("/some/file/path");
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it("shouldn't setState when path doesn't match", function() {
+    it("doesn't setState when path doesn't match", function() {
       this.instance.onMesosLogStoreError("/other/file/path");
       expect(this.instance.setState).not.toHaveBeenCalled();
     });
@@ -116,19 +116,19 @@ describe("MesosLogContainer", function() {
       this.instance.setState = jasmine.createSpy("setState");
     });
 
-    it("should setState when path matches", function() {
+    it("setStates when path matches", function() {
       this.instance.onMesosLogStoreSuccess("/some/file/path", APPEND);
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it("shouldn't setState when path doesn't match", function() {
+    it("doesn't setState when path doesn't match", function() {
       this.instance.onMesosLogStoreSuccess("/other/file/path", APPEND);
       expect(this.instance.setState).not.toHaveBeenCalled();
     });
   });
 
   describe("#render", function() {
-    it("should call getErrorScreen when error occurred", function() {
+    it("calls getErrorScreen when error occurred", function() {
       this.instance.state.hasLoadingError = 3;
       this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
@@ -144,7 +144,7 @@ describe("MesosLogContainer", function() {
       expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("shouldn't call getLoadingScreen when fullLog is empty", function() {
+    it("doesn't call getLoadingScreen when fullLog is empty", function() {
       var logBuffer = new LogBuffer();
       logBuffer.add(new Item({ data: "", offset: 100 }));
       MesosLogStore.getLogBuffer = jasmine

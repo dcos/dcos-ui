@@ -90,7 +90,7 @@ describe("PackageDetailTab", function() {
         ).toEqual(1);
       });
 
-      it("should render entries with keys and values", function() {
+      it("renders entries with keys and values", function() {
         var subItem = ReactDOM.render(
           this.instance.getItems(
             [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
@@ -123,7 +123,7 @@ describe("PackageDetailTab", function() {
         ).toEqual(1);
       });
 
-      it("should render entries with keys and values", function() {
+      it("renders entries with keys and values", function() {
         var subItem = ReactDOM.render(
           this.instance.getItems(
             [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
@@ -138,7 +138,7 @@ describe("PackageDetailTab", function() {
   });
 
   describe("#getSubItem", function() {
-    it("should render link if url is defined", function() {
+    it("renders link if url is defined", function() {
       var link = ReactDOM.render(
         this.instance.getSubItem("url", "http://foo"),
         this.container
@@ -149,7 +149,7 @@ describe("PackageDetailTab", function() {
       expect(link.querySelector("a").tagName).toEqual("A");
     });
 
-    it("should render link with prefix if defined", function() {
+    it("renders link with prefix if defined", function() {
       var link = ReactDOM.render(
         this.instance.getSubItem("email", "foo@bar.com"),
         this.container
@@ -188,7 +188,7 @@ describe("PackageDetailTab", function() {
   });
 
   describe("#render", function() {
-    it("should call getErrorScreen when error occurred", function() {
+    it("calls getErrorScreen when error occurred", function() {
       this.instance.state.hasError = true;
       this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
@@ -204,7 +204,7 @@ describe("PackageDetailTab", function() {
       expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("should call getLoadingScreen when loading", function() {
+    it("calls getLoadingScreen when loading", function() {
       this.instance.state.isLoading = true;
       this.instance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 

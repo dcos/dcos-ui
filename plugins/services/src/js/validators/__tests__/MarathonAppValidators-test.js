@@ -92,105 +92,105 @@ const NOTBOTHCMDARGS_ERRORS = [
 
 describe("MarathonAppValidators", function() {
   describe("#containsCmdArgsOrContainer", function() {
-    it("should return no errors if `cmd` defined", function() {
+    it("returns no errors if `cmd` defined", function() {
       const spec = { cmd: "foo" };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("should return no errors if `args` defined", function() {
+    it("returns no errors if `args` defined", function() {
       const spec = { args: ["foo"] };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("should return no errors if `container.docker.image` defined", function() {
+    it("returns no errors if `container.docker.image` defined", function() {
       const spec = { container: { docker: { image: "foo" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("should return no errors if `container.appc.image` defined", function() {
+    it("returns no errors if `container.appc.image` defined", function() {
       const spec = { container: { appc: { image: "foo" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("should return error if both `args` and `cmd` are defined", function() {
+    it("returns error if both `args` and `cmd` are defined", function() {
       const spec = { args: ["foo"], cmd: "bar" };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         NOTBOTHCMDARGS_ERRORS
       );
     });
 
-    it("should return all errors if neither is defined", function() {
+    it("returns all errors if neither is defined", function() {
       const spec = {};
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `cmd` is null", function() {
+    it("returns errors if `cmd` is null", function() {
       const spec = { cmd: null };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `cmd` is {}", function() {
+    it("returns errors if `cmd` is {}", function() {
       const spec = { cmd: {} };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `cmd` is []", function() {
+    it("returns errors if `cmd` is []", function() {
       const spec = { cmd: [] };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `cmd` is empty string", function() {
+    it("returns errors if `cmd` is empty string", function() {
       const spec = { cmd: "" };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `container` is empty", function() {
+    it("returns errors if `container` is empty", function() {
       const spec = { container: {} };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `container.docker` is empty", function() {
+    it("returns errors if `container.docker` is empty", function() {
       const spec = { container: { docker: {} } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("should return errors if `container.appc` is empty", function() {
+    it("returns errors if `container.appc` is empty", function() {
       const spec = { container: { appc: {} } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it('should return errors if `container.appc.id` does not start with "sha512-"', function() {
+    it('returns errors if `container.appc.id` does not start with "sha512-"', function() {
       const spec = { container: { appc: { image: "foo", id: "sha256-test" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         APPCONTAINERID_ERRORS
       );
     });
 
-    it("should not return errors if `container.appc` correctly defined", function() {
+    it("does not return errors if `container.appc` correctly defined", function() {
       const spec = { container: { appc: { image: "foo", id: "sha512-test" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
@@ -199,31 +199,31 @@ describe("MarathonAppValidators", function() {
   });
 
   describe("#complyWithResidencyRules", function() {
-    it("should return no errors if residency and container is undefined", function() {
+    it("returns no errors if residency and container is undefined", function() {
       const spec = {};
 
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
     });
 
-    it("should return no errors if residency and volumes is undefined", function() {
+    it("returns no errors if residency and volumes is undefined", function() {
       const spec = { container: {} };
 
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
     });
 
-    it("should return no errors if residency is undefined and volumes empty", function() {
+    it("returns no errors if residency is undefined and volumes empty", function() {
       const spec = { container: { volumes: [] } };
 
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
     });
 
-    it("should return no errors if residency and persistent is undefined", function() {
+    it("returns no errors if residency and persistent is undefined", function() {
       const spec = { container: { volumes: [{}] } };
 
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
     });
 
-    it("should return no errors if both of residency and persistent is defined", function() {
+    it("returns no errors if both of residency and persistent is defined", function() {
       const spec = {
         residency: "foo",
         container: { volumes: [{ persistent: { size: "524288" } }] }
@@ -232,7 +232,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
     });
 
-    it("should return errors if only `residency` defined", function() {
+    it("returns errors if only `residency` defined", function() {
       const spec = { residency: "foo" };
 
       expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual(
@@ -240,7 +240,7 @@ describe("MarathonAppValidators", function() {
       );
     });
 
-    it("should return errors if only `persistentVolumes` defined", function() {
+    it("returns errors if only `persistentVolumes` defined", function() {
       const spec = {
         container: { volumes: [{ persistent: { size: "524288" } }] }
       };
@@ -252,7 +252,7 @@ describe("MarathonAppValidators", function() {
   });
 
   describe("#mustContainImageOnDocker", function() {
-    it("should return error if runtime is docker but image is missing", function() {
+    it("returns error if runtime is docker but image is missing", function() {
       const spec = {
         container: {
           type: "DOCKER"
@@ -263,7 +263,7 @@ describe("MarathonAppValidators", function() {
       );
     });
 
-    it("should not return error if runtime is not docker and image is missing", function() {
+    it("does not return error if runtime is not docker and image is missing", function() {
       const spec = {
         container: {
           type: "MESOS"
@@ -272,7 +272,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
     });
 
-    it("should not return error if runtime docker and image is specified", function() {
+    it("does not return error if runtime docker and image is specified", function() {
       const spec = {
         container: {
           type: "DOCKER",
@@ -365,7 +365,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("shouldn't return an error for empty optional fields", function() {
+    it("doesn't return an error for empty optional fields", function() {
       const spec = {
         constraints: [["hostname", "GROUP_BY"]]
       };
@@ -395,12 +395,12 @@ describe("MarathonAppValidators", function() {
   });
 
   describe("#validateLabels", function() {
-    it("should not return error if labels are not specified", function() {
+    it("does not return error if labels are not specified", function() {
       const spec = {};
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
     });
 
-    it("should not return error if label keys do not start or end with spaces", function() {
+    it("does not return error if label keys do not start or end with spaces", function() {
       const spec = {
         labels: {
           foo: "bar",
@@ -410,7 +410,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
     });
 
-    it("should return errors if any label key starts with a space", function() {
+    it("returns errors if any label key starts with a space", function() {
       const spec = {
         labels: {
           " foo": "bar",
@@ -429,7 +429,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("should return errors if any label key ends with a space", function() {
+    it("returns errors if any label key ends with a space", function() {
       const spec = {
         labels: {
           "foo ": "bar",

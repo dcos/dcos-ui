@@ -31,7 +31,7 @@ describe("Panel", function() {
   });
 
   describe("#render", function() {
-    it("should render children", function() {
+    it("renders children", function() {
       var child = TestUtils.findRenderedDOMComponentWithClass(
         this.instance,
         "quis"
@@ -39,13 +39,13 @@ describe("Panel", function() {
       expect(TestUtils.isDOMComponent(child)).toBe(true);
     });
 
-    it("should render with given className", function() {
+    it("renders with given className", function() {
       var panel = TestUtils.findRenderedComponentWithType(this.instance, Panel);
       var node = ReactDOM.findDOMNode(panel);
       expect(node.className).toContain("foo");
     });
 
-    it("should override className to content node", function() {
+    it("overrides className to content node", function() {
       var content = TestUtils.findRenderedDOMComponentWithClass(
         this.instance,
         "bar"
@@ -54,7 +54,7 @@ describe("Panel", function() {
       expect(node.className).toContain("bar");
     });
 
-    it("should use default className to content node", function() {
+    it("uses default className to content node", function() {
       var content = TestUtils.findRenderedDOMComponentWithClass(
         ReactDOM.render(<Panel />, this.container),
         "panel-content"
@@ -63,7 +63,7 @@ describe("Panel", function() {
       expect(node.className).toContain("panel-content");
     });
 
-    it("should override className to footer node", function() {
+    it("overrides className to footer node", function() {
       var footer = TestUtils.findRenderedDOMComponentWithClass(
         this.instance,
         "bar"
@@ -72,7 +72,7 @@ describe("Panel", function() {
       expect(node.className).toContain("bar");
     });
 
-    it("should use default className to footer node", function() {
+    it("uses default className to footer node", function() {
       var footer = TestUtils.findRenderedDOMComponentWithClass(
         ReactDOM.render(<Panel footer="footer" />, this.container),
         "panel-footer"
@@ -81,7 +81,7 @@ describe("Panel", function() {
       expect(node.className).toContain("panel-footer");
     });
 
-    it("should not render footer when none is given", function() {
+    it("does not render footer when none is given", function() {
       var panel = ReactDOM.render(<Panel />, this.container);
       expect(
         TestUtils.scryRenderedDOMComponentsWithClass(panel, "panel-footer")
@@ -89,7 +89,7 @@ describe("Panel", function() {
       ).toBe(0);
     });
 
-    it("should override className to heading node", function() {
+    it("overrides className to heading node", function() {
       var heading = TestUtils.findRenderedDOMComponentWithClass(
         this.instance,
         "bar"
@@ -98,7 +98,7 @@ describe("Panel", function() {
       expect(node.className).toContain("bar");
     });
 
-    it("should use default className to heading node", function() {
+    it("uses default className to heading node", function() {
       var heading = TestUtils.findRenderedDOMComponentWithClass(
         ReactDOM.render(<Panel heading="heading" />, this.container),
         "panel-header"
@@ -107,7 +107,7 @@ describe("Panel", function() {
       expect(node.className).toContain("panel-header");
     });
 
-    it("should not render heading when none is given", function() {
+    it("does not render heading when none is given", function() {
       var panel = ReactDOM.render(<Panel />, this.container);
       expect(
         TestUtils.scryRenderedDOMComponentsWithClass(panel, "panel-header")
@@ -115,7 +115,7 @@ describe("Panel", function() {
       ).toBe(0);
     });
 
-    it("should be able to add an onClick to the panel node", function() {
+    it("is able to add an onClick to the panel node", function() {
       var panel = TestUtils.findRenderedComponentWithType(this.instance, Panel);
       TestUtils.Simulate.click(ReactDOM.findDOMNode(panel));
       expect(this.onClickSpy).toHaveBeenCalled();

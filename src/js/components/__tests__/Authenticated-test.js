@@ -33,7 +33,7 @@ describe("Authenticated", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it("should redirect to /login if user is not logged in", function() {
+  it("redirects to /login if user is not logged in", function() {
     this.callback = jasmine.createSpy();
     Hooks.addAction("redirectToLogin", function(nextState, replace) {
       replace("/login");
@@ -42,7 +42,7 @@ describe("Authenticated", function() {
     expect(this.callback).toHaveBeenCalledWith("/login");
   });
 
-  it("shouldn't call redirect when user is not logged in", function() {
+  it("doesn't call redirect when user is not logged in", function() {
     AuthStore.isLoggedIn = function() {
       return true;
     };
@@ -51,7 +51,7 @@ describe("Authenticated", function() {
     expect(this.callback).not.toHaveBeenCalled();
   });
 
-  it("should render component when user is logged in", function() {
+  it("renders component when user is logged in", function() {
     var renderedComponent = ReactDOM.render(<this.instance />, this.container);
     var component = TestUtils.findRenderedDOMComponentWithTag(
       renderedComponent,

@@ -2,7 +2,7 @@ const JSONEditorUtil = require("../JSONEditorUtil");
 
 describe("JSONEditorUtil", function() {
   describe("#cursorFromOffset", function() {
-    it("should properly resolve beginning edge", function() {
+    it("resolves beginning edge", function() {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(0, text)).toEqual({
         row: 0,
@@ -10,7 +10,7 @@ describe("JSONEditorUtil", function() {
       });
     });
 
-    it("should properly resolve ending edge", function() {
+    it("resolves ending edge", function() {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(16, text)).toEqual({
         row: 0,
@@ -18,7 +18,7 @@ describe("JSONEditorUtil", function() {
       });
     });
 
-    it("should ignore negative offsets", function() {
+    it("ignores negative offsets", function() {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(-1, text)).toEqual({
         row: 0,
@@ -26,7 +26,7 @@ describe("JSONEditorUtil", function() {
       });
     });
 
-    it("should ignore offsets exceeding string length", function() {
+    it("ignores offsets exceeding string length", function() {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(20, text)).toEqual({
         row: 0,
@@ -34,7 +34,7 @@ describe("JSONEditorUtil", function() {
       });
     });
 
-    it("should properly resolve offset in multiline text", function() {
+    it("resolves offset in multiline text", function() {
       const text = "first line\nsecond line\nthird line";
       expect(JSONEditorUtil.cursorFromOffset(13, text)).toEqual({
         row: 1,
@@ -44,7 +44,7 @@ describe("JSONEditorUtil", function() {
   });
 
   describe("#deepObjectDiff", function() {
-    it("should detect added values", function() {
+    it("detects added values", function() {
       const a = {};
       const b = { a: "foo" };
 
@@ -54,7 +54,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect removed values", function() {
+    it("detects removed values", function() {
       const a = { a: "foo" };
       const b = {};
 
@@ -64,7 +64,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect modified values", function() {
+    it("detects modified values", function() {
       const a = { a: "foo" };
       const b = { a: "bar" };
 
@@ -74,7 +74,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect added values in arrays", function() {
+    it("detects added values in arrays", function() {
       const a = { a: [] };
       const b = { a: ["foo"] };
 
@@ -85,7 +85,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect removed values in arrays", function() {
+    it("detects removed values in arrays", function() {
       const a = { a: ["foo"] };
       const b = { a: [] };
 
@@ -96,7 +96,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect modified values in arrays", function() {
+    it("detects modified values in arrays", function() {
       const a = { a: ["foo"] };
       const b = { a: ["bar"] };
 
@@ -107,7 +107,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect added values in objects", function() {
+    it("detects added values in objects", function() {
       const a = { a: {} };
       const b = { a: { b: "foo" } };
 
@@ -118,7 +118,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect removed values in objects", function() {
+    it("detects removed values in objects", function() {
       const a = { a: { b: "foo" } };
       const b = { a: {} };
 
@@ -129,7 +129,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should detect modified values in objects", function() {
+    it("detects modified values in objects", function() {
       const a = { a: { b: "foo" } };
       const b = { a: { b: "bar" } };
 
@@ -140,7 +140,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should handle object-to-array mutations", function() {
+    it("handles object-to-array mutations", function() {
       const a = { a: { b: "foo" } };
       const b = { a: ["foo"] };
 
@@ -152,7 +152,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should handle object-to-scalar mutations", function() {
+    it("handles object-to-scalar mutations", function() {
       const a = { a: { b: "foo" } };
       const b = { a: "bar" };
 
@@ -162,7 +162,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should handle array-to-object mutations", function() {
+    it("handles array-to-object mutations", function() {
       const a = { a: ["foo"] };
       const b = { a: { b: "foo" } };
 
@@ -174,7 +174,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should handle scalar-to-object mutations", function() {
+    it("handles scalar-to-object mutations", function() {
       const a = { a: "bar" };
       const b = { a: { b: "foo" } };
 
@@ -184,7 +184,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should handle null-to-object mutations", function() {
+    it("handles null-to-object mutations", function() {
       const a = { a: null };
       const b = { a: { b: "foo" } };
 
@@ -194,7 +194,7 @@ describe("JSONEditorUtil", function() {
       ]);
     });
 
-    it("should handle object-to-null mutations", function() {
+    it("handles object-to-null mutations", function() {
       const a = { a: { b: "foo" } };
       const b = { a: null };
 
@@ -206,7 +206,7 @@ describe("JSONEditorUtil", function() {
   });
 
   describe("#sortObjectKeys", function() {
-    it("should order keys according to old ones", function() {
+    it("orders keys according to old ones", function() {
       const a = { a: 0, b: 1, c: 2 };
       const b = { c: 3, a: 4, b: 5 };
 
@@ -215,7 +215,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ a: 4, b: 5, c: 3 });
     });
 
-    it("should order less than previous keys in the same order", function() {
+    it("orders less than previous keys in the same order", function() {
       const a = { a: 0, b: 1, c: 2 };
       const b = { c: 3, a: 4 };
 
@@ -224,7 +224,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ a: 4, c: 3 });
     });
 
-    it("should add new keys at the end of the object", function() {
+    it("adds new keys at the end of the object", function() {
       const a = { a: 0, b: 1, c: 2 };
       const b = { c: 3, a: 4, d: 5 };
 
@@ -233,7 +233,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ a: 4, c: 3, d: 5 });
     });
 
-    it("should order keys according to old ones (nested)", function() {
+    it("orders keys according to old ones (nested)", function() {
       const a = { o: { a: 0, b: 1, c: 2 } };
       const b = { o: { c: 3, a: 4, b: 5 } };
 
@@ -242,7 +242,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ o: { a: 4, b: 5, c: 3 } });
     });
 
-    it("should order less than previous keys in the same order (nested)", function() {
+    it("orders less than previous keys in the same order (nested)", function() {
       const a = { o: { a: 0, b: 1, c: 2 } };
       const b = { o: { c: 3, a: 4 } };
 
@@ -251,7 +251,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ o: { a: 4, c: 3 } });
     });
 
-    it("should add new keys at the end of the object (nested)", function() {
+    it("adds new keys at the end of the object (nested)", function() {
       const a = { o: { a: 0, b: 1, c: 2 } };
       const b = { o: { c: 3, a: 4, d: 5 } };
 
@@ -268,7 +268,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ a: ["b", "a", "c"] });
     });
 
-    it("should properly handle null-to-object comparisons", function() {
+    it("handles null-to-object comparisons", function() {
       const a = { a: { b: "foo", c: "bar" } };
       const b = { a: null };
 
@@ -276,7 +276,7 @@ describe("JSONEditorUtil", function() {
       expect(value).toEqual({ a: null });
     });
 
-    it("should place object values in keys that were null before", function() {
+    it("places object values in keys that were null before", function() {
       const a = { a: null };
       const b = { a: { b: "foo", c: "bar" } };
 

@@ -6,7 +6,7 @@ const TestUtils = require("react-addons-test-utils");
 const ConfigurationMapValueWithDefault = require("../ConfigurationMapValueWithDefault");
 
 describe("ConfigurationMapValueWithDefault", function() {
-  it("should correctly render value if specified", function() {
+  it("renders value if specified", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapValueWithDefault value={"foo"} />
     );
@@ -19,7 +19,7 @@ describe("ConfigurationMapValueWithDefault", function() {
     expect(contentText).toEqual("foo");
   });
 
-  it("should render `defaultValue` if empty", function() {
+  it("renders `defaultValue` if empty", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapValueWithDefault value={null} defaultValue="-" />
     );

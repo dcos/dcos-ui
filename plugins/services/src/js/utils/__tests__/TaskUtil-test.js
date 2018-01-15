@@ -99,27 +99,27 @@ describe("TaskUtil", function() {
       });
     });
 
-    it("should handle empty container well", function() {
+    it("handles empty container well", function() {
       expect(TaskUtil.getPortMappings({})).toEqual(null);
     });
 
-    it("should handle empty type well", function() {
+    it("handles empty type well", function() {
       expect(TaskUtil.getPortMappings({ container: {} })).toEqual(null);
     });
 
-    it("should handle empty info well", function() {
+    it("handles empty info well", function() {
       expect(TaskUtil.getPortMappings({ container: { type: "FOO" } })).toEqual(
         null
       );
     });
 
-    it("should handle empty port mappings well", function() {
+    it("handles empty port mappings well", function() {
       expect(
         TaskUtil.getPortMappings({ container: { type: "FOO", foo: {} } })
       ).toEqual(null);
     });
 
-    it("should handle if port mappings are is not an array", function() {
+    it("handles if port mappings are is not an array", function() {
       expect(
         TaskUtil.getPortMappings({
           container: { type: "FOO", foo: { port_mappings: 0 } }
@@ -127,7 +127,7 @@ describe("TaskUtil", function() {
       ).toEqual(null);
     });
 
-    it("should provide port_mappings when available", function() {
+    it("provides port_mappings when available", function() {
       expect(this.instance).toEqual(["foo", "bar", "baz"]);
     });
   });

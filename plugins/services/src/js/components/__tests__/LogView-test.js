@@ -43,14 +43,14 @@ describe("LogView", function() {
       DOMUtils.getComputedDimensions = this.previousGetComputed;
     });
 
-    it("should not call fetchPreviousLogs if past 2000 pixels", function() {
+    it("does not call fetchPreviousLogs if past 2000 pixels", function() {
       var container = { scrollTop: 4000 };
       this.instance.checkIfCloseToTop(container);
 
       expect(this.fetchPreviousLogsSpy).not.toHaveBeenCalled();
     });
 
-    it("should not call fetchPreviousLogs if below 2000 pixels", function() {
+    it("does not call fetchPreviousLogs if below 2000 pixels", function() {
       var container = { scrollTop: 1000 };
       this.instance.checkIfCloseToTop(container);
 
@@ -59,26 +59,26 @@ describe("LogView", function() {
   });
 
   describe("#getLog", function() {
-    it("should not show empty log when fullLog is populated", function() {
+    it("does not show empty log when fullLog is populated", function() {
       this.instance.state.fullLog = "foo";
       var res = this.instance.getLog();
       expect(Array.isArray(res)).toEqual(true);
     });
 
-    it("should get empty screen when log is empty", function() {
+    it("gets empty screen when log is empty", function() {
       this.instance.state.fullLog = "";
       var res = this.instance.getLog();
       expect(TestUtils.isElementOfType(res, EmptyLogScreen)).toEqual(true);
     });
 
-    it("should call getLog when log is empty", function() {
+    it("calls getLog when log is empty", function() {
       this.instance.state.fullLog = "";
       this.instance.getLog = jasmine.createSpy("getLog");
       this.instance.render();
       expect(this.instance.getLog).toHaveBeenCalled();
     });
 
-    it("should call getLog when log is populated", function() {
+    it("calls getLog when log is populated", function() {
       this.instance.state.fullLog = "foo";
       this.instance.getLog = jasmine.createSpy("getLog");
       this.instance.render();
@@ -87,13 +87,13 @@ describe("LogView", function() {
   });
 
   describe("#getGoToBottomButton", function() {
-    it("should not return a button if currently at the bottom", function() {
+    it("does not return a button if currently at the bottom", function() {
       this.instance.state.isAtBottom = true;
       var button = this.instance.getGoToBottomButton();
       expect(button).toEqual(null);
     });
 
-    it("should return a button if not at bottom", function() {
+    it("returns a button if not at bottom", function() {
       this.instance.state.isAtBottom = false;
       var button = this.instance.getGoToBottomButton();
       expect(TestUtils.isElementOfType(button, "button")).toEqual(true);

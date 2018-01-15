@@ -2,14 +2,14 @@ const DataValidatorUtil = require("../DataValidatorUtil");
 
 describe("DataValidatorUtil", function() {
   describe("#errorArrayToMap", function() {
-    it("should correctly return an object", function() {
+    it("returns an object", function() {
       var obj = DataValidatorUtil.errorArrayToMap([
         { path: ["a", "b"], message: "Foo" }
       ]);
       expect(obj).toEqual({ a: { b: "Foo" } });
     });
 
-    it("should correctly merge paths that share the same base", function() {
+    it("merges paths that share the same base", function() {
       var obj = DataValidatorUtil.errorArrayToMap([
         { path: ["a", "b"], message: "Foo" },
         { path: ["a", "c"], message: "Bar" }
@@ -17,7 +17,7 @@ describe("DataValidatorUtil", function() {
       expect(obj).toEqual({ a: { b: "Foo", c: "Bar" } });
     });
 
-    it("should correctly create arrays when numbers in path", function() {
+    it("creates arrays when numbers in path", function() {
       var obj = DataValidatorUtil.errorArrayToMap([
         { path: ["a", 0, "b"], message: "Foo" },
         { path: ["a", 5, "b"], message: "Bar" }
@@ -34,7 +34,7 @@ describe("DataValidatorUtil", function() {
       });
     });
 
-    it("should correctly merge errors in the same path", function() {
+    it("merges errors in the same path", function() {
       var obj = DataValidatorUtil.errorArrayToMap([
         { path: ["a", "b"], message: "Foo" },
         { path: ["a", "b"], message: "Bar" }
@@ -42,7 +42,7 @@ describe("DataValidatorUtil", function() {
       expect(obj).toEqual({ a: { b: "Foo, Bar" } });
     });
 
-    it("should correctly handle errors with empty paths", function() {
+    it("handles errors with empty paths", function() {
       var obj = DataValidatorUtil.errorArrayToMap([
         { path: [], message: "Foo" },
         { path: ["a", "b"], message: "Bar" }
@@ -52,7 +52,7 @@ describe("DataValidatorUtil", function() {
   });
 
   describe("#updateOnlyOnPath", function() {
-    it("should not touch errors on unknown paths", function() {
+    it("does not touch errors on unknown paths", function() {
       var oldErrors = [
         { path: ["a", "b"], message: "Error1" },
         { path: ["a", "c"], message: "Error2" }
@@ -71,7 +71,7 @@ describe("DataValidatorUtil", function() {
       ]);
     });
 
-    it("should correctly update only related errors", function() {
+    it("updates only related errors", function() {
       var oldErrors = [
         { path: ["a", "b"], message: "Error1" },
         { path: ["a", "c"], message: "Error2" }
@@ -90,7 +90,7 @@ describe("DataValidatorUtil", function() {
       ]);
     });
 
-    it("should remove errors if new list contains less, unrelated errors", function() {
+    it("removes errors if new list contains less, unrelated errors", function() {
       var oldErrors = [
         { path: ["a", "b"], message: "Error1" },
         { path: ["a", "c"], message: "Error3" }
@@ -105,7 +105,7 @@ describe("DataValidatorUtil", function() {
   });
 
   describe("#stripErrorsOnPath", function() {
-    it("should remove only related errors", function() {
+    it("removes only related errors", function() {
       var oldErrors = [
         { path: ["a", "b"], message: "Error1" },
         { path: ["a", "c"], message: "Error3" }

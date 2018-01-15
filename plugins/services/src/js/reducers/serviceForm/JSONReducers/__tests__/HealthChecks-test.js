@@ -9,14 +9,14 @@ const HealthChecks = require("../HealthChecks");
 
 describe("HealthChecks", function() {
   describe("#JSONReducer", function() {
-    it("should return an Array", function() {
+    it("returns an Array", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([{}]);
     });
 
-    it("should set the protocol", function() {
+    it("sets the protocol", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -30,7 +30,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should set the right Command", function() {
+    it("sets the right Command", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -50,7 +50,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should set the right path", function() {
+    it("sets the right path", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -66,7 +66,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should have a fully fledged health check object", function() {
+    it("has a fully fledged health check object", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -99,7 +99,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should remove the right item", function() {
+    it("removes the right item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
@@ -123,43 +123,37 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it(
-      "should have a fully fledged health check object with unknown" +
-        " protocol",
-      function() {
-        let batch = new Batch();
-        batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTPS")
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "path"], "/test")
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "gracePeriodSeconds"], 1)
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "intervalSeconds"], 2)
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "timeoutSeconds"], 3)
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "maxConsecutiveFailures"], 4)
-        );
+    it("has a fully fledged health check object with unknown protocol", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTPS")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "path"], "/test"));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "gracePeriodSeconds"], 1)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "intervalSeconds"], 2)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "timeoutSeconds"], 3)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "maxConsecutiveFailures"], 4)
+      );
 
-        expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([
-          {
-            protocol: "MESOS_HTTPS",
-            path: "/test",
-            gracePeriodSeconds: 1,
-            intervalSeconds: 2,
-            timeoutSeconds: 3,
-            maxConsecutiveFailures: 4
-          }
-        ]);
-      }
-    );
+      expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([
+        {
+          protocol: "MESOS_HTTPS",
+          path: "/test",
+          gracePeriodSeconds: 1,
+          intervalSeconds: 2,
+          timeoutSeconds: 3,
+          maxConsecutiveFailures: 4
+        }
+      ]);
+    });
     it("sets ipProtocol to IPv6 if set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
@@ -298,7 +292,7 @@ describe("HealthChecks", function() {
   });
 
   describe("#JSONParser", function() {
-    it("should pass unknown protocol", function() {
+    it("passes unknown protocol", function() {
       expect(
         HealthChecks.JSONParser({
           healthChecks: [

@@ -23,7 +23,7 @@ describe("Volumes", function() {
     });
 
     describe("with no initial value in ADD_ITEM transaction", function() {
-      it("should have an array with one object", function() {
+      it("has an array with one object", function() {
         let batch = new Batch();
         batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
@@ -33,7 +33,7 @@ describe("Volumes", function() {
       });
     });
 
-    it("should have an array with one object containing a name", function() {
+    it("has an array with one object containing a name", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -43,20 +43,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have an array with one object containing only a name", function() {
-      let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
-      batch = batch.add(
-        new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
-      );
-
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "foo" }
-      ]);
-    });
-
-    it("should have two items with names", function() {
+    it("has an array with one object containing only a name", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -69,7 +56,20 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have two items with names", function() {
+    it("has two items with names", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
+      batch = batch.add(
+        new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
+      );
+
+      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+        { name: "foo" }
+      ]);
+    });
+
+    it("has two items with names", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -82,7 +82,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should remove the right item", function() {
+    it("removes the right item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -124,7 +124,7 @@ describe("Volumes", function() {
   });
 
   describe("#FormReducer", function() {
-    it("should have an array with one object", function() {
+    it("has an array with one object", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
@@ -133,7 +133,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have an array with one object containing a name", function() {
+    it("has an array with one object containing a name", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -143,7 +143,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have two items with names", function() {
+    it("has two items with names", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -156,7 +156,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should remove the right item", function() {
+    it("removes the right item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -169,7 +169,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("should have two items with names and mountpath", function() {
+    it("has two items with names and mountpath", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -209,7 +209,7 @@ describe("Volumes", function() {
   });
 
   describe("#JSONParser", function() {
-    it("should parse a simple config", function() {
+    it("parses a simple config", function() {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
@@ -228,7 +228,7 @@ describe("Volumes", function() {
       ).toEqual(expectedObject);
     });
 
-    it("should parse a normal config", function() {
+    it("parses a normal config", function() {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
@@ -257,7 +257,7 @@ describe("Volumes", function() {
       ).toEqual(expectedObject);
     });
 
-    it("should parse a advanced config", function() {
+    it("parses a advanced config", function() {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foobar" }, path: ["volumeMounts"] },
         { type: SET, value: "foobar", path: ["volumeMounts", 0, "name"] },

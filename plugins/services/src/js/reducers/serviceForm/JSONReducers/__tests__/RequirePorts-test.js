@@ -5,7 +5,7 @@ const RequirePorts = require("../RequirePorts");
 
 describe("RequirePorts", function() {
   describe("#JSONReducer", function() {
-    it("should return inverted value of portsAutoAssign", function() {
+    it("returns inverted value of portsAutoAssign", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["portsAutoAssign"], true, SET));
@@ -15,13 +15,13 @@ describe("RequirePorts", function() {
   });
 
   describe("#JSONParser", function() {
-    it("it should return true as default", function() {
+    it("returns true as default", function() {
       expect(RequirePorts.JSONParser({})).toEqual(
         new Transaction(["portsAutoAssign"], true)
       );
     });
 
-    it("should return inverted value of requirePorts", function() {
+    it("returns inverted value of requirePorts", function() {
       expect(
         RequirePorts.JSONParser({
           requirePorts: true

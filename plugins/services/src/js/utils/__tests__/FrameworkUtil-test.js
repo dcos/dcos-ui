@@ -9,7 +9,7 @@ describe("FrameworkUtil", function() {
       };
     });
 
-    it("should find the requested size of image", function() {
+    it("finds the requested size of image", function() {
       var image = FrameworkUtil.getImageSizeFromImagesObject(
         this.images,
         "medium"
@@ -51,18 +51,18 @@ describe("FrameworkUtil", function() {
       };
     });
 
-    it("should return parsed images when all images are defined", function() {
+    it("returns parsed images when all images are defined", function() {
       var images = FrameworkUtil.getServiceImages(this.images);
       expect(images).toEqual(this.images);
     });
 
-    it("should return default images when one size is missing", function() {
+    it("returns default images when one size is missing", function() {
       delete this.images["icon-large"];
       var images = FrameworkUtil.getServiceImages(this.images);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });
 
-    it("should return default images when images is null", function() {
+    it("returns default images when images is null", function() {
       var images = FrameworkUtil.getServiceImages(null);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });

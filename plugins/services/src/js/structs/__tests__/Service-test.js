@@ -22,7 +22,7 @@ describe("Service", function() {
   });
 
   describe("#getResources", function() {
-    it("should return default correct resource data", function() {
+    it("returns default correct resource data", function() {
       expect(new Service().getResources()).toEqual({
         cpus: 0,
         mem: 0,

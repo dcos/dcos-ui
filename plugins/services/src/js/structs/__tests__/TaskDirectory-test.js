@@ -15,11 +15,11 @@ describe("TaskDirectory", function() {
   });
 
   describe("#findFile", function() {
-    it("should return undefined when item is not is list", function() {
+    it("returns undefined when item is not is list", function() {
       expect(this.directory.findFile("quis")).toEqual(undefined);
     });
 
-    it("should return the file when item is not is list", function() {
+    it("returns the file when item is not is list", function() {
       expect(this.directory.findFile("bar").get("path")).toEqual(
         "/some/path/to/bar"
       );

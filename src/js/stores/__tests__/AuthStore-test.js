@@ -58,14 +58,14 @@ describe("AuthStore", function() {
       global.document = this.document;
     });
 
-    it("should set the cookie to an empty string", function() {
+    it("sets the cookie to an empty string", function() {
       var args = cookie.serialize.calls.mostRecent().args;
 
       expect(args[0]).toEqual(USER_COOKIE_KEY);
       expect(args[1]).toEqual("");
     });
 
-    it("should emit a logout event", function() {
+    it("emits a logout event", function() {
       var args = AuthStore.emit.calls.mostRecent().args;
 
       expect(args[0]).toEqual(EventTypes.AUTH_USER_LOGOUT_SUCCESS);
@@ -73,7 +73,7 @@ describe("AuthStore", function() {
   });
 
   describe("#login", function() {
-    it("should make a request to login", function() {
+    it("makes a request to login", function() {
       RequestUtil.json = jasmine.createSpy();
       AuthStore.login({});
 
@@ -97,7 +97,7 @@ describe("AuthStore", function() {
       AuthStore.set({ role: undefined });
     });
 
-    it("should get the user", function() {
+    it("gets the user", function() {
       expect(AuthStore.getUser()).toEqual({
         uid: "joe",
         description: "Joe Doe"

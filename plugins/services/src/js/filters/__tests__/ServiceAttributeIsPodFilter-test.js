@@ -11,7 +11,7 @@ describe("ServiceAttributeIsPodFilter", function() {
     this.mockItems = [new Framework(), new Application(), new Pod()];
   });
 
-  it("Should match Pod instances", function() {
+  it("matches Pod instances", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:pod");
 
@@ -22,7 +22,7 @@ describe("ServiceAttributeIsPodFilter", function() {
     ]);
   });
 
-  it("Should correctly keep nothing on unknown values", function() {
+  it("keeps nothing on unknown values", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -31,7 +31,7 @@ describe("ServiceAttributeIsPodFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("Should be case-insensitive", function() {
+  it("is case-insensitive", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("is:pOd");
 

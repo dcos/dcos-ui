@@ -3,7 +3,7 @@ const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
 
 describe("Networks", function() {
   describe("#JSONParser", function() {
-    it("should return an empty array", function() {
+    it("returns an empty array", function() {
       expect(Networks.JSONParser({})).toEqual([]);
     });
 

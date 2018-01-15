@@ -28,12 +28,12 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should return tasks of service with name that matches", function() {
+    it("returns tasks of service with name that matches", function() {
       var result = MesosStateStore.getTasksFromServiceName("marathon");
       expect(result).toEqual([1, 2, 3]);
     });
 
-    it("should null if no service matches", function() {
+    it("nulls if no service matches", function() {
       var result = MesosStateStore.getTasksFromServiceName("nonExistent");
       expect(result).toEqual([]);
     });
@@ -78,7 +78,7 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should return matching framework tasks including scheduler tasks", function() {
+    it("returns matching framework tasks including scheduler tasks", function() {
       var tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
@@ -93,7 +93,7 @@ describe("MesosStateStore", function() {
       ]);
     });
 
-    it("should return matching application tasks", function() {
+    it("returns matching application tasks", function() {
       var tasks = MesosStateStore.getTasksByService(
         new Application({ id: "/alpha" })
       );
@@ -104,7 +104,7 @@ describe("MesosStateStore", function() {
       ]);
     });
 
-    it("should empty task list if no service matches", function() {
+    it("empties task list if no service matches", function() {
       var tasks = MesosStateStore.getTasksByService(
         new Application({ id: "/non-existent" })
       );
@@ -131,12 +131,12 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should return the node with the correct ID", function() {
+    it("returns the node with the correct ID", function() {
       var result = MesosStateStore.getNodeFromID("amazon-thing");
       expect(result.fakeProp).toEqual("fake");
     });
 
-    it("should return null if node not found", function() {
+    it("returns null if node not found", function() {
       var result = MesosStateStore.getNodeFromID("nonExistentNode");
       expect(result).toEqual(undefined);
     });
@@ -164,22 +164,22 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should return null from an unknown task ID", function() {
+    it("returns null from an unknown task ID", function() {
       var result = MesosStateStore.getTaskFromTaskID("not-a-task-id");
       expect(result).toBeNull();
     });
 
-    it("should return an instance of Task", function() {
+    it("returns an instance of Task", function() {
       var result = MesosStateStore.getTaskFromTaskID(1);
       expect(result instanceof Task).toBeTruthy();
     });
 
-    it("should find a currently running task", function() {
+    it("finds a currently running task", function() {
       var result = MesosStateStore.getTaskFromTaskID(1);
       expect(result.get()).toEqual({ id: 1 });
     });
 
-    it("should find a completed task", function() {
+    it("finds a completed task", function() {
       var result = MesosStateStore.getTaskFromTaskID(2);
       expect(result.get()).toEqual({ id: 2 });
     });
@@ -194,7 +194,7 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should return scheduler tasks", function() {
+    it("returns scheduler tasks", function() {
       MesosStateStore.get = function() {
         return {
           frameworks: [
@@ -232,7 +232,7 @@ describe("MesosStateStore", function() {
       ]);
     });
 
-    it("should not return plain tasks", function() {
+    it("does not return plain tasks", function() {
       MesosStateStore.get = function() {
         return {
           frameworks: [
@@ -282,7 +282,7 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should return the matching scheduler task", function() {
+    it("returns the matching scheduler task", function() {
       const schedulerTask = MesosStateStore.getSchedulerTaskFromServiceName(
         "foo"
       );
@@ -293,7 +293,7 @@ describe("MesosStateStore", function() {
       });
     });
 
-    it("should return undefined if no matching scheduler task was found", function() {
+    it("returns undefined if no matching scheduler task was found", function() {
       const schedulerTask = MesosStateStore.getSchedulerTaskFromServiceName(
         "bar"
       );
@@ -314,7 +314,7 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = this.get;
     });
 
-    it("should pass-through to MesosStateUtil.getPodHistoricalInstances", function() {
+    it("passes through to MesosStateUtil.getPodHistoricalInstances", function() {
       var pod = new Pod({ id: "/pod-p0" });
       var result = MesosStateStore.getPodHistoricalInstances(pod);
       var expected = MesosStateUtil.getPodHistoricalInstances(

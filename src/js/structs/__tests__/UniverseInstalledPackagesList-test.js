@@ -10,14 +10,14 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[0] instanceof UniversePackage).toBeTruthy();
     });
 
-    it("should store appId in UniversePackage", function() {
+    it("stores appId in UniversePackage", function() {
       var items = [{ appId: "baz", foo: "bar" }];
       var list = new UniverseInstalledPackagesList({ items });
       items = list.getItems();
       expect(items[0].get("appId")).toEqual("baz");
     });
 
-    it("should store packageInformation in UniversePackage", function() {
+    it("stores packageInformation in UniversePackage", function() {
       var items = [{ appId: "baz", foo: "bar" }];
       var list = new UniverseInstalledPackagesList({ items });
       items = list.getItems();
@@ -26,7 +26,7 @@ describe("UniverseInstalledPackagesList", function() {
   });
 
   describe("#filterItemsByText", function() {
-    it("should filter by name", function() {
+    it("filters by name", function() {
       var items = [
         { appId: "baz", name: "foo" },
         { appId: "baz", name: "bar" }
@@ -37,7 +37,7 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[0].getName()).toEqual("bar");
     });
 
-    it("should filter by description", function() {
+    it("filters by description", function() {
       var items = [
         { appId: "baz", description: "foo" },
         { appId: "baz", description: "bar" }
@@ -48,7 +48,7 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[0].getDescription()).toEqual("foo");
     });
 
-    it("should filter by tags", function() {
+    it("filters by tags", function() {
       var items = [
         { appId: "baz", tags: ["foo", "bar"] },
         { appId: "baz", tags: ["foo"] },
@@ -61,7 +61,7 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[1].getTags()).toEqual(["foo"]);
     });
 
-    it("should handle filter by tags with null elements", function() {
+    it("handles filter by tags with null elements", function() {
       var items = [
         { appId: "baz", tags: ["foo", "bar"] },
         { appId: "baz", tags: ["foo"] },

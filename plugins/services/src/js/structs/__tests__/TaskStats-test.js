@@ -98,7 +98,7 @@ describe("TaskStats", function() {
       expect(statisticsList instanceof List).toBeTruthy();
     });
 
-    it("should only return items with stats", function() {
+    it("only returns items with stats", function() {
       const statisticsList = new TaskStats({
         totalSummary: {
           stats: {

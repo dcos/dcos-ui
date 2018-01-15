@@ -9,21 +9,21 @@ describe("TabsUtil", function() {
       spyOn(this, "getElement");
     });
 
-    it("should return an empty array when given an empty object", function() {
+    it("returns an empty array when given an empty object", function() {
       var result = TabsUtil.getTabs({}, null, this.getElement);
 
       expect(this.getElement).not.toHaveBeenCalled();
       expect(result).toEqual([]);
     });
 
-    it("should return equal length array to what is given", function() {
+    it("returns equal length array to what is given", function() {
       var result = TabsUtil.getTabs(this.tabs, "baz", this.getElement);
 
       expect(this.getElement.calls.count()).toEqual(3);
       expect(result.length).toEqual(3);
     });
 
-    it("should return LIs", function() {
+    it("returns LIs", function() {
       var result = TabsUtil.getTabs(this.tabs, "baz", this.getElement);
 
       expect(result[0].type).toEqual("li");
@@ -31,7 +31,7 @@ describe("TabsUtil", function() {
       expect(result[2].type).toEqual("li");
     });
 
-    it("should return elements with one active class", function() {
+    it("returns elements with one active class", function() {
       var result = TabsUtil.getTabs(this.tabs, "baz", this.getElement);
 
       expect(result[0].props.className).toEqual("menu-tabbed-item");
@@ -39,7 +39,7 @@ describe("TabsUtil", function() {
       expect(result[2].props.className).toEqual("menu-tabbed-item");
     });
 
-    it("should not highlight routes contained within the class name", function() {
+    it("does not highlight routes contained within the class name", function() {
       var tabs = TabsUtil.getTabs(
         this.hierarchicalTabs,
         "-foo",
@@ -51,7 +51,7 @@ describe("TabsUtil", function() {
       expect(tabs[2].props.className).toEqual("menu-tabbed-item active");
     });
 
-    it("should highlight all routes which prefix the current tab name", function() {
+    it("highlights all routes which prefix the current tab name", function() {
       var tabs = TabsUtil.getTabs(
         this.hierarchicalTabs,
         "foobar",
@@ -63,7 +63,7 @@ describe("TabsUtil", function() {
       expect(tabs[2].props.className).toEqual("menu-tabbed-item");
     });
 
-    it("should call getElement with appropriate arguments", function() {
+    it("calls getElement with appropriate arguments", function() {
       TabsUtil.getTabs(this.tabs, "baz", this.getElement);
 
       expect(this.getElement.calls.allArgs()).toEqual([
@@ -73,19 +73,19 @@ describe("TabsUtil", function() {
       ]);
     });
 
-    it("should throw an error when tabs is null", function() {
+    it("throws an error when tabs is null", function() {
       var fn = TabsUtil.getTabs.bind(null, null, "baz", function() {});
 
       expect(fn).toThrow();
     });
 
-    it("should throw an error when tabs is undefined", function() {
+    it("throws an error when tabs is undefined", function() {
       var fn = TabsUtil.getTabs.bind(null, undefined, "baz", function() {});
 
       expect(fn).toThrow();
     });
 
-    it("should not have an active route when it doesn't exist", function() {
+    it("does not have an active route when it doesn't exist", function() {
       TabsUtil.getTabs(this.tabs, "notHere", this.getElement);
 
       expect(this.getElement.calls.allArgs()).toEqual([
@@ -114,7 +114,7 @@ describe("TabsUtil", function() {
       };
     });
 
-    it("should arrange tabs in correct order", function() {
+    it("arranges tabs in correct order", function() {
       var sortedTabs = TabsUtil.sortTabs(this.tabs);
       var tabContent = Object.keys(sortedTabs);
       expect(tabContent).toEqual(["bar", "foo", "qux"]);

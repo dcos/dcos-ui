@@ -7,13 +7,13 @@ describe("InternalStorageMixin", function() {
   });
 
   describe("#internalStorage_get", function() {
-    it("should return an empty object", function() {
+    it("returns an empty object", function() {
       var instance = this.instance;
 
       expect(instance.internalStorage_get()).toEqual({});
     });
 
-    it("should get the last set object", function() {
+    it("gets the last set object", function() {
       var instance = this.instance;
 
       instance.internalStorage_set({
@@ -33,7 +33,7 @@ describe("InternalStorageMixin", function() {
       });
     });
 
-    it("should get the last set value", function() {
+    it("gets the last set value", function() {
       var instance = this.instance;
 
       instance.internalStorage_set("teststring");
@@ -42,7 +42,7 @@ describe("InternalStorageMixin", function() {
       expect(instance.internalStorage_get()).toBe("second teststring");
     });
 
-    it("should get the updated object", function() {
+    it("gets the updated object", function() {
       var instance = this.instance;
 
       instance.internalStorage_set({
@@ -68,7 +68,7 @@ describe("InternalStorageMixin", function() {
   });
 
   describe("#internalStorage_update", function() {
-    it("should throw an error while try to update a non Object/Array", function() {
+    it("throws an error while try to update a non Object/Array", function() {
       var instance = this.instance;
 
       instance.internalStorage_set("teststring");

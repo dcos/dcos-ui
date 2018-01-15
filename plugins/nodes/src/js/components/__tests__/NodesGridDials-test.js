@@ -65,14 +65,14 @@ describe("NodesGridDials", function() {
       expect(typeof slice).toEqual("object");
     });
 
-    it("the used slice uses the correct color", function() {
+    it("uses the correct color", function() {
       var slice = this.activeSlices.data.find(datum => {
         return datum.name === this.resourceLabel;
       });
       expect(slice.colorIndex).toEqual(this.resourceColor);
     });
 
-    it("the used slice contains the correct percentage", function() {
+    it("calculate the active percentage", function() {
       var slice = this.activeSlices.data.find(datum => {
         return datum.name === this.resourceLabel;
       });
@@ -86,14 +86,14 @@ describe("NodesGridDials", function() {
       expect(typeof slice).toEqual("object");
     });
 
-    it("the color for the unused slice should be gray", function() {
+    it("uses gray for the unused slice", function() {
       var slice = this.activeSlices.data.find(function(datum) {
         return datum.name === "Unused";
       });
       expect(slice.colorIndex).toEqual("unused");
     });
 
-    it("the percentage of the unused slice should be the remaining of the passed percentage", function() {
+    it("calculates the used percentage", function() {
       var slice = this.activeSlices.data.find(function(datum) {
         return datum.name === "Unused";
       });
@@ -102,12 +102,12 @@ describe("NodesGridDials", function() {
   });
 
   describe("#getInactiveSliceData", function() {
-    it("should use the correct color", function() {
+    it("uses the correct color", function() {
       var inactiveSlice = this.instance.getInactiveSliceData();
       expect(inactiveSlice[0].colorIndex).toEqual(2);
     });
 
-    it("should use 100% of the dial", function() {
+    it("uses 100% of the dial", function() {
       var inactiveSlice = this.instance.getInactiveSliceData();
       expect(inactiveSlice[0].percentage).toEqual(100);
     });
@@ -132,7 +132,7 @@ describe("NodesGridDials", function() {
   });
 
   describe("#render", function() {
-    it("render one chart", function() {
+    it("renders one chart", function() {
       var elements = TestUtils.scryRenderedDOMComponentsWithClass(
         this.instance,
         "chart"
@@ -141,7 +141,7 @@ describe("NodesGridDials", function() {
       expect(elements.length).toEqual(1);
     });
 
-    it("render the correct number of charts", function() {
+    it("renders the correct number of charts", function() {
       const host = Object.assign({}, this.hosts[0]);
       host.id = "bar";
       this.hosts.push(new Node(host));

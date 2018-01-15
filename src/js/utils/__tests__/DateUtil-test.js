@@ -2,55 +2,55 @@ const DateUtil = require("../DateUtil");
 
 describe("DateUtil", function() {
   describe("#msToMultiplicants", function() {
-    it("should decompose milliseconds only", function() {
+    it("decomposes milliseconds only", function() {
       var result = DateUtil.msToMultiplicants(987);
 
       expect(result).toEqual(["987 ms"]);
     });
 
-    it("should decompose seconds only", function() {
+    it("decomposes seconds only", function() {
       var result = DateUtil.msToMultiplicants(12000);
 
       expect(result).toEqual(["12 sec"]);
     });
 
-    it("should decompose minutes only", function() {
+    it("decomposes minutes only", function() {
       var result = DateUtil.msToMultiplicants(720000);
 
       expect(result).toEqual(["12 min"]);
     });
 
-    it("should decompose hours only", function() {
+    it("decomposes hours only", function() {
       var result = DateUtil.msToMultiplicants(43200000);
 
       expect(result).toEqual(["12 h"]);
     });
 
-    it("should decompose days only", function() {
+    it("decomposes days only", function() {
       var result = DateUtil.msToMultiplicants(1036800000);
 
       expect(result).toEqual(["12 d"]);
     });
 
-    it("should decompose milliseconds and seconds", function() {
+    it("decomposes milliseconds and seconds", function() {
       var result = DateUtil.msToMultiplicants(9878);
 
       expect(result).toEqual(["9 sec", "878 ms"]);
     });
 
-    it("should decompose seconds and minutes", function() {
+    it("decomposes seconds and minutes", function() {
       var result = DateUtil.msToMultiplicants(732000);
 
       expect(result).toEqual(["12 min", "12 sec"]);
     });
 
-    it("should decompose minutes and hours", function() {
+    it("decomposes minutes and hours", function() {
       var result = DateUtil.msToMultiplicants(43920000);
 
       expect(result).toEqual(["12 h", "12 min"]);
     });
 
-    it("should decompose hours and days", function() {
+    it("decomposes hours and days", function() {
       var result = DateUtil.msToMultiplicants(1080000000);
 
       expect(result).toEqual(["12 d", "12 h"]);
@@ -58,7 +58,7 @@ describe("DateUtil", function() {
   });
 
   describe("#msToDateStr", function() {
-    it("should return the correct string for AM", function() {
+    it("returns the correct string for AM", function() {
       // December is 11 due to months being 0-based index.
       var christmas = new Date(2015, 11, 25, 8, 13);
       var christmasValue = christmas.valueOf();
@@ -68,7 +68,7 @@ describe("DateUtil", function() {
       expect(result).toEqual("12-25-2015 at 8:13am");
     });
 
-    it("should return the correct string for PM", function() {
+    it("returns the correct string for PM", function() {
       var halloween = new Date(2015, 9, 31, 20, 30);
       var halloweenValue = halloween.valueOf();
 

@@ -26,7 +26,7 @@ describe("#ComponentList", function() {
   });
 
   describe("#getSortedHealthValues", function() {
-    it("should sort health units by visibility importance", function() {
+    it("sorts health units by visibility importance", function() {
       /**
        * health status visibility importance order top to bottom
        * unhealthy > NA > warn/idle > healthy
@@ -90,7 +90,7 @@ describe("#ComponentList", function() {
   });
 
   describe("#getVisibleComponents", function() {
-    it("should only return the number of visible units", function() {
+    it("only returns the number of visible units", function() {
       const unitsVisible = this.component.getVisibleComponents(
         healthUnits.getItems()
       );

@@ -61,7 +61,7 @@ describe("ServiceTree", function() {
       expect(this.instance.getItems()[3] instanceof Application).toEqual(true);
     });
 
-    it("should not convert instances of service", function() {
+    it("does not convert instances of service", function() {
       expect(this.instance.getItems()[4].get()).toEqual({ id: "a" });
       expect(this.instance.getItems()[5].get()).toEqual({ id: "b" });
     });
@@ -142,22 +142,22 @@ describe("ServiceTree", function() {
       });
     });
 
-    it("should return an instance of ServiceTree", function() {
+    it("returns an instance of ServiceTree", function() {
       const filteredTree = this.instance.filterItemsByText("alpha");
       expect(filteredTree instanceof ServiceTree).toBeTruthy();
     });
 
-    it("should include matching trees", function() {
+    it("includes matching trees", function() {
       const filteredItems = this.instance.filterItemsByText("test").getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
 
-    it("should not include empty trees", function() {
+    it("does not include empty trees", function() {
       const filteredItems = this.instance.filterItemsByText("beta").getItems();
       expect(filteredItems[0] instanceof Framework).toBeTruthy();
     });
 
-    it("should no include matching subtrees", function() {
+    it("does no include matching subtrees", function() {
       const filteredItems = this.instance.filterItemsByText("foo").getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
@@ -210,7 +210,7 @@ describe("ServiceTree", function() {
       });
     });
 
-    it("should filter by name", function() {
+    it("filters by name", function() {
       const filteredServices = this.instance
         .filterItemsByFilter({
           id: "alpha"
@@ -221,7 +221,7 @@ describe("ServiceTree", function() {
       expect(filteredServices[0].getId()).toEqual("/group/alpha");
     });
 
-    it("should filter by name in groups", function() {
+    it("filters by name in groups", function() {
       const filteredServices = this.instance
         .filterItemsByFilter({
           id: "/group/test/foo"
@@ -232,7 +232,7 @@ describe("ServiceTree", function() {
       expect(filteredServices[0].getId()).toEqual("/group/test/foo");
     });
 
-    it("should filter by health", function() {
+    it("filters by health", function() {
       const filteredServices = this.instance
         .filterItemsByFilter({
           health: [HealthTypes.HEALTHY]
@@ -243,7 +243,7 @@ describe("ServiceTree", function() {
       expect(filteredServices[0].getId()).toEqual("/group/beta");
     });
 
-    it("should perform a logical AND with multiple filters", function() {
+    it("performs a logical AND with multiple filters", function() {
       const filteredServices = this.instance
         .filterItemsByFilter({
           health: [HealthTypes.NA],
@@ -276,7 +276,7 @@ describe("ServiceTree", function() {
       });
     });
 
-    it("should find matching subtree", function() {
+    it("finds matching subtree", function() {
       expect(
         this.instance
           .findItem(function(item) {
@@ -318,23 +318,23 @@ describe("ServiceTree", function() {
       });
     });
 
-    it("should find matching item", function() {
+    it("finds matching item", function() {
       expect(this.instance.findItemById("/beta").getId()).toEqual("/beta");
     });
 
-    it("should find matching subtree item", function() {
+    it("finds matching subtree item", function() {
       expect(this.instance.findItemById("/test/foo").getId()).toEqual(
         "/test/foo"
       );
     });
 
-    it("should find matching subtree", function() {
+    it("finds matching subtree", function() {
       expect(this.instance.findItemById("/test").getId()).toEqual("/test");
     });
   });
 
   describe("#getDeployments", function() {
-    it("should return an empty array", function() {
+    it("returns an empty array", function() {
       const serviceTree = new ServiceTree({
         id: "/group/id",
         items: [
@@ -378,7 +378,7 @@ describe("ServiceTree", function() {
       expect(serviceTree.getDeployments()).toEqual([]);
     });
 
-    it("should return an array with three deployments", function() {
+    it("returns an array with three deployments", function() {
       const serviceTree = new ServiceTree({
         id: "/group/id",
         items: [

@@ -5,14 +5,14 @@ const HealthChecks = require("../HealthChecks");
 
 describe("HealthChecks", function() {
   describe("#FormReducer", function() {
-    it("should return an Array", function() {
+    it("returns an Array", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{}]);
     });
 
-    it("should set the protocol", function() {
+    it("sets the protocol", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -26,7 +26,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should set the right Command", function() {
+    it("sets the right Command", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -44,7 +44,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should set the right path", function() {
+    it("sets the right path", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -60,7 +60,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should have a fully fledged health check object", function() {
+    it("has a fully fledged health check object", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -93,47 +93,43 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it(
-      "should have a fully fledged health check object with unknown" +
-        " protocol",
-      function() {
-        let batch = new Batch();
-        batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "path"], "/api/health")
-        );
-        batch = batch.add(new Transaction(["healthChecks", 0, "portIndex"], 0));
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "gracePeriodSeconds"], 300)
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "intervalSeconds"], 60)
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "timeoutSeconds"], 20)
-        );
-        batch = batch.add(
-          new Transaction(["healthChecks", 0, "maxConsecutiveFailures"], 3)
-        );
+    it("has a fully fledged health check object with unknown protocol", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "protocol"], "MESOS_HTTP")
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "path"], "/api/health")
+      );
+      batch = batch.add(new Transaction(["healthChecks", 0, "portIndex"], 0));
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "gracePeriodSeconds"], 300)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "intervalSeconds"], 60)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "timeoutSeconds"], 20)
+      );
+      batch = batch.add(
+        new Transaction(["healthChecks", 0, "maxConsecutiveFailures"], 3)
+      );
 
-        expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
-          {
-            path: "/api/health",
-            portIndex: 0,
-            protocol: "MESOS_HTTP",
-            gracePeriodSeconds: 300,
-            intervalSeconds: 60,
-            timeoutSeconds: 20,
-            maxConsecutiveFailures: 3
-          }
-        ]);
-      }
-    );
+      expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
+        {
+          path: "/api/health",
+          portIndex: 0,
+          protocol: "MESOS_HTTP",
+          gracePeriodSeconds: 300,
+          intervalSeconds: 60,
+          timeoutSeconds: 20,
+          maxConsecutiveFailures: 3
+        }
+      ]);
+    });
 
-    it("should keep https after switching protocol back to HTTP", function() {
+    it("keeps https after switching protocol back to HTTP", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -154,7 +150,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("should set protocol to http if https was set", function() {
+    it("sets protocol to http if https was set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(

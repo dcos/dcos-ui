@@ -126,14 +126,14 @@ describe("Tree", function() {
       this.instance = new Tree({ items });
     });
 
-    it("should return an instance of Tree", function() {
+    it("returns an instance of Tree", function() {
       var filteredTree = this.instance.filterItems(function() {
         return true;
       });
       expect(filteredTree instanceof Tree).toEqual(true);
     });
 
-    it("should filter items", function() {
+    it("filters items", function() {
       var filteredTree = this.instance.filterItems(function(item) {
         return item.name === "bar";
       });
@@ -142,7 +142,7 @@ describe("Tree", function() {
       expect(filteredTree.getItems()[0]).toEqual({ name: "bar" });
     });
 
-    it("should filter sub items", function() {
+    it("filters sub items", function() {
       var filteredTree = this.instance.filterItems(function(item) {
         return item.name === "one";
       });
@@ -194,12 +194,12 @@ describe("Tree", function() {
       this.instance = new Tree({ items, filterProperties });
     });
 
-    it("should return an instance of Tree", function() {
+    it("returns an instance of Tree", function() {
       const filteredTree = this.instance.filterItemsByText("bar");
       expect(filteredTree instanceof Tree).toEqual(true);
     });
 
-    it("should filter sub trees", function() {
+    it("filters sub trees", function() {
       const filteredSubtree = this.instance
         .filterItemsByText("alpha")
         .getItems()[0];
@@ -207,7 +207,7 @@ describe("Tree", function() {
       expect(filteredSubtree.getItems()[0].name).toEqual("alpha");
     });
 
-    it("should filter instances of Item", function() {
+    it("filters instances of Item", function() {
       var items = [
         new Item({
           name: "foo",
@@ -236,26 +236,26 @@ describe("Tree", function() {
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
-    it("should filter by default getter", function() {
+    it("filters by default getter", function() {
       var filteredItems = this.instance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual("bar");
     });
 
-    it("should filter by description", function() {
+    it("filters by description", function() {
       var filteredItems = this.instance.filterItemsByText("qux").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual("qux");
     });
 
-    it("should filter by tags", function() {
+    it("filters by tags", function() {
       var filteredItems = this.instance.filterItemsByText("two").getItems();
       expect(filteredItems.length).toEqual(3);
       expect(filteredItems[0].tags).toEqual(["one", "two"]);
       expect(filteredItems[1].tags).toEqual(["two", "three"]);
     });
 
-    it("should handle filter by with null elements", function() {
+    it("handles filter by with null elements", function() {
       var items = [
         { name: null, description: { value: null }, tags: [null, "three"] },
         { description: null, tags: null }
@@ -273,7 +273,7 @@ describe("Tree", function() {
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();
     });
 
-    it("should use provided filter properties", function() {
+    it("uses provided filter properties", function() {
       var filterProperties = {
         description(item, prop) {
           return item[prop] && item[prop].label;
@@ -297,7 +297,7 @@ describe("Tree", function() {
       });
     });
 
-    it("should return undefined if no matching item was found", function() {
+    it("returns undefined if no matching item was found", function() {
       expect(
         this.instance.findItem(function() {
           return false;
@@ -305,7 +305,7 @@ describe("Tree", function() {
       ).toEqual(undefined);
     });
 
-    it("should return matching item", function() {
+    it("returns matching item", function() {
       expect(
         this.instance.findItem(function(item) {
           return item.name === "beta";
@@ -325,14 +325,14 @@ describe("Tree", function() {
       });
     });
 
-    it("should return an instance of Tree", function() {
+    it("returns an instance of Tree", function() {
       var tree = this.instance.mapItems(function(item) {
         return item;
       });
       expect(tree instanceof Tree).toBeTruthy();
     });
 
-    it("should apply callback to all items", function() {
+    it("apply callbacks to all items", function() {
       var items = this.instance
         .mapItems(function(item) {
           if (item instanceof Tree) {
@@ -396,7 +396,7 @@ describe("Tree", function() {
       });
     });
 
-    it("should reduce tree to a single number", function() {
+    it("reduces tree to a single number", function() {
       var value = this.instance.reduceItems(function(
         previousValue,
         currentValue
@@ -411,7 +411,7 @@ describe("Tree", function() {
       expect(value).toEqual(42);
     });
 
-    it("should reduce tree to an array", function() {
+    it("reduces tree to an array", function() {
       var value = this.instance.reduceItems(function(
         previousValue,
         currentValue

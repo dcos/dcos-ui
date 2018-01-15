@@ -5,7 +5,7 @@ const VolumeMounts = require("../MultiContainerVolumeMounts");
 
 describe("MultiContainerVolumeMounts", function() {
   describe("#JSONReducer", function() {
-    it("should have an array with one object", function() {
+    it("has an array with one object", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
 
@@ -14,7 +14,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("should have an array with one object containing a name", function() {
+    it("has an array with one object containing a name", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -24,7 +24,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("should have to items with names", function() {
+    it("has to items with names", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
@@ -37,7 +37,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("should remove the right item", function() {
+    it("removes the right item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
@@ -50,7 +50,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("should have to items with names and mountpath", function() {
+    it("has to items with names and mountpath", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));

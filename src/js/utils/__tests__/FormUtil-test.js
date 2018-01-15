@@ -64,19 +64,19 @@ describe("FormUtil", function() {
       });
     });
 
-    it("should not modify the unrelated properties", function() {
+    it("does not modify the unrelated properties", function() {
       expect(this.result.unrelatedProp).toEqual("hellothere");
     });
 
-    it('should create a property named "uid" that is an array', function() {
+    it('creates a property named "uid" that is an array', function() {
       expect(Array.isArray(this.result.uid)).toEqual(true);
     });
 
-    it("should convert each instance into an object", function() {
+    it("converts each instance into an object", function() {
       expect(typeof this.result.uid[0]).toEqual("object");
     });
 
-    it("should convert each instance with the correct values", function() {
+    it("converts each instance with the correct values", function() {
       expect(this.result.uid[0].uid).toEqual("kenny");
       expect(this.result.uid[0].password).toEqual("secret");
       expect(this.result.uid[1].uid).toEqual("jane");
@@ -85,7 +85,7 @@ describe("FormUtil", function() {
   });
 
   describe("#isFieldInstanceOfProp", function() {
-    it("should return true if field is instance of prop", function() {
+    it("returns true if field is instance of prop", function() {
       const fields = [
         { name: "variable[2].key", value: "kenny" },
         { name: "variable[2].value", value: "tran" }
@@ -94,7 +94,7 @@ describe("FormUtil", function() {
       expect(result).toEqual(true);
     });
 
-    it("should return false if field is not instance of prop", function() {
+    it("returns false if field is not instance of prop", function() {
       const fields = [
         { name: "variable[1].key", value: "kenny" },
         { name: "variable[1].value", value: "tran" }
@@ -103,7 +103,7 @@ describe("FormUtil", function() {
       expect(result).toEqual(false);
     });
 
-    it("should work on a single definition", function() {
+    it("works on a single definition", function() {
       const field = { name: "variable[1].key", value: "kenny" };
       const result = FormUtil.isFieldInstanceOfProp("variable", field, 1);
       expect(result).toEqual(true);
@@ -111,7 +111,7 @@ describe("FormUtil", function() {
   });
 
   describe("#removePropID", function() {
-    it("should remove the fields with that property", function() {
+    it("removes the fields with that property", function() {
       const definition = [
         { name: "password", value: "secret" },
         { name: "variable[1].key", value: "kenny" },

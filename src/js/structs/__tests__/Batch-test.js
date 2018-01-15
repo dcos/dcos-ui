@@ -7,20 +7,20 @@ describe("Batch", function() {
   });
 
   describe("#add", function() {
-    it("should not throw an error", function() {
+    it("does not throw an error", function() {
       expect(() => {
         this.batch.add(new Transaction(["foo"], "test"));
       }).not.toThrow();
     });
 
-    it("should create new batch instances", function() {
+    it("creates new batch instances", function() {
       const newBatch = this.batch.add(new Transaction(["foo"], "test"));
       expect(newBatch).not.toBe(this.batch);
     });
   });
 
   describe("#reduce", function() {
-    it("should iterate correctly over a batch with 1 item", function() {
+    it("iterates correctly over a batch with 1 item", function() {
       const batch = this.batch.add(new Transaction(["foo"], "a"));
       const values = batch.reduce(function(values, item) {
         values.push(item.value);
@@ -31,7 +31,7 @@ describe("Batch", function() {
       expect(values).toEqual(["a"]);
     });
 
-    it("should iterate correctly over a batch with 3 item", function() {
+    it("iterates correctly over a batch with 3 item", function() {
       const batch = this.batch
         .add(new Transaction(["foo"], "a"))
         .add(new Transaction(["bar"], "b"))
@@ -45,7 +45,7 @@ describe("Batch", function() {
       expect(values).toEqual(["a", "b", "c"]);
     });
 
-    it("should run reducers at least once", function() {
+    it("runs reducers at least once", function() {
       const sum = this.batch.reduce(function(sum) {
         return sum + 1;
       }, 0);
@@ -53,7 +53,7 @@ describe("Batch", function() {
       expect(sum).toEqual(1);
     });
 
-    it("should pass sane arguments for reducing on empty batch", function() {
+    it("passes sane arguments for reducing on empty batch", function() {
       const args = this.batch.reduce(function(sum, action, index) {
         return [sum, action, index];
       }, "initial");
@@ -61,7 +61,7 @@ describe("Batch", function() {
       expect(args).toEqual(["initial", { path: [], value: "INIT" }, 0]);
     });
 
-    it("should not run reducers more than number than values", function() {
+    it("does not run reducers more than number than values", function() {
       const batch = this.batch
         .add(new Transaction(["foo"], "a"))
         .add(new Transaction(["bar"], "b"))
@@ -86,7 +86,7 @@ describe("Batch", function() {
       expect(sum).toEqual(3);
     });
 
-    it("should keep all ", function() {
+    it("keeps all ", function() {
       const batch = this.batch
         .add(new Transaction(["id"], "a"))
         .add(new Transaction(["cpu"], 1))

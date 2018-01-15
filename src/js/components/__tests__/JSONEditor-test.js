@@ -26,7 +26,7 @@ describe("JSONEditor", function() {
       cmd: "while true; do sleep 10; done"
     };
 
-    it("should prevent unnecessary component updates", function() {
+    it("prevents unnecessary component updates", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={initialValue} />,
         this.container
@@ -42,7 +42,7 @@ describe("JSONEditor", function() {
       expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(false);
     });
 
-    it("should update the component if the internal data has changed", function() {
+    it("updates the component if the internal data has changed", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={initialValue} />,
         this.container
@@ -74,7 +74,7 @@ describe("JSONEditor", function() {
           "cmd": "while true; do sleep 10; done"
         }`;
 
-    it("should call on change handler with new value", function() {
+    it("calls on change handler with new value", function() {
       const onChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onChange={onChangeHandler} />,
@@ -86,7 +86,7 @@ describe("JSONEditor", function() {
       expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
     });
 
-    it("should not call on change handler with invalid value", function() {
+    it("does not call on change handler with invalid value", function() {
       const onChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onChange={onChangeHandler} />,
@@ -97,7 +97,7 @@ describe("JSONEditor", function() {
       expect(onChangeHandler).not.toBeCalled();
     });
 
-    it("should call on change handler with new value after error was resolved", function() {
+    it("calls on change handler with new value after error was resolved", function() {
       const onChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onChange={onChangeHandler} />,
@@ -110,7 +110,7 @@ describe("JSONEditor", function() {
       expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
     });
 
-    it("should call error state change handler if new error was detected", function() {
+    it("calls error state change handler if new error was detected", function() {
       const onErrorStateChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onErrorStateChange={onErrorStateChangeHandler} />,
@@ -122,7 +122,7 @@ describe("JSONEditor", function() {
       expect(onErrorStateChangeHandler).toBeCalled();
     });
 
-    it("should call error state change handler if error was resolved", function() {
+    it("calls error state change handler if error was resolved", function() {
       const onChangeHandler = jest.fn();
       const onErrorStateChangeHandler = jest.fn();
       const instance = ReactDOM.render(
@@ -139,7 +139,7 @@ describe("JSONEditor", function() {
       expect(onErrorStateChangeHandler.mock.calls.length).toEqual(2);
     });
 
-    it("should properly handle JSON change even with interfering prop updates", function() {
+    it("handles JSON change even with interfering prop updates", function() {
       jest.useFakeTimers();
 
       let instance = null;
@@ -171,7 +171,7 @@ describe("JSONEditor", function() {
   });
 
   describe("#updateLocalJsonState", function() {
-    it("should accept `null` as an argument", function() {
+    it("accepts `null` as an argument", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
         this.container
@@ -185,7 +185,7 @@ describe("JSONEditor", function() {
       expect(instance.jsonError).toEqual(null);
     });
 
-    it("should update all properties as given", function() {
+    it("updates all properties as given", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
         this.container
@@ -206,7 +206,7 @@ describe("JSONEditor", function() {
   });
 
   describe("#getNewJsonState", function() {
-    it("should return `null` if the text has not changed", function() {
+    it("returns `null` if the text has not changed", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
         this.container
@@ -215,7 +215,7 @@ describe("JSONEditor", function() {
       expect(instance.getNewJsonState("{}")).toEqual(null);
     });
 
-    it("should return errors if JSON is invalid", function() {
+    it("returns errors if JSON is invalid", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
         this.container
@@ -229,7 +229,7 @@ describe("JSONEditor", function() {
       });
     });
 
-    it("should return the correct state on new JSON", function() {
+    it("returns the correct state on new JSON", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
         this.container

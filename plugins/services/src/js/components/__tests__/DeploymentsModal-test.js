@@ -8,7 +8,7 @@ const Application = require("../../structs/Application");
 
 describe("DeploymentsModal", function() {
   describe("#getRollbackModalText", function() {
-    it("should return a removal message when passed a starting deployment", function() {
+    it("returns a removal message when passed a starting deployment", function() {
       const text = DeploymentsModal.WrappedComponent.prototype
         .getRollbackModalText(
           new Deployment({
@@ -22,7 +22,7 @@ describe("DeploymentsModal", function() {
       expect(text).toContain("delete the affected service");
     });
 
-    it("should return a revert message when passed a non-starting deployment", function() {
+    it("returns a revert message when passed a non-starting deployment", function() {
       const text = DeploymentsModal.WrappedComponent.prototype.getRollbackModalText(
         new Deployment({
           id: "deployment-id",

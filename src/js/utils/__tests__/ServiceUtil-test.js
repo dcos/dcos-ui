@@ -2,7 +2,7 @@ const ServiceUtil = require("../ServiceUtil");
 
 describe("ServiceUtil", function() {
   describe("#isSDKService", function() {
-    it("should return true if service does not have the proper label", function() {
+    it("returns true if service does not have the proper label", function() {
       const service = {
         id: "/foo",
         getLabels() {
@@ -13,7 +13,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isSDKService(service)).toEqual(true);
     });
 
-    it("should return false if getLabels is not a function", function() {
+    it("returns false if getLabels is not a function", function() {
       const service = {
         id: "/foo",
         getLabels: "bar"
@@ -22,7 +22,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isSDKService(service)).toEqual(false);
     });
 
-    it("should return false if service does not have the proper label", function() {
+    it("returns false if service does not have the proper label", function() {
       const service = {
         id: "/foo"
       };
@@ -32,7 +32,7 @@ describe("ServiceUtil", function() {
   });
 
   describe("#isPackage", function() {
-    it("should return true if service does have the proper label", function() {
+    it("returns true if service does have the proper label", function() {
       const service = {
         id: "/foo",
         getLabels() {
@@ -43,7 +43,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isPackage(service)).toEqual(true);
     });
 
-    it("should return false if getLabels is not a function", function() {
+    it("returns false if getLabels is not a function", function() {
       const service = {
         id: "/foo",
         getLabels: "bar"
@@ -52,7 +52,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isPackage(service)).toEqual(false);
     });
 
-    it("should return false if service does not have the proper label", function() {
+    it("returns false if service does not have the proper label", function() {
       const service = {
         id: "/foo"
       };

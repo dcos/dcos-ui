@@ -86,7 +86,7 @@ describe("PodInstancesTable", function() {
         );
       });
 
-      it("should properly render the name column", function() {
+      it("renders the name column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -100,7 +100,7 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
 
-      it("should properly render the address column", function() {
+      it("renders the address column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-host-address"
@@ -114,7 +114,7 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["agent-1", "agent-2", "agent-3"]);
       });
 
-      it("should properly render the status column", function() {
+      it("renders the status column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-status"
@@ -123,7 +123,7 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["Running", "Running", "Staging"]);
       });
 
-      it("should properly render the cpu column", function() {
+      it("renders the cpu column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-cpus"
@@ -134,7 +134,7 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["1", "1", "1"]);
       });
 
-      it("should properly render the mem column", function() {
+      it("renders the mem column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-mem"
@@ -145,7 +145,7 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["128 MiB", "128 MiB", "128 MiB"]);
       });
 
-      it("should properly render the updated column", function() {
+      it("renders the updated column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-updated"
@@ -156,7 +156,7 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["a day ago", "7 days ago", "13 days ago"]);
       });
 
-      it("should properly render the version column", function() {
+      it("renders the version column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-version"
@@ -191,7 +191,7 @@ describe("PodInstancesTable", function() {
         TestUtils.Simulate.click(columnHeader);
       });
 
-      it("should properly sort the name column", function() {
+      it("sorts the name column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -226,7 +226,7 @@ describe("PodInstancesTable", function() {
         TestUtils.Simulate.click(columnHeader);
       });
 
-      it("should properly sort the name column", function() {
+      it("sorts the name column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -264,7 +264,7 @@ describe("PodInstancesTable", function() {
         });
       });
 
-      it("should properly render the name column", function() {
+      it("renders the name column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-primary"
@@ -288,7 +288,7 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("should properly render the address column", function() {
+      it("renders the address column", function() {
         var columns = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-host-address"
@@ -315,7 +315,7 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("should properly render the status column", function() {
+      it("renders the status column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-status"
@@ -334,7 +334,7 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("should properly render the cpu column", function() {
+      it("renders the cpu column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-cpus"
@@ -355,7 +355,7 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("should properly render the mem column", function() {
+      it("renders the mem column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-mem"
@@ -376,7 +376,7 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("should properly render the updated column", function() {
+      it("renders the updated column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-updated"
@@ -397,7 +397,7 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("should properly render the version column", function() {
+      it("renders the version column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
           "task-table-column-version"
