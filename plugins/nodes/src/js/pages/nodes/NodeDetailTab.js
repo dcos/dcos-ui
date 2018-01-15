@@ -1,6 +1,5 @@
-import PureRender from "react-addons-pure-render-mixin";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import React from "react";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import ConfigurationMapHeading
@@ -17,12 +16,7 @@ import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Units from "#SRC/js/utils/Units";
 
-class NodeDetailTab extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
-  }
-
+class NodeDetailTab extends PureComponent {
   render() {
     const { node } = this.props;
     const resources = node.get("resources");
