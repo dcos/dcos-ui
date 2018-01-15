@@ -54,7 +54,7 @@ describe("LogBuffer", function() {
   });
 
   describe("#add", function() {
-    it("should call its super function", function() {
+    it("calls its super function", function() {
       this.originalAdd = List.prototype.add;
       List.prototype.add = jasmine.createSpy();
 
@@ -65,21 +65,21 @@ describe("LogBuffer", function() {
       List.prototype.add = this.originalAdd;
     });
 
-    it("should add length to get new 'end' when beginning log", function() {
+    it("adds length to get new 'end' when beginning log", function() {
       this.logBuffer.add(new Item({ data: "foo\nbar\nquis", offset: 100 }));
       // Explanation of what is going on in the calculation:
       // 100 + 'foo\nbar\nquis'.indexOf('\n') + 1 + 'bar\nquis'.length
       expect(this.logBuffer.getEnd()).toEqual(100 + 3 + 1 + 8);
     });
 
-    it("should start log at first newline when beginning log", function() {
+    it("starts log at first newline when beginning log", function() {
       this.logBuffer.add(new Item({ data: "foo\nbar\nquis", offset: 100 }));
       // Explanation of what is going on in the calculation:
       // 100 + 'foo\nbar\nquis'.indexOf('\n') + 1
       expect(this.logBuffer.getStart()).toEqual(100 + 3 + 1);
     });
 
-    it("should start log at end - maxFileSize when beginning log", function() {
+    it("starts log at end - maxFileSize when beginning log", function() {
       const logBuffer = new LogBuffer({ maxFileSize: 10 });
       logBuffer.add(
         new Item({
@@ -93,19 +93,19 @@ describe("LogBuffer", function() {
       expect(logBuffer.getStart()).toEqual(logBuffer.getEnd() - 3);
     });
 
-    it("should add length to get new 'end' during logging", function() {
+    it("adds length to get new 'end' during logging", function() {
       this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
       this.logBuffer.add(new Item({ data: "\nbar\nquis", offset: 103 }));
       expect(this.logBuffer.getEnd()).toEqual(103 + "\nbar\nquis".length);
     });
 
-    it("should start log at first offset when file < maxFileSize", function() {
+    it("starts log at first offset when file < maxFileSize", function() {
       this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
       this.logBuffer.add(new Item({ data: "\nbar\nquis", offset: 103 }));
       expect(this.logBuffer.getStart()).toEqual(100);
     });
 
-    it("should start log at end - maxFileSize during logging", function() {
+    it("starts log at end - maxFileSize during logging", function() {
       const logBuffer = new LogBuffer({ maxFileSize: 10 });
       logBuffer.add(new Item({ data: "foo", offset: 100 }));
       logBuffer.add(
@@ -120,7 +120,7 @@ describe("LogBuffer", function() {
       expect(logBuffer.getStart()).toEqual(logBuffer.getEnd() - 3);
     });
 
-    it("should cut the first item when not within maxFileSize", function() {
+    it("cuts the first item when not within maxFileSize", function() {
       const logBuffer = new LogBuffer({ maxFileSize: 10 });
       logBuffer.add(new Item({ data: "foo", offset: 100 }));
       logBuffer.add(new Item({ data: "foo", offset: 103 }));
@@ -134,7 +134,7 @@ describe("LogBuffer", function() {
       expect(logBuffer.getItems().length).toEqual(1);
     });
 
-    it("should keep all items when within maxFileSize", function() {
+    it("keeps all items when within maxFileSize", function() {
       const logBuffer = new LogBuffer({ maxFileSize: 200 });
       logBuffer.add(new Item({ data: "foo", offset: 100 }));
       logBuffer.add(new Item({ data: "foo", offset: 103 }));
@@ -150,19 +150,19 @@ describe("LogBuffer", function() {
   });
 
   describe("#prepend", function() {
-    it("should subtract length from start", function() {
+    it("subtracts length from start", function() {
       this.logBuffer.prepend(new Item({ data: "foo\nbar\nquis", offset: 100 }));
       expect(this.logBuffer.getStart()).toEqual(100);
     });
 
-    it("should be able to add then prepend", function() {
+    it("is able to add then prepend", function() {
       this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
       this.logBuffer.prepend(new Item({ data: "\nbar\nquis", offset: 92 }));
       expect(this.logBuffer.getEnd()).toEqual(103);
       expect(this.logBuffer.getStart()).toEqual(92);
     });
 
-    it("should handle truncate correctly", function() {
+    it("handles truncate correctly", function() {
       const logBuffer = new LogBuffer({ maxFileSize: 10 });
       logBuffer.prepend(
         new Item({
@@ -173,7 +173,7 @@ describe("LogBuffer", function() {
       expect(logBuffer.getStart()).toEqual(logBuffer.getEnd() - 3);
     });
 
-    it("should handle truncate correctly after adding", function() {
+    it("handles truncate correctly after adding", function() {
       const logBuffer = new LogBuffer({ maxFileSize: 10 });
       logBuffer.add(new Item({ data: "foo", offset: 100 }));
       logBuffer.prepend(
@@ -187,33 +187,33 @@ describe("LogBuffer", function() {
   });
 
   describe("#initialize", function() {
-    it("should set end to 0 if offset < PAGE_SIZE", function() {
+    it("sets end to 0 if offset < PAGE_SIZE", function() {
       this.logBuffer.initialize(100);
       expect(this.logBuffer.getEnd()).toEqual(0);
     });
 
-    it("should set start to 0 if offset < PAGE_SIZE", function() {
+    it("sets start to 0 if offset < PAGE_SIZE", function() {
       this.logBuffer.initialize(100);
       expect(this.logBuffer.getStart()).toEqual(0);
     });
 
-    it("should set end to offset - PAGE_SIZE when > PAGE_SIZE", function() {
+    it("sets end to offset - PAGE_SIZE when > PAGE_SIZE", function() {
       this.logBuffer.initialize(PAGE_SIZE + 100);
       expect(this.logBuffer.getEnd()).toEqual(100);
     });
 
-    it("should set start to offset - PAGE_SIZE when > PAGE_SIZE", function() {
+    it("sets start to offset - PAGE_SIZE when > PAGE_SIZE", function() {
       this.logBuffer.initialize(PAGE_SIZE + 100);
       expect(this.logBuffer.getStart()).toEqual(100);
     });
   });
 
   describe("#getFullLog", function() {
-    it("should return empty string when no items", function() {
+    it("returns empty string when no items", function() {
       expect(this.logBuffer.getFullLog()).toEqual("");
     });
 
-    it("should return data items when it holds items", function() {
+    it("returns data items when it holds items", function() {
       this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
       this.logBuffer.add(new Item({ data: "bar", offset: 103 }));
       this.logBuffer.add(new Item({ data: "quis", offset: 107 }));

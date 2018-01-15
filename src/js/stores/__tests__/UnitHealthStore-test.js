@@ -21,7 +21,7 @@ describe("UnitHealthStore", function() {
     RequestUtil.json = this.requestFn;
   });
 
-  it("should return an instance of HealthUnitsList", function() {
+  it("returns an instance of HealthUnitsList", function() {
     Config.useFixtures = true;
     UnitHealthStore.fetchUnits();
     var units = UnitHealthStore.getUnits("units");
@@ -29,7 +29,7 @@ describe("UnitHealthStore", function() {
     Config.useFixtures = false;
   });
 
-  it("should return all of the units it was given", function() {
+  it("returns all of the units it was given", function() {
     Config.useFixtures = true;
     UnitHealthStore.fetchUnits();
     var units = UnitHealthStore.getUnits().getItems();

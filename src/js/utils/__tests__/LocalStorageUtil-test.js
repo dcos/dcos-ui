@@ -6,7 +6,7 @@ describe("LocalStorageUtil", function() {
   });
 
   describe("#get", function() {
-    it("should get value from localStorage", function() {
+    it("gets value from localStorage", function() {
       global.localStorage.setItem("foo", "bar");
       expect(LocalStorageUtil.get("foo")).toEqual("bar");
     });
@@ -20,7 +20,7 @@ describe("LocalStorageUtil", function() {
   });
 
   describe("#set", function() {
-    it("should get value from localStorage", function() {
+    it("gets value from localStorage", function() {
       LocalStorageUtil.set("foo", "bar");
       expect(LocalStorageUtil.get("foo")).toEqual("bar");
     });

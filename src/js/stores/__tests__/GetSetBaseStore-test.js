@@ -6,11 +6,11 @@ describe("GetSetBaseStore", function() {
   });
 
   describe("#get", function() {
-    it("should return undefined if no key is given", function() {
+    it("returns undefined if no key is given", function() {
       expect(this.instance.get()).toEqual(null);
     });
 
-    it("should return undefined if given an object", function() {
+    it("returns undefined if given an object", function() {
       expect(this.instance.get({})).toEqual(null);
     });
 
@@ -18,13 +18,13 @@ describe("GetSetBaseStore", function() {
       expect(this.instance.get("foo")).toEqual(null);
     });
 
-    it("should return the correct value given a key", function() {
+    it("returns the correct value given a key", function() {
       var instance = this.instance;
       instance.set({ someProperty: "someValue" });
       expect(this.instance.get("someProperty")).toEqual("someValue");
     });
 
-    it("should allow for default state values", function() {
+    it("allows for default state values", function() {
       var instance = new GetSetBaseStore();
       instance.getSet_data = {
         foo: "bar"

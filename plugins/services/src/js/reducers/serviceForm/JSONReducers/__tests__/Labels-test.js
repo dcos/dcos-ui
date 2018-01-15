@@ -9,7 +9,7 @@ const Labels = require("../Labels");
 
 describe("Labels", function() {
   describe("#JSONReducer", function() {
-    it("should return a key value object", function() {
+    it("returns a key value object", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
@@ -19,7 +19,7 @@ describe("Labels", function() {
         key: "value"
       });
     });
-    it("should keep the last value if they have the same key", function() {
+    it("keeps the last value if they have the same key", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
@@ -32,7 +32,7 @@ describe("Labels", function() {
         key: "value2"
       });
     });
-    it("should keep remove the first item", function() {
+    it("keeps remove the first item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "first"));
@@ -48,10 +48,10 @@ describe("Labels", function() {
     });
   });
   describe("#JSONParser", function() {
-    it("should return an empty array", function() {
+    it("returns an empty array", function() {
       expect(Labels.JSONParser({})).toEqual([]);
     });
-    it("should return an array of transactions", function() {
+    it("returns an array of transactions", function() {
       expect(Labels.JSONParser({ labels: { key: "value" } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["labels"] },
         { type: SET, value: "key", path: ["labels", 0, "key"] },

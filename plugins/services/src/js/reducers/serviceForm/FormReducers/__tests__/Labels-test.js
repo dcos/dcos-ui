@@ -5,7 +5,7 @@ const Labels = require("../Labels");
 
 describe("Labels", function() {
   describe("#FormReducer", function() {
-    it("should return a array containing key value objects", function() {
+    it("returns an array containing key value objects", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
@@ -15,7 +15,7 @@ describe("Labels", function() {
         { key: "key", value: "value" }
       ]);
     });
-    it("should multiple items if they have the same key", function() {
+    it("returns multiple labels, even if they have the same key", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
@@ -29,7 +29,7 @@ describe("Labels", function() {
         { key: "key", value: "value2" }
       ]);
     });
-    it("should keep remove the first item", function() {
+    it("keeps remove the first item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "first"));

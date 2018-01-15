@@ -12,11 +12,11 @@ describe("ParserUtil", function() {
       };
     }
 
-    it("should return a function", function() {
+    it("returns a function", function() {
       expect(typeof ParserUtil.combineParsers()).toBe("function");
     });
 
-    it("should return the right TransactionLog", function() {
+    it("returns the right TransactionLog", function() {
       const parsers = ParserUtil.combineParsers([idParser]);
       expect(parsers({ id: "test" })).toEqual([
         {
@@ -27,7 +27,7 @@ describe("ParserUtil", function() {
       ]);
     });
 
-    it("should have the right ordered TransactionLog with multiple parsers", function() {
+    it("has the right ordered TransactionLog with multiple parsers", function() {
       const parser = ParserUtil.combineParsers([
         idParser,
         function(state) {
@@ -55,7 +55,7 @@ describe("ParserUtil", function() {
         }
       ]);
     });
-    it("should have the right order for nested parsers", function() {
+    it("has the right order for nested parsers", function() {
       const containerParser = function(state) {
         if (state.container != null && state.container.docker != null) {
           return ParserUtil.combineParsers([

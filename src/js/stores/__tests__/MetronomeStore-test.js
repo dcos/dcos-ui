@@ -28,7 +28,7 @@ describe("MetronomeStore", function() {
   });
 
   describe("constructor", function() {
-    it("should call the fetchJobs 3 times", function() {
+    it("calls the fetchJobs 3 times", function() {
       MetronomeStore.addChangeListener(
         EventTypes.METRONOME_JOBS_CHANGE,
         function() {}
@@ -261,7 +261,7 @@ describe("MetronomeStore", function() {
   });
 
   describe("jobTree", function() {
-    it("should return an instance of JobTree", function() {
+    it("returns an instance of JobTree", function() {
       const changeHandler = jasmine.createSpy("changeHandler");
       MetronomeStore.addChangeListener(
         EventTypes.METRONOME_JOBS_CHANGE,
@@ -279,13 +279,13 @@ describe("MetronomeStore", function() {
   });
 
   describe("#monitorJobDetail", function() {
-    it("should call #fetchJobDetail with jobID in arguments", function() {
+    it("calls #fetchJobDetail with jobID in arguments", function() {
       // Begin monitoring job details
       MetronomeStore.monitorJobDetail("foo");
       expect(MetronomeActions.fetchJobDetail).toHaveBeenCalledWith("foo");
     });
 
-    it("should continuously poll for job details", function() {
+    it("continuously polls for job details", function() {
       // Begin monitoring job details
       MetronomeStore.monitorJobDetail("foo");
       // Let three intervals run
@@ -293,7 +293,7 @@ describe("MetronomeStore", function() {
       expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(4);
     });
 
-    it("should continuously poll for multiple job details", function() {
+    it("continuously polls for multiple job details", function() {
       // Begin monitoring job details
       MetronomeStore.monitorJobDetail("foo");
       MetronomeStore.monitorJobDetail("bar");
@@ -304,7 +304,7 @@ describe("MetronomeStore", function() {
   });
 
   describe("#stopJobDetailMonitor", function() {
-    it("should prevent subsequent fetchJobDetail calls for specific jobID", function() {
+    it("prevents subsequent fetchJobDetail calls for specific jobID", function() {
       // Begin monitoring job details on specific ID
       MetronomeStore.monitorJobDetail("foo");
       // Let three intervals run
@@ -316,7 +316,7 @@ describe("MetronomeStore", function() {
       expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(4);
     });
 
-    it("should prevent subsequent fetchJobDetail calls for all jobID", function() {
+    it("prevents subsequent fetchJobDetail calls for all jobID", function() {
       // Begin monitoring job details on specific IDs
       MetronomeStore.monitorJobDetail("foo");
       MetronomeStore.monitorJobDetail("bar");
@@ -332,13 +332,13 @@ describe("MetronomeStore", function() {
   });
 
   describe("storeID", function() {
-    it("should return 'metronome'", function() {
+    it("returns 'metronome'", function() {
       expect(MetronomeStore.storeID).toEqual("metronome");
     });
   });
 
   describe("#toggleSchedule", function() {
-    it("should pass the jobID to update schedule", function() {
+    it("passes the jobID to update schedule", function() {
       spyOn(MetronomeStore, "updateSchedule");
 
       AppDispatcher.handleServerAction({
@@ -354,7 +354,7 @@ describe("MetronomeStore", function() {
       );
     });
 
-    it("should grab the schedule and set enabled to false", function() {
+    it("grabs the schedule and set enabled to false", function() {
       spyOn(MetronomeStore, "updateSchedule");
 
       AppDispatcher.handleServerAction({
@@ -370,7 +370,7 @@ describe("MetronomeStore", function() {
       ).toEqual(false);
     });
 
-    it("should grab the schedule and set enabled to true by default", function() {
+    it("grabs the schedule and set enabled to true by default", function() {
       spyOn(MetronomeStore, "updateSchedule");
 
       AppDispatcher.handleServerAction({
@@ -386,7 +386,7 @@ describe("MetronomeStore", function() {
       ).toEqual(true);
     });
 
-    it("should do nothing if job unknown", function() {
+    it("does nothing if job unknown", function() {
       spyOn(MetronomeStore, "updateSchedule");
 
       MetronomeStore.toggleSchedule("unknown", false);
@@ -394,7 +394,7 @@ describe("MetronomeStore", function() {
       expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled();
     });
 
-    it("should do nothing if schedule undefined", function() {
+    it("does nothing if schedule undefined", function() {
       spyOn(MetronomeStore, "updateSchedule");
 
       AppDispatcher.handleServerAction({
@@ -412,7 +412,7 @@ describe("MetronomeStore", function() {
   });
 
   describe("#updateSchedule", function() {
-    it("should pass the jobID and schedule to the action", function() {
+    it("passes the jobID and schedule to the action", function() {
       spyOn(MetronomeActions, "updateSchedule");
 
       MetronomeStore.updateSchedule("foo", { id: "bar" });

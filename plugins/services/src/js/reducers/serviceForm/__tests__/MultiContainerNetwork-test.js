@@ -6,7 +6,7 @@ const Transaction = require("#SRC/js/structs/Transaction");
 
 describe("MultiContainerNetwork", function() {
   describe("#JSONReducer", function() {
-    it("should be host default type", function() {
+    it("is host default type", function() {
       const batch = new Batch();
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
@@ -14,7 +14,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("should return a network with mode host by default", function() {
+    it("returns a network with mode host by default", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["networks", 0], Networking.type.HOST));
@@ -24,7 +24,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("should return a network with mode container", function() {
+    it("returns a network with mode container", function() {
       let batch = new Batch();
 
       batch = batch.add(
@@ -36,7 +36,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("should reset network to mode host", function() {
+    it("resets network to mode host", function() {
       let batch = new Batch();
 
       batch = batch.add(

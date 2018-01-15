@@ -3,7 +3,7 @@ const ServiceErrorTypes = require("../../constants/ServiceErrorTypes");
 
 describe("MarathonErrorUtil", function() {
   describe("#parseErrors", function() {
-    it("should properly process string-only errors", function() {
+    it("processes string-only errors", function() {
       const marathonError = "Some error";
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -16,7 +16,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should properly handle object errors with message-only", function() {
+    it("handles object errors with message-only", function() {
       const marathonError = {
         message: "Some error"
       };
@@ -31,7 +31,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should properly handle object errors with string details", function() {
+    it("handles object errors with string details", function() {
       const marathonError = {
         message: "Some error",
         details: "Some error details"
@@ -47,7 +47,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should properly handle object errors with null message", function() {
+    it("handles object errors with null message", function() {
       const marathonError = {
         message: null
       };
@@ -62,7 +62,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should properly handle object errors with array details", function() {
+    it("handles object errors with array details", function() {
       const marathonError = {
         message: "Some error",
         details: [
@@ -89,7 +89,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should properly translate marathon paths without index", function() {
+    it("translates marathon paths without index", function() {
       const marathonError = {
         message: "Some error",
         details: [
@@ -151,7 +151,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should properly translate marathon paths with index", function() {
+    it("translates marathon paths with index", function() {
       const marathonError = {
         message: "Some error",
         details: [
@@ -172,7 +172,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should be able to translate messages with no details", function() {
+    it("is able to translate messages with no details", function() {
       const marathonError = { message: "Some error" };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -185,21 +185,21 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should handle a message value of empty object as empty", function() {
+    it("handles a message value of empty object as empty", function() {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = { message: {} };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([]);
     });
 
-    it("should handle a message value of empty array as empty", function() {
+    it("handles a message value of empty array as empty", function() {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = { message: [] };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([]);
     });
 
-    it("should handle a details value of null as empty", function() {
+    it("handles a details value of null as empty", function() {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = { message: "Some error", details: null };
 
@@ -213,7 +213,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should handle a details value of empty object as empty", function() {
+    it("handles a details value of empty object as empty", function() {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = { message: "Some error", details: {} };
 
@@ -227,7 +227,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should handle a details value of empty array as empty", function() {
+    it("handles a details value of empty array as empty", function() {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = { message: "Some error", details: [] };
 
@@ -241,7 +241,7 @@ describe("MarathonErrorUtil", function() {
       ]);
     });
 
-    it("should discard details value of object", function() {
+    it("discards details value of object", function() {
       // TODO (JIRA DCOS_OSS-653): We should include these with a generic error
       const marathonError = { message: "Some error", details: { foo: "bar" } };
 

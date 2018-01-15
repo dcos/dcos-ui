@@ -6,7 +6,7 @@ const TestUtils = require("react-addons-test-utils");
 const ConfigurationMapMultilineValue = require("../ConfigurationMapMultilineValue");
 
 describe("ConfigurationMapMultilineValue", function() {
-  it("should correctly render the text in a <pre> tag", function() {
+  it("renders the text in a <pre> tag", function() {
     var text = "Some\nmulti-line\ntext";
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapMultilineValue value={text} />
@@ -20,7 +20,7 @@ describe("ConfigurationMapMultilineValue", function() {
     expect(contentText).toEqual(text);
   });
 
-  it("should render `defaultValue` if empty", function() {
+  it("renders `defaultValue` if empty", function() {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapMultilineValue value={null} defaultValue="-" />
     );

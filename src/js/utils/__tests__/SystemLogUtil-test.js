@@ -2,7 +2,7 @@ const SystemLogUtil = require("../SystemLogUtil");
 
 describe("SystemLogUtil", function() {
   describe("#getUrl", function() {
-    it("should include range element first in the url", function() {
+    it("includes range element first in the url", function() {
       var result = SystemLogUtil.getUrl("foo", { cursor: "cursor" });
 
       expect(result).toEqual(
@@ -10,7 +10,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should encode value of range element", function() {
+    it("encodes value of range element", function() {
       var result = SystemLogUtil.getUrl("foo", { limit: "lim&it" });
 
       expect(result).toEqual(
@@ -18,7 +18,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should concatenate range elements nicely together", function() {
+    it("concatenates range elements nicely together", function() {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         limit: "lim&it"
@@ -29,7 +29,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should include filter after range element in the url", function() {
+    it("includes filter after range element in the url", function() {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         filter: { param1: "param1" }
@@ -40,7 +40,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should encode filter element", function() {
+    it("encodes filter element", function() {
       var result = SystemLogUtil.getUrl("foo", {
         filter: { "param/1": "param/1" }
       });
@@ -50,7 +50,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should concatenate range elements nicely together", function() {
+    it("concatenates range elements nicely together", function() {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         limit: "lim&it",
@@ -71,7 +71,7 @@ describe("SystemLogUtil", function() {
       expect(result.includes("bar")).toBe(false);
     });
 
-    it("should use stream by default", function() {
+    it("uses stream by default", function() {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         filter: { "param/1": "param/1" }
@@ -82,7 +82,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should use range", function() {
+    it("uses range", function() {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -97,7 +97,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should add framework id in the URL", function() {
+    it("adds framework id in the URL", function() {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -112,7 +112,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should add executor id in the URL", function() {
+    it("adds executor id in the URL", function() {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -127,7 +127,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should add container id in the URL", function() {
+    it("adds container id in the URL", function() {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -142,7 +142,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should add all ids in the URL", function() {
+    it("adds all ids in the URL", function() {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -160,7 +160,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("should add aditional endpoint to the URL", function() {
+    it("adds aditional endpoint to the URL", function() {
       var result = SystemLogUtil.getUrl(
         "foo",
         {

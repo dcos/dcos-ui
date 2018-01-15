@@ -18,7 +18,7 @@ describe("ApplicationUtil", function() {
       jasmine.clock().uninstall();
     });
 
-    it("should call callback right away", function() {
+    it("calls callback right away", function() {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
@@ -32,7 +32,7 @@ describe("ApplicationUtil", function() {
       expect(handler).toHaveBeenCalled();
     });
 
-    it("should call after time has elapsed", function() {
+    it("calls after time has elapsed", function() {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
 

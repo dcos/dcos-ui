@@ -19,7 +19,7 @@ describe("ChartStripes", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it("should display the correct number of stripes", function() {
+  it("displays the correct number of stripes", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
       this.instance,
       "background"
@@ -27,7 +27,7 @@ describe("ChartStripes", function() {
     expect(stripes.length).toEqual(6);
   });
 
-  it("should have correct width on each stripe", function() {
+  it("has correct width on each stripe", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
       this.instance,
       "background"
@@ -40,7 +40,7 @@ describe("ChartStripes", function() {
     });
   });
 
-  it("should have correct x value on each stripe", function() {
+  it("has correct x value on each stripe", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
       this.instance,
       "background"
@@ -53,7 +53,7 @@ describe("ChartStripes", function() {
     });
   });
 
-  it("should update to parameter change accordingly", function() {
+  it("updates to parameter change accordingly", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
       this.instance,
       "background"

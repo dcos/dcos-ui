@@ -9,7 +9,7 @@ describe("TabButton", function() {
     this.clickHandler = jasmine.createSpy("click handler");
   });
 
-  it("should call the onClick prop with ID when clicked", function() {
+  it("calls the onClick prop with ID when clicked", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabButton label="foo" onClick={this.clickHandler} id="foo" />
     );
@@ -24,7 +24,7 @@ describe("TabButton", function() {
     expect(this.clickHandler).toHaveBeenCalledWith("foo");
   });
 
-  it("should clone nested TabButton instances with onClick and activeTab props", function() {
+  it("clones nested TabButton instances with onClick and activeTab props", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabButton
         activeTab="foo"
@@ -45,7 +45,7 @@ describe("TabButton", function() {
     expect(nestedInstance.props.onClick).toEqual(this.clickHandler);
   });
 
-  it("should call the parent onClick when clicking a nested TabButton", function() {
+  it("calls the parent onClick when clicking a nested TabButton", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabButton
         activeTab="foo"

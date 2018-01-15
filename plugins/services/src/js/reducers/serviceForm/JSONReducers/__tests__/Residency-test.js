@@ -9,7 +9,7 @@ const Residency = require("../Residency");
 
 describe("Residency", function() {
   describe("#JSONReducer", function() {
-    it("it should return undefined as default", function() {
+    it("returns undefined as default", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["id"], "foo"));
@@ -17,7 +17,7 @@ describe("Residency", function() {
       expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual(undefined);
     });
 
-    it("should return residency if residency ist set", function() {
+    it("returns residency if residency ist set", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["residency"], { foo: "bar" }));
@@ -27,7 +27,7 @@ describe("Residency", function() {
       });
     });
 
-    it("should return undefined if a host volume is set", function() {
+    it("returns undefined if a host volume is set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumes", 0, "type"], "HOST"));
@@ -35,7 +35,7 @@ describe("Residency", function() {
       expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual(undefined);
     });
 
-    it("should return residency if a persistent volume is set", function() {
+    it("returns residency if a persistent volume is set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
@@ -46,7 +46,7 @@ describe("Residency", function() {
       });
     });
 
-    it("should return undefined if a persistent volume is removed", function() {
+    it("returns undefined if a persistent volume is removed", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
@@ -55,7 +55,7 @@ describe("Residency", function() {
       expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual(undefined);
     });
 
-    it("should respect the parsed residency", function() {
+    it("respects the parsed residency", function() {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["residency"], { foo: "bar" }));
@@ -69,10 +69,10 @@ describe("Residency", function() {
   });
 
   describe("#JSONParser", function() {
-    it("should return empty array if residency is not present", function() {
+    it("returns empty array if residency is not present", function() {
       expect(Residency.JSONParser({ id: "test" })).toEqual([]);
     });
-    it("should return a transaction if residency is present", function() {
+    it("returns a transaction if residency is present", function() {
       expect(Residency.JSONParser({ residency: { foo: "bar" } })).toEqual({
         type: SET,
         path: ["residency"],

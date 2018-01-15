@@ -2,19 +2,19 @@ const JobValidatorUtil = require("../JobValidatorUtil");
 
 describe("JobValidatorUtil", function() {
   describe("#isValidJobID", function() {
-    it("should properly handle empty strings", function() {
+    it("handles empty strings", function() {
       expect(JobValidatorUtil.isValidJobID("")).toBe(false);
     });
 
-    it("should properly handle undefined values", function() {
+    it("handles undefined values", function() {
       expect(JobValidatorUtil.isValidJobID()).toBe(false);
     });
 
-    it("should properly handle white spaces", function() {
+    it("handles white spaces", function() {
       expect(JobValidatorUtil.isValidJobID("white space")).toBe(false);
     });
 
-    it("should properly handle illegal characters", function() {
+    it("handles illegal characters", function() {
       expect(JobValidatorUtil.isValidJobID("Uppercase")).toBe(false);
       expect(JobValidatorUtil.isValidJobID("job#1")).toBe(false);
       expect(JobValidatorUtil.isValidJobID("job_1")).toBe(false);
@@ -24,16 +24,16 @@ describe("JobValidatorUtil", function() {
       expect(JobValidatorUtil.isValidJobID("job(1)")).toBe(false);
     });
 
-    it("should properly handle multiple dots", function() {
+    it("handles multiple dots", function() {
       expect(JobValidatorUtil.isValidJobID("job..id")).toBe(false);
       expect(JobValidatorUtil.isValidJobID("job..id....")).toBe(false);
     });
 
-    it("should properly handle ending dots", function() {
+    it("handles ending dots", function() {
       expect(JobValidatorUtil.isValidJobID("job.")).toBe(false);
     });
 
-    it("should properly accept correct characters", function() {
+    it("accepts correct characters", function() {
       expect(JobValidatorUtil.isValidJobID("4")).toBe(true);
       expect(JobValidatorUtil.isValidJobID("a")).toBe(true);
       expect(JobValidatorUtil.isValidJobID("job")).toBe(true);
@@ -48,15 +48,15 @@ describe("JobValidatorUtil", function() {
   });
 
   describe("#isValidCronSchedule", function() {
-    it("should properly handle empty strings", function() {
+    it("handles empty strings", function() {
       expect(JobValidatorUtil.isValidCronSchedule("")).toBe(false);
     });
 
-    it("should properly handle undefined values", function() {
+    it("handles undefined values", function() {
       expect(JobValidatorUtil.isValidCronSchedule()).toBe(false);
     });
 
-    it("should properly accept only 5 components", function() {
+    it("accepts only 5 components", function() {
       expect(JobValidatorUtil.isValidCronSchedule("*")).toBe(false);
       expect(JobValidatorUtil.isValidCronSchedule("* *")).toBe(false);
       expect(JobValidatorUtil.isValidCronSchedule("* * *")).toBe(false);
@@ -65,7 +65,7 @@ describe("JobValidatorUtil", function() {
       expect(JobValidatorUtil.isValidCronSchedule("* * * * * *")).toBe(false);
     });
 
-    it("should properly handle valid characters", function() {
+    it("handles valid characters", function() {
       expect(
         JobValidatorUtil.isValidCronSchedule(
           "* 1-10 4,5,6,7 1/1 1-2/3,4,5,6-10"
@@ -73,7 +73,7 @@ describe("JobValidatorUtil", function() {
       ).toBe(true);
     });
 
-    it("should properly handle components that do not start with a number or *", function() {
+    it("handles components that do not start with a number or *", function() {
       expect(JobValidatorUtil.isValidCronSchedule("-1 * * * *")).toBe(false);
       expect(JobValidatorUtil.isValidCronSchedule("/2 * * * *")).toBe(false);
       expect(JobValidatorUtil.isValidCronSchedule(",2 * * * *")).toBe(false);

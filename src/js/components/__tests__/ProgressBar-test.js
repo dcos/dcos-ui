@@ -32,7 +32,7 @@ describe("#ProgressBar", function() {
   });
 
   describe("PropTypes", function() {
-    it("should throw an error if no data prop is provided", function() {
+    it("throws an error if no data prop is provided", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(<ProgressBar />, this.container);
       expect(console.error).toHaveBeenCalledWith(
@@ -43,7 +43,7 @@ describe("#ProgressBar", function() {
       );
     });
 
-    it("should throw an error if a data item is missing a value", function() {
+    it("throws an error if a data item is missing a value", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(
         <ProgressBar
@@ -63,7 +63,7 @@ describe("#ProgressBar", function() {
       );
     });
 
-    it("should throw an error if one data item is missing a value", function() {
+    it("throws an error if one data item is missing a value", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(
         <ProgressBar
@@ -87,7 +87,7 @@ describe("#ProgressBar", function() {
       );
     });
 
-    it("should not throw an error if data does only contain a value field", function() {
+    it("does not throw an error if data does only contain a value field", function() {
       spyOn(console, "error");
       this.instance = ReactDOM.render(
         <ProgressBar
@@ -104,13 +104,13 @@ describe("#ProgressBar", function() {
   });
 
   describe("className", function() {
-    it("should contain status-bar (default)", function() {
+    it("contains status-bar (default)", function() {
       expect(
         this.container.querySelector("div").classList.contains("status-bar")
       ).toBeTruthy();
     });
 
-    it("should contain test-bar (custom)", function() {
+    it("contains test-bar (custom)", function() {
       this.instance = ReactDOM.render(
         <ProgressBar data={testData} className="test-bar" />,
         this.container
@@ -122,14 +122,14 @@ describe("#ProgressBar", function() {
   });
 
   describe("bars", function() {
-    it("should contain 2 .bars", function() {
+    it("contains 2 .bars", function() {
       expect(this.container.querySelectorAll(".bar").length).toEqual(
         testData.length
       );
     });
 
     describe("First .bar", function() {
-      it("should contain class name status", function() {
+      it("contains class name status", function() {
         expect(
           this.container
             .querySelector(".bar:first-child")
@@ -137,7 +137,7 @@ describe("#ProgressBar", function() {
         ).toBeTruthy();
       });
 
-      it("should have the class element-{index} if no classname is provided", function() {
+      it("has the class element-{index} if no classname is provided", function() {
         this.instance = ReactDOM.render(
           <ProgressBar
             data={[
@@ -153,7 +153,7 @@ describe("#ProgressBar", function() {
         ).toBeTruthy();
       });
 
-      it("should have a width of 40%", function() {
+      it("has a width of 40%", function() {
         expect(
           this.container.querySelector(".bar:first-child").style.width
         ).toEqual("40%");
@@ -161,7 +161,7 @@ describe("#ProgressBar", function() {
     });
 
     describe("Second .bar", function() {
-      it("should contain class name failed", function() {
+      it("contains class name failed", function() {
         expect(
           this.container
             .querySelector(".bar:nth-child(2)")
@@ -169,7 +169,7 @@ describe("#ProgressBar", function() {
         ).toBeTruthy();
       });
 
-      it("should have a width of 60%", function() {
+      it("has a width of 60%", function() {
         expect(
           this.container.querySelector(".bar:nth-child(2)").style.width
         ).toEqual("60%");
@@ -177,7 +177,7 @@ describe("#ProgressBar", function() {
     });
 
     describe("Growing small .bar portions to be visible when below threshold", function() {
-      it("should not have .bar elements < 7% width", function() {
+      it("does not have .bar elements < 7% width", function() {
         ReactDOM.render(
           <ProgressBar
             data={[
@@ -202,7 +202,7 @@ describe("#ProgressBar", function() {
         expect(percentages.filter(percent => percent < 7).length).toBe(0);
       });
 
-      it("should not have .bar elements < 7% width when using scale", function() {
+      it("does not have .bar elements < 7% width when using scale", function() {
         ReactDOM.render(
           <ProgressBar
             data={[

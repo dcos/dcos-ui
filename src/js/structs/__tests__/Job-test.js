@@ -366,7 +366,7 @@ describe("Job", function() {
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
-    it("should drop blacklisted keys", function() {
+    it("drops blacklisted keys", function() {
       const item = new Job({ foo: "bar", baz: "qux", history: [] });
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });

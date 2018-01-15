@@ -14,19 +14,19 @@ describe("HooksAPI", function() {
       this.filteredContent = this.hooks.applyFilter("foo", "foo bar", "qux");
     });
 
-    it("should receive the arguments that we defined", function() {
+    it("receives the arguments that we defined", function() {
       expect(this.fakeFilter.mock.calls[0]).toEqual(["foo bar", "qux"]);
     });
 
-    it("should call the filter once", function() {
+    it("calls the filter once", function() {
       expect(this.fakeFilter.mock.calls.length).toEqual(1);
     });
 
-    it("should return the filtered content when a filter is applied", function() {
+    it("returns the filtered content when a filter is applied", function() {
       expect(this.filteredContent).toEqual("foo baz");
     });
 
-    it("should apply the filters in the order of priority", function() {
+    it("applies the filters in the order of priority", function() {
       var lowPriorityFilter = jest.genMockFunction();
       var highPriorityFilter = jest.genMockFunction();
 
@@ -54,24 +54,24 @@ describe("HooksAPI", function() {
       this.hooks.addAction("foo", this.fakeAction);
     });
 
-    it("should be called only once when an action is performed", function() {
+    it("is called only once when an action is performed", function() {
       this.hooks.doAction("foo", "bar");
       expect(this.fakeAction.mock.calls.length).toEqual(1);
     });
 
-    it("should receive arguments when an action is performed", function() {
+    it("receives arguments when an action is performed", function() {
       this.hooks.doAction("foo", "bar");
       expect(this.fakeAction.mock.calls[0][0]).toEqual("bar");
     });
 
-    it("should not receive arguments when arguments are not passed", function() {
+    it("does not receive arguments when arguments are not passed", function() {
       this.noArgumentsAction = jest.genMockFunction();
       this.hooks.addAction("qux", this.noArgumentsAction);
       this.hooks.doAction("qux");
       expect(this.noArgumentsAction.mock.calls[0].length).toEqual(0);
     });
 
-    it("should receive two arguments when two arguments are passed", function() {
+    it("receives two arguments when two arguments are passed", function() {
       this.twoArgumentsAction = jest.genMockFunction();
       this.hooks.addAction("quux", this.twoArgumentsAction);
       this.hooks.doAction("quux", "baz", "bar");
@@ -86,13 +86,13 @@ describe("HooksAPI", function() {
       this.hooks.addAction("foo", this.fakeAction);
     });
 
-    it("shouldn't be called after action is removed", function() {
+    it("doesn't be called after action is removed", function() {
       this.hooks.removeAction("foo", this.fakeAction);
       this.hooks.doAction("foo", "bar");
       expect(this.fakeAction).not.toHaveBeenCalled();
     });
 
-    it("should be called when action has not been removed", function() {
+    it("is called when action has not been removed", function() {
       this.hooks.doAction("foo", "bar");
       this.hooks.removeAction("foo", this.fakeAction);
       this.hooks.doAction("foo", "bar");
@@ -137,13 +137,13 @@ describe("HooksAPI", function() {
       this.hooks.addFilter("foo", this.fakeFilter);
     });
 
-    it("shouldn't be called after filter is removed", function() {
+    it("doesn't be called after filter is removed", function() {
       this.hooks.removeFilter("foo", this.fakeFilter);
       this.hooks.applyFilter("foo", "bar");
       expect(this.fakeFilter).not.toHaveBeenCalled();
     });
 
-    it("should be called when filter has not been removed", function() {
+    it("is called when filter has not been removed", function() {
       this.hooks.applyFilter("foo", "bar");
       this.hooks.removeFilter("foo", this.fakeFilter);
       this.hooks.applyFilter("foo", "bar");

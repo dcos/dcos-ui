@@ -9,7 +9,7 @@ const EnvironmentVariables = require("../EnvironmentVariables");
 
 describe("Environment Variables", function() {
   describe("#JSONReducer", function() {
-    it("should return a key value object", function() {
+    it("returns a key value object", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -20,7 +20,7 @@ describe("Environment Variables", function() {
       ).toEqual({ key: "value" });
     });
 
-    it("should keep the last value if they have the same key", function() {
+    it("keeps the last value if they have the same key", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -34,7 +34,7 @@ describe("Environment Variables", function() {
       ).toEqual({ key: "value2" });
     });
 
-    it("should keep remove the first item", function() {
+    it("keeps remove the first item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "first"));
@@ -51,11 +51,11 @@ describe("Environment Variables", function() {
   });
 
   describe("#JSONParser", function() {
-    it("should return an empty array", function() {
+    it("returns an empty array", function() {
       expect(EnvironmentVariables.JSONParser({})).toEqual([]);
     });
 
-    it("should return an array of transactions", function() {
+    it("returns an array of transactions", function() {
       expect(
         EnvironmentVariables.JSONParser({ env: { key: "value" } })
       ).toEqual([
@@ -65,7 +65,7 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("should skip non-string values", function() {
+    it("skips non-string values", function() {
       expect(EnvironmentVariables.JSONParser({ env: { FOO: {} } })).toEqual([]);
     });
   });

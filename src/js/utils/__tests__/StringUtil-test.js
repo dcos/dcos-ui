@@ -2,43 +2,43 @@ const StringUtil = require("../StringUtil");
 
 describe("StringUtil", function() {
   describe("#arrayToJoinedString", function() {
-    it("should join array with default separator", function() {
+    it("joins array with default separator", function() {
       var result = StringUtil.arrayToJoinedString([1, 2]);
 
       expect(result).toEqual("1, 2");
     });
 
-    it("should join array with the given separator", function() {
+    it("joins array with the given separator", function() {
       var result = StringUtil.arrayToJoinedString([1, 2], "-");
 
       expect(result).toEqual("1-2");
     });
 
-    it("should not append separator if array has only one  element", function() {
+    it("does not append separator if array has only one  element", function() {
       var result = StringUtil.arrayToJoinedString([1]);
 
       expect(result).toEqual("1");
     });
 
-    it("should return empty string if array is null", function() {
+    it("returns empty string if array is null", function() {
       var result = StringUtil.arrayToJoinedString(null);
 
       expect(result).toEqual("");
     });
 
-    it("should return empty string if array is undefined", function() {
+    it("returns empty string if array is undefined", function() {
       var result = StringUtil.arrayToJoinedString();
 
       expect(result).toEqual("");
     });
 
-    it("should return empty string if array is and object", function() {
+    it("returns empty string if array is and object", function() {
       var result = StringUtil.arrayToJoinedString({});
 
       expect(result).toEqual("");
     });
 
-    it("should return empty string if array is empty", function() {
+    it("returns empty string if array is empty", function() {
       var result = StringUtil.arrayToJoinedString([]);
 
       expect(result).toEqual("");
@@ -115,74 +115,74 @@ describe("StringUtil", function() {
   });
 
   describe("#isUrl", function() {
-    it("should accept a string starting with http://", function() {
+    it("accepts a string starting with http://", function() {
       var str = "http://asd/";
       expect(StringUtil.isUrl(str)).toEqual(true);
     });
 
-    it("should accept a string starting with https://", function() {
+    it("accepts a string starting with https://", function() {
       var str = "https://.asf";
       expect(StringUtil.isUrl(str)).toEqual(true);
     });
 
-    it("shouldn't accept a string with something before http://", function() {
+    it("doesn't accept a string with something before http://", function() {
       var str = "ahttp://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("shouldn't accept null", function() {
+    it("doesn't accept null", function() {
       var str = null;
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("shouldn't accept a string missing a /", function() {
+    it("doesn't accept a string missing a /", function() {
       var str = "http:/asfasfd";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("shouldn't accept a string missing :", function() {
+    it("doesn't accept a string missing :", function() {
       var str = "http//";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("shouldn't accept a string that only contains protocol", function() {
+    it("doesn't accept a string that only contains protocol", function() {
       var str = "http://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("shouldn't accept a string that only contains protocol", function() {
+    it("doesn't accept a string that only contains protocol", function() {
       var str = "https://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
   });
 
   describe("#isEmail", function() {
-    it("should accept a string with @ and . longer than 3 chars", function() {
+    it("accepts a string with @ and . longer than 3 chars", function() {
       var str = "@.as";
       expect(StringUtil.isEmail(str)).toEqual(true);
     });
 
-    it("should accept a string with @ and . longer than 3 chars", function() {
+    it("accepts a string with @ and . longer than 3 chars", function() {
       var str = "a@.a";
       expect(StringUtil.isEmail(str)).toEqual(true);
     });
 
-    it("shouldn't accept a string without a .", function() {
+    it("doesn't accept a string without a .", function() {
       var str = "a@aa";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
-    it("shouldn't accept null", function() {
+    it("doesn't accept null", function() {
       var str = null;
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
-    it("shouldn't accept a string without a @", function() {
+    it("doesn't accept a string without a @", function() {
       var str = "aw.a";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
-    it("shouldn't accept a string shorter than 4", function() {
+    it("doesn't accept a string shorter than 4", function() {
       var str = "@.a";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });

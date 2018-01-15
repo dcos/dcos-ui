@@ -259,7 +259,7 @@ describe("SystemLogStore", function() {
   });
 
   describe("storeID", function() {
-    it("should return 'systemLog'", function() {
+    it("returns 'systemLog'", function() {
       expect(SystemLogStore.storeID).toEqual("systemLog");
     });
   });

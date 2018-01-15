@@ -3,7 +3,7 @@ const HealthCheckProtocols = require("../../constants/HealthCheckProtocols");
 
 describe("HealthCheckUtil", function() {
   describe("#IsKnowProtocol", function() {
-    it("should return true for an empty string", function() {
+    it("returns true for an empty string", function() {
       expect(HealthCheckUtil.isKnownProtocol("")).toEqual(true);
     });
 
@@ -12,7 +12,7 @@ describe("HealthCheckUtil", function() {
       HealthCheckProtocols.MESOS_HTTPS,
       HealthCheckProtocols.COMMAND
     ].forEach(protocol => {
-      it(`should return true for ${protocol}`, function() {
+      it(`returns true for ${protocol}`, function() {
         expect(HealthCheckUtil.isKnownProtocol(protocol)).toEqual(true);
       });
     });
@@ -22,12 +22,12 @@ describe("HealthCheckUtil", function() {
       HealthCheckProtocols.HTTPS,
       HealthCheckProtocols.TCP
     ].forEach(protocol => {
-      it(`should return false for deprecated ${protocol}`, function() {
+      it(`returns false for deprecated ${protocol}`, function() {
         expect(HealthCheckUtil.isKnownProtocol(protocol)).toEqual(false);
       });
     });
 
-    it("should return false for a unknown protocol", function() {
+    it("returns false for a unknown protocol", function() {
       expect(HealthCheckUtil.isKnownProtocol("MESOS_GOPHER")).toEqual(false);
     });
   });

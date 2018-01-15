@@ -28,7 +28,7 @@ describe("Highlight instance", function() {
     expect(match.textContent).toEqual("World");
   });
 
-  it("should have children", function() {
+  it("has children", function() {
     var instance = ReactDOM.render(
       <Highlight search="fox">
         The quick brown fox jumped over the lazy dog.
@@ -42,7 +42,7 @@ describe("Highlight instance", function() {
     expect(matches.length).toEqual(1);
   });
 
-  it("should support custom HTML tag for matching elements", function() {
+  it("supports custom HTML tag for matching elements", function() {
     var instance = ReactDOM.render(
       <Highlight matchElement="em" search="world">
         Hello World
@@ -55,7 +55,7 @@ describe("Highlight instance", function() {
     expect(matches.length).toEqual(1);
   });
 
-  it("should support custom className for matching element", function() {
+  it("supports custom className for matching element", function() {
     var instance = ReactDOM.render(
       <Highlight matchClass="fffffound" search="Seek">
         Hide and Seek
@@ -68,7 +68,7 @@ describe("Highlight instance", function() {
     expect(matches.length).toEqual(1);
   });
 
-  it("should support passing props to parent element", function() {
+  it("supports passing props to parent element", function() {
     var instance = ReactDOM.render(
       <Highlight className="myHighlighter" search="world">
         Hello World
@@ -83,7 +83,7 @@ describe("Highlight instance", function() {
     expect(match.className).toEqual("highlight");
   });
 
-  it("should support regular expressions in search", function() {
+  it("supports regular expressions in search", function() {
     var instance = ReactDOM.render(
       <Highlight className="myHighlighter" search={/[A-Za-z]+/}>
         Easy as 123, ABC...
@@ -99,7 +99,7 @@ describe("Highlight instance", function() {
     expect(matches[2].textContent).toEqual("ABC");
   });
 
-  it("should support escaping arbitrary string in search", function() {
+  it("supports escaping arbitrary string in search", function() {
     function renderInstance() {
       ReactDOM.render(
         <Highlight className="myHighlighter" search="Test (">

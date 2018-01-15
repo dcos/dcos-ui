@@ -205,7 +205,7 @@ describe("ApplicationSpec", function() {
   });
 
   describe("#getIpAddress", function() {
-    it("should return the right ipAddress value", function() {
+    it("returns the right ipAddress value", function() {
       const service = new ApplicationSpec({
         ipAddress: { networkName: "d-overlay-1" }
       });
@@ -257,7 +257,7 @@ describe("ApplicationSpec", function() {
   });
 
   describe("#getResidency", function() {
-    it("should return the right residency value", function() {
+    it("returns the right residency value", function() {
       const service = new ApplicationSpec({
         residency: {
           relaunchEscalationTimeoutSeconds: 10,
@@ -291,7 +291,7 @@ describe("ApplicationSpec", function() {
   });
 
   describe("#getUpdateStrategy", function() {
-    it("should return the right updateStrategy value", function() {
+    it("returns the right updateStrategy value", function() {
       const service = new ApplicationSpec({
         updateStrategy: {
           maximumOverCapacity: 0,

@@ -32,7 +32,7 @@ describe("FilterByService", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it("should display 'Filter by Framework' as default item", function() {
+  it("displays 'Filter by Framework' as default item", function() {
     var node = ReactDOM.findDOMNode(this.instance);
     var buttonNode = node.querySelector(".dropdown-toggle");
 
@@ -40,7 +40,7 @@ describe("FilterByService", function() {
   });
 
   describe("#getItemHtml", function() {
-    it("should display the badge correctly", function() {
+    it("displays the badge correctly", function() {
       const framework = new Framework(MockFrameworks.frameworks[4]);
       var item = ReactDOM.render(
         this.instance.getItemHtml(framework),
@@ -57,22 +57,22 @@ describe("FilterByService", function() {
   });
 
   describe("#getDropdownItems", function() {
-    it("should return all services and the all services item", function() {
+    it("returns all services and the all services item", function() {
       var items = this.instance.getDropdownItems(MockFrameworks.frameworks);
       expect(items.length).toEqual(MockFrameworks.frameworks.length + 1);
     });
   });
 
   describe("#getSelectedId", function() {
-    it("should return the same number when given a number", function() {
+    it("returns the same number when given a number", function() {
       expect(this.instance.getSelectedId(0)).toEqual(0);
     });
 
-    it("should return the same string when given a string", function() {
+    it("returns the same string when given a string", function() {
       expect(this.instance.getSelectedId("thisIsAnID")).toEqual("thisIsAnID");
     });
 
-    it("should return the default id when given null", function() {
+    it("returns the default id when given null", function() {
       expect(this.instance.getSelectedId(null)).toEqual("default");
     });
   });

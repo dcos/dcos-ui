@@ -36,11 +36,11 @@ describe("CliInstallModal", function() {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it("shouldn't call the callback after initialization", function() {
+    it("doesn't call the callback after initialization", function() {
       expect(this.callback).not.toHaveBeenCalled();
     });
 
-    it("should call the callback when #onClose is called", function() {
+    it("calls the callback when #onClose is called", function() {
       this.instance.onClose();
       expect(this.callback).toHaveBeenCalled();
     });

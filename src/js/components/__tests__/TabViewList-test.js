@@ -6,7 +6,7 @@ const TabView = require("../TabView");
 const TabViewList = require("../TabViewList");
 
 describe("TabViewList", function() {
-  it("should return content of first child if no activeTab is defined", function() {
+  it("returns content of first child if no activeTab is defined", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabViewList>
         <TabView id="foo">foo</TabView>
@@ -19,7 +19,7 @@ describe("TabViewList", function() {
     expect(node.textContent).toEqual("foo");
   });
 
-  it("should return content of activeTab when defined", function() {
+  it("returns content of activeTab when defined", function() {
     this.instance = TestUtils.renderIntoDocument(
       <TabViewList activeTab="bar">
         <TabView id="foo">foo</TabView>

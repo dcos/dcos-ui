@@ -25,7 +25,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     ];
   });
 
-  it("Should match instances with volumes", function() {
+  it("matches instances with volumes", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("has:volumes");
 
@@ -39,7 +39,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     ]);
   });
 
-  it("Should correctly keep nothing on unknown values", function() {
+  it("keeps nothing on unknown values", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("has:foo");
 
@@ -50,7 +50,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("Should be case-insensitive", function() {
+  it("is case-insensitive", function() {
     const services = new List({ items: this.mockItems });
     const expr = SearchDSL.parse("has:vOLumEs");
 

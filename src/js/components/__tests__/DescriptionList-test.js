@@ -15,14 +15,14 @@ describe("HashMapDisplay", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it("should return null if hash is not passed", function() {
+  it("returns null if hash is not passed", function() {
     var instance = ReactDOM.render(<HashMapDisplay />, this.container);
 
     var result = ReactDOM.findDOMNode(instance);
     expect(TestUtils.isDOMComponent(result)).toEqual(false);
   });
 
-  it("should return null if hash is not passed with headline", function() {
+  it("returns null if hash is not passed with headline", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay headline="foo" />,
       this.container
@@ -32,7 +32,7 @@ describe("HashMapDisplay", function() {
     expect(TestUtils.isDOMComponent(result)).toEqual(false);
   });
 
-  it("should return null if undefined is passed to hash", function() {
+  it("returns null if undefined is passed to hash", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={undefined} />,
       this.container
@@ -42,7 +42,7 @@ describe("HashMapDisplay", function() {
     expect(TestUtils.isDOMComponent(result)).toEqual(false);
   });
 
-  it("should return null if empty object is passed to hash", function() {
+  it("returns null if empty object is passed to hash", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={{}} />,
       this.container
@@ -52,7 +52,7 @@ describe("HashMapDisplay", function() {
     expect(TestUtils.isCompositeComponent(result)).toEqual(false);
   });
 
-  it("should return a node of elements if node exists", function() {
+  it("returns a node of elements if node exists", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={{ foo: "bar" }} />,
       this.container
@@ -62,7 +62,7 @@ describe("HashMapDisplay", function() {
     expect(TestUtils.isDOMComponent(result)).toEqual(true);
   });
 
-  it("should return a headline if headline string is given", function() {
+  it("returns a headline if headline string is given", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={{ foo: "bar" }} headline="baz" />,
       this.container

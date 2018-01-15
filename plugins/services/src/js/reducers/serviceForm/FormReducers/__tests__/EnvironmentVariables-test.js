@@ -5,7 +5,7 @@ const EnvironmentVariables = require("../EnvironmentVariables");
 
 describe("Environment Variables", function() {
   describe("#FormReducer", function() {
-    it("should return a array containing key value objects", function() {
+    it("returns a array containing key value objects", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -16,7 +16,7 @@ describe("Environment Variables", function() {
       ).toEqual([{ key: "key", value: "value" }]);
     });
 
-    it("should return multiple items if they have the same key", function() {
+    it("returns multiple items if they have the same key", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -33,7 +33,7 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("should remove the first item", function() {
+    it("removes the first item", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "first"));

@@ -2,7 +2,7 @@ const ErrorMessageUtil = require("../ErrorMessageUtil");
 
 describe("ErrorMessageUtil", function() {
   describe("#translateErrorMessages", function() {
-    it("should pass-through if there is no translation", function() {
+    it("passes through if there is no translation", function() {
       const errorInput = [
         {
           message: "message1",
@@ -25,7 +25,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should pass-through if no path matches", function() {
+    it("passes through if no path matches", function() {
       const errorInput = [
         {
           message: "message1",
@@ -54,7 +54,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should pass-through if no type matches", function() {
+    it("passes through if no type matches", function() {
       const errorInput = [
         {
           message: "message1",
@@ -83,7 +83,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should translate if path and type matches", function() {
+    it("translates if path and type matches", function() {
       const errorInput = [
         {
           message: "message1",
@@ -112,7 +112,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should not modify path if a rule matches", function() {
+    it("does not modify path if a rule matches", function() {
       const errorInput = [
         {
           message: "message1",
@@ -141,7 +141,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should pick the first translation that passes", function() {
+    it("picks the first translation that passes", function() {
       const errorInput = [
         {
           message: "message1",
@@ -175,7 +175,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should correctly replace variables", function() {
+    it("replaces variables", function() {
       const errorInput = [
         {
           message: "message1 is 3",
@@ -208,7 +208,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("should be able to handle errors with no path", function() {
+    it("is able to handle errors with no path", function() {
       const errorInput = [{ message: "message" }];
       const translationRules = [];
 
@@ -219,7 +219,7 @@ describe("ErrorMessageUtil", function() {
       expect(translatedErrors).toEqual([{ message: "message" }]);
     });
 
-    it("should be able to handle errors with null messages", function() {
+    it("is able to handle errors with null messages", function() {
       const errorInput = [{ message: null }];
       const translationRules = [];
 

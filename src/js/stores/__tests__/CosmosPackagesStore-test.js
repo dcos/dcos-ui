@@ -37,13 +37,13 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should return an instance of UniversePackagesList", function() {
+    it("returns an instance of UniversePackagesList", function() {
       CosmosPackagesStore.fetchAvailablePackages("foo");
       var availablePackages = CosmosPackagesStore.getAvailablePackages();
       expect(availablePackages instanceof UniversePackagesList).toBeTruthy();
     });
 
-    it("should return all of the availablePackages it was given", function() {
+    it("returns all of the availablePackages it was given", function() {
       CosmosPackagesStore.fetchAvailablePackages("foo");
       var availablePackages = CosmosPackagesStore.getAvailablePackages().getItems();
       expect(availablePackages.length).toEqual(
@@ -51,7 +51,7 @@ describe("CosmosPackagesStore", function() {
       );
     });
 
-    it("should pass though query parameters", function() {
+    it("passes though query parameters", function() {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchAvailablePackages("foo");
       expect(
@@ -118,13 +118,13 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should return an instance of UniversePackage", function() {
+    it("returns an instance of UniversePackage", function() {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var packageDetails = CosmosPackagesStore.getPackageDetails();
       expect(packageDetails instanceof UniversePackage).toBeTruthy();
     });
 
-    it("should return the packageDetails it was given", function() {
+    it("returns the packageDetails it was given", function() {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var pkg = CosmosPackagesStore.getPackageDetails();
       expect(pkg.getName()).toEqual(this.packageDescribeFixture.package.name);
@@ -133,7 +133,7 @@ describe("CosmosPackagesStore", function() {
       );
     });
 
-    it("should pass though query parameters", function() {
+    it("passes though query parameters", function() {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       expect(
@@ -215,19 +215,19 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should return an instance of UniversePackage", function() {
+    it("returns an instance of UniversePackage", function() {
       CosmosPackagesStore.fetchPackageVersions("foo");
       const packageVersions = CosmosPackagesStore.getPackageVersions("foo");
       expect(packageVersions instanceof UniversePackageVersions).toBeTruthy();
     });
 
-    it("should return an null if packageName not in packageVersions", function() {
+    it("returns an null if packageName not in packageVersions", function() {
       CosmosPackagesStore.fetchPackageVersions("foo");
       const packageVersions = CosmosPackagesStore.getPackageVersions("bar");
       expect(packageVersions).toEqual(null);
     });
 
-    it("should return all package versions it was given", function() {
+    it("returns all package versions it was given", function() {
       const packageName = "foo";
       CosmosPackagesStore.fetchPackageVersions(packageName);
       const versions = CosmosPackagesStore.getPackageVersions("foo");
@@ -316,28 +316,28 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should return the field package within response", function() {
+    it("returns the field package within response", function() {
       CosmosPackagesStore.fetchServiceDescription("foo");
       var response = CosmosPackagesStore.getServiceDetails();
       var packageField = response.package;
       expect(packageField.name).toEqual("marathon");
     });
 
-    it("should return the field resolvedOptions within the response", function() {
+    it("returns the field resolvedOptions within the response", function() {
       CosmosPackagesStore.fetchServiceDescription("foo");
       var response = CosmosPackagesStore.getServiceDetails();
       var resolvedOptions = response.resolvedOptions;
       expect(resolvedOptions.name).toEqual("marathon-1");
     });
 
-    it("should return the field userProvidedOptions within the response", function() {
+    it("returns the field userProvidedOptions within the response", function() {
       CosmosPackagesStore.fetchServiceDescription("foo");
       var response = CosmosPackagesStore.getServiceDetails();
       var userOptions = response.userProvidedOptions;
       expect(userOptions.name).toEqual("marathon-1");
     });
 
-    it("should pass though query parameters", function() {
+    it("passes though query parameters", function() {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchServiceDescription("foo");
       expect(
@@ -404,7 +404,7 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should pass though query parameters", function() {
+    it("passes though query parameters", function() {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.updateService("foo", { cpus: 3 });
       expect(
@@ -454,7 +454,7 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = this.requestFn;
     });
 
-    it("should return an instance of UniverseInstalledPackagesList", function() {
+    it("returns an instance of UniverseInstalledPackagesList", function() {
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       var installedPackages = CosmosPackagesStore.getInstalledPackages();
       expect(
@@ -462,7 +462,7 @@ describe("CosmosPackagesStore", function() {
       ).toBeTruthy();
     });
 
-    it("should return all of the installedPackages it was given", function() {
+    it("returns all of the installedPackages it was given", function() {
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       var installedPackages = CosmosPackagesStore.getInstalledPackages().getItems();
       expect(installedPackages.length).toEqual(2);
@@ -475,7 +475,7 @@ describe("CosmosPackagesStore", function() {
       expect(installedPackages[0].getAppId()).toEqual("/marathon-user");
     });
 
-    it("should pass though query parameters", function() {
+    it("passes though query parameters", function() {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       expect(

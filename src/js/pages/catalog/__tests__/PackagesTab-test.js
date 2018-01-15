@@ -34,7 +34,7 @@ describe("PackagesTab", function() {
       jest.runAllTimers();
     });
 
-    it("should call handler when panel is clicked", function() {
+    it("calls handler when panel is clicked", function() {
       var panel = ReactDOM.findDOMNode(this.instance).querySelector(
         ".panel.clickable"
       );
@@ -57,11 +57,11 @@ describe("PackagesTab", function() {
       CosmosPackagesStore.getAvailablePackages = this.CosmosPackagesStoreGetAvailablePackages;
     });
 
-    it("should return packages", function() {
+    it("returns packages", function() {
       expect(this.instance.getPackageGrid(this.packages).length).toEqual(97);
     });
 
-    it("shouldn't return packages", function() {
+    it("doesn't return packages", function() {
       CosmosPackagesStore.getAvailablePackages = function() {
         return new UniversePackagesList();
       };

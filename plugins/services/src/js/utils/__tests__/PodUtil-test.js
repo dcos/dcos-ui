@@ -23,14 +23,14 @@ describe("PodUtil", function() {
   });
 
   describe("#isContainerMatchingText", function() {
-    it("should match text on container name", function() {
+    it("matches text on container name", function() {
       const instance = this.pod.getInstanceList().getItems()[0];
       const container = instance.getContainers()[0];
 
       expect(PodUtil.isContainerMatchingText(container, "c1")).toBeTruthy();
     });
 
-    it("should not match wrong text on container name", function() {
+    it("does not match wrong text on container name", function() {
       const instance = this.pod.getInstanceList().getItems()[0];
       const container = instance.getContainers()[0];
 
@@ -39,7 +39,7 @@ describe("PodUtil", function() {
   });
 
   describe("#isInstanceOrChildrenMatchingText", function() {
-    it("should match text on instance id", function() {
+    it("matches text on instance id", function() {
       const instance = this.pod.getInstanceList().getItems()[0];
 
       expect(
@@ -47,7 +47,7 @@ describe("PodUtil", function() {
       ).toBeTruthy();
     });
 
-    it("should match text on container names", function() {
+    it("matches text on container names", function() {
       const instance = this.pod.getInstanceList().getItems()[0];
 
       expect(
@@ -55,7 +55,7 @@ describe("PodUtil", function() {
       ).toBeTruthy();
     });
 
-    it("should not match if text is not present anywhere", function() {
+    it("does not match if text is not present anywhere", function() {
       const instance = this.pod.getInstanceList().getItems()[0];
 
       expect(
@@ -65,7 +65,7 @@ describe("PodUtil", function() {
   });
 
   describe("#mergeHistoricalInstanceList", function() {
-    it("should properly append new instances", function() {
+    it("appends new instances", function() {
       let instances = this.pod.getInstanceList();
       const historicalInstances = [
         {
@@ -88,7 +88,7 @@ describe("PodUtil", function() {
       expect(instances.getItems()[1].get()).toEqual(historicalInstances[0]);
     });
 
-    it("should properly append new containers on existing items", function() {
+    it("appends new containers on existing items", function() {
       let instances = this.pod.getInstanceList();
       const historicalInstances = [
         {
@@ -114,7 +114,7 @@ describe("PodUtil", function() {
       );
     });
 
-    it("should not duplicate containers", function() {
+    it("does not duplicate containers", function() {
       let instances = this.pod.getInstanceList();
       const historicalInstances = [
         {

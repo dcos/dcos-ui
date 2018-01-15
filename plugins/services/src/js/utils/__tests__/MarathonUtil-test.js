@@ -2,37 +2,37 @@ const MarathonUtil = require("../MarathonUtil");
 
 describe("MarathonUtil", function() {
   describe("#parseGroups", function() {
-    it("should throw error if the provided id doesn't start with a slash", function() {
+    it("throws error if the provided id doesn't start with a slash", function() {
       expect(function() {
         MarathonUtil.parseGroups({ id: "malformed/id" });
       }).toThrow();
     });
 
-    it("should throw error if an app id doesn't start with a slash", function() {
+    it("throws error if an app id doesn't start with a slash", function() {
       expect(function() {
         MarathonUtil.parseGroups({ id: "/", apps: [{ id: "malformed/id" }] });
       }).toThrow();
     });
 
-    it("should throw error if the provided id ends with a slash", function() {
+    it("throws error if the provided id ends with a slash", function() {
       expect(function() {
         MarathonUtil.parseGroups({ id: "/malformed/id/" });
       }).toThrow();
     });
 
-    it("should throw error if an app id ends with a slash", function() {
+    it("throws error if an app id ends with a slash", function() {
       expect(function() {
         MarathonUtil.parseGroups({ id: "/", apps: [{ id: "/malformed/id/" }] });
       }).toThrow();
     });
 
-    it("should not throw error if the provided id is only a slash (root id)", function() {
+    it("does not throw error if the provided id is only a slash (root id)", function() {
       expect(function() {
         MarathonUtil.parseGroups({ id: "/" });
       }).not.toThrow();
     });
 
-    it("should throw error if an app id is only a slash (root id)", function() {
+    it("throws error if an app id is only a slash (root id)", function() {
       expect(function() {
         MarathonUtil.parseGroups({ id: "/", apps: [{ id: "/" }] });
       }).toThrow();
