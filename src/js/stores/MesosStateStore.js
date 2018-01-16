@@ -1,5 +1,6 @@
 import PluginSDK from "PluginSDK";
 import { request } from "@dcos/mesos-client";
+import { Observable } from "rxjs/Observable";
 
 import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
@@ -18,13 +19,6 @@ import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
 const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
-
-// Lots of things in DCOS UI rely on the MesosStateStore emitting
-// MESOS_STATE_CHANGE events but since we're switching to the stream there will
-// be no events comming. To avoid a bigger refactoring I decided to go with
-// a fake emitter that starts emitting evens once the initial state came through
-// TODO: https://jira.mesosphere.com/browse/DCOS-18277
-let legacyUpdateTimer;
 
 class MesosStateStore extends GetSetBaseStore {
   constructor() {
@@ -73,20 +67,45 @@ class MesosStateStore extends GetSetBaseStore {
 
   subscribe() {
     const mesosStream = container.get(MesosStreamType);
-    const parsers = pipe(...Object.values(mesosStreamParsers));
     const getMasterRequest = request(
       { type: "GET_MASTER" },
       "/mesos/api/v1?get_master"
     ).retry(3);
 
-    this.stream = mesosStream
+    const parsers = pipe(...Object.values(mesosStreamParsers));
+    const dataStream = mesosStream
       .merge(getMasterRequest)
       .map(message => parsers(this.get("lastMesosState"), JSON.parse(message)))
       .map(MesosStateUtil.flagMarathonTasks)
       .do(state => {
         CompositeState.addState(state);
         this.setState(state);
-      })
+      });
+
+    const waitStream = getMasterRequest.zip(mesosStream.take(1));
+    const eventTriggerStream = dataStream.merge(
+      // Lots of things in DCOS UI rely on the MesosStateStore emitting
+      // MESOS_STATE_CHANGE events but since we're switching to the stream there will
+      // be no events coming. To avoid a bigger refactoring I decided to go with
+      // a fake emitter that starts emitting events once the initial state came through
+      // TODO: https://jira.mesosphere.com/browse/DCOS-18277
+      Observable.interval(Config.getRefreshRate())
+    );
+
+    // Because the Observable.interval introduced above, we need to
+    // guarantee that if the interval is to close to the data arrival
+    // we are not updating the UI too much.
+    //
+    // The update is designed to happen:
+    // AT MOST once every (Config.getRefreshRate() * 0.5) ms.
+    // due to the .debounceTime(Config.getRefreshRate() * 0.5)
+    //
+    // AT LEAST once every tick of Observable.interval(Config.getRefreshRate())
+    // due to the Observable.interval merged in the eventTriggerStream
+    // TODO: https://jira.mesosphere.com/browse/DCOS-18277
+    waitStream
+      .concat(eventTriggerStream)
+      .debounceTime(Config.getRefreshRate() * 0.5)
       .subscribe(this.onStreamData, this.onStreamError);
   }
 
@@ -290,19 +309,16 @@ class MesosStateStore extends GetSetBaseStore {
     });
   }
 
-  onStreamData(_state) {
-    if (!legacyUpdateTimer) {
-      this.emit(MESOS_STATE_CHANGE);
-
-      legacyUpdateTimer = setInterval(
-        () => this.emit(MESOS_STATE_CHANGE),
-        Config.getRefreshRate()
-      );
-    }
+  onStreamData() {
+    this.emit(MESOS_STATE_CHANGE);
   }
 
   onStreamError(error) {
     this.emit(MESOS_STATE_REQUEST_ERROR, error);
+
+    if (process.env.NODE_ENV !== "production") {
+      throw new Error(error);
+    }
   }
 
   get storeID() {

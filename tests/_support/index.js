@@ -130,6 +130,7 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
         method: "POST",
         url: /mesos\/api\/v1\?subscribe/,
         response: require("../_fixtures/1-service-with-executor-task/mesos-subscribe"),
+        delay: 100,
         headers: {
           "Content-Type": "application/json"
         }
@@ -160,6 +161,10 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
       .route(/metronome\/v1\/jobs/, "fx:metronome/jobs")
       .route(
         /agent\/(.*)?\/files\/(.*)?\/runs\/(.*)?/,
+        "fx:1-service-with-executor-task/browse"
+      )
+      .route(
+        /agent\/(.*)?\/files\/browse/,
         "fx:1-service-with-executor-task/browse"
       )
       .route(/dcos-version/, "fx:dcos/dcos-version")
