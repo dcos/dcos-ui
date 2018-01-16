@@ -29,6 +29,10 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     ];
   }
 
+  componentWillMount() {
+    this.onStateStoreSuccess();
+  }
+
   componentWillReceiveProps(nextProps) {
     const { location: { query }, hosts } = nextProps;
     const filters = {
@@ -61,14 +65,20 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     });
   }
 
+  onStateStoreSuccess() {
+    this.setState({
+      masterRegion: CompositeState.getMasterNode().getRegionName()
+    });
+  }
+
   render() {
-    const { nodeHealthResponse, filteredNodes } = this.state;
+    const { nodeHealthResponse, filteredNodes, masterRegion } = this.state;
 
     return (
       <NodesTable
         hosts={filteredNodes}
         nodeHealthResponse={nodeHealthResponse}
-        masterRegion={CompositeState.getMasterNode().getRegionName()}
+        masterRegion={masterRegion}
       />
     );
   }
