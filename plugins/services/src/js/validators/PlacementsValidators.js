@@ -4,7 +4,7 @@ import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 import { PROP_MISSING_ONE, SYNTAX_ERROR } from "../constants/ServiceErrorTypes";
 
 function checkDuplicateOperatorField(constraints) {
-  if (!constraints || ValidatorUtil.isEmpty(constraints)) {
+  if (ValidatorUtil.isEmpty(constraints)) {
     return [];
   }
 
@@ -16,17 +16,17 @@ function checkDuplicateOperatorField(constraints) {
       : { fieldName: constraint[0], operator: constraint[1] };
     const key = `{${operatorFieldPair.operator}}{${operatorFieldPair.fieldName}}`;
 
-    if (visitedOperatorFieldPairs.indexOf(key) !== -1) {
+    if (visitedOperatorFieldPairs.includes(key)) {
       errors.push(
         ...[
           {
             path: ["constraints", index, "fieldName"],
-            message: "Duplicate operator/ field set",
+            message: "Duplicate operator/field set",
             isPermissive: true
           },
           {
             path: ["constraints", index, "operator"],
-            message: "Duplicate operator/ field set",
+            message: "Duplicate operator/field set",
             isPermissive: true
           }
         ]
@@ -56,7 +56,7 @@ const PlacementsValidators = {
       return [
         {
           path: [],
-          message: "constrains needs to be an array of 2 or 3 element arrays",
+          message: "constraints needs to be an array of 2 or 3 element arrays",
           type: "TYPE_NOT_ARRAY"
         }
       ];

@@ -20,7 +20,7 @@ describe("PlacementsValidators", function() {
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
           path: [],
-          message: "constrains needs to be an array of 2 or 3 element arrays",
+          message: "constraints needs to be an array of 2 or 3 element arrays",
           type: "TYPE_NOT_ARRAY"
         }
       ]);
