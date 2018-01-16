@@ -31,11 +31,11 @@ describe("DC/OS UI [00j]", function() {
       cy.hash().should("match", /services/);
     });
 
-    it("should display one row on the table [00p]", function() {
+    it("displays one row on the table [00p]", function() {
       cy.get("@tableRows").should("to.have.length", 3);
     });
 
-    it("should not list marathon in the table [00q]", function() {
+    it("doesn't list marathon in the table [00q]", function() {
       cy.get("table tbody tr").should("not.contain", "marathon");
     });
   });
@@ -49,7 +49,7 @@ describe("DC/OS UI [00j]", function() {
       cy.hash().should("match", /nodes/);
     });
 
-    it("should display one row on the table [00t]", function() {
+    it("displays one row on the table [00t]", function() {
       cy.get("table tbody tr").should("to.have.length", 3).contains("dcos-01");
     });
   });

@@ -6,7 +6,7 @@ describe("Packages Tab", function() {
     });
   });
 
-  it("should display correct error message for invalid repo uri", function() {
+  it("displays correct error message for invalid repo uri", function() {
     cy
       .route({
         method: "POST",
@@ -28,7 +28,7 @@ describe("Packages Tab", function() {
       );
   });
 
-  it("should display correct message for 'no index' error", function() {
+  it("displays correct message for 'no index' error", function() {
     cy
       .route({
         method: "POST",
@@ -50,7 +50,7 @@ describe("Packages Tab", function() {
       );
   });
 
-  it("should display correct message for missing package file", function() {
+  it("displays correct message for missing package file", function() {
     cy
       .route({
         method: "POST",
@@ -72,7 +72,7 @@ describe("Packages Tab", function() {
       );
   });
 
-  it("should use default repository name if not provided", function() {
+  it("uses default repository name if not provided", function() {
     cy
       .route({
         method: "POST",
@@ -93,7 +93,7 @@ describe("Packages Tab", function() {
       );
   });
 
-  it("should default error message for missing package file", function() {
+  it("shows default error message for missing package file", function() {
     cy
       .route({
         method: "POST",
@@ -112,13 +112,13 @@ describe("Packages Tab", function() {
       cy.get("input").type("cass");
     });
 
-    it("should hide certified panels", function() {
+    it("hides certified panels", function() {
       cy.get("h1").contains("Certified").should(function($certifiedHeading) {
         expect($certifiedHeading.length).to.equal(0);
       });
     });
 
-    it("should show only cassandra in panels", function() {
+    it("shows only cassandra in panels", function() {
       cy.get(".panel").should(function($panels) {
         expect($panels.length).to.equal(1);
       });
@@ -136,7 +136,7 @@ describe("Packages Tab", function() {
         .as("panels");
     });
 
-    it("should have the first 9 packages as selected", function() {
+    it("has the first 9 packages as selected", function() {
       cy.get("@panels").should(function($panels) {
         expect($panels.length).to.equal(9);
       });
@@ -148,7 +148,7 @@ describe("Packages Tab", function() {
       cy.visitUrl({ url: "/catalog", logIn: true });
     });
 
-    it("should open the modal when the panel button is clicked", function() {
+    it("opens the modal when the panel button is clicked", function() {
       cy.get(".panel").contains("arangodb").click();
       cy.get(".button.button-primary").contains("Review & Run").click();
 
@@ -157,7 +157,7 @@ describe("Packages Tab", function() {
       });
     });
 
-    it("shouldn't open the modal when the panel is clicked", function() {
+    it("doesn't open the modal when the panel is clicked", function() {
       cy.get(".panel").contains("arangodb").click();
 
       cy.get(".modal").should(function($modal) {

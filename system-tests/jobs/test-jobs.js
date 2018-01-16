@@ -7,7 +7,7 @@ describe("Jobs", function() {
     });
   });
 
-  it("should create a simple job", function() {
+  it("creates a simple job", function() {
     const jobName = "job-with-inline-shell-script";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -67,7 +67,7 @@ describe("Jobs", function() {
     cy.root().getFormGroupInputFor("Command").contains(`${cmdline}`);
   });
 
-  it("should create a job with docker config", function() {
+  it("creates a job with docker config", function() {
     const jobName = "job-with-docker-config";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -152,7 +152,7 @@ describe("Jobs", function() {
     cy.root().getFormGroupInputFor("Image").should("have.value", "python:3");
   });
 
-  it("should create a job with labels", function() {
+  it("creates a job with labels", function() {
     const jobName = "job-with-labels";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -298,7 +298,7 @@ describe("Jobs", function() {
       .should("have.value", "test");
   });
 
-  it("should create a job with schedule", function() {
+  it("creates a job with schedule", function() {
     const jobName = "job-with-schedule";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -391,7 +391,7 @@ describe("Jobs", function() {
       .should("have.value", "* * * * *");
   });
 
-  it("should remove job from table when deleted", function() {
+  it("removes job from table when deleted", function() {
     // first create a simple job
     const jobName = "job-to-delete";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;

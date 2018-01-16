@@ -76,7 +76,7 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("shouldn't return an error for empty optional fields", function() {
+    it("does not return an error for empty optional fields", function() {
       const constraints = [["hostname", "GROUP_BY"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
     });

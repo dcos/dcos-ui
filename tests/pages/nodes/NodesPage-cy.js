@@ -10,7 +10,7 @@ describe("Nodes Page", function() {
       cy.get(".filter-bar").as("filterBar");
     });
 
-    it("should show all nodes", function() {
+    it("shows all nodes", function() {
       cy
         .get("@hostnames")
         .should("contain", "dcos-01")
@@ -18,7 +18,7 @@ describe("Nodes Page", function() {
         .should("contain", "167.114.218.156");
     });
 
-    it("should only show healthy node", function() {
+    it("shows only healthy node", function() {
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("is:healthy");
 
@@ -29,7 +29,7 @@ describe("Nodes Page", function() {
         .should("contain", "167.114.218.155");
     });
 
-    it("should only show unhealthy node", function() {
+    it("shows only unhealthy node", function() {
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("is:unhealthy");
 
@@ -40,7 +40,7 @@ describe("Nodes Page", function() {
         .should("contain", "167.114.218.156");
     });
 
-    it("should only show nodes with service", function() {
+    it("shows only nodes with service", function() {
       cy.get("@filterBar").contains("Filter by Service").click();
       cy.get(".dropdown-menu").contains("cassandra-healthy").click();
 
@@ -79,7 +79,7 @@ describe("Nodes Page", function() {
         cy.get(".filter-bar").as("filterBar");
       });
 
-      it("should only show cassandra-healthy nodes", function() {
+      it("shows only cassandra-healthy nodes", function() {
         cy.get("@filterBar").contains("Filter by Service").click();
         cy.get(".dropdown-menu").contains("cassandra-healthy").click();
 
@@ -90,7 +90,7 @@ describe("Nodes Page", function() {
           .should("not.contain", "19%");
       });
 
-      it("should not display any nodes", function() {
+      it("doesn't display any nodes", function() {
         cy.get("@filterBar").contains("Filter by Service").click();
         cy.get(".dropdown-menu").contains("cassandra-na").click();
 
@@ -101,7 +101,7 @@ describe("Nodes Page", function() {
           .should("not.contain", "19%");
       });
 
-      it("should only show unhealthy node", function() {
+      it("shows only unhealthy node", function() {
         cy.get("@filterBar").contains("Filter by Service").click();
         cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
         cy.get(".filter-input-text").as("filterInputText");
