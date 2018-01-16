@@ -3755,6 +3755,11 @@
         }
       }
     },
+    "eslint-plugin-test-names": {
+      "version": "1.0.1",
+      "from": "eslint-plugin-test-names@1.0.1",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-test-names/-/eslint-plugin-test-names-1.0.1.tgz"
+    },
     "espree": {
       "version": "3.4.0",
       "from": "espree@>=3.4.0 <4.0.0",

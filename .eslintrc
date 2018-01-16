@@ -24,7 +24,8 @@
     "jsx-max-len",
     "react",
     "compat",
-    "destructuring"
+    "destructuring",
+    "test-names"
   ],
 
   "globals": {
@@ -162,6 +163,7 @@
     "react/react-in-jsx-scope": "error",
     "react/require-extension": "off",
     "react/self-closing-comp": "off",
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "test-names/blacklist-word-in-test-name": [2, "should"]
   }
 }
