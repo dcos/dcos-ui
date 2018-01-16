@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames/dedupe";
 
@@ -116,16 +117,16 @@ ProgressBar.defaultProps = {
 };
 
 ProgressBar.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  total: React.PropTypes.number,
-  data: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      className: React.PropTypes.string,
-      value: React.PropTypes.number.isRequired
+  total: PropTypes.number,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      className: PropTypes.string,
+      value: PropTypes.number.isRequired
     })
   ).isRequired
 };

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import FilterBar from "#SRC/js/components/FilterBar";
@@ -105,15 +106,15 @@ PodViewFilter.defaultProps = {
 };
 
 PodViewFilter.propTypes = {
-  filter: React.PropTypes.shape({
-    text: React.PropTypes.string,
-    status: React.PropTypes.string
+  filter: PropTypes.shape({
+    text: PropTypes.string,
+    status: PropTypes.string
   }),
-  items: React.PropTypes.array,
-  inverseStyle: React.PropTypes.bool,
-  onFilterChange: React.PropTypes.func,
-  statusMapper: React.PropTypes.func,
-  statusChoices: React.PropTypes.array
+  items: PropTypes.array,
+  inverseStyle: PropTypes.bool,
+  onFilterChange: PropTypes.func,
+  statusMapper: PropTypes.func,
+  statusChoices: PropTypes.array
 };
 
 module.exports = PodViewFilter;

@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { Dropdown } from "reactjs-components";
 import deepEqual from "deep-equal";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -361,8 +362,8 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
 }
 
 TaskSystemLogsContainer.propTypes = {
-  task: React.PropTypes.shape({
-    slave_id: React.PropTypes.string
+  task: PropTypes.shape({
+    slave_id: PropTypes.string
   })
 };
 
@@ -371,12 +372,12 @@ TaskSystemLogsContainer.defaultProps = {
 };
 
 TaskSystemLogsContainer.propTypes = {
-  filePath: React.PropTypes.string,
-  highlightText: React.PropTypes.string,
-  logName: React.PropTypes.string,
-  onCountChange: React.PropTypes.func,
-  task: React.PropTypes.object.isRequired,
-  watching: React.PropTypes.number
+  filePath: PropTypes.string,
+  highlightText: PropTypes.string,
+  logName: PropTypes.string,
+  onCountChange: PropTypes.func,
+  task: PropTypes.object.isRequired,
+  watching: PropTypes.number
 };
 
 module.exports = TaskSystemLogsContainer;

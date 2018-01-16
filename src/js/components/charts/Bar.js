@@ -1,4 +1,5 @@
 import d3 from "d3";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -6,12 +7,12 @@ var Bar = React.createClass({
   displayName: "Bar",
 
   propTypes: {
-    posX: React.PropTypes.number.isRequired,
-    posY: React.PropTypes.number.isRequired,
-    rectHeight: React.PropTypes.number.isRequired,
-    rectWidth: React.PropTypes.number.isRequired,
-    colorClass: React.PropTypes.string.isRequired,
-    lineClass: React.PropTypes.string.isRequired
+    posX: PropTypes.number.isRequired,
+    posY: PropTypes.number.isRequired,
+    rectHeight: PropTypes.number.isRequired,
+    rectWidth: PropTypes.number.isRequired,
+    colorClass: PropTypes.string.isRequired,
+    lineClass: PropTypes.string.isRequired
   },
 
   componentDidMount() {

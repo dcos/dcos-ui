@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 class Breadcrumb extends React.Component {
@@ -28,9 +29,9 @@ Breadcrumb.defaultProps = {
 };
 
 Breadcrumb.propTypes = {
-  isCaret: React.PropTypes.bool,
-  isIcon: React.PropTypes.bool,
-  title: React.PropTypes.string.isRequired
+  isCaret: PropTypes.bool,
+  isIcon: PropTypes.bool,
+  title: PropTypes.string.isRequired
 };
 
 module.exports = Breadcrumb;

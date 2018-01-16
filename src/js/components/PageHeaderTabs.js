@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Link, routerShape } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
@@ -119,12 +120,12 @@ PageHeaderTabs.defaultProps = {
 };
 
 PageHeaderTabs.propTypes = {
-  tabs: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      isActive: React.PropTypes.bool,
-      label: React.PropTypes.node.isRequired,
-      routePath: React.PropTypes.string,
-      callback: React.PropTypes.func
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      isActive: PropTypes.bool,
+      label: PropTypes.node.isRequired,
+      routePath: PropTypes.string,
+      callback: PropTypes.func
     })
   )
 };

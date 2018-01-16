@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import Icon from "#SRC/js/components/Icon";
@@ -24,7 +25,7 @@ class EndpointClipboardTrigger extends React.Component {
 }
 
 EndpointClipboardTrigger.propTypes = {
-  command: React.PropTypes.string.isRequired
+  command: PropTypes.string.isRequired
 };
 
 module.exports = EndpointClipboardTrigger;

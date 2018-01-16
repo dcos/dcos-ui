@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "../Icon";
@@ -30,14 +31,14 @@ const AdvancedSectionLabel = ({ className, children, isExpanded, onClick }) => {
 };
 
 AdvancedSectionLabel.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  children: PropTypes.node,
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  isExpanded: React.PropTypes.bool,
-  onClick: React.PropTypes.func
+  isExpanded: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 module.exports = AdvancedSectionLabel;

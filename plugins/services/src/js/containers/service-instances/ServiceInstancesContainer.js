@@ -1,5 +1,6 @@
 import mixin from "reactjs-mixin";
 import { MountService } from "foundation-ui";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -79,8 +80,8 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
 }
 
 ServiceInstancesContainer.propTypes = {
-  service: React.PropTypes.instanceOf(Service),
-  params: React.PropTypes.object.isRequired
+  service: PropTypes.instanceOf(Service),
+  params: PropTypes.object.isRequired
 };
 
 module.exports = ServiceInstancesContainer;

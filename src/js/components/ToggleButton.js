@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 class ToggleButton extends React.Component {
@@ -35,19 +36,19 @@ ToggleButton.defaultProps = {
 };
 
 ToggleButton.propTypes = {
-  checked: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  onChange: React.PropTypes.func,
+  checked: PropTypes.bool,
+  children: PropTypes.node,
+  onChange: PropTypes.func,
 
-  checkboxClassName: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  checkboxClassName: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

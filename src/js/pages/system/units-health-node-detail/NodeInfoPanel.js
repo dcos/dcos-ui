@@ -1,4 +1,5 @@
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMap from "../../../components/ConfigurationMap";
@@ -50,9 +51,9 @@ class NodeInfoPanel extends React.Component {
 }
 
 NodeInfoPanel.propTypes = {
-  docsURL: React.PropTypes.string,
-  output: React.PropTypes.string,
-  summary: React.PropTypes.string
+  docsURL: PropTypes.string,
+  output: PropTypes.string,
+  summary: PropTypes.string
 };
 
 NodeInfoPanel.defaultProps = {

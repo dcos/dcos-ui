@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
@@ -25,8 +26,8 @@ const ServiceNoEndpointPanel = props => {
 };
 
 ServiceNoEndpointPanel.propTypes = {
-  onClick: React.PropTypes.func.isRequired,
-  serviceId: React.PropTypes.string.isRequired
+  onClick: PropTypes.func.isRequired,
+  serviceId: PropTypes.string.isRequired
 };
 
 module.exports = ServiceNoEndpointPanel;

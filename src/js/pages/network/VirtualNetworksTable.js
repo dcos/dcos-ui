@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -118,7 +119,7 @@ VirtualNetworksTable.contextTypes = {
 };
 
 VirtualNetworksTable.propTypes = {
-  overlays: React.PropTypes.instanceOf(OverlayList)
+  overlays: PropTypes.instanceOf(OverlayList)
 };
 
 module.exports = VirtualNetworksTable;

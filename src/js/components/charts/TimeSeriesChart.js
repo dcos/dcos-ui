@@ -1,5 +1,6 @@
 import d3 from "d3";
 import deepEqual from "deep-equal";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -18,20 +19,20 @@ var TimeSeriesChart = React.createClass({
   displayName: "TimeSeriesChart",
 
   propTypes: {
-    axisConfiguration: React.PropTypes.object,
+    axisConfiguration: PropTypes.object,
     // [{name: 'Area Name', values: [{date: some time, y: 0}]}]
-    data: React.PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
     // `height` and `width` are required if this
     // module isn't used as a child of the `Chart` component
     // Otherwise Chart will automatically calculate this.
-    height: React.PropTypes.number,
-    margin: React.PropTypes.object.isRequired,
-    maxY: React.PropTypes.number,
-    refreshRate: React.PropTypes.number.isRequired,
-    ticksY: React.PropTypes.number,
-    y: React.PropTypes.string,
-    yFormat: React.PropTypes.string,
-    width: React.PropTypes.number
+    height: PropTypes.number,
+    margin: PropTypes.object.isRequired,
+    maxY: PropTypes.number,
+    refreshRate: PropTypes.number.isRequired,
+    ticksY: PropTypes.number,
+    y: PropTypes.string,
+    yFormat: PropTypes.string,
+    width: PropTypes.number
   },
 
   mixins: [ChartMixin, InternalStorageMixin],

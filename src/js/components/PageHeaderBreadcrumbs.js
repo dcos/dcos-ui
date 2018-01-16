@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -71,8 +72,8 @@ class PageHeaderBreadcrumbs extends React.Component {
 }
 
 PageHeaderBreadcrumbs.propTypes = {
-  iconID: React.PropTypes.string.isRequired,
-  breadcrumbs: React.PropTypes.arrayOf(React.PropTypes.node).isRequired
+  iconID: PropTypes.string.isRequired,
+  breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired
 };
 
 module.exports = PageHeaderBreadcrumbs;

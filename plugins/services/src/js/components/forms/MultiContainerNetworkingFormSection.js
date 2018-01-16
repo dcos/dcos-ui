@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
@@ -545,10 +546,10 @@ MultiContainerNetworkingFormSection.defaultProps = {
 };
 
 MultiContainerNetworkingFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func
 };
 
 MultiContainerNetworkingFormSection.configReducers = {

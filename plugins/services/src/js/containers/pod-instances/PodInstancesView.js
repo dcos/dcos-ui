@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -165,15 +166,15 @@ class PodInstancesView extends React.Component {
 }
 
 PodInstancesView.contextTypes = {
-  modalHandlers: React.PropTypes.shape({
-    killPodInstances: React.PropTypes.func.isRequired
+  modalHandlers: PropTypes.shape({
+    killPodInstances: PropTypes.func.isRequired
   }).isRequired,
   router: routerShape
 };
 
 PodInstancesView.propTypes = {
-  instances: React.PropTypes.instanceOf(PodInstanceList).isRequired,
-  pod: React.PropTypes.instanceOf(Pod).isRequired
+  instances: PropTypes.instanceOf(PodInstanceList).isRequired,
+  pod: PropTypes.instanceOf(Pod).isRequired
 };
 
 module.exports = PodInstancesView;

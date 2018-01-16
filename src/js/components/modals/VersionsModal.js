@@ -1,4 +1,5 @@
 import { Modal } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ClickToSelect from "../ClickToSelect";
@@ -9,8 +10,8 @@ var VersionsModal = React.createClass({
   displayName: "VersionsModal",
 
   propTypes: {
-    onClose: React.PropTypes.func.isRequired,
-    versionDump: React.PropTypes.object.isRequired
+    onClose: PropTypes.func.isRequired,
+    versionDump: PropTypes.object.isRequired
   },
 
   onClose() {

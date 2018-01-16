@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Alert from "#SRC/js/components/Alert";
@@ -43,7 +44,7 @@ const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
 };
 
 PodContainersConfigSection.propTypes = {
-  onEditClick: React.PropTypes.func
+  onEditClick: PropTypes.func
 };
 
 module.exports = PodContainersConfigSection;

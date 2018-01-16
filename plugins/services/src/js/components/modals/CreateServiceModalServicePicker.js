@@ -1,4 +1,5 @@
 import { MountService } from "foundation-ui";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -98,7 +99,7 @@ class CreateServiceModalServicePicker extends React.Component {
 }
 
 CreateServiceModalServicePicker.propTypes = {
-  onServiceSelect: React.PropTypes.func
+  onServiceSelect: PropTypes.func
 };
 
 module.exports = CreateServiceModalServicePicker;

@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import PropTypes from "prop-types";
+
 import React from "react";
 /* eslint-enable no-unused-vars */
 import FilterInputText from "./FilterInputText";
@@ -17,8 +19,8 @@ class JobSearchFilter extends React.Component {
 }
 
 JobSearchFilter.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string
 };
 
 module.exports = JobSearchFilter;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Alert from "./Alert";
@@ -54,9 +55,9 @@ ErrorsAlert.defaultProps = {
 };
 
 ErrorsAlert.propTypes = {
-  errors: React.PropTypes.array,
-  hideTopLevelErrors: React.PropTypes.bool,
-  pathMapping: React.PropTypes.array
+  errors: PropTypes.array,
+  hideTopLevelErrors: PropTypes.bool,
+  pathMapping: PropTypes.array
 };
 
 module.exports = ErrorsAlert;

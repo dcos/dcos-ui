@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -19,7 +20,7 @@ NodeDetailHealthTab.contextTypes = {
 };
 
 NodeDetailHealthTab.propTypes = {
-  node: React.PropTypes.instanceOf(Node).isRequired
+  node: PropTypes.instanceOf(Node).isRequired
 };
 
 module.exports = NodeDetailHealthTab;

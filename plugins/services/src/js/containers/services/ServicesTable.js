@@ -2,7 +2,8 @@ import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { injectIntl } from "react-intl";
 import { Link, routerShape } from "react-router";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { Hooks } from "PluginSDK";
 
 import StringUtil from "#SRC/js/utils/StringUtil";

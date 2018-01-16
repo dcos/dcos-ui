@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -218,9 +219,9 @@ TaskDirectoryTable.defaultProps = {
 };
 
 TaskDirectoryTable.propTypes = {
-  directoryPath: React.PropTypes.string,
-  onOpenLogClick: React.PropTypes.func,
-  files: React.PropTypes.array
+  directoryPath: PropTypes.string,
+  onOpenLogClick: PropTypes.func,
+  files: PropTypes.array
 };
 
 module.exports = TaskDirectoryTable;

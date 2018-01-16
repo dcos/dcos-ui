@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import prettycron from "prettycron";
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -118,10 +119,10 @@ const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
 };
 
 JobsBreadcrumbs.propTypes = {
-  tree: React.PropTypes.instanceOf(JobTree).isRequired,
-  item: React.PropTypes.oneOfType([
-    React.PropTypes.instanceOf(JobTree),
-    React.PropTypes.instanceOf(Job)
+  tree: PropTypes.instanceOf(JobTree).isRequired,
+  item: PropTypes.oneOfType([
+    PropTypes.instanceOf(JobTree),
+    PropTypes.instanceOf(Job)
   ])
 };
 

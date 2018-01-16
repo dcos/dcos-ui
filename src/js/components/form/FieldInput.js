@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import { omit } from "../../utils/Util";
@@ -26,19 +27,16 @@ FieldInput.defaultProps = {
 };
 
 FieldInput.propTypes = {
-  type: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  checked: React.PropTypes.bool,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string
-  ]),
+  type: PropTypes.string,
+  onChange: PropTypes.func,
+  checked: PropTypes.bool,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

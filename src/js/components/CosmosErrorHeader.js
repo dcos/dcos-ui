@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 const CosmosErrorHeader = function(props) {
@@ -9,7 +10,7 @@ const CosmosErrorHeader = function(props) {
 };
 
 CosmosErrorHeader.propTypes = {
-  children: React.PropTypes.node
+  children: PropTypes.node
 };
 
 module.exports = CosmosErrorHeader;

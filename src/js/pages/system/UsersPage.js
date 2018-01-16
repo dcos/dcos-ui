@@ -1,6 +1,7 @@
 import { Hooks } from "PluginSDK";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -113,7 +114,7 @@ class UsersPage extends mixin(StoreMixin) {
 }
 
 UsersPage.propTypes = {
-  params: React.PropTypes.object
+  params: PropTypes.object
 };
 
 UsersPage.routeConfig = {

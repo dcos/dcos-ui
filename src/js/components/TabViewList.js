@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 class TabViewList extends React.Component {
@@ -29,12 +30,12 @@ class TabViewList extends React.Component {
 }
 
 TabViewList.propTypes = {
-  activeTab: React.PropTypes.string,
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOf([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  activeTab: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.oneOf([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

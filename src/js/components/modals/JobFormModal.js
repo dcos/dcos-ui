@@ -1,6 +1,7 @@
 import Ace from "react-ace";
 import mixin from "reactjs-mixin";
 import { Modal } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -475,10 +476,10 @@ JobFormModal.defaultProps = {
 };
 
 JobFormModal.propTypes = {
-  isEdit: React.PropTypes.bool,
-  job: React.PropTypes.instanceOf(Job),
-  open: React.PropTypes.bool,
-  onClose: React.PropTypes.func
+  isEdit: PropTypes.bool,
+  job: PropTypes.instanceOf(Job),
+  open: PropTypes.bool,
+  onClose: PropTypes.func
 };
 
 module.exports = JobFormModal;

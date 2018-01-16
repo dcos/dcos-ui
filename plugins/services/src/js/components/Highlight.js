@@ -1,4 +1,5 @@
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
@@ -264,19 +265,19 @@ Highlight.defaultProps = {
 };
 
 Highlight.propTypes = {
-  search: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.bool,
+  search: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
     regExpPropType
   ]).isRequired,
-  caseSensitive: React.PropTypes.bool,
-  matchElement: React.PropTypes.string,
-  matchClass: React.PropTypes.string,
-  searchDebounceDelay: React.PropTypes.number,
-  searchDebounceThreshold: React.PropTypes.number,
-  selectedMatchClass: React.PropTypes.string,
-  watching: React.PropTypes.number
+  caseSensitive: PropTypes.bool,
+  matchElement: PropTypes.string,
+  matchClass: PropTypes.string,
+  searchDebounceDelay: PropTypes.number,
+  searchDebounceThreshold: PropTypes.number,
+  selectedMatchClass: PropTypes.string,
+  watching: PropTypes.number
 };
 
 module.exports = Highlight;

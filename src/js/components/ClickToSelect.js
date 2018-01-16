@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 class ClickToSelect extends React.Component {
@@ -20,7 +21,7 @@ class ClickToSelect extends React.Component {
 }
 
 ClickToSelect.propTypes = {
-  children: React.PropTypes.any
+  children: PropTypes.any
 };
 
 module.exports = ClickToSelect;

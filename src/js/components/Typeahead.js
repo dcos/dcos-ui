@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import InnerTypeahead from "mesosphere-react-typeahead";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
-import React, { PropTypes } from "react";
+import React from "react";
 /* eslint-enable no-unused-vars */
 
 import FilterInputText from "./FilterInputText";

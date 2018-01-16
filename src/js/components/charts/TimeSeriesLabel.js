@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import deepEqual from "deep-equal";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ValueTypes from "../../constants/ValueTypes";
@@ -8,16 +9,12 @@ var TimeSeriesLabel = React.createClass({
   displayName: "TimeSeriesLabel",
 
   propTypes: {
-    colorIndex: React.PropTypes.number,
-    currentValue: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
-    ]).isRequired,
-    subHeading: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
-    ]).isRequired,
-    y: React.PropTypes.string
+    colorIndex: PropTypes.number,
+    currentValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
+    subHeading: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
+    y: PropTypes.string
   },
 
   getDefaultProps() {

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Chart from "./Chart";
@@ -9,10 +10,10 @@ var HostTimeSeriesChart = React.createClass({
   displayName: "HostTimeSeriesChart",
 
   propTypes: {
-    data: React.PropTypes.array.isRequired,
-    refreshRate: React.PropTypes.number.isRequired,
-    roundUpValue: React.PropTypes.number,
-    minMaxY: React.PropTypes.number
+    data: PropTypes.array.isRequired,
+    refreshRate: PropTypes.number.isRequired,
+    roundUpValue: PropTypes.number,
+    minMaxY: PropTypes.number
   },
 
   getDefaultProps() {

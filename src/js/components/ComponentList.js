@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Link } from "react-router";
 import { List } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 class ComponentList extends React.Component {
@@ -129,9 +130,9 @@ ComponentList.defaultProps = {
 };
 
 ComponentList.propTypes = {
-  displayCount: React.PropTypes.number,
+  displayCount: PropTypes.number,
   // Required object of type HealthUnitsList.
-  units: React.PropTypes.object.isRequired
+  units: PropTypes.object.isRequired
 };
 
 module.exports = ComponentList;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
@@ -532,10 +533,10 @@ HealthChecksFormSection.defaultProps = {
 };
 
 HealthChecksFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func
 };
 
 HealthChecksFormSection.configReducers = {

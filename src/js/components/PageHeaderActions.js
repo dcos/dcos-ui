@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -97,28 +98,28 @@ PageHeaderActions.defaultProps = {
   disabledActions: false
 };
 
-const classProps = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classProps = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
-const menuActionsProps = React.PropTypes.shape({
+const menuActionsProps = PropTypes.shape({
   className: classProps,
-  onItemSelect: React.PropTypes.func.isRequired,
-  label: React.PropTypes.node.isRequired
+  onItemSelect: PropTypes.func.isRequired,
+  label: PropTypes.node.isRequired
 });
 
 PageHeaderActions.propTypes = {
-  addButton: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(menuActionsProps),
+  addButton: PropTypes.oneOfType([
+    PropTypes.arrayOf(menuActionsProps),
     menuActionsProps
   ]),
-  actions: React.PropTypes.arrayOf(
-    React.PropTypes.oneOfType([React.PropTypes.node, menuActionsProps])
+  actions: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.node, menuActionsProps])
   ),
-  supplementalContent: React.PropTypes.node,
-  disabledActions: React.PropTypes.bool
+  supplementalContent: PropTypes.node,
+  disabledActions: PropTypes.bool
 };
 
 module.exports = PageHeaderActions;

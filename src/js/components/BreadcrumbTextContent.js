@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 class BreadcrumbTextContent extends React.Component {
@@ -15,7 +16,7 @@ class BreadcrumbTextContent extends React.Component {
 }
 
 BreadcrumbTextContent.propTypes = {
-  title: React.PropTypes.string
+  title: PropTypes.string
 };
 
 module.exports = BreadcrumbTextContent;

@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -127,8 +128,8 @@ class UnitHealthNodesTable extends React.Component {
 }
 
 UnitHealthNodesTable.propTypes = {
-  nodes: React.PropTypes.array.isRequired,
-  params: React.PropTypes.object
+  nodes: PropTypes.array.isRequired,
+  params: PropTypes.object
 };
 
 module.exports = UnitHealthNodesTable;

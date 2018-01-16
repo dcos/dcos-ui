@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { routerShape } from "react-router";

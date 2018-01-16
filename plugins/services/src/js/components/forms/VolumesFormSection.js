@@ -1,4 +1,5 @@
 import { Tooltip, Select, SelectOption } from "reactjs-components";
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
@@ -448,10 +449,10 @@ VolumesFormSection.defaultProps = {
 };
 
 VolumesFormSection.propTypes = {
-  data: React.PropTypes.object,
-  errors: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func
+  data: PropTypes.object,
+  errors: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func
 };
 
 VolumesFormSection.configReducers = {

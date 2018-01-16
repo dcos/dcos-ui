@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Util from "../utils/Util";
@@ -38,22 +39,15 @@ Icon.defaultProps = {
 };
 
 Icon.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  color: React.PropTypes.string,
-  family: React.PropTypes.oneOf(["product", "system", "tiny"]),
-  id: React.PropTypes.string.isRequired,
-  size: React.PropTypes.oneOf([
-    "tiny",
-    "mini",
-    "small",
-    "medium",
-    "large",
-    "jumbo"
-  ])
+  color: PropTypes.string,
+  family: PropTypes.oneOf(["product", "system", "tiny"]),
+  id: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(["tiny", "mini", "small", "medium", "large", "jumbo"])
 };
 
 module.exports = Icon;

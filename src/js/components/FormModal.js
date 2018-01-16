@@ -1,5 +1,6 @@
 import classNames from "classnames/dedupe";
 import { Form, Modal } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 const METHODS_TO_BIND = [
@@ -166,22 +167,22 @@ FormModal.defaultProps = {
 };
 
 FormModal.propTypes = {
-  buttonDefinition: React.PropTypes.array,
-  children: React.PropTypes.node,
-  contentClasses: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  buttonDefinition: PropTypes.array,
+  children: PropTypes.node,
+  contentClasses: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  contentFooter: React.PropTypes.node,
-  definition: React.PropTypes.array,
-  disabled: React.PropTypes.bool,
-  extraFooterContent: React.PropTypes.node,
-  modalProps: React.PropTypes.object,
-  onChange: React.PropTypes.func,
-  onClose: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func,
-  open: React.PropTypes.bool
+  contentFooter: PropTypes.node,
+  definition: PropTypes.array,
+  disabled: PropTypes.bool,
+  extraFooterContent: PropTypes.node,
+  modalProps: PropTypes.object,
+  onChange: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
+  open: PropTypes.bool
 };
 
 module.exports = FormModal;

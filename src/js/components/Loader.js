@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 /*
@@ -83,19 +84,19 @@ Loader.defaultProps = {
   suppressHorizontalCenter: false
 };
 
-const classPropType = React.PropTypes.oneOfType([
-  React.PropTypes.array,
-  React.PropTypes.object,
-  React.PropTypes.string
+const classPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
 ]);
 
 Loader.propTypes = {
-  suppressHorizontalCenter: React.PropTypes.bool,
+  suppressHorizontalCenter: PropTypes.bool,
   className: classPropType,
-  flip: React.PropTypes.oneOf(["horizontal"]),
+  flip: PropTypes.oneOf(["horizontal"]),
   innerClassName: classPropType,
-  size: React.PropTypes.oneOf(["small", "mini"]),
-  type: React.PropTypes.oneOf([
+  size: PropTypes.oneOf(["small", "mini"]),
+  type: PropTypes.oneOf([
     "ballBeat",
     "ballScale",
     "ballSpinFadeLoader",

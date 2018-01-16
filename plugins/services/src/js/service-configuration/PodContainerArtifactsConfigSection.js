@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
@@ -100,9 +101,9 @@ PodContainerArtifactsConfigSection.defaultProps = {
 };
 
 PodContainerArtifactsConfigSection.propTypes = {
-  artifacts: React.PropTypes.array,
-  index: React.PropTypes.number,
-  onEditClick: React.PropTypes.func
+  artifacts: PropTypes.array,
+  index: PropTypes.number,
+  onEditClick: PropTypes.func
 };
 
 module.exports = PodContainerArtifactsConfigSection;

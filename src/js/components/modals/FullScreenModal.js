@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Util from "../../utils/Util";
@@ -39,8 +40,8 @@ FullScreenModal.defaultProps = {
 };
 
 FullScreenModal.propTypes = {
-  children: React.PropTypes.node,
-  useGemini: React.PropTypes.bool
+  children: PropTypes.node,
+  useGemini: PropTypes.bool
 };
 
 module.exports = FullScreenModal;

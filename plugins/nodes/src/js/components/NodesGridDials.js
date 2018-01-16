@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Tooltip } from "reactjs-components";
@@ -16,11 +17,11 @@ var NodesGridDials = React.createClass({
   displayName: "NodesGridDials",
 
   propTypes: {
-    hosts: React.PropTypes.array.isRequired,
-    selectedResource: React.PropTypes.string.isRequired,
-    serviceColors: React.PropTypes.object.isRequired,
-    showServices: React.PropTypes.bool.isRequired,
-    resourcesByFramework: React.PropTypes.object.isRequired
+    hosts: PropTypes.array.isRequired,
+    selectedResource: PropTypes.string.isRequired,
+    serviceColors: PropTypes.object.isRequired,
+    showServices: PropTypes.bool.isRequired,
+    resourcesByFramework: PropTypes.object.isRequired
   },
 
   contextTypes: {

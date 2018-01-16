@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 class TaskFilesTab extends React.Component {
@@ -18,9 +19,9 @@ class TaskFilesTab extends React.Component {
 }
 
 TaskFilesTab.propTypes = {
-  children: React.PropTypes.node,
-  directory: React.PropTypes.object,
-  task: React.PropTypes.object
+  children: PropTypes.node,
+  directory: PropTypes.object,
+  task: PropTypes.object
 };
 
 TaskFilesTab.defaultProps = {

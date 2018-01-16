@@ -1,4 +1,5 @@
 import TestUtils from "react-addons-test-utils";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 import { routerShape } from "react-router";
@@ -146,7 +147,7 @@ const JestUtil = {
         return Object.assign(
           {
             router: routerShape,
-            routeDepth: React.PropTypes.number
+            routeDepth: PropTypes.number
           },
           contextTypes
         );

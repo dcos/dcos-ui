@@ -1,5 +1,6 @@
 import { Confirm } from "reactjs-components";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
 
 import FieldInput from "#SRC/js/components/form/FieldInput";

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import packageServiceImage
@@ -31,8 +32,8 @@ class CreateServicePickerCatalogOption extends React.Component {
 }
 
 CreateServicePickerCatalogOption.propTypes = {
-  columnClasses: React.PropTypes.string,
-  onOptionSelect: React.PropTypes.func
+  columnClasses: PropTypes.string,
+  onOptionSelect: PropTypes.func
 };
 
 module.exports = CreateServicePickerCatalogOption;

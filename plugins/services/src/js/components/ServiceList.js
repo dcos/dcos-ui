@@ -1,5 +1,6 @@
 import deepEqual from "deep-equal";
 import { List } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 import { Link, routerShape } from "react-router";
 
@@ -10,7 +11,7 @@ const ServiceList = React.createClass({
   displayName: "ServiceList",
 
   propTypes: {
-    services: React.PropTypes.array.isRequired
+    services: PropTypes.array.isRequired
   },
 
   contextTypes: {

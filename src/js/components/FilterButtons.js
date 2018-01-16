@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 class FilterButtons extends React.Component {
@@ -76,17 +77,17 @@ FilterButtons.defaultProps = {
 };
 
 FilterButtons.propTypes = {
-  filters: React.PropTypes.array,
+  filters: PropTypes.array,
   // The key in itemList that is being filtered
-  filterByKey: React.PropTypes.string,
-  inverseStyle: React.PropTypes.bool,
-  itemList: React.PropTypes.array.isRequired,
+  filterByKey: PropTypes.string,
+  inverseStyle: PropTypes.bool,
+  itemList: PropTypes.array.isRequired,
   // A function that returns the onClick for a filter button given the filter.
-  onFilterChange: React.PropTypes.func,
+  onFilterChange: PropTypes.func,
   // Optional function to generate button text. args: (filter, count)
-  renderButtonContent: React.PropTypes.func,
+  renderButtonContent: PropTypes.func,
   // The filter in props.filters that is currently selected.
-  selectedFilter: React.PropTypes.string
+  selectedFilter: PropTypes.string
 };
 
 module.exports = FilterButtons;

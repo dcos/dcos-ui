@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import deepEqual from "deep-equal";
 
 import FieldHelp from "#SRC/js/components/form/FieldHelp";

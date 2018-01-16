@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 import BarChart from "./BarChart";
@@ -12,13 +13,13 @@ const ResourceBarChart = React.createClass({
   displayName: "ResourceBarChart",
 
   propTypes: {
-    onResourceSelectionChange: React.PropTypes.func.isRequired,
-    itemCount: React.PropTypes.number.isRequired,
-    resources: React.PropTypes.object.isRequired,
-    refreshRate: React.PropTypes.number.isRequired,
-    resourceType: React.PropTypes.string,
-    selectedResource: React.PropTypes.string.isRequired,
-    totalResources: React.PropTypes.object.isRequired
+    onResourceSelectionChange: PropTypes.func.isRequired,
+    itemCount: PropTypes.number.isRequired,
+    resources: PropTypes.object.isRequired,
+    refreshRate: PropTypes.number.isRequired,
+    resourceType: PropTypes.string,
+    selectedResource: PropTypes.string.isRequired,
+    totalResources: PropTypes.object.isRequired
   },
 
   getDefaultProps() {

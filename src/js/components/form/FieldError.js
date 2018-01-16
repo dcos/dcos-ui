@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import { omit } from "../../utils/Util";
@@ -17,10 +18,10 @@ const FieldError = props => {
 
 FieldError.propTypes = {
   // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

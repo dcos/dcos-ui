@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMap from "../../components/ConfigurationMap";
@@ -179,7 +180,7 @@ class JobConfiguration extends React.Component {
 }
 
 JobConfiguration.propTypes = {
-  job: React.PropTypes.instanceOf(Job).isRequired
+  job: PropTypes.instanceOf(Job).isRequired
 };
 
 module.exports = JobConfiguration;

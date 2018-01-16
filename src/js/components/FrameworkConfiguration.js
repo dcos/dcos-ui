@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from "react";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";

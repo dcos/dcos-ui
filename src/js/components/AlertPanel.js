@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Panel from "./Panel";
@@ -11,8 +12,8 @@ var AlertPanel = React.createClass({
   },
 
   propTypes: {
-    icon: React.PropTypes.node,
-    iconClassName: React.PropTypes.string
+    icon: PropTypes.node,
+    iconClassName: PropTypes.string
   },
 
   // TODO: Use iconIDs instead of icon classes.

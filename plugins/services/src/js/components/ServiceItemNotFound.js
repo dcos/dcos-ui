@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";

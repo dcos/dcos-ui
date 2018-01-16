@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 class BreadcrumbSupplementalContent extends React.Component {
@@ -27,7 +28,7 @@ BreadcrumbSupplementalContent.defaultProps = {
 };
 
 BreadcrumbSupplementalContent.propTypes = {
-  hasProgressBar: React.PropTypes.bool
+  hasProgressBar: PropTypes.bool
 };
 
 module.exports = BreadcrumbSupplementalContent;

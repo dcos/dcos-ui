@@ -1,5 +1,6 @@
 import classNames from "classnames/dedupe";
 import { Dropdown } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
@@ -179,12 +180,12 @@ PodHeader.defaultProps = {
 };
 
 PodHeader.propTypes = {
-  onDestroy: React.PropTypes.func,
-  onEdit: React.PropTypes.func,
-  onScale: React.PropTypes.func,
-  onStop: React.PropTypes.func,
-  pod: React.PropTypes.instanceOf(Pod).isRequired,
-  tabs: React.PropTypes.array
+  onDestroy: PropTypes.func,
+  onEdit: PropTypes.func,
+  onScale: PropTypes.func,
+  onStop: PropTypes.func,
+  pod: PropTypes.instanceOf(Pod).isRequired,
+  tabs: PropTypes.array
 };
 
 module.exports = PodHeader;

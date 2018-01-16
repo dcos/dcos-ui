@@ -1,7 +1,6 @@
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
-
-const PropTypes = React.PropTypes;
 
 class Rect extends React.Component {
   componentDidMount() {

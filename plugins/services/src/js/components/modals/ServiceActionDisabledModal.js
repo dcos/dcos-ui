@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { injectIntl } from "react-intl";
 import { MountService } from "foundation-ui";
 import { Modal } from "reactjs-components";

@@ -1,4 +1,5 @@
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -249,7 +250,7 @@ class JobsTab extends mixin(StoreMixin) {
 
 JobsTab.contextTypes = {
   router: routerShape,
-  location: React.PropTypes.object.isRequired
+  location: PropTypes.object.isRequired
 };
 
 module.exports = JobsTab;

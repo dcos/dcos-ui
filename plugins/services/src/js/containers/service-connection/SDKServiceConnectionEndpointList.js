@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -227,7 +228,7 @@ SDKServiceConnectionEndpointList.contextTypes = {
 };
 
 SDKServiceConnectionEndpointList.propTypes = {
-  service: React.PropTypes.instanceOf(Service)
+  service: PropTypes.instanceOf(Service)
 };
 
 module.exports = SDKServiceConnectionEndpointList;

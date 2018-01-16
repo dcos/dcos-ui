@@ -1,5 +1,6 @@
 import { Confirm, Dropdown } from "reactjs-components";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -264,12 +265,12 @@ class ActionsModal extends mixin(StoreMixin) {
 }
 
 ActionsModal.propTypes = {
-  action: React.PropTypes.string.isRequired,
-  actionText: React.PropTypes.object.isRequired,
-  itemID: React.PropTypes.string.isRequired,
-  itemType: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  selectedItems: React.PropTypes.array.isRequired
+  action: PropTypes.string.isRequired,
+  actionText: PropTypes.object.isRequired,
+  itemID: PropTypes.string.isRequired,
+  itemType: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  selectedItems: PropTypes.array.isRequired
 };
 
 module.exports = ActionsModal;

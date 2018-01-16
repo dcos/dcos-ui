@@ -1,11 +1,10 @@
 import classNames from "classnames";
 import { Form, Table } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ResourceTableUtil from "../utils/ResourceTableUtil";
 import TableUtil from "../utils/TableUtil";
-
-const PropTypes = React.PropTypes;
 
 const METHODS_TO_BIND = [
   "getTableRowOptions",

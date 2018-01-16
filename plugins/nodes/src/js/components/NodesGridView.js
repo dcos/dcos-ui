@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Form } from "reactjs-components";
 import PureRender from "react-addons-pure-render-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Loader from "#SRC/js/components/Loader";
@@ -18,17 +19,17 @@ var NodesGridView = React.createClass({
   mixins: [PureRender],
 
   propTypes: {
-    hasLoadingError: React.PropTypes.bool,
-    hiddenServices: React.PropTypes.array,
-    hosts: React.PropTypes.instanceOf(NodesList).isRequired,
-    receivedEmptyMesosState: React.PropTypes.bool,
-    receivedNodeHealthResponse: React.PropTypes.bool,
-    onShowServices: React.PropTypes.func.isRequired,
-    resourcesByFramework: React.PropTypes.object.isRequired,
-    selectedResource: React.PropTypes.string.isRequired,
-    serviceColors: React.PropTypes.object.isRequired,
-    services: React.PropTypes.array.isRequired,
-    showServices: React.PropTypes.bool
+    hasLoadingError: PropTypes.bool,
+    hiddenServices: PropTypes.array,
+    hosts: PropTypes.instanceOf(NodesList).isRequired,
+    receivedEmptyMesosState: PropTypes.bool,
+    receivedNodeHealthResponse: PropTypes.bool,
+    onShowServices: PropTypes.func.isRequired,
+    resourcesByFramework: PropTypes.object.isRequired,
+    selectedResource: PropTypes.string.isRequired,
+    serviceColors: PropTypes.object.isRequired,
+    services: PropTypes.array.isRequired,
+    showServices: PropTypes.bool
   },
 
   defaultProps: {

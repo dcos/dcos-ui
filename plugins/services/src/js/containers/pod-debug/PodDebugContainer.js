@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -263,7 +264,7 @@ PodDebugTabView.contextTypes = {
 };
 
 PodDebugTabView.propTypes = {
-  pod: React.PropTypes.instanceOf(Pod)
+  pod: PropTypes.instanceOf(Pod)
 };
 
 module.exports = PodDebugTabView;

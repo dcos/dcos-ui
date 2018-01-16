@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 
@@ -63,8 +64,8 @@ class JobTaskDetailPage extends React.Component {
 }
 
 JobTaskDetailPage.propTypes = {
-  params: React.PropTypes.object,
-  routes: React.PropTypes.array
+  params: PropTypes.object,
+  routes: PropTypes.array
 };
 
 module.exports = JobTaskDetailPage;

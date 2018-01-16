@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
@@ -24,7 +25,7 @@ const ServiceConnectionContainer = function(props) {
 };
 
 ServiceConnectionContainer.propTypes = {
-  service: React.PropTypes.instanceOf(Service)
+  service: PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceConnectionContainer;

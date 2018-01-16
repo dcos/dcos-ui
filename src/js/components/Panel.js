@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 const defaultClasses = {
@@ -12,26 +13,26 @@ var Panel = React.createClass({
   displayName: "Panel",
 
   propTypes: {
-    heading: React.PropTypes.node,
-    footer: React.PropTypes.node,
+    heading: PropTypes.node,
+    footer: PropTypes.node,
 
     // classes
-    contentClass: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object,
-      React.PropTypes.string
+    contentClass: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
     ]),
-    headingClass: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object,
-      React.PropTypes.string
+    headingClass: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
     ]),
-    footerClass: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object,
-      React.PropTypes.string
+    footerClass: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
     ]),
-    onClick: React.PropTypes.func
+    onClick: PropTypes.func
   },
 
   getNode(nodeName) {

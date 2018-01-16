@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Confirm, Table } from "reactjs-components";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -247,7 +248,7 @@ RepositoriesTable.defaultProps = {
 };
 
 RepositoriesTable.propTypes = {
-  repositories: React.PropTypes.object.isRequired
+  repositories: PropTypes.object.isRequired
 };
 
 module.exports = RepositoriesTable;

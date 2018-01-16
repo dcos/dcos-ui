@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -61,14 +62,14 @@ class Image extends React.Component {
 }
 
 Image.propTypes = {
-  src: React.PropTypes.string.isRequired,
-  fallbackSrc: React.PropTypes.string,
+  src: PropTypes.string.isRequired,
+  fallbackSrc: PropTypes.string,
 
   // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 

@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "../Icon";
@@ -135,10 +136,10 @@ ImageViewerModal.defaultProps = {
 };
 
 ImageViewerModal.propTypes = {
-  images: React.PropTypes.arrayOf(React.PropTypes.string),
-  onLeftClick: React.PropTypes.func.isRequired,
-  onRightClick: React.PropTypes.func.isRequired,
-  onClose: React.PropTypes.func.isRequired
+  images: PropTypes.arrayOf(PropTypes.string),
+  onLeftClick: PropTypes.func.isRequired,
+  onRightClick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 module.exports = ImageViewerModal;

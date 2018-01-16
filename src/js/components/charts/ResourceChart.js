@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import BarChart from "../../components/charts/BarChart";
@@ -95,9 +96,9 @@ ResourceChart.defaultProps = {
 };
 
 ResourceChart.propTypes = {
-  className: React.PropTypes.string,
-  resourceName: React.PropTypes.string,
-  resources: React.PropTypes.object
+  className: PropTypes.string,
+  resourceName: PropTypes.string,
+  resources: PropTypes.object
 };
 
 module.exports = ResourceChart;

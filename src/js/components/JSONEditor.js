@@ -1,4 +1,5 @@
 import AceEditor from "react-ace";
+import PropTypes from "prop-types";
 import React from "react";
 import deepEqual from "deep-equal";
 import "brace/ext/searchbox";
@@ -513,22 +514,16 @@ JSONEditor.defaultProps = {
 };
 
 JSONEditor.propTypes = {
-  errors: React.PropTypes.array,
-  editorProps: React.PropTypes.object,
-  height: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ]),
-  onBlur: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onErrorStateChange: React.PropTypes.func,
-  onFocus: React.PropTypes.func,
-  onPropertyChange: React.PropTypes.func,
-  value: React.PropTypes.object,
-  width: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ])
+  errors: PropTypes.array,
+  editorProps: PropTypes.object,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onErrorStateChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onPropertyChange: PropTypes.func,
+  value: PropTypes.object,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 module.exports = JSONEditor;

@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import PropTypes from "prop-types";
+
 import React from "react";
 /* eslint-enable no-unused-vars */
 
@@ -41,11 +43,11 @@ class UsersActionsModal extends ActionsModal {
 }
 
 UsersActionsModal.propTypes = {
-  action: React.PropTypes.string.isRequired,
-  actionText: React.PropTypes.object.isRequired,
-  itemID: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  selectedItems: React.PropTypes.array.isRequired
+  action: PropTypes.string.isRequired,
+  actionText: PropTypes.object.isRequired,
+  itemID: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  selectedItems: PropTypes.array.isRequired
 };
 
 module.exports = UsersActionsModal;

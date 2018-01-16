@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 class ToggleValue extends Component {
@@ -25,8 +26,8 @@ class ToggleValue extends Component {
 }
 
 ToggleValue.propTypes = {
-  primaryValue: React.PropTypes.string.isRequired,
-  secondaryValue: React.PropTypes.string.isRequired
+  primaryValue: PropTypes.string.isRequired,
+  secondaryValue: PropTypes.string.isRequired
 };
 
 module.exports = ToggleValue;

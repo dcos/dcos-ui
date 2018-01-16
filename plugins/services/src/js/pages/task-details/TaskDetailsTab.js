@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -213,7 +214,7 @@ class TaskDetailsTab extends React.Component {
 }
 
 TaskDetailsTab.propTypes = {
-  task: React.PropTypes.object
+  task: PropTypes.object
 };
 
 TaskDetailsTab.defaultProps = {

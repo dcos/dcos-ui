@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
@@ -59,13 +60,10 @@ ConfigurationMapDurationValue.defaultProps = {
 };
 
 ConfigurationMapDurationValue.propTypes = {
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  multiplicants: React.PropTypes.object,
-  units: React.PropTypes.oneOf(Object.keys(MULTIPLICANTS)),
-  value: React.PropTypes.number
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  multiplicants: PropTypes.object,
+  units: PropTypes.oneOf(Object.keys(MULTIPLICANTS)),
+  value: PropTypes.number
 };
 
 module.exports = ConfigurationMapDurationValue;

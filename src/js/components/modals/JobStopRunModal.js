@@ -1,5 +1,6 @@
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -124,11 +125,11 @@ JobStopRunModal.defaultProps = {
 };
 
 JobStopRunModal.propTypes = {
-  jobID: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  onSuccess: React.PropTypes.func,
-  open: React.PropTypes.bool.isRequired,
-  selectedItems: React.PropTypes.array.isRequired
+  jobID: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func,
+  open: PropTypes.bool.isRequired,
+  selectedItems: PropTypes.array.isRequired
 };
 
 module.exports = JobStopRunModal;

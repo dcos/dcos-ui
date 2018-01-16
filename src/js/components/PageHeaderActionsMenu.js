@@ -1,4 +1,5 @@
 import { Dropdown } from "reactjs-components";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "./Icon";
@@ -57,16 +58,16 @@ PageHeaderActionsMenu.defaultProps = {
 
 PageHeaderActionsMenu.propTypes = {
   // anchorRight gets passed to Dropdown. It's truthy here unlike in the Dropdown.
-  anchorRight: React.PropTypes.bool,
-  children: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      props: React.PropTypes.shape({
-        onItemSelect: React.PropTypes.func
+  anchorRight: PropTypes.bool,
+  children: PropTypes.arrayOf(
+    PropTypes.shape({
+      props: PropTypes.shape({
+        onItemSelect: PropTypes.func
       })
     })
   ),
-  iconID: React.PropTypes.string,
-  disabledActions: React.PropTypes.bool
+  iconID: PropTypes.string,
+  disabledActions: PropTypes.bool
 };
 
 module.exports = PageHeaderActionsMenu;

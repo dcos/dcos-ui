@@ -1,4 +1,5 @@
 import d3 from "d3";
+import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -17,10 +18,10 @@ var DialChart = React.createClass({
 
   propTypes: {
     // [{colorIndex: 0, name: 'Some Name', value: 4}]
-    data: React.PropTypes.array.isRequired,
-    slices: React.PropTypes.array,
-    duration: React.PropTypes.number,
-    value: React.PropTypes.string
+    data: PropTypes.array.isRequired,
+    slices: PropTypes.array,
+    duration: PropTypes.number,
+    value: PropTypes.string
   },
 
   getDefaultProps() {

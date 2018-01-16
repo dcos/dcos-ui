@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import GeminiScrollbar from "react-gemini-scrollbar";
+import PropTypes from "prop-types";
 import React from "react";
 
 import ScrollbarUtil from "../utils/ScrollbarUtil";
@@ -112,10 +113,7 @@ class FluidGeminiScrollbar extends React.Component {
 }
 
 FluidGeminiScrollbar.propTypes = {
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object
-  ])
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
 module.exports = FluidGeminiScrollbar;

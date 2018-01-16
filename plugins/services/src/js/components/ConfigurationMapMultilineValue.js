@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
@@ -30,11 +31,8 @@ ConfigurationMapMultilineValue.defaultProps = {
 };
 
 ConfigurationMapMultilineValue.propTypes = {
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.node
-  ]),
-  value: React.PropTypes.string
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  value: PropTypes.string
 };
 
 module.exports = ConfigurationMapMultilineValue;

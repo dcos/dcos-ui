@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import { Modal } from "reactjs-components";
@@ -8,8 +9,8 @@ var ErrorModal = React.createClass({
   displayName: "ErrorModal",
 
   propTypes: {
-    onClose: React.PropTypes.func.isRequired,
-    errorMsg: React.PropTypes.element
+    onClose: PropTypes.func.isRequired,
+    errorMsg: PropTypes.element
   },
 
   onClose() {

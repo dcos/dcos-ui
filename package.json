@@ -51,6 +51,7 @@
     "moment": "2.13.0",
     "objektiv": "0.3.0",
     "prettycron": "0.10.0",
+    "prop-types": "15.6.0",
     "query-string": "4.1.0",
     "react": "15.4.1",
     "react-ace": "3.7.0",

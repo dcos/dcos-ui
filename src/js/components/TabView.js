@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 class TabView extends React.Component {
@@ -14,13 +15,13 @@ class TabView extends React.Component {
 }
 
 TabView.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.oneOf([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  children: PropTypes.node,
+  className: PropTypes.oneOf([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  id: React.PropTypes.string.isRequired
+  id: PropTypes.string.isRequired
 };
 
 module.exports = TabView;

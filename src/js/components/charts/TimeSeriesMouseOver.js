@@ -1,4 +1,5 @@
 import d3 from "d3";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Maths from "../../utils/Maths";
@@ -7,16 +8,16 @@ var TimeSeriesMouseOver = React.createClass({
   displayName: "TimeSeriesMouseOver",
 
   propTypes: {
-    addMouseHandler: React.PropTypes.func.isRequired,
-    data: React.PropTypes.array.isRequired,
-    getBoundingBox: React.PropTypes.func.isRequired,
-    height: React.PropTypes.number.isRequired,
-    removeMouseHandler: React.PropTypes.func.isRequired,
-    width: React.PropTypes.number.isRequired,
-    xScale: React.PropTypes.func.isRequired,
-    y: React.PropTypes.string.isRequired,
-    yScale: React.PropTypes.func.isRequired,
-    yCaption: React.PropTypes.string.isRequired
+    addMouseHandler: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired,
+    getBoundingBox: PropTypes.func.isRequired,
+    height: PropTypes.number.isRequired,
+    removeMouseHandler: PropTypes.func.isRequired,
+    width: PropTypes.number.isRequired,
+    xScale: PropTypes.func.isRequired,
+    y: PropTypes.string.isRequired,
+    yScale: PropTypes.func.isRequired,
+    yCaption: PropTypes.string.isRequired
   },
 
   componentDidMount() {

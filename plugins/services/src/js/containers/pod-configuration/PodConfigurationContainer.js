@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import Pod from "../../structs/Pod";
@@ -22,7 +23,7 @@ class PodConfigurationTabView extends React.Component {
 }
 
 PodConfigurationTabView.propTypes = {
-  pod: React.PropTypes.instanceOf(Pod)
+  pod: PropTypes.instanceOf(Pod)
 };
 
 module.exports = PodConfigurationTabView;

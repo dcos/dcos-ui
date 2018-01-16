@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import React from "react";
 
 import FormGroupHeadingContent from "./FormGroupHeadingContent";
@@ -31,13 +32,13 @@ FormGroupHeading.defaultProps = {
 };
 
 FormGroupHeading.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  children: PropTypes.node.isRequired,
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ]),
-  required: React.PropTypes.bool
+  required: PropTypes.bool
 };
 
 module.exports = FormGroupHeading;

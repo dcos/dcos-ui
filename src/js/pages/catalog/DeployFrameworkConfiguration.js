@@ -1,5 +1,6 @@
-import React, { PropTypes } from "react";
+import React from "react";
 import mixin from "reactjs-mixin";
+import PropTypes from "prop-types";
 import qs from "query-string";
 import deepEqual from "deep-equal";
 import { StoreMixin } from "mesosphere-shared-reactjs";

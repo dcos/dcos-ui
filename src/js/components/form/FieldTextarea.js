@@ -1,4 +1,5 @@
 import classNames from "classnames/dedupe";
+import PropTypes from "prop-types";
 import React from "react";
 
 import { omit } from "../../utils/Util";
@@ -16,17 +17,14 @@ FieldTextarea.defaultProps = {
 };
 
 FieldTextarea.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string
-  ]),
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // Classes
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.object,
-    React.PropTypes.string
+  className: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
   ])
 };
 
