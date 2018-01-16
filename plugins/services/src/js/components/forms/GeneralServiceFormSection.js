@@ -322,9 +322,9 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           {title}
-        </h2>
+        </h1>
         <p>
           Configure your service below. Start by giving your service an ID.
         </p>

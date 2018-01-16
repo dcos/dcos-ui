@@ -479,9 +479,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div className="form flush-bottom">
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           Networking
-        </h2>
+        </h1>
         <p>
           Configure the networking for your service.
         </p>

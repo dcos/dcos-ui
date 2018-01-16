@@ -481,9 +481,9 @@ class MultiContainerHealthChecksFormSection extends Component {
     if (!data.containers || !data.containers.length) {
       return (
         <div>
-          <h2 className="flush-top short-bottom">
+          <h1 className="flush-top short-bottom">
             {heading}
-          </h2>
+          </h1>
           <p>
             {"Please "}
             <a
@@ -500,9 +500,9 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     return (
       <div className="form flush-bottom">
-        <h2 className="form-header flush-top short-bottom">
+        <h1 className="form-header flush-top short-bottom">
           {heading}
-        </h2>
+        </h1>
         <p>
           Health checks may be specified per application to be run against
           the application{"'"}s instances.
