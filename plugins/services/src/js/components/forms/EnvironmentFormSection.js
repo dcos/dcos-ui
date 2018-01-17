@@ -202,7 +202,7 @@ class EnvironmentFormSection extends Component {
         <p>
           Configure any environment values to be attached to each instance that is launched.
         </p>
-        <h3 className="short-bottom">
+        <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Environment Variables
@@ -218,7 +218,7 @@ class EnvironmentFormSection extends Component {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h3>
+        </h2>
         <p>
           Set up environment variables for each instance your service launches.
         </p>
@@ -234,7 +234,7 @@ class EnvironmentFormSection extends Component {
             </AddButton>
           </FormGroup>
         </FormRow>
-        <h3 className="short-bottom">
+        <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Labels
@@ -250,7 +250,7 @@ class EnvironmentFormSection extends Component {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h3>
+        </h2>
         <p>
           Attach metadata to expose additional information to other services.
         </p>

@@ -511,7 +511,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        <h3 className="short-bottom">
+        <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Service Endpoints
@@ -528,7 +528,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h3>
+        </h2>
         <p>
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints
         </p>

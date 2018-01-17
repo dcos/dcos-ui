@@ -29,9 +29,9 @@ const getForcePullSection = function(data, path) {
 const MultiContainerFormAdvancedSection = ({ data, path }) => {
   return (
     <div>
-      <h3 className="short-top short-bottom">
+      <h2 className="short-top short-bottom">
         Advanced Settings
-      </h3>
+      </h2>
       <p>Advanced settings of the container.</p>
       <p>
         {getForcePullSection(data, path)}
