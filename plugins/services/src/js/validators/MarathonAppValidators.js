@@ -174,11 +174,19 @@ const MarathonAppValidators = {
   validateConstraints(app) {
     const constraints = findNestedPropertyInObject(app, "constraints") || [];
 
-    return PlacementValidators.validateConstraints(constraints).map(error => {
-      return Object.assign({}, error, {
-        path: ["constraints"].concat(error.path)
-      });
+    const errors = [];
+
+    PlacementValidators.validateConstraints(constraints).map(error => {
+      errors.push(
+        Object.assign({}, error, {
+          path: ["constraints"].concat(error.path)
+        })
+      );
     });
+
+    errors.push(...PlacementValidators.mustHaveUniqueOperatorField(app));
+
+    return errors;
   },
 
   /**

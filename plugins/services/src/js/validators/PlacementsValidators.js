@@ -11,6 +11,9 @@ function checkDuplicateOperatorField(constraints) {
   const errors = [];
   const visitedOperatorFieldPairs = [];
   constraints.map(function(constraint, index) {
+    if (!Array.isArray(constraint)) {
+      return;
+    }
     const operatorFieldPair = "operator" in constraint
       ? { fieldName: constraint.fieldName, operator: constraint.operator }
       : { fieldName: constraint[0], operator: constraint[1] };
@@ -46,6 +49,10 @@ function checkDuplicateOperatorField(constraints) {
 const PlacementsValidators = {
   mustHaveUniqueOperatorField(app) {
     let constraints = findNestedPropertyInObject(app, "constraints");
+
+    if (constraints != null && !Array.isArray(constraints)) {
+      return [];
+    }
 
     if (ValidatorUtil.isEmpty(constraints)) {
       constraints = findNestedPropertyInObject(

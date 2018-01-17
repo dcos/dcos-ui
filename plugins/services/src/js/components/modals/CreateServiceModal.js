@@ -101,8 +101,7 @@ const APP_VALIDATORS = [
   MarathonAppValidators.validateConstraints,
   MarathonAppValidators.validateLabels,
   MarathonAppValidators.mustNotContainUris,
-  VipLabelsValidators.mustContainPort,
-  PlacementsValidators.mustHaveUniqueOperatorField
+  VipLabelsValidators.mustContainPort
 ];
 
 const POD_VALIDATORS = [
