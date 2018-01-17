@@ -463,10 +463,7 @@ class CreateServiceModal extends Component {
 
   handleServiceReview() {
     const errors = this.getFormErrors();
-    if (
-      errors.length === 0 ||
-      errors.filter(error => error.isPermissive).length === errors.length
-    ) {
+    if (errors.filter(error => !error.isPermissive).length === 0) {
       this.setState({
         apiErrors: [],
         serviceReviewActive: true
