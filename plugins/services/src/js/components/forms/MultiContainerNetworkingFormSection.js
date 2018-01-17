@@ -381,10 +381,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
       return (
         <div key={index}>
-          <h4 className="short-bottom">
+          <h3 className="short-bottom">
             <Icon id="container" size="mini" color="purple" />
             {` ${container.name}`}
-          </h4>
+          </h3>
           {this.getServiceContainerEndpoints(endpoints, index)}
           <div>
             <AddButton

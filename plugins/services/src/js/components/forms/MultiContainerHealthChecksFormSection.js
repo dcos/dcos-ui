@@ -427,7 +427,7 @@ class MultiContainerHealthChecksFormSection extends Component {
       return (
         <div key={container.name}>
           <div className="form-row-element">
-            <h4 className="form-header short-bottom">
+            <h3 className="form-header short-bottom">
               <FormGroupHeading>
                 <FormGroupHeadingContent>
                   <Icon id="container" size="mini" color="purple" />
@@ -436,7 +436,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                   {container.name}
                 </FormGroupHeadingContent>
               </FormGroupHeading>
-            </h4>
+            </h3>
           </div>
           {this.getHealthChecksBody(container, index)}
         </div>
