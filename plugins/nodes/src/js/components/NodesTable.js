@@ -36,7 +36,7 @@ var NodesTable = React.createClass({
 
   renderRegion(_prop, node) {
     return (
-      <span>
+      <span title={node.getRegionName()}>
         {node.getRegionName()}
       </span>
     );
@@ -44,7 +44,7 @@ var NodesTable = React.createClass({
 
   renderZone(_prop, node) {
     return (
-      <span>
+      <span title={node.getZoneName()}>
         {node.getZoneName()}
       </span>
     );
@@ -70,7 +70,7 @@ var NodesTable = React.createClass({
 
     return (
       <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
-        {headline}
+        <span title={headline}>{headline}</span>
       </Link>
     );
   },
