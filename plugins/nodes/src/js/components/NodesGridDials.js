@@ -43,9 +43,11 @@ var NodesGridDials = React.createClass({
     }
 
     Object.keys(resourcesByFramework).forEach(function(frameworkID) {
-      var percentage =
-        resourcesByFramework[frameworkID][props.selectedResource] * 100;
-      percentage /= node.getUsageStats(props.selectedResource).total;
+      const used =
+        resourcesByFramework[frameworkID][props.selectedResource] || 0;
+      const total = node.getUsageStats(props.selectedResource).total || 0;
+
+      const percentage = total === 0 ? 0 : used * 100 / total;
 
       config.push({
         colorIndex: props.serviceColors[frameworkID],
