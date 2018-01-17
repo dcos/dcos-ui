@@ -49,8 +49,18 @@ then
   exit 1
 fi
 
-echo "http://$(dcos-launch describe -i ${CLUSTER_INFO} | python -c \
+URL="http://$(dcos-launch describe -i ${CLUSTER_INFO} | python -c \
                 'import sys, json; \
                  contents = json.load(sys.stdin); \
-                 sys.stdout.write(str(contents["masters"][0]["public_ip"]))')"
+                 print(contents["masters"][0]["public_ip"], end="")')"
+
+BACKOFF=1
+
+until $(curl --output /dev/null --silent --head --fail ${URL}); do
+  BACKOFF=$[BACKOFF*2];
+  sleep $BACKOFF;
+done
+
+echo ${URL}
+
 exit 0

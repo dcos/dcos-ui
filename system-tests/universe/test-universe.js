@@ -27,12 +27,8 @@ describe("Universe", function() {
     // Click the Run Service button
     cy.contains("Run Service").click();
 
-    // Wait for the new service to deploy
-    cy.get(".modal.modal-small").contains("Success");
-    cy.get(".modal.modal-small").contains("Open Service").click();
-
     // Go to the root services page
-    cy.get(".breadcrumbs").contains("Services").click();
+    cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
     cy
@@ -61,7 +57,9 @@ describe("Universe", function() {
     // Should give error that package already installed
     cy
       .get(".message-danger")
-      .contains("Package is already installed")
+      .contains(
+        "A service with the same name already exists. Try a different name."
+      )
       .should("exist");
   });
 
@@ -80,12 +78,8 @@ describe("Universe", function() {
     // Click the Run Service button
     cy.contains("Run Service").click();
 
-    // Wait for the new service to deploy
-    cy.get(".modal.modal-small").contains("Success");
-    cy.get(".modal.modal-small").contains("Open Service").click();
-
     // Go to the root services page
-    cy.get(".breadcrumbs").contains("Services").click();
+    cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
     cy
@@ -121,7 +115,7 @@ describe("Universe", function() {
     cy.get(".modal.modal-small").contains("Open Service").click();
 
     // Go to the root services page
-    cy.get(".breadcrumbs").contains("Services").click();
+    cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
     cy
@@ -157,7 +151,7 @@ describe("Universe", function() {
     cy.get(".modal.modal-small").contains("Open Service").click();
 
     // Go to the root services page
-    cy.get(".breadcrumbs").contains("Services").click();
+    cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
     cy

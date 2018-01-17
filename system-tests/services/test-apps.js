@@ -357,7 +357,7 @@ describe("Services", function() {
         .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
     });
 
-    it("should create an app with command health check", function() {
+    it.skip("should create an app with command health check", function() {
       const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
@@ -497,13 +497,14 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
+        .should("exist")
+        .as("serviceName");
 
-      // Get the table row and look for health
       cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .get("@serviceName")
+        .parents("tr")
+        .first()
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
       // Now click on the name
@@ -513,6 +514,15 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
+
+      // Get the table row and look for health
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get(".dot.flush.success", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       // open edit screen
       cy
@@ -1342,7 +1352,7 @@ describe("Services", function() {
       cy.get('input[name="env.3.value"]').should("have.value", "test");
     });
 
-    it("should create an app with HTTP health check", function() {
+    it.skip("should create an app with HTTP health check", function() {
       const serviceName = "app-with-http-health-check";
 
       // Select 'Single Container'
@@ -1498,13 +1508,14 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
+        .should("exist")
+        .as("serviceName");
 
-      // Get the table row and look for health
       cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".bar.healthy", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .get("@serviceName")
+        .parents("tr")
+        .first()
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
       // Now click on the name
@@ -1514,6 +1525,15 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
+
+      // Get the table row and look for health
+      cy
+        .get(".page-body-content table")
+        .getTableRowThatContains(serviceName)
+        .get(".dot.flush.success", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       // open edit screen
       cy
@@ -1799,7 +1819,7 @@ describe("Services", function() {
       cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
-      cy.contains("Add Local Volume").click();
+      cy.contains("Add Volume").click();
       cy.root().getFormGroupInputFor("Volume Type").select("Persistent Volume");
       cy.root().getFormGroupInputFor("Size (MiB)").type("128");
       cy.root().getFormGroupInputFor("Container Path").type("test");
@@ -1912,6 +1932,14 @@ describe("Services", function() {
       cy
         .get(".page-body-content table")
         .getTableRowThatContains(serviceName)
+        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist")
+        .as("serviceName");
+
+      cy
+        .get("@serviceName")
+        .parents("tr")
+        .first()
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 

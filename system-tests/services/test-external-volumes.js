@@ -157,13 +157,6 @@ describe("Services", function() {
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      // Get the table row and wait until it's Running
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
-
       // Now click on the name
       cy
         .get(".page-body-content table")
@@ -203,7 +196,7 @@ describe("Services", function() {
         .should("have.value", "test");
     });
 
-    it("create an app that is persistent after suspension", function() {
+    it.skip("create an app that is persistent after suspension", function() {
       // This service is created using the external-volumes/setup script
       const serviceName = "external-volumes-single";
       const message = `TEST_OUTPUT_${Cypress.env("TEST_UUID")}`;
