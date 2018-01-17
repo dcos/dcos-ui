@@ -236,7 +236,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: "fetch",
           heading: "Container Artifacts",
-          headingLevel: 3
+          headingLevel: 2
         },
         {
           key: "fetch",
