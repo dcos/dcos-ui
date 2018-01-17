@@ -4,17 +4,20 @@ import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 import { PROP_MISSING_ONE, SYNTAX_ERROR } from "../constants/ServiceErrorTypes";
 
 function checkDuplicateOperatorField(constraints) {
-  if (ValidatorUtil.isEmpty(constraints)) {
+  if (!Array.isArray(constraints) || ValidatorUtil.isEmpty(constraints)) {
     return [];
   }
 
   const errors = [];
   const visitedOperatorFieldPairs = [];
   constraints.map(function(constraint, index) {
-    if (!Array.isArray(constraint)) {
+    if (
+      !Array.isArray(constraint) &&
+      !(constraint.operator && constraint.fieldName)
+    ) {
       return;
     }
-    const operatorFieldPair = "operator" in constraint
+    const operatorFieldPair = constraint.operator
       ? { fieldName: constraint.fieldName, operator: constraint.operator }
       : { fieldName: constraint[0], operator: constraint[1] };
     const key = `{${operatorFieldPair.operator}}{${operatorFieldPair.fieldName}}`;
@@ -49,10 +52,6 @@ function checkDuplicateOperatorField(constraints) {
 const PlacementsValidators = {
   mustHaveUniqueOperatorField(app) {
     let constraints = findNestedPropertyInObject(app, "constraints");
-
-    if (constraints != null && !Array.isArray(constraints)) {
-      return [];
-    }
 
     if (ValidatorUtil.isEmpty(constraints)) {
       constraints = findNestedPropertyInObject(
