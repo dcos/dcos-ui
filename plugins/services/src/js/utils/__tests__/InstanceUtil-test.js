@@ -20,6 +20,9 @@ describe("InstanceUtil", function() {
         return new Node(MasterNodeLocal);
       };
     });
+    it("returns N/A when null is provided", function() {
+      expect(InstanceUtil.getRegionName(null)).toEqual("N/A");
+    });
     it("returns N/A when no region name exists", function() {
       const task = Object.assign({}, NodeInstance, { agent: { id: "2" } });
       expect(InstanceUtil.getRegionName(task)).toEqual("N/A");
@@ -42,6 +45,9 @@ describe("InstanceUtil", function() {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
+    });
+    it("returns N/A when null is provided", function() {
+      expect(InstanceUtil.getZoneName(null)).toEqual("N/A");
     });
     it("returns N/A when no zone name exists", function() {
       const task = Object.assign({}, NodeInstance, { agent: { id: "2" } });
