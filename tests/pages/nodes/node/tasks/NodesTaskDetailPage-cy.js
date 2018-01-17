@@ -16,20 +16,7 @@ describe("Nodes Task Detail Page", function() {
       cy.get("h1.configuration-map-heading").contains("Configuration");
     });
 
-    it("has content after direct navigation", function() {
-      cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
-      cy.get("tr a").eq(0).click();
-      cy
-        .get("tr a")
-        .eq(1)
-        .then(link => {
-          cy.visit(link.attr("href"));
-          cy.get("h1.configuration-map-heading").contains("Configuration");
-        })
-        .click();
-    });
-
-    it("has content after force reload", function() {
+    it("loads page with data after hard reload", function() {
       cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
       cy.get("tr a").eq(0).click();
       cy.get("tr a").eq(1).click();
