@@ -42,7 +42,7 @@
   },
 
   "extends": [
-    "dcos"
+    "@dcos"
   ],
 
   "rules": {
