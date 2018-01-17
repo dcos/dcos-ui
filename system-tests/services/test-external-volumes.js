@@ -48,7 +48,11 @@ describe("Services", function() {
 
       // Add an environment variable
       cy.contains("Add Volume").click();
-      cy.root().find('select[name="volumes.0.type"]').select("EXTERNAL");
+      cy.get(".button.dropdown-toggle").click();
+      cy
+        .root()
+        .contains(".dropdown-select-item-title", "External Persistent Volume")
+        .click();
       cy.root().getFormGroupInputFor("Name").type(volumeName);
       cy.root().getFormGroupInputFor("Size (GiB)").type("1");
       cy.root().getFormGroupInputFor("Container Path").type("test");

@@ -576,7 +576,11 @@ describe("Services", function() {
       cy.get(".menu-tabbed-item").contains("Volumes").click();
 
       cy.get(".button").contains("Add Volume").click();
-      cy.root().getFormGroupInputFor("Volume Type").select("Ephemeral Volume");
+      cy.get(".button.dropdown-toggle").click();
+      cy
+        .root()
+        .contains(".dropdown-select-item-title", "Ephemeral Storage")
+        .click();
       cy.root().getFormGroupInputFor("Name").type("test");
       cy.root().getFormGroupInputFor("Container Path").type("test");
 

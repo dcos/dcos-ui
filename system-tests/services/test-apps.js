@@ -1091,7 +1091,11 @@ describe("Services", function() {
 
       // Add an environment variable
       cy.contains("Add Volume").click();
-      cy.root().getFormGroupInputFor("Volume Type").select("Persistent Volume");
+      cy.get(".button.dropdown-toggle").click();
+      cy
+        .root()
+        .contains(".dropdown-select-item-title", "Local Persistent Volume")
+        .click();
       cy.root().getFormGroupInputFor("Size (MiB)").type("128");
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
