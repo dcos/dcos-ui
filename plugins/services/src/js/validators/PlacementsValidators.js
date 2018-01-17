@@ -3,6 +3,9 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 import { PROP_MISSING_ONE, SYNTAX_ERROR } from "../constants/ServiceErrorTypes";
 
+// &nbsp; to add empty validations
+const NBSP = "\u00A0";
+
 function checkDuplicateOperatorField(constraints) {
   if (!Array.isArray(constraints) || ValidatorUtil.isEmpty(constraints)) {
     return [];
@@ -32,12 +35,12 @@ function checkDuplicateOperatorField(constraints) {
           },
           {
             path: ["constraints", index, "fieldName"],
-            message: " ",
+            message: NBSP,
             isPermissive: true
           },
           {
             path: ["constraints", index, "value"],
-            message: " ",
+            message: NBSP,
             isPermissive: true
           }
         ]
