@@ -32,7 +32,7 @@ describe("Tasks Table", function() {
 
       it("shows directories as well as files", function() {
         cy
-          .get(".page-body-content tbody tr:visible:first")
+          .get(".page-body-content  .table-virtual-list")
           .contains("jre1.7.0_76");
       });
     });

@@ -40,6 +40,7 @@ describe("Service Form Modal", function() {
         cy.get(".modal-full-screen").should("to.have.length", 1);
       });
 
+      // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
       it.skip("Should Autofocus on the Service ID input field", function() {
         openServiceModal();
         openServiceForm();
@@ -672,6 +673,7 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
+        // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
         it.skip(
           "Should Autofocus on the first input element of the Artifact",
           function() {
@@ -1371,6 +1373,7 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add Environment Variable" link clicked', function() {
+          // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
           // Key focused
           // cy.get('.form-control[name="env.0.key"]:focus');
           // Key
@@ -1405,6 +1408,7 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add Label" link clicked', function() {
+          // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
           // Key focused
           // cy.get('.form-control[name="labels.0.key"]:focus');
           // Key
