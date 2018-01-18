@@ -106,7 +106,10 @@
       // This property is necessary for table cells to respect the text-overflow
       // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
       max-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
       vertical-align: middle;
+      white-space: nowrap;
 
       & when not (@table-cell-content-margin-horizontal = null) {
 

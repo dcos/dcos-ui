@@ -42,7 +42,7 @@ describe("Volumes", function() {
       cy
         .get(".table tbody tr a")
         .contains("sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201")
-        .click();
+        .click({ force: true });
     });
 
     it("routes to the volume details by id", function() {
