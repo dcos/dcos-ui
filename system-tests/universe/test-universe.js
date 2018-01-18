@@ -162,7 +162,7 @@ describe("Universe", function() {
       .should("exist");
   });
 
-  it("deletes an already installed package", function() {
+  it.skip("deletes an already installed package", function() {
     const packageName = "bitbucket";
     const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 
