@@ -81,7 +81,7 @@ class MesosStateStore extends GetSetBaseStore {
 
     this.stream = mesosStream
       .merge(getMasterRequest)
-      .map(message => parsers(this.get("lastMesosState"), JSON.parse(message)))
+      .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
       .map(MesosStateUtil.flagMarathonTasks)
       .do(state => {
         CompositeState.addState(state);
@@ -90,22 +90,35 @@ class MesosStateStore extends GetSetBaseStore {
       .subscribe(this.onStreamData, this.onStreamError);
   }
 
+  getLastMesosState() {
+    return Object.assign(
+      {
+        executors: [],
+        frameworks: [],
+        master_info: {},
+        slaves: [],
+        tasks: []
+      },
+      this.get("lastMesosState")
+    );
+  }
+
   getHostResourcesByFramework(filter) {
     return MesosStateUtil.getHostResourcesByFramework(
-      this.get("lastMesosState"),
+      this.getLastMesosState(),
       filter
     );
   }
 
   getPodHistoricalInstances(pod) {
     return MesosStateUtil.getPodHistoricalInstances(
-      this.get("lastMesosState"),
+      this.getLastMesosState(),
       pod
     );
   }
 
   getServiceFromName(name) {
-    const services = this.get("lastMesosState").frameworks;
+    const services = this.getLastMesosState().frameworks;
 
     if (services) {
       return services.find(function(service) {
@@ -117,7 +130,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getNodeFromID(id) {
-    const nodes = this.get("lastMesosState").slaves;
+    const nodes = this.getLastMesosState().slaves;
 
     if (nodes) {
       return nodes.find(function(node) {
@@ -129,7 +142,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getNodeFromHostname(hostname) {
-    const nodes = this.get("lastMesosState").slaves;
+    const nodes = this.getLastMesosState().slaves;
 
     if (nodes) {
       return nodes.find(function(node) {
@@ -141,7 +154,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromNodeID(nodeID) {
-    const { tasks, frameworks } = this.get("lastMesosState");
+    const { tasks, frameworks } = this.getLastMesosState();
     const memberTasks = {};
 
     const schedulerTasks = this.getSchedulerTasks();
@@ -207,7 +220,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromServiceName(serviceName) {
-    const { tasks, frameworks } = this.get("lastMesosState");
+    const { tasks, frameworks } = this.getLastMesosState();
 
     if (!frameworks) {
       return null;
@@ -227,7 +240,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksByService(service) {
-    const { frameworks, tasks = [] } = this.get("lastMesosState");
+    const { frameworks, tasks = [] } = this.getLastMesosState();
     const serviceName = service.getName();
 
     // Convert serviceId to Mesos task name
@@ -278,7 +291,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   getRunningTasksFromVirtualNetworkName(overlayName) {
     return MesosStateUtil.getRunningTasksFromVirtualNetworkName(
-      this.get("lastMesosState"),
+      this.getLastMesosState(),
       overlayName
     );
   }
