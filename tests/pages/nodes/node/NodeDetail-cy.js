@@ -16,7 +16,7 @@ describe("Nodes Detail Page", function() {
         .should(function($row) {
           nodeName = $row[0].textContent;
         })
-        .click();
+        .click({ force: true });
 
       cy.hash().should("match", /nodes\/[a-zA-Z0-9-]+/);
       cy.get(".page-header").should(function($title) {

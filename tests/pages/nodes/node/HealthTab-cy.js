@@ -9,7 +9,7 @@ describe("Node Health Tab [0fa]", function() {
   context("Navigate to tab [0fb]", function() {
     it("navigates to health tab [0fc]", function() {
       cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
-      cy.get("tr a").eq(0).click();
+      cy.get("tr a").eq(0).click({ force: true });
       cy.get(".menu-tabbed-item").contains("Health").click();
 
       cy.hash().should("match", /nodes\/[a-zA-Z0-9-]+/);
@@ -22,7 +22,7 @@ describe("Node Health Tab [0fa]", function() {
   context("Health Tab [0fd]", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
-      cy.get("tr a").eq(0).click();
+      cy.get("tr a").eq(0).click({ force: true });
       cy.get(".menu-tabbed-item").contains("Health").click();
 
       cy
