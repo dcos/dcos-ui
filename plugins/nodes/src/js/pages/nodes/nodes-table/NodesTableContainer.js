@@ -15,7 +15,8 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.state = {
       filteredNodes: new NodesList([]),
       filters: { health: "all", name: "", service: null },
-      receivedNodeHealthResponse: false
+      nodeHealthResponse: false,
+      masterRegion: null
     };
     this.store_listeners = [
       {
@@ -23,8 +24,13 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
         listenAlways: false,
         name: "nodeHealth",
         suppressUpdate: true
-      }
+      },
+      { name: "state", events: ["success"], suppressUpdate: false }
     ];
+  }
+
+  componentWillMount() {
+    this.onStateStoreSuccess();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,17 +61,24 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   onNodeHealthStoreSuccess() {
     this.setState({
       filteredNodes: this.getFilteredNodes(),
-      receivedNodeHealthResponse: true
+      nodeHealthResponse: true
+    });
+  }
+
+  onStateStoreSuccess() {
+    this.setState({
+      masterRegion: CompositeState.getMasterNode().getRegionName()
     });
   }
 
   render() {
-    const { receivedNodeHealthResponse, filteredNodes } = this.state;
+    const { nodeHealthResponse, filteredNodes, masterRegion } = this.state;
 
     return (
       <NodesTable
         hosts={filteredNodes}
-        receivedNodeHealthResponse={receivedNodeHealthResponse}
+        nodeHealthResponse={nodeHealthResponse}
+        masterRegion={masterRegion}
       />
     );
   }
