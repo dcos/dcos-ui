@@ -40,17 +40,6 @@ describe("NodeDetailPage", function() {
       return [];
     };
 
-    MesosStateStore.get = function(key) {
-      if (key === "lastMesosState") {
-        return {
-          version: "1"
-        };
-      }
-      if (key === "statesProcessed") {
-        return true;
-      }
-    };
-
     MesosStateStore.getNodeFromID = function(id) {
       if (id === "nonExistent") {
         return null;

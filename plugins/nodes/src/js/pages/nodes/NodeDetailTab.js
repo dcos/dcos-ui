@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { request } from "@dcos/mesos-client";
 
 import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -17,6 +18,7 @@ import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Units from "#SRC/js/utils/Units";
+import Loader from "#SRC/js/components/Loader";
 
 class NodeDetailTab extends PureComponent {
   constructor() {
@@ -34,6 +36,12 @@ class NodeDetailTab extends PureComponent {
       MESOS_STATE_CHANGE,
       this.onMesosStateChange
     );
+    request({ type: "GET_VERSION" }).subscribe(message => {
+      const { version = null } = JSON.parse(message).get_version.version_info;
+
+      this.setState({ version });
+    });
+
     this.onMesosStateChange();
   }
 
@@ -87,7 +95,7 @@ class NodeDetailTab extends PureComponent {
                 Master Version
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {MesosStateStore.get("lastMesosState").version}
+                {this.state.version || <Loader size="small" type="ballBeat" />}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
