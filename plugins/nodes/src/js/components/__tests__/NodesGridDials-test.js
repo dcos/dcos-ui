@@ -39,6 +39,31 @@ describe("NodesGridDials", function() {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
+  describe("#getServiceSlicesConfig", function() {
+    beforeEach(function() {
+      this.instance = ReactDOM.render(
+        <NodesGridDials
+          hosts={this.hosts}
+          selectedResource="disk"
+          serviceColors={{}}
+          showServices={false}
+          resourcesByFramework={{
+            foo: {
+              cpus: 1,
+              mem: 256
+            }
+          }}
+        />,
+        this.container
+      );
+    });
+
+    it("returns 0 when no resource is in use", function() {
+      const slice = this.instance.getServiceSlicesConfig(this.hosts[0])[0];
+      expect(slice.percentage).toEqual(0);
+    });
+  });
+
   describe("#getActiveSliceData", function() {
     beforeEach(function() {
       this.resourceColor = ResourcesUtil.getResourceColor("cpus");
