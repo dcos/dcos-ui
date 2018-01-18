@@ -84,24 +84,20 @@ class MesosStateStore extends GetSetBaseStore {
 
     const waitStream = getMasterRequest.zip(mesosStream.take(1));
     const eventTriggerStream = dataStream.merge(
-      // Lots of things in DCOS UI rely on the MesosStateStore emitting
-      // MESOS_STATE_CHANGE events but since we're switching to the stream there will
-      // be no events coming. To avoid a bigger refactoring I decided to go with
-      // a fake emitter that starts emitting events once the initial state came through
+      // A lot of DCOS UI rely on the MesosStateStore emitting
+      // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
+      // event. To avoid a deeper refactor, we introduced this fake emitter.
+      //
       // TODO: https://jira.mesosphere.com/browse/DCOS-18277
       Observable.interval(Config.getRefreshRate())
     );
 
-    // Because the Observable.interval introduced above, we need to
-    // guarantee that if the interval is to close to the data arrival
-    // we are not updating the UI too much.
+    // Since we introduced the fake event above, we have to guarantee certain
+    // refresh limits to the UI. They are:
     //
-    // The update is designed to happen:
-    // AT MOST once every (Config.getRefreshRate() * 0.5) ms.
-    // due to the .debounceTime(Config.getRefreshRate() * 0.5)
+    // MOST once every (Config.getRefreshRate() * 0.5) ms. due to debounceTime.
+    // LEAST once every tick of Config.getRefreshRate() ms in Observable.interval
     //
-    // AT LEAST once every tick of Observable.interval(Config.getRefreshRate())
-    // due to the Observable.interval merged in the eventTriggerStream
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
     waitStream
       .concat(eventTriggerStream)
@@ -316,11 +312,11 @@ class MesosStateStore extends GetSetBaseStore {
   onStreamError(error) {
     this.emit(MESOS_STATE_REQUEST_ERROR, error);
 
-    // This was added in the past so the stream does not swallow errors. In its
-    // current for, it causes a problem wit fixtures 1-pod and 1-empty-group
-    // and make ServiceFormModal and PodDetailpPage tests fail.
+    // This was added in the past, so the stream does not swallow errors.
+    // In its current format, it causes a problem with fixtures 1-pod and
+    // 1-empty-group and makes ServiceFormModal, and PodDetailpPage tests fail.
+    // We are removing this and addressing that, on a future ticket
     //
-    // We are removing this and addressing that on a future ticket
     // TODO: https://jira.mesosphere.com/browse/DCOS-20347
     if (process.env.NODE_ENV !== "production") {
       console.log("Mesos Store error: ", error);
