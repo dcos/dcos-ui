@@ -5,8 +5,17 @@ import Alert from "./Alert";
 import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
 
 const ErrorsAlert = function(props) {
-  const { errors, hideTopLevelErrors, pathMapping } = props;
-  let showErrors = errors;
+  const {
+    errors,
+    hideTopLevelErrors,
+    hidePermissiveErrors,
+    pathMapping
+  } = props;
+  let showErrors = [].concat.apply([], errors);
+
+  if (hidePermissiveErrors) {
+    showErrors = showErrors.filter(error => !error.isPermissive);
+  }
 
   if (hideTopLevelErrors) {
     showErrors = showErrors.filter(function(error) {
@@ -51,12 +60,14 @@ const ErrorsAlert = function(props) {
 ErrorsAlert.defaultProps = {
   errors: [],
   hideTopLevelErrors: false,
+  hidePermissiveErrors: true,
   pathMapping: []
 };
 
 ErrorsAlert.propTypes = {
   errors: PropTypes.array,
   hideTopLevelErrors: PropTypes.bool,
+  hidePermissiveErrors: PropTypes.bool,
   pathMapping: PropTypes.array
 };
 

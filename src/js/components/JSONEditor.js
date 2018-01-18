@@ -408,7 +408,9 @@ class JSONEditor extends React.Component {
       ];
     }
 
-    return this.externalErrors.map(error => {
+    const errors = [].concat.apply([], this.externalErrors);
+
+    return errors.map(error => {
       const { path, message } = error;
 
       // All errors with empty paths go to line 0

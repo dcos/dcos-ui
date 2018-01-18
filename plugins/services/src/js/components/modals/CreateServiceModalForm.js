@@ -647,8 +647,9 @@ class CreateServiceModalForm extends Component {
   getUnmutedErrors() {
     const { showAllErrors } = this.props;
     const { editedFieldPaths, editingFieldPath } = this.state;
+    const errors = [].concat.apply([], this.getErrors());
 
-    return this.getErrors().filter(function(error) {
+    return errors.filter(function(error) {
       const errorPath = error.path.join(".");
 
       // Always mute the error on the field we are editing
