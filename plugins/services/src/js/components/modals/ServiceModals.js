@@ -25,6 +25,10 @@ class ServiceModals extends React.Component {
       pendingActions
     } = this.props;
 
+    if (modalProps.service == null) {
+      return null;
+    }
+
     const key = ActionKeys.GROUP_CREATE;
     const { service } = modalProps;
 
