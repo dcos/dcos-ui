@@ -78,7 +78,7 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-item").contains("Networking").click();
 
         cy
-          .get(".menu-tabbed-view-container h2")
+          .get(".menu-tabbed-view-container h1")
           .first()
           .should("to.have.text", "Networking");
 
@@ -99,7 +99,7 @@ describe("Service Form Modal", function() {
           .click();
 
         cy
-          .get(".menu-tabbed-view-container h2")
+          .get(".menu-tabbed-view-container h1")
           .first()
           .should("to.have.text", "Networking");
       });
@@ -331,7 +331,7 @@ describe("Service Form Modal", function() {
     });
 
     it("should have four options to choose from", function() {
-      cy.get(".panel-grid h5").should(function(items) {
+      cy.get(".panel-grid h3").should(function(items) {
         const texts = items
           .map(function(i, el) {
             return cy.$(el).text();
@@ -400,7 +400,7 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-item").contains("Networking").click();
 
         cy
-          .get(".menu-tabbed-view-container h2")
+          .get(".menu-tabbed-view-container h1")
           .first()
           .should("to.have.text", "Networking");
       });
@@ -1537,7 +1537,7 @@ describe("Service Form Modal", function() {
           .get(".menu-tabbed-item-label")
           .eq(0)
           .click()
-          .get(".menu-tabbed-view h2")
+          .get(".menu-tabbed-view h1")
           .contains("Service");
       });
 

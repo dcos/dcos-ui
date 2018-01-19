@@ -609,9 +609,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
           wrapText={true}
         >
-          <h3 className="short-bottom muted" key="service-endpoints-header">
+          <h2 className="short-bottom muted" key="service-endpoints-header">
             {heading}
-          </h3>
+          </h2>
           <p key="service-endpoints-description">
             DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
           </p>
@@ -621,9 +621,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h3 className="short-bottom" key="service-endpoints-header">
+        <h2 className="short-bottom" key="service-endpoints-header">
           {heading}
-        </h3>
+        </h2>
         <p key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
         </p>
@@ -726,9 +726,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           Networking
-        </h2>
+        </h1>
         <p>
           Configure the networking for your service.
         </p>

@@ -269,7 +269,7 @@ class MultiContainerVolumesFormSection extends Component {
     );
 
     return (
-      <h2 className="flush-top short-bottom">
+      <h1 className="flush-top short-bottom">
         <FormGroupHeading>
           <FormGroupHeadingContent primary={true}>
             Volumes
@@ -285,7 +285,7 @@ class MultiContainerVolumesFormSection extends Component {
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>
-      </h2>
+      </h1>
     );
   }
 

@@ -406,7 +406,7 @@ class VolumesFormSection extends Component {
 
     return (
       <div>
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Volumes
@@ -422,7 +422,7 @@ class VolumesFormSection extends Component {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h2>
+        </h1>
         <p>
           Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
         </p>

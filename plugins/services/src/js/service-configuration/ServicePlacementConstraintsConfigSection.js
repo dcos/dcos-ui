@@ -52,8 +52,8 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={3}>
-          Placement Constraints
+        <ConfigurationMapHeading level={1}>
+          Placement
         </ConfigurationMapHeading>
         <ConfigurationMapSection>
           <MountService.Mount

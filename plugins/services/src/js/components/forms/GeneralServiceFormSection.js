@@ -166,9 +166,9 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h3 className="short-bottom">
+        <h2 className="short-bottom">
           Containers
-        </h3>
+        </h2>
         {containerElements}
         <AddButton
           onClick={this.props.onAddItem.bind(this, {
@@ -203,7 +203,7 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h3 className="short-bottom">
+        <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Container Runtime
@@ -219,7 +219,7 @@ class GeneralServiceFormSection extends Component {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h3>
+        </h2>
         <p>
           The container runtime is responsible for running your service. We
           support the Docker Engine and Universal Container Runtime (UCR).
@@ -322,9 +322,9 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           {title}
-        </h2>
+        </h1>
         <p>
           Configure your service below. Start by giving your service an ID.
         </p>

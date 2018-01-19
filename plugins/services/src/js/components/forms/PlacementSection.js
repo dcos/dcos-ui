@@ -27,7 +27,7 @@ export default class PlacementSection extends Component {
 
     return (
       <div>
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Placement Constraints
@@ -43,7 +43,7 @@ export default class PlacementSection extends Component {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h2>
+        </h1>
         <p>
           Constraints control where apps run to allow optimization for either fault tolerance or locality.
         </p>

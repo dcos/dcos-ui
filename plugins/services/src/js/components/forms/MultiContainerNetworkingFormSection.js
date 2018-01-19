@@ -381,10 +381,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
       return (
         <div key={index}>
-          <h4 className="short-bottom">
+          <h3 className="short-bottom">
             <Icon id="container" size="mini" color="purple" />
             {` ${container.name}`}
-          </h4>
+          </h3>
           {this.getServiceContainerEndpoints(endpoints, index)}
           <div>
             <AddButton
@@ -479,9 +479,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div className="form flush-bottom">
-        <h2 className="flush-top short-bottom">
+        <h1 className="flush-top short-bottom">
           Networking
-        </h2>
+        </h1>
         <p>
           Configure the networking for your service.
         </p>
@@ -511,7 +511,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             <FieldError>{networkError}</FieldError>
           </FormGroup>
         </FormRow>
-        <h3 className="short-bottom">
+        <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
               Service Endpoints
@@ -528,7 +528,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
-        </h3>
+        </h2>
         <p>
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints
         </p>

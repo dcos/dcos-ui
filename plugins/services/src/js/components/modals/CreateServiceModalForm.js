@@ -358,9 +358,9 @@ class CreateServiceModalForm extends Component {
             pathMapping={ServiceErrorPathMapping}
             hideTopLevelErrors={!showAllErrors}
           />
-          <h2 className="flush-top short-bottom">
+          <h1 className="flush-top short-bottom">
             Container
-          </h2>
+          </h1>
           <p>
             Configure your container below. Enter a container image or command you want to run.
           </p>
