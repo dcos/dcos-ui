@@ -57,9 +57,9 @@
       "resolved": "https://registry.npmjs.org/@dcos/copychars/-/copychars-0.1.0.tgz"
     },
     "@dcos/eslint-config": {
-      "version": "0.2.0",
-      "from": "@dcos/eslint-config@0.2.0",
-      "resolved": "https://registry.npmjs.org/@dcos/eslint-config/-/eslint-config-0.2.0.tgz"
+      "version": "0.3.0",
+      "from": "@dcos/eslint-config@0.3.0",
+      "resolved": "https://registry.npmjs.org/@dcos/eslint-config/-/eslint-config-0.3.0.tgz"
     },
     "@dcos/http-service": {
       "version": "0.2.1",
@@ -398,8 +398,7 @@
         "chokidar": {
           "version": "1.6.1",
           "from": "chokidar@>=1.6.1 <2.0.0",
-          "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.6.1.tgz",
-          "dependencies": {}
+          "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.6.1.tgz"
         },
         "core-js": {
           "version": "2.4.1",
