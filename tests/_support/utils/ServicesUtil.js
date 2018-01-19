@@ -10,7 +10,7 @@ const StringUtil = require("./StringUtil");
  * @param {String} title - The contents of the heading text to match
  * @param {String} [headingSelector] - The CSS selector to use to match the header
  */
-Cypress.Commands.add("configurationSection", function(
+Cypress.Commands.add("configurationSection", { prevSubject: true }, function(
   elements,
   title,
   headingSelector = ".configuration-map-heading"
@@ -45,7 +45,10 @@ Cypress.Commands.add("configurationSection", function(
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} label - The contents of the label
  */
-Cypress.Commands.add("configurationMapValue", function(elements, label) {
+Cypress.Commands.add("configurationMapValue", { prevSubject: true }, function(
+  elements,
+  label
+) {
   const foundElements = [];
   const compareLabel = label.toLowerCase();
 

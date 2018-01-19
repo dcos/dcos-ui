@@ -130,7 +130,7 @@ Cypress.Commands.add("getTableColumn", { prevSubject: true }, function(
   return matchedRows
     .slice(1)
     .filter(function(index, element) {
-      return Cypress.$(element).is(":visible");
+      return element.style.display !== "none";
     })
     .map(function(index, element) {
       return element.querySelectorAll("td")[columnIndex];
