@@ -126,6 +126,7 @@
     "webpack-notifier": "1.3.0"
   },
   "scripts": {
+    "cypress": "cypress run",
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist",
     "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
