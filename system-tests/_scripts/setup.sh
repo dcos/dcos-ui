@@ -24,8 +24,3 @@ cat << EOF > ${CONFIG_FILE}
   dcos_acs_token = "${CLUSTER_AUTH_TOKEN}"
 EOF
 chmod 600 ${CONFIG_FILE}
-
-# Install cypress if missing
-if ! hash cypress 2>/dev/null; then
-  npm install -g cypress-cli
-fi

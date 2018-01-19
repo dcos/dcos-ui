@@ -34,8 +34,9 @@ describe("Node Health Tab [0fa]", function() {
     it("filters by health [0fe]", function() {
       cy
         .get(".page-body-content td .text-success")
-        .should(function($healthyRows) {
+        .then(function($healthyRows) {
           cy.get("@filterHealth").click();
+
           cy.get(".dropdown-menu").find("li").contains("Healthy").click();
           // Healthy rows should remain
           cy.get(".page-body-content td .text-success").should(function($row) {
@@ -49,7 +50,7 @@ describe("Node Health Tab [0fa]", function() {
     });
 
     it("filters by health check name [0ff]", function() {
-      cy.get(".page-body-content td a").should(function($allRows) {
+      cy.get(".page-body-content td a").then(function($allRows) {
         var logrotateRows = $allRows.filter(function(i, el) {
           return el.textContent.toLowerCase().indexOf("logrotate") !== -1;
         });

@@ -32,7 +32,7 @@ describe("Tasks Table", function() {
 
       it("shows directories as well as files", function() {
         cy
-          .get(".page-body-content tbody tr:visible:first")
+          .get(".page-body-content  .table-virtual-list")
           .contains("jre1.7.0_76");
       });
     });
@@ -62,7 +62,7 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds").eq(7).find(".dot").triggerHover();
+        cy.get("@tds").eq(7).find(".dot").trigger("mouseover");
         cy.get(".tooltip").contains("No health checks available");
       });
     });
@@ -82,7 +82,7 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds").eq(7).find(".dot").triggerHover();
+        cy.get("@tds").eq(7).find(".dot").trigger("mouseover");
         cy.get(".tooltip").contains("Healthy");
       });
     });

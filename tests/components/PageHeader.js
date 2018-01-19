@@ -64,7 +64,7 @@ describe("Page Header Component", function() {
     });
 
     it("display path when hovering ellipsis", function() {
-      cy.get(".breadcrumb--force-ellipsis").eq(0).triggerHover();
+      cy.get(".breadcrumb--force-ellipsis").eq(0).trigger("mouseover");
 
       cy.get(".tooltip").contains("some");
     });

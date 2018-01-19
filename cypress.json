@@ -1,6 +1,6 @@
 {
   "defaultCommandTimeout": 6000,
-  "environmentVariables": {
+  "env": {
     "CLUSTER_URL": "http://localhost:4200",
     "FULL_INTEGRATION_TEST": false
   },
@@ -8,5 +8,7 @@
   "integrationFolder": "tests",
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
   "supportFile": "tests/_support",
-  "waitForAnimations": true
+  "waitForAnimations": true,
+  "videoUploadOnPasses": false,
+  "numTestsKeptInMemory": 0
 }

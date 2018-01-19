@@ -9,7 +9,7 @@ const { Timeouts } = require("./constants");
  *
  * @param {String} visitUrl - The URL to visit
  */
-Cypress.addParentCommand("visitUrl", function(visitUrl) {
+Cypress.Commands.add("visitUrl", { prevSubject: false }, function(visitUrl) {
   var clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
   var url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
 
@@ -50,7 +50,10 @@ Cypress.addParentCommand("visitUrl", function(visitUrl) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} label - The contents of the <label> to match
  */
-Cypress.addChildCommand("getFormGroupInputFor", function(elements, label) {
+Cypress.Commands.add("getFormGroupInputFor", { prevSubject: true }, function(
+  elements,
+  label
+) {
   const compareLabel = label.toLowerCase();
   const formGroup = elements.find(".form-group").filter(function(index, group) {
     const groupLabel = Cypress.$(group).find("label");
@@ -79,7 +82,7 @@ Cypress.addChildCommand("getFormGroupInputFor", function(elements, label) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} contents - The contents of the <td /> to search
  */
-Cypress.addChildCommand("getTableRowThatContains", function(
+Cypress.Commands.add("getTableRowThatContains", { prevSubject: true }, function(
   elements,
   contents
 ) {
@@ -103,7 +106,10 @@ Cypress.addChildCommand("getTableRowThatContains", function(
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String|Number} columNameOrIndex - The table index or the <th /> contents
  */
-Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
+Cypress.Commands.add("getTableColumn", { prevSubject: true }, function(
+  elements,
+  columNameOrIndex
+) {
   const matchedRows = elements.find("tr");
   const headings = matchedRows.eq(0).find("th");
   let columnIndex = parseInt(columNameOrIndex, 10);
@@ -143,7 +149,7 @@ Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.addChildCommand("contents", function(elements) {
+Cypress.Commands.add("contents", { prevSubject: true }, function(elements) {
   return elements
     .map(function(index, element) {
       const doc = element.ownerDocument;
@@ -168,7 +174,10 @@ Cypress.addChildCommand("contents", function(elements) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} JSONString - JSON Code as String
  */
-Cypress.addChildCommand("setJSON", function(elements, JSONString) {
+Cypress.Commands.add("setJSON", { prevSubject: true }, function(
+  elements,
+  JSONString
+) {
   if (elements.length != null && JSONString) {
     elements.each(function(index, element) {
       const doc = element.ownerDocument;
@@ -185,36 +194,13 @@ Cypress.addChildCommand("setJSON", function(elements, JSONString) {
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.addChildCommand("asJson", function(contents) {
+Cypress.Commands.add("asJson", { prevSubject: true }, function(contents) {
   if (contents.length != null) {
     return contents.map(function(content) {
       return JSON.parse(content);
     });
   } else {
     return JSON.parse(contents);
-  }
-});
-
-/**
- * Trigger mouse over event on the selected elements
- *
- * @param {jQuery.Element} elements - The DOM elements to trigger the event into
- */
-Cypress.addChildCommand("triggerHover", function(elements) {
-  elements.each(function(index, element) {
-    fireEvent(element, "mouseover");
-  });
-
-  function fireEvent(element, event) {
-    if (element.fireEvent) {
-      element.fireEvent("on" + event);
-    } else {
-      var evObj = document.createEvent("Events");
-
-      evObj.initEvent(event, true, false);
-
-      element.dispatchEvent(evObj);
-    }
   }
 });
 

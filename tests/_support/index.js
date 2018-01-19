@@ -1,6 +1,6 @@
 import router from "./utils/router";
 
-Cypress.addParentCommand("configureCluster", function(configuration) {
+Cypress.Commands.add("configureCluster", function(configuration) {
   if (Object.keys(configuration).length === 0) {
     return;
   }
@@ -32,7 +32,7 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   }
 
   router.clearRoutes();
-  cy.chain().server();
+  cy.server();
 
   if (configuration.mesos === "1-task-healthy") {
     cy
@@ -506,13 +506,13 @@ Cypress.addParentCommand("configureCluster", function(configuration) {
   router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
 });
 
-Cypress.addParentCommand("clusterCleanup", function(fn) {
+Cypress.Commands.add("clusterCleanup", function(fn) {
   if (Cypress.env("FULL_INTEGRATION_TEST")) {
     fn();
   }
 });
 
-Cypress.addParentCommand("visitUrl", function(options) {
+Cypress.Commands.add("visitUrl", function(options) {
   var callback = function() {};
 
   if (options.logIn && options.remoteLogIn) {
@@ -548,24 +548,6 @@ Cypress.addParentCommand("visitUrl", function(options) {
   cy.visit(url, { onBeforeLoad: callback });
 });
 
-Cypress.addChildCommand("triggerHover", function(elements) {
-  elements.each((index, element) => {
-    fireEvent(element, "mouseover");
-  });
-
-  function fireEvent(element, event) {
-    if (element.fireEvent) {
-      element.fireEvent("on" + event);
-    } else {
-      var evObj = document.createEvent("Events");
-
-      evObj.initEvent(event, true, false);
-
-      element.dispatchEvent(evObj);
-    }
-  }
-});
-
-Cypress.addParentCommand("getAPIResponse", function(endpoint, callback) {
+Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
   router.getAPIResponse(endpoint, callback);
 });

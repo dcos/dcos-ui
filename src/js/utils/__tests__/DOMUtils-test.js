@@ -74,46 +74,52 @@ describe("DOMUtils", function() {
     it("calculates left padding", function() {
       this.style.push("padding-left: 1px");
       global.document.body.innerHTML = buildElement(this.style);
+      const div = global.document.querySelector("div");
+      // jsdom doesn't calculate offsetWidth
+      Object.defineProperty(div, "offsetWidth", {
+        get: jest.fn(() => 101)
+      });
 
-      // jsdom doesn't calculate
-      global.document.querySelector("div").offsetWidth = 101;
-
-      var width = DOMUtils.getComputedWidth(
-        global.document.querySelector("div")
-      );
+      var width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
     it("calculates right padding", function() {
       this.style.push("padding-right: 1px");
       global.document.body.innerHTML = buildElement(this.style);
-      global.document.querySelector("div").offsetWidth = 101;
+      const div = global.document.querySelector("div");
 
-      var width = DOMUtils.getComputedWidth(
-        global.document.querySelector("div")
-      );
+      Object.defineProperty(div, "offsetWidth", {
+        get: jest.fn(() => 101)
+      });
+
+      var width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
     it("calculates left border", function() {
       this.style.push("border-left-width: 1px");
       global.document.body.innerHTML = buildElement(this.style);
-      global.document.querySelector("div").offsetWidth = 101;
+      const div = global.document.querySelector("div");
 
-      var width = DOMUtils.getComputedWidth(
-        global.document.querySelector("div")
-      );
+      Object.defineProperty(div, "offsetWidth", {
+        get: jest.fn(() => 101)
+      });
+
+      var width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
     it("calculates right border", function() {
       this.style.push("border-right-width: 1px");
       global.document.body.innerHTML = buildElement(this.style);
-      global.document.querySelector("div").offsetWidth = 101;
+      const div = global.document.querySelector("div");
 
-      var width = DOMUtils.getComputedWidth(
-        global.document.querySelector("div")
-      );
+      Object.defineProperty(div, "offsetWidth", {
+        get: jest.fn(() => 101)
+      });
+
+      var width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -125,11 +131,13 @@ describe("DOMUtils", function() {
         "border-right-width: 1px"
       );
       global.document.body.innerHTML = buildElement(this.style);
-      global.document.querySelector("div").offsetWidth = 104;
+      const div = global.document.querySelector("div");
 
-      var width = DOMUtils.getComputedWidth(
-        global.document.querySelector("div")
-      );
+      Object.defineProperty(div, "offsetWidth", {
+        get: jest.fn(() => 104)
+      });
+
+      var width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -141,11 +149,13 @@ describe("DOMUtils", function() {
         "border-bottom-width: 1px"
       );
       global.document.body.innerHTML = buildElement(this.style);
-      global.document.querySelector("div").offsetWidth = 100;
+      const div = global.document.querySelector("div");
 
-      var width = DOMUtils.getComputedWidth(
-        global.document.querySelector("div")
-      );
+      Object.defineProperty(div, "offsetWidth", {
+        get: jest.fn(() => 100)
+      });
+
+      var width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
   });
