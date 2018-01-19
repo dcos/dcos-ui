@@ -356,8 +356,8 @@ class ServicesTable extends React.Component {
     const serviceStatusText = service.getStatus();
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
     const instancesCount = service.getInstancesCount();
-    const tasksRunning = service.getTaskCount();
-    const tooltipContent = `${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`;
+    const runningInstances = service.getRunningInstancesCount();
+    const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
 
     return (
       <div className="flex">
@@ -388,15 +388,15 @@ class ServicesTable extends React.Component {
 
   renderInstances(prop, service) {
     const instancesCount = service.getInstancesCount();
-    const tasksRunning = service.getTaskCount();
-    const overview = tasksRunning === instancesCount
-      ? ` ${tasksRunning}`
-      : ` ${tasksRunning}/${instancesCount}`;
+    const runningInstances = service.getRunningInstancesCount();
+    const overview = runningInstances === instancesCount
+      ? ` ${runningInstances}`
+      : ` ${runningInstances}/${instancesCount}`;
 
     const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
     const tooltipContent = (
       <span>
-        {`${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`}
+        {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`}
       </span>
     );
 

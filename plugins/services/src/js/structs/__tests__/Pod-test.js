@@ -16,12 +16,12 @@ describe("Pod", function() {
   describe("#countRunningInstances", function() {
     it("returns the correct value", function() {
       const pod = new Pod(PodFixture);
-      expect(pod.countRunningInstances()).toEqual(2);
+      expect(pod.getRunningInstancesCount()).toEqual(2);
     });
 
     it("returns the correct default value", function() {
       const pod = new Pod();
-      expect(pod.countRunningInstances()).toEqual(0);
+      expect(pod.getRunningInstancesCount()).toEqual(0);
     });
   });
 

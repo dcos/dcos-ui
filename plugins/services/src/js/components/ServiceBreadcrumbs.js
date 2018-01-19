@@ -124,8 +124,8 @@ class ServiceBreadcrumbs extends React.Component {
     let progressBar = null;
     let iconDisplay = null;
     const instancesCount = service.getInstancesCount();
-    const tasksRunning = service.getTaskCount();
-    const tooltipContent = `${tasksRunning} ${StringUtil.pluralize("instance", tasksRunning)} running out of ${instancesCount}`;
+    const runningInstances = service.getRunningInstancesCount();
+    const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
 
     if (this.props.taskID == null && this.props.params != null) {
       progressBar = (
