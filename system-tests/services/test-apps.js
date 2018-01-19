@@ -50,7 +50,7 @@ describe("Services", function() {
       cy.contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy.contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy
@@ -118,10 +118,10 @@ describe("Services", function() {
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.contains("button", "Review & Run").click();
+      cy.contains("Review & Run").click();
 
       // Run service
-      cy.contains("button", "Run Service").click();
+      cy.contains("Run Service").click();
 
       // Also no Error should exist
       cy
@@ -173,10 +173,10 @@ describe("Services", function() {
         .type("http://lorempicsum.com/simpsons/600/400/3");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy.contains("Review & Run").click({ timeout: 1000 });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy.contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content table").contains(serviceName).should("exist");

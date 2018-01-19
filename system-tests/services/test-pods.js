@@ -396,9 +396,9 @@ describe("Services", function() {
         .get('input[name="containers.0.artifacts.2.uri"]')
         .type("http://lorempicsum.com/simpsons/600/400/3");
 
-      cy.get("button").contains("Review & Run").click();
+      cy.contains("Review & Run").click();
 
-      cy.get("button").contains("Run Service").click();
+      cy.contains("Run Service").click();
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 

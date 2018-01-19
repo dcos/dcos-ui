@@ -189,8 +189,10 @@ describe("Universe", function() {
     cy.get(".modal.modal-small").contains("Delete").click();
 
     cy
-      .get(".page-body-content table")
-      .contains(serviceName)
+      .get(".page-body-content table", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("not.exist");
   });
 });
