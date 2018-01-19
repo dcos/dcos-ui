@@ -579,7 +579,7 @@ Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} label - The contents of the <label> to match
  */
-Cypress.addChildCommand("getFormGroupInputFor", function(elements, label) {
+Cypress.Commands.add("getFormGroupInputFor", function(elements, label) {
   const compareLabel = label.toLowerCase();
   const formGroup = elements.find(".form-group").filter(function(index, group) {
     const groupLabel = Cypress.$(group).find("label");
@@ -610,7 +610,7 @@ Cypress.addChildCommand("getFormGroupInputFor", function(elements, label) {
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.addChildCommand("contents", function(elements) {
+Cypress.Commands.add("contents", function(elements) {
   return elements
     .map(function(index, element) {
       const doc = element.ownerDocument;
@@ -632,7 +632,7 @@ Cypress.addChildCommand("contents", function(elements) {
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.addChildCommand("asJson", function(contents) {
+Cypress.Commands.add("asJson", function(contents) {
   if (contents.length != null) {
     return contents.map(function(content) {
       return JSON.parse(content);
@@ -651,7 +651,7 @@ Cypress.addChildCommand("asJson", function(contents) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String|Number} columNameOrIndex - The table index or the <th /> contents
  */
-Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
+Cypress.Commands.add("getTableColumn", function(elements, columNameOrIndex) {
   const matchedRows = elements.find("tr");
   const headings = matchedRows.eq(0).find("th");
   let columnIndex = parseInt(columNameOrIndex, 10);
@@ -689,10 +689,7 @@ Cypress.addChildCommand("getTableColumn", function(elements, columNameOrIndex) {
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} contents - The contents of the <td /> to search
  */
-Cypress.addChildCommand("getTableRowThatContains", function(
-  elements,
-  contents
-) {
+Cypress.Commands.add("getTableRowThatContains", function(elements, contents) {
   let matchedRows = elements.find("tr");
 
   matchedRows = matchedRows.filter(function(index, row) {
