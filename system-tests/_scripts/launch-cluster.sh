@@ -21,7 +21,7 @@ platform: aws
 provider: onprem
 aws_region: us-west-2
 os_name: cent-os-7-dcos-prereqs
-instance_type: m4.large
+instance_type: m4.xlarge
 dcos_config:
   cluster_name: DC/OS UI System Integration Tests
   resolvers:
