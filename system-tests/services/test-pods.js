@@ -396,11 +396,20 @@ describe("Services", function() {
         .get('input[name="containers.0.artifacts.2.uri"]')
         .type("http://lorempicsum.com/simpsons/600/400/3");
 
-      cy.contains("Review & Run").click();
+      cy
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.contains("Run Service").click();
 
-      cy.get(".page-body-content table").contains(serviceName).should("exist");
+      cy
+        .get(".page-body-content table", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .contains(serviceName, {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       cy
         .get(".page-body-content table")

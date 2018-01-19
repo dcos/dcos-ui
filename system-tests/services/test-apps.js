@@ -99,6 +99,7 @@ describe("Services", function() {
       // same as above
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+      const dangerMessage = `An app with id [/${Cypress.env("TEST_UUID")}/${serviceName}] already exists.`;
 
       // Select 'Single Container'
       cy.contains("Single Container").click();
@@ -118,18 +119,21 @@ describe("Services", function() {
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
       cy.contains("Run Service").click();
 
       // Also no Error should exist
       cy
-        .wait("@appsReq")
-        .get(".message-danger")
-        .contains(
-          `An app with id [/${Cypress.env("TEST_UUID")}/${serviceName}] already exists.`
-        )
+        .get(".message-danger", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .contains(dangerMessage, {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
         .should("exist");
     });
 
@@ -173,13 +177,22 @@ describe("Services", function() {
         .type("http://lorempicsum.com/simpsons/600/400/3");
 
       // Click Review and Run
-      cy.contains("Review & Run").click({ timeout: 1000 });
+      cy
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
       cy.contains("Run Service").click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content table").contains(serviceName).should("exist");
+      cy
+        .get(".page-body-content table", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .contains(serviceName, {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       // Now click on the name
       cy
