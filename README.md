@@ -58,7 +58,7 @@ npm config set externalplugins ../relative/path/to/plugins/directory
 
 ### Testing
 
-See more info on testing [here](./TESTING.md).
+See more at the [Testing](./CONTRIBUTING.md#testing) section of the Contribution Guidelines.
 
 ## License and Author
 
