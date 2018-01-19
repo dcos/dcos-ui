@@ -24,6 +24,11 @@
       "from": "@dcos/copychars@0.1.0",
       "resolved": "https://registry.npmjs.org/@dcos/copychars/-/copychars-0.1.0.tgz"
     },
+    "@dcos/eslint-config": {
+      "version": "0.2.0",
+      "from": "@dcos/eslint-config@0.2.0",
+      "resolved": "https://registry.npmjs.org/@dcos/eslint-config/-/eslint-config-0.2.0.tgz"
+    },
     "@dcos/http-service": {
       "version": "0.2.1",
       "from": "@dcos/http-service@0.2.1",
@@ -3315,11 +3320,6 @@
       "version": "5.0.3",
       "from": "eslint-config-airbnb-base@>=5.0.2 <6.0.0",
       "resolved": "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-5.0.3.tgz"
-    },
-    "eslint-config-dcos": {
-      "version": "0.2.0",
-      "from": "dcos/javascript#v0.2.1",
-      "resolved": "git://github.com/dcos/javascript.git#6a8ab5ddec14c41532722cdf843f4e845cb0acbd"
     },
     "eslint-import-resolver-node": {
       "version": "0.2.3",
