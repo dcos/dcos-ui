@@ -85,7 +85,6 @@ class ServiceStatusIcon extends Component {
       <Tooltip
         interactive={true}
         content={content}
-        width={250}
         wrapText={true}
         wrapperClassName="tooltip-wrapper"
       >
@@ -124,7 +123,6 @@ class ServiceStatusIcon extends Component {
         <Tooltip
           interactive={true}
           content={this.props.tooltipContent}
-          width={250}
           wrapText={true}
           wrapperClassName="tooltip-wrapper"
         >
