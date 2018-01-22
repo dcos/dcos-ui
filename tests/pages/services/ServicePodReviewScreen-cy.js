@@ -1,4 +1,4 @@
-require("../../_support/utils/ServicesUtil");
+require("../../../tests/_support/utils/ServicesUtil");
 
 describe("Services", function() {
   /**
@@ -113,31 +113,31 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("CPUs")
         .contains("0.1");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("10 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(command);
     });
@@ -471,31 +471,31 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
-        .contains("Not Configured");
+        .contains("python:3");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("CPUs")
         .contains("0.1");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("32 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(command);
 
@@ -511,18 +511,14 @@ describe("Services", function() {
         .then(function($serviceEndpointsSection) {
           // Ensure the section itself exists.
           expect($serviceEndpointsSection.get().length).to.equal(1);
+          const $tableRows = $serviceEndpointsSection
+            .find("tbody tr")
+            .filter(function(index, row) {
+              return row.style.display !== "none";
+            });
 
-          const $tableCells = $serviceEndpointsSection.find(
-            "tbody tr:visible td"
-          );
-          const cellValues = [
-            "http",
-            "tcp",
-            "8080",
-            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
-            "container-1",
-            "Edit"
-          ];
+          const $tableCells = $tableRows.find("td");
+          const cellValues = ["http", "tcp", "8080", "container-1", "Edit"];
 
           $tableCells.each(function(index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
@@ -656,31 +652,31 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("CPUs")
         .contains("0.1");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("10 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(command);
 
@@ -691,9 +687,13 @@ describe("Services", function() {
           // Ensure the section itself exists.
           expect($containerArtifacts.get().length).to.equal(1);
 
-          const $tableRows = $containerArtifacts.find("tbody tr:visible");
+          const $tableRows = $containerArtifacts
+            .find("tbody tr")
+            .filter(function(index, row) {
+              return row.style.display !== "none";
+            });
 
-          expect($tableRows.get().length).to.equal(3);
+          expect($tableRows.length).to.equal(3);
 
           const cellValues = [
             ["http://lorempicsum.com/simpsons/600/400/1", "Edit"],
@@ -701,8 +701,8 @@ describe("Services", function() {
             ["http://lorempicsum.com/simpsons/600/400/3", "Edit"]
           ];
 
-          $tableRows.each(function(rowIndex) {
-            const $tableCells = cy.$(this).find("td");
+          $tableRows.each(function(rowIndex, row) {
+            const $tableCells = Cypress.$(row).find("td");
 
             $tableCells.each(function(cellIndex) {
               expect(this.textContent.trim()).to.equal(
@@ -837,13 +837,13 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
         .contains("python:3");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
@@ -855,13 +855,13 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("32 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(command);
 
@@ -875,7 +875,11 @@ describe("Services", function() {
         .root()
         .configurationSection("Service Endpoints")
         .then(function($serviceEndpointsSection) {
-          const $tableRow = $serviceEndpointsSection.find("tr:visible");
+          const $tableRow = $serviceEndpointsSection
+            .find("tbody tr")
+            .filter(function(index, row) {
+              return row.style.display !== "none";
+            });
           const $tableCells = $tableRow.find("td");
           const cellValues = ["http", "tcp", "8080", "container-1", "Edit"];
 
@@ -1007,36 +1011,40 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("CPUs")
         .contains("0.1");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("10 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(command);
 
       cy.root().configurationSection("Storage").then(function($storageSection) {
-        const $tableRow = $storageSection.find("tbody tr:visible");
+        const $tableRow = $storageSection
+          .find("tbody tr")
+          .filter(function(index, row) {
+            return row.style.display !== "none";
+          });
         const $tableCells = $tableRow.find("td");
         const cellValues = [
           "test",
@@ -1188,31 +1196,31 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("CPUs")
         .contains("0.1");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("10 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(command);
 
@@ -1222,7 +1230,11 @@ describe("Services", function() {
         .then(function($envSection) {
           expect($envSection.get().length).to.equal(1);
 
-          const $tableRows = $envSection.find("tbody tr:visible");
+          const $tableRows = $envSection
+            .find("tbody tr")
+            .filter(function(index, row) {
+              return row.style.display !== "none";
+            });
           const cellValues = [
             ["camelCase", "test", "Shared", "Edit"],
             ["snake_case", "test", "Shared", "Edit"],
@@ -1230,8 +1242,8 @@ describe("Services", function() {
             ["UPPERCASE", "test", "Shared", "Edit"]
           ];
 
-          $tableRows.each(function(rowIndex) {
-            const $tableCells = cy.$(this).find("td");
+          $tableRows.each(function(rowIndex, row) {
+            const $tableCells = Cypress.$(row).find("td");
 
             expect($tableCells.length).to.equal(4);
 
@@ -1374,38 +1386,42 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Container Image")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("CPUs")
         .contains("0.1");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Memory")
         .contains("10 MiB");
 
       cy
         .root()
-        .configurationSection("Containers")
+        .configurationSection("container-1")
         .configurationMapValue("Command")
         .contains(cmdline);
 
       cy.root().configurationSection("Labels").then(function($section) {
         expect($section.get().length).to.equal(1);
 
-        const $tableRows = $section.find("tbody tr:visible");
+        const $tableRows = $section
+          .find("tbody tr")
+          .filter(function(index, row) {
+            return row.style.display !== "none";
+          });
         const cellValues = [
           ["camelCase", "test", "Shared", "Edit"],
           ["snake_case", "test", "Shared", "Edit"],
@@ -1413,8 +1429,8 @@ describe("Services", function() {
           ["UPPERCASE", "test", "Shared", "Edit"]
         ];
 
-        $tableRows.each(function(rowIndex) {
-          const $tableCells = cy.$(this).find("td");
+        $tableRows.each(function(rowIndex, row) {
+          const $tableCells = Cypress.$(row).find("td");
 
           expect($tableCells.length).to.equal(4);
 

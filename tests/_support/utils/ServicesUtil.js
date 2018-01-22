@@ -22,10 +22,7 @@ Cypress.Commands.add("configurationSection", { prevSubject: true }, function(
       let node = Cypress.$(element).next();
       while (node.length !== 0) {
         // Exit condition also includes nested siblings that contain sections
-        if (
-          node.is(headingSelector) ||
-          node.find(headingSelector).length !== 0
-        ) {
+        if (node.is(headingSelector)) {
           break;
         }
 
@@ -53,16 +50,23 @@ Cypress.Commands.add("configurationMapValue", { prevSubject: true }, function(
   const compareLabel = label.toLowerCase();
 
   elements.each(function(index, element) {
-    const labelElement = element.querySelector(".configuration-map-label");
-    if (!labelElement) {
-      return;
+    const rows = [...element.querySelectorAll("div > .configuration-map-row")];
+    if (Cypress.$(element).hasClass("configuration-map-row")) {
+      rows.push(element);
     }
 
-    if (StringUtil.getContents(labelElement).toLowerCase() === compareLabel) {
-      const valueElement = element.querySelector(".configuration-map-value");
-      expect(valueElement).not.to.equal(null);
-      foundElements.push(valueElement);
-    }
+    rows.forEach(function(row) {
+      const labelElement = row.querySelector(".configuration-map-label");
+      if (!labelElement) {
+        return;
+      }
+
+      if (StringUtil.getContents(labelElement).toLowerCase() === compareLabel) {
+        const valueElement = row.querySelector(".configuration-map-value");
+        expect(valueElement).not.to.equal(null);
+        foundElements.push(valueElement);
+      }
+    });
   });
 
   return Cypress.$(foundElements);

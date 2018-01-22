@@ -1,4 +1,4 @@
-require("../_support/utils/ServicesUtil");
+require("../../tests/_support/utils/ServicesUtil");
 const { createService, deleteService } = require("../_support/index");
 
 const serviceDefinition = {

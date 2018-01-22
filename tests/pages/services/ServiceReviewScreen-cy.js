@@ -1,4 +1,4 @@
-require("../../_support/utils/ServicesUtil");
+require("../../../tests/_support/utils/ServicesUtil");
 
 describe("Services", function() {
   /**
@@ -24,9 +24,11 @@ describe("Services", function() {
     it("renders proper review screen and JSON for a simple app", function() {
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
       // Select 'Single Container'
       cy.contains("Single Container").click();
+
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
 
       // Fill-in the input elements
       cy
@@ -42,12 +44,8 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
       // Check JSON view
       cy.contains("JSON Editor").click();
-
       // Check contents of the JSON editor
       cy.get("#brace-editor").contents().asJson().should("deep.equal", [
         {
@@ -107,6 +105,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -121,9 +122,6 @@ describe("Services", function() {
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Use some artifacts
       cy.contains("Add Artifact").click();
@@ -491,6 +489,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -505,9 +506,6 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Networking section
       cy.root().get(".menu-tabbed-item").contains("Networking").click();
@@ -619,6 +617,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -632,9 +633,6 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Networking section
       cy.root().get(".menu-tabbed-item").contains("Networking").click();
@@ -743,6 +741,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -756,9 +757,6 @@ describe("Services", function() {
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Environment section
       cy.root().get(".menu-tabbed-item").contains("Environment").click();
@@ -1021,6 +1019,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -1034,9 +1035,6 @@ describe("Services", function() {
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Environment section
       cy.root().get(".menu-tabbed-item").contains("Environment").click();
@@ -1150,6 +1148,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -1163,9 +1164,6 @@ describe("Services", function() {
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Volumes section
       cy.root().get(".menu-tabbed-item").contains("Volumes").click();
@@ -1456,9 +1454,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Load Balanced Address")
         .contents()
-        .should("deep.equal", [
-          `${serviceName}.marathon.l4lb.thisdcos.directory:8080`
-        ]);
+        .should("deep.equal", ["Not Enabled"]);
     });
 
     it("renders proper review screen and JSON for an app with virtual network", function() {
@@ -1597,7 +1593,7 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Network")
-        .configurationMapValue("Network Node")
+        .configurationMapValue("Network Mode")
         .contains("container");
 
       cy
