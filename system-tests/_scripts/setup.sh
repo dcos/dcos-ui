@@ -11,6 +11,10 @@ else
 fi
 chmod +x .env/bin/dcos
 
+# Symlink cypress in isolation so we don't need to install it every time
+mv "$TMPDIR/cypress" .env/bin/cypress
+# /dcos-ui/jenkins/workspace/Frontend/dcos-ui-pull-requests-system-tests/node_modules/cypress/bin/cypress
+
 # Configure DC/OS CLI
 CONFIG_DIR=~/.dcos
 CONFIG_FILE=${CONFIG_DIR}/dcos.toml

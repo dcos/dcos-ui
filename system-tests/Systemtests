@@ -16,6 +16,7 @@ isolation:
   shell:
     wrapper: (source .env/bin/activate; {})
   scripts:
+    sandbox-setup: ./_scripts/sandbox-setup.sh
     setup: ./_scripts/setup.sh
   files:
     - .

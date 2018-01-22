@@ -6,5 +6,8 @@
   "reporter": "junit",
   "reporterOptions": {
     "mochaFile": "cypress/results.xml"
-  }
+  },
+  "videoUploadOnPasses": false,
+  "numTestsKeptInMemory": 0,
+  "screenshotOnHeadlessFailure": false
 }
