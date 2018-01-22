@@ -245,11 +245,26 @@ class FrameworkConfigurationForm extends Component {
     } = this.props;
 
     const TitleField = props => {
-      return (
-        <h2 className="flush-top short-bottom">
-          {StringUtil.capitalizeEveryWord(props.title)}
-        </h2>
-      );
+      const level = props.formContext.level;
+      if (level === 1) {
+        return (
+          <h1 className="flush-top short-bottom">
+            {StringUtil.capitalizeEveryWord(props.title)}
+          </h1>
+        );
+      } else if (level === 2) {
+        return (
+          <h2 className="short-bottom">
+            {StringUtil.capitalizeEveryWord(props.title)}
+          </h2>
+        );
+      } else {
+        return (
+          <h3 className="short-bottom">
+            {StringUtil.capitalizeEveryWord(props.title)}
+          </h3>
+        );
+      }
     };
 
     const jsonEditorPlaceholderClasses = classNames(
@@ -311,6 +326,7 @@ class FrameworkConfigurationForm extends Component {
                       validate={this.validate}
                       showErrorList={false}
                       transformErrors={this.transformErrors}
+                      formContext={{ level: -1 }}
                     >
                       <div />
                     </SchemaForm>
