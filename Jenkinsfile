@@ -54,22 +54,6 @@ pipeline {
           sh '''npm run test -- --coverage'''
         }
       }
-
-      post {
-        always {
-          junit 'jest/test-results/*.xml'
-          step([$class             : 'CoberturaPublisher',
-                autoUpdateHealth   : false,
-                autoUpdateStability: false,
-                coberturaReportFile: 'coverage/cobertura-coverage.xml',
-                failUnhealthy      : true,
-                failUnstable       : true,
-                maxNumberOfBuilds  : 0,
-                onlyStable         : false,
-                sourceEncoding     : 'ASCII',
-                zoomCoverageChart  : false])
-        }
-      }
     }
 
     stage('Build') {
