@@ -1,4 +1,4 @@
-require("../../../tests/_support/utils/ServicesUtil");
+require("../../_support/utils/ServicesUtil");
 
 describe("Services", function() {
   /**

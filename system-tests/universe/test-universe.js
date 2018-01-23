@@ -1,4 +1,4 @@
-require("../../tests/_support/utils/ServicesUtil");
+require("../_support/utils/ServicesUtil");
 const { Timeouts } = require("../_support/constants");
 
 describe("Universe", function() {
