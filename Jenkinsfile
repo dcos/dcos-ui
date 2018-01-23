@@ -50,7 +50,9 @@ pipeline {
 
     stage('Unit Test') {
       steps {
-        sh '''npm run test -- --coverage'''
+        ansiColor('xterm') {
+          sh '''node jest/gen-config.js && jest --config=jest/config.json --no-cache --coverage'''
+        }
       }
 
       post {
