@@ -39,7 +39,7 @@ pipeline {
       }
     }
 
-    stage('Lint') {
+    stage('Checks') {
       parallel {
         stage('Stylelint') {
           steps {
@@ -56,45 +56,46 @@ pipeline {
           }
         }
       }
-    }
+    
 
-    stage('Unit Test') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run test'''
+      stage('Unit Test') {
+        steps {
+          ansiColor('xterm') {
+            sh '''npm run test'''
+          }
+        }
+
+        post {
+          always {
+            junit 'jest/test-results/*.xml'
+            // step([$class             : 'CoberturaPublisher',
+            //       autoUpdateHealth   : false,
+            //       autoUpdateStability: false,
+            //       coberturaReportFile: 'coverage/cobertura-coverage.xml',
+            //       failUnhealthy      : true,
+            //       failUnstable       : true,
+            //       maxNumberOfBuilds  : 0,
+            //       onlyStable         : false,
+            //       sourceEncoding     : 'ASCII',
+            //       zoomCoverageChart  : false])
+          }
         }
       }
 
-      post {
-        always {
-          junit 'jest/test-results/*.xml'
-          // step([$class             : 'CoberturaPublisher',
-          //       autoUpdateHealth   : false,
-          //       autoUpdateStability: false,
-          //       coberturaReportFile: 'coverage/cobertura-coverage.xml',
-          //       failUnhealthy      : true,
-          //       failUnstable       : true,
-          //       maxNumberOfBuilds  : 0,
-          //       onlyStable         : false,
-          //       sourceEncoding     : 'ASCII',
-          //       zoomCoverageChart  : false])
+      stage('Build') {
+        steps {
+          ansiColor('xterm') {
+            sh '''npm run build-assets'''
+          }
         }
-      }
-    }
 
-    stage('Build') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run build-assets'''
+        post {
+          always {
+            stash includes: 'dist/*', name: 'dist'
+          }
         }
-      }
 
-      post {
-        always {
-          stash includes: 'dist/*', name: 'dist'
-        }
       }
-
     }
 
     stage('Integration Test') {
