@@ -2,14 +2,10 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["master",] as String[]
 
 pipeline {
-  agent {
-    dockerfile {
-      args  '--shm-size=2g'
-    }
-  }
+  agent none
 
   environment {
     JENKINS_VERSION = 'yes'
@@ -29,6 +25,12 @@ pipeline {
     }
 
     stage('Initialization') {
+      agent {
+        dockerfile {
+          args '--shm-size=2g'
+        }
+      }
+
       steps {
         ansiColor('xterm') {
           retry(2) {
@@ -38,57 +40,112 @@ pipeline {
           sh '''npm run scaffold'''
         }
       }
-    }
-
-    stage('Lint') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run lint'''
-        }
-      }
-    }
-
-    stage('Unit Test') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run test -- --coverage'''
-        }
-      }
 
       post {
         always {
-          junit 'jest/test-results/*.xml'
-          step([$class             : 'CoberturaPublisher',
-                autoUpdateHealth   : false,
-                autoUpdateStability: false,
-                coberturaReportFile: 'coverage/cobertura-coverage.xml',
-                failUnhealthy      : true,
-                failUnstable       : true,
-                maxNumberOfBuilds  : 0,
-                onlyStable         : false,
-                sourceEncoding     : 'ASCII',
-                zoomCoverageChart  : false])
+          archiveArtifacts './*'
+          stash includes: 'node_modules/*', name: 'node_modules'
+          stash includes: 'src/js/config/*', name: 'config'
+          stash includes: 'webpack/*', name: 'webpack'
         }
       }
     }
 
-    stage('Build') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run build-assets'''
+    stage('Lint, Unit Test, Build') {
+      parallel {
+        stage('Lint') {
+          agent {
+            dockerfile {
+              args '--shm-size=2g'
+            }
+          }
+
+          steps {
+
+            unstash 'node_modules'
+            unstash 'config.dev.js'
+            unstash 'proxy.dev.js'
+
+            ansiColor('xterm') {
+              sh '''npm run lint'''
+            }
+          }
+        }
+
+        stage('Unit Test') {
+          agent {
+            dockerfile {
+              args '--shm-size=2g'
+            }
+          }
+
+          steps {
+            unstash 'node_modules'
+            unstash 'config.dev.js'
+            unstash 'proxy.dev.js'
+
+            ansiColor('xterm') {
+              sh '''npm run test -- --coverage'''
+            }
+          }
+
+          post {
+            always {
+              junit 'jest/test-results/*.xml'
+              step([$class             : 'CoberturaPublisher',
+                    autoUpdateHealth   : false,
+                    autoUpdateStability: false,
+                    coberturaReportFile: 'coverage/cobertura-coverage.xml',
+                    failUnhealthy      : true,
+                    failUnstable       : true,
+                    maxNumberOfBuilds  : 0,
+                    onlyStable         : false,
+                    sourceEncoding     : 'ASCII',
+                    zoomCoverageChart  : false])
+            }
+          }
+        }
+
+        stage('Build') {
+          agent {
+            dockerfile {
+              args '--shm-size=2g'
+            }
+          }
+
+          steps {
+            unstash 'node_modules'
+            unstash 'config.dev.js'
+            unstash 'proxy.dev.js'
+
+            ansiColor('xterm') {
+              sh '''npm run build-assets'''
+            }
+          }
+
+          post {
+            always {
+              stash includes: 'dist/*', name: 'dist'
+            }
+          }
+
         }
       }
-
-      post {
-        always {
-          stash includes: 'dist/*', name: 'dist'
-        }
-      }
-
     }
 
     stage('Integration Test') {
+      agent {
+        dockerfile {
+          args '--shm-size=2g'
+        }
+      }
+
       steps {
+        unstash 'dist'
+        unstash 'node_modules'
+        unstash 'config.dev.js'
+        unstash 'proxy.dev.js'
+
         // Run a simple webserver serving the dist folder statically
         // before we run the cypress tests
         writeFile file: 'integration-tests.sh', text: [
@@ -103,8 +160,6 @@ pipeline {
           'kill $SERVER_PID',
           'exit $RET'
         ].join('\n')
-
-        unstash 'dist'
 
         ansiColor('xterm') {
           retry(2) {
