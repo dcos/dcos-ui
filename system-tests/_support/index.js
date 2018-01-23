@@ -1,5 +1,5 @@
 const { Timeouts } = require("./constants");
-require(".formChildCommands");
+require("./formChildCommands");
 /**
  * Visit the specified (Routed) URL
  *
