@@ -159,7 +159,7 @@ class ServiceDestroyModal extends React.Component {
           .
         </p>
         <div className="form-group flush-bottom">
-          <label for="">
+          <label>
             Type "{serviceName}
             " to confirm
           </label>
