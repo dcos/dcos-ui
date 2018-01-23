@@ -50,7 +50,7 @@ pipeline {
     stage('Unit Test') {
       steps {
         ansiColor('xterm') {
-          sh '''npm run test -- --coverage'''
+          sh '''npm run test'''
         }
       }
 
