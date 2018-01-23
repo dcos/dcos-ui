@@ -1,4 +1,9 @@
 #!/usr/bin/env groovy
+
+@Library('sec_ci_libs@v2-latest') _
+
+def master_branches = ["master", ] as String[]
+
 pipeline {
   agent {
     dockerfile {
@@ -16,6 +21,13 @@ pipeline {
   }
 
   stages {
+    
+    stage('Authorization') {
+      steps {
+        user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+      }
+    }
+
     stage('Initialization') {
       steps {
         ansiColor('xterm') {
@@ -39,7 +51,7 @@ pipeline {
     stage('Unit Test') {
       steps {
         ansiColor('xterm') {
-          sh '''npm run test -- --coverage'''
+          sh '''node jest/gen-config.js && jest --config=jest/config.json --no-cache --coverage'''
         }
       }
 
