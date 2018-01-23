@@ -40,9 +40,20 @@ pipeline {
     }
 
     stage('Lint') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run lint'''
+      parallel {
+        stage('Stylelint') {
+          steps {
+            ansiColor('xterm') {
+              sh '''npm run stylelint'''
+            }
+          }
+        }
+        stage('Eslint') {
+          steps {
+            ansiColor('xterm') {
+              sh '''npm run eslint'''
+            }
+          }
         }
       }
     }
