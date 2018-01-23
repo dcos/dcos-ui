@@ -57,5 +57,16 @@ pipeline {
         }
       }
     }
+
+    stage('Upload Build') {
+      when {
+        // branch: "master"
+        branch "danielmschmidt/upload-artifacts-of-build-to-s3"
+      }
+
+      steps {
+        sh '''echo "I am running"'''
+      }
+    }
   }
 }
