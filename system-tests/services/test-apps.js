@@ -47,10 +47,16 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -120,11 +126,15 @@ describe("Services", function() {
 
       // Click Review and Run
       cy
+        .get("button.button-primary")
         .contains("Review & Run")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Also no Error should exist
       cy
@@ -178,11 +188,15 @@ describe("Services", function() {
 
       // Click Review and Run
       cy
+        .get("button.button-primary")
         .contains("Review & Run")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -276,10 +290,16 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Command").type("sleep 5; exit 0");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -403,10 +423,16 @@ describe("Services", function() {
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -524,10 +550,16 @@ describe("Services", function() {
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -636,10 +668,16 @@ describe("Services", function() {
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -755,10 +793,16 @@ describe("Services", function() {
       cy.get('input[name="env.3.value"]').type("test");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -860,10 +904,16 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Path").type("/");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1007,10 +1057,16 @@ describe("Services", function() {
       cy.get('input[name="labels.3.value"]').type("test");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1113,10 +1169,16 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1218,9 +1280,15 @@ describe("Services", function() {
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
         .get(".page-body-content table")
@@ -1281,9 +1349,15 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Host Port").type("4200");
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 

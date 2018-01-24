@@ -39,9 +39,15 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
         .get(".page-body-content table")
@@ -151,10 +157,16 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -287,9 +299,15 @@ describe("Services", function() {
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
         .get(".page-body-content table")
@@ -397,10 +415,14 @@ describe("Services", function() {
         .type("http://lorempicsum.com/simpsons/600/400/3");
 
       cy
+        .get("button.button-primary")
         .contains("Review & Run")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
         .get(".page-body-content table", {
@@ -494,9 +516,15 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 
@@ -593,9 +621,15 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Name").type("test");
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 
@@ -693,9 +727,15 @@ describe("Services", function() {
 
       cy.root().get('input[name="env.3.value"]').type("test");
 
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get("button").contains("Run Service").click();
+      cy
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 
@@ -808,10 +848,16 @@ describe("Services", function() {
       cy.get('input[name="labels.3.value"]').type("test");
 
       // Click Review and Run
-      cy.contains("Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 
@@ -919,8 +965,14 @@ describe("Services", function() {
         }`
       );
 
-      cy.contains("Review & Run").click();
-      cy.contains("button", "Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
+      cy
+        .get("button.button-primary")
+        .contains("button", "Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
         .get(".page-body-content table")
