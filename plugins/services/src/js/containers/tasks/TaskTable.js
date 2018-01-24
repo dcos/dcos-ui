@@ -252,10 +252,13 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(options) {
-    const anchorClasses = classNames("text-overflow", {
-      "table-cell-link-primary": options.primary,
-      "table-cell-link-secondary": options.secondary
-    });
+    const anchorClasses = classNames(
+      {
+        "table-cell-link-primary": options.primary,
+        "table-cell-link-secondary": options.secondary
+      },
+      "text-overflow"
+    );
 
     return (prop, task) => {
       const title = task[prop];
