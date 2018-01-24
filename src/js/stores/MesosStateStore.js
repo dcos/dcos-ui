@@ -59,7 +59,7 @@ function assignSchedulerTaskField(task, schedulerTasks) {
  * @return {Object} task
  */
 function flagSDKTask(task, service) {
-  if (isSDKService(service)) {
+  if (isSDKService(service) && task.sdkTask === undefined) {
     return Object.assign({}, task, { sdkTask: true });
   }
 
