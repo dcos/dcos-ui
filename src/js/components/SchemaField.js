@@ -318,12 +318,15 @@ class SchemaField extends Component {
   }
 
   render() {
-    const { schema, errorSchema, uiSchema, registry } = this.props;
+    const { schema, errorSchema, uiSchema, registry, idSchema } = this.props;
 
     if (schema.type === "object") {
+      const nextLevel = idSchema.$id === "root"
+        ? 0
+        : registry.formContext.level + 1;
       const nextRegistry = {
         ...registry,
-        formContext: { level: registry.formContext.level + 1 }
+        formContext: { level: nextLevel }
       };
 
       return <DefaultSchemaField {...this.props} registry={nextRegistry} />;

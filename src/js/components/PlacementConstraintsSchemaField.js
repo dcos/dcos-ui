@@ -110,7 +110,7 @@ export default class PlacementConstraintsSchemaField extends Component {
   }
 
   render() {
-    const { errorMessage, fieldProps } = this.props;
+    const { label, fieldProps, errorMessage } = this.props;
     const { batch } = this.state;
 
     const appendToList = (memo, transaction) => memo.concat(transaction);
