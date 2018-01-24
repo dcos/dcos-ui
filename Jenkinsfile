@@ -28,29 +28,27 @@ pipeline {
     }
 
     stage('Debug') {
-      ansiColor('xterm') {
-        parallel {
-          stage('Collect') {
-            steps {
-              sh 'echo "Collecting from $(pwd)"'
-            }
+      parallel {
+        stage('Collect') {
+          steps {
+            sh 'echo "Collecting from $(pwd)"'
           }
-          stage('Run') {
-            steps {
-              sleep(5)
+        }
+        stage('Run') {
+          steps {
+            sleep(5)
 
-              sh 'npm --unsafe-perm install'
+            sh 'npm --unsafe-perm install'
 
-              sh 'npm run scaffold'
-              
-              sh 'npm run stylelint'
-              
-              sh 'npm run eslint'
+            sh 'npm run scaffold'
+            
+            sh 'npm run stylelint'
+            
+            sh 'npm run eslint'
 
-              sh 'npm run test -- --coverage'
+            sh 'npm run test -- --coverage'
 
-              sh 'touch $(pwd)/done'
-            }
+            sh 'touch $(pwd)/done'
           }
         }
       }
