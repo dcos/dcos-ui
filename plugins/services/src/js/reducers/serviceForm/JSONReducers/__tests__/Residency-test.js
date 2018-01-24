@@ -27,23 +27,12 @@ describe("Residency", function() {
       });
     });
 
-    it("returns undefined if a host volume is set", function() {
-      let batch = new Batch();
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes", 0, "type"], "HOST"));
-
-      expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual(undefined);
-    });
-
-    it("returns residency if a persistent volume is set", function() {
+    it("returns undefined residency if a persistent volume is set", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
 
-      expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual({
-        relaunchEscalationTimeoutSeconds: 10,
-        taskLostBehavior: "WAIT_FOREVER"
-      });
+      expect(batch.reduce(Residency.JSONReducer.bind({}))).toBeUndefined();
     });
 
     it("returns undefined if a persistent volume is removed", function() {
@@ -52,7 +41,7 @@ describe("Residency", function() {
       batch = batch.add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
       batch = batch.add(new Transaction(["volumes"], 0, REMOVE_ITEM));
 
-      expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual(undefined);
+      expect(batch.reduce(Residency.JSONReducer.bind({}))).toBeUndefined();
     });
 
     it("respects the parsed residency", function() {
