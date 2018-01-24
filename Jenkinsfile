@@ -31,7 +31,7 @@ pipeline {
       parallel {
         stage('Collect') {
           steps {
-            sh 'echo "Collecting from $(pwd)"'
+            sh 'touch collected.txt; while [ ! -f done ]; do echo $(date) >> collected.txt; df -h >> collected.txt; sleep 5; done'
           }
         }
         stage('Run') {
@@ -48,7 +48,7 @@ pipeline {
 
             sh 'npm run test -- --coverage'
 
-            sh 'touch $(pwd)/done'
+            sh 'echo "done" > done'
           }
         }
       }
