@@ -295,7 +295,7 @@ const MesosStateUtil = {
    * @return {Object} task
    */
   flagSDKTask(task, service) {
-    if (isSDKService(service)) {
+    if (isSDKService(service) && task.sdkTask === undefined) {
       return Object.assign({}, task, { sdkTask: true });
     }
 
