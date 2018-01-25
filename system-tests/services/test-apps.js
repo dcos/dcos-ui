@@ -29,6 +29,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -43,65 +46,17 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          mem: 10,
-          instances: 1,
-          portDefinitions: [],
-          container: {
-            type: "MESOS",
-            volumes: []
-          },
-          requirePorts: false,
-          networks: [],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -150,9 +105,13 @@ describe("Services", function() {
       // same as above
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+      const dangerMessage = `An app with id [/${Cypress.env("TEST_UUID")}/${serviceName}] already exists.`;
 
       // Select 'Single Container'
       cy.contains("Single Container").click();
+
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
 
       // Fill-in the input elements
       cy
@@ -162,25 +121,29 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
       // Check JSON view
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.contains("button", "Review & Run").click();
+      cy
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.contains("button", "Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Also no Error should exist
       cy
-        .wait("@appsReq")
-        .get(".message-danger")
-        .contains(
-          `An app with id [/${Cypress.env("TEST_UUID")}/${serviceName}] already exists.`
-        )
+        .get(".message-danger", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .contains(dangerMessage, {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
         .should("exist");
     });
 
@@ -190,6 +153,9 @@ describe("Services", function() {
 
       // Select 'Single Container'
       cy.contains("Single Container").click();
+
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
 
       // Fill-in the input elements
       cy
@@ -206,9 +172,6 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
       // Use some artifacts
       cy.contains("Add Artifact").click();
       cy
@@ -223,96 +186,27 @@ describe("Services", function() {
         .get('input[name="fetch.2.uri"]')
         .type("http://lorempicsum.com/simpsons/600/400/3");
 
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          mem: 10,
-          instances: 1,
-          portDefinitions: [],
-          container: {
-            type: "MESOS",
-            volumes: []
-          },
-          requirePorts: false,
-          networks: [],
-          healthChecks: [],
-          fetch: [
-            {
-              uri: "http://lorempicsum.com/simpsons/600/400/1"
-            },
-            {
-              uri: "http://lorempicsum.com/simpsons/600/400/2"
-            },
-            {
-              uri: "http://lorempicsum.com/simpsons/600/400/3"
-            }
-          ],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains("Not Supported");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Command")
-        .contains(cmdline);
-      cy
-        .root()
-        .configurationSection("Container Artifacts")
-        .children("table")
-        .getTableColumn("Artifact URI")
-        .contents()
-        .should("deep.equal", [
-          "http://lorempicsum.com/simpsons/600/400/1",
-          "http://lorempicsum.com/simpsons/600/400/2",
-          "http://lorempicsum.com/simpsons/600/400/3"
-        ]);
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content table").contains(serviceName).should("exist");
+      cy
+        .get(".page-body-content table", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .contains(serviceName, {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
 
       // Now click on the name
       cy
@@ -395,103 +289,17 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Protocol").select("Command");
       cy.root().getFormGroupInputFor("Command").type("sleep 5; exit 0");
 
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          instances: 1,
-          container: {
-            type: "DOCKER",
-            volumes: [],
-            docker: {
-              image: "nginx"
-            },
-            portMappings: [
-              {
-                containerPort: 80,
-                hostPort: 0,
-                protocol: "tcp"
-              }
-            ]
-          },
-          cpus: 0.1,
-          mem: 32,
-          healthChecks: [
-            {
-              protocol: "COMMAND",
-              command: {
-                value: "sleep 5; exit 0"
-              }
-            }
-          ],
-          requirePorts: false,
-          networks: [
-            {
-              mode: "container/bridge"
-            }
-          ],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Docker Engine");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains("nginx");
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Mode")
-        .contains("container/bridge");
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("80")
-        .should("exist");
-
-      cy
-        .root()
-        .configurationSection("Command Health Checks")
-        .getTableRowThatContains("sleep 5; exit 0")
-        .should("exist");
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -614,94 +422,17 @@ describe("Services", function() {
       // Check JSON view
       cy.contains("JSON Editor").click();
 
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          instances: 1,
-          mem: 32,
-          container: {
-            type: "DOCKER",
-            volumes: [],
-            docker: {
-              image: "python:3"
-            },
-            portMappings: [
-              {
-                containerPort: 8080,
-                hostPort: 0,
-                protocol: "tcp",
-                name: "http"
-              }
-            ]
-          },
-          requirePorts: false,
-          networks: [
-            {
-              mode: "container/bridge"
-            }
-          ],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Docker Engine");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains("python:3");
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Mode")
-        .contains("container/bridge");
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("http")
-        .should("exist");
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("8080")
-        .should("exist");
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -784,6 +515,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -798,9 +532,6 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Networking section
       cy.root().get(".menu-tabbed-item").contains("Networking").click();
@@ -818,94 +549,17 @@ describe("Services", function() {
       // Check JSON view
       cy.contains("JSON Editor").click();
 
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.5,
-          instances: 1,
-          mem: 32,
-          container: {
-            type: "MESOS",
-            volumes: [],
-            docker: {
-              image: "python:3"
-            },
-            portMappings: [
-              {
-                containerPort: 8080,
-                hostPort: 0,
-                protocol: "tcp",
-                name: "http"
-              }
-            ]
-          },
-          requirePorts: false,
-          networks: [
-            {
-              mode: "container/bridge"
-            }
-          ],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.5");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains("python:3");
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Mode")
-        .contains("container/bridge");
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("http")
-        .should("exist");
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("8080")
-        .should("exist");
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -980,6 +634,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -993,9 +650,6 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Networking section
       cy.root().get(".menu-tabbed-item").contains("Networking").click();
@@ -1013,91 +667,17 @@ describe("Services", function() {
       // Check JSON view
       cy.contains("JSON Editor").click();
 
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.5,
-          instances: 1,
-          mem: 32,
-          container: {
-            type: "MESOS",
-            volumes: [],
-            portMappings: [
-              {
-                containerPort: 8080,
-                hostPort: 0,
-                protocol: "tcp",
-                name: "http"
-              }
-            ]
-          },
-          requirePorts: false,
-          networks: [
-            {
-              mode: "container/bridge"
-            }
-          ],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.5");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains("Not Supported");
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Mode")
-        .contains("container/bridge");
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("http")
-        .should("exist");
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .getTableRowThatContains("8080")
-        .should("exist");
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1172,6 +752,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -1185,9 +768,6 @@ describe("Services", function() {
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Environment section
       cy.root().get(".menu-tabbed-item").contains("Environment").click();
@@ -1212,88 +792,17 @@ describe("Services", function() {
       cy.get('input[name="env.3.key"]').type("UPPERCASE");
       cy.get('input[name="env.3.value"]').type("test");
 
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          mem: 10,
-          instances: 1,
-          env: {
-            camelCase: "test",
-            snake_case: "test",
-            lowercase: "test",
-            UPPERCASE: "test"
-          },
-          portDefinitions: [],
-          container: {
-            type: "MESOS",
-            volumes: []
-          },
-          requirePorts: false,
-          networks: [],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-
-      cy
-        .root()
-        .configurationSection("Environment Variables")
-        .children("table")
-        .getTableColumn("Key")
-        .contents()
-        .should("deep.equal", [
-          "camelCase",
-          "snake_case",
-          "lowercase",
-          "UPPERCASE"
-        ]);
-      cy
-        .root()
-        .configurationSection("Environment Variables")
-        .children("table")
-        .getTableColumn("Value")
-        .contents()
-        .should("deep.equal", ["test", "test", "test", "test"]);
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1394,115 +903,17 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Service Endpoint").select("http");
       cy.root().getFormGroupInputFor("Path").type("/");
 
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cpus: 0.1,
-          mem: 32,
-          instances: 1,
-          healthChecks: [
-            {
-              portIndex: 0,
-              protocol: "MESOS_HTTP",
-              path: "/"
-            }
-          ],
-          container: {
-            type: "DOCKER",
-            docker: {
-              image: "nginx"
-            },
-            portMappings: [
-              {
-                name: "http",
-                hostPort: 0,
-                containerPort: 80,
-                protocol: "tcp"
-              }
-            ],
-            volumes: []
-          },
-          requirePorts: false,
-          networks: [
-            {
-              mode: "container/bridge"
-            }
-          ],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Docker Engine");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains("nginx");
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Name")
-        .contents()
-        .should("deep.equal", ["http"]);
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Protocol")
-        .contents()
-        .should("deep.equal", ["tcp"]);
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Container Port")
-        .contents()
-        .should("deep.equal", ["80"]);
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Host Port")
-        .contents()
-        .should("deep.equal", ["Auto Assigned"]);
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1605,6 +1016,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -1618,9 +1032,6 @@ describe("Services", function() {
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
 
       // Select Environment section
       cy.root().get(".menu-tabbed-item").contains("Environment").click();
@@ -1645,88 +1056,17 @@ describe("Services", function() {
       cy.get('input[name="labels.3.key"]').type("UPPERCASE");
       cy.get('input[name="labels.3.value"]').type("test");
 
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          mem: 10,
-          instances: 1,
-          labels: {
-            camelCase: "test",
-            snake_case: "test",
-            lowercase: "test",
-            UPPERCASE: "test"
-          },
-          portDefinitions: [],
-          container: {
-            type: "MESOS",
-            volumes: []
-          },
-          requirePorts: false,
-          networks: [],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-
-      cy
-        .root()
-        .configurationSection("Labels")
-        .children("table")
-        .getTableColumn("Key")
-        .contents()
-        .should("deep.equal", [
-          "camelCase",
-          "snake_case",
-          "lowercase",
-          "UPPERCASE"
-        ]);
-      cy
-        .root()
-        .configurationSection("Labels")
-        .children("table")
-        .getTableColumn("Value")
-        .contents()
-        .should("deep.equal", ["test", "test", "test", "test"]);
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -1798,6 +1138,9 @@ describe("Services", function() {
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
+      // Select Universal Container Runtime (UCR)
+      selectMesosRuntime();
+
       // Fill-in the input elements
       cy
         .root()
@@ -1812,115 +1155,30 @@ describe("Services", function() {
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
       cy.root().getFormGroupInputFor("Command").type(cmdline);
 
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
       // Select Volumes section
       cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
       cy.contains("Add Volume").click();
-      cy.root().getFormGroupInputFor("Volume Type").select("Persistent Volume");
+      cy.get(".button.dropdown-toggle").click();
+      cy
+        .root()
+        .contains(".dropdown-select-item-title", "Local Persistent Volume")
+        .click();
       cy.root().getFormGroupInputFor("Size (MiB)").type("128");
       cy.root().getFormGroupInputFor("Container Path").type("test");
 
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          mem: 10,
-          instances: 1,
-          container: {
-            volumes: [
-              {
-                persistent: {
-                  size: 128
-                },
-                mode: "RW",
-                containerPath: "test"
-              }
-            ],
-            type: "MESOS"
-          },
-          residency: {
-            relaunchEscalationTimeoutSeconds: 10,
-            taskLostBehavior: "WAIT_FOREVER"
-          },
-          portDefinitions: [],
-          requirePorts: false,
-          networks: [],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
       // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-
-      cy
-        .root()
-        .configurationSection("Storage")
-        .children("table")
-        .getTableColumn("Volume")
-        .contents()
-        .should("deep.equal", ["Persistent Local"]);
-      cy
-        .root()
-        .configurationSection("Storage")
-        .children("table")
-        .getTableColumn("Size")
-        .contents()
-        .should("deep.equal", ["128 MiB"]);
-      cy
-        .root()
-        .configurationSection("Storage")
-        .children("table")
-        .getTableColumn("Mode")
-        .contents()
-        .should("deep.equal", ["RW"]);
-      cy
-        .root()
-        .configurationSection("Storage")
-        .children("table")
-        .getTableColumn("Container Mount Path")
-        .contents()
-        .should("deep.equal", ["test"]);
+        .get("button.button-primary")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
+      cy
+        .get("button.button-primary")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
       cy
@@ -2022,150 +1280,15 @@ describe("Services", function() {
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: command,
-          cpus: 0.5,
-          mem: 32,
-          instances: 1,
-          container: {
-            type: "DOCKER",
-            docker: {
-              image: containerImage
-            },
-            portMappings: [
-              {
-                name: "http",
-                containerPort: 8080,
-                labels: {
-                  VIP_0: `/${Cypress.env("TEST_UUID")}/${serviceName}:8080`
-                }
-              }
-            ],
-            volumes: []
-          },
-          requirePorts: false,
-          networks: [
-            {
-              mode: "container",
-              name: "dcos"
-            }
-          ],
-          fetch: [],
-          constraints: [],
-          healthChecks: []
-        }
-      ]);
-
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.5");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Disk")
-        .contains("Not Configured");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Docker Engine");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains(containerImage);
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Mode")
-        .contains("container");
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Name")
-        .contains("dcos");
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Name")
-        .contents()
-        .should("deep.equal", ["http"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Protocol")
-        .contents()
-        .should("deep.equal", ["Not Configured"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Container Port")
-        .contents()
-        .should("deep.equal", ["8080"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Host Port")
-        .contents()
-        .should("deep.equal", ["Auto Assigned"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Load Balanced Address")
-        .contents()
-        .should("deep.equal", [
-          `${Cypress.env("TEST_UUID")}` +
-            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`
-        ]);
-
-      cy.get("button").contains("Run Service").click();
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
         .get(".page-body-content table")
@@ -2226,144 +1349,15 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Host Port").type("4200");
 
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${Cypress.env("TEST_UUID")}/${serviceName}`,
-          cmd: command,
-          cpus: 0.5,
-          mem: 32,
-          instances: 1,
-          container: {
-            type: "DOCKER",
-            volumes: [],
-            docker: {
-              image: containerImage
-            },
-            portMappings: [
-              {
-                name: "http",
-                containerPort: 8080
-              },
-              {
-                name: "mapped",
-                hostPort: 4200,
-                containerPort: 8080,
-                protocol: "tcp"
-              }
-            ]
-          },
-          networks: [
-            {
-              name: "dcos",
-              mode: "container"
-            }
-          ],
-          requirePorts: false,
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
-
-      cy.get("button").contains("Review & Run").click();
+      cy
+        .get("button")
+        .contains("Review & Run")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Runtime")
-        .contains("Docker Engine");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Instances")
-        .contains(1);
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("CPU")
-        .contains("0.5");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Container Image")
-        .contains(containerImage);
-
-      cy
-        .root()
-        .configurationSection("General")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Node")
-        .contains("container");
-
-      cy
-        .root()
-        .configurationSection("Network")
-        .configurationMapValue("Network Name")
-        .contains("dcos");
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Name")
-        .contents()
-        .should("deep.equal", ["http", "mapped"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Protocol")
-        .contents()
-        .should("deep.equal", ["Not Configured", "tcp"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Container Port")
-        .contents()
-        .should("deep.equal", ["8080", "8080"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Host Port")
-        .contents()
-        .should("deep.equal", ["Auto Assigned", "Auto Assigned"]);
-
-      cy
-        .root()
-        .configurationSection("Service Endpoints")
-        .children("table")
-        .getTableColumn("Load Balanced Address")
-        .contents()
-        .should("deep.equal", ["Not Enabled", "Not Enabled"]);
-
-      cy.get("button").contains("Run Service").click();
+        .get("button")
+        .contains("Run Service")
+        .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       cy.get(".page-body-content table").contains(serviceName).should("exist");
 

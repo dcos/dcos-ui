@@ -13,7 +13,8 @@ const Timeouts = {
    * This should include the time required for the job to download it's
    * resources, allocate volumes and start the containers.
    */
-  JOB_DEPLOYMENT_TIMEOUT: 60000
+  JOB_DEPLOYMENT_TIMEOUT: 60000,
+  ANIMATION_TIMEOUT: 1000
 };
 
 module.exports = {

@@ -1,4 +1,5 @@
-import router from "./utils/router";
+const router = require("./utils/router");
+require("./formChildCommands");
 
 Cypress.Commands.add("configureCluster", function(configuration) {
   if (Object.keys(configuration).length === 0) {

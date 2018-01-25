@@ -186,11 +186,18 @@ describe("Universe", function() {
 
     // Confirm the deletion
     cy.get(".modal.modal-small input").type(serviceName);
-    cy.get(".modal.modal-small").contains("Delete").click();
+    cy
+      .get(".modal.modal-small button.button-danger", {
+        timeout: Timeouts.ANIMATION_TIMEOUT
+      })
+      .contains("Delete Service", { timeout: Timeouts.ANIMATION_TIMEOUT })
+      .click();
 
     cy
-      .get(".page-body-content table")
-      .contains(serviceName)
+      .get(".page-body-content table", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("not.exist");
   });
 });
