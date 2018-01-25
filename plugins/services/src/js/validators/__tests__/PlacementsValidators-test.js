@@ -1,3 +1,6 @@
+import { ADD, ERROR } from "#SRC/js/constants/TransactionTypes";
+import Transaction from "#SRC/js/structs/Transaction";
+
 const PlacementsValidators = require("../PlacementsValidators");
 const {
   PROP_MISSING_ONE,
@@ -93,6 +96,30 @@ describe("PlacementsValidators", function() {
     it("accepts number strings for number-string fields", function() {
       const constraints = [["CPUS", "MAX_PER", "2"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
+    });
+  });
+
+  describe("#validateNoBatchError", function() {
+    it("accepts a list of non error transactions", function() {
+      const transactions = [
+        new Transaction(["root"], "any", ADD),
+        new Transaction(["root"], "any", ADD)
+      ];
+
+      expect(PlacementsValidators.validateNoBatchError(transactions)).toEqual(
+        true
+      );
+    });
+
+    it("does not accepts a list with any error transaction", function() {
+      const transactions = [
+        new Transaction(["root"], "any", ADD),
+        new Transaction(["root"], "any", ERROR)
+      ];
+
+      expect(PlacementsValidators.validateNoBatchError(transactions)).toEqual(
+        false
+      );
     });
   });
 });
