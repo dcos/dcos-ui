@@ -29,6 +29,18 @@ describe("ServiceTableUtil", function() {
     tasksUnhealthy: 1
   });
 
+  const stoppedService = new Application({
+    id: "/stopped-service",
+    instances: 0,
+    tasksRunning: 0
+  });
+
+  const recoveringService = new Application({
+    id: "/recovering-service",
+    queue: true,
+    deployments: null
+  });
+
   const serviceTree = new ServiceTree({
     id: "/tree",
     items: []
@@ -134,9 +146,7 @@ describe("ServiceTableUtil", function() {
       });
 
       it("returns 1 if a comes after b in the status sorting", function() {
-        expect(this.compareFunction(healthyService, unhealthyService)).toEqual(
-          1
-        );
+        expect(this.compareFunction(healthyService, stoppedService)).toEqual(1);
       });
 
       it("returns 0 if a has the same status as b", function() {
@@ -144,7 +154,7 @@ describe("ServiceTableUtil", function() {
       });
 
       it("returns -1 if a comes beforeEach b in the status sorting", function() {
-        expect(this.compareFunction(unhealthyService, healthyService)).toEqual(
+        expect(this.compareFunction(recoveringService, stoppedService)).toEqual(
           -1
         );
       });

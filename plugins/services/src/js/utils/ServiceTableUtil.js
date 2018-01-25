@@ -1,4 +1,4 @@
-import HealthSorting from "../constants/HealthSorting";
+import StatusSorting from "../constants/StatusSorting";
 import ServiceTree from "../structs/ServiceTree";
 
 /**
@@ -40,16 +40,16 @@ function taskCompareFunction(a, b) {
 }
 
 /**
- * Compare service health
+ * Compare service status
  * @param {Service|ServiceTree} a
  * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
-function healthCompareFunction(a, b) {
+function statusCompareFunction(a, b) {
   return numberCompareFunction(
-    HealthSorting[a.getHealth().key],
-    HealthSorting[b.getHealth().key]
+    StatusSorting[a.getServiceStatus().displayName],
+    StatusSorting[b.getServiceStatus().displayName]
   );
 }
 
@@ -108,7 +108,7 @@ function getCompareFunctionByProp(prop) {
     case "tasks":
       return taskCompareFunction;
     case "status":
-      return healthCompareFunction;
+      return statusCompareFunction;
     case "cpus":
       return cpusCompareFunction;
     case "mem":
