@@ -5,7 +5,11 @@
 def master_branches = ["master", ] as String[]
 
 pipeline {
-  agent none
+  agent {
+    dockerfile {
+      args  '--shm-size=8g'
+    }
+  }
 
   environment {
     JENKINS_VERSION       = 'YES'
@@ -24,11 +28,8 @@ pipeline {
       }
     }
     stage('Execute') {
-      agent {
-        dockerfile true
-      }
       steps {
-        sh 'node --version'
+        sh 'free -m'
       }
     }
   }
