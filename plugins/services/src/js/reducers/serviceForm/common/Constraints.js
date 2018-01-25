@@ -1,4 +1,9 @@
-import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import {
+  ADD_ITEM,
+  REMOVE_ITEM,
+  SET,
+  ERROR
+} from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 
@@ -40,13 +45,44 @@ function processTransaction(state, { type, path, value }) {
 
 module.exports = {
   JSONParser(constraints) {
-    // Ignore non-array constraints
     if (!Array.isArray(constraints)) {
-      return [];
+      return [new Transaction(["constraints"], "not-list", ERROR)];
     }
 
     return constraints.reduce(function(memo, item, index) {
-      if (typeof item !== "object") {
+      if (Array.isArray(item)) {
+        memo.push(
+          new Transaction(
+            ["constraints", index, "value"],
+            "value-not-converted-to-object",
+            ERROR
+          )
+        );
+
+        return memo;
+      }
+
+      if (typeof item != "object") {
+        memo.push(
+          new Transaction(
+            ["constraints", index, "value"],
+            "value-not-object",
+            ERROR
+          )
+        );
+
+        return memo;
+      }
+
+      if (item.error) {
+        memo.push(
+          new Transaction(
+            ["constraints", index, "value"],
+            "value-is-malformed",
+            ERROR
+          )
+        );
+
         return memo;
       }
 

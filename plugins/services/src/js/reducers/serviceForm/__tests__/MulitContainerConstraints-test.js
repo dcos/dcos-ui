@@ -1,7 +1,7 @@
 const MultiContainerConstraints = require("../MultiContainerConstraints");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
-const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
+const { SET, ADD_ITEM, ERROR } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerConstraints", function() {
   describe("#JSONReducer", function() {
@@ -55,18 +55,6 @@ describe("MultiContainerConstraints", function() {
       ]);
     });
 
-    it("ignores non-array constraints", function() {
-      expect(
-        MultiContainerConstraints.JSONParser({
-          scheduling: {
-            placement: {
-              constraints: {}
-            }
-          }
-        })
-      ).toEqual([]);
-    });
-
     it("ignores null/undefined states", function() {
       expect(MultiContainerConstraints.JSONParser(null)).toEqual([]);
     });
@@ -84,6 +72,36 @@ describe("MultiContainerConstraints", function() {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+      ]);
+    });
+
+    it("adds error transaction if constraints are not a list", function() {
+      expect(
+        MultiContainerConstraints.JSONParser({
+          scheduling: {
+            placement: {
+              constraints: { fieldName: "hostname", operator: "JOIN" }
+            }
+          }
+        })
+      ).toEqual([new Transaction(["constraints"], "not-list", ERROR)]);
+    });
+
+    it("adds error transaction when constraint item is not an object", function() {
+      expect(
+        MultiContainerConstraints.JSONParser({
+          scheduling: {
+            placement: {
+              constraints: [["hostname", "UNIQUE"]]
+            }
+          }
+        })
+      ).toEqual([
+        new Transaction(
+          ["constraints", 0, "value"],
+          "value-not-converted-to-object",
+          ERROR
+        )
       ]);
     });
   });
