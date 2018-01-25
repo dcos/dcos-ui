@@ -41,25 +41,6 @@ const CMDORDOCKERIMAGE_ERRORS = [
   }
 ];
 
-const COMPLYWITHRESIDENCY_ERRORS = [
-  {
-    path: ["residency"],
-    message: "AppDefinition must contain persistent volumes and define residency",
-    type: "PROP_MISSING_ALL",
-    variables: {
-      names: "residency, container.volumes"
-    }
-  },
-  {
-    path: ["container", "volumes"],
-    message: "AppDefinition must contain persistent volumes and define residency",
-    type: "PROP_MISSING_ALL",
-    variables: {
-      names: "residency, container.volumes"
-    }
-  }
-];
-
 const MUSTCONTAINIMAGEONDOCKER_ERRORS = [
   {
     path: ["container", "docker", "image"],
@@ -194,59 +175,6 @@ describe("MarathonAppValidators", function() {
       const spec = { container: { appc: { image: "foo", id: "sha512-test" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
-      );
-    });
-  });
-
-  describe("#complyWithResidencyRules", function() {
-    it("returns no errors if residency and container is undefined", function() {
-      const spec = {};
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
-
-    it("returns no errors if residency and volumes is undefined", function() {
-      const spec = { container: {} };
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
-
-    it("returns no errors if residency is undefined and volumes empty", function() {
-      const spec = { container: { volumes: [] } };
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
-
-    it("returns no errors if residency and persistent is undefined", function() {
-      const spec = { container: { volumes: [{}] } };
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
-
-    it("returns no errors if both of residency and persistent is defined", function() {
-      const spec = {
-        residency: "foo",
-        container: { volumes: [{ persistent: { size: "524288" } }] }
-      };
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual([]);
-    });
-
-    it("returns errors if only `residency` defined", function() {
-      const spec = { residency: "foo" };
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual(
-        COMPLYWITHRESIDENCY_ERRORS
-      );
-    });
-
-    it("returns errors if only `persistentVolumes` defined", function() {
-      const spec = {
-        container: { volumes: [{ persistent: { size: "524288" } }] }
-      };
-
-      expect(MarathonAppValidators.complyWithResidencyRules(spec)).toEqual(
-        COMPLYWITHRESIDENCY_ERRORS
       );
     });
   });

@@ -3,7 +3,6 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import {
   PROP_CONFLICT,
   PROP_DEPRECATED,
-  PROP_MISSING_ALL,
   PROP_MISSING_ONE,
   SYNTAX_ERROR
 } from "../constants/ServiceErrorTypes";
@@ -92,39 +91,6 @@ const MarathonAppValidators = {
       { path: ["args"], message, type, variables },
       { path: ["container", "docker", "image"], message, type, variables }
     ];
-  },
-
-  /**
-   * @param {Object} app - The data to validate
-   * @returns {Array} Returns an array with validation errors
-   */
-  complyWithResidencyRules(app) {
-    const hasAppResidency = !ValidatorUtil.isEmpty(app.residency);
-    let hasPersistentVolumes = false;
-
-    // Check if app has at leas one persistent volume
-    if (app.container && app.container.volumes) {
-      hasPersistentVolumes = app.container.volumes.some(
-        volume => !ValidatorUtil.isEmpty(volume.persistent)
-      );
-    }
-
-    if (hasAppResidency !== hasPersistentVolumes) {
-      const message =
-        "AppDefinition must contain persistent volumes and " +
-        "define residency";
-      const type = PROP_MISSING_ALL;
-      const variables = {
-        names: "residency, container.volumes"
-      };
-
-      return [
-        { path: ["residency"], message, type, variables },
-        { path: ["container", "volumes"], message, type, variables }
-      ];
-    }
-
-    return [];
   },
 
   /**

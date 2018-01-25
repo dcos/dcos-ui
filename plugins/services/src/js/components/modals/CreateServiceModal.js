@@ -96,7 +96,6 @@ const METHODS_TO_BIND = [
 const APP_VALIDATORS = [
   AppValidators.App,
   MarathonAppValidators.containsCmdArgsOrContainer,
-  MarathonAppValidators.complyWithResidencyRules,
   MarathonAppValidators.mustContainImageOnDocker,
   MarathonAppValidators.validateConstraints,
   MarathonAppValidators.validateLabels,
