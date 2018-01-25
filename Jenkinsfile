@@ -27,31 +27,31 @@ pipeline {
       }
     }
 
-    stage('Debug') {
-      parallel {
-        stage('Collect') {
-          steps {
-            sh 'touch collected.txt; while [ ! -f done ]; do echo $(date) >> collected.txt; df -h >> collected.txt; sleep 5; done'
-          }
-        }
-        stage('Run') {
-          steps {
-            sleep(5)
+    // stage('Debug') {
+    //   parallel {
+    //     stage('Collect') {
+    //       steps {
+    //         sh 'touch collected.txt; while [ ! -f done ]; do echo $(date) >> collected.txt; df -h >> collected.txt; sleep 5; done'
+    //       }
+    //     }
+    stage('Run') {
+      steps {
+        sleep(5)
 
-            sh 'npm --unsafe-perm install'
+        sh 'npm --unsafe-perm install'
 
-            sh 'npm run scaffold'
-            
-            sh 'npm run stylelint'
-            
-            sh 'npm run eslint'
+        sh 'npm run scaffold'
+        
+        sh 'npm run stylelint'
+        
+        sh 'npm run eslint'
 
-            sh 'npm run test -- --coverage'
+        sh 'npm run test -- --coverage'
 
-            sh 'echo "done" > done'
-          }
-        }
+        sh 'echo "done" > done'
       }
     }
+    //   }
+    // }
   }
 }
