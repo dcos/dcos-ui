@@ -73,6 +73,7 @@ class MesosStateStore extends GetSetBaseStore {
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const dataStream = mesosStream
       .merge(getMasterRequest)
+      .distinctUntilChanged()
       .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
       .do(state => {
         CompositeState.addState(state);
