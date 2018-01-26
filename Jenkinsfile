@@ -27,9 +27,37 @@ pipeline {
         user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
       }
     }
-    stage('Execute') {
+    stage('Install') {
       steps {
         sh 'npm install'
+      }
+    }
+    stage('Run Tests') {
+      parallel {
+        stage('Needs Build') {
+          steps {
+            sh 'npm run build-asset'
+            sh 'echo "RUN INTEGRATION TESTS"'
+          }
+        }
+        stage('Lint') {
+          steps {
+            stage('Build') {
+              sh 'npm run lint'
+            }
+          }
+        }
+        stage('Unit Tests') {
+          steps {
+            stage('Build') {
+              sh 'npm run test'
+            }
+          }
+        }
+      }
+      stage('Publish') {
+        sh 'echo "UPLOAD STUFF"'
+        sh 'ls dist'
       }
     }
   }
