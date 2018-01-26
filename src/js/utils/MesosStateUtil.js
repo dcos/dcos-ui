@@ -300,16 +300,6 @@ const MesosStateUtil = {
     }
 
     return task;
-  },
-
-  indexTasksByID(state) {
-    const { tasks = [] } = state;
-
-    return tasks.reduce((acc, task) => {
-      acc[task.id] = task;
-
-      return acc;
-    }, {});
   }
 };
 

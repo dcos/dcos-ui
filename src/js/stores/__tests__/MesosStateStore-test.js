@@ -382,12 +382,7 @@ describe("MesosStateStore", function() {
         tasks: [{ id: 1 }, { id: 2 }]
       };
 
-      const taskCache = MesosStateUtil.indexTasksByID(data);
-      MesosStateStore.get = function(id) {
-        if (id === "taskCache") {
-          return taskCache;
-        }
-
+      MesosStateStore.get = function() {
         return data;
       };
     });

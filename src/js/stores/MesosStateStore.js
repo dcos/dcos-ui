@@ -24,8 +24,7 @@ class MesosStateStore extends GetSetBaseStore {
     super(...arguments);
 
     this.getSet_data = {
-      lastMesosState: {},
-      taskCache: {}
+      lastMesosState: {}
     };
 
     PluginSDK.addStoreConfig({
@@ -179,13 +178,14 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTaskFromTaskID(taskID) {
-    const taskCache = this.get("taskCache");
-    const foundTask = taskCache[taskID];
-    if (foundTask == null) {
+    const { tasks } = this.getLastMesosState();
+    const task = tasks.find(({ id }) => id === taskID);
+
+    if (!task) {
       return null;
     }
 
-    return new Task(foundTask);
+    return new Task(task);
   }
 
   /**
@@ -277,8 +277,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   setState(state) {
     this.set({
-      lastMesosState: state,
-      taskCache: MesosStateUtil.indexTasksByID(state)
+      lastMesosState: state
     });
   }
 
