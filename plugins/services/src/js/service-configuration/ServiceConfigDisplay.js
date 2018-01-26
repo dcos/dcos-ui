@@ -38,9 +38,9 @@ const DEFAULT_DISPLAY_COMPONENTS = [
       ServicePlacementConstraintsConfigSection,
       ServiceNetworkingConfigSection,
       ServiceStorageConfigSection,
+      ServiceHealthChecksConfigSection,
       ServiceEnvironmentVariablesConfigSection,
-      ServiceLabelsConfigSection,
-      ServiceHealthChecksConfigSection
+      ServiceLabelsConfigSection
     ]
   },
   {
