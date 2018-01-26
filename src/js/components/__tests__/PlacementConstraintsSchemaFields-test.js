@@ -11,7 +11,13 @@ const PlacementValidators = require("#PLUGINS/services/src/js/validators/Placeme
 describe("PlacementConstraintsSchemaField", function() {
   describe("with valid content", function() {
     beforeEach(function() {
+      this.validateNoBatchErrorRestore =
+        PlacementValidators.validateNoBatchError;
       PlacementValidators.validateNoBatchError = () => true;
+    });
+
+    afterEach(function() {
+      PlacementValidators.validateNoBatchError = this.validateNoBatchErrorRestore;
     });
 
     it("displays edit constraints area", function() {
@@ -35,7 +41,13 @@ describe("PlacementConstraintsSchemaField", function() {
 
   describe("with invalid content", function() {
     beforeEach(function() {
+      this.validateNoBatchErrorRestore =
+        PlacementValidators.validateNoBatchError;
       PlacementValidators.validateNoBatchError = () => false;
+    });
+
+    afterEach(function() {
+      PlacementValidators.validateNoBatchError = this.validateNoBatchErrorRestore;
     });
 
     it("displays form to edit constraints", function() {
