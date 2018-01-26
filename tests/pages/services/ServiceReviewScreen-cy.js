@@ -1185,11 +1185,10 @@ describe("Services", function() {
       cy.get("#brace-editor").contents().asJson().should("deep.equal", [
         {
           id: `/${serviceName}`,
-          cmd: cmdline,
-          cpus: 0.1,
-          mem: 10,
           instances: 1,
+          portDefinitions: [],
           container: {
+            type: "MESOS",
             volumes: [
               {
                 persistent: {
@@ -1198,19 +1197,16 @@ describe("Services", function() {
                 mode: "RW",
                 containerPath: "test"
               }
-            ],
-            type: "MESOS"
+            ]
           },
-          residency: {
-            relaunchEscalationTimeoutSeconds: 10,
-            taskLostBehavior: "WAIT_FOREVER"
-          },
-          portDefinitions: [],
+          cpus: 0.1,
+          mem: 10,
           requirePorts: false,
           networks: [],
           healthChecks: [],
           fetch: [],
-          constraints: []
+          constraints: [],
+          cmd: "while true ; do echo 'test' > test/echo ; sleep 100 ; done"
         }
       ]);
 
