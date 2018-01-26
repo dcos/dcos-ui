@@ -22,7 +22,8 @@ describe("tasks parser", function() {
             executor_id: "default",
             framework_id: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-0000",
             resources: {},
-            labels: undefined
+            labels: undefined,
+            isStartedByMarathon: false
           },
           {
             slave_id: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0",
@@ -78,12 +79,18 @@ describe("tasks parser", function() {
               {
                 key: "LABEL_1",
                 value: "VALUE_1"
+              },
+              {
+                key: "DCOS_COMMONS_API_VERSION",
+                value: "1"
               }
             ],
             id: "1",
             task_id: {
               value: "1"
-            }
+            },
+            isStartedByMarathon: false,
+            sdkTask: true
           }
         ]
       });
@@ -126,7 +133,8 @@ describe("tasks parser", function() {
             },
             id: "1",
             resources: {},
-            labels: undefined
+            labels: undefined,
+            isStartedByMarathon: false
           }
         ]
       });

@@ -32,7 +32,24 @@ function processTask(task) {
     return acc;
   }, {});
 
+  if (task.labels != null) {
+    if (task.labels.some(({ key }) => key === "DCOS_COMMONS_API_VERSION")) {
+      task.sdkTask = true;
+    }
+    if (task.labels.some(({ key }) => key === "DCOS_PACKAGE_FRAMEWORK_NAME")) {
+      task.isSchedulerTask = true;
+    }
+  }
+
   return task;
+}
+
+function getMarathonId(frameworks = []) {
+  const { id: marathonId } = frameworks.find(
+    ({ name }) => name === "marathon"
+  ) || {};
+
+  return marathonId;
 }
 
 export function getTasksAction(state, message) {
@@ -40,8 +57,18 @@ export function getTasksAction(state, message) {
     return state;
   }
 
+  const marathonId = getMarathonId(state.frameworks);
+
   const tasks = Object.keys(message.get_tasks).reduce((acc, key) => {
-    return acc.concat(message.get_tasks[key].map(processTask));
+    return acc.concat(
+      message.get_tasks[key].map(task => {
+        const processedTask = processTask(task);
+        processedTask.isStartedByMarathon =
+          marathonId === processedTask.framework_id;
+
+        return processedTask;
+      })
+    );
   }, []);
 
   return Object.assign({}, state, { tasks });
@@ -52,7 +79,9 @@ export function taskAddedAction(state, message) {
     return state;
   }
 
+  const marathonId = getMarathonId(state.frameworks);
   const task = processTask(message.task_added.task);
+  task.isStartedByMarathon = marathonId === task.framework_id;
 
   return Object.assign({}, state, { tasks: [...state.tasks, task] });
 }
@@ -65,7 +94,7 @@ export function taskUpdatedAction(state, message) {
   const taskUpdate = message.task_updated;
   const task_id = scalar(taskUpdate.status.task_id);
   const tasks = state.tasks.map(function(task) {
-    if (task.task_id.value === task_id) {
+    if (task.id === task_id) {
       const statuses = task.statuses || [];
 
       return Object.assign({}, task, {
