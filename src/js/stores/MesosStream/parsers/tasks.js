@@ -64,20 +64,18 @@ export function taskUpdatedAction(state, message) {
 
   const taskUpdate = message.task_updated;
   const task_id = scalar(taskUpdate.status.task_id);
-  const tasks = state.tasks.reduce(function(acc, task) {
+  const tasks = state.tasks.map(function(task) {
     if (task.task_id.value === task_id) {
       const statuses = task.statuses || [];
 
-      return acc.concat(
-        Object.assign({}, task, {
-          state: taskUpdate.state,
-          statuses: [...statuses, taskUpdate.status]
-        })
-      );
+      return Object.assign({}, task, {
+        state: taskUpdate.state,
+        statuses: [...statuses, taskUpdate.status]
+      });
     }
 
-    return acc.concat(task);
-  }, []);
+    return task;
+  });
 
   return Object.assign({}, state, { tasks });
 }
