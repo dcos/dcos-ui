@@ -99,7 +99,7 @@ class MesosStateStore extends GetSetBaseStore {
     // LEAST once every tick of Config.getRefreshRate() ms in Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-    waitStream
+    this.stream = waitStream
       .concat(eventTriggerStream)
       .debounceTime(Config.getRefreshRate() * 0.5)
       .subscribe(this.onStreamData, this.onStreamError);
