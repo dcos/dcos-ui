@@ -110,7 +110,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       <span>
         {`This host port will be accessible as an environment variable called ${environmentVariableName}'. `}
         <a
-          href="https://mesosphere.github.io/marathon/docs/ports.html"
+          href="https://docs.mesosphere.com/1.11/deploying-services/service-ports/"
           target="_blank"
         >
           More information
@@ -196,7 +196,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const loadBalancerDocsURI = MetadataStore.buildDocsURI(
-      "/usage/service-discovery/load-balancing-vips"
+      "/deploying-services/service-endpoints/"
     );
     const loadBalancerTooltipContent = (
       <span>
@@ -256,7 +256,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     const assignTooltip = (
       <span>
         {"Most services will use TCP. "}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html">
+        <a
+          href="https://docs.mesosphere.com/1.11/deploying-services/service-ports/"
+          target="_blank"
+        >
           More information
         </a>
         .
@@ -455,7 +458,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       <span>
         {"Choose BRIDGE, HOST, or USER networking. Refer to the "}
         <a
-          href="https://mesosphere.github.io/marathon/docs/ports.html"
+          href="https://docs.mesosphere.com/1.11/deploying-services/service-ports/"
           target="_blank"
         >
           ports documentation
@@ -464,7 +467,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI(
-      "/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
+      "/deploying-services/service-endpoints/"
     );
     const serviceEndpointsTooltipContent = (
       <span>
