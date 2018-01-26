@@ -51,9 +51,9 @@ const DEFAULT_DISPLAY_COMPONENTS = [
       PodPlacementConstraintsConfigSection,
       PodNetworkConfigSection,
       PodStorageConfigSection,
+      PodHealthChecksConfigSection,
       PodEnvironmentVariablesConfigSection,
-      PodLabelsConfigSection,
-      PodHealthChecksConfigSection
+      PodLabelsConfigSection
     ]
   }
 ];
