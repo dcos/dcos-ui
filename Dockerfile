@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM node:alpine
 
 # Copy required files in order to be able to do npm install
 WORKDIR /dcos-ui

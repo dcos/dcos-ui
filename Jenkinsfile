@@ -29,7 +29,7 @@ pipeline {
     }
     stage('Execute') {
       steps {
-        sh 'free -m'
+        sh 'npm install'
       }
     }
   }
