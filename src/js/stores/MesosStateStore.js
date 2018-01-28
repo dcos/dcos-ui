@@ -27,6 +27,10 @@ class MesosStateStore extends GetSetBaseStore {
       lastMesosState: {}
     };
 
+    this.resolveStream = function storedStream() {
+      return this.buildStream();
+    };
+
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
@@ -64,6 +68,18 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   subscribe() {
+    this.stream = this.resolveStream();
+  }
+
+  withStream(customStream) {
+    this.resolveStream = function resolveStream() {
+      return customStream || this.buildStream();
+    };
+
+    return this;
+  }
+
+  buildStream() {
     const mesosStream = container.get(MesosStreamType);
     const getMasterRequest = request(
       { type: "GET_MASTER" },
@@ -97,7 +113,7 @@ class MesosStateStore extends GetSetBaseStore {
     // LEAST once every tick of Config.getRefreshRate() ms in Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-    this.stream = waitStream
+    return waitStream
       .concat(eventTriggerStream)
       .debounceTime(Config.getRefreshRate() * 0.5)
       .subscribe(this.onStreamData, this.onStreamError);
