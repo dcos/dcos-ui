@@ -80,10 +80,10 @@ module.exports = class ApplicationSpec extends ServiceSpec {
    */
   getResources() {
     return {
-      cpus: this.get("cpus"),
-      mem: this.get("mem"),
-      gpus: this.get("gpus"),
-      disk: this.get("disk")
+      cpus: this.get("cpus") || 0,
+      mem: this.get("mem") || 0,
+      gpus: this.get("gpus") || 0,
+      disk: this.get("disk") || 0
     };
   }
 
