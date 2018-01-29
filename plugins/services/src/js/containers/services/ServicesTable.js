@@ -391,29 +391,6 @@ class ServicesTable extends React.Component {
     );
   }
 
-  renderInstances(prop, service) {
-    const instancesCount = service.getInstancesCount();
-    const runningInstances = service.getRunningInstancesCount();
-    const overview = runningInstances === instancesCount
-      ? ` ${runningInstances}`
-      : ` ${runningInstances}/${instancesCount}`;
-
-    const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
-    const tooltipContent = (
-      <span>
-        {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`}
-      </span>
-    );
-
-    return (
-      <Tooltip content={tooltipContent}>
-        <span>
-          {content}
-        </span>
-      </Tooltip>
-    );
-  }
-
   getCellClasses(prop, sortBy, row) {
     const isHeader = row == null;
 
