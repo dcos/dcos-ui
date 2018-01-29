@@ -24,10 +24,7 @@ module.exports = {
   environment,
   scaling,
   labels,
-  scheduling(
-    state = { residency: {}, placement: { constraints: [] } },
-    transaction
-  ) {
+  scheduling(state = { placement: { constraints: [] } }, transaction) {
     const constraintsState = state != null && state.placement != null
       ? state.placement.constraints
       : [];
