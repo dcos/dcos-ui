@@ -32,13 +32,13 @@ describe("Service", function() {
     });
   });
 
-  describe("#getTaskCount", function() {
+  describe("#getRunningInstancesCount", function() {
     it("returns the number of reported tasks", function() {
       const service = new Service({
         tasks: [{ foo: "bar" }, { bar: "baz" }]
       });
 
-      expect(service.getTaskCount()).toEqual(2);
+      expect(service.getRunningInstancesCount()).toEqual(2);
     });
 
     it("returns 0 when the tasks array is empty", function() {
@@ -46,7 +46,7 @@ describe("Service", function() {
         tasks: []
       });
 
-      expect(service.getTaskCount()).toEqual(0);
+      expect(service.getRunningInstancesCount()).toEqual(0);
     });
 
     it("defaults to 0 if the tasks key is omitted", function() {
@@ -54,7 +54,7 @@ describe("Service", function() {
         id: "/foo/bar"
       });
 
-      expect(service.getTaskCount()).toEqual(0);
+      expect(service.getRunningInstancesCount()).toEqual(0);
     });
   });
 

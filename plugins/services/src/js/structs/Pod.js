@@ -22,7 +22,7 @@ module.exports = class Pod extends Service {
     this._spec = new PodSpec(this.get("spec"));
   }
 
-  countRunningInstances() {
+  getRunningInstancesCount() {
     return this.getInstanceList().reduceItems(function(counter, instance) {
       if (instance.isRunning()) {
         return counter + 1;
@@ -124,7 +124,7 @@ module.exports = class Pod extends Service {
    */
   getServiceStatus() {
     const scalingInstances = this.getSpec().getScalingInstances();
-    const runningInstances = this.countRunningInstances();
+    const runningInstances = this.getRunningInstancesCount();
     const nonterminalInstances = this.countNonTerminalInstances();
 
     if (nonterminalInstances === 0 && scalingInstances === 0) {

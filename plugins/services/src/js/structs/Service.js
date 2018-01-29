@@ -64,7 +64,7 @@ module.exports = class Service extends Item {
     return 0;
   }
 
-  getTaskCount() {
+  getRunningInstancesCount() {
     return (this.get("tasks") || []).length;
   }
 

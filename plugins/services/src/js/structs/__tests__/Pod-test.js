@@ -13,15 +13,15 @@ describe("Pod", function() {
     });
   });
 
-  describe("#countRunningInstances", function() {
+  describe("#getRunningInstancesCount", function() {
     it("should return the correct value", function() {
       const pod = new Pod(PodFixture);
-      expect(pod.countRunningInstances()).toEqual(2);
+      expect(pod.getRunningInstancesCount()).toEqual(2);
     });
 
     it("should return the correct default value", function() {
       const pod = new Pod();
-      expect(pod.countRunningInstances()).toEqual(0);
+      expect(pod.getRunningInstancesCount()).toEqual(0);
     });
   });
 
