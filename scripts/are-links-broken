@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# example usage: $ are-links-broken 1.11
+#  it will print the links that won't return 200 to stdout: <link> <http-status-code>
+
+docsVersion=$1
+
+files=$(git ls-files)
+for file in $files
+do
+  # skip files types we know won't contain links
+  matchesNonCodeFile=$(echo $file | grep -Eo "(\.gif|\.png|\.svg)")
+  if [ "${matchesNonCodeFile}" ]; then
+    continue
+  fi
+
+  # find the easy urls that have https or https
+  urls=$(cat $file | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort | uniq)
+
+  for url in $urls
+  do
+    status=$(curl -o /dev/null -Isw '%{http_code}\n' $url)
+    if [ $status != 200 ]; then
+      echo $url $status
+    fi
+  done
+
+
+  # find the urls built from buildDocsURI() method
+  docsUrls=$(cat $file | tr -d "\n" |  grep -Eo "MetadataStore\.buildDocsURI\((.*?)\)" | grep -Eo "\"(.*)\"" )
+  prefix="https://dcos.io/docs/$docsVersion"
+  echo $prefix
+
+  for docsUrl in $docsUrls
+  do
+    fullDocsUrl=$prefix${docsUrl:1:${#docsUrl}-2}
+    status=$(curl -o /dev/null -Isw '%{http_code}\n' $fullDocsUrl)
+    if [ $status != 200 ]; then
+      echo $fullDocsUrl $status
+    fi
+  done
+done
