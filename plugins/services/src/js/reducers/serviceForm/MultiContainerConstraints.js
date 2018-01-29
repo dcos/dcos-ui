@@ -22,6 +22,10 @@ module.exports = {
       "scheduling.placement.constraints"
     );
 
+    if (constraints == null) {
+      return [];
+    }
+
     return JSONParser(constraints);
   }
 };

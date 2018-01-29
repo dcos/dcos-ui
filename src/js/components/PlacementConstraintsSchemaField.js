@@ -20,7 +20,34 @@ import CreateServiceModalFormUtil
 import MarathonAppValidators
   from "#PLUGINS/services/src/js/validators/MarathonAppValidators";
 
+import PlacementValidators
+  from "#PLUGINS/services/src/js/validators/PlacementsValidators";
+
 const jsonReducer = combineReducers({ constraints: JSONReducer });
+
+const InvalidJsonField = props => (
+  <div>
+    <FieldLabel>
+      {props.label}
+    </FieldLabel>
+    <pre>
+      {JSON.stringify(props.json, props.replacer, props.space)}
+    </pre>
+    <FieldError>Unable to edit {props.fieldName}</FieldError>
+  </div>
+);
+
+InvalidJsonField.propTypes = {
+  fieldName: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string.isRequired,
+  json: React.PropTypes.object.isRequired,
+  replacer: React.PropTypes.func,
+  space: React.PropTypes.number
+};
+
+InvalidJsonField.defaultProps = {
+  space: 2
+};
 
 export default class PlacementConstraintsSchemaField extends Component {
   constructor(props) {
@@ -83,6 +110,20 @@ export default class PlacementConstraintsSchemaField extends Component {
     const { label, errorMessage } = this.props;
     const { batch } = this.state;
 
+    const appendToList = (memo, transaction) => memo.concat(transaction);
+    const hasBatchErrors = !PlacementValidators.validateNoBatchError(
+      batch.reduce(appendToList, [])
+    );
+
+    if (hasBatchErrors) {
+      const fieldName = this.props.fieldProps.name;
+      const fieldValue = this.props.fieldProps.formData;
+      const json = { [fieldName]: fieldValue };
+
+      return (
+        <InvalidJsonField label={label} fieldName={fieldName} json={json} />
+      );
+    }
     const data = { constraints: batch.reduce(FormReducer) };
     const errors = DataValidatorUtil.errorArrayToMap(
       MarathonAppValidators.validateConstraints(

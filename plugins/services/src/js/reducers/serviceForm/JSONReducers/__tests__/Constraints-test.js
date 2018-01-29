@@ -1,4 +1,4 @@
-const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
+const { SET, ADD_ITEM, ERROR } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Transaction = require("#SRC/js/structs/Transaction");
 const Constraints = require("../Constraints");
@@ -59,28 +59,6 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("ignores non-array constraints", function() {
-      expect(
-        Constraints.JSONParser({
-          constraints: {
-            fieldName: "hostname",
-            operator: "JOIN",
-            value: "param"
-          }
-        })
-      ).toEqual([]);
-    });
-
-    it("ignores non-array constraint items", function() {
-      expect(
-        Constraints.JSONParser({
-          constraints: [
-            { fieldName: "hostname", operator: "JOIN", value: "param" }
-          ]
-        })
-      ).toEqual([]);
-    });
-
     it("ignores null/undefined states", function() {
       expect(Constraints.JSONParser(null)).toEqual([]);
     });
@@ -94,6 +72,28 @@ describe("Constraints", function() {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+      ]);
+    });
+
+    it("adds error transaction if constraints are not a list", function() {
+      expect(
+        Constraints.JSONParser({
+          constraints: { fieldName: "hostname", operator: "JOIN" }
+        })
+      ).toEqual([new Transaction(["constraints"], "not-list", ERROR)]);
+    });
+
+    it("adds error transaction when constraint item is not a list", function() {
+      expect(
+        Constraints.JSONParser({
+          constraints: [{ error: true }]
+        })
+      ).toEqual([
+        new Transaction(
+          ["constraints", 0, "value"],
+          "value-is-malformed",
+          ERROR
+        )
       ]);
     });
   });

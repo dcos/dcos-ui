@@ -1,4 +1,6 @@
+import { ERROR } from "#SRC/js/constants/TransactionTypes";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import Transaction from "#SRC/js/structs/Transaction";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 import { JSONParser, JSONReducer } from "../common/Constraints";
 
@@ -19,12 +21,18 @@ module.exports = {
     const constraints = findNestedPropertyInObject(state, "constraints") || [];
 
     if (!Array.isArray(constraints)) {
-      return [];
+      return [new Transaction(["constraints"], "not-list", ERROR)];
     }
 
     return JSONParser(
       constraints.reduce(function(memo, constraint) {
+        if (constraint == null) {
+          return memo;
+        }
+
         if (!Array.isArray(constraint)) {
+          memo.push({ error: true });
+
           return memo;
         }
         const [fieldName, operator, value] = constraint;
