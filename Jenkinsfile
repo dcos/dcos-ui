@@ -27,6 +27,15 @@ pipeline {
       }
     }
 
+    stage('Install Correct Node Version') {
+      steps {
+        ansiColor('xterm') {
+          sh 'npm install -g n'
+          sh 'n 8.9.4'
+        }
+      }
+    }
+
     stage('Initialization') {
       steps {
         ansiColor('xterm') {
