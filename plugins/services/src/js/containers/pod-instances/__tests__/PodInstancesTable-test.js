@@ -190,9 +190,9 @@ describe("PodInstancesTable", function() {
           .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
-          "8/29/2016, 3:01:01 AM",
-          "8/29/2016, 3:01:01 AM",
-          "8/29/2016, 3:01:01 AM"
+          new Date(PodFixture.spec.version).toLocaleString(),
+          new Date(PodFixture.spec.version).toLocaleString(),
+          new Date(PodFixture.spec.version).toLocaleString()
         ]);
       });
     });
@@ -436,9 +436,9 @@ describe("PodInstancesTable", function() {
           .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
-          "8/29/2016, 3:01:01 AM",
-          "8/29/2016, 3:01:01 AM",
-          "8/29/2016, 3:01:01 AM"
+          new Date(PodFixture.spec.version).toLocaleString(),
+          new Date(PodFixture.spec.version).toLocaleString(),
+          new Date(PodFixture.spec.version).toLocaleString()
         ]);
       });
     });
