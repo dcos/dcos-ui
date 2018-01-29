@@ -17,8 +17,8 @@
   },
   "license": "Apache-2.0",
   "engines": {
-    "node": "4.4.x",
-    "npm": "3.9.x"
+    "node": "8.9.x",
+    "npm": "5.6.x"
   },
   "browserslist": [
     "last 2 versions",
