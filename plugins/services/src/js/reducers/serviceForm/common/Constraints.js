@@ -74,7 +74,7 @@ module.exports = {
         return memo;
       }
 
-      if (item.error) {
+      if (item instanceof Error) {
         memo.push(
           new Transaction(
             ["constraints", index, "value"],

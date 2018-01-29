@@ -31,7 +31,7 @@ module.exports = {
         }
 
         if (!Array.isArray(constraint)) {
-          memo.push({ error: true });
+          memo.push(new Error("constraint is not array"));
 
           return memo;
         }
