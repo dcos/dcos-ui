@@ -3,6 +3,7 @@ import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a multiline value as a <ConfigurationMapValue>, within the
@@ -26,7 +27,7 @@ class ConfigurationMapMultilineValue extends React.Component {
 }
 
 ConfigurationMapMultilineValue.defaultProps = {
-  defaultValue: <em>Not Configured</em>,
+  defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   value: ""
 };
 

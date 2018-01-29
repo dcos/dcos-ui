@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
-
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil.js";
-
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
+
 /**
  * Optimized method to check if all row props are empty for a given column
  *
@@ -98,7 +98,7 @@ class ConfigurationMapTable extends React.Component {
           className = "",
           heading,
           hideIfEmpty = false,
-          placeholder = <em>Not Configured</em>,
+          placeholder = <em>{EmptyStates.CONFIG_VALUE}</em>,
           prop,
           render = defaultRenderFunction
         } = column;

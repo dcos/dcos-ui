@@ -95,7 +95,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
     });
 
     it("renders proper review screen and JSON for an app with artifacts", function() {
@@ -199,12 +199,12 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
         .configurationMapValue("Container Image")
-        .contains("Not Supported");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
@@ -332,7 +332,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
@@ -458,7 +458,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
@@ -586,7 +586,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
@@ -710,12 +710,12 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
         .configurationMapValue("Container Image")
-        .contains("Not Supported");
+        .contains("\u2014");
 
       cy
         .root()
@@ -839,7 +839,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()
@@ -975,7 +975,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
       cy
         .root()
         .configurationSection("Service")
@@ -1117,7 +1117,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()
@@ -1238,7 +1238,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()
@@ -1363,7 +1363,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()
@@ -1409,7 +1409,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Protocol")
         .contents()
-        .should("deep.equal", ["Not Configured"]);
+        .should("deep.equal", ["\u2014"]);
 
       cy
         .root()
@@ -1597,7 +1597,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Protocol")
         .contents()
-        .should("deep.equal", ["Not Configured", "tcp"]);
+        .should("deep.equal", ["\u2014", "tcp"]);
 
       cy
         .root()

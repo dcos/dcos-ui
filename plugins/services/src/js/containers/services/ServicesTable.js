@@ -7,6 +7,7 @@ import React from "react";
 import { Hooks } from "PluginSDK";
 
 import StringUtil from "#SRC/js/utils/StringUtil";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
@@ -393,7 +394,9 @@ class ServicesTable extends React.Component {
       ? ` ${runningInstances}`
       : ` ${runningInstances}/${instancesCount}`;
 
-    const content = !Number.isInteger(instancesCount) ? "\u2014" : overview;
+    const content = !Number.isInteger(instancesCount)
+      ? EmptyStates.CONFIG_VALUE
+      : overview;
     const tooltipContent = (
       <span>
         {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`}

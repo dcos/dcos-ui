@@ -4,6 +4,7 @@ import React from "react";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import Units from "#SRC/js/utils/Units";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a size value as a <ConfigurationMapValue>, with it's values being
@@ -39,7 +40,7 @@ class ConfigurationMapSizeValue extends React.Component {
 
 ConfigurationMapSizeValue.defaultProps = {
   decimals: 2,
-  defaultValue: <em>Not Configured</em>,
+  defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   multiplier: 1024,
   scale: 1024 * 1024,
   threshold: 800,
