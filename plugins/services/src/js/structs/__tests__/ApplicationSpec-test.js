@@ -288,6 +288,17 @@ describe("ApplicationSpec", function() {
         disk: 0
       });
     });
+
+    it("returns zeros by default", function() {
+      const service = new ApplicationSpec({});
+
+      expect(service.getResources()).toEqual({
+        cpus: 0,
+        mem: 0,
+        gpus: 0,
+        disk: 0
+      });
+    });
   });
 
   describe("#getUpdateStrategy", function() {

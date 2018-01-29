@@ -102,7 +102,7 @@ module.exports = class Framework extends Application {
         return task.state === "TASK_RUNNING" && !task.isStartedByMarathon;
       })
       .reduce(function(memo, task) {
-        const { cpus, mem, gpus, disk } = task.resources;
+        const { cpus = 0, mem = 0, gpus = 0, disk = 0 } = task.resources;
 
         return {
           cpus: memo.cpus + cpus,
