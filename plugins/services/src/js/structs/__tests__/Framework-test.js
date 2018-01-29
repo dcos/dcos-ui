@@ -235,12 +235,12 @@ describe("Framework", function() {
             id: "/fake_1",
             isStartedByMarathon: true,
             state: "TASK_RUNNING",
-            resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
+            resources: { cpus: 0.2, mem: 300, gpus: 0 }
           },
           {
             id: "/fake_2",
             state: "TASK_RUNNING",
-            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 1000 }
           },
           {
             id: "/fake_2",
@@ -260,7 +260,7 @@ describe("Framework", function() {
         cpus: 1.8,
         mem: 1700,
         gpus: 0,
-        disk: 0
+        disk: 1000
       });
     });
   });
