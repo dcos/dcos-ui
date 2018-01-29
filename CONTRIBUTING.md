@@ -351,14 +351,13 @@ To setup cypress you need to follow the following steps:
 
 We rely on a very specific version of cypress, and cypress desktop app.
 ```sh
-  npm install -g cypress-cli@0.14.0
-  cypress install —cypress-version 0.19.1
+  npm install cypress@1.4.1
 ```
 
 3. Open Cypress.
 
   ```sh
-  cypress open
+  ./node_modules/.bin/cypress open
   ```
 
 4. The following window should open. Login via GitHub.
