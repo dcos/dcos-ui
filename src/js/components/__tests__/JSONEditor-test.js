@@ -222,7 +222,7 @@ describe("JSONEditor", function() {
       );
 
       expect(instance.getNewJsonState("{")).toEqual({
-        jsonError: "SyntaxError: Unexpected end of input",
+        jsonError: "SyntaxError: Unexpected end of JSON input",
         jsonMeta: [],
         jsonText: "{",
         jsonValue: {}
