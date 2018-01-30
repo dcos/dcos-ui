@@ -82,7 +82,7 @@ describe("PodInstancesTable", function() {
     describe("collapsed table", function() {
       beforeEach(function() {
         this.instance = TestUtils.renderIntoDocument(
-          <PodInstancesTable pod={pod} />
+          <PodInstancesTable pod={pod} instances={pod.getInstanceList().list} />
         );
       });
 
@@ -201,6 +201,7 @@ describe("PodInstancesTable", function() {
         const component = JestUtil.stubRouterContext(
           PodInstancesTable,
           { pod },
+          { instances: pod.getInstanceList().list },
           { service: pod }
         );
         this.instance = TestUtils.renderIntoDocument(component);
@@ -235,6 +236,7 @@ describe("PodInstancesTable", function() {
         const component = JestUtil.stubRouterContext(
           PodInstancesTable,
           { pod },
+          { instances: pod.getInstanceList().list },
           { service: pod }
         );
         this.instance = TestUtils.renderIntoDocument(component);
@@ -270,6 +272,7 @@ describe("PodInstancesTable", function() {
         const component = JestUtil.stubRouterContext(
           PodInstancesTable,
           { pod },
+          { instances: pod.getInstanceList().list },
           { service: pod }
         );
         this.instance = TestUtils.renderIntoDocument(component);

@@ -1,50 +1,37 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import classNames from "classnames";
+
+import DSLFilterField from "#SRC/js/components/DSLFilterField";
+import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import Icon from "#SRC/js/components/Icon";
+import FilterBar from "#SRC/js/components/FilterBar";
 import Pod from "../../structs/Pod";
-import PodInstanceList from "../../structs/PodInstanceList";
 import PodInstancesTable from "./PodInstancesTable";
-import PodUtil from "../../utils/PodUtil";
-import PodViewFilter from "./PodViewFilter";
+import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
-const METHODS_TO_BIND = [
-  "handleFilterChange",
-  "handleFilterReset",
-  "handleKillClick",
-  "handleKillAndScaleClick",
-  "handleSelectionChange"
-];
+import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
+import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
+import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
+import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
+
+const METHODS_TO_BIND = ["handleKillClick", "handleSelectionChange"];
 
 class PodInstancesView extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      filter: {
-        text: "",
-        status: "active"
-      },
       selectedItems: []
     };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  getInstanceFilterStatus(instance) {
-    if (instance.isStaging()) {
-      return "staged";
-    }
-
-    if (instance.isRunning()) {
-      return "active";
-    }
-
-    return "completed";
   }
 
   getKillButtons() {
@@ -65,19 +52,6 @@ class PodInstancesView extends React.Component {
     );
   }
 
-  handleFilterChange(filter) {
-    this.setState({ filter });
-  }
-
-  handleFilterReset() {
-    this.setState({
-      filter: {
-        text: "",
-        status: "all"
-      }
-    });
-  }
-
   handleKillClick() {
     const { selectedItems } = this.state;
 
@@ -91,67 +65,99 @@ class PodInstancesView extends React.Component {
     });
   }
 
-  handleKillAndScaleClick() {
-    const { selectedItems } = this.state;
-
-    if (!selectedItems.length) {
-      return;
-    }
-
-    this.context.modalHandlers.killPodInstances({
-      action: "stop",
-      selectedItems
-    });
-  }
-
   handleSelectionChange(selectedItems) {
     this.setState({ selectedItems });
   }
 
-  render() {
-    const { filter } = this.state;
-    const { instances } = this.props;
+  getFilterBar() {
+    const {
+      filters,
+      filterExpression,
+      handleExpressionChange,
+      defaultFilterData
+    } = this.props;
 
-    let filteredTextItems = instances;
-    let filteredItems = instances;
+    const filterExpressionValue = filterExpression.value;
 
-    if (filter.text) {
-      filteredTextItems = instances.filterItems(instance => {
-        return PodUtil.isInstanceOrChildrenMatchingText(instance, filter.text);
-      });
-      filteredItems = filteredTextItems;
-    }
-
-    if (filter.status && filter.status !== "all") {
-      filteredItems = filteredTextItems.filterItems(instance => {
-        return this.getInstanceFilterStatus(instance) === filter.status;
-      });
-    }
+    const hostClasses = classNames({
+      "column-medium-5": !filterExpressionValue,
+      "column-medium-12": filterExpressionValue
+    });
 
     return (
-      <div>
-        <FilterHeadline
-          currentLength={filteredItems.getItems().length}
-          isFiltering={filter.text || filter.status !== "all"}
-          name="Instance"
-          onReset={this.handleFilterReset}
-          totalLength={instances.getItems().length}
+      <div className={hostClasses}>
+        <DSLFilterField
+          filters={filters}
+          formSections={[
+            TaskStatusDSLSection,
+            TaskZoneDSLSection,
+            TaskRegionDSLSection,
+            FuzzyTextDSLSection
+          ]}
+          defaultData={defaultFilterData}
+          expression={filterExpression}
+          onChange={handleExpressionChange}
         />
-        <PodViewFilter
-          filter={filter}
-          items={filteredTextItems.getItems()}
-          onFilterChange={this.handleFilterChange}
-          statusChoices={["all", "active", "completed"]}
-          statusMapper={this.getInstanceFilterStatus}
-        >
-          {this.getKillButtons()}
-        </PodViewFilter>
+      </div>
+    );
+  }
+
+  render() {
+    const {
+      inverseStyle,
+      instances,
+      totalInstances,
+      handleExpressionChange,
+      filterExpression
+    } = this.props;
+
+    const { selectedItems } = this.state;
+
+    let rightAlignLastNChildren = 0;
+    let filterTextExpression = [];
+    let filterText = "";
+
+    if (filterExpression.ast) {
+      filterTextExpression = filterExpression.ast.children.filter(function(
+        filter
+      ) {
+        return filter.filterType === DSLFilterTypes.FUZZY;
+      });
+      filterText = filterTextExpression.length > 0
+        ? filterTextExpression[0].filterParams.text
+        : filterExpression.ast.filterParams.text;
+    }
+
+    const hasCheckedTasks = Object.keys(selectedItems).length !== 0;
+
+    if (hasCheckedTasks) {
+      rightAlignLastNChildren = 1;
+    }
+
+    const mergedTasks = instances.map(TaskMergeDataUtil.mergeData);
+
+    return (
+      <div className="flex-container-col flex-grow">
+        <FilterHeadline
+          currentLength={mergedTasks.length}
+          inverseStyle={inverseStyle}
+          name={"Instance"}
+          totalLength={totalInstances}
+          onReset={() => handleExpressionChange({ value: "" })}
+        />
+        <div className="filter-tasks-bar">
+          <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
+            {this.getFilterBar()}
+            {this.getKillButtons()}
+          </FilterBar>
+        </div>
         <PodInstancesTable
-          filterText={filter.text}
-          instances={filteredItems}
+          instances={mergedTasks}
           onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod}
+          filterText={filterText}
         />
+
       </div>
     );
   }
@@ -164,9 +170,20 @@ PodInstancesView.contextTypes = {
   router: routerShape
 };
 
+PodInstancesView.defaultProps = {
+  inverseStyle: false,
+  instances: [],
+  totalInstances: 0,
+  handleExpressionChange() {}
+};
+
 PodInstancesView.propTypes = {
-  instances: PropTypes.instanceOf(PodInstanceList).isRequired,
-  pod: PropTypes.instanceOf(Pod).isRequired
+  inverseStyle: PropTypes.bool,
+  instances: PropTypes.instanceOf(Array).isRequired,
+  pod: PropTypes.instanceOf(Pod).isRequired,
+  totalInstances: PropTypes.number.isRequired,
+  handleExpressionChange: PropTypes.func.isRequired,
+  filters: PropTypes.instanceOf(DSLFilterList)
 };
 
 module.exports = PodInstancesView;

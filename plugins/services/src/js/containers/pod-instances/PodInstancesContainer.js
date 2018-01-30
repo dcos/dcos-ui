@@ -1,3 +1,4 @@
+import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -5,6 +6,16 @@ import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import DSLExpression from "#SRC/js/structs/DSLExpression";
+import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
+import PodInstanceStatusFilter
+  from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
+import TasksZoneFilter from "#PLUGINS/services/src/js/filters/TasksZoneFilter";
+import TasksRegionFilter
+  from "#PLUGINS/services/src/js/filters/TasksRegionFilter";
+import PodInstanceTextFilter
+  from "#PLUGINS/services/src/js/filters/PodInstanceTextFilter";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
@@ -13,6 +24,7 @@ import PodInstancesView from "./PodInstancesView";
 import PodUtil from "../../utils/PodUtil";
 import ServiceActionItem from "../../constants/ServiceActionItem";
 import TaskModals from "../../components/modals/TaskModals";
+import TaskUtil from "../../utils/TaskUtil";
 
 import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
@@ -23,6 +35,7 @@ const METHODS_TO_BIND = [
   "handleMesosStateChange",
   "handleServerAction",
   "handleModalClose",
+  "handleExpressionChange",
   "clearActionError",
   "killPodInstances"
 ];
@@ -34,7 +47,13 @@ class PodInstancesContainer extends React.Component {
     this.state = {
       actionErrors: {},
       lastUpdate: 0,
-      pendingActions: {}
+      pendingActions: {},
+      filterExpression: new DSLExpression(""),
+      filters: new DSLFilterList([
+        new PodInstanceStatusFilter(),
+        new PodInstanceTextFilter()
+      ]),
+      defaultFilterData: { zones: [], regions: [] }
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -52,6 +71,10 @@ class PodInstancesContainer extends React.Component {
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
   }
 
+  componentWillMount() {
+    this.propsToState(this.props);
+  }
+
   componentWillUnmount() {
     MesosStateStore.removeChangeListener(
       EventTypes.MESOS_STATE_CHANGE,
@@ -59,6 +82,91 @@ class PodInstancesContainer extends React.Component {
     );
 
     AppDispatcher.unregister(this.dispatcher);
+  }
+
+  handleExpressionChange(filterExpression) {
+    const { router } = this.context;
+    const { location: { pathname } } = this.props;
+    router.push({ pathname, query: { q: filterExpression.value } });
+
+    this.setState({ filterExpression });
+  }
+
+  propsToState(props) {
+    const historicalInstances = MesosStateStore.getPodHistoricalInstances(
+      props.pod
+    );
+
+    const instances = PodUtil.mergeHistoricalInstanceList(
+      props.pod.getInstanceList(),
+      historicalInstances
+    );
+
+    const {
+      defaultFilterData: { regions },
+      defaultFilterData: { zones },
+      filterExpression
+    } = this.state;
+
+    const query = props.location &&
+      props.location.query &&
+      props.location.query.q !== undefined
+      ? props.location.query["q"]
+      : "is:active";
+
+    const newZones = Array.from(
+      new Set(
+        instances.getItems().reduce(function(prev, task) {
+          const node = TaskUtil.getNode(task);
+
+          if (!node || node.getZoneName() === "N/A") {
+            return prev;
+          }
+          prev.push(node.getZoneName());
+
+          return prev;
+        }, [])
+      )
+    );
+
+    const newRegions = Array.from(
+      new Set(
+        instances.getItems().reduce(function(prev, task) {
+          const node = TaskUtil.getNode(task);
+
+          if (!node || node.getRegionName() === "N/A") {
+            return prev;
+          }
+          prev.push(node.getRegionName());
+
+          return prev;
+        }, [])
+      )
+    );
+
+    // If no region/ zones added from props return
+    if (
+      newRegions.length === regions.length &&
+      newRegions.every(region => regions.indexOf(region) !== -1) &&
+      newZones.length === zones.length &&
+      newZones.every(zone => zones.indexOf(zone) !== -1) &&
+      filterExpression.value === query
+    ) {
+      return;
+    }
+
+    const filters = new DSLFilterList([
+      new PodInstanceStatusFilter(),
+      new TasksZoneFilter(newZones),
+      new TasksRegionFilter(newRegions),
+      new PodInstanceTextFilter()
+    ]);
+
+    this.setState({
+      filterExpression: new DSLExpression(query),
+      filters,
+      defaultFilterData: { regions: newRegions, zones: newZones }
+    });
   }
 
   getChildContext() {
@@ -203,12 +311,15 @@ class PodInstancesContainer extends React.Component {
 
   render() {
     const { pod } = this.props;
-
+    const { filterExpression, filters, defaultFilterData } = this.state;
     const historicalInstances = MesosStateStore.getPodHistoricalInstances(pod);
+
     let instances = PodUtil.mergeHistoricalInstanceList(
       pod.getInstanceList(),
       historicalInstances
     );
+
+    const totalInstances = instances.getItems().length;
 
     instances = instances.mapItems(function(instance) {
       instance.agent = MesosStateStore.getNodeFromHostname(
@@ -218,9 +329,24 @@ class PodInstancesContainer extends React.Component {
       return instance;
     });
 
+    if (filterExpression.defined) {
+      instances.getItems().forEach(instance => {
+        instance.podSpec = pod.getSpec();
+      });
+      instances = filterExpression.filter(filters, instances);
+    }
+
     return (
       <div>
-        <PodInstancesView instances={instances} pod={pod} />
+        <PodInstancesView
+          pod={pod}
+          instances={instances.getItems()}
+          totalInstances={totalInstances}
+          handleExpressionChange={this.handleExpressionChange}
+          filters={filters}
+          filterExpression={filterExpression}
+          defaultFilterData={defaultFilterData}
+        />
         {this.getModals()}
       </div>
     );
@@ -233,6 +359,10 @@ PodInstancesContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
     killPodInstances: PropTypes.func
   })
+};
+
+PodInstancesContainer.contextTypes = {
+  router: routerShape
 };
 
 PodInstancesContainer.propTypes = {

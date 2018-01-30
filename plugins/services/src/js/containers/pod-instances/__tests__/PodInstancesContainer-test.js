@@ -67,20 +67,11 @@ describe("PodInstancesContainer", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesContainer,
-          { pod },
-          { service: pod }
-        );
+        const component = JestUtil.stubRouterContext(PodInstancesContainer, {
+          pod,
+          location: { pathname: "", query: { q: "instance-1" } }
+        });
         this.instance = TestUtils.renderIntoDocument(component);
-
-        const searchInput = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance,
-          "filter-input-text"
-        );
-
-        searchInput.value = "instance-1";
-        TestUtils.Simulate.change(searchInput);
       });
 
       it("returns matching instances", function() {
@@ -104,18 +95,13 @@ describe("PodInstancesContainer", function() {
         // the are creating <Link /> instances.
         const component = JestUtil.stubRouterContext(
           PodInstancesContainer,
-          { pod },
+          {
+            pod,
+            location: { pathname: "", query: { q: "container-1 is:active" } }
+          },
           { service: pod }
         );
         this.instance = TestUtils.renderIntoDocument(component);
-
-        const searchInput = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance,
-          "filter-input-text"
-        );
-
-        searchInput.value = "container-1";
-        TestUtils.Simulate.change(searchInput);
       });
 
       it("returns matching instances and containers", function() {
@@ -161,18 +147,13 @@ describe("PodInstancesContainer", function() {
         // the are creating <Link /> instances.
         const component = JestUtil.stubRouterContext(
           PodInstancesContainer,
-          { pod },
+          {
+            pod,
+            location: { pathname: "", query: { q: "" } }
+          },
           { service: pod }
         );
         this.instance = TestUtils.renderIntoDocument(component);
-
-        const buttons = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance,
-          "button-group"
-        ).querySelectorAll("button");
-
-        // First button is 'All'
-        TestUtils.Simulate.click(buttons[0]);
       });
 
       it("shows all instances", function() {
@@ -196,19 +177,13 @@ describe("PodInstancesContainer", function() {
         // the are creating <Link /> instances.
         const component = JestUtil.stubRouterContext(
           PodInstancesContainer,
-          { pod },
+          {
+            pod,
+            location: { pathname: "", query: { q: "is:completed" } }
+          },
           { service: pod }
         );
         this.instance = TestUtils.renderIntoDocument(component);
-
-        const buttons = TestUtils.findRenderedDOMComponentWithClass(
-          this.instance,
-          "button-group"
-        ).querySelectorAll("button");
-
-        // Third button is 'Completed'
-        // (We have no such instances in our mock data)
-        TestUtils.Simulate.click(buttons[2]);
       });
 
       it("shows no instances", function() {

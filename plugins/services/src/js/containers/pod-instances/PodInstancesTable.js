@@ -14,11 +14,9 @@ import Units from "#SRC/js/utils/Units";
 import TableUtil from "#SRC/js/utils/TableUtil";
 
 import Pod from "../../structs/Pod";
-import PodInstanceList from "../../structs/PodInstanceList";
-import PodInstanceStatus from "../../constants/PodInstanceStatus";
-import PodTableHeaderLabels from "../../constants/PodTableHeaderLabels";
 import PodUtil from "../../utils/PodUtil";
 import InstanceUtil from "../../utils/InstanceUtil";
+import PodTableHeaderLabels from "../../constants/PodTableHeaderLabels";
 
 const tableColumnClasses = {
   checkbox: "task-table-column-checkbox",
@@ -65,8 +63,8 @@ class PodInstancesTable extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { checkedItems } = this.state;
-    const prevInstances = this.props.instances.getItems();
-    const nextInstances = nextProps.instances.getItems();
+    const prevInstances = this.props.instances;
+    const nextInstances = nextProps.instances;
 
     // When the `instances` property is changed and we have selected
     // items, re-trigger selection change in order to remove checked
@@ -81,7 +79,7 @@ class PodInstancesTable extends React.Component {
   }
 
   triggerSelectionChange(checkedItems, instances) {
-    const checkedItemInstances = instances.getItems().filter(function(item) {
+    const checkedItemInstances = instances.filter(function(item) {
       return checkedItems[item.getId()];
     });
     this.props.onSelectionChange(checkedItemInstances);
@@ -274,19 +272,21 @@ class PodInstancesTable extends React.Component {
   }
 
   getDisabledItemsMap(instanceList) {
-    return instanceList.reduceItems(function(memo, instance) {
-      if (!instance.isRunning()) {
-        memo[instance.getId()] = true;
-      }
+    const disabledItems = {};
 
-      return memo;
-    }, {});
+    instanceList.forEach(function(instance) {
+      if (!instance.isRunning()) {
+        disabledItems[instance.getId()] = true;
+      }
+    });
+
+    return disabledItems;
   }
 
   getTableDataFor(instances, filterText) {
     const podSpec = this.props.pod.getSpec();
 
-    return instances.getItems().map(instance => {
+    return instances.map(instance => {
       const containers = instance.getContainers().filter(function(container) {
         return PodUtil.isContainerMatchingText(container, filterText);
       });
@@ -310,25 +310,6 @@ class PodInstancesTable extends React.Component {
         children
       };
     });
-  }
-
-  getInstanceFilterStatus(instance) {
-    const status = instance.getInstanceStatus();
-    switch (status) {
-      case PodInstanceStatus.STAGED:
-        return "staged";
-
-      case PodInstanceStatus.HEALTHY:
-      case PodInstanceStatus.UNHEALTHY:
-      case PodInstanceStatus.RUNNING:
-        return "active";
-
-      case PodInstanceStatus.KILLED:
-        return "completed";
-
-      default:
-        return "";
-    }
   }
 
   renderWithClickHandler(rowOptions, content, className) {
@@ -510,9 +491,9 @@ class PodInstancesTable extends React.Component {
     // If custom list of instances is not provided, use the default instances
     // from the pod
     if (instances == null) {
-      instances = pod.getInstanceList();
+      instances = pod.getInstanceList().list;
     }
-    const disabledItems = this.getDisabledItemsMap(instances);
+    const disabledItemsMap = this.getDisabledItemsMap(instances);
 
     return (
       <ExpandingTable
@@ -523,8 +504,8 @@ class PodInstancesTable extends React.Component {
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.getTableDataFor(instances, filterText)}
-        disabledItemsMap={disabledItems}
-        inactiveItemsMap={disabledItems}
+        disabledItemsMap={disabledItemsMap}
+        inactiveItemsMap={disabledItemsMap}
         expandAll={!!filterText}
         getColGroup={this.getColGroup}
         onCheckboxChange={this.handleItemCheck}
@@ -546,7 +527,7 @@ PodInstancesTable.defaultProps = {
 
 PodInstancesTable.propTypes = {
   filterText: PropTypes.string,
-  instances: PropTypes.instanceOf(PodInstanceList),
+  instances: PropTypes.instanceOf(Array),
   inverseStyle: PropTypes.bool,
   onSelectionChange: PropTypes.func,
   pod: PropTypes.instanceOf(Pod).isRequired

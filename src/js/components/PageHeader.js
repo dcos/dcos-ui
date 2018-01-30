@@ -66,7 +66,11 @@ class PageHeader extends React.Component {
       .filter(action => action.label === "Edit")
       .map(action => {
         return (
-          <a className="button  button-primary" onClick={action.onItemSelect}>
+          <a
+            key={action.label}
+            className="button button-primary"
+            onClick={action.onItemSelect}
+          >
             {editIcon}
             <span>
               {action.label}
