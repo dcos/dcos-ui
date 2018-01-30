@@ -312,7 +312,9 @@ class GeneralServiceFormSection extends Component {
           "Include the path to your service, if applicable. E.g. /dev/tools/my-service. "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/application-groups.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/creating-services/"
+          )}
           target="_blank"
         >
           More information

@@ -91,7 +91,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       <span>
         {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
         <a
-          href="https://docs.mesosphere.com/1.11/deploying-services/service-ports/"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/"
+          )}
           target="_blank"
         >
           More information
@@ -316,7 +318,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       <span>
         {"Most services will use TCP. "}
         <a
-          href="https://docs.mesosphere.com/1.11/deploying-services/service-ports/"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/"
+          )}
           target="_blank"
         >
           More information
@@ -694,7 +698,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           "Choose container/bridge, host, or container networking. Refer to the "
         }
         <a
-          href="https://docs.mesosphere.com/1.11/deploying-services/service-ports/"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/"
+          )}
           target="_blank"
         >
           ports documentation

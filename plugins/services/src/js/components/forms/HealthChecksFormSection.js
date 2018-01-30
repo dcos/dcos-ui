@@ -20,6 +20,7 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent
   from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Icon from "#SRC/js/components/Icon";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
@@ -407,7 +408,9 @@ class HealthChecksFormSection extends Component {
         <span>
           {"You have several protocol options. "}
           <a
-            href="https://mesosphere.github.io/marathon/docs/health-checks.html"
+            href={MetadataStore.buildDocsURI(
+              "/deploying-services/creating-services/health-checks/"
+            )}
             target="_blank"
           >
             More Information
@@ -476,7 +479,9 @@ class HealthChecksFormSection extends Component {
         and 399 inclusive, and (2) its response is received within the
         timeoutSeconds period. `}
         <a
-          href="https://mesosphere.github.io/marathon/docs/health-checks.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/creating-services/health-checks/"
+          )}
           target="_blank"
         >
           More Information

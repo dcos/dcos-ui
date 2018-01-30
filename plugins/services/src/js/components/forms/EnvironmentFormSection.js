@@ -169,7 +169,9 @@ class EnvironmentFormSection extends Component {
           "DC/OS also exposes environment variables for host ports and metdata. "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/#environment-variables"
+          )}
           target="_blank"
         >
           More information

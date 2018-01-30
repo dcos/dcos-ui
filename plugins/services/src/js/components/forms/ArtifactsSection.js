@@ -12,6 +12,7 @@ import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormRow from "#SRC/js/components/form/FormRow";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 class ArtifactsSection extends Component {
   getArtifactsLabel() {
@@ -21,7 +22,9 @@ class ArtifactsSection extends Component {
           "If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/creating-services/"
+          )}
           target="_blank"
         >
           More information
