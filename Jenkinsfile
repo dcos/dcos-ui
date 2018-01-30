@@ -7,13 +7,14 @@ def master_branches = ["master", ] as String[]
 pipeline {
   agent {
     dockerfile {
-      args  '--shm-size=2g'
+      args  '--shm-size=8g'
     }
   }
 
   environment {
-    JENKINS_VERSION = 'yes'
-    NODE_PATH = 'node_modules'
+    JENKINS_VERSION       = 'YES'
+    AWS_ACCESS_KEY_ID     = credentials('3f0dbb48-de33-431f-b91c-2366d2f0e1cf')
+    AWS_SECRET_ACCESS_KEY = credentials('f585ec9a-3c38-4f67-8bdb-79e5d4761937')
   }
 
   options {
@@ -26,97 +27,37 @@ pipeline {
         user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
       }
     }
-
-    stage('Initialization') {
+    stage('Install') {
       steps {
-        ansiColor('xterm') {
-          retry(2) {
-            sh '''npm --unsafe-perm install'''
+        sh 'npm install'
+      }
+    }
+    stage('Run Tests') {
+      parallel {
+        stage('Needs Build') {
+          steps {
+            sh 'npm run build-asset'
+            sh 'echo "RUN INTEGRATION TESTS"'
           }
-
-          sh '''npm run scaffold'''
         }
-      }
-    }
-
-    stage('Lint') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run lint'''
+        stage('Lint') {
+          steps {
+            stage('Build') {
+              sh 'npm run lint'
+            }
+          }
         }
-      }
-    }
-
-    stage('Unit Test') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run test -- --coverage'''
-        }
-      }
-
-      post {
-        always {
-          junit 'jest/test-results/*.xml'
-          step([$class             : 'CoberturaPublisher',
-                autoUpdateHealth   : false,
-                autoUpdateStability: false,
-                coberturaReportFile: 'coverage/cobertura-coverage.xml',
-                failUnhealthy      : true,
-                failUnstable       : true,
-                maxNumberOfBuilds  : 0,
-                onlyStable         : false,
-                sourceEncoding     : 'ASCII',
-                zoomCoverageChart  : false])
-        }
-      }
-    }
-
-    stage('Build') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run build-assets'''
-        }
-      }
-
-      post {
-        always {
-          stash includes: 'dist/*', name: 'dist'
-        }
-      }
-
-    }
-
-    stage('Integration Test') {
-      steps {
-        // Run a simple webserver serving the dist folder statically
-        // before we run the cypress tests
-        writeFile file: 'integration-tests.sh', text: [
-          'export PATH=`pwd`/node_modules/.bin:$PATH',
-          'http-server -p 4200 dist&',
-          'SERVER_PID=$!',
-          'npm run cypress -- --reporter junit --reporter-options \'mochaFile=cypress/results.xml\'',
-          'RET=$?',
-          'echo "cypress exit status: ${RET}"',
-          'sleep 10',
-          'echo "kill server"',
-          'kill $SERVER_PID',
-          'exit $RET'
-        ].join('\n')
-
-        unstash 'dist'
-
-        ansiColor('xterm') {
-          retry(2) {
-            sh '''bash integration-tests.sh'''
+        stage('Unit Tests') {
+          steps {
+            stage('Build') {
+              sh 'npm run test'
+            }
           }
         }
       }
-
-      post {
-        always {
-          archiveArtifacts 'cypress/**/*'
-          junit 'cypress/*.xml'
-        }
+      stage('Publish') {
+        sh 'echo "UPLOAD STUFF"'
+        sh 'ls dist'
       }
     }
   }
