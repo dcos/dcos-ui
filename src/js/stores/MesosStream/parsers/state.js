@@ -26,7 +26,10 @@ export default function getStateAction(state, message) {
     type: GET_TASKS,
     get_tasks: message.get_state.get_tasks
   };
-  const tasksPartial = getTasksAction({}, getTasksMessage);
+  const tasksPartial = getTasksAction(
+    { ...frameworksPartial },
+    getTasksMessage
+  );
 
   const getExecutorsMessage = {
     type: GET_EXECUTORS,
