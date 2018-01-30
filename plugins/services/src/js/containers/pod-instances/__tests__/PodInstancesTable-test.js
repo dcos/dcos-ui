@@ -114,6 +114,28 @@ describe("PodInstancesTable", function() {
         expect(names).toEqual(["agent-1", "agent-2", "agent-3"]);
       });
 
+      it("renders the region column", function() {
+        var regions = TestUtils.scryRenderedDOMComponentsWithClass(
+          this.instance,
+          "task-table-column-region"
+        )
+          .filter(JestUtil.filterByTagName("TD"))
+          .map(JestUtil.mapTextContent);
+
+        expect(regions).toEqual(["N/A", "N/A", "N/A"]);
+      });
+
+      it("renders the zone column", function() {
+        var zones = TestUtils.scryRenderedDOMComponentsWithClass(
+          this.instance,
+          "task-table-column-zone"
+        )
+          .filter(JestUtil.filterByTagName("TD"))
+          .map(JestUtil.mapTextContent);
+
+        expect(zones).toEqual(["N/A", "N/A", "N/A"]);
+      });
+
       it("renders the status column", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
           this.instance,
