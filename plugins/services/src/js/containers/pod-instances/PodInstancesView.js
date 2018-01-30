@@ -123,9 +123,14 @@ class PodInstancesView extends React.Component {
       ) {
         return filter.filterType === DSLFilterTypes.FUZZY;
       });
-      filterText = filterTextExpression.length > 0
-        ? filterTextExpression[0].filterParams.text
-        : filterExpression.ast.filterParams.text;
+
+      let filterParams = { text: "" };
+      if (filterTextExpression.length > 0) {
+        filterParams = filterTextExpression[0].filterParams;
+      } else if (filterExpression.ast.filterParams) {
+        filterParams = filterExpression.ast.filterParams;
+      }
+      filterText = filterParams.text;
     }
 
     const hasCheckedTasks = Object.keys(selectedItems).length !== 0;
