@@ -14,6 +14,7 @@ pipeline {
   environment {
     JENKINS_VERSION = 'yes'
     NODE_PATH = 'node_modules'
+    INSTALLER_URL= 'https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh'
   }
 
   options {
@@ -131,14 +132,14 @@ pipeline {
 
     stage('System Test') {
      steps {
-       withCredentials(
-         [
-           string(
-             credentialsId: '8e2b2400-0f14-4e4d-b319-e1360f97627d',
-             variable: 'CCM_AUTH_TOKEN'
-           )
-         ]
-       ) {
+       withCredentials([
+          [
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+          ]
+        ]) {
          unstash 'dist'
 
          ansiColor('xterm') {
