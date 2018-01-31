@@ -116,7 +116,7 @@ class PodStorageConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>Storage</ConfigurationMapHeading>
+        <ConfigurationMapHeading level={1}>Volumes</ConfigurationMapHeading>
         <ConfigurationMapSection key="pod-general-section">
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:Pod:Storage"

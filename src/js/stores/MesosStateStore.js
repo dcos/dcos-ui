@@ -4,7 +4,6 @@ import { Observable } from "rxjs/Observable";
 
 import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
-import DCOSStore from "./DCOSStore";
 import Framework from "../../../plugins/services/src/js/structs/Framework";
 import GetSetBaseStore from "./GetSetBaseStore";
 import {
@@ -25,8 +24,7 @@ class MesosStateStore extends GetSetBaseStore {
     super(...arguments);
 
     this.getSet_data = {
-      lastMesosState: {},
-      taskCache: {}
+      lastMesosState: {}
     };
 
     PluginSDK.addStoreConfig({
@@ -75,8 +73,8 @@ class MesosStateStore extends GetSetBaseStore {
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const dataStream = mesosStream
       .merge(getMasterRequest)
+      .distinctUntilChanged()
       .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
-      .map(MesosStateUtil.flagMarathonTasks)
       .do(state => {
         CompositeState.addState(state);
         this.setState(state);
@@ -169,40 +167,26 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromNodeID(nodeID) {
-    const { tasks, frameworks } = this.getLastMesosState();
-    const memberTasks = {};
+    const { tasks } = this.getLastMesosState();
 
     const schedulerTasks = this.getSchedulerTasks();
 
-    tasks.forEach(function(task) {
-      const framework = frameworks.find(
-        current => current.id === task.framework_id
+    return tasks
+      .filter(({ slave_id }) => slave_id === nodeID)
+      .map(task =>
+        MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
       );
-      if (task.slave_id === nodeID) {
-        // Need to get service from Marathon because we need the labels.
-        const service = DCOSStore.serviceTree.findItem(function(item) {
-          return (
-            item instanceof Framework &&
-            item.getFrameworkName() === framework.name
-          );
-        });
-        task = MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks);
-        task = MesosStateUtil.flagSDKTask(task, service);
-        memberTasks[task.id] = task;
-      }
-    });
-
-    return Object.values(memberTasks);
   }
 
   getTaskFromTaskID(taskID) {
-    const taskCache = this.get("taskCache");
-    const foundTask = taskCache[taskID];
-    if (foundTask == null) {
+    const { tasks } = this.getLastMesosState();
+    const task = tasks.find(({ id }) => id === taskID);
+
+    if (!task) {
       return null;
     }
 
-    return new Task(foundTask);
+    return new Task(task);
   }
 
   /**
@@ -211,23 +195,13 @@ class MesosStateStore extends GetSetBaseStore {
   getSchedulerTasks() {
     const tasks = this.getTasksFromServiceName("marathon");
 
-    return tasks.filter(function({ labels }) {
-      if (!labels) {
-        return false;
-      }
-
-      return labels.some(({ key }) => key === "DCOS_PACKAGE_FRAMEWORK_NAME");
-    });
+    return tasks.filter(({ isSchedulerTask }) => isSchedulerTask);
   }
 
   getSchedulerTaskFromServiceName(serviceName) {
     const tasks = this.getSchedulerTasks();
 
     return tasks.find(function({ labels }) {
-      if (!labels) {
-        return false;
-      }
-
       return labels.some(({ key, value }) => {
         return key === "DCOS_PACKAGE_FRAMEWORK_NAME" && value === serviceName;
       });
@@ -246,9 +220,7 @@ class MesosStateStore extends GetSetBaseStore {
     });
 
     if (framework) {
-      return tasks.filter(task => task != null).filter(task => {
-        return task.framework_id === framework.id;
-      });
+      return tasks.filter(({ framework_id }) => framework_id === framework.id);
     }
 
     return [];
@@ -285,23 +257,16 @@ class MesosStateStore extends GetSetBaseStore {
           .filter(task => task.framework_id === framework.id)
           .map(task =>
             MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
-          )
-          .map(task => MesosStateUtil.flagSDKTask(task, service));
+          );
       }
     }
 
-    const marathon = frameworks.find(framework => {
-      return framework.name === "marathon";
-    });
-
     return tasks
-      .filter(task => task.framework_id === marathon.id)
-      .filter(({ name }) => name === mesosTaskName)
-      .concat(serviceTasks)
+      .filter(task => task.isStartedByMarathon && task.name === mesosTaskName)
       .map(task =>
         MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
       )
-      .map(task => MesosStateUtil.flagSDKTask(task, service));
+      .concat(serviceTasks);
   }
 
   getRunningTasksFromVirtualNetworkName(overlayName) {
@@ -313,8 +278,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   setState(state) {
     this.set({
-      lastMesosState: state,
-      taskCache: MesosStateUtil.indexTasksByID(state)
+      lastMesosState: state
     });
   }
 

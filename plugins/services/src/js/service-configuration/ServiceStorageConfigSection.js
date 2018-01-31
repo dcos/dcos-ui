@@ -61,6 +61,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
       tabViewID: "volumes",
       values: [
         {
+          key: "container.volumes",
           heading: "Volumes",
           headingLevel: 1
         }

@@ -1,0 +1,52 @@
+exports[`PlacementConstraintsSchemaField with invalid content displays form to edit constraints 1`] = `
+<div>
+  <label
+    className="">
+    label
+  </label>
+  <pre>
+    {
+      \"placement_constraints\": \"[\'hostname\', \'MAX_PER\', \'2\']\"
+    }
+  </pre>
+  <p
+    className="form-control-feedback">
+    Unable to edit 
+    placement_constraints
+  </p>
+</div>
+`;
+
+exports[`PlacementConstraintsSchemaField with valid content displays edit constraints area 1`] = `
+<div>
+  <label
+    className="">
+    label
+  </label>
+  <div
+    onChange={[Function]}>
+    <div>
+      <div
+        className="form-row row">
+        <div
+          className="form-group column-12">
+          <a
+            className="button button-primary-link button-flush"
+            onClick={[Function]}>
+            <svg
+              className="icon icon-purple icon-tiny">
+              <use
+                xlinkHref="#icon-system--plus" />
+            </svg>
+            <span>
+              Add Placement Constraint
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p
+    className="form-control-feedback" />
+</div>
+`;

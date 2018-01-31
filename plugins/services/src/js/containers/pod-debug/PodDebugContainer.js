@@ -226,7 +226,7 @@ class PodDebugTabView extends React.Component {
     }
 
     return (
-      <Alert>
+      <Alert showIcon={false} type="warning">
         {
           "DC/OS has been waiting for resources and is unable to complete this deployment for "
         }

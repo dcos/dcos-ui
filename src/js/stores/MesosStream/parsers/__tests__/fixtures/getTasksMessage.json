@@ -105,6 +105,10 @@
             {
               "key": "LABEL_1",
               "value": "VALUE_1"
+            },
+            {
+              "key": "DCOS_COMMONS_API_VERSION",
+              "value": "1"
             }
           ]
         },
