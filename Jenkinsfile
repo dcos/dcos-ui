@@ -128,5 +128,34 @@ pipeline {
         }
       }
     }
+
+    stage('System Test') {
+     steps {
+       withCredentials(
+         [
+           string(
+             credentialsId: '8e2b2400-0f14-4e4d-b319-e1360f97627d',
+             variable: 'CCM_AUTH_TOKEN'
+           )
+         ]
+       ) {
+         unstash 'dist'
+
+         ansiColor('xterm') {
+           retry(2) {
+             sh '''dcos-system-test-driver -v ./system-tests/driver-config/jenkins.sh'''
+           }
+         }
+       }
+
+     }
+
+     post {
+       always {
+         archiveArtifacts 'results/**/*'
+         junit 'results/results.xml'
+       }
+     }
+   }
   }
 }
