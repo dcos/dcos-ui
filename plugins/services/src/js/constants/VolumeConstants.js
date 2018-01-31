@@ -4,7 +4,8 @@ module.exports = {
     ephemeral: "EPHEMERAL",
     localPersistent: "PERSISTENT",
     dss: "DSS",
-    unknown: "UNKNOWN"
+    unknown: "UNKNOWN",
+    external: "EXTERNAL"
   },
   mode: {
     rw: "RW",
