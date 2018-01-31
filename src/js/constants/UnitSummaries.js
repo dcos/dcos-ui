@@ -5,21 +5,19 @@ const UnitSummaries = {
   "dcos-marathon.service": {
     summary: `The ${Config.productName} Marathon instance starts and monitors ${Config.productName} applications and services.`,
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI("/overview/components/");
+      return MetadataStore.buildDocsURI("/overview/architecture/components/");
     }
   },
   "dcos-mesos-dns.service": {
     summary: "Mesos DNS provides service discovery within the cluster.",
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI("/overview/components/");
+      return MetadataStore.buildDocsURI("/overview/architecture/components/");
     }
   },
   "dcos-mesos-master.service": {
     summary: "The Mesos master process orchestrates agent tasks.",
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI(
-        "/getting-started/installing/installing-enterprise-edition/troubleshooting/#scrollNav-2"
-      );
+      return MetadataStore.buildDocsURI("/installing/ent/");
     }
   },
   "dcos-signal.service": {
@@ -31,15 +29,13 @@ const UnitSummaries = {
   "dcos-gen-resolvconf.timer": {
     summary: "Sets the dcos-gen-resolvconf.service to be run once a minute.",
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI(
-        "/getting-started/installing/installing-enterprise-edition/troubleshooting/#scrollNav-2"
-      );
+      return MetadataStore.buildDocsURI("/installing/ent/");
     }
   },
   "dcos-exhibitor.service": {
     summary: `Manages ${Config.productName} in-cluster Zookeeper, used by Mesos as well as ${Config.productName} Marathon.`,
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI("/getting-started/overview/");
+      return MetadataStore.buildDocsURI("/overview/what-is-dcos/");
     }
   },
   "dcos-history-service.service": {
@@ -81,9 +77,7 @@ const UnitSummaries = {
   "dcos-gunicorn-bouncer.service": {
     summary: "Processes login requests from users, as well as checking if an authorization token is valid.",
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI(
-        "/installing-enterprise-edition-1-6/security-and-authentication/"
-      );
+      return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-adminrouter-reload.service": {
@@ -125,17 +119,13 @@ const UnitSummaries = {
   "dcos-gen-resolvconf.service": {
     summary: "Periodically writes /etc/resolv.conf so that only currently active Mesos masters with working Mesos DNS are in it.",
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI(
-        "/getting-started/installing/installing-enterprise-edition/troubleshooting/#scrollNav-6"
-      );
+      return MetadataStore.buildDocsURI("/installing/ent/");
     }
   },
   "dcos-mesos-slave-public": {
     summary: "Runs a publicly accessible Mesos agent on the node.",
     getDocumentationURI() {
-      return MetadataStore.buildDocsURI(
-        "/administration/dcosarchitecture/security/#scrollNav-3"
-      );
+      return MetadataStore.buildDocsURI("/security/");
     }
   }
 };

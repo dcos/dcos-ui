@@ -184,7 +184,7 @@ class EnvironmentFormSection extends Component {
           "For example, you could label services “staging” and “production” to mark them by their position in the pipeline. "
         }
         <a
-          href={MetadataStore.buildDocsURI("/usage/tutorials/task-labels/")}
+          href={MetadataStore.buildDocsURI("/tutorials/task-labels/")}
           target="_blank"
         >
           More information

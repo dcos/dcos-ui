@@ -400,7 +400,7 @@ class GeneralServiceFormSection extends Component {
               "Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. "
             }
             <a
-              href={MetadataStore.buildDocsURI("/usage/pods/")}
+              href={MetadataStore.buildDocsURI("/deploying-services/pods/")}
               target="_blank"
             >
               More information
