@@ -81,31 +81,31 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1 (0.1 container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB (10 MiB container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
@@ -274,19 +274,19 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.2 (0.1 first-container, 0.1 second-container)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("20 MiB (10 MiB first-container, 10 MiB second-container)");
 
@@ -435,37 +435,37 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1 (0.1 container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB (32 MiB container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
@@ -501,7 +501,7 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Network")
+        .configurationSection("Networking")
         .configurationMapValue("Network Type")
         .contains("Container");
 
@@ -616,37 +616,37 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1 (0.1 container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB (10 MiB container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
@@ -807,31 +807,31 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1 (0.1 container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB (32 MiB container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
@@ -867,7 +867,7 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Network")
+        .configurationSection("Networking")
         .configurationMapValue("Network Type")
         .contains("Container");
 
@@ -975,37 +975,37 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1 (0.1 container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB (10 MiB container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
@@ -1039,7 +1039,7 @@ describe("Services", function() {
         .configurationMapValue("Command")
         .contains(command);
 
-      cy.root().configurationSection("Storage").then(function($storageSection) {
+      cy.root().configurationSection("Volumes").then(function($storageSection) {
         const $tableRow = $storageSection
           .find("tbody tr")
           .filter(function(index, row) {
@@ -1160,37 +1160,37 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1 (0.1 container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB (10 MiB container-1)");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
@@ -1350,37 +1350,37 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains(`0.1 (0.1 ${containerName})`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains(`10 MiB (10 MiB ${containerName})`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Supported");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("GPU")
         .contains("Not Supported");
 
