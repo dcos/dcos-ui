@@ -78,15 +78,15 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           },
           {
             key: `container.volumes.${index}.persistent.profileName`,
-            label: "PROFILE NAME"
+            label: "Profile Name"
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: "CONTAINER PATH"
+            label: "Container Path"
           },
           {
             key: `container.volumes.${index}.persistent.size`,
-            label: "SIZE",
+            label: "Size",
             transformValue: this.getVolumeSizeValue
           }
         ];
@@ -101,11 +101,11 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: "CONTAINER PATH"
+            label: "Container Path"
           },
           {
             key: `container.volumes.${index}.persistent.size`,
-            label: "SIZE",
+            label: "Size",
             transformValue: this.getVolumeSizeValue
           }
         ];
@@ -116,7 +116,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         const sizeConfig = [
           {
             key: `container.volumes.${index}.external.size`,
-            label: "SIZE",
+            label: "Size",
             transformValue: value => this.getVolumeSizeValue(value, "EXTERNAL")
           }
         ];
@@ -129,11 +129,11 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           },
           {
             key: `container.volumes.${index}.external.name`,
-            label: "NAME"
+            label: "Name"
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: "CONTAINER PATH"
+            label: "Container Path"
           }
         ].concat(size);
       }
@@ -146,15 +146,15 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: `container.volumes.${index}.hostPath`,
-          label: "HOST PATH"
+          label: "Host Path"
         },
         {
           key: `container.volumes.${index}.containerPath`,
-          label: "CONTAINER PATH"
+          label: "Container Path"
         },
         {
           key: `container.volumes.${index}.mode`,
-          label: "MODE"
+          label: "Mode"
         }
       ];
     });

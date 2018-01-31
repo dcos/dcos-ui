@@ -126,32 +126,21 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Volume")
-        .contents()
-        .should("deep.equal", [`External (${volumeName})`]);
+        .configurationSection("External Persistent Volume")
+        .configurationMapValue("Name")
+        .contains(`${volumeName}`);
+
       cy
         .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Size")
-        .contents()
-        .should("deep.equal", ["1 GiB"]);
+        .configurationSection("External Persistent Volume")
+        .configurationMapValue("Container Path")
+        .contains("test");
+
       cy
         .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Mode")
-        .contents()
-        .should("deep.equal", ["RW"]);
-      cy
-        .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Container Mount Path")
-        .contents()
-        .should("deep.equal", ["test"]);
+        .configurationSection("External Persistent Volume")
+        .configurationMapValue("Size")
+        .contains("1 GiB");
     });
   });
 });

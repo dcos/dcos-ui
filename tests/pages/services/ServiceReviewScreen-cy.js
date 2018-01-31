@@ -1243,12 +1243,13 @@ describe("Services", function() {
       cy
         .root()
         .configurationSection("Local Persistent Volume")
-        .configurationMapValue("CONTAINER PATH")
+        .configurationMapValue("Container Path")
         .contains("test");
+
       cy
         .root()
         .configurationSection("Local Persistent Volume")
-        .configurationMapValue("SIZE")
+        .configurationMapValue("Size")
         .contains("128 MiB");
     });
 
