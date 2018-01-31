@@ -785,6 +785,7 @@ class CreateServiceModal extends Component {
         {
           className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
+          disabled: this.getAllErrors().length > 0,
           label: "Review & Run"
         }
       ];
@@ -795,6 +796,7 @@ class CreateServiceModal extends Component {
         {
           className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
+          disabled: this.getAllErrors().length > 0,
           label: "Review & Run"
         }
       ];
