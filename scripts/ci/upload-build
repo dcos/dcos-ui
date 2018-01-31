@@ -1,0 +1,22 @@
+#!/bin/bash
+set -ex
+
+DIST_PATH=${DIST_PATH:-dist}
+BUILD_PREFIX=${BUILD_PREFIX:-oss}
+
+AWS_BUCKET='downloads.mesosphere.io'
+BUCKET_PATH='dcos-ui'
+
+PKG_VERSION=$(python -c "import sys, json; \
+      pkg = json.load(open('package.json')); \
+      sys.stdout.write(str(pkg['version']));")
+GIT_SHA=$(git rev-parse HEAD)
+
+RELEASE_NAME="$BUILD_PREFIX-$PKG_VERSION-$GIT_SHA.tar.gz"
+
+cd $DIST_PATH
+tar czf "../$RELEASE_NAME" .
+cd ..
+
+
+aws s3 cp $RELEASE_NAME s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME
