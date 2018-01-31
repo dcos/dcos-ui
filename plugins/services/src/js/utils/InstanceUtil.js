@@ -37,8 +37,19 @@ const InstanceUtil = {
   },
 
   getNode(task) {
+    if (!task) {
+      return null;
+    }
+
     const nodesList = CompositeState.getNodesList();
-    const id = (task && task.agent && task.agent.id) || null;
+    let id = null;
+
+    if (task.agent && task.agent.id) {
+      id = task.agent.id;
+    } else if (task.agentId) {
+      id = task.agentId;
+    }
+
     const node = nodesList
       .filter({
         ids: [id]

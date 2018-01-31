@@ -11,9 +11,10 @@ import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 
 import PodInstanceStatusFilter
   from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
-import TasksZoneFilter from "#PLUGINS/services/src/js/filters/TasksZoneFilter";
-import TasksRegionFilter
-  from "#PLUGINS/services/src/js/filters/TasksRegionFilter";
+import PodInstancesZoneFilter
+  from "#PLUGINS/services/src/js/filters/PodInstancesZoneFilter";
+import PodInstancesRegionFilter
+  from "#PLUGINS/services/src/js/filters/PodInstancesRegionFilter";
 import PodInstanceTextFilter
   from "#PLUGINS/services/src/js/filters/PodInstanceTextFilter";
 
@@ -24,7 +25,8 @@ import PodInstancesView from "./PodInstancesView";
 import PodUtil from "../../utils/PodUtil";
 import ServiceActionItem from "../../constants/ServiceActionItem";
 import TaskModals from "../../components/modals/TaskModals";
-import TaskUtil from "../../utils/TaskUtil";
+import InstanceUtil from "../../utils/InstanceUtil";
+import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
@@ -114,10 +116,14 @@ class PodInstancesContainer extends React.Component {
       ? props.location.query["q"]
       : "is:active";
 
+    const mergedInstances = instances
+      .getItems()
+      .map(TaskMergeDataUtil.mergeData);
+
     const newZones = Array.from(
       new Set(
-        instances.getItems().reduce(function(prev, task) {
-          const node = TaskUtil.getNode(task);
+        mergedInstances.reduce(function(prev, instance) {
+          const node = InstanceUtil.getNode(instance);
 
           if (!node || node.getZoneName() === "N/A") {
             return prev;
@@ -131,8 +137,8 @@ class PodInstancesContainer extends React.Component {
 
     const newRegions = Array.from(
       new Set(
-        instances.getItems().reduce(function(prev, task) {
-          const node = TaskUtil.getNode(task);
+        mergedInstances.reduce(function(prev, instance) {
+          const node = InstanceUtil.getNode(instance);
 
           if (!node || node.getRegionName() === "N/A") {
             return prev;
@@ -157,8 +163,8 @@ class PodInstancesContainer extends React.Component {
 
     const filters = new DSLFilterList([
       new PodInstanceStatusFilter(),
-      new TasksZoneFilter(newZones),
-      new TasksRegionFilter(newRegions),
+      new PodInstancesZoneFilter(newZones),
+      new PodInstancesRegionFilter(newRegions),
       new PodInstanceTextFilter()
     ]);
 
