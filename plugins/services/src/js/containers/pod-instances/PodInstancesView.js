@@ -127,7 +127,10 @@ class PodInstancesView extends React.Component {
       let filterParams = { text: "" };
       if (filterTextExpression.length > 0) {
         filterParams = filterTextExpression[0].filterParams;
-      } else if (filterExpression.ast.filterParams) {
+      } else if (
+        filterExpression.ast.filterParams &&
+        !filterExpression.ast.filterParams.label
+      ) {
         filterParams = filterExpression.ast.filterParams;
       }
       filterText = filterParams.text;
