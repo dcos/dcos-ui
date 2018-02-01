@@ -254,19 +254,20 @@ class FrameworkConfigurationForm extends Component {
             {StringUtil.capitalizeEveryWord(props.title)}
           </h1>
         );
-      } else if (level === FrameworkConfigurationConstants.headingLevel.H2) {
+      }
+      if (level === FrameworkConfigurationConstants.headingLevel.H2) {
         return (
           <h2 className="short-bottom">
             {StringUtil.capitalizeEveryWord(props.title)}
           </h2>
         );
-      } else {
-        return (
-          <h3 className="short-bottom">
-            {StringUtil.capitalizeEveryWord(props.title)}
-          </h3>
-        );
       }
+
+      return (
+        <h3 className="short-bottom">
+          {StringUtil.capitalizeEveryWord(props.title)}
+        </h3>
+      );
     };
 
     const jsonEditorPlaceholderClasses = classNames(
