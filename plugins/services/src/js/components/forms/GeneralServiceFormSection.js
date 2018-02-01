@@ -312,7 +312,9 @@ class GeneralServiceFormSection extends Component {
           "Include the path to your service, if applicable. E.g. /dev/tools/my-service. "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/application-groups.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/creating-services/"
+          )}
           target="_blank"
         >
           More information
@@ -398,7 +400,7 @@ class GeneralServiceFormSection extends Component {
               "Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. "
             }
             <a
-              href={MetadataStore.buildDocsURI("/usage/pods/")}
+              href={MetadataStore.buildDocsURI("/deploying-services/pods/")}
               target="_blank"
             >
               More information

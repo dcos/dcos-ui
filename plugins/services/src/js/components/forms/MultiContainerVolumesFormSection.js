@@ -262,7 +262,7 @@ class MultiContainerVolumesFormSection extends Component {
     const tooltipContent = (
       <span>
         {"DC/OS offers several storage options. "}
-        <a href={MetadataStore.buildDocsURI("/usage/storage/")} target="_blank">
+        <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
           More information
         </a>.
       </span>
