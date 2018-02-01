@@ -31,7 +31,7 @@ module.exports = {
         }
 
         if (!Array.isArray(constraint)) {
-          memo.push(new Error("constraint is not array"));
+          memo.push(new Error("value-is-malformed"));
 
           return memo;
         }

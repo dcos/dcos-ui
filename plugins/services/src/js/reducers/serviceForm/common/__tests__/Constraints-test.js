@@ -64,7 +64,9 @@ describe("Constraints", function() {
     });
 
     it("adds error transaction when item flagged as error", function() {
-      expect(Constraints.JSONParser([new Error("any error")])).toEqual([
+      expect(
+        Constraints.JSONParser([new Error("value-is-malformed")])
+      ).toEqual([
         new Transaction(
           ["constraints", 0, "value"],
           "value-is-malformed",
