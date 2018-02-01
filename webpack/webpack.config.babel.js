@@ -163,7 +163,8 @@ module.exports = {
       PluginTestUtils: absPath("src/js/plugin-bridge/PluginTestUtils"),
       "#EXTERNAL_PLUGINS": externalPluginsDir,
       "#PLUGINS": absPath("plugins"),
-      "#SRC": absPath("src")
+      "#SRC": absPath("src"),
+      "#TESTS": absPath("tests")
     },
     extensions: ["", ".js", ".less", ".css"],
     root: [absPath(), absPath("node_modules"), absPath("packages")],
