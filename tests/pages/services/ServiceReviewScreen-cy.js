@@ -1242,32 +1242,15 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Volume")
-        .contents()
-        .should("deep.equal", ["Persistent Local"]);
+        .configurationSection("Local Persistent Volume")
+        .configurationMapValue("Container Path")
+        .contains("test");
+
       cy
         .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Size")
-        .contents()
-        .should("deep.equal", ["128 MiB"]);
-      cy
-        .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Mode")
-        .contents()
-        .should("deep.equal", ["RW"]);
-      cy
-        .root()
-        .configurationSection("Volumes")
-        .children("table")
-        .getTableColumn("Container Mount Path")
-        .contents()
-        .should("deep.equal", ["test"]);
+        .configurationSection("Local Persistent Volume")
+        .configurationMapValue("Size")
+        .contains("128 MiB");
     });
 
     it("renders proper review screen and JSON for an app with service address", function() {
@@ -1450,7 +1433,9 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Load Balanced Address")
         .contents()
-        .should("deep.equal", ["Not Enabled"]);
+        .should(function(elem) {
+          expect(elem[0]).to.equal("Not Enabled");
+        });
     });
 
     it("renders proper review screen and JSON for an app with virtual network", function() {

@@ -20,7 +20,29 @@ describe("ServiceConfigurationContainer", function() {
       lastConfigChangeAt: "2016-03-22T10:46:07.354Z",
       lastScalingAt: "2016-03-22T10:46:07.354Z"
     },
-    versions: new Map([["2016-05-02T16:07:32.583Z", { id: "/test" }]])
+    versions: new Map([
+      [
+        "2016-05-02T16:07:32.583Z",
+        {
+          id: "/test",
+          container: {
+            volumes: [
+              {
+                containerPath: "/mnt/volume",
+                external: {
+                  name: "someVolume",
+                  provider: "dvdi",
+                  options: {
+                    "dvdi/driver": "rexray"
+                  }
+                },
+                mode: "RW"
+              }
+            ]
+          }
+        }
+      ]
+    ])
   });
 
   beforeEach(function() {
@@ -46,18 +68,6 @@ describe("ServiceConfigurationContainer", function() {
       );
 
       expect(serviceSpecView).toBeDefined();
-    });
-
-    it("doesn't pass down onEditClick to ServiceConfigDisplay", function() {
-      var serviceSpecView = TestUtils.findRenderedComponentWithType(
-        this.instance,
-        ServiceConfigDisplay
-      );
-
-      // We should not pass down onEditClick as it will make the `EDIT` button
-      // display. We only want this for the service edit/create flow to jump
-      // back to the form
-      expect(serviceSpecView.props.onEditClick).not.toBeDefined();
     });
   });
 });
