@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
@@ -93,9 +94,9 @@ FrameworkConfigurationReviewScreen.defaultProps = {
 };
 
 FrameworkConfigurationReviewScreen.propTypes = {
-  onEditClick: React.PropTypes.func.isRequired,
-  frameworkData: React.PropTypes.object.isRequired,
-  title: React.PropTypes.string
+  onEditClick: PropTypes.func.isRequired,
+  frameworkData: PropTypes.object.isRequired,
+  title: PropTypes.string
 };
 
 module.exports = FrameworkConfigurationReviewScreen;

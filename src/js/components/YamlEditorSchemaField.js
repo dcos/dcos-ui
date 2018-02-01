@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import AceEditor from "react-ace";
 import "brace/mode/yaml";
@@ -45,13 +46,13 @@ export default class YamlEditorSchemaField extends Component {
 }
 
 YamlEditorSchemaField.propTypes = {
-  label: React.PropTypes.string.isRequired,
-  fieldProps: React.PropTypes.object.isRequired,
-  schema: React.PropTypes.object.isRequired,
-  errorMessage: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node
+  label: PropTypes.string.isRequired,
+  fieldProps: PropTypes.object.isRequired,
+  schema: PropTypes.object.isRequired,
+  errorMessage: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
   ]),
-  autofocus: React.PropTypes.boolean,
-  onChange: React.PropTypes.func
+  autofocus: PropTypes.boolean,
+  onChange: PropTypes.func
 };

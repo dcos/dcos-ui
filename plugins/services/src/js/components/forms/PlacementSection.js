@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
@@ -62,8 +63,8 @@ export default class PlacementSection extends Component {
 }
 
 PlacementSection.propTypes = {
-  data: React.PropTypes.object,
-  onAddItem: React.PropTypes.func,
-  onRemoveItem: React.PropTypes.func,
-  errors: React.PropTypes.object
+  data: PropTypes.object,
+  onAddItem: PropTypes.func,
+  onRemoveItem: PropTypes.func,
+  errors: PropTypes.object
 };

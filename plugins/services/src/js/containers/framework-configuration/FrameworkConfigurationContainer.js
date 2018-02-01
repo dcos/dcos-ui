@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import UniversePackage from "#SRC/js/structs/UniversePackage";
@@ -87,7 +88,7 @@ class FrameworkConfigurationContainer extends React.Component {
 }
 
 FrameworkConfigurationContainer.propTypes = {
-  service: React.PropTypes.instanceOf(Framework).isRequired
+  service: PropTypes.instanceOf(Framework).isRequired
 };
 
 FrameworkConfigurationContainer.contextTypes = {
