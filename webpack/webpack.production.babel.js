@@ -13,8 +13,13 @@ function addImageOptimizer(loader) {
     loader +
     "!image-webpack?" +
     JSON.stringify({
-      progressive: true,
-      svgoPlugins: [{ removeViewBox: false }]
+      mozjpeg: {
+        progressive: true,
+        quality: 65
+      },
+      svgo: {
+        removeViewBox: false
+      }
     })
   );
 }
