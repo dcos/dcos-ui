@@ -14,6 +14,7 @@ pipeline {
   environment {
     JENKINS_VERSION = 'yes'
     NODE_PATH = 'node_modules'
+    INSTALLER_URL= 'https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh'
   }
 
   options {
@@ -24,6 +25,15 @@ pipeline {
     stage('Authorization') {
       steps {
         user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+      }
+    }
+
+    stage('Install Correct Node Version') {
+      steps {
+        ansiColor('xterm') {
+          sh 'npm install -g n'
+          sh 'n 8.9.4'
+        }
       }
     }
 
@@ -119,5 +129,34 @@ pipeline {
         }
       }
     }
+
+    stage('System Test') {
+     steps {
+       withCredentials([
+          [
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+          ]
+        ]) {
+         unstash 'dist'
+
+         ansiColor('xterm') {
+           retry(2) {
+             sh '''dcos-system-test-driver -v ./system-tests/driver-config/jenkins.sh'''
+           }
+         }
+       }
+
+     }
+
+     post {
+       always {
+         archiveArtifacts 'results/**/*'
+         junit 'results/results.xml'
+       }
+     }
+   }
   }
 }
