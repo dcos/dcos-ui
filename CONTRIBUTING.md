@@ -349,15 +349,16 @@ To setup cypress you need to follow the following steps:
 
 1. Install Cypress CLI.
 
-Cypress is a dev dependencies, if you have not installed it yet
-```sh
-  npm install --only=dev
-```
+Cypress is a dev dependency, if you have not installed those yet, run:
+
+  ```sh
+    npm install --only=dev
+  ```
 
 2. Open Cypress.
 
   ```sh
-  npm run cypress
+  ./node_modules/.bin/cypress open
   ```
 
 3. The following window should open. Login via GitHub.
@@ -413,6 +414,12 @@ that, among other things, include:
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
 
 
+3. Run cypress on the command line
+
+Alternatively you can run cypress from the command line.
+  ```sh
+    npm run cypress
+  ```
 ## System Testing
 
 At the System Test level, you want to guarantee that your project works on the 
