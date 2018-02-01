@@ -110,7 +110,7 @@
     "image-webpack-loader": "1.7.0",
     "jasmine-reporters": "2.1.1",
     "jest-cli": "16.0.2",
-    "jest-webpack-alias": "3.3.0",
+    "jest-webpack-alias": "3.3.3",
     "jison-loader": "1.0.0",
     "json-loader": "0.5.4",
     "less": "2.6.1",

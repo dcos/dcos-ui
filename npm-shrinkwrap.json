@@ -10533,9 +10533,9 @@
       }
     },
     "jest-webpack-alias": {
-      "version": "3.3.0",
-      "resolved": "https://registry.npmjs.org/jest-webpack-alias/-/jest-webpack-alias-3.3.0.tgz",
-      "integrity": "sha1-UHMLucOGZcjYrP6EVo1FEt7pV1Q=",
+      "version": "3.3.3",
+      "resolved": "https://registry.npmjs.org/jest-webpack-alias/-/jest-webpack-alias-3.3.3.tgz",
+      "integrity": "sha1-Le8FVFBrarzH0Z086lcpeoRNsxU=",
       "dev": true,
       "requires": {
         "lodash": "3.10.1",
