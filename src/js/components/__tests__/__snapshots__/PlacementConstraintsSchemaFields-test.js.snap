@@ -18,10 +18,23 @@ exports[`PlacementConstraintsSchemaField with invalid content displays form to e
 `;
 
 exports[`PlacementConstraintsSchemaField with valid content displays edit constraints area 1`] = `
-<div>
+<div
+  className="extra-bottom">
   <label
     className="">
-    label
+    <h2>
+      Placement Constraints 
+      <div
+        className="tooltip-wrapper text-align-center"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}>
+        <svg
+          className="icon icon-grey icon-mini">
+          <use
+            xlinkHref="#icon-system--circle-question" />
+        </svg>
+      </div>
+    </h2>
   </label>
   <div
     onChange={[Function]}>
