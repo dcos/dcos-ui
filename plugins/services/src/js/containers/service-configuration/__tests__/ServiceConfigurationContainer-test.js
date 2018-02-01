@@ -49,7 +49,7 @@ describe("ServiceConfigurationContainer", function() {
     this.container = global.document.createElement("div");
     this.instance = ReactDOM.render(
       <ServiceConfigurationContainer
-        onEditClick={() => {}}
+        onEditClick={function() {}}
         service={service}
       />,
       this.container
