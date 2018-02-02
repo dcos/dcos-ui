@@ -99,7 +99,11 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
-  getItemParent(id) {
+  getItemParent(id, parent = null) {
+    if (this.getId() === id) {
+      return parent;
+    }
+
     if (!this.list || this.list.length === 0) {
       return null;
     }
@@ -108,7 +112,7 @@ module.exports = class ServiceTree extends Tree {
 
     this.list.forEach(child => {
       if (child instanceof ServiceTree) {
-        parentFound = child.getItemParent(id);
+        parentFound = child.getItemParent(id, this);
       } else if (child.getId() === id) {
         parentFound = this;
       }
