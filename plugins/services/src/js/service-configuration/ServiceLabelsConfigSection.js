@@ -40,7 +40,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
           render(labelsDataMap) {
             const columns = [
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn(),
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Key"),
                 prop: "key",
                 render: (prop, row) => {
                   return <code>{row[prop]}</code>;
@@ -51,7 +51,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn(),
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Value"),
                 prop: "value",
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-value"

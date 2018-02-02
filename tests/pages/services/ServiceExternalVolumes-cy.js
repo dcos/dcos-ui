@@ -100,54 +100,54 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("64 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Volume")
         .contents()
         .should("deep.equal", [`External (${volumeName})`]);
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Size")
         .contents()
         .should("deep.equal", ["1 GiB"]);
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Mode")
         .contents()
         .should("deep.equal", ["RW"]);
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Container Mount Path")
         .contents()

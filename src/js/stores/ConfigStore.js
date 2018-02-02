@@ -10,6 +10,7 @@ import {
 import AppDispatcher from "../events/AppDispatcher";
 import ConfigActions from "../events/ConfigActions";
 import {
+  APP_STORE_CHANGE,
   CLUSTER_CCID_ERROR,
   CLUSTER_CCID_SUCCESS,
   CONFIG_ERROR,
@@ -63,6 +64,17 @@ class ConfigStore extends GetSetBaseStore {
       }
 
       return true;
+    });
+  }
+
+  set(config) {
+    super.set(config);
+
+    // Dispatch new Store data
+    PluginSDK.dispatch({
+      type: APP_STORE_CHANGE,
+      storeID: this.storeID,
+      data: this.getSet_data
     });
   }
 

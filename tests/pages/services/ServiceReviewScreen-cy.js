@@ -73,27 +73,27 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
     });
@@ -177,37 +177,37 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains("Not Supported");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Command")
         .contains(cmdline);
       cy
@@ -310,32 +310,32 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Docker Engine");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains("nginx");
       cy
@@ -436,32 +436,32 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Docker Engine");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains("python:3");
 
@@ -564,32 +564,32 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.5");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains("python:3");
 
@@ -688,32 +688,32 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.5");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains("Not Supported");
 
@@ -817,27 +817,27 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
 
@@ -953,32 +953,32 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Docker Engine");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains("nginx");
 
@@ -1095,27 +1095,27 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
 
@@ -1216,54 +1216,54 @@ describe("Services", function() {
       // Verify the review screen
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Volume")
         .contents()
         .should("deep.equal", ["Persistent Local"]);
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Size")
         .contents()
         .should("deep.equal", ["128 MiB"]);
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Mode")
         .contents()
         .should("deep.equal", ["RW"]);
       cy
         .root()
-        .configurationSection("Storage")
+        .configurationSection("Volumes")
         .children("table")
         .getTableColumn("Container Mount Path")
         .contents()
@@ -1354,49 +1354,49 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.5");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("Not Configured");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Docker Engine");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Command")
         .contains(command);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains(containerImage);
 
@@ -1546,43 +1546,43 @@ describe("Services", function() {
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Docker Engine");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Instances")
         .contains(1);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.5");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("32 MiB");
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Container Image")
         .contains(containerImage);
 
       cy
         .root()
-        .configurationSection("General")
+        .configurationSection("Service")
         .configurationMapValue("Command")
         .contains(command);
 

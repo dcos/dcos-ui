@@ -47,7 +47,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
       tabViewID: "networking",
       values: [
         {
-          heading: "Network",
+          heading: "Networking",
           headingLevel: 1
         },
         {

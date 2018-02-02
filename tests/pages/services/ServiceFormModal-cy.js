@@ -1468,10 +1468,10 @@ describe("Service Form Modal", function() {
           expect($h1).to.have.length(2);
 
           // First should be General
-          expect($h1.eq(0)).to.contain("General");
+          expect($h1.eq(0)).to.contain("Service");
 
           // Second should be Network
-          expect($h1.eq(1)).to.contain("Network");
+          expect($h1.eq(1)).to.contain("Networking");
         });
       });
 

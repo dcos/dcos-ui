@@ -17,11 +17,14 @@ import PodInstanceList from "../../structs/PodInstanceList";
 import PodInstanceStatus from "../../constants/PodInstanceStatus";
 import PodTableHeaderLabels from "../../constants/PodTableHeaderLabels";
 import PodUtil from "../../utils/PodUtil";
+import InstanceUtil from "../../utils/InstanceUtil";
 
 const tableColumnClasses = {
   checkbox: "task-table-column-checkbox",
   name: "task-table-column-primary",
   address: "task-table-column-host-address",
+  zone: "task-table-column-zone",
+  region: "task-table-column-region",
   status: "task-table-column-status",
   health: "task-table-column-health",
   logs: "task-table-column-logs",
@@ -41,7 +44,9 @@ const METHODS_TO_BIND = [
   "renderColumnStatus",
   "renderColumnHealth",
   "renderColumnUpdated",
-  "renderColumnVersion"
+  "renderColumnVersion",
+  "renderZone",
+  "renderRegion"
 ];
 
 class PodInstancesTable extends React.Component {
@@ -98,6 +103,8 @@ class PodInstancesTable extends React.Component {
         <col className={tableColumnClasses.checkbox} />
         <col />
         <col className={tableColumnClasses.address} />
+        <col className={tableColumnClasses.zone} />
+        <col className={tableColumnClasses.region} />
         <col className={tableColumnClasses.status} />
         <col className={tableColumnClasses.health} />
         <col className={tableColumnClasses.logs} />
@@ -144,6 +151,20 @@ class PodInstancesTable extends React.Component {
         heading: this.getColumnHeading,
         prop: "address",
         render: this.renderColumnAddress,
+        sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: this.getColumnHeading,
+        prop: "region",
+        render: this.renderRegion,
+        sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: this.getColumnHeading,
+        prop: "zone",
+        render: this.renderZone,
         sortable: true
       },
       {
@@ -440,6 +461,34 @@ class PodInstancesTable extends React.Component {
     return this.renderWithClickHandler(
       rowOptions,
       <span>{localeVersion}</span>
+    );
+  }
+
+  renderRegion(prop, instance, rowOptions) {
+    if (!rowOptions.isParent) {
+      return null;
+    }
+
+    return (
+      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
+        <div className="table-cell-value flex-box flex-box-col">
+          {InstanceUtil.getRegionName(instance)}
+        </div>
+      </div>
+    );
+  }
+
+  renderZone(prop, instance, rowOptions) {
+    if (!rowOptions.isParent) {
+      return null;
+    }
+
+    return (
+      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
+        <div className="table-cell-value flex-box flex-box-col">
+          {InstanceUtil.getZoneName(instance)}
+        </div>
+      </div>
     );
   }
 

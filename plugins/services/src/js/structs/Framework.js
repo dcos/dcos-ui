@@ -9,6 +9,21 @@ import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
 module.exports = class Framework extends Application {
+  constructor() {
+    super(...arguments);
+
+    // For performance reasons only one instance of the spec is created
+    // instead of creating a new instance every time a user calls `getSpec()`.
+    //
+    // State and other _useless_ information is removed to create a clean
+    // service spec.
+    //
+    // The variable is prefixed because `Item` will expose all the properties
+    // it gets as a properties of this object and we want to avoid any naming
+    // collisions.
+    this._spec = new FrameworkSpec(cleanServiceJSON(this.get()));
+  }
+
   getPackageName() {
     return this.getLabels().DCOS_PACKAGE_NAME;
   }
@@ -28,8 +43,11 @@ module.exports = class Framework extends Application {
     return ROUTE_ACCESS_PREFIX + (this.get("name") || "").replace(regexp, "");
   }
 
+  /**
+   * @override
+   */
   getSpec() {
-    return new FrameworkSpec(cleanServiceJSON(this.get()));
+    return this._spec;
   }
 
   getTasksSummary() {
@@ -102,7 +120,7 @@ module.exports = class Framework extends Application {
         return task.state === "TASK_RUNNING" && !task.isStartedByMarathon;
       })
       .reduce(function(memo, task) {
-        const { cpus, mem, gpus, disk } = task.resources;
+        const { cpus = 0, mem = 0, gpus = 0, disk = 0 } = task.resources;
 
         return {
           cpus: memo.cpus + cpus,

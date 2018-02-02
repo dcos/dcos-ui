@@ -72,7 +72,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
       tabViewID: "services",
       values: [
         {
-          heading: "General",
+          heading: "Service",
           headingLevel: 1
         },
         {

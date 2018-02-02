@@ -1,5 +1,7 @@
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { ERROR } from "#SRC/js/constants/TransactionTypes";
+
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 import { PROP_MISSING_ONE, SYNTAX_ERROR } from "../constants/ServiceErrorTypes";
 
@@ -138,6 +140,12 @@ const PlacementsValidators = {
 
       return errors;
     }, []);
+  },
+
+  validateNoBatchError(constraintTransactions) {
+    const isErrorTransaction = transaction => transaction.type === ERROR;
+
+    return !constraintTransactions.some(isErrorTransaction);
   }
 };
 

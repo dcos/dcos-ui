@@ -1,7 +1,4 @@
-import PluginSDK from "PluginSDK";
-
 import BaseStore from "./BaseStore";
-import { APP_STORE_CHANGE } from "../constants/EventTypes";
 
 // TODO: DCOS-6404, remove getters and setters from stores
 class GetSetBaseStore extends BaseStore {
@@ -25,13 +22,6 @@ class GetSetBaseStore extends BaseStore {
     }
 
     Object.assign(this.getSet_data, data);
-
-    // Dispatch new Store data
-    PluginSDK.dispatch({
-      type: APP_STORE_CHANGE,
-      storeID: this.storeID,
-      data: this.getSet_data
-    });
   }
 }
 
