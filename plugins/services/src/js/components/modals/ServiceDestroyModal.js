@@ -8,6 +8,7 @@ import { injectIntl, intlShape } from "react-intl";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 import AppLockedMessage from "./AppLockedMessage";
 import Framework from "../../structs/Framework";
@@ -131,11 +132,17 @@ class ServiceDestroyModal extends React.Component {
 
   redirectToServices() {
     const { router } = this.context;
+    const { service } = this.props;
+
+    const parentService = DCOSStore.serviceTree.getItemParent(service.getId());
+    const servicePath = parentService
+      ? `/services/overview/${encodeURIComponent(parentService.getId())}`
+      : "/services/overview";
 
     // Close the modal and redirect after the close animation has completed
     this.handleModalClose();
     setTimeout(() => {
-      router.push({ pathname: "/services/overview" });
+      router.push({ pathname: servicePath });
     }, REDIRECT_DELAY);
   }
 
