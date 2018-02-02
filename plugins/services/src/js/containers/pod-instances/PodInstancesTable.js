@@ -438,9 +438,7 @@ class PodInstancesTable extends React.Component {
 
     return this.renderWithClickHandler(
       rowOptions,
-      <div className="flex-box flex-box-align-vertical-center
-        table-cell-flex-box flex-align-items-center
-        flex-direction-top-to-bottom">
+      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <div className="table-cell-icon">
           <Tooltip anchor="center" content={tooltipContent}>
             <span className={classNames("flush", status.dotClassName)} />
