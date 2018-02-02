@@ -213,7 +213,7 @@ class DSLInputField extends React.Component {
    */
   getInputField() {
     const { expression } = this.state;
-    const { inverseStyle, placeholder, onDropdownClick } = this.props;
+    const { inverseStyle, placeholder } = this.props;
 
     const inputClasses = classNames({
       "form-control filter-input-text": true,
@@ -225,7 +225,7 @@ class DSLInputField extends React.Component {
         className={inputClasses}
         placeholder={placeholder}
         onChange={this.handleChange}
-        onClick={onDropdownClick}
+        onFocus={this.handleFocus}
         ref={ref => (this.inputField = ref)}
         type="text"
         value={expression.value}
@@ -269,11 +269,7 @@ class DSLInputField extends React.Component {
 
     return (
       <div className={formGroupClasses}>
-        <div
-          className={inputContainerClasses}
-          onClick={this.handleFocus}
-          onBlur={this.handleBlur}
-        >
+        <div className={inputContainerClasses} onBlur={this.handleBlur}>
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
             <Icon
               family="system"
@@ -281,6 +277,7 @@ class DSLInputField extends React.Component {
               size="mini"
               className={iconSearchClasses}
               color={iconColor}
+              onClick={this.handleFocus}
             />
           </span>
           {this.getInputField()}

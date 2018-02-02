@@ -9,6 +9,7 @@ import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
 const METHODS_TO_BIND = [
   "handleDismissClick",
   "handleDropdownClick",
+  "handleInputFocus",
   "handleIgnoreClick",
   "handleDropdownClose"
 ];
@@ -78,6 +79,13 @@ class DSLFilterField extends React.Component {
   }
 
   /**
+   * Handle focus on the dropdown of the input field
+   */
+  handleInputFocus() {
+    this.setState({ dropdownVisible: true });
+  }
+
+  /**
    * Handle closing of the dropdown
    */
   handleDropdownClose() {
@@ -111,6 +119,7 @@ class DSLFilterField extends React.Component {
           dropdownVisible={dropdownVisible}
           onChange={onChange}
           onDropdownClick={this.handleDropdownClick}
+          onFocus={this.handleInputFocus}
           expression={expression}
         />
 
