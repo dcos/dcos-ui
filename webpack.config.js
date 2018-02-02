@@ -45,6 +45,7 @@ module.exports = {
     // Jison loader fails otherwise
     fs: "empty"
   },
+  devtool: "cheap-module-eval-source-map",
   devServer: {
     // TODO: https://webpack.js.org/configuration/dev-server/#devserver-hot
     contentBase: path.join(__dirname, "dist"),
