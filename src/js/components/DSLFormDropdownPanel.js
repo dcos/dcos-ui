@@ -56,6 +56,7 @@ class DSLFormDropdownPanel extends React.Component {
    */
   handleChange(expression) {
     this.setState({ expression });
+    this.props.onChange(expression);
   }
 
   /**
@@ -72,7 +73,7 @@ class DSLFormDropdownPanel extends React.Component {
 
     return (
       <div className={dropdownPanelClasses}>
-        <div className="panel-cell panel-cell-borderless">
+        <div className="panel-cell panel-cell-borderless flush-bottom">
           <DSLForm
             expression={expression}
             onChange={this.handleChange}
@@ -83,7 +84,7 @@ class DSLFormDropdownPanel extends React.Component {
         </div>
         <div className="panel-cell panel-cell-short flush-top text-align-right">
           <a
-            className="button button-small button-primary-link"
+            className="button button-small button-primary-link flush-right"
             onClick={this.handleApply}
           >
             Apply
