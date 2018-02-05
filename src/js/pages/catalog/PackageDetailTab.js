@@ -138,7 +138,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const { params, location } = this.props;
 
     router.push(
-      `/catalog/packages/${encodeURIComponent(params.packageName)}/deploy?${location.query.version}`
+      `/catalog/packages/${encodeURIComponent(params.packageName)}/deploy?version=${location.query.version}`
     );
   }
 
