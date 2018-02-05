@@ -14,11 +14,11 @@ describe("Deployments Modal", function() {
   });
 
   context("Modal Trigger", function() {
-    it("should have a deployments button", function() {
+    it("has a deployments button", function() {
       cy.get(".button").contains("1 deployment").should("to.have.length", 1);
     });
 
-    it("should open the modal when clicking the deployments button", function() {
+    it("opens the modal when clicking the deployments button", function() {
       openDeploymentsModal();
 
       cy.get(".modal").then(function($modal) {
@@ -32,7 +32,7 @@ describe("Deployments Modal", function() {
       openDeploymentsModal();
     });
 
-    it("should close when the close button is clicked", function() {
+    it("closes when the close button is clicked", function() {
       cy.get(".modal").then(function($modal) {
         expect($modal.get().length).to.equal(1);
       });
@@ -42,19 +42,19 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("should render the deployments count", function() {
+    it("renders the deployments count", function() {
       cy.get(".modal-header").then(function($header) {
         expect($header.get(0).textContent).to.equal("1 Active Deployment");
       });
     });
 
-    it("should render one row per deployment", function() {
+    it("renders one row per deployment", function() {
       cy.get(".modal tbody tr:visible").then(function($tableRows) {
         expect($tableRows.get().length).to.equal(1);
       });
     });
 
-    it("should render the `id` column", function() {
+    it("renders the `id` column", function() {
       cy.get(".modal tbody tr:visible td").then(function($tableCells) {
         cy.getAPIResponse("marathon/v2/deployments", function(response) {
           expect(
@@ -65,7 +65,7 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("should render the `started` column", function() {
+    it("renders the `started` column", function() {
       cy.get(".modal tbody tr:visible td").then(function($tableCells) {
         cy.getAPIResponse("marathon/v2/deployments", function(response) {
           expect(
@@ -75,7 +75,7 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("should render the `status` column", function() {
+    it("renders the `status` column", function() {
       cy.get(".modal tbody tr:visible td").then(function($tableCells) {
         expect(
           $tableCells.get(2).querySelectorAll(".status-bar").length
@@ -83,7 +83,7 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("should be auto-expanded to show services", function() {
+    it("is auto-expanded to show services", function() {
       cy
         .get(
           ".modal tbody tr:visible td .expanding-table-child .table-cell-value"

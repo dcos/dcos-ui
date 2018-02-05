@@ -680,7 +680,7 @@ describe("Service Actions", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("restart should not exist", function() {
+    it("restart does not exist", function() {
       cy
         .get(".page-header-actions .dropdown")
         .click()
@@ -688,7 +688,7 @@ describe("Service Actions", function() {
         .should("not.exist");
     });
 
-    it("stop should not exist", function() {
+    it("stop does not exist", function() {
       cy
         .get(".page-header-actions .dropdown")
         .click()

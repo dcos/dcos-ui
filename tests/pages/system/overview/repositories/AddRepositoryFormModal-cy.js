@@ -18,7 +18,7 @@ describe("Add Repository Form Modal", function() {
     cy.get(".modal input").should("to.have.length", 3);
   });
 
-  it("should display error if both fields aren't filled out", function() {
+  it("displays error if both fields aren't filled out", function() {
     cy
       .get(".modal .modal-footer .button.button-primary")
       .contains("Add")
@@ -35,7 +35,7 @@ describe("Add Repository Form Modal", function() {
       .should("contain", "Must be a valid url with http:// or https://");
   });
 
-  it("should display error if not a valid url", function() {
+  it("displays error if not a valid url", function() {
     cy
       .get(".modal .modal-footer .button.button-primary")
       .contains("Add")

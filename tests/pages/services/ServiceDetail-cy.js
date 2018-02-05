@@ -8,7 +8,7 @@ describe("Service Detail Page", function() {
     });
 
     context("Navigate to service page", function() {
-      it("should show the Page Not Found alert panel", function() {
+      it("shows the Page Not Found alert panel", function() {
         cy.visitUrl({
           url: "/services/non-existing-service"
         });

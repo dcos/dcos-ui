@@ -13,7 +13,7 @@ describe("Services", function() {
       });
     });
 
-    it("should contain no running services", function() {
+    it("contains no running services", function() {
       // We should have the 'No running services' panel
       cy.contains("No running services").should("exist");
 

@@ -232,13 +232,13 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("restart should not exist", function() {
+    it("restart does not exist", function() {
       openDropdown("sdk-sleep");
 
       cy.get(".dropdown-menu-items").contains("restart").should("not.exist");
     });
 
-    it("stop should not exist", function() {
+    it("stop does not exist", function() {
       openDropdown("sdk-sleep");
 
       cy.get(".dropdown-menu-items").contains("stop").should("not.exist");
