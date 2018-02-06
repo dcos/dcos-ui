@@ -12,11 +12,16 @@ The DC/OS UI is used by datacenter operators to administer and manage a datacent
 
 ## Usage
 
-### Requirements
+You can choose from two ways of developing this repository.
+- Locally
+- Docker
+
+### Local Development
+#### Requirements
 
 Node 4.4.x and NPM 3.9.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
-### DC/OS Installation Instructions:
+#### DC/OS Installation Instructions:
 1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
 2. Clone this repo:
 
@@ -44,6 +49,16 @@ Node 4.4.x and NPM 3.9.x (and above) are **required**. We suggest using [nvm](ht
   ```
 
 6. Navigate to [http://localhost:4200](http://localhost:4200)
+
+### Development with Docker
+
+To start a development server run
+
+```sh
+docker-compose up -d
+docker-compose toolchain exec /bin/bash # This opens bash inside of the docker container
+npm start
+```
 
 ### Using External Plugins
 
