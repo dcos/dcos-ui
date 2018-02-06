@@ -349,23 +349,23 @@ To setup cypress you need to follow the following steps:
 
 1. Install Cypress CLI.
 
-We rely on a very specific version of cypress, and cypress desktop app.
-```sh
-  npm install -g cypress-cli@0.14.0
-  cypress install —cypress-version 0.19.1
-```
-
-3. Open Cypress.
+Cypress is a dev dependency, if you have not installed those yet, run:
 
   ```sh
-  cypress open
+    npm install --only=dev
   ```
 
-4. The following window should open. Login via GitHub.
+2. Open Cypress.
+
+  ```sh
+  ./node_modules/.bin/cypress open
+  ```
+
+3. The following window should open. Login via GitHub.
 
   ![img](docs/images/cypress-login.png?raw=true)
 
-5. Add project to Cypress.
+4. Add project to Cypress.
 
 Once you've logged in click on the Add Project +  button and add the `dcos-ui` 
 folder.
@@ -414,6 +414,12 @@ that, among other things, include:
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
 
 
+3. Run cypress on the command line
+
+Alternatively you can run cypress from the command line.
+  ```sh
+    npm run cypress
+  ```
 ## System Testing
 
 At the System Test level, you want to guarantee that your project works on the 
