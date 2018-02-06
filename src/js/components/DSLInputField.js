@@ -196,7 +196,7 @@ class DSLInputField extends React.Component {
       <span className="form-control-group-add-on">
         <Icon
           family="system"
-          id="caret-down"
+          id="funnel"
           size="mini"
           className="clickable"
           color={color}
@@ -225,6 +225,7 @@ class DSLInputField extends React.Component {
         className={inputClasses}
         placeholder={placeholder}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
         ref={ref => (this.inputField = ref)}
         type="text"
         value={expression.value}
@@ -268,11 +269,7 @@ class DSLInputField extends React.Component {
 
     return (
       <div className={formGroupClasses}>
-        <div
-          className={inputContainerClasses}
-          onClick={this.handleFocus}
-          onBlur={this.handleBlur}
-        >
+        <div className={inputContainerClasses} onBlur={this.handleBlur}>
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
             <Icon
               family="system"
@@ -280,6 +277,7 @@ class DSLInputField extends React.Component {
               size="mini"
               className={iconSearchClasses}
               color={iconColor}
+              onClick={this.handleFocus}
             />
           </span>
           {this.getInputField()}
