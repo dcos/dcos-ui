@@ -398,7 +398,7 @@ in a DC/OS Service by looking at
 
 ### Writing Integration Tests
 
-Writing unit testing can be harder than unit tests, we recommend following best 
+Writing integration tests can be harder than unit tests, we recommend following best 
 practices from the 
 [cypress best practices](https://docs.cypress.io/guides/references/best-practices.html) 
 that, among other things, include:
