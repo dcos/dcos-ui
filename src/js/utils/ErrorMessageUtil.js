@@ -17,6 +17,9 @@ const ErrorMessageUtil = {
       return rule.match.exec(pathString);
     });
 
+    if (error.isUnanchored) {
+      return message;
+    }
     if (!rule && !pathString) {
       return message;
     }
