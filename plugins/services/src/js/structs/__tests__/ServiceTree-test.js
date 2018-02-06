@@ -293,6 +293,14 @@ describe("ServiceTree", function() {
         id: "/",
         items: [
           {
+            id: "test2",
+            items: [
+              {
+                id: "test/testasd"
+              }
+            ]
+          },
+          {
             id: "/test",
             items: [
               {
@@ -300,6 +308,14 @@ describe("ServiceTree", function() {
               },
               {
                 id: "/test/bar"
+              },
+              {
+                id: "/test/baz/boo",
+                items: [
+                  {
+                    id: "/test/baz/boo/1"
+                  }
+                ]
               }
             ]
           },
@@ -320,6 +336,16 @@ describe("ServiceTree", function() {
 
     it("finds matching parent from item two levels deep", function() {
       expect(this.instance.getItemParent("/test/foo").getId()).toEqual("/test");
+    });
+
+    it("finds matching parent from item two levels deep", function() {
+      expect(this.instance.getItemParent("/test/bar").getId()).toEqual("/test");
+    });
+
+    it("finds matching parent from item three levels deep", function() {
+      expect(this.instance.getItemParent("/test/baz/boo/1").getId()).toEqual(
+        "/test/baz/boo"
+      );
     });
 
     it("finds matching parent from item one level deep", function() {

@@ -110,13 +110,16 @@ module.exports = class ServiceTree extends Tree {
 
     let parentFound = null;
 
-    this.list.forEach(child => {
+    for (let i = 0; i < this.list.length; i++) {
+      const child = this.list[i];
       if (child instanceof ServiceTree) {
         parentFound = child.getItemParent(id, this);
       } else if (child.getId() === id) {
         parentFound = this;
+
+        break;
       }
-    });
+    }
 
     return parentFound;
   }
