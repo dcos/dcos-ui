@@ -330,8 +330,10 @@ class PodInstancesContainer extends React.Component {
     });
 
     if (filterExpression.defined) {
-      instances.getItems().forEach(instance => {
+      instances = instances.mapItems(function(instance) {
         instance.podSpec = pod.getSpec();
+
+        return instance;
       });
       instances = filterExpression.filter(filters, instances);
     }
