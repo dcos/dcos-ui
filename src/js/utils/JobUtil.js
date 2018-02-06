@@ -78,6 +78,15 @@ const JobUtil = {
       Object.assign(spec.run, { docker });
     }
 
+    // default
+    var scheduleId = "default";
+    var schedulePolicy = "ALLOW";
+    // preserve id and concurrencyPolicy
+    if (typeof spec.schedules != "undefined" && spec.schedules.length > 0) {
+      scheduleId = spec.schedules[0].id;
+      schedulePolicy = spec.schedules[0].concurrencyPolicy;
+    }
+
     // Reset schedules
     spec.schedules = [];
 
@@ -85,11 +94,11 @@ const JobUtil = {
     // defaults
     if (!schedule || schedule.runOnSchedule) {
       const {
-        id = "default",
+        id = scheduleId,
         enabled = true,
         cron,
         timezone,
-        concurrencyPolicy = "ALLOW",
+        concurrencyPolicy = schedulePolicy,
         startingDeadlineSeconds
       } = schedule || {};
 
