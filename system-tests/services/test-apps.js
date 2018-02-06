@@ -306,7 +306,7 @@ describe("Services", function() {
         .get(".page-body-content table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist")
-        .as("serviceName");
+        .as(serviceName);
 
       cy
         .get("@serviceName")
@@ -322,15 +322,6 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
-
-      // Get the table row and look for health
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".dot.flush.success", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
 
       // open edit screen
       cy
@@ -936,15 +927,6 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
-
-      // Get the table row and look for health
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".dot.flush.success", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
 
       // open edit screen
       cy
