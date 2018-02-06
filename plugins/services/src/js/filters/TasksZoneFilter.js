@@ -44,7 +44,7 @@ class TasksZoneFilter extends DSLFilter {
     return resultSet.filterItems(task => {
       const node = TaskUtil.getNode(task);
 
-      return node.getZoneName().toLowerCase() === zone;
+      return node && node.getZoneName().toLowerCase() === zone;
     });
   }
 }

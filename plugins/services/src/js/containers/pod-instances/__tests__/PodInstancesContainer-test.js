@@ -149,7 +149,7 @@ describe("PodInstancesContainer", function() {
           PodInstancesContainer,
           {
             pod,
-            location: { pathname: "", query: { q: "" } }
+            location: { pathname: "", query: { q: "is%3Aactive%2Ccompleted" } }
           },
           { service: pod }
         );

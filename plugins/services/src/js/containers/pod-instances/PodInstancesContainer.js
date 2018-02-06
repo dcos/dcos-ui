@@ -8,6 +8,7 @@ import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+import Util from "#SRC/js/utils/Util";
 
 import PodInstanceStatusFilter
   from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
@@ -74,7 +75,7 @@ class PodInstancesContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.propsToState(this.props);
+    this.setFilterOptions(this.props);
   }
 
   componentWillUnmount() {
@@ -94,7 +95,7 @@ class PodInstancesContainer extends React.Component {
     this.setState({ filterExpression });
   }
 
-  propsToState(props) {
+  setFilterOptions(props) {
     const historicalInstances = MesosStateStore.getPodHistoricalInstances(
       props.pod
     );
@@ -110,44 +111,37 @@ class PodInstancesContainer extends React.Component {
       filterExpression
     } = this.state;
 
-    const query = props.location &&
-      props.location.query &&
-      props.location.query.q !== undefined
-      ? props.location.query["q"]
-      : "is:active";
+    const query =
+      Util.findNestedPropertyInObject(props, "location.query.q") || "is:active";
 
     const mergedInstances = instances
       .getItems()
       .map(TaskMergeDataUtil.mergeData);
 
-    const newZones = Array.from(
-      new Set(
-        mergedInstances.reduce(function(prev, instance) {
-          const node = InstanceUtil.getNode(instance);
+    const newZones = Object.keys(
+      mergedInstances.reduce(function(prev, instance) {
+        const node = InstanceUtil.getNode(instance);
 
-          if (!node || node.getZoneName() === "N/A") {
-            return prev;
-          }
-          prev.push(node.getZoneName());
-
+        if (!node || node.getZoneName() === "N/A") {
           return prev;
-        }, [])
-      )
+        }
+        prev[node.getZoneName()] = "";
+
+        return prev;
+      }, {})
     );
 
-    const newRegions = Array.from(
-      new Set(
-        mergedInstances.reduce(function(prev, instance) {
-          const node = InstanceUtil.getNode(instance);
+    const newRegions = Object.keys(
+      mergedInstances.reduce(function(prev, instance) {
+        const node = InstanceUtil.getNode(instance);
 
-          if (!node || node.getRegionName() === "N/A") {
-            return prev;
-          }
-          prev.push(node.getRegionName());
-
+        if (!node || node.getRegionName() === "N/A") {
           return prev;
-        }, [])
-      )
+        }
+        prev[node.getRegionName()] = "";
+
+        return prev;
+      }, {})
     );
 
     // If no region/ zones added from props return

@@ -271,16 +271,14 @@ class PodInstancesTable extends React.Component {
     return children;
   }
 
-  getDisabledItemsMap(instanceList) {
-    const disabledItems = {};
-
-    instanceList.forEach(function(instance) {
+  getDisabledItemsMap(instances) {
+    return instances.reduce(function(acc, instance) {
       if (!instance.isRunning()) {
-        disabledItems[instance.getId()] = true;
+        acc[instance.getId()] = true;
       }
-    });
 
-    return disabledItems;
+      return acc;
+    }, {});
   }
 
   getTableDataFor(instances, filterText) {
@@ -491,7 +489,7 @@ class PodInstancesTable extends React.Component {
     // If custom list of instances is not provided, use the default instances
     // from the pod
     if (instances == null) {
-      instances = pod.getInstanceList().list;
+      instances = pod.getInstanceList().getItems();
     }
     const disabledItemsMap = this.getDisabledItemsMap(instances);
 

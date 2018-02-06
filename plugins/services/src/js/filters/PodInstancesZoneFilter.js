@@ -44,7 +44,7 @@ class PodInstancesZoneFilter extends DSLFilter {
     return resultSet.filterItems(instance => {
       const node = InstanceUtil.getNode(instance);
 
-      return node.getZoneName().toLowerCase() === zone;
+      return node && node.getZoneName().toLowerCase() === zone;
     });
   }
 }

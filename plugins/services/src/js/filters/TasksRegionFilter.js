@@ -44,7 +44,7 @@ class TasksRegionFilter extends DSLFilter {
     return resultSet.filterItems(task => {
       const node = TaskUtil.getNode(task);
 
-      return node.getRegionName().toLowerCase() === region;
+      return node && node.getRegionName().toLowerCase() === region;
     });
   }
 }

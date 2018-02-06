@@ -38,7 +38,7 @@ class PodInstanceStatusFilter extends DSLFilter {
       let instanceStatus = "completed";
 
       if (instance.isStaging()) {
-        instanceStatus = "staged";
+        instanceStatus = "staging";
       }
 
       if (instance.isRunning()) {

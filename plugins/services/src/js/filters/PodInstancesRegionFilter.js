@@ -44,7 +44,7 @@ class PodInstancesRegionFilter extends DSLFilter {
     return resultSet.filterItems(instance => {
       const node = InstanceUtil.getNode(instance);
 
-      return node.getRegionName().toLowerCase() === region;
+      return node && node.getRegionName().toLowerCase() === region;
     });
   }
 }
