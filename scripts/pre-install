@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
-MARATHON_VERSION="1.6.0-pre-218-g36ad9bd"
+MARATHON_VERSION="1.6.0-pre-208-gc95e10d"
 
 # Import utils
 source ${SCRIPT_PATH}/utils/git
