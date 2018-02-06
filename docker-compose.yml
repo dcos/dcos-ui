@@ -8,9 +8,9 @@ services:
     environment:
       CLUSTER_URL: "${CLUSTER_URL}"
       INSTALLER_URL: "${INSTALLER_URL}"
-      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_PROFILE: "${AWS_PROFILE}"
     ports:
       - 4200:4200
     volumes:
+      - $HOME/.aws/credentials:/root/.aws/credentials:ro
       - ./.:/dcos-ui
