@@ -251,7 +251,7 @@ describe("Services", function() {
         .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
     });
 
-    it("creates an app with command health check", function() {
+    it.skip("creates an app with command health check", function() {
       const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
