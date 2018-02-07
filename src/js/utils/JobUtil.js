@@ -78,9 +78,9 @@ const JobUtil = {
       Object.assign(spec.run, { docker });
     }
 
-    // default
-    var scheduleId = "default";
-    var schedulePolicy = "ALLOW";
+    // default values for id and policy
+    let scheduleId = "default";
+    let schedulePolicy = "ALLOW";
     // preserve id and concurrencyPolicy
     if (typeof spec.schedules != "undefined" && spec.schedules.length > 0) {
       scheduleId = spec.schedules[0].id;
