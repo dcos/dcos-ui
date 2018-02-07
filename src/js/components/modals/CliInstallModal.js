@@ -111,7 +111,7 @@ class CliInstallModal extends React.Component {
         let helpText = "Enter";
 
         if (index === 0) {
-          helpText = "In Terminal, enter";
+          helpText = "In Command Prompt, enter";
         }
 
         return (
