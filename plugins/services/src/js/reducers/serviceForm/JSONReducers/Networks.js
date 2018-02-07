@@ -18,7 +18,7 @@ module.exports = {
 
     if (base === "networks") {
       if (type === ADD_ITEM) {
-        this.networks.push({});
+        this.networks.push(value || {});
       }
       if (type === REMOVE_ITEM) {
         this.networks = this.networks.filter((item, index) => {
@@ -39,11 +39,10 @@ module.exports = {
       }
     }
 
-    return this.networks.map(function({ mode, name }) {
-      return {
-        name,
-        mode: Networking.internalToJson[mode]
-      };
+    return this.networks.map(function(network) {
+      return Object.assign({}, network, {
+        mode: Networking.internalToJson[network.mode]
+      });
     });
   },
 
@@ -53,7 +52,7 @@ module.exports = {
         const name = network.name;
         const mode = name != null ? CONTAINER : network.mode;
 
-        memo = memo.concat(new Transaction(["networks"], index, ADD_ITEM));
+        memo = memo.concat(new Transaction(["networks"], network, ADD_ITEM));
 
         if (mode == null && name == null) {
           return memo;
