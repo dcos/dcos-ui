@@ -56,7 +56,7 @@ To start a development server run
 
 ```sh
 docker-compose up -d
-docker-compose toolchain exec /bin/bash # This opens bash inside of the docker container
+docker-compose exec toolchain /bin/bash # This opens bash inside of the docker container
 npm start
 ```
 
