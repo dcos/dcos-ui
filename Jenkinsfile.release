@@ -83,6 +83,13 @@ pipeline {
           sh "BRANCH_NAME=${env.BRANCH_NAME} ./scripts/ci/upload-build"
         }
       }
+
+
+      post {
+        always {
+          archiveArtifacts 'buildinfo.json'
+        }
+      }
     }
   }
 }

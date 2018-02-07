@@ -24,6 +24,21 @@ RELEASE_NAME="${PKG_BRANCH}+${FILENAME}${BUILD_VARIANT}-v${PKG_VERSION}+${SHA_SL
 cd "$DIST_PATH"
 tar czf "../$RELEASE_NAME" .
 cd ..
+BUILD_SHA=$(shasum ${RELEASE_NAME} | cut -d " " -f1)
+ENCODED_RELEASE_NAME=$(echo ${RELEASE_NAME} | sed "s/\+/\%2B/g")
+DOWNLOAD_URL=$(echo "https://${AWS_BUCKET}/${BUCKET_PATH}/${ENCODED_RELEASE_NAME}")
+FILENAME='buildinfo.json'
+
+# cat config to artifact file
+cat <<EOF > ${FILENAME}
+{
+  "single_source": {
+    "kind": "url_extract",
+    "url": "${DOWNLOAD_URL}",
+    "sha1": "${BUILD_SHA}"
+  }
+}
+EOF
 
 # upload
 aws s3 cp $RELEASE_NAME s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME
