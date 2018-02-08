@@ -46,9 +46,7 @@ module.exports = class AccessDeniedPage extends React.Component {
                 {Config.productName}
                 {" administrator or see "}
                 <a
-                  href={MetadataStore.buildDocsURI(
-                    "/administration/id-and-access-mgt/"
-                  )}
+                  href={MetadataStore.buildDocsURI("/security/ent/iam-api/")}
                   target="_blank"
                 >
                   security documentation

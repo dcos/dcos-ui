@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# example usage: $ find-broken-links
+#  it's setup to use 1.11 docs Urls
+#  it will print the links that won't return 200 to stdout: <link> <http-status-code>
+
+files=$(git ls-files)
+for file in $files
+do
+  # skip files with links we don't care about
+  matchesNonCodeFile=$(echo $file | grep -Eo "(\.json|\.gif|\.png|\.svg|-test|-cy|\.jpg|\.icns|\.ico|\.iconsproj|\.ttf|\.woff)")
+  if [[ $matchesNonCodeFile ]]
+  then
+    continue
+  fi
+
+  # find the easy urls that have https or https
+  urls=$(cat $file | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*(?:\:\d{2,4})" | sort | uniq)
+
+  for url in $urls
+  do
+    status=$(curl -LIo /dev/null -m 5 -Isw '%{http_code}\n' $url)
+    if [ $status != 200 ]; then
+      echo $url $status
+    fi
+  done
+
+  # find the urls built from buildDocsURI() method
+  docsUrls=$(cat $file | tr -d "\n" |  grep -Eo "MetadataStore\.buildDocsURI\((.*?)\)" | grep -Eo "\"(.*)\"" )
+  prefix="https://docs.mesosphere.com/1.11"
+
+  for docsUrl in $docsUrls
+  do
+    fullDocsUrl=$prefix${docsUrl:1:${#docsUrl}-2}
+    status=$(curl -LIo /dev/null -m 5 -Isw '%{http_code}\n' $fullDocsUrl)
+    if [ $status != 200 ]; then
+      echo $fullDocsUrl $status
+    fi
+  done
+done

@@ -147,7 +147,7 @@ class ServiceActionDisabledModal extends React.Component {
           {" "}
           <a
             href={MetadataStore.buildDocsURI(
-              "/usage/managing-services/config-universe-service"
+              "/deploying-services/config-universe-service/"
             )}
             target="_blank"
           >
