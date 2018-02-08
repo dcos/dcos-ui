@@ -45,7 +45,7 @@ describe("Volume", function() {
   });
 
   describe("#getType", function() {
-    it("should return unavailable if no profile is defined", function() {
+    it("returns unavailable if no profile is defined", function() {
       const service = new Volume({});
 
       expect(service.getProfile()).toEqual(VolumeProfile.UNAVAILABLE);
