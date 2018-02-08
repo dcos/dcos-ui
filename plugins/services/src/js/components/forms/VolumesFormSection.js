@@ -52,7 +52,7 @@ class VolumesFormSection extends Component {
           "The path where your application will read and write data. This must be a single-level path relative to the container. "
         }
         <a
-          href={MetadataStore.buildDocsURI("/usage/storage/persistent-volume/")}
+          href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
           target="_blank"
         >
           More information
@@ -123,7 +123,7 @@ class VolumesFormSection extends Component {
           "If you are using the Mesos containerizer, this must be a single-level path relative to the container. "
         }
         <a
-          href={MetadataStore.buildDocsURI("/usage/storage/external-storage/")}
+          href={MetadataStore.buildDocsURI("/storage/external-storage/")}
           target="_blank"
         >
           More information
@@ -398,7 +398,7 @@ class VolumesFormSection extends Component {
     const tooltipContent = (
       <span>
         {"DC/OS offers several storage options. "}
-        <a href={MetadataStore.buildDocsURI("/usage/storage/")} target="_blank">
+        <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
           More information
         </a>.
       </span>

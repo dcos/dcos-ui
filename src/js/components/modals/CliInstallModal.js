@@ -169,7 +169,7 @@ class CliInstallModal extends React.Component {
             "Choose your operating system and follow the instructions. For any issues or questions, please refer to our "
           }
           <a
-            href={MetadataStore.buildDocsURI("/usage/cli/install")}
+            href={MetadataStore.buildDocsURI("/installing/ent/custom/cli/")}
             target="_blank"
           >
             documentation

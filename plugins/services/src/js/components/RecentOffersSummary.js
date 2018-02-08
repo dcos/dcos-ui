@@ -5,6 +5,7 @@ import { Tooltip } from "reactjs-components";
 import Config from "#SRC/js/config/Config";
 import Icon from "#SRC/js/components/Icon";
 import Units from "#SRC/js/utils/Units";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 const displayedResourceValues = {
   roles: "Role",
@@ -115,7 +116,9 @@ function getResourceTooltipContent(resource, data) {
   }
 
   if (resource === "constraints") {
-    docsURI = `${Config.marathonDocsURI}constraints.html`;
+    docsURI = MetadataStore.buildDocsURI(
+      "/deploying-services/marathon-constraints"
+    );
     explanatoryText = `The resource offer ${explanatoryText} your service's requirements (${requestedValue}).`;
   }
 

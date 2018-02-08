@@ -8,7 +8,7 @@ import { Hooks } from "PluginSDK";
 
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Icon from "#SRC/js/components/Icon";
-import Links from "#SRC/js/constants/Links";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
@@ -438,7 +438,12 @@ class ServicesTable extends React.Component {
         helpText: (
           <span>
             {"At-a-glance overview of the global application or group state. "}
-            <a href={Links.statusHelpLink} target="_blank">
+            <a
+              href={MetadataStore.buildDocsURI(
+                "/deploying-services/task-handling"
+              )}
+              target="_blank"
+            >
               Read more
             </a>.
           </span>
