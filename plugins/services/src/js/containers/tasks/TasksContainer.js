@@ -40,11 +40,15 @@ class TasksContainer extends React.Component {
   constructor() {
     super(...arguments);
 
+    const filters = new DSLFilterList([
+      new TasksStatusFilter(),
+      new TaskNameTextFilter()
+    ]);
     this.state = {
       actionErrors: {},
       pendingActions: {},
       filterExpression: new DSLExpression(""),
-      filters: new DSLFilterList([]),
+      filters,
       defaultFilterData: { zones: [], regions: [] }
     };
 
