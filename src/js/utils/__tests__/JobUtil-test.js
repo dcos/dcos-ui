@@ -50,6 +50,49 @@ describe("JobUtil", function() {
       ]);
     });
 
+    it("job schedule maintains id and policy", function() {
+      const job = JobUtil.createJobFromFormModel({
+        general: { id: "test", cmd: "sleep 1000;" },
+        schedule: {
+          id: "fluffy",
+          cron: "* * * * *",
+          enabled: true,
+          concurrencyPolicy: "FORBID",
+          runOnSchedule: true
+        }
+      });
+
+      expect(job.getSchedules()).toEqual([
+        {
+          id: "fluffy",
+          cron: "* * * * *",
+          enabled: true,
+          concurrencyPolicy: "FORBID"
+        }
+      ]);
+    });
+
+    it("job schedule defaults concurrencyPolicy if not provided", function() {
+      const job = JobUtil.createJobFromFormModel({
+        general: { id: "test", cmd: "sleep 1000;" },
+        schedule: {
+          id: "fluffy",
+          cron: "* * * * *",
+          enabled: true,
+          runOnSchedule: true
+        }
+      });
+
+      expect(job.getSchedules()).toEqual([
+        {
+          id: "fluffy",
+          cron: "* * * * *",
+          enabled: true,
+          concurrencyPolicy: "ALLOW"
+        }
+      ]);
+    });
+
     it("removes schedule if deactivated", function() {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
