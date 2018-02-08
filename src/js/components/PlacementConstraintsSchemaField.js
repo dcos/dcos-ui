@@ -26,7 +26,7 @@ import PlacementValidators
 
 const jsonReducer = combineReducers({ constraints: JSONReducer });
 
-const InvalidJsonField = props => (
+const JsonField = props => (
   <div>
     <FieldLabel>
       {props.label}
@@ -38,7 +38,7 @@ const InvalidJsonField = props => (
   </div>
 );
 
-InvalidJsonField.propTypes = {
+JsonField.propTypes = {
   fieldName: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
   json: React.PropTypes.object.isRequired,
@@ -46,7 +46,7 @@ InvalidJsonField.propTypes = {
   space: React.PropTypes.number
 };
 
-InvalidJsonField.defaultProps = {
+JsonField.defaultProps = {
   space: 2
 };
 
@@ -121,9 +121,7 @@ export default class PlacementConstraintsSchemaField extends Component {
       const fieldValue = this.props.fieldProps.formData;
       const json = { [fieldName]: fieldValue };
 
-      return (
-        <InvalidJsonField label={label} fieldName={fieldName} json={json} />
-      );
+      return <JsonField label={label} fieldName={fieldName} json={json} />;
     }
     const data = { constraints: batch.reduce(FormReducer) };
     const errors = DataValidatorUtil.errorArrayToMap(

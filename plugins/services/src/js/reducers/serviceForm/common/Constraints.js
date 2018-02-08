@@ -74,13 +74,9 @@ module.exports = {
         return memo;
       }
 
-      if (item.error) {
+      if (item instanceof Error) {
         memo.push(
-          new Transaction(
-            ["constraints", index, "value"],
-            "value-is-malformed",
-            ERROR
-          )
+          new Transaction(["constraints", index, "value"], item.message, ERROR)
         );
 
         return memo;
