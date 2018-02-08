@@ -1,0 +1,35 @@
+{
+    "type": "GET_MASTER",
+    "get_master": {
+        "master_info": {
+            "id": "cd66b593-339d-4ed3-88de-c4cd4414456e",
+            "ip": 1694826506,
+            "port": 5050,
+            "pid": "master@10.0.5.101:5050",
+            "hostname": "10.0.5.101",
+            "version": "1.5.0",
+            "address": {
+                "hostname": "10.0.5.101",
+                "ip": "10.0.5.101",
+                "port": 5050
+            },
+            "domain": {
+                "fault_domain": {
+                    "region": {
+                        "name": "aws/eu-central-1"
+                    },
+                    "zone": {
+                        "name": "aws/eu-central-1c"
+                    }
+                }
+            },
+            "capabilities": [
+                {
+                    "type": "AGENT_UPDATE"
+                }
+            ]
+        },
+        "start_time": 1518160049.92947,
+        "elected_time": 1518160053.29448
+    }
+}
