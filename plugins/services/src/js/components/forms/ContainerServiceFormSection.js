@@ -14,6 +14,7 @@ import FormGroupHeadingContent
   from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import {
   FormReducer as ContainerReducer
@@ -57,7 +58,9 @@ class ContainerServiceFormSection extends Component {
           "The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/application-basics.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/creating-services/"
+          )}
           target="_blank"
         >
           More information

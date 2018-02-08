@@ -113,7 +113,7 @@ class LoginPage extends mixin(StoreMixin) {
           <p className="flush-bottom text-align-center">
             {"Please contact your system administrator or see the "}
             <a
-              href={MetadataStore.buildDocsURI("/administration/installing/")}
+              href={MetadataStore.buildDocsURI("/installing/")}
               target="_blank"
             >
               documentation

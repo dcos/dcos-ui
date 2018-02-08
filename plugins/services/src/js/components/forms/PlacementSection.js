@@ -7,6 +7,7 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent
   from "#SRC/js/components/form/FormGroupHeadingContent";
 import Icon from "#SRC/js/components/Icon";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 export default class PlacementSection extends Component {
   render() {
@@ -17,7 +18,9 @@ export default class PlacementSection extends Component {
           "Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/constraints.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/marathon-constraints/"
+          )}
           target="_blank"
         >
           More information

@@ -91,7 +91,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       <span>
         {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
         <a
-          href="https://mesosphere.github.io/marathon/docs/ports.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/"
+          )}
           target="_blank"
         >
           More information
@@ -154,7 +156,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const loadBalancerDocsURI = MetadataStore.buildDocsURI(
-      "/usage/service-discovery/load-balancing-vips"
+      "/deploying-services/service-endpoints/"
     );
     const loadBalancerTooltipContent = (
       <span>
@@ -315,7 +317,12 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const assignHelpText = (
       <span>
         {"Most services will use TCP. "}
-        <a href="https://mesosphere.github.io/marathon/docs/ports.html">
+        <a
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/"
+          )}
+          target="_blank"
+        >
           More information
         </a>
         .
@@ -567,7 +574,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isVirtualNetwork = networkType && networkType.startsWith(CONTAINER);
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI(
-      "/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/"
+      "/deploying-services/service-endpoints/"
     );
     const serviceEndpointsTooltipContent = (
       <span>
@@ -691,7 +698,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           "Choose container/bridge, host, or container networking. Refer to the "
         }
         <a
-          href="https://mesosphere.github.io/marathon/docs/ports.html"
+          href={MetadataStore.buildDocsURI(
+            "/deploying-services/service-ports/"
+          )}
           target="_blank"
         >
           ports documentation

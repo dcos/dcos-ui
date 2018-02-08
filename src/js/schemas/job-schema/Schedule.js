@@ -28,7 +28,7 @@ const Schedule = {
         <span>
           Use cron format to set your schedule, e.g. <i>0 0 20 * *</i>{". "}
           <a
-            href={MetadataStore.buildDocsURI("/usage/jobs/getting-started")}
+            href={MetadataStore.buildDocsURI("/deploying-jobs/")}
             target="_blank"
           >
             View documentation
