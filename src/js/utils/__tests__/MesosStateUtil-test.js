@@ -1,9 +1,28 @@
+const Pod = require("#PLUGINS/services/src/js/structs/Pod");
+const Framework = require("#PLUGINS/services/src/js/structs/Framework");
+const ServiceTree = require("#PLUGINS/services/src/js/structs/ServiceTree");
 const MesosStateUtil = require("../MesosStateUtil");
-const Pod = require("../../../../plugins/services/src/js/structs/Pod");
 
 const MESOS_STATE_WITH_HISTORY = require("./fixtures/MesosStateWithHistory");
 
 describe("MesosStateUtil", function() {
+  describe("#getFrameworkToServicesMap", function() {
+    it("maps frameworks to services", function() {
+      const frameworks = [{ name: "foo", id: "foo_1" }];
+      const fooFramework = new Framework({
+        name: "foo",
+        labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "foo" }
+      });
+      const serviceTree = new ServiceTree({ items: [fooFramework] });
+
+      expect(
+        MesosStateUtil.getFrameworkToServicesMap(frameworks, serviceTree)
+      ).toEqual({
+        foo_1: fooFramework
+      });
+    });
+  });
+
   describe("#flagMarathonTasks", function() {
     it("returns state when frameworks is undefined", function() {
       expect(MesosStateUtil.flagMarathonTasks({})).toEqual({});
