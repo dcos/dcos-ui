@@ -43,7 +43,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
     crumbs.push(
       <Breadcrumb key={2} title={nodeIP}>
         <BreadcrumbTextContent>
-          <Link to={`/components/${unit.get("id")}/${nodeIP}`}>
+          <Link to={`/components/${unit.get("id")}/nodes/${nodeIP}`}>
             {`${nodeIP} `}
             <span className={healthStatus.classNames}>
               ({healthStatus.title})
