@@ -134,20 +134,18 @@ export default class PlacementConstraintsSchemaField extends Component {
     const isRequired = fieldProps.required ? "*" : "";
 
     return (
-      <div className="extra-bottom">
-        <FieldLabel>
-          <h2>
-            {`Placement Constraints ${isRequired}`}
-            <Tooltip
-              content={fieldProps.schema.description}
-              interactive={true}
-              maxWidth={300}
-              wrapText={true}
-            >
-              <Icon color="grey" id="circle-question" size="mini" />
-            </Tooltip>
-          </h2>
-        </FieldLabel>
+      <div className="pod flush-left flush-right flush-top">
+        <h2>
+          {`Placement Constraints ${isRequired}`}
+          <Tooltip
+            content={fieldProps.schema.description}
+            interactive={true}
+            maxWidth={300}
+            wrapText={true}
+          >
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
+        </h2>
         <BatchContainer batch={batch} onChange={this.handleBatchChange}>
           <PlacementConstraintsPartial errors={errors} data={data} />
         </BatchContainer>
