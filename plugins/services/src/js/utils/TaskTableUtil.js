@@ -3,6 +3,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Util from "#SRC/js/utils/Util";
+import TaskUtil from "#PLUGINS/services/src/js/utils/TaskUtil";
 import TaskStatusSortingOrder from "../constants/TaskStatusSortingOrder";
 
 function getUpdatedTimestamp(model) {
@@ -18,6 +19,14 @@ const TaskTableUtil = {
 
       if (prop === "updated") {
         return getUpdatedTimestamp(item) || 0;
+      }
+
+      if (prop === "zone") {
+        return TaskUtil.getZoneName(item);
+      }
+
+      if (prop === "host") {
+        return TaskUtil.getHostName(item);
       }
 
       if (prop === "status" && !hasGetter) {
