@@ -87,7 +87,7 @@ class PodInstancesContainer extends React.Component {
     AppDispatcher.unregister(this.dispatcher);
   }
 
-  handleExpressionChange(filterExpression) {
+  handleExpressionChange(filterExpression = { value: "" }) {
     const { router } = this.context;
     const { location: { pathname } } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
@@ -106,8 +106,7 @@ class PodInstancesContainer extends React.Component {
     );
 
     const {
-      defaultFilterData: { regions },
-      defaultFilterData: { zones },
+      defaultFilterData: { regions, zones },
       filterExpression
     } = this.state;
 

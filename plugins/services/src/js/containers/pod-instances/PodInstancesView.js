@@ -151,7 +151,7 @@ class PodInstancesView extends React.Component {
           inverseStyle={inverseStyle}
           name={"Instance"}
           totalLength={totalInstances}
-          onReset={() => handleExpressionChange({ value: "" })}
+          onReset={handleExpressionChange}
         />
         <div className="filter-tasks-bar">
           <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
