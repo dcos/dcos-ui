@@ -15,7 +15,7 @@ do
   fi
 
   # find the easy urls that have https or https
-  urls=$(cat $file | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*(?:\:\d{2,4})" | sort | uniq)
+  urls=$(cat $file | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*(?:\:\d{2,4})?" | sort | uniq)
 
   for url in $urls
   do
