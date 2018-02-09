@@ -14,7 +14,7 @@ module.exports = {
 
     if (base === "networks") {
       if (type === ADD_ITEM) {
-        this.networks.push({});
+        this.networks.push(value || {});
       }
       if (type === REMOVE_ITEM) {
         this.networks = this.networks.filter((item, index) => {
