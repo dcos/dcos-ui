@@ -1,4 +1,10 @@
 jest.mock("../../../utils/ScrollbarUtil");
+jest.mock("../../../components/Page", function() {
+  const Page = ({ children }) => <div>{children}</div>;
+  Page.Header = ({ children }) => <div>{children}</div>;
+
+  return Page;
+});
 
 /* eslint-disable no-unused-vars */
 const React = require("react");
@@ -17,6 +23,8 @@ Config.useFixtures = configUseFixtures;
 
 const PackagesTab = require("../PackagesTab");
 const UniversePackagesList = require("../../../structs/UniversePackagesList");
+
+const renderer = require("react-test-renderer");
 
 describe("PackagesTab", function() {
   beforeEach(function() {
@@ -68,6 +76,40 @@ describe("PackagesTab", function() {
 
       const packages = CosmosPackagesStore.getAvailablePackages();
       expect(this.instance.getPackageGrid(packages).length).toEqual(0);
+    });
+  });
+
+  describe("with empty state", function() {
+    beforeEach(function() {
+      this.getAvailablePackages = CosmosPackagesStore.getAvailablePackages;
+      this.fetchAvailablePackages = CosmosPackagesStore.fetchAvailablePackages;
+      CosmosPackagesStore.getAvailablePackages = () => {
+        return { list: [] };
+      };
+      CosmosPackagesStore.fetchAvailablePackages = () => {};
+    });
+
+    afterEach(function() {
+      CosmosPackagesStore.getAvailablePackages = this.getAvailablePackages;
+      CosmosPackagesStore.fetchAvailablePackages = this.fetchAvailablePackages;
+    });
+
+    it("displays AlertPanel with action to Package Repositories", function() {
+      this.instance = renderer.create(<PackagesTab />);
+      this.instance.getInstance().onCosmosPackagesStoreAvailableSuccess();
+
+      var tree = this.instance.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+
+  describe("with packages on the list", function() {
+    it("displays the catalog with packages", function() {
+      this.instance = renderer.create(<PackagesTab />);
+      this.instance.getInstance().onCosmosPackagesStoreAvailableSuccess();
+
+      var tree = this.instance.toJSON();
+      expect(tree).toMatchSnapshot();
     });
   });
 });
