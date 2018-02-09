@@ -99,6 +99,31 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  getItemParent(id, parent = null) {
+    if (this.getId() === id) {
+      return parent;
+    }
+
+    if (!this.list || this.list.length === 0) {
+      return null;
+    }
+
+    let parentFound = null;
+
+    for (let i = 0; i < this.list.length; i++) {
+      const child = this.list[i];
+      if (child instanceof ServiceTree) {
+        parentFound = child.getItemParent(id, this);
+      } else if (child.getId() === id) {
+        parentFound = this;
+
+        break;
+      }
+    }
+
+    return parentFound;
+  }
+
   /**
    * @param {string} id
    * @return {Service|ServiceTree} matching item

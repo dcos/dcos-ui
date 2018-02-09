@@ -287,6 +287,80 @@ describe("ServiceTree", function() {
     });
   });
 
+  describe("#getItemParent", function() {
+    beforeEach(function() {
+      this.instance = new ServiceTree({
+        id: "/",
+        items: [
+          {
+            id: "test2",
+            items: [
+              {
+                id: "test/testasd"
+              }
+            ]
+          },
+          {
+            id: "/test",
+            items: [
+              {
+                id: "/test/foo"
+              },
+              {
+                id: "/test/bar"
+              },
+              {
+                id: "/test/baz/boo",
+                items: [
+                  {
+                    id: "/test/baz/boo/1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: "/alpha",
+            cmd: "cmd"
+          },
+          {
+            id: "/beta",
+            cmd: "cmd",
+            items: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
+            }
+          }
+        ]
+      });
+    });
+
+    it("finds matching parent from item two levels deep", function() {
+      expect(this.instance.getItemParent("/test/foo").getId()).toEqual("/test");
+    });
+
+    it("finds matching parent from item two levels deep", function() {
+      expect(this.instance.getItemParent("/test/bar").getId()).toEqual("/test");
+    });
+
+    it("finds matching parent from item three levels deep", function() {
+      expect(this.instance.getItemParent("/test/baz/boo/1").getId()).toEqual(
+        "/test/baz/boo"
+      );
+    });
+
+    it("finds matching parent from item one level deep", function() {
+      expect(this.instance.getItemParent("/alpha").getId()).toEqual("/");
+    });
+
+    it("returns null when root item searched", function() {
+      expect(this.instance.getItemParent("/")).toEqual(null);
+    });
+
+    it("returns null when no parent found", function() {
+      expect(this.instance.getItemParent("/not/found")).toEqual(null);
+    });
+  });
+
   describe("#findItemById", function() {
     beforeEach(function() {
       this.instance = new ServiceTree({
