@@ -240,15 +240,16 @@ describe("Tasks Table", function() {
       cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
 
       cy.get("th.task-table-column-region-address").click();
+
       cy
         .get(":nth-child(2) > .task-table-column-region-address")
-        .contains("eu-central-1");
+        .contains("ap-northeast-1");
       cy
         .get(":nth-child(3) > .task-table-column-region-address")
         .contains("eu-central-1");
       cy
         .get(":nth-child(4) > .task-table-column-region-address")
-        .contains("ap-northeast-1");
+        .contains("eu-central-1");
     });
 
     it("sorts ASC by region", function() {
@@ -256,15 +257,16 @@ describe("Tasks Table", function() {
 
       cy.get("th.task-table-column-region-address").click();
       cy.get("th.task-table-column-region-address").click();
+
       cy
         .get(":nth-child(2) > .task-table-column-region-address")
-        .contains("ap-northeast-1");
+        .contains("eu-central-1");
       cy
         .get(":nth-child(3) > .task-table-column-region-address")
         .contains("eu-central-1");
       cy
         .get(":nth-child(4) > .task-table-column-region-address")
-        .contains("eu-central-1");
+        .contains("ap-northeast-1");
     });
 
     it("sorts DESC by zone", function() {
