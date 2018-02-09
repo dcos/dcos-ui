@@ -36,6 +36,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       containerPort,
       automaticPort,
       protocol,
+      vipPort,
       labels
     } = endpoint;
 
@@ -54,7 +55,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
         appState.id,
         endpoint,
         vipLabel,
-        containerPort || hostPort
+        vipPort || containerPort || hostPort
       );
 
       return {
@@ -249,6 +250,12 @@ function containersParser(state) {
               memo.push(
                 new Transaction(
                   ["containers", index, "endpoints", endpointIndex, "vip"],
+                  vip
+                )
+              );
+              memo.push(
+                new Transaction(
+                  ["containers", index, "endpoints", endpointIndex, "vipPort"],
                   vip
                 )
               );

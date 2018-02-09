@@ -13,7 +13,8 @@ const defaultEndpointsFieldValues = {
     udp: false
   },
   servicePort: null,
-  vip: null
+  vip: null,
+  vipPort: null
 };
 
 module.exports = {
@@ -45,7 +46,13 @@ module.exports = {
         break;
     }
 
-    const fieldNames = ["name", "automaticPort", "loadBalanced", "vip"];
+    const fieldNames = [
+      "name",
+      "automaticPort",
+      "loadBalanced",
+      "vip",
+      "vipPort"
+    ];
     const numericalFiledNames = ["containerPort", "hostPort"];
 
     if (type === SET && name === "protocol") {
