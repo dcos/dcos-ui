@@ -861,7 +861,7 @@ class CreateServiceModal extends Component {
 
     return [
       {
-        className: "button-primary-link",
+        className: "button-primary-link button-flush-horizontal",
         clickHandler: this.handleGoBack,
         label
       }
