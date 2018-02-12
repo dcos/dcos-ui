@@ -29,7 +29,7 @@ function install_marathon_raml() {
 
   # Download and expand on-the-fly the marathon tarball into a temporary folder
   header "Downloading marathon ${VERSION} archive"
-  local URL="https://downloads.mesosphere.com/marathon/snapshots/marathon-raml-${VERSION}.tgz"
+  local URL="https://downloads.mesosphere.com/marathon/builds/${VERSION}/marathon-docs-${VERSION}.tgz"
   local TMP_DIR=`mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`
   curl -L ${URL} | tar -zx -C $TMP_DIR
 
@@ -39,7 +39,7 @@ function install_marathon_raml() {
 
   # Copy only relevant parts in the RAML directory
   header "Installing raml files"
-  cp -r $TMP_DIR/rest-api/public/api/v2/{schema,types,*.raml} $TARGET_DIR \
+  cp -r $TMP_DIR/marathon-docs-${VERSION}/docs/rest-api/public/api/v2/{schema,types,*.raml} $TARGET_DIR \
     && echo $VERSION > "${TARGET_DIR}/.marathon-version"
 
   # Cleanup
