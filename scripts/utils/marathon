@@ -29,7 +29,7 @@ function install_marathon_raml() {
 
   # Download and expand on-the-fly the marathon tarball into a temporary folder
   header "Downloading marathon ${VERSION} archive"
-  local URL="https://downloads.mesosphere.com/marathon/builds/marathon-docs-${VERSION}.tgz"
+  local URL="https://downloads.mesosphere.com/marathon/builds/${VERSION}/marathon-docs-${VERSION}.tgz"
   local TMP_DIR=`mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`
   curl -L ${URL} | tar -zx -C $TMP_DIR
 
