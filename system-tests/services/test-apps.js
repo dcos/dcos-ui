@@ -306,7 +306,7 @@ describe("Services", function() {
         .get(".page-body-content table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist")
-        .as(serviceName);
+        .as("serviceName");
 
       cy
         .get("@serviceName")
