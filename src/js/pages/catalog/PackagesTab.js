@@ -46,12 +46,12 @@ const PackagesEmptyState = () => {
       <p className="tall">
         You need at least one package repository with some packages to be
         able to install packages. For more {" "}
-        <Link
+        <a
           target="_blank"
-          to={MetadataStore.buildDocsURI("/administering-clusters/repo")}
+          href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
         >
           information on repositories
-        </Link>
+        </a>
         .
       </p>
       <div className="button-collection flush-bottom">
@@ -251,7 +251,7 @@ class PackagesTab extends mixin(StoreMixin) {
     } else {
       const packages = CosmosPackagesStore.getAvailablePackages();
 
-      if (packages.list == null || packages.list.length === 0) {
+      if (packages.getItems() == null || packages.getItems().length === 0) {
         content = <PackagesEmptyState />;
       } else {
         const splitPackages = packages.getSelectedAndNonSelectedPackages();

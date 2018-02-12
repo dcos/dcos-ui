@@ -84,7 +84,7 @@ describe("PackagesTab", function() {
       this.getAvailablePackages = CosmosPackagesStore.getAvailablePackages;
       this.fetchAvailablePackages = CosmosPackagesStore.fetchAvailablePackages;
       CosmosPackagesStore.getAvailablePackages = () => {
-        return { list: [] };
+        return new UniversePackagesList();
       };
       CosmosPackagesStore.fetchAvailablePackages = () => {};
     });

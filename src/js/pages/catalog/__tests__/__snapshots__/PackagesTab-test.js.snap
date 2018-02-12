@@ -15,8 +15,7 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
         You need at least one package repository with some packages to be able to install packages. For more 
          
         <a
-          onClick={[Function]}
-          style={Object {}}
+          href="https://docs.mesosphere.com/latest/administering-clusters/repo"
           target="_blank">
           information on repositories
         </a>
