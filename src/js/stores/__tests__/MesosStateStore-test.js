@@ -1,3 +1,4 @@
+const { MESOS_STATE_CHANGE } = require("../../constants/EventTypes");
 const MesosStateUtil = require("../../utils/MesosStateUtil");
 const Pod = require("../../../../plugins/services/src/js/structs/Pod");
 const Framework = require("../../../../plugins/services/src/js/structs/Framework");
@@ -8,6 +9,94 @@ const Task = require("../../../../plugins/services/src/js/structs/Task");
 const MESOS_STATE_WITH_HISTORY = require("../../utils/__tests__/fixtures/MesosStateWithHistory");
 
 describe("MesosStateStore", function() {
+  beforeEach(function() {
+    // Because the store a singleton, once you set the stream it is never reset
+    MesosStateStore.stream = null;
+    MesosStateStore.customStream = null;
+  });
+
+  describe("#new", function() {
+    beforeEach(function() {
+      this.mockStream = { stream: "mockStream" };
+      this.buildStream = MesosStateStore.buildStream;
+      this.mockBuildStream = jest.fn(() => this.mockStream);
+      MesosStateStore.buildStream = this.mockBuildStream;
+    });
+
+    afterEach(function() {
+      MesosStateStore.buildStream = this.buildStream;
+    });
+
+    describe("with default stream", function() {
+      it("calls buildStream on submit", function() {
+        MesosStateStore.subscribe();
+        expect(this.mockBuildStream.mock.calls.length).toBe(1);
+      });
+
+      it("assigns the store as the default one", function() {
+        MesosStateStore.subscribe();
+        expect(MesosStateStore.stream).toBe(this.mockStream);
+      });
+    });
+
+    describe("with custom stream", function() {
+      beforeEach(function() {
+        this.customStream = { stream: "customStream" };
+        this.store = MesosStateStore.withStream(this.customStream);
+      });
+
+      afterEach(function() {
+        MesosStateStore.buildStream = this.buildStream;
+      });
+
+      it("does not calls buildStream on submit", function() {
+        this.store.subscribe();
+        expect(this.mockBuildStream.mock.calls.length).toBe(0);
+      });
+
+      it("assigns the store as the default one", function() {
+        this.store.subscribe();
+        expect(MesosStateStore.stream).toBe(this.customStream);
+      });
+    });
+  });
+
+  describe("#addChangeListener", function() {
+    beforeEach(function() {
+      this.customStream = { stream: "mockStream" };
+      this.store = MesosStateStore.withStream(this.customStream);
+
+      this.restoreSubscribe = MesosStateStore.subscribe;
+      this.mockSubscribe = jest.fn(this.restoreSubscribe);
+      MesosStateStore.subscribe = this.mockSubscribe;
+    });
+
+    afterEach(function() {
+      MesosStateStore.subscribe = this.restoreSubscribe;
+    });
+
+    it("calls subscribe once when adding listener", function() {
+      const listener = () => {};
+      this.store.addChangeListener(MESOS_STATE_CHANGE, listener);
+
+      expect(this.mockSubscribe.mock.calls.length).toBe(1);
+
+      this.store.removeChangeListener(MESOS_STATE_CHANGE, listener);
+    });
+
+    it("does not call subscribe more than once", function() {
+      const listener1 = () => {};
+      const listener2 = () => {};
+      this.store.addChangeListener(MESOS_STATE_CHANGE, listener1);
+      this.store.addChangeListener(MESOS_STATE_CHANGE, listener2);
+
+      expect(this.mockSubscribe.mock.calls.length).toBe(1);
+
+      this.store.removeChangeListener(MESOS_STATE_CHANGE, listener1);
+      this.store.removeChangeListener(MESOS_STATE_CHANGE, listener2);
+    });
+  });
+
   describe("#getTasksFromServiceName", function() {
     beforeEach(function() {
       this.get = MesosStateStore.get;
