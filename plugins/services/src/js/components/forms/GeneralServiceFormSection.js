@@ -322,6 +322,8 @@ class GeneralServiceFormSection extends Component {
       </span>
     );
 
+    const isEditPage = /\/edit\//g.test(global.location.hash);
+
     return (
       <div>
         <h1 className="flush-top short-bottom">
@@ -351,7 +353,12 @@ class GeneralServiceFormSection extends Component {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput name="id" type="text" value={data.id} />
+              <FieldInput
+                name="id"
+                type="text"
+                value={data.id}
+                disabled={isEditPage}
+              />
             </FieldAutofocus>
             <FieldHelp>
               Give your service a unique name within the cluster, e.g. my-service.
