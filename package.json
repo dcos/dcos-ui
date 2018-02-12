@@ -16,10 +16,6 @@
     "url": "https://github.com/dcos/dcos-ui"
   },
   "license": "Apache-2.0",
-  "engines": {
-    "node": "8.9.x",
-    "npm": "5.6.x"
-  },
   "browserslist": [
     "last 2 versions",
     "ie 11"
@@ -72,6 +68,8 @@
     "tv4": "1.2.7"
   },
   "devDependencies": {
+    "node": "8.9.4",
+    "npm": "5.6.0",
     "@dcos/eslint-config": "0.3.0",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.24.1",
@@ -160,11 +158,12 @@
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
-    "start": "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
+    "start": "NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
-    "validate-build": "scripts/validate-build dist/*.js"
+    "validate-build": "scripts/validate-build dist/*.js",
+    "versions": "npm --version && node --version"
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.test.js"
