@@ -51,23 +51,7 @@ pipeline {
     stage('Unit Test') {
       steps {
         ansiColor('xterm') {
-          sh '''npm run test -- --coverage'''
-        }
-      }
-
-      post {
-        always {
-          junit 'jest/test-results/*.xml'
-          step([$class             : 'CoberturaPublisher',
-                autoUpdateHealth   : false,
-                autoUpdateStability: false,
-                coberturaReportFile: 'coverage/cobertura-coverage.xml',
-                failUnhealthy      : true,
-                failUnstable       : true,
-                maxNumberOfBuilds  : 0,
-                onlyStable         : false,
-                sourceEncoding     : 'ASCII',
-                zoomCoverageChart  : false])
+          sh '''npm run test -- --maxWorkers=2'''
         }
       }
     }
@@ -95,7 +79,7 @@ pipeline {
           'export PATH=`pwd`/node_modules/.bin:$PATH',
           'http-server -p 4200 dist&',
           'SERVER_PID=$!',
-          'npm run cypress -- --reporter junit --reporter-options \'mochaFile=cypress/results.xml\'',
+          './scripts/ci/run-integration-tests',
           'RET=$?',
           'echo "cypress exit status: ${RET}"',
           'sleep 10',
