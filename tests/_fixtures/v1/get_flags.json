@@ -1,0 +1,215 @@
+{
+    "type": "GET_FLAGS",
+    "get_flags": {
+        "flags": [
+            {
+                "name": "agent_ping_timeout",
+                "value": "15secs"
+            },
+            {
+                "name": "agent_reregister_timeout",
+                "value": "10mins"
+            },
+            {
+                "name": "allocation_interval",
+                "value": "1secs"
+            },
+            {
+                "name": "allocator",
+                "value": "HierarchicalDRF"
+            },
+            {
+                "name": "authenticate_agents",
+                "value": "false"
+            },
+            {
+                "name": "authenticate_frameworks",
+                "value": "false"
+            },
+            {
+                "name": "authenticate_http_frameworks",
+                "value": "false"
+            },
+            {
+                "name": "authenticate_http_readonly",
+                "value": "true"
+            },
+            {
+                "name": "authenticate_http_readwrite",
+                "value": "true"
+            },
+            {
+                "name": "authenticators",
+                "value": "com_mesosphere_dcos_ClassicRPCAuthenticator"
+            },
+            {
+                "name": "authorizers",
+                "value": "com_mesosphere_dcos_Authorizer"
+            },
+            {
+                "name": "cluster",
+                "value": "test-cluster"
+            },
+            {
+                "name": "domain",
+                "value": "{\"fault_domain\":{\"region\":{\"name\":\"aws\\/eu-central-1\"},\"zone\":{\"name\":\"aws\\/eu-central-1c\"}}}"
+            },
+            {
+                "name": "external_log_file",
+                "value": "/var/lib/dcos/mesos/log/mesos-master.log"
+            },
+            {
+                "name": "fair_sharing_excluded_resource_names",
+                "value": "{ gpus }"
+            },
+            {
+                "name": "filter_gpu_resources",
+                "value": "true"
+            },
+            {
+                "name": "framework_sorter",
+                "value": "drf"
+            },
+            {
+                "name": "help",
+                "value": "false"
+            },
+            {
+                "name": "hostname_lookup",
+                "value": "false"
+            },
+            {
+                "name": "http_authenticators",
+                "value": "com_mesosphere_dcos_http_Authenticator"
+            },
+            {
+                "name": "initialize_driver_logging",
+                "value": "true"
+            },
+            {
+                "name": "ip_discovery_command",
+                "value": "/opt/mesosphere/bin/detect_ip"
+            },
+            {
+                "name": "log_auto_initialize",
+                "value": "true"
+            },
+            {
+                "name": "logbufsecs",
+                "value": "0"
+            },
+            {
+                "name": "logging_level",
+                "value": "INFO"
+            },
+            {
+                "name": "max_completed_frameworks",
+                "value": "50"
+            },
+            {
+                "name": "max_completed_tasks_per_framework",
+                "value": "1000"
+            },
+            {
+                "name": "max_slave_ping_timeouts",
+                "value": "20"
+            },
+            {
+                "name": "max_unreachable_tasks_per_framework",
+                "value": "1000"
+            },
+            {
+                "name": "modules_dir",
+                "value": "/opt/mesosphere/etc/mesos-master-modules"
+            },
+            {
+                "name": "offer_timeout",
+                "value": "2mins"
+            },
+            {
+                "name": "port",
+                "value": "5050"
+            },
+            {
+                "name": "quiet",
+                "value": "false"
+            },
+            {
+                "name": "quorum",
+                "value": "1"
+            },
+            {
+                "name": "recovery_agent_removal_limit",
+                "value": "100%"
+            },
+            {
+                "name": "registry",
+                "value": "replicated_log"
+            },
+            {
+                "name": "registry_fetch_timeout",
+                "value": "1mins"
+            },
+            {
+                "name": "registry_gc_interval",
+                "value": "15mins"
+            },
+            {
+                "name": "registry_max_agent_age",
+                "value": "2weeks"
+            },
+            {
+                "name": "registry_max_agent_count",
+                "value": "102400"
+            },
+            {
+                "name": "registry_store_timeout",
+                "value": "1mins"
+            },
+            {
+                "name": "registry_strict",
+                "value": "false"
+            },
+            {
+                "name": "require_agent_domain",
+                "value": "false"
+            },
+            {
+                "name": "root_submissions",
+                "value": "true"
+            },
+            {
+                "name": "slave_removal_rate_limit",
+                "value": "1/20mins"
+            },
+            {
+                "name": "user_sorter",
+                "value": "drf"
+            },
+            {
+                "name": "version",
+                "value": "false"
+            },
+            {
+                "name": "webui_dir",
+                "value": "/opt/mesosphere/packages/mesos--42edfd1909dcedd43d055147b3928369bb8b3904/share/mesos/webui"
+            },
+            {
+                "name": "weights",
+                "value": ""
+            },
+            {
+                "name": "work_dir",
+                "value": "/var/lib/dcos/mesos/master"
+            },
+            {
+                "name": "zk",
+                "value": "zk://dcos_mesos_master:fGO1QsNWEN4gPHPnngJ9tEpqyP7fS4MbUnQes9RfFnXlVtc9dh4zrIyyMC2bpI9y@zk-1.zk:2181,zk-2.zk:2181,zk-3.zk:2181,zk-4.zk:2181,zk-5.zk:2181/mesos"
+            },
+            {
+                "name": "zk_session_timeout",
+                "value": "10secs"
+            }
+        ]
+    }
+}
