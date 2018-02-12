@@ -34,13 +34,13 @@ describe("ServiceEndpoint", function() {
 
   describe("#getAddress", function() {
     it("returns correct address", function() {
-      expect(this.endpointJSON.getAddress()).toEqual("address1, address2");
+      expect(this.endpointJSON.getAddress()).toEqual("address1,address2");
     });
   });
 
   describe("#getDns", function() {
     it("returns correct dns", function() {
-      expect(this.endpointJSON.getDns()).toEqual("dns1, dns2");
+      expect(this.endpointJSON.getDns()).toEqual("dns1,dns2");
     });
   });
 
