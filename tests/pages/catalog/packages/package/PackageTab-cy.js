@@ -114,6 +114,8 @@ describe("Package Detail Tab", function() {
         .get(".page-body-content .package-action-buttons button")
         .contains("Review & Run")
         .click();
+
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
     });
 
     it("opens framework configuration when Review & Run clicked", function() {
