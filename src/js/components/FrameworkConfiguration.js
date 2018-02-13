@@ -39,7 +39,7 @@ class FrameworkConfiguration extends Component {
     const { activeTab, focusField } = this.getFirstTabAndField();
 
     this.state = {
-      reviewActive: props.isInitialDeploy,
+      reviewActive: false,
       activeTab,
       focusField,
       jsonEditorActive: false,
@@ -366,7 +366,7 @@ FrameworkConfiguration.propTypes = {
   packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
   handleRun: PropTypes.func.isRequired,
   handleGoBack: PropTypes.func.isRequired,
-  isInitialDeploy: PropTypes.bool.isRequired,
+  isInitialDeploy: PropTypes.bool,
   deployErrors: PropTypes.object,
   defaultConfigWarning: PropTypes.string
 };
