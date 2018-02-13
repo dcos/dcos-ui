@@ -1,0 +1,3493 @@
+exports[`PackagesTab with empty state displays AlertPanel with action to Package Repositories 1`] = `
+<div>
+  <div />
+  <div
+    className="panel alert-panel text-align-center flush-bottom"
+    onClick={undefined}>
+    <div
+      className="panel-content panel-cell panel-cell-borderless panel-cell-wider panel-cell-taller">
+      <h2
+        className="flush-top">
+        No package repositories
+      </h2>
+      <p
+        className="tall">
+        You need at least one package repository with some packages to be able to install packages. For more 
+         
+        <a
+          href="https://docs.mesosphere.com/latest/administering-clusters/repo"
+          target="_blank">
+          information on repositories
+        </a>
+        .
+      </p>
+      <div
+        className="button-collection flush-bottom">
+        <a
+          className="button button-primary"
+          onClick={[Function]}
+          style={Object {}}>
+          Add Package Repository
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PackagesTab with packages on the list displays the catalog with packages 1`] = `
+<div>
+  <div />
+  <div
+    className="container">
+    <div
+      className="pod flush-horizontal flush-top">
+      <div
+        className="form-group flex-grow">
+        <div
+          className="form-control form-control-group filter-input-text-group"
+          onBlur={[Function]}
+          onClick={[Function]}>
+          <span
+            className="form-control-group-add-on form-control-group-add-on-prepend">
+            <svg
+              className="icon icon-grey icon-mini">
+              <use
+                xlinkHref="#icon-system--search" />
+            </svg>
+          </span>
+          <input
+            className="form-control filter-input-text"
+            onChange={[Function]}
+            placeholder="Search catalog"
+            type="text"
+            value="" />
+        </div>
+      </div>
+    </div>
+    <div
+      className="pod flush-top flush-horizontal clearfix">
+      <h1
+        className="short flush-top">
+        Certified
+      </h1>
+      <p
+        className="tall flush-top">
+        Certified packages are verified by Mesosphere for interoperability with DC/OS.
+      </p>
+      <div
+        className="panel-grid row">
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                arangodb3
+              </div>
+              <small
+                className="flush">
+                1.4.6
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                artifactory
+              </div>
+              <small
+                className="flush">
+                5.1.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                cassandra
+              </div>
+              <small
+                className="flush">
+                1.0.25-3.0.10
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                confluent-kafka
+              </div>
+              <small
+                className="flush">
+                1.1.19-3.2.0e
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                elastic
+              </div>
+              <small
+                className="flush">
+                1.0.8-5.2.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                gitlab
+              </div>
+              <small
+                className="flush">
+                1.0-9.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                jenkins
+              </div>
+              <small
+                className="flush">
+                3.0.3-2.32.3
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                marathon
+              </div>
+              <small
+                className="flush">
+                1.4.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                spark
+              </div>
+              <small
+                className="flush">
+                1.0.9-2.1.0-1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge badge--primary">
+                Certified
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="clearfix">
+      <h1
+        className="flush-top short">
+        Community
+      </h1>
+      <p
+        className="tall flush-top">
+        Community packages are unverified and unreviewed content from the community.
+      </p>
+      <div
+        className="panel-grid row">
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                alluxio-enterprise
+              </div>
+              <small
+                className="flush">
+                1.0.0-1.4.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                arangodb
+              </div>
+              <small
+                className="flush">
+                0.4.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                artifactory-lb
+              </div>
+              <small
+                className="flush">
+                5.1.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                avi
+              </div>
+              <small
+                className="flush">
+                2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                bitbucket
+              </div>
+              <small
+                className="flush">
+                4.5
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                bookkeeper
+              </div>
+              <small
+                className="flush">
+                4.3.4-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                cadvisor
+              </div>
+              <small
+                className="flush">
+                0.24.1-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                calico
+              </div>
+              <small
+                className="flush">
+                0.4.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                ceph
+              </div>
+              <small
+                className="flush">
+                0.2.9-0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                ceph-dash
+              </div>
+              <small
+                className="flush">
+                0.1-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                chronos
+              </div>
+              <small
+                className="flush">
+                3.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                concord
+              </div>
+              <small
+                className="flush">
+                0.3.16.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                confluent-connect
+              </div>
+              <small
+                className="flush">
+                0.9.8-3.2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                confluent-control-center
+              </div>
+              <small
+                className="flush">
+                0.9.8-3.2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                confluent-replicator
+              </div>
+              <small
+                className="flush">
+                0.9.8-3.2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                confluent-rest-proxy
+              </div>
+              <small
+                className="flush">
+                0.9.8-3.2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                confluent-schema-registry
+              </div>
+              <small
+                className="flush">
+                0.9.8-3.2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                crate
+              </div>
+              <small
+                className="flush">
+                0.1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                datadog
+              </div>
+              <small
+                className="flush">
+                5.11.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                dcos-enterprise-cli
+              </div>
+              <small
+                className="flush">
+                1.0.7
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                dynatrace
+              </div>
+              <small
+                className="flush">
+                latest
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                ecr-login
+              </div>
+              <small
+                className="flush">
+                2.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                elasticsearch
+              </div>
+              <small
+                className="flush">
+                1.0.1-2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                etcd
+              </div>
+              <small
+                className="flush">
+                0.0.3
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                exhibitor
+              </div>
+              <small
+                className="flush">
+                1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                flink
+              </div>
+              <small
+                className="flush">
+                1.2.0-1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                geoserver
+              </div>
+              <small
+                className="flush">
+                2.10.0-1.1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                gestalt-framework
+              </div>
+              <small
+                className="flush">
+                1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                grafana
+              </div>
+              <small
+                className="flush">
+                3.1.1-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                hdfs
+              </div>
+              <small
+                className="flush">
+                1.2.0-2.6.0-cdh5.9.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                hello-world
+              </div>
+              <small
+                className="flush">
+                1.1.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                httpbin
+              </div>
+              <small
+                className="flush">
+                1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                hue
+              </div>
+              <small
+                className="flush">
+                0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                influxdb
+              </div>
+              <small
+                className="flush">
+                0.13-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                instana-agent
+              </div>
+              <small
+                className="flush">
+                1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                kafka
+              </div>
+              <small
+                className="flush">
+                1.1.19-0.10.1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                kafka-manager
+              </div>
+              <small
+                className="flush">
+                1.3.0.8
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                kibana
+              </div>
+              <small
+                className="flush">
+                4.5.3
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                koding
+              </div>
+              <small
+                className="flush">
+                1.0.0-0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                kong
+              </div>
+              <small
+                className="flush">
+                0.9.9
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                linkerd
+              </div>
+              <small
+                className="flush">
+                0.8.6-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                linkerd-viz
+              </div>
+              <small
+                className="flush">
+                0.0.7
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                logstash
+              </div>
+              <small
+                className="flush">
+                2.3.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                marathon-lb
+              </div>
+              <small
+                className="flush">
+                1.6.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                marathon-slack
+              </div>
+              <small
+                className="flush">
+                0.2.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mariadb
+              </div>
+              <small
+                className="flush">
+                10.1.22
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                memsql
+              </div>
+              <small
+                className="flush">
+                0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                minio
+              </div>
+              <small
+                className="flush">
+                0.0.4-RELEASE.2017-03-16T21-50-32Z
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mongodb
+              </div>
+              <small
+                className="flush">
+                3.2-0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mongodb-admin
+              </div>
+              <small
+                className="flush">
+                0.0.20-0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mongodb-replicaset
+              </div>
+              <small
+                className="flush">
+                0.1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mr-redis
+              </div>
+              <small
+                className="flush">
+                0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                msoms
+              </div>
+              <small
+                className="flush">
+                1.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mysql
+              </div>
+              <small
+                className="flush">
+                5.7.12-0.3
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                mysql-admin
+              </div>
+              <small
+                className="flush">
+                4.6.4-0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                namerd
+              </div>
+              <small
+                className="flush">
+                0.7.0-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                neo4j
+              </div>
+              <small
+                className="flush">
+                3.1.2-1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                neo4j-proxy
+              </div>
+              <small
+                className="flush">
+                1.0.0-0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                neo4j-replica
+              </div>
+              <small
+                className="flush">
+                3.1.2-1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                netsil
+              </div>
+              <small
+                className="flush">
+                1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                netsil-collectors
+              </div>
+              <small
+                className="flush">
+                1.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                nexus
+              </div>
+              <small
+                className="flush">
+                3.2.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                nginx
+              </div>
+              <small
+                className="flush">
+                1.10.3
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                nifi
+              </div>
+              <small
+                className="flush">
+                1.1.1-0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                openldap
+              </div>
+              <small
+                className="flush">
+                2.4.40-0.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                openldap-admin
+              </div>
+              <small
+                className="flush">
+                1.2.2-0.4
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                openvpn
+              </div>
+              <small
+                className="flush">
+                0.0.0-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                openvpn-admin
+              </div>
+              <small
+                className="flush">
+                0.0.0-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                portworx
+              </div>
+              <small
+                className="flush">
+                1.1.6-3.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                postgresql
+              </div>
+              <small
+                className="flush">
+                9.6-0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                postgresql-admin
+              </div>
+              <small
+                className="flush">
+                5.1-0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                quobyte
+              </div>
+              <small
+                className="flush">
+                1.2.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                redis
+              </div>
+              <small
+                className="flush">
+                3.0.7-0.0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                registry
+              </div>
+              <small
+                className="flush">
+                2.5.1-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                riak
+              </div>
+              <small
+                className="flush">
+                2.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                scale
+              </div>
+              <small
+                className="flush">
+                4.1.0-0.0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                spark-history
+              </div>
+              <small
+                className="flush">
+                2.1.0-1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                spark-notebook
+              </div>
+              <small
+                className="flush">
+                0.1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                spark-shuffle
+              </div>
+              <small
+                className="flush">
+                0.1-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                sqlserver
+              </div>
+              <small
+                className="flush">
+                2016-13.0.1601.5-0.1
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                storm
+              </div>
+              <small
+                className="flush">
+                0.1.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                sysdig-cloud
+              </div>
+              <small
+                className="flush">
+                latest
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                tunnel-cli
+              </div>
+              <small
+                className="flush">
+                2.0.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                vamp
+              </div>
+              <small
+                className="flush">
+                0.9.3-0.0.2
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                weavescope
+              </div>
+              <small
+                className="flush">
+                0.15.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                weavescope-probe
+              </div>
+              <small
+                className="flush">
+                0.15.0
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                wordpress
+              </div>
+              <small
+                className="flush">
+                1.0.0-4.5.3-apache
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="panel-grid-item column-6 column-small-4 column-large-3">
+          <div
+            className="panel panel-interactive clickable"
+            onClick={[Function]}>
+            <div
+              className="panel-header panel-cell panel-cell-narrow panel-cell-borderless horizontal-center flush-bottom">
+              <div
+                className="icon icon-jumbo icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                <img
+                  className=""
+                  onError={[Function]}
+                  src={Object {}} />
+              </div>
+            </div>
+            <div
+              className="panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless horizontal-center text-align-center">
+              <div
+                className="h3 flush">
+                zeppelin
+              </div>
+              <small
+                className="flush">
+                0.5.6
+              </small>
+            </div>
+            <div
+              className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center">
+              <span
+                className="badge">
+                Community
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

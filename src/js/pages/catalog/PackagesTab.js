@@ -25,6 +25,7 @@ import Loader from "../../components/Loader";
 import Page from "../../components/Page";
 import StringUtil from "../../utils/StringUtil";
 import CatalogPackageOption from "./CatalogPackageOption";
+import MetadataStore from "../../stores/MetadataStore";
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [
@@ -36,6 +37,30 @@ const PackagesBreadcrumbs = () => {
   ];
 
   return <Page.Header.Breadcrumbs iconID="catalog" breadcrumbs={crumbs} />;
+};
+
+const PackagesEmptyState = () => {
+  return (
+    <AlertPanel>
+      <AlertPanelHeader>No package repositories</AlertPanelHeader>
+      <p className="tall">
+        You need at least one package repository with some packages to be
+        able to install packages. For more {" "}
+        <a
+          target="_blank"
+          href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
+        >
+          information on repositories
+        </a>
+        .
+      </p>
+      <div className="button-collection flush-bottom">
+        <Link to="/settings/repositories" className="button button-primary">
+          Add Package Repository
+        </Link>
+      </div>
+    </AlertPanel>
+  );
 };
 
 const METHODS_TO_BIND = ["handleSearchStringChange"];
@@ -225,31 +250,36 @@ class PackagesTab extends mixin(StoreMixin) {
       content = this.getLoadingScreen();
     } else {
       const packages = CosmosPackagesStore.getAvailablePackages();
-      const splitPackages = packages.getSelectedAndNonSelectedPackages();
 
-      let communityPackages = splitPackages.nonSelectedPackages;
-      const selectedPackages = splitPackages.selectedPackages;
+      if (packages.getItems() == null || packages.getItems().length === 0) {
+        content = <PackagesEmptyState />;
+      } else {
+        const splitPackages = packages.getSelectedAndNonSelectedPackages();
 
-      if (state.searchString) {
-        communityPackages = packages.filterItemsByText(state.searchString);
-      }
+        let communityPackages = splitPackages.nonSelectedPackages;
+        const selectedPackages = splitPackages.selectedPackages;
 
-      content = (
-        <div className="container">
-          <div className="pod flush-horizontal flush-top">
-            <FieldAutofocus>
-              <FilterInputText
-                className="flex-grow"
-                placeholder="Search catalog"
-                searchString={state.searchString}
-                handleFilterChange={this.handleSearchStringChange}
-              />
-            </FieldAutofocus>
+        if (state.searchString) {
+          communityPackages = packages.filterItemsByText(state.searchString);
+        }
+
+        content = (
+          <div className="container">
+            <div className="pod flush-horizontal flush-top">
+              <FieldAutofocus>
+                <FilterInputText
+                  className="flex-grow"
+                  placeholder="Search catalog"
+                  searchString={state.searchString}
+                  handleFilterChange={this.handleSearchStringChange}
+                />
+              </FieldAutofocus>
+            </div>
+            {this.getCertifiedPackagesGrid(selectedPackages)}
+            {this.getCommunityPackagesGrid(communityPackages)}
           </div>
-          {this.getCertifiedPackagesGrid(selectedPackages)}
-          {this.getCommunityPackagesGrid(communityPackages)}
-        </div>
-      );
+        );
+      }
     }
 
     return (
