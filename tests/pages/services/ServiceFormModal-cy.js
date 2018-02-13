@@ -1533,6 +1533,39 @@ describe("Service Form Modal", function() {
       });
     });
 
+    context("Networking", function() {
+      beforeEach(function() {
+        cy.get(".menu-tabbed-item-label").contains("Networking").click();
+      });
+
+      context("Virtual Network: dcos-1", function() {
+        beforeEach(function() {
+          cy.get('select[name="networks.0"]').select("Virtual Network: dcos-1");
+        });
+
+        context("Load balanced ports", function() {
+          beforeEach(function() {
+            cy
+              .get(".button.button-primary-link")
+              .contains("Add Service Endpoint")
+              .click();
+            cy
+              .get(".form-group-heading-content")
+              .contains("Enable Load Balanced Service Address")
+              .click();
+          });
+
+          it("sets vip port", function() {
+            cy
+              .get('.form-control[name="containers.0.endpoints.0.vipPort"]')
+              .type(9007);
+
+            cy.contains(".marathon.l4lb.thisdcos.directory:9007");
+          });
+        });
+      });
+    });
+
     context("Multi-container (pod)", function() {
       beforeEach(function() {
         cy

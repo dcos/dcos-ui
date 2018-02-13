@@ -13,7 +13,8 @@ const defaultEndpointsFieldValues = {
     udp: false
   },
   servicePort: null,
-  vip: null
+  vip: null,
+  vipPort: null
 };
 
 module.exports = {
@@ -53,7 +54,8 @@ module.exports = {
       "automaticPort",
       "loadBalanced",
       "labels",
-      "vip"
+      "vip",
+      "vipPort"
     ];
     const numericalFiledNames = ["containerPort", "hostPort"];
 
