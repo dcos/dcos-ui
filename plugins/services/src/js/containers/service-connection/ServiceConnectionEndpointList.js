@@ -39,9 +39,9 @@ class ServiceConnectionEndpointList extends React.Component {
     let protocol = portDefinition.protocol || "";
 
     if (Array.isArray(protocol)) {
-      protocol = protocol.join(", ");
+      protocol = protocol.join(",");
     }
-    protocol = protocol.replace(/,\s*/g, ", ");
+    protocol = protocol.replace(/,\s*/g, ",");
 
     if (protocol !== "") {
       return <EndpointClipboardTrigger command={getDisplayValue(protocol)} />;
