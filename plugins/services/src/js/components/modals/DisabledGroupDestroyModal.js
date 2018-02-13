@@ -6,7 +6,7 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 const DisabledGroupDestroyModal = props => {
   const modalFooter = (
     <div className="text-align-center">
-      <button className="button button-medium" onClick={props.onClose}>
+      <button className="button button-primary-link" onClick={props.onClose}>
         OK
       </button>
     </div>
@@ -20,7 +20,7 @@ const DisabledGroupDestroyModal = props => {
 
   return (
     <Modal
-      modalClass="modal"
+      modalClass="modal modal-small"
       footer={modalFooter}
       header={modalHeading}
       onClose={props.onClose}
