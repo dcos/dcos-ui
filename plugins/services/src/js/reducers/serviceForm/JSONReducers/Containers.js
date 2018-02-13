@@ -228,10 +228,12 @@ function containersParser(state) {
               endpoint.containerPort
             )
           );
+
           const vip = findNestedPropertyInObject(
             endpoint,
             `labels.VIP_${endpointIndex}`
           );
+
           if (vip != null) {
             memo.push(
               new Transaction(
@@ -253,10 +255,14 @@ function containersParser(state) {
                   vip
                 )
               );
+            }
+
+            const vipPortMatch = vip.match(/.+:(\d+)/);
+            if (vipPortMatch) {
               memo.push(
                 new Transaction(
                   ["containers", index, "endpoints", endpointIndex, "vipPort"],
-                  vip
+                  vipPortMatch[1]
                 )
               );
             }

@@ -1007,6 +1007,109 @@ describe("Containers", function() {
         )
       ]);
     });
+
+    describe("endpoints", function() {
+      it("parses VIP ports", function() {
+        expect(
+          Containers.JSONParser({
+            networks: [
+              {
+                mode: "container"
+              }
+            ],
+            containers: [
+              {
+                endpoints: [
+                  {
+                    labels: {
+                      VIP_0: "/:900"
+                    }
+                  }
+                ]
+              }
+            ]
+          })
+        ).toEqual([
+          new Transaction(
+            ["containers"],
+            {
+              endpoints: [
+                {
+                  labels: {
+                    VIP_0: "/:900"
+                  }
+                }
+              ]
+            },
+            ADD_ITEM
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints"],
+            {
+              labels: { VIP_0: "/:900" }
+            },
+            ADD_ITEM
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "hostPort"],
+            undefined,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "automaticPort"],
+            false,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "servicePort"],
+            false,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "name"],
+            undefined,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "labels"],
+            { VIP_0: "/:900" },
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "containerPort"],
+            undefined,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "loadBalanced"],
+            true,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "vip"],
+            "/:900",
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "vipPort"],
+            "900",
+            SET
+          ),
+
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "protocol", "udp"],
+            false,
+            SET
+          ),
+          new Transaction(
+            ["containers", 0, "endpoints", 0, "protocol", "tcp"],
+            false,
+            SET
+          )
+        ]);
+      });
+    });
+
     describe("artifacts", function() {
       it("parses JSON correctly", function() {
         expect(
