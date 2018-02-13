@@ -23,7 +23,8 @@ describe("JSONMultiContainer", function() {
         },
         networks: [
           {
-            mode: "host"
+            mode: "container",
+            name: "dcos"
           }
         ],
         containers: [
@@ -36,7 +37,7 @@ describe("JSONMultiContainer", function() {
                 hostPort: 0,
                 protocol: ["tcp"],
                 labels: {
-                  VIP_0: "1.2.3.4:80"
+                  VIP_0: "1.2.3.4:80" // Custom VIP
                 }
               }
             ],
@@ -52,7 +53,7 @@ describe("JSONMultiContainer", function() {
                 hostPort: 0,
                 protocol: ["udp", "tcp"],
                 labels: {
-                  VIP_0: "1.2.3.4:80"
+                  VIP_0: "/podABCD:81" // App ID based VIP
                 }
               }
             ],
