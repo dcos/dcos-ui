@@ -40,7 +40,7 @@ class ServicePodConnectionEndpointList extends React.Component {
 
   getProtocolValue(portDefinition) {
     let protocol = portDefinition.protocol || [];
-    protocol = protocol.join(", ");
+    protocol = protocol.join(",");
 
     if (protocol !== "") {
       return this.getClipboardTrigger(getDisplayValue(protocol));
