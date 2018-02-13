@@ -2,9 +2,10 @@ import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import StructUtil from "#SRC/js/utils/StructUtil";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
-
+import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import PodInstanceState
-  from "../../../plugins/services/src/js/constants/PodInstanceState";
+  from "#PLUGINS/services/src/js/constants/PodInstanceState";
+
 import Util from "./Util";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
@@ -295,11 +296,24 @@ const MesosStateUtil = {
    * @return {Object} task
    */
   flagSDKTask(task, service) {
-    if (isSDKService(service) && task.sdkTask === undefined) {
+    if (task.sdkTask === undefined && isSDKService(service)) {
       return Object.assign({}, task, { sdkTask: true });
     }
 
     return task;
+  },
+
+  getFrameworkToServicesMap(frameworks, serviceTree) {
+    return frameworks.reduce((acc, framework) => {
+      acc[framework.id] = serviceTree.findItem(function(item) {
+        return (
+          item instanceof Framework &&
+          item.getFrameworkName() === framework.name
+        );
+      });
+
+      return acc;
+    }, {});
   }
 };
 

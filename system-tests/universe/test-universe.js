@@ -24,6 +24,9 @@ describe("Universe", function() {
     // Click the Review & Run button
     cy.contains("Review & Run").click();
 
+    // Move to the review screen
+    cy.contains("Review & Run").click();
+
     // Click the Run Service button
     cy.contains("Run Service").click();
 
@@ -51,6 +54,9 @@ describe("Universe", function() {
     // Click the Review & Run button
     cy.contains("Review & Run").click();
 
+    // Move to the review screen
+    cy.contains("Review & Run").click();
+
     // Click the Run Service button
     cy.contains("Run Service").click();
 
@@ -73,6 +79,9 @@ describe("Universe", function() {
     cy.contains("Community");
 
     // Click the Review & Run button
+    cy.contains("Review & Run").click();
+
+    // Move to the review screen
     cy.contains("Review & Run").click();
 
     // Click the Run Service button
