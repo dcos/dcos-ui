@@ -59,4 +59,18 @@ describe("UniversePackage", function() {
       expect(pkg.getMaintainer()).toEqual(undefined);
     });
   });
+
+  describe("#getConfig", function() {
+    it("returns config passed into package", function() {
+      var pkg = new UniversePackage({
+        config: { properties: {}, type: "object" }
+      });
+      expect(pkg.getConfig()).toEqual({ properties: {}, type: "object" });
+    });
+
+    it("adds type object to config when not provided", function() {
+      var pkg = new UniversePackage({ config: { properties: {} } });
+      expect(pkg.getConfig()).toEqual({ properties: {}, type: "object" });
+    });
+  });
 });
