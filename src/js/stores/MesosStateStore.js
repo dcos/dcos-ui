@@ -2,9 +2,12 @@ import PluginSDK from "PluginSDK";
 import { request } from "@dcos/mesos-client";
 import { Observable } from "rxjs/Observable";
 
+import Framework from "#PLUGINS/services/src/js/structs/Framework";
+import Task from "#PLUGINS/services/src/js/structs/Task";
+
 import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
-import Framework from "../../../plugins/services/src/js/structs/Framework";
+import DCOSStore from "./DCOSStore";
 import GetSetBaseStore from "./GetSetBaseStore";
 import {
   MESOS_STATE_CHANGE,
@@ -12,7 +15,6 @@ import {
 } from "../constants/EventTypes";
 import MesosStateUtil from "../utils/MesosStateUtil";
 import pipe from "../utils/pipe";
-import Task from "../../../plugins/services/src/js/structs/Task";
 import { MesosStreamType } from "../core/MesosStream";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
@@ -167,14 +169,21 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTasksFromNodeID(nodeID) {
-    const { tasks } = this.getLastMesosState();
+    const { tasks, frameworks } = this.getLastMesosState();
 
     const schedulerTasks = this.getSchedulerTasks();
+    const servicesMap = MesosStateUtil.getFrameworkToServicesMap(
+      frameworks,
+      DCOSStore.serviceTree
+    );
 
     return tasks
       .filter(({ slave_id }) => slave_id === nodeID)
       .map(task =>
         MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
+      )
+      .map(task =>
+        MesosStateUtil.flagSDKTask(task, servicesMap[task.framework_id])
       );
   }
 
@@ -253,20 +262,17 @@ class MesosStateStore extends GetSetBaseStore {
       });
 
       if (framework) {
-        serviceTasks = tasks
-          .filter(task => task.framework_id === framework.id)
-          .map(task =>
-            MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
-          );
+        serviceTasks = tasks.filter(task => task.framework_id === framework.id);
       }
     }
 
     return tasks
       .filter(task => task.isStartedByMarathon && task.name === mesosTaskName)
+      .concat(serviceTasks)
       .map(task =>
         MesosStateUtil.assignSchedulerTaskField(task, schedulerTasks)
       )
-      .concat(serviceTasks);
+      .map(task => MesosStateUtil.flagSDKTask(task, service));
   }
 
   getRunningTasksFromVirtualNetworkName(overlayName) {

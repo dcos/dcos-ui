@@ -122,7 +122,6 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
         handleRun={this.handleRun.bind(this)}
         onFormDataChange={this.onFormDataChange.bind(this)}
         onFormErrorChange={this.onFormErrorChange.bind(this)}
-        isInitialDeploy={false}
         packageDetails={packageDetails}
         deployErrors={deployErrors}
         formData={formData}
