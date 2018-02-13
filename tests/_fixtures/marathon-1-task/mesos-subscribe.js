@@ -797,6 +797,96 @@ var response = JSON.stringify({
               disk: 0,
               mem: 0
             },
+            domain: {
+              fault_domain: {
+                region: {
+                  name: "eu-central-1"
+                },
+                zone: { name: "eu-central-1a" }
+              }
+            },
+            pid: "slave(1)@172.17.8.101:5051",
+            registered_time: 1443995289.19971,
+            reregistered_time: 1443995289.19981,
+            reserved_resources: {},
+            resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            unreserved_resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            used_resources: {
+              cpus: 0.1,
+              disk: 0,
+              mem: 16,
+              ports: "[10000-10000]"
+            }
+          },
+          {
+            active: true,
+            attributes: {},
+            hostname: "dcos-02",
+            id: { value: "20151002-000353-1695027628-5050-1177-S0" },
+            offered_resources: {
+              cpus: 0,
+              disk: 0,
+              mem: 0
+            },
+            domain: {
+              fault_domain: {
+                region: {
+                  name: "eu-central-1"
+                },
+                zone: { name: "eu-central-1c" }
+              }
+            },
+            pid: "slave(1)@172.17.8.101:5051",
+            registered_time: 1443995289.19971,
+            reregistered_time: 1443995289.19981,
+            reserved_resources: {},
+            resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            unreserved_resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            used_resources: {
+              cpus: 0.1,
+              disk: 0,
+              mem: 16,
+              ports: "[10000-10000]"
+            }
+          },
+          {
+            active: true,
+            attributes: {},
+            hostname: "dcos-03",
+            id: { value: "20151002-000353-1695027628-5050-1177-S0" },
+            offered_resources: {
+              cpus: 0,
+              disk: 0,
+              mem: 0
+            },
+            domain: {
+              fault_domain: {
+                region: {
+                  name: "eu-central-1"
+                },
+                zone: { name: "eu-central-1b" }
+              }
+            },
             pid: "slave(1)@172.17.8.101:5051",
             registered_time: 1443995289.19971,
             reregistered_time: 1443995289.19981,
