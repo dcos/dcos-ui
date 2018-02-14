@@ -8,6 +8,8 @@ import PlacementConstraintsPartial
   from "#SRC/js/components/PlacementConstraintsPartial";
 import BatchContainer from "#SRC/js/components/BatchContainer";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
+import { Tooltip } from "reactjs-components";
+import Icon from "#SRC/js/components/Icon";
 import {
   JSONReducer,
   JSONParser
@@ -108,7 +110,7 @@ export default class PlacementConstraintsSchemaField extends Component {
   }
 
   render() {
-    const { label, errorMessage } = this.props;
+    const { label, fieldProps, errorMessage } = this.props;
     const { batch } = this.state;
 
     const appendToList = (memo, transaction) => memo.concat(transaction);
@@ -129,12 +131,21 @@ export default class PlacementConstraintsSchemaField extends Component {
         batch.reduce(combineReducers({ constraints: JSONReducer }))
       )
     );
+    const isRequired = fieldProps.required ? "*" : "";
 
     return (
-      <div>
-        <FieldLabel>
-          {label}
-        </FieldLabel>
+      <div className="pod flush-left flush-right flush-top">
+        <h2>
+          {`Placement Constraints ${isRequired}`}
+          <Tooltip
+            content={fieldProps.schema.description}
+            interactive={true}
+            maxWidth={300}
+            wrapText={true}
+          >
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
+        </h2>
         <BatchContainer batch={batch} onChange={this.handleBatchChange}>
           <PlacementConstraintsPartial errors={errors} data={data} />
         </BatchContainer>

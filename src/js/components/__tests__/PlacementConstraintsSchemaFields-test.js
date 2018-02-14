@@ -24,7 +24,8 @@ describe("PlacementConstraintsSchemaField", function() {
       const fieldProps = {
         formData: "[['hostname', 'MAX_PER', '1']]",
         disabled: false,
-        name: "placement_constraints"
+        name: "placement_constraints",
+        schema: {}
       };
       this.instance = renderer.create(
         <PlacementConstraintsSchemaFields

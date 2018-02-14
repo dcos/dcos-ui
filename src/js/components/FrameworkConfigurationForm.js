@@ -19,6 +19,8 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField
   from "#SRC/js/components/PlacementConstraintsSchemaField";
 import YamlEditorSchemaField from "#SRC/js/components/YamlEditorSchemaField";
+import FrameworkConfigurationConstants
+  from "#SRC/js/constants/FrameworkConfigurationConstants";
 
 MountService.MountService.registerComponent(
   PlacementConstraintsSchemaField,
@@ -245,10 +247,26 @@ class FrameworkConfigurationForm extends Component {
     } = this.props;
 
     const TitleField = props => {
+      const level = props.formContext.level;
+      if (level === FrameworkConfigurationConstants.headingLevel.H1) {
+        return (
+          <h1 className="flush-top short-bottom">
+            {StringUtil.capitalizeEveryWord(props.title)}
+          </h1>
+        );
+      }
+      if (level === FrameworkConfigurationConstants.headingLevel.H2) {
+        return (
+          <h2 className="short-bottom">
+            {StringUtil.capitalizeEveryWord(props.title)}
+          </h2>
+        );
+      }
+
       return (
-        <h2 className="flush-top short-bottom">
+        <h3 className="short-bottom">
           {StringUtil.capitalizeEveryWord(props.title)}
-        </h2>
+        </h3>
       );
     };
 

@@ -4,6 +4,7 @@ import { Tooltip } from "reactjs-components";
 import DefaultSchemaField
   from "react-jsonschema-form/lib/components/fields/SchemaField";
 import { MountService } from "foundation-ui";
+import StringUtil from "#SRC/js/utils/StringUtil";
 
 import Icon from "#SRC/js/components/Icon";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -257,7 +258,7 @@ class SchemaField extends Component {
     return (
       <FormGroupHeading>
         <FormGroupHeadingContent primary={true}>
-          {name.split(/[_-]/).join(" ")}
+          {StringUtil.capitalizeEveryWord(name)}
         </FormGroupHeadingContent>
         {requiredSymbol}
         <FormGroupHeadingContent primary={false}>
@@ -317,10 +318,18 @@ class SchemaField extends Component {
   }
 
   render() {
-    const { schema, errorSchema, uiSchema } = this.props;
+    const { schema, errorSchema, uiSchema, registry, idSchema } = this.props;
 
     if (schema.type === "object") {
-      return <DefaultSchemaField {...this.props} />;
+      const nextLevel = idSchema.$id === "root"
+        ? 0
+        : registry.formContext.level + 1;
+      const nextRegistry = {
+        ...registry,
+        formContext: { level: nextLevel }
+      };
+
+      return <DefaultSchemaField {...this.props} registry={nextRegistry} />;
     }
 
     const autofocus = uiSchema && uiSchema["ui:autofocus"];
