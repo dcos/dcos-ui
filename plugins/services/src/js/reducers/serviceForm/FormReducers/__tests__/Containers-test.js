@@ -31,6 +31,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -71,6 +72,7 @@ describe("Containers", function() {
                   name: "foo",
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -122,6 +124,7 @@ describe("Containers", function() {
                   name: "foo",
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -167,6 +170,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: true
@@ -212,6 +216,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false,
@@ -253,6 +258,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -295,6 +301,7 @@ describe("Containers", function() {
                   name: "foo",
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -348,6 +355,7 @@ describe("Containers", function() {
                   name: "foo",
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -393,6 +401,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: true
@@ -438,6 +447,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     foo: true,
                     tcp: true,
@@ -484,6 +494,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: false,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -537,6 +548,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: true,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -597,6 +609,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: true,
                   vip: "1.3.3.7:8080",
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -652,6 +665,7 @@ describe("Containers", function() {
                   name: null,
                   loadBalanced: true,
                   vip: null,
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false
@@ -715,6 +729,7 @@ describe("Containers", function() {
                   loadBalanced: true,
                   containerPort: 8080,
                   vip: "1.3.3.7:8080",
+                  vipPort: null,
                   protocol: {
                     tcp: true,
                     udp: false

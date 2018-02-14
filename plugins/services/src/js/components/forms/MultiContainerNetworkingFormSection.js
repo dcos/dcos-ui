@@ -6,6 +6,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
 import AddButton from "#SRC/js/components/form/AddButton";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -19,6 +20,7 @@ import FormGroupHeadingContent
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import Networking from "#SRC/js/constants/Networking";
+import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 
@@ -45,6 +47,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         suppressUpdate: true
       }
     ];
+  }
+
+  isHostNetwork() {
+    const networkType =
+      findNestedPropertyInObject(this.props.data, "networks.0.mode") || HOST;
+
+    return networkType === HOST;
   }
 
   onVirtualNetworksStoreSuccess() {
@@ -211,7 +220,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       </span>
     );
 
-    return (
+    return [
       <FormRow>
         <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
@@ -236,13 +245,109 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
-            <FieldHelp>
-              Load balance this service internally at
-              {" "}
-              {ServiceConfigUtil.buildHostNameFromVipLabel(address)}
-            </FieldHelp>
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
+        </FormGroup>
+      </FormRow>,
+      loadBalanced &&
+        this.getLoadBalancedPortField(endpoint, index, containerIndex)
+    ];
+  }
+
+  getLoadBalancedPortField(endpoint, index, containerIndex) {
+    const { errors, data: { id, portsAutoAssign } } = this.props;
+    const { hostPort, containerPort, vip, vipPort } = endpoint;
+    const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
+
+    // clear placeholder when HOST network portsAutoAssign is true
+    const placeholder = this.isHostNetwork() && portsAutoAssign
+      ? ""
+      : defaultVipPort;
+
+    let vipPortError = null;
+    let loadBalancedError = findNestedPropertyInObject(
+      errors,
+      `containers.${containerIndex}.endpoints.${index}.labels`
+    );
+
+    const tooltipContent =
+      "This port will be used to load balance this service address internally";
+    if (isObject(loadBalancedError)) {
+      vipPortError = loadBalancedError[`VIP_${index}`];
+      loadBalancedError = null;
+    }
+
+    let address = vip;
+
+    if (address == null) {
+      let port = "";
+      if (!portsAutoAssign && !ValidatorUtil.isEmpty(hostPort)) {
+        port = hostPort;
+      }
+      if (!ValidatorUtil.isEmpty(containerPort)) {
+        port = containerPort;
+      }
+      if (!ValidatorUtil.isEmpty(vipPort)) {
+        port = vipPort;
+      }
+
+      address = `${id}:${port}`;
+    }
+
+    let hostName = null;
+    if (!vipPortError) {
+      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address);
+    }
+
+    const helpText = (
+      <FieldHelp>
+        Load balance this service internally at {hostName}
+      </FieldHelp>
+    );
+
+    return (
+      <FormRow key="lb-port">
+        <FormGroup className="column-12">
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                Load Balanced Port
+              </FormGroupHeadingContent>
+              <FormGroupHeadingContent>
+                <Tooltip
+                  content={tooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  wrapText={true}
+                >
+                  <Icon color="grey" id="circle-question" size="mini" />
+                </Tooltip>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FormRow>
+            <FormGroup
+              className="column-3"
+              key="vip-port"
+              showError={Boolean(vipPortError)}
+            >
+              <FieldAutofocus>
+                <FieldInput
+                  min="1"
+                  placeholder={placeholder}
+                  name={`containers.${containerIndex}.endpoints.${index}.vipPort`}
+                  type="number"
+                  value={vipPort}
+                />
+              </FieldAutofocus>
+            </FormGroup>
+          </FormRow>
+          <FormRow>
+            <FormGroup className="column-12" showError={Boolean(vipPortError)}>
+              <FieldError>{vipPortError}</FieldError>
+              {!vipPortError && helpText}
+            </FormGroup>
+          </FormRow>
         </FormGroup>
       </FormRow>
     );
