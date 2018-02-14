@@ -2,7 +2,7 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["release/1.11"] as String[]
 
 pipeline {
   agent {

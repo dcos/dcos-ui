@@ -14,7 +14,7 @@ class ServiceEndpoint extends Item {
     }
 
     return Array.isArray(endpointData.vip)
-      ? endpointData.vip.join(", ")
+      ? endpointData.vip.join(",")
       : endpointData.vip;
   }
   getAddress() {
@@ -24,7 +24,7 @@ class ServiceEndpoint extends Item {
     }
 
     return Array.isArray(endpointData.address)
-      ? endpointData.address.join(", ")
+      ? endpointData.address.join(",")
       : endpointData.address;
   }
   getDns() {
@@ -34,7 +34,7 @@ class ServiceEndpoint extends Item {
     }
 
     return Array.isArray(endpointData.dns)
-      ? endpointData.dns.join(", ")
+      ? endpointData.dns.join(",")
       : endpointData.dns;
   }
   isJSON() {

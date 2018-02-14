@@ -1,9 +1,9 @@
+const Pod = require("#PLUGINS/services/src/js/structs/Pod");
+const Framework = require("#PLUGINS/services/src/js/structs/Framework");
+const Application = require("#PLUGINS/services/src/js/structs/Application");
+const Task = require("#PLUGINS/services/src/js/structs/Task");
 const MesosStateUtil = require("../../utils/MesosStateUtil");
-const Pod = require("../../../../plugins/services/src/js/structs/Pod");
-const Framework = require("../../../../plugins/services/src/js/structs/Framework");
 const MesosStateStore = require("../MesosStateStore");
-const Application = require("../../../../plugins/services/src/js/structs/Application");
-const Task = require("../../../../plugins/services/src/js/structs/Task");
 
 const MESOS_STATE_WITH_HISTORY = require("../../utils/__tests__/fixtures/MesosStateWithHistory");
 
@@ -260,6 +260,42 @@ describe("MesosStateStore", function() {
       );
       expect(tasks).toEqual([]);
     });
+
+    it("flags SDK tasks", function() {
+      var tasks = MesosStateStore.getTasksByService(
+        new Framework({
+          id: "/spark",
+          labels: {
+            DCOS_COMMONS_API_VERSION: 1,
+            DCOS_PACKAGE_FRAMEWORK_NAME: "spark"
+          }
+        })
+      );
+      expect(tasks).toEqual([
+        {
+          name: "spark",
+          id: "spark.1",
+          framework_id: "marathon_1",
+          isStartedByMarathon: true,
+          sdkTask: true
+        },
+        {
+          name: "1",
+          framework_id: "spark_1",
+          sdkTask: true
+        },
+        {
+          name: "2",
+          framework_id: "spark_1",
+          sdkTask: true
+        },
+        {
+          name: "3",
+          framework_id: "spark_1",
+          sdkTask: true
+        }
+      ]);
+    });
   });
 
   describe("#getNodeFromID", function() {
@@ -357,6 +393,30 @@ describe("MesosStateStore", function() {
       expect(result).toEqual([]);
 
       MesosStateStore.get = this.get;
+    });
+
+    it("flags SDK tasks", function() {
+      this.get = MesosStateStore.get;
+      MesosStateStore.get = () => ({
+        tasks: [
+          { id: 1, framework_id: "foo", slave_id: "node-1" },
+          { id: 2, framework_id: "bar", slave_id: "node-1" }
+        ]
+      });
+
+      this.getFrameworkToServicesMap = MesosStateUtil.getFrameworkToServicesMap;
+      MesosStateUtil.getFrameworkToServicesMap = () => ({
+        foo: new Framework({ labels: { DCOS_COMMONS_API_VERSION: 1 } })
+      });
+
+      var result = MesosStateStore.getTasksFromNodeID("node-1");
+      expect(result).toEqual([
+        { id: 1, framework_id: "foo", sdkTask: true, slave_id: "node-1" },
+        { id: 2, framework_id: "bar", slave_id: "node-1" }
+      ]);
+
+      MesosStateStore.get = this.get;
+      MesosStateUtil.getFrameworkToServicesMap = this.getFrameworkToServicesMap;
     });
   });
 
