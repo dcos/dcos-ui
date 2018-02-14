@@ -27,6 +27,15 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       },
       { name: "state", events: ["success"], suppressUpdate: false }
     ];
+
+    setInterval(this.messIt.bind(this), 1000);
+  }
+
+  messIt() {
+    const items = this.state.filteredNodes.list;
+    items.push(items[0]);
+    this.setState({filteredNodes: new NodesList({items: items})})
+    console.log("tick", this.state.filteredNodes);
   }
 
   componentWillMount() {
