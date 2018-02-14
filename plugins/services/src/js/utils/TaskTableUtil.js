@@ -29,6 +29,10 @@ const TaskTableUtil = {
         return TaskUtil.getHostName(item);
       }
 
+      if (prop === "region") {
+        return TaskUtil.getRegionName(item);
+      }
+
       if (prop === "status" && !hasGetter) {
         return TaskStatusSortingOrder[item.state];
       }
