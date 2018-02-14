@@ -197,4 +197,106 @@ describe("Tasks Table", function() {
       cy.get("td.task-table-column-zone-address").eq(1).contains("N/A");
     });
   });
+
+  describe("Sorting", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy"
+      });
+    });
+
+    it("sorts DESC by hostname", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
+      cy.get("th.task-table-column-host-address").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-host-address")
+        .contains("dcos-01");
+      cy
+        .get(":nth-child(3) > .task-table-column-host-address")
+        .contains("dcos-02");
+      cy
+        .get(":nth-child(4) > .task-table-column-host-address")
+        .contains("dcos-03");
+    });
+
+    it("sorts ASC by hostname", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
+      cy.get("th.task-table-column-host-address").click();
+      cy.get("th.task-table-column-host-address").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-host-address")
+        .contains("dcos-03");
+      cy
+        .get(":nth-child(3) > .task-table-column-host-address")
+        .contains("dcos-02");
+      cy
+        .get(":nth-child(4) > .task-table-column-host-address")
+        .contains("dcos-01");
+    });
+
+    it("sorts DESC by region", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
+
+      cy.get("th.task-table-column-region-address").click();
+      cy
+        .get(":nth-child(2) > .task-table-column-region-address")
+        .contains("eu-central-1");
+      cy
+        .get(":nth-child(3) > .task-table-column-region-address")
+        .contains("eu-central-1");
+      cy
+        .get(":nth-child(4) > .task-table-column-region-address")
+        .contains("ap-northeast-1");
+    });
+
+    it("sorts ASC by region", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
+
+      cy.get("th.task-table-column-region-address").click();
+      cy.get("th.task-table-column-region-address").click();
+      cy
+        .get(":nth-child(2) > .task-table-column-region-address")
+        .contains("ap-northeast-1");
+      cy
+        .get(":nth-child(3) > .task-table-column-region-address")
+        .contains("eu-central-1");
+      cy
+        .get(":nth-child(4) > .task-table-column-region-address")
+        .contains("eu-central-1");
+    });
+
+    it("sorts DESC by zone", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
+
+      cy.get("th.task-table-column-zone-address").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-zone-address")
+        .contains("ap-northeast-1a");
+      cy
+        .get(":nth-child(3) > .task-table-column-zone-address")
+        .contains("eu-central-1b");
+      cy
+        .get(":nth-child(4) > .task-table-column-zone-address")
+        .contains("eu-central-1c");
+    });
+
+    it("sorts ASC by zone", function() {
+      cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
+
+      cy.get("th.task-table-column-zone-address").click();
+      cy.get("th.task-table-column-zone-address").click();
+      cy
+        .get(":nth-child(2) > .task-table-column-zone-address")
+        .contains("eu-central-1c");
+      cy
+        .get(":nth-child(3) > .task-table-column-zone-address")
+        .contains("eu-central-1b");
+      cy
+        .get(":nth-child(4) > .task-table-column-zone-address")
+        .contains("ap-northeast-1a");
+    });
+  });
 });

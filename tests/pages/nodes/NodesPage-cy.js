@@ -69,8 +69,8 @@ describe("Nodes Page", function() {
       cy
         .get(".nodes-grid-dials")
         .should("contain", "3%")
-        .should("contain", "5%")
-        .should("contain", "19%");
+        .should("contain", "13%")
+        .should("contain", "1%");
     });
 
     context("Filters nodes grid", function() {
@@ -109,8 +109,7 @@ describe("Nodes Page", function() {
 
         cy
           .get(".nodes-grid-dials")
-          .should("not.contain", "3%")
-          .should("contain", "5%")
+          .should("contain", "13%")
           .should("not.contain", "19%");
       });
     });
