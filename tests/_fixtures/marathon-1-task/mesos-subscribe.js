@@ -733,7 +733,6 @@ var response = JSON.stringify({
               }
             ]
           },
-
           {
             executor_id: { value: "" },
             framework_id: {
@@ -782,6 +781,104 @@ var response = JSON.stringify({
                 }
               }
             ]
+          },
+          {
+            executor_id: { value: "" },
+            framework_id: {
+              value: "20150827-210452-1695027628-5050-1445-0000"
+            },
+            task_id: { value: "sleep.7084272b-6b76-11e5-a953-08002719334b" },
+            labels: [],
+            name: "sleep",
+            resources: [
+              { name: "cpus", type: "SCALAR", scalar: { value: 0.5 } },
+              { name: "disk", type: "SCALAR", scalar: { value: 0 } },
+              { name: "mem", type: "SCALAR", scalar: { value: 16 } },
+              {
+                name: "ports",
+                type: "RANGES",
+                ranges: { range: "[10000-10000]" }
+              }
+            ],
+            agent_id: { value: "20151002-000353-1695027628-5050-1177-S1" },
+            state: "TASK_RUNNING",
+            statuses: [
+              {
+                state: "TASK_RUNNING",
+                timestamp: 1444059214.32713,
+                container_status: {
+                  container_id: {
+                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2"
+                  },
+                  network_infos: [
+                    {
+                      labels: [
+                        {
+                          key: "DCOS_SPACE",
+                          value: "/sleep"
+                        }
+                      ],
+                      ip_addresses: [
+                        {
+                          protocol: "IPv4",
+                          ip_address: "9.0.2.34"
+                        }
+                      ],
+                      name: "dcos-1"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            executor_id: { value: "" },
+            framework_id: {
+              value: "20150827-210452-1695027628-5050-1445-0000"
+            },
+            task_id: { value: "sleep.7084272b-6b76-11e5-a953-08002719334c" },
+            labels: [],
+            name: "sleep",
+            resources: [
+              { name: "cpus", type: "SCALAR", scalar: { value: 0.1 } },
+              { name: "disk", type: "SCALAR", scalar: { value: 0 } },
+              { name: "mem", type: "SCALAR", scalar: { value: 16 } },
+              {
+                name: "ports",
+                type: "RANGES",
+                ranges: { range: "[10000-10000]" }
+              }
+            ],
+            agent_id: { value: "20151002-000353-1695027628-5050-1177-S2" },
+            state: "TASK_RUNNING",
+            statuses: [
+              {
+                state: "TASK_RUNNING",
+                timestamp: 1444059214.32713,
+                container_status: {
+                  container_id: {
+                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2"
+                  },
+                  network_infos: [
+                    {
+                      labels: [
+                        {
+                          key: "DCOS_SPACE",
+                          value: "/sleep"
+                        }
+                      ],
+                      ip_addresses: [
+                        {
+                          protocol: "IPv4",
+                          ip_address: "9.0.2.34"
+                        }
+                      ],
+                      name: "dcos-1"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       },
@@ -796,6 +893,96 @@ var response = JSON.stringify({
               cpus: 0,
               disk: 0,
               mem: 0
+            },
+            domain: {
+              fault_domain: {
+                region: {
+                  name: "eu-central-1"
+                },
+                zone: { name: "eu-central-1c" }
+              }
+            },
+            pid: "slave(1)@172.17.8.101:5051",
+            registered_time: 1443995289.19971,
+            reregistered_time: 1443995289.19981,
+            reserved_resources: {},
+            resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            unreserved_resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            used_resources: {
+              cpus: 0.1,
+              disk: 0,
+              mem: 16,
+              ports: "[10000-10000]"
+            }
+          },
+          {
+            active: true,
+            attributes: {},
+            hostname: "dcos-02",
+            id: { value: "20151002-000353-1695027628-5050-1177-S1" },
+            offered_resources: {
+              cpus: 0,
+              disk: 0,
+              mem: 0
+            },
+            domain: {
+              fault_domain: {
+                region: {
+                  name: "eu-central-1"
+                },
+                zone: { name: "eu-central-1b" }
+              }
+            },
+            pid: "slave(1)@172.17.8.101:5051",
+            registered_time: 1443995289.19971,
+            reregistered_time: 1443995289.19981,
+            reserved_resources: {},
+            resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            unreserved_resources: {
+              cpus: 4,
+              disk: 10823,
+              mem: 2933,
+              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+            },
+            used_resources: {
+              cpus: 0.1,
+              disk: 0,
+              mem: 16,
+              ports: "[10000-10000]"
+            }
+          },
+          {
+            active: true,
+            attributes: {},
+            hostname: "dcos-03",
+            id: { value: "20151002-000353-1695027628-5050-1177-S2" },
+            offered_resources: {
+              cpus: 0,
+              disk: 0,
+              mem: 0
+            },
+            domain: {
+              fault_domain: {
+                region: {
+                  name: "ap-northeast-1"
+                },
+                zone: { name: "ap-northeast-1a" }
+              }
             },
             pid: "slave(1)@172.17.8.101:5051",
             registered_time: 1443995289.19971,
