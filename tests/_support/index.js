@@ -110,10 +110,10 @@ Cypress.Commands.add("configureCluster", function(configuration) {
   }
 
   if (configuration.mesos === "1-pod") {
-    router.route(
-      /service\/marathon\/v2\/groups/,
-      "fx:marathon-1-pod-group/groups"
-    );
+    router
+      .route(/history\/last/, "fx:marathon-1-pod-group/summary")
+      .route(/state-summary/, "fx:marathon-1-pod-group/summary")
+      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups");
   }
 
   if (configuration.mesos === "1-empty-group") {
