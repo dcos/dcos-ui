@@ -55,7 +55,7 @@ describe("Services", function() {
         .click();
       cy.root().getFormGroupInputFor("Name").type(volumeName);
       cy.root().getFormGroupInputFor("Size (GiB)").type("1");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
+      cy.root().getFormGroupInputFor("Container Path").type("test").blur();
 
       // Click Review and Run
       cy.contains("Review & Run").click();
