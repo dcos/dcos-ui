@@ -41,7 +41,10 @@ RUN set -x \
   && chmod +x /usr/local/bin/dcos-ui-docker-entrypoint \
   # Make sure bash is the default shell
   && rm /bin/sh \
-  && ln -sf /bin/bash /bin/sh
+  && ln -sf /bin/bash /bin/sh \
+  # Fix system tests as long as upstream dependency has errors
+  && pip install 'six==1.10.0' \
+  && pip install 'python-dateutil==2.6.0'
 
 # Define entrypoint
 ENTRYPOINT [ "/bin/bash", "/usr/local/bin/dcos-ui-docker-entrypoint" ]
