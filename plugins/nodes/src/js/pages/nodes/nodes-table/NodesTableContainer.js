@@ -27,15 +27,6 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       },
       { name: "state", events: ["success"], suppressUpdate: false }
     ];
-
-    setInterval(this.messIt.bind(this), 1000);
-  }
-
-  messIt() {
-    const items = this.state.filteredNodes.list;
-    items.push(items[0]);
-    this.setState({filteredNodes: new NodesList({items: items})})
-    console.log("tick", this.state.filteredNodes);
   }
 
   componentWillMount() {
@@ -49,10 +40,11 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       name: query.searchString || "",
       service: query.filterService || null
     };
-    this.setFilters(hosts, filters);
+    // this.setFilters(hosts, filters);
   }
 
   getFilteredNodes(filters = this.state.filters) {
+    console.log(") state", CompositeState.getNodesList().getItems().length);
     return CompositeState.getNodesList().filter(filters);
   }
 
@@ -64,6 +56,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     const filters = Object.assign({}, this.state.filters, newFilters);
     const filteredNodes = nodes.filter(filters);
 
+    console.log(") props", filteredNodes.getItems().length);
     this.setState({ filters, filteredNodes }, callback);
   }
 
@@ -82,6 +75,8 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   render() {
     const { nodeHealthResponse, filteredNodes, masterRegion } = this.state;
+    // console.log(") render", this.state.filteredNodes.getItems().map((n) => n.hostname));
+    // console.log(") render", this.state.filteredNodes.getItems().map((n) => Object.keys(n)));
 
     return (
       <NodesTable

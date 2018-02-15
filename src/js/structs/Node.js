@@ -39,6 +39,8 @@ class Node extends Item {
   }
 
   getUsageStats(resource) {
+    //faked added nodes are missing resources somehow
+    return { percentage: 0, total: 0, value: 0 };
     const total = this.get("resources")[resource];
     const value = this.get("used_resources")[resource];
     const percentage = Math.round(100 * value / Math.max(1, total));

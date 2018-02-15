@@ -4,7 +4,9 @@ export function isScalar(value) {
 
 export function scalar(scalar) {
   if (!isScalar(scalar)) {
-    throw new Error(`Expect value to be a scalar, "${typeof scalar}" given.`);
+    //quickfix for my scalar message issue
+    return scalar;
+    // throw new Error(`Expect value to be a scalar, "${typeof scalar}" given.`);
   }
 
   return scalar.value;

@@ -102,6 +102,7 @@ class CompositeState {
   }
 
   getNodesList() {
+    console.log("compose thinks", this.data.slaves.length);
     return new NodesList({ items: this.data.slaves });
   }
 

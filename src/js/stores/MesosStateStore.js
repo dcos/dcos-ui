@@ -73,8 +73,131 @@ class MesosStateStore extends GetSetBaseStore {
     ).retry(3);
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
+
+    const addMessage = {
+      type: "AGENT_ADDED",
+
+      agent_added: {
+        agent: {
+          active: true,
+          agent_info: {
+            hostname: "11.0.0.1",
+            port: 5051,
+            resources: [
+              {
+                name: "ports",
+                type: "RANGES",
+                ranges: {
+                  range: [
+                    { begin: 1, end: 21 },
+                    { begin: 23, end: 5050 },
+                    { begin: 5052, end: 32000 }
+                  ]
+                },
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              },
+              {
+                name: "disk",
+                type: "SCALAR",
+                scalar: { value: 137927 },
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              },
+              {
+                name: "cpus",
+                type: "SCALAR",
+                scalar: { value: 4 },
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              },
+              {
+                name: "mem",
+                type: "SCALAR",
+                scalar: { value: 15026 },
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              }
+            ],
+            attributes: [
+              { name: "public_ip", type: "TEXT", text: { value: "true" } }
+            ],
+            id: "6e5a4818-8b7c-45ea-83f9-353e6b43cbb5-F0",
+            domain: {
+              fault_domain: {
+                region: { name: "aws/eu-central-1" },
+                zone: { name: "aws/eu-central-1c" }
+              }
+            },
+            active: true,
+            version: "1.6.0",
+            pid: "slave(1)@11.0.0.1:5051",
+            registered_time: { nanoseconds: 1518684069584487000 },
+            total_resources: [
+              {
+                name: "ports",
+                type: "RANGES",
+                ranges: {
+                  range: [
+                    { begin: 1, end: 21 },
+                    { begin: 23, end: 5050 },
+                    { begin: 5052, end: 32000 }
+                  ]
+                },
+                role: "slave_public",
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              },
+              {
+                name: "disk",
+                type: "SCALAR",
+                scalar: { value: 137927 },
+                role: "slave_public",
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              },
+              {
+                name: "cpus",
+                type: "SCALAR",
+                scalar: { value: 4 },
+                role: "slave_public",
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              },
+              {
+                name: "mem",
+                type: "SCALAR",
+                scalar: { value: 15026 },
+                role: "slave_public",
+                reservations: [{ type: "STATIC", role: "slave_public" }]
+              }
+            ],
+            capabilities: [
+              { type: "MULTI_ROLE" },
+              { type: "HIERARCHICAL_ROLE" },
+              { type: "RESERVATION_REFINEMENT" }
+            ]
+          }
+        }
+      }
+    };
+
+    const removeMessage = {
+      type: "AGENT_REMOVED",
+
+      agent_removed: {
+        agent_id: {
+          value: "6e5a4818-8b7c-45ea-83f9-353e6b43cbb5-F0"
+        }
+      }
+    };
+
+    // const consoleDebug = console.log.bind(this);
+    const msgs = [addMessage];
+    const repeater = Observable.interval(5000);
+    const addNodeRemoveNode = repeater
+      .map(i => i % msgs.length)
+      .map(i => msgs[i])
+      .do((x) => console.log(x.type))
+      .map(msg => JSON.stringify(msg))
+      .repeatWhen(repeater);
+
     const dataStream = mesosStream
       .merge(getMasterRequest)
+      .merge(addNodeRemoveNode) //injects messages to add and remove on the stream
       .distinctUntilChanged()
       .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
       .do(state => {
