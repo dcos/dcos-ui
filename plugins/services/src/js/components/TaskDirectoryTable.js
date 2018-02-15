@@ -62,7 +62,7 @@ class TaskDirectoryTable extends React.Component {
         >
           <Icon
             className="icon-margin-left"
-            color="grey"
+            color="light-grey"
             id="search"
             size="mini"
           />

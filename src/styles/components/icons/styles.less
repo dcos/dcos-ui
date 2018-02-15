@@ -72,20 +72,21 @@
     &.light-grey {
       color: @grey-dark;
 
-      a & {
-
-        &:hover {
-          color: tint(@grey-dark, 20%);
-        }
-      }
-
       &.inverse {
         color: color-lighten(@neutral, 70%);
       }
     }
 
     &.icon-light-grey {
-      color: color-lighten(@neutral, 60%);
+      color: @grey-light-darken-1;
+
+      a &,
+      .tooltip-wrapper & {
+
+        &:hover {
+          color: @grey-light-darken-2;
+        }
+      }
     }
 
     .button &,

@@ -298,7 +298,7 @@ class TaskTable extends React.Component {
           wrapperClassName="tooltip-wrapper text-align-center description"
         >
           <Link to={linkTo} title={title}>
-            <Icon color="grey" id="page-document" size="mini" />
+            <Icon color="light-grey" id="page-document" size="mini" />
           </Link>
         </Tooltip>
       </div>
