@@ -104,6 +104,15 @@ describe("Service Form Modal", function() {
           .first()
           .should("to.have.text", "Networking");
       });
+
+      it("disable review and run button on error", function() {
+        openServiceModal();
+        openServiceJSON();
+
+        cy
+          .get(".modal-full-screen-actions-primary > .button")
+          .should("be.disabled");
+      });
     });
 
     context("Group level", function() {
