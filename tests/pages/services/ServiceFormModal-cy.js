@@ -990,7 +990,8 @@ describe("Service Form Modal", function() {
               cy
                 .get("@tabView")
                 .find('.form-control[name="portDefinitions.0.hostPort"]')
-                .type(7);
+                .type(7)
+                .blur();
 
               cy.contains(".marathon.l4lb.thisdcos.directory:7");
             });
