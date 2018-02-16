@@ -396,7 +396,7 @@ describe("Services", function() {
                   hostPort: 0,
                   protocol: ["tcp"],
                   labels: {
-                    VIP_0: `/pod-with-service-address:8080`
+                    VIP_0: `/${serviceName}:8080`
                   }
                 }
               ],
@@ -518,7 +518,14 @@ describe("Services", function() {
             });
 
           const $tableCells = $tableRows.find("td");
-          const cellValues = ["http", "tcp", "8080", "container-1", "Edit"];
+          const cellValues = [
+            "http",
+            "tcp",
+            "8080",
+            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
+            "container-1",
+            "Edit"
+          ];
 
           $tableCells.each(function(index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
@@ -1063,6 +1070,246 @@ describe("Services", function() {
       });
     });
 
+    it("renders proper review screen and JSON for a pod with two containers and ephemeral volume", function() {
+      const serviceName = "pod-with-ephemeral-volume";
+      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
+
+      cy.contains("Multi-container (Pod)").click();
+
+      cy
+        .root()
+        .getFormGroupInputFor("Service ID *")
+        .type(`{selectall}{rightarrow}${serviceName}`);
+
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+
+      cy.root().getFormGroupInputFor("Command").type(command);
+
+      // Go back to Service
+      cy.root().get(".menu-tabbed-item").contains("Service").click();
+
+      // Add a container
+      cy.contains("Add Container").click();
+
+      // Ensure the name changes to 'Services'
+      cy.root().get(".menu-tabbed-item").contains("Services").should("exist");
+
+      // Select second container
+      cy.root().get(".menu-tabbed-item").contains("container-2").click();
+
+      // Configure container
+      cy
+        .root()
+        .getFormGroupInputFor("Container Name")
+        .type("{selectall}second-container");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
+
+      cy
+        .root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .type("{backspace}{backspace}{backspace}{backspace}10");
+      cy.root().getFormGroupInputFor("Command").type(command);
+
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
+
+      cy.get(".button").contains("Add Volume").click();
+      cy.get(".button.dropdown-toggle").click();
+      cy
+        .root()
+        .contains(".dropdown-select-item-title", "Ephemeral Storage")
+        .click();
+      cy.root().getFormGroupInputFor("Name").type("test");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
+      cy.get('input[name="volumeMounts.0.mountPath.1"]').type("/etc/test");
+
+      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
+        {
+          id: `/${serviceName}`,
+          containers: [
+            {
+              name: "container-1",
+              resources: {
+                cpus: 0.1,
+                mem: 10
+              },
+              exec: {
+                command: {
+                  shell: command
+                }
+              },
+              volumeMounts: [
+                {
+                  name: "test",
+                  mountPath: "test"
+                }
+              ]
+            },
+            {
+              name: "second-container",
+              resources: {
+                cpus: 0.1,
+                mem: 10
+              },
+              exec: {
+                command: {
+                  shell: command
+                }
+              },
+              image: {
+                id: "nginx",
+                kind: "DOCKER"
+              },
+              volumeMounts: [
+                {
+                  name: "test",
+                  mountPath: "/etc/test"
+                }
+              ]
+            }
+          ],
+          scaling: {
+            kind: "fixed",
+            instances: 1
+          },
+          networks: [
+            {
+              mode: "host"
+            }
+          ],
+          volumes: [
+            {
+              name: "test"
+            }
+          ],
+          fetch: [],
+          scheduling: {
+            placement: {
+              constraints: []
+            }
+          }
+        }
+      ]);
+
+      cy.get("button").contains("Review & Run").click();
+
+      cy
+        .root()
+        .configurationSection("Service")
+        .configurationMapValue("Service ID")
+        .contains(`/${serviceName}`);
+
+      cy
+        .root()
+        .configurationSection("Service")
+        .configurationMapValue("Instances")
+        .contains("1");
+
+      cy
+        .root()
+        .configurationSection("Service")
+        .configurationMapValue("CPU")
+        .contains("0.2 (0.1 container-1, 0.1 second-container)");
+
+      cy
+        .root()
+        .configurationSection("Service")
+        .configurationMapValue("Memory")
+        .contains("20 MiB (10 MiB container-1, 10 MiB second-container)");
+
+      cy
+        .root()
+        .configurationSection("Service")
+        .configurationMapValue("Disk")
+        .contains("Not Supported");
+
+      cy
+        .root()
+        .configurationSection("Service")
+        .configurationMapValue("GPU")
+        .contains("Not Supported");
+
+      cy
+        .root()
+        .configurationSection("container-1")
+        .configurationMapValue("Container Image")
+        .contains("Not Configured");
+
+      cy
+        .root()
+        .configurationSection("container-1")
+        .configurationMapValue("Force Pull On Launch")
+        .contains("Not Configured");
+
+      cy
+        .root()
+        .configurationSection("container-1")
+        .configurationMapValue("CPUs")
+        .contains("0.1");
+
+      cy
+        .root()
+        .configurationSection("container-1")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
+
+      cy
+        .root()
+        .configurationSection("container-1")
+        .configurationMapValue("Command")
+        .contains(command);
+
+      cy
+        .root()
+        .configurationSection("second-container")
+        .configurationMapValue("Container Image")
+        .contains("nginx");
+      cy
+        .root()
+        .configurationSection("second-container")
+        .configurationMapValue("CPUs")
+        .contains("0.1");
+      cy
+        .root()
+        .configurationSection("second-container")
+        .configurationMapValue("Memory")
+        .contains("10 MiB");
+      cy
+        .root()
+        .configurationSection("second-container")
+        .configurationMapValue("Command")
+        .contains(command);
+
+      cy.root().configurationSection("Volumes").then(function($storageSection) {
+        const $tableRow = $storageSection
+          .find("tbody tr")
+          .filter(function(index, row) {
+            return row.style.display !== "none";
+          });
+        const $tableCells = $tableRow.find("td");
+        const cellValues = [
+          "test",
+          "EPHEMERAL",
+          "FALSE",
+          "test",
+          "container-1",
+          "Edit",
+          "test",
+          "EPHEMERAL",
+          "FALSE",
+          "/etc/test",
+          "second-container",
+          "Edit"
+        ];
+
+        expect($tableCells.length).to.equal(12);
+
+        $tableCells.each(function(index) {
+          expect(this.textContent.trim()).to.equal(cellValues[index]);
+        });
+      });
+    });
     it("renders proper review screen and JSON for a pod with environment variable", function() {
       const serviceName = "pod-with-environment-variable";
       const command = "`while true ; do echo 'test' ; sleep 100 ; done";
@@ -1075,12 +1322,6 @@ describe("Services", function() {
         .type(`{selectall}{rightarrow}${serviceName}`);
 
       cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
 
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
