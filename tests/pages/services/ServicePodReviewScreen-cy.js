@@ -396,7 +396,7 @@ describe("Services", function() {
                   hostPort: 0,
                   protocol: ["tcp"],
                   labels: {
-                    VIP_0: `/pod-with-service-address:8080`
+                    VIP_0: `/${serviceName}:8080`
                   }
                 }
               ],
@@ -518,7 +518,14 @@ describe("Services", function() {
             });
 
           const $tableCells = $tableRows.find("td");
-          const cellValues = ["http", "tcp", "8080", "container-1", "Edit"];
+          const cellValues = [
+            "http",
+            "tcp",
+            "8080",
+            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
+            "container-1",
+            "Edit"
+          ];
 
           $tableCells.each(function(index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
