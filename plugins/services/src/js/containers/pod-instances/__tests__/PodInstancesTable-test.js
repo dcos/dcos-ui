@@ -322,7 +322,9 @@ describe("PodInstancesTable", function() {
           []
         );
         const ports = columns.reduce(
-          JestUtil.reduceTextContentOfSelector("a"),
+          JestUtil.reduceTextContentOfSelector(
+            "a:not(.table-cell-link-secondary)"
+          ),
           []
         );
 

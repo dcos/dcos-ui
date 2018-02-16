@@ -59,4 +59,93 @@ describe("Pod Detail Page", function() {
       cy.hash().should("match", /services\/detail\/%2Fpodses\/debug.*/);
     });
   });
+
+  context("Sorting", function() {
+    it("sorts by host/port ASC", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get("th.task-table-column-host-address").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-host-address")
+        .contains("10.0.0.67");
+      cy
+        .get(":nth-child(10) > .task-table-column-host-address")
+        .contains("10.0.5.136");
+    });
+
+    it("sorts by host/port DESC", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get("th.task-table-column-host-address").click();
+      cy.get("th.task-table-column-host-address").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-host-address")
+        .contains("10.0.5.136");
+      cy
+        .get(":nth-child(10) > .task-table-column-host-address")
+        .contains("10.0.0.67");
+    });
+
+    it("sorts by region ASC", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get("th.task-table-column-region").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-region")
+        .contains("ap-southeast-1");
+      cy
+        .get(":nth-child(10) > .task-table-column-region")
+        .contains("us-west-1");
+    });
+
+    it("sorts by region DESC", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get("th.task-table-column-region").click();
+      cy.get("th.task-table-column-region").click();
+
+      cy.get(":nth-child(2) > .task-table-column-region").contains("us-west-1");
+      cy
+        .get(":nth-child(10) > .task-table-column-region")
+        .contains("ap-southeast-1");
+    });
+
+    it("sorts by zone ASC", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get("th.task-table-column-zone").click();
+
+      cy
+        .get(":nth-child(2) > .task-table-column-zone")
+        .contains("ap-southeast-1a");
+      cy.get(":nth-child(10) > .task-table-column-zone").contains("us-west-1d");
+    });
+
+    it("sorts by zone DESC", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get("th.task-table-column-zone").click();
+      cy.get("th.task-table-column-zone").click();
+
+      cy.get(":nth-child(2) > .task-table-column-zone").contains("us-west-1d");
+      cy
+        .get(":nth-child(10) > .task-table-column-zone")
+        .contains("ap-southeast-1a");
+    });
+  });
 });
