@@ -1,4 +1,5 @@
 import marked from "marked";
+import semverCompare from "semver-compare";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -239,6 +240,10 @@ const StringUtil = {
     }, []);
 
     return this.idToTitle(splitID, splitBy, replace, removeConsecutive);
+  },
+
+  compareVersionStrings(versionStringA, versionStringB) {
+    return semverCompare(versionStringA, versionStringB);
   }
 };
 

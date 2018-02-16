@@ -265,8 +265,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getInstallButtons(cosmosPackage) {
-    const tooltipContent = "Loading selected version";
-
     if (cosmosPackage.isCLIOnly()) {
       return (
         <div>
@@ -287,6 +285,23 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const { isLoadingSelectedVersion } = this.state;
+    let tooltipContent = "";
+    let installButtonIsDisabled = false;
+
+    if (isLoadingSelectedVersion) {
+      tooltipContent = "Loading selected version";
+      installButtonIsDisabled = true;
+    }
+
+    if (
+      StringUtil.compareVersionStrings(
+        MetadataStore.parsedVersion,
+        cosmosPackage.minDcosReleaseVersion
+      ) < 0
+    ) {
+      tooltipContent = `This Package requires version ${cosmosPackage.minDcosReleaseVersion} or higher, but you are running ${MetadataStore.parsedVersion}`;
+      installButtonIsDisabled = true;
+    }
 
     return (
       <div className="button-collection">
@@ -294,11 +309,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
           wrapperClassName="button-group"
           wrapText={true}
           content={tooltipContent}
-          suppress={!isLoadingSelectedVersion}
+          suppress={!installButtonIsDisabled}
           width={200}
         >
           <button
-            disabled={isLoadingSelectedVersion}
+            disabled={installButtonIsDisabled}
             className="button button-primary"
             onClick={this.handleReviewAndRunClick}
           >

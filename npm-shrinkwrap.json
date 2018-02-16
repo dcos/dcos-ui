@@ -9104,6 +9104,11 @@
       "from": "semver@>=4.0.3 <5.0.0",
       "resolved": "https://registry.npmjs.org/semver/-/semver-4.3.6.tgz"
     },
+    "semver-compare": {
+      "version": "1.0.0",
+      "from": "semver-compare@latest",
+      "resolved": "https://registry.npmjs.org/semver-compare/-/semver-compare-1.0.0.tgz"
+    },
     "semver-regex": {
       "version": "1.0.0",
       "from": "semver-regex@>=1.0.0 <2.0.0",
