@@ -16,27 +16,27 @@ module.exports = {
   entry: "./src/js/index.js",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "../dist")
   },
   resolve: {
     alias: {
-      PluginSDK: path.resolve(__dirname, "src/js/plugin-bridge/PluginSDK"),
+      PluginSDK: path.resolve(__dirname, "../src/js/plugin-bridge/PluginSDK"),
       PluginTestUtils: path.resolve(
         __dirname,
-        "src/js/plugin-bridge/PluginTestUtils"
+        "../src/js/plugin-bridge/PluginTestUtils"
       ),
       "#EXTERNAL_PLUGINS": path.resolve(
         __dirname,
-        `${process.env.npm_config_externalplugins || "plugins"}`
+        `../${process.env.npm_config_externalplugins || "../plugins"}`
       ),
-      "#PLUGINS": path.resolve(__dirname, "plugins"),
-      "#SRC": path.resolve(__dirname, "src")
+      "#PLUGINS": path.resolve(__dirname, "../plugins"),
+      "#SRC": path.resolve(__dirname, "../src")
     },
     modules: [
       // include packages
-      path.resolve(__dirname, "packages"),
+      path.resolve(__dirname, "../packages"),
       // load dependencies of main project from within packages
-      path.resolve(__dirname, "node_modules"),
+      path.resolve(__dirname, "../node_modules"),
       // load dependencies of packages themselves
       "node_modules"
     ]
@@ -48,11 +48,11 @@ module.exports = {
   devtool: "cheap-module-eval-source-map",
   devServer: {
     // TODO: https://webpack.js.org/configuration/dev-server/#devserver-hot
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, "../dist"),
     open: true,
     overlay: true,
     port: 4200,
-    proxy: require("./webpack.proxy.dev.js")
+    proxy: require("./proxy.dev.js")
   },
   plugins: [
     new DefinePlugin({

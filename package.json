@@ -152,7 +152,7 @@
     "build-shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
-    "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack.prod.config.js",
+    "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.js",
     "build": "npm run lint && npm test && npm run build-assets && npm run validate-build",
     "build-with-external-plugins": "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
     "lint": "npm run stylelint && npm run eslint",
@@ -165,14 +165,14 @@
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
-    "start": "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack.config.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
+    "start": "npm run check-env && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.config.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest.config.json --no-cache",
     "test:watch": "npm test -- --watch",
-    "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack.config.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
+    "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.config.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "validate-build": "scripts/validate-build dist/*.js",
     "versions": "npm --version && node --version"
   },
   "jest-webpack-alias": {
-    "configFile": "./webpack.config.js"
+    "configFile": "./webpack/webpack.config.js"
   }
 }
