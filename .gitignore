@@ -15,7 +15,7 @@ tmp/
 .plugins/
 .external_plugins/
 jest/test-results
-webpack.proxy.dev.js
+webpack/proxy.dev.js
 src/resources/raml
 .vscode/
 .chrome/

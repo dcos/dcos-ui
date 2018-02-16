@@ -19,9 +19,9 @@ gulp.task("ensureConfig", function() {
 
 gulp.task("ensureDevProxy", function() {
   // Create a proxy.dev to make getting started easier
-  var proxyFilePath = "./webpack.proxy.dev.js";
+  var proxyFilePath = "./webpack/proxy.dev.js";
   if (!fs.existsSync(proxyFilePath)) {
-    var template = fs.readFileSync("./webpack.proxy.template.js", "utf8");
+    var template = fs.readFileSync("./webpack/proxy.template.js", "utf8");
     fs.writeFileSync(proxyFilePath, template, "utf8");
   }
 });
