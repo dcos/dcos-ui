@@ -8,6 +8,7 @@ const Tooltip = require("reactjs-components").Tooltip;
 const ProgressBar = require("#SRC/js/components/ProgressBar");
 const ServiceStatusProgressBar = require("../ServiceStatusProgressBar");
 const Application = require("../../structs/Application");
+const Pod = require("../../structs/Pod");
 
 const service = new Application({
   instances: 1,
@@ -36,19 +37,42 @@ describe("#ServiceStatusProgressBar", function() {
       this.instance = ReactDOM.render(
         <ServiceStatusProgressBar
           service={
-            new Application({
+            new Pod({
               env: {
                 SDK_UNINSTALL: true
-              }
+              },
+              spec: {
+                scaling: {
+                  instances: 10,
+                  kind: "fixed"
+                }
+              },
+              instances: [
+                {
+                  status: "stable"
+                },
+                {
+                  status: "stable"
+                },
+                {
+                  status: "stable"
+                },
+                {
+                  status: "stable"
+                }
+              ]
             })
           }
         />,
         this.container
       );
-
-      expect(
-        ReactTestUtils.findRenderedComponentWithType(this.instance, ProgressBar)
-      ).toBeTruthy();
+      const progressBar = ReactTestUtils.findRenderedComponentWithType(
+        this.instance,
+        ProgressBar
+      );
+      expect(progressBar).toBeTruthy();
+      expect(progressBar.props.total).toBe(10);
+      expect(progressBar.props.data[0].value).toBe(4);
     });
   });
 
