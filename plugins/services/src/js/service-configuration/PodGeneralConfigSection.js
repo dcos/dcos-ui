@@ -11,6 +11,7 @@ import ConfigurationMapSection
   from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Units from "#SRC/js/utils/Units";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 import ConfigurationMapValueWithDefault
   from "../components/ConfigurationMapValueWithDefault";
@@ -39,7 +40,7 @@ function getContainerResourceSummary(resource, { containers = [] }) {
   );
 
   if (!summary.value) {
-    return <em>Not Supported</em>;
+    return <em>{EmptyStates.CONFIG_VALUE}</em>;
   }
 
   return (

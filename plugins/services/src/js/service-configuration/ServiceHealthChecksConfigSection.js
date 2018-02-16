@@ -5,6 +5,7 @@ import ConfigurationMapHeading
   from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Util from "#SRC/js/utils/Util";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 import {
   getColumnClassNameFn,
@@ -25,7 +26,7 @@ function renderDuration(prop, row) {
 
   return (
     <ConfigurationMapDurationValue
-      defaultValue={<em>Not Configured</em>}
+      defaultValue={<em>{EmptyStates.CONFIG_VALUE}</em>}
       units="sec"
       value={value}
     />

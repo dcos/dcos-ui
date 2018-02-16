@@ -3,6 +3,7 @@ import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a boolean value as a <ConfigurationMapValue>, with it's values being
@@ -33,7 +34,7 @@ class ConfigurationMapBooleanValue extends React.Component {
 }
 
 ConfigurationMapBooleanValue.defaultProps = {
-  defaultValue: <em>Not Configured</em>,
+  defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   options: {
     truthy: "Enabled",
     falsy: "Disabled"

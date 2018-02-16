@@ -4,6 +4,7 @@ const ReactDOM = require("react-dom");
 /* eslint-enable no-unused-vars */
 const TestUtils = require("react-addons-test-utils");
 const JestUtil = require("#SRC/js/utils/JestUtil");
+const EmptyStates = require("#SRC/js/constants/EmptyStates");
 const ConfigurationMapTable = require("../ConfigurationMapTable");
 
 describe("ConfigurationMapTable", function() {
@@ -132,7 +133,7 @@ describe("ConfigurationMapTable", function() {
     ).map(JestUtil.mapTextContent);
 
     expect(headerText).toEqual(["A", "B"]);
-    expect(cellText).toEqual(["1", "Not Configured"]);
+    expect(cellText).toEqual(["1", EmptyStates.CONFIG_VALUE]);
   });
 
   it("respects `placeholder` column property", function() {

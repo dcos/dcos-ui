@@ -122,7 +122,7 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()

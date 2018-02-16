@@ -3,6 +3,7 @@ import React from "react";
 
 import { isObject } from "#SRC/js/utils/Util";
 import Icon from "#SRC/js/components/Icon";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {
@@ -38,12 +39,9 @@ const ServiceConfigDisplayUtil = {
     );
   },
 
-  getDisplayValue(value, isDisabled = false) {
-    if (!isDisabled && (value == null || value === "")) {
-      return <em>Not Configured</em>;
-    }
-    if (isDisabled && (value == null || value === "")) {
-      return <em>Not Supported</em>;
+  getDisplayValue(value) {
+    if (value == null || value === "") {
+      return <em>{EmptyStates.CONFIG_VALUE}</em>;
     }
 
     // Display nested objects nicely if the render didn't already cover it.

@@ -4,6 +4,7 @@ import React from "react";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 const MULTIPLICANTS = {
   ms: 1,
@@ -53,7 +54,7 @@ class ConfigurationMapDurationValue extends React.Component {
 }
 
 ConfigurationMapDurationValue.defaultProps = {
-  defaultValue: <em>Not Configured</em>,
+  defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   multiplicants: MULTIPLICANTS,
   units: "ms",
   value: 0

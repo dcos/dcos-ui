@@ -5,6 +5,7 @@ import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Icon from "#SRC/js/components/Icon";
+import EmptyStates from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 const METHODS_TO_BIND = ["getHashMapRenderKeys"];
@@ -82,7 +83,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
           hash={frameworkData}
           renderKeys={this.getHashMapRenderKeys(frameworkData)}
           headlineClassName={"text-capitalize"}
-          emptyValue={"\u2014"}
+          emptyValue={EmptyStates.CONFIG_VALUE}
         />
       </div>
     );
