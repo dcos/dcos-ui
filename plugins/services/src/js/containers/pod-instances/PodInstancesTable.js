@@ -11,6 +11,7 @@ import ExpandingTable from "#SRC/js/components/ExpandingTable";
 import Icon from "#SRC/js/components/Icon";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import Units from "#SRC/js/utils/Units";
+import TableUtil from "#SRC/js/utils/TableUtil";
 
 import Pod from "../../structs/Pod";
 import PodInstanceList from "../../structs/PodInstanceList";
@@ -138,6 +139,8 @@ class PodInstancesTable extends React.Component {
   }
 
   getColumns() {
+    const sortTieBreaker = "name";
+
     return [
       {
         className: this.getColumnClassName,
@@ -158,14 +161,24 @@ class PodInstancesTable extends React.Component {
         heading: this.getColumnHeading,
         prop: "region",
         render: this.renderRegion,
-        sortable: true
+        sortable: true,
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, function(
+          instance
+        ) {
+          return InstanceUtil.getRegionName(instance);
+        })
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "zone",
         render: this.renderZone,
-        sortable: true
+        sortable: true,
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, function(
+          instance
+        ) {
+          return InstanceUtil.getZoneName(instance);
+        })
       },
       {
         className: this.getColumnClassName,
@@ -288,7 +301,7 @@ class PodInstancesTable extends React.Component {
         id: instance.getId(),
         name: instance.getName(),
         address: instance.getAgentAddress(),
-        agent: instance.agent,
+        agent: instance.agent || { id: instance.agentId },
         cpus,
         mem,
         updated: instance.getLastUpdated(),
