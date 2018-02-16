@@ -25,15 +25,6 @@ class SchemaField extends Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.schema.type !== "object" &&
-      prevProps.formData !== this.props.formData
-    ) {
-      this.props.onChange(this.props.formData);
-    }
-  }
-
   componentDidMount() {
     // trigger an onChange for the top-most schema field
     // this will trigger validation in FrameworkConfiguration
