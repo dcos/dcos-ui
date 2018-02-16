@@ -282,7 +282,7 @@ describe("Service Form Modal", function() {
       cy.visitUrl({ url: "/services/overview/%2F/create" });
     });
 
-    it("should fill the entire viewport", function() {
+    it("fills the entire viewport", function() {
       var isModalFullScreen = true;
 
       cy.window().then(function($window) {
@@ -298,7 +298,7 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("should be horizontally and vertically centered in the modal container", function() {
+    it("is horizontally and vertically centered in the modal container", function() {
       cy.get(".modal-body-wrapper").should(function($modalWrapper) {
         const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
         const modalWrapperMidpointY = Math.abs(
@@ -331,7 +331,7 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("should have four options to choose from", function() {
+    it("does have four options to choose from", function() {
       cy.get(".panel-grid h3").should(function(items) {
         const texts = items
           .map(function(i, el) {
@@ -348,7 +348,7 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("should contain panes with the same width and height", function() {
+    it("contains panes with the same width and height", function() {
       var isPanesSameSize = true;
 
       cy
@@ -391,13 +391,13 @@ describe("Service Form Modal", function() {
     });
 
     context("Form: Tabs", function() {
-      it("should have a divider that fills the entire height of parent", function() {
+      it("does have a divider that fills the entire height of parent", function() {
         cy.get(".menu-tabbed-vertical").then(function($divider) {
           expect($divider.height()).to.equal($divider.parent().height());
         });
       });
 
-      it("should change content when different tab is clicked", function() {
+      it("changes content when different tab is clicked", function() {
         cy.get(".menu-tabbed-item").contains("Networking").click();
 
         cy
@@ -425,11 +425,11 @@ describe("Service Form Modal", function() {
           cy.get(".modal-header button").contains("Back").click();
         });
 
-        it("should prompt when clicking the back button", function() {
+        it("prompts when clicking the back button", function() {
           cy.contains(".modal", "Discard Changes?");
         });
 
-        it('should discard changes and navigate back to service picker when clicking "discard"', function() {
+        it('discards changes and navigate back to service picker when clicking "discard"', function() {
           cy.contains(".modal", "Discard Changes?").within(function() {
             cy.contains("button", "Discard").click();
           });
@@ -443,7 +443,7 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
-        it('should cancel backward navigation when clicking "cancel"', function() {
+        it('cancels backward navigation when clicking "cancel"', function() {
           cy.contains(".modal", "Discard Changes?").within(function() {
             cy.contains("button", "Cancel").click();
           });
@@ -472,7 +472,7 @@ describe("Service Form Modal", function() {
           .click();
       });
 
-      it("should display JSON editor next to form when screen width >= large", function() {
+      it("displays JSON editor next to form when screen width >= large", function() {
         cy
           .get(".modal-full-screen-side-panel.is-visible")
           .then(function($jsonEditor) {
@@ -484,7 +484,7 @@ describe("Service Form Modal", function() {
           });
       });
 
-      it("should display JSON editor only when screen width < large", function() {
+      it("displays JSON editor only when screen width < large", function() {
         cy.viewport("iphone-6+");
 
         cy
@@ -496,7 +496,7 @@ describe("Service Form Modal", function() {
           });
       });
 
-      it("should hide JSON editor when toggle once more", function() {
+      it("hides JSON editor when toggle once more", function() {
         // Disable JSON Editor
         cy
           .get(".modal-full-screen-actions label")
@@ -507,7 +507,7 @@ describe("Service Form Modal", function() {
         cy.get(".modal-full-screen-side-panel.is-visible").should("not.exist");
       });
 
-      it("should update JSON when editing form", function() {
+      it("updates JSON when editing form", function() {
         // Edit form
         cy.contains(".form-group", "Service ID").within(function() {
           cy.get("input.form-control").clear().type("/test-json-update");
@@ -520,7 +520,7 @@ describe("Service Form Modal", function() {
         });
       });
 
-      it("should update form when editing JSON content", function() {
+      it("updates form when editing JSON content", function() {
         // Get Ace Editor instance from DOM as `textContent` only includes parts
         // of the JSON due to the Ace Editor rending optimizations.
         cy.window().then(function(window) {
@@ -712,13 +712,13 @@ describe("Service Form Modal", function() {
           cy.get("label").contains("Universal Container Runtime (UCR)").click();
         });
 
-        it("should switch from Docker to Mesos correctly", function() {
+        it("switches from Docker to Mesos correctly", function() {
           cy.get(".ace_content").should(function(nodeList) {
             expect(nodeList[0].textContent).not.to.contain('"type": "DOCKER"');
           });
         });
 
-        it('should disable the "Grant Runtime Privileges" checkbox', function() {
+        it('disables the "Grant Runtime Privileges" checkbox', function() {
           cy
             .contains("Grant Runtime Privileges")
             .should("have.class", "disabled");
@@ -850,7 +850,7 @@ describe("Service Form Modal", function() {
       }
 
       context("Network Type", function() {
-        it('should have all available types when "Docker Engine" selected', function() {
+        it('does have all available types when "Docker Engine" selected', function() {
           setRuntime("Docker Engine");
           clickNetworkingTab();
 
@@ -887,7 +887,7 @@ describe("Service Form Modal", function() {
             .should("not.have.attr", "disabled");
         });
 
-        it('should have all available types when "Universal Container Runtime (UCR)" selected', function() {
+        it('does have all available types when "Universal Container Runtime (UCR)" selected', function() {
           setRuntime("Universal Container Runtime (UCR)");
           clickNetworkingTab();
 
@@ -969,7 +969,7 @@ describe("Service Form Modal", function() {
 
         context("type: HOST", function() {
           context("Assign Host Ports Automatically", function() {
-            it('should disable "Host Port" text field when "Assign Host Ports Automatically" is checked', function() {
+            it('disables "Host Port" text field when "Assign Host Ports Automatically" is checked', function() {
               cy
                 .get("@tabView")
                 .find('.form-control[name="portsAutoAssign"]:checked');
@@ -980,7 +980,7 @@ describe("Service Form Modal", function() {
                 .should("have.attr", "disabled");
             });
 
-            it('should append value for "Host Port" to service address when "Assign Host Ports Automatically" is not checked', function() {
+            it('appends value for "Host Port" to service address when "Assign Host Ports Automatically" is not checked', function() {
               cy.contains("label", "Assign Host Ports Automatically").click();
               cy
                 .contains("label", "Enable Load Balanced Service Address")
@@ -997,7 +997,7 @@ describe("Service Form Modal", function() {
             });
           });
 
-          it('should hide "Container Port"', function() {
+          it('hides "Container Port"', function() {
             cy.get('select[name="networks.0.network"]').select("HOST");
 
             cy
@@ -1028,7 +1028,7 @@ describe("Service Form Modal", function() {
         });
 
         context("type: BRIDGE", function() {
-          it('should show "Container Port" and "Protocol"', function() {
+          it('shows "Container Port" and "Protocol"', function() {
             cy.get('select[name="networks.0.network"]').select("BRIDGE");
 
             cy
@@ -1064,7 +1064,7 @@ describe("Service Form Modal", function() {
         });
 
         context("type: CONTAINER (Virtual Network: dcos)", function() {
-          it('should hide "Host Port" and "Protocol"', function() {
+          it('hides "Host Port" and "Protocol"', function() {
             cy
               .get('select[name="networks.0.network"]')
               .select("CONTAINER.dcos-1");
@@ -1100,7 +1100,7 @@ describe("Service Form Modal", function() {
               .should("exist");
           });
 
-          it('should not hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function() {
+          it('does not hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function() {
             cy
               .get('select[name="networks.0.network"]')
               .select("CONTAINER.dcos-1");
@@ -1454,7 +1454,7 @@ describe("Service Form Modal", function() {
           .click();
       });
 
-      it("should not show non configured fields", function() {
+      it("does not show non configured fields", function() {
         // Fields that should not appear:
         //  - Service Endpoints
         //  - Volumes
@@ -1476,7 +1476,7 @@ describe("Service Form Modal", function() {
         });
       });
 
-      it('should navigate back to the form when "edit" button is clicked', function() {
+      it('navigates back to the form when "edit" button is clicked', function() {
         // Click back
         cy.get(".modal-full-screen-actions").contains("button", "Back").click();
 
