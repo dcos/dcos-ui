@@ -1,14 +1,14 @@
 {
   "id": "/",
   "dependencies": [
-    
+
   ],
   "version": "2017-04-21T00:23:50.363Z",
   "apps": [
-    
+
   ],
   "groups": [
-    
+
   ],
   "pods": [
     {
@@ -16,11 +16,11 @@
       "spec": {
         "id": "/podses",
         "labels": {
-          
+
         },
         "version": "2017-04-20T22:04:18.48Z",
         "environment": {
-          
+
         },
         "containers": [
           {
@@ -32,23 +32,23 @@
               "gpus": 0
             },
             "endpoints": [
-              
+
             ],
             "image": {
               "kind": "DOCKER",
               "id": "redis"
             },
             "environment": {
-              
+
             },
             "volumeMounts": [
-              
+
             ],
             "artifacts": [
-              
+
             ],
             "labels": {
-              
+
             }
           },
           {
@@ -60,37 +60,37 @@
               "gpus": 0
             },
             "endpoints": [
-              
+
             ],
             "image": {
               "kind": "DOCKER",
               "id": "nginx"
             },
             "environment": {
-              
+
             },
             "volumeMounts": [
-              
+
             ],
             "artifacts": [
-              
+
             ],
             "labels": {
-              
+
             }
           }
         ],
         "secrets": {
-          
+
         },
         "volumes": [
-          
+
         ],
         "networks": [
           {
             "mode": "host",
             "labels": {
-              
+
             }
           }
         ],
@@ -110,10 +110,10 @@
           },
           "placement": {
             "constraints": [
-              
+
             ],
             "acceptedResourceRoles": [
-              
+
             ]
           },
           "killSelection": "YOUNGEST_FIRST",
@@ -136,7 +136,7 @@
           "status": "STABLE",
           "statusSince": "2017-04-20T22:06:33.371Z",
           "conditions": [
-            
+
           ],
           "agentHostname": "10.0.0.67",
           "resources": {
@@ -152,17 +152,18 @@
               ]
             }
           ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S5",
           "containers": [
             {
               "name": "container-1",
               "status": "TASK_RUNNING",
               "statusSince": "2017-04-20T22:06:33.37Z",
               "conditions": [
-                
+
               ],
               "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b99.container-1",
               "endpoints": [
-                
+
               ],
               "resources": {
                 "cpus": 0.001,
@@ -178,11 +179,555 @@
               "status": "TASK_RUNNING",
               "statusSince": "2017-04-20T22:06:33.371Z",
               "conditions": [
-                
+
               ],
               "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b99.container-2",
               "endpoints": [
-                
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b98",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.1.107",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.1.107"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b98.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b98.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b97",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.1.107",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.1.107"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b97.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b97.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b96",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.1.111",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.1.111"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b96.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b96.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b95",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.1.109",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.1.109"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b95.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b95.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b94",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.5.136",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.5.136"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b94.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b94.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b93",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.5.136",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.5.136"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b93.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b93.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b92",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.1.110",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.1.110"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b92.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b92.container-2",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.371Z",
+              "lastChanged": "2017-04-20T22:06:33.371Z"
+            }
+          ],
+          "specReference": "/v2/pods/podses::versions/2017-04-20T22:04:18.480Z",
+          "lastUpdated": "2017-04-20T22:06:33.371Z",
+          "lastChanged": "2017-04-20T22:06:33.371Z"
+        },
+        {
+          "id": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b90",
+          "status": "STABLE",
+          "statusSince": "2017-04-20T22:06:33.371Z",
+          "conditions": [
+
+          ],
+          "agentHostname": "10.0.5.136",
+          "resources": {
+            "cpus": 0.10200000000000001,
+            "mem": 32.001999999999995,
+            "disk": 10,
+            "gpus": 0
+          },
+          "networks": [
+            {
+              "addresses": [
+                "10.0.5.136"
+              ]
+            }
+          ],
+          "agentId": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.37Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b90.container-1",
+              "endpoints": [
+
+              ],
+              "resources": {
+                "cpus": 0.001,
+                "mem": 0.001,
+                "disk": 0,
+                "gpus": 0
+              },
+              "lastUpdated": "2017-04-20T22:06:33.37Z",
+              "lastChanged": "2017-04-20T22:06:33.37Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2017-04-20T22:06:33.371Z",
+              "conditions": [
+
+              ],
+              "containerId": "podses.instance-4cf25ccd-2615-11e7-9101-763097586b90.container-2",
+              "endpoints": [
+
               ],
               "resources": {
                 "cpus": 0.001,
@@ -200,7 +745,7 @@
         }
       ],
       "terminationHistory": [
-        
+
       ],
       "lastUpdated": "2017-04-21T00:53:27.51Z",
       "lastChanged": "2017-04-20T22:06:33.371Z"
