@@ -9,18 +9,20 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Dropdown, Tooltip, Modal } from "reactjs-components";
 
 import Icon from "#SRC/js/components/Icon";
-import Breadcrumb from "../../components/Breadcrumb";
-import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
-import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import Breadcrumb from "#SRC/js/components/Breadcrumb";
+import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
+import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import defaultServiceImage
-  from "../../../../plugins/services/src/img/icon-service-default-large@2x.png";
-import Image from "../../components/Image";
-import ImageViewer from "../../components/ImageViewer";
-import Loader from "../../components/Loader";
-import MetadataStore from "../../stores/MetadataStore";
-import Page from "../../components/Page";
-import RequestErrorMsg from "../../components/RequestErrorMsg";
-import StringUtil from "../../utils/StringUtil";
+  from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
+import Image from "#SRC/js/components/Image";
+import ImageViewer from "#SRC/js/components/ImageViewer";
+import Loader from "#SRC/js/components/Loader";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
+import Page from "#SRC/js/components/Page";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import StringUtil from "#SRC/js/utils/StringUtil";
+
+const semver = require("semver");
 
 const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
   const name = cosmosPackage.getName();
@@ -265,8 +267,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getInstallButtons(cosmosPackage) {
-    const tooltipContent = "Loading selected version";
-
     if (cosmosPackage.isCLIOnly()) {
       return (
         <div>
@@ -287,6 +287,27 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const { isLoadingSelectedVersion } = this.state;
+    let tooltipContent = "";
+    let installButtonIsDisabled = false;
+
+    if (isLoadingSelectedVersion) {
+      tooltipContent = "Loading selected version";
+      installButtonIsDisabled = true;
+    }
+
+    if (
+      MetadataStore.version &&
+      cosmosPackage.minDcosReleaseVersion &&
+      semver.compare(
+        semver.coerce(MetadataStore.version),
+        semver.coerce(cosmosPackage.minDcosReleaseVersion)
+      ) < 0
+    ) {
+      tooltipContent = `This version of ${cosmosPackage.getName()} requires DC/OS 
+        version ${cosmosPackage.minDcosReleaseVersion} or higher, but you are 
+        running DC/OS version ${semver.coerce(MetadataStore.version)}`;
+      installButtonIsDisabled = true;
+    }
 
     return (
       <div className="button-collection">
@@ -294,11 +315,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
           wrapperClassName="button-group"
           wrapText={true}
           content={tooltipContent}
-          suppress={!isLoadingSelectedVersion}
+          suppress={!installButtonIsDisabled}
           width={200}
         >
           <button
-            disabled={isLoadingSelectedVersion}
+            disabled={installButtonIsDisabled}
             className="button button-primary"
             onClick={this.handleReviewAndRunClick}
           >
