@@ -1433,9 +1433,9 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Load Balanced Address")
         .contents()
-        .should(function(elem) {
-          expect(elem[0]).to.equal("Not Enabled");
-        });
+        .should("deep.equal", [
+          `${serviceName}.marathon.l4lb.thisdcos.directory:8080`
+        ]);
     });
 
     it("renders proper review screen and JSON for an app with virtual network", function() {
