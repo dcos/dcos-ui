@@ -165,4 +165,24 @@ describe("Packages Tab", function() {
       });
     });
   });
+
+  context("respect DCOS version", function() {
+    beforeEach(function() {
+      cy
+        .route(/dcos-version/, {
+          version: "1.6",
+          "dcos-image-commit": "null",
+          "bootstrap-id": "null"
+        })
+        .visitUrl({ url: "/catalog", logIn: true });
+    });
+
+    it("cant install package because of DCOS version", function() {
+      cy.get(".panel").contains("arangodb").click();
+      cy
+        .get(".button.button-primary")
+        .contains("Review & Run")
+        .should("be.disabled");
+    });
+  });
 });
