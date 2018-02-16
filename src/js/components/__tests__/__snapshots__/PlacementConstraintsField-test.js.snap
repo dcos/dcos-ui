@@ -1,0 +1,392 @@
+exports[`PlacementConstraintsField renders as first field 1`] = `
+<div
+  className="form-row row">
+  <div
+    className="form-group column-4"
+    required={true}>
+    <label
+      className="">
+      <div
+        className="form-group-heading">
+        <div
+          className="form-group-heading-content form-group-heading-content-primary"
+          title="Operator">
+          Operator
+        </div>
+      </div>
+    </label>
+    <div
+      className="dropdown-select">
+      <input
+        className="dropdown-select-input-value"
+        name="constraints.0.operator"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        value="LIKE" />
+      <span
+        className="down dropdown"
+        onBlur={[Function]}
+        tabIndex="1">
+        <button
+          className="button dropdown-toggle"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          Like
+        </button>
+      </span>
+    </div>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <label
+      className="">
+      <div
+        className="form-group-heading">
+        <div
+          className="form-group-heading-content form-group-heading-content-primary"
+          title="Field">
+          Field
+        </div>
+      </div>
+    </label>
+    <span>
+      <input
+        className="form-control"
+        name="constraints.0.fieldName"
+        onChange={[Function]}
+        placeholder="hostname"
+        type="text"
+        value="hostname" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <label
+      className="">
+      <div
+        className="form-group-heading">
+        <div
+          className="form-group-heading-content form-group-heading-content-primary"
+          title="Value">
+          Value
+        </div>
+      </div>
+    </label>
+    <span>
+      <input
+        className="form-control"
+        disabled={false}
+        name="constraints.0.value"
+        onChange={[Function]}
+        type="text"
+        value="" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group-without-top-label column-auto flush-left flush-right form-group">
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}>
+      <a
+        className="button button-link button-narrow"
+        onClick={[Function]}>
+        <svg
+          className="icon icon-tiny">
+          <use
+            xlinkHref="#icon-tiny--close" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PlacementConstraintsField renders as last field 1`] = `
+<div
+  className="form-row row">
+  <div
+    className="form-group column-4"
+    required={true}>
+    <div
+      className="dropdown-select">
+      <input
+        className="dropdown-select-input-value"
+        name="constraints.3.operator"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        value="LIKE" />
+      <span
+        className="down dropdown"
+        onBlur={[Function]}
+        tabIndex="1">
+        <button
+          className="button dropdown-toggle"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          Like
+        </button>
+      </span>
+    </div>
+    <p
+      className="form-control-feedback text-no-transform">
+      Specify where your app will run.
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <span>
+      <input
+        className="form-control"
+        name="constraints.3.fieldName"
+        onChange={[Function]}
+        placeholder="hostname"
+        type="text"
+        value="hostname" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+      E.g hostname.
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <span>
+      <input
+        className="form-control"
+        disabled={false}
+        name="constraints.3.value"
+        onChange={[Function]}
+        type="text"
+        value="" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+      A string, integer or regex value. 
+    </p>
+  </div>
+  <div
+    className="column-auto flush-left flush-right form-group">
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}>
+      <a
+        className="button button-link button-narrow"
+        onClick={[Function]}>
+        <svg
+          className="icon icon-tiny">
+          <use
+            xlinkHref="#icon-tiny--close" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PlacementConstraintsField renders with value column 1`] = `
+<div
+  className="form-row row">
+  <div
+    className="form-group column-4"
+    required={true}>
+    <div
+      className="dropdown-select">
+      <input
+        className="dropdown-select-input-value"
+        name="constraints.3.operator"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        value="LIKE" />
+      <span
+        className="down dropdown"
+        onBlur={[Function]}
+        tabIndex="1">
+        <button
+          className="button dropdown-toggle"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          Like
+        </button>
+      </span>
+    </div>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <span>
+      <input
+        className="form-control"
+        name="constraints.3.fieldName"
+        onChange={[Function]}
+        placeholder="hostname"
+        type="text"
+        value="hostname" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <span>
+      <input
+        className="form-control"
+        disabled={false}
+        name="constraints.3.value"
+        onChange={[Function]}
+        type="text"
+        value="" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="column-auto flush-left flush-right form-group">
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}>
+      <a
+        className="button button-link button-narrow"
+        onClick={[Function]}>
+        <svg
+          className="icon icon-tiny">
+          <use
+            xlinkHref="#icon-tiny--close" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PlacementConstraintsField renders without value column 1`] = `
+<div
+  className="form-row row">
+  <div
+    className="form-group column-4"
+    required={true}>
+    <div
+      className="dropdown-select">
+      <input
+        className="dropdown-select-input-value"
+        name="constraints.3.operator"
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        value="LIKE" />
+      <span
+        className="down dropdown"
+        onBlur={[Function]}
+        tabIndex="1">
+        <button
+          className="button dropdown-toggle"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          Like
+        </button>
+      </span>
+    </div>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <span>
+      <input
+        className="form-control"
+        name="constraints.3.fieldName"
+        onChange={[Function]}
+        placeholder="hostname"
+        type="text"
+        value="hostname" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="form-group column-4"
+    required={true}>
+    <span>
+      <input
+        className="form-control"
+        disabled={false}
+        name="constraints.3.value"
+        onChange={[Function]}
+        type="text"
+        value="" />
+    </span>
+    <p
+      className="form-control-feedback text-no-transform">
+       
+    </p>
+  </div>
+  <div
+    className="column-auto flush-left flush-right form-group">
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}>
+      <a
+        className="button button-link button-narrow"
+        onClick={[Function]}>
+        <svg
+          className="icon icon-tiny">
+          <use
+            xlinkHref="#icon-tiny--close" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
