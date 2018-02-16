@@ -22,6 +22,14 @@ import PlacementConstraintsUtil
 const NBSP = "\u00A0";
 
 export default class PlacementConstraintsField extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dirty: false
+    };
+  }
+
   getPlacementConstraintLabel(name) {
     return (
       <FieldLabel>
@@ -34,7 +42,12 @@ export default class PlacementConstraintsField extends Component {
     );
   }
 
+  handleValueChange() {
+    this.setState({ dirty: true });
+  }
+
   render() {
+    debugger;
     const { constraint, index, hideValueColumn, isLastField } = this.props;
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
@@ -78,6 +91,7 @@ export default class PlacementConstraintsField extends Component {
         type="text"
         value={constraint.value}
         disabled={!!valueIsRequiredEmpty}
+        onChange={this.handleValueChange.bind(this)}
       />
     );
 

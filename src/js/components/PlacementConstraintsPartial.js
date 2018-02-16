@@ -25,9 +25,12 @@ export default class PlacementConstraintsPartial extends Component {
     const hideValueColumn = data.every(function(constraint) {
       return PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
     });
+    debugger;
 
     return data.map((constraint, index) => {
       const isLastField = index === data.length - 1;
+
+      debugger;
 
       return (
         <PlacementConstraintsField
@@ -42,6 +45,7 @@ export default class PlacementConstraintsPartial extends Component {
   }
 
   render() {
+    debugger;
     const { data = {} } = this.props;
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
