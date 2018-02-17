@@ -299,7 +299,6 @@ class PodInstancesTable extends React.Component {
         id: instance.getId(),
         name: instance.getName(),
         address: instance.getAgentAddress(),
-        agent: instance.agent || { id: instance.agentId },
         agentId: instance.agent ? instance.agent.id : instance.agentId,
         cpus,
         mem,
@@ -368,9 +367,9 @@ class PodInstancesTable extends React.Component {
     const { address } = row;
 
     if (rowOptions.isParent) {
-      const { agent } = row;
+      const { agentId } = row;
 
-      if (!agent) {
+      if (!agentId) {
         return this.renderWithClickHandler(
           rowOptions,
           <CollapsingString string={address} />
@@ -381,7 +380,7 @@ class PodInstancesTable extends React.Component {
         rowOptions,
         <Link
           className="table-cell-link-secondary text-overflow"
-          to={`/nodes/${agent.id}`}
+          to={`/nodes/${agentId}`}
           title={address}
         >
           <CollapsingString string={address} />
