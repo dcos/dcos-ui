@@ -300,6 +300,7 @@ class PodInstancesTable extends React.Component {
         name: instance.getName(),
         address: instance.getAgentAddress(),
         agent: instance.agent || { id: instance.agentId },
+        agentId: instance.agent ? instance.agent.id : instance.agentId,
         cpus,
         mem,
         updated: instance.getLastUpdated(),
