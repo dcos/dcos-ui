@@ -156,6 +156,7 @@
     "conventional-changelog-lint": "conventional-changelog-lint",
     "lint-plugins": "PLUGINS=$npm_config_externalplugins; npm run eslint -- \"$PLUGINS/**/*.js\" && npm run stylelint -- \"$PLUGINS/**/*.less\"",
     "prebuild": "./scripts/validate-tests",
+    "shellTests": "bats ./scripts/**/*.bats",
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
