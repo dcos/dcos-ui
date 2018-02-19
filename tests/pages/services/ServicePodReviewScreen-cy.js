@@ -1222,25 +1222,25 @@ describe("Services", function() {
         .root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
-        .contains("Not Supported");
+        .contains("\u2014");
 
       cy
         .root()
         .configurationSection("Service")
         .configurationMapValue("GPU")
-        .contains("Not Supported");
+        .contains("\u2014");
 
       cy
         .root()
         .configurationSection("container-1")
         .configurationMapValue("Container Image")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()
         .configurationSection("container-1")
         .configurationMapValue("Force Pull On Launch")
-        .contains("Not Configured");
+        .contains("\u2014");
 
       cy
         .root()
