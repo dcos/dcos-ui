@@ -186,7 +186,7 @@ class MesosStateStore extends GetSetBaseStore {
     };
 
     // const consoleDebug = console.log.bind(this);
-    const msgs = [addMessage];
+    const msgs = [addMessage, removeMessage];
     const repeater = Observable.interval(5000);
     const addNodeRemoveNode = repeater
       .map(i => i % msgs.length)

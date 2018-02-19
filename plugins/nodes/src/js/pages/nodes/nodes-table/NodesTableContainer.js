@@ -40,7 +40,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       name: query.searchString || "",
       service: query.filterService || null
     };
-    // this.setFilters(hosts, filters);
+    this.setFilters(hosts, filters);
   }
 
   getFilteredNodes(filters = this.state.filters) {
