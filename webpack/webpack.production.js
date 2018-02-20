@@ -6,6 +6,8 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const merge = require("webpack-merge");
 const common = require("./webpack.config.js");
 
+// TODO: add image optimizaiton
+// TODO: url loader?
 module.exports = merge(common, {
   plugins: [
     new ModuleConcatenationPlugin(),
