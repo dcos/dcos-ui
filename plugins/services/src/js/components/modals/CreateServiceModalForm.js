@@ -526,12 +526,14 @@ class CreateServiceModalForm extends Component {
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem}
+            showAllErrors={showAllErrors}
           >
             <PlacementSection
               data={data}
               errors={errorMap}
               onRemoveItem={this.handleRemoveItem}
               onAddItem={this.handleAddItem}
+              showAllErrors={showAllErrors}
             />
           </MountService.Mount>
         </TabView>,
@@ -606,12 +608,14 @@ class CreateServiceModalForm extends Component {
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
           onAddItem={this.handleAddItem}
+          showAllErrors={showAllErrors}
         >
           <PlacementSection
             data={data}
             errors={errorMap}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem}
+            showAllErrors={showAllErrors}
           />
         </MountService.Mount>
       </TabView>,
