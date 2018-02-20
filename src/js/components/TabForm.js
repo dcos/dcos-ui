@@ -120,7 +120,7 @@ class TabForm extends mixin(InternalStorageMixin) {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="grey" id="circle-question" size="mini" />
+              <Icon color="light-grey" id="circle-question" size="mini" />
             </Tooltip>
           </div>
         </span>

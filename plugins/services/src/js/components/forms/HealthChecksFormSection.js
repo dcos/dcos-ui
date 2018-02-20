@@ -101,7 +101,11 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon color="grey" id="circle-question" size="mini" />
+                      <Icon
+                        color="light-grey"
+                        id="circle-question"
+                        size="mini"
+                      />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -133,7 +137,11 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon color="grey" id="circle-question" size="mini" />
+                      <Icon
+                        color="light-grey"
+                        id="circle-question"
+                        size="mini"
+                      />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -163,7 +171,11 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon color="grey" id="circle-question" size="mini" />
+                      <Icon
+                        color="light-grey"
+                        id="circle-question"
+                        size="mini"
+                      />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -193,7 +205,11 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon color="grey" id="circle-question" size="mini" />
+                      <Icon
+                        color="light-grey"
+                        id="circle-question"
+                        size="mini"
+                      />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -317,7 +333,7 @@ class HealthChecksFormSection extends Component {
                   wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
                   wrapText={true}
                 >
-                  <Icon color="grey" id="circle-question" size="mini" />
+                  <Icon color="light-grey" id="circle-question" size="mini" />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -343,7 +359,7 @@ class HealthChecksFormSection extends Component {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="grey" id="circle-question" size="mini" />
+                  <Icon color="light-grey" id="circle-question" size="mini" />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -444,7 +460,11 @@ class HealthChecksFormSection extends Component {
                       wrapperClassName="tooltip-wrapper text-align-center"
                       wrapText={true}
                     >
-                      <Icon color="grey" id="circle-question" size="mini" />
+                      <Icon
+                        color="light-grey"
+                        id="circle-question"
+                        size="mini"
+                      />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -504,7 +524,7 @@ class HealthChecksFormSection extends Component {
                 wrapperClassName="tooltip-wrapper text-align-center"
                 wrapText={true}
               >
-                <Icon color="grey" id="circle-question" size="mini" />
+                <Icon color="light-grey" id="circle-question" size="mini" />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>

@@ -67,7 +67,7 @@ const ResourceTableUtil = {
             interactive={true}
             wrapperClassName="tooltip-wrapper text-align-center table-header-icon"
           >
-            <Icon id="circle-question" size="mini" color="grey" />
+            <Icon id="circle-question" size="mini" color="light-grey" />
           </Tooltip>
         );
       }

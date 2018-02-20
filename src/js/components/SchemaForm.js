@@ -306,7 +306,7 @@ class SchemaForm extends mixin(StoreMixin) {
           wrapText={true}
           maxWidth={300}
         >
-          <Icon color="grey" id="circle-question" size="mini" />
+          <Icon color="light-grey" id="circle-question" size="mini" />
         </Tooltip>
       );
     } else if (description && levelsDeep === 0) {
@@ -347,7 +347,7 @@ class SchemaForm extends mixin(StoreMixin) {
         maxWidth={300}
         interactive={true}
       >
-        <Icon color="grey" id="circle-question" size="mini" />
+        <Icon color="light-grey" id="circle-question" size="mini" />
       </Tooltip>
     );
 

@@ -81,7 +81,7 @@ class ContainerServiceFormSection extends Component {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="grey" id="circle-question" size="mini" />
+              <Icon color="light-grey" id="circle-question" size="mini" />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>
@@ -121,7 +121,7 @@ class ContainerServiceFormSection extends Component {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="grey" id="circle-question" size="mini" />
+              <Icon color="light-grey" id="circle-question" size="mini" />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>

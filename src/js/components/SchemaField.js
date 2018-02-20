@@ -268,7 +268,7 @@ class SchemaField extends Component {
             maxWidth={300}
             wrapText={true}
           >
-            <Icon color="grey" id="circle-question" size="mini" />
+            <Icon color="light-grey" id="circle-question" size="mini" />
           </Tooltip>
         </FormGroupHeadingContent>
       </FormGroupHeading>

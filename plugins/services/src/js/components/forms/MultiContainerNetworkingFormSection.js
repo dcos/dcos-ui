@@ -147,7 +147,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="grey" id="circle-question" size="mini" />
+                <Icon color="light-grey" id="circle-question" size="mini" />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -241,7 +241,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                   wrapperClassName="tooltip-wrapper text-align-center"
                   wrapText={true}
                 >
-                  <Icon color="grey" id="circle-question" size="mini" />
+                  <Icon color="light-grey" id="circle-question" size="mini" />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -320,7 +320,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="grey" id="circle-question" size="mini" />
+                  <Icon color="light-grey" id="circle-question" size="mini" />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -389,7 +389,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="grey" id="circle-question" size="mini" />
+                <Icon color="light-grey" id="circle-question" size="mini" />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -613,7 +613,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                     maxWidth={300}
                     wrapText={true}
                   >
-                    <Icon color="grey" id="circle-question" size="mini" />
+                    <Icon color="light-grey" id="circle-question" size="mini" />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -638,7 +638,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 wrapperClassName="tooltip-wrapper text-align-center"
                 wrapText={true}
               >
-                <Icon color="grey" id="circle-question" size="mini" />
+                <Icon color="light-grey" id="circle-question" size="mini" />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
