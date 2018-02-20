@@ -44,6 +44,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   getFilteredNodes(filters = this.state.filters) {
+    console.log(") state", CompositeState.getNodesList().getItems().length);
     return CompositeState.getNodesList().filter(filters);
   }
 
@@ -55,6 +56,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     const filters = Object.assign({}, this.state.filters, newFilters);
     const filteredNodes = nodes.filter(filters);
 
+    console.log(") props", filteredNodes.getItems().length);
     this.setState({ filters, filteredNodes }, callback);
   }
 
@@ -73,6 +75,8 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   render() {
     const { nodeHealthResponse, filteredNodes, masterRegion } = this.state;
+    // console.log(") render", this.state.filteredNodes.getItems().map((n) => n.hostname));
+    // console.log(") render", this.state.filteredNodes.getItems().map((n) => Object.keys(n)));
 
     return (
       <NodesTable

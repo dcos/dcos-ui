@@ -88,10 +88,17 @@ class CompositeState {
   }
 
   addState(data) {
+    console.log("state", data.slaves);
     this.data = mergeData(data, this.data);
   }
 
   addSummary(data) {
+    if(data.slaves.length === 2 && this.data.slaves.length === 3) {
+      const slaveCopy = JSON.parse(JSON.stringify(data.slaves[0]))
+      slaveCopy.hostname = "11.0.0.1"
+      data.slaves.push(slaveCopy);
+    }
+    console.log("summary", data.slaves, this.data.slaves);
     this.data = mergeData(data, this.data);
   }
 

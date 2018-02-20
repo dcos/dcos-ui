@@ -92,7 +92,14 @@ class NodeHealthStore extends GetSetBaseStore {
 
       switch (action.type) {
         case REQUEST_HEALTH_NODES_SUCCESS:
-          this.processNodes(data);
+          //injects health data for a fake node
+          this.processNodes(
+            data.concat({
+              host_ip: "11.0.0.1",
+              health: 0,
+              role: "agent_public"
+            })
+          );
           break;
         case REQUEST_HEALTH_NODES_ERROR:
           this.emit(HEALTH_NODES_ERROR, data);
