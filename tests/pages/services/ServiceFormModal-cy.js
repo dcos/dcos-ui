@@ -871,33 +871,6 @@ describe("Service Form Modal", function() {
             .parents(".form-group")
             .should("have.class", "form-group-danger");
         });
-
-        it("Should display an error after Review & Run", function() {
-          cy
-            .get("@tabView")
-            .get('[name="constraints.0.operator"]')
-            .get(".dropdown-toggle")
-            .click();
-          cy.contains(".dropdown-select-item-title", "Like").click();
-
-          cy
-            .get("@tabView")
-            .get('[name="constraints.0.fieldName"]')
-            .type("hostname");
-          cy
-            .get("@tabView")
-            .get('[name="constraints.0.value"]')
-            .parents(".form-group")
-            .should("not.have.class", "form-group-danger");
-
-          // Click Review and Run
-          cy.contains("Review & Run").click();
-          cy
-            .get("@tabView")
-            .get('[name="constraints.0.value"]')
-            .parents(".form-group")
-            .should("have.class", "form-group-danger");
-        });
       });
     });
 
