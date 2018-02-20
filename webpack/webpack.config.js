@@ -30,7 +30,8 @@ module.exports = {
         `../${process.env.npm_config_externalplugins || "../plugins"}`
       ),
       "#PLUGINS": path.resolve(__dirname, "../plugins"),
-      "#SRC": path.resolve(__dirname, "../src")
+      "#SRC": path.resolve(__dirname, "../src"),
+      "#TESTS": path.resolve(__dirname, "../tests")
     },
     modules: [
       // include packages
@@ -42,8 +43,7 @@ module.exports = {
     ]
   },
   node: {
-    // Jison loader fails otherwise
-    fs: "empty"
+    fs: "empty" // Jison loader fails otherwise
   },
   devtool: "cheap-module-eval-source-map",
   devServer: {
@@ -81,9 +81,6 @@ module.exports = {
           }
         }
       },
-      // TODO: resource folders
-      // TODO: add image optimizaiton
-      // TODO: url loader?
       {
         test: /\.(svg|png|jpg|gif|ico|icns)$/,
         loader: "file-loader",
@@ -91,7 +88,6 @@ module.exports = {
           name: "./[hash]-[name].[ext]"
         }
       },
-      // TODO: hash in filename?
       {
         test: /\.(ttf|woff)$/,
         loader: "file-loader",
