@@ -20,6 +20,8 @@
   - [Translation Strings](#translation-strings)
   - [New Translation files](#new-translation-files)
 - [Packages](#packages)
+- [Nice to knows](#nice-to-knows)
+  - [Resolve webpack aliases in VSCode](#resolve-webpack-aliases-in-vscode)
 
 ## Commits
 
@@ -216,61 +218,61 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
 
 ## Testing
 
-### Why is testing necessary? 
+### Why is testing necessary?
 
 Many of us like to sleep at night. So to give us peace of mind when we release a
-new version of our software, we want to guarantee that the application works as 
-it should, always. To accomplish this, we write two kinds of tests that will 
+new version of our software, we want to guarantee that the application works as
+it should, always. To accomplish this, we write two kinds of tests that will
 ensure that our applications behave as it should even as we add new features.
 
 ### Organizing Tests
 
-It is common practice, to group automated tests in categories depending on how 
-broad their scope is, and how complex their execution requirements are. 
-This separation often follows the 
-[testing pyramid](https://martinfowler.com/bliki/TestPyramid.html). 
+It is common practice, to group automated tests in categories depending on how
+broad their scope is, and how complex their execution requirements are.
+This separation often follows the
+[testing pyramid](https://martinfowler.com/bliki/TestPyramid.html).
 In DC/OS UI we use three levels of testing: Unit, Integration, and System.
 
-[Unit Tests](#unit-testing) are intended to verify functionality at the minimal 
-level of isolation, for that purpose, they tend to be small, and mock/stub all 
+[Unit Tests](#unit-testing) are intended to verify functionality at the minimal
+level of isolation, for that purpose, they tend to be small, and mock/stub all
 its dependencies. They also tend to execute fast and in a reliable way.
 
-Given a system is composed of a collection of components, that when tested 
-in isolation perform correctly, but often fail to do so together, we use both 
-integration testing and system testing to verify behavior at an increasing 
+Given a system is composed of a collection of components, that when tested
+in isolation perform correctly, but often fail to do so together, we use both
+integration testing and system testing to verify behavior at an increasing
 larger scope (bringing increased execution requirements).
 
-[Integration Tests](#integration-testing) verify that the well-tested units do 
-not fail when they interact with components they depend on internally (part of 
-the same project), but will stub/mock external dependencies (from other 
-systems/projects). Compared to unit testing, integration tests tend to be harder 
-to execute, since they rely on an environment similar to production (e.g. they 
-run ion the browser). They also tend to be slower than unit tests making it 
+[Integration Tests](#integration-testing) verify that the well-tested units do
+not fail when they interact with components they depend on internally (part of
+the same project), but will stub/mock external dependencies (from other
+systems/projects). Compared to unit testing, integration tests tend to be harder
+to execute, since they rely on an environment similar to production (e.g. they
+run ion the browser). They also tend to be slower than unit tests making it
 impossible to exercise all possible scenarios.
 
-While Integration Tests looks for the composition within the system, 
-[System Tests](#system-testing) test the integration with the real external 
-dependencies trying to as close as possible to the production use of a client 
-(in the case of DC/OS, against a real cluster). They are even harder to setup 
-than integration tests because you often have to create custom tooling to 
-operate the whole product. This contributes to them being slower and more often 
+While Integration Tests looks for the composition within the system,
+[System Tests](#system-testing) test the integration with the real external
+dependencies trying to as close as possible to the production use of a client
+(in the case of DC/OS, against a real cluster). They are even harder to setup
+than integration tests because you often have to create custom tooling to
+operate the whole product. This contributes to them being slower and more often
 prone to fail occasionally, for example, because of network issues like latency.
 
 ## Unit Testing
 
-To ensure that individual units of code (functions/methods) return the expected 
+To ensure that individual units of code (functions/methods) return the expected
 results with different inputs we write Unit Tests.
 
-Think of a `sum` function. When called as `sum(1)` we may expect a return value 
+Think of a `sum` function. When called as `sum(1)` we may expect a return value
 of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when
  called with no arguments, we may expect the result to fail with an error.
 
 ### Running Unit Tests
 
-Before you run any test, make sure you have 
-[set up your environment](/#dcos-installation-instructions). 
+Before you run any test, make sure you have
+[set up your environment](/#dcos-installation-instructions).
 
-Make sure your packages are up to date by running `npm install`, and then run 
+Make sure your packages are up to date by running `npm install`, and then run
 tests with:
 
 ```sh
@@ -283,7 +285,7 @@ Use `test:watch` if you want the tests to run automatically when a file changes:
 npm run test:watch
 ```
 
-You can even pass parameters to the test engine (in this case jest), when you, 
+You can even pass parameters to the test engine (in this case jest), when you,
 for instance, want to run a single spec, for example, `MesosStateUtil`:
 
 ```sh
@@ -292,9 +294,9 @@ npm run test -- --watch MesosStateUtil
 
 ### Example of a Unit Test
 
-This test verifies that unit `decomposePodTaskId` when given the input string 
-"podname.instance-instancename.taskname" returns an object with the `podID`, 
-`instanceID` and `taskName respectively`. 
+This test verifies that unit `decomposePodTaskId` when given the input string
+"podname.instance-instancename.taskname" returns an object with the `podID`,
+`instanceID` and `taskName respectively`.
 
 ```js
   describe("#decomposePodTaskId", function() {
@@ -314,35 +316,35 @@ This test verifies that unit `decomposePodTaskId` when given the input string
 
 ### Writing Unit Tests
 
-A recommended reading is [Better Specs](http://www.betterspecs.org/), we put 
-[real effort](https://github.com/dcos/dcos-ui/pull/2524) in making sure we 
+A recommended reading is [Better Specs](http://www.betterspecs.org/), we put
+[real effort](https://github.com/dcos/dcos-ui/pull/2524) in making sure we
 follow these guidelines. Some of the most common ones to follow:
 
 - Single Expectation test: Every unit test should verify one behavior (and one behavior only).
 - Keep your descriptions concise (bellow 40 chars ideally): One easy way to achieve this one is avoiding using "should" (e.g. "it does not use should"  instead of "it should not be written with should").
 - Create only the data you need: Especially if you have a more complicated scenario, just generate the data that is relevant to that particular case.
 
-For more on this topic, and examples we recommend 
+For more on this topic, and examples we recommend
 [Better Specs](http://www.betterspecs.org/).
 
 ## Integration Testing
 
 At the integration level, we are interested in verifying that the composition of
- components works, more than the components independently. Integration tests 
- do not go into the details of the business logic, since those are covered by 
+ components works, more than the components independently. Integration tests
+ do not go into the details of the business logic, since those are covered by
  unit testing.
 
-Following the example of the `sum` function, imagine you are building a 
-graphical tool to display charts with data from a JSON API. An integration test 
-could be used to verify that the `plot` function works successfully by 
-leveraging the functions in the math library (like `sum`). For this test, 
-you should mock the external JSON API and provide a JSON with only the data 
+Following the example of the `sum` function, imagine you are building a
+graphical tool to display charts with data from a JSON API. An integration test
+could be used to verify that the `plot` function works successfully by
+leveraging the functions in the math library (like `sum`). For this test,
+you should mock the external JSON API and provide a JSON with only the data
 necessary to guarantee a particular chart is presented correctly.
 
 ### Integration tests setup
 
-We use cypress to drive a browser and run the unit tests for DC/OS UI. This is 
-because we want to integrate our system as close as possible to the environment 
+We use cypress to drive a browser and run the unit tests for DC/OS UI. This is
+because we want to integrate our system as close as possible to the environment
 it will run, the user browser.
 
 To setup cypress you need to follow the following steps:
@@ -367,7 +369,7 @@ Cypress is a dev dependency, if you have not installed those yet, run:
 
 4. Add project to Cypress.
 
-Once you've logged in click on the Add Project +  button and add the `dcos-ui` 
+Once you've logged in click on the Add Project +  button and add the `dcos-ui`
 folder.
 
   ![img](docs/images/cypress-no-projects.png?raw=true)
@@ -380,7 +382,7 @@ folder.
   npm run testing
   ```
 
-2. Open the project and click on "Run All Tests" or in one of the test files, 
+2. Open the project and click on "Run All Tests" or in one of the test files,
 e.g. (PackageTab-cy.js).
 
 ![img](docs/images/cypress-run-tests.png?raw=true)
@@ -393,14 +395,14 @@ You should see a browser open and your tests running.
 ### Example of an Integration test
 
 You can see examples of integration tests for actions that could be performed
-in a DC/OS Service by looking at  
+in a DC/OS Service by looking at
 [ServiceAction-cy.js](https://github.com/dcos/dcos-ui/blob/master/tests/pages/services/ServiceActions-cy.js).
 
 ### Writing Integration Tests
 
-Writing integration tests can be harder than unit tests, we recommend following best 
-practices from the 
-[cypress best practices](https://docs.cypress.io/guides/references/best-practices.html) 
+Writing integration tests can be harder than unit tests, we recommend following best
+practices from the
+[cypress best practices](https://docs.cypress.io/guides/references/best-practices.html)
 that, among other things, include:
 
 - Avoid explicitly waiting for something with `cy.wait`: This will slow down your test suite, cypress is (usually) capable of wait and retry assertions automatically.
@@ -422,28 +424,28 @@ Alternatively you can run cypress from the command line.
   ```
 ## System Testing
 
-At the System Test level, you want to guarantee that your project works on the 
+At the System Test level, you want to guarantee that your project works on the
 context of the whole system, in the case of DC/OS UI, that it works within DC/OS
- as a product. To do this, we want our tests to run against a DC/OS cluster. 
- For example we want to test that when an slave fails in a cluster, the UI 
- visually shows this slave failure. A different example is validating that 
- when a new service is installed on a cluster, it will show up in the services 
+ as a product. To do this, we want our tests to run against a DC/OS cluster.
+ For example we want to test that when an slave fails in a cluster, the UI
+ visually shows this slave failure. A different example is validating that
+ when a new service is installed on a cluster, it will show up in the services
  page.
 
 ### System Tests setup
 
-In the DC/OS UI, System Tests are executed with the dcos-system-test-driver 
-utility; This utility takes care of provisioning a cluster, launching the 
+In the DC/OS UI, System Tests are executed with the dcos-system-test-driver
+utility; This utility takes care of provisioning a cluster, launching the
 integration tests and driving the setup and teardown process for every test.
 
-The system-test-driver-utility is currently **not available** for public use. 
+The system-test-driver-utility is currently **not available** for public use.
 
-For contributing members of this repository. Comprehensive documentation on how 
-to run, write, debug and troubleshoot system tests are available in the 
+For contributing members of this repository. Comprehensive documentation on how
+to run, write, debug and troubleshoot system tests are available in the
 **System Tests in DC/OS UI** google document currently only available internally
  at Mesosphere.
- 
-You will need a fully functional cluster to run your system tests. 
+
+You will need a fully functional cluster to run your system tests.
 
 ## i18n
 
@@ -487,3 +489,22 @@ When adding a new translation file store in `src/js/translations` directory and 
 ## Packages
 
 Documentation can be found [here](packages/README.md)
+
+## Nice to knows
+
+### Resolve webpack aliases in VSCode
+
+Add this part to your `jsconfig.json` in the root of this project
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "./", // all paths are relative to the baseUrl
+    "paths": {
+      "#SRC/*": ["dcos-ui/src/*"],
+      "#EXTERNAL_PLUGINS/*": ["dcos-ui-plugins-private/*"],
+      "#PLUGINS/*": ["dcos-ui/plugins/*"]
+    }
+  }
+}
+```
