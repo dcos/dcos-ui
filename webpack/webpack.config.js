@@ -57,7 +57,7 @@ module.exports = {
   plugins: [
     new DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify("production"),
+        NODE_ENV: JSON.stringify("development"),
         LATER_COV: false
       }
     }),
@@ -83,10 +83,20 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|gif|ico|icns)$/,
-        loader: "file-loader",
-        options: {
-          name: "./[hash]-[name].[ext]"
-        }
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "./[hash]-[name].[ext]"
+            }
+          },
+          {
+            loader: "image-webpack-loader",
+            options: {
+              bypassOnDebug: true
+            }
+          }
+        ]
       },
       {
         test: /\.(ttf|woff)$/,
