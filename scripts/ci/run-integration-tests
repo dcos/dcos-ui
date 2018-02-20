@@ -13,8 +13,9 @@ RETRIES=3
 
 function executeCypress {
   echo "=====> Executing cypress for $1"
-  local testResultPath="cypress/$(basename $1)-result.xml"
-  npm run cypress -- -s "$1" --reporter junit --reporter-options "\"mochaFile=cypress/$testResultPath.xml\""
+  local testResultPath
+  testResultPath="cypress/$(basename "$1")-result.xml"
+  npm run cypress -- -s "$1" --reporter junit --reporter-options "mochaFile=$testResultPath"
 }
 
 function runTestFile {
