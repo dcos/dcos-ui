@@ -69,6 +69,7 @@
     "redux": "3.3.1",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.4.3",
+    "semver-compare": "1.0.0",
     "tv4": "1.2.7"
   },
   "devDependencies": {
