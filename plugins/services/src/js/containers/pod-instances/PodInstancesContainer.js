@@ -321,9 +321,13 @@ class PodInstancesContainer extends React.Component {
     const totalInstances = instances.getItems().length;
 
     instances = instances.mapItems(function(instance) {
-      instance.agent = MesosStateStore.getNodeFromHostname(
+      const instanceAgent = MesosStateStore.getNodeFromHostname(
         instance.getAgentAddress()
       );
+
+      if (instanceAgent) {
+        instance.agentId = instanceAgent.id;
+      }
 
       return instance;
     });
