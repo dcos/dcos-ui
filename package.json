@@ -20,6 +20,10 @@
     "last 2 versions",
     "ie 11"
   ],
+  "engines": {
+    "node": "8.9.x",
+    "npm": "5.6.x"
+  },
   "config": {
     "port": 4200,
     "externalplugins": ""
