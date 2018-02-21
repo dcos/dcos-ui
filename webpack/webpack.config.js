@@ -15,7 +15,7 @@ function requireAll(array) {
 module.exports = {
   entry: "./src/js/index.js",
   output: {
-    filename: "bundle.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "../dist")
   },
   resolve: {
