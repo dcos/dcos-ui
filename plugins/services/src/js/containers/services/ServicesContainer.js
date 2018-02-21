@@ -432,20 +432,53 @@ class ServicesContainer extends React.Component {
     };
   }
 
-  getModals(service) {
-    const modalProps = Object.assign({}, this.state.modal);
+  /**
+   * This function validates the current modalProps and returns
+   * them validated/corrected
+   *
+   * This function updates the `service` information from DCOSStore -
+   * if possible - or deletes the modal `id` from the object - if
+   * necessary (effectivly closes the modal, when the respective
+   * service got deleted)
+   *
+   * Depending on the current state `modalProps` need to contain either:
+   *
+   * - service and id ({ service: Service, id: String })
+   *   when the modal `id` is open or should be opened.
+   *  when opening the modal, `modalProps.service` is not yet set,
+   *  so we have to set it.
+   *
+   * - only a service ({ service: Service })
+   *   when no modal is open or the current modal is to be closed
+   *   reson is, that even if no modal is open, they are rendered into
+   *   the dom and need a valid service
+   *
+   * @param {object} props - an object which contains id and a service ("modalProps")
+   * @param {ServiceTree} [service] - service information
+   * @returns {object} updated and cleaned up modal information (props)
+   */
+  getCorrectedModalProps(props, service) {
+    const modalProps = Object.assign({}, props);
 
-    // This is needed to refresh the state of the service from the store once the
-    // modal is loaded. In our delete group modal for example we need feedback
-    // of the service while it is being deleted
-    if (!modalProps.service) {
+    if (!modalProps.service && service) {
       modalProps.service = service;
-    } else {
+    }
+
+    if (
+      modalProps.service &&
+      DCOSStore.serviceTree.findItemById(modalProps.service.id)
+    ) {
       modalProps.service = DCOSStore.serviceTree.findItemById(
         modalProps.service.id
       );
+    } else if (modalProps.id) {
+      delete modalProps.id;
     }
 
+    return modalProps;
+  }
+
+  getModals(service) {
     return (
       <ServiceModals
         actions={this.getActions()}
@@ -453,7 +486,7 @@ class ServicesContainer extends React.Component {
         clearError={this.clearActionError}
         onClose={this.handleModalClose}
         pendingActions={this.state.pendingActions}
-        modalProps={modalProps}
+        modalProps={this.getCorrectedModalProps(this.state.modal, service)}
       />
     );
   }
