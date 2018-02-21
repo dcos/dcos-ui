@@ -6,17 +6,19 @@ const TestUtils = require("react-addons-test-utils");
 
 const HashMapDisplay = require("../HashMapDisplay");
 
+let thisContainer;
+
 describe("HashMapDisplay", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("returns null if hash is not passed", function() {
-    var instance = ReactDOM.render(<HashMapDisplay />, this.container);
+    var instance = ReactDOM.render(<HashMapDisplay />, thisContainer);
 
     var result = ReactDOM.findDOMNode(instance);
     expect(TestUtils.isDOMComponent(result)).toEqual(false);
@@ -25,7 +27,7 @@ describe("HashMapDisplay", function() {
   it("returns null if hash is not passed with headline", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay headline="foo" />,
-      this.container
+      thisContainer
     );
 
     var result = ReactDOM.findDOMNode(instance);
@@ -35,7 +37,7 @@ describe("HashMapDisplay", function() {
   it("returns null if undefined is passed to hash", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={undefined} />,
-      this.container
+      thisContainer
     );
 
     var result = ReactDOM.findDOMNode(instance);
@@ -43,10 +45,7 @@ describe("HashMapDisplay", function() {
   });
 
   it("returns null if empty object is passed to hash", function() {
-    var instance = ReactDOM.render(
-      <HashMapDisplay hash={{}} />,
-      this.container
-    );
+    var instance = ReactDOM.render(<HashMapDisplay hash={{}} />, thisContainer);
 
     var result = ReactDOM.findDOMNode(instance);
     expect(TestUtils.isCompositeComponent(result)).toEqual(false);
@@ -55,7 +54,7 @@ describe("HashMapDisplay", function() {
   it("returns a node of elements if node exists", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={{ foo: "bar" }} />,
-      this.container
+      thisContainer
     );
 
     var result = ReactDOM.findDOMNode(instance);
@@ -65,7 +64,7 @@ describe("HashMapDisplay", function() {
   it("returns a headline if headline string is given", function() {
     var instance = ReactDOM.render(
       <HashMapDisplay hash={{ foo: "bar" }} headline="baz" />,
-      this.container
+      thisContainer
     );
 
     var node = ReactDOM.findDOMNode(instance);

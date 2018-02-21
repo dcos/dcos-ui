@@ -1,16 +1,18 @@
 const EventTypes = require("../../constants/EventTypes");
 const ConfigStore = require("../ConfigStore");
 
+let thisHandler;
+
 describe("ConfigStore", function() {
   describe("#processCCIDSuccess", function() {
     beforeEach(function() {
-      this.handler = jest.genMockFunction();
-      ConfigStore.once(EventTypes.CLUSTER_CCID_SUCCESS, this.handler);
+      thisHandler = jest.genMockFunction();
+      ConfigStore.once(EventTypes.CLUSTER_CCID_SUCCESS, thisHandler);
       ConfigStore.processCCIDSuccess({ foo: "bar" });
     });
 
     it("emits an event", function() {
-      expect(this.handler).toBeCalled();
+      expect(thisHandler).toBeCalled();
     });
 
     it("returns stored info", function() {

@@ -4,9 +4,11 @@ var HealthStatus = require("../../constants/HealthStatus");
 var ServiceAttributeNoHealthchecksFilter = require("../ServiceAttributeNoHealthchecksFilter");
 var List = require("#SRC/js/structs/List");
 
+let thisMockItems;
+
 describe("ServiceAttributeNoHealthchecksFilter", function() {
   beforeEach(function() {
-    this.mockItems = [
+    thisMockItems = [
       {
         getHealth() {
           return HealthStatus.HEALTHY;
@@ -31,7 +33,7 @@ describe("ServiceAttributeNoHealthchecksFilter", function() {
   });
 
   it("keeps services without health checks", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("no:healthchecks");
 
     const filters = new DSLFilterList().add(
@@ -39,12 +41,12 @@ describe("ServiceAttributeNoHealthchecksFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[3]
+      thisMockItems[3]
     ]);
   });
 
   it("keeps nothing on unknown states", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("no:boo");
 
     const filters = new DSLFilterList().add(
@@ -55,7 +57,7 @@ describe("ServiceAttributeNoHealthchecksFilter", function() {
   });
 
   it("is case-insensitive", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("no:HeaLThchEckS");
 
     const filters = new DSLFilterList([
@@ -63,7 +65,7 @@ describe("ServiceAttributeNoHealthchecksFilter", function() {
     ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[3]
+      thisMockItems[3]
     ]);
   });
 });

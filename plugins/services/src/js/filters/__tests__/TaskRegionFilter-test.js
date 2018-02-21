@@ -6,12 +6,14 @@ var TasksRegionFilter = require("../TasksRegionFilter");
 var List = require("#SRC/js/structs/List");
 var TaskUtil = require("../../utils/TaskUtil");
 
+let thisMockItems;
+
 describe("TaskRegionFilter", function() {
   beforeEach(function() {
     TaskUtil.getNode = function(item) {
       return item;
     };
-    this.mockItems = [
+    thisMockItems = [
       {
         getRegionName() {
           return "region-1";
@@ -26,7 +28,7 @@ describe("TaskRegionFilter", function() {
   });
 
   it("keeps tasks with specific region mentioned", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 
     const filters = new DSLFilterList().add(
@@ -34,7 +36,7 @@ describe("TaskRegionFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 });

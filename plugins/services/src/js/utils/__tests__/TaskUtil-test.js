@@ -10,6 +10,8 @@ const MasterNodeOffsite = require("./fixtures/MasterNodeOffsite.json");
 const SlaveNodes = require("./fixtures/SlaveNodes.json");
 const NodeTask = require("./fixtures/NodeTask.json");
 
+let thisInstance;
+
 describe("TaskUtil", function() {
   describe("#getHostAndPortList", function() {
     it("returns empty arrays if host and ports are not available", function() {
@@ -91,7 +93,7 @@ describe("TaskUtil", function() {
 
   describe("#getPortMappings", function() {
     beforeEach(function() {
-      this.instance = TaskUtil.getPortMappings({
+      thisInstance = TaskUtil.getPortMappings({
         container: {
           type: "FOO",
           foo: { port_mappings: ["foo", "bar", "baz"] }
@@ -128,7 +130,7 @@ describe("TaskUtil", function() {
     });
 
     it("provides port_mappings when available", function() {
-      expect(this.instance).toEqual(["foo", "bar", "baz"]);
+      expect(thisInstance).toEqual(["foo", "bar", "baz"]);
     });
   });
 

@@ -3,10 +3,12 @@ const ReactTestUtils = require("react-addons-test-utils");
 
 const RouterUtil = require("../RouterUtil");
 
+let thisComponent;
+
 describe("RouterUtil", function() {
   describe("#createComponentsFromRoutes", function() {
     beforeEach(function() {
-      this.component = function() {};
+      thisComponent = function() {};
     });
 
     it("creates a react component", function() {
@@ -14,7 +16,7 @@ describe("RouterUtil", function() {
         {
           type: ReactRouter.Route,
           path: "foo",
-          component: this.component
+          component: thisComponent
         }
       ]);
 
@@ -26,7 +28,7 @@ describe("RouterUtil", function() {
         {
           type: ReactRouter.Route,
           path: "foo",
-          component: this.component
+          component: thisComponent
         }
       ]);
 
@@ -40,12 +42,12 @@ describe("RouterUtil", function() {
         {
           type: ReactRouter.Route,
           path: "foo",
-          component: this.component
+          component: thisComponent
         }
       ]);
       const props = components[0].props;
 
-      expect(props.component).toEqual(this.component);
+      expect(props.component).toEqual(thisComponent);
       expect(props.path).toEqual("foo");
     });
 
@@ -54,7 +56,7 @@ describe("RouterUtil", function() {
         {
           type: ReactRouter.Route,
           path: "foo",
-          component: this.component,
+          component: thisComponent,
           children: [
             {
               type: ReactRouter.Redirect,

@@ -1,16 +1,18 @@
 const RoutingService = require("../RoutingService");
 const ReactRouter = require("react-router");
 
+let thisInstance;
+
 describe("RoutingService", function() {
   beforeEach(function() {
-    this.instance = new RoutingService();
+    thisInstance = new RoutingService();
   });
 
   describe("#registerRedirect", function() {
     it("registers Redirect", function() {
-      this.instance.registerRedirect("/test", "/stage");
+      thisInstance.registerRedirect("/test", "/stage");
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         {
           path: "/test",
           to: "/stage",
@@ -22,9 +24,9 @@ describe("RoutingService", function() {
 
   describe("#registerPage", function() {
     it("registers Page", function() {
-      this.instance.registerPage("/test", Object);
+      thisInstance.registerPage("/test", Object);
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         {
           path: "/test",
           component: Object,
@@ -36,10 +38,10 @@ describe("RoutingService", function() {
 
   describe("#registerTab", function() {
     it("registers Tab", function() {
-      this.instance.registerPage("/test", Object);
-      this.instance.registerTab("/test", "path", Object);
+      thisInstance.registerPage("/test", Object);
+      thisInstance.registerTab("/test", "path", Object);
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         {
           path: "/test",
           component: Object,
@@ -59,10 +61,10 @@ describe("RoutingService", function() {
   describe("override protection", function() {
     describe("#registerRedirect", function() {
       it("does not add a duplicate Redirect", function() {
-        this.instance.registerRedirect("test", "testB");
+        thisInstance.registerRedirect("test", "testB");
 
         expect(() => {
-          this.instance.registerRedirect("test", "stage");
+          thisInstance.registerRedirect("test", "stage");
         }).toThrow(
           new Error("Attempt to override Redirect of test from testB to stage!")
         );
@@ -71,22 +73,22 @@ describe("RoutingService", function() {
 
     describe("#registerPage", function() {
       it("throws on an attempt to override a page with a different component", function() {
-        this.instance.registerPage("test", Object);
+        thisInstance.registerPage("test", Object);
 
         expect(() => {
-          this.instance.registerPage("test", Array);
+          thisInstance.registerPage("test", Array);
         }).toThrow(new Error("Attempt to override a page at test!"));
       });
     });
 
     describe("#registerTab", function() {
       it("throws on an attempt to override a Tab", function() {
-        this.instance.registerPage("/test", Object);
+        thisInstance.registerPage("/test", Object);
 
-        this.instance.registerTab("/test", "path", Object);
+        thisInstance.registerTab("/test", "path", Object);
 
         expect(() => {
-          this.instance.registerTab("/test", "path", Array);
+          thisInstance.registerTab("/test", "path", Array);
         }).toThrow(new Error("Attempt to override a tab at /test/path!"));
       });
     });

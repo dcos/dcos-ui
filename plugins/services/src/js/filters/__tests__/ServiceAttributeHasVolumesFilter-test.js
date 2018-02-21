@@ -4,9 +4,11 @@ var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
 var ServiceAttributeHasVolumesFilter = require("../ServiceAttributeHasVolumesFilter");
 var VolumeList = require("../../structs/VolumeList");
 
+let thisMockItems;
+
 describe("ServiceAttributeHasVolumesFilter", function() {
   beforeEach(function() {
-    this.mockItems = [
+    thisMockItems = [
       {
         getVolumes() {
           return new VolumeList({ items: [] });
@@ -26,7 +28,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
   });
 
   it("matches instances with volumes", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:volumes");
 
     const filters = new DSLFilterList().add(
@@ -34,13 +36,13 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[1],
-      this.mockItems[2]
+      thisMockItems[1],
+      thisMockItems[2]
     ]);
   });
 
   it("keeps nothing on unknown values", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:foo");
 
     const filters = new DSLFilterList().add(
@@ -51,7 +53,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
   });
 
   it("is case-insensitive", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:vOLumEs");
 
     const filters = new DSLFilterList().add(
@@ -59,8 +61,8 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[1],
-      this.mockItems[2]
+      thisMockItems[1],
+      thisMockItems[2]
     ]);
   });
 });

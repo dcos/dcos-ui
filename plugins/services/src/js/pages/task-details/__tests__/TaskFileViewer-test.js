@@ -7,7 +7,28 @@ import TaskDirectory from "../../../structs/TaskDirectory";
 import TaskDirectoryActions from "../../../events/TaskDirectoryActions";
 import TaskFileViewer from "../TaskFileViewer";
 
+let thisContainer, thisInstance;
+
 describe("TaskFileViewer", function() {
+  beforeEach(function() {
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
+      <TaskFileViewer
+        directory={
+          new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
+        }
+        params={{ filePath: "undefined" }}
+        selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stdout" })}
+        task={{ slave_id: "foo" }}
+      />,
+      thisContainer
+    );
+  });
+
+  afterEach(function() {
+    ReactDOM.unmountComponentAtNode(thisContainer);
+  });
+
   describe("#render", function() {
     beforeEach(function() {
       this.container = global.document.createElement("div");
@@ -28,15 +49,15 @@ describe("TaskFileViewer", function() {
       ReactDOM.unmountComponentAtNode(this.container);
     });
     it("sets button disabled when file is not found", function() {
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <TaskFileViewer
           directory={new TaskDirectory({ items: [{ nlink: 1, path: "" }] })}
           params={{ filePath: "undefined" }}
           task={{ slave_id: "foo" }}
         />,
-        this.container
+        thisContainer
       );
-      const btn = this.container.querySelector("a.button.button-primary-link");
+      const btn = thisContainer.querySelector("a.button.button-primary-link");
       // If btn.props.disabled = true, then disabled attribute will return an object.
       // If btn.props.disabled = false, then disabled attribute will be undefined.
       // So here we just test to see if attribute exists
@@ -44,18 +65,18 @@ describe("TaskFileViewer", function() {
     });
 
     it("sets button not disabled when file is found", function() {
-      const btn = this.container.querySelector("a.button.button-primary-link");
+      const btn = thisContainer.querySelector("a.button.button-primary-link");
       // If btn.props.disabled = false, then disabled attribute will be undefined
       expect(btn.attributes.disabled).toEqual(undefined);
     });
 
     it("renders stdout on first render", function() {
-      this.instance.state = { currentView: 0 };
+      thisInstance.state = { currentView: 0 };
       TaskDirectoryActions.getDownloadURL = jasmine.createSpy(
         "TaskDirectoryActions#getDownloadURL"
       );
 
-      this.instance.render();
+      thisInstance.render();
 
       expect(TaskDirectoryActions.getDownloadURL).toHaveBeenCalledWith(
         "foo",
@@ -64,7 +85,7 @@ describe("TaskFileViewer", function() {
     });
 
     it("renders stderr when view is changed", function() {
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <TaskFileViewer
           directory={
             new TaskDirectory({
@@ -78,7 +99,7 @@ describe("TaskFileViewer", function() {
           selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stderr" })}
           task={{ slave_id: "foo" }}
         />,
-        this.container
+        thisContainer
       );
 
       // Setup spy after state has been configured
@@ -86,7 +107,7 @@ describe("TaskFileViewer", function() {
         "TaskDirectoryActions#getDownloadURL"
       );
 
-      this.instance.render();
+      thisInstance.render();
 
       expect(TaskDirectoryActions.getDownloadURL).toHaveBeenCalledWith(
         "foo",
@@ -95,7 +116,7 @@ describe("TaskFileViewer", function() {
     });
 
     it("limits files to stdout and stderr when provided", function() {
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <TaskFileViewer
           directory={
             new TaskDirectory({
@@ -110,17 +131,17 @@ describe("TaskFileViewer", function() {
           limitLogFiles={["stdout", "stderr"]}
           task={{ slave_id: "foo" }}
         />,
-        this.container
+        thisContainer
       );
 
-      expect(this.instance.getLogFiles()).toEqual([
+      expect(thisInstance.getLogFiles()).toEqual([
         new DirectoryItem({ nlink: 1, path: "/stdout" }),
         new DirectoryItem({ nlink: 1, path: "/stderr" })
       ]);
     });
 
     it("includes all files when limit is not provided", function() {
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <TaskFileViewer
           directory={
             new TaskDirectory({
@@ -134,10 +155,10 @@ describe("TaskFileViewer", function() {
           params={{}}
           task={{ slave_id: "foo" }}
         />,
-        this.container
+        thisContainer
       );
 
-      expect(this.instance.getLogFiles()).toEqual([
+      expect(thisInstance.getLogFiles()).toEqual([
         new DirectoryItem({ nlink: 1, path: "/foo" }),
         new DirectoryItem({ nlink: 1, path: "/stdout" }),
         new DirectoryItem({ nlink: 1, path: "/stderr" })

@@ -2,6 +2,8 @@ const HealthUnit = require("../HealthUnit");
 const UnitHealthStatus = require("../../constants/UnitHealthStatus");
 const UnitHealthTypes = require("../../constants/UnitHealthTypes");
 
+let thisUnit;
+
 describe("HealthUnit", function() {
   describe("#getHealth", function() {
     it("returns a UnitHealthStatus object", function() {
@@ -30,7 +32,7 @@ describe("HealthUnit", function() {
 
   describe("#getTitle", function() {
     beforeEach(function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "foo",
         name: "Foo Unit",
         health: "0"
@@ -38,61 +40,61 @@ describe("HealthUnit", function() {
     });
 
     it("returns a string", function() {
-      expect(typeof this.unit.getTitle()).toEqual("string");
+      expect(typeof thisUnit.getTitle()).toEqual("string");
     });
 
     it("returns the name if available", function() {
-      expect(this.unit.getTitle()).toEqual("Foo Unit");
+      expect(thisUnit.getTitle()).toEqual("Foo Unit");
     });
 
     it("returns pretty print title if name not available", function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "foo",
         health: "0"
       });
-      expect(this.unit.getTitle()).toEqual("Foo");
+      expect(thisUnit.getTitle()).toEqual("Foo");
     });
   });
 
   describe("#getPrettyPrintID", function() {
     it("removes dcos prefix from ID", function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "dcos-foo",
         health: "0"
       });
-      expect(this.unit.getTitle()).toEqual("Foo");
+      expect(thisUnit.getTitle()).toEqual("Foo");
     });
 
     it("removes dashes", function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "foo-bar",
         health: "0"
       });
-      expect(this.unit.getTitle()).toEqual("Foo Bar");
+      expect(thisUnit.getTitle()).toEqual("Foo Bar");
     });
 
     it("removes dots", function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "foo.bar",
         health: "0"
       });
-      expect(this.unit.getTitle()).toEqual("Foo Bar");
+      expect(thisUnit.getTitle()).toEqual("Foo Bar");
     });
 
     it("removes dashes and dots", function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "foo-bar.qqq",
         health: "0"
       });
-      expect(this.unit.getTitle()).toEqual("Foo Bar Qqq");
+      expect(thisUnit.getTitle()).toEqual("Foo Bar Qqq");
     });
 
     it("removes capitalizes DNS", function() {
-      this.unit = new HealthUnit({
+      thisUnit = new HealthUnit({
         id: "foo-dns-bar",
         health: "0"
       });
-      expect(this.unit.getTitle()).toEqual("Foo DNS Bar");
+      expect(thisUnit.getTitle()).toEqual("Foo DNS Bar");
     });
   });
 });

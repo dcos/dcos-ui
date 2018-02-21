@@ -1,15 +1,17 @@
 const Overlay = require("../Overlay");
 
+let thisOverlay;
+
 describe("Overlay", function() {
   beforeEach(function() {
-    this.overlay = new Overlay({
+    thisOverlay = new Overlay({
       info: { name: "foo", prefix: 24, subnet: "192.168.0.0/24" }
     });
   });
 
   describe("#getPrefix", function() {
     it("returns a value of type number", function() {
-      expect(typeof this.overlay.getPrefix()).toEqual("number");
+      expect(typeof thisOverlay.getPrefix()).toEqual("number");
     });
 
     it("returns undefined if no info was provided", function() {
@@ -23,7 +25,7 @@ describe("Overlay", function() {
 
   describe("#getName", function() {
     it("returns a value of type string", function() {
-      expect(typeof this.overlay.getName()).toEqual("string");
+      expect(typeof thisOverlay.getName()).toEqual("string");
     });
 
     it("returns undefined if no info was provided", function() {
@@ -37,7 +39,7 @@ describe("Overlay", function() {
 
   describe("#getSubnet", function() {
     it("returns a value of type string", function() {
-      expect(typeof this.overlay.getSubnet()).toEqual("string");
+      expect(typeof thisOverlay.getSubnet()).toEqual("string");
     });
 
     it("returns undefined if no info was provided", function() {

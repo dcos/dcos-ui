@@ -5,12 +5,14 @@ const AppDispatcher = require("../AppDispatcher");
 const Config = require("../../config/Config");
 const UnitHealthActions = require("../UnitHealthActions");
 
+let thisConfiguration;
+
 describe("UnitHealthActions", function() {
   describe("#fetchUnits", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnits();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -18,7 +20,7 @@ describe("UnitHealthActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units"
       );
     });
@@ -30,7 +32,7 @@ describe("UnitHealthActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNITS_SUCCESS);
       });
 
-      this.configuration.success({ bar: "bar" });
+      thisConfiguration.success({ bar: "bar" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -40,7 +42,7 @@ describe("UnitHealthActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNITS_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -53,7 +55,7 @@ describe("UnitHealthActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -64,7 +66,7 @@ describe("UnitHealthActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnit("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -72,7 +74,7 @@ describe("UnitHealthActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units/foo"
       );
     });
@@ -85,7 +87,7 @@ describe("UnitHealthActions", function() {
         expect(action.unitID).toEqual("foo");
       });
 
-      this.configuration.success({ bar: "baz" });
+      thisConfiguration.success({ bar: "baz" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -96,7 +98,7 @@ describe("UnitHealthActions", function() {
         expect(action.unitID).toEqual("foo");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -109,7 +111,7 @@ describe("UnitHealthActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -120,7 +122,7 @@ describe("UnitHealthActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnitNodes("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -128,7 +130,7 @@ describe("UnitHealthActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units/foo/nodes"
       );
     });
@@ -143,7 +145,7 @@ describe("UnitHealthActions", function() {
         expect(action.unitID).toEqual("foo");
       });
 
-      this.configuration.success({ bar: "baz" });
+      thisConfiguration.success({ bar: "baz" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -156,7 +158,7 @@ describe("UnitHealthActions", function() {
         expect(action.unitID).toEqual("foo");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -169,7 +171,7 @@ describe("UnitHealthActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -180,7 +182,7 @@ describe("UnitHealthActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnitNode("foo", "bar");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -188,7 +190,7 @@ describe("UnitHealthActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units/foo/nodes/bar"
       );
     });
@@ -203,7 +205,7 @@ describe("UnitHealthActions", function() {
         expect(action.data).toEqual({ bar: "baz" });
       });
 
-      this.configuration.success({ bar: "baz" });
+      thisConfiguration.success({ bar: "baz" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -215,7 +217,7 @@ describe("UnitHealthActions", function() {
         expect(action.nodeID).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -228,7 +230,7 @@ describe("UnitHealthActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

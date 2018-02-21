@@ -6,12 +6,14 @@ var TasksZoneFilter = require("../TasksZoneFilter");
 var List = require("#SRC/js/structs/List");
 var TaskUtil = require("../../utils/TaskUtil");
 
+let thisMockItems;
+
 describe("TasksZoneFilter", function() {
   beforeEach(function() {
     TaskUtil.getNode = function(item) {
       return item;
     };
-    this.mockItems = [
+    thisMockItems = [
       {
         getZoneName() {
           return "zone-1";
@@ -26,13 +28,13 @@ describe("TasksZoneFilter", function() {
   });
 
   it("keeps tasks with specific zone mentioned", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
     const filters = new DSLFilterList().add(new TasksZoneFilter(["zone-1"]));
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 });

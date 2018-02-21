@@ -14,51 +14,57 @@ const Service = require("#PLUGINS/services/src/js/structs/Service");
 
 const ServicesContainer = require("../ServicesContainer");
 
+let thisStoreChangeListener,
+  thisContainer,
+  thisRouterStubs,
+  thisWrapper,
+  thisInstance;
+
 describe("ServicesContainer", function() {
   beforeEach(function() {
-    this.storeChangeListener = MesosStateStore.addChangeListener;
+    thisStoreChangeListener = MesosStateStore.addChangeListener;
     MesosStateStore.addChangeListener = function() {};
 
-    this.container = global.document.createElement("div");
-    this.routerStubs = {
+    thisContainer = global.document.createElement("div");
+    thisRouterStubs = {
       getCurrentPathname() {
         return "test";
       },
       push: jasmine.createSpy()
     };
-    this.wrapper = ReactDOM.render(
+    thisWrapper = ReactDOM.render(
       JestUtil.stubRouterContext(
         ServicesContainer,
         {
           location: { query: {}, pathname: "/test" },
           params: {}
         },
-        this.routerStubs
+        thisRouterStubs
       ),
-      this.container
+      thisContainer
     );
-    this.instance = TestUtils.findRenderedComponentWithType(
-      this.wrapper,
+    thisInstance = TestUtils.findRenderedComponentWithType(
+      thisWrapper,
       ServicesContainer
     );
   });
 
   afterEach(function() {
-    MesosStateStore.addChangeListener = this.storeChangeListener;
-    ReactDOM.unmountComponentAtNode(this.container);
+    MesosStateStore.addChangeListener = thisStoreChangeListener;
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#setQueryParams", function() {
     it("updates window location with correct query params", function() {
-      this.instance.handleFilterExpressionChange(new DSLExpression("foo"));
+      thisInstance.handleFilterExpressionChange(new DSLExpression("foo"));
 
-      expect(this.routerStubs.push.calls.mostRecent().args).toEqual([
+      expect(thisRouterStubs.push.calls.mostRecent().args).toEqual([
         { pathname: "/test", query: { q: "foo" } }
       ]);
 
-      this.instance.handleFilterExpressionChange(new DSLExpression("bar"));
+      thisInstance.handleFilterExpressionChange(new DSLExpression("bar"));
 
-      expect(this.routerStubs.push.calls.mostRecent().args).toEqual([
+      expect(thisRouterStubs.push.calls.mostRecent().args).toEqual([
         { pathname: "/test", query: { q: "bar" } }
       ]);
     });
@@ -75,7 +81,7 @@ describe("ServicesContainer", function() {
     });
 
     it("returns modalProps from state with updated service information for given existing service (state)", function() {
-      const modalProps = this.instance.getCorrectedModalProps(
+      const modalProps = thisInstance.getCorrectedModalProps(
         { service: storeService },
         undefined
       );
@@ -83,7 +89,7 @@ describe("ServicesContainer", function() {
     });
 
     it("returns modalProps from argument with updated service information for given existing service (argument)", function() {
-      const modalProps = this.instance.getCorrectedModalProps(
+      const modalProps = thisInstance.getCorrectedModalProps(
         { service: undefined },
         storeService
       );
@@ -91,7 +97,7 @@ describe("ServicesContainer", function() {
     });
 
     it("returns modalProps from state with updated service information for given existing service (both)", function() {
-      const modalProps = this.instance.getCorrectedModalProps(
+      const modalProps = thisInstance.getCorrectedModalProps(
         { service: storeService },
         new Service({ id: "/test2" })
       );
@@ -111,7 +117,7 @@ describe("ServicesContainer", function() {
           return undefined;
         }
       };
-      const modalProps = this.instance.getCorrectedModalProps(
+      const modalProps = thisInstance.getCorrectedModalProps(
         { id: "delete", service: undefined },
         undefined
       );
@@ -124,7 +130,7 @@ describe("ServicesContainer", function() {
           return undefined;
         }
       };
-      const modalProps = this.instance.getCorrectedModalProps(
+      const modalProps = thisInstance.getCorrectedModalProps(
         { id: "delete", service: new Service({ id: "/deleted" }) },
         undefined
       );

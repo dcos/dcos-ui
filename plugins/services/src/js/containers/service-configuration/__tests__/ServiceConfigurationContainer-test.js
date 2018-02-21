@@ -8,6 +8,8 @@ const Application = require("../../../structs/Application");
 const ServiceConfigurationContainer = require("../ServiceConfigurationContainer");
 const ServiceConfigDisplay = require("../../../service-configuration/ServiceConfigDisplay");
 
+let thisContainer, thisInstance;
+
 describe("ServiceConfigurationContainer", function() {
   const service = new Application({
     id: "/test",
@@ -46,24 +48,24 @@ describe("ServiceConfigurationContainer", function() {
   });
 
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <ServiceConfigurationContainer
         onEditClick={function() {}}
         service={service}
       />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders correct id", function() {
       var serviceSpecView = TestUtils.findRenderedComponentWithType(
-        this.instance,
+        thisInstance,
         ServiceConfigDisplay
       );
 

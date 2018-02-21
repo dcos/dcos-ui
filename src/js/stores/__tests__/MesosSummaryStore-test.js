@@ -3,16 +3,18 @@ const Framework = require("../../../../plugins/services/src/js/structs/Framework
 
 MesosSummaryStore.init();
 
+let thisProcessSummaryError, thisGetServiceFromName;
+
 describe("Mesos State Store", function() {
   describe("#processSummary", function() {
     beforeEach(function() {
-      this.processSummaryError = MesosSummaryStore.processSummaryError;
+      thisProcessSummaryError = MesosSummaryStore.processSummaryError;
       MesosSummaryStore.processSummaryError = jest.genMockFunction();
       MesosSummaryStore.processSummary({});
     });
 
     afterEach(function() {
-      MesosSummaryStore.processSummaryError = this.processSummaryError;
+      MesosSummaryStore.processSummaryError = thisProcessSummaryError;
     });
 
     it("calls processSummaryError with no arguments when summary is empty Object", function() {
@@ -27,7 +29,7 @@ describe("Mesos State Store", function() {
 
   describe("#hasServiceUrl", function() {
     beforeEach(function() {
-      this.getServiceFromName = MesosSummaryStore.getServiceFromName;
+      thisGetServiceFromName = MesosSummaryStore.getServiceFromName;
       MesosSummaryStore.getServiceFromName = function(hasUrl) {
         if (hasUrl === "name_of_service_with_url") {
           return new Framework({
@@ -43,7 +45,7 @@ describe("Mesos State Store", function() {
     });
 
     afterEach(function() {
-      MesosSummaryStore.getServiceFromName = this.getServiceFromName;
+      MesosSummaryStore.getServiceFromName = thisGetServiceFromName;
     });
 
     it("returns true if service has a web url", function() {

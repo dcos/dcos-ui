@@ -8,30 +8,30 @@ const renderer = require("react-test-renderer");
 const ServiceList = require("../ServiceList");
 const ServiceTree = require("../../structs/ServiceTree");
 
+let thisContainer, thisInstance;
+
 describe("ServiceList", function() {
   describe("#shouldComponentUpdate", function() {
     beforeEach(function() {
       var services = new ServiceTree({ items: [{ name: "foo" }] });
-      this.container = global.document.createElement("div");
-      this.instance = ReactDOM.render(
+      thisContainer = global.document.createElement("div");
+      thisInstance = ReactDOM.render(
         <ServiceList services={services.getServices().getItems()} />,
-        this.container
+        thisContainer
       );
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("allows update", function() {
-      var shouldUpdate = this.instance.shouldComponentUpdate({ a: 1 });
+      var shouldUpdate = thisInstance.shouldComponentUpdate({ a: 1 });
       expect(shouldUpdate).toEqual(true);
     });
 
     it("does not allow update", function() {
-      var shouldUpdate = this.instance.shouldComponentUpdate(
-        this.instance.props
-      );
+      var shouldUpdate = thisInstance.shouldComponentUpdate(thisInstance.props);
       expect(shouldUpdate).toEqual(false);
     });
   });
@@ -52,15 +52,15 @@ describe("ServiceList", function() {
     });
 
     beforeEach(function() {
-      this.container = global.document.createElement("div");
-      this.instance = ReactDOM.render(
+      thisContainer = global.document.createElement("div");
+      thisInstance = ReactDOM.render(
         <ServiceList services={services.getServices().getItems()} />,
-        this.container
+        thisContainer
       );
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("returns services that have a value of two elements", function() {

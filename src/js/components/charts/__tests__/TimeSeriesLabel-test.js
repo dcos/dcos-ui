@@ -6,23 +6,25 @@ const TestUtils = require("react-addons-test-utils");
 
 const TimeSeriesLabel = require("../TimeSeriesLabel");
 
+let thisContainer, thisInstance;
+
 describe("TimeSeriesLabel", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <TimeSeriesLabel colorIndex={2} currentValue="10" subHeading="Foo" />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("displays the correct label", function() {
     // Verify that percentage is set correctly
     var title = TestUtils.findRenderedDOMComponentWithClass(
-      this.instance,
+      thisInstance,
       "unit"
     );
     expect(ReactDOM.findDOMNode(title).textContent).toEqual("10%");
@@ -31,7 +33,7 @@ describe("TimeSeriesLabel", function() {
   it("displays the correct sub heading", function() {
     // Verify that percentage is set correctly
     var label = TestUtils.findRenderedDOMComponentWithClass(
-      this.instance,
+      thisInstance,
       "unit-label"
     );
     expect(ReactDOM.findDOMNode(label).textContent).toBe("Foo");
@@ -40,7 +42,7 @@ describe("TimeSeriesLabel", function() {
   it("sets sub heading text color", function() {
     // Verify that percentage is set correctly
     var label = TestUtils.findRenderedDOMComponentWithClass(
-      this.instance,
+      thisInstance,
       "path-color-2"
     );
     expect(typeof label).toBe("object");

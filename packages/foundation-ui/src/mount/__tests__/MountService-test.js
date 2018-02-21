@@ -3,6 +3,8 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const MountService = require("../MountService");
 
+let thisInstance;
+
 describe("MountService", function() {
   const COMPONENT_ERROR_MESSAGE =
     "Provided component must be a " +
@@ -16,33 +18,33 @@ describe("MountService", function() {
   const FunctionalComponent = function() {};
 
   beforeEach(function() {
-    this.instance = new MountService();
+    thisInstance = new MountService();
   });
 
   describe("registerComponent", function() {
     it("does not throw if a valid React.Component is provided", function() {
       expect(() => {
-        this.instance.registerComponent(ReactComponent, "type", 0);
+        thisInstance.registerComponent(ReactComponent, "type", 0);
       }).not.toThrow();
     });
 
     it("does not throw if a valid stateless functional component is provided", function() {
       expect(() => {
-        this.instance.registerComponent(FunctionalComponent, "type", 0);
+        thisInstance.registerComponent(FunctionalComponent, "type", 0);
       }).not.toThrow();
     });
 
     it("does not throw if a valid type was provided", function() {
       expect(() => {
-        this.instance.registerComponent(FunctionalComponent, "type", 0);
+        thisInstance.registerComponent(FunctionalComponent, "type", 0);
       }).not.toThrow();
     });
 
     it("registers components", function() {
-      this.instance.registerComponent(ReactComponent, "type", 0);
-      this.instance.registerComponent(FunctionalComponent, "type", 0);
+      thisInstance.registerComponent(ReactComponent, "type", 0);
+      thisInstance.registerComponent(FunctionalComponent, "type", 0);
 
-      expect(this.instance.findComponentsWithType("type")).toEqual([
+      expect(thisInstance.findComponentsWithType("type")).toEqual([
         ReactComponent,
         FunctionalComponent
       ]);
@@ -50,71 +52,71 @@ describe("MountService", function() {
 
     it("throws if an object instead of a component was provided", function() {
       expect(() => {
-        this.instance.registerComponent({}, "type", 0);
+        thisInstance.registerComponent({}, "type", 0);
       }).toThrowError(COMPONENT_ERROR_MESSAGE);
     });
 
     it("throws if null instead of a component was provided", function() {
       expect(() => {
-        this.instance.registerComponent(null, "type", 0);
+        thisInstance.registerComponent(null, "type", 0);
       }).toThrowError(COMPONENT_ERROR_MESSAGE);
     });
 
     it("throws if component is undefined", function() {
       expect(() => {
-        this.instance.registerComponent(undefined, "type", 0);
+        thisInstance.registerComponent(undefined, "type", 0);
       }).toThrowError(COMPONENT_ERROR_MESSAGE);
     });
 
     it("throws if an object instead of a valid type was provided", function() {
       expect(() => {
-        this.instance.registerComponent(FunctionalComponent, {}, 0);
+        thisInstance.registerComponent(FunctionalComponent, {}, 0);
       }).toThrowError(TYPE_ERROR_MESSAGE);
     });
 
     it("throws if null instead of a valid type was provided", function() {
       expect(() => {
-        this.instance.registerComponent(FunctionalComponent, null, 0);
+        thisInstance.registerComponent(FunctionalComponent, null, 0);
       }).toThrowError(TYPE_ERROR_MESSAGE);
     });
 
     it("throws if type is undefined", function() {
       expect(() => {
-        this.instance.registerComponent(FunctionalComponent, undefined, 0);
+        thisInstance.registerComponent(FunctionalComponent, undefined, 0);
       }).toThrowError(TYPE_ERROR_MESSAGE);
     });
 
     it("throws if the component/type combination is already registered", function() {
-      this.instance.registerComponent(ReactComponent, "type");
+      thisInstance.registerComponent(ReactComponent, "type");
 
       expect(() => {
-        this.instance.registerComponent(ReactComponent, "type");
+        thisInstance.registerComponent(ReactComponent, "type");
       }).toThrowError(REGISTRATION_ERROR_MESSAGE);
     });
   });
 
   describe("unregisterComponent", function() {
     beforeEach(function() {
-      this.instance.registerComponent(ReactComponent, "type", 0);
-      this.instance.registerComponent(FunctionalComponent, "type", 0);
+      thisInstance.registerComponent(ReactComponent, "type", 0);
+      thisInstance.registerComponent(FunctionalComponent, "type", 0);
     });
 
     afterEach(function() {
-      this.instance.unregisterComponent(ReactComponent, "type");
-      this.instance.unregisterComponent(FunctionalComponent, "type");
+      thisInstance.unregisterComponent(ReactComponent, "type");
+      thisInstance.unregisterComponent(FunctionalComponent, "type");
     });
 
     it("removes matching components", function() {
-      this.instance.unregisterComponent(FunctionalComponent, "type");
-      expect(this.instance.findComponentsWithType("type")).toEqual([
+      thisInstance.unregisterComponent(FunctionalComponent, "type");
+      expect(thisInstance.findComponentsWithType("type")).toEqual([
         ReactComponent
       ]);
     });
 
     it("does nothing if no matching components was found", function() {
-      this.instance.unregisterComponent(FunctionalComponent, "unknown-type");
+      thisInstance.unregisterComponent(FunctionalComponent, "unknown-type");
 
-      expect(this.instance.findComponentsWithType("type")).toEqual([
+      expect(thisInstance.findComponentsWithType("type")).toEqual([
         ReactComponent,
         FunctionalComponent
       ]);
@@ -128,14 +130,14 @@ describe("MountService", function() {
     const FourthComponent = function() {};
 
     beforeEach(function() {
-      this.instance.registerComponent(SecondComponent, "type", 0);
-      this.instance.registerComponent(ThirdComponent, "type", 0);
-      this.instance.registerComponent(FirstComponent, "type", 2);
-      this.instance.registerComponent(FourthComponent, "type", 0);
+      thisInstance.registerComponent(SecondComponent, "type", 0);
+      thisInstance.registerComponent(ThirdComponent, "type", 0);
+      thisInstance.registerComponent(FirstComponent, "type", 2);
+      thisInstance.registerComponent(FourthComponent, "type", 0);
     });
 
     it("returns array of matching components in proper order", function() {
-      expect(this.instance.findComponentsWithType("type")).toEqual([
+      expect(thisInstance.findComponentsWithType("type")).toEqual([
         FirstComponent,
         SecondComponent,
         ThirdComponent,
@@ -144,7 +146,7 @@ describe("MountService", function() {
     });
 
     it("returns empty list if no match was found ", function() {
-      expect(this.instance.findComponentsWithType("unknown-type")).toEqual([]);
+      expect(thisInstance.findComponentsWithType("unknown-type")).toEqual([]);
     });
   });
 });

@@ -4,6 +4,8 @@ const DSLExpressionPart = require("../../structs/DSLExpressionPart");
 const DSLFilterTypes = require("../../constants/DSLFilterTypes");
 const DSLUtil = require("../DSLUtil");
 
+let thisParts, thisAst, thisAttribs, thisFuzzy, thisExact;
+
 describe("DSLUtil", function() {
   describe("#reduceAstFilters", function() {
     it("is called for every filter in the tree", function() {
@@ -61,7 +63,7 @@ describe("DSLUtil", function() {
 
   describe("#canProcessParts", function() {
     beforeEach(function() {
-      this.parts = {
+      thisParts = {
         attr: DSLExpressionPart.attribute("is", "foo"),
         exact: DSLExpressionPart.exact,
         fuzzy: DSLExpressionPart.fuzzy
@@ -71,51 +73,50 @@ describe("DSLUtil", function() {
     it("returns true when expression is empty", function() {
       const expression = new DSLExpression();
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeTruthy();
     });
 
     it("returns true when expression has a single attribute node", function() {
       const expression = new DSLExpression("is:foo");
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeTruthy();
     });
 
     it("returns false when expression has a repeating attribute node", function() {
       const expression = new DSLExpression("is:foo is:foo");
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeFalsy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeFalsy();
     });
 
     it("returns true when expression has a single exact node", function() {
       const expression = new DSLExpression('"exact foo"');
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeTruthy();
     });
 
     it("returns false when expression has a repeating exact node", function() {
       const expression = new DSLExpression('"exact foo" "something else"');
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeFalsy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeFalsy();
     });
 
     it("returns true when expression has a single fuzzy node", function() {
       const expression = new DSLExpression("foo");
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeTruthy();
     });
 
     it("returns true when expression has a repeating fuzzy nodes", function() {
       const expression = new DSLExpression("foo foo");
 
-      expect(DSLUtil.canProcessParts(expression, this.parts)).toBeTruthy();
+      expect(DSLUtil.canProcessParts(expression, thisParts)).toBeTruthy();
     });
   });
 
   describe("#findNodesByFilter", function() {
     beforeEach(function() {
-      this.ast = new DSLExpression(
-        'is:foo bar is:bar is:foo spacebar "foo-bar"'
-      ).ast;
+      thisAst = new DSLExpression('is:foo bar is:bar is:foo spacebar "foo-bar"')
+        .ast;
 
       // For reference, the parsed AST is visualized like so:
       //
@@ -138,45 +139,45 @@ describe("DSLUtil", function() {
 
       // console.log(this.ast);
 
-      this.attribs = [
-        this.ast.children[0].children[0].children[0].children[0].children[0],
-        this.ast.children[0].children[0].children[0].children[1],
-        this.ast.children[0].children[0].children[1]
+      thisAttribs = [
+        thisAst.children[0].children[0].children[0].children[0].children[0],
+        thisAst.children[0].children[0].children[0].children[1],
+        thisAst.children[0].children[0].children[1]
       ];
 
-      this.fuzzy = [
-        this.ast.children[0].children[0].children[0].children[0].children[1],
-        this.ast.children[0].children[1]
+      thisFuzzy = [
+        thisAst.children[0].children[0].children[0].children[0].children[1],
+        thisAst.children[0].children[1]
       ];
 
-      this.exact = [this.ast.children[1]];
+      thisExact = [thisAst.children[1]];
     });
 
     it("returns all occurrences of attribute match", function() {
       const filter = DSLExpressionPart.attribute("is", "foo");
 
-      expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual([
-        this.attribs[0],
-        this.attribs[2]
+      expect(DSLUtil.findNodesByFilter(thisAst, filter)).toEqual([
+        thisAttribs[0],
+        thisAttribs[2]
       ]);
     });
 
     it("returns all occurrences of fuzzy match", function() {
       const filter = DSLExpressionPart.fuzzy;
 
-      expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual(this.fuzzy);
+      expect(DSLUtil.findNodesByFilter(thisAst, filter)).toEqual(thisFuzzy);
     });
 
     it("returns all occurrences of exact match", function() {
       const filter = DSLExpressionPart.exact;
 
-      expect(DSLUtil.findNodesByFilter(this.ast, filter)).toEqual(this.exact);
+      expect(DSLUtil.findNodesByFilter(thisAst, filter)).toEqual(thisExact);
     });
   });
 
   describe("#getPartValues", function() {
     beforeEach(function() {
-      this.parts = {
+      thisParts = {
         attr: DSLExpressionPart.attribute("is", "foo"),
         exact: DSLExpressionPart.exact,
         fuzzy: DSLExpressionPart.fuzzy
@@ -186,7 +187,7 @@ describe("DSLUtil", function() {
     it("sets `true` on existing attributes", function() {
       const expression = new DSLExpression("is:foo");
 
-      expect(DSLUtil.getPartValues(expression, this.parts)).toEqual({
+      expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: true,
         exact: null,
         fuzzy: null
@@ -196,7 +197,7 @@ describe("DSLUtil", function() {
     it("sets the string value of exact matches", function() {
       const expression = new DSLExpression('"this is a test"');
 
-      expect(DSLUtil.getPartValues(expression, this.parts)).toEqual({
+      expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: false,
         exact: "this is a test",
         fuzzy: null
@@ -206,7 +207,7 @@ describe("DSLUtil", function() {
     it("sets the string value of fuzzy matches", function() {
       const expression = new DSLExpression("foo bar token");
 
-      expect(DSLUtil.getPartValues(expression, this.parts)).toEqual({
+      expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: false,
         exact: null,
         fuzzy: "foo bar token"
@@ -216,7 +217,7 @@ describe("DSLUtil", function() {
     it("handles more than one property in expression", function() {
       const expression = new DSLExpression('foo "exact" is:foo bar token');
 
-      expect(DSLUtil.getPartValues(expression, this.parts)).toEqual({
+      expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: true,
         exact: "exact",
         fuzzy: "foo bar token"

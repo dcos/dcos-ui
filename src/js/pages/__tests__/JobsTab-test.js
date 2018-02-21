@@ -14,6 +14,8 @@ const JobsTab = require("../jobs/JobsTab");
 const JobTree = require("../../structs/JobTree");
 const JobsTable = require("../../pages/jobs/JobsTable");
 
+let thisContainer;
+
 describe("JobsTab", function() {
   beforeEach(function() {
     DCOSStore.jobTree = new JobTree(
@@ -24,18 +26,18 @@ describe("JobsTab", function() {
       ])
     );
     DCOSStore.jobDataReceived = true;
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders the job table", function() {
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
-        this.container
+        thisContainer
       );
 
       expect(
@@ -47,7 +49,7 @@ describe("JobsTab", function() {
       DCOSStore.jobDataReceived = false;
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
-        this.container
+        thisContainer
       );
 
       var node = ReactDOM.findDOMNode(instance);
@@ -57,7 +59,7 @@ describe("JobsTab", function() {
     it("renders correct empty panel", function() {
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
-        this.container
+        thisContainer
       );
 
       expect(

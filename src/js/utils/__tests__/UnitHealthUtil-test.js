@@ -4,15 +4,17 @@ const UnitHealthTypes = require("../../constants/UnitHealthTypes");
 const UnitHealthUtil = require("../../utils/UnitHealthUtil");
 const NodesList = require("../../structs/NodesList");
 
+let thisHealthWeight;
+
 describe("UnitHealthUnit", function() {
   describe("#getHealthSorting", function() {
     beforeEach(function() {
       const unit = new HealthUnit({ health: 0, id: "aaa" });
-      this.healthWeight = UnitHealthUtil.getHealthSorting(unit);
+      thisHealthWeight = UnitHealthUtil.getHealthSorting(unit);
     });
 
     it("returns a number", function() {
-      expect(typeof this.healthWeight).toEqual("number");
+      expect(typeof thisHealthWeight).toEqual("number");
     });
   });
 

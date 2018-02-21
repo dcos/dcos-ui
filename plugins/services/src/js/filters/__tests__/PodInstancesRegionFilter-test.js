@@ -6,12 +6,14 @@ var PodInstancesRegionFilter = require("../PodInstancesRegionFilter");
 var List = require("#SRC/js/structs/List");
 var InstanceUtil = require("../../utils/InstanceUtil");
 
+let thisMockItems;
+
 describe("PodInstancesRegionFilter", function() {
   beforeEach(function() {
     InstanceUtil.getNode = function(item) {
       return item;
     };
-    this.mockItems = [
+    thisMockItems = [
       {
         getRegionName() {
           return "region-1";
@@ -26,7 +28,7 @@ describe("PodInstancesRegionFilter", function() {
   });
 
   it("keeps tasks with specific region mentioned", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 
     const filters = new DSLFilterList().add(
@@ -34,7 +36,7 @@ describe("PodInstancesRegionFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 });

@@ -1,29 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`ServiceList #getServices returns services that have a value of two elements 1`] = `
 <div
-  className="dashboard-health-list">
+  className="dashboard-health-list"
+>
   <ul
-    className="list list-unstyled">
+    className="list list-unstyled"
+  >
     <li
-      className="list-item">
+      className="list-item"
+    >
       <span
-        className="dashboard-health-list-item-description text-overflow">
+        className="dashboard-health-list-item-description text-overflow"
+      >
         <a
           className="dashboard-health-list-item-cell emphasis"
           href={null}
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           
         </a>
       </span>
       <div
-        className="dashboard-health-list-health-label">
+        className="dashboard-health-list-health-label"
+      >
         <div
           className="tooltip-wrapper"
           onMouseEnter={[Function]}
-          onMouseLeave={[Function]}>
+          onMouseLeave={[Function]}
+        >
           <svg
-            className="icon icon-light-grey icon-mini">
+            className="icon icon-light-grey icon-mini"
+          >
             <use
-              xlinkHref="#icon-system--circle-minus" />
+              xlinkHref="#icon-system--circle-minus"
+            />
           </svg>
         </div>
       </div>

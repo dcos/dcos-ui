@@ -1,9 +1,11 @@
 const FormUtil = require("../FormUtil");
 
+let thisDefinition, thisResult;
+
 describe("FormUtil", function() {
   describe("#getMultipleFieldDefinition", function() {
     beforeEach(function() {
-      this.definition = [
+      thisDefinition = [
         {
           name: "key",
           value: null
@@ -19,7 +21,7 @@ describe("FormUtil", function() {
       const result = FormUtil.getMultipleFieldDefinition(
         "variable",
         1,
-        this.definition
+        thisDefinition
       );
 
       expect(result[0].name).toEqual("variable[1].key");
@@ -30,18 +32,18 @@ describe("FormUtil", function() {
       const result = FormUtil.getMultipleFieldDefinition(
         "variable",
         1,
-        this.definition
+        thisDefinition
       );
 
       expect(result[0].name).toEqual("variable[1].key");
-      expect(this.definition[0].name).toEqual("key");
+      expect(thisDefinition[0].name).toEqual("key");
     });
 
     it("sets the value if a model is passed", function() {
       const result = FormUtil.getMultipleFieldDefinition(
         "variable",
         1,
-        this.definition,
+        thisDefinition,
         {
           key: "kenny",
           value: "tran"
@@ -55,7 +57,7 @@ describe("FormUtil", function() {
 
   describe("#modelToCombinedProps", function() {
     beforeEach(function() {
-      this.result = FormUtil.modelToCombinedProps({
+      thisResult = FormUtil.modelToCombinedProps({
         "uid[0].uid": "kenny",
         "uid[0].password": "secret",
         "uid[1].uid": "jane",
@@ -65,22 +67,22 @@ describe("FormUtil", function() {
     });
 
     it("does not modify the unrelated properties", function() {
-      expect(this.result.unrelatedProp).toEqual("hellothere");
+      expect(thisResult.unrelatedProp).toEqual("hellothere");
     });
 
     it('creates a property named "uid" that is an array', function() {
-      expect(Array.isArray(this.result.uid)).toEqual(true);
+      expect(Array.isArray(thisResult.uid)).toEqual(true);
     });
 
     it("converts each instance into an object", function() {
-      expect(typeof this.result.uid[0]).toEqual("object");
+      expect(typeof thisResult.uid[0]).toEqual("object");
     });
 
     it("converts each instance with the correct values", function() {
-      expect(this.result.uid[0].uid).toEqual("kenny");
-      expect(this.result.uid[0].password).toEqual("secret");
-      expect(this.result.uid[1].uid).toEqual("jane");
-      expect(this.result.uid[1].password).toEqual("secret2");
+      expect(thisResult.uid[0].uid).toEqual("kenny");
+      expect(thisResult.uid[0].password).toEqual("secret");
+      expect(thisResult.uid[1].uid).toEqual("jane");
+      expect(thisResult.uid[1].password).toEqual("secret2");
     });
   });
 
@@ -134,7 +136,7 @@ describe("FormUtil", function() {
 
   describe("#forEachDefinition", function() {
     beforeEach(function() {
-      this.definition = {
+      thisDefinition = {
         general: {
           definition: [
             {
@@ -164,7 +166,7 @@ describe("FormUtil", function() {
 
     it("correctly iterates through each definition", function() {
       const result = [];
-      FormUtil.forEachDefinition(this.definition, function(fieldDefinition) {
+      FormUtil.forEachDefinition(thisDefinition, function(fieldDefinition) {
         result.push(fieldDefinition.name);
       });
 

@@ -8,16 +8,18 @@ const PlacementConstraintsSchemaFields = require("../PlacementConstraintsSchemaF
   .default;
 const PlacementValidators = require("#PLUGINS/services/src/js/validators/PlacementsValidators.js");
 
+let thisValidateNoBatchErrorRestore, thisInstance;
+
 describe("PlacementConstraintsSchemaField", function() {
   describe("with valid content", function() {
     beforeEach(function() {
-      this.validateNoBatchErrorRestore =
+      thisValidateNoBatchErrorRestore =
         PlacementValidators.validateNoBatchError;
       PlacementValidators.validateNoBatchError = () => true;
     });
 
     afterEach(function() {
-      PlacementValidators.validateNoBatchError = this.validateNoBatchErrorRestore;
+      PlacementValidators.validateNoBatchError = thisValidateNoBatchErrorRestore;
     });
 
     it("displays edit constraints area", function() {
@@ -27,7 +29,7 @@ describe("PlacementConstraintsSchemaField", function() {
         name: "placement_constraints",
         schema: {}
       };
-      this.instance = renderer.create(
+      thisInstance = renderer.create(
         <PlacementConstraintsSchemaFields
           fieldProps={fieldProps}
           label="label"
@@ -35,20 +37,20 @@ describe("PlacementConstraintsSchemaField", function() {
         />
       );
 
-      var tree = this.instance.toJSON();
+      var tree = thisInstance.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
 
   describe("with invalid content", function() {
     beforeEach(function() {
-      this.validateNoBatchErrorRestore =
+      thisValidateNoBatchErrorRestore =
         PlacementValidators.validateNoBatchError;
       PlacementValidators.validateNoBatchError = () => false;
     });
 
     afterEach(function() {
-      PlacementValidators.validateNoBatchError = this.validateNoBatchErrorRestore;
+      PlacementValidators.validateNoBatchError = thisValidateNoBatchErrorRestore;
     });
 
     it("displays form to edit constraints", function() {
@@ -58,7 +60,7 @@ describe("PlacementConstraintsSchemaField", function() {
         name: "placement_constraints"
       };
 
-      this.instance = renderer.create(
+      thisInstance = renderer.create(
         <PlacementConstraintsSchemaFields
           fieldProps={fieldProps}
           label="label"
@@ -66,7 +68,7 @@ describe("PlacementConstraintsSchemaField", function() {
         />
       );
 
-      var tree = this.instance.toJSON();
+      var tree = thisInstance.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

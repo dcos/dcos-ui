@@ -10,16 +10,18 @@ const SystemLogTypes = require("#SRC/js/constants/SystemLogTypes");
 
 const PREPEND = SystemLogTypes.PREPEND;
 
+let thisRequestFn, thisMockMesosLogStore, thisLogBuffer, thisPreviousEmit;
+
 describe("MesosLogStore", function() {
   beforeEach(function() {
-    this.requestFn = RequestUtil.json;
+    thisRequestFn = RequestUtil.json;
     RequestUtil.json = jasmine.createSpy();
     MesosLogStore.startTailing("foo", "/bar");
   });
 
   afterEach(function() {
     MesosLogStore.stopTailing("/bar", true);
-    RequestUtil.json = this.requestFn;
+    RequestUtil.json = thisRequestFn;
   });
 
   describe("#startTailing", function() {
@@ -45,7 +47,7 @@ describe("MesosLogStore", function() {
 
   describe("#getPreviousLogs", function() {
     beforeEach(function() {
-      this.MockMesosLogStore = {
+      thisMockMesosLogStore = {
         getLogBuffer(key) {
           if (key === "exists") {
             return {
@@ -65,7 +67,7 @@ describe("MesosLogStore", function() {
 
     it("does nothing if logBuffer doesn't exist", function() {
       MesosLogStore.getPreviousLogs.call(
-        this.MockMesosLogStore,
+        thisMockMesosLogStore,
         "slaveID",
         "nonExistentPath"
       );
@@ -75,7 +77,7 @@ describe("MesosLogStore", function() {
 
     it("does nothing if already at the beginning of history", function() {
       MesosLogStore.getPreviousLogs.call(
-        this.MockMesosLogStore,
+        thisMockMesosLogStore,
         "slaveID",
         "exists"
       );
@@ -157,18 +159,18 @@ describe("MesosLogStore", function() {
         data: "bar",
         offset: 103
       });
-      this.logBuffer = MesosLogStore.getLogBuffer("/bar");
+      thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
     it("returns all of the log items it was given", function() {
-      const items = this.logBuffer.getItems();
+      const items = thisLogBuffer.getItems();
       jest.runAllTimers();
       expect(items.length).toEqual(2);
     });
 
     it("returns the full log of items it was given", function() {
       jest.runAllTimers();
-      expect(this.logBuffer.getFullLog()).toEqual("foobar");
+      expect(thisLogBuffer.getFullLog()).toEqual("foobar");
     });
 
     it("calls the fetch log 4 times", function() {
@@ -179,7 +181,7 @@ describe("MesosLogStore", function() {
 
   describe("#processLogPrepend", function() {
     beforeEach(function() {
-      this.previousEmit = MesosLogStore.emit;
+      thisPreviousEmit = MesosLogStore.emit;
       MesosLogStore.emit = jasmine.createSpy();
       // First item will be used to initialize
       MesosLogStore.processOffset("foo", "/bar", { data: "", offset: 100 });
@@ -193,20 +195,20 @@ describe("MesosLogStore", function() {
         offset: 103
       });
 
-      this.logBuffer = MesosLogStore.getLogBuffer("/bar");
+      thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
     afterEach(function() {
-      MesosLogStore.emit = this.previousEmit;
+      MesosLogStore.emit = thisPreviousEmit;
     });
 
     it("returns all of the log items it was given", function() {
-      const items = this.logBuffer.getItems();
+      const items = thisLogBuffer.getItems();
       expect(items.length).toEqual(2);
     });
 
     it("returns the full log of items it was given", function() {
-      expect(this.logBuffer.getFullLog()).toEqual("barfoo");
+      expect(thisLogBuffer.getFullLog()).toEqual("barfoo");
     });
 
     it("calls the fetch log 2 times", function() {
@@ -231,7 +233,7 @@ describe("MesosLogStore", function() {
 
   describe("#processLogError", function() {
     beforeEach(function() {
-      this.logBuffer = MesosLogStore.getLogBuffer("/bar");
+      thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
     it("tries to restart the tailing after error", function() {
@@ -243,9 +245,9 @@ describe("MesosLogStore", function() {
 
   describe("#processLogPrependError", function() {
     beforeEach(function() {
-      this.previousEmit = MesosLogStore.emit;
+      thisPreviousEmit = MesosLogStore.emit;
       MesosLogStore.emit = jasmine.createSpy();
-      this.logBuffer = MesosLogStore.getLogBuffer("/bar");
+      thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
       MesosLogStore.processLogPrependError("foo", "/bar", {
         data: "bar",
         offset: 103
@@ -253,7 +255,7 @@ describe("MesosLogStore", function() {
     });
 
     afterEach(function() {
-      MesosLogStore.emit = this.previousEmit;
+      MesosLogStore.emit = thisPreviousEmit;
     });
 
     it("tries to restart the tailing after error", function() {
@@ -278,24 +280,24 @@ describe("MesosLogStore", function() {
 
   describe("#processOffsetError", function() {
     beforeEach(function() {
-      this.logBuffer = MesosLogStore.getLogBuffer("/bar");
+      thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
     it("does not be initialized after error", function() {
       MesosLogStore.processOffsetError("foo", "/bar");
-      expect(this.logBuffer.isInitialized()).toEqual(false);
+      expect(thisLogBuffer.isInitialized()).toEqual(false);
     });
   });
 
   describe("#processOffset", function() {
     beforeEach(function() {
-      this.logBuffer = MesosLogStore.getLogBuffer("/bar");
+      thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
     });
 
     it("is initialized after initialize and before error", function() {
       // First item will be used to initialize
       MesosLogStore.processOffset("foo", "/bar", { data: "", offset: 100 });
-      expect(this.logBuffer.isInitialized()).toEqual(true);
+      expect(thisLogBuffer.isInitialized()).toEqual(true);
     });
   });
 

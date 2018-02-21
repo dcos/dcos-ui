@@ -13,26 +13,28 @@ const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 const TaskTable = require("../TaskTable");
 const Tasks = require("./fixtures/MockTasks.json").tasks;
 
+let thisContainer, thisInstance, thisTaskTable, thisGetNodeFromID;
+
 describe("TaskTable", function() {
   beforeEach(function() {
     DCOSStore.serviceTree = {
       getTaskFromTaskID: jest.fn()
     };
 
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
 
-    this.instance = ReactDOM.render(
+    thisInstance = ReactDOM.render(
       JestUtil.stubRouterContext(TaskTable, {
         tasks: Tasks,
         params: { nodeID: "thing" }
       }),
-      this.container
+      thisContainer
     );
   });
 
   describe("#getDisabledItemsMap", function() {
     beforeEach(function() {
-      this.taskTable = new TaskTable();
+      thisTaskTable = new TaskTable();
     });
 
     it("treats tasks started not by Marathon as disabled", function() {
@@ -40,7 +42,7 @@ describe("TaskTable", function() {
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
         { id: "2", state: "TASK_STARTING" }
       ];
-      expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
+      expect(thisTaskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });
 
     it("it treats completed tasks as disabled", function() {
@@ -48,7 +50,7 @@ describe("TaskTable", function() {
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
         { id: "2", state: "TASK_FINISHED", isStartedByMarathon: true }
       ];
-      expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
+      expect(thisTaskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });
   });
 
@@ -64,8 +66,8 @@ describe("TaskTable", function() {
   });
 
   afterEach(function() {
-    MesosStateStore.getNodeFromID = this.getNodeFromID;
+    MesosStateStore.getNodeFromID = thisGetNodeFromID;
 
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 });

@@ -11,6 +11,8 @@ global.atob = function() {
   return MockAppMetadata.decodedString;
 };
 
+let thisHandler;
+
 describe("MarathonStore", function() {
   describe("#getFrameworkHealth", function() {
     it("returns NA health when app has no health check", function() {
@@ -151,8 +153,8 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonDeployments", function() {
     beforeEach(function() {
-      this.handler = jest.genMockFunction();
-      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, this.handler);
+      thisHandler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, thisHandler);
       MarathonStore.processMarathonDeployments([{ id: "deployment-id" }]);
     });
 
@@ -163,11 +165,11 @@ describe("MarathonStore", function() {
     });
 
     it("emits a marathon deployment event", function() {
-      expect(this.handler).toBeCalled();
+      expect(thisHandler).toBeCalled();
     });
 
     it("emits a populated DeploymentsList", function() {
-      const deployments = this.handler.mock.calls[0][0];
+      const deployments = thisHandler.mock.calls[0][0];
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual("deployment-id");
     });
@@ -175,16 +177,16 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonInfoRequest", function() {
     beforeEach(function() {
-      this.handler = jest.genMockFunction();
+      thisHandler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_INSTANCE_INFO_SUCCESS,
-        this.handler
+        thisHandler
       );
       MarathonStore.processMarathonInfoRequest({ foo: "bar" });
     });
 
     it("emits an event", function() {
-      expect(this.handler).toBeCalled();
+      expect(thisHandler).toBeCalled();
     });
 
     it("returns stored info", function() {
@@ -194,8 +196,8 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonQueue", function() {
     beforeEach(function() {
-      this.handler = jest.genMockFunction();
-      MarathonStore.once(EventTypes.MARATHON_QUEUE_CHANGE, this.handler);
+      thisHandler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_QUEUE_CHANGE, thisHandler);
       MarathonStore.processMarathonQueue({
         queue: [
           {
@@ -207,11 +209,11 @@ describe("MarathonStore", function() {
     });
 
     it("emits a marathon queue event", function() {
-      expect(this.handler).toBeCalled();
+      expect(thisHandler).toBeCalled();
     });
 
     it("emits a launch queue", function() {
-      const queue = this.handler.mock.calls[0][0];
+      const queue = thisHandler.mock.calls[0][0];
       expect(queue).toEqual(jasmine.any(Object));
       expect(queue[0].app.id).toEqual("/service-id");
     });

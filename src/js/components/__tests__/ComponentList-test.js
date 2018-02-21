@@ -5,6 +5,8 @@ const TestUtils = require("react-addons-test-utils");
 const ComponentList = require("../ComponentList");
 const HealthUnitsList = require("../../structs/HealthUnitsList");
 
+let thisComponent;
+
 describe("#ComponentList", function() {
   var healthUnits;
 
@@ -20,7 +22,7 @@ describe("#ComponentList", function() {
     });
     const displayCount = 2;
 
-    this.component = TestUtils.renderIntoDocument(
+    thisComponent = TestUtils.renderIntoDocument(
       <ComponentList displayCount={displayCount} units={healthUnits} />
     );
   });
@@ -31,7 +33,7 @@ describe("#ComponentList", function() {
        * health status visibility importance order top to bottom
        * unhealthy > NA > warn/idle > healthy
        */
-      const sortedUnits = this.component.getSortedHealthValues(
+      const sortedUnits = thisComponent.getSortedHealthValues(
         healthUnits.getItems()
       );
       const expectedResult = [
@@ -91,7 +93,7 @@ describe("#ComponentList", function() {
 
   describe("#getVisibleComponents", function() {
     it("only returns the number of visible units", function() {
-      const unitsVisible = this.component.getVisibleComponents(
+      const unitsVisible = thisComponent.getVisibleComponents(
         healthUnits.getItems()
       );
 

@@ -1,9 +1,11 @@
 const QueryParamsMixin = require("../QueryParamsMixin");
 
+let thisInstance;
+
 describe("QueryParamsMixin", function() {
   beforeEach(function() {
-    this.instance = QueryParamsMixin;
-    this.instance.props = {
+    thisInstance = QueryParamsMixin;
+    thisInstance.props = {
       location: {
         pathname: "/pathname",
         query: {
@@ -12,7 +14,7 @@ describe("QueryParamsMixin", function() {
         }
       }
     };
-    this.instance.context = {
+    thisInstance.context = {
       router: {
         push: jasmine.createSpy()
       }
@@ -20,7 +22,7 @@ describe("QueryParamsMixin", function() {
   });
 
   it("returns the current pathname", function() {
-    expect(this.instance.getCurrentPathname()).toEqual("/pathname");
+    expect(thisInstance.getCurrentPathname()).toEqual("/pathname");
   });
 
   it("returns an Object built from the query params", function() {
@@ -28,13 +30,11 @@ describe("QueryParamsMixin", function() {
       stringValue: "string",
       arrayValue: ["value1", "value2"]
     };
-    expect(this.instance.getQueryParamObject()).toEqual(queryParamObject);
+    expect(thisInstance.getQueryParamObject()).toEqual(queryParamObject);
   });
 
   it("returns a specific value from the query params object", function() {
-    expect(this.instance.getQueryParamObject()["stringValue"]).toEqual(
-      "string"
-    );
+    expect(thisInstance.getQueryParamObject()["stringValue"]).toEqual("string");
   });
 
   it("transitions to the right path with the given query params", function() {
@@ -44,9 +44,9 @@ describe("QueryParamsMixin", function() {
       stringValue: "string"
     };
 
-    this.instance.setQueryParam("paramKey", "paramValue");
+    thisInstance.setQueryParam("paramKey", "paramValue");
 
-    const push = this.instance.context.router.push;
+    const push = thisInstance.context.router.push;
 
     expect(push.calls.count()).toEqual(1);
 
@@ -57,7 +57,7 @@ describe("QueryParamsMixin", function() {
   });
 
   it("decodes an arrayString given in the query params", function() {
-    const decodedArrayString = this.instance.decodeQueryParamArray("a;b;c");
+    const decodedArrayString = thisInstance.decodeQueryParamArray("a;b;c");
     expect(decodedArrayString).toEqual(["a", "b", "c"]);
   });
 
@@ -68,7 +68,7 @@ describe("QueryParamsMixin", function() {
       stringValue: "string"
     };
 
-    this.instance.setQueryParam("nestedArray", [
+    thisInstance.setQueryParam("nestedArray", [
       [1, 2, 3],
       [4, 5, 6],
       [],
@@ -76,7 +76,7 @@ describe("QueryParamsMixin", function() {
       "non-array"
     ]);
 
-    const push = this.instance.context.router.push;
+    const push = thisInstance.context.router.push;
 
     expect(push.calls.count()).toEqual(1);
 
@@ -88,25 +88,23 @@ describe("QueryParamsMixin", function() {
 
   describe("#resetQueryParams", function() {
     it("resets all params by default", function() {
-      this.instance.resetQueryParams();
-      expect(this.instance.context.router.push).toHaveBeenCalledWith({
+      thisInstance.resetQueryParams();
+      expect(thisInstance.context.router.push).toHaveBeenCalledWith({
         pathname: "/pathname",
         query: {}
       });
     });
 
     it("resets only specified params, when present", function() {
-      this.instance.resetQueryParams(["arrayValue"]);
-      expect(this.instance.context.router.push).toHaveBeenCalledWith({
+      thisInstance.resetQueryParams(["arrayValue"]);
+      expect(thisInstance.context.router.push).toHaveBeenCalledWith({
         pathname: "/pathname",
         query: { stringValue: "string" }
       });
     });
 
     it("exits cleanly when called without a router", function() {
-      expect(
-        this.instance.resetQueryParams.bind({ context: {} })
-      ).not.toThrow();
+      expect(thisInstance.resetQueryParams.bind({ context: {} })).not.toThrow();
     });
   });
 });

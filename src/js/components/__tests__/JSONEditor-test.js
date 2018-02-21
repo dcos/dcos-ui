@@ -2,13 +2,15 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const JSONEditor = require("../JSONEditor");
 
+let thisContainer;
+
 describe("JSONEditor", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#shouldComponentUpdate", function() {
@@ -29,7 +31,7 @@ describe("JSONEditor", function() {
     it("prevents unnecessary component updates", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={initialValue} />,
-        this.container
+        thisContainer
       );
 
       const nextProps = Object.assign({}, instance.props, {
@@ -45,7 +47,7 @@ describe("JSONEditor", function() {
     it("updates the component if the internal data has changed", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={initialValue} />,
-        this.container
+        thisContainer
       );
 
       const nextProps = instance.props;
@@ -78,7 +80,7 @@ describe("JSONEditor", function() {
       const onChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onChange={onChangeHandler} />,
-        this.container
+        thisContainer
       );
 
       instance.handleChange(validJSONText);
@@ -90,7 +92,7 @@ describe("JSONEditor", function() {
       const onChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onChange={onChangeHandler} />,
-        this.container
+        thisContainer
       );
       instance.handleChange(invalidJsonText);
 
@@ -101,7 +103,7 @@ describe("JSONEditor", function() {
       const onChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onChange={onChangeHandler} />,
-        this.container
+        thisContainer
       );
 
       instance.handleChange(invalidJsonText);
@@ -114,7 +116,7 @@ describe("JSONEditor", function() {
       const onErrorStateChangeHandler = jest.fn();
       const instance = ReactDOM.render(
         <JSONEditor onErrorStateChange={onErrorStateChangeHandler} />,
-        this.container
+        thisContainer
       );
 
       instance.handleChange(invalidJsonText);
@@ -130,7 +132,7 @@ describe("JSONEditor", function() {
           onChange={onChangeHandler}
           onErrorStateChange={onErrorStateChangeHandler}
         />,
-        this.container
+        thisContainer
       );
 
       instance.handleChange(invalidJsonText);
@@ -159,7 +161,7 @@ describe("JSONEditor", function() {
           onChange={onChangeHandler}
           onErrorStateChange={onErrorStateChangeHandler}
         />,
-        this.container
+        thisContainer
       );
 
       instance.handleChange(initialJSONText);
@@ -174,7 +176,7 @@ describe("JSONEditor", function() {
     it("accepts `null` as an argument", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
-        this.container
+        thisContainer
       );
 
       instance.updateLocalJsonState(null);
@@ -188,7 +190,7 @@ describe("JSONEditor", function() {
     it("updates all properties as given", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
-        this.container
+        thisContainer
       );
 
       instance.updateLocalJsonState({
@@ -209,7 +211,7 @@ describe("JSONEditor", function() {
     it("returns `null` if the text has not changed", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
-        this.container
+        thisContainer
       );
 
       expect(instance.getNewJsonState("{}")).toEqual(null);
@@ -218,7 +220,7 @@ describe("JSONEditor", function() {
     it("returns errors if JSON is invalid", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
-        this.container
+        thisContainer
       );
 
       expect(instance.getNewJsonState("{")).toEqual({
@@ -232,7 +234,7 @@ describe("JSONEditor", function() {
     it("returns the correct state on new JSON", function() {
       const instance = ReactDOM.render(
         <JSONEditor value={{}} />,
-        this.container
+        thisContainer
       );
 
       expect(instance.getNewJsonState('[\n"foo"\n]')).toEqual({

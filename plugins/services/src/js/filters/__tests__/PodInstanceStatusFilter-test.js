@@ -3,9 +3,11 @@ var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
 var PodInstanceStatusFilter = require("../PodInstanceStatusFilter");
 var List = require("#SRC/js/structs/List");
 
+let thisMockItems;
+
 describe("PodInstanceStatusFilter", function() {
   beforeEach(function() {
-    this.mockItems = [
+    thisMockItems = [
       {
         isStaging: () => false,
         isRunning: () => true
@@ -19,24 +21,24 @@ describe("PodInstanceStatusFilter", function() {
   });
 
   it("keeps tasks in active state", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
     const filters = new DSLFilterList().add(new PodInstanceStatusFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 
   it("keeps tasks in completed state", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 
     const filters = new DSLFilterList().add(new PodInstanceStatusFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[1]
+      thisMockItems[1]
     ]);
   });
 });

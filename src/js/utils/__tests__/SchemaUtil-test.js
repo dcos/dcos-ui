@@ -1,5 +1,7 @@
 const SchemaUtil = require("../SchemaUtil");
 
+let thisSubheaderRender, thisResult;
+
 describe("SchemaUtil", function() {
   describe("#schemaToMultipleDefinition", function() {
     describe("not nested schema", function() {
@@ -18,33 +20,33 @@ describe("SchemaUtil", function() {
           }
         };
 
-        this.subheaderRender = jasmine.createSpy();
-        this.result = SchemaUtil.schemaToMultipleDefinition({
+        thisSubheaderRender = jasmine.createSpy();
+        thisResult = SchemaUtil.schemaToMultipleDefinition({
           schema,
-          renderSubheader: this.subheaderRender
+          renderSubheader: thisSubheaderRender
         });
       });
 
       it("sets the title of the definition", function() {
-        expect(this.result.application.title).toEqual("Application");
+        expect(thisResult.application.title).toEqual("Application");
       });
 
       it("creates a field for the property", function() {
-        expect(this.result.application).not.toEqual(undefined);
+        expect(thisResult.application).not.toEqual(undefined);
       });
 
       it("turns a schema to a definition", function() {
-        expect(this.result.application.description).toEqual(
+        expect(thisResult.application.description).toEqual(
           "This is a description"
         );
       });
 
       it("creates a definition for the field", function() {
-        expect(Array.isArray(this.result.application.definition)).toEqual(true);
+        expect(Array.isArray(thisResult.application.definition)).toEqual(true);
       });
 
       it("does not call subheaderRender because schema is flat", function() {
-        expect(this.subheaderRender).not.toHaveBeenCalled();
+        expect(thisSubheaderRender).not.toHaveBeenCalled();
       });
     });
 
@@ -90,21 +92,21 @@ describe("SchemaUtil", function() {
           }
         };
 
-        this.subheaderRender = jasmine.createSpy();
-        this.result = SchemaUtil.schemaToMultipleDefinition({
+        thisSubheaderRender = jasmine.createSpy();
+        thisResult = SchemaUtil.schemaToMultipleDefinition({
           schema,
-          renderSubheader: this.subheaderRender
+          renderSubheader: thisSubheaderRender
         });
       });
 
       it("creates a nested definition correctly", function() {
-        expect(this.result.application.definition[0].definition).not.toEqual(
+        expect(thisResult.application.definition[0].definition).not.toEqual(
           undefined
         );
       });
 
       it("creates render property with a render function", function() {
-        expect(typeof this.result.application.definition[0].render).toEqual(
+        expect(typeof thisResult.application.definition[0].render).toEqual(
           "function"
         );
       });
@@ -148,16 +150,16 @@ describe("SchemaUtil", function() {
         }
       };
 
-      this.result = SchemaUtil.definitionToJSONDocument(definition);
+      thisResult = SchemaUtil.definitionToJSONDocument(definition);
     });
 
     it("creates Application at the top level", function() {
-      expect(typeof this.result.application).toEqual("object");
+      expect(typeof thisResult.application).toEqual("object");
     });
 
     it("creates properties for application", function() {
-      expect(this.result.application.Name).toEqual("nameValue");
-      expect(this.result.application.CPU).toEqual("CPU Value");
+      expect(thisResult.application.Name).toEqual("nameValue");
+      expect(thisResult.application.CPU).toEqual("CPU Value");
     });
 
     it("creates a nested json document correctly", function() {

@@ -14,27 +14,35 @@ const UniversePackageVersions = require("../../structs/UniversePackageVersions")
 const UniverseInstalledPackagesList = require("../../structs/UniverseInstalledPackagesList");
 const UniversePackagesList = require("../../structs/UniversePackagesList");
 
+let thisConfigUseFixture,
+  thisRequestFn,
+  thisPackagesSearchFixture,
+  thisPackageDescribeFixture,
+  thisPackageListVersionsFixture,
+  thisServiceDescribeFixture,
+  thisPackagesListFixture;
+
 describe("CosmosPackagesStore", function() {
   beforeEach(function() {
-    this.configUseFixture = Config.useFixtures;
+    thisConfigUseFixture = Config.useFixtures;
     Config.useFixtures = true;
   });
 
   afterEach(function() {
-    Config.useFixtures = this.configUseFixture;
+    Config.useFixtures = thisConfigUseFixture;
   });
 
   describe("#fetchAvailablePackages", function() {
     beforeEach(function() {
-      this.requestFn = RequestUtil.json;
+      thisRequestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, packagesSearchFixture));
       };
-      this.packagesSearchFixture = Object.assign({}, packagesSearchFixture);
+      thisPackagesSearchFixture = Object.assign({}, packagesSearchFixture);
     });
 
     afterEach(function() {
-      RequestUtil.json = this.requestFn;
+      RequestUtil.json = thisRequestFn;
     });
 
     it("returns an instance of UniversePackagesList", function() {
@@ -47,7 +55,7 @@ describe("CosmosPackagesStore", function() {
       CosmosPackagesStore.fetchAvailablePackages("foo");
       var availablePackages = CosmosPackagesStore.getAvailablePackages().getItems();
       expect(availablePackages.length).toEqual(
-        this.packagesSearchFixture.packages.length
+        thisPackagesSearchFixture.packages.length
       );
     });
 
@@ -107,15 +115,15 @@ describe("CosmosPackagesStore", function() {
 
   describe("#fetchPackageDescription", function() {
     beforeEach(function() {
-      this.requestFn = RequestUtil.json;
+      thisRequestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, packageDescribeFixture));
       };
-      this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
+      thisPackageDescribeFixture = Object.assign({}, packageDescribeFixture);
     });
 
     afterEach(function() {
-      RequestUtil.json = this.requestFn;
+      RequestUtil.json = thisRequestFn;
     });
 
     it("returns an instance of UniversePackage", function() {
@@ -127,9 +135,9 @@ describe("CosmosPackagesStore", function() {
     it("returns the packageDetails it was given", function() {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var pkg = CosmosPackagesStore.getPackageDetails();
-      expect(pkg.getName()).toEqual(this.packageDescribeFixture.package.name);
+      expect(pkg.getName()).toEqual(thisPackageDescribeFixture.package.name);
       expect(pkg.getVersion()).toEqual(
-        this.packageDescribeFixture.package.version
+        thisPackageDescribeFixture.package.version
       );
     });
 
@@ -204,15 +212,15 @@ describe("CosmosPackagesStore", function() {
     };
 
     beforeEach(function() {
-      this.requestFn = RequestUtil.json;
+      thisRequestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, packageVersions));
       };
-      this.packageListVersionsFixture = Object.assign({}, packageVersions);
+      thisPackageListVersionsFixture = Object.assign({}, packageVersions);
     });
 
     afterEach(function() {
-      RequestUtil.json = this.requestFn;
+      RequestUtil.json = thisRequestFn;
     });
 
     it("returns an instance of UniversePackage", function() {
@@ -232,7 +240,7 @@ describe("CosmosPackagesStore", function() {
       CosmosPackagesStore.fetchPackageVersions(packageName);
       const versions = CosmosPackagesStore.getPackageVersions("foo");
       expect(Object.keys(versions.getVersions()).length).toEqual(
-        Object.keys(this.packageListVersionsFixture.results).length
+        Object.keys(thisPackageListVersionsFixture.results).length
       );
     });
 
@@ -305,15 +313,15 @@ describe("CosmosPackagesStore", function() {
 
   describe("#fetchServiceDescription", function() {
     beforeEach(function() {
-      this.requestFn = RequestUtil.json;
+      thisRequestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, serviceDescribeFixture));
       };
-      this.serviceDescribeFixture = Object.assign({}, serviceDescribeFixture);
+      thisServiceDescribeFixture = Object.assign({}, serviceDescribeFixture);
     });
 
     afterEach(function() {
-      RequestUtil.json = this.requestFn;
+      RequestUtil.json = thisRequestFn;
     });
 
     it("returns the field package within response", function() {
@@ -393,15 +401,15 @@ describe("CosmosPackagesStore", function() {
 
   describe("#updateService", function() {
     beforeEach(function() {
-      this.requestFn = RequestUtil.json;
+      thisRequestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, packageDescribeFixture));
       };
-      this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
+      thisPackageDescribeFixture = Object.assign({}, packageDescribeFixture);
     });
 
     afterEach(function() {
-      RequestUtil.json = this.requestFn;
+      RequestUtil.json = thisRequestFn;
     });
 
     it("passes though query parameters", function() {
@@ -443,15 +451,15 @@ describe("CosmosPackagesStore", function() {
 
   describe("#fetchInstalledPackages", function() {
     beforeEach(function() {
-      this.requestFn = RequestUtil.json;
+      thisRequestFn = RequestUtil.json;
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, packagesListFixture));
       };
-      this.packagesListFixture = Object.assign({}, packagesListFixture);
+      thisPackagesListFixture = Object.assign({}, packagesListFixture);
     });
 
     afterEach(function() {
-      RequestUtil.json = this.requestFn;
+      RequestUtil.json = thisRequestFn;
     });
 
     it("returns an instance of UniverseInstalledPackagesList", function() {

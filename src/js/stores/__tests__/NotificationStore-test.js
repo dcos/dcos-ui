@@ -2,17 +2,19 @@ const NOTIFICATION_CHANGE = require("../../constants/EventTypes")
   .NOTIFICATION_CHANGE;
 const NotificationStore = require("../NotificationStore");
 
+let thisMockFn;
+
 describe("NotificationStore", function() {
   describe("updating values", function() {
     beforeEach(function() {
-      this.mockFn = jest.genMockFunction();
-      NotificationStore.addChangeListener(NOTIFICATION_CHANGE, this.mockFn);
+      thisMockFn = jest.genMockFunction();
+      NotificationStore.addChangeListener(NOTIFICATION_CHANGE, thisMockFn);
       NotificationStore.addNotification("foo", "bar", 1);
     });
 
     describe("#addNotification", function() {
       it("emits the correct event on visibilityChange", function() {
-        expect(this.mockFn).toBeCalled();
+        expect(thisMockFn).toBeCalled();
       });
 
       it("sets the correct number", function() {
@@ -22,7 +24,7 @@ describe("NotificationStore", function() {
 
     describe("#removeNotification", function() {
       it("emits the correct event on visibilityChange", function() {
-        expect(this.mockFn).toBeCalled();
+        expect(thisMockFn).toBeCalled();
       });
 
       it("sets the correct number", function() {
