@@ -26,13 +26,21 @@ function checkPath(instance, props) {
   });
 }
 
+let thisProps,
+  thisAreaDef,
+  thisArea,
+  thisValueLineDef,
+  thisValueLine,
+  thisContainer,
+  thisInstance;
+
 describe("TimeSeriesArea", function() {
   beforeEach(function() {
-    this.props = {
+    thisProps = {
       values: MockTimeSeriesData.firstSet
     };
 
-    this.areaDef = d3.svg
+    thisAreaDef = d3.svg
       .area()
       .x(function(d) {
         return d.date;
@@ -44,9 +52,9 @@ describe("TimeSeriesArea", function() {
         return d.y;
       })
       .interpolate("monotone");
-    this.area = this.areaDef(this.props.values);
+    thisArea = thisAreaDef(thisProps.values);
 
-    this.valueLineDef = d3.svg
+    thisValueLineDef = d3.svg
       .line()
       .x(function(d) {
         return d.date;
@@ -55,62 +63,62 @@ describe("TimeSeriesArea", function() {
         return d.y;
       })
       .interpolate("monotone");
-    this.valueLine = this.valueLineDef(this.props.values);
+    thisValueLine = thisValueLineDef(thisProps.values);
 
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <TimeSeriesArea
-        line={this.valueLine}
-        path={this.area}
+        line={thisValueLine}
+        path={thisArea}
         position={[-10, 0]}
         transitionTime={10}
       />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("renders a path according to first data set", function() {
-    checkPath(this.instance, this.props);
+    checkPath(thisInstance, thisProps);
   });
 
   it("renders a path according to second data set", function() {
-    this.props.values = MockTimeSeriesData.secondSet;
-    var area = this.areaDef(this.props.values);
-    var valueLine = this.valueLineDef(this.props.values);
+    thisProps.values = MockTimeSeriesData.secondSet;
+    var area = thisAreaDef(thisProps.values);
+    var valueLine = thisValueLineDef(thisProps.values);
 
-    this.instance = ReactDOM.render(
+    thisInstance = ReactDOM.render(
       <TimeSeriesArea
         line={valueLine}
         path={area}
         position={[-10, 0]}
         transitionTime={10}
       />,
-      this.container
+      thisContainer
     );
 
-    checkPath(this.instance, this.props);
+    checkPath(thisInstance, thisProps);
   });
 
   it("checks that the path is correctly updated", function() {
-    checkPath(this.instance, this.props);
-    this.props.values = MockTimeSeriesData.secondSet;
-    var area = this.areaDef(this.props.values);
-    var valueLine = this.valueLineDef(this.props.values);
+    checkPath(thisInstance, thisProps);
+    thisProps.values = MockTimeSeriesData.secondSet;
+    var area = thisAreaDef(thisProps.values);
+    var valueLine = thisValueLineDef(thisProps.values);
 
-    this.instance = ReactDOM.render(
+    thisInstance = ReactDOM.render(
       <TimeSeriesArea
         line={valueLine}
         path={area}
         position={[-10, 0]}
         transitionTime={10}
       />,
-      this.container
+      thisContainer
     );
 
-    checkPath(this.instance, this.props);
+    checkPath(thisInstance, thisProps);
   });
 });

@@ -3,9 +3,11 @@ var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
 var TaskNameTextFilter = require("../TaskNameTextFilter");
 var List = require("#SRC/js/structs/List");
 
+let thisMockItems;
+
 describe("TaskNameTextFilter", function() {
   beforeEach(function() {
-    this.mockItems = [
+    thisMockItems = [
       {
         name: "cassandra"
       },
@@ -19,23 +21,23 @@ describe("TaskNameTextFilter", function() {
   });
 
   it("matches parts of task name", function() {
-    const tasks = new List({ items: this.mockItems });
+    const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("node");
 
     const filters = new DSLFilterList().add(new TaskNameTextFilter());
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([
-      this.mockItems[1],
-      this.mockItems[2]
+      thisMockItems[1],
+      thisMockItems[2]
     ]);
   });
 
   it("matches exact parts of task name", function() {
-    const tasks = new List({ items: this.mockItems });
+    const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"cassandra"');
 
     const filters = new DSLFilterList().add(new TaskNameTextFilter());
 
-    expect(expr.filter(filters, tasks).getItems()).toEqual([this.mockItems[0]]);
+    expect(expr.filter(filters, tasks).getItems()).toEqual([thisMockItems[0]]);
   });
 });

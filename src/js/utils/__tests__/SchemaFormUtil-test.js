@@ -1,9 +1,11 @@
 const SchemaFormUtil = require("../SchemaFormUtil");
 
+let thisDefinition, thisGetDefinitionFromPath;
+
 describe("SchemaFormUtil", function() {
   describe("#getDefinitionFromPath", function() {
     beforeEach(function() {
-      this.definition = {
+      thisDefinition = {
         application: {
           definition: [
             {
@@ -25,14 +27,14 @@ describe("SchemaFormUtil", function() {
 
     it("finds 'treasure' definition", function() {
       var path = ["application", "there", "treasure"];
-      var result = SchemaFormUtil.getDefinitionFromPath(this.definition, path);
+      var result = SchemaFormUtil.getDefinitionFromPath(thisDefinition, path);
 
       expect(result).toEqual({ name: "treasure" });
     });
 
     it("finds 'hello' definition", function() {
       var path = ["application", "hello"];
-      var result = SchemaFormUtil.getDefinitionFromPath(this.definition, path);
+      var result = SchemaFormUtil.getDefinitionFromPath(thisDefinition, path);
 
       expect(result).toEqual({ name: "hello", someProp: 10 });
     });
@@ -40,22 +42,22 @@ describe("SchemaFormUtil", function() {
 
   describe("#processFormModel", function() {
     beforeEach(function() {
-      var definition = (this.definition = {
+      var definition = (thisDefinition = {
         isRequired: false,
         valueType: "string"
       });
-      this.getDefinitionFromPath = SchemaFormUtil.getDefinitionFromPath;
+      thisGetDefinitionFromPath = SchemaFormUtil.getDefinitionFromPath;
       SchemaFormUtil.getDefinitionFromPath = function() {
         return definition;
       };
     });
 
     afterEach(function() {
-      this.definition = {
+      thisDefinition = {
         isRequired: false,
         valueType: "string"
       };
-      SchemaFormUtil.getDefinitionFromPath = this.getDefinitionFromPath;
+      SchemaFormUtil.getDefinitionFromPath = thisGetDefinitionFromPath;
     });
 
     it("returns a model with same values", function() {
@@ -69,7 +71,7 @@ describe("SchemaFormUtil", function() {
     });
 
     it("replaces undefined with [] when valueType is array", function() {
-      this.definition.valueType = "array";
+      thisDefinition.valueType = "array";
       var model = {
         key: undefined,
         key2: "value2"
@@ -90,7 +92,7 @@ describe("SchemaFormUtil", function() {
     });
 
     it("doesn't omit null values for required fields", function() {
-      this.definition.isRequired = true;
+      thisDefinition.isRequired = true;
       var model = {
         key: null,
         key2: "value2"
@@ -101,7 +103,7 @@ describe("SchemaFormUtil", function() {
     });
 
     it("replaces string with a number if integer", function() {
-      this.definition.valueType = "integer";
+      thisDefinition.valueType = "integer";
       var model = {
         key: "10",
         key2: "value2"
@@ -112,7 +114,7 @@ describe("SchemaFormUtil", function() {
     });
 
     it("splits string if array", function() {
-      this.definition.valueType = "array";
+      thisDefinition.valueType = "array";
       var model = {
         key: "10, 20, 30, 40",
         key2: "value2"

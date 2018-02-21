@@ -1,5 +1,7 @@
 const SystemLogUtil = require("../SystemLogUtil");
 
+let thisFunc, thisAccumulatedThrottle;
+
 describe("SystemLogUtil", function() {
   describe("#getUrl", function() {
     it("includes range element first in the url", function() {
@@ -182,52 +184,52 @@ describe("SystemLogUtil", function() {
 
   describe("#accumulatedThrottle", function() {
     beforeEach(function() {
-      this.func = jest.genMockFunction();
-      this.accumulatedThrottle = SystemLogUtil.accumulatedThrottle(
-        this.func,
+      thisFunc = jest.genMockFunction();
+      thisAccumulatedThrottle = SystemLogUtil.accumulatedThrottle(
+        thisFunc,
         200
       );
     });
 
     it("only calls once if called before the wait is finished", function() {
-      this.accumulatedThrottle();
-      this.accumulatedThrottle();
-      this.accumulatedThrottle();
-      this.accumulatedThrottle();
-      expect(this.func.mock.calls.length).toBe(1);
+      thisAccumulatedThrottle();
+      thisAccumulatedThrottle();
+      thisAccumulatedThrottle();
+      thisAccumulatedThrottle();
+      expect(thisFunc.mock.calls.length).toBe(1);
     });
 
     it("calls the function if called after the wait", function() {
-      this.accumulatedThrottle();
-      this.accumulatedThrottle();
-      this.accumulatedThrottle();
+      thisAccumulatedThrottle();
+      thisAccumulatedThrottle();
+      thisAccumulatedThrottle();
       jest.runAllTimers();
 
       // The calls should be two because #accumulatedThrottle will remember if it
       // was called during the wait and will invoke itself immediately once the
       // wait is over.
-      expect(this.func.mock.calls.length).toBe(2);
+      expect(thisFunc.mock.calls.length).toBe(2);
     });
 
     it("Accumulates data from each call", function() {
-      this.accumulatedThrottle("foo");
-      this.accumulatedThrottle("bar");
-      this.accumulatedThrottle("baz");
+      thisAccumulatedThrottle("foo");
+      thisAccumulatedThrottle("bar");
+      thisAccumulatedThrottle("baz");
       jest.runAllTimers();
 
       // Two calls will be invoked (once immediately) and once the wait is over.
       expect(
-        this.func.mock.calls[0][0].map(function(item) {
+        thisFunc.mock.calls[0][0].map(function(item) {
           return item[0];
         })
       ).toEqual(["foo"]);
-      expect(this.func.mock.calls[0][1]).toEqual(undefined);
+      expect(thisFunc.mock.calls[0][1]).toEqual(undefined);
       expect(
-        this.func.mock.calls[1][0].map(function(item) {
+        thisFunc.mock.calls[1][0].map(function(item) {
           return item[0];
         })
       ).toEqual(["bar", "baz"]);
-      expect(this.func.mock.calls[1][1]).toEqual(undefined);
+      expect(thisFunc.mock.calls[1][1]).toEqual(undefined);
     });
   });
 });

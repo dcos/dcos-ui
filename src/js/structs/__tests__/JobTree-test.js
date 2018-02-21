@@ -1,10 +1,12 @@
 const Job = require("../Job");
 const JobTree = require("../JobTree");
 
+let thisInstance;
+
 describe("JobTree", function() {
   describe("#constructor", function() {
     beforeEach(function() {
-      this.instance = new JobTree({
+      thisInstance = new JobTree({
         id: "group",
         items: [
           { id: "group.foo", items: [] },
@@ -21,19 +23,19 @@ describe("JobTree", function() {
     });
 
     it("sets correct tree id", function() {
-      expect(this.instance.getId()).toEqual("group");
+      expect(thisInstance.getId()).toEqual("group");
     });
 
     it("accepts nested trees (groups)", function() {
-      expect(this.instance.getItems()[0] instanceof JobTree).toEqual(true);
+      expect(thisInstance.getItems()[0] instanceof JobTree).toEqual(true);
     });
 
     it("converts tree like items into instances of JobTree", function() {
-      expect(this.instance.getItems()[1] instanceof JobTree).toEqual(true);
+      expect(thisInstance.getItems()[1] instanceof JobTree).toEqual(true);
     });
 
     it("converts items into instances of Job", function() {
-      expect(this.instance.getItems()[2] instanceof Job).toEqual(true);
+      expect(thisInstance.getItems()[2] instanceof Job).toEqual(true);
     });
   });
 });

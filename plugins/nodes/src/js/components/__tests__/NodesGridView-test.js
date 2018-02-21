@@ -8,13 +8,19 @@ var MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 var NodesList = require("#SRC/js/structs/NodesList");
 const ServicesList = require("../../../../../services/src/js/structs/ServicesList");
 
+let thisStoreChangeListener,
+  thisHosts,
+  thisServices,
+  thisContainer,
+  thisInstance;
+
 describe("NodesGridView", function() {
   describe("#getActiveServiceIds", function() {
     beforeEach(function() {
-      this.storeChangeListener = MesosStateStore.addChangeListener;
+      thisStoreChangeListener = MesosStateStore.addChangeListener;
       MesosStateStore.addChangeListener = function() {};
 
-      this.hosts = new NodesList({
+      thisHosts = new NodesList({
         items: [
           {
             name: "foo",
@@ -30,7 +36,7 @@ describe("NodesGridView", function() {
           }
         ]
       });
-      this.services = new ServicesList({
+      thisServices = new ServicesList({
         items: [
           { id: "a", tasks: [] },
           { id: "b", tasks: [] },
@@ -43,26 +49,26 @@ describe("NodesGridView", function() {
         ]
       });
 
-      this.container = global.document.createElement("div");
-      this.instance = ReactDOM.render(
+      thisContainer = global.document.createElement("div");
+      thisInstance = ReactDOM.render(
         <NodesGridView
           onShowServices={function() {}}
           resourcesByFramework={{}}
           serviceColors={{}}
           selectedResource={"mem"}
-          hosts={this.hosts.getItems()}
-          services={this.services.getItems()}
+          hosts={thisHosts.getItems()}
+          services={thisServices.getItems()}
         />,
-        this.container
+        thisContainer
       );
     });
     afterEach(function() {
-      MesosStateStore.addChangeListener = this.storeChangeListener;
-      ReactDOM.unmountComponentAtNode(this.container);
+      MesosStateStore.addChangeListener = thisStoreChangeListener;
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("returns a list of unique framework_ids", function() {
-      var list = this.instance.getActiveServiceIds(this.hosts.getItems());
+      var list = thisInstance.getActiveServiceIds(thisHosts.getItems());
 
       expect(list).toEqual(["a", "b", "c", "d", "e", "f", "g", "z"]);
     });

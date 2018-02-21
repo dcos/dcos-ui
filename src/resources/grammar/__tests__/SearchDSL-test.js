@@ -43,6 +43,8 @@ class ExactTextFilter extends DSLFilter {
   }
 }
 
+let thisFilters, thisMockResultset;
+
 describe("SearchDSL", function() {
   describe("Metadata", function() {
     describe("Filters (Operands)", function() {
@@ -228,13 +230,13 @@ describe("SearchDSL", function() {
 
     describe("Filtering", function() {
       beforeEach(function() {
-        this.filters = new DSLFilterList().add(
+        thisFilters = new DSLFilterList().add(
           new AttribFilter(),
           new FuzzyTextFilter(),
           new ExactTextFilter()
         );
 
-        this.mockResultset = new List({
+        thisMockResultset = new List({
           items: [
             { text: "some test string", attrib: ["a", "b"] },
             { text: "repeating test string", attrib: ["b", "c"] },
@@ -247,7 +249,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse("test");
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([
           { text: "some test string", attrib: ["a", "b"] },
           { text: "repeating test string", attrib: ["b", "c"] }
@@ -258,7 +260,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse('"some other string"');
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([{ text: "some other string", attrib: ["c", "d"] }]);
       });
 
@@ -266,7 +268,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse("attrib:b");
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([
           { text: "some test string", attrib: ["a", "b"] },
           { text: "repeating test string", attrib: ["b", "c"] }
@@ -277,7 +279,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse("attrib:a,b");
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([
           { text: "some test string", attrib: ["a", "b"] },
           { text: "repeating test string", attrib: ["b", "c"] }
@@ -288,7 +290,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse("attrib:a, attrib:b");
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([
           { text: "some test string", attrib: ["a", "b"] },
           { text: "repeating test string", attrib: ["b", "c"] }
@@ -299,7 +301,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse("attrib:a attrib:b");
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([{ text: "some test string", attrib: ["a", "b"] }]);
       });
 
@@ -307,7 +309,7 @@ describe("SearchDSL", function() {
         const expr = SearchDSL.parse("attrib:a attrib:b");
 
         expect(
-          expr.filter(this.filters, this.mockResultset).getItems()
+          expr.filter(thisFilters, thisMockResultset).getItems()
         ).toEqual([{ text: "some test string", attrib: ["a", "b"] }]);
       });
     });

@@ -5,15 +5,17 @@ const AppDispatcher = require("../../events/AppDispatcher");
 const Config = require("../../config/Config");
 const SystemLogActions = require("../SystemLogActions");
 
+let thisEventSource, thisMessageSpy, thisConfiguration;
+
 describe("SystemLogActions", function() {
   beforeEach(function() {
     // Mock EventSource
-    this.eventSource = new global.EventSource();
-    spyOn(global, "EventSource").and.returnValue(this.eventSource);
+    thisEventSource = new global.EventSource();
+    spyOn(global, "EventSource").and.returnValue(thisEventSource);
   });
 
   afterEach(function() {
-    this.eventSource.close();
+    thisEventSource.close();
   });
 
   describe("#startTail", function() {
@@ -25,11 +27,11 @@ describe("SystemLogActions", function() {
     });
 
     it("calls #addEventListener from the global.EventSource", function() {
-      this.eventSource.addEventListener = jasmine
+      thisEventSource.addEventListener = jasmine
         .createSpy("addEventListener")
         .and.callThrough();
       SystemLogActions.startTail("foo", { cursor: "bar" });
-      expect(this.eventSource.addEventListener).toHaveBeenCalled();
+      expect(thisEventSource.addEventListener).toHaveBeenCalled();
     });
 
     it("fetches data from the correct URL", function() {
@@ -51,7 +53,7 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("message", event);
+      thisEventSource.dispatchEvent("message", event);
     });
 
     it("dispatches the correct information when successful", function() {
@@ -67,7 +69,7 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("message", event);
+      thisEventSource.dispatchEvent("message", event);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -77,7 +79,7 @@ describe("SystemLogActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_ERROR);
       });
 
-      this.eventSource.dispatchEvent("error", {});
+      thisEventSource.dispatchEvent("error", {});
     });
 
     it("dispatches the correct information when unsuccessful", function() {
@@ -88,7 +90,7 @@ describe("SystemLogActions", function() {
         expect(action.subscriptionID).toEqual("subscriptionID");
       });
 
-      this.eventSource.dispatchEvent("error", {});
+      thisEventSource.dispatchEvent("error", {});
     });
   });
 
@@ -101,14 +103,14 @@ describe("SystemLogActions", function() {
     });
 
     it("calls #close on the EventSource", function() {
-      this.eventSource.close = jasmine.createSpy("close");
+      thisEventSource.close = jasmine.createSpy("close");
       SystemLogActions.stopTail("subscriptionID");
-      expect(this.eventSource.close).toHaveBeenCalled();
+      expect(thisEventSource.close).toHaveBeenCalled();
     });
 
     it("unsubscribes event listeners on message", function() {
-      this.messageSpy = jasmine.createSpy("message");
-      this.eventSource.addEventListener("message", this.messageSpy);
+      thisMessageSpy = jasmine.createSpy("message");
+      thisEventSource.addEventListener("message", thisMessageSpy);
       SystemLogActions.stopTail("subscriptionID");
 
       const event = {
@@ -116,9 +118,9 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("message", event);
+      thisEventSource.dispatchEvent("message", event);
 
-      expect(this.messageSpy).not.toHaveBeenCalled();
+      expect(thisMessageSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -132,11 +134,11 @@ describe("SystemLogActions", function() {
     });
 
     it("calls #addEventListener from the EventSource", function() {
-      this.eventSource.addEventListener = jasmine
+      thisEventSource.addEventListener = jasmine
         .createSpy("addEventListener")
         .and.callThrough();
       SystemLogActions.fetchRange("foo", { cursor: "bar" });
-      expect(this.eventSource.addEventListener).toHaveBeenCalled();
+      expect(thisEventSource.addEventListener).toHaveBeenCalled();
     });
 
     it("fetches data from the correct URL", function() {
@@ -160,7 +162,7 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("error", event);
+      thisEventSource.dispatchEvent("error", event);
     });
 
     it("dispatches the correct information when successful", function() {
@@ -177,15 +179,15 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("message", messageEvent);
-      this.eventSource.dispatchEvent("message", messageEvent);
-      this.eventSource.dispatchEvent("message", messageEvent);
+      thisEventSource.dispatchEvent("message", messageEvent);
+      thisEventSource.dispatchEvent("message", messageEvent);
+      thisEventSource.dispatchEvent("message", messageEvent);
       const closeEvent = {
         data: {},
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("error", closeEvent);
+      thisEventSource.dispatchEvent("error", closeEvent);
     });
 
     it("tells when the top has been reached", function() {
@@ -202,8 +204,8 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("message", messageEvent);
-      this.eventSource.dispatchEvent("message", messageEvent);
+      thisEventSource.dispatchEvent("message", messageEvent);
+      thisEventSource.dispatchEvent("message", messageEvent);
       // Close before we the 3 events we have requested to show
       // that we have reached the top
       const closeEvent = {
@@ -211,7 +213,7 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("error", closeEvent);
+      thisEventSource.dispatchEvent("error", closeEvent);
     });
 
     it("reverses received data", function() {
@@ -222,12 +224,12 @@ describe("SystemLogActions", function() {
         expect(action.data[1].foo).toEqual(0);
       });
 
-      this.eventSource.dispatchEvent("message", {
+      thisEventSource.dispatchEvent("message", {
         data: '{"foo": 0}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
       });
-      this.eventSource.dispatchEvent("message", {
+      thisEventSource.dispatchEvent("message", {
         data: '{"foo": 1}',
         eventPhase: global.EventSource.OPEN,
         origin: global.location.origin
@@ -239,7 +241,7 @@ describe("SystemLogActions", function() {
         eventPhase: global.EventSource.CLOSED,
         origin: global.location.origin
       };
-      this.eventSource.dispatchEvent("error", closeEvent);
+      thisEventSource.dispatchEvent("error", closeEvent);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -252,7 +254,7 @@ describe("SystemLogActions", function() {
       });
 
       const event = { eventPhase: global.EventSource.CONNECTING };
-      this.eventSource.dispatchEvent("error", event);
+      thisEventSource.dispatchEvent("error", event);
     });
 
     it("dispatches the correct information when unsuccessful", function() {
@@ -266,7 +268,7 @@ describe("SystemLogActions", function() {
       });
 
       const event = { eventPhase: global.EventSource.CONNECTING };
-      this.eventSource.dispatchEvent("error", event);
+      thisEventSource.dispatchEvent("error", event);
     });
   });
 
@@ -274,7 +276,7 @@ describe("SystemLogActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       SystemLogActions.fetchStreamTypes("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -282,7 +284,7 @@ describe("SystemLogActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.logsAPIPrefix + "/foo/logs/v1/fields/STREAM"
       );
     });
@@ -296,7 +298,7 @@ describe("SystemLogActions", function() {
         );
       });
 
-      this.configuration.success(["one", "two"]);
+      thisConfiguration.success(["one", "two"]);
     });
 
     it("dispatches the correct data when successful", function() {
@@ -306,7 +308,7 @@ describe("SystemLogActions", function() {
         expect(action.data).toEqual(["one", "two"]);
       });
 
-      this.configuration.success(["one", "two"]);
+      thisConfiguration.success(["one", "two"]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -318,7 +320,7 @@ describe("SystemLogActions", function() {
         );
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct error when unsuccessful", function() {
@@ -328,7 +330,7 @@ describe("SystemLogActions", function() {
         expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the message when unsuccessful", function() {
@@ -338,7 +340,7 @@ describe("SystemLogActions", function() {
         expect(action.data).toEqual("baz");
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -354,7 +356,7 @@ describe("SystemLogActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

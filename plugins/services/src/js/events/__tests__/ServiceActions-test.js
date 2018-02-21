@@ -5,6 +5,8 @@ const ActionTypes = require("../../constants/ActionTypes");
 const ServiceActions = require("../ServiceActions");
 const Framework = require("../../structs/Framework");
 
+let thisConfiguration;
+
 describe("ServiceActions", function() {
   describe("#deleteGroup", function() {
     const groupDefinition = {
@@ -18,7 +20,7 @@ describe("ServiceActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         ServiceActions.deleteGroup(groupDefinition, false);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
       it("dispatches the correct action when successful", function() {
         const id = AppDispatcher.register(function(payload) {
@@ -29,7 +31,7 @@ describe("ServiceActions", function() {
           });
         });
 
-        this.configuration.success();
+        thisConfiguration.success();
       });
 
       it("dispatches the correct action when unsuccessful", function() {
@@ -43,7 +45,7 @@ describe("ServiceActions", function() {
           });
         });
 
-        this.configuration.error({ error: {} });
+        thisConfiguration.error({ error: {} });
       });
     });
   });
@@ -60,7 +62,7 @@ describe("ServiceActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         ServiceActions.deleteService(serviceDefinition);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
       it("dispatches the correct action when successful", function() {
         const id = AppDispatcher.register(function(payload) {
@@ -71,7 +73,7 @@ describe("ServiceActions", function() {
           });
         });
 
-        this.configuration.success();
+        thisConfiguration.success();
       });
 
       it("dispatches the correct action when unsuccessful", function() {
@@ -85,7 +87,7 @@ describe("ServiceActions", function() {
           });
         });
 
-        this.configuration.error({ error: {} });
+        thisConfiguration.error({ error: {} });
       });
     });
 
@@ -105,7 +107,7 @@ describe("ServiceActions", function() {
         beforeEach(function() {
           spyOn(RequestUtil, "json");
           ServiceActions.deleteService(frameworkDefinition);
-          this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+          thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
         });
 
         it("dispatches the correct action when successful framework deleted", function() {
@@ -120,7 +122,7 @@ describe("ServiceActions", function() {
             });
           });
 
-          this.configuration.success({});
+          thisConfiguration.success({});
         });
 
         it("dispatches the correct action when unsuccessful framework deleted", function() {
@@ -136,7 +138,7 @@ describe("ServiceActions", function() {
             });
           });
 
-          this.configuration.error({ error: {} });
+          thisConfiguration.error({ error: {} });
         });
       });
     });

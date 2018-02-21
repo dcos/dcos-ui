@@ -8,31 +8,38 @@ const EmptyLogScreen = require("../EmptyLogScreen");
 const LogView = require("../LogView");
 const DOMUtils = require("#SRC/js/utils/DOMUtils");
 
+let thisFetchPreviousLogsSpy,
+  thisOnAtBottomChangeSpy,
+  thisOnCountChangeSpy,
+  thisContainer,
+  thisInstance,
+  thisPreviousGetComputed;
+
 describe("LogView", function() {
   beforeEach(function() {
-    this.fetchPreviousLogsSpy = jasmine.createSpy("#fetchPreviousLogs");
-    this.onAtBottomChangeSpy = jasmine.createSpy("#onAtBottomChange");
-    this.onCountChangeSpy = jasmine.createSpy("#onCountChange");
+    thisFetchPreviousLogsSpy = jasmine.createSpy("#fetchPreviousLogs");
+    thisOnAtBottomChangeSpy = jasmine.createSpy("#onAtBottomChange");
+    thisOnCountChangeSpy = jasmine.createSpy("#onCountChange");
 
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <LogView
         logName="bar"
-        fetchPreviousLogs={this.fetchPreviousLogsSpy}
-        onAtBottomChange={this.onAtBottomChangeSpy}
-        onCountChange={this.onCountChangeSpy}
+        fetchPreviousLogs={thisFetchPreviousLogsSpy}
+        onAtBottomChange={thisOnAtBottomChangeSpy}
+        onCountChange={thisOnCountChangeSpy}
       />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#checkIfCloseToTop", function() {
     beforeEach(function() {
-      this.previousGetComputed = DOMUtils.getComputedDimensions;
+      thisPreviousGetComputed = DOMUtils.getComputedDimensions;
 
       DOMUtils.getComputedDimensions = function() {
         return { height: 100 };
@@ -40,62 +47,62 @@ describe("LogView", function() {
     });
 
     afterEach(function() {
-      DOMUtils.getComputedDimensions = this.previousGetComputed;
+      DOMUtils.getComputedDimensions = thisPreviousGetComputed;
     });
 
     it("does not call fetchPreviousLogs if past 2000 pixels", function() {
       var container = { scrollTop: 4000 };
-      this.instance.checkIfCloseToTop(container);
+      thisInstance.checkIfCloseToTop(container);
 
-      expect(this.fetchPreviousLogsSpy).not.toHaveBeenCalled();
+      expect(thisFetchPreviousLogsSpy).not.toHaveBeenCalled();
     });
 
     it("does not call fetchPreviousLogs if below 2000 pixels", function() {
       var container = { scrollTop: 1000 };
-      this.instance.checkIfCloseToTop(container);
+      thisInstance.checkIfCloseToTop(container);
 
-      expect(this.fetchPreviousLogsSpy).toHaveBeenCalled();
+      expect(thisFetchPreviousLogsSpy).toHaveBeenCalled();
     });
   });
 
   describe("#getLog", function() {
     it("does not show empty log when fullLog is populated", function() {
-      this.instance.state.fullLog = "foo";
-      var res = this.instance.getLog();
+      thisInstance.state.fullLog = "foo";
+      var res = thisInstance.getLog();
       expect(Array.isArray(res)).toEqual(true);
     });
 
     it("gets empty screen when log is empty", function() {
-      this.instance.state.fullLog = "";
-      var res = this.instance.getLog();
+      thisInstance.state.fullLog = "";
+      var res = thisInstance.getLog();
       expect(TestUtils.isElementOfType(res, EmptyLogScreen)).toEqual(true);
     });
 
     it("calls getLog when log is empty", function() {
-      this.instance.state.fullLog = "";
-      this.instance.getLog = jasmine.createSpy("getLog");
-      this.instance.render();
-      expect(this.instance.getLog).toHaveBeenCalled();
+      thisInstance.state.fullLog = "";
+      thisInstance.getLog = jasmine.createSpy("getLog");
+      thisInstance.render();
+      expect(thisInstance.getLog).toHaveBeenCalled();
     });
 
     it("calls getLog when log is populated", function() {
-      this.instance.state.fullLog = "foo";
-      this.instance.getLog = jasmine.createSpy("getLog");
-      this.instance.render();
-      expect(this.instance.getLog).toHaveBeenCalled();
+      thisInstance.state.fullLog = "foo";
+      thisInstance.getLog = jasmine.createSpy("getLog");
+      thisInstance.render();
+      expect(thisInstance.getLog).toHaveBeenCalled();
     });
   });
 
   describe("#getGoToBottomButton", function() {
     it("does not return a button if currently at the bottom", function() {
-      this.instance.state.isAtBottom = true;
-      var button = this.instance.getGoToBottomButton();
+      thisInstance.state.isAtBottom = true;
+      var button = thisInstance.getGoToBottomButton();
       expect(button).toEqual(null);
     });
 
     it("returns a button if not at bottom", function() {
-      this.instance.state.isAtBottom = false;
-      var button = this.instance.getGoToBottomButton();
+      thisInstance.state.isAtBottom = false;
+      var button = thisInstance.getGoToBottomButton();
       expect(TestUtils.isElementOfType(button, "button")).toEqual(true);
     });
   });

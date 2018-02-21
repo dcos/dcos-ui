@@ -1,9 +1,11 @@
 const PodUtil = require("../PodUtil");
 const Pod = require("../../structs/Pod");
 
+let thisPod;
+
 describe("PodUtil", function() {
   beforeEach(function() {
-    this.pod = new Pod({
+    thisPod = new Pod({
       instances: [
         {
           id: "pod-a1",
@@ -24,14 +26,14 @@ describe("PodUtil", function() {
 
   describe("#isContainerMatchingText", function() {
     it("matches text on container name", function() {
-      const instance = this.pod.getInstanceList().getItems()[0];
+      const instance = thisPod.getInstanceList().getItems()[0];
       const container = instance.getContainers()[0];
 
       expect(PodUtil.isContainerMatchingText(container, "c1")).toBeTruthy();
     });
 
     it("does not match wrong text on container name", function() {
-      const instance = this.pod.getInstanceList().getItems()[0];
+      const instance = thisPod.getInstanceList().getItems()[0];
       const container = instance.getContainers()[0];
 
       expect(PodUtil.isContainerMatchingText(container, "c3")).toBeFalsy();
@@ -40,7 +42,7 @@ describe("PodUtil", function() {
 
   describe("#isInstanceOrChildrenMatchingText", function() {
     it("matches text on instance id", function() {
-      const instance = this.pod.getInstanceList().getItems()[0];
+      const instance = thisPod.getInstanceList().getItems()[0];
 
       expect(
         PodUtil.isInstanceOrChildrenMatchingText(instance, "a1")
@@ -48,7 +50,7 @@ describe("PodUtil", function() {
     });
 
     it("matches text on container names", function() {
-      const instance = this.pod.getInstanceList().getItems()[0];
+      const instance = thisPod.getInstanceList().getItems()[0];
 
       expect(
         PodUtil.isInstanceOrChildrenMatchingText(instance, "c1")
@@ -56,7 +58,7 @@ describe("PodUtil", function() {
     });
 
     it("does not match if text is not present anywhere", function() {
-      const instance = this.pod.getInstanceList().getItems()[0];
+      const instance = thisPod.getInstanceList().getItems()[0];
 
       expect(
         PodUtil.isInstanceOrChildrenMatchingText(instance, "c4")
@@ -66,7 +68,7 @@ describe("PodUtil", function() {
 
   describe("#mergeHistoricalInstanceList", function() {
     it("appends new instances", function() {
-      let instances = this.pod.getInstanceList();
+      let instances = thisPod.getInstanceList();
       const historicalInstances = [
         {
           id: "pod-a2",
@@ -89,7 +91,7 @@ describe("PodUtil", function() {
     });
 
     it("appends new containers on existing items", function() {
-      let instances = this.pod.getInstanceList();
+      let instances = thisPod.getInstanceList();
       const historicalInstances = [
         {
           id: "pod-a1",
@@ -115,7 +117,7 @@ describe("PodUtil", function() {
     });
 
     it("does not duplicate containers", function() {
-      let instances = this.pod.getInstanceList();
+      let instances = thisPod.getInstanceList();
       const historicalInstances = [
         {
           id: "pod-a1",

@@ -1,28 +1,30 @@
 const APPLICATION = require("../../constants/PluginConstants").APPLICATION;
 const PluginSDK = require("PluginSDK");
 
+let thisMockFn, thisMockFn1, thisUnsubscribe, thisUnsubscribe1;
+
 describe("#ActionsPubSub", function() {
   beforeEach(function() {
-    this.mockFn = jest.genMockFunction();
-    this.mockFn1 = jest.genMockFunction();
-    this.unsubscribe = PluginSDK.onDispatch(this.mockFn);
-    this.unsubscribe1 = PluginSDK.onDispatch(this.mockFn1);
+    thisMockFn = jest.genMockFunction();
+    thisMockFn1 = jest.genMockFunction();
+    thisUnsubscribe = PluginSDK.onDispatch(thisMockFn);
+    thisUnsubscribe1 = PluginSDK.onDispatch(thisMockFn1);
   });
 
   it("receives actions after subscribing", function() {
     PluginSDK.dispatch({ type: "foo" });
-    expect(this.mockFn.mock.calls.length).toEqual(1);
-    expect(this.mockFn1.mock.calls.length).toEqual(1);
-    expect(this.mockFn.mock.calls[0][0]).toEqual({
+    expect(thisMockFn.mock.calls.length).toEqual(1);
+    expect(thisMockFn1.mock.calls.length).toEqual(1);
+    expect(thisMockFn.mock.calls[0][0]).toEqual({
       type: "foo",
       __origin: APPLICATION
     });
   });
 
   it("stops receiving actions after unsubscribing", function() {
-    this.unsubscribe();
+    thisUnsubscribe();
     PluginSDK.dispatch({ type: "foo" });
-    expect(this.mockFn.mock.calls.length).toEqual(0);
-    expect(this.mockFn1.mock.calls.length).toEqual(1);
+    expect(thisMockFn.mock.calls.length).toEqual(0);
+    expect(thisMockFn1.mock.calls.length).toEqual(1);
   });
 });

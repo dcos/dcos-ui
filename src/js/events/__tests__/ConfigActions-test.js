@@ -5,6 +5,8 @@ const AppDispatcher = require("../AppDispatcher");
 const Config = require("../../config/Config");
 const ConfigActions = require("../ConfigActions");
 
+let thisConfiguration;
+
 describe("ConfigActions", function() {
   describe("#fetchCCID", function() {
     const serviceID = "test";
@@ -12,7 +14,7 @@ describe("ConfigActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       ConfigActions.fetchCCID(serviceID);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -20,7 +22,7 @@ describe("ConfigActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/navstar/lashup/key`
       );
     });
@@ -33,7 +35,7 @@ describe("ConfigActions", function() {
         expect(action.data).toEqual({ foo: "bar", baz: "qux" });
       });
 
-      this.configuration.success({ foo: "bar", baz: "qux" });
+      thisConfiguration.success({ foo: "bar", baz: "qux" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -43,7 +45,7 @@ describe("ConfigActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_CCID_ERROR);
       });
 
-      this.configuration.error();
+      thisConfiguration.error();
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -56,7 +58,7 @@ describe("ConfigActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

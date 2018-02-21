@@ -18,23 +18,25 @@ const testData = [
   }
 ];
 
+let thisContainer, thisInstance;
+
 describe("#ProgressBar", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <ProgressBar data={testData} />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("PropTypes", function() {
     it("throws an error if no data prop is provided", function() {
       spyOn(console, "error");
-      this.instance = ReactDOM.render(<ProgressBar />, this.container);
+      thisInstance = ReactDOM.render(<ProgressBar />, thisContainer);
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
           "The prop `data` is marked as required in `ProgressBar`, but its value " +
@@ -45,7 +47,7 @@ describe("#ProgressBar", function() {
 
     it("throws an error if a data item is missing a value", function() {
       spyOn(console, "error");
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <ProgressBar
           data={[
             {
@@ -53,7 +55,7 @@ describe("#ProgressBar", function() {
             }
           ]}
         />,
-        this.container
+        thisContainer
       );
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
@@ -65,7 +67,7 @@ describe("#ProgressBar", function() {
 
     it("throws an error if one data item is missing a value", function() {
       spyOn(console, "error");
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <ProgressBar
           data={[
             {
@@ -77,7 +79,7 @@ describe("#ProgressBar", function() {
             }
           ]}
         />,
-        this.container
+        thisContainer
       );
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
@@ -89,7 +91,7 @@ describe("#ProgressBar", function() {
 
     it("does not throw an error if data does only contain a value field", function() {
       spyOn(console, "error");
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <ProgressBar
           data={[
             {
@@ -97,7 +99,7 @@ describe("#ProgressBar", function() {
             }
           ]}
         />,
-        this.container
+        thisContainer
       );
       expect(console.error).not.toHaveBeenCalled();
     });
@@ -106,24 +108,24 @@ describe("#ProgressBar", function() {
   describe("className", function() {
     it("contains status-bar (default)", function() {
       expect(
-        this.container.querySelector("div").classList.contains("status-bar")
+        thisContainer.querySelector("div").classList.contains("status-bar")
       ).toBeTruthy();
     });
 
     it("contains test-bar (custom)", function() {
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <ProgressBar data={testData} className="test-bar" />,
-        this.container
+        thisContainer
       );
       expect(
-        this.container.querySelector("div").classList.contains("test-bar")
+        thisContainer.querySelector("div").classList.contains("test-bar")
       ).toBeTruthy();
     });
   });
 
   describe("bars", function() {
     it("contains 2 .bars", function() {
-      expect(this.container.querySelectorAll(".bar").length).toEqual(
+      expect(thisContainer.querySelectorAll(".bar").length).toEqual(
         testData.length
       );
     });
@@ -131,14 +133,14 @@ describe("#ProgressBar", function() {
     describe("First .bar", function() {
       it("contains class name status", function() {
         expect(
-          this.container
+          thisContainer
             .querySelector(".bar:first-child")
             .classList.contains("status")
         ).toBeTruthy();
       });
 
       it("has the class element-{index} if no classname is provided", function() {
-        this.instance = ReactDOM.render(
+        thisInstance = ReactDOM.render(
           <ProgressBar
             data={[
               {
@@ -146,16 +148,16 @@ describe("#ProgressBar", function() {
               }
             ]}
           />,
-          this.container
+          thisContainer
         );
         expect(
-          this.container.querySelector(".bar").classList.contains("element-0")
+          thisContainer.querySelector(".bar").classList.contains("element-0")
         ).toBeTruthy();
       });
 
       it("has a width of 40%", function() {
         expect(
-          this.container.querySelector(".bar:first-child").style.width
+          thisContainer.querySelector(".bar:first-child").style.width
         ).toEqual("40%");
       });
     });
@@ -163,7 +165,7 @@ describe("#ProgressBar", function() {
     describe("Second .bar", function() {
       it("contains class name failed", function() {
         expect(
-          this.container
+          thisContainer
             .querySelector(".bar:nth-child(2)")
             .classList.contains("failed")
         ).toBeTruthy();
@@ -171,7 +173,7 @@ describe("#ProgressBar", function() {
 
       it("has a width of 60%", function() {
         expect(
-          this.container.querySelector(".bar:nth-child(2)").style.width
+          thisContainer.querySelector(".bar:nth-child(2)").style.width
         ).toEqual("60%");
       });
     });
@@ -190,11 +192,11 @@ describe("#ProgressBar", function() {
             ]}
             className="test-bar"
           />,
-          this.container
+          thisContainer
         );
         const percentages = [];
         [].slice
-          .call(this.container.querySelectorAll(".bar"))
+          .call(thisContainer.querySelectorAll(".bar"))
           .forEach(function(el) {
             percentages.push(parseInt(el.style.width.replace("%", ""), 10));
           });
@@ -222,11 +224,11 @@ describe("#ProgressBar", function() {
             total={100}
             className="test-bar"
           />,
-          this.container
+          thisContainer
         );
         const percentages = [];
         [].slice
-          .call(this.container.querySelectorAll(".bar"))
+          .call(thisContainer.querySelectorAll(".bar"))
           .forEach(function(el) {
             percentages.push(parseInt(el.style.width.replace("%", ""), 10));
           });

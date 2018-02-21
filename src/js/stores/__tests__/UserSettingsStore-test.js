@@ -1,9 +1,11 @@
 const LocalStorageUtil = require("../../utils/LocalStorageUtil");
 const UserSettingsStore = require("../UserSettingsStore");
 
+let thisPrevGet, thisPrevSet;
+
 describe("UserSettingsStore", function() {
   beforeEach(function() {
-    this.prevGet = LocalStorageUtil.get;
+    thisPrevGet = LocalStorageUtil.get;
 
     LocalStorageUtil.get = function() {
       return JSON.stringify({ hello: "there" });
@@ -11,7 +13,7 @@ describe("UserSettingsStore", function() {
   });
 
   afterEach(function() {
-    LocalStorageUtil.get = this.prevGet;
+    LocalStorageUtil.get = thisPrevGet;
   });
 
   describe("getKey", function() {
@@ -28,13 +30,13 @@ describe("UserSettingsStore", function() {
 
   describe("setKey", function() {
     beforeEach(function() {
-      this.prevSet = LocalStorageUtil.set;
+      thisPrevSet = LocalStorageUtil.set;
 
       LocalStorageUtil.set = jasmine.createSpy();
     });
 
     afterEach(function() {
-      LocalStorageUtil.set = this.prevSet;
+      LocalStorageUtil.set = thisPrevSet;
     });
 
     it("sets the key", function() {

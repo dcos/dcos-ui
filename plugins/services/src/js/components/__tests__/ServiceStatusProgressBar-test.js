@@ -19,22 +19,24 @@ const service = new Application({
   tasksStaged: 0
 });
 
+let thisContainer, thisInstance;
+
 describe("#ServiceStatusProgressBar", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <ServiceStatusProgressBar service={service} />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("ProgressBar", function() {
     it("display ProgressBar", function() {
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <ServiceStatusProgressBar
           service={
             new Pod({
@@ -64,10 +66,10 @@ describe("#ServiceStatusProgressBar", function() {
             })
           }
         />,
-        this.container
+        thisContainer
       );
       const progressBar = ReactTestUtils.findRenderedComponentWithType(
-        this.instance,
+        thisInstance,
         ProgressBar
       );
       expect(progressBar).toBeTruthy();
@@ -84,18 +86,18 @@ describe("#ServiceStatusProgressBar", function() {
         }
       });
 
-      this.instance = ReactDOM.render(
+      thisInstance = ReactDOM.render(
         <ServiceStatusProgressBar service={app} />,
-        this.container
+        thisContainer
       );
 
       expect(
-        ReactTestUtils.findRenderedComponentWithType(this.instance, Tooltip)
+        ReactTestUtils.findRenderedComponentWithType(thisInstance, Tooltip)
       ).toBeTruthy();
     });
 
     it("get #getTooltipContent", function() {
-      const childrenContent = this.instance.getTooltipContent().props.children
+      const childrenContent = thisInstance.getTooltipContent().props.children
         .props.children;
       expect(childrenContent).toEqual("0 instances running out of 1");
     });

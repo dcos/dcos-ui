@@ -7,6 +7,8 @@ const TestUtils = require("react-addons-test-utils");
 const TabsMixin = require("../TabsMixin");
 const TabsUtil = require("../../utils/TabsUtil");
 
+let thisInstance;
+
 describe("TabsMixin", function() {
   beforeEach(function() {
     TabsMixin.tabs_tabs = { foo: "bar", baz: "qux", corge: "Grault" };
@@ -14,18 +16,15 @@ describe("TabsMixin", function() {
 
   describe("#tabs_getRoutedItem", function() {
     beforeEach(function() {
-      this.instance = TabsMixin.tabs_getRoutedItem(
-        { classNames: "foo" },
-        "baz"
-      );
+      thisInstance = TabsMixin.tabs_getRoutedItem({ classNames: "foo" }, "baz");
     });
 
     it("returns an element", function() {
-      expect(TestUtils.isElement(this.instance)).toEqual(true);
+      expect(TestUtils.isElement(thisInstance)).toEqual(true);
     });
 
     it("returns an element containing a link", function() {
-      expect(TestUtils.isElementOfType(this.instance, Link)).toEqual(true);
+      expect(TestUtils.isElementOfType(thisInstance, Link)).toEqual(true);
     });
 
     it("adds custom props to span", function() {
@@ -44,7 +43,7 @@ describe("TabsMixin", function() {
     });
 
     it("adds custom class to link", function() {
-      expect(this.instance.props.className).toEqual(
+      expect(thisInstance.props.className).toEqual(
         "menu-tabbed-item-label foo"
       );
     });
@@ -52,18 +51,18 @@ describe("TabsMixin", function() {
 
   describe("#tabs_getUnroutedItem", function() {
     beforeEach(function() {
-      this.instance = TabsMixin.tabs_getUnroutedItem(
+      thisInstance = TabsMixin.tabs_getUnroutedItem(
         { classNames: "hux" },
         "baz"
       );
     });
 
     it("returns an element", function() {
-      expect(TestUtils.isElement(this.instance)).toEqual(true);
+      expect(TestUtils.isElement(thisInstance)).toEqual(true);
     });
 
     it("returns an element containing a span", function() {
-      expect(this.instance.type).toEqual("span");
+      expect(thisInstance.type).toEqual("span");
     });
 
     it("adds custom props to span", function() {
@@ -82,7 +81,7 @@ describe("TabsMixin", function() {
     });
 
     it("adds custom class to span", function() {
-      expect(this.instance.props.className).toEqual(
+      expect(thisInstance.props.className).toEqual(
         "menu-tabbed-item-label hux"
       );
     });

@@ -1,27 +1,29 @@
 const GetSetBaseStore = require("../GetSetBaseStore");
 
+let thisInstance;
+
 describe("GetSetBaseStore", function() {
   beforeEach(function() {
-    this.instance = new GetSetBaseStore();
+    thisInstance = new GetSetBaseStore();
   });
 
   describe("#get", function() {
     it("returns undefined if no key is given", function() {
-      expect(this.instance.get()).toEqual(null);
+      expect(thisInstance.get()).toEqual(null);
     });
 
     it("returns undefined if given an object", function() {
-      expect(this.instance.get({})).toEqual(null);
+      expect(thisInstance.get({})).toEqual(null);
     });
 
     it("returns null if property hasn't been defined", function() {
-      expect(this.instance.get("foo")).toEqual(null);
+      expect(thisInstance.get("foo")).toEqual(null);
     });
 
     it("returns the correct value given a key", function() {
-      var instance = this.instance;
+      var instance = thisInstance;
       instance.set({ someProperty: "someValue" });
-      expect(this.instance.get("someProperty")).toEqual("someValue");
+      expect(thisInstance.get("someProperty")).toEqual("someValue");
     });
 
     it("allows for default state values", function() {
@@ -36,22 +38,22 @@ describe("GetSetBaseStore", function() {
 
   describe("#set", function() {
     it("throws an error when called with a non-object", function() {
-      var fn = this.instance.set.bind(this.instance, "string");
+      var fn = thisInstance.set.bind(thisInstance, "string");
       expect(fn).toThrow();
     });
 
     it("throws an error when called with an array-like object", function() {
-      var fn = this.instance.set.bind(this.instance, []);
+      var fn = thisInstance.set.bind(thisInstance, []);
       expect(fn).toThrow();
     });
 
     it("overrides previously set values", function() {
-      this.instance.set({ foo: 1, bar: 2, baz: 3 });
-      this.instance.set({ foo: "foo", bar: "bar" });
+      thisInstance.set({ foo: 1, bar: 2, baz: 3 });
+      thisInstance.set({ foo: "foo", bar: "bar" });
 
-      expect(this.instance.get("foo")).toEqual("foo");
-      expect(this.instance.get("bar")).toEqual("bar");
-      expect(this.instance.get("baz")).toEqual(3);
+      expect(thisInstance.get("foo")).toEqual("foo");
+      expect(thisInstance.get("bar")).toEqual("bar");
+      expect(thisInstance.get("baz")).toEqual(3);
     });
   });
 });

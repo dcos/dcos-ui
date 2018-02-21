@@ -1,15 +1,17 @@
 const NavigationService = require("../NavigationService");
 
+let thisInstance;
+
 describe("NavigationService", function() {
   beforeEach(function() {
-    this.instance = new NavigationService();
+    thisInstance = new NavigationService();
   });
 
   describe("#registerCategory", function() {
     it("registers a category", function() {
-      this.instance.registerCategory("test");
+      thisInstance.registerCategory("test");
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         { category: "root", children: [] },
         {
           category: "test",
@@ -21,9 +23,9 @@ describe("NavigationService", function() {
 
   describe("#registerPrimary", function() {
     it("registers a primary nav", function() {
-      this.instance.registerPrimary("/test", "Test", { category: "root" });
+      thisInstance.registerPrimary("/test", "Test", { category: "root" });
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         {
           category: "root",
           children: [
@@ -41,10 +43,10 @@ describe("NavigationService", function() {
 
   describe("#registerSecondary", function() {
     it("registers a secondary nav", function() {
-      this.instance.registerPrimary("/test", "Test");
-      this.instance.registerSecondary("/test", "path", "Test Path");
+      thisInstance.registerPrimary("/test", "Test");
+      thisInstance.registerSecondary("/test", "path", "Test Path");
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         {
           category: "root",
           children: [
@@ -69,13 +71,13 @@ describe("NavigationService", function() {
 
   describe("deferred registration", function() {
     it("defers registration until all dependencies are resolved", function() {
-      this.instance.registerSecondary("/test", "path", "Test Path", {
+      thisInstance.registerSecondary("/test", "path", "Test Path", {
         category: "test"
       });
-      this.instance.registerPrimary("/test", "Test", { category: "test" });
-      this.instance.registerCategory("test");
+      thisInstance.registerPrimary("/test", "Test", { category: "test" });
+      thisInstance.registerCategory("test");
 
-      expect(this.instance.getDefinition()).toEqual([
+      expect(thisInstance.getDefinition()).toEqual([
         { category: "root", children: [] },
         {
           category: "test",

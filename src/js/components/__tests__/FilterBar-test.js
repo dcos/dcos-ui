@@ -3,10 +3,12 @@ const TestUtils = require("react-addons-test-utils");
 
 const FilterBar = require("../FilterBar");
 
+let thisInstance;
+
 describe("FilterBar", function() {
   describe("FilterBar with left-align items", function() {
     beforeEach(function() {
-      this.instance = TestUtils.renderIntoDocument(
+      thisInstance = TestUtils.renderIntoDocument(
         <FilterBar>
           <div>0</div>
           <div>1</div>
@@ -17,8 +19,8 @@ describe("FilterBar", function() {
 
     describe("#getFilterItems", function() {
       it('wraps items in array with "filter-bar-item"', function() {
-        const filterItems = this.instance.getFilterItems(
-          React.Children.toArray(this.instance.props.children)
+        const filterItems = thisInstance.getFilterItems(
+          React.Children.toArray(thisInstance.props.children)
         );
 
         expect(filterItems.length).toEqual(3);
@@ -33,7 +35,7 @@ describe("FilterBar", function() {
 
     it("renders all items left-aligned", function() {
       const filterBarLeft = TestUtils.findRenderedDOMComponentWithClass(
-        this.instance,
+        thisInstance,
         "filter-bar-left"
       );
 
@@ -42,7 +44,7 @@ describe("FilterBar", function() {
 
     it("renders no items right-aligned", function() {
       const filterBarRight = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.instance,
+        thisInstance,
         "filter-bar-right"
       );
 
@@ -52,7 +54,7 @@ describe("FilterBar", function() {
 
   describe("FilterBar with left- and right-align items", function() {
     beforeEach(function() {
-      this.instance = TestUtils.renderIntoDocument(
+      thisInstance = TestUtils.renderIntoDocument(
         <FilterBar rightAlignLastNChildren={2}>
           <div>0</div>
           <div>1</div>
@@ -64,7 +66,7 @@ describe("FilterBar", function() {
 
     it("renders some items left-aligned", function() {
       const filterBarLeft = TestUtils.findRenderedDOMComponentWithClass(
-        this.instance,
+        thisInstance,
         "filter-bar-left"
       );
 
@@ -73,7 +75,7 @@ describe("FilterBar", function() {
 
     it("renders some items right-aligned", function() {
       const filterBarRight = TestUtils.findRenderedDOMComponentWithClass(
-        this.instance,
+        thisInstance,
         "filter-bar-right"
       );
 
@@ -83,7 +85,7 @@ describe("FilterBar", function() {
 
   describe("FilterBar with right-align items", function() {
     beforeEach(function() {
-      this.instance = TestUtils.renderIntoDocument(
+      thisInstance = TestUtils.renderIntoDocument(
         <FilterBar rightAlignLastNChildren={3}>
           <div>0</div>
           <div>1</div>
@@ -94,7 +96,7 @@ describe("FilterBar", function() {
 
     it("renders no items left-aligned", function() {
       const filterBarLeft = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.instance,
+        thisInstance,
         "filter-bar-left"
       );
 
@@ -103,7 +105,7 @@ describe("FilterBar", function() {
 
     it("renders all items right-aligned", function() {
       const filterBarRight = TestUtils.findRenderedDOMComponentWithClass(
-        this.instance,
+        thisInstance,
         "filter-bar-right"
       );
 

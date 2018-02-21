@@ -16,74 +16,82 @@ function setUserAgent(agent) {
   });
 }
 
+let thisCallback,
+  thisContainer,
+  thisInstance,
+  thisContainer1,
+  thisContainer2,
+  thisInstance1,
+  thisInstance2;
+
 describe("CliInstallModal", function() {
   describe("#onClose", function() {
     beforeEach(function() {
-      this.callback = jasmine.createSpy();
-      this.container = global.document.createElement("div");
-      this.instance = ReactDOM.render(
+      thisCallback = jasmine.createSpy();
+      thisContainer = global.document.createElement("div");
+      thisInstance = ReactDOM.render(
         <CliInstallModal
-          onClose={this.callback}
+          onClose={thisCallback}
           showFooter={false}
           title=""
           subHeaderContent=""
         />,
-        this.container
+        thisContainer
       );
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("doesn't call the callback after initialization", function() {
-      expect(this.callback).not.toHaveBeenCalled();
+      expect(thisCallback).not.toHaveBeenCalled();
     });
 
     it("calls the callback when #onClose is called", function() {
-      this.instance.onClose();
-      expect(this.callback).toHaveBeenCalled();
+      thisInstance.onClose();
+      expect(thisCallback).toHaveBeenCalled();
     });
   });
 
   describe("#getCliInstructions", function() {
     beforeEach(function() {
-      this.container1 = global.document.createElement("div");
-      this.container2 = global.document.createElement("div");
+      thisContainer1 = global.document.createElement("div");
+      thisContainer2 = global.document.createElement("div");
       setUserAgent(
         "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)"
       );
-      this.instance1 = ReactDOM.render(
+      thisInstance1 = ReactDOM.render(
         <CliInstallModal
           onClose={function() {}}
           showFooter={false}
           title=""
           subHeaderContent=""
         />,
-        this.container1
+        thisContainer1
       );
       setUserAgent(
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
       );
-      this.instance2 = ReactDOM.render(
+      thisInstance2 = ReactDOM.render(
         <CliInstallModal
           onClose={function() {}}
           showFooter={false}
           title=""
           subHeaderContent=""
         />,
-        this.container2
+        thisContainer2
       );
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container1);
-      ReactDOM.unmountComponentAtNode(this.container2);
+      ReactDOM.unmountComponentAtNode(thisContainer1);
+      ReactDOM.unmountComponentAtNode(thisContainer2);
     });
 
     it("it returns different data depending on OS", function() {
-      var firstCall = this.instance1.getCliInstructions();
-      var secondCall = this.instance2.getCliInstructions();
+      var firstCall = thisInstance1.getCliInstructions();
+      var secondCall = thisInstance2.getCliInstructions();
 
       expect(firstCall).not.toEqual(secondCall);
     });

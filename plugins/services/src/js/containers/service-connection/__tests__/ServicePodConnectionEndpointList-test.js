@@ -8,32 +8,34 @@ const Pod = require("../../../structs/Pod");
 const ServicePodConnectionEndpointList = require("../ServicePodConnectionEndpointList");
 const ServicePodWithEndpoints = require("./fixtures/ServicePodWithEndpoints.json");
 
+let thisContainer, thisInstance;
+
 describe("ServicePodConnectionEndpointList", function() {
   const service = new Pod(ServicePodWithEndpoints);
 
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <ServicePodConnectionEndpointList service={service} />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders the correct endpoints page with tables", function() {
       const elements = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.instance,
+        thisInstance,
         "configuration-map-section"
       );
 
       expect(elements.length).toEqual(2);
 
       const rows = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.instance,
+        thisInstance,
         "configuration-map-row table-row"
       );
 

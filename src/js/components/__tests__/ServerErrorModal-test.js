@@ -5,33 +5,35 @@ const ReactDOM = require("react-dom");
 
 const ServerErrorModal = require("../ServerErrorModal");
 
+let thisContainer, thisInstance;
+
 describe("ServerErrorModal", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(<ServerErrorModal />, this.container);
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(<ServerErrorModal />, thisContainer);
   });
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#handleModalClose", function() {
     beforeEach(function() {
-      this.instance.handleModalClose();
+      thisInstance.handleModalClose();
     });
 
     it("closes the modal", function() {
-      expect(this.instance.state.isOpen).toEqual(false);
+      expect(thisInstance.state.isOpen).toEqual(false);
     });
 
     it("resets the error array", function() {
-      expect(this.instance.state.errors).toEqual([]);
+      expect(thisInstance.state.errors).toEqual([]);
     });
   });
 
   describe("#handleServerError", function() {
     it("doesn't throw when an id and errorMessage are passed", function() {
-      const fn = this.instance.handleServerError.bind(
-        this.instance,
+      const fn = thisInstance.handleServerError.bind(
+        thisInstance,
         "foo",
         "bar"
       );
@@ -39,20 +41,20 @@ describe("ServerErrorModal", function() {
     });
 
     it("doesn't throw when an id is passed", function() {
-      const fn = this.instance.handleServerError.bind(this.instance, "foo");
+      const fn = thisInstance.handleServerError.bind(thisInstance, "foo");
       expect(fn).not.toThrow();
     });
 
     it("throws an error when no id or errorMessage is passed", function() {
-      const fn = this.instance.handleServerError.bind(this.instance);
+      const fn = thisInstance.handleServerError.bind(thisInstance);
       expect(fn).toThrow();
     });
   });
 
   describe("#getContent", function() {
     it("returns the same number of children as errors", function() {
-      this.instance.state.errors = [1, 2, 3];
-      var contents = this.instance.getContent();
+      thisInstance.state.errors = [1, 2, 3];
+      var contents = thisInstance.getContent();
       var result = contents.props.children;
 
       expect(result.length).toEqual(3);

@@ -11,6 +11,8 @@ const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
 const PodFixture = require("../../../../../../../tests/_fixtures/pods/PodFixture");
 
+let thisStoreChangeListener, thisInstance;
+
 describe("PodInstancesContainer", function() {
   // Fix the dates in order to test the relative date field
   const fixture = Util.deepCopy(PodFixture);
@@ -54,12 +56,12 @@ describe("PodInstancesContainer", function() {
   const pod = new Pod(fixture);
 
   beforeEach(function() {
-    this.storeChangeListener = MesosStateStore.addChangeListener;
+    thisStoreChangeListener = MesosStateStore.addChangeListener;
     MesosStateStore.addChangeListener = function() {};
   });
 
   afterEach(function() {
-    MesosStateStore.addChangeListener = this.storeChangeListener;
+    MesosStateStore.addChangeListener = thisStoreChangeListener;
   });
 
   describe("#render", function() {
@@ -71,12 +73,12 @@ describe("PodInstancesContainer", function() {
           pod,
           location: { pathname: "", query: { q: "instance-1" } }
         });
-        this.instance = TestUtils.renderIntoDocument(component);
+        thisInstance = TestUtils.renderIntoDocument(component);
       });
 
       it("returns matching instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          this.instance,
+          thisInstance,
           "task-table-column-primary"
         ).reduce(
           JestUtil.reduceTextContentOfSelector(
@@ -101,12 +103,12 @@ describe("PodInstancesContainer", function() {
           },
           { service: pod }
         );
-        this.instance = TestUtils.renderIntoDocument(component);
+        thisInstance = TestUtils.renderIntoDocument(component);
       });
 
       it("returns matching instances and containers", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          this.instance,
+          thisInstance,
           "task-table-column-primary"
         ).reduce(
           JestUtil.reduceTextContentOfSelector(
@@ -131,7 +133,7 @@ describe("PodInstancesContainer", function() {
 
       it("always shows instance total resources", function() {
         var mem = TestUtils.scryRenderedDOMComponentsWithClass(
-          this.instance,
+          thisInstance,
           "task-table-column-mem"
         )
           .filter(JestUtil.filterByTagName("TD"))
@@ -153,12 +155,12 @@ describe("PodInstancesContainer", function() {
           },
           { service: pod }
         );
-        this.instance = TestUtils.renderIntoDocument(component);
+        thisInstance = TestUtils.renderIntoDocument(component);
       });
 
       it("shows all instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          this.instance,
+          thisInstance,
           "task-table-column-primary"
         ).reduce(
           JestUtil.reduceTextContentOfSelector(
@@ -183,12 +185,12 @@ describe("PodInstancesContainer", function() {
           },
           { service: pod }
         );
-        this.instance = TestUtils.renderIntoDocument(component);
+        thisInstance = TestUtils.renderIntoDocument(component);
       });
 
       it("shows no instances", function() {
         var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          this.instance,
+          thisInstance,
           "task-table-column-primary"
         ).reduce(
           JestUtil.reduceTextContentOfSelector(

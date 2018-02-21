@@ -1,5 +1,7 @@
 const ApplicationSpec = require("../ApplicationSpec");
 
+let thisInstance;
+
 describe("ApplicationSpec", function() {
   describe("#getAcceptedResourceRoles", function() {
     it("returns correct user", function() {
@@ -77,7 +79,7 @@ describe("ApplicationSpec", function() {
 
   describe("#getConstraints", function() {
     beforeEach(function() {
-      this.instance = new ApplicationSpec({
+      thisInstance = new ApplicationSpec({
         constraints: [
           ["hostname", "LIKE", "test"],
           ["hostname", "UNLIKE", "no-test"]
@@ -86,11 +88,11 @@ describe("ApplicationSpec", function() {
     });
 
     it("returns array", function() {
-      expect(Array.isArray(this.instance.getConstraints())).toBeTruthy();
+      expect(Array.isArray(thisInstance.getConstraints())).toBeTruthy();
     });
 
     it("returns correct constraints", function() {
-      expect(this.instance.getConstraints()).toEqual([
+      expect(thisInstance.getConstraints()).toEqual([
         ["hostname", "LIKE", "test"],
         ["hostname", "UNLIKE", "no-test"]
       ]);
@@ -139,7 +141,7 @@ describe("ApplicationSpec", function() {
 
   describe("#getFetch", function() {
     beforeEach(function() {
-      this.instance = new ApplicationSpec({
+      thisInstance = new ApplicationSpec({
         fetch: [
           {
             uri: "http://resource/uri",
@@ -152,11 +154,11 @@ describe("ApplicationSpec", function() {
     });
 
     it("returns array", function() {
-      expect(Array.isArray(this.instance.getFetch())).toBeTruthy();
+      expect(Array.isArray(thisInstance.getFetch())).toBeTruthy();
     });
 
     it("returns correct uris", function() {
-      expect(this.instance.getFetch()).toEqual([
+      expect(thisInstance.getFetch()).toEqual([
         {
           uri: "http://resource/uri",
           extract: true,

@@ -7,26 +7,28 @@ const TestUtils = require("react-addons-test-utils");
 const Node = require("#SRC/js/structs/Node");
 const TaskEndpointsList = require("../TaskEndpointsList");
 
+let thisContainer;
+
 describe("TaskEndpointsList", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#getTaskEndpoints", function() {
     it("returns N/A if ipAddresses, ports and host is not set", function() {
       const instance = ReactDOM.render(
         <TaskEndpointsList task={{}} />,
-        this.container
+        thisContainer
       );
       expect(ReactDOM.findDOMNode(instance).textContent).toEqual("N/A");
     });
 
     it("returns N/A if task is undefined", function() {
-      const instance = ReactDOM.render(<TaskEndpointsList />, this.container);
+      const instance = ReactDOM.render(<TaskEndpointsList />, thisContainer);
       expect(ReactDOM.findDOMNode(instance).textContent).toEqual("N/A");
     });
 
@@ -51,7 +53,7 @@ describe("TaskEndpointsList", function() {
             container: { type: "FOO", foo: { network: "BRIDGE" } }
           }}
         />,
-        this.container
+        thisContainer
       );
       const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
 
@@ -64,7 +66,7 @@ describe("TaskEndpointsList", function() {
     it("returns a list of linked hosts ports and ipAddresses are not defined", function() {
       const instance = ReactDOM.render(
         <TaskEndpointsList task={{}} node={new Node({ hostname: "foo" })} />,
-        this.container
+        thisContainer
       );
       const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
 
@@ -78,7 +80,7 @@ describe("TaskEndpointsList", function() {
           task={{ ports: [1, 2] }}
           node={new Node({ hostname: "foo" })}
         />,
-        this.container
+        thisContainer
       );
       const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
 
@@ -95,7 +97,7 @@ describe("TaskEndpointsList", function() {
           task={{ ports: [1, 2, 3, 4, 5] }}
           node={new Node({ hostname: "foo" })}
         />,
-        this.container
+        thisContainer
       );
       const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
       const moreLink = links[3];
@@ -112,7 +114,7 @@ describe("TaskEndpointsList", function() {
           task={{ ports: [1, 2, 3, 4, 5] }}
           node={new Node({ hostname: "foo" })}
         />,
-        this.container
+        thisContainer
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
       const moreLink = links[3];
@@ -132,7 +134,7 @@ describe("TaskEndpointsList", function() {
           task={{ ports: [1, 2, 3, 4, 5] }}
           node={new Node({ hostname: "foo" })}
         />,
-        this.container
+        thisContainer
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
       const moreLink = links[3];

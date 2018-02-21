@@ -1,5 +1,7 @@
 const DOMUtils = require("../DOMUtils");
 
+let thisStyle, thisPreviousRequest, thisDateNow, thisElement;
+
 describe("DOMUtils", function() {
   describe("#closest", function() {
     it(
@@ -68,12 +70,12 @@ describe("DOMUtils", function() {
     }
 
     beforeEach(function() {
-      this.style = ["width: 100px"];
+      thisStyle = ["width: 100px"];
     });
 
     it("calculates left padding", function() {
-      this.style.push("padding-left: 1px");
-      global.document.body.innerHTML = buildElement(this.style);
+      thisStyle.push("padding-left: 1px");
+      global.document.body.innerHTML = buildElement(thisStyle);
       const div = global.document.querySelector("div");
       // jsdom doesn't calculate offsetWidth
       Object.defineProperty(div, "offsetWidth", {
@@ -85,8 +87,8 @@ describe("DOMUtils", function() {
     });
 
     it("calculates right padding", function() {
-      this.style.push("padding-right: 1px");
-      global.document.body.innerHTML = buildElement(this.style);
+      thisStyle.push("padding-right: 1px");
+      global.document.body.innerHTML = buildElement(thisStyle);
       const div = global.document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
@@ -98,8 +100,8 @@ describe("DOMUtils", function() {
     });
 
     it("calculates left border", function() {
-      this.style.push("border-left-width: 1px");
-      global.document.body.innerHTML = buildElement(this.style);
+      thisStyle.push("border-left-width: 1px");
+      global.document.body.innerHTML = buildElement(thisStyle);
       const div = global.document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
@@ -111,8 +113,8 @@ describe("DOMUtils", function() {
     });
 
     it("calculates right border", function() {
-      this.style.push("border-right-width: 1px");
-      global.document.body.innerHTML = buildElement(this.style);
+      thisStyle.push("border-right-width: 1px");
+      global.document.body.innerHTML = buildElement(thisStyle);
       const div = global.document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
@@ -124,13 +126,13 @@ describe("DOMUtils", function() {
     });
 
     it("calculates computed width", function() {
-      this.style.push(
+      thisStyle.push(
         "padding-left: 1px",
         "padding-right: 1px",
         "border-left-width: 1px",
         "border-right-width: 1px"
       );
-      global.document.body.innerHTML = buildElement(this.style);
+      global.document.body.innerHTML = buildElement(thisStyle);
       const div = global.document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
@@ -142,13 +144,13 @@ describe("DOMUtils", function() {
     });
 
     it("does not calculate unnecessary properties", function() {
-      this.style.push(
+      thisStyle.push(
         "padding-top: 1px",
         "padding-bottom: 1px",
         "border-top-width: 1px",
         "border-bottom-width: 1px"
       );
-      global.document.body.innerHTML = buildElement(this.style);
+      global.document.body.innerHTML = buildElement(thisStyle);
       const div = global.document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
@@ -162,12 +164,12 @@ describe("DOMUtils", function() {
 
   describe("#scrollTo", function() {
     beforeEach(function() {
-      this.previousRequest = global.requestAnimationFrame;
+      thisPreviousRequest = global.requestAnimationFrame;
       global.requestAnimationFrame = function(func) {
         setTimeout(func, 15);
       };
 
-      this.dateNow = Date.now;
+      thisDateNow = Date.now;
       // Will return 0, 15, 30, 45, 60, etc.
       // adding setTimeout call time each time
       var now = -15;
@@ -179,8 +181,8 @@ describe("DOMUtils", function() {
     });
 
     afterEach(function() {
-      global.requestAnimationFrame = this.previousRequest;
-      Date.now = this.dateNow;
+      global.requestAnimationFrame = thisPreviousRequest;
+      Date.now = thisDateNow;
     });
 
     it("doesn't do anything if already scrolled there", function() {
@@ -214,7 +216,7 @@ describe("DOMUtils", function() {
 
   describe("#getDistanceFromTopOfParent", function() {
     beforeEach(function() {
-      this.element = {
+      thisElement = {
         getBoundingClientRect() {
           return {
             top: 300
@@ -231,19 +233,19 @@ describe("DOMUtils", function() {
     });
 
     it("gets the correct distance from parent top", function() {
-      var result = DOMUtils.getDistanceFromTopOfParent(this.element);
+      var result = DOMUtils.getDistanceFromTopOfParent(thisElement);
 
       expect(result).toEqual(100);
     });
 
     it("returns 0 if there is no parentNode", function() {
-      const prevParentNode = this.element.parentNode;
-      this.element.parentNode = null;
+      const prevParentNode = thisElement.parentNode;
+      thisElement.parentNode = null;
 
-      var result = DOMUtils.getDistanceFromTopOfParent(this.element);
+      var result = DOMUtils.getDistanceFromTopOfParent(thisElement);
       expect(result).toEqual(0);
 
-      this.element.parentNode = prevParentNode;
+      thisElement.parentNode = prevParentNode;
     });
   });
 

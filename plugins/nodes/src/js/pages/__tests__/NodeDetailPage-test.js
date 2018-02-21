@@ -15,16 +15,26 @@ const Node = require("#SRC/js/structs/Node");
 const NodesList = require("#SRC/js/structs/NodesList");
 const NodeDetailPage = require("../nodes/NodeDetailPage");
 
+let thisFetchSummary,
+  thisGetTasksFromNodeID,
+  thisStoreGet,
+  thisStoreGetNode,
+  thisGetNodesList,
+  thisStoreChangeListener,
+  thisContainer,
+  thisWrapper,
+  thisInstance;
+
 describe("NodeDetailPage", function() {
   beforeEach(function() {
-    this.fetchSummary = MesosSummaryActions.fetchSummary;
-    this.getTasksFromNodeID = MesosStateStore.getTasksFromNodeID;
-    this.storeGet = MesosStateStore.get;
-    this.storeGetNode = MesosStateStore.getNodeFromID;
-    this.getNodesList = CompositeState.getNodesList;
-    this.storeChangeListener = MesosStateStore.addChangeListener;
+    thisFetchSummary = MesosSummaryActions.fetchSummary;
+    thisGetTasksFromNodeID = MesosStateStore.getTasksFromNodeID;
+    thisStoreGet = MesosStateStore.get;
+    thisStoreGetNode = MesosStateStore.getNodeFromID;
+    thisGetNodesList = CompositeState.getNodesList;
+    thisStoreChangeListener = MesosStateStore.addChangeListener;
 
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
 
     CompositeState.getNodesList = function() {
       return new NodesList({ items: [{ id: "existingNode" }] });
@@ -71,7 +81,7 @@ describe("NodeDetailPage", function() {
       ]
     });
 
-    this.wrapper = ReactDOM.render(
+    thisWrapper = ReactDOM.render(
       JestUtil.stubRouterContext(
         NodeDetailPage,
         {
@@ -83,31 +93,31 @@ describe("NodeDetailPage", function() {
         },
         {}
       ),
-      this.container
+      thisContainer
     );
-    this.instance = TestUtils.findRenderedComponentWithType(
-      this.wrapper,
+    thisInstance = TestUtils.findRenderedComponentWithType(
+      thisWrapper,
       NodeDetailPage
     );
   });
 
   afterEach(function() {
-    MesosStateStore.addChangeListener = this.storeChangeListener;
-    MesosSummaryActions.fetchSummary = this.fetchSummary;
-    MesosStateStore.getTasksFromNodeID = this.getTasksFromNodeID;
-    MesosStateStore.get = this.storeGet;
-    MesosStateStore.getNodeFromID = this.storeGetNode;
+    MesosStateStore.addChangeListener = thisStoreChangeListener;
+    MesosSummaryActions.fetchSummary = thisFetchSummary;
+    MesosStateStore.getTasksFromNodeID = thisGetTasksFromNodeID;
+    MesosStateStore.get = thisStoreGet;
+    MesosStateStore.getNodeFromID = thisStoreGetNode;
     MesosStateStore.removeAllListeners();
     MesosSummaryStore.removeAllListeners();
-    ReactDOM.unmountComponentAtNode(this.container);
-    CompositeState.getNodesList = this.getNodesList;
+    ReactDOM.unmountComponentAtNode(thisContainer);
+    CompositeState.getNodesList = thisGetNodesList;
   });
 
   describe("#getNode", function() {
     it("stores an instance of Node", function() {
-      var node = this.instance.getNode({ params: { nodeID: "existingNode" } });
+      var node = thisInstance.getNode({ params: { nodeID: "existingNode" } });
       expect(node instanceof Node).toEqual(true);
-      this.instance = null;
+      thisInstance = null;
     });
   });
 });

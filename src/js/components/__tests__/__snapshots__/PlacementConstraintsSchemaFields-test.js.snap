@@ -1,16 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`PlacementConstraintsSchemaField with invalid content displays form to edit constraints 1`] = `
 <div>
   <label
-    className="">
+    className=""
+  >
     label
   </label>
   <pre>
     {
-      \"placement_constraints\": \"[\'hostname\', \'MAX_PER\', \'2\']\"
-    }
+  "placement_constraints": "['hostname', 'MAX_PER', '2']"
+}
   </pre>
   <p
-    className="form-control-feedback">
+    className="form-control-feedback"
+  >
     Unable to edit 
     placement_constraints
   </p>
@@ -19,34 +23,44 @@ exports[`PlacementConstraintsSchemaField with invalid content displays form to e
 
 exports[`PlacementConstraintsSchemaField with valid content displays edit constraints area 1`] = `
 <div
-  className="pod flush-left flush-right flush-top">
+  className="pod flush-left flush-right flush-top"
+>
   <h2>
     Placement Constraints 
     <div
       className="tooltip-wrapper text-align-center"
       onMouseEnter={[Function]}
-      onMouseLeave={[Function]}>
+      onMouseLeave={[Function]}
+    >
       <svg
-        className="icon icon-grey icon-mini">
+        className="icon icon-grey icon-mini"
+      >
         <use
-          xlinkHref="#icon-system--circle-question" />
+          xlinkHref="#icon-system--circle-question"
+        />
       </svg>
     </div>
   </h2>
   <div
-    onChange={[Function]}>
+    onChange={[Function]}
+  >
     <div>
       <div
-        className="form-row row">
+        className="form-row row"
+      >
         <div
-          className="form-group column-12">
+          className="form-group column-12"
+        >
           <a
             className="button button-primary-link button-flush"
-            onClick={[Function]}>
+            onClick={[Function]}
+          >
             <svg
-              className="icon icon-purple icon-tiny">
+              className="icon icon-purple icon-tiny"
+            >
               <use
-                xlinkHref="#icon-system--plus" />
+                xlinkHref="#icon-system--plus"
+              />
             </svg>
             <span>
               Add Placement Constraint
@@ -57,6 +71,7 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
     </div>
   </div>
   <p
-    className="form-control-feedback" />
+    className="form-control-feedback"
+  />
 </div>
 `;

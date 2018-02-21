@@ -5,13 +5,15 @@ const ReactDOM = require("react-dom");
 
 const DetailViewHeader = require("../DetailViewHeader");
 
+let thisContainer;
+
 describe("DetailViewHeader", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
@@ -19,7 +21,7 @@ describe("DetailViewHeader", function() {
       const className = "foo";
       const instance = ReactDOM.render(
         <DetailViewHeader className={className} />,
-        this.container
+        thisContainer
       );
       const node = ReactDOM.findDOMNode(instance);
       // node.classList causes Jest to OOM ¯\_(ツ)_/¯
@@ -32,7 +34,7 @@ describe("DetailViewHeader", function() {
       };
       const instance = ReactDOM.render(
         <DetailViewHeader className={className} />,
-        this.container
+        thisContainer
       );
       const node = ReactDOM.findDOMNode(instance);
       expect(node.getAttribute("class")).not.toContain("container");

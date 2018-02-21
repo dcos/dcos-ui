@@ -14,6 +14,8 @@ Hooks.addFilter("hasCapability", function() {
   return true;
 });
 
+let thisConfiguration;
+
 describe("MarathonActions", function() {
   describe("#createGroup", function() {
     const newGroupId = "test";
@@ -21,7 +23,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.createGroup({ id: newGroupId });
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -29,13 +31,13 @@ describe("MarathonActions", function() {
     });
 
     it("sends data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups`
       );
     });
 
     it("uses POST for the request method", function() {
-      expect(this.configuration.method).toEqual("POST");
+      expect(thisConfiguration.method).toEqual("POST");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -47,7 +49,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         version: "2016-05-13T10:26:55.840Z",
         deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
       });
@@ -62,7 +64,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -75,7 +77,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -90,7 +92,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.deleteGroup(groupDefinition.id);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -98,13 +100,13 @@ describe("MarathonActions", function() {
     });
 
     it("sends data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups/%2Ftest`
       );
     });
 
     it("uses DELETE for the request method", function() {
-      expect(this.configuration.method).toEqual("DELETE");
+      expect(thisConfiguration.method).toEqual("DELETE");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -116,7 +118,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         version: "2016-05-13T10:26:55.840Z",
         deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
       });
@@ -131,7 +133,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error", response: "{}" });
+      thisConfiguration.error({ message: "error", response: "{}" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -144,7 +146,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -159,7 +161,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.editGroup(groupDefinition);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -167,22 +169,22 @@ describe("MarathonActions", function() {
     });
 
     it("sends data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups/%2Ftest`
       );
     });
 
     it("sends data to the correct URL with the force=true parameter", function() {
       MarathonActions.editGroup(groupDefinition, true);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups/%2Ftest?force=true`
       );
     });
 
     it("uses PUT for the request method", function() {
-      expect(this.configuration.method).toEqual("PUT");
+      expect(thisConfiguration.method).toEqual("PUT");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -194,7 +196,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         version: "2016-05-13T10:26:55.840Z",
         deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
       });
@@ -209,7 +211,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error", response: "{}" });
+      thisConfiguration.error({ message: "error", response: "{}" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -222,7 +224,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -239,7 +241,7 @@ describe("MarathonActions", function() {
             cmd: "sleep 100;"
           })
         );
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -247,19 +249,19 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps`
         );
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps`
         );
       });
 
       it("uses POST for the request method", function() {
-        expect(this.configuration.method).toEqual("POST");
+        expect(thisConfiguration.method).toEqual("POST");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -271,7 +273,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({
+        thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
           deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
         });
@@ -286,7 +288,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -299,7 +301,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -315,7 +317,7 @@ describe("MarathonActions", function() {
             cmd: "sleep 100;"
           })
         );
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -323,19 +325,19 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods`
         );
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods`
         );
       });
 
       it("uses POST for the request method", function() {
-        expect(this.configuration.method).toEqual("POST");
+        expect(thisConfiguration.method).toEqual("POST");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -347,7 +349,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({
+        thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
           deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
         });
@@ -362,7 +364,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -375,7 +377,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -388,7 +390,7 @@ describe("MarathonActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         MarathonActions.deleteService(new Application({ id: "/test" }));
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -396,13 +398,13 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test`
         );
       });
 
       it("uses DELETE for the request method", function() {
-        expect(this.configuration.method).toEqual("DELETE");
+        expect(thisConfiguration.method).toEqual("DELETE");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -414,7 +416,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({
+        thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
           deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
         });
@@ -429,7 +431,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -442,7 +444,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -453,7 +455,7 @@ describe("MarathonActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         MarathonActions.deleteService(new Pod({ id: "/test" }));
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -461,13 +463,13 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test`
         );
       });
 
       it("uses DELETE for the request method", function() {
-        expect(this.configuration.method).toEqual("DELETE");
+        expect(thisConfiguration.method).toEqual("DELETE");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -479,7 +481,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({
+        thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
           deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
         });
@@ -494,7 +496,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -507,7 +509,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -523,7 +525,7 @@ describe("MarathonActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         MarathonActions.editService(app, spec);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -531,22 +533,22 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test?partialUpdate=false`
         );
       });
 
       it("sends data to the correct URL with the force=true parameter", function() {
         MarathonActions.editService(app, spec, true);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test?force=true&partialUpdate=false`
         );
       });
 
       it("uses PUT for the request method", function() {
-        expect(this.configuration.method).toEqual("PUT");
+        expect(thisConfiguration.method).toEqual("PUT");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -558,7 +560,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({
+        thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
           deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
         });
@@ -573,7 +575,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -586,7 +588,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -600,7 +602,7 @@ describe("MarathonActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         MarathonActions.editService(pod, spec);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -608,22 +610,22 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test?partialUpdate=false`
         );
       });
 
       it("sends data to the correct URL with the force=true parameter", function() {
         MarathonActions.editService(pod, spec, true);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test?force=true&partialUpdate=false`
         );
       });
 
       it("uses PUT for the request method", function() {
-        expect(this.configuration.method).toEqual("PUT");
+        expect(thisConfiguration.method).toEqual("PUT");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -635,7 +637,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({
+        thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
           deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
         });
@@ -650,7 +652,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -663,7 +665,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -678,7 +680,7 @@ describe("MarathonActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         MarathonActions.restartService(app);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -686,22 +688,22 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test/restart`
         );
       });
 
       it("sends data to the correct URL with the force=true parameter", function() {
         MarathonActions.restartService(app, true);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test/restart?force=true`
         );
       });
 
       it("uses POST for the request method", function() {
-        expect(this.configuration.method).toEqual("POST");
+        expect(thisConfiguration.method).toEqual("POST");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -713,7 +715,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({});
+        thisConfiguration.success({});
       });
 
       it("dispatches the correct action when unsuccessful", function() {
@@ -725,7 +727,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -738,7 +740,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -751,7 +753,7 @@ describe("MarathonActions", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         MarathonActions.restartService(pod);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -759,22 +761,22 @@ describe("MarathonActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test/restart`
         );
       });
 
       it("sends data to the correct URL with the force=true parameter", function() {
         MarathonActions.restartService(pod, true);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test/restart?force=true`
         );
       });
 
       it("uses POST for the request method", function() {
-        expect(this.configuration.method).toEqual("POST");
+        expect(thisConfiguration.method).toEqual("POST");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -786,7 +788,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({});
+        thisConfiguration.success({});
       });
 
       it("dispatches the correct action when unsuccessful", function() {
@@ -798,7 +800,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.error({ message: "error", response: "{}" });
+        thisConfiguration.error({ message: "error", response: "{}" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -811,7 +813,7 @@ describe("MarathonActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           foo: "bar",
           responseJSON: { description: "baz" }
         });
@@ -823,7 +825,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchDeployments();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -831,7 +833,7 @@ describe("MarathonActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/deployments`
       );
     });
@@ -845,7 +847,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         apps: [],
         dependencies: [],
         groups: [],
@@ -863,7 +865,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -876,7 +878,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -887,7 +889,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchGroups();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -895,7 +897,7 @@ describe("MarathonActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups`
       );
     });
@@ -909,7 +911,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         apps: [],
         dependencies: [],
         groups: [],
@@ -925,7 +927,7 @@ describe("MarathonActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_GROUPS_ERROR);
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -938,7 +940,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -949,7 +951,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchQueue();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -957,7 +959,7 @@ describe("MarathonActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/queue`
       );
     });
@@ -969,7 +971,7 @@ describe("MarathonActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS);
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         queue: [
           {
             app: {
@@ -991,7 +993,7 @@ describe("MarathonActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_ERROR);
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -1004,7 +1006,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -1018,7 +1020,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchServiceVersion(serviceID, versionID);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -1026,7 +1028,7 @@ describe("MarathonActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions/${versionID}`
       );
     });
@@ -1040,7 +1042,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         serviceID,
         versionID,
         versions: ["2016-05-02T16:07:32.583Z"]
@@ -1056,7 +1058,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -1069,7 +1071,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -1082,7 +1084,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchServiceVersions(serviceID);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -1090,7 +1092,7 @@ describe("MarathonActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions`
       );
     });
@@ -1104,7 +1106,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.success({
+      thisConfiguration.success({
         serviceID,
         versions: ["2016-05-02T16:07:32.583Z"]
       });
@@ -1119,7 +1121,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -1132,7 +1134,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -1145,7 +1147,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchMarathonInstanceInfo(serviceID);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -1153,7 +1155,7 @@ describe("MarathonActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/info`
       );
     });
@@ -1168,7 +1170,7 @@ describe("MarathonActions", function() {
         expect(action.data).toEqual({ foo: "bar", baz: "qux" });
       });
 
-      this.configuration.success({ foo: "bar", baz: "qux" });
+      thisConfiguration.success({ foo: "bar", baz: "qux" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -1180,7 +1182,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -1193,7 +1195,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -1204,7 +1206,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.revertDeployment("deployment-id");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     describe("JSON request", function() {
@@ -1213,11 +1215,11 @@ describe("MarathonActions", function() {
       });
 
       it("is a DELETE", function() {
-        expect(this.configuration.method).toEqual("DELETE");
+        expect(thisConfiguration.method).toEqual("DELETE");
       });
 
       it("calls the appropriate endpoint", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/deployments/deployment-id`
         );
       });
@@ -1233,7 +1235,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({});
+        thisConfiguration.success({});
       });
 
       it("emits the original deployment ID as the success payload", function() {
@@ -1243,7 +1245,7 @@ describe("MarathonActions", function() {
           expect(action.data.originalDeploymentID).toEqual("deployment-id");
         });
 
-        this.configuration.success({});
+        thisConfiguration.success({});
       });
     });
 
@@ -1256,7 +1258,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("emits the original deployment ID in the error payload", function() {
@@ -1266,7 +1268,7 @@ describe("MarathonActions", function() {
         expect(action.data.originalDeploymentID).toEqual("deployment-id");
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("emits the response text in the error payload", function() {
@@ -1278,7 +1280,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         responseText: JSON.stringify({ message: "A helpful error message." })
       });
     });
@@ -1293,7 +1295,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -1304,7 +1306,7 @@ describe("MarathonActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MarathonActions.killTasks(["task1", "task2"], false);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     describe("JSON request", function() {
@@ -1313,11 +1315,11 @@ describe("MarathonActions", function() {
       });
 
       it("is a POST", function() {
-        expect(this.configuration.method).toEqual("POST");
+        expect(thisConfiguration.method).toEqual("POST");
       });
 
       it("calls the appropriate endpoint", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/tasks/delete`
         );
       });
@@ -1341,7 +1343,7 @@ describe("MarathonActions", function() {
           );
         });
 
-        this.configuration.success({});
+        thisConfiguration.success({});
       });
     });
 
@@ -1354,7 +1356,7 @@ describe("MarathonActions", function() {
         );
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("emits the response text in the error payload", function() {
@@ -1364,7 +1366,7 @@ describe("MarathonActions", function() {
         expect(action.data).toEqual({ message: "A helpful error message." });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         responseText: JSON.stringify({ message: "A helpful error message." })
       });
     });
@@ -1379,7 +1381,7 @@ describe("MarathonActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

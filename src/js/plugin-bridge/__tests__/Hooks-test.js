@@ -1,29 +1,36 @@
 const Hooks = require("../Hooks");
 
+let thisFakeFilter,
+  thisHooks,
+  thisFilteredContent,
+  thisFakeAction,
+  thisNoArgumentsAction,
+  thisTwoArgumentsAction;
+
 describe("HooksAPI", function() {
   describe("#applyFilter", function() {
     beforeEach(function() {
-      this.fakeFilter = jest.genMockFunction();
-      this.fakeFilter.mockImplementation(function(value) {
+      thisFakeFilter = jest.genMockFunction();
+      thisFakeFilter.mockImplementation(function(value) {
         return value.replace("bar", "baz");
       });
 
-      this.hooks = new Hooks();
-      this.hooks.addFilter("foo", this.fakeFilter);
+      thisHooks = new Hooks();
+      thisHooks.addFilter("foo", thisFakeFilter);
 
-      this.filteredContent = this.hooks.applyFilter("foo", "foo bar", "qux");
+      thisFilteredContent = thisHooks.applyFilter("foo", "foo bar", "qux");
     });
 
     it("receives the arguments that we defined", function() {
-      expect(this.fakeFilter.mock.calls[0]).toEqual(["foo bar", "qux"]);
+      expect(thisFakeFilter.mock.calls[0]).toEqual(["foo bar", "qux"]);
     });
 
     it("calls the filter once", function() {
-      expect(this.fakeFilter.mock.calls.length).toEqual(1);
+      expect(thisFakeFilter.mock.calls.length).toEqual(1);
     });
 
     it("returns the filtered content when a filter is applied", function() {
-      expect(this.filteredContent).toEqual("foo baz");
+      expect(thisFilteredContent).toEqual("foo baz");
     });
 
     it("applies the filters in the order of priority", function() {
@@ -38,10 +45,10 @@ describe("HooksAPI", function() {
         return value.replace("bar", "qux");
       });
 
-      this.hooks.addFilter("corge", lowPriorityFilter, 20);
-      this.hooks.addFilter("corge", highPriorityFilter, 1);
+      thisHooks.addFilter("corge", lowPriorityFilter, 20);
+      thisHooks.addFilter("corge", highPriorityFilter, 1);
 
-      var filteredContent = this.hooks.applyFilter("corge", "foo bar");
+      var filteredContent = thisHooks.applyFilter("corge", "foo bar");
 
       expect(filteredContent).toEqual("foo qux");
     });
@@ -49,134 +56,134 @@ describe("HooksAPI", function() {
 
   describe("#doAction", function() {
     beforeEach(function() {
-      this.hooks = new Hooks();
-      this.fakeAction = jest.genMockFunction();
-      this.hooks.addAction("foo", this.fakeAction);
+      thisHooks = new Hooks();
+      thisFakeAction = jest.genMockFunction();
+      thisHooks.addAction("foo", thisFakeAction);
     });
 
     it("is called only once when an action is performed", function() {
-      this.hooks.doAction("foo", "bar");
-      expect(this.fakeAction.mock.calls.length).toEqual(1);
+      thisHooks.doAction("foo", "bar");
+      expect(thisFakeAction.mock.calls.length).toEqual(1);
     });
 
     it("receives arguments when an action is performed", function() {
-      this.hooks.doAction("foo", "bar");
-      expect(this.fakeAction.mock.calls[0][0]).toEqual("bar");
+      thisHooks.doAction("foo", "bar");
+      expect(thisFakeAction.mock.calls[0][0]).toEqual("bar");
     });
 
     it("does not receive arguments when arguments are not passed", function() {
-      this.noArgumentsAction = jest.genMockFunction();
-      this.hooks.addAction("qux", this.noArgumentsAction);
-      this.hooks.doAction("qux");
-      expect(this.noArgumentsAction.mock.calls[0].length).toEqual(0);
+      thisNoArgumentsAction = jest.genMockFunction();
+      thisHooks.addAction("qux", thisNoArgumentsAction);
+      thisHooks.doAction("qux");
+      expect(thisNoArgumentsAction.mock.calls[0].length).toEqual(0);
     });
 
     it("receives two arguments when two arguments are passed", function() {
-      this.twoArgumentsAction = jest.genMockFunction();
-      this.hooks.addAction("quux", this.twoArgumentsAction);
-      this.hooks.doAction("quux", "baz", "bar");
-      expect(this.twoArgumentsAction.mock.calls[0].length).toEqual(2);
+      thisTwoArgumentsAction = jest.genMockFunction();
+      thisHooks.addAction("quux", thisTwoArgumentsAction);
+      thisHooks.doAction("quux", "baz", "bar");
+      expect(thisTwoArgumentsAction.mock.calls[0].length).toEqual(2);
     });
   });
 
   describe("#removeAction", function() {
     beforeEach(function() {
-      this.hooks = new Hooks();
-      this.fakeAction = jasmine.createSpy("fakeAction");
-      this.hooks.addAction("foo", this.fakeAction);
+      thisHooks = new Hooks();
+      thisFakeAction = jasmine.createSpy("fakeAction");
+      thisHooks.addAction("foo", thisFakeAction);
     });
 
     it("doesn't be called after action is removed", function() {
-      this.hooks.removeAction("foo", this.fakeAction);
-      this.hooks.doAction("foo", "bar");
-      expect(this.fakeAction).not.toHaveBeenCalled();
+      thisHooks.removeAction("foo", thisFakeAction);
+      thisHooks.doAction("foo", "bar");
+      expect(thisFakeAction).not.toHaveBeenCalled();
     });
 
     it("is called when action has not been removed", function() {
-      this.hooks.doAction("foo", "bar");
-      this.hooks.removeAction("foo", this.fakeAction);
-      this.hooks.doAction("foo", "bar");
-      expect(this.fakeAction.calls.count()).toEqual(1);
+      thisHooks.doAction("foo", "bar");
+      thisHooks.removeAction("foo", thisFakeAction);
+      thisHooks.doAction("foo", "bar");
+      expect(thisFakeAction.calls.count()).toEqual(1);
     });
 
     it("removes all instances of the listener", function() {
-      this.hooks.addAction("foo", this.fakeAction, 20);
-      this.hooks.addAction("foo", this.fakeAction, 30);
-      this.hooks.addAction("foo", this.fakeAction, 40);
-      this.hooks.removeAction("foo", this.fakeAction);
-      this.hooks.doAction("foo", "bar");
-      this.hooks.doAction("foo", "bar");
-      expect(this.fakeAction.calls.count()).toEqual(0);
+      thisHooks.addAction("foo", thisFakeAction, 20);
+      thisHooks.addAction("foo", thisFakeAction, 30);
+      thisHooks.addAction("foo", thisFakeAction, 40);
+      thisHooks.removeAction("foo", thisFakeAction);
+      thisHooks.doAction("foo", "bar");
+      thisHooks.doAction("foo", "bar");
+      expect(thisFakeAction.calls.count()).toEqual(0);
     });
 
     it("doesn't remove other listeners", function() {
       const fakeAction2 = jasmine.createSpy("fakeAction");
-      this.hooks.addAction("foo", fakeAction2);
-      this.hooks.removeAction("foo", this.fakeAction);
-      this.hooks.doAction("foo", "bar");
-      expect(this.fakeAction.calls.count()).toEqual(0);
+      thisHooks.addAction("foo", fakeAction2);
+      thisHooks.removeAction("foo", thisFakeAction);
+      thisHooks.doAction("foo", "bar");
+      expect(thisFakeAction.calls.count()).toEqual(0);
       expect(fakeAction2.calls.count()).toEqual(1);
     });
 
     it("doesn't skip other listeners when removing current listener", function() {
       const fakeAction2 = () => {
-        this.hooks.removeAction("foo", fakeAction2);
+        thisHooks.removeAction("foo", fakeAction2);
       };
-      this.hooks.addAction("foo", fakeAction2);
+      thisHooks.addAction("foo", fakeAction2);
       const fakeAction3 = jasmine.createSpy("fakeAction3");
-      this.hooks.addAction("foo", fakeAction3);
-      this.hooks.doAction("foo", "bar");
+      thisHooks.addAction("foo", fakeAction3);
+      thisHooks.doAction("foo", "bar");
       expect(fakeAction3.calls.count()).toEqual(1);
     });
   });
 
   describe("#removeFilter", function() {
     beforeEach(function() {
-      this.hooks = new Hooks();
-      this.fakeFilter = jasmine.createSpy("fakeFilter");
-      this.hooks.addFilter("foo", this.fakeFilter);
+      thisHooks = new Hooks();
+      thisFakeFilter = jasmine.createSpy("fakeFilter");
+      thisHooks.addFilter("foo", thisFakeFilter);
     });
 
     it("doesn't be called after filter is removed", function() {
-      this.hooks.removeFilter("foo", this.fakeFilter);
-      this.hooks.applyFilter("foo", "bar");
-      expect(this.fakeFilter).not.toHaveBeenCalled();
+      thisHooks.removeFilter("foo", thisFakeFilter);
+      thisHooks.applyFilter("foo", "bar");
+      expect(thisFakeFilter).not.toHaveBeenCalled();
     });
 
     it("is called when filter has not been removed", function() {
-      this.hooks.applyFilter("foo", "bar");
-      this.hooks.removeFilter("foo", this.fakeFilter);
-      this.hooks.applyFilter("foo", "bar");
-      expect(this.fakeFilter.calls.count()).toEqual(1);
+      thisHooks.applyFilter("foo", "bar");
+      thisHooks.removeFilter("foo", thisFakeFilter);
+      thisHooks.applyFilter("foo", "bar");
+      expect(thisFakeFilter.calls.count()).toEqual(1);
     });
 
     it("removes all instances of the listener", function() {
-      this.hooks.addFilter("foo", this.fakeFilter, 20);
-      this.hooks.addFilter("foo", this.fakeFilter, 30);
-      this.hooks.addFilter("foo", this.fakeFilter, 40);
-      this.hooks.removeFilter("foo", this.fakeFilter);
-      this.hooks.applyFilter("foo", "bar");
-      this.hooks.applyFilter("foo", "bar");
-      expect(this.fakeFilter.calls.count()).toEqual(0);
+      thisHooks.addFilter("foo", thisFakeFilter, 20);
+      thisHooks.addFilter("foo", thisFakeFilter, 30);
+      thisHooks.addFilter("foo", thisFakeFilter, 40);
+      thisHooks.removeFilter("foo", thisFakeFilter);
+      thisHooks.applyFilter("foo", "bar");
+      thisHooks.applyFilter("foo", "bar");
+      expect(thisFakeFilter.calls.count()).toEqual(0);
     });
 
     it("doesn't remove other listeners", function() {
       const fakeFilter2 = jasmine.createSpy("fakeFilter");
-      this.hooks.addFilter("foo", fakeFilter2);
-      this.hooks.removeFilter("foo", this.fakeFilter);
-      this.hooks.applyFilter("foo", "bar");
-      expect(this.fakeFilter.calls.count()).toEqual(0);
+      thisHooks.addFilter("foo", fakeFilter2);
+      thisHooks.removeFilter("foo", thisFakeFilter);
+      thisHooks.applyFilter("foo", "bar");
+      expect(thisFakeFilter.calls.count()).toEqual(0);
       expect(fakeFilter2.calls.count()).toEqual(1);
     });
 
     it("doesn't skip other listeners when removing current listener", function() {
       const fakeAction2 = () => {
-        this.hooks.removeFilter("foo", fakeAction2);
+        thisHooks.removeFilter("foo", fakeAction2);
       };
-      this.hooks.addFilter("foo", fakeAction2);
+      thisHooks.addFilter("foo", fakeAction2);
       const fakeAction3 = jasmine.createSpy("fakeAction3");
-      this.hooks.addFilter("foo", fakeAction3);
-      this.hooks.applyFilter("foo", "bar");
+      thisHooks.addFilter("foo", fakeAction3);
+      thisHooks.applyFilter("foo", "bar");
       expect(fakeAction3.calls.count()).toEqual(1);
     });
   });

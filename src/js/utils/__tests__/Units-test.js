@@ -1,5 +1,7 @@
 const Units = require("../Units");
 
+let thisBaseSize;
+
 describe("Units", function() {
   describe("#formatResource", function() {
     it("formats cpus", function() {
@@ -25,59 +27,55 @@ describe("Units", function() {
 
   describe("#filesize", function() {
     beforeEach(function() {
-      this.baseSize = 796;
+      thisBaseSize = 796;
     });
 
     // Regular tests
     it("converts to correct unit of B", function() {
-      expect(Units.filesize(this.baseSize)).toBe("796 B");
+      expect(Units.filesize(thisBaseSize)).toBe("796 B");
     });
 
     it("converts to correct unit of KiB", function() {
-      expect(Units.filesize(this.baseSize * 1024)).toBe("796 KiB");
+      expect(Units.filesize(thisBaseSize * 1024)).toBe("796 KiB");
     });
 
     it("converts to correct unit of MiB", function() {
       var factorize = Math.pow(1024, 2);
-      expect(Units.filesize(this.baseSize * factorize)).toBe("796 MiB");
+      expect(Units.filesize(thisBaseSize * factorize)).toBe("796 MiB");
     });
 
     it("converts to correct unit of GiB", function() {
       var factorize = Math.pow(1024, 3);
-      expect(Units.filesize(this.baseSize * factorize)).toBe("796 GiB");
+      expect(Units.filesize(thisBaseSize * factorize)).toBe("796 GiB");
     });
 
     it("converts to correct unit of PiB", function() {
       var factorize = Math.pow(1024, 5);
-      expect(Units.filesize(this.baseSize * factorize)).toBe("796 PiB");
+      expect(Units.filesize(thisBaseSize * factorize)).toBe("796 PiB");
     });
 
     it("converts to correct unit of large PiB", function() {
       var factorize = Math.pow(1024, 6);
-      expect(Units.filesize(this.baseSize * factorize)).toBe("815104 PiB");
+      expect(Units.filesize(thisBaseSize * factorize)).toBe("815104 PiB");
     });
 
     it("converts to correct unit of MiB", function() {
-      expect(Units.filesize((this.baseSize + 108) * 1024)).toBe("0.88 MiB");
+      expect(Units.filesize((thisBaseSize + 108) * 1024)).toBe("0.88 MiB");
     });
 
     it("converts to correct unit of GiB", function() {
       var factorize = Math.pow(1024, 2);
-      expect(Units.filesize((this.baseSize + 128) * factorize)).toBe("0.9 GiB");
+      expect(Units.filesize((thisBaseSize + 128) * factorize)).toBe("0.9 GiB");
     });
 
     it("converts to correct unit of TiB", function() {
       var factorize = Math.pow(1024, 3);
-      expect(Units.filesize((this.baseSize + 158) * factorize)).toBe(
-        "0.93 TiB"
-      );
+      expect(Units.filesize((thisBaseSize + 158) * factorize)).toBe("0.93 TiB");
     });
 
     it("converts to correct unit of PiB", function() {
       var factorize = Math.pow(1024, 5);
-      expect(Units.filesize((this.baseSize + 230) * factorize)).toBe(
-        "1026 PiB"
-      );
+      expect(Units.filesize((thisBaseSize + 230) * factorize)).toBe("1026 PiB");
     });
 
     // Special tests
@@ -86,25 +84,25 @@ describe("Units", function() {
     });
 
     it("does not show decimals if set to 0", function() {
-      var size = (this.baseSize + 352) * 1024;
+      var size = (thisBaseSize + 352) * 1024;
       var filesize = Units.filesize(size, 0, 1024);
       expect(filesize).toBe("1 MiB");
     });
 
     it("trims trailing zeroes from the mantissa", function() {
-      var size = (this.baseSize + 102) * 1024;
+      var size = (thisBaseSize + 102) * 1024;
       var filesize = Units.filesize(size, 4);
       expect(filesize).toBe("0.877 MiB");
     });
 
     it("shows decimals places to the specified accuracy", function() {
-      var size = (this.baseSize + 116) * 1024;
+      var size = (thisBaseSize + 116) * 1024;
       var filesize = Units.filesize(size, 4);
       expect(filesize).toBe("0.8906 MiB");
     });
 
     it("has correct custom unit and threshold", function() {
-      var size = (this.baseSize + 24) * 1024 * 1024;
+      var size = (thisBaseSize + 24) * 1024 * 1024;
       var filesize = Units.filesize(size, 2, 500, 1024, [
         "byte",
         "KB",

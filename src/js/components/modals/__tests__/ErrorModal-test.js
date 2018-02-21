@@ -5,28 +5,30 @@ const ReactDOM = require("react-dom");
 
 const ErrorModal = require("../ErrorModal");
 
+let thisCallback, thisContainer, thisInstance;
+
 describe("ErrorModal", function() {
   describe("#onClose", function() {
     beforeEach(function() {
-      this.callback = jasmine.createSpy();
-      this.container = global.document.createElement("div");
-      this.instance = ReactDOM.render(
-        <ErrorModal onClose={this.callback} />,
-        this.container
+      thisCallback = jasmine.createSpy();
+      thisContainer = global.document.createElement("div");
+      thisInstance = ReactDOM.render(
+        <ErrorModal onClose={thisCallback} />,
+        thisContainer
       );
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("doesn't call the callback after initialization", function() {
-      expect(this.callback).not.toHaveBeenCalled();
+      expect(thisCallback).not.toHaveBeenCalled();
     });
 
     it("calls the callback when #onClose is called", function() {
-      this.instance.onClose();
-      expect(this.callback).toHaveBeenCalled();
+      thisInstance.onClose();
+      expect(thisCallback).toHaveBeenCalled();
     });
   });
 });

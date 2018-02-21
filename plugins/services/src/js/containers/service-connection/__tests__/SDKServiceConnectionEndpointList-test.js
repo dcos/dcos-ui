@@ -13,6 +13,8 @@ const SDKServiceConnectionEndpointList = require("../SDKServiceConnectionEndpoin
 const SDKService = require("./fixtures/SDKService.json");
 const SDKServiceEndpoints = require("./fixtures/SDKServiceEndpoints.json");
 
+let thisContainer, thisInstance;
+
 describe("SDKServiceConnectionEndpointList", function() {
   const service = new Framework(SDKService);
 
@@ -30,28 +32,28 @@ describe("SDKServiceConnectionEndpointList", function() {
     SDKEndpointStore.getServiceError = function() {
       return "";
     };
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <SDKServiceConnectionEndpointList service={service} />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders the correct endpoints tables", function() {
       const elements = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.instance,
+        thisInstance,
         "configuration-map-section"
       );
 
       expect(elements.length).toEqual(4);
 
       const rows = TestUtils.scryRenderedDOMComponentsWithClass(
-        this.instance,
+        thisInstance,
         "configuration-map-row table-row"
       );
 

@@ -5,19 +5,21 @@ const ReactDOM = require("react-dom");
 const TestUtils = require("react-addons-test-utils");
 const Highlight = require("../Highlight");
 
+let thisContainer;
+
 describe("Highlight instance", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
   it("is what it says it is", function() {
     var instance = ReactDOM.render(
       <Highlight search="world">
         Hello World
       </Highlight>,
-      this.container
+      thisContainer
     );
     var node = ReactDOM.findDOMNode(instance);
     var match = node.querySelector("strong");
@@ -33,7 +35,7 @@ describe("Highlight instance", function() {
       <Highlight search="fox">
         The quick brown fox jumped over the lazy dog.
       </Highlight>,
-      this.container
+      thisContainer
     );
 
     var node = ReactDOM.findDOMNode(instance);
@@ -47,7 +49,7 @@ describe("Highlight instance", function() {
       <Highlight matchElement="em" search="world">
         Hello World
       </Highlight>,
-      this.container
+      thisContainer
     );
 
     var node = ReactDOM.findDOMNode(instance);
@@ -60,7 +62,7 @@ describe("Highlight instance", function() {
       <Highlight matchClass="fffffound" search="Seek">
         Hide and Seek
       </Highlight>,
-      this.container
+      thisContainer
     );
 
     var node = ReactDOM.findDOMNode(instance);
@@ -73,7 +75,7 @@ describe("Highlight instance", function() {
       <Highlight className="myHighlighter" search="world">
         Hello World
       </Highlight>,
-      this.container
+      thisContainer
     );
 
     var node = ReactDOM.findDOMNode(instance);
@@ -88,7 +90,7 @@ describe("Highlight instance", function() {
       <Highlight className="myHighlighter" search={/[A-Za-z]+/}>
         Easy as 123, ABC...
       </Highlight>,
-      this.container
+      thisContainer
     );
 
     var node = ReactDOM.findDOMNode(instance);
@@ -105,7 +107,7 @@ describe("Highlight instance", function() {
         <Highlight className="myHighlighter" search="Test (">
           Test (should not throw)
         </Highlight>,
-        this.container
+        thisContainer
       );
     }
     expect(renderInstance.bind(this)).not.toThrow();

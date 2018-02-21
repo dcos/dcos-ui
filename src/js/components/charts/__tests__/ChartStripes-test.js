@@ -6,22 +6,24 @@ const TestUtils = require("react-addons-test-utils");
 
 const ChartStripes = require("../ChartStripes");
 
+let thisContainer, thisInstance;
+
 describe("ChartStripes", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <ChartStripes count={6} height={10} width={300} />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("displays the correct number of stripes", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
-      this.instance,
+      thisInstance,
       "background"
     );
     expect(stripes.length).toEqual(6);
@@ -29,7 +31,7 @@ describe("ChartStripes", function() {
 
   it("has correct width on each stripe", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
-      this.instance,
+      thisInstance,
       "background"
     );
 
@@ -42,7 +44,7 @@ describe("ChartStripes", function() {
 
   it("has correct x value on each stripe", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
-      this.instance,
+      thisInstance,
       "background"
     );
 
@@ -55,18 +57,18 @@ describe("ChartStripes", function() {
 
   it("updates to parameter change accordingly", function() {
     var stripes = TestUtils.scryRenderedDOMComponentsWithClass(
-      this.instance,
+      thisInstance,
       "background"
     );
     expect(stripes.length).toEqual(6);
 
-    this.instance = ReactDOM.render(
+    thisInstance = ReactDOM.render(
       <ChartStripes count={5} height={10} width={300} />,
-      this.container
+      thisContainer
     );
 
     stripes = TestUtils.scryRenderedDOMComponentsWithClass(
-      this.instance,
+      thisInstance,
       "background"
     );
     expect(stripes.length).toEqual(5);

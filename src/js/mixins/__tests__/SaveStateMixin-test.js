@@ -1,9 +1,11 @@
 const SaveStateMixin = require("../SaveStateMixin");
 const UserSettingsStore = require("../../stores/UserSettingsStore");
 
+let thisInstance, thisPrevGetKey, thisPrevSetKey;
+
 describe("SaveStateMixin", function() {
   beforeEach(function() {
-    this.instance = Object.assign(
+    thisInstance = Object.assign(
       {
         saveState_key: "fakeInstance",
         setState: jasmine.createSpy()
@@ -11,12 +13,12 @@ describe("SaveStateMixin", function() {
       SaveStateMixin
     );
 
-    this.instance.constructor.displayName = "FakeInstance";
+    thisInstance.constructor.displayName = "FakeInstance";
   });
 
   describe("#componentWillMount", function() {
     beforeEach(function() {
-      this.prevGetKey = UserSettingsStore.getKey;
+      thisPrevGetKey = UserSettingsStore.getKey;
       UserSettingsStore.getKey = function() {
         return {
           fakeInstance: {
@@ -27,27 +29,27 @@ describe("SaveStateMixin", function() {
     });
 
     afterEach(function() {
-      UserSettingsStore.getKey = this.prevGetKey;
+      UserSettingsStore.getKey = thisPrevGetKey;
     });
 
     it("sets the previous state", function() {
-      this.instance.componentWillMount();
-      expect(this.instance.setState).toHaveBeenCalledWith({ open: false });
+      thisInstance.componentWillMount();
+      expect(thisInstance.setState).toHaveBeenCalledWith({ open: false });
     });
   });
 
   describe("#componentWillUnmount", function() {
     it("calls #saveState_save", function() {
-      this.instance.saveState_save = jasmine.createSpy();
-      this.instance.componentWillUnmount();
-      expect(this.instance.saveState_save).toHaveBeenCalled();
+      thisInstance.saveState_save = jasmine.createSpy();
+      thisInstance.componentWillUnmount();
+      expect(thisInstance.saveState_save).toHaveBeenCalled();
     });
   });
 
   describe("#saveState_save", function() {
     beforeEach(function() {
-      this.prevGetKey = UserSettingsStore.getKey;
-      this.prevSetKey = UserSettingsStore.setKey;
+      thisPrevGetKey = UserSettingsStore.getKey;
+      thisPrevSetKey = UserSettingsStore.setKey;
 
       UserSettingsStore.getKey = function() {
         return {
@@ -60,29 +62,29 @@ describe("SaveStateMixin", function() {
     });
 
     afterEach(function() {
-      UserSettingsStore.getKey = this.prevGetKey;
-      UserSettingsStore.setKey = this.prevSetKey;
+      UserSettingsStore.getKey = thisPrevGetKey;
+      UserSettingsStore.setKey = thisPrevSetKey;
     });
 
     it("does not save any state", function() {
-      this.instance.state = { open: false, errorCount: 9001 };
-      this.instance.saveState_save();
+      thisInstance.state = { open: false, errorCount: 9001 };
+      thisInstance.saveState_save();
       expect(UserSettingsStore.setKey).not.toHaveBeenCalled();
     });
 
     it("sets the previous state", function() {
-      this.instance.saveState_properties = ["open", "errorCount"];
-      this.instance.state = { open: false, errorCount: 9001 };
-      this.instance.saveState_save();
+      thisInstance.saveState_properties = ["open", "errorCount"];
+      thisInstance.state = { open: false, errorCount: 9001 };
+      thisInstance.saveState_save();
       expect(UserSettingsStore.setKey).toHaveBeenCalledWith("savedStates", {
         fakeInstance: { open: false, errorCount: 9001 }
       });
     });
 
     it("saves specified keys", function() {
-      this.instance.saveState_properties = ["errorCount"];
-      this.instance.state = { open: false, errorCount: 9001 };
-      this.instance.saveState_save();
+      thisInstance.saveState_properties = ["errorCount"];
+      thisInstance.state = { open: false, errorCount: 9001 };
+      thisInstance.saveState_save();
       expect(UserSettingsStore.setKey).toHaveBeenCalledWith("savedStates", {
         fakeInstance: { errorCount: 9001 }
       });

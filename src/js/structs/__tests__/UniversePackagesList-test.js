@@ -1,6 +1,8 @@
 const UniversePackage = require("../UniversePackage");
 const UniversePackagesList = require("../UniversePackagesList");
 
+let thisPackages, thisPackagesList;
+
 describe("UniversePackagesList", function() {
   describe("#constructor", function() {
     it("creates instances of UniversePackage", function() {
@@ -46,21 +48,21 @@ describe("UniversePackagesList", function() {
 
   describe("#getSelectedAndNonSelectedPackages", function() {
     beforeEach(function() {
-      this.packages = [
+      thisPackages = [
         { name: "isSelected", selected: true },
         { name: "isNotSelected", selected: false },
         { name: "isNotSelected2", selected: false }
       ];
-      this.packagesList = new UniversePackagesList({ items: this.packages });
+      thisPackagesList = new UniversePackagesList({ items: thisPackages });
     });
 
     it("returns the correct number of selected packages", function() {
-      var result = this.packagesList.getSelectedAndNonSelectedPackages();
+      var result = thisPackagesList.getSelectedAndNonSelectedPackages();
       expect(result.selectedPackages.getItems().length).toEqual(1);
     });
 
     it("returns the correct number of non-selected packages", function() {
-      var result = this.packagesList.getSelectedAndNonSelectedPackages();
+      var result = thisPackagesList.getSelectedAndNonSelectedPackages();
       expect(result.nonSelectedPackages.getItems().length).toEqual(2);
     });
   });

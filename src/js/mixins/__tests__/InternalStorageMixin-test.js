@@ -1,20 +1,22 @@
 const InternalStorageMixin = require("../InternalStorageMixin");
 
+let thisInstance;
+
 describe("InternalStorageMixin", function() {
   beforeEach(function() {
-    this.instance = Object.assign({}, InternalStorageMixin);
-    this.instance.constructor.displayName = "FakeInstance";
+    thisInstance = Object.assign({}, InternalStorageMixin);
+    thisInstance.constructor.displayName = "FakeInstance";
   });
 
   describe("#internalStorage_get", function() {
     it("returns an empty object", function() {
-      var instance = this.instance;
+      var instance = thisInstance;
 
       expect(instance.internalStorage_get()).toEqual({});
     });
 
     it("gets the last set object", function() {
-      var instance = this.instance;
+      var instance = thisInstance;
 
       instance.internalStorage_set({
         a: 1,
@@ -34,7 +36,7 @@ describe("InternalStorageMixin", function() {
     });
 
     it("gets the last set value", function() {
-      var instance = this.instance;
+      var instance = thisInstance;
 
       instance.internalStorage_set("teststring");
       instance.internalStorage_set("second teststring");
@@ -43,7 +45,7 @@ describe("InternalStorageMixin", function() {
     });
 
     it("gets the updated object", function() {
-      var instance = this.instance;
+      var instance = thisInstance;
 
       instance.internalStorage_set({
         a: 1,
@@ -69,7 +71,7 @@ describe("InternalStorageMixin", function() {
 
   describe("#internalStorage_update", function() {
     it("throws an error while try to update a non Object/Array", function() {
-      var instance = this.instance;
+      var instance = thisInstance;
 
       instance.internalStorage_set("teststring");
 

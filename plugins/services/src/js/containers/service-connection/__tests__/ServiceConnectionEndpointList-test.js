@@ -9,20 +9,22 @@ const ServiceConnectionEndpointList = require("../ServiceConnectionEndpointList"
 const ServiceWithEndpoints = require("./fixtures/ServiceWithEndpoints.json");
 const ServiceWithoutEndpoints = require("./fixtures/ServiceWithoutEndpoints.json");
 
+let thisContainer;
+
 describe("ServiceConnectionEndpointList", function() {
   const serviceWithEndpoints = new Application(ServiceWithEndpoints);
   const serviceWithoutEndpoints = new Application(ServiceWithoutEndpoints);
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders the correct endpoints page with tables", function() {
-      this.container = global.document.createElement("div");
+      thisContainer = global.document.createElement("div");
       const instance = ReactDOM.render(
         <ServiceConnectionEndpointList service={serviceWithEndpoints} />,
-        this.container
+        thisContainer
       );
 
       const endpointsTable = TestUtils.scryRenderedDOMComponentsWithClass(
@@ -40,10 +42,10 @@ describe("ServiceConnectionEndpointList", function() {
       expect(endpointRows.length).toEqual(5);
     });
     it("renders the no endpoints area", function() {
-      this.container = global.document.createElement("div");
+      thisContainer = global.document.createElement("div");
       const instance = ReactDOM.render(
         <ServiceConnectionEndpointList service={serviceWithoutEndpoints} />,
-        this.container
+        thisContainer
       );
 
       const noEndpoints = TestUtils.scryRenderedDOMComponentsWithClass(
