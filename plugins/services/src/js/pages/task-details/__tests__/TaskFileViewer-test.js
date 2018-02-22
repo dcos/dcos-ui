@@ -32,7 +32,7 @@ describe("TaskFileViewer", function() {
           "/var/lib/foo"
         )
       ).toBe(
-        "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo/%252Fvar%252Flib%252Ffoo"
+        "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo/"
       );
     });
 
