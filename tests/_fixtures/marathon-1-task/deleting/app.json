@@ -1,14 +1,14 @@
 {
   "apps": [
     {
-      "id": "/sleep",
+      "id": "/sdk-sleep",
       "cmd": "sleep 3000",
       "args": null,
       "user": null,
       "env": {
-
+        "SDK_UNINSTALL": true
       },
-      "instances": 0,
+      "instances": 1,
       "cpus": 0.1,
       "mem": 16,
       "disk": 0,
@@ -41,21 +41,18 @@
         "maximumOverCapacity": 1
       },
       "labels": {
-
+        "DCOS_COMMONS_API_VERSION": "v1",
+        "DCOS_PACKAGE_NAME": "test",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "/sdk-sleep"
       },
       "acceptedResourceRoles": null,
       "version": "2015-08-28T01:26:14.620Z",
       "tasksStaged": 0,
-      "tasksRunning": 0,
+      "tasksRunning": 1,
       "tasksHealthy": 0,
-      "tasksUnhealthy": 0,
+      "tasksUnhealthy": 1,
       "deployments": [
-
       ]
     }
-  ],
-  "groups": [
-
-  ],
-  "id": "/"
+  ]
 }

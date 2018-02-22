@@ -9,11 +9,6 @@ describe("ServiceAttributeIsFilter", function() {
     this.mockItems = [
       {
         getServiceStatus() {
-          return ServiceStatus.DELAYED;
-        }
-      },
-      {
-        getServiceStatus() {
           return ServiceStatus.DEPLOYING;
         }
       },
@@ -29,26 +24,10 @@ describe("ServiceAttributeIsFilter", function() {
       },
       {
         getServiceStatus() {
-          return ServiceStatus.WAITING;
-        }
-      },
-      {
-        getServiceStatus() {
           return ServiceStatus.NA;
         }
       }
     ];
-  });
-
-  it("keeps services in delayed state", function() {
-    const services = new List({ items: this.mockItems });
-    const expr = SearchDSL.parse("is:delayed");
-
-    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
-
-    expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
-    ]);
   });
 
   it("keeps services in deploying state", function() {
@@ -58,7 +37,7 @@ describe("ServiceAttributeIsFilter", function() {
     const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[1]
+      this.mockItems[0]
     ]);
   });
 
@@ -69,7 +48,7 @@ describe("ServiceAttributeIsFilter", function() {
     const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[2]
+      this.mockItems[1]
     ]);
   });
 
@@ -80,29 +59,7 @@ describe("ServiceAttributeIsFilter", function() {
     const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[3]
-    ]);
-  });
-
-  it("keeps services in waiting state", function() {
-    const services = new List({ items: this.mockItems });
-    const expr = SearchDSL.parse("is:waiting");
-
-    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
-
-    expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[4]
-    ]);
-  });
-
-  it("keeps services in n/a state", function() {
-    const services = new List({ items: this.mockItems });
-    const expr = SearchDSL.parse("is:na");
-
-    const filters = new DSLFilterList().add(new ServiceAttributeIsFilter());
-
-    expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[5]
+      this.mockItems[2]
     ]);
   });
 
@@ -117,7 +74,7 @@ describe("ServiceAttributeIsFilter", function() {
 
   it("is case-insensitive", function() {
     const services = new List({ items: this.mockItems });
-    const expr = SearchDSL.parse("is:dElAyED");
+    const expr = SearchDSL.parse("is:dEpLOYING");
 
     const filters = new DSLFilterList([new ServiceAttributeIsFilter()]);
 

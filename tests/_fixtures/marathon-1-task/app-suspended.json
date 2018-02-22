@@ -46,7 +46,7 @@
       "acceptedResourceRoles": null,
       "version": "2015-08-28T01:26:14.620Z",
       "tasksStaged": 0,
-      "tasksRunning": 1,
+      "tasksRunning": 0,
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
       "deployments": [

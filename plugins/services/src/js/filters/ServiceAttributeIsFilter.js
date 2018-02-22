@@ -5,12 +5,11 @@ import ServiceStatus from "../constants/ServiceStatus";
 const LABEL = "is";
 
 const LABEL_TO_INSTANCE = {
-  delayed: ServiceStatus.DELAYED,
+  deleting: ServiceStatus.DELETING,
   deploying: ServiceStatus.DEPLOYING,
-  na: ServiceStatus.NA,
+  recovering: ServiceStatus.RECOVERING,
   running: ServiceStatus.RUNNING,
-  stopped: ServiceStatus.STOPPED,
-  waiting: ServiceStatus.WAITING
+  stopped: ServiceStatus.STOPPED
 };
 
 /**

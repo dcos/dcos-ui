@@ -306,6 +306,46 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
+  if (configuration.mesos === "1-service-recovering") {
+    router
+      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
+      .route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-task/recovering/groups"
+      )
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/recovering/deployments"
+      )
+      .route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/recovering/queue"
+      )
+      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
+      .route(/history\/last/, "fx:marathon-1-task/summary")
+      .route(/state-summary/, "fx:marathon-1-task/summary");
+  }
+
+  if (configuration.mesos === "1-service-deleting") {
+    router
+      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/deleting/app")
+      .route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-task/deleting/groups"
+      )
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/deleting/deployments"
+      )
+      .route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/deleting/queue"
+      )
+      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
+      .route(/history\/last/, "fx:marathon-1-task/summary")
+      .route(/state-summary/, "fx:marathon-1-task/summary");
+  }
+
   if (configuration.mesos === "1-sdk-service") {
     cy
       .route({
@@ -483,6 +523,26 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         url: /repository\/delete/,
         status: 200,
         response: "fx:cosmos/repositories-list"
+      });
+  }
+
+  if (configuration.mesosStream) {
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?subscribe/,
+        response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?get_master/,
+        response: "fx:marathon-1-task/mesos-get-master",
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
   }
 
