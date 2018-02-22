@@ -13,7 +13,7 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
   is_pod: DSLExpressionPart.attribute("is", "pod"),
-  is_package: DSLExpressionPart.attribute("is", "package"),
+  is_catalog: DSLExpressionPart.attribute("is", "catalog"),
   has_volumes: DSLExpressionPart.attribute("has", "volumes")
 };
 
@@ -39,15 +39,13 @@ class ServiceOtherDSLSection extends React.Component {
             <FormGroup>
               <FieldLabel>
                 <FieldInput
-                  checked={data.is_package}
+                  checked={data.is_catalog}
                   disabled={!enabled}
-                  name="is_package"
+                  name="is_catalog"
                   type="checkbox"
                 />
                 Catalog
               </FieldLabel>
-            </FormGroup>
-            <FormGroup>
               <FieldLabel>
                 <FieldInput
                   checked={data.is_pod}
