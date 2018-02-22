@@ -24,7 +24,7 @@ describe("InstanceUtil", function() {
       expect(InstanceUtil.getRegionName(null)).toEqual("N/A");
     });
     it("returns N/A when no region name exists", function() {
-      const task = Object.assign({}, NodeInstance, { agent: { id: "2" } });
+      const task = Object.assign({}, NodeInstance, { agentId: "2" });
       expect(InstanceUtil.getRegionName(task)).toEqual("N/A");
     });
     it("adds (Local) when no slave/ master in the same region", function() {
@@ -50,7 +50,7 @@ describe("InstanceUtil", function() {
       expect(InstanceUtil.getZoneName(null)).toEqual("N/A");
     });
     it("returns N/A when no zone name exists", function() {
-      const task = Object.assign({}, NodeInstance, { agent: { id: "2" } });
+      const task = Object.assign({}, NodeInstance, { agentId: "2" });
       expect(InstanceUtil.getZoneName(task)).toEqual("N/A");
     });
     it("returns zone when slave/ master in different zone", function() {

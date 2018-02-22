@@ -1,13 +1,13 @@
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 import DSLFilter from "#SRC/js/structs/DSLFilter";
-import TaskUtil from "../utils/TaskUtil";
+import InstanceUtil from "../utils/InstanceUtil";
 
 const LABEL = "zone";
 
 /**
- * This filter handles the `zone:XXXX` for tasks
+ * This filter handles the `zone:XXXX` for instances
  */
-class TasksZoneFilter extends DSLFilter {
+class PodInstancesZoneFilter extends DSLFilter {
   constructor(zones = []) {
     super();
     this.zones = zones;
@@ -28,7 +28,7 @@ class TasksZoneFilter extends DSLFilter {
   }
 
   /**
-   * Keep only tasks whose zone matches the value of
+   * Keep only instances whose zone matches the value of
    * the `zone` label
    *
    * @override
@@ -41,12 +41,12 @@ class TasksZoneFilter extends DSLFilter {
       zone = filterArgumentsValue;
     }
 
-    return resultSet.filterItems(task => {
-      const node = TaskUtil.getNode(task);
+    return resultSet.filterItems(instance => {
+      const node = InstanceUtil.getNode(instance);
 
       return node && node.getZoneName().toLowerCase() === zone;
     });
   }
 }
 
-module.exports = TasksZoneFilter;
+module.exports = PodInstancesZoneFilter;

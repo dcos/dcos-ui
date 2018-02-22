@@ -1,13 +1,13 @@
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 import DSLFilter from "#SRC/js/structs/DSLFilter";
-import TaskUtil from "../utils/TaskUtil";
+import InstanceUtil from "../utils/InstanceUtil";
 
 const LABEL = "region";
 
 /**
- * This filter handles the `region:XXXX` for tasks
+ * This filter handles the `region:XXXX` for instances
  */
-class TasksRegionFilter extends DSLFilter {
+class PodInstancesRegionFilter extends DSLFilter {
   constructor(regions = []) {
     super();
     this.regions = regions;
@@ -28,7 +28,7 @@ class TasksRegionFilter extends DSLFilter {
   }
 
   /**
-   * Keep only tasks whose region matches the value of
+   * Keep only instances whose region matches the value of
    * the `region` label
    *
    * @override
@@ -41,12 +41,12 @@ class TasksRegionFilter extends DSLFilter {
       region = filterArgumentsValue;
     }
 
-    return resultSet.filterItems(task => {
-      const node = TaskUtil.getNode(task);
+    return resultSet.filterItems(instance => {
+      const node = InstanceUtil.getNode(instance);
 
       return node && node.getRegionName().toLowerCase() === region;
     });
   }
 }
 
-module.exports = TasksRegionFilter;
+module.exports = PodInstancesRegionFilter;

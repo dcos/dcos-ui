@@ -11,7 +11,13 @@ import ServiceInstancesContainer
 const HighOrderServiceInstances = function(props) {
   const { service, params, location } = props;
   if (service instanceof Pod) {
-    return <PodInstancesContainer pod={service} />;
+    return (
+      <PodInstancesContainer
+        location={location}
+        params={params}
+        pod={service}
+      />
+    );
   }
 
   return (

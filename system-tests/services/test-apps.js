@@ -323,15 +323,6 @@ describe("Services", function() {
         .contains(serviceName)
         .click();
 
-      // Get the table row and look for health
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".dot.flush.success", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
-
       // open edit screen
       cy
         .get(".page-header-actions .dropdown")
@@ -936,15 +927,6 @@ describe("Services", function() {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
-
-      // Get the table row and look for health
-      cy
-        .get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
-        .get(".dot.flush.success", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
 
       // open edit screen
       cy
