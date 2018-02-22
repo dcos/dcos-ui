@@ -234,7 +234,7 @@ TaskFileViewer.prototype.getNewRoute = function getNewRoute(
   params,
   path
 ) {
-  const hasFilePathParam = routePath.endsWith(":filePath");
+  const hasFilePathParam = routePath.indexOf(":filePath") !== -1;
   if (!hasFilePathParam && routePath.endsWith("/")) {
     routePath += ":filePath";
   }
