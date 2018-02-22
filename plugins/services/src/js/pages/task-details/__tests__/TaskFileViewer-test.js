@@ -13,27 +13,86 @@ const TaskDirectoryActions = require("../../../events/TaskDirectoryActions");
 const TaskFileViewer = require("../TaskFileViewer");
 
 describe("TaskFileViewer", function() {
-  beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
-      <TaskFileViewer
-        directory={
-          new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
-        }
-        params={{ filePath: "undefined" }}
-        selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stdout" })}
-        task={{ slave_id: "foo" }}
-      />,
-      this.container
-    );
-  });
+  describe("#getNewRoute", function() {
+    let getNewRoute;
+    beforeEach(function() {
+      getNewRoute = TaskFileViewer.prototype.getNewRoute;
+    });
 
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    it("does not augment the path if there is a :filePath placeholder", function() {
+      const params = {
+        filePath: "%2Fvar%2Flib%2Fbar",
+        id: "/data-services/kafka",
+        taskID: "kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9"
+      };
+      expect(
+        getNewRoute(
+          "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
+          params,
+          "/var/lib/foo"
+        )
+      ).toBe(
+        "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo/%252Fvar%252Flib%252Ffoo"
+      );
+    });
+
+    it("does augment the path without a / if there is no placeholder", function() {
+      const params = {
+        filePath: "%2Fvar%2Flib%2Fbar",
+        id: "/data-services/kafka",
+        taskID: "kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9"
+      };
+      expect(
+        getNewRoute(
+          "/services/detail/:id/tasks/:taskID/files/view",
+          params,
+          "/var/lib/foo"
+        )
+      ).toBe(
+        "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo"
+      );
+    });
+
+    it("does augment the path with a / if there is no placeholder and no /", function() {
+      it("does augment the path without a / if there is no placeholder", function() {
+        const params = {
+          filePath: "%2Fvar%2Flib%2Fbar",
+          id: "/data-services/kafka",
+          taskID: "kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9"
+        };
+        expect(
+          getNewRoute(
+            "/services/detail/:id/tasks/:taskID/files/view/",
+            params,
+            "/var/lib/foo"
+          )
+        ).toBe(
+          "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo"
+        );
+      });
+    });
   });
 
   describe("#render", function() {
-    it("should set button disabled when file is not found", function() {
+    beforeEach(function() {
+      this.container = global.document.createElement("div");
+      this.instance = ReactDOM.render(
+        <TaskFileViewer
+          directory={
+            new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
+          }
+          params={{ filePath: "undefined" }}
+          selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stdout" })}
+          task={{ slave_id: "foo" }}
+        />,
+        this.container
+      );
+    });
+
+    afterEach(function() {
+      ReactDOM.unmountComponentAtNode(this.container);
+    });
+    it("sets button disabled when file is not found", function() {
       this.instance = ReactDOM.render(
         <TaskFileViewer
           directory={new TaskDirectory({ items: [{ nlink: 1, path: "" }] })}
