@@ -194,7 +194,7 @@ class TaskDirectoryTable extends React.Component {
         <col style={{ width: "150px" }} />
         <col style={{ width: "110px" }} />
         <col style={{ width: "100px" }} />
-        <col style={{ width: "125px" }} />
+        <col style={{ width: "175px" }} />
       </colgroup>
     );
   }
