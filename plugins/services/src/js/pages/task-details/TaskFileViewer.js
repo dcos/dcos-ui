@@ -12,7 +12,22 @@ import SearchLog from "../../components/SearchLog";
 import TaskDirectory from "../../structs/TaskDirectory";
 import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 
-class TaskFileViewer extends React.Component {
+export function getNewRoute(routePath, params, path) {
+  const hasFilePathParam = routePath.indexOf(":filePath") !== -1;
+  if (!hasFilePathParam && routePath.endsWith("/")) {
+    routePath += ":filePath";
+  }
+  if (!hasFilePathParam && !routePath.endsWith("/")) {
+    routePath += "/:filePath";
+  }
+
+  return formatPattern(
+    routePath,
+    Object.assign({}, params, { filePath: encodeURIComponent(path) })
+  );
+}
+
+export default class TaskFileViewer extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -55,7 +70,7 @@ class TaskFileViewer extends React.Component {
     const { params, routes } = this.props;
     const routePath = RouterUtil.reconstructPathFromRoutes(routes);
 
-    this.context.router.push(this.getNewRoute(routePath, params, path));
+    this.context.router.push(getNewRoute(routePath, params, path));
   }
 
   getLogFiles() {
@@ -227,24 +242,3 @@ TaskFileViewer.propTypes = {
   selectedLogFile: React.PropTypes.object,
   task: React.PropTypes.object
 };
-
-TaskFileViewer.prototype.getNewRoute = function getNewRoute(
-  routePath,
-  params,
-  path
-) {
-  const hasFilePathParam = routePath.indexOf(":filePath") !== -1;
-  if (!hasFilePathParam && routePath.endsWith("/")) {
-    routePath += ":filePath";
-  }
-  if (!hasFilePathParam && !routePath.endsWith("/")) {
-    routePath += "/:filePath";
-  }
-
-  return formatPattern(
-    routePath,
-    Object.assign({}, params, { filePath: encodeURIComponent(path) })
-  );
-};
-
-module.exports = TaskFileViewer;
