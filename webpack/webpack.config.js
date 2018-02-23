@@ -1,11 +1,13 @@
-/**
- * Webpack Dev Server 2.X
-extract-text-webpack-plugin 3.X <= new API surface
- */
-
 const { DefinePlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const LessColorLighten = require("less-color-lighten");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const extractLess = new ExtractTextPlugin({
+  filename: "[name].[contenthash].css",
+  disable: process.env.NODE_ENV === "development"
+});
 
 function requireAll(array) {
   // https://stackoverflow.com/a/34574630/1559386
@@ -45,7 +47,6 @@ module.exports = {
   node: {
     fs: "empty" // Jison loader fails otherwise
   },
-  devtool: "cheap-module-eval-source-map",
   devServer: {
     // TODO: https://webpack.js.org/configuration/dev-server/#devserver-hot
     contentBase: path.join(__dirname, "../dist"),
@@ -56,11 +57,9 @@ module.exports = {
   },
   plugins: [
     new DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("development"),
-        LATER_COV: false
-      }
+      "process.env.LATER_COV": false
     }),
+    new ExtractTextPlugin("styles.css"),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     })
@@ -107,17 +106,34 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader"
-          },
-          {
-            loader: "less-loader"
-          }
-        ]
+        use: extractLess.extract({
+          use: [
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                sourceMap: true,
+                config: {
+                  path: path.join(__dirname, "../postcss.config.js")
+                }
+              }
+            },
+            {
+              loader: "less-loader",
+              options: {
+                sourceMap: true,
+                plugins: [LessColorLighten]
+              }
+            }
+          ],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
       },
       {
         test: /\.jison$/,
