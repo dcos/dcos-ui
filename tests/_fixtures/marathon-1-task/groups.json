@@ -6,7 +6,7 @@
       "args": null,
       "user": null,
       "env": {
-        
+
       },
       "instances": 1,
       "cpus": 0.1,
@@ -33,13 +33,13 @@
         }
       ],
       "constraints": [
-        
+
       ],
       "uris": [
-        
+
       ],
       "storeUrls": [
-        
+
       ],
       "ports": [
         10000
@@ -50,10 +50,10 @@
       "maxLaunchDelaySeconds": 3600,
       "container": null,
       "healthChecks": [
-        
+
       ],
       "dependencies": [
-        
+
       ],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
@@ -70,24 +70,96 @@
       },
       "tasksStaged": 0,
       "tasksRunning": 1,
-      "tasksHealthy": 0,
+      "tasksHealthy": 1,
       "tasksUnhealthy": 0,
       "deployments": [
-        
+
       ]
     }
   ],
   "groups": [
     {
-      "id": "/some/group-with-pods",
+      "id": "/unhealthy",
       "apps": [
-        
+        {
+          "id": "/unhealthy-sleep",
+          "cmd": "sleep 3000",
+          "args": null,
+          "user": null,
+          "env": {
+
+          },
+          "instances": 1,
+          "cpus": 0.1,
+          "mem": 16,
+          "disk": 0,
+          "executor": "",
+          "volumes": [
+
+          ],
+          "constraints": [
+
+          ],
+          "uris": [
+
+          ],
+          "storeUrls": [
+
+          ],
+          "ports": [
+            10000
+          ],
+          "requirePorts": false,
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": null,
+          "healthChecks": [
+
+          ],
+          "dependencies": [
+
+          ],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {
+            "MARATHON_SINGLE_INSTANCE_APP": "true"
+          },
+          "acceptedResourceRoles": null,
+          "version": "2015-08-28T01:26:14.620Z",
+          "versionInfo": {
+            "lastScalingAt": "2015-08-28T01:26:14.620Z",
+            "lastConfigChangeAt": "2015-08-28T01:26:14.620Z"
+          },
+          "tasksStaged": 0,
+          "tasksRunning": 1,
+          "tasksHealthy": 1,
+          "tasksUnhealthy": 1,
+          "deployments": [
+
+          ]
+        }
       ],
       "dependencies": [
-        
       ],
       "groups": [
-        
+      ],
+      "pods": [
+      ],
+      "version": "2015-08-28T01:26:14.620Z"
+    },
+    {
+      "id": "/some/group-with-pods",
+      "apps": [
+
+      ],
+      "dependencies": [
+
+      ],
+      "groups": [
+
       ],
       "pods": [
         {

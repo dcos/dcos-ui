@@ -8,7 +8,7 @@
       "env": {
 
       },
-      "instances": 0,
+      "instances": 1,
       "cpus": 0.1,
       "mem": 16,
       "disk": 0,
@@ -46,16 +46,11 @@
       "acceptedResourceRoles": null,
       "version": "2015-08-28T01:26:14.620Z",
       "tasksStaged": 0,
-      "tasksRunning": 0,
+      "tasksRunning": 1,
       "tasksHealthy": 0,
-      "tasksUnhealthy": 0,
+      "tasksUnhealthy": 1,
       "deployments": [
-
       ]
     }
-  ],
-  "groups": [
-
-  ],
-  "id": "/"
+  ]
 }
