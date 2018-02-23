@@ -1,24 +1,14 @@
-const JestUtil = require("#SRC/js/utils/JestUtil");
+import React from "react";
+import ReactDOM from "react-dom";
 
-JestUtil.unMockStores(["TaskDirectoryStore", "MesosLogStore"]);
+import DirectoryItem from "../../../structs/DirectoryItem";
+import TaskDirectory from "../../../structs/TaskDirectory";
 
-const DirectoryItem = require("../../../structs/DirectoryItem");
-const TaskDirectory = require("../../../structs/TaskDirectory");
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-
-const TaskDirectoryActions = require("../../../events/TaskDirectoryActions");
-const TaskFileViewer = require("../TaskFileViewer");
+import TaskDirectoryActions from "../../../events/TaskDirectoryActions";
+import TaskFileViewer, { getNewRoute } from "../TaskFileViewer";
 
 describe("TaskFileViewer", function() {
   describe("#getNewRoute", function() {
-    let getNewRoute;
-    beforeEach(function() {
-      getNewRoute = TaskFileViewer.prototype.getNewRoute;
-    });
-
     it("does not augment the path if there is a :filePath placeholder", function() {
       const params = {
         filePath: "%2Fvar%2Flib%2Fbar",
