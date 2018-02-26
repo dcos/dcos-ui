@@ -5,64 +5,9 @@ import DirectoryItem from "../../../structs/DirectoryItem";
 import TaskDirectory from "../../../structs/TaskDirectory";
 
 import TaskDirectoryActions from "../../../events/TaskDirectoryActions";
-import TaskFileViewer, { getNewRoute } from "../TaskFileViewer";
+import TaskFileViewer from "../TaskFileViewer";
 
 describe("TaskFileViewer", function() {
-  describe("#getNewRoute", function() {
-    it("does not augment the path if there is a :filePath placeholder", function() {
-      const params = {
-        filePath: "%2Fvar%2Flib%2Fbar",
-        id: "/data-services/kafka",
-        taskID: "kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9"
-      };
-      expect(
-        getNewRoute(
-          "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-          params,
-          "/var/lib/foo"
-        )
-      ).toBe(
-        "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo/"
-      );
-    });
-
-    it("does augment the path without a / if there is no placeholder", function() {
-      const params = {
-        filePath: "%2Fvar%2Flib%2Fbar",
-        id: "/data-services/kafka",
-        taskID: "kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9"
-      };
-      expect(
-        getNewRoute(
-          "/services/detail/:id/tasks/:taskID/files/view",
-          params,
-          "/var/lib/foo"
-        )
-      ).toBe(
-        "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo"
-      );
-    });
-
-    it("does augment the path with a / if there is no placeholder and no /", function() {
-      it("does augment the path without a / if there is no placeholder", function() {
-        const params = {
-          filePath: "%2Fvar%2Flib%2Fbar",
-          id: "/data-services/kafka",
-          taskID: "kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9"
-        };
-        expect(
-          getNewRoute(
-            "/services/detail/:id/tasks/:taskID/files/view/",
-            params,
-            "/var/lib/foo"
-          )
-        ).toBe(
-          "/services/detail/%2Fdata-services%2Fkafka/tasks/kafka-0-broker__d79a8dae-f0c4-48bd-a6c7-269856337fc9/files/view/%252Fvar%252Flib%252Ffoo"
-        );
-      });
-    });
-  });
-
   describe("#render", function() {
     beforeEach(function() {
       this.container = global.document.createElement("div");

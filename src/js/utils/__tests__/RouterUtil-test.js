@@ -130,6 +130,34 @@ describe("RouterUtil", function() {
     });
   });
 
+  describe("#getCorrectedFilePathRoute", function() {
+    it("does not augment the path if there is a :filePath placeholder", function() {
+      expect(
+        RouterUtil.getCorrectedFileRoutePath(
+          "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))"
+        )
+      ).toBe(
+        "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))"
+      );
+    });
+
+    it("does augment the path without a / if there is no placeholder", function() {
+      expect(
+        RouterUtil.getCorrectedFileRoutePath(
+          "/services/detail/:id/tasks/:taskID/files/view"
+        )
+      ).toBe("/services/detail/:id/tasks/:taskID/files/view/:filePath");
+    });
+
+    it("does augment the path with a / if there is no placeholder and no /", function() {
+      expect(
+        RouterUtil.getCorrectedFileRoutePath(
+          "/services/detail/:id/tasks/:taskID/files/view/"
+        )
+      ).toBe("/services/detail/:id/tasks/:taskID/files/view/:filePath");
+    });
+  });
+
   describe("#redirect", function() {
     beforeEach(function() {
       const searchQuery = "?redirect=http://www.google.com/&something=foo";
