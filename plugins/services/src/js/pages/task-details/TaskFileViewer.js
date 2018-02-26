@@ -13,7 +13,7 @@ import SearchLog from "../../components/SearchLog";
 import TaskDirectory from "../../structs/TaskDirectory";
 import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 
-class TaskFileViewer extends React.Component {
+export default class TaskFileViewer extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -47,24 +47,18 @@ class TaskFileViewer extends React.Component {
   }
 
   handleViewChange(currentFile) {
-    const { params, routes } = this.props;
     const path = currentFile.get("path");
     if (path === this.getSelectedFile().get("path")) {
       // File path didn't change, let's not try to update path
       return;
     }
 
-    let routePath = RouterUtil.reconstructPathFromRoutes(routes);
-    const hasFilePathParam = routePath.endsWith(":filePath");
-    if (!hasFilePathParam && routePath.endsWith("/")) {
-      routePath += ":filePath";
-    }
-    if (!hasFilePathParam && !routePath.endsWith("/")) {
-      routePath += "/:filePath";
-    }
+    const { params, routes } = this.props;
+    const routePath = RouterUtil.reconstructPathFromRoutes(routes);
+
     this.context.router.push(
       formatPattern(
-        routePath,
+        RouterUtil.getCorrectedFileRoutePath(routePath),
         Object.assign({}, params, { filePath: encodeURIComponent(path) })
       )
     );
@@ -239,5 +233,3 @@ TaskFileViewer.propTypes = {
   selectedLogFile: PropTypes.object,
   task: PropTypes.object
 };
-
-module.exports = TaskFileViewer;

@@ -160,6 +160,20 @@ const RouterUtil = {
   },
 
   /**
+   * checks if route is a proper filepath route, returns corrected path if not
+   *
+   * @param {string} routePath - (reconstructed) route path
+   * @returns {string} - corrected filePath route path
+   */
+  getCorrectedFileRoutePath(routePath) {
+    if (routePath.includes(":filePath")) {
+      return routePath;
+    }
+
+    return routePath + (routePath.endsWith("/") ? "" : "/") + ":filePath";
+  },
+
+  /**
    * Returns a download path for the resource specified
    *
    * @param  {String} dataType Data Type of the file to download. e.x. text/plain

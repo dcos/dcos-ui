@@ -1,38 +1,32 @@
-const JestUtil = require("#SRC/js/utils/JestUtil");
+import React from "react";
+import ReactDOM from "react-dom";
 
-JestUtil.unMockStores(["TaskDirectoryStore", "MesosLogStore"]);
+import DirectoryItem from "../../../structs/DirectoryItem";
+import TaskDirectory from "../../../structs/TaskDirectory";
 
-const DirectoryItem = require("../../../structs/DirectoryItem");
-const TaskDirectory = require("../../../structs/TaskDirectory");
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-
-const TaskDirectoryActions = require("../../../events/TaskDirectoryActions");
-const TaskFileViewer = require("../TaskFileViewer");
+import TaskDirectoryActions from "../../../events/TaskDirectoryActions";
+import TaskFileViewer from "../TaskFileViewer";
 
 describe("TaskFileViewer", function() {
-  beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
-      <TaskFileViewer
-        directory={
-          new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
-        }
-        params={{ filePath: "undefined" }}
-        selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stdout" })}
-        task={{ slave_id: "foo" }}
-      />,
-      this.container
-    );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
-  });
-
   describe("#render", function() {
+    beforeEach(function() {
+      this.container = global.document.createElement("div");
+      this.instance = ReactDOM.render(
+        <TaskFileViewer
+          directory={
+            new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
+          }
+          params={{ filePath: "undefined" }}
+          selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stdout" })}
+          task={{ slave_id: "foo" }}
+        />,
+        this.container
+      );
+    });
+
+    afterEach(function() {
+      ReactDOM.unmountComponentAtNode(this.container);
+    });
     it("sets button disabled when file is not found", function() {
       this.instance = ReactDOM.render(
         <TaskFileViewer
