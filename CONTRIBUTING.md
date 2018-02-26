@@ -327,6 +327,53 @@ follow these guidelines. Some of the most common ones to follow:
 For more on this topic, and examples we recommend
 [Better Specs](http://www.betterspecs.org/).
 
+### Testing rxjs observables with marbles diagrams
+
+Before you begin please read the introduction on [what the marbles diagrams are](https://github.com/ReactiveX/rxjs/blob/5.4.2/doc/writing-marble-tests.md).
+Since there's no official helpers to write tests levereging the marbles diagrams we're using [rxjs-marbles](https://github.com/cartant/rxjs-marbles) library.
+
+The most important thing you should do is wrapping your usual test case function with `marble` function
+
+```js
+import { marbles } from "rxjs-marbles/jest";
+
+it("tests marbles", marble(function(m) {
+  // My test case
+}));
+```
+
+it will inject the Context conventionally named `m` that exposes the helpers API.
+
+#### Example of a marble test
+
+```js
+import { marbles } from "rxjs-marbles/jest";
+import { linearBackoff } from "../rxjsUtils";
+
+describe("linearBackoff", function() {
+  it(
+    "retries maxRetries times",
+    // To setup marbles test env pass your function wrapped with `marbels`
+    // it will inject Context as the first argument named `m` by convention
+    marbles(function(m) {
+      // with `m.bind` we bind all time dependent operators to a TestScheduler
+      // so that we can use mocked time intervals.
+      // But we also could create our own TestScheduler and use it instead.
+      m.bind();
+
+      const source = m.cold("1--2#");
+      const expected = m.cold("1--2--1--2----1--2------1--2#");
+
+      // In test env we don't want to wait for the real wall clock
+      // so we encode time intervals with a special helper `m.time`
+      const result = source.retryWhen(linearBackoff(3, m.time("--|")));
+
+      m.expect(result).toBeObservable(expected);
+    })
+  );
+});
+```
+
 ## Integration Testing
 
 At the integration level, we are interested in verifying that the composition of
