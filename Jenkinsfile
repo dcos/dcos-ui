@@ -100,7 +100,7 @@ pipeline {
       post {
         always {
           archiveArtifacts 'cypress/**/*'
-          junit 'cypress/*.xml'
+          junit 'cypress/results.xml'
         }
       }
     }
