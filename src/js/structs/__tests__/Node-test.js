@@ -140,4 +140,19 @@ describe("Node", function() {
       });
     });
   });
+
+  describe("#getUsedResources", function() {
+    it("returns empty obj when resources are falsey", function() {
+      const node = new Node({
+        used_resources: null
+      });
+
+      expect(node.getUsedResources()).toEqual({
+        cpus: 0,
+        mem: 0,
+        gpus: 0,
+        disk: 0
+      });
+    });
+  });
 });
