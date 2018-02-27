@@ -305,7 +305,7 @@ describe("MesosStateStore", function() {
       MesosStateStore.get = thisGet;
     });
 
-    context("when slave isn't falsey", function() {
+    describe("when slave isn't falsey", function() {
       beforeEach(function() {
         thisGet = MesosStateStore.get;
         MesosStateStore.get = function() {
@@ -331,7 +331,7 @@ describe("MesosStateStore", function() {
       });
     });
 
-    context("when slave is falsey", function() {
+    describe("when slave is falsey", function() {
       beforeEach(function() {
         thisGet = MesosStateStore.get;
         MesosStateStore.set({

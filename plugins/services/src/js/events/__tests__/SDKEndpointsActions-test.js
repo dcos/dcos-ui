@@ -10,7 +10,7 @@ describe("SDKEndpointsActions", function() {
   describe("#fetchEndpoints", function() {
     const serviceId = "foo";
 
-    context("#RequestUtil", function() {
+    describe("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         SDKEndpointsActions.fetchEndpoints(serviceId);
