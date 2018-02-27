@@ -16,7 +16,7 @@ describe("ServiceActions", function() {
       }
     };
 
-    context("#RequestUtil", function() {
+    describe("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         ServiceActions.deleteGroup(groupDefinition, false);
@@ -58,7 +58,7 @@ describe("ServiceActions", function() {
       }
     };
 
-    context("#RequestUtil", function() {
+    describe("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         ServiceActions.deleteService(serviceDefinition);
@@ -103,7 +103,7 @@ describe("ServiceActions", function() {
       };
       const frameworkDefinition = new Framework(serviceDefinition);
 
-      context("#RequestUtil", function() {
+      describe("#RequestUtil", function() {
         beforeEach(function() {
           spyOn(RequestUtil, "json");
           ServiceActions.deleteService(frameworkDefinition);
