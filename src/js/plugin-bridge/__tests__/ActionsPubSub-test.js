@@ -1,6 +1,7 @@
 const APPLICATION = require("../../constants/PluginConstants").APPLICATION;
 const PluginSDK = require("PluginSDK");
 
+// eslint-disable-next-line no-unused-vars
 let thisMockFn, thisMockFn1, thisUnsubscribe, thisUnsubscribe1;
 
 describe("#ActionsPubSub", function() {

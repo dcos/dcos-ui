@@ -72,8 +72,6 @@
     "tv4": "1.2.7"
   },
   "devDependencies": {
-    "node": "8.9.4",
-    "npm": "5.6.0",
     "@dcos/eslint-config": "0.3.0",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.24.1",
@@ -121,7 +119,10 @@
     "license-checker": "5.1.2",
     "localStorage": "1.0.3",
     "marked": "0.3.12",
+    "mockdate": "2.0.2",
+    "node": "8.9.4",
     "node-libs-browser": "1.0.0",
+    "npm": "5.6.0",
     "postcss": "5.0.21",
     "postcss-loader": "0.8.2",
     "prettier": "1.2.2",

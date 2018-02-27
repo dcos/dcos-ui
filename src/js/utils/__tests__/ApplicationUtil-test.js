@@ -1,3 +1,5 @@
+const MockDate = require("mockdate");
+
 const ApplicationUtil = require("../ApplicationUtil");
 const Config = require("../../config/Config");
 const EventTypes = require("../../constants/EventTypes");
@@ -6,16 +8,11 @@ const MesosSummaryStore = require("../../stores/MesosSummaryStore");
 describe("ApplicationUtil", function() {
   describe("#invokeAfterPageLoad", function() {
     beforeEach(function() {
-      // Clean up application timers.
-      jasmine.clock().uninstall();
-      // Install our custom jasmine timers.
-      jasmine.clock().install();
-      jasmine.clock().mockDate(new Date(2016, 3, 19));
+      MockDate.set(new Date(2016, 3, 19));
     });
 
     afterEach(function() {
-      // Clean up application timers.
-      jasmine.clock().uninstall();
+      MockDate.reset();
     });
 
     it("calls callback right away", function() {
@@ -28,7 +25,7 @@ describe("ApplicationUtil", function() {
 
       ApplicationUtil.invokeAfterPageLoad(handler);
 
-      jasmine.clock().tick();
+      jest.runAllTimers();
       expect(handler).toHaveBeenCalled();
     });
 
@@ -45,7 +42,7 @@ describe("ApplicationUtil", function() {
       // Ensure that it's not called before the time has elapsed, tick the
       // timers and then check if it was called
       expect(handler).not.toHaveBeenCalled();
-      jasmine.clock().tick(Config.applicationRenderDelay);
+      jest.advanceTimersByTime(Config.applicationRenderDelay);
       expect(handler).toHaveBeenCalled();
     });
   });

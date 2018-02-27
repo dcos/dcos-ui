@@ -13,7 +13,7 @@ const APPEND = SystemLogTypes.APPEND;
 
 let thisStoreStartTailing,
   thisStoreStopTailing,
-  thisMesosLogStoreGet,
+  thisMesosLogStoreGet, // eslint-disable-line no-unused-vars
   thisContainer,
   thisInstance,
   thisMesosLogStoreGetLogBuffer;
