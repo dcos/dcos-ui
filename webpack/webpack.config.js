@@ -67,6 +67,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        use: {
+          loader: "html-loader",
+          options: {
+            attrs: ["link:href"]
+          }
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
