@@ -36,15 +36,13 @@ describe("List", function() {
     });
 
     it("enforces type, if specified", function() {
-      const { Thing, ThingList } = this;
-      const thingList = new ThingList({ items: [{}] });
-      expect(thingList.last()).toEqual(jasmine.any(Thing));
+      const thingList = new thisThingList({ items: [{}] });
+      expect(thingList.last()).toEqual(jasmine.any(thisThing));
     });
 
     it("does not re-cast items of the correct type", function() {
-      const { Thing, ThingList } = this;
       // If re-cast, an error will be thrown
-      new ThingList({ items: [new Thing({})] });
+      new thisThingList({ items: [new thisThing({})] });
     });
   });
 
@@ -93,17 +91,15 @@ describe("List", function() {
     });
 
     it("enforces type, if specified", function() {
-      const { Thing, ThingList } = this;
-      const thingList = new ThingList();
+      const thingList = new thisThingList();
       thingList.add({});
-      expect(thingList.last()).toEqual(jasmine.any(Thing));
+      expect(thingList.last()).toEqual(jasmine.any(thisThing));
     });
 
     it("does not re-cast items of the correct type", function() {
-      const { Thing, ThingList } = this;
-      const thingList = new ThingList();
+      const thingList = new thisThingList();
       // If re-cast, an error will be thrown
-      thingList.add(new Thing());
+      thingList.add(new thisThing());
     });
   });
 
