@@ -7,8 +7,7 @@ describe("TabsUtil", function() {
     beforeEach(function() {
       thisTabs = { foo: "bar", baz: "qux", corge: "grault" };
       thisHierarchicalTabs = { foo: "bar", foobar: "foobar", "-foo": "baz" };
-      thisGetElement = function() {};
-      spyOn(this, "getElement");
+      thisGetElement = jest.fn();
     });
 
     it("returns an empty array when given an empty object", function() {
@@ -21,7 +20,7 @@ describe("TabsUtil", function() {
     it("returns equal length array to what is given", function() {
       var result = TabsUtil.getTabs(thisTabs, "baz", thisGetElement);
 
-      expect(thisGetElement.calls.count()).toEqual(3);
+      expect(thisGetElement.mock.calls.length).toEqual(3);
       expect(result.length).toEqual(3);
     });
 
@@ -64,7 +63,7 @@ describe("TabsUtil", function() {
     it("calls getElement with appropriate arguments", function() {
       TabsUtil.getTabs(thisTabs, "baz", thisGetElement);
 
-      expect(thisGetElement.calls.allArgs()).toEqual([
+      expect(thisGetElement.mock.calls).toEqual([
         ["foo", 0],
         ["baz", 1],
         ["corge", 2]
@@ -86,7 +85,7 @@ describe("TabsUtil", function() {
     it("does not have an active route when it doesn't exist", function() {
       TabsUtil.getTabs(thisTabs, "notHere", thisGetElement);
 
-      expect(thisGetElement.calls.allArgs()).toEqual([
+      expect(thisGetElement.mock.calls).toEqual([
         ["foo", 0],
         ["baz", 1],
         ["corge", 2]
