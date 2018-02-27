@@ -83,6 +83,17 @@ class Node extends Item {
 
     return sum;
   }
+
+  getUsedResources() {
+    return (
+      this.get("used_resources") || {
+        cpus: 0,
+        mem: 0,
+        gpus: 0,
+        disk: 0
+      }
+    );
+  }
 }
 
 module.exports = Node;
