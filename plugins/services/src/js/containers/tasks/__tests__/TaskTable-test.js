@@ -13,6 +13,7 @@ const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 const TaskTable = require("../TaskTable");
 const Tasks = require("./fixtures/MockTasks.json").tasks;
 
+// eslint-disable-next-line no-unused-vars
 let thisContainer, thisInstance, thisTaskTable, thisGetNodeFromID;
 
 describe("TaskTable", function() {

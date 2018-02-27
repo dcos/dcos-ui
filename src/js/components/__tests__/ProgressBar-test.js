@@ -18,6 +18,7 @@ const testData = [
   }
 ];
 
+// eslint-disable-next-line no-unused-vars
 let thisContainer, thisInstance;
 
 describe("#ProgressBar", function() {

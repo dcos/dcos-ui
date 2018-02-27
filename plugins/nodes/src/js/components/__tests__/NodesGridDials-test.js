@@ -26,7 +26,7 @@ let thisHosts,
   thisResourceColor,
   thisResourceLabel,
   thisActiveSlices,
-  thisResourceType;
+  thisResourceType; // eslint-disable-line no-unused-vars
 
 describe("NodesGridDials", function() {
   beforeEach(function() {

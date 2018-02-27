@@ -3,6 +3,7 @@ const TableUtil = require("../TableUtil");
 const Util = require("../Util");
 const HealthSorting = require("../../../../plugins/services/src/js/constants/HealthSorting");
 
+// eslint-disable-next-line no-unused-vars
 let thisGetServiceHealth, thisFoo, thisBar, thisGetProp, thisSortFunction;
 
 describe("TableUtil", function() {

@@ -19,8 +19,8 @@ let thisConfigUseFixture,
   thisPackagesSearchFixture,
   thisPackageDescribeFixture,
   thisPackageListVersionsFixture,
-  thisServiceDescribeFixture,
-  thisPackagesListFixture;
+  thisServiceDescribeFixture, // eslint-disable-line no-unused-vars
+  thisPackagesListFixture; // eslint-disable-line no-unused-vars
 
 describe("CosmosPackagesStore", function() {
   beforeEach(function() {
