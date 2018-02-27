@@ -323,7 +323,7 @@ describe("Util", function() {
       expect(originalObject2).toEqual(originalObject);
     });
 
-    it("does not clone out of bounds arrays", function() {
+    it("does not clone out of bounds items in arrays", function() {
       var originalObject = {
         obj1: {
           array1: [1, 2]
@@ -334,7 +334,8 @@ describe("Util", function() {
       originalObject.obj1.array1[number] = 3;
 
       var copiedObject = Util.deepCopy(originalObject);
-      expect(copiedObject).not.toEqual(originalObject);
+      expect(originalObject.obj1.array1[number]).toEqual(3);
+      expect(copiedObject.obj1.array1[number]).not.toEqual(3);
     });
 
     it("does clone an array with normal indices", function() {
