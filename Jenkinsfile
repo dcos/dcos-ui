@@ -44,6 +44,7 @@ pipeline {
       steps {
         ansiColor('xterm') {
           sh '''npm run lint'''
+          sh '''shellcheck ./system-tests/**/*.sh ./scripts/**/*'''
         }
       }
     }
