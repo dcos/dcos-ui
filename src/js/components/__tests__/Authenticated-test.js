@@ -57,7 +57,7 @@ describe("Authenticated", function() {
     expect(thisCallback).not.toHaveBeenCalled();
   });
 
-  it("renders component when user is logged in", function() {
+  it.skip("renders component when user is logged in", function() {
     var renderedComponent = ReactDOM.render(<thisInstance />, thisContainer);
     var component = TestUtils.findRenderedDOMComponentWithTag(
       renderedComponent,
