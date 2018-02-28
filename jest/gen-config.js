@@ -12,7 +12,7 @@ var path = require("path");
  *
  * @type {Array.<string>}
  */
-const roots = ["../src", "../tests"];
+const roots = ["./src", "./tests"];
 
 /**
  * List of package directories
@@ -38,7 +38,7 @@ packages.forEach(function(packageDir) {
   fs.readdirSync(packageDir).forEach(function(rootDir) {
     const relativePath = packageDir + "/" + rootDir;
     if (fs.statSync(relativePath).isDirectory()) {
-      roots.push("../" + relativePath);
+      roots.push("./" + relativePath);
     }
   });
 });
@@ -49,9 +49,9 @@ var config = {
     __DEV__: true
   },
   // TODO: split up transforms
-  transform: { ".*": "./preprocessor.js" },
-  setupTestFrameworkScriptFile: "./setupTestFramework.js",
-  setupFiles: ["./setupEnv.js"],
+  transform: { ".*": "./jest/preprocessor.js" },
+  setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
+  setupFiles: ["./jest/setupEnv.js"],
   testRegex: "/__tests__/.*\\-test\\.(es6|js)$",
   moduleFileExtensions: ["js", "json", "es6"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
@@ -63,6 +63,6 @@ var config = {
 };
 
 fs.writeFileSync(
-  path.resolve(__dirname, "config.json"),
+  path.resolve(__dirname, "../jest.config.json"),
   JSON.stringify(config, null, 2)
 );

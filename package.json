@@ -164,7 +164,7 @@
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
-    "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
+    "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest.config.json --no-cache",
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "validate-build": "scripts/validate-build dist/*.js",
