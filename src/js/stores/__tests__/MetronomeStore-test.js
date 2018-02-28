@@ -23,6 +23,7 @@ describe("MetronomeStore", function() {
     jest.useRealTimers();
     MetronomeStore.removeAllListeners();
     MetronomeStore.stopJobDetailMonitor();
+    jest.clearAllTimers();
   });
 
   describe("constructor", function() {
