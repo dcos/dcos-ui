@@ -75,11 +75,10 @@ describe("PackageDetailTab", function() {
     describe("#getItem", function() {
       it("returns empty array with null values provided", function() {
         expect(
-          thisInstance.getItems([
+          thisInstance.getItems.call(thisInstance, [
             { label: "foo", value: null },
             { label: "bar", value: null }
-          ]),
-          thisInstance.getItem
+          ])
         ).toEqual([]);
       });
 
@@ -108,11 +107,10 @@ describe("PackageDetailTab", function() {
     describe("#getSubItem", function() {
       it("returns empty array with only null values provided", function() {
         expect(
-          thisInstance.getItems([
+          thisInstance.getItems.call(thisInstance, [
             { label: "foo", value: null },
             { label: "bar", value: null }
-          ]),
-          thisInstance.getSubItem
+          ])
         ).toEqual([]);
       });
 
