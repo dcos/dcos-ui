@@ -161,51 +161,42 @@ describe("RouterUtil", function() {
   });
 
   describe("#redirect", function() {
-    beforeEach(function() {
-      const searchQuery = "?redirect=http://www.google.com/&something=foo";
-
-      // Overwrite jsdom global/window location mock
-      Object.defineProperty(global.location, "hostname", {
-        writable: true,
-        value: "localhost"
-      });
-
-      Object.defineProperty(global.location, "href", {
-        writable: true,
-        value: "http://localhost:4200/#/login?relativePath=/services/detail/%2Fmlancaster/configuration"
-      });
-
-      // Overwrite jsdom global/window location mock
-      Object.defineProperty(global.location, "search", {
-        writable: true,
-        value: searchQuery
-      });
-    });
-
     it("domain in redirect is valid", function() {
       const expectedResult = true;
       const url = "http://localhost:4200/";
 
-      expect(RouterUtil.isValidRedirect(url)).toEqual(expectedResult);
+      expect(RouterUtil.isValidRedirect(url, "localhost")).toEqual(
+        expectedResult
+      );
     });
 
     it("domain in redirect is invalid", function() {
       const expectedResult = false;
       const url = "http://malicious.domain.com/pwned?localhost:4200";
 
-      expect(RouterUtil.isValidRedirect(url)).toEqual(expectedResult);
+      expect(RouterUtil.isValidRedirect(url, "localhost")).toEqual(
+        expectedResult
+      );
     });
 
     it("get relative path", function() {
       const expectedResult = "/services/detail/%2Fmlancaster/configuration";
 
-      expect(RouterUtil.getRelativePath()).toEqual(expectedResult);
+      expect(
+        RouterUtil.getRelativePath(
+          "http://localhost:4200/#/login?relativePath=/services/detail/%2Fmlancaster/configuration"
+        )
+      ).toEqual(expectedResult);
     });
 
     it("get redirectTo", function() {
       const expectedResult = "http://www.google.com/";
 
-      expect(RouterUtil.getRedirectTo()).toEqual(expectedResult);
+      expect(
+        RouterUtil.getRedirectTo(
+          "?redirect=http://www.google.com/&something=foo"
+        )
+      ).toEqual(expectedResult);
     });
   });
 
@@ -214,28 +205,19 @@ describe("RouterUtil", function() {
       redirect: "http://www.google.com/",
       something: "foo"
     };
-
-    beforeEach(function() {
-      const searchQuery = "?redirect=http://www.google.com/&something=foo";
-
-      // Overwrite jsdom global/window location mock
-      Object.defineProperty(global.location, "search", {
-        writable: true,
-        value: searchQuery
-      });
-
-      Object.defineProperty(global.location, "hash", {
-        writable: true,
-        value: `#/some/path${searchQuery}`
-      });
-    });
+    const searchQuery = "?redirect=http://www.google.com/&something=foo";
+    const hash = `#/some/path${searchQuery}`;
 
     it("get object from search query", function() {
-      expect(RouterUtil.getQueryStringInUrl()).toEqual(expectedResult);
+      expect(RouterUtil.getQueryStringInUrl(searchQuery)).toEqual(
+        expectedResult
+      );
     });
 
     it("get object from hash query", function() {
-      expect(RouterUtil.getQueryStringInUrl()).toEqual(expectedResult);
+      expect(RouterUtil.getQueryStringInUrl(searchQuery, hash)).toEqual(
+        expectedResult
+      );
     });
   });
 
