@@ -1,10 +1,9 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { mount } from "enzyme";
+import { Hooks } from "PluginSDK";
 
-const Authenticated = require("../Authenticated");
-const AuthStore = require("../../stores/AuthStore");
-const Hooks = require("PluginSDK").Hooks;
+import Authenticated from "../Authenticated";
+import AuthStore from "../../stores/AuthStore";
 
 class FakeComponent extends React.Component {
   render() {
@@ -12,15 +11,13 @@ class FakeComponent extends React.Component {
   }
 }
 
-let thisContainer,
-  thisOriginalWillTransitionTo,
+let thisOriginalWillTransitionTo,
   thisOriginalIsLoggedIn,
   thisCallback,
-  thisInstance;
+  ThisInstance;
 
 describe("Authenticated", function() {
   beforeEach(function() {
-    thisContainer = global.document.createElement("div");
     thisOriginalWillTransitionTo = Authenticated.willTransitionTo;
     thisOriginalIsLoggedIn = AuthStore.isLoggedIn;
     thisCallback = jasmine.createSpy();
@@ -28,15 +25,13 @@ describe("Authenticated", function() {
       return false;
     };
 
-    thisInstance = new Authenticated(FakeComponent);
+    ThisInstance = new Authenticated(FakeComponent);
   });
 
   afterEach(function() {
     Authenticated.willTransitionTo = thisOriginalWillTransitionTo;
     AuthStore.removeAllListeners();
     AuthStore.isLoggedIn = thisOriginalIsLoggedIn;
-
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("redirects to /login if user is not logged in", function() {
@@ -44,7 +39,7 @@ describe("Authenticated", function() {
     Hooks.addAction("redirectToLogin", function(nextState, replace) {
       replace("/login");
     });
-    thisInstance.willTransitionTo(null, thisCallback);
+    ThisInstance.willTransitionTo(null, thisCallback);
     expect(thisCallback).toHaveBeenCalledWith("/login");
   });
 
@@ -53,16 +48,16 @@ describe("Authenticated", function() {
       return true;
     };
     thisCallback = jasmine.createSpy();
-    thisInstance.willTransitionTo(null, thisCallback);
+    ThisInstance.willTransitionTo(null, thisCallback);
     expect(thisCallback).not.toHaveBeenCalled();
   });
 
-  it.skip("renders component when user is logged in", function() {
-    var renderedComponent = ReactDOM.render(<thisInstance />, thisContainer);
-    var component = TestUtils.findRenderedDOMComponentWithTag(
-      renderedComponent,
-      "div"
-    );
-    expect(ReactDOM.findDOMNode(component).textContent).toBe("fakeComponent");
+  it("renders component when user is logged in", function() {
+    AuthStore.isLoggedIn = function() {
+      return true;
+    };
+    const wrapper = mount(<ThisInstance />);
+
+    expect(wrapper.text()).toEqual("fakeComponent");
   });
 });
