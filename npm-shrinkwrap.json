@@ -2898,7 +2898,7 @@
     },
     "decamelize": {
       "version": "1.2.0",
-      "from": "decamelize@>=1.0.0 <2.0.0",
+      "from": "decamelize@>=1.1.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
     },
     "decompress": {
@@ -3647,7 +3647,7 @@
     },
     "eslint-config-airbnb": {
       "version": "10.0.1",
-      "from": "eslint-config-airbnb@10.0.1",
+      "from": "eslint-config-airbnb@>=10.0.1 <11.0.0",
       "resolved": "https://registry.npmjs.org/eslint-config-airbnb/-/eslint-config-airbnb-10.0.1.tgz"
     },
     "eslint-config-airbnb-base": {
@@ -4144,7 +4144,7 @@
     },
     "find-up": {
       "version": "1.1.2",
-      "from": "find-up@>=1.1.2 <2.0.0",
+      "from": "find-up@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/find-up/-/find-up-1.1.2.tgz",
       "dependencies": {
         "path-exists": {
@@ -5490,7 +5490,7 @@
     },
     "isarray": {
       "version": "1.0.0",
-      "from": "isarray@1.0.0",
+      "from": "isarray@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
     },
     "isexe": {
@@ -6876,7 +6876,7 @@
     },
     "lodash._reinterpolate": {
       "version": "3.0.0",
-      "from": "lodash._reinterpolate@>=3.0.0 <4.0.0",
+      "from": "lodash._reinterpolate@>=3.0.0 <3.1.0",
       "resolved": "https://registry.npmjs.org/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz"
     },
     "lodash._root": {
@@ -7177,7 +7177,7 @@
     },
     "meow": {
       "version": "3.7.0",
-      "from": "meow@>=3.5.0 <4.0.0",
+      "from": "meow@3.7.0",
       "resolved": "https://registry.npmjs.org/meow/-/meow-3.7.0.tgz",
       "dependencies": {
         "object-assign": {
@@ -7271,7 +7271,7 @@
     },
     "minimist": {
       "version": "1.2.0",
-      "from": "minimist@>=1.1.0 <2.0.0",
+      "from": "minimist@>=1.1.3 <2.0.0",
       "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
     },
     "mkdirp": {
@@ -8330,7 +8330,7 @@
     },
     "prop-types": {
       "version": "15.6.0",
-      "from": "prop-types@latest",
+      "from": "prop-types@>=15.5.6 <16.0.0",
       "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.0.tgz",
       "dependencies": {
         "fbjs": {
@@ -8340,12 +8340,12 @@
         },
         "js-tokens": {
           "version": "3.0.2",
-          "from": "js-tokens@>=3.0.0 <4.0.0",
+          "from": "js-tokens@^3.0.0",
           "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz"
         },
         "loose-envify": {
           "version": "1.3.1",
-          "from": "loose-envify@>=1.3.1 <2.0.0",
+          "from": "loose-envify@^1.3.1",
           "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz"
         },
         "object-assign": {
@@ -8676,9 +8676,9 @@
       }
     },
     "reactjs-components": {
-      "version": "0.20.1",
-      "from": "reactjs-components@0.20.1",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.20.1.tgz"
+      "version": "0.20.3",
+      "from": "reactjs-components@0.20.3",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.20.3.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",
@@ -9519,7 +9519,7 @@
     },
     "strip-ansi": {
       "version": "3.0.1",
-      "from": "strip-ansi@>=3.0.1 <4.0.0",
+      "from": "strip-ansi@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz"
     },
     "strip-bom": {
@@ -9826,7 +9826,7 @@
     },
     "through": {
       "version": "2.3.8",
-      "from": "through@>=2.3.4 <2.4.0",
+      "from": "through@>=2.2.7 <3.0.0",
       "resolved": "https://registry.npmjs.org/through/-/through-2.3.8.tgz"
     },
     "through2": {
@@ -10668,7 +10668,7 @@
     },
     "xtend": {
       "version": "4.0.1",
-      "from": "xtend@>=4.0.0 <5.0.0",
+      "from": "xtend@>=4.0.1 <4.1.0",
       "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
     },
     "y18n": {
