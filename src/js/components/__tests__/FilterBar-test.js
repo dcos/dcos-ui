@@ -27,8 +27,7 @@ describe("FilterBar", function() {
         expect(
           filterItems.reduce(function(hasClass, item) {
             return hasClass && item.props.className === "filter-bar-item";
-          }),
-          true
+          })
         ).toEqual(true);
       });
     });

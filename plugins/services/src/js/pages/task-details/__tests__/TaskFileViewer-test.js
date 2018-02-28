@@ -9,7 +9,7 @@ import TaskFileViewer from "../TaskFileViewer";
 
 let thisContainer, thisInstance;
 
-describe("TaskFileViewer", function() {
+describe.skip("TaskFileViewer", function() {
   beforeEach(function() {
     thisContainer = global.document.createElement("div");
     thisInstance = ReactDOM.render(
