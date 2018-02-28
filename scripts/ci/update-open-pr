@@ -1,15 +1,15 @@
 #!/bin/bash
+set -ex
 
 # Setup Git
 git config --global user.email "$GIT_USER@users.noreply.github.com"
 git config --global user.name "MesosphereCI Robot"
-git clone --depth 1 -b dcos-ui/latest https://$GIT_USER:$GIT_PASSWORD@github.com/mesosphere/dcos dcos-latest
+git clone --depth 1 -b dcos-ui/latest "https://$GIT_USER:$GIT_PASSWORD@github.com/mesosphere/dcos" dcos-latest
  
-ls -l
+# ls -l
 cp -fr buildinfo.json dcos-latest/packages/dcos-ui/buildinfo.json
-cd dcos-latest
+cd dcos-latest || exit 1
 
 git add "packages/dcos-ui/buildinfo.json"
 git commit -m "Update DC/OS UI to latest build"
-
 git push origin dcos-ui/latest
