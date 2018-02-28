@@ -108,18 +108,36 @@ describe("Node", function() {
   });
 
   describe("#getUsageStats", function() {
-    it("returns usage stats for given resource", function() {
-      const node = new Node({
-        resources: { cpus: 10 },
-        used_resources: { cpus: 5 }
-      });
-      const stats = {
-        percentage: 50,
-        total: 10,
-        value: 5
-      };
+    describe("with resources from mesos", function() {
+      it("returns usage stats for given resource", function() {
+        const node = new Node({
+          resources: { cpus: 10 },
+          used_resources: { cpus: 5 }
+        });
+        const stats = {
+          percentage: 50,
+          total: 10,
+          value: 5
+        };
 
-      expect(node.getUsageStats("cpus")).toEqual(stats);
+        expect(node.getUsageStats("cpus")).toEqual(stats);
+      });
+    });
+
+    describe("without resources from mesos", function() {
+      it("returns empty resources and used_resources", function() {
+        const node = new Node({
+          resources: null,
+          used_resources: undefined
+        });
+        const stats = {
+          percentage: 0,
+          total: 0,
+          value: 0
+        };
+
+        expect(node.getUsageStats("cpus")).toEqual(stats);
+      });
     });
   });
 });

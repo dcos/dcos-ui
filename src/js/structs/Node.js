@@ -39,8 +39,13 @@ class Node extends Item {
   }
 
   getUsageStats(resource) {
-    const total = this.get("resources")[resource];
-    const value = this.get("used_resources")[resource];
+    const total = (this.get("resources") || {})[resource];
+    const value = (this.get("used_resources") || {})[resource];
+
+    if (total === undefined || value === undefined) {
+      return { percentage: 0, total: 0, value: 0 };
+    }
+
     const percentage = Math.round(100 * value / Math.max(1, total));
 
     return { percentage, total, value };
