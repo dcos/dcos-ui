@@ -1,7 +1,7 @@
 const ReducerUtil = require("../ReducerUtil");
 const TransactionType = require("../../constants/TransactionTypes");
 
-let thisItems, thisReducers, thisId, thisPort;
+let thisItems, thisReducers;
 
 describe("ReducerUtil", function() {
   describe("#combineReducers", function() {
@@ -46,15 +46,15 @@ describe("ReducerUtil", function() {
         id: idReducer,
         vip(state, action) {
           if (action.path.join("") === "id") {
-            thisId = action.value;
+            this.id = action.value;
           }
 
           if (action.path.join("") === "port") {
-            thisPort = action.value;
+            this.port = action.value;
           }
 
-          if (thisId && thisPort) {
-            return `${thisId}:${thisPort}`;
+          if (this.id && this.port) {
+            return `${this.id}:${this.port}`;
           }
 
           return state;
@@ -94,15 +94,15 @@ describe("ReducerUtil", function() {
         container: ReducerUtil.combineReducers({
           vip(state, action) {
             if (action.path.join("") === "id") {
-              thisId = action.value;
+              this.id = action.value;
             }
 
             if (action.path.join("") === "port") {
-              thisPort = action.value;
+              this.port = action.value;
             }
 
-            if (thisId && thisPort) {
-              return `${thisId}:${thisPort}`;
+            if (this.id && this.port) {
+              return `${this.id}:${this.port}`;
             }
 
             return state;
