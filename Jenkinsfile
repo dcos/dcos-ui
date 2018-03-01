@@ -8,6 +8,7 @@ pipeline {
   agent {
     dockerfile {
       args  '--shm-size=2g'
+      label 'mesos-med'
     }
   }
 
