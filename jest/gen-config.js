@@ -56,7 +56,7 @@ var config = {
   moduleFileExtensions: ["js", "json", "es6"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   timers: "fake",
-  coverageReporters: ["json", "lcov", "cobertura", "text"],
+  coverageReporters: ["cobertura"],
   // We need this to override jest's default ['/node_modules/']
   transformIgnorePatterns: [],
   testPathIgnorePatterns: ["/tmp/", "/node_modules/"]
