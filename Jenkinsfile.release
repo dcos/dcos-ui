@@ -16,7 +16,7 @@ pipeline {
   environment {
     JENKINS_VERSION = 'yes'
     NODE_PATH = 'node_modules'
-    TAG_NAME = sh(git describe --tags --abbrev=0)
+    TAG_NAME = sh("git describe --tags --abbrev=0")
   }
 
   options {
