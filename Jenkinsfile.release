@@ -56,7 +56,7 @@ pipeline {
             string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY')
         ]) {
           sh "printenv"
-          sh "BRANCH_NAME=${env.BRANCH_NAME} TAG_NAME=$(git describe --tags --abbrev=0) ./scripts/ci/upload-build"
+          sh "BRANCH_NAME=${env.BRANCH_NAME} TAG_NAME=$\(git describe --tags --abbrev=0\) ./scripts/ci/upload-build"
         }
       }
 
@@ -72,7 +72,7 @@ pipeline {
         withCredentials([
           usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
         ]) {
-         sh "GIT_PASSWORD=${GIT_PASSWORD} GIT_USER=${GIT_USER} TAG_NAME=$(git describe --tags --abbrev=0) ./scripts/ci/update-github"
+         sh "GIT_PASSWORD=${GIT_PASSWORD} GIT_USER=${GIT_USER} TAG_NAME=$\(git describe --tags --abbrev=0\) ./scripts/ci/update-github"
         }
       }
     }
