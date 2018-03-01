@@ -82,7 +82,7 @@ const JobUtil = {
     let scheduleId = "default";
     let schedulePolicy = "ALLOW";
     // preserve id and concurrencyPolicy
-    if (typeof spec.schedules != "undefined" && spec.schedules.length > 0) {
+    if (Array.isArray(spec.schedules) && spec.schedules.length > 0) {
       scheduleId = spec.schedules[0].id;
       schedulePolicy = spec.schedules[0].concurrencyPolicy;
     }
