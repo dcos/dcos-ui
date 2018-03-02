@@ -31,11 +31,9 @@ import SingleContainerPortMappings
 import {
   FormReducer as networks
 } from "../../reducers/serviceForm/FormReducers/Networks";
-import ContainerConstants from "../../constants/ContainerConstants";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
-const { MESOS } = ContainerConstants.type;
 
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
 
@@ -567,12 +565,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpointsSection() {
-    const { container, networks } = this.props.data;
-    const networkType = findNestedPropertyInObject(networks, "0.mode");
-    const type = findNestedPropertyInObject(container, "type");
-    const isMesosRuntime = !type || type === MESOS;
-    const isVirtualNetwork = networkType && networkType.startsWith(CONTAINER);
-
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI(
       "/deploying-services/service-endpoints/"
     );
@@ -604,27 +596,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </FormGroupHeadingContent>
       </FormGroupHeading>
     );
-
-    // Mesos Runtime doesn't support Service Endpoints for the USER network
-    if (isMesosRuntime && isVirtualNetwork) {
-      const tooltipMessage = `Service Endpoints are not available in the ${ContainerConstants.labelMap[type]}`;
-
-      return (
-        <Tooltip
-          content={tooltipMessage}
-          maxWidth={500}
-          wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
-          wrapText={true}
-        >
-          <h2 className="short-bottom muted" key="service-endpoints-header">
-            {heading}
-          </h2>
-          <p key="service-endpoints-description">
-            DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
-          </p>
-        </Tooltip>
-      );
-    }
 
     return (
       <div>
