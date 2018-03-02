@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+# Import utils
+source ${SCRIPT_PATH}/utils/message
+
+# strong some numbers
+NPM_VERSION="$(npm -v)"
+MAJOR_NPM_VERSION="$(npm -v | cut -d. -f1)"
+
+NODE_VERSION="$(node -v)"
+
+PACKAGE_DEV_DEPENDENCY="$(node -p -e "require('./package.json').devDependencies.node")"
+PACKAGE_ENGINE_DEPENDENCY="$(node -p -e "require('./package.json').engines.node")"
+
+VALIDATION_EXIT_CODE=$(${SCRIPT_PATH}/validate-engine-versions > /dev/null; echo $?)
+
+# checking some stuff
+if [ "$PACKAGE_DEV_DEPENDENCY" != "undefined" ] && [ "$MAJOR_NPM_VERSION" -lt 5 ]; then
+  warning "This branch uses node as a dependency, \
+    but you are running npm ${NPM_VERSION} which doesnt support that."
+  exit 1;
+elif [ $VALIDATION_EXIT_CODE -ne 0 ]; then
+  warning "This branch requires node version v${PACKAGE_ENGINE_DEPENDENCY}, \
+    but you're running ${NODE_VERSION}."
+  exit 1
+fi
+
+info "Looks like your node version is fine."
