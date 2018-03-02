@@ -19,7 +19,7 @@ You can choose from two ways of developing this repository.
 ### Local Development
 #### Requirements
 
-Node 4.4.x and NPM 3.9.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
+Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
 #### DC/OS Installation Instructions:
 1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
