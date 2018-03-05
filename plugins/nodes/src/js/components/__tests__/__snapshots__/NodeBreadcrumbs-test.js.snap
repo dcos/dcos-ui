@@ -1,3 +1,77 @@
+exports[`NodeBreadcrumbs renders no node breadcrumbs if node cant be found 1`] = `
+<div
+  className="breadcrumbs">
+  <div
+    className="breadcrumb breadcrumb--is-icon">
+    <a
+      onClick={[Function]}
+      style={Object {}}>
+      <svg
+        className="icon icon-small">
+        <use
+          xlinkHref="#icon-product--nodes" />
+      </svg>
+    </a>
+  </div>
+  <div
+    className="breadcrumb breadcrumb--is-caret">
+    <svg
+      className="icon icon-grey icon-mini">
+      <use
+        xlinkHref="#icon-system--caret-right" />
+    </svg>
+  </div>
+  <div
+    className="breadcrumb">
+    <div
+      className="breadcrumb__content breadcrumb__content--text">
+      <a
+        onClick={[Function]}
+        style={Object {}}>
+        Nodes
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NodeBreadcrumbs renders no unitID breadcrumbs without nodeID 1`] = `
+<div
+  className="breadcrumbs">
+  <div
+    className="breadcrumb breadcrumb--is-icon">
+    <a
+      onClick={[Function]}
+      style={Object {}}>
+      <svg
+        className="icon icon-small">
+        <use
+          xlinkHref="#icon-product--nodes" />
+      </svg>
+    </a>
+  </div>
+  <div
+    className="breadcrumb breadcrumb--is-caret">
+    <svg
+      className="icon icon-grey icon-mini">
+      <use
+        xlinkHref="#icon-system--caret-right" />
+    </svg>
+  </div>
+  <div
+    className="breadcrumb">
+    <div
+      className="breadcrumb__content breadcrumb__content--text">
+      <a
+        onClick={[Function]}
+        style={Object {}}>
+        Nodes
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
 <div
   className="breadcrumbs">

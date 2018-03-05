@@ -102,4 +102,28 @@ describe("NodeBreadcrumbs", function() {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it("renders no unitID breadcrumbs without nodeID", function() {
+    const tree = renderer
+      .create(<NodeBreadcrumbs unitID="unit-ids-are-nice" />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("renders no node breadcrumbs if node cant be found", function() {
+    mockCompositeState.getNodesList.mockReturnValue(
+      new NodesList({
+        items: []
+      })
+    );
+    const tree = renderer
+      .create(
+        <NodeBreadcrumbs nodeID="e99adb4a-eee7-4e48-ba86-79cd061d2215-S1" />
+      )
+      .toJSON();
+
+    expect(mockCompositeState.getNodesList).toHaveBeenCalled();
+    expect(tree).toMatchSnapshot();
+  });
 });

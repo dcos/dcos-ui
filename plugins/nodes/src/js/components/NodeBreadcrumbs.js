@@ -21,13 +21,16 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
 
   if (nodeID != null && trimmedNodeID.length > 0) {
     node = CompositeState.getNodesList().filter({ ids: [nodeID] }).last();
-    crumbs.push(
-      <Breadcrumb key="hostname" title={node.hostname}>
-        <BreadcrumbTextContent>
-          <Link to={`/nodes/${encodedNodeID}`}>{node.hostname}</Link>
-        </BreadcrumbTextContent>
-      </Breadcrumb>
-    );
+
+    if (node) {
+      crumbs.push(
+        <Breadcrumb key="hostname" title={node.hostname}>
+          <BreadcrumbTextContent>
+            <Link to={`/nodes/${encodedNodeID}`}>{node.hostname}</Link>
+          </BreadcrumbTextContent>
+        </Breadcrumb>
+      );
+    }
   }
 
   if (taskID != null && taskName != null) {
@@ -43,7 +46,7 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
     );
   }
 
-  if (unitID != null) {
+  if (node != null && unitID != null) {
     const unit = UnitHealthStore.getUnit(unitID);
     const healthStatus = UnitHealthStore.getNode(node.hostname).getHealth();
     const unitTitle = unit.getTitle();
