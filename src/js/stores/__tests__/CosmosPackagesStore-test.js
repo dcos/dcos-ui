@@ -18,9 +18,7 @@ let thisConfigUseFixture,
   thisRequestFn,
   thisPackagesSearchFixture,
   thisPackageDescribeFixture,
-  thisPackageListVersionsFixture,
-  thisServiceDescribeFixture, // eslint-disable-line no-unused-vars
-  thisPackagesListFixture; // eslint-disable-line no-unused-vars
+  thisPackageListVersionsFixture;
 
 describe("CosmosPackagesStore", function() {
   beforeEach(function() {
@@ -317,7 +315,7 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, serviceDescribeFixture));
       };
-      thisServiceDescribeFixture = Object.assign({}, serviceDescribeFixture);
+      Object.assign({}, serviceDescribeFixture);
     });
 
     afterEach(function() {
@@ -455,7 +453,7 @@ describe("CosmosPackagesStore", function() {
       RequestUtil.json = function(handlers) {
         handlers.success(Object.assign({}, packagesListFixture));
       };
-      thisPackagesListFixture = Object.assign({}, packagesListFixture);
+      Object.assign({}, packagesListFixture);
     });
 
     afterEach(function() {

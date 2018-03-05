@@ -25,8 +25,7 @@ let thisHosts,
   thisInstance,
   thisResourceColor,
   thisResourceLabel,
-  thisActiveSlices,
-  thisResourceType; // eslint-disable-line no-unused-vars
+  thisActiveSlices;
 
 describe("NodesGridDials", function() {
   beforeEach(function() {
@@ -147,10 +146,6 @@ describe("NodesGridDials", function() {
   });
 
   describe("#getDialConfig", function() {
-    beforeEach(function() {
-      thisResourceType = ResourcesUtil.cpus;
-    });
-
     it("returns different configurations depending on the active parameter", function() {
       let host = Object.assign({}, thisHosts[0]);
       host.active = true;

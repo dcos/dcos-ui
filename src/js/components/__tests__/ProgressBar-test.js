@@ -18,16 +18,12 @@ const testData = [
   }
 ];
 
-// eslint-disable-next-line no-unused-vars
-let thisContainer, thisInstance;
+let thisContainer;
 
 describe("#ProgressBar", function() {
   beforeEach(function() {
     thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
-      <ProgressBar data={testData} />,
-      thisContainer
-    );
+    ReactDOM.render(<ProgressBar data={testData} />, thisContainer);
   });
 
   afterEach(function() {
@@ -37,7 +33,7 @@ describe("#ProgressBar", function() {
   describe("PropTypes", function() {
     it("throws an error if no data prop is provided", function() {
       spyOn(console, "error");
-      thisInstance = ReactDOM.render(<ProgressBar />, thisContainer);
+      ReactDOM.render(<ProgressBar />, thisContainer);
       expect(console.error).toHaveBeenCalledWith(
         "Warning: Failed prop type: " +
           "The prop `data` is marked as required in `ProgressBar`, but its value " +
@@ -48,7 +44,7 @@ describe("#ProgressBar", function() {
 
     it("throws an error if a data item is missing a value", function() {
       spyOn(console, "error");
-      thisInstance = ReactDOM.render(
+      ReactDOM.render(
         <ProgressBar
           data={[
             {
@@ -68,7 +64,7 @@ describe("#ProgressBar", function() {
 
     it("throws an error if one data item is missing a value", function() {
       spyOn(console, "error");
-      thisInstance = ReactDOM.render(
+      ReactDOM.render(
         <ProgressBar
           data={[
             {
@@ -92,7 +88,7 @@ describe("#ProgressBar", function() {
 
     it("does not throw an error if data does only contain a value field", function() {
       spyOn(console, "error");
-      thisInstance = ReactDOM.render(
+      ReactDOM.render(
         <ProgressBar
           data={[
             {
@@ -114,7 +110,7 @@ describe("#ProgressBar", function() {
     });
 
     it("contains test-bar (custom)", function() {
-      thisInstance = ReactDOM.render(
+      ReactDOM.render(
         <ProgressBar data={testData} className="test-bar" />,
         thisContainer
       );
@@ -141,7 +137,7 @@ describe("#ProgressBar", function() {
       });
 
       it("has the class element-{index} if no classname is provided", function() {
-        thisInstance = ReactDOM.render(
+        ReactDOM.render(
           <ProgressBar
             data={[
               {

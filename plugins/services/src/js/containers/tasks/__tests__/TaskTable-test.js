@@ -13,8 +13,7 @@ const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 const TaskTable = require("../TaskTable");
 const Tasks = require("./fixtures/MockTasks.json").tasks;
 
-// eslint-disable-next-line no-unused-vars
-let thisContainer, thisInstance, thisTaskTable, thisGetNodeFromID;
+let thisContainer, thisTaskTable, thisGetNodeFromID;
 
 describe("TaskTable", function() {
   beforeEach(function() {
@@ -24,7 +23,7 @@ describe("TaskTable", function() {
 
     thisContainer = global.document.createElement("div");
 
-    thisInstance = ReactDOM.render(
+    ReactDOM.render(
       JestUtil.stubRouterContext(TaskTable, {
         tasks: Tasks,
         params: { nodeID: "thing" }

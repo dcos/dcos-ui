@@ -1,15 +1,14 @@
 const APPLICATION = require("../../constants/PluginConstants").APPLICATION;
 const PluginSDK = require("PluginSDK");
 
-// eslint-disable-next-line no-unused-vars
-let thisMockFn, thisMockFn1, thisUnsubscribe, thisUnsubscribe1;
+let thisMockFn, thisMockFn1, thisUnsubscribe;
 
 describe("#ActionsPubSub", function() {
   beforeEach(function() {
     thisMockFn = jest.genMockFunction();
     thisMockFn1 = jest.genMockFunction();
     thisUnsubscribe = PluginSDK.onDispatch(thisMockFn);
-    thisUnsubscribe1 = PluginSDK.onDispatch(thisMockFn1);
+    PluginSDK.onDispatch(thisMockFn1);
   });
 
   it("receives actions after subscribing", function() {

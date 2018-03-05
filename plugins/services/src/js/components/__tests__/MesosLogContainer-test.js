@@ -13,7 +13,6 @@ const APPEND = SystemLogTypes.APPEND;
 
 let thisStoreStartTailing,
   thisStoreStopTailing,
-  thisMesosLogStoreGet, // eslint-disable-line no-unused-vars
   thisContainer,
   thisInstance,
   thisMesosLogStoreGetLogBuffer;
@@ -23,7 +22,6 @@ describe("MesosLogContainer", function() {
     // Store original versions
     thisStoreStartTailing = MesosLogStore.startTailing;
     thisStoreStopTailing = MesosLogStore.stopTailing;
-    thisMesosLogStoreGet = MesosLogStore.get;
 
     // Create spies
     MesosLogStore.startTailing = jasmine.createSpy("startTailing");

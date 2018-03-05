@@ -1,15 +1,11 @@
-const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore");
 const TableUtil = require("../TableUtil");
 const Util = require("../Util");
 const HealthSorting = require("../../../../plugins/services/src/js/constants/HealthSorting");
 
-// eslint-disable-next-line no-unused-vars
-let thisGetServiceHealth, thisFoo, thisBar, thisGetProp, thisSortFunction;
+let thisFoo, thisBar, thisGetProp, thisSortFunction;
 
 describe("TableUtil", function() {
   beforeEach(function() {
-    thisGetServiceHealth = MarathonStore.getServiceHealth;
-
     thisFoo = {
       equal: 0,
       id: "foo",

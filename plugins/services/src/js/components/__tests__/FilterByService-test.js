@@ -8,17 +8,13 @@ const MockFrameworks = require("./fixtures/MockFrameworks.json");
 const ServicesList = require("../../structs/ServicesList");
 const Framework = require("../../structs/Framework");
 
-// eslint-disable-next-line no-unused-vars
-let thisSelectedId,
-  thisHandleByServiceFilterChange,
+let thisHandleByServiceFilterChange,
   thisByServiceFilter,
   thisContainer,
   thisInstance;
 
 describe("FilterByService", function() {
   beforeEach(function() {
-    thisSelectedId = MockFrameworks.frameworks[0].id;
-
     thisHandleByServiceFilterChange = function(id) {
       thisByServiceFilter = id;
     };
