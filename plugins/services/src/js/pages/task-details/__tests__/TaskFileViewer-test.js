@@ -9,7 +9,7 @@ import TaskFileViewer from "../TaskFileViewer";
 
 let thisContainer, thisInstance;
 
-describe.skip("TaskFileViewer", function() {
+describe("TaskFileViewer", function() {
   beforeEach(function() {
     thisContainer = global.document.createElement("div");
     thisInstance = ReactDOM.render(
@@ -31,7 +31,7 @@ describe.skip("TaskFileViewer", function() {
 
   describe("#render", function() {
     beforeEach(function() {
-      this.container = global.document.createElement("div");
+      thisContainer = global.document.createElement("div");
       this.instance = ReactDOM.render(
         <TaskFileViewer
           directory={
@@ -41,12 +41,12 @@ describe.skip("TaskFileViewer", function() {
           selectedLogFile={new DirectoryItem({ nlink: 1, path: "/stdout" })}
           task={{ slave_id: "foo" }}
         />,
-        this.container
+        thisContainer
       );
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
     it("sets button disabled when file is not found", function() {
       thisInstance = ReactDOM.render(
