@@ -44,7 +44,7 @@ describe("Services", function() {
       //   .type('{selectall}0.5');
       //
       cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline).blur();
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Click Review and Run
       cy
@@ -119,7 +119,7 @@ describe("Services", function() {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root().getFormGroupInputFor("Command").type(cmdline).blur();
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -1166,7 +1166,7 @@ describe("Services", function() {
         .contains(".dropdown-select-item-title", "Local Persistent Volume")
         .click();
       cy.root().getFormGroupInputFor("Size (MiB)").type("128");
-      cy.root().getFormGroupInputFor("Container Path").type("test").blur();
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Click Review and Run
       cy
