@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+GIT_BRANCH=${GIT_BRANCH#*/}
+
+SHAS=$(git log master..$(git rev-parse --abbrev-ref HEAD) --pretty=format:%h)
+
+for SHA in "${SHAS[@]}"
+do
+  echo "Linting $SHA"
+  MESSAGE=$(git log --format=%B -n 1 $SHA)
+
+  echo "$MESSAGE" | npm run commitlint
+done
+
+
