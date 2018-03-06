@@ -129,6 +129,7 @@
   "scripts": {
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist",
+    "cypress": "cypress run",
     "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",

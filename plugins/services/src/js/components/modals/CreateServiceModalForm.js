@@ -52,6 +52,7 @@ const METHODS_TO_BIND = [
   "handleConvertToPod",
   "handleDropdownNavigationSelection",
   "handleFormBlur",
+  "handleFormFocus",
   "handleFormChange",
   "handleJSONChange",
   "handleJSONPropertyChange",
@@ -244,6 +245,18 @@ class CreateServiceModalForm extends Component {
     if (!editedFieldPaths.includes(fieldName)) {
       newState.editedFieldPaths = editedFieldPaths.concat([fieldName]);
     }
+    this.setState(newState);
+  }
+
+  handleFormFocus(event) {
+    const fieldName = event.target.getAttribute("name");
+    const newState = {
+      editingFieldPath: fieldName
+    };
+
+    if (!fieldName) {
+      return;
+    }
 
     this.setState(newState);
   }
@@ -264,8 +277,7 @@ class CreateServiceModalForm extends Component {
 
     const newState = {
       appConfig: this.getAppConfig(batch),
-      batch,
-      editingFieldPath: fieldName
+      batch
     };
 
     this.setState(newState);
@@ -664,6 +676,7 @@ class CreateServiceModalForm extends Component {
                 className="create-service-modal-form container container-wide"
                 onChange={this.handleFormChange}
                 onBlur={this.handleFormBlur}
+                onFocus={this.handleFormFocus}
               >
                 <Tabs
                   activeTab={activeTab}

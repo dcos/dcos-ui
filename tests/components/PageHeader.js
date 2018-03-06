@@ -39,7 +39,7 @@ describe("Page Header Component", function() {
         const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
 
         expect(beforeLastItem.textContent).to.equal("group-with-pods");
-        expect(lastItem.textContent).to.equal("podEFGHDeploying (0 of 10)");
+        expect(lastItem.textContent).to.equal("podEFGHDeploying (1 of 10)");
       });
     });
 
