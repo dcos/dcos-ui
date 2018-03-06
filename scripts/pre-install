@@ -12,6 +12,6 @@ source ${SCRIPT_PATH}/utils/marathon
 # git hooks fail to install
 ${SCRIPT_PATH}/validate-engine-versions && \
   install_marathon_raml "$MARATHON_VERSION" && \
-  install_hooks "pre-commit post-rewrite post-commit"
+  install_hooks "pre-commit post-rewrite post-commit post-checkout"
 
 exit 0
