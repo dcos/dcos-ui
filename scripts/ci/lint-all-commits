@@ -2,7 +2,7 @@
 
 set -e
 
-GIT_BRANCH=${GIT_BRANCH#*/}
+GIT_BRANCH="${env.BRANCH_NAME}"
 
 SHAS=$(git log master..$(git rev-parse --abbrev-ref HEAD) --pretty=format:%h)
 
