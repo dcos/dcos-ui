@@ -36,6 +36,14 @@ pipeline {
           }
 
           sh '''npm run scaffold'''
+
+          sh "ls -la"
+          sh "ls -la node_modules"
+        }
+      }
+      post {
+        always {
+          stash includes: 'node_modules', name: 'node_modules'
         }
       }
     }
@@ -62,7 +70,6 @@ pipeline {
           sh '''npm run build-assets'''
         }
       }
-
       post {
         always {
           stash includes: 'dist/*', name: 'dist'
@@ -70,68 +77,76 @@ pipeline {
       }
 
     }
+    stage('Tests') {
+      parallel {
+        stage('Integration Test') {
+          agent {
+              label "mesos-med"
+          }
+          steps {
+            // Run a simple webserver serving the dist folder statically
+            // before we run the cypress tests
+            writeFile file: 'integration-tests.sh', text: [
+              'export PATH=`pwd`/node_modules/.bin:$PATH',
+              'http-server -p 4200 dist&',
+              'SERVER_PID=$!',
+              './scripts/ci/run-integration-tests',
+              'RET=$?',
+              'echo "cypress exit status: ${RET}"',
+              'sleep 10',
+              'echo "kill server"',
+              'kill $SERVER_PID',
+              'exit $RET'
+            ].join('\n')
 
-    stage('Integration Test') {
-      steps {
-        // Run a simple webserver serving the dist folder statically
-        // before we run the cypress tests
-        writeFile file: 'integration-tests.sh', text: [
-          'export PATH=`pwd`/node_modules/.bin:$PATH',
-          'http-server -p 4200 dist&',
-          'SERVER_PID=$!',
-          './scripts/ci/run-integration-tests',
-          'RET=$?',
-          'echo "cypress exit status: ${RET}"',
-          'sleep 10',
-          'echo "kill server"',
-          'kill $SERVER_PID',
-          'exit $RET'
-        ].join('\n')
+            unstash 'dist'
+            unstash 'node_modules'
 
-        unstash 'dist'
+            ansiColor('xterm') {
+              retry(2) {
+                sh '''bash integration-tests.sh'''
+              }
+            }
+          }
+          post {
+            always {
+              archiveArtifacts 'cypress/**/*'
+              junit 'cypress/results.xml'
+            }
+          }
+        }
 
-        ansiColor('xterm') {
-          retry(2) {
-            sh '''bash integration-tests.sh'''
+        stage('System Test') {
+          agent {
+              label "mesos-med"
+          }
+          steps {
+            withCredentials([
+                [
+                  $class: 'AmazonWebServicesCredentialsBinding',
+                  credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
+                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]
+              ]) {
+            unstash 'dist'
+            unstash 'node_modules'
+
+              ansiColor('xterm') {
+                retry(2) {
+                  sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
+                }
+              }
+            }
+          }
+          post {
+            always {
+              archiveArtifacts 'results/**/*'
+              junit 'results/results.xml'
+            }
           }
         }
       }
-
-      post {
-        always {
-          archiveArtifacts 'cypress/**/*'
-          junit 'cypress/results.xml'
-        }
-      }
     }
-
-    stage('System Test') {
-     steps {
-       withCredentials([
-          [
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]
-        ]) {
-         unstash 'dist'
-
-         ansiColor('xterm') {
-           retry(2) {
-             sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
-           }
-         }
-       }
-
-     }
-
-     post {
-       always {
-         archiveArtifacts 'results/**/*'
-         junit 'results/results.xml'
-       }
-     }
-   }
   }
 }
