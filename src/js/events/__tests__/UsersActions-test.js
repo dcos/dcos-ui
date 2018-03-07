@@ -5,12 +5,14 @@ const AppDispatcher = require("../AppDispatcher");
 const Config = require("../../config/Config");
 const UsersActions = require("../UsersActions");
 
+let thisConfiguration;
+
 describe("UsersActions", function() {
   describe("#fetch", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UsersActions.fetch();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("dispatches the correct action when successful", function() {
@@ -20,7 +22,7 @@ describe("UsersActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_SUCCESS);
       });
 
-      this.configuration.success({ foo: "bar" });
+      thisConfiguration.success({ foo: "bar" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -30,7 +32,7 @@ describe("UsersActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -43,7 +45,7 @@ describe("UsersActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -54,7 +56,7 @@ describe("UsersActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(Config.acsAPIPrefix + "/users");
+      expect(thisConfiguration.url).toEqual(Config.acsAPIPrefix + "/users");
     });
   });
 
@@ -62,7 +64,7 @@ describe("UsersActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UsersActions.addUser({ uid: "foo" });
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -70,21 +72,19 @@ describe("UsersActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
-        Config.acsAPIPrefix + "/users/foo"
-      );
+      expect(thisConfiguration.url).toEqual(Config.acsAPIPrefix + "/users/foo");
     });
 
     it("encodes characters for URL", function() {
       UsersActions.addUser({ uid: "foo@email.com" });
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-      expect(this.configuration.url).toEqual(
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+      expect(thisConfiguration.url).toEqual(
         Config.acsAPIPrefix + "/users/foo%40email.com"
       );
     });
 
     it("uses PUT for the request method", function() {
-      expect(this.configuration.method).toEqual("PUT");
+      expect(thisConfiguration.method).toEqual("PUT");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -94,7 +94,7 @@ describe("UsersActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_SUCCESS);
       });
 
-      this.configuration.success({ foo: "bar" });
+      thisConfiguration.success({ foo: "bar" });
     });
 
     it("dispatches the userID when successful", function() {
@@ -104,7 +104,7 @@ describe("UsersActions", function() {
         expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.success({ description: "bar" });
+      thisConfiguration.success({ description: "bar" });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -114,7 +114,7 @@ describe("UsersActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct message when unsuccessful", function() {
@@ -124,7 +124,7 @@ describe("UsersActions", function() {
         expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the userID when unsuccessful", function() {
@@ -134,7 +134,7 @@ describe("UsersActions", function() {
         expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -147,7 +147,7 @@ describe("UsersActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -158,7 +158,7 @@ describe("UsersActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       UsersActions.deleteUser("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -166,21 +166,19 @@ describe("UsersActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
-        Config.acsAPIPrefix + "/users/foo"
-      );
+      expect(thisConfiguration.url).toEqual(Config.acsAPIPrefix + "/users/foo");
     });
 
     it("encodes characters for URL", function() {
       UsersActions.deleteUser("foo@email.com");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-      expect(this.configuration.url).toEqual(
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+      expect(thisConfiguration.url).toEqual(
         Config.acsAPIPrefix + "/users/foo%40email.com"
       );
     });
 
     it("uses DELETE for the request method", function() {
-      expect(this.configuration.method).toEqual("DELETE");
+      expect(thisConfiguration.method).toEqual("DELETE");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -190,7 +188,7 @@ describe("UsersActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_SUCCESS);
       });
 
-      this.configuration.success({ foo: "bar" });
+      thisConfiguration.success({ foo: "bar" });
     });
 
     it("dispatches the userID when successful", function() {
@@ -200,7 +198,7 @@ describe("UsersActions", function() {
         expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -210,7 +208,7 @@ describe("UsersActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct message when unsuccessful", function() {
@@ -220,7 +218,7 @@ describe("UsersActions", function() {
         expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the userID when unsuccessful", function() {
@@ -230,7 +228,7 @@ describe("UsersActions", function() {
         expect(action.userID).toEqual("foo");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -243,7 +241,7 @@ describe("UsersActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

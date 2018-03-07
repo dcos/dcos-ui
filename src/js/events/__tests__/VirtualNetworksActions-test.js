@@ -7,12 +7,14 @@ const AppDispatcher = require("../AppDispatcher");
 
 const { virtualNetworksApi } = Config;
 
+let thisConfiguration;
+
 describe("VirtualNetworksActions", function() {
   describe("#fetch", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       VirtualNetworksActions.fetch();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("dispatches the correct action when successful", function() {
@@ -23,14 +25,14 @@ describe("VirtualNetworksActions", function() {
           ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS
         );
       });
-      this.configuration.success({ agents: [], network: { overlays: [] } });
+      thisConfiguration.success({ agents: [], network: { overlays: [] } });
     });
 
     it("requests the right URL", function() {
       VirtualNetworksActions.fetch();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
-      expect(this.configuration.url).toEqual(virtualNetworksApi + "/state");
+      expect(thisConfiguration.url).toEqual(virtualNetworksApi + "/state");
     });
 
     it("dispatches the correct data when successful", function() {
@@ -40,7 +42,7 @@ describe("VirtualNetworksActions", function() {
         expect(action.data).toEqual({ overlays: [] });
       });
 
-      this.configuration.success({ agents: [], network: { overlays: [] } });
+      thisConfiguration.success({ agents: [], network: { overlays: [] } });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -50,7 +52,7 @@ describe("VirtualNetworksActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_VIRTUAL_NETWORKS_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct data when unsuccessful", function() {
@@ -60,7 +62,7 @@ describe("VirtualNetworksActions", function() {
         expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -73,7 +75,7 @@ describe("VirtualNetworksActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

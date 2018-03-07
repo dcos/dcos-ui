@@ -5,23 +5,28 @@ const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 const TaskDirectoryActions = require("../TaskDirectoryActions");
 const Config = require("#SRC/js/config/Config");
 
+let thisConfiguration,
+  thisRequestUtilJSON,
+  thisConfigRootUrl,
+  thisConfigUseFixtures;
+
 describe("TaskDirectoryActions", function() {
   beforeEach(function() {
-    this.configuration = null;
-    this.requestUtilJSON = RequestUtil.json;
+    thisConfiguration = null;
+    thisRequestUtilJSON = RequestUtil.json;
     RequestUtil.json = function(configuration) {
-      this.configuration = configuration;
-    }.bind(this);
-    this.configRootUrl = Config.rootUrl;
-    this.configUseFixtures = Config.useFixtures;
+      thisConfiguration = configuration;
+    };
+    thisConfigRootUrl = Config.rootUrl;
+    thisConfigUseFixtures = Config.useFixtures;
     Config.rootUrl = "";
     Config.useFixtures = false;
   });
 
   afterEach(function() {
-    RequestUtil.json = this.requestUtilJSON;
-    Config.rootUrl = this.configRootUrl;
-    Config.useFixtures = this.configUseFixtures;
+    RequestUtil.json = thisRequestUtilJSON;
+    Config.rootUrl = thisConfigRootUrl;
+    Config.useFixtures = thisConfigUseFixtures;
   });
 
   describe("#fetchNodeState", function() {
@@ -32,7 +37,7 @@ describe("TaskDirectoryActions", function() {
         { pid: "foobar@baz", id: "baz" },
         "some/path"
       );
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -40,8 +45,8 @@ describe("TaskDirectoryActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
-        this.configRootUrl + "/agent/baz/foobar/state"
+      expect(thisConfiguration.url).toEqual(
+        thisConfigRootUrl + "/agent/baz/foobar/state"
       );
     });
 
@@ -56,7 +61,7 @@ describe("TaskDirectoryActions", function() {
         expect(action.data).toEqual("some response");
       });
 
-      this.configuration.success("some response");
+      thisConfiguration.success("some response");
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -69,7 +74,7 @@ describe("TaskDirectoryActions", function() {
         expect(action.node).toEqual({ pid: "foobar@baz", id: "baz" });
       });
 
-      this.configuration.error({ message: "foo" });
+      thisConfiguration.error({ message: "foo" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -82,7 +87,7 @@ describe("TaskDirectoryActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -101,7 +106,7 @@ describe("TaskDirectoryActions", function() {
           ]
         }
       );
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -109,13 +114,13 @@ describe("TaskDirectoryActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
-        this.configRootUrl + "/agent/baz/files/browse"
+      expect(thisConfiguration.url).toEqual(
+        thisConfigRootUrl + "/agent/baz/files/browse"
       );
     });
 
     it("fetches data with path in data", function() {
-      expect(this.configuration.data).toEqual({ path: "quis/" });
+      expect(thisConfiguration.data).toEqual({ path: "quis/" });
     });
 
     it("dispatches the correct action when successful", function() {
@@ -128,7 +133,7 @@ describe("TaskDirectoryActions", function() {
         expect(action.data).toEqual("directory");
       });
 
-      this.configuration.success("directory");
+      thisConfiguration.success("directory");
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -140,7 +145,7 @@ describe("TaskDirectoryActions", function() {
         expect(action.task.id).toEqual("bar");
       });
 
-      this.configuration.error({ message: "foo" });
+      thisConfiguration.error({ message: "foo" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -153,7 +158,7 @@ describe("TaskDirectoryActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

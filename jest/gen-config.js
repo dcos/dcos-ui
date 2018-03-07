@@ -1,8 +1,8 @@
 /*
   Generates configuration for jest.
  */
-var fs = require('fs');
-var path = require('path');
+var fs = require("fs");
+var path = require("path");
 
 /**
  * List of root (test path) directories
@@ -12,7 +12,7 @@ var path = require('path');
  *
  * @type {Array.<string>}
  */
-const roots = ['src', 'tests'];
+const roots = ["./src", "./tests"];
 
 /**
  * List of package directories
@@ -38,40 +38,31 @@ packages.forEach(function(packageDir) {
   fs.readdirSync(packageDir).forEach(function(rootDir) {
     const relativePath = packageDir + "/" + rootDir;
     if (fs.statSync(relativePath).isDirectory()) {
-      roots.push(relativePath);
+      roots.push("./" + relativePath);
     }
   });
 });
 
 var config = {
-  'testPathDirs': roots,
-  'globals': {
-    '__DEV__': true
+  roots,
+  globals: {
+    __DEV__: true
   },
-  'scriptPreprocessor': 'jest/preprocessor.js',
-  'setupTestFrameworkScriptFile': 'jest/setupTestFramework.js',
-  'setupFiles': ['jest/setupEnv.js'],
-  'testRegex': '/__tests__/.*\\-test\\.(es6|js)$',
-  'moduleFileExtensions': [
-    'js',
-    'json',
-    'es6'
-  ],
-  'modulePathIgnorePatterns': [
-    '/tmp/',
-    '/node_modules/',
-    '/.module-cache/'
-  ],
-  'timers': 'fake',
-  'coverageReporters': ["json", "lcov", "cobertura", "text"],
+  // TODO: split up transforms
+  transform: { ".*": "./jest/preprocessor.js" },
+  setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
+  setupFiles: ["./jest/setupEnv.js"],
+  testRegex: "/__tests__/.*\\-test\\.(es6|js)$",
+  moduleFileExtensions: ["js", "json", "es6"],
+  modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
+  timers: "fake",
+  coverageReporters: ["json", "lcov", "cobertura", "text"],
   // We need this to override jest's default ['/node_modules/']
-  'preprocessorIgnorePatterns' : [],
-  'testPathIgnorePatterns': [
-    '/tmp/',
-    '/node_modules/'
-  ]
+  transformIgnorePatterns: [],
+  testPathIgnorePatterns: ["/tmp/", "/node_modules/"]
 };
 
 fs.writeFileSync(
-  path.resolve(__dirname, 'config.json'), JSON.stringify(config, null, 2)
+  path.resolve(__dirname, "../jest.config.json"),
+  JSON.stringify(config, null, 2)
 );

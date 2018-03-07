@@ -8,6 +8,8 @@ const ReactDOM = require("react-dom");
 const ServicesTable = require("../ServicesTable");
 const Application = require("../../../structs/Application");
 
+let thisContainer, thisInstance;
+
 describe("ServicesTable", function() {
   const healthyService = new Application({
     healthChecks: [{ path: "", protocol: "HTTP" }],
@@ -22,22 +24,22 @@ describe("ServicesTable", function() {
   });
 
   beforeEach(function() {
-    this.container = global.document.createElement("div");
-    this.instance = ReactDOM.render(
+    thisContainer = global.document.createElement("div");
+    thisInstance = ReactDOM.render(
       <ServicesTable.WrappedComponent />,
-      this.container
+      thisContainer
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#renderStats", function() {
     it("renders resources/stats cpus property", function() {
       var cpusCell = ReactDOM.render(
-        this.instance.renderStats("cpus", healthyService),
-        this.container
+        thisInstance.renderStats("cpus", healthyService),
+        thisContainer
       );
 
       expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("1");
@@ -45,8 +47,8 @@ describe("ServicesTable", function() {
 
     it("renders resources/stats mem property", function() {
       var memCell = ReactDOM.render(
-        this.instance.renderStats("mem", healthyService),
-        this.container
+        thisInstance.renderStats("mem", healthyService),
+        thisContainer
       );
 
       expect(ReactDOM.findDOMNode(memCell).textContent).toEqual("2 GiB");
@@ -54,8 +56,8 @@ describe("ServicesTable", function() {
 
     it("renders resources/stats disk property", function() {
       var disksCell = ReactDOM.render(
-        this.instance.renderStats("disk", healthyService),
-        this.container
+        thisInstance.renderStats("disk", healthyService),
+        thisContainer
       );
 
       expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual("0 B");
@@ -75,8 +77,8 @@ describe("ServicesTable", function() {
       });
 
       var cpusCell = ReactDOM.render(
-        this.instance.renderStats("cpus", application),
-        this.container
+        thisInstance.renderStats("cpus", application),
+        thisContainer
       );
 
       expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("2");
@@ -96,8 +98,8 @@ describe("ServicesTable", function() {
       });
 
       var memCell = ReactDOM.render(
-        this.instance.renderStats("mem", application),
-        this.container
+        thisInstance.renderStats("mem", application),
+        thisContainer
       );
 
       expect(ReactDOM.findDOMNode(memCell).textContent).toEqual("4 GiB");
@@ -117,8 +119,8 @@ describe("ServicesTable", function() {
       });
 
       var disksCell = ReactDOM.render(
-        this.instance.renderStats("disk", application),
-        this.container
+        thisInstance.renderStats("disk", application),
+        thisContainer
       );
 
       expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual("0 B");

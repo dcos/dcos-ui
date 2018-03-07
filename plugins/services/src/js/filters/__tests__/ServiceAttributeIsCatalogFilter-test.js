@@ -6,13 +6,15 @@ var Pod = require("../../structs/Pod");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
 var ServiceAttributeIsCatalogFilter = require("../ServiceAttributeIsCatalogFilter");
 
+let thisMockItems;
+
 describe("ServiceAttributeIsCatalogFilter", function() {
   beforeEach(function() {
-    this.mockItems = [new Framework(), new Application(), new Pod()];
+    thisMockItems = [new Framework(), new Application(), new Pod()];
   });
 
   it("matches Framework instances", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:catalog");
 
     const filters = new DSLFilterList().add(
@@ -20,12 +22,12 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 
   it("keeps nothing on unknown values", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
     const filters = new DSLFilterList().add(
@@ -36,7 +38,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
   });
 
   it("is case-insensitive", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:CataLOg");
 
     const filters = new DSLFilterList().add(
@@ -44,7 +46,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 });

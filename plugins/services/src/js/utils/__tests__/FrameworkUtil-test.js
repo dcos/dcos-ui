@@ -1,17 +1,19 @@
 const ServiceImages = require("../../constants/ServiceImages");
 const FrameworkUtil = require("../FrameworkUtil");
 
+let thisImages, thisLabels;
+
 describe("FrameworkUtil", function() {
   describe("#getImageSizeFromImagesObject", function() {
     beforeEach(function() {
-      this.images = {
+      thisImages = {
         "icon-medium": "foo.png"
       };
     });
 
     it("finds the requested size of image", function() {
       var image = FrameworkUtil.getImageSizeFromImagesObject(
-        this.images,
+        thisImages,
         "medium"
       );
       expect(image).toEqual("foo.png");
@@ -24,7 +26,7 @@ describe("FrameworkUtil", function() {
 
     it("returns null if image doesn't exist", function() {
       var image = FrameworkUtil.getImageSizeFromImagesObject(
-        this.images,
+        thisImages,
         "large"
       );
       expect(image).toEqual(null);
@@ -44,7 +46,7 @@ describe("FrameworkUtil", function() {
 
   describe("#getServiceImages", function() {
     beforeEach(function() {
-      this.images = {
+      thisImages = {
         "icon-small": "foo.png",
         "icon-medium": "foo.png",
         "icon-large": "foo.png"
@@ -52,13 +54,13 @@ describe("FrameworkUtil", function() {
     });
 
     it("returns parsed images when all images are defined", function() {
-      var images = FrameworkUtil.getServiceImages(this.images);
-      expect(images).toEqual(this.images);
+      var images = FrameworkUtil.getServiceImages(thisImages);
+      expect(images).toEqual(thisImages);
     });
 
     it("returns default images when one size is missing", function() {
-      delete this.images["icon-large"];
-      var images = FrameworkUtil.getServiceImages(this.images);
+      delete thisImages["icon-large"];
+      var images = FrameworkUtil.getServiceImages(thisImages);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });
 
@@ -70,7 +72,7 @@ describe("FrameworkUtil", function() {
 
   describe("#getMetadataFromLabels", function() {
     beforeEach(function() {
-      this.labels = {
+      thisLabels = {
         DCOS_PACKAGE_METADATA: "eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29" +
           "uLXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoia" +
           "WNvbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWN" +
@@ -85,7 +87,7 @@ describe("FrameworkUtil", function() {
     });
 
     it("returns correct metadata", function() {
-      expect(FrameworkUtil.getMetadataFromLabels(this.labels)).toEqual({
+      expect(FrameworkUtil.getMetadataFromLabels(thisLabels)).toEqual({
         name: "service",
         images: {
           "icon-small": "icon-service-small.png",

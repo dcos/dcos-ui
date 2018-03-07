@@ -4,9 +4,11 @@ const LogBuffer = require("../LogBuffer");
 
 const PAGE_SIZE = 8 * 4096; // 32kb of data or 8 'pages'
 
+let thisLogBuffer, thisOriginalAdd;
+
 describe("LogBuffer", function() {
   beforeEach(function() {
-    this.logBuffer = new LogBuffer();
+    thisLogBuffer = new LogBuffer();
   });
 
   describe("#constructor", function() {
@@ -17,66 +19,66 @@ describe("LogBuffer", function() {
     });
 
     it("uses default end option if nothing is provided", function() {
-      expect(this.logBuffer.getEnd()).toEqual(-1);
+      expect(thisLogBuffer.getEnd()).toEqual(-1);
     });
 
     it("uses default initialized option if nothing is provided", function() {
-      expect(this.logBuffer.isInitialized()).toEqual(false);
+      expect(thisLogBuffer.isInitialized()).toEqual(false);
     });
 
     it("uses default start option if nothing is provided", function() {
-      expect(this.logBuffer.getStart()).toEqual(-1);
+      expect(thisLogBuffer.getStart()).toEqual(-1);
     });
 
     it("uses default maxFileSize option if nothing is provided", function() {
-      expect(this.logBuffer.configuration.maxFileSize).toEqual(250000000);
+      expect(thisLogBuffer.configuration.maxFileSize).toEqual(250000000);
     });
 
     it("uses default end option if nothing is provided", function() {
-      this.logBuffer = new LogBuffer({ end: 2000 });
-      expect(this.logBuffer.getEnd()).toEqual(2000);
+      thisLogBuffer = new LogBuffer({ end: 2000 });
+      expect(thisLogBuffer.getEnd()).toEqual(2000);
     });
 
     it("uses default initialized option if nothing is provided", function() {
-      this.logBuffer = new LogBuffer({ initialized: true });
-      expect(this.logBuffer.isInitialized()).toEqual(true);
+      thisLogBuffer = new LogBuffer({ initialized: true });
+      expect(thisLogBuffer.isInitialized()).toEqual(true);
     });
 
     it("uses default start option if nothing is provided", function() {
-      this.logBuffer = new LogBuffer({ start: 0 });
-      expect(this.logBuffer.getStart()).toEqual(0);
+      thisLogBuffer = new LogBuffer({ start: 0 });
+      expect(thisLogBuffer.getStart()).toEqual(0);
     });
 
     it("uses default maxFileSize option if nothing is provided", function() {
-      this.logBuffer = new LogBuffer({ maxFileSize: 2000 });
-      expect(this.logBuffer.configuration.maxFileSize).toEqual(2000);
+      thisLogBuffer = new LogBuffer({ maxFileSize: 2000 });
+      expect(thisLogBuffer.configuration.maxFileSize).toEqual(2000);
     });
   });
 
   describe("#add", function() {
     it("calls its super function", function() {
-      this.originalAdd = List.prototype.add;
+      thisOriginalAdd = List.prototype.add;
       List.prototype.add = jasmine.createSpy();
 
-      this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
+      thisLogBuffer.add(new Item({ data: "foo", offset: 100 }));
       expect(List.prototype.add).toHaveBeenCalled();
 
       // Reset add to original
-      List.prototype.add = this.originalAdd;
+      List.prototype.add = thisOriginalAdd;
     });
 
     it("adds length to get new 'end' when beginning log", function() {
-      this.logBuffer.add(new Item({ data: "foo\nbar\nquis", offset: 100 }));
+      thisLogBuffer.add(new Item({ data: "foo\nbar\nquis", offset: 100 }));
       // Explanation of what is going on in the calculation:
       // 100 + 'foo\nbar\nquis'.indexOf('\n') + 1 + 'bar\nquis'.length
-      expect(this.logBuffer.getEnd()).toEqual(100 + 3 + 1 + 8);
+      expect(thisLogBuffer.getEnd()).toEqual(100 + 3 + 1 + 8);
     });
 
     it("starts log at first newline when beginning log", function() {
-      this.logBuffer.add(new Item({ data: "foo\nbar\nquis", offset: 100 }));
+      thisLogBuffer.add(new Item({ data: "foo\nbar\nquis", offset: 100 }));
       // Explanation of what is going on in the calculation:
       // 100 + 'foo\nbar\nquis'.indexOf('\n') + 1
-      expect(this.logBuffer.getStart()).toEqual(100 + 3 + 1);
+      expect(thisLogBuffer.getStart()).toEqual(100 + 3 + 1);
     });
 
     it("starts log at end - maxFileSize when beginning log", function() {
@@ -94,15 +96,15 @@ describe("LogBuffer", function() {
     });
 
     it("adds length to get new 'end' during logging", function() {
-      this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
-      this.logBuffer.add(new Item({ data: "\nbar\nquis", offset: 103 }));
-      expect(this.logBuffer.getEnd()).toEqual(103 + "\nbar\nquis".length);
+      thisLogBuffer.add(new Item({ data: "foo", offset: 100 }));
+      thisLogBuffer.add(new Item({ data: "\nbar\nquis", offset: 103 }));
+      expect(thisLogBuffer.getEnd()).toEqual(103 + "\nbar\nquis".length);
     });
 
     it("starts log at first offset when file < maxFileSize", function() {
-      this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
-      this.logBuffer.add(new Item({ data: "\nbar\nquis", offset: 103 }));
-      expect(this.logBuffer.getStart()).toEqual(100);
+      thisLogBuffer.add(new Item({ data: "foo", offset: 100 }));
+      thisLogBuffer.add(new Item({ data: "\nbar\nquis", offset: 103 }));
+      expect(thisLogBuffer.getStart()).toEqual(100);
     });
 
     it("starts log at end - maxFileSize during logging", function() {
@@ -151,15 +153,15 @@ describe("LogBuffer", function() {
 
   describe("#prepend", function() {
     it("subtracts length from start", function() {
-      this.logBuffer.prepend(new Item({ data: "foo\nbar\nquis", offset: 100 }));
-      expect(this.logBuffer.getStart()).toEqual(100);
+      thisLogBuffer.prepend(new Item({ data: "foo\nbar\nquis", offset: 100 }));
+      expect(thisLogBuffer.getStart()).toEqual(100);
     });
 
     it("is able to add then prepend", function() {
-      this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
-      this.logBuffer.prepend(new Item({ data: "\nbar\nquis", offset: 92 }));
-      expect(this.logBuffer.getEnd()).toEqual(103);
-      expect(this.logBuffer.getStart()).toEqual(92);
+      thisLogBuffer.add(new Item({ data: "foo", offset: 100 }));
+      thisLogBuffer.prepend(new Item({ data: "\nbar\nquis", offset: 92 }));
+      expect(thisLogBuffer.getEnd()).toEqual(103);
+      expect(thisLogBuffer.getStart()).toEqual(92);
     });
 
     it("handles truncate correctly", function() {
@@ -188,36 +190,36 @@ describe("LogBuffer", function() {
 
   describe("#initialize", function() {
     it("sets end to 0 if offset < PAGE_SIZE", function() {
-      this.logBuffer.initialize(100);
-      expect(this.logBuffer.getEnd()).toEqual(0);
+      thisLogBuffer.initialize(100);
+      expect(thisLogBuffer.getEnd()).toEqual(0);
     });
 
     it("sets start to 0 if offset < PAGE_SIZE", function() {
-      this.logBuffer.initialize(100);
-      expect(this.logBuffer.getStart()).toEqual(0);
+      thisLogBuffer.initialize(100);
+      expect(thisLogBuffer.getStart()).toEqual(0);
     });
 
     it("sets end to offset - PAGE_SIZE when > PAGE_SIZE", function() {
-      this.logBuffer.initialize(PAGE_SIZE + 100);
-      expect(this.logBuffer.getEnd()).toEqual(100);
+      thisLogBuffer.initialize(PAGE_SIZE + 100);
+      expect(thisLogBuffer.getEnd()).toEqual(100);
     });
 
     it("sets start to offset - PAGE_SIZE when > PAGE_SIZE", function() {
-      this.logBuffer.initialize(PAGE_SIZE + 100);
-      expect(this.logBuffer.getStart()).toEqual(100);
+      thisLogBuffer.initialize(PAGE_SIZE + 100);
+      expect(thisLogBuffer.getStart()).toEqual(100);
     });
   });
 
   describe("#getFullLog", function() {
     it("returns empty string when no items", function() {
-      expect(this.logBuffer.getFullLog()).toEqual("");
+      expect(thisLogBuffer.getFullLog()).toEqual("");
     });
 
     it("returns data items when it holds items", function() {
-      this.logBuffer.add(new Item({ data: "foo", offset: 100 }));
-      this.logBuffer.add(new Item({ data: "bar", offset: 103 }));
-      this.logBuffer.add(new Item({ data: "quis", offset: 107 }));
-      expect(this.logBuffer.getFullLog()).toEqual("foobarquis");
+      thisLogBuffer.add(new Item({ data: "foo", offset: 100 }));
+      thisLogBuffer.add(new Item({ data: "bar", offset: 103 }));
+      thisLogBuffer.add(new Item({ data: "quis", offset: 107 }));
+      expect(thisLogBuffer.getFullLog()).toEqual("foobarquis");
     });
   });
 });

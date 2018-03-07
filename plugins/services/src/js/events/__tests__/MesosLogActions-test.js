@@ -4,12 +4,14 @@ const MesosLogActions = require("../MesosLogActions");
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 
+let thisConfiguration;
+
 describe("MesosLogActions", function() {
   describe("#requestOffset", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MesosLogActions.requestOffset("foo", "bar");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -17,7 +19,7 @@ describe("MesosLogActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         "/agent/foo/files/read?path=bar&offset=-1"
       );
     });
@@ -31,7 +33,7 @@ describe("MesosLogActions", function() {
         );
       });
 
-      this.configuration.success({ data: "", offset: 0 });
+      thisConfiguration.success({ data: "", offset: 0 });
     });
     it("dispatches the correct information when successful", function() {
       var id = AppDispatcher.register(function(payload) {
@@ -42,7 +44,7 @@ describe("MesosLogActions", function() {
         expect(action.slaveID).toEqual("foo");
       });
 
-      this.configuration.success({ data: "", offset: 0 });
+      thisConfiguration.success({ data: "", offset: 0 });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -52,7 +54,7 @@ describe("MesosLogActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR);
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("dispatches the correct information when unsuccessful", function() {
@@ -63,7 +65,7 @@ describe("MesosLogActions", function() {
         expect(action.slaveID).toEqual("foo");
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -76,7 +78,7 @@ describe("MesosLogActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -87,7 +89,7 @@ describe("MesosLogActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MesosLogActions.fetchLog("foo", "bar", 0, 2000);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -95,7 +97,7 @@ describe("MesosLogActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         "/agent/foo/files/read?path=bar&offset=0&length=2000"
       );
     });
@@ -107,7 +109,7 @@ describe("MesosLogActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_MESOS_LOG_SUCCESS);
       });
 
-      this.configuration.success({ data: "", offset: 0 });
+      thisConfiguration.success({ data: "", offset: 0 });
     });
     it("dispatches the correct information when successful", function() {
       var id = AppDispatcher.register(function(payload) {
@@ -118,7 +120,7 @@ describe("MesosLogActions", function() {
         expect(action.slaveID).toEqual("foo");
       });
 
-      this.configuration.success({ data: "", offset: 0 });
+      thisConfiguration.success({ data: "", offset: 0 });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -128,7 +130,7 @@ describe("MesosLogActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_MESOS_LOG_ERROR);
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("dispatches the correct information when unsuccessful", function() {
@@ -139,7 +141,7 @@ describe("MesosLogActions", function() {
         expect(action.slaveID).toEqual("foo");
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -152,7 +154,7 @@ describe("MesosLogActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -163,7 +165,7 @@ describe("MesosLogActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MesosLogActions.fetchPreviousLog("foo", "bar", 0, 2000);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -171,7 +173,7 @@ describe("MesosLogActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         "/agent/foo/files/read?path=bar&offset=0&length=2000"
       );
     });
@@ -185,7 +187,7 @@ describe("MesosLogActions", function() {
         );
       });
 
-      this.configuration.success({ data: "", offset: 0 });
+      thisConfiguration.success({ data: "", offset: 0 });
     });
     it("dispatches the correct information when successful", function() {
       var id = AppDispatcher.register(function(payload) {
@@ -196,7 +198,7 @@ describe("MesosLogActions", function() {
         expect(action.slaveID).toEqual("foo");
       });
 
-      this.configuration.success({ data: "", offset: 0 });
+      thisConfiguration.success({ data: "", offset: 0 });
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -208,7 +210,7 @@ describe("MesosLogActions", function() {
         );
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("dispatches the correct information when unsuccessful", function() {
@@ -219,7 +221,7 @@ describe("MesosLogActions", function() {
         expect(action.slaveID).toEqual("foo");
       });
 
-      this.configuration.error({});
+      thisConfiguration.error({});
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -232,7 +234,7 @@ describe("MesosLogActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

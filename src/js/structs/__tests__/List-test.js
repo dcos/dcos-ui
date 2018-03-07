@@ -1,17 +1,19 @@
 const Item = require("../Item");
 const List = require("../List");
 
+let thisThing, thisThingList, thisInstance;
+
 describe("List", function() {
   beforeEach(function() {
-    this.Thing = class Thing {
+    thisThing = class Thing {
       constructor(value) {
         if (value instanceof Thing) {
           throw Error("Tried to re-instantiate a ThingList item");
         }
       }
     };
-    this.ThingList = class ThingList extends List {};
-    this.ThingList.type = this.Thing;
+    thisThingList = class ThingList extends List {};
+    thisThingList.type = thisThing;
   });
 
   describe("#constructor", function() {
@@ -34,15 +36,13 @@ describe("List", function() {
     });
 
     it("enforces type, if specified", function() {
-      const { Thing, ThingList } = this;
-      const thingList = new ThingList({ items: [{}] });
-      expect(thingList.last()).toEqual(jasmine.any(Thing));
+      const thingList = new thisThingList({ items: [{}] });
+      expect(thingList.last()).toEqual(jasmine.any(thisThing));
     });
 
     it("does not re-cast items of the correct type", function() {
-      const { Thing, ThingList } = this;
       // If re-cast, an error will be thrown
-      new ThingList({ items: [new Thing({})] });
+      new thisThingList({ items: [new thisThing({})] });
     });
   });
 
@@ -91,17 +91,15 @@ describe("List", function() {
     });
 
     it("enforces type, if specified", function() {
-      const { Thing, ThingList } = this;
-      const thingList = new ThingList();
+      const thingList = new thisThingList();
       thingList.add({});
-      expect(thingList.last()).toEqual(jasmine.any(Thing));
+      expect(thingList.last()).toEqual(jasmine.any(thisThing));
     });
 
     it("does not re-cast items of the correct type", function() {
-      const { Thing, ThingList } = this;
-      const thingList = new ThingList();
+      const thingList = new thisThingList();
       // If re-cast, an error will be thrown
-      thingList.add(new Thing());
+      thingList.add(new thisThing());
     });
   });
 
@@ -140,18 +138,18 @@ describe("List", function() {
         { name: "quux" }
       ];
 
-      this.instance = new List({ items });
+      thisInstance = new List({ items });
     });
 
     it("returns an instance of List", function() {
-      var items = this.instance.filterItems(function() {
+      var items = thisInstance.filterItems(function() {
         return true;
       });
       expect(items instanceof List).toEqual(true);
     });
 
     it("filters items", function() {
-      var items = this.instance.filterItems(function(item) {
+      var items = thisInstance.filterItems(function(item) {
         return item.name === "bar";
       });
       expect(items.getItems().length).toEqual(1);
@@ -183,11 +181,11 @@ describe("List", function() {
         }
       };
 
-      this.instance = new List({ items, filterProperties });
+      thisInstance = new List({ items, filterProperties });
     });
 
     it("returns an instance of List", function() {
-      var items = this.instance.filterItemsByText("bar");
+      var items = thisInstance.filterItemsByText("bar");
       expect(items instanceof List).toEqual(true);
     });
 
@@ -214,26 +212,26 @@ describe("List", function() {
         }
       };
 
-      this.instance = new List({ items, filterProperties });
-      var filteredItems = this.instance.filterItemsByText("bar").getItems();
+      thisInstance = new List({ items, filterProperties });
+      var filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
     it("filters by default getter", function() {
-      var filteredItems = this.instance.filterItemsByText("bar").getItems();
+      var filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual("bar");
     });
 
     it("filters by description", function() {
-      var filteredItems = this.instance.filterItemsByText("qux").getItems();
+      var filteredItems = thisInstance.filterItemsByText("qux").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual("qux");
     });
 
     it("filters by subItems", function() {
-      var filteredItems = this.instance.filterItemsByText("two").getItems();
+      var filteredItems = thisInstance.filterItemsByText("two").getItems();
       expect(filteredItems.length).toEqual(2);
       expect(filteredItems[0].subItems).toEqual(["one", "two"]);
       expect(filteredItems[1].subItems).toEqual(["two", "three"]);
@@ -263,7 +261,7 @@ describe("List", function() {
           return item[prop] && item[prop].label;
         }
       };
-      var filteredItems = this.instance
+      var filteredItems = thisInstance
         .filterItemsByText("corge", filterProperties)
         .getItems();
       expect(filteredItems[0].name).toEqual("foo");
@@ -272,12 +270,12 @@ describe("List", function() {
 
   describe("#findItem", function() {
     beforeEach(function() {
-      this.instance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
+      thisInstance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
     });
 
     it("returns undefined if no matching item was found", function() {
       expect(
-        this.instance.findItem(function() {
+        thisInstance.findItem(function() {
           return false;
         })
       ).toEqual(undefined);
@@ -285,7 +283,7 @@ describe("List", function() {
 
     it("returns matching item", function() {
       expect(
-        this.instance.findItem(function(item) {
+        thisInstance.findItem(function(item) {
           return item.name === "foo";
         })
       ).toEqual({ name: "foo" });
@@ -294,18 +292,18 @@ describe("List", function() {
 
   describe("#mapItems", function() {
     beforeEach(function() {
-      this.instance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
+      thisInstance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
     });
 
     it("returns an instance of List", function() {
-      var list = this.instance.mapItems(function(item) {
+      var list = thisInstance.mapItems(function(item) {
         return item;
       });
       expect(list instanceof List).toEqual(true);
     });
 
     it("apply callbacks to all items", function() {
-      var items = this.instance
+      var items = thisInstance
         .mapItems(function(item) {
           return { name: item.name.toUpperCase() };
         })
@@ -317,11 +315,11 @@ describe("List", function() {
 
   describe("#reduceItems", function() {
     beforeEach(function() {
-      this.instance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
+      thisInstance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
     });
 
     it("reduces all items to a value", function() {
-      var expectedValue = this.instance.reduceItems(function(
+      var expectedValue = thisInstance.reduceItems(function(
         previousValue,
         currentValue
       ) {

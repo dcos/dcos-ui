@@ -1,6 +1,8 @@
 const ReducerUtil = require("../ReducerUtil");
 const TransactionType = require("../../constants/TransactionTypes");
 
+let thisItems, thisReducers;
+
 describe("ReducerUtil", function() {
   describe("#combineReducers", function() {
     const idReducer = function(state = "", action) {
@@ -12,13 +14,13 @@ describe("ReducerUtil", function() {
     };
 
     beforeEach(function() {
-      this.items = [
+      thisItems = [
         {
           path: ["id"],
           value: "foo"
         }
       ];
-      this.reducers = ReducerUtil.combineReducers({
+      thisReducers = ReducerUtil.combineReducers({
         id: idReducer
       });
     });
@@ -28,13 +30,13 @@ describe("ReducerUtil", function() {
     });
 
     it("works with a simple reducer object", function() {
-      const state = this.items.reduce(this.reducers, {});
+      const state = thisItems.reduce(thisReducers, {});
 
       expect(state).toEqual({ id: "foo" });
     });
 
     it("does not remove existing values", function() {
-      const state = this.items.reduce(this.reducers, { bar: "bar" });
+      const state = thisItems.reduce(thisReducers, { bar: "bar" });
 
       expect(state).toEqual({ id: "foo", bar: "bar" });
     });
@@ -220,7 +222,7 @@ describe("ReducerUtil", function() {
     it("runs reducers that have not been configured", function() {
       const reducers = ReducerUtil.combineReducers({ id: idReducer });
 
-      const state = this.items.reduce(reducers, { bar: "bar" });
+      const state = thisItems.reduce(reducers, { bar: "bar" });
 
       expect(state).toEqual({ id: "foo", bar: "bar" });
     });

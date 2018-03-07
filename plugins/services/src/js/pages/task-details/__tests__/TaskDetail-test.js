@@ -21,13 +21,22 @@ const TaskDirectory = require("../../../structs/TaskDirectory");
 const TaskDirectoryStore = require("../../../stores/TaskDirectoryStore");
 const TaskDetail = require("../TaskDetail");
 
+let thisStoreGetDirectory,
+  thisStoreSetPath,
+  thisStoreGet,
+  thisStoreChangeListener,
+  thisContainer,
+  thisParams,
+  thisInstance,
+  thisGetNodeFromID;
+
 describe("TaskDetail", function() {
   beforeEach(function() {
     // Store original versions
-    this.storeGetDirectory = TaskDirectoryStore.fetchDirectory;
-    this.storeSetPath = TaskDirectoryStore.setPath;
-    this.storeGet = MesosStateStore.get;
-    this.storeChangeListener = MesosStateStore.addChangeListener;
+    thisStoreGetDirectory = TaskDirectoryStore.fetchDirectory;
+    thisStoreSetPath = TaskDirectoryStore.setPath;
+    thisStoreGet = MesosStateStore.get;
+    thisStoreChangeListener = MesosStateStore.addChangeListener;
 
     // Create mock functions
     MesosStateStore.get = function(key) {
@@ -46,43 +55,43 @@ describe("TaskDetail", function() {
     TaskDirectoryStore.fetchDirectory = jasmine.createSpy("fetchDirectory");
     TaskDirectoryStore.setPath = jasmine.createSpy("setPath");
 
-    this.container = global.document.createElement("div");
-    this.params = { id: "foo", taskID: "bar" };
-    this.instance = JestUtil.renderWithStubbedRouter(
+    thisContainer = global.document.createElement("div");
+    thisParams = { id: "foo", taskID: "bar" };
+    thisInstance = JestUtil.renderWithStubbedRouter(
       TaskDetail,
       {
-        params: this.params,
+        params: thisParams,
         routes: [{ path: "/services/detail/:id/tasks/:taskID" }]
       },
-      this.container,
+      thisContainer,
       {}
     );
-    this.instance.setState = jasmine.createSpy("setState");
-    this.instance.getErrorScreen = jasmine.createSpy("getErrorScreen");
+    thisInstance.setState = jasmine.createSpy("setState");
+    thisInstance.getErrorScreen = jasmine.createSpy("getErrorScreen");
   });
 
   afterEach(function() {
     // Restore original functions
-    MesosStateStore.get = this.storeGet;
-    MesosStateStore.addChangeListener = this.storeChangeListener;
-    TaskDirectoryStore.fetchDirectory = this.storeGetDirectory;
-    TaskDirectoryStore.setPath = this.storeSetPath;
+    MesosStateStore.get = thisStoreGet;
+    MesosStateStore.addChangeListener = thisStoreChangeListener;
+    TaskDirectoryStore.fetchDirectory = thisStoreGetDirectory;
+    TaskDirectoryStore.setPath = thisStoreSetPath;
 
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#componentDidMount", function() {
     it("calls fetchDirectory after onStateStoreSuccess is called", function() {
-      this.instance.onStateStoreSuccess();
+      thisInstance.onStateStoreSuccess();
       expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
     });
   });
 
   describe("#onTaskDirectoryStoreError", function() {
     it("increments taskDirectoryErrorCount state", function() {
-      this.instance.state = { taskDirectoryErrorCount: 1 };
-      this.instance.onTaskDirectoryStoreError();
-      expect(this.instance.setState).toHaveBeenCalledWith({
+      thisInstance.state = { taskDirectoryErrorCount: 1 };
+      thisInstance.onTaskDirectoryStoreError();
+      expect(thisInstance.setState).toHaveBeenCalledWith({
         taskDirectoryErrorCount: 2
       });
     });
@@ -98,8 +107,8 @@ describe("TaskDetail", function() {
         .createSpy("TaskDirectoryStore#get")
         .and.returnValue(directory);
 
-      this.instance.onTaskDirectoryStoreSuccess("bar");
-      expect(this.instance.setState).toHaveBeenCalledWith({
+      thisInstance.onTaskDirectoryStoreSuccess("bar");
+      expect(thisInstance.setState).toHaveBeenCalledWith({
         directory,
         taskDirectoryErrorCount: 0
       });
@@ -108,7 +117,7 @@ describe("TaskDetail", function() {
 
   describe("#handleFetchDirectory", function() {
     it("calls TaskDirectoryStore.fetchDirectory", function() {
-      this.instance.handleFetchDirectory();
+      thisInstance.handleFetchDirectory();
       expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
     });
 
@@ -116,14 +125,14 @@ describe("TaskDetail", function() {
       MesosStateStore.getTaskFromTaskID = function() {
         return null;
       };
-      this.instance.handleFetchDirectory();
+      thisInstance.handleFetchDirectory();
       expect(TaskDirectoryStore.fetchDirectory).not.toHaveBeenCalled();
     });
   });
 
   describe("#handleBreadcrumbClick", function() {
     it("calls TaskDirectoryStore.setPath", function() {
-      this.instance.handleBreadcrumbClick();
+      thisInstance.handleBreadcrumbClick();
       expect(TaskDirectoryStore.setPath).toHaveBeenCalled();
     });
 
@@ -131,36 +140,36 @@ describe("TaskDetail", function() {
       MesosStateStore.getTaskFromTaskID = function() {
         return null;
       };
-      this.instance.handleBreadcrumbClick();
+      thisInstance.handleBreadcrumbClick();
       expect(TaskDirectoryStore.setPath).not.toHaveBeenCalled();
     });
   });
 
   describe("#getSubView", function() {
     beforeEach(function() {
-      this.getNodeFromID = MesosStateStore.getNodeFromID;
+      thisGetNodeFromID = MesosStateStore.getNodeFromID;
       MesosStateStore.getNodeFromID = function() {
         return { hostname: "hello" };
       };
-      this.container = global.document.createElement("div");
+      thisContainer = global.document.createElement("div");
     });
 
     afterEach(function() {
-      MesosStateStore.getNodeFromID = this.getNodeFromID;
+      MesosStateStore.getNodeFromID = thisGetNodeFromID;
 
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("calls getErrorScreen when error occurred", function() {
-      this.instance.state = {
+      thisInstance.state = {
         directory: new TaskDirectory({
           items: [{ nlink: 1, path: "/stdout" }]
         }),
         taskDirectoryErrorCount: 3
       };
-      this.instance.getSubView();
+      thisInstance.getSubView();
 
-      expect(this.instance.getErrorScreen).toHaveBeenCalled();
+      expect(thisInstance.getErrorScreen).toHaveBeenCalled();
     });
 
     it("ignores getErrorScreen when error has not occurred", function() {
@@ -168,16 +177,16 @@ describe("TaskDetail", function() {
       TaskDirectoryStore.get = jasmine
         .createSpy("TaskDirectoryStore#get")
         .and.returnValue("");
-      this.instance.state = {
+      thisInstance.state = {
         directory: new TaskDirectory({ items: [{ nlink: 1, path: "/stdout" }] })
       };
-      this.instance.getSubView();
+      thisInstance.getSubView();
 
-      expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
+      expect(thisInstance.getErrorScreen).not.toHaveBeenCalled();
     });
 
     it("returns null if there are no nodes", function() {
-      const node = ReactDOM.findDOMNode(this.instance);
+      const node = ReactDOM.findDOMNode(thisInstance);
       expect(node).toEqual(null);
     });
 
@@ -191,10 +200,10 @@ describe("TaskDetail", function() {
       const instance = JestUtil.renderWithStubbedRouter(
         TaskDetail,
         {
-          params: this.params,
+          params: thisParams,
           routes: [{ path: "/services/detail/:id/tasks/:taskID" }]
         },
-        this.container,
+        thisContainer,
         {}
       );
 
@@ -208,12 +217,12 @@ describe("TaskDetail", function() {
       MesosStateStore.getTaskFromTaskID = function() {
         return null;
       };
-      const result = this.instance.getBasicInfo();
+      const result = thisInstance.getBasicInfo();
       expect(result).toEqual(null);
     });
 
     it("returns an element if task is not null", function() {
-      const result = this.instance.getBasicInfo();
+      const result = thisInstance.getBasicInfo();
 
       expect(TestUtils.isElement(result)).toEqual(true);
     });

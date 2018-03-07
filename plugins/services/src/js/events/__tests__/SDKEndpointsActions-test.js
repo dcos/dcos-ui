@@ -4,15 +4,17 @@ const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 const SDKEndpointsActions = require("../SDKEndpointActions");
 
+let thisConfiguration;
+
 describe("SDKEndpointsActions", function() {
   describe("#fetchEndpoints", function() {
     const serviceId = "foo";
 
-    context("#RequestUtil", function() {
+    describe("#RequestUtil", function() {
       beforeEach(function() {
         spyOn(RequestUtil, "json");
         SDKEndpointsActions.fetchEndpoints(serviceId);
-        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
       it("calls #json from the RequestUtil", function() {
@@ -20,13 +22,13 @@ describe("SDKEndpointsActions", function() {
       });
 
       it("sends data to the correct URL", function() {
-        expect(this.configuration.url).toEqual(
+        expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/${serviceId}/v1/endpoints`
         );
       });
 
       it("uses GET for the request method", function() {
-        expect(this.configuration.method).toEqual("GET");
+        expect(thisConfiguration.method).toEqual("GET");
       });
 
       it("dispatches the correct action when successful", function() {
@@ -42,7 +44,7 @@ describe("SDKEndpointsActions", function() {
           });
         });
 
-        this.configuration.success(["endpoint1", "endpoint2"]);
+        thisConfiguration.success(["endpoint1", "endpoint2"]);
       });
 
       it("dispatches the correct action when unsuccessful", function() {
@@ -56,7 +58,7 @@ describe("SDKEndpointsActions", function() {
           });
         });
 
-        this.configuration.error({ error: {}, serviceId: "foo" });
+        thisConfiguration.error({ error: {}, serviceId: "foo" });
       });
 
       it("dispatches the xhr when unsuccessful", function() {
@@ -68,7 +70,7 @@ describe("SDKEndpointsActions", function() {
           });
         });
 
-        this.configuration.error({
+        thisConfiguration.error({
           error: { description: "foo" }
         });
       });

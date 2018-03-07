@@ -1,5 +1,7 @@
 const Util = require("../Util");
 
+let thisSearchObject, thisSearchString, thisFunc, thisDebounced;
+
 describe("Util", function() {
   describe("#uniqueID", function() {
     it("returns a unique ID each time it is called", function() {
@@ -156,94 +158,94 @@ describe("Util", function() {
 
   describe("#findNestedPropertyInObject", function() {
     beforeEach(function() {
-      this.searchObject = {
+      thisSearchObject = {
         hello: {
           is: { it: { me: { you: { are: { looking: { for: "?" } } } } } }
         }
       };
-      this.searchString = "hello.is.it.me.you.are.looking.for";
+      thisSearchString = "hello.is.it.me.you.are.looking.for";
     });
 
     it("finds a nested defined property", function() {
       expect(
-        Util.findNestedPropertyInObject(this.searchObject, this.searchString)
+        Util.findNestedPropertyInObject(thisSearchObject, thisSearchString)
       ).toEqual("?");
     });
 
     it("handles nested empty string definitions gracefully", function() {
       expect(
-        Util.findNestedPropertyInObject(this.searchObject, "hello.")
+        Util.findNestedPropertyInObject(thisSearchObject, "hello.")
       ).toEqual(undefined);
     });
 
     it("handles null search object gracefully", function() {
-      expect(Util.findNestedPropertyInObject(null, this.searchString)).toEqual(
+      expect(Util.findNestedPropertyInObject(null, thisSearchString)).toEqual(
         null
       );
     });
 
     it("handles undefined gracefully", function() {
       expect(
-        Util.findNestedPropertyInObject(undefined, this.searchString)
+        Util.findNestedPropertyInObject(undefined, thisSearchString)
       ).toEqual(null);
     });
 
     it("handles nested empty strings gracefully", function() {
-      expect(Util.findNestedPropertyInObject(this.searchObject, ".")).toEqual(
+      expect(Util.findNestedPropertyInObject(thisSearchObject, ".")).toEqual(
         undefined
       );
     });
 
     it("handles nested empty string definition gracefully", function() {
-      expect(Util.findNestedPropertyInObject(this.searchObject, "")).toEqual(
+      expect(Util.findNestedPropertyInObject(thisSearchObject, "")).toEqual(
         undefined
       );
     });
 
     it("handles null definition gracefully", function() {
-      expect(Util.findNestedPropertyInObject(this.searchObject, null)).toEqual(
+      expect(Util.findNestedPropertyInObject(thisSearchObject, null)).toEqual(
         null
       );
     });
 
     it("handles undefined definition gracefully", function() {
       expect(
-        Util.findNestedPropertyInObject(this.searchObject, undefined)
+        Util.findNestedPropertyInObject(thisSearchObject, undefined)
       ).toEqual(null);
     });
   });
 
   describe("#debounce", function() {
     beforeEach(function() {
-      this.func = jest.genMockFunction();
-      this.debounced = Util.debounce(this.func, 200).bind(this, {
+      thisFunc = jest.genMockFunction();
+      thisDebounced = Util.debounce(thisFunc, 200).bind(this, {
         nativeEvent: {}
       });
     });
 
     it("calls the function", function() {
-      this.debounced();
+      thisDebounced();
       jest.runAllTimers();
 
-      expect(this.func.mock.calls.length).toBe(1);
+      expect(thisFunc.mock.calls.length).toBe(1);
     });
 
     it("it calls the function only once after consecutive calls", function() {
-      this.debounced();
-      this.debounced();
-      this.debounced();
+      thisDebounced();
+      thisDebounced();
+      thisDebounced();
       jest.runAllTimers();
 
-      expect(this.func.mock.calls.length).toBe(1);
+      expect(thisFunc.mock.calls.length).toBe(1);
     });
 
     it("calls function with final arguments", function() {
-      this.debounced("foo");
-      this.debounced("bar");
-      this.debounced("baz");
+      thisDebounced("foo");
+      thisDebounced("bar");
+      thisDebounced("baz");
       jest.runAllTimers();
 
-      expect(this.func.mock.calls[0][1]).toBe("baz");
+      expect(thisFunc.mock.calls[0][1]).toBe("baz");
     });
   });
 
@@ -321,7 +323,7 @@ describe("Util", function() {
       expect(originalObject2).toEqual(originalObject);
     });
 
-    it("does not clone out of bounds arrays", function() {
+    it("does not clone out of bounds items in arrays", function() {
       var originalObject = {
         obj1: {
           array1: [1, 2]
@@ -332,7 +334,8 @@ describe("Util", function() {
       originalObject.obj1.array1[number] = 3;
 
       var copiedObject = Util.deepCopy(originalObject);
-      expect(copiedObject).not.toEqual(originalObject);
+      expect(originalObject.obj1.array1[number]).toEqual(3);
+      expect(copiedObject.obj1.array1[number]).not.toEqual(3);
     });
 
     it("does clone an array with normal indices", function() {

@@ -1,3 +1,5 @@
+const MockDate = require("mockdate");
+
 jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
 jest.mock("../MesosSummaryStore");
 
@@ -45,11 +47,11 @@ describe("DCOSStore", function() {
 
   describe("#emit", function() {
     beforeEach(function() {
-      // Clean up application timers.
-      jasmine.clock().uninstall();
-      // Install our custom jasmine timers.
-      jasmine.clock().install();
-      jasmine.clock().mockDate(new Date(2016, 3, 19));
+      MockDate.set(new Date(2016, 3, 19));
+    });
+
+    afterEach(function() {
+      MockDate.reset();
     });
 
     it("calls arbitrary event handler directly", function() {
@@ -63,7 +65,7 @@ describe("DCOSStore", function() {
       const handler = jasmine.createSpy("handler");
       DCOSStore.on(EventTypes.DCOS_CHANGE, handler);
       DCOSStore.emit(EventTypes.DCOS_CHANGE);
-      jasmine.clock().tick(250);
+      jest.advanceTimersByTime(250);
       expect(handler).toHaveBeenCalled();
     });
 
@@ -74,7 +76,7 @@ describe("DCOSStore", function() {
       expect(handler).not.toHaveBeenCalled();
       DCOSStore.emit(EventTypes.DCOS_CHANGE);
       expect(handler).not.toHaveBeenCalled();
-      jasmine.clock().tick(250);
+      jest.advanceTimersByTime(250);
       expect(handler).toHaveBeenCalled();
     });
   });

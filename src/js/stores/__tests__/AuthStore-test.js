@@ -14,14 +14,16 @@ global.atob =
     return JSON.stringify({ uid: "joe", description: "Joe Doe" });
   };
 
+let thisCookieParse, thisDocument;
+
 describe("AuthStore", function() {
   beforeEach(function() {
-    this.cookieParse = cookie.parse;
+    thisCookieParse = cookie.parse;
     global.document = { cookie: "" };
   });
 
   afterEach(function() {
-    cookie.parse = this.cookieParse;
+    cookie.parse = thisCookieParse;
   });
 
   describe("#isLoggedIn", function() {
@@ -48,14 +50,14 @@ describe("AuthStore", function() {
 
   describe("#processLogoutSuccess", function() {
     beforeEach(function() {
-      this.document = global.document;
+      thisDocument = global.document;
       spyOn(cookie, "serialize");
       spyOn(AuthStore, "emit");
       AuthStore.processLogoutSuccess();
     });
 
     afterEach(function() {
-      global.document = this.document;
+      global.document = thisDocument;
     });
 
     it("sets the cookie to an empty string", function() {

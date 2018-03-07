@@ -6,12 +6,14 @@ var PodInstancesZoneFilter = require("../PodInstancesZoneFilter");
 var List = require("#SRC/js/structs/List");
 var InstanceUtil = require("../../utils/InstanceUtil");
 
+let thisMockItems;
+
 describe("PodInstancesZoneFilter", function() {
   beforeEach(function() {
     InstanceUtil.getNode = function(item) {
       return item;
     };
-    this.mockItems = [
+    thisMockItems = [
       {
         getZoneName() {
           return "zone-1";
@@ -26,7 +28,7 @@ describe("PodInstancesZoneFilter", function() {
   });
 
   it("keeps tasks with specific zone mentioned", function() {
-    const services = new List({ items: this.mockItems });
+    const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
     const filters = new DSLFilterList().add(
@@ -34,7 +36,7 @@ describe("PodInstancesZoneFilter", function() {
     );
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      this.mockItems[0]
+      thisMockItems[0]
     ]);
   });
 });

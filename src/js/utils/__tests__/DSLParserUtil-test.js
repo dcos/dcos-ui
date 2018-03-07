@@ -39,9 +39,11 @@ class FuzzyFilter extends DSLFilter {
   }
 }
 
+let thisMockData, thisOp, thisOpLeft, thisOpRight;
+
 describe("DSLParserUtil", function() {
   beforeEach(function() {
-    this.mockData = new List({
+    thisMockData = new List({
       items: [
         { text: "attribute" },
         { text: "fuzzy" },
@@ -53,11 +55,11 @@ describe("DSLParserUtil", function() {
 
   describe("#Operator.attribute", function() {
     beforeEach(function() {
-      this.op = DSLParserUtil.Operator.attribute("label", "text", 0, 5, 10, 20);
+      thisOp = DSLParserUtil.Operator.attribute("label", "text", 0, 5, 10, 20);
     });
 
     it("creates the correct ast node", function() {
-      const { ast } = this.op;
+      const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
       // ASTNode properties
@@ -73,13 +75,13 @@ describe("DSLParserUtil", function() {
     });
 
     it("creates the correct filter function", function() {
-      const { filter } = this.op;
+      const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
 
       const filters = new DSLFilterList([new AttribFilter()]);
 
-      expect(filter(filters, this.mockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
         { text: "attribute fuzzy" }
       ]);
@@ -88,11 +90,11 @@ describe("DSLParserUtil", function() {
 
   describe("#Operator.exact", function() {
     beforeEach(function() {
-      this.op = DSLParserUtil.Operator.exact("text", 0, 10);
+      thisOp = DSLParserUtil.Operator.exact("text", 0, 10);
     });
 
     it("creates the correct ast node", function() {
-      const { ast } = this.op;
+      const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
       // ASTNode properties
@@ -107,13 +109,13 @@ describe("DSLParserUtil", function() {
     });
 
     it("creates the correct filter function", function() {
-      const { filter } = this.op;
+      const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
 
       const filters = new DSLFilterList([new ExactFilter()]);
 
-      expect(filter(filters, this.mockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "exact" }
       ]);
     });
@@ -121,11 +123,11 @@ describe("DSLParserUtil", function() {
 
   describe("#Operator.fuzzy", function() {
     beforeEach(function() {
-      this.op = DSLParserUtil.Operator.fuzzy("text", 0, 10);
+      thisOp = DSLParserUtil.Operator.fuzzy("text", 0, 10);
     });
 
     it("creates the correct ast node", function() {
-      const { ast } = this.op;
+      const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
       // ASTNode properties
@@ -140,13 +142,13 @@ describe("DSLParserUtil", function() {
     });
 
     it("creates the correct filter function", function() {
-      const { filter } = this.op;
+      const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
 
       const filters = new DSLFilterList([new FuzzyFilter()]);
 
-      expect(filter(filters, this.mockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "fuzzy" },
         { text: "attribute fuzzy" }
       ]);
@@ -155,7 +157,7 @@ describe("DSLParserUtil", function() {
 
   describe("#Merge.and", function() {
     beforeEach(function() {
-      this.opLeft = DSLParserUtil.Operator.attribute(
+      thisOpLeft = DSLParserUtil.Operator.attribute(
         "label",
         "text",
         0,
@@ -163,16 +165,16 @@ describe("DSLParserUtil", function() {
         10,
         20
       );
-      this.opRight = DSLParserUtil.Operator.fuzzy("text", 21, 30);
-      this.op = DSLParserUtil.Merge.and(this.opLeft, this.opRight);
+      thisOpRight = DSLParserUtil.Operator.fuzzy("text", 21, 30);
+      thisOp = DSLParserUtil.Merge.and(thisOpLeft, thisOpRight);
     });
 
     it("creates the correct ast node", function() {
-      const { ast } = this.op;
+      const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
       // ASTNode properties
-      expect(ast.children).toEqual([this.opLeft.ast, this.opRight.ast]);
+      expect(ast.children).toEqual([thisOpLeft.ast, thisOpRight.ast]);
       expect(ast.position).toEqual([[0, 30]]);
 
       // CombinerNode properties
@@ -180,7 +182,7 @@ describe("DSLParserUtil", function() {
     });
 
     it("creates the correct filter function", function() {
-      const { filter } = this.op;
+      const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
 
@@ -189,7 +191,7 @@ describe("DSLParserUtil", function() {
         new FuzzyFilter()
       ]);
 
-      expect(filter(filters, this.mockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute fuzzy" }
       ]);
     });
@@ -197,7 +199,7 @@ describe("DSLParserUtil", function() {
 
   describe("#Merge.or", function() {
     beforeEach(function() {
-      this.opLeft = DSLParserUtil.Operator.attribute(
+      thisOpLeft = DSLParserUtil.Operator.attribute(
         "label",
         "text",
         0,
@@ -205,16 +207,16 @@ describe("DSLParserUtil", function() {
         10,
         20
       );
-      this.opRight = DSLParserUtil.Operator.fuzzy("text", 21, 30);
-      this.op = DSLParserUtil.Merge.or(this.opLeft, this.opRight);
+      thisOpRight = DSLParserUtil.Operator.fuzzy("text", 21, 30);
+      thisOp = DSLParserUtil.Merge.or(thisOpLeft, thisOpRight);
     });
 
     it("creates the correct ast node", function() {
-      const { ast } = this.op;
+      const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
       // ASTNode properties
-      expect(ast.children).toEqual([this.opLeft.ast, this.opRight.ast]);
+      expect(ast.children).toEqual([thisOpLeft.ast, thisOpRight.ast]);
       expect(ast.position).toEqual([[0, 30]]);
 
       // CombinerNode properties
@@ -222,7 +224,7 @@ describe("DSLParserUtil", function() {
     });
 
     it("creates the correct filter function", function() {
-      const { filter } = this.op;
+      const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
 
@@ -231,7 +233,7 @@ describe("DSLParserUtil", function() {
         new FuzzyFilter()
       ]);
 
-      expect(filter(filters, this.mockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
         { text: "attribute fuzzy" },
         { text: "fuzzy" }

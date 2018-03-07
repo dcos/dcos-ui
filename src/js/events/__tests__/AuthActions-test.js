@@ -5,6 +5,8 @@ const AppDispatcher = require("../../events/AppDispatcher");
 const AuthActions = require("../AuthActions");
 const Config = require("../../config/Config");
 
+let thisConfiguration;
+
 describe("AuthActions", function() {
   describe("extra params", function() {
     it("passes extra parameters down to the auth service via query string params", function() {
@@ -22,7 +24,7 @@ describe("AuthActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       AuthActions.login();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -30,7 +32,7 @@ describe("AuthActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.acsAPIPrefix + "/auth/login"
       );
     });
@@ -42,7 +44,7 @@ describe("AuthActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGIN_SUCCESS);
       });
 
-      this.configuration.success();
+      thisConfiguration.success();
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -52,7 +54,7 @@ describe("AuthActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGIN_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct error when unsuccessful", function() {
@@ -62,7 +64,7 @@ describe("AuthActions", function() {
         expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -75,7 +77,7 @@ describe("AuthActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -86,7 +88,7 @@ describe("AuthActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       AuthActions.logout();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -94,7 +96,7 @@ describe("AuthActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         Config.acsAPIPrefix + "/auth/logout"
       );
     });
@@ -106,7 +108,7 @@ describe("AuthActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGOUT_SUCCESS);
       });
 
-      this.configuration.success();
+      thisConfiguration.success();
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -116,7 +118,7 @@ describe("AuthActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGOUT_ERROR);
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the correct error when unsuccessful", function() {
@@ -126,7 +128,7 @@ describe("AuthActions", function() {
         expect(action.data).toEqual("bar");
       });
 
-      this.configuration.error({ responseJSON: { description: "bar" } });
+      thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -139,7 +141,7 @@ describe("AuthActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

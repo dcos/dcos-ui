@@ -6,13 +6,15 @@ const ReactDOM = require("react-dom");
 const ConfigurationMap = require("../ConfigurationMap");
 const ReviewConfig = require("../ReviewConfig");
 
+let thisContainer;
+
 describe("ReviewConfig", function() {
   beforeEach(function() {
-    this.container = global.document.createElement("div");
+    thisContainer = global.document.createElement("div");
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(this.container);
+    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#getDefinitionReview", function() {
@@ -27,7 +29,7 @@ describe("ReviewConfig", function() {
 
       var instance = ReactDOM.render(
         <ReviewConfig configuration={configuration} />,
-        this.container
+        thisContainer
       );
 
       var result = instance.getDefinitionReview();

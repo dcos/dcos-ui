@@ -5,12 +5,14 @@ const AppDispatcher = require("../AppDispatcher");
 const Config = require("../../config/Config");
 const MetronomeActions = require("../MetronomeActions");
 
+let thisConfiguration;
+
 describe("MetronomeActions", function() {
   describe("#createJob", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.createJob();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -18,7 +20,7 @@ describe("MetronomeActions", function() {
     });
 
     it("sends data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v0/scheduled-jobs`
       );
     });
@@ -32,7 +34,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -44,7 +46,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -57,7 +59,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -68,7 +70,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.fetchJobs();
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -76,7 +78,7 @@ describe("MetronomeActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(`${Config.metronomeAPI}/v1/jobs`);
+      expect(thisConfiguration.url).toEqual(`${Config.metronomeAPI}/v1/jobs`);
     });
 
     it("dispatches the correct action when successful", function() {
@@ -86,7 +88,7 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_METRONOME_JOBS_SUCCESS);
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -96,7 +98,7 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(ActionTypes.REQUEST_METRONOME_JOBS_ERROR);
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -109,7 +111,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -120,7 +122,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.fetchJobDetail("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -128,7 +130,7 @@ describe("MetronomeActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v1/jobs/foo`
       );
     });
@@ -144,7 +146,7 @@ describe("MetronomeActions", function() {
         expect(action.jobID).toEqual("foo");
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -158,7 +160,7 @@ describe("MetronomeActions", function() {
         expect(action.jobID).toEqual("foo");
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -171,7 +173,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -182,7 +184,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.deleteJob("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -190,13 +192,13 @@ describe("MetronomeActions", function() {
     });
 
     it("fetches data from the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v1/jobs/foo?stopCurrentJobRuns=false`
       );
     });
 
     it("fetches data with the correct method", function() {
-      expect(this.configuration.method).toEqual("DELETE");
+      expect(thisConfiguration.method).toEqual("DELETE");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -210,7 +212,7 @@ describe("MetronomeActions", function() {
         expect(action.jobID).toEqual("foo");
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -224,7 +226,7 @@ describe("MetronomeActions", function() {
         expect(action.jobID).toEqual("foo");
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -237,7 +239,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -248,7 +250,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.updateJob("foo", { id: "foo", labels: { foo: "bar" } });
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -256,7 +258,7 @@ describe("MetronomeActions", function() {
     });
 
     it("sends data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v0/scheduled-jobs/foo`
       );
     });
@@ -270,7 +272,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -282,7 +284,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -295,7 +297,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -306,7 +308,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.runJob("foo");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -314,17 +316,17 @@ describe("MetronomeActions", function() {
     });
 
     it("POSTs data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v1/jobs/foo/runs`
       );
     });
 
     it("POSTs data with the correct method", function() {
-      expect(this.configuration.method).toEqual("POST");
+      expect(thisConfiguration.method).toEqual("POST");
     });
 
     it("POSTs with the an empty object", function() {
-      expect(this.configuration.data).toEqual({});
+      expect(thisConfiguration.data).toEqual({});
     });
 
     it("dispatches the correct action when successful", function() {
@@ -337,7 +339,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -350,7 +352,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -363,7 +365,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -374,7 +376,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.stopJobRun("foo", "foo.1990-01-03t00:00:00z-1");
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -382,14 +384,14 @@ describe("MetronomeActions", function() {
     });
 
     it("sends data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v1/jobs/foo/runs` +
           "/foo.1990-01-03t00:00:00z-1/actions/stop"
       );
     });
 
     it("uses the correct method", function() {
-      expect(this.configuration.method).toEqual("POST");
+      expect(thisConfiguration.method).toEqual("POST");
     });
 
     it("dispatches the correct action when successful", function() {
@@ -402,7 +404,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -415,7 +417,7 @@ describe("MetronomeActions", function() {
         );
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -428,7 +430,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });
@@ -439,7 +441,7 @@ describe("MetronomeActions", function() {
     beforeEach(function() {
       spyOn(RequestUtil, "json");
       MetronomeActions.updateSchedule("foo", { id: "bar" });
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("calls #json from the RequestUtil", function() {
@@ -447,17 +449,17 @@ describe("MetronomeActions", function() {
     });
 
     it("PUTs data to the correct URL", function() {
-      expect(this.configuration.url).toEqual(
+      expect(thisConfiguration.url).toEqual(
         `${Config.metronomeAPI}/v1/jobs/foo/schedules/bar`
       );
     });
 
     it("PUTs data with the correct method", function() {
-      expect(this.configuration.method).toEqual("PUT");
+      expect(thisConfiguration.method).toEqual("PUT");
     });
 
     it("PUTs data with the correct data", function() {
-      expect(this.configuration.data).toEqual({ id: "bar" });
+      expect(thisConfiguration.data).toEqual({ id: "bar" });
     });
 
     it("dispatches the correct action when successful", function() {
@@ -471,7 +473,7 @@ describe("MetronomeActions", function() {
         expect(action.jobID).toEqual("foo");
       });
 
-      this.configuration.success([]);
+      thisConfiguration.success([]);
     });
 
     it("dispatches the correct action when unsuccessful", function() {
@@ -485,7 +487,7 @@ describe("MetronomeActions", function() {
         expect(action.jobID).toEqual("foo");
       });
 
-      this.configuration.error({ message: "error" });
+      thisConfiguration.error({ message: "error" });
     });
 
     it("dispatches the xhr when unsuccessful", function() {
@@ -498,7 +500,7 @@ describe("MetronomeActions", function() {
         });
       });
 
-      this.configuration.error({
+      thisConfiguration.error({
         foo: "bar",
         responseJSON: { description: "baz" }
       });

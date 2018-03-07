@@ -1,30 +1,31 @@
 const TabsUtil = require("../TabsUtil");
 
+let thisTabs, thisHierarchicalTabs, thisGetElement;
+
 describe("TabsUtil", function() {
   describe("#getTabs", function() {
     beforeEach(function() {
-      this.tabs = { foo: "bar", baz: "qux", corge: "grault" };
-      this.hierarchicalTabs = { foo: "bar", foobar: "foobar", "-foo": "baz" };
-      this.getElement = function() {};
-      spyOn(this, "getElement");
+      thisTabs = { foo: "bar", baz: "qux", corge: "grault" };
+      thisHierarchicalTabs = { foo: "bar", foobar: "foobar", "-foo": "baz" };
+      thisGetElement = jest.fn();
     });
 
     it("returns an empty array when given an empty object", function() {
-      var result = TabsUtil.getTabs({}, null, this.getElement);
+      var result = TabsUtil.getTabs({}, null, thisGetElement);
 
-      expect(this.getElement).not.toHaveBeenCalled();
+      expect(thisGetElement).not.toHaveBeenCalled();
       expect(result).toEqual([]);
     });
 
     it("returns equal length array to what is given", function() {
-      var result = TabsUtil.getTabs(this.tabs, "baz", this.getElement);
+      var result = TabsUtil.getTabs(thisTabs, "baz", thisGetElement);
 
-      expect(this.getElement.calls.count()).toEqual(3);
+      expect(thisGetElement.mock.calls.length).toEqual(3);
       expect(result.length).toEqual(3);
     });
 
     it("returns LIs", function() {
-      var result = TabsUtil.getTabs(this.tabs, "baz", this.getElement);
+      var result = TabsUtil.getTabs(thisTabs, "baz", thisGetElement);
 
       expect(result[0].type).toEqual("li");
       expect(result[1].type).toEqual("li");
@@ -32,7 +33,7 @@ describe("TabsUtil", function() {
     });
 
     it("returns elements with one active class", function() {
-      var result = TabsUtil.getTabs(this.tabs, "baz", this.getElement);
+      var result = TabsUtil.getTabs(thisTabs, "baz", thisGetElement);
 
       expect(result[0].props.className).toEqual("menu-tabbed-item");
       expect(result[1].props.className).toEqual("menu-tabbed-item active");
@@ -40,11 +41,7 @@ describe("TabsUtil", function() {
     });
 
     it("does not highlight routes contained within the class name", function() {
-      var tabs = TabsUtil.getTabs(
-        this.hierarchicalTabs,
-        "-foo",
-        this.getElement
-      );
+      var tabs = TabsUtil.getTabs(thisHierarchicalTabs, "-foo", thisGetElement);
 
       expect(tabs[0].props.className).toEqual("menu-tabbed-item");
       expect(tabs[1].props.className).toEqual("menu-tabbed-item");
@@ -53,9 +50,9 @@ describe("TabsUtil", function() {
 
     it("highlights all routes which prefix the current tab name", function() {
       var tabs = TabsUtil.getTabs(
-        this.hierarchicalTabs,
+        thisHierarchicalTabs,
         "foobar",
-        this.getElement
+        thisGetElement
       );
 
       expect(tabs[0].props.className).toEqual("menu-tabbed-item active");
@@ -64,9 +61,9 @@ describe("TabsUtil", function() {
     });
 
     it("calls getElement with appropriate arguments", function() {
-      TabsUtil.getTabs(this.tabs, "baz", this.getElement);
+      TabsUtil.getTabs(thisTabs, "baz", thisGetElement);
 
-      expect(this.getElement.calls.allArgs()).toEqual([
+      expect(thisGetElement.mock.calls).toEqual([
         ["foo", 0],
         ["baz", 1],
         ["corge", 2]
@@ -86,9 +83,9 @@ describe("TabsUtil", function() {
     });
 
     it("does not have an active route when it doesn't exist", function() {
-      TabsUtil.getTabs(this.tabs, "notHere", this.getElement);
+      TabsUtil.getTabs(thisTabs, "notHere", thisGetElement);
 
-      expect(this.getElement.calls.allArgs()).toEqual([
+      expect(thisGetElement.mock.calls).toEqual([
         ["foo", 0],
         ["baz", 1],
         ["corge", 2]
@@ -98,7 +95,7 @@ describe("TabsUtil", function() {
 
   describe("#sortTabs", function() {
     beforeEach(function() {
-      this.tabs = {
+      thisTabs = {
         foo: {
           content: "foo",
           priority: 20
@@ -115,7 +112,7 @@ describe("TabsUtil", function() {
     });
 
     it("arranges tabs in correct order", function() {
-      var sortedTabs = TabsUtil.sortTabs(this.tabs);
+      var sortedTabs = TabsUtil.sortTabs(thisTabs);
       var tabContent = Object.keys(sortedTabs);
       expect(tabContent).toEqual(["bar", "foo", "qux"]);
     });

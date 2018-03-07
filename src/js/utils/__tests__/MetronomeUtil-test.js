@@ -1,9 +1,11 @@
 const MetronomeUtil = require("../MetronomeUtil");
 
+let thisJobs, thisJob;
+
 describe("MetronomeUtil", function() {
   describe("#parseJobs", function() {
     beforeEach(function() {
-      this.jobs = MetronomeUtil.parseJobs([
+      thisJobs = MetronomeUtil.parseJobs([
         { id: "name.foo" },
         { id: "name.bar" },
         { id: "name.alpha" },
@@ -59,24 +61,24 @@ describe("MetronomeUtil", function() {
     });
 
     it("nests everything under root", function() {
-      expect(this.jobs.id).toEqual("");
-      expect(this.jobs.items.length).toEqual(1);
+      expect(thisJobs.id).toEqual("");
+      expect(thisJobs.items.length).toEqual(1);
     });
 
     it("consolidates jobs into common parent", function() {
-      expect(this.jobs.items[0].id).toEqual("name");
+      expect(thisJobs.items[0].id).toEqual("name");
     });
 
     it("sets correct namespace id", function() {
-      expect(this.jobs.items[0].id).toEqual("name");
+      expect(thisJobs.items[0].id).toEqual("name");
     });
 
     it("accepts nested namespaces", function() {
-      expect(this.jobs.items[0].items[4].items.length).toEqual(1);
+      expect(thisJobs.items[0].items[4].items.length).toEqual(1);
     });
 
     it("doesn't add items to jobs with no nested items", function() {
-      expect(this.jobs.items[0].items[2].items).toEqual(undefined);
+      expect(thisJobs.items[0].items[2].items).toEqual(undefined);
     });
 
     it("converts a single item into a subitem of root", function() {
@@ -88,7 +90,7 @@ describe("MetronomeUtil", function() {
     });
 
     it("merges data of items that are defined multiple times", function() {
-      const jobs = this.jobs.items[0].items[3];
+      const jobs = thisJobs.items[0].items[3];
       expect(jobs).toEqual({
         id: "name.beta",
         cmd: "./beta",
@@ -160,7 +162,7 @@ describe("MetronomeUtil", function() {
 
   describe("#parseJob", function() {
     beforeEach(function() {
-      this.job = MetronomeUtil.parseJob({
+      thisJob = MetronomeUtil.parseJob({
         id: "foo",
         history: {
           failedFinishedRuns: [
@@ -188,21 +190,21 @@ describe("MetronomeUtil", function() {
     });
 
     it("adds the proper status to the failed finished runs", function() {
-      expect(this.job.history.failedFinishedRuns[0].status).toEqual("FAILED");
+      expect(thisJob.history.failedFinishedRuns[0].status).toEqual("FAILED");
     });
 
     it("adds the job id to the failed finished runs", function() {
-      expect(this.job.history.failedFinishedRuns[0].jobId).toEqual("foo");
+      expect(thisJob.history.failedFinishedRuns[0].jobId).toEqual("foo");
     });
 
     it("adds the proper status to the successful finished runs", function() {
-      expect(this.job.history.successfulFinishedRuns[0].status).toEqual(
+      expect(thisJob.history.successfulFinishedRuns[0].status).toEqual(
         "COMPLETED"
       );
     });
 
     it("adds the job id to the successful finished runs", function() {
-      expect(this.job.history.successfulFinishedRuns[0].jobId).toEqual("foo");
+      expect(thisJob.history.successfulFinishedRuns[0].jobId).toEqual("foo");
     });
   });
 });

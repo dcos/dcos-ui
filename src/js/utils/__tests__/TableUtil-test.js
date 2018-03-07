@@ -1,20 +1,19 @@
-const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore");
 const TableUtil = require("../TableUtil");
 const Util = require("../Util");
 const HealthSorting = require("../../../../plugins/services/src/js/constants/HealthSorting");
 
+let thisFoo, thisBar, thisGetProp, thisSortFunction;
+
 describe("TableUtil", function() {
   beforeEach(function() {
-    this.getServiceHealth = MarathonStore.getServiceHealth;
-
-    this.foo = {
+    thisFoo = {
       equal: 0,
       id: "foo",
       name: null,
       statuses: [{ timestamp: 1 }, { timestamp: 2 }],
       version: "1.0.1"
     };
-    this.bar = {
+    thisBar = {
       equal: 0,
       id: "bar",
       name: "bar",
@@ -25,7 +24,7 @@ describe("TableUtil", function() {
 
   describe("#getSortFunction", function() {
     beforeEach(function() {
-      this.getProp = function(obj, prop) {
+      thisGetProp = function(obj, prop) {
         if (prop === "timestamp") {
           return Util.last(obj.statuses)[prop];
         }
@@ -33,42 +32,42 @@ describe("TableUtil", function() {
         return obj[prop];
       };
 
-      this.sortFunction = TableUtil.getSortFunction("id", this.getProp);
+      thisSortFunction = TableUtil.getSortFunction("id", thisGetProp);
     });
 
     it("returns a function", function() {
-      expect(typeof this.sortFunction).toEqual("function");
+      expect(typeof thisSortFunction).toEqual("function");
     });
 
     it("compares ids values", function() {
-      var sortPropFunction = this.sortFunction("id");
-      expect(sortPropFunction(this.foo, this.bar)).toEqual(1);
+      var sortPropFunction = thisSortFunction("id");
+      expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
     it("handles null values", function() {
-      var sortPropFunction = this.sortFunction("name");
-      expect(sortPropFunction(this.foo, this.bar)).toEqual(1);
+      var sortPropFunction = thisSortFunction("name");
+      expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
     it("handles undefined values", function() {
-      var sortPropFunction = this.sortFunction("version");
-      expect(sortPropFunction(this.foo, this.bar)).toEqual(1);
+      var sortPropFunction = thisSortFunction("version");
+      expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
     it("handles nested properties through getter function", function() {
-      var sortPropFunction = this.sortFunction("timestamp");
-      expect(sortPropFunction(this.foo, this.bar)).toEqual(-1);
+      var sortPropFunction = thisSortFunction("timestamp");
+      expect(sortPropFunction(thisFoo, thisBar)).toEqual(-1);
     });
 
     it("uses if values are equal tiebreaker", function() {
-      var sortPropFunction = this.sortFunction("equal");
-      expect(sortPropFunction(this.foo, this.bar)).toEqual(1);
+      var sortPropFunction = thisSortFunction("equal");
+      expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
     it("handles alternative tiebreaker", function() {
-      var sortFunction = TableUtil.getSortFunction("timestamp", this.getProp);
+      var sortFunction = TableUtil.getSortFunction("timestamp", thisGetProp);
       var sortPropFunction = sortFunction("equal");
-      expect(sortPropFunction(this.foo, this.bar)).toEqual(-1);
+      expect(sortPropFunction(thisFoo, thisBar)).toEqual(-1);
     });
   });
 

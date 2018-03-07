@@ -5,39 +5,41 @@ const ReactDOM = require("react-dom");
 
 const TimeSeriesChart = require("../TimeSeriesChart");
 
+let thisContainer, thisInstance;
+
 describe("TimeSeriesChart", function() {
   describe("#shouldComponentUpdate", function() {
     beforeEach(function() {
       var data = [{ values: [{ date: 0, y: 0 }, { date: 1, y: 0 }] }];
 
-      this.container = global.document.createElement("div");
-      this.instance = ReactDOM.render(
+      thisContainer = global.document.createElement("div");
+      thisInstance = ReactDOM.render(
         <TimeSeriesChart data={data} width={0} height={0} />,
-        this.container
+        thisContainer
       );
-      this.instance.renderAxis = jasmine.createSpy();
+      thisInstance.renderAxis = jasmine.createSpy();
     });
 
     afterEach(function() {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
     it("calls #renderAxis", function() {
-      var props = Object.assign({ foo: "bar" }, this.instance.props);
-      this.instance.shouldComponentUpdate(props);
+      var props = Object.assign({ foo: "bar" }, thisInstance.props);
+      thisInstance.shouldComponentUpdate(props);
 
-      expect(this.instance.renderAxis).toHaveBeenCalled();
+      expect(thisInstance.renderAxis).toHaveBeenCalled();
     });
 
     it("does not call #renderAxis", function() {
-      this.instance.shouldComponentUpdate(this.instance.props);
+      thisInstance.shouldComponentUpdate(thisInstance.props);
 
-      expect(this.instance.renderAxis).not.toHaveBeenCalled();
+      expect(thisInstance.renderAxis).not.toHaveBeenCalled();
     });
 
     it("returns truthy", function() {
-      var props = Object.assign({ foo: "bar" }, this.instance.props);
-      var _return = this.instance.shouldComponentUpdate(props);
+      var props = Object.assign({ foo: "bar" }, thisInstance.props);
+      var _return = thisInstance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);
     });
@@ -51,19 +53,19 @@ describe("TimeSeriesChart", function() {
 
       var props = { data };
 
-      Object.keys(this.instance.props).forEach(key => {
+      Object.keys(thisInstance.props).forEach(key => {
         if (props[key] == null) {
-          props[key] = this.instance.props[key];
+          props[key] = thisInstance.props[key];
         }
       });
 
-      var _return = this.instance.shouldComponentUpdate(props);
+      var _return = thisInstance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);
     });
 
     it("returns falsy", function() {
-      var _return = this.instance.shouldComponentUpdate(this.instance.props);
+      var _return = thisInstance.shouldComponentUpdate(thisInstance.props);
 
       expect(_return).toEqual(false);
     });

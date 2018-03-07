@@ -8,17 +8,19 @@ const NodesList = require("#SRC/js/structs/NodesList");
 const NodeHealthStore = require("../NodeHealthStore");
 const nodesFixture = require("../../../../../../tests/_fixtures/unit-health/nodes.json");
 
+let thisRequestFn, thisNodesFixture;
+
 describe("NodeHealthStore", function() {
   beforeEach(function() {
-    this.requestFn = RequestUtil.json;
+    thisRequestFn = RequestUtil.json;
     RequestUtil.json = function(handlers) {
       handlers.success(nodesFixture);
     };
-    this.nodesFixture = Object.assign({}, nodesFixture);
+    thisNodesFixture = Object.assign({}, nodesFixture);
   });
 
   afterEach(function() {
-    RequestUtil.json = this.requestFn;
+    RequestUtil.json = thisRequestFn;
   });
 
   it("returns an instance of NodesList", function() {
@@ -33,7 +35,7 @@ describe("NodeHealthStore", function() {
     Config.useFixtures = true;
     NodeHealthStore.fetchNodes();
     var nodes = NodeHealthStore.getNodes().getItems();
-    expect(nodes.length).toEqual(this.nodesFixture.nodes.length);
+    expect(nodes.length).toEqual(thisNodesFixture.nodes.length);
     Config.useFixtures = false;
   });
 

@@ -4,14 +4,16 @@ const TestUtils = require("react-addons-test-utils");
 const TabButton = require("../TabButton");
 const TabButtonList = require("../TabButtonList");
 
+let thisChangeHandler, thisInstance;
+
 describe("TabButtonList", function() {
   beforeEach(function() {
-    this.changeHandler = jasmine.createSpy("change handler");
+    thisChangeHandler = jasmine.createSpy("change handler");
   });
 
   it("passes onChange as click handler for each TabButton instance", function() {
-    this.instance = TestUtils.renderIntoDocument(
-      <TabButtonList onChange={this.changeHandler}>
+    thisInstance = TestUtils.renderIntoDocument(
+      <TabButtonList onChange={thisChangeHandler}>
         <TabButton id="foo" />
         <TabButton id="bar" />
         <TabButton id="baz" />
@@ -19,17 +21,17 @@ describe("TabButtonList", function() {
     );
 
     const instances = TestUtils.scryRenderedComponentsWithType(
-      this.instance,
+      thisInstance,
       TabButton
     );
 
     instances.forEach(tabButtonInstance => {
-      expect(tabButtonInstance.props.onClick).toEqual(this.changeHandler);
+      expect(tabButtonInstance.props.onClick).toEqual(thisChangeHandler);
     });
   });
 
   it("sets only first child to active if no active tab is defined", function() {
-    this.instance = TestUtils.renderIntoDocument(
+    thisInstance = TestUtils.renderIntoDocument(
       <TabButtonList>
         <TabButton id="foo" />
         <TabButton id="bar" />
@@ -38,7 +40,7 @@ describe("TabButtonList", function() {
     );
 
     const instances = TestUtils.scryRenderedComponentsWithType(
-      this.instance,
+      thisInstance,
       TabButton
     );
 
@@ -52,7 +54,7 @@ describe("TabButtonList", function() {
   });
 
   it("passes active prop to instance whose ID matches activeTab", function() {
-    this.instance = TestUtils.renderIntoDocument(
+    thisInstance = TestUtils.renderIntoDocument(
       <TabButtonList activeTab="bar">
         <TabButton id="foo" />
         <TabButton id="bar" />
@@ -61,7 +63,7 @@ describe("TabButtonList", function() {
     );
 
     const instances = TestUtils.scryRenderedComponentsWithType(
-      this.instance,
+      thisInstance,
       TabButton
     );
 

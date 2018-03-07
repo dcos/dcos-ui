@@ -4,32 +4,34 @@ const TestUtils = require("react-addons-test-utils");
 
 const TabButton = require("../TabButton");
 
+let thisClickHandler, thisInstance;
+
 describe("TabButton", function() {
   beforeEach(function() {
-    this.clickHandler = jasmine.createSpy("click handler");
+    thisClickHandler = jasmine.createSpy("click handler");
   });
 
   it("calls the onClick prop with ID when clicked", function() {
-    this.instance = TestUtils.renderIntoDocument(
-      <TabButton label="foo" onClick={this.clickHandler} id="foo" />
+    thisInstance = TestUtils.renderIntoDocument(
+      <TabButton label="foo" onClick={thisClickHandler} id="foo" />
     );
 
     // Click the TabButton's label
     TestUtils.Simulate.click(
-      ReactDOM.findDOMNode(this.instance).querySelector(
+      ReactDOM.findDOMNode(thisInstance).querySelector(
         ".menu-tabbed-item-label"
       )
     );
 
-    expect(this.clickHandler).toHaveBeenCalledWith("foo");
+    expect(thisClickHandler).toHaveBeenCalledWith("foo");
   });
 
   it("clones nested TabButton instances with onClick and activeTab props", function() {
-    this.instance = TestUtils.renderIntoDocument(
+    thisInstance = TestUtils.renderIntoDocument(
       <TabButton
         activeTab="foo"
         label="foo"
-        onClick={this.clickHandler}
+        onClick={thisClickHandler}
         id="foo"
       >
         <TabButton label="bar" id="bar" />
@@ -37,20 +39,20 @@ describe("TabButton", function() {
     );
 
     const nestedInstance = TestUtils.scryRenderedComponentsWithType(
-      this.instance,
+      thisInstance,
       TabButton
     )[0];
 
     expect(nestedInstance.props.activeTab).toEqual("foo");
-    expect(nestedInstance.props.onClick).toEqual(this.clickHandler);
+    expect(nestedInstance.props.onClick).toEqual(thisClickHandler);
   });
 
   it("calls the parent onClick when clicking a nested TabButton", function() {
-    this.instance = TestUtils.renderIntoDocument(
+    thisInstance = TestUtils.renderIntoDocument(
       <TabButton
         activeTab="foo"
         label="foo"
-        onClick={this.clickHandler}
+        onClick={thisClickHandler}
         id="foo"
       >
         <TabButton label="bar" id="bar" />
@@ -59,11 +61,11 @@ describe("TabButton", function() {
 
     // Click the TabButton's label
     TestUtils.Simulate.click(
-      ReactDOM.findDOMNode(this.instance).querySelector(
+      ReactDOM.findDOMNode(thisInstance).querySelector(
         ".menu-tabbed-item .menu-tabbed-item .menu-tabbed-item-label"
       )
     );
 
-    expect(this.clickHandler).toHaveBeenCalledWith("bar");
+    expect(thisClickHandler).toHaveBeenCalledWith("bar");
   });
 });
