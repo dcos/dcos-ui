@@ -20,11 +20,11 @@ VALIDATION_EXIT_CODE=$(${SCRIPT_PATH}/validate-engine-versions > /dev/null; echo
 if [ "$PACKAGE_DEV_DEPENDENCY" != "undefined" ] && [ "$MAJOR_NPM_VERSION" -lt 5 ]; then
   warning "This branch uses node as a dependency, \
     but you are running npm ${NPM_VERSION} which doesnt support that."
-  exit 1;
+  exit 0;
 elif [ $VALIDATION_EXIT_CODE -ne 0 ]; then
   warning "This branch requires node version v${PACKAGE_ENGINE_DEPENDENCY}, \
     but you're running ${NODE_VERSION}."
-  exit 1
+  exit 0
 fi
 
 info "Looks like your node version is fine."
