@@ -1,50 +1,31 @@
 /* eslint-disable no-unused-vars */
-const React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import { shallow } from "enzyme";
 
 const TimeSeriesLabel = require("../TimeSeriesLabel");
 
-let thisContainer, thisInstance;
+let thisInstance;
 
 describe("TimeSeriesLabel", function() {
   beforeEach(function() {
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
-      <TimeSeriesLabel colorIndex={2} currentValue="10" subHeading="Foo" />,
-      thisContainer
+    thisInstance = shallow(
+      <TimeSeriesLabel colorIndex={2} currentValue="10" subHeading="Foo" />
     );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("displays the correct label", function() {
     // Verify that percentage is set correctly
-    var title = TestUtils.findRenderedDOMComponentWithClass(
-      thisInstance,
-      "unit"
-    );
-    expect(ReactDOM.findDOMNode(title).textContent).toEqual("10%");
+    expect(thisInstance.find(".unit").text()).toEqual("10%");
   });
 
   it("displays the correct sub heading", function() {
     // Verify that percentage is set correctly
-    var label = TestUtils.findRenderedDOMComponentWithClass(
-      thisInstance,
-      "unit-label"
-    );
-    expect(ReactDOM.findDOMNode(label).textContent).toBe("Foo");
+    expect(thisInstance.find(".unit-label").text()).toEqual("Foo");
   });
 
   it("sets sub heading text color", function() {
     // Verify that percentage is set correctly
-    var label = TestUtils.findRenderedDOMComponentWithClass(
-      thisInstance,
-      "path-color-2"
-    );
-    expect(typeof label).toBe("object");
+    expect(thisInstance.hasClass("path-color-2"));
   });
 });

@@ -1,36 +1,24 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { shallow } from "enzyme";
 
 const ToggleValue = require("../ToggleValue");
 
 describe("ToggleValue", function() {
   it("render the initial text value", function() {
-    const container = global.document.createElement("div");
-    const instance = ReactDOM.render(
-      <ToggleValue primaryValue="primary" secondaryValue="secondary" />,
-      container
-    );
-    const content = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "toggle-value"
+    const instance = shallow(
+      <ToggleValue primaryValue="primary" secondaryValue="secondary" />
     );
 
-    expect(content.innerHTML).toContain("primary");
+    const content = instance.find(".toggle-value");
+    expect(content.html()).toContain("primary");
   });
 
   it("render the toggled text value after clicked", function() {
-    const container = global.document.createElement("div");
-    const instance = ReactDOM.render(
-      <ToggleValue primaryValue="primary" secondaryValue="secondary" />,
-      container
-    );
-    const content = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "toggle-value"
+    const instance = shallow(
+      <ToggleValue primaryValue="primary" secondaryValue="secondary" />
     );
 
-    TestUtils.Simulate.click(content);
-    expect(content.innerHTML).toContain("secondary");
+    instance.find(".toggle-value").simulate("click");
+    expect(instance.find(".toggle-value").html()).toContain("secondary");
   });
 });

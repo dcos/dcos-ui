@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { shallow } from "enzyme";
 
 const FilterButtons = require("../FilterButtons");
 
@@ -16,7 +14,7 @@ describe("FilterButtons", function() {
       { name: "obj 1", key: "f0" },
       { name: "obj 2", key: "f1" }
     ];
-    thisInstance = TestUtils.renderIntoDocument(
+    thisInstance = shallow(
       <FilterButtons
         filters={thisFilters}
         filterByKey={thisKey}
@@ -29,7 +27,7 @@ describe("FilterButtons", function() {
 
   describe("#getFilterButtons", function() {
     it("returns an array of buttons", function() {
-      var buttons = thisInstance.getFilterButtons();
+      var buttons = thisInstance.instance().getFilterButtons();
       var areButtons = buttons.reduce(function(accumulated, element) {
         return accumulated && element.type === "button";
       }, true);
@@ -39,7 +37,7 @@ describe("FilterButtons", function() {
     });
 
     it('creates an "all" button when "all" is listed as filter', function() {
-      var buttons = thisInstance.getFilterButtons();
+      var buttons = thisInstance.instance().getFilterButtons();
       var hasAll = buttons.reduce(function(accumulated, element) {
         return accumulated || element.key === "all";
       }, false);
@@ -54,17 +52,17 @@ describe("FilterButtons", function() {
     });
 
     it('adds an "all" key with total item count as value', function() {
-      var counts = thisInstance.getCount(thisItemList);
+      var counts = thisInstance.instance().getCount(thisItemList);
       expect(counts.all).toEqual(3);
     });
 
     it('returns a hash map with only key "all" if no items given', function() {
-      var counts = thisInstance.getCount([]);
+      var counts = thisInstance.instance().getCount([]);
       expect(counts).toEqual({ all: 0 });
     });
 
     it("creates a hash map of filter counts", function() {
-      var counts = thisInstance.getCount(thisItemList);
+      var counts = thisInstance.instance().getCount(thisItemList);
       var expectedCounts = {
         f0: 2,
         f1: 1,

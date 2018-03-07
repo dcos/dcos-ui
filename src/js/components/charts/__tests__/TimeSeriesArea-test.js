@@ -1,18 +1,17 @@
-const d3 = require("d3");
+import d3 from "d3";
 /* eslint-disable no-unused-vars */
-const React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import { mount } from "enzyme";
 
 const MockTimeSeriesData = require("./fixtures/MockTimeSeriesData.json");
 const TimeSeriesArea = require("../TimeSeriesArea");
 
 function checkPath(instance, props) {
-  var area = TestUtils.findRenderedDOMComponentWithClass(instance, "area");
+  var area = instance.find(".area");
 
   var index = 1;
-  var points = ReactDOM.findDOMNode(area).attributes.d.value.split(",");
+  var points = area.getDOMNode().attributes.d.value.split(",");
   points.forEach(function(str, i) {
     // Discard values after we've been through data
     // Also parseFloat and check with index (int) to make sure we exactly
@@ -31,7 +30,6 @@ let thisProps,
   thisArea,
   thisValueLineDef,
   thisValueLine,
-  thisContainer,
   thisInstance;
 
 describe("TimeSeriesArea", function() {
@@ -65,20 +63,14 @@ describe("TimeSeriesArea", function() {
       .interpolate("monotone");
     thisValueLine = thisValueLineDef(thisProps.values);
 
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
+    thisInstance = mount(
       <TimeSeriesArea
         line={thisValueLine}
         path={thisArea}
         position={[-10, 0]}
         transitionTime={10}
-      />,
-      thisContainer
+      />
     );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("renders a path according to first data set", function() {
@@ -90,14 +82,13 @@ describe("TimeSeriesArea", function() {
     var area = thisAreaDef(thisProps.values);
     var valueLine = thisValueLineDef(thisProps.values);
 
-    thisInstance = ReactDOM.render(
+    thisInstance = mount(
       <TimeSeriesArea
         line={valueLine}
         path={area}
         position={[-10, 0]}
         transitionTime={10}
-      />,
-      thisContainer
+      />
     );
 
     checkPath(thisInstance, thisProps);
@@ -109,15 +100,7 @@ describe("TimeSeriesArea", function() {
     var area = thisAreaDef(thisProps.values);
     var valueLine = thisValueLineDef(thisProps.values);
 
-    thisInstance = ReactDOM.render(
-      <TimeSeriesArea
-        line={valueLine}
-        path={area}
-        position={[-10, 0]}
-        transitionTime={10}
-      />,
-      thisContainer
-    );
+    thisInstance.setProps({ line: valueLine, path: area });
 
     checkPath(thisInstance, thisProps);
   });

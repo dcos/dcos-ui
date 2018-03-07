@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-const React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import { shallow } from "enzyme";
+
 const PluginTestUtils = require("PluginTestUtils");
 
 const SDK = PluginTestUtils.getSDK("banner", { enabled: true });
@@ -12,16 +12,10 @@ const BannerPlugin = require("../hooks");
 
 var defaultConfiguration = BannerPlugin.configuration;
 
-let thisContainer, thisHooks, thisInstance, thisMockFn, thisIframe;
-
+let thisHooks, thisInstance, thisMockFn, thisIframe;
 describe("BannerPlugin", function() {
   beforeEach(function() {
-    thisContainer = global.document.createElement("div");
     BannerPlugin.configuration = Object.assign({}, defaultConfiguration);
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#initialize", function() {
@@ -113,10 +107,7 @@ describe("BannerPlugin", function() {
     beforeEach(function() {
       BannerPlugin.configure({ headerTitle: "foo" });
       spyOn(BannerPlugin, "toggleFullContent");
-      thisInstance = ReactDOM.render(
-        BannerPlugin.applicationContents(),
-        thisContainer
-      );
+      thisInstance = shallow(BannerPlugin.applicationContents());
     });
 
     it("does not call before click", function() {
@@ -124,21 +115,17 @@ describe("BannerPlugin", function() {
     });
 
     it("calls once with one click", function() {
-      var node = ReactDOM.findDOMNode(thisInstance);
-      var el = node.querySelector(".banner-plugin-info-icon");
-
-      TestUtils.Simulate.click(el);
+      thisInstance.find(".banner-plugin-info-icon").simulate("click");
       expect(BannerPlugin.toggleFullContent.calls.count()).toEqual(1);
     });
 
     it("calls n times with n clicks", function() {
-      var node = ReactDOM.findDOMNode(thisInstance);
-      var el = node.querySelector(".banner-plugin-info-icon");
+      const button = thisInstance.find(".banner-plugin-info-icon");
+      button.simulate("click");
+      button.simulate("click");
+      button.simulate("click");
+      button.simulate("click");
 
-      TestUtils.Simulate.click(el);
-      TestUtils.Simulate.click(el);
-      TestUtils.Simulate.click(el);
-      TestUtils.Simulate.click(el);
       expect(BannerPlugin.toggleFullContent.calls.count()).toEqual(4);
     });
   });
@@ -171,29 +158,20 @@ describe("BannerPlugin", function() {
   describe("#applicationContents", function() {
     it("returns content when enabled", function() {
       BannerPlugin.configure({ headerTitle: "foo" });
-      expect(
-        TestUtils.isElement(BannerPlugin.applicationContents())
-      ).toBeTruthy();
+      const Element = BannerPlugin.applicationContents();
+      expect(Element).not.toBe(null);
     });
 
     it("returns null when not enabled", function() {
-      expect(
-        TestUtils.isElement(BannerPlugin.applicationContents())
-      ).toBeFalsy();
+      const Element = BannerPlugin.applicationContents();
+      expect(Element).toBe(null);
     });
 
     it("renders an iframe when enabled", function() {
       BannerPlugin.configure({ headerTitle: "foo" });
 
-      var instance = ReactDOM.render(
-        BannerPlugin.applicationContents(),
-        thisContainer
-      );
-
-      var node = ReactDOM.findDOMNode(instance);
-      var iframe = node.querySelector("iframe");
-
-      expect(TestUtils.isDOMComponent(iframe)).toBeTruthy();
+      const dom = shallow(BannerPlugin.applicationContents());
+      expect(dom.find("iframe").exists()).toBeTruthy();
     });
   });
 
@@ -251,7 +229,7 @@ describe("BannerPlugin", function() {
         imagePath: "foo"
       });
 
-      expect(TestUtils.isElement(BannerPlugin.getIcon())).toBeTruthy();
+      expect(BannerPlugin.getIcon()).not.toBe(null);
     });
   });
 
@@ -277,7 +255,7 @@ describe("BannerPlugin", function() {
         headerTitle: "foo"
       });
 
-      expect(TestUtils.isElement(BannerPlugin.getTitle())).toBeTruthy();
+      expect(BannerPlugin.getTitle()).not.toBe(null);
     });
   });
 
@@ -303,7 +281,7 @@ describe("BannerPlugin", function() {
         headerContent: "foo"
       });
 
-      expect(TestUtils.isElement(BannerPlugin.getHeaderContent())).toBeTruthy();
+      expect(BannerPlugin.getHeaderContent()).not.toBe(null);
     });
   });
 
@@ -329,7 +307,7 @@ describe("BannerPlugin", function() {
         return "foo";
       };
 
-      expect(TestUtils.isElement(BannerPlugin.getHeader())).toBeTruthy();
+      expect(BannerPlugin.getHeader()).not.toBe(null);
     });
 
     it("returns an element if getTitle return something", function() {
@@ -337,7 +315,7 @@ describe("BannerPlugin", function() {
         return "foo";
       };
 
-      expect(TestUtils.isElement(BannerPlugin.getHeader())).toBeTruthy();
+      expect(BannerPlugin.getHeader()).not.toBe(null);
     });
 
     it("returns element when getHeaderContent does", function() {
@@ -345,7 +323,7 @@ describe("BannerPlugin", function() {
         return "foo";
       };
 
-      expect(TestUtils.isElement(BannerPlugin.getHeader())).toBeTruthy();
+      expect(BannerPlugin.getHeader()).not.toBe(null);
     });
   });
 
@@ -371,7 +349,7 @@ describe("BannerPlugin", function() {
         footerContent: "foo"
       });
 
-      expect(TestUtils.isElement(BannerPlugin.getFooter())).toBeTruthy();
+      expect(BannerPlugin.getFooter()).not.toBe(null);
     });
   });
 });
