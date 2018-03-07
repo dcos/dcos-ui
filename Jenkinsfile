@@ -81,6 +81,7 @@ pipeline {
               label "mesos-med"
           }
           steps {
+            sh "ls -la"
             // Run a simple webserver serving the dist folder statically
             // before we run the cypress tests
             writeFile file: 'integration-tests.sh', text: [
@@ -97,7 +98,6 @@ pipeline {
             ].join('\n')
 
             unstash 'dist'
-            unstash 'node_modules'
 
             ansiColor('xterm') {
               retry(2) {
@@ -127,7 +127,6 @@ pipeline {
                 ]
               ]) {
             unstash 'dist'
-            unstash 'node_modules'
 
               ansiColor('xterm') {
                 retry(2) {
