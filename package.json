@@ -72,8 +72,8 @@
     "tv4": "1.2.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "^6.1.3",
-    "@commitlint/config-conventional": "^6.1.3",
+    "@commitlint/cli": "6.1.3",
+    "@commitlint/config-conventional": "6.1.3",
     "@dcos/eslint-config": "0.3.0",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.24.1",
@@ -157,7 +157,7 @@
     "eslint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/js,plugins,packages}/**/*.js\"; fi ; eslint --quiet ${opts}' 0",
     "cypress": "cypress run",
     "stylelint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
-    "commitlint": "commitlint",
+    "commitlint": "./node_modules/.bin/commitlint",
     "lint-plugins": "PLUGINS=$npm_config_externalplugins; npm run eslint -- \"$PLUGINS/**/*.js\" && npm run stylelint -- \"$PLUGINS/**/*.less\"",
     "prebuild": "./scripts/validate-tests",
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
