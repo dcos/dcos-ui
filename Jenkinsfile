@@ -73,7 +73,10 @@ pipeline {
       parallel {
         stage('Integration Test') {
           agent {
-              label "mesos-med"
+              dockerfile {
+                label "mesos-med"
+                args  '--shm-size=2g'
+              }
           }
           steps {
             sh "ls -la"
@@ -110,7 +113,10 @@ pipeline {
 
         stage('System Test') {
           agent {
-              label "mesos-med"
+              dockerfile {
+                label "mesos-med"
+                args  '--shm-size=2g'
+              }
           }
           steps {
             withCredentials([
