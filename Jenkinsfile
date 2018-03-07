@@ -38,11 +38,6 @@ pipeline {
           sh '''npm run scaffold'''
         }
       }
-      post {
-        always {
-          stash includes: 'node_modules', name: 'node_modules'
-        }
-      }
     }
 
     stage('Lint') {
