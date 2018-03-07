@@ -36,6 +36,9 @@ pipeline {
           }
 
           sh '''npm run scaffold'''
+
+          sh "ls -la"
+          sh "ls -la node_modules"
         }
       }
       post {
