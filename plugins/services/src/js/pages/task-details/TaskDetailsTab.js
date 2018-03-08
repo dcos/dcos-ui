@@ -17,7 +17,7 @@ import Units from "#SRC/js/utils/Units";
 
 import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
-import TaskEndpointsList from "../../components/TaskEndpointsList";
+// import TaskEndpointsList from "../../components/TaskEndpointsList";
 import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
@@ -132,14 +132,15 @@ class TaskDetailsTab extends React.Component {
         {serviceRow}
         {nodeRow}
         {sandBoxRow}
-        <ConfigurationMapRow>
+        {/* Todo: replace this with IP Addresses: https://jira.mesosphere.com/browse/DCOS_OSS-1554
+         <ConfigurationMapRow>
           <ConfigurationMapLabel>
             Endpoints
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
             <TaskEndpointsList task={mesosTask} node={node} />
           </ConfigurationMapValue>
-        </ConfigurationMapRow>
+        </ConfigurationMapRow> */}
         {resourceRows}
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
