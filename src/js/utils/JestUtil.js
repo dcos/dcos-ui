@@ -1,7 +1,5 @@
-import TestUtils from "react-addons-test-utils";
 import PropTypes from "prop-types";
 import React from "react";
-import ReactDOM from "react-dom";
 import { routerShape } from "react-router";
 
 const stores = {
@@ -29,12 +27,6 @@ const defaultGetTimezoneOffset = Date.prototype.getTimezoneOffset;
 const defaultToLocaleString = Date.prototype.toLocaleString;
 
 const JestUtil = {
-  renderAndFindTag(instance, tag) {
-    var result = TestUtils.renderIntoDocument(instance);
-
-    return TestUtils.findRenderedDOMComponentWithTag(result, tag);
-  },
-
   unMockStores(storeIDs) {
     Object.keys(stores).forEach(function(storeID) {
       if (storeIDs.indexOf(storeID) === -1) {
@@ -133,7 +125,7 @@ const JestUtil = {
    * @param {object} [contextTypes]
    * @param {object} [context]
    * @returns {React.Element} wrapped component element
-   */
+  */
   stubRouterContext(
     Component,
     props = {},
@@ -204,25 +196,6 @@ const JestUtil = {
 
       return strings;
     };
-  },
-
-  /**
-   * Helper to render component with stubbed router and getting original
-   * rendered component, not the WrappedComponent returned by stubRouterContext
-   * @param {React.Component} Component to render
-   * @param  {Object} [props] properties to pass to the component to render
-   * @param  {DOMElement} container element to render component into
-   * @param  {Object} [routerStubs]
-   * @return {React.Element} rendered into container
-   */
-  renderWithStubbedRouter(Component, props, container, routerStubs = {}) {
-    return TestUtils.findRenderedComponentWithType(
-      ReactDOM.render(
-        this.stubRouterContext(Component, props, routerStubs),
-        container
-      ),
-      Component
-    );
   },
 
   /**

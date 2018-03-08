@@ -1,39 +1,23 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { shallow } from "enzyme";
 
 const Node = require("#SRC/js/structs/Node");
 const TaskEndpointsList = require("../TaskEndpointsList");
 
-let thisContainer;
-
 describe("TaskEndpointsList", function() {
-  beforeEach(function() {
-    thisContainer = global.document.createElement("div");
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
-  });
-
   describe("#getTaskEndpoints", function() {
     it("returns N/A if ipAddresses, ports and host is not set", function() {
-      const instance = ReactDOM.render(
-        <TaskEndpointsList task={{}} />,
-        thisContainer
-      );
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual("N/A");
+      const instance = shallow(<TaskEndpointsList task={{}} />);
+      expect(instance.text()).toEqual("N/A");
     });
 
     it("returns N/A if task is undefined", function() {
-      const instance = ReactDOM.render(<TaskEndpointsList />, thisContainer);
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual("N/A");
+      const instance = shallow(<TaskEndpointsList />);
+      expect(instance.text()).toEqual("N/A");
     });
 
     it("returns a list of linked ipAddresses if ports is not defined", function() {
-      const instance = ReactDOM.render(
+      const instance = shallow(
         <TaskEndpointsList
           task={{
             statuses: [
@@ -52,104 +36,90 @@ describe("TaskEndpointsList", function() {
             ],
             container: { type: "FOO", foo: { network: "BRIDGE" } }
           }}
-        />,
-        thisContainer
+        />
       );
-      const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
-
-      expect(links[0].textContent).toEqual("foo");
-      expect(links[0].attributes.href.value).toEqual("//foo");
-      expect(links[1].textContent).toEqual("bar");
-      expect(links[1].attributes.href.value).toEqual("//bar");
+      const links = instance.find("a");
+      expect(links.at(0).text()).toEqual("foo");
+      expect(links.at(0).prop("href")).toEqual("//foo");
+      expect(links.at(1).text()).toEqual("bar");
+      expect(links.at(1).prop("href")).toEqual("//bar");
     });
 
     it("returns a list of linked hosts ports and ipAddresses are not defined", function() {
-      const instance = ReactDOM.render(
-        <TaskEndpointsList task={{}} node={new Node({ hostname: "foo" })} />,
-        thisContainer
+      const instance = shallow(
+        <TaskEndpointsList task={{}} node={new Node({ hostname: "foo" })} />
       );
-      const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
+      const links = instance.find("a");
 
-      expect(links[0].textContent).toEqual("foo");
-      expect(links[0].attributes.href.value).toEqual("//foo");
+      expect(links.at(0).text()).toEqual("foo");
+      expect(links.at(0).prop("href")).toEqual("//foo");
     });
 
     it("returns host with ports if ipAddresses are not defined", function() {
-      const instance = ReactDOM.render(
+      const instance = shallow(
         <TaskEndpointsList
           task={{ ports: [1, 2] }}
           node={new Node({ hostname: "foo" })}
-        />,
-        thisContainer
+        />
       );
-      const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
+      const links = instance.find("a");
 
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual("foo: [1, 2]");
-      expect(links[0].textContent).toEqual("1");
-      expect(links[0].attributes.href.value).toEqual("//foo:1");
-      expect(links[1].textContent).toEqual("2");
-      expect(links[1].attributes.href.value).toEqual("//foo:2");
+      expect(instance.text()).toEqual("foo: [1, 2]");
+      expect(links.at(0).text()).toEqual("1");
+      expect(links.at(0).prop("href")).toEqual("//foo:1");
+      expect(links.at(1).text()).toEqual("2");
+      expect(links.at(1).prop("href")).toEqual("//foo:2");
     });
 
     it("returns truncated list if more than 3 ports are provided", function() {
-      const instance = ReactDOM.render(
+      const instance = shallow(
         <TaskEndpointsList
           task={{ ports: [1, 2, 3, 4, 5] }}
           node={new Node({ hostname: "foo" })}
-        />,
-        thisContainer
+        />
       );
-      const links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
-      const moreLink = links[3];
+      const links = instance.find("a");
+      const moreLink = links.at(3);
 
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual(
-        "foo: [1, 2, 3, 2 more...]"
-      );
-      expect(moreLink.textContent).toEqual("2 more...");
+      expect(instance.text()).toEqual("foo: [1, 2, 3, 2 more...]");
+      expect(moreLink.text()).toEqual("2 more...");
     });
 
     it('expands truncated list when "more" is clicked', function() {
-      const instance = ReactDOM.render(
+      const instance = shallow(
         <TaskEndpointsList
           task={{ ports: [1, 2, 3, 4, 5] }}
           node={new Node({ hostname: "foo" })}
-        />,
-        thisContainer
+        />
       );
-      let links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
-      const moreLink = links[3];
-      TestUtils.Simulate.click(moreLink);
-      links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
-      const lessLink = links[5];
+      let links = instance.find("a");
+      const moreLink = links.at(3);
+      moreLink.simulate("click");
+      links = instance.find("a");
+      const lessLink = links.at(5);
 
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual(
-        "foo: [1, 2, 3, 4, 5, less]"
-      );
-      expect(lessLink.textContent).toEqual("less");
+      expect(instance.text()).toEqual("foo: [1, 2, 3, 4, 5, less]");
+      expect(lessLink.text()).toEqual("less");
     });
 
     it('collapses truncated list when "less" is clicked', function() {
-      const instance = ReactDOM.render(
+      const instance = shallow(
         <TaskEndpointsList
           task={{ ports: [1, 2, 3, 4, 5] }}
           node={new Node({ hostname: "foo" })}
-        />,
-        thisContainer
+        />
       );
-      let links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
-      const moreLink = links[3];
-      TestUtils.Simulate.click(moreLink);
-      // Make sure it actually expanded the list.
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual(
-        "foo: [1, 2, 3, 4, 5, less]"
-      );
-      links = ReactDOM.findDOMNode(instance).querySelectorAll("a");
-      const lessLink = links[5];
-      TestUtils.Simulate.click(lessLink);
 
-      expect(ReactDOM.findDOMNode(instance).textContent).toEqual(
-        "foo: [1, 2, 3, 2 more...]"
-      );
+      let links = instance.find("a");
+      const moreLink = links.at(3);
+      moreLink.simulate("click");
+      // Make sure it actually expanded the list.
+      expect(instance.text()).toEqual("foo: [1, 2, 3, 4, 5, less]");
+      links = instance.find("a");
+      const lessLink = links.at(5);
+      lessLink.simulate("click");
+
+      expect(instance.text()).toEqual("foo: [1, 2, 3, 2 more...]");
     });
   });
 });

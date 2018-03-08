@@ -1,8 +1,6 @@
+import { mount } from "enzyme";
+
 const JestUtil = require("#SRC/js/utils/JestUtil");
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const TestUtils = require("react-addons-test-utils");
 
 const PodInstancesContainer = require("../PodInstancesContainer");
 const Pod = require("../../../structs/Pod");
@@ -73,19 +71,15 @@ describe("PodInstancesContainer", function() {
           pod,
           location: { pathname: "", query: { q: "instance-1" } }
         });
-        thisInstance = TestUtils.renderIntoDocument(component);
+        thisInstance = mount(component);
       });
 
       it("returns matching instances", function() {
-        var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          thisInstance,
-          "task-table-column-primary"
-        ).reduce(
-          JestUtil.reduceTextContentOfSelector(
-            ".collapsing-string-full-string"
-          ),
-          []
-        );
+        const names = thisInstance
+          .find(".task-table-column-primary .collapsing-string-full-string")
+          .map(function(el) {
+            return el.text();
+          });
 
         expect(names).toEqual(["instance-1"]);
       });
@@ -103,19 +97,15 @@ describe("PodInstancesContainer", function() {
           },
           { service: pod }
         );
-        thisInstance = TestUtils.renderIntoDocument(component);
+        thisInstance = mount(component);
       });
 
       it("returns matching instances and containers", function() {
-        var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          thisInstance,
-          "task-table-column-primary"
-        ).reduce(
-          JestUtil.reduceTextContentOfSelector(
-            ".collapsing-string-full-string"
-          ),
-          []
-        );
+        const names = thisInstance
+          .find(".task-table-column-primary .collapsing-string-full-string")
+          .map(function(el) {
+            return el.text();
+          });
 
         // The table is expanded and the containers are filtered, therefore
         // we should see 1 Header + 1 Child for every instance.
@@ -132,12 +122,11 @@ describe("PodInstancesContainer", function() {
       });
 
       it("always shows instance total resources", function() {
-        var mem = TestUtils.scryRenderedDOMComponentsWithClass(
-          thisInstance,
-          "task-table-column-mem"
-        )
-          .filter(JestUtil.filterByTagName("TD"))
-          .reduce(JestUtil.reduceTextContentOfSelector("span"), []);
+        const mem = thisInstance
+          .find("td.task-table-column-mem span")
+          .map(function(el) {
+            return el.text();
+          });
 
         expect(mem).toEqual(["128 MiB", "64 MiB", "128 MiB", "64 MiB"]);
       });
@@ -155,19 +144,15 @@ describe("PodInstancesContainer", function() {
           },
           { service: pod }
         );
-        thisInstance = TestUtils.renderIntoDocument(component);
+        thisInstance = mount(component);
       });
 
       it("shows all instances", function() {
-        var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          thisInstance,
-          "task-table-column-primary"
-        ).reduce(
-          JestUtil.reduceTextContentOfSelector(
-            ".collapsing-string-full-string"
-          ),
-          []
-        );
+        const names = thisInstance
+          .find(".task-table-column-primary .collapsing-string-full-string")
+          .map(function(el) {
+            return el.text();
+          });
 
         expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
@@ -185,19 +170,15 @@ describe("PodInstancesContainer", function() {
           },
           { service: pod }
         );
-        thisInstance = TestUtils.renderIntoDocument(component);
+        thisInstance = mount(component);
       });
 
       it("shows no instances", function() {
-        var names = TestUtils.scryRenderedDOMComponentsWithClass(
-          thisInstance,
-          "task-table-column-primary"
-        ).reduce(
-          JestUtil.reduceTextContentOfSelector(
-            ".collapsing-string-full-string"
-          ),
-          []
-        );
+        const names = thisInstance
+          .find(".task-table-column-primary .collapsing-string-full-string")
+          .map(function(el) {
+            return el.text();
+          });
 
         expect(names).toEqual([]);
       });

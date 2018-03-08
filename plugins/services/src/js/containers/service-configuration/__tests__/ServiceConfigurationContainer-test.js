@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { mount } from "enzyme";
 
 const Application = require("../../../structs/Application");
 const ServiceConfigurationContainer = require("../ServiceConfigurationContainer");
 const ServiceConfigDisplay = require("../../../service-configuration/ServiceConfigDisplay");
 
-let thisContainer, thisInstance;
+let thisInstance;
 
 describe("ServiceConfigurationContainer", function() {
   const service = new Application({
@@ -48,28 +45,19 @@ describe("ServiceConfigurationContainer", function() {
   });
 
   beforeEach(function() {
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
+    thisInstance = mount(
       <ServiceConfigurationContainer
         onEditClick={function() {}}
         service={service}
-      />,
-      thisContainer
+      />
     );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders correct id", function() {
-      var serviceSpecView = TestUtils.findRenderedComponentWithType(
-        thisInstance,
-        ServiceConfigDisplay
-      );
+      const serviceSpecView = thisInstance.find(ServiceConfigDisplay);
 
-      expect(serviceSpecView).toBeDefined();
+      expect(serviceSpecView.exists()).toBeTruthy();
     });
   });
 });

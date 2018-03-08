@@ -1,5 +1,5 @@
-const ReactRouter = require("react-router");
-const ReactTestUtils = require("react-addons-test-utils");
+import { Route, Redirect } from "react-router";
+import { shallow } from "enzyme";
 
 const RouterUtil = require("../RouterUtil");
 
@@ -14,33 +14,38 @@ describe("RouterUtil", function() {
     it("creates a react component", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent
         }
       ]);
 
-      expect(ReactTestUtils.isElement(components[0])).toBeTruthy();
+      expect(components[0]).toBeInstanceOf(Object);
     });
 
     it("creates a react component of correct type", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent
         }
       ]);
 
-      expect(
-        ReactTestUtils.isElementOfType(components[0], ReactRouter.Route)
-      ).toBeTruthy();
+      try {
+        // Duck typing to check if it is a route
+        shallow(components[0]);
+      } catch (e) {
+        expect(e.message).toContain(
+          "<Route> elements are for router configuration only and should not be rendered"
+        );
+      }
     });
 
     it("sets props correctly", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent
         }
@@ -54,12 +59,12 @@ describe("RouterUtil", function() {
     it("creates child route components", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent,
           children: [
             {
-              type: ReactRouter.Redirect,
+              type: Redirect,
               path: "bar",
               to: "baz"
             }
@@ -68,9 +73,14 @@ describe("RouterUtil", function() {
       ]);
       const component = components[0].props.children;
 
-      expect(
-        ReactTestUtils.isElementOfType(component, ReactRouter.Redirect)
-      ).toBeTruthy();
+      try {
+        // Duck typing to check if it is a route
+        shallow(component);
+      } catch (e) {
+        expect(e.message).toContain(
+          "<Redirect> elements are for router configuration only and should not be rendered"
+        );
+      }
     });
   });
 
@@ -78,17 +88,17 @@ describe("RouterUtil", function() {
     it("builds routes correctly", function() {
       const routeConfiguration = [
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component() {},
           children: [
             {
-              type: ReactRouter.Route,
+              type: Route,
               path: "bar",
               component() {},
               children: [
                 {
-                  type: ReactRouter.Route,
+                  type: Route,
                   path: "baz",
                   component() {}
                 }

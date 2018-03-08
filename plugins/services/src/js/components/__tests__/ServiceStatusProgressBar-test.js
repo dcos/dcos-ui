@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const ReactTestUtils = require("react-addons-test-utils");
+import React from "react";
+import { shallow } from "enzyme";
+
 const Tooltip = require("reactjs-components").Tooltip;
 
 const ProgressBar = require("#SRC/js/components/ProgressBar");
@@ -19,24 +17,16 @@ const service = new Application({
   tasksStaged: 0
 });
 
-let thisContainer, thisInstance;
+let thisInstance;
 
-describe("#ServiceStatusProgressBar", function() {
+describe("ServiceStatusProgressBar", function() {
   beforeEach(function() {
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
-      <ServiceStatusProgressBar service={service} />,
-      thisContainer
-    );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
+    thisInstance = shallow(<ServiceStatusProgressBar service={service} />);
   });
 
   describe("ProgressBar", function() {
     it("display ProgressBar", function() {
-      thisInstance = ReactDOM.render(
+      thisInstance = shallow(
         <ServiceStatusProgressBar
           service={
             new Pod({
@@ -65,16 +55,13 @@ describe("#ServiceStatusProgressBar", function() {
               ]
             })
           }
-        />,
-        thisContainer
+        />
       );
-      const progressBar = ReactTestUtils.findRenderedComponentWithType(
-        thisInstance,
-        ProgressBar
-      );
+
+      const progressBar = thisInstance.find(ProgressBar);
       expect(progressBar).toBeTruthy();
-      expect(progressBar.props.total).toBe(10);
-      expect(progressBar.props.data[0].value).toBe(4);
+      expect(progressBar.prop("total")).toBe(10);
+      expect(progressBar.prop("data")[0].value).toBe(4);
     });
   });
 
@@ -86,19 +73,14 @@ describe("#ServiceStatusProgressBar", function() {
         }
       });
 
-      thisInstance = ReactDOM.render(
-        <ServiceStatusProgressBar service={app} />,
-        thisContainer
-      );
+      thisInstance = shallow(<ServiceStatusProgressBar service={app} />);
 
-      expect(
-        ReactTestUtils.findRenderedComponentWithType(thisInstance, Tooltip)
-      ).toBeTruthy();
+      expect(expect(thisInstance.find(Tooltip).exists())).toBeTruthy();
     });
 
     it("get #getTooltipContent", function() {
-      const childrenContent = thisInstance.getTooltipContent().props.children
-        .props.children;
+      const childrenContent = thisInstance.instance().getTooltipContent().props
+        .children.props.children;
       expect(childrenContent).toEqual("0 instances running out of 1");
     });
   });
