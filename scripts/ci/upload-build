@@ -20,10 +20,6 @@ PKG_VERSION=$(python -c "import sys, json; \
 PKG_BRANCH=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
 RELEASE_NAME="${PKG_BRANCH}+${FILENAME}${BUILD_VARIANT}-v${PKG_VERSION}+${SHA_SLUG}.tar.gz"
 
-# tar dist
-cd "$DIST_PATH"
-tar czf "../$RELEASE_NAME" .
-cd ..
 BUILD_SHA=$(shasum ${RELEASE_NAME} | cut -d " " -f1)
 ENCODED_RELEASE_NAME=$(echo ${RELEASE_NAME} | sed "s/\+/\%2B/g")
 DOWNLOAD_URL=$(echo "https://${AWS_BUCKET}/${BUCKET_PATH}/${ENCODED_RELEASE_NAME}")
@@ -41,4 +37,4 @@ cat <<EOF > ${FILENAME}
 EOF
 
 # upload
-aws s3 cp $RELEASE_NAME s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME
+aws s3 cp 'release.tar.gz' s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME

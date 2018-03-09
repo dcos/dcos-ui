@@ -44,6 +44,10 @@ function runTestFile {
   exit 1
 }
 
+echo "starting http-server proxy used by cypress"
+http-server -p 4200 dist&
+SERVER_PID=$!
+
 
 for f in $PROJECT_ROOT/tests/**/*-cy.js; do
   runTestFile "$f"
@@ -51,3 +55,7 @@ done
 
 echo "Done running tests, merging the results now"
 junit-merge ./cypress/**/*-result.xml --out ./cypress/results.xml
+
+
+echo "kill server"
+kill $SERVER_PID
