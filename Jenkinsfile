@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 @Library('sec_ci_libs@v2-latest') _
-
 def master_branches = ["master", ] as String[]
 
 pipeline {
@@ -9,6 +8,11 @@ pipeline {
     dockerfile {
       args  '--shm-size=2g'
     }
+  }
+
+  parameters {
+    booleanParam(defaultValue: false, description: 'Release new DC/OS UI version?', name: 'CREATE_VERSION')
+    booleanParam(defaultValue: false, description: 'Release new latest?', name: 'CREATE_LATEST')
   }
 
   environment {
@@ -73,28 +77,9 @@ pipeline {
 
     stage('Integration Test') {
       steps {
-        // Run a simple webserver serving the dist folder statically
-        // before we run the cypress tests
-        writeFile file: 'integration-tests.sh', text: [
-          'export PATH=`pwd`/node_modules/.bin:$PATH',
-          'http-server -p 4200 dist&',
-          'SERVER_PID=$!',
-          './scripts/ci/run-integration-tests',
-          'RET=$?',
-          'echo "cypress exit status: ${RET}"',
-          'sleep 10',
-          'echo "kill server"',
-          'kill $SERVER_PID',
-          'exit $RET'
-        ].join('\n')
-
         unstash 'dist'
 
-        ansiColor('xterm') {
-          retry(2) {
-            sh '''bash integration-tests.sh'''
-          }
-        }
+        sh "./scripts/ci/run-integration-tests"
       }
 
       post {
@@ -106,8 +91,8 @@ pipeline {
     }
 
     stage('System Test') {
-     steps {
-       withCredentials([
+      steps {
+        withCredentials([
           [
             $class: 'AmazonWebServicesCredentialsBinding',
             credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
@@ -115,23 +100,60 @@ pipeline {
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
           ]
         ]) {
-         unstash 'dist'
+          unstash 'dist'
 
-         ansiColor('xterm') {
-           retry(2) {
-             sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
-           }
-         }
-       }
+          ansiColor('xterm') {
+            retry(2) {
+              sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
+            }
+          }
+        }
+      }
 
-     }
+      post {
+        always {
+          archiveArtifacts 'results/**/*'
+          junit 'results/results.xml'
+        }
+      }
+    }
 
-     post {
-       always {
-         archiveArtifacts 'results/**/*'
-         junit 'results/results.xml'
-       }
-     }
-   }
+    stage('Release Version') {
+      when {
+        expression { master_branches.contains(env.BRANCH_NAME) }
+        expression { params.CREATE_VERSION == true }
+      }
+
+      steps {
+        unstash 'dist'
+
+        withCredentials([
+            string(credentialsId: '3f0dbb48-de33-431f-b91c-2366d2f0e1cf',variable: 'AWS_ACCESS_KEY_ID'),
+            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
+            usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
+        ]) {
+          sh "./scripts/ci/create-release"
+        }
+      }
+    }
+
+    stage('Release Latest') {
+      when {
+        expression { master_branches.contains(env.BRANCH_NAME) }
+        expression { params.CREATE_LATEST == true }
+      }
+
+      steps {
+        unstash 'dist'
+
+        withCredentials([
+            string(credentialsId: '3f0dbb48-de33-431f-b91c-2366d2f0e1cf',variable: 'AWS_ACCESS_KEY_ID'),
+            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
+            usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
+        ]) {
+          sh "./scripts/ci/update-latest"
+        }
+      }
+    }
   }
 }

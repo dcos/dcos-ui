@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# aws settings
+AWS_BUCKET='downloads.mesosphere.io'
+BUCKET_PATH='dcos-ui'
+
+# TODO: Filename
+RELEASE_NAME='dcos-ui-latest.tar.gz'
+
+echo 'create tar'
+tar czf 'release.tar.gz' 'dist'
+
+echo 'upload as latest'
+aws s3 cp 'release.tar.gz' s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME
+
+echo 'TODO: update latest pr (Changelog generator)'
