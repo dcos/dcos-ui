@@ -2,41 +2,4 @@
 
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
-# Import utils
-source ${SCRIPT_PATH}/utils/message
-
-# uncomment for debugging
-# set -x
-
-# storing some numbers
-NPM_VERSION="$(npm -v)"
-NPM_VERSION_MINOR="${NPM_VERSION%.*}"
-NPM_VERSION_MAJOR="${NPM_VERSION_MINOR%.*}"
-NPM_PACKAGE_ENGINE_DEPENDENCY="$(node -p -e "require('./package.json').engines.npm")"
-NPM_PACKAGE_ENGINE_DEPENDENCY_MINOR="${NPM_PACKAGE_ENGINE_DEPENDENCY%.*}"
-NPM_LEGACY_DEPENDENCY="3.9.x"
-
-NODE_VERSION="$(node -v | sed s/v//)"
-NODE_VERSION_MINOR="${NODE_VERSION%.*}"
-NODE_PACKAGE_DEV_DEPENDENCY="$(node -p -e "require('./package.json').devDependencies.node")"
-NODE_PACKAGE_ENGINE_DEPENDENCY="$(node -p -e "require('./package.json').engines.node")"
-NODE_PACKAGE_ENGINE_DEPENDENCY_MINOR="${NODE_PACKAGE_ENGINE_DEPENDENCY%.*}"
-NODE_LEGACY_DEPENDENCY="4.4.x"
-
-
-# checking versions
-if [ "$NODE_PACKAGE_DEV_DEPENDENCY" != "undefined" ] &&
- [ "$NPM_VERSION_MAJOR" -lt "5" ]; then
-  warning "This branch uses node as a dependency, but you are running npm ${NPM_VERSION} which doesnt support it. Please upgrade to npm version 5 or higher."
-  exit 0
-fi
-
-if [ "$NODE_PACKAGE_ENGINE_DEPENDENCY" == "$NODE_LEGACY_DEPENDENCY" ] && [ "$NODE_PACKAGE_ENGINE_DEPENDENCY_MINOR" != "$NODE_VERSION_MINOR" ]; then
-  warning "This branch requires node version v${NODE_PACKAGE_ENGINE_DEPENDENCY}, but you're running ${NODE_VERSION}."
-  exit 0
-fi
-
-if [ "$NPM_PACKAGE_ENGINE_DEPENDENCY" == "$NPM_LEGACY_DEPENDENCY" ] && [ "$NPM_PACKAGE_ENGINE_DEPENDENCY_MINOR" != "$NPM_VERSION_MINOR" ]; then
-  warning "This branch requires node version v${NPM_PACKAGE_ENGINE_DEPENDENCY}, but you're running ${NPM_VERSION}."
-  exit 0
-fi
+${SCRIPT_PATH}/validate-engine-versions
