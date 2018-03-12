@@ -1,6 +1,0 @@
-{
-  "extends": ["angular"],
-  "rules": {
-    "scope-case": [0]
-  }
-}
