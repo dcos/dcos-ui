@@ -5,8 +5,7 @@
 # replace it with a test runner in the future, please see it more as a proof of
 # concept
 
-set -e
-shopt -s globstar # to allow ** in globs
+set -ex
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
 RETRIES=3
@@ -44,10 +43,8 @@ function runTestFile {
   exit 1
 }
 
-
-for f in $PROJECT_ROOT/tests/**/*-cy.js; do
-  runTestFile "$f"
-done
+echo 'Running tests per file (./tests/*-cy.js)'
+find $PROJECT_ROOT/tests -type f -name '*-cy.js' | while read file; do runTestFile "$file"; done
 
 echo "Done running tests, merging the results now"
 junit-merge ./cypress/**/*-result.xml --out ./cypress/results.xml
