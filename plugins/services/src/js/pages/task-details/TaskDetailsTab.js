@@ -15,9 +15,9 @@ import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import Units from "#SRC/js/utils/Units";
 
+import TaskIpAddressesRow from "./TaskIpAddressesRow";
 import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
-import TaskEndpointsList from "../../components/TaskEndpointsList";
 import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
@@ -132,14 +132,7 @@ class TaskDetailsTab extends React.Component {
         {serviceRow}
         {nodeRow}
         {sandBoxRow}
-        <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Endpoints
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            <TaskEndpointsList task={mesosTask} node={node} />
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
+        <TaskIpAddressesRow taskId={mesosTask.id} />
         {resourceRows}
         <ConfigurationMapRow>
           <ConfigurationMapLabel>
