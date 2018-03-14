@@ -142,4 +142,18 @@ describe("PodUtil", function() {
       );
     });
   });
+
+  describe("#getInstanceIdFromTaskId", function() {
+    it("returns instance id", function() {
+      expect(
+        PodUtil.getInstanceIdFromTaskId(
+          "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a.container-1"
+        )
+      ).toEqual("foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a");
+    });
+
+    it("returns an empty string", function() {
+      expect(PodUtil.getInstanceIdFromTaskId("")).toEqual("");
+    });
+  });
 });

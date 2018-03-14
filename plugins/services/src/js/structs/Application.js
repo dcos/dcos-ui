@@ -236,4 +236,8 @@ module.exports = class Application extends Service {
 
     return `${Config.rootUrl}/service/${serviceName}/`;
   }
+
+  findTaskById(taskId) {
+    return (this.get("tasks") || []).find(task => task.id === taskId);
+  }
 };

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskIpAddressesRow with a Pod renders IP Addresses 1`] = `
+<div
+  className="configuration-map-row table-row"
+>
+  <div
+    className="configuration-map-label"
+  >
+    IP Addresses
+  </div>
+  <div
+    className="configuration-map-value"
+  >
+    0.0.0.0
+  </div>
+</div>
+`;
+
+exports[`TaskIpAddressesRow with an Application renders IP Addresses 1`] = `
+<div
+  className="configuration-map-row table-row"
+>
+  <div
+    className="configuration-map-label"
+  >
+    IP Addresses
+  </div>
+  <div
+    className="configuration-map-value"
+  >
+    127.0.0.1
+  </div>
+</div>
+`;

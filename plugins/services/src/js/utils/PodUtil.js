@@ -112,6 +112,10 @@ var PodUtil = {
     });
 
     return new PodInstanceList({ items: instances });
+  },
+
+  getInstanceIdFromTaskId(taskId) {
+    return taskId.split(".").slice(0, 2).join(".");
   }
 };
 
