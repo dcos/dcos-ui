@@ -1,8 +1,4 @@
-/*
-  Generates configuration for jest.
- */
-var fs = require("fs");
-var path = require("path");
+const fs = require("fs");
 
 /**
  * List of root (test path) directories
@@ -43,7 +39,7 @@ packages.forEach(function(packageDir) {
   });
 });
 
-var config = {
+module.exports = {
   roots,
   globals: {
     __DEV__: true
@@ -61,8 +57,3 @@ var config = {
   transformIgnorePatterns: [],
   testPathIgnorePatterns: ["/tmp/", "/node_modules/"]
 };
-
-fs.writeFileSync(
-  path.resolve(__dirname, "../jest.config.json"),
-  JSON.stringify(config, null, 2)
-);
