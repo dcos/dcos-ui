@@ -41,11 +41,11 @@ const JsonField = props => (
 );
 
 JsonField.propTypes = {
-  fieldName: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired,
-  json: React.PropTypes.object.isRequired,
-  replacer: React.PropTypes.func,
-  space: React.PropTypes.number
+  fieldName: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  json: PropTypes.object.isRequired,
+  replacer: PropTypes.func,
+  space: PropTypes.number
 };
 
 JsonField.defaultProps = {
