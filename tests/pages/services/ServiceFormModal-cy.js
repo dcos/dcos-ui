@@ -41,7 +41,7 @@ describe("Service Form Modal", function() {
       });
 
       // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
-      it.skip("Should Autofocus on the Service ID input field", function() {
+      it.skip("Autofocuses on the Service ID input field", function() {
         openServiceModal();
         openServiceForm();
         cy.get("input[name=id]:focus");
@@ -558,70 +558,70 @@ describe("Service Form Modal", function() {
     });
 
     context("Service: General", function() {
-      it('Should have a "Service ID" field', function() {
+      it('Has a "Service ID" field', function() {
         cy.get(".form-group").contains("Service ID");
       });
 
-      it('Should have a "Instances" field', function() {
+      it('Has a "Instances" field', function() {
         cy.get(".form-group").contains("Instances");
       });
 
-      it('Should have a "Container Image" field', function() {
+      it('Has a "Container Image" field', function() {
         cy.get(".form-group").contains("Container Image");
       });
 
-      it('Should have a "CPUs" field', function() {
+      it('Has a "CPUs" field', function() {
         cy.get(".form-group").contains("CPUs");
       });
 
-      it('Should have a "Memory (MiB)" field', function() {
+      it('Has a "Memory (MiB)" field', function() {
         cy.get(".form-group").contains("Memory (MiB)");
       });
 
-      it('Should have a "Command" field', function() {
+      it('Has a "Command" field', function() {
         cy.get(".form-group").contains("Command");
       });
 
-      it('Should not have a "Container Runtime" section', function() {
+      it('Has no "Container Runtime" section', function() {
         cy
           .get(".menu-tabbed-view")
           .contains("Container Runtime")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Advanced Settings" section', function() {
+      it('Has no "Advanced Settings" section', function() {
         cy
           .get(".menu-tabbed-view")
           .contains("Advanced Settings")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Grant Runtime Privileges" checkbox', function() {
+      it('Has no "Grant Runtime Privileges" checkbox', function() {
         cy
           .get(".menu-tabbed-view")
           .contains("Grant Runtime Privileges")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Force Pull Image On Launch" checkbox', function() {
+      it('Has no "Force Pull Image On Launch" checkbox', function() {
         cy
           .get(".menu-tabbed-view")
           .contains("Force Pull Image On Launch")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "GPUs" field', function() {
+      it('Has no "GPUs" field', function() {
         cy.get(".form-group").contains("GPUs").should("to.have.length", 0);
       });
 
-      it('Should not have a "Disk (MiB)" field', function() {
+      it('Has no "Disk (MiB)" field', function() {
         cy
           .get(".form-group")
           .contains("Disk (MiB)")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Add Artifact" link', function() {
+      it('Has no "Add Artifact" link', function() {
         cy
           .get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Artifact")
@@ -634,31 +634,31 @@ describe("Service Form Modal", function() {
         cy.get("a.clickable").contains("More Settings").click();
       });
 
-      it('Should have a "Container Runtime" section', function() {
+      it('Has a "Container Runtime" section', function() {
         cy.get(".menu-tabbed-view").contains("Container Runtime");
       });
 
-      it('Should have a "Advanced Settings" section', function() {
+      it('Has a "Advanced Settings" section', function() {
         cy.get(".menu-tabbed-view").contains("Advanced Settings");
       });
 
-      it('Should have a "Grant Runtime Privileges" checkbox', function() {
+      it('Has a "Grant Runtime Privileges" checkbox', function() {
         cy.get(".menu-tabbed-view").contains("Grant Runtime Privileges");
       });
 
-      it('Should have a "Force Pull Image On Launch" checkbox', function() {
+      it('Has a "Force Pull Image On Launch" checkbox', function() {
         cy.get(".menu-tabbed-view").contains("Force Pull Image On Launch");
       });
 
-      it('Should have a "GPUs" field', function() {
+      it('Has a "GPUs" field', function() {
         cy.get(".form-group").contains("GPUs");
       });
 
-      it('Should have a "Disk (MiB)" field', function() {
+      it('Has a "Disk (MiB)" field', function() {
         cy.get(".form-group").contains("Disk (MiB)");
       });
 
-      it('Should have a "Add Artifact" link', function() {
+      it('Has a "Add Artifact" link', function() {
         cy
           .get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Artifact");
@@ -674,7 +674,7 @@ describe("Service Form Modal", function() {
           cy.get(".menu-tabbed-view").as("tabView");
         });
 
-        it('Should add row with an input when "Add Artifact" link clicked', function() {
+        it('Adds row with an input when "Add Artifact" link clicked', function() {
           // artifact uri
           cy
             .get("@tabView")
@@ -684,13 +684,13 @@ describe("Service Form Modal", function() {
 
         // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
         it.skip(
-          "Should Autofocus on the first input element of the Artifact",
+          "Autofocuses on the first input element of the Artifact",
           function() {
             cy.get('[name="fetch.0.uri"]:focus');
           }
         );
 
-        it("Should remove row when remove button clicked", function() {
+        it("Removes row when remove button clicked", function() {
           cy
             .get("@tabView")
             .find('.form-control[name="fetch.0.uri"]')
@@ -740,7 +740,7 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-item").contains("Placement").click();
       });
 
-      it("Should vertically align the placement constraint delete row button", function() {
+      it("Vertically aligns the placement constraint delete row button", function() {
         cy
           .get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Placement Constraint")
@@ -784,7 +784,7 @@ describe("Service Form Modal", function() {
             .click();
         });
 
-        it('Should add rows when "Add Placement Constraint" link clicked', function() {
+        it('Adds rows when "Add Placement Constraint" link clicked', function() {
           // Field
           cy
             .get("@tabView")
@@ -804,7 +804,7 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
-        it("Should remove rows when remove button clicked", function() {
+        it("Removes rows when remove button clicked", function() {
           cy.contains(".form-row", "Operator").within(function() {
             // Click delete button
             cy.get("a.button").click();
@@ -829,7 +829,7 @@ describe("Service Form Modal", function() {
             .should("not.exist");
         });
 
-        it("Should disable the field value when Unique is selected in operator dropdown", function() {
+        it("Disables the field value when Unique is selected in operator dropdown", function() {
           cy.get("@tabView").find(".button.dropdown-toggle").click();
 
           cy.contains(".dropdown-select-item-title", "Unique").click();
@@ -841,7 +841,7 @@ describe("Service Form Modal", function() {
             .should("be.disabled");
         });
 
-        it("Should display an error after typing in the value field", function() {
+        it("Displays an error after typing in the value field", function() {
           cy
             .get("@tabView")
             .get('[name="constraints.0.operator"]')
@@ -980,18 +980,18 @@ describe("Service Form Modal", function() {
           cy.get(".menu-tabbed-view").as("tabView");
         });
 
-        it.skip("Should Autofocus on the service endpoint name", function() {
+        it.skip("Autofocuses on the service endpoint name", function() {
           cy.get('[name="portDefinitions.0.name"]:focus');
         });
 
-        it('Should add new set of form fields when "Add Service Endpoint" link clicked', function() {
+        it('Adds new set of form fields when "Add Service Endpoint" link clicked', function() {
           cy
             .get("@tabView")
             .find('.form-control[name="portDefinitions.0.name"]')
             .should("exist");
         });
 
-        it('Should remove "Service Endpoint" form fields when remove button clicked', function() {
+        it('Removes "Service Endpoint" form fields when remove button clicked', function() {
           cy
             .get("@tabView")
             .find('.form-control[name="portDefinitions.0.name"]')
@@ -1202,7 +1202,7 @@ describe("Service Form Modal", function() {
             .click();
         });
 
-        it('Should add new set of form fields when "Add Local Volume" link clicked', function() {
+        it('Adds new set of form fields when "Add Local Volume" link clicked', function() {
           cy.get("@tabView").contains("Add Volume").click();
 
           cy
@@ -1210,7 +1210,7 @@ describe("Service Form Modal", function() {
             .should("have.length", 2);
         });
 
-        it('Should add new set of form fields when "Persistent Volume" is selected as volume type', function() {
+        it('Adds new set of form fields when "Persistent Volume" is selected as volume type', function() {
           cy.get("@tabView").contains(".form-group", "Volume Type");
           cy.get("@tabView").find(".button.dropdown-toggle").click();
           cy
@@ -1222,7 +1222,7 @@ describe("Service Form Modal", function() {
           cy.get('.form-control[name="volumes.0.size"]').should("exist");
         });
 
-        it('Should remove "Volume" form fields when remove button clicked', function() {
+        it('Removes "Volume" form fields when remove button clicked', function() {
           cy.get("@tabView").find(".button.dropdown-toggle").click();
           cy
             .contains(".dropdown-select-item-title", "Local Persistent Volume")
@@ -1250,7 +1250,7 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-view").as("tabView");
       });
 
-      it('Should add new set of form fields when "Add Health Check" link clicked', function() {
+      it('Adds new set of form fields when "Add Health Check" link clicked', function() {
         cy
           .get("@tabView")
           .contains(".form-group", "Protocol")
@@ -1261,7 +1261,7 @@ describe("Service Form Modal", function() {
           });
       });
 
-      it('Should remove "Health Check" form fields when remove button clicked', function() {
+      it('Removes "Health Check" form fields when remove button clicked', function() {
         cy.contains(".panel", "Protocol").within(function() {
           // Click delete button
           cy.get("a.button").click();
@@ -1272,7 +1272,7 @@ describe("Service Form Modal", function() {
           .should("not.exist");
       });
 
-      it('Should display textarea when selected Protocol is "Command"', function() {
+      it('Display textarea when selected Protocol is "Command"', function() {
         cy
           .get("@tabView")
           .contains(".form-group", "Protocol")
@@ -1287,7 +1287,7 @@ describe("Service Form Modal", function() {
           .should("exist");
       });
 
-      it('Should display row of fields when selected Protocol is "HTTP"', function() {
+      it('Display row of fields when selected Protocol is "HTTP"', function() {
         cy
           .get("@tabView")
           .contains(".form-group", "Protocol")
@@ -1322,7 +1322,7 @@ describe("Service Form Modal", function() {
             .click();
         }
 
-        it('Should add new set of form fields when "Advanced Health Check Settings" link clicked', function() {
+        it('Adds new set of form fields when "Advanced Health Check Settings" link clicked', function() {
           cy
             .get("@tabView")
             .contains(".form-group", "Protocol")
@@ -1357,7 +1357,7 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
-        it('Should remove new set of form fields when "Advanced Health Check Settings" link clicked again', function() {
+        it('Removes new set of form fields when "Advanced Health Check Settings" link clicked again', function() {
           cy
             .get("@tabView")
             .contains(".form-group", "Protocol")
@@ -1413,7 +1413,7 @@ describe("Service Form Modal", function() {
             .click();
         });
 
-        it('Should add new set of form fields when "Add Environment Variable" link clicked', function() {
+        it('Adds new set of form fields when "Add Environment Variable" link clicked', function() {
           // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
           // Key focused
           // cy.get('.form-control[name="env.0.key"]:focus');
@@ -1430,7 +1430,7 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
-        it('Should remove "Environment Variable" form fields when remove button clicked', function() {
+        it('Removes "Environment Variable" form fields when remove button clicked', function() {
           cy.contains(".form-row", "Key").within(function() {
             // Click delete button
             cy.get("a.button").click();
@@ -1448,7 +1448,7 @@ describe("Service Form Modal", function() {
             .click();
         });
 
-        it('Should add new set of form fields when "Add Label" link clicked', function() {
+        it('Adds new set of form fields when "Add Label" link clicked', function() {
           // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
           // Key focused
           // cy.get('.form-control[name="labels.0.key"]:focus');
@@ -1465,7 +1465,7 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
-        it('Should remove "Label" form fields when remove button clicked', function() {
+        it('Removes "Label" form fields when remove button clicked', function() {
           cy.contains(".form-row", "Key").within(function() {
             // Click delete button
             cy.get("a.button").click();
@@ -1506,7 +1506,7 @@ describe("Service Form Modal", function() {
         // To test this, we filter for H1's and assert that only 2 exist - one
         // for General field and one for Network field
         cy.get("h1.configuration-map-heading").should(function($h1) {
-          // Should have found 2 elements
+          // Has found 2 elements
           expect($h1).to.have.length(2);
 
           // First should be General
@@ -1548,11 +1548,11 @@ describe("Service Form Modal", function() {
     });
 
     context("Service: General", function() {
-      it('Should have a "Service ID" field', function() {
+      it('Has a "Service ID" field', function() {
         cy.get(".form-group").contains("Service ID");
       });
 
-      it('Should have a "Instances" field', function() {
+      it('Has a "Instances" field', function() {
         cy.get(".form-group").contains("Instances");
       });
     });
@@ -1567,7 +1567,7 @@ describe("Service Form Modal", function() {
           cy.get("a.clickable").contains("More Settings").click();
         });
 
-        it('Should have a "Add Artifact" link', function() {
+        it('Has a "Add Artifact" link', function() {
           cy
             .get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Artifact");
@@ -1618,7 +1618,7 @@ describe("Service Form Modal", function() {
           .contains("Service");
       });
 
-      it("Should add new container", function() {
+      it("Adds new container", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
         cy
           .get(".menu-tabbed-view .button.button-primary-link")
@@ -1627,7 +1627,7 @@ describe("Service Form Modal", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 2);
       });
 
-      it("Should remove a container", function() {
+      it("Removes a container", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
         cy
           .get(
@@ -1638,12 +1638,12 @@ describe("Service Form Modal", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 0);
       });
 
-      it("Should open container config when clicked", function() {
+      it("Opens container config when clicked", function() {
         cy.get(".pod-narrow.pod-short").eq(0).click();
         cy.get(".menu-tabbed-view").contains("Container Name");
       });
 
-      it("Should contain two containers navigation under Services tab", function() {
+      it("Contains two containers navigation under Services tab", function() {
         cy
           .get(".menu-tabbed-item-label")
           .eq(0)
@@ -1662,7 +1662,7 @@ describe("Service Form Modal", function() {
           .should("to.have.length", 2);
       });
 
-      it("Should be right aligned of the parent", function() {
+      it("Is right aligned of the parent", function() {
         cy
           .get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Container")
@@ -1703,7 +1703,7 @@ describe("Service Form Modal", function() {
       cy.get('.form-control[name="id"]').clear().type("/test-review-and-run");
     });
 
-    it("Should contain two containers at review and run modal", function() {
+    it("Contains two containers at review and run modal", function() {
       // Add a second container
       cy
         .get(".menu-tabbed-view .button.button-primary-link")
@@ -1725,7 +1725,7 @@ describe("Service Form Modal", function() {
         .should("to.have.length", 2);
     });
 
-    it("Should show network form when clicking on Network Configuration Edit", function() {
+    it("Shows network form when clicking on Network Configuration Edit", function() {
       cy.get(".menu-tabbed-item").contains("Networking").click();
       cy.get(".menu-tabbed-view .button.button-primary-link").first().click();
       cy.get('input[name="containers.0.endpoints.0.name"]').type("test").blur();
