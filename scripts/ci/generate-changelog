@@ -10,6 +10,7 @@ then
   exit
 fi
 
+
 COMMITS=$(git log $PREVIOUS_TAG..$TAG_NAME --pretty=format:"%H")
 JIRA_PREFIX="(DCOS|DCOS_OSS|MARATHON)"
 MARKDOWN=""
