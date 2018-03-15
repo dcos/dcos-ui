@@ -24,6 +24,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -58,6 +59,7 @@ describe("Endpoints", function() {
               name: "foo",
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -103,6 +105,7 @@ describe("Endpoints", function() {
               name: "foo",
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -142,6 +145,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -181,6 +185,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -216,6 +221,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -252,6 +258,7 @@ describe("Endpoints", function() {
               name: "foo",
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -299,6 +306,7 @@ describe("Endpoints", function() {
               name: "foo",
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -338,6 +346,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -377,6 +386,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 foo: true,
@@ -417,6 +427,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: false,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -464,6 +475,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: true,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -503,6 +515,10 @@ describe("Endpoints", function() {
         );
 
         batch = batch.add(
+          new Transaction(["containers", 0, "endpoints", 0, "vipLabel"], "vip0")
+        );
+
+        batch = batch.add(
           new Transaction(
             ["containers", 0, "endpoints", 0, "vip"],
             "1.3.3.7:8080"
@@ -518,6 +534,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: true,
               vip: "1.3.3.7:8080",
+              vipLabel: "vip0",
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -567,6 +584,7 @@ describe("Endpoints", function() {
               name: null,
               loadBalanced: true,
               vip: null,
+              vipLabel: null,
               vipPort: null,
               protocol: {
                 tcp: true,
@@ -606,6 +624,10 @@ describe("Endpoints", function() {
         );
 
         batch = batch.add(
+          new Transaction(["containers", 0, "endpoints", 0, "vipLabel"], "vip1")
+        );
+
+        batch = batch.add(
           new Transaction(
             ["containers", 0, "endpoints", 0, "vip"],
             "1.3.3.7:8080"
@@ -624,6 +646,7 @@ describe("Endpoints", function() {
               loadBalanced: true,
               containerPort: 8080,
               vip: "1.3.3.7:8080",
+              vipLabel: "vip1",
               vipPort: null,
               protocol: {
                 tcp: true,

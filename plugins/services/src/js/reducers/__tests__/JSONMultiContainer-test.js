@@ -37,6 +37,14 @@ describe("JSONMultiContainer", function() {
                 hostPort: 0,
                 protocol: ["tcp"],
                 labels: {
+                  vipDCOS: "1.2.3.4:80" // Custom VIP
+                }
+              },
+              {
+                name: "nginx",
+                hostPort: 0,
+                protocol: ["tcp"],
+                labels: {
                   VIP_0: "1.2.3.4:80" // Custom VIP
                 }
               }
