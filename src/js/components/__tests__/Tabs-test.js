@@ -1,6 +1,5 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { mount } from "enzyme";
 
 const TabButton = require("../TabButton");
 const TabButtonList = require("../TabButtonList");
@@ -8,13 +7,12 @@ const Tabs = require("../Tabs");
 const TabView = require("../TabView");
 const TabViewList = require("../TabViewList");
 
-let thisHandleTabChange, thisContainer, thisInstance;
+let thisHandleTabChange, thisInstance;
 
 describe("Tabs", function() {
   beforeEach(function() {
     thisHandleTabChange = jest.fn();
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
+    thisInstance = mount(
       <Tabs
         vertical={true}
         handleTabChange={thisHandleTabChange}
@@ -42,106 +40,58 @@ describe("Tabs", function() {
             Qux
           </TabView>
         </TabViewList>
-      </Tabs>,
-      thisContainer
+      </Tabs>
     );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   it("calls handleTabChange function", function() {
-    const tabButtons = ReactDOM.findDOMNode(thisInstance).querySelectorAll(
-      ".menu-tabbed-item"
-    );
+    const tabButtons = thisInstance.find(".menu-tabbed-item");
 
-    TestUtils.Simulate.click(
-      tabButtons[1].querySelector(".menu-tabbed-item-label")
-    );
+    tabButtons.at(1).find(".menu-tabbed-item-label").simulate("click");
     expect(thisHandleTabChange.mock.calls[0]).toEqual(["bar"]);
   });
 
   it("updates to the correct active tab", function() {
-    let activeTab = ReactDOM.findDOMNode(thisInstance).querySelector(
-      ".menu-tabbed-item.active .menu-tabbed-item-label"
-    );
-    expect(activeTab.textContent).toEqual("Foo");
+    expect(
+      thisInstance
+        .find(".menu-tabbed-item.active > .menu-tabbed-item-label")
+        .text()
+    ).toEqual("Foo");
 
-    thisInstance = ReactDOM.render(
-      <Tabs
-        vertical={true}
-        activeTab="qux"
-        handleTabChange={thisHandleTabChange}
-      >
-        <TabButtonList>
-          <TabButton id="foo" label="Foo">
-            <TabButton id="bar" label="Bar" />
-            <TabButton id="baz" label="Baz">
-              <TabButton id="qux" label="Qux" />
-            </TabButton>
-          </TabButton>
-        </TabButtonList>
-        <TabViewList>
-          <TabView id="foo">
-            Foo
-          </TabView>
-          <TabView id="bar">
-            Bar
-          </TabView>
-          <TabView id="baz">
-            Baz
-          </TabView>
-          <TabView id="qux">
-            Qux
-          </TabView>
-        </TabViewList>
-      </Tabs>,
-      thisContainer
-    );
+    thisInstance.setProps({
+      activeTab: "qux"
+    });
 
-    activeTab = ReactDOM.findDOMNode(thisInstance).querySelector(
-      ".menu-tabbed-item.active .menu-tabbed-item-label"
-    );
-    expect(activeTab.textContent).toEqual("Qux");
+    expect(
+      thisInstance
+        .find(".menu-tabbed-item.active > .menu-tabbed-item-label")
+        .text()
+    ).toEqual("Qux");
   });
 
   it("passes the activeTab prop to its children", function() {
-    const tabButtons = ReactDOM.findDOMNode(thisInstance).querySelectorAll(
-      ".menu-tabbed-item"
+    thisInstance
+      .find(".menu-tabbed-item-label")
+      .filterWhere(n => n.text() === "Foo")
+      .simulate("click");
+
+    expect(thisInstance.find(TabViewList).first().prop("activeTab")).toEqual(
+      "foo"
     );
-
-    // Click on the 'Foo' tab.
-    TestUtils.Simulate.click(
-      tabButtons[0].querySelector(".menu-tabbed-item-label")
+    expect(thisInstance.find(TabButtonList).first().prop("activeTab")).toEqual(
+      "foo"
     );
-
-    const tabViewsInstance = TestUtils.scryRenderedComponentsWithType(
-      thisInstance,
-      TabViewList
-    )[0];
-    const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(
-      thisInstance,
-      TabButtonList
-    )[0];
-
-    expect(tabViewsInstance.props.activeTab).toEqual("foo");
-    expect(tabButtonsInstance.props.activeTab).toEqual("foo");
   });
 
   it("passes the change handler to TabButtonList", function() {
-    const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(
-      thisInstance,
-      TabButtonList
-    )[0];
-    expect(tabButtonsInstance.props.onChange).toEqual(thisHandleTabChange);
+    expect(thisInstance.find(TabButtonList).first().prop("onChange")).toEqual(
+      thisHandleTabChange
+    );
   });
 
   it("passes the vertical prop to TabButtonList", function() {
-    const tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(
-      thisInstance,
-      TabButtonList
-    )[0];
-    expect(tabButtonsInstance.props.vertical).toEqual(true);
+    expect(thisInstance.find(TabButtonList).first().prop("vertical")).toEqual(
+      true
+    );
   });
 });

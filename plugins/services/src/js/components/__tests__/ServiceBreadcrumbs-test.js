@@ -1,17 +1,14 @@
+import React from "react";
+import { mount } from "enzyme";
+
 jest.mock("#SRC/js/stores/DCOSStore");
 
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-
-const TestUtils = require("react-addons-test-utils");
 const Link = require("react-router").Link;
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const ServiceBreadcrumbs = require("../ServiceBreadcrumbs");
+const PageHeaderBreadcrumbs = require("#SRC/js/components/PageHeaderBreadcrumbs");
 const Service = require("../../structs/Service");
 const ServiceTree = require("../../structs/ServiceTree");
-
-const renderer = TestUtils.createRenderer();
 
 describe("ServiceBreadcrumbs instance", function() {
   beforeEach(function() {
@@ -24,18 +21,23 @@ describe("ServiceBreadcrumbs instance", function() {
 
   describe("extra breadcrumbs", function() {
     it("does not render extra crumbs when there is none", function() {
-      renderer.render(<ServiceBreadcrumbs serviceID="/test" />);
-      const result = renderer.getRenderOutput();
-      expect(result.props.breadcrumbs.length).toEqual(2);
+      const result = mount(<ServiceBreadcrumbs serviceID="/test" />);
+      expect(
+        result.find(PageHeaderBreadcrumbs).prop("breadcrumbs").length
+      ).toEqual(2);
     });
 
     it("renders extra crumbs", function() {
-      renderer.render(
+      const result = mount(
         <ServiceBreadcrumbs serviceID="/test" extra={[<a>Dummy</a>]} />
       );
-      const result = renderer.getRenderOutput();
-      expect(result.props.breadcrumbs.length).toEqual(3);
-      expect(result.props.breadcrumbs[2].props.children).toEqual("Dummy");
+
+      expect(
+        result.find(PageHeaderBreadcrumbs).prop("breadcrumbs").length
+      ).toEqual(3);
+      expect(
+        result.find(PageHeaderBreadcrumbs).prop("breadcrumbs")[2].props.children
+      ).toEqual("Dummy");
     });
   });
 
@@ -46,35 +48,31 @@ describe("ServiceBreadcrumbs instance", function() {
           return new ServiceTree({ id: "/foo", groups: [{ id: "/foo/bar" }] });
         }
       };
-      var instance = TestUtils.renderIntoDocument(
-        <ServiceBreadcrumbs serviceID="/foo/bar" />
-      );
+      const instance = mount(<ServiceBreadcrumbs serviceID="/foo/bar" />);
 
-      var links = TestUtils.scryRenderedComponentsWithType(instance, Link);
+      const links = instance.find(Link);
       expect(links.length).toEqual(4);
       // Icon
-      expect(links[0].props.to).toEqual("/services");
+      expect(links.at(0).prop("to")).toEqual("/services");
 
       // Actual of breadcrumbs
-      expect(links[1].props.to).toEqual("/services");
-      expect(links[2].props.to).toEqual("/services/overview/%2Ffoo");
-      expect(links[3].props.to).toEqual("/services/overview/%2Ffoo%2Fbar");
+      expect(links.at(1).prop("to")).toEqual("/services");
+      expect(links.at(2).prop("to")).toEqual("/services/overview/%2Ffoo");
+      expect(links.at(3).prop("to")).toEqual("/services/overview/%2Ffoo%2Fbar");
     });
 
     it("provides detail route for a service that is not a group", function() {
-      var instance = TestUtils.renderIntoDocument(
-        <ServiceBreadcrumbs serviceID="/foo" />
-      );
+      const instance = mount(<ServiceBreadcrumbs serviceID="/foo" />);
 
-      var links = TestUtils.scryRenderedComponentsWithType(instance, Link);
+      const links = instance.find(Link);
       expect(links.length).toEqual(4);
       // Icon
-      expect(links[0].props.to).toEqual("/services");
+      expect(links.at(0).prop("to")).toEqual("/services");
 
       // Actual of breadcrumbs
-      expect(links[1].props.to).toEqual("/services");
-      expect(links[2].props.to).toEqual("/services/detail/%2Ffoo");
-      expect(links[3].props.to).toEqual("/services/detail/%2Ffoo");
+      expect(links.at(1).prop("to")).toEqual("/services");
+      expect(links.at(2).prop("to")).toEqual("/services/detail/%2Ffoo");
+      expect(links.at(3).prop("to")).toEqual("/services/detail/%2Ffoo");
     });
   });
 });

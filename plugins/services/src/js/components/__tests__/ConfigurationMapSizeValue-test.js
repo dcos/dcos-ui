@@ -1,102 +1,67 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-const ReactDOM = require("react-dom");
-/* eslint-enable no-unused-vars */
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { mount } from "enzyme";
+
 const ConfigurationMapSizeValue = require("../ConfigurationMapSizeValue");
+
+function getValue(instance) {
+  return instance.find(".configuration-map-value").text().trim();
+}
 
 describe("ConfigurationMapSizeValue", function() {
   it("assumes default MB scale", function() {
-    var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapSizeValue value={1.234} />
-    );
+    const instance = mount(<ConfigurationMapSizeValue value={1.234} />);
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("1.23 MiB");
+    expect(getValue(instance)).toEqual("1.23 MiB");
   });
 
   it("handles `scale` property", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapSizeValue scale={1} value={1024} />
     );
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("1 KiB");
+    expect(getValue(instance)).toEqual("1 KiB");
   });
 
   it("passes down to Units.filesize the `decimals`", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapSizeValue decimals={0} value={1.234} />
     );
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("1 MiB");
+    expect(getValue(instance)).toEqual("1 MiB");
   });
 
   it("passes down to Units.filesize the `multiplier`", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapSizeValue multiplier={1000} value={1} />
     );
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("1.05 MiB");
+    expect(getValue(instance)).toEqual("1.05 MiB");
   });
 
   it("passes down to Units.filesize the `threshold`", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapSizeValue threshold={1} value={12.345} />
     );
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("0.01 GiB");
+    expect(getValue(instance)).toEqual("0.01 GiB");
   });
 
   it("passes down to Units.filesize the `units`", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapSizeValue
         units={["A", "KiA", "MiA", "GiA", "TiA", "PiA"]}
         value={1}
       />
     );
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("1 MiA");
+    expect(getValue(instance)).toEqual("1 MiA");
   });
 
   it("renders `defaultValue` if empty", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapSizeValue defaultValue="-" value={null} />
     );
 
-    var contentText = TestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      "configuration-map-value"
-    ).textContent.trim();
-
-    expect(contentText).toEqual("-");
+    expect(getValue(instance)).toEqual("-");
   });
 });

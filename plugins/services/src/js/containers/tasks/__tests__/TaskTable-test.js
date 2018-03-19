@@ -1,35 +1,21 @@
+import { mount } from "enzyme";
+
 jest.mock("#SRC/js/stores/DCOSStore");
 
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
 const CheckboxTable = require("#SRC/js/components/CheckboxTable");
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const JestUtil = require("#SRC/js/utils/JestUtil");
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
 const TaskTable = require("../TaskTable");
-const Tasks = require("./fixtures/MockTasks.json").tasks;
 
-let thisContainer, thisTaskTable, thisGetNodeFromID;
+let thisTaskTable, thisGetNodeFromID;
 
 describe("TaskTable", function() {
   beforeEach(function() {
     DCOSStore.serviceTree = {
       getTaskFromTaskID: jest.fn()
     };
-
-    thisContainer = global.document.createElement("div");
-
-    ReactDOM.render(
-      JestUtil.stubRouterContext(TaskTable, {
-        tasks: Tasks,
-        params: { nodeID: "thing" }
-      }),
-      thisContainer
-    );
   });
 
   describe("#getDisabledItemsMap", function() {
@@ -56,18 +42,12 @@ describe("TaskTable", function() {
 
   it("it pass a uniqueProperty to CheckboxTable", function() {
     const component = JestUtil.stubRouterContext(TaskTable, { params: {} });
-    const result = TestUtils.renderIntoDocument(component);
-    const table = TestUtils.findRenderedComponentWithType(
-      result,
-      CheckboxTable
-    );
+    const table = mount(component).find(CheckboxTable);
 
-    expect(table.props.uniqueProperty).toEqual("id");
+    expect(table.prop("uniqueProperty")).toEqual("id");
   });
 
   afterEach(function() {
     MesosStateStore.getNodeFromID = thisGetNodeFromID;
-
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 });

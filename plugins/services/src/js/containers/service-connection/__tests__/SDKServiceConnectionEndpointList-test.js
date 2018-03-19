@@ -1,10 +1,7 @@
-jest.mock("../../../stores/SDKEndpointStore");
+import React from "react";
+import { mount } from "enzyme";
 
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+jest.mock("../../../stores/SDKEndpointStore");
 
 const SDKEndpointStore = require("../../../stores/SDKEndpointStore");
 const Framework = require("../../../structs/Framework");
@@ -13,7 +10,7 @@ const SDKServiceConnectionEndpointList = require("../SDKServiceConnectionEndpoin
 const SDKService = require("./fixtures/SDKService.json");
 const SDKServiceEndpoints = require("./fixtures/SDKServiceEndpoints.json");
 
-let thisContainer, thisInstance;
+let thisInstance;
 
 describe("SDKServiceConnectionEndpointList", function() {
   const service = new Framework(SDKService);
@@ -32,30 +29,18 @@ describe("SDKServiceConnectionEndpointList", function() {
     SDKEndpointStore.getServiceError = function() {
       return "";
     };
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
-      <SDKServiceConnectionEndpointList service={service} />,
-      thisContainer
+    thisInstance = mount(
+      <SDKServiceConnectionEndpointList service={service} />
     );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders the correct endpoints tables", function() {
-      const elements = TestUtils.scryRenderedDOMComponentsWithClass(
-        thisInstance,
-        "configuration-map-section"
-      );
+      const elements = thisInstance.find(".configuration-map-section");
 
       expect(elements.length).toEqual(4);
 
-      const rows = TestUtils.scryRenderedDOMComponentsWithClass(
-        thisInstance,
-        "configuration-map-row table-row"
-      );
+      const rows = thisInstance.find(".configuration-map-row.table-row");
 
       expect(rows.length).toEqual(12);
     });

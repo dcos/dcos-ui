@@ -1,15 +1,18 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-const ReactDOM = require("react-dom");
-/* eslint-enable no-unused-vars */
-const TestUtils = require("react-addons-test-utils");
-const JestUtil = require("#SRC/js/utils/JestUtil");
+import React from "react";
+import { mount } from "enzyme";
+
 const EmptyStates = require("#SRC/js/constants/EmptyStates");
 const ConfigurationMapTable = require("../ConfigurationMapTable");
 
+function mapValuesOfType(instance, type) {
+  return instance.find(type).map(function(item) {
+    return item.text();
+  });
+}
+
 describe("ConfigurationMapTable", function() {
   it("renders a simple 1-row, 2-column dataset", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         columns={[
           {
@@ -25,21 +28,15 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var cellText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "td"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const cellText = mapValuesOfType(instance, "td");
 
     expect(headerText).toEqual(["A", "B"]);
     expect(cellText).toEqual(["1", "2"]);
   });
 
   it("accepts custom `render` functions", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         columns={[
           {
@@ -61,21 +58,15 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var cellText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "td"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const cellText = mapValuesOfType(instance, "td");
 
     expect(headerText).toEqual(["A", "B"]);
     expect(cellText).toEqual(["X", "Y"]);
   });
 
   it("removes columns with `hideIfEmpty=true` column property", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         columns={[
           {
@@ -92,21 +83,15 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var cellText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "td"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const cellText = mapValuesOfType(instance, "td");
 
     expect(headerText).toEqual(["A"]);
     expect(cellText).toEqual(["1"]);
   });
 
   it("keeps columns with `hideIfEmpty=false` column property", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         columns={[
           {
@@ -123,21 +108,15 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var cellText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "td"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const cellText = mapValuesOfType(instance, "td");
 
     expect(headerText).toEqual(["A", "B"]);
     expect(cellText).toEqual(["1", EmptyStates.CONFIG_VALUE]);
   });
 
   it("respects `placeholder` column property", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         columns={[
           {
@@ -154,21 +133,15 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var cellText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "td"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const cellText = mapValuesOfType(instance, "td");
 
     expect(headerText).toEqual(["A", "B"]);
     expect(cellText).toEqual(["1", "(none)"]);
   });
 
   it("handles defaults", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         columns={[
           {
@@ -187,21 +160,15 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var cellText = TestUtils.scryRenderedDOMComponentsWithClass(
-      instance,
-      "foo-bar"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const cellText = mapValuesOfType(instance, ".foo-bar");
 
     expect(headerText).toEqual(["A", "B"]);
     expect(cellText).toEqual(["A", "B", "1", "2"]);
   });
 
   it("adds edit link column if onEditClick is provided", function() {
-    var instance = TestUtils.renderIntoDocument(
+    const instance = mount(
       <ConfigurationMapTable
         onEditClick={function() {}}
         columns={[
@@ -221,14 +188,8 @@ describe("ConfigurationMapTable", function() {
       />
     );
 
-    var headerText = TestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      "th"
-    ).map(JestUtil.mapTextContent);
-    var editText = TestUtils.scryRenderedDOMComponentsWithClass(
-      instance,
-      "configuration-map-action"
-    ).map(JestUtil.mapTextContent);
+    const headerText = mapValuesOfType(instance, "th");
+    const editText = mapValuesOfType(instance, ".configuration-map-action");
 
     expect(headerText).toEqual(["A", "B", ""]);
     expect(editText).toEqual(["", "Edit"]);

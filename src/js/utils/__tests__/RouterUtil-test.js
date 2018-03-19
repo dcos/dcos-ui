@@ -1,5 +1,4 @@
-const ReactRouter = require("react-router");
-const ReactTestUtils = require("react-addons-test-utils");
+import { Route, Redirect } from "react-router";
 
 const RouterUtil = require("../RouterUtil");
 
@@ -14,33 +13,31 @@ describe("RouterUtil", function() {
     it("creates a react component", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent
         }
       ]);
 
-      expect(ReactTestUtils.isElement(components[0])).toBeTruthy();
+      expect(components[0]).toBeInstanceOf(Object);
     });
 
     it("creates a react component of correct type", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent
         }
       ]);
 
-      expect(
-        ReactTestUtils.isElementOfType(components[0], ReactRouter.Route)
-      ).toBeTruthy();
+      expect(components[0].type.displayName).toBe("Route");
     });
 
     it("sets props correctly", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent
         }
@@ -54,12 +51,12 @@ describe("RouterUtil", function() {
     it("creates child route components", function() {
       const components = RouterUtil.createComponentsFromRoutes([
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component: thisComponent,
           children: [
             {
-              type: ReactRouter.Redirect,
+              type: Redirect,
               path: "bar",
               to: "baz"
             }
@@ -68,9 +65,7 @@ describe("RouterUtil", function() {
       ]);
       const component = components[0].props.children;
 
-      expect(
-        ReactTestUtils.isElementOfType(component, ReactRouter.Redirect)
-      ).toBeTruthy();
+      expect(component.type.displayName).toBe("Redirect");
     });
   });
 
@@ -78,17 +73,17 @@ describe("RouterUtil", function() {
     it("builds routes correctly", function() {
       const routeConfiguration = [
         {
-          type: ReactRouter.Route,
+          type: Route,
           path: "foo",
           component() {},
           children: [
             {
-              type: ReactRouter.Route,
+              type: Route,
               path: "bar",
               component() {},
               children: [
                 {
-                  type: ReactRouter.Route,
+                  type: Route,
                   path: "baz",
                   component() {}
                 }

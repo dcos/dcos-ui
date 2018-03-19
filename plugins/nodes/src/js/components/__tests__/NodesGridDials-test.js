@@ -1,9 +1,8 @@
-const deepEqual = require("deep-equal");
+import deepEqual from "deep-equal";
 /* eslint-disable no-unused-vars */
-const React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import { shallow } from "enzyme";
 
 const NodesGridDials = require("../NodesGridDials");
 const ResourcesUtil = require("#SRC/js/utils/ResourcesUtil");
@@ -21,7 +20,6 @@ var mockHost = {
 };
 
 let thisHosts,
-  thisContainer,
   thisInstance,
   thisResourceColor,
   thisResourceLabel,
@@ -30,25 +28,20 @@ let thisHosts,
 describe("NodesGridDials", function() {
   beforeEach(function() {
     thisHosts = [new Node(Object.assign({}, mockHost))];
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
+    thisInstance = shallow(
       <NodesGridDials
         hosts={thisHosts}
         selectedResource="cpus"
         serviceColors={{}}
         showServices={false}
         resourcesByFramework={{}}
-      />,
-      thisContainer
+      />
     );
-  });
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#getServiceSlicesConfig", function() {
     beforeEach(function() {
-      thisInstance = ReactDOM.render(
+      thisInstance = shallow(
         <NodesGridDials
           hosts={thisHosts}
           selectedResource="disk"
@@ -60,13 +53,14 @@ describe("NodesGridDials", function() {
               mem: 256
             }
           }}
-        />,
-        thisContainer
+        />
       );
     });
 
     it("returns 0 when no resource is in use", function() {
-      const slice = thisInstance.getServiceSlicesConfig(thisHosts[0])[0];
+      const slice = thisInstance
+        .instance()
+        .getServiceSlicesConfig(thisHosts[0])[0];
       expect(slice.percentage).toEqual(0);
     });
   });
@@ -75,7 +69,9 @@ describe("NodesGridDials", function() {
     beforeEach(function() {
       thisResourceColor = ResourcesUtil.getResourceColor("cpus");
       thisResourceLabel = ResourcesUtil.getResourceLabel("cpus");
-      thisActiveSlices = thisInstance.getActiveSliceData(thisHosts[0]);
+      thisActiveSlices = thisInstance
+        .instance()
+        .getActiveSliceData(thisHosts[0]);
     });
 
     it("returns an object", function() {
@@ -135,12 +131,12 @@ describe("NodesGridDials", function() {
 
   describe("#getInactiveSliceData", function() {
     it("uses the correct color", function() {
-      var inactiveSlice = thisInstance.getInactiveSliceData();
+      var inactiveSlice = thisInstance.instance().getInactiveSliceData();
       expect(inactiveSlice[0].colorIndex).toEqual(2);
     });
 
     it("uses 100% of the dial", function() {
-      var inactiveSlice = thisInstance.getInactiveSliceData();
+      var inactiveSlice = thisInstance.instance().getInactiveSliceData();
       expect(inactiveSlice[0].percentage).toEqual(100);
     });
   });
@@ -149,11 +145,11 @@ describe("NodesGridDials", function() {
     it("returns different configurations depending on the active parameter", function() {
       let host = Object.assign({}, thisHosts[0]);
       host.active = true;
-      var config1 = thisInstance.getDialConfig(new Node(host));
+      var config1 = thisInstance.instance().getDialConfig(new Node(host));
 
       host = Object.assign({}, thisHosts[0]);
       host.active = false;
-      var config2 = thisInstance.getDialConfig(new Node(host));
+      var config2 = thisInstance.instance().getDialConfig(new Node(host));
 
       expect(deepEqual(config1, config2)).toEqual(false);
     });
@@ -161,35 +157,24 @@ describe("NodesGridDials", function() {
 
   describe("#render", function() {
     it("renders one chart", function() {
-      var elements = TestUtils.scryRenderedDOMComponentsWithClass(
-        thisInstance,
-        "chart"
-      );
-
-      expect(elements.length).toEqual(1);
+      expect(thisInstance.find(".chart").length).toBe(1);
     });
 
     it("renders the correct number of charts", function() {
       const host = Object.assign({}, thisHosts[0]);
       host.id = "bar";
       thisHosts.push(new Node(host));
-      thisInstance = ReactDOM.render(
+      thisInstance = shallow(
         <NodesGridDials
           hosts={thisHosts}
           selectedResource="cpus"
           serviceColors={{}}
           showServices={false}
           resourcesByFramework={{}}
-        />,
-        thisContainer
+        />
       );
 
-      var elements = TestUtils.scryRenderedDOMComponentsWithClass(
-        thisInstance,
-        "chart"
-      );
-
-      expect(elements.length).toEqual(2);
+      expect(thisInstance.find(".chart").length).toBe(2);
     });
   });
 });

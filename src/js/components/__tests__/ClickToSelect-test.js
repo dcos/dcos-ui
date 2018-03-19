@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { mount } from "enzyme";
 
 const ClickToSelect = require("../ClickToSelect");
 
-let thisSpy, thisGetSelection, thisContainer, thisInstance;
+let thisSpy, thisGetSelection, thisInstance;
 
 describe("ClickToSelect", function() {
   beforeEach(function() {
@@ -18,26 +15,19 @@ describe("ClickToSelect", function() {
       return thisSpy;
     };
 
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
+    thisInstance = mount(
       <ClickToSelect>
-        <span>hello text</span>
-      </ClickToSelect>,
-      thisContainer
+        <span className="foo">hello text</span>
+      </ClickToSelect>
     );
   });
 
   afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
     global.document.getSelection = thisGetSelection;
   });
 
   it("sets selection when node is clicked", function() {
-    var node = ReactDOM.findDOMNode(thisInstance);
-    var element = node.querySelector("span");
-
-    TestUtils.Simulate.click(element);
-
+    thisInstance.find(".foo").simulate("click");
     expect(thisSpy.selectAllChildren).toHaveBeenCalled();
   });
 });

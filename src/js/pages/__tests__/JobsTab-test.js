@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
+import React from "react";
+/* eslint-enable no-unused-vars */
+import { mount } from "enzyme";
+
 jest.mock("#SRC/js/stores/DCOSStore");
 
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
 const JestUtil = require("../../utils/JestUtil");
 
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
@@ -13,8 +13,6 @@ const MetronomeUtil = require("../../utils/MetronomeUtil");
 const JobsTab = require("../jobs/JobsTab");
 const JobTree = require("../../structs/JobTree");
 const JobsTable = require("../../pages/jobs/JobsTable");
-
-let thisContainer;
 
 describe("JobsTab", function() {
   beforeEach(function() {
@@ -26,45 +24,32 @@ describe("JobsTab", function() {
       ])
     );
     DCOSStore.jobDataReceived = true;
-    thisContainer = global.document.createElement("div");
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
   describe("#render", function() {
     it("renders the job table", function() {
-      var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
-        thisContainer
+      const wrapper = mount(
+        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } })
       );
 
-      expect(
-        TestUtils.scryRenderedComponentsWithType(instance, JobsTable)
-      ).toBeDefined();
+      expect(wrapper.find(JobsTable).exists());
     });
 
     it("renders loading screen", function() {
       DCOSStore.jobDataReceived = false;
-      var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
-        thisContainer
+      const wrapper = mount(
+        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } })
       );
 
-      var node = ReactDOM.findDOMNode(instance);
-      expect(node.querySelector(".ball-scale")).toBeDefined();
+      expect(wrapper.find(".ball-scale").exists());
     });
 
     it("renders correct empty panel", function() {
-      var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } }),
-        thisContainer
+      const wrapper = mount(
+        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } })
       );
 
-      expect(
-        TestUtils.scryRenderedComponentsWithType(instance, AlertPanel)
-      ).toBeDefined();
+      expect(wrapper.find(AlertPanel).exists());
     });
   });
 });

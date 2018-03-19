@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-const React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
-const TestUtils = require("react-addons-test-utils");
+import { shallow } from "enzyme";
 
 const Mount = require("../Mount");
 const { MountService } = require("../index");
@@ -25,19 +25,17 @@ describe("Mount", function() {
   });
 
   it("renders one by default", function() {
-    const result = TestUtils.renderIntoDocument(
+    const result = shallow(
       <Mount type="children-test">
         <span>foo</span>
       </Mount>
     );
 
-    expect(
-      TestUtils.findRenderedDOMComponentWithTag(result, "span")
-    ).toBeDefined();
+    expect(result.containsAllMatchingElements([<span>foo</span>])).toBeTruthy();
   });
 
   it("renders multiple children by default", function() {
-    const result = TestUtils.renderIntoDocument(
+    const result = shallow(
       <Mount type="children-test">
         <strong>foo</strong>
         <em>bar</em>
@@ -45,88 +43,70 @@ describe("Mount", function() {
     );
 
     expect(
-      TestUtils.findRenderedDOMComponentWithTag(result, "strong")
-    ).toBeDefined();
-    expect(
-      TestUtils.findRenderedDOMComponentWithTag(result, "em")
-    ).toBeDefined();
+      result.containsAllMatchingElements([<strong>foo</strong>, <em>bar</em>])
+    ).toBeTruthy();
   });
 
   it("renders null if no component is registered and no children defined", function() {
-    const renderer = TestUtils.createRenderer();
-    renderer.render(<Mount type="children-test" />);
+    const result = shallow(<Mount type="children-test" />);
 
-    expect(renderer.getRenderOutput()).toBe(null);
+    expect(result.children().exists()).toBeFalsy();
   });
 
   it("doesnt wrap a single child", function() {
-    const renderer = TestUtils.createRenderer();
-    renderer.render(
+    const result = shallow(
       <Mount type="foo">
         <span>foo</span>
       </Mount>
     );
 
-    expect(TestUtils.isElementOfType(renderer.getRenderOutput(), "span")).toBe(
-      true
-    );
+    expect(result.type()).toBe("span");
   });
 
   it("always wraps elements if configured", function() {
-    const renderer = TestUtils.createRenderer();
-    renderer.render(
-      <Mount type="foo" alwaysWrap={true}>
+    const result = shallow(
+      <Mount type="foo" alwaysWrap>
         <span>foo</span>
       </Mount>
     );
 
-    expect(TestUtils.isElementOfType(renderer.getRenderOutput(), "div")).toBe(
-      true
-    );
+    expect(result.type()).toBe("div");
   });
 
   it("wraps elements with provided wrapper", function() {
-    const renderer = TestUtils.createRenderer();
-    renderer.render(
+    const result = shallow(
       <Mount type="foo" wrapper="p" alwaysWrap={true}>
         <span>foo</span>
       </Mount>
     );
 
-    expect(TestUtils.isElementOfType(renderer.getRenderOutput(), "p")).toBe(
-      true
-    );
+    expect(result.find("p").exists()).toBeTruthy();
   });
 
   it("renders registered components", function() {
-    const dom = TestUtils.renderIntoDocument(
+    const dom = shallow(
       <Mount type="mount-test">
         <span>foo</span>
       </Mount>
     );
 
-    const result = TestUtils.scryRenderedDOMComponentsWithClass(
-      dom,
-      "component"
-    );
-
-    expect(result.length).toBe(1);
+    expect(dom.find(FirstTestComponent).exists()).toBeTruthy();
   });
 
   it("replaces children with registered components", function() {
-    const dom = TestUtils.renderIntoDocument(
+    const dom = shallow(
       <Mount type="mount-test">
         <span className="child">foo</span>
       </Mount>
     );
 
-    const result = TestUtils.scryRenderedDOMComponentsWithClass(dom, "child");
-
-    expect(result.length).toBe(0);
+    expect(
+      dom.containsMatchingElement(<span className="child">foo</span>)
+    ).toBeFalsy();
   });
 
   it("updates if new component was registered", function() {
-    const dom = TestUtils.renderIntoDocument(
+    const dom = shallow(
       <Mount type="mount-test">
         <span className="child">foo</span>
       </Mount>
@@ -134,16 +114,15 @@ describe("Mount", function() {
 
     MountService.registerComponent(SecondTestComponent, "mount-test");
 
-    const result = TestUtils.scryRenderedDOMComponentsWithClass(
-      dom,
-      "component"
-    );
+    // This causes a re-render for enzyme to get the side effect
+    dom.setProps({ nonExistant: true });
 
-    expect(result.length).toBe(2);
+    expect(dom.find(FirstTestComponent).exists()).toBeTruthy();
+    expect(dom.find(SecondTestComponent).exists()).toBeTruthy();
   });
 
   it("updates if new component was unregistered", function() {
-    const dom = TestUtils.renderIntoDocument(
+    const dom = shallow(
       <Mount type="mount-test">
         <span className="child">foo</span>
       </Mount>
@@ -151,21 +130,19 @@ describe("Mount", function() {
 
     MountService.unregisterComponent(FirstTestComponent, "mount-test");
 
-    const result = TestUtils.scryRenderedDOMComponentsWithClass(dom, "child");
+    // This causes a re-render for enzyme to get the side effect
+    dom.setProps({ nonExistant: true });
 
-    expect(result.length).toBe(1);
+    expect(dom.find(FirstTestComponent).exists()).toBeFalsy();
   });
 
   it("passes down properties", function() {
-    const renderer = TestUtils.createRenderer();
-    renderer.render(
+    const dom = shallow(
       <Mount type="mount-test" message="hello world">
         <span>foo</span>
       </Mount>
     );
 
-    expect(renderer.getRenderOutput().props).toEqual({
-      message: "hello world"
-    });
+    expect(dom.find(FirstTestComponent).prop("message")).toBe("hello world");
   });
 });

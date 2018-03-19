@@ -1,6 +1,5 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-addons-test-utils");
+import React from "react";
+import { shallow, mount } from "enzyme";
 
 const TabButton = require("../TabButton");
 
@@ -12,22 +11,18 @@ describe("TabButton", function() {
   });
 
   it("calls the onClick prop with ID when clicked", function() {
-    thisInstance = TestUtils.renderIntoDocument(
+    thisInstance = mount(
       <TabButton label="foo" onClick={thisClickHandler} id="foo" />
     );
 
     // Click the TabButton's label
-    TestUtils.Simulate.click(
-      ReactDOM.findDOMNode(thisInstance).querySelector(
-        ".menu-tabbed-item-label"
-      )
-    );
+    thisInstance.find(".menu-tabbed-item-label").simulate("click");
 
     expect(thisClickHandler).toHaveBeenCalledWith("foo");
   });
 
   it("clones nested TabButton instances with onClick and activeTab props", function() {
-    thisInstance = TestUtils.renderIntoDocument(
+    thisInstance = shallow(
       <TabButton
         activeTab="foo"
         label="foo"
@@ -38,17 +33,14 @@ describe("TabButton", function() {
       </TabButton>
     );
 
-    const nestedInstance = TestUtils.scryRenderedComponentsWithType(
-      thisInstance,
-      TabButton
-    )[0];
+    const nestedInstance = thisInstance.find(TabButton).first();
 
-    expect(nestedInstance.props.activeTab).toEqual("foo");
-    expect(nestedInstance.props.onClick).toEqual(thisClickHandler);
+    expect(nestedInstance.prop("activeTab")).toEqual("foo");
+    expect(nestedInstance.prop("onClick")).toEqual(thisClickHandler);
   });
 
   it("calls the parent onClick when clicking a nested TabButton", function() {
-    thisInstance = TestUtils.renderIntoDocument(
+    thisInstance = mount(
       <TabButton
         activeTab="foo"
         label="foo"
@@ -60,11 +52,10 @@ describe("TabButton", function() {
     );
 
     // Click the TabButton's label
-    TestUtils.Simulate.click(
-      ReactDOM.findDOMNode(thisInstance).querySelector(
-        ".menu-tabbed-item .menu-tabbed-item .menu-tabbed-item-label"
-      )
-    );
+    thisInstance
+      .find(".menu-tabbed-item .menu-tabbed-item .menu-tabbed-item-label")
+      .at(1)
+      .simulate("click");
 
     expect(thisClickHandler).toHaveBeenCalledWith("bar");
   });

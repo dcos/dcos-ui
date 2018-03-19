@@ -92,6 +92,10 @@ class ServiceBreadcrumbs extends React.Component {
     const lastBreadcrumbNode = breadcrumbsNode.querySelector(
       ".breadcrumb:last-child"
     );
+
+    if (!lastBreadcrumbNode) {
+      return 0;
+    }
     const lastBreadcrumbDimensions = lastBreadcrumbNode.getBoundingClientRect();
 
     return (

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-const React = require("react");
+import React from "react";
 /* eslint-enable no-unused-vars */
-const TestUtils = require("react-addons-test-utils");
 
 const ReactUtil = require("../ReactUtil");
 
@@ -12,25 +11,25 @@ describe("ReactUtil", function() {
       <span key="2">test</span>
     ]);
 
-    expect(TestUtils.isElementOfType(result, "div")).toEqual(true);
+    expect(result.type).toBe("div");
   });
 
   it("does not wrap if not necessary", function() {
     const elements = ReactUtil.wrapElements(<span>test</span>);
 
-    expect(TestUtils.isElementOfType(elements, "span")).toEqual(true);
+    expect(elements.type).toEqual("span");
   });
 
   it("always wraps elements if configured", function() {
     const elements = ReactUtil.wrapElements(<span>test</span>, "div", true);
 
-    expect(TestUtils.isElementOfType(elements, "div")).toEqual(true);
+    expect(elements.type).toEqual("div");
   });
 
   it("wraps elements with provided wrapper", function() {
     const elements = ReactUtil.wrapElements(<span>test</span>, "p", true);
 
-    expect(TestUtils.isElementOfType(elements, "p")).toEqual(true);
+    expect(elements.type).toEqual("p");
   });
 
   it("handles undefined elements", function() {
@@ -42,7 +41,7 @@ describe("ReactUtil", function() {
   it("does not wrap elements if they are an array with a single item", function() {
     const elements = ReactUtil.wrapElements([<span key={0}>test</span>], "p");
 
-    expect(TestUtils.isElementOfType(elements, "span")).toEqual(true);
+    expect(elements.type).toEqual("span");
   });
 
   it("wraps elements if they are an array with a single item when alwaysWrap is true", function() {
@@ -52,6 +51,6 @@ describe("ReactUtil", function() {
       true
     );
 
-    expect(TestUtils.isElementOfType(elements, "p")).toEqual(true);
+    expect(elements.type).toEqual("p");
   });
 });
