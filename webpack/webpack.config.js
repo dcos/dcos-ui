@@ -4,11 +4,6 @@ const path = require("path");
 const LessColorLighten = require("less-color-lighten");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const extractLess = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css",
-  disable: process.env.NODE_ENV === "development"
-});
-
 function requireAll(array) {
   // https://stackoverflow.com/a/34574630/1559386
   return array.map(require.resolve);
@@ -59,7 +54,10 @@ module.exports = {
     new DefinePlugin({
       "process.env.LATER_COV": false
     }),
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin({
+      filename: "[name].[contenthash].css",
+      disable: process.env.NODE_ENV === "development"
+    }),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     })
@@ -115,7 +113,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: extractLess.extract({
+        use: ExtractTextPlugin.extract({
           use: [
             {
               loader: "css-loader",
