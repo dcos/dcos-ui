@@ -4,7 +4,6 @@ import EditFrameworkConfiguration
   from "#PLUGINS/services/src/js/pages/EditFrameworkConfiguration";
 import CreateServiceModal
   from "#PLUGINS/services/src/js/components/modals/CreateServiceModal";
-import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 class EditServiceModal extends Component {
@@ -13,7 +12,10 @@ class EditServiceModal extends Component {
     const serviceID = decodeURIComponent(id);
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    if (service instanceof Framework) {
+    if (
+      service.getLabels().DCOS_PACKAGE_DEFINITION != null ||
+      service.getLabels().DCOS_PACKAGE_METADATA != null
+    ) {
       return <EditFrameworkConfiguration {...this.props} />;
     }
 
