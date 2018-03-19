@@ -48,11 +48,7 @@ describe("Mount", function() {
   });
 
   it("renders null if no component is registered and no children defined", function() {
-    const result = shallow(
-      <Mount type="children-test">
-        <Mount type="children-test" />
-      </Mount>
-    );
+    const result = shallow(<Mount type="children-test" />);
 
     expect(result.children().exists()).toBeFalsy();
   });
