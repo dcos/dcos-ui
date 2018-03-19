@@ -12,7 +12,6 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 export default class PlacementSection extends Component {
   render() {
-    const { data, onAddItem, onRemoveItem, errors } = this.props;
     const placementTooltipContent = (
       <span>
         {
@@ -51,12 +50,7 @@ export default class PlacementSection extends Component {
         <p>
           Constraints control where apps run to allow optimization for either fault tolerance or locality.
         </p>
-        <PlacementConstraintsPartial
-          data={data}
-          onAddItem={onAddItem}
-          onRemoveItem={onRemoveItem}
-          errors={errors}
-        />
+        <PlacementConstraintsPartial {...this.props} />
       </div>
     );
   }
@@ -66,5 +60,6 @@ PlacementSection.propTypes = {
   data: PropTypes.object,
   onAddItem: PropTypes.func,
   onRemoveItem: PropTypes.func,
-  errors: PropTypes.object
+  errors: PropTypes.object,
+  showAllErrors: PropTypes.bool
 };
