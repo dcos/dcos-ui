@@ -47,4 +47,4 @@ echo 'Running tests per file (./tests/*-cy.js)'
 find $PROJECT_ROOT/tests -type f -name '*-cy.js' | while read file; do runTestFile "$file"; done
 
 echo "Done running tests, merging the results now"
-junit-merge ./cypress/**/*-result.xml --out ./cypress/results.xml
+junit-merge ./cypress/*-result.xml --out ./cypress/results.xml
