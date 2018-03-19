@@ -14,7 +14,6 @@ tmp/
 *.orig
 .plugins/
 .external_plugins/
-jest.config.json
 jest/test-results
 webpack/proxy.dev.js
 src/resources/raml
