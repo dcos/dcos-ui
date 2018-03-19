@@ -1,5 +1,4 @@
 import { Route, Redirect } from "react-router";
-import { shallow } from "enzyme";
 
 const RouterUtil = require("../RouterUtil");
 
@@ -32,14 +31,7 @@ describe("RouterUtil", function() {
         }
       ]);
 
-      try {
-        // Duck typing to check if it is a route
-        shallow(components[0]);
-      } catch (e) {
-        expect(e.message).toContain(
-          "<Route> elements are for router configuration only and should not be rendered"
-        );
-      }
+      expect(components[0].type.displayName).toBe("Route");
     });
 
     it("sets props correctly", function() {
@@ -73,14 +65,7 @@ describe("RouterUtil", function() {
       ]);
       const component = components[0].props.children;
 
-      try {
-        // Duck typing to check if it is a route
-        shallow(component);
-      } catch (e) {
-        expect(e.message).toContain(
-          "<Redirect> elements are for router configuration only and should not be rendered"
-        );
-      }
+      expect(component.type.displayName).toBe("Redirect");
     });
   });
 
