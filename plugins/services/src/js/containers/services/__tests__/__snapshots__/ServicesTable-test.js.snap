@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServicesTable #renderStatus renders with deploying status 1`] = `
+<div
+  className="flex"
+>
+  <div
+    className=" service-status-icon-wrapper"
+  >
+    <div
+      className="tooltip-wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        className="icon icon-yellow icon-mini"
+      >
+        <use
+          xlinkHref="#icon-system--yield"
+        />
+      </svg>
+    </div>
+    <span
+      className="status-bar-text"
+    >
+      Deploying
+    </span>
+  </div>
+  <div
+    className="service-status-progressbar-wrapper"
+  >
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="status-bar flex-box status-bar--large staged"
+      >
+        <span
+          className="bar success"
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ServicesTable #renderStatus renders with not available status 1`] = `
+<div
+  className="flex"
+>
+  <div
+    className=" service-status-icon-wrapper"
+  >
+    <div
+      className="tooltip-wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        className="icon icon-yellow icon-mini"
+      >
+        <use
+          xlinkHref="#icon-system--yield"
+        />
+      </svg>
+    </div>
+  </div>
+  <div
+    className="service-status-progressbar-wrapper"
+  >
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="status-bar flex-box status-bar--large staged"
+      >
+        <span
+          className="bar success"
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ServicesTable #renderStatus renders with running status 1`] = `
+<div
+  className="flex"
+>
+  <div
+    className="running-state service-status-icon-wrapper"
+  >
+    <div
+      className="tooltip-wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        className="icon icon-yellow icon-mini"
+      >
+        <use
+          xlinkHref="#icon-system--yield"
+        />
+      </svg>
+    </div>
+    <span
+      className="status-bar-text"
+    >
+      Running
+    </span>
+  </div>
+  <div
+    className="service-status-progressbar-wrapper"
+  >
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="status-bar flex-box status-bar--large staged"
+      >
+        <span
+          className="bar success"
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ServicesTable #renderStatus renders with stopped status 1`] = `
+<div
+  className="flex"
+>
+  <div
+    className=" service-status-icon-wrapper"
+  >
+    <div
+      className="tooltip-wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        className="icon icon-yellow icon-mini"
+      >
+        <use
+          xlinkHref="#icon-system--yield"
+        />
+      </svg>
+    </div>
+    <span
+      className="status-bar-text"
+    >
+      Stopped
+    </span>
+  </div>
+  <div
+    className="service-status-progressbar-wrapper"
+  >
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="status-bar flex-box status-bar--large staged"
+      >
+        <span
+          className="bar success"
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

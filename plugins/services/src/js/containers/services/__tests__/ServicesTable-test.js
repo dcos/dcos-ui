@@ -5,8 +5,10 @@ jest.mock("../../../components/modals/ServiceActionDisabledModal");
 const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
+const renderer = require("react-test-renderer");
 const ServicesTable = require("../ServicesTable");
 const Application = require("../../../structs/Application");
+const ServiceStatus = require("../../../constants/ServiceStatus");
 
 let thisContainer, thisInstance;
 
@@ -33,6 +35,54 @@ describe("ServicesTable", function() {
 
   afterEach(function() {
     ReactDOM.unmountComponentAtNode(thisContainer);
+  });
+
+  describe("#renderStatus", function() {
+    const renderStatus = ServicesTable.WrappedComponent.prototype.renderStatus;
+    let mockService;
+    beforeEach(function() {
+      mockService = {
+        getStatus: jest.fn(),
+        getServiceStatus: jest.fn(),
+        getQueue: jest.fn(),
+        getInstancesCount: jest.fn().mockReturnValue(10),
+        getRunningInstancesCount: jest.fn().mockReturnValue(3)
+      };
+    });
+
+    it("renders with running status", function() {
+      mockService.getStatus.mockReturnValue(ServiceStatus.RUNNING.displayName);
+
+      expect(
+        renderer.create(renderStatus(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+
+    it("renders with stopped status", function() {
+      mockService.getStatus.mockReturnValue(ServiceStatus.STOPPED.displayName);
+
+      expect(
+        renderer.create(renderStatus(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+
+    it("renders with deploying status", function() {
+      mockService.getStatus.mockReturnValue(
+        ServiceStatus.DEPLOYING.displayName
+      );
+
+      expect(
+        renderer.create(renderStatus(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+
+    it("renders with not available status", function() {
+      mockService.getStatus.mockReturnValue(ServiceStatus.NA.displayName);
+
+      expect(
+        renderer.create(renderStatus(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
   });
 
   describe("#renderStats", function() {
