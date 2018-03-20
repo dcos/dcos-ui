@@ -1,4 +1,6 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
+import * as repositoriesStream
+  from "#PLUGINS/catalog/src/js/repositories/repositoriesStream";
 
 import {
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
@@ -30,6 +32,14 @@ import Util from "../utils/Util";
 
 function getContentType({ action, actionType, entity, version }) {
   return `application/vnd.dcos.${entity}.${action}-${actionType}+json;charset=utf-8;version=${version}`;
+}
+
+function getErrorMessage(response = {}) {
+  if (typeof response === "string") {
+    return response;
+  }
+
+  return response.description || response.message || "An error has occurred.";
 }
 
 const CosmosPackagesActions = {
@@ -382,60 +392,25 @@ const CosmosPackagesActions = {
   },
 
   fetchRepositories(type) {
-    RequestUtil.json({
-      contentType: getContentType({
-        action: "repository.list",
-        actionType: "request",
-        entity: "package",
-        version: "v1"
-      }),
-      headers: {
-        Accept: getContentType({
-          action: "repository.list",
-          actionType: "response",
-          entity: "package",
-          version: "v1"
-        })
-      },
-      method: "POST",
-      url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/list`,
-      data: JSON.stringify({ type }),
-      success(response) {
+    repositoriesStream.fetchRepositories(type).subscribe(
+      function success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS,
           data: response.repositories
         });
       },
-      error(xhr) {
+      function error({ response }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORIES_LIST_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          data: getErrorMessage(response)
         });
       }
-    });
+    );
   },
 
   addRepository(name, uri, index) {
-    RequestUtil.json({
-      contentType: getContentType({
-        action: "repository.add",
-        actionType: "request",
-        entity: "package",
-        version: "v1"
-      }),
-      headers: {
-        Accept: getContentType({
-          action: "repository.add",
-          actionType: "response",
-          entity: "package",
-          version: "v1"
-        })
-      },
-      method: "POST",
-      url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/add`,
-      data: JSON.stringify({ name, uri, index }),
-      success(response) {
+    repositoriesStream.addRepository(name, uri, index).subscribe(
+      function success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
           data: response,
@@ -443,38 +418,20 @@ const CosmosPackagesActions = {
           uri
         });
       },
-      error(xhr) {
+      function error({ response }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORY_ADD_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
+          data: getErrorMessage(response),
           name,
-          uri,
-          xhr
+          uri
         });
       }
-    });
+    );
   },
 
   deleteRepository(name, uri) {
-    RequestUtil.json({
-      contentType: getContentType({
-        action: "repository.delete",
-        actionType: "request",
-        entity: "package",
-        version: "v1"
-      }),
-      headers: {
-        Accept: getContentType({
-          action: "repository.delete",
-          actionType: "response",
-          entity: "package",
-          version: "v1"
-        })
-      },
-      method: "POST",
-      url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/delete`,
-      data: JSON.stringify({ name, uri }),
-      success(response) {
+    repositoriesStream.deleteRepository(name, uri).subscribe(
+      function success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
           data: response,
@@ -482,16 +439,15 @@ const CosmosPackagesActions = {
           uri
         });
       },
-      error(xhr) {
+      function error({ response }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
+          data: getErrorMessage(response),
           name,
-          uri,
-          xhr
+          uri
         });
       }
-    });
+    );
   }
 };
 
