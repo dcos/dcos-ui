@@ -6,9 +6,10 @@ const CreateServiceModalFormUtil = {
    * value if it is a non-object.
    *
    * @param {*} object - The object to process (any other value passes through)
+   * @param {*} array<string> - Whitelist of properties to keep (kept recursively)
    * @returns {*} A shallow copy of the object, with the non-empty values
    */
-  stripEmptyProperties(object) {
+  stripEmptyProperties(object, whitelist) {
     if (typeof object !== "object" || object === null) {
       return object;
     }
@@ -20,13 +21,16 @@ const CreateServiceModalFormUtil = {
     }
 
     return Object.keys(object).reduce(function(memo, key) {
+      const isWhitelisted = (whitelist || []).includes(key);
+
       if (
         (!ValidatorUtil.isEmpty(object[key]) && !Number.isNaN(object[key])) ||
         Array.isArray(object[key])
       ) {
         // Apply the strip function recursively and keep only non-empty values
-        const value = CreateServiceModalFormUtil.stripEmptyProperties(
-          object[key]
+        const value = isWhitelisted ? object[key] : CreateServiceModalFormUtil.stripEmptyProperties(
+          object[key],
+          whitelist
         );
         if (
           (!ValidatorUtil.isEmpty(value) && !Number.isNaN(value)) ||

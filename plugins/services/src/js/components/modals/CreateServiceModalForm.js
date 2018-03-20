@@ -96,7 +96,8 @@ class CreateServiceModalForm extends Component {
       },
       this.getNewStateForJSON(
         CreateServiceModalFormUtil.stripEmptyProperties(
-          ServiceUtil.getServiceJSON(this.props.service)
+          ServiceUtil.getServiceJSON(this.props.service),
+          ["labels"]
         ),
         this.props.service instanceof PodSpec
       )
@@ -318,7 +319,7 @@ class CreateServiceModalForm extends Component {
       baseConfigCopy
     );
 
-    return CreateServiceModalFormUtil.stripEmptyProperties(newConfig);
+    return CreateServiceModalFormUtil.stripEmptyProperties(newConfig, ["labels"]);
   }
 
   getErrors() {
