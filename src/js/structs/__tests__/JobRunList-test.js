@@ -1,6 +1,5 @@
-const moment = require("moment");
-
 const JobRunList = require("../JobRunList");
+const DateUtil = require("../../utils/DateUtil");
 
 describe("JobRunList", function() {
   describe("#getLongestRunningActiveRun", function() {
@@ -15,7 +14,7 @@ describe("JobRunList", function() {
 
       expect(
         activeRunList.getLongestRunningActiveRun().getDateCreated()
-      ).toEqual(moment("1985-01-03T00:00:00Z-1").valueOf());
+      ).toEqual(DateUtil.strToMs("1985-01-03T00:00:00Z-1"));
     });
 
     it("returns the longest running active run", function() {
@@ -29,7 +28,7 @@ describe("JobRunList", function() {
 
       expect(
         activeRunList.getLongestRunningActiveRun().getDateCreated()
-      ).toEqual(moment("1990-01-03T00:01:00Z-1").valueOf());
+      ).toEqual(DateUtil.strToMs("1990-01-03T00:01:00Z-1"));
     });
   });
 });
