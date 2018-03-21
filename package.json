@@ -65,6 +65,7 @@
     "react-transition-group": "1.2.1",
     "reactjs-components": "0.20.3",
     "reactjs-mixin": "0.0.2",
+    "recompose": "0.26.0",
     "redux": "3.3.1",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.4.3",
