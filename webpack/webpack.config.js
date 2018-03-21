@@ -28,7 +28,8 @@ module.exports = {
       ),
       "#PLUGINS": path.resolve(__dirname, "../plugins"),
       "#SRC": path.resolve(__dirname, "../src"),
-      "#TESTS": path.resolve(__dirname, "../tests")
+      "#TESTS": path.resolve(__dirname, "../tests"),
+      "#PACKAGES": path.resolve(__dirname, "../packages")
     },
     modules: [
       // include packages
