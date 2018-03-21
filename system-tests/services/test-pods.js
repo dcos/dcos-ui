@@ -514,11 +514,7 @@ describe("Services", function() {
 
       cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy
-        .root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http")
-        .blur();
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       cy
         .get("button")

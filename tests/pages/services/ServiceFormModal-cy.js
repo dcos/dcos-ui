@@ -104,15 +104,6 @@ describe("Service Form Modal", function() {
           .first()
           .should("to.have.text", "Networking");
       });
-
-      it("disable review and run button on error", function() {
-        openServiceModal();
-        openServiceJSON();
-
-        cy
-          .get(".modal-full-screen-actions-primary > .button")
-          .should("be.disabled");
-      });
     });
 
     context("Group level", function() {
@@ -1454,8 +1445,7 @@ describe("Service Form Modal", function() {
         cy
           .get('.form-control[name="container.docker.image"]')
           .clear()
-          .type("nginx")
-          .blur();
+          .type("nginx");
 
         // Click review and run
         cy
@@ -1697,7 +1687,7 @@ describe("Service Form Modal", function() {
     it("Should show network form when clicking on Network Configuration Edit", function() {
       cy.get(".menu-tabbed-item").contains("Networking").click();
       cy.get(".menu-tabbed-view .button.button-primary-link").first().click();
-      cy.get('input[name="containers.0.endpoints.0.name"]').type("test").blur();
+      cy.get('input[name="containers.0.endpoints.0.name"]').type("test");
       // Click review and run
       cy
         .get(".modal-full-screen-actions")
