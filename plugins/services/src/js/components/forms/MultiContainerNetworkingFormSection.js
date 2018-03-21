@@ -23,6 +23,7 @@ import Networking from "#SRC/js/constants/Networking";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
+import VipLabelUtil from "../../utils/VipLabelUtil";
 
 import {
   FormReducer as networks
@@ -273,7 +274,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     const tooltipContent =
       "This port will be used to load balance this service address internally";
     if (isObject(loadBalancedError)) {
-      vipPortError = loadBalancedError[`VIP_${index}`];
+      vipPortError = loadBalancedError[VipLabelUtil.defaultVip(index)];
       loadBalancedError = null;
     }
 

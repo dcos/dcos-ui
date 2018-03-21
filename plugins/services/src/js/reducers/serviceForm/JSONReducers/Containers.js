@@ -53,7 +53,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       labels = VipLabelUtil.generateVipLabel(
         appState.id,
         endpoint,
-        vipLabel || `VIP_${index}`,
+        vipLabel || VipLabelUtil.defaultVip(index),
         vipPort || containerPort || hostPort
       );
 

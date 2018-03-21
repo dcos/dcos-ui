@@ -61,7 +61,8 @@ module.exports = {
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
       const { name } = portDefinition;
-      const vipLabel = portDefinition.vipLabel || `VIP_${index}`;
+      const vipLabel =
+        portDefinition.vipLabel || VipLabelUtil.defaultVip(index);
       const hostPort = portDefinition.hostPort
         ? Number(portDefinition.hostPort)
         : 0;

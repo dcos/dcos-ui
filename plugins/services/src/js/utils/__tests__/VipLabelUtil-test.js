@@ -114,4 +114,10 @@ describe("VipLabelUtil", function() {
       ).toEqual(undefined);
     });
   });
+
+  describe("#defaultVip", function() {
+    it("constructs the value", function() {
+      expect(VipLabelUtil.defaultVip(1)).toEqual("VIP_1");
+    });
+  });
 });
