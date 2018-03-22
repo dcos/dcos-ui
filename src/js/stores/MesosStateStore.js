@@ -106,7 +106,10 @@ class MesosStateStore extends GetSetBaseStore {
       .concat(eventTriggerStream)
       .debounceTime(Config.getRefreshRate() * 0.5)
       .retryWhen(linearBackoff(MAX_RETRIES, RETRY_DELAY))
-      .subscribe(this.onStreamData, this.onStreamError);
+      .subscribe(
+        () => Promise.resolve().then(this.onStreamData),
+        this.onStreamError
+      );
   }
 
   getLastMesosState() {
