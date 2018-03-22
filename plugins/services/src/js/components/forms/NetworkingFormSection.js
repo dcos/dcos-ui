@@ -32,6 +32,7 @@ import {
   FormReducer as networks
 } from "../../reducers/serviceForm/FormReducers/Networks";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
+import VipLabelUtil from "../../utils/VipLabelUtil";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
@@ -149,7 +150,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       );
 
     if (isObject(loadBalancedError)) {
-      vipPortError = loadBalancedError[`VIP_${index}`];
+      vipPortError = loadBalancedError[VipLabelUtil.defaultVip(index)];
       loadBalancedError = null;
     }
 
@@ -223,7 +224,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const tooltipContent =
       "This port will be used to load balance this service address internally";
     if (isObject(loadBalancedError)) {
-      vipPortError = loadBalancedError[`VIP_${index}`];
+      vipPortError = loadBalancedError[VipLabelUtil.defaultVip(index)];
       loadBalancedError = null;
     }
 

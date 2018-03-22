@@ -143,7 +143,8 @@ const containerJSONReducer = combineReducers({
 
     // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {
-      const vipLabel = `VIP_${index}`;
+      const vipLabel =
+        portDefinition.vipLabel || VipLabelUtil.defaultVip(index);
       const vipPort = Number(portDefinition.vipPort) || null;
       const containerPort = Number(portDefinition.containerPort) || 0;
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;

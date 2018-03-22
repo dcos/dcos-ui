@@ -1,7 +1,6 @@
 import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 import Networking from "#SRC/js/constants/Networking";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import PortDefinitionsReducer from "./JSONReducers/PortDefinitionsReducer";
 import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 import VipLabelUtil from "../../utils/VipLabelUtil";
@@ -62,7 +61,8 @@ module.exports = {
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
       const { name } = portDefinition;
-      const vipLabel = `VIP_${index}`;
+      const vipLabel =
+        portDefinition.vipLabel || VipLabelUtil.defaultVip(index);
       const hostPort = portDefinition.hostPort
         ? Number(portDefinition.hostPort)
         : 0;
@@ -134,19 +134,26 @@ module.exports = {
         });
       }
 
-      const vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
+      const vip = VipLabelUtil.findVip(item.labels);
+
       if (vip != null) {
+        const [vipLabel, vipValue] = vip;
+
         memo.push(
           new Transaction(["portDefinitions", index, "loadBalanced"], true, SET)
         );
 
-        if (!vip.startsWith(`${state.id}:`)) {
+        memo.push(
+          new Transaction(["portDefinitions", index, "vipLabel"], vipLabel, SET)
+        );
+
+        if (!vipValue.startsWith(`${state.id}:`)) {
           memo.push(
-            new Transaction(["portDefinitions", index, "vip"], vip, SET)
+            new Transaction(["portDefinitions", index, "vip"], vipValue, SET)
           );
         }
 
-        const vipPortMatch = vip.match(/.+:(\d+)/);
+        const vipPortMatch = vipValue.match(/.+:(\d+)/);
         if (vipPortMatch) {
           memo.push(
             new Transaction(
