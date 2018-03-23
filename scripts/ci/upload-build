@@ -14,9 +14,8 @@ fi
 
 PKG_BRANCH=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
 
-# ex. master+dcos-ui-v1.12.0-rc.11.tar.gz
-# ex. master+dcos-ui-ee-v1.12.0-rc.11.tar.gz
-RELEASE_NAME="${PKG_BRANCH}+dcos-ui${PKG_VERSION}.tar.gz"
+# ex. dcos-ui-v1.12.0-rc.11.tar.gz
+RELEASE_NAME="dcos-ui${PKG_VERSION}.tar.gz"
 
 # tar dist
 cd "dist"
