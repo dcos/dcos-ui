@@ -105,13 +105,14 @@ describe("#JSONParser", function() {
         new Transaction(["portDefinitions"], null, ADD_ITEM),
         new Transaction(["portDefinitions", 0, "portMapping"], false),
         new Transaction(["portDefinitions", 0, "loadBalanced"], true),
+        new Transaction(["portDefinitions", 0, "vipLabel"], "VIP_0"),
         new Transaction(["portDefinitions", 0, "vip"], "/:0"),
         new Transaction(["portDefinitions", 0, "vipPort"], "0"),
         new Transaction(["portDefinitions", 0, "labels"], { VIP_0: "/:0" })
       ]);
     });
 
-    it("doesn't add loadBalanced for wrong label", function() {
+    it("adds loadBalanced for any vip-label", function() {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -120,7 +121,7 @@ describe("#JSONParser", function() {
             portMappings: [
               {
                 labels: {
-                  VIP_1: "/:0"
+                  vip1: "/:0"
                 }
               }
             ]
@@ -129,7 +130,11 @@ describe("#JSONParser", function() {
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
         new Transaction(["portDefinitions", 0, "portMapping"], false),
-        new Transaction(["portDefinitions", 0, "labels"], { VIP_1: "/:0" })
+        new Transaction(["portDefinitions", 0, "loadBalanced"], true),
+        new Transaction(["portDefinitions", 0, "vipLabel"], "vip1"),
+        new Transaction(["portDefinitions", 0, "vip"], "/:0"),
+        new Transaction(["portDefinitions", 0, "vipPort"], "0"),
+        new Transaction(["portDefinitions", 0, "labels"], { vip1: "/:0" })
       ]);
     });
 
@@ -202,6 +207,7 @@ describe("#JSONParser", function() {
         new Transaction(["portDefinitions", 1, "protocol", "udp"], false),
         new Transaction(["portDefinitions", 1, "protocol", "tcp"], true),
         new Transaction(["portDefinitions", 1, "loadBalanced"], true),
+        new Transaction(["portDefinitions", 1, "vipLabel"], "VIP_1"),
         new Transaction(["portDefinitions", 1, "vip"], "/:0"),
         new Transaction(["portDefinitions", 1, "vipPort"], "0"),
         new Transaction(["portDefinitions", 1, "labels"], { VIP_1: "/:0" })
