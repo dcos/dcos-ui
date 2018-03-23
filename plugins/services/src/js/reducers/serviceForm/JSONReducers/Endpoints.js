@@ -14,7 +14,8 @@ const defaultEndpointsFieldValues = {
   },
   servicePort: null,
   vip: null,
-  vipPort: null
+  vipPort: null,
+  vipLabel: null
 };
 
 module.exports = {
@@ -55,7 +56,8 @@ module.exports = {
       "loadBalanced",
       "labels",
       "vip",
-      "vipPort"
+      "vipPort",
+      "vipLabel"
     ];
     const numericalFiledNames = ["containerPort", "hostPort"];
 

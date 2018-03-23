@@ -36,6 +36,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       containerPort,
       automaticPort,
       protocol,
+      vipLabel,
       vipPort,
       labels
     } = endpoint;
@@ -49,12 +50,10 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     }
 
     if (networkType === CONTAINER) {
-      const vipLabel = `VIP_${index}`;
-
       labels = VipLabelUtil.generateVipLabel(
         appState.id,
         endpoint,
-        vipLabel,
+        vipLabel || `VIP_${index}`,
         vipPort || containerPort || hostPort
       );
 
@@ -229,12 +228,10 @@ function containersParser(state) {
             )
           );
 
-          const vip = findNestedPropertyInObject(
-            endpoint,
-            `labels.VIP_${endpointIndex}`
-          );
+          const vip = VipLabelUtil.findVip(endpoint.labels);
 
           if (vip != null) {
+            const [vipLabel, vipValue] = vip;
             memo.push(
               new Transaction(
                 [
@@ -248,16 +245,23 @@ function containersParser(state) {
               )
             );
 
-            if (!vip.startsWith(`${state.id}:`)) {
+            memo.push(
+              new Transaction(
+                ["containers", index, "endpoints", endpointIndex, "vipLabel"],
+                vipLabel
+              )
+            );
+
+            if (!vipValue.startsWith(`${state.id}:`)) {
               memo.push(
                 new Transaction(
                   ["containers", index, "endpoints", endpointIndex, "vip"],
-                  vip
+                  vipValue
                 )
               );
             }
 
-            const vipPortMatch = vip.match(/.+:(\d+)/);
+            const vipPortMatch = vipValue.match(/.+:(\d+)/);
             if (vipPortMatch) {
               memo.push(
                 new Transaction(

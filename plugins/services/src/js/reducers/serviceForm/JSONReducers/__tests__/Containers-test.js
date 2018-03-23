@@ -1086,6 +1086,11 @@ describe("Containers", function() {
             SET
           ),
           new Transaction(
+            ["containers", 0, "endpoints", 0, "vipLabel"],
+            "VIP_0",
+            SET
+          ),
+          new Transaction(
             ["containers", 0, "endpoints", 0, "vip"],
             "/:900",
             SET

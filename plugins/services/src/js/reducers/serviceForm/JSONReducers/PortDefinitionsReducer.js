@@ -8,7 +8,8 @@ const FIELDS = [
   "name",
   "servicePort",
   "vip",
-  "vipPort"
+  "vipPort",
+  "vipLabel"
 ];
 
 function transformPortDefinition(definition) {
@@ -54,7 +55,8 @@ function PortDefinitionsReducer(state = [], action) {
             },
             servicePort: null,
             vip: null,
-            vipPort: null
+            vipPort: null,
+            vipLabel: null
           };
           const defaults = { protocol: { tcp: true } };
 
