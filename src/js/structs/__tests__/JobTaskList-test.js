@@ -1,6 +1,5 @@
-const moment = require("moment");
-
 const JobTaskList = require("../JobTaskList");
+const DateUtil = require("../../utils/DateUtil");
 
 describe("JobTaskList", function() {
   describe("#getLongestRunningTask", function() {
@@ -14,7 +13,7 @@ describe("JobTaskList", function() {
       });
 
       expect(activeRunList.getLongestRunningTask().getDateStarted()).toEqual(
-        moment("1985-01-03T00:00:00Z-1").valueOf()
+        DateUtil.strToMs("1985-01-03T00:00:00Z-1")
       );
     });
 
@@ -30,7 +29,7 @@ describe("JobTaskList", function() {
       });
 
       expect(activeRunList.getLongestRunningTask().getDateStarted()).toEqual(
-        moment("1990-01-03T00:00:00Z-1").valueOf()
+        DateUtil.strToMs("1990-01-03T00:00:00Z-1")
       );
     });
   });
