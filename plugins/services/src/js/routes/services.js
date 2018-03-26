@@ -19,12 +19,14 @@ import TaskLogsContainer from "../pages/task-details/TaskLogsContainer";
 import TaskVolumeContainer
   from "../containers/volume-detail/TaskVolumeContainer";
 import VolumeTable from "../components/VolumeTable";
+import PodVolumeTable from "../components/PodVolumeTable";
 import HighOrderServiceConfiguration
   from "../components/HighOrderServiceConfiguration";
 import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
 import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
 import ServiceConnectionContainer
   from "../components/ServiceConnectionContainer";
+import PodVolumeContainer from "../containers/volume-detail/PodVolumeContainer";
 
 const serviceRoutes = [
   {
@@ -98,6 +100,11 @@ const serviceRoutes = [
           },
           {
             type: Route,
+            path: "podvolumes/:volumeID",
+            component: PodVolumeContainer
+          },
+          {
+            type: Route,
             path: "configuration",
             title: "Configuration",
             component: HighOrderServiceConfiguration
@@ -113,6 +120,12 @@ const serviceRoutes = [
             path: "volumes",
             title: "Volumes",
             component: VolumeTable
+          },
+          {
+            type: Route,
+            path: "podvolumes",
+            title: "Volumes",
+            component: PodVolumeTable
           },
           {
             type: Route,
@@ -187,6 +200,14 @@ const serviceRoutes = [
                 hideHeaderNavigation: true,
                 isTab: true,
                 path: "volumes",
+                title: "Volumes",
+                type: Route
+              },
+              {
+                component: PodVolumeTable,
+                hideHeaderNavigation: true,
+                isTab: true,
+                path: "podvolumes",
                 title: "Volumes",
                 type: Route
               },

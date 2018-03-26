@@ -77,6 +77,9 @@ module.exports = class PodSpec extends ServiceSpec {
   getVolumes() {
     return this.get("volumes") || [];
   }
+  getVolumesData() {
+    return this.get("volumeData") || [];
+  }
 
   getUser() {
     return this.get("user") || "";
