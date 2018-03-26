@@ -201,16 +201,31 @@ class PodDetail extends mixin(TabsMixin) {
     return actions;
   }
 
+  hasVolumes() {
+    return (
+      !!this.props.pod && this.props.pod.getVolumesData().getItems().length > 0
+    );
+  }
+
   getTabs() {
     const { pod: { id } } = this.props;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
-    return [
+    const tabs = [
       { label: "Tasks", routePath: `${routePrefix}/tasks` },
       { label: "Configuration", routePath: `${routePrefix}/configuration` },
       { label: "Debug", routePath: `${routePrefix}/debug` },
       { label: "Endpoints", routePath: `${routePrefix}/endpoints` }
     ];
+
+    if (this.hasVolumes()) {
+      tabs.push({
+        label: "Volumes",
+        routePath: `${routePrefix}/podvolumes`
+      });
+    }
+
+    return tabs;
   }
 
   render() {

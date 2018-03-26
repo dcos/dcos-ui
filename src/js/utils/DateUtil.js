@@ -77,7 +77,9 @@ const DateUtil = {
       return null;
     }
 
-    return moment(str).valueOf();
+    return (
+      moment(str).valueOf() || moment(str, "YYYY-MM-DDTHH:mm:ssZ").valueOf()
+    );
   },
 
   getDuration(time, formatKey = "seconds") {
