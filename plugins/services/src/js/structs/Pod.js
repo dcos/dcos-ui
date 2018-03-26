@@ -6,6 +6,7 @@ import PodTerminationHistoryList from "./PodTerminationHistoryList";
 import Service from "./Service";
 import ServiceStatus from "../constants/ServiceStatus";
 import ServiceImages from "../constants/ServiceImages";
+import VolumeList from "./VolumeList";
 
 module.exports = class Pod extends Service {
   constructor() {
@@ -193,5 +194,9 @@ module.exports = class Pod extends Service {
     return new PodTerminationHistoryList({
       items: this.get("terminationHistory") || []
     });
+  }
+
+  getVolumesData() {
+    return new VolumeList({ items: this.get("volumeData") || [] });
   }
 };
