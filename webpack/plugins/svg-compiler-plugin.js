@@ -1,8 +1,8 @@
-import fs from "fs";
-import glob from "glob";
-import path from "path";
-import SVGSprite from "svg-sprite";
-import vinyl from "vinyl";
+const fs = require("fs");
+const glob = require("glob");
+const path = require("path");
+const SVGSprite = require("svg-sprite");
+const vinyl = require("vinyl");
 
 function SVGCompilerPlugin(options) {
   this.options = { baseDir: path.resolve(options.baseDir) };
