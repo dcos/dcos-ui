@@ -3,6 +3,7 @@ import PodInstanceList from "./PodInstanceList";
 import PodSpec from "./PodSpec";
 import PodState from "../constants/PodState";
 import PodTerminationHistoryList from "./PodTerminationHistoryList";
+import PodUtil from "../utils/PodUtil";
 import Service from "./Service";
 import ServiceStatus from "../constants/ServiceStatus";
 import ServiceImages from "../constants/ServiceImages";
@@ -194,6 +195,14 @@ module.exports = class Pod extends Service {
     return new PodTerminationHistoryList({
       items: this.get("terminationHistory") || []
     });
+  }
+
+  findInstanceByTaskId(taskId) {
+    const instanceId = PodUtil.getInstanceIdFromTaskId(taskId);
+
+    return this.getInstanceList().findItem(
+      instance => instance.id === instanceId
+    );
   }
 
   getVolumesData() {
