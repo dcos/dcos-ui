@@ -426,4 +426,32 @@ describe("PodInstance", function() {
       expect(podInstance.isTerminating()).toBeFalsy();
     });
   });
+
+  describe("#getIpAddresses", function() {
+    it("returns an array of IP Addresses", function() {
+      const podInstance = new PodInstance({
+        networks: [{ addresses: ["9.0.0.1"] }]
+      });
+      expect(podInstance.getIpAddresses()).toEqual(["9.0.0.1"]);
+    });
+
+    it("supports multiple networks", function() {
+      const podInstance = new PodInstance({
+        networks: [
+          { addresses: ["9.0.0.1"] },
+          { addresses: ["9.0.0.10", "9.0.0.11"] }
+        ]
+      });
+      expect(podInstance.getIpAddresses()).toEqual([
+        "9.0.0.1",
+        "9.0.0.10",
+        "9.0.0.11"
+      ]);
+    });
+
+    it("returns an empty array", function() {
+      const podInstance = new PodInstance({});
+      expect(podInstance.getIpAddresses()).toEqual([]);
+    });
+  });
 });

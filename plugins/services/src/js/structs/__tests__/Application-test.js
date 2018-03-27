@@ -574,4 +574,20 @@ describe("Application", function() {
       expect(JSON.stringify(spec)).toEqual('{"foo":"bar","baz":"qux"}');
     });
   });
+
+  describe("#findTaskById", function() {
+    it("returns the task", function() {
+      const service = new Application({
+        tasks: [{ id: "foo" }]
+      });
+      expect(service.findTaskById("foo")).toEqual({ id: "foo" });
+    });
+
+    it("returns undefined", function() {
+      const service = new Application({
+        tasks: [{ id: "foo" }]
+      });
+      expect(service.findTaskById("unknown")).toEqual(undefined);
+    });
+  });
 });

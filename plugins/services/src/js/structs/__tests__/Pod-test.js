@@ -1,4 +1,5 @@
 const Pod = require("../Pod");
+const PodInstance = require("../PodInstance");
 
 const HealthStatus = require("../../constants/HealthStatus");
 const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
@@ -379,6 +380,44 @@ describe("Pod", function() {
         tasksUnknown: 2,
         tasksOverCapacity: 1
       });
+    });
+  });
+
+  describe("#findInstanceByTaskId", function() {
+    it("returns PodInstance", function() {
+      const pod = new Pod({
+        instances: [
+          {
+            id: "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a"
+          }
+        ]
+      });
+
+      expect(
+        pod.findInstanceByTaskId(
+          "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a.container-1"
+        )
+      ).toEqual(
+        new PodInstance({
+          id: "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a"
+        })
+      );
+    });
+
+    it("returns undefined", function() {
+      const pod = new Pod({
+        instances: [
+          {
+            id: "foo.53678488-2775-11e8-88a0-7abb83ecf42a"
+          }
+        ]
+      });
+
+      expect(
+        pod.findInstanceByTaskId(
+          "unknown.53678488-2775-11e8-88a0-7abb83ecf42a.container-1"
+        )
+      ).toEqual(undefined);
     });
   });
 });
