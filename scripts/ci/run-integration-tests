@@ -10,40 +10,37 @@ set -e
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
 RETRIES=3
 
-function executeCypress {
-  echo "=====> Executing cypress for $1"
-  local testPath
-  testPath="cypress/$(basename "$1")"
-  npm run cypress -- \
-    -s "$1" \
-    --config "screenshotsFolder=${testPath}/screenshots,videosFolder=${testPath}/videos" \
-    --reporter junit \
-    --reporter-options "mochaFile=${testPath}/result.xml"
-}
-
 function runTestFile {
   echo "==> Running tests for $1"
   i="0"
   while [ $i -lt $RETRIES ]; do
     i=$((i+1))
-    echo "===> Executing run $i"
+    echo "==> Executing run $i for $1"
     local exit_code
+    local testPath
+
+    testPath="cypress/$(basename "$1")-${i}"
 
     # We don't want to let an error in the block below to end the entire script
     set +e # undo instant error flag
 
-    executeCypress "$1"
+    npm run -s cypress -- \
+      -s "$1" \
+      --config "screenshotsFolder=${testPath}/screenshots,videosFolder=${testPath}/videos" \
+      --reporter junit \
+      --reporter-options "mochaFile=${testPath}/result.xml"
+
     exit_code=$?
+    echo "==> Cypress exit code for $1: $exit_code"
 
     set -e # redo flag
-    echo "==> $i run exit code: $exit_code"
 
     if [ $exit_code -eq 0 ]; then
+      echo "==> Finished in $i runs for $1"
       return 0
     fi
   done
-
-  echo "==> Couldn't get a success in $RETRIES retries"
+  echo "==> Couldn't get a success in $RETRIES retries for $1"
   exit 1
 }
 
@@ -59,5 +56,7 @@ SEARCH=${1:-'*'}
 echo "Found these matching files ('./tests/${SEARCH}-cy.js')"
 find $PROJECT_ROOT/tests -type f -name ${SEARCH}"-cy.js" -print | tee /dev/tty | while read file; do runTestFile "$file"; done
 
-echo "Done running tests, merging the results now"
+echo "Done running tests, merging the results now into ./cypress/results.xml"
 junit-merge ./cypress/*/result.xml --out ./cypress/results.xml
+
+echo "All done."
