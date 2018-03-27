@@ -75,28 +75,8 @@ pipeline {
 
     stage('Integration Test') {
       steps {
-        // Run a simple webserver serving the dist folder statically
-        // before we run the cypress tests
-        writeFile file: 'integration-tests.sh', text: [
-          'export PATH=`pwd`/node_modules/.bin:$PATH',
-          'http-server -p 4200 dist&',
-          'SERVER_PID=$!',
-          './scripts/ci/run-integration-tests',
-          'RET=$?',
-          'echo "cypress exit status: ${RET}"',
-          'sleep 10',
-          'echo "kill server"',
-          'kill $SERVER_PID',
-          'exit $RET'
-        ].join('\n')
-
         unstash 'dist'
-
-        ansiColor('xterm') {
-          retry(2) {
-            sh '''bash integration-tests.sh'''
-          }
-        }
+        sh "npm run integration-tests"
       }
 
       post {
