@@ -44,19 +44,21 @@ function runTestFile {
   exit 1
 }
 
+function cleanup {
+  echo 'Killing http-server'
+  kill $SERVER_PID
+  echo 'Merging results'
+  junit-merge ./cypress/*/result.xml --out ./cypress/results.xml
+  echo 'Done'
+}
 
 # Starting http-server & setting up trap
 http-server -sp 4200 dist&
 SERVER_PID=$!
-trap "kill $SERVER_PID" EXIT
+trap cleanup EXIT
 
 # pass in simple search strings for filenames here (find syntax)
 SEARCH=${1:-'*'}
 
 echo "Found these matching files ('./tests/${SEARCH}-cy.js')"
 find $PROJECT_ROOT/tests -type f -name ${SEARCH}"-cy.js" -print | tee /dev/tty | while read file; do runTestFile "$file"; done
-
-echo "Done running tests, merging the results now into ./cypress/results.xml"
-junit-merge ./cypress/*/result.xml --out ./cypress/results.xml
-
-echo "All done."
