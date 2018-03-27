@@ -119,10 +119,10 @@ const ServiceUtil = {
   getServiceIDFromTaskID(taskID = "") {
     // Parse the task id (e.g. foo_bar.abc-123) to get the corresponding
     // service id parts (foo, bar)
-    const parts = taskID.match(/([^_]+)(?=[_.])/g);
+    const parts = taskID.split(".")[0].split("_");
 
     // Join service id parts and prepend with a slash to form a valid id
-    if (parts) {
+    if (parts[0] !== "") {
       return `/${parts.join("/")}`;
     }
 
