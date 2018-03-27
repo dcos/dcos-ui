@@ -1,4 +1,6 @@
 #!/bin/bash
 
+set -x
+
 # Remove the service group for the test
 dcos marathon group remove --force /$TEST_UUID

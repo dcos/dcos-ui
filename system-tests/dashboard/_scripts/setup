@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Create a service group for the test
 cat <<EOF | dcos marathon group add
 {
