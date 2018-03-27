@@ -5,16 +5,20 @@
 # replace it with a test runner in the future, please see it more as a proof of
 # concept
 
-set -ex
+set -e
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
 RETRIES=3
 
 function executeCypress {
   echo "=====> Executing cypress for $1"
-  local testResultPath
-  testResultPath="cypress/$(basename "$1")-result.xml"
-  npm run cypress -- -s "$1" --reporter junit --reporter-options "mochaFile=$testResultPath"
+  local testPath
+  testPath="cypress/$(basename "$1")"
+  npm run cypress -- \
+    -s "$1" \
+    --config "screenshotsFolder=${testPath}/screenshots,videosFolder=${testPath}/videos" \
+    --reporter junit \
+    --reporter-options "mochaFile=${testPath}/result.xml"
 }
 
 function runTestFile {
@@ -56,4 +60,4 @@ echo "Found these matching files ('./tests/${SEARCH}-cy.js')"
 find $PROJECT_ROOT/tests -type f -name ${SEARCH}"-cy.js" -print | tee /dev/tty | while read file; do runTestFile "$file"; done
 
 echo "Done running tests, merging the results now"
-junit-merge ./cypress/*-result.xml --out ./cypress/results.xml
+junit-merge ./cypress/*/result.xml --out ./cypress/results.xml
