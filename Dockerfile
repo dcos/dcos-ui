@@ -31,7 +31,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/* \
   # Post-install java certificates
   /var/lib/dpkg/info/ca-certificates-java.postinst configure \
-  # Install npm dependencies
+  # Install npm dependencies (System Tests!)
   && cd /dcos-ui \
   && npm install -g git://github.com/johntron/http-server.git#proxy-secure-flag \
   # Install dcos-launch
