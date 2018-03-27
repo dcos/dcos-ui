@@ -358,6 +358,7 @@ class ServicesTable extends React.Component {
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
     const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
+    const hasStatusText = serviceStatusText !== ServiceStatus.NA.displayName;
 
     return (
       <div className="flex">
@@ -367,7 +368,8 @@ class ServicesTable extends React.Component {
             showTooltip={true}
             tooltipContent={tooltipContent}
           />
-          <span className="status-bar-text">{serviceStatusText}</span>
+          {hasStatusText &&
+            <span className="status-bar-text">{serviceStatusText}</span>}
         </div>
         <div className="service-status-progressbar-wrapper">
           <ServiceStatusProgressBar service={service} />
