@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+# if [ -z "$CLUSTER_URL" ]; then
+#     CLUSTER_URL=$(./system-tests/_scripts/launch-cluster.sh)
+# fi
+
+# if [ -z "$(which dcos)"]; then
+#     # setup cli…
+# fi
+
+set -ex
+
+CLUSTER_URL=<ENTER CLUSTER URL HERE>
+CLUSTER_AUTH_TOKEN=<ENTER AUTH TOKEN HERE>
+CLUSTER_AUTH_INFO=NULL
+
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
+RETRIES=3
+
+function runTestFile {
+  echo "==> Running tests for $1"
+  i="0"
+  while [ $i -lt $RETRIES ]; do
+    i=$((i+1))
+    echo "==> Executing run $i for $1"
+    local exit_code
+    local testPath
+
+    testPath="cypress/$(basename "$1")-${i}"
+
+    # We don't want to let an error in the block below to end the entire script
+    set +e # undo instant error flag
+
+    if [ -f "$(dirname "$1")/_scripts/setup" ]; then
+      echo "==> Running setup script"
+      TEST_UUID=system-tests $(dirname "$1")/_scripts/setup
+    fi
+
+    echo "==> Running Cypress"
+    npm run -s cypress -- \
+      -s "$1" \
+      --config "screenshotsFolder=${testPath}/screenshots,videosFolder=${testPath}/videos,integrationFolder=system-tests,supportFile=system-tests/_support" \
+      --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=system-tests \
+      --reporter junit \
+      --reporter-options "mochaFile=${testPath}/result.xml"
+
+    exit_code=$?
+    echo "==> Cypress exit code for $1: $exit_code"
+
+    if [ -f "$(dirname "$1")/_scripts/teardown" ]; then
+      echo "==> Running teardown script"
+      TEST_UUID=system-tests $(dirname "$1")/_scripts/teardown
+    fi
+
+    set -e # redo flag
+
+    if [ $exit_code -eq 0 ]; then
+      echo "==> Finished in $i runs for $1"
+      return 0
+    fi
+  done
+  echo "==> Couldn't get a success in $RETRIES retries for $1"
+  exit 1
+}
+
+function cleanup {
+  echo 'Killing http-server'
+  kill $SERVER_PID
+  echo 'Merging results'
+  junit-merge ./cypress/*/result.xml --out ./cypress/results.xml
+  echo 'Done'
+}
+
+# Starting http-server & setting up trap
+http-server -sp 4200 --proxy $CLUSTER_URL --proxy-secure=false dist&
+SERVER_PID=$!
+trap cleanup EXIT
+CLUSTER_URL=http://127.0.0.1:4200
+
+# pass in simple search strings for filenames here (find syntax)
+SEARCH=${1:-'*'}
+
+echo "Found these matching files ('./system-tests/test-${SEARCH}.js')"
+find $PROJECT_ROOT/system-tests -type f -name "test-"${SEARCH}".js" -print | tee /dev/tty | while read file; do runTestFile "$file"; done

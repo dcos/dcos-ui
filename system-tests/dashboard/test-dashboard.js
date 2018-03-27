@@ -1,6 +1,10 @@
 require("../_support/utils/ServicesUtil");
 const { createService, deleteService } = require("../_support/index");
 
+it.only("test", function() {
+  cy.visitUrl("dashboard");
+});
+
 const serviceDefinition = {
   id: `/${Cypress.env("TEST_UUID")}/dashboard-test-service`,
   instances: 1,
