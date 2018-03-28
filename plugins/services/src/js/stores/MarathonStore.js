@@ -1,4 +1,5 @@
 import PluginSDK from "PluginSDK";
+import Rx from "rxjs";
 
 import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
@@ -86,33 +87,102 @@ import Framework from "../structs/Framework";
 import ServiceImages from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
-let requestInterval = null;
+let eventSource$ = null;
 let shouldEmbedLastUnusedOffers = false;
 
+function marathonEventBus(url, options = { withCredentials: true }) {
+  return Rx.Observable.create(function(observer) {
+    const source = new EventSource(url, options);
+
+    source.addEventListener("open", function(event) {
+      observer.next(event);
+    });
+
+    const onMessage = event => observer.next(event);
+
+    source.addEventListener("pod_created_event", onMessage);
+    source.addEventListener("pod_updated_event", onMessage);
+    source.addEventListener("pod_deleted_event", onMessage);
+
+    source.addEventListener("scheduler_registered_event", onMessage);
+    source.addEventListener("scheduler_reregistered_event", onMessage);
+    source.addEventListener("scheduler_disconnected_event", onMessage);
+
+    source.addEventListener("add_health_check_event", onMessage);
+    source.addEventListener("remove_health_check_event", onMessage);
+    source.addEventListener("failed_health_check_event", onMessage);
+    source.addEventListener("health_status_changed_event", onMessage);
+    source.addEventListener("unhealthy_instance_kill_event", onMessage);
+
+    source.addEventListener("deployment_info", onMessage);
+    source.addEventListener("deployment_success", onMessage);
+    source.addEventListener("deployment_failed", onMessage);
+    source.addEventListener("deployment_step_success", onMessage);
+    source.addEventListener("deployment_step_failure", onMessage);
+
+    source.addEventListener("group_change_success", onMessage);
+    source.addEventListener("group_change_failed", onMessage);
+
+    source.addEventListener("status_update_event", onMessage);
+
+    source.addEventListener("instance_changed_event", onMessage);
+    source.addEventListener("instance_health_changed_event", onMessage);
+    source.addEventListener("unknown_instance_terminated_event", onMessage);
+
+    source.addEventListener("framework_message_event", onMessage);
+
+    source.addEventListener("error", function(event) {
+      observer.error({
+        target: event.target,
+        event
+      });
+    });
+
+    // Closing the source when there are no subscribers left
+    return function teardown() {
+      console.info("teardown");
+      source.close();
+    };
+  });
+}
+
 function startPolling() {
-  if (requestInterval == null) {
-    poll();
-    requestInterval = global.setInterval(poll, Config.getRefreshRate());
+  if (eventSource$ == null) {
+    eventSource$ = marathonEventBus(
+      `${Config.rootUrl}${Config.marathonAPIPrefix}/events?plan-format=light`
+    );
+    eventSource$.subscribe(
+      function(event) {
+        console.log(event);
+
+        const options = {};
+        if (shouldEmbedLastUnusedOffers) {
+          options.params = "?embed=lastUnusedOffers";
+        }
+
+        if (event.type.startsWith("deployment_")) {
+          MarathonActions.fetchDeployments();
+          MarathonActions.fetchQueue(options);
+        } else if (event.type.startsWith("group_change_")) {
+          MarathonActions.fetchGroups();
+        } else {
+          MarathonActions.fetchDeployments();
+          MarathonActions.fetchQueue(options);
+          MarathonActions.fetchGroups();
+        }
+      },
+      function(error) {
+        console.error(error);
+      }
+    );
   }
 }
 
 function stopPolling() {
-  if (requestInterval != null) {
-    global.clearInterval(requestInterval);
-    requestInterval = null;
+  if (eventSource$ != null) {
+    eventSource$.unsubscribe();
+    eventSource$ = null;
   }
-}
-
-function poll() {
-  const options = {};
-
-  if (shouldEmbedLastUnusedOffers) {
-    options.params = "?embed=lastUnusedOffers";
-  }
-
-  MarathonActions.fetchGroups();
-  MarathonActions.fetchQueue(options);
-  MarathonActions.fetchDeployments();
 }
 
 class MarathonStore extends GetSetBaseStore {
