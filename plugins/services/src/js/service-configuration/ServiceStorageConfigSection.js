@@ -53,7 +53,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
       appConfig.container.volumes == null
     ) {
       // sanity check
-      return null;
+      return super.getDefinition();
     }
 
     const volumes = appConfig.container.volumes;
