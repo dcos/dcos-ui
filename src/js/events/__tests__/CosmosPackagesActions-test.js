@@ -1,3 +1,7 @@
+jest.mock("@dcos/http-service");
+
+const httpService = require("@dcos/http-service");
+const Rx = require("rxjs");
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../AppDispatcher");
@@ -840,266 +844,194 @@ describe("CosmosPackagesActions", function() {
   });
 
   describe("#fetchRepositories", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      CosmosPackagesActions.fetchRepositories({ foo: "bar" });
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    it("dispatches the correct action when successful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.of({ repositories: [{ bar: "baz" }] })
+      );
 
-    it("dispatches the correct action when successful", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success({ repositories: [{ bar: "baz" }] });
+      CosmosPackagesActions.fetchRepositories();
     });
 
-    it("dispatches with the correct data when successful", function() {
+    it("dispatches with the correct data when successful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.of({ repositories: [{ bar: "baz" }] })
+      );
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual([{ bar: "baz" }]);
+        done();
       });
 
-      thisConfiguration.success({ repositories: [{ bar: "baz" }] });
+      CosmosPackagesActions.fetchRepositories();
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.throw({ responseJSON: { description: "bar" } })
+      );
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_COSMOS_REPOSITORIES_LIST_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ responseJSON: { description: "bar" } });
+      CosmosPackagesActions.fetchRepositories();
     });
 
-    it("dispatches with the correct data when unsuccessful", function() {
+    it("dispatches with the correct data when unsuccessful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.throw({ response: { description: "bar" } })
+      );
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
+        done();
       });
 
-      thisConfiguration.error({ responseJSON: { description: "bar" } });
-    });
-
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.xhr).toEqual({
-          foo: "bar",
-          responseJSON: { description: "baz" }
-        });
-      });
-
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
-    });
-
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("fetches data from the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        Config.cosmosAPIPrefix + "/repository/list"
-      );
-    });
-
-    it("sends a POST request", function() {
-      expect(thisConfiguration.method).toEqual("POST");
+      CosmosPackagesActions.fetchRepositories();
     });
   });
 
   describe("#addRepository", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      CosmosPackagesActions.addRepository("foo", "bar");
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    it("dispatches the correct action when successful", function(done) {
+      httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
 
-    it("dispatches the correct action when successful", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success({ bar: "baz" });
+      CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it("dispatches with the correct data when successful", function() {
+    it("dispatches with the correct data when successful", function(done) {
+      httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
         expect(action.name).toEqual("foo");
         expect(action.uri).toEqual("bar");
+        done();
       });
 
-      thisConfiguration.success({ bar: "baz" });
+      CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.throw({ responseJSON: { description: "bar" } })
+      );
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_COSMOS_REPOSITORY_ADD_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ responseJSON: { description: "bar" } });
+      CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it("dispatches with the correct data when unsuccessful", function() {
+    it("dispatches with the correct data when unsuccessful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.throw({ response: { description: "bar" } })
+      );
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
+        done();
       });
 
-      thisConfiguration.error({ responseJSON: { description: "bar" } });
-    });
-
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.xhr).toEqual({
-          foo: "bar",
-          responseJSON: { description: "baz" }
-        });
-      });
-
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
-    });
-
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("fetches data from the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        Config.cosmosAPIPrefix + "/repository/add"
-      );
-    });
-
-    it("sends query in request body", function() {
-      expect(JSON.parse(thisConfiguration.data)).toEqual({
-        name: "foo",
-        uri: "bar"
-      });
-    });
-
-    it("sends a POST request", function() {
-      expect(thisConfiguration.method).toEqual("POST");
+      CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
   });
 
   describe("#deleteRepository", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      CosmosPackagesActions.deleteRepository("foo", "bar");
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    it("dispatches the correct action when successful", function(done) {
+      httpService.request.mockReturnValueOnce(Rx.Observable.of([""]));
 
-    it("dispatches the correct action when successful", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success({ bar: "baz" });
+      CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it("dispatches with the correct data when successful", function() {
+    it("dispatches with the correct data when successful", function(done) {
+      httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
         expect(action.name).toEqual("foo");
         expect(action.uri).toEqual("bar");
+        done();
       });
 
-      thisConfiguration.success({ bar: "baz" });
+      CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.throw({ response: { description: "bar" } })
+      );
+
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_COSMOS_REPOSITORY_DELETE_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ responseJSON: { description: "bar" } });
+      CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it("dispatches with the correct data when unsuccessful", function() {
+    it("dispatches with the correct data when unsuccessful", function(done) {
+      httpService.request.mockReturnValueOnce(
+        Rx.Observable.throw({ response: { description: "bar" } })
+      );
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
+        done();
       });
 
-      thisConfiguration.error({ responseJSON: { description: "bar" } });
-    });
-
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.xhr).toEqual({
-          foo: "bar",
-          responseJSON: { description: "baz" }
-        });
-      });
-
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
-    });
-
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("fetches data from the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        Config.cosmosAPIPrefix + "/repository/delete"
-      );
-    });
-
-    it("sends query in request body", function() {
-      expect(JSON.parse(thisConfiguration.data)).toEqual({
-        name: "foo",
-        uri: "bar"
-      });
-    });
-
-    it("sends a POST request", function() {
-      expect(thisConfiguration.method).toEqual("POST");
+      CosmosPackagesActions.deleteRepository("foo", "bar");
     });
   });
 });
