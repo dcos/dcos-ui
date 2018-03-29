@@ -135,6 +135,13 @@ pipeline {
      }
     }
 
+    // trigger the other job to update the upstream reference
+    stage ('Run Enterprise CI') {
+      steps {
+        build job: "frontend/dcos-ui-ee-pipeline/${env.CHANGE_TARGET}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.CHANGE_BRANCH]]
+      }
+    }
+
     // when env.BRANCH_NAME == 'master', we will update the mesosphere:dcos-ui/latest branch
     // when env.BRANCH_NAME =~ /(tag-name-regex)/, we will open a release PR against dcos/dcos
     stage('Upload Build') {
@@ -169,17 +176,6 @@ pipeline {
         ]) {
           sh "GIT_PASSWORD=${GIT_PASSWORD} GIT_USER=${GIT_USER} ./scripts/ci/update-github"
         }
-      }
-    }
-
-    // trigger the other job to update the upstream reference
-    stage ('Trigger Enterprise Update') {
-      when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
-      }
-
-      steps {
-        build job: "frontend/dcos-ui-ee-release/${env.BRANCH_NAME}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME]]
       }
     }
   }
