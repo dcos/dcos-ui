@@ -138,7 +138,7 @@ pipeline {
     // trigger the other job to update the upstream reference
     stage ('Run Enterprise CI') {
       steps {
-        build job: "frontend/dcos-ui-ee-pipeline/${env.BRANCH_NAME}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME]]
+        build job: "frontend/dcos-ui-ee-pipeline/${env.CHANGE_TARGET}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.CHANGE_BRANCH]]
       }
     }
 
