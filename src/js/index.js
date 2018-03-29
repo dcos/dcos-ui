@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { hot } from "react-hot-loader";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
@@ -63,7 +64,9 @@ RequestUtil.json = function(options = {}) {
 (function() {
   function renderApplication() {
     function renderAppToDOM(content) {
-      ReactDOM.render(content, domElement, function() {
+      console.log("Pass");
+      const hotContent = React.createElement(hot(module)(() => content));
+      ReactDOM.render(hotContent, domElement, function() {
         PluginSDK.Hooks.doAction("applicationRendered");
       });
     }
@@ -145,3 +148,7 @@ RequestUtil.json = function(options = {}) {
     startApplication();
   }
 })();
+
+if (module.hot) {
+  module.hot.accept();
+}

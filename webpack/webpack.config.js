@@ -83,7 +83,8 @@ module.exports = {
               "babel-preset-es2015",
               "babel-preset-stage-3",
               "babel-preset-react"
-            ])
+            ]),
+            plugins: requireAll(["react-hot-loader/babel"])
           }
         }
       },
