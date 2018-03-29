@@ -45,7 +45,7 @@ module.exports = {
   devServer: {
     // TODO: https://webpack.js.org/configuration/dev-server/#devserver-hot
     contentBase: path.join(__dirname, "../dist"),
-    open: true,
+    open: false,
     overlay: true,
     port: 4200,
     proxy: require("./proxy.dev.js")
