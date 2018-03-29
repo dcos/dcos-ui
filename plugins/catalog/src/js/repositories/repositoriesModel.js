@@ -24,7 +24,7 @@ export const resolvers = {
       const { filter } = args;
 
       // Filter Logic Backwards compatible with the previous struct/RepositoryList
-      return context.query.combineLatest(filter, (result, filter) =>
+      return context.query.map(result =>
         Object.values(
           new RepositoryList({ items: result.repositories })
             .filterItemsByText(filter)

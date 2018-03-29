@@ -409,6 +409,7 @@ const CosmosPackagesActions = {
   },
 
   addRepository(name, uri, index) {
+    console.warn("DEPRECATED", "use the new data-layer approach");
     repositoriesStream.addRepository(name, uri, index).subscribe(
       function success(response) {
         AppDispatcher.handleServerAction({
@@ -430,6 +431,7 @@ const CosmosPackagesActions = {
   },
 
   deleteRepository(name, uri) {
+    console.warn("DEPRECATED", "use the new data-layer approach");
     repositoriesStream.deleteRepository(name, uri).subscribe(
       function success(response) {
         AppDispatcher.handleServerAction({
