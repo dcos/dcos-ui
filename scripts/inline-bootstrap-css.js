@@ -11,15 +11,11 @@ function inlineBootstrapCss(cssFileName, htmlFileName) {
   const cssFileContents = fs.readFileSync(cssFileName, "utf8");
   const htmlFileContents = fs.readFileSync(htmlFileName, "utf8");
 
-  const insertionTag = "</head>";
-  const insertionPos = htmlFileContents.indexOf(insertionTag);
-
-  return (
-    htmlFileContents.slice(0, insertionPos) +
-    "<style type='text/css'>" +
-    purify(htmlFileContents, cssFileContents, { minify: true }) +
-    "</style>" +
-    htmlFileContents.slice(insertionPos)
+  return htmlFileContents.replace(
+    "</head>",
+    `<style type='text/css'>${purify(htmlFileContents, cssFileContents, {
+      minify: true
+    })}</style></head>`
   );
 }
 
