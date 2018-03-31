@@ -186,7 +186,7 @@
     "test": "NODE_PATH=node_modules jest --config=jest.config.js --no-cache",
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
-    "integration-tests": "./scripts/ci/run-integration-tests",
+    "integration-tests": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/ci/run-integration-tests",
     "validate-build": "scripts/validate-build dist/*.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)",
     "tslint": "tslint -c tslint.json --project tsconfig.json"
