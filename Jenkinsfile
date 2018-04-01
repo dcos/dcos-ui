@@ -12,7 +12,7 @@ pipeline {
   }
 
   parameters {
-    booleanParam(defaultValue: false, description: 'Create new Bumps against DC/OS?', name: 'CREATE_BUMP')
+    booleanParam(defaultValue: false, description: 'Create new Bump against DC/OS?', name: 'CREATE_BUMP')
   }
 
   environment {
@@ -63,7 +63,8 @@ pipeline {
     stage('Build') {
       steps {
         ansiColor('xterm') {
-          sh '''npm run build-assets'''
+          sh "npm run build-assets"
+          sh "npm run validate-build"
         }
       }
 
@@ -118,7 +119,7 @@ pipeline {
     }
 
     // update the mesosphere:dcos-ui/latest branch
-    stage('Release Latest') {
+    stage('Update Latest') {
       when {
         expression { 
           master_branches.contains(BRANCH_NAME)
@@ -131,7 +132,7 @@ pipeline {
             string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
             usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
         ]) {
-          sh "./scripts/ci/release-latest"
+          sh "./scripts/ci/update-latest"
         }
       }
 
@@ -142,7 +143,7 @@ pipeline {
       }
     }
 
-    // open a release PR against dcos/dcos
+    // open a Bump PR against dcos/dcos
     stage('Create Bump'){
       when {
         expression { 
