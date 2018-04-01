@@ -13,6 +13,11 @@ pipeline {
     }
   }
 
+  parameters {
+    booleanParam(defaultValue: false, description: 'Create new Bump against DC/OS?', name: 'CREATE_BUMP')
+    booleanParam(defaultValue: false, description: 'Release new latest build?', name: 'CREATE_LATEST')
+  }
+
   environment {
     JENKINS_VERSION = 'yes'
     NODE_PATH = 'node_modules'
