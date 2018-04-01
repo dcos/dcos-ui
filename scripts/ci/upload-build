@@ -2,32 +2,35 @@
 set -ex
 
 # configuration
+BUILD_VARIANT=${BUILD_VARIANT:-''}
+BRANCH_NAME=${BRANCH_NAME:-'master'}
+DIST_PATH=${DIST_PATH:-'dist'}
+PACKAGE_PATH=${PACKAGE_PATH:-'.'}
+SHA_SLUG=${SHA_SLUG:-$(git rev-parse --short HEAD)}
+
+# aws settings
 AWS_BUCKET='downloads.mesosphere.io'
 BUCKET_PATH='dcos-ui'
-BRANCH_NAME=${BRANCH_NAME:-'master'}
-PKG_VERSION=$(git tag -l --contains HEAD)
 
-if [[ $PKG_VERSION ]]
-then
-  PKG_VERSION="-$PKG_VERSION"
-fi
-
+# build release filename
+FILENAME='dcos-ui'
+PKG_VERSION=$(python -c "import sys, json; \
+  pkg = json.load(open('$PACKAGE_PATH/package.json')); \
+  sys.stdout.write(str(pkg['version']));")
 PKG_BRANCH=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
-
-# ex. dcos-ui-v1.12.0-rc.11.tar.gz
-RELEASE_NAME="dcos-ui${PKG_VERSION}.tar.gz"
+RELEASE_NAME="${PKG_BRANCH}+${FILENAME}${BUILD_VARIANT}-v${PKG_VERSION}+${SHA_SLUG}.tar.gz"
 
 # tar dist
-cd "dist"
+cd "$DIST_PATH"
 tar czf "../$RELEASE_NAME" .
 cd ..
-
 BUILD_SHA=$(shasum ${RELEASE_NAME} | cut -d " " -f1)
 ENCODED_RELEASE_NAME=$(echo ${RELEASE_NAME} | sed "s/\+/\%2B/g")
 DOWNLOAD_URL=$(echo "https://${AWS_BUCKET}/${BUCKET_PATH}/${ENCODED_RELEASE_NAME}")
+FILENAME='buildinfo.json'
 
 # cat config to artifact file
-cat <<EOF > buildinfo.json
+cat <<EOF > ${FILENAME}
 {
   "single_source": {
     "kind": "url_extract",

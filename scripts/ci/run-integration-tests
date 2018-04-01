@@ -5,49 +5,183 @@
 # replace it with a test runner in the future, please see it more as a proof of
 # concept
 
-set -e
-shopt -s globstar # to allow ** in globs
+## Configuration
+#####################################################################
+
+# Search string passed to `find`
+# Values: String
+SEARCH=${1:-'*'}
+
+# Maximum number of retries
+# Values: n ∈ ℕ
+RETRIES=${RETRIES:-3}
+
+# Stop if file failed $RETRIES times? (turn this off, if you want
+# to test all tests locally but something keeps failing)
+# Values: 0, 1
+STOP_ON_FAIL=${STOP_ON_FAIL:-1}
+
+# Suppresses Cypress output on failures
+# Values: 0, 1
+SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-0}
+
+PROXY_PORT=${PROXY_PORT:-4200}
+PROXY_PID=0
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
-RETRIES=3
+CYPRESS_FOLDER="cypress"
+TESTS_FOLDER="tests"
 
+PLUGINS_FOLDER="external_plugins"
+PLUGINS_PATH=${PLUGINS_PATH:-''}
+
+
+
+## Functions
+#####################################################################
+
+# executes Cypress
+#
+# from callee:
+# FILE: file to test
+# OUTPUT_PATH: Directory where results are saved (e.g. "some/path/to/Testfile-cy.js-1")
 function executeCypress {
-  echo "=====> Executing cypress for $1"
-  local testResultPath
-  testResultPath="cypress/$(basename "$1")-result.xml"
-  npm run cypress -- -s "$1" --reporter junit --reporter-options "mochaFile=$testResultPath"
+  npm run --silent cypress -- \
+    --spec "${FILE}" \
+    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,videosFolder=${OUTPUT_PATH}/videos" \
+    --reporter junit \
+    --reporter-options "mochaFile=${OUTPUT_PATH}/result.xml"
 }
 
+# runs tests for matched file
+#
+# From callee:
+# RELATIVE_PATH: stripped down output from find command (e.g. "pages/Testfile-cy.js")
 function runTestFile {
-  echo "==> Running tests for $1"
-  i="0"
-  while [ $i -lt $RETRIES ]; do
-    i=$((i+1))
-    echo "===> Executing run $i"
-    local exit_code
+  echo ""
+  echo "==> Running Tests for ./${TESTS_FOLDER}/$RELATIVE_PATH"
+  local RUN=0
+  local EXIT_CODE=1
+  while [ $EXIT_CODE -ne 0 ] && [ $RUN -lt $RETRIES ]; do
+    RUN=$((RUN+1))
+    local OUTPUT_PATH="${PROJECT_ROOT}/${CYPRESS_FOLDER}/${RELATIVE_PATH}-${RUN}"
 
-    # We don't want to let an error in the block below to end the entire script
-    set +e # undo instant error flag
+    echo "===> Executing Cypress (${RUN}/${RETRIES})"
+    CYOUT="$(FILE="${PROJECT_ROOT}/tests/${RELATIVE_PATH}" RUN=${RUN} OUTPUT_PATH=${OUTPUT_PATH} executeCypress)"
+    EXIT_CODE=$?
 
-    executeCypress "$1"
-    exit_code=$?
-
-    set -e # redo flag
-    echo "==> $i run exit code: $exit_code"
-
-    if [ $exit_code -eq 0 ]; then
-      return 0
+    if [ $EXIT_CODE -eq 0 ]; then
+      echo "====> Successfully finished tests for ${RELATIVE_PATH}"
+    else
+      echo "====> Failures in tests for ${RELATIVE_PATH}"
+      [ $SUPPRESS_OUTPUT -eq 0 ] && echo "${CYOUT}"
     fi
   done
 
-  echo "==> Couldn't get a success in $RETRIES retries"
-  exit 1
+  if [ $EXIT_CODE -ne 0 ]; then
+    echo "===> Couldn't get a success in $RETRIES retries for $RELATIVE_PATH"
+  fi
+
+  if [ ${EXIT_CODE} -ne 0 ] && [ ${STOP_ON_FAIL} -eq 0 ]; then
+    echo "==> Continuing despite failures…"
+    return 0
+  fi
+
+  return $EXIT_CODE
 }
 
+# copies tests from plugins folder into project
+# this is necessary because Cypress doesnt allows external files to be tested…
+function setup_plugins {
+  if [ -n "${PLUGINS_PATH}" ]; then
+    echo "==> Setup external plugins…"
+    rm -rf ${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/
+    mkdir ${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/
+    rsync -aH ${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/ ${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/
+    echo "===> done."
+  else
+    echo "==> No Plugins configured."
+  fi
+}
 
-for f in $PROJECT_ROOT/tests/**/*-cy.js; do
-  runTestFile "$f"
-done
+# removes copied plugins files…
+function teardown_plugins {
+  if [ -n "${PLUGINS_PATH}" ]; then
+    echo "==> Removing plugins folder…"
+    rm -r "${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/"
+    echo "===> done."
+  fi
+}
 
-echo "Done running tests, merging the results now"
-junit-merge ./cypress/**/*-result.xml --out ./cypress/results.xml
+# merges results from cypress runs into one file
+function teardown_merge {
+  if [ "$(find ${PROJECT_ROOT}/${CYPRESS_FOLDER}/ -type f -name result.xml | wc -l)" -ne 0 ]; then
+    echo "==> Merging results from ./${CYPRESS_FOLDER}/*/result.xml into ./${CYPRESS_FOLDER}/results.xml…"
+    junit-merge --out ${PROJECT_ROOT}/${CYPRESS_FOLDER}/results.xml $(find ${PROJECT_ROOT}/${CYPRESS_FOLDER}/ -type f -name result.xml)
+    echo "===> done."
+  else
+    echo "==> Nothing to merge."
+  fi
+}
+
+function teardown_proxy {
+  echo "==> Killing Proxy…"
+  kill $PROXY_PID
+  echo "===> done."
+}
+
+# sets up everything
+function setup {
+  echo ""
+  echo "=> Setup"
+
+  ## Setup proxy
+  if [ -n "$(lsof -i :${PROXY_PORT})" ]; then
+    echo "==> ERROR: Port ${PROXY_PORT} is already in use"
+    exit 1
+  fi
+  echo "==> Starting http-server…"
+  http-server -sp ${PROXY_PORT} dist&
+  PROXY_PID=$!
+  echo "===> done (PID: ${PROXY_PID})."
+
+  ## Setup plugins if configured
+  if [ -n "${PLUGINS_PATH}" ]; then
+    setup_plugins
+  fi
+
+  ## Remove old results
+  if [ -d "${PROJECT_ROOT}/${CYPRESS_FOLDER}" ]; then
+    echo "==> Directory ./${CYPRESS_FOLDER} already exists…"
+    rm -r "${PROJECT_ROOT}/${CYPRESS_FOLDER}"
+    echo "===> removed."
+  fi
+}
+
+# tears down everything…
+function teardown {
+  echo ""
+  echo "=> Teardown"
+  teardown_proxy
+  teardown_plugins
+  teardown_merge
+  echo "=> Bye."
+}
+
+# finds the files and runs the tests
+function run_tests {
+  echo ""
+  echo "=> Running Tests"
+  find "$PROJECT_ROOT/${TESTS_FOLDER}" -type f -name "${SEARCH}-cy.js" -print | \
+    while read FOUND_FILE
+    do
+      RELATIVE_PATH="$(echo ${FOUND_FILE} | sed s+${PROJECT_ROOT}/${TESTS_FOLDER}/++)" runTestFile || exit 1
+    done
+}
+
+## Programm
+#####################################################################
+
+setup
+trap teardown EXIT
+run_tests
