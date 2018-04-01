@@ -4,8 +4,6 @@
 
 def master_branches = ["master", ] as String[]
 
-def SEMVER_REGEX = /^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?/
-
 pipeline {
   agent {
     dockerfile {
@@ -14,8 +12,7 @@ pipeline {
   }
 
   parameters {
-    booleanParam(defaultValue: false, description: 'Create new Bump against DC/OS?', name: 'CREATE_BUMP')
-    booleanParam(defaultValue: false, description: 'Release new latest build?', name: 'CREATE_LATEST')
+    booleanParam(defaultValue: false, description: 'Create new Bumps against DC/OS?', name: 'CREATE_BUMP')
   }
 
   environment {
@@ -120,19 +117,21 @@ pipeline {
      }
     }
 
-    // when env.BRANCH_NAME == 'master', we will update the mesosphere:dcos-ui/latest branch
-    // when env.BRANCH_NAME =~ /(tag-name-regex)/, we will open a release PR against dcos/dcos
-    stage('Upload Build') {
+    // update the mesosphere:dcos-ui/latest branch
+    stage('Release Latest') {
       when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
+        expression { 
+          master_branches.contains(BRANCH_NAME)
+        }
       }
 
       steps {
         withCredentials([
             string(credentialsId: '3f0dbb48-de33-431f-b91c-2366d2f0e1cf',variable: 'AWS_ACCESS_KEY_ID'),
-            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY')
+            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
+            usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
         ]) {
-          sh "BRANCH_NAME=${env.BRANCH_NAME} ./scripts/ci/upload-build"
+          sh "./scripts/ci/release-latest"
         }
       }
 
@@ -143,28 +142,47 @@ pipeline {
       }
     }
 
-    stage('Update Github'){
+    // open a release PR against dcos/dcos
+    stage('Create Bump'){
       when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
+        expression { 
+          master_branches.contains(BRANCH_NAME) && params.CREATE_BUMP == true
+        }
       }
 
       steps {
         withCredentials([
-          usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
+            string(credentialsId: '3f0dbb48-de33-431f-b91c-2366d2f0e1cf',variable: 'AWS_ACCESS_KEY_ID'),
+            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
+            usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
         ]) {
-          sh "GIT_PASSWORD=${GIT_PASSWORD} GIT_USER=${GIT_USER} ./scripts/ci/update-github"
+          sh "./scripts/ci/create-bump"
         }
       }
     }
 
-    // trigger the other job to update the upstream reference
-    stage ('Trigger Enterprise Update') {
-      when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
+    stage ('Run Enterprise (Branch)') {
+      when { 
+        expression { 
+          CHANGE_ID == null && master_branches.contains(BRANCH_NAME)
+        }
       }
 
       steps {
-        build job: "frontend/dcos-ui-ee-release/${env.BRANCH_NAME}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME]]
+        build job: "frontend/dcos-ui-ee-pipeline/${BRANCH_NAME}", parameters: [[$class: 'StringParameterValue', name: 'OSS_BRANCH', value: BRANCH_NAME]]
+      }
+    }
+
+
+    stage ('Run Enterprise (PR)') {
+      when {
+        expression {
+          CHANGE_ID != null && master_branches.contains(CHANGE_TARGET)
+        }
+      }
+
+      steps {
+        build job: "frontend/dcos-ui-ee-pipeline/${CHANGE_TARGET}", parameters: [[$class: 'StringParameterValue', name: 'OSS_BRANCH', value: CHANGE_BRANCH]]
       }
     }
   }
