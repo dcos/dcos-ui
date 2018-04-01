@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# This script is intended to be called by the ci scripts, please dont 
+# execute it directly.
+
+## Configuration
+#####################################################################
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../../" && pwd )"
+
+AWS_BUCKET='downloads.mesosphere.io'
+
+BUCKET_PATH='dcos-ui'
+
+FORCE_UPLOAD=${FORCE_UPLOAD:-0}
+
+PKG_TARGET=${PKG_TARGET:-"master"}
+
+PKG_NAME=${PKG_NAME:-"dcos-ui"}
+
+PKG_VERSION=${PKG_VERSION:-"latest"}
+
+RELEASE_NAME="${PKG_TARGET}+${PKG_NAME}-${PKG_VERSION}.tar.gz"
+
+ENCODED_RELEASE_NAME=$(echo ${RELEASE_NAME} | sed "s/\+/\%2B/g")
+
+## Write buildinfo.json
+#####################################################################
+
+tar czf "release.tar.gz" dist
+
+# cat config to artifact file
+cat <<EOF > "${PROJECT_ROOT}/buildinfo.json"
+{
+  "single_source": {
+    "kind": "url_extract",
+    "url": "$(echo "https://${AWS_BUCKET}/${BUCKET_PATH}/${ENCODED_RELEASE_NAME}")",
+    "sha1": "$(shasum "release.tar.gz" | cut -d " " -f1)"
+  }
+}
+EOF
+
+## Upload tarball
+#####################################################################
+
+if [ ${FORCE_UPLOAD} -eq 0 ] && [ -n "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" ]; then
+  echo "This release was already uploaded, stopping here"
+  exit 1
+fi
+
+aws s3 cp "release.tar.gz" "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME"

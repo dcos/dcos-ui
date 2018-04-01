@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# This file is intended to run on Jenkins, if you want to run it locally,
+# you need to provide some environment variables:
+#
+# GIT_COMMIT: Commit SHA to work on
+# BRANCH_NAME: Branch Name to work on
+# GIT_USER & GIT_PASSWORD
+# aws login credentials
+#
+# Also make sure to `npm run build` before!
+
+## Configuration
+#####################################################################
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
+
+# `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
+PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+
+PKG_VERSION="latest"
+
+DCOS_BRANCH="dcos-ui/latest/${PKG_TARGET}"
+
+## Create & Upload Assets
+#####################################################################
+
+FORCE_UPLOAD=1 \
+  PKG_TARGET=${PKG_TARGET} \
+  PKG_VERSION=${PKG_VERSION} \
+  ${SCRIPT_PATH}/utils/upload-build
+
+## Update DC/OS Git
+#####################################################################
+
+DCOS_BRANCH=${DCOS_BRANCH} \
+  PKG_VERSION=${PKG_VERSION} \
+  GIT_USER=${GIT_USER} \
+  GIT_PASSWORD=${GIT_PASSWORD} \
+  ${SCRIPT_PATH}/utils/update-dcos-repo

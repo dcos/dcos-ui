@@ -1,16 +1,16 @@
 #!/bin/bash
-set -ex
+set -e
 
-MAJOR_MINOR_MATCH=$(echo $TAG_NAME | grep -Eo "^v?(0|[1-9]\d*)\.(0|[1-9]\d*)")
-TAGS=($(git tag -l "$MAJOR_MINOR_MATCH*" --sort=-version:refname))
+TAGS=($(git tag -l --sort=-version:refname))
+CURRENT_TAG=${TAGS[0]}
 PREVIOUS_TAG=${TAGS[1]}
 
 if [[ -z $PREVIOUS_TAG ]]
 then
-  exit
+  exit 1
 fi
 
-COMMITS=$(git log $PREVIOUS_TAG..$TAG_NAME --pretty=format:"%H")
+COMMITS=$(git log $PREVIOUS_TAG..$CURRENT_TAG --pretty=format:"%H")
 JIRA_PREFIX="(DCOS|DCOS_OSS|MARATHON)"
 MARKDOWN=""
 

@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# This file is intended to run on Jenkins, if you want to run it locally,
+# you need to provide some environment variables:
+#
+# GIT_COMMIT: Commit SHA to work on
+# BRANCH_NAME: Branch Name to work on
+# GIT_USER & GIT_PASSWORD
+# aws login credentials
+#
+# Also make sure to `npm run build` before!
+
+## Configuration
+#####################################################################
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
+
+CREATE_RELEASE=${CREATE_RELEASE:-0}
+
+# `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
+PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+
+PKG_VERSION=$(python -c "import sys, json; \
+  pkg = json.load(open('$PROJECT_ROOT/package.json')); \
+  sys.stdout.write(str(pkg['version']));")
+
+DCOS_BRANCH="dcos-ui/release/${PKG_VERSION}" 
+
+## Create & Push Release
+#####################################################################
+
+if [ ${CREATE_RELEASE} -eq 0 ]; then
+  echo "No release, no Bump!"
+  exit 1
+fi
+
+standard-version
+
+git push --follow-tags origin master
+if [ $? -ne 0 ]; then
+  echo "Failed to push new release to master, stopping here"
+  exit 1
+fi
+
+## Create Assets & Generate Upload Data
+#####################################################################
+
+PKG_TARGET=${PKG_TARGET} \
+  PKG_VERSION=${PKG_VERSION} \
+  ${SCRIPT_PATH}/utils/upload-build
+
+## Update DC/OS Repo & Create Bump PR
+#####################################################################
+
+[ -d "dcos-nightly" ] && rm -r dcos-nightly
+
+DCOS_BRANCH=${DCOS_BRANCH} \
+  PKG_VERSION=${PKG_VERSION} \
+  GIT_USER=${GIT_USER} \
+  GIT_PASSWORD=${GIT_PASSWORD} \
+  ${SCRIPT_PATH}/utils/update-dcos-repo
+
+DCOS_BRANCH=${DCOS_BRANCH} \
+  PKG_VERSION=${PKG_VERSION} \
+  GIT_USER=${GIT_USER} \
+  GIT_PASSWORD=${GIT_PASSWORD} \
+  ${SCRIPT_PATH}/utils/create-bump-pr
+
+[ -d "dcos-nightly" ] && rm -r dcos-nightly

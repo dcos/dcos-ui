@@ -28,7 +28,9 @@ SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-0}
 PROXY_PORT=${PROXY_PORT:-4200}
 PROXY_PID=0
 
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
 CYPRESS_FOLDER="cypress"
 TESTS_FOLDER="tests"
 
