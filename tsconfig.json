@@ -8,7 +8,7 @@
       "esnext",
       "dom"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "jsx": "react",
     "sourceMap": true,
     "strict": true,
