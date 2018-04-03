@@ -173,13 +173,16 @@ pipeline {
     }
 
     // trigger the other job to update the upstream reference
-    stage ('Trigger Enterprise Update') {
+    stage ('Run Enterprise Job') {
       when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
+        expression { master_branches.contains(BRANCH_NAME) }
       }
 
       steps {
-        build job: "frontend/dcos-ui-ee-release/${env.BRANCH_NAME}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME]]
+        build job: "frontend/dcos-ui-ee-pipeline/${env.BRANCH_NAME}", parameters: [
+          [$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME],
+          [$class: 'StringParameterValue', name: 'CREATE_RELEASE', value: param.CREATE_RELEASE]
+        ]
       }
     }
   }
