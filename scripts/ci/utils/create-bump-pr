@@ -22,12 +22,15 @@ if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_VERSION}" ]; then
   exit 1
 fi
 
+if [ -z "${GIT_USER}" ] || [ -z "${GIT_PASSWORD}" ]; then
+  echo "Cant Create Bump without given \$GIT_USER and \$GIT_PASSWORD!"
+  exit 1
+fi
+
 ## Create DC/OS Bump PR
 #####################################################################
 
 CHANGELOG=$(${SCRIPT_PATH}/generate-changelog)
-
-cd dcos-nightly
 
 TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" https://api.github.com/repos/dcos/dcos/contents/PULL_REQUEST_TEMPLATE.md)
 TASKS_HEAD="Corresponding DC/OS tickets (obligatory)"
