@@ -1,0 +1,8 @@
+2018-04-03 14:32:13,887 INFO [MockServer thread for port: 1080] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 1080
+2018-04-03 14:32:13,918 INFO [MockServer thread for port: 1090] org.mockserver.proxy.http.HttpProxy [?:?] MockServer started on port: 1090
+2018-04-03 14:32:14,431 INFO [nioEventLoopGroup-3-1] o.mockserver.mock.HttpStateHandler [?:?] resetting all expectations and request logs
+
+2018-04-03 14:43:39,957 INFO [MockServer thread for port: 1080] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 1080
+2018-04-03 14:43:39,993 INFO [MockServer thread for port: 1090] org.mockserver.proxy.http.HttpProxy [?:?] MockServer started on port: 1090
+2018-04-03 14:43:40,514 INFO [nioEventLoopGroup-3-1] o.mockserver.mock.HttpStateHandler [?:?] resetting all expectations and request logs
+

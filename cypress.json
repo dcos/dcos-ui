@@ -1,7 +1,7 @@
 {
   "defaultCommandTimeout": 6000,
   "env": {
-    "CLUSTER_URL": "http://localhost:4200",
+    "CLUSTER_URL": "http://localhost:4201",
     "FULL_INTEGRATION_TEST": false
   },
   "fixturesFolder": "tests/_fixtures",
