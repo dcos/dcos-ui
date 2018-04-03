@@ -22,6 +22,8 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
 
+FORCE_UPLOAD=${FORCE_UPLOAD:-0}
+
 # `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
 PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
 PKG_NAME="dcos-ui"
@@ -32,7 +34,7 @@ DCOS_BRANCH="${PKG_NAME}/${PKG_VERSION}/${PKG_TARGET}"
 ## Create Assets & Generate Upload Data
 #####################################################################
 
-FORCE_UPLOAD=1 \
+FORCE_UPLOAD=${FORCE_UPLOAD} \
   PKG_TARGET=${PKG_TARGET} \
   PKG_NAME=${PKG_NAME} \
   PKG_VERSION=${PKG_VERSION} \
