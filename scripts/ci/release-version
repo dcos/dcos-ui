@@ -1,4 +1,41 @@
 #!/bin/bash
 
-./utils/upload-build
+# This file is intended to run on Jenkins, if you want to run it locally,
+# you need to provide some environment variables:
+#
+# GIT_COMMIT: Commit SHA to work on
+# BRANCH_NAME: Branch Name to work on
+# git credentials
+# aws login credentials
+#
+# Also make sure to `npm run build` before!
+#
+# Use this from project root:
+# npm run build && tar czf "release.tar.gz" dist && BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) CREATE_RELEASE=1 ./scripts/ci/release-version
+
+## Configuration
+#####################################################################
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
+
+# `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
+PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+PKG_NAME="dcos-ui"
+PKG_VERSION=$(python -c "import sys, json; \
+  pkg = json.load(open('$PROJECT_ROOT/package.json')); \
+  sys.stdout.write(str(pkg['version']));")
+
+## Create Assets & Generate Upload Data
+#####################################################################
+
+PKG_TARGET=${PKG_TARGET} \
+  PKG_NAME=${PKG_NAME} \
+  PKG_VERSION=${PKG_VERSION} \
+  ${SCRIPT_PATH}/utils/upload-build
+
+## Update DC/OS
+#####################################################################
+
 ./utils/update-github
