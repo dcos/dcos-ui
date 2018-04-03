@@ -138,7 +138,7 @@ pipeline {
           sh "git config --global user.name 'MesosphereCI Robot'"
           sh "git config credential.helper 'cache --timeout=300'"
 
-          sh "./scripts/ci/release-latest"
+          sh "FORCE_UPLOAD=1 ./scripts/ci/release-latest"
         }
       }
 
