@@ -36,7 +36,6 @@ FORCE_UPLOAD=1 \
   PKG_VERSION=${PKG_VERSION} \
   ${SCRIPT_PATH}/utils/upload-build
 
-
 ## Update DC/OS
 #####################################################################
 
