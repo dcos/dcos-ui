@@ -36,11 +36,11 @@ FORCE_UPLOAD=1 \
   PKG_TARGET=${PKG_TARGET} \
   PKG_NAME=${PKG_NAME} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/upload-build
+  ${SCRIPT_PATH}/utils/upload-build || exit 1
 
 ## Update DC/OS
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/update-dcos-repo
+  ${SCRIPT_PATH}/utils/update-dcos-repo || exit 1
