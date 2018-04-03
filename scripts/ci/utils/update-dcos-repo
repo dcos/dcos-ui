@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This script is intended to be called by the ci scripts, please dont 
+# execute it directly.
+
+## Configuration
+#####################################################################
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../../" && pwd )"
+
+DCOS_BRANCH=${DCOS_BRANCH:-""}
+
+PKG_VERSION={$PKG_VERSION:-""}
+
+## Check Params
+#####################################################################
+
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_VERSION}" ]; then
+  echo "Cant update DC/OS repo without given \$DCOS_BRANCH and \$PKG_VERSION!"
+  exit 1
+fi
+
+## Update DC/OS Repo
+#####################################################################
+
+# clone & checkout correct branch
+git clone "https://github.com/mesosphere/dcos" dcos-nightly
+cd dcos-nightly
+git checkout -B ${DCOS_BRANCH}
+
+# rebase onto latest master
+git remote add upstream "https://github.com/dcos/dcos"
+git pull --rebase -X theirs upstream master
+
+# copy previously created buildinfo
+cp -f ../buildinfo.json packages/dcos-ui/buildinfo.json
+
+# push changes (we want to create a new commit for easier checks in Github UI)
+git add "packages/dcos-ui/buildinfo.json"
+git commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
+git push --force-with-lease origin ${DCOS_BRANCH}
+
+# leave & cleanup dcos-nightly
+cd ..

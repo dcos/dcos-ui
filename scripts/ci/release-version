@@ -30,6 +30,8 @@ PKG_VERSION=$(python -c "import sys, json; \
   pkg = json.load(open('$PROJECT_ROOT/package.json')); \
   sys.stdout.write(str(pkg['version']));")
 
+DCOS_BRANCH="dcos-ui/release/${PKG_VERSION}"
+
 ## Create & Push Release
 #####################################################################
 
@@ -60,7 +62,17 @@ PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
   ${SCRIPT_PATH}/utils/upload-build
 
-## Update DC/OS
+## Update DC/OS Repo & Create Bump PR
 #####################################################################
 
-./utils/update-github
+[ -d "dcos-nightly" ] && rm -rf dcos-nightly
+
+DCOS_BRANCH=${DCOS_BRANCH} \
+  PKG_VERSION=${PKG_VERSION} \
+  ${SCRIPT_PATH}/utils/update-dcos-repo
+
+DCOS_BRANCH=${DCOS_BRANCH} \
+  PKG_VERSION=${PKG_VERSION} \
+  ${SCRIPT_PATH}/utils/create-bump-pr
+
+[ -d "dcos-nightly" ] && rm -rf dcos-nightly
