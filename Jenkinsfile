@@ -65,7 +65,7 @@ pipeline {
         ansiColor('xterm') {
           sh '''npm run build-assets'''
           sh "npm run validate-build"
-          sh "tar czf release.tar.gz"
+          sh "tar czf release.tar.gz dist"
         }
       }
 
