@@ -64,12 +64,15 @@ pipeline {
       steps {
         ansiColor('xterm') {
           sh '''npm run build-assets'''
+          sh "npm run validate-build"
+          sh "tar czf release.tar.gz"
         }
       }
 
       post {
         always {
           stash includes: 'dist/*', name: 'dist'
+          stash includes: 'release.tar.gz', name: 'release'
         }
       }
     }
