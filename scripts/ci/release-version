@@ -11,7 +11,7 @@
 # Also make sure to `npm run build` before!
 #
 # Use this from project root:
-# npm run build && tar czf "release.tar.gz" dist && BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) CREATE_RELEASE=1 PUSH_MASTER=1 ./scripts/ci/release-version
+# npm run build && tar czf "release.tar.gz" dist && BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) CREATE_RELEASE=1 PUSH_RELEASE=1 ./scripts/ci/release-version
 
 ## Configuration
 #####################################################################
@@ -21,7 +21,7 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
 
 CREATE_RELEASE=${CREATE_RELEASE:-0}
-PUSH_MASTER=${PUSH_MASTER:-0}
+PUSH_RELEASE=${PUSH_RELEASE:-0}
 
 # `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
 PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
@@ -46,8 +46,8 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-if [ ${PUSH_MASTER} -eq 1 ]; then
-  git push --follow-tags origin master
+if [ ${PUSH_RELEASE} -eq 1 ]; then
+  git push --follow-tags origin ${BRANCH_NAME}
   if [ $? -ne 0 ]; then
     echo "Failed to push new release to master, stopping here"
     exit 1
