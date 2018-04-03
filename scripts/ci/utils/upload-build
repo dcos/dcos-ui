@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 [ -n "${DEBUG}" ] && set -x
 
 # This script is intended to be called by the ci scripts, please dont
