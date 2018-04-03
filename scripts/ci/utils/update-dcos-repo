@@ -30,26 +30,40 @@ fi
 ## Update DC/OS Repo
 #####################################################################
 
-[ -d "dcos-nightly" ] && rm -rf ${DCOS_FOLDER}
+[ -d "${PROJECT_ROOT}/${DCOS_FOLDER}" ] && rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
 
 # clone & checkout correct branch
-git clone "${DCOS_ORIGIN}" ${DCOS_FOLDER}
-cd ${DCOS_FOLDER}
-git checkout -B ${DCOS_BRANCH}
+git clone "${DCOS_ORIGIN}" ${PROJECT_ROOT}/${DCOS_FOLDER}
+
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  checkout -B ${DCOS_BRANCH}
 
 # rebase onto latest master
-git remote add upstream "${DCOS_UPSTREAM}"
-git pull --rebase -X theirs upstream master
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  remote add upstream "${DCOS_UPSTREAM}"
 
-# copy previously created buildinfo
-[ -f "buildinfo.json" ] && cp -f ../buildinfo.json packages/dcos-ui/buildinfo.json
-[-f "upstream.json" ] && cp -f ../upstream.json packages/upstream.json
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  pull --rebase -X theirs upstream master
+
+# copy previously created files
+if [ -f "buildinfo.json" ]; then
+  cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
+fi
+
+if [ -f "upstream.json" ]; then
+  cp -f ${PROJECT_ROOT}/upstream.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json
+fi
 
 # push changes (we want to create a new commit for easier checks in Github UI)
-git add "packages/dcos-ui/buildinfo.json" "packages/upstream.json"
-git commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
-git push --force-with-lease origin ${DCOS_BRANCH}
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json" \
+    "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json"
+
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
+
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  push --force-with-lease origin ${DCOS_BRANCH}
 
 # leave & cleanup
-cd ..
-rm -rf ${DCOS_FOLDER}
+rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
