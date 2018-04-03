@@ -27,7 +27,7 @@ then
 
   cd ../
 
-  CHANGELOG=$(TAG_NAME=$TAG_NAME ./scripts/ci/generate-changelog)
+  CHANGELOG=$(TAG_NAME=$TAG_NAME ./scripts/ci/utils/generate-changelog)
 
   cd dcos-nightly
 
