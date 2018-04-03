@@ -65,8 +65,6 @@ PKG_TARGET=${PKG_TARGET} \
 ## Update DC/OS Repo & Create Bump PR
 #####################################################################
 
-[ -d "dcos-nightly" ] && rm -rf dcos-nightly
-
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_VERSION=${PKG_VERSION} \
   ${SCRIPT_PATH}/utils/update-dcos-repo
@@ -74,5 +72,3 @@ DCOS_BRANCH=${DCOS_BRANCH} \
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_VERSION=${PKG_VERSION} \
   ${SCRIPT_PATH}/utils/create-bump-pr
-
-[ -d "dcos-nightly" ] && rm -rf dcos-nightly
