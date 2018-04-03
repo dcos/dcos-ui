@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./utils/upload-build
+./utils/update-github
