@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -n "${DEBUG}" ] && set -x
+
 # This file is intended to run on Jenkins, if you want to run it locally,
 # you need to provide some environment variables:
 #
