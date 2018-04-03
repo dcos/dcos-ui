@@ -140,8 +140,12 @@ function setup {
     echo "==> ERROR: Port ${PROXY_PORT} is already in use"
     exit 1
   fi
-  echo "==> Starting http-server…"
-  http-server -sp ${PROXY_PORT} dist&
+  if [ ! -d ${PROJECT_ROOT}/dist ]; then
+    echo "==> ERROR: no dist folder! forgot npm run build?"
+    exit 1
+  fi
+  echo "==> Starting http-server, serving files from ./dist…"
+  http-server -sp ${PROXY_PORT} ${PROJECT_ROOT}/dist&
   PROXY_PID=$!
   echo "===> done (PID: ${PROXY_PID})."
 
