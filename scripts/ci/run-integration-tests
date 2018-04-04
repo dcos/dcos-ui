@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+[ -n "${DEBUG}" ] && set -x
 
 # This script is a temporary solution to run the integration tests in a <= 1.GB
 # memory environment and with support for retries per test file. We should
