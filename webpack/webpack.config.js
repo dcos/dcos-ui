@@ -134,7 +134,8 @@ module.exports = {
             {
               loader: "less-loader",
               options: {
-                sourceMap: true,
+                paths: [path.resolve(__dirname, "../node_modules")],
+                sourceMap: false,
                 plugins: [LessColorLighten]
               }
             }

@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { hot } from "react-hot-loader";
+import "react-hot-loader/patch";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
-import { IntlProvider } from "react-intl";
 import { RequestUtil } from "mesosphere-shared-reactjs";
-import { Router, hashHistory } from "react-router";
-import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
+import { AppContainer } from "react-hot-loader";
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
 // require them in the component.js
@@ -15,17 +13,23 @@ import "../styles/index.less";
 import "./utils/MomentJSConfig";
 import { CONFIG_ERROR } from "./constants/EventTypes";
 import ApplicationUtil from "./utils/ApplicationUtil";
-import appRoutes from "./routes/index";
 import ConfigStore from "./stores/ConfigStore";
-import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
+import App from "./components/App";
+import appRoutes from "./routes/index";
 import RouterUtil from "./utils/RouterUtil";
-
-// Translations
-import enUS from "./translations/en-US.json";
+import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 
 const domElement = global.document.getElementById("application");
-const navigatorLanguage = "en-US";
+
+const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
+const store = PluginSDK.Store;
+
+const renderApp = Component => {
+  ReactDOM.render(Component, domElement, function() {
+    PluginSDK.Hooks.doAction("applicationRendered");
+  });
+};
 
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javscript files are parsed because it
@@ -63,18 +67,10 @@ RequestUtil.json = function(options = {}) {
 
 (function() {
   function renderApplication() {
-    function renderAppToDOM(content) {
-      console.log("Pass");
-      const hotContent = React.createElement(hot(module)(() => content));
-      ReactDOM.render(hotContent, domElement, function() {
-        PluginSDK.Hooks.doAction("applicationRendered");
-      });
-    }
-
     // Allow overriding of application contents
     const contents = PluginSDK.Hooks.applyFilter("applicationContents", null);
     if (contents) {
-      renderAppToDOM(contents);
+      renderApp(contents);
     } else {
       if (PluginSDK.Hooks.applyFilter("delayApplicationLoad", true)) {
         // Let's make sure we get Mesos Summary data before we render app
@@ -87,17 +83,10 @@ RequestUtil.json = function(options = {}) {
       }
 
       function renderApplicationToDOM() {
-        const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
         NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
-
-        renderAppToDOM(
-          <Provider store={PluginSDK.Store}>
-            <IntlProvider locale={navigatorLanguage} messages={enUS}>
-              <Router history={hashHistory} routes={routes} />
-            </IntlProvider>
-          </Provider>
+        renderApp(
+          <AppContainer> <App store={store} routes={routes} /></AppContainer>
         );
-
         PluginSDK.Hooks.doAction("routes", routes);
       }
     }
@@ -150,5 +139,22 @@ RequestUtil.json = function(options = {}) {
 })();
 
 if (module.hot) {
+  // renderApp(<App routes={routes} />);
+  // console.log(module.hot.accept());
   module.hot.accept();
+  if (module.hot._main) {
+    const NewApp = require("./components/App").default;
+
+    renderApp(<NewApp> <App store={store} routes={routes} /></NewApp>);
+  }
+  // const NewApp = require("./components/App").default;
+
+  // renderApp(<NewApp routes={routes} />);
+  // module.hot.accept("*", () => {
+  //   const NewApp = require("./components/App").default;
+
+  //   console.log(NewApp);
+  //   renderApp(<NewApp routes={routes} />);
+  // });
+  // module.hot.accept();
 }

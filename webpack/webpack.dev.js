@@ -1,4 +1,8 @@
-const { DefinePlugin } = require("webpack");
+const {
+  DefinePlugin,
+  NamedModulesPlugin,
+  HotModuleReplacementPlugin
+} = require("webpack");
 const merge = require("webpack-merge");
 
 const packageInfo = require("../package");
@@ -10,11 +14,17 @@ delete dependencies["cnvs"];
 
 module.exports = merge(common, {
   entry: {
-    index: "./src/js/index.js",
+    index: ["./src/js/index.js"],
     vendor: Object.keys(dependencies)
+  },
+  devServer: {
+    hot: true,
+    inline: true
   },
   devtool: "cheap-module-eval-source-map",
   plugins: [
+    new NamedModulesPlugin(),
+    new HotModuleReplacementPlugin(),
     new DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("development"),

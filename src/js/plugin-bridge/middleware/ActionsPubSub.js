@@ -5,6 +5,7 @@ const pub = function() {
   return function(next) {
     return function(action) {
       Object.keys(listeners).forEach(function(id) {
+        console.log(listeners[id]);
         listeners[id].call(null, action);
       });
 
