@@ -28,6 +28,8 @@ STOP_ON_FAIL=${STOP_ON_FAIL:-1}
 # Values: 0, 1
 SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-0}
 
+CLEANUP_TESTS=${CLEANUP_TESTS:-0}
+
 PROXY_PORT=${PROXY_PORT:-4200}
 PROXY_PID=0
 
@@ -35,7 +37,6 @@ PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
 CYPRESS_FOLDER="cypress"
 TESTS_FOLDER="tests"
 
-PLUGINS_FOLDER="external_plugins"
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
 
@@ -98,9 +99,7 @@ function runTestFile {
 function setup_plugins {
   if [ -n "${PLUGINS_PATH}" ]; then
     echo "==> Setup external plugins…"
-    rm -rf ${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/
-    mkdir ${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/
-    rsync -aH ${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/ ${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/
+    rsync -aH ${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/ ${PROJECT_ROOT}/${TESTS_FOLDER}/
     echo "===> done."
   else
     echo "==> No Plugins configured."
@@ -110,9 +109,18 @@ function setup_plugins {
 # removes copied plugins files…
 function teardown_plugins {
   if [ -n "${PLUGINS_PATH}" ]; then
-    echo "==> Removing plugins folder…"
-    rm -r "${PROJECT_ROOT}/${TESTS_FOLDER}/${PLUGINS_FOLDER}/"
-    echo "===> done."
+    if [ ${CLEANUP_TESTS} -eq 0 ]; then
+      echo "==> Cleaning up ./${TESTS_FOLDER} folder"
+      rm -r ${PROJECT_ROOT}/${TESTS_FOLDER}
+      git checkout ${PROJECT_ROOT}/${TESTS_FOLDER}
+      echo "==> done."
+    else
+      echo ""
+      echo "==> !!! PLUGINS TESTS ARE STILL IN YOUR ./${TESTS_FOLDER} FOLDER, MAKE SURE TO CLEAN UP !!!"
+      echo "==> You can use 'rm -r ./${TESTS_FOLDER} && git checkout ./${TESTS_FOLDER}' to easily clean up."
+      echo "==> Or you can provide CLEANUP_TESTS=1 to this script in order to automatically clean up."
+      echo ""
+    fi
   fi
 }
 
