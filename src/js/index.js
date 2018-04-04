@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import "react-hot-loader/patch";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
@@ -85,7 +84,7 @@ RequestUtil.json = function(options = {}) {
       function renderApplicationToDOM() {
         NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
         renderApp(
-          <AppContainer> <App store={store} routes={routes} /></AppContainer>
+          <AppContainer><App store={store} routes={routes} /></AppContainer>
         );
         PluginSDK.Hooks.doAction("routes", routes);
       }
@@ -139,22 +138,12 @@ RequestUtil.json = function(options = {}) {
 })();
 
 if (module.hot) {
-  // renderApp(<App routes={routes} />);
-  // console.log(module.hot.accept());
   module.hot.accept();
   if (module.hot._main) {
     const NewApp = require("./components/App").default;
 
-    renderApp(<NewApp> <App store={store} routes={routes} /></NewApp>);
+    renderApp(
+      <AppContainer><NewApp store={store} routes={routes} /></AppContainer>
+    );
   }
-  // const NewApp = require("./components/App").default;
-
-  // renderApp(<NewApp routes={routes} />);
-  // module.hot.accept("*", () => {
-  //   const NewApp = require("./components/App").default;
-
-  //   console.log(NewApp);
-  //   renderApp(<NewApp routes={routes} />);
-  // });
-  // module.hot.accept();
 }

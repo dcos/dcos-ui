@@ -14,10 +14,11 @@ delete dependencies["cnvs"];
 
 module.exports = merge(common, {
   entry: {
-    index: ["./src/js/index.js"],
+    index: ["react-hot-loader/patch", "./src/js/index.js"],
     vendor: Object.keys(dependencies)
   },
   devServer: {
+    publicPath: "/",
     hot: true,
     inline: true
   },

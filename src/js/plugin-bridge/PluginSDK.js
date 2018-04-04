@@ -1,5 +1,10 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import ReactDOM from "react-dom";
+import { AppContainer } from "react-hot-loader";
+/* eslint-disable no-unused-vars */
+import React from "react";
+/* eslint-enable no-unused-vars */
 
 import { APPLICATION, PLUGIN_LOAD_TIMEOUT } from "../constants/PluginConstants";
 import { APP_STORE_CHANGE } from "../constants/EventTypes";
@@ -235,7 +240,8 @@ const getSDK = function(pluginID, config) {
     config: config || {},
     dispatch: createDispatcher(pluginID),
     Hooks: hooks,
-    Store: StoreAPI
+    Store: StoreAPI,
+    hotReloadCallback: () => {}
   });
 
   extendSDK(SDK, getActionsAPI(SDK));
@@ -334,3 +340,16 @@ if (global.__DEV__) {
 ApplicationSDK.initialize = initialize;
 
 module.exports = ApplicationSDK;
+
+if (module.hot) {
+  module.hot.accept();
+  if (module.hot._main) {
+    const NewApp = require("../components/App").default;
+
+    ApplicationSDK.Store.replaceReducer(combineReducers(reducers));
+    ReactDOM.render(
+      <AppContainer><NewApp store={ApplicationSDK.Store} /></AppContainer>,
+      global.document.getElementById("application")
+    );
+  }
+}
