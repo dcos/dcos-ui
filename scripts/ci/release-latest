@@ -30,7 +30,7 @@ PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
 PKG_NAME="dcos-ui"
 PKG_VERSION="latest"
 
-DCOS_BRANCH="${PKG_NAME}/${PKG_VERSION}/${PKG_TARGET}"
+DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
