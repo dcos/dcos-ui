@@ -23,7 +23,10 @@ class TaskNameTextFilter extends DSLFilter {
    */
   filterApply(resultSet, filterType, filterArguments) {
     return resultSet.filterItems(task => {
-      return task.name.indexOf(filterArguments.text) !== -1;
+      return (
+        (task.id && task.id.indexOf(filterArguments.text) !== -1) ||
+        (task.name && task.name.indexOf(filterArguments.text) !== -1)
+      );
     });
   }
 }
