@@ -31,7 +31,7 @@ PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
 PKG_NAME="dcos-ui"
 PKG_VERSION="" # is set after release
 
-DCOS_BRANCH="dcos-ui/release/${PKG_VERSION}"
+DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 
 ## Create & Push Release
 #####################################################################
