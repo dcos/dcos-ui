@@ -6797,6 +6797,26 @@
         }
       }
     },
+    "enhanced-resolve": {
+      "version": "3.4.1",
+      "resolved": "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-3.4.1.tgz",
+      "integrity": "sha1-BCHjOf1xQZs9oT0Smzl5BAIwR24=",
+      "dev": true,
+      "requires": {
+        "graceful-fs": "4.1.11",
+        "memory-fs": "0.4.1",
+        "object-assign": "4.1.1",
+        "tapable": "0.2.8"
+      },
+      "dependencies": {
+        "object-assign": {
+          "version": "4.1.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz",
+          "integrity": "sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=",
+          "dev": true
+        }
+      }
+    },
     "entities": {
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz",
@@ -15689,6 +15709,48 @@
       "dev": true,
       "requires": {
         "mimic-fn": "1.2.0"
+      }
+    },
+    "memory-fs": {
+      "version": "0.4.1",
+      "resolved": "https://registry.npmjs.org/memory-fs/-/memory-fs-0.4.1.tgz",
+      "integrity": "sha1-OpoguEYlI+RHz7x+i7gO1me/xVI=",
+      "dev": true,
+      "requires": {
+        "errno": "0.1.7",
+        "readable-stream": "2.3.6"
+      },
+      "dependencies": {
+        "isarray": {
+          "version": "1.0.0",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",
+          "integrity": "sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=",
+          "dev": true
+        },
+        "readable-stream": {
+          "version": "2.3.6",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.6.tgz",
+          "integrity": "sha512-tQtKA9WIAhBF3+VLAseyMqZeBjW0AHJoxOtYqSUZNJxauErmLbVm2FW1y+J/YA9dUrAC39ITejlZWhVIwawkKw==",
+          "dev": true,
+          "requires": {
+            "core-util-is": "1.0.2",
+            "inherits": "2.0.3",
+            "isarray": "1.0.0",
+            "process-nextick-args": "2.0.0",
+            "safe-buffer": "5.1.1",
+            "string_decoder": "1.1.1",
+            "util-deprecate": "1.0.2"
+          }
+        },
+        "string_decoder": {
+          "version": "1.1.1",
+          "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz",
+          "integrity": "sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==",
+          "dev": true,
+          "requires": {
+            "safe-buffer": "5.1.1"
+          }
+        }
       }
     },
     "meow": {
@@ -27506,6 +27568,12 @@
         }
       }
     },
+    "tapable": {
+      "version": "0.2.8",
+      "resolved": "https://registry.npmjs.org/tapable/-/tapable-0.2.8.tgz",
+      "integrity": "sha1-mTcqXJmb8t8WCvwNdL7U9HlIzSI=",
+      "dev": true
+    },
     "tar": {
       "version": "2.2.1",
       "resolved": "https://registry.npmjs.org/tar/-/tar-2.2.1.tgz",
@@ -28571,6 +28639,12 @@
             }
           }
         },
+        "has-flag": {
+          "version": "3.0.0",
+          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz",
+          "integrity": "sha1-tdRU3CGZriJWmfNGfloH87lVuv0=",
+          "dev": true
+        },
         "is-accessor-descriptor": {
           "version": "0.1.6",
           "resolved": "https://registry.npmjs.org/is-accessor-descriptor/-/is-accessor-descriptor-0.1.6.tgz",
@@ -28642,6 +28716,17 @@
           "resolved": "https://registry.npmjs.org/kind-of/-/kind-of-6.0.2.tgz",
           "integrity": "sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==",
           "dev": true
+        },
+        "loader-utils": {
+          "version": "1.1.0",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-1.1.0.tgz",
+          "integrity": "sha1-yYrvSIvM7aL/teLeZG1qdUQp9c0=",
+          "dev": true,
+          "requires": {
+            "big.js": "3.2.0",
+            "emojis-list": "2.1.0",
+            "json5": "0.5.1"
+          }
         },
         "micromatch": {
           "version": "3.1.10",
@@ -28734,7 +28819,7 @@
         "commander": "2.15.1",
         "diff": "3.5.0",
         "glob": "7.1.2",
-        "js-yaml": "3.11.0",
+        "js-yaml": "3.7.0",
         "minimatch": "3.0.4",
         "resolve": "1.6.0",
         "semver": "5.5.0",
@@ -28775,6 +28860,12 @@
             "once": "1.4.0",
             "path-is-absolute": "1.0.1"
           }
+        },
+        "has-flag": {
+          "version": "3.0.0",
+          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz",
+          "integrity": "sha1-tdRU3CGZriJWmfNGfloH87lVuv0=",
+          "dev": true
         },
         "minimatch": {
           "version": "3.0.4",
