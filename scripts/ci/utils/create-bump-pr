@@ -17,11 +17,13 @@ DCOS_BRANCH=${DCOS_BRANCH:-""}
 
 PKG_VERSION=${PKG_VERSION:-""}
 
+CHANGELOG=${CHANGELOG:-""}
+
 ## Check Params
 #####################################################################
 
-if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_VERSION}" ]; then
-  echo "Cant Create Bump without given \$DCOS_BRANCH and \$PKG_VERSION!"
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
+  echo "Cant Create Bump without given \$DCOS_BRANCH, \$PKG_VERSION and \$CHANGELOG!"
   exit 1
 fi
 
@@ -32,8 +34,6 @@ fi
 
 ## Create DC/OS Bump PR
 #####################################################################
-
-CHANGELOG=$(${SCRIPT_PATH}/generate-changelog)
 
 TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" https://api.github.com/repos/dcos/dcos/contents/PULL_REQUEST_TEMPLATE.md)
 TASKS_HEAD="Corresponding DC/OS tickets (obligatory)"
