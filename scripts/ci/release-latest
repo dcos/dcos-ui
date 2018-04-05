@@ -46,5 +46,6 @@ FORCE_UPLOAD=${FORCE_UPLOAD} \
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
+  PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
   ${SCRIPT_PATH}/utils/update-dcos-repo || exit 1

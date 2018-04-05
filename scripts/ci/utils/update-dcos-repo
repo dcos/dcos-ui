@@ -19,12 +19,13 @@ DCOS_UPSTREAM=${DCOS_UPSTREAM:-"https://github.com/dcos/dcos"}
 DCOS_FOLDER=${DCOS_FOLDER:-"dcos-master"}
 
 PKG_VERSION={$PKG_VERSION:-""}
+PKG_TARGET={$PKG_TARGET:-""}
 
 ## Check Params
 #####################################################################
 
-if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_VERSION}" ]; then
-  echo "Cant update DC/OS repo without given \$DCOS_BRANCH and \$PKG_VERSION!"
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ]; then
+  echo "Cant update DC/OS repo without given \$DCOS_BRANCH, \$PKG_TARGET and \$PKG_VERSION!"
   exit 1
 fi
 
@@ -44,7 +45,7 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   remote add upstream "${DCOS_UPSTREAM}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  pull --rebase -X theirs upstream master
+  pull --rebase -X theirs upstream ${PKG_TARGET}
 
 # copy previously created files
 if [ -f "buildinfo.json" ]; then
