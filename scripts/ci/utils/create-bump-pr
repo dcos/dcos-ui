@@ -16,14 +16,15 @@ PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../../" && pwd )"
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 
 PKG_VERSION=${PKG_VERSION:-""}
+PKG_TARGET=${PKG_TARGET:-""}
 
 CHANGELOG=${CHANGELOG:-""}
 
 ## Check Params
 #####################################################################
 
-if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
-  echo "Cant Create Bump without given \$DCOS_BRANCH, \$PKG_VERSION and \$CHANGELOG!"
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
+  echo "Cant Create Bump without given \$DCOS_BRANCH, \$PKG_TARGET, \$PKG_VERSION and \$CHANGELOG!"
   exit 1
 fi
 
@@ -46,7 +47,7 @@ pullRequest="{
   \"title\": \"Bump DC/OS UI Package ${PKG_VERSION}\",
   \"body\": \"${PR_BODY_NO_NEWLINES_NO_HEADING}\",
   \"head\": \"mesosphere:${DCOS_BRANCH}\",
-  \"base\": \"master\"
+  \"base\": \"${PKG_TARGET}\"
 }"
 
 curl -H "Content-Type: application/json" -u "$GIT_USER:$GIT_PASSWORD" -X POST -d "${pullRequest}" https://api.github.com/repos/dcos/dcos/pulls
