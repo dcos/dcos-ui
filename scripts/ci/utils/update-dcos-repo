@@ -14,7 +14,7 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../../" && pwd )"
 
 DCOS_BRANCH=${DCOS_BRANCH:-""}
-DCOS_ORIGIN=${DCOS_ORIGIN:-"https://github.com/mesosphere/dcos"}
+DCOS_ORIGIN=${DCOS_ORIGIN:-"https://${GIT_USER}:${GIT_PASSWORD}@github.com/mesosphere/dcos"}
 DCOS_UPSTREAM=${DCOS_UPSTREAM:-"https://github.com/dcos/dcos"}
 DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
 
