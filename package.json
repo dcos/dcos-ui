@@ -76,6 +76,7 @@
     "@commitlint/cli": "6.1.3",
     "@commitlint/config-conventional": "6.1.3",
     "@dcos/eslint-config": "0.3.0",
+    "@dcos/ui-kit": "0.2.0",
     "@types/react": "15.0.39",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.24.1",
