@@ -33,7 +33,7 @@ CLEANUP_TESTS=${CLEANUP_TESTS:-0}
 PROXY_PORT=${PROXY_PORT:-4200}
 PROXY_PID=0
 
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../../" && pwd )"
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
 CYPRESS_FOLDER="cypress"
 TESTS_FOLDER="tests"
 
