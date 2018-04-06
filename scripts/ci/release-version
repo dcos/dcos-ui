@@ -19,7 +19,7 @@ set -e
 ## Configuration
 #####################################################################
 
-SCRIPT_PATH="$($(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
 
