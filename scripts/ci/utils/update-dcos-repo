@@ -16,10 +16,10 @@ PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../../" && pwd )"
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 DCOS_ORIGIN=${DCOS_ORIGIN:-"https://github.com/mesosphere/dcos"}
 DCOS_UPSTREAM=${DCOS_UPSTREAM:-"https://github.com/dcos/dcos"}
-DCOS_FOLDER=${DCOS_FOLDER:-"dcos-master"}
+DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
 
-PKG_VERSION={$PKG_VERSION:-""}
-PKG_TARGET={$PKG_TARGET:-""}
+PKG_VERSION=${PKG_VERSION:-""}
+PKG_TARGET=${PKG_TARGET:-""}
 
 ## Check Params
 #####################################################################
@@ -48,18 +48,19 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   pull --rebase -X theirs upstream ${PKG_TARGET}
 
 # copy previously created files
-if [ -f "buildinfo.json" ]; then
+if [ -f "${PROJECT_ROOT}/buildinfo.json" ]; then
   cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
 fi
 
-if [ -f "upstream.json" ]; then
+if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
   cp -f ${PROJECT_ROOT}/upstream.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json"
 fi
 
 # push changes (we want to create a new commit for easier checks in Github UI)
-git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json" \
-    "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
