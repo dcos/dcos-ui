@@ -168,6 +168,9 @@ pipeline {
           sh "git config --global user.name 'MesosphereCI Robot'"
           sh "git config credential.helper 'cache --timeout=300'"
 
+          sh "npx standard-version"
+          sh "git push --follow-tags origin ${BRANCH_NAME}"
+
           sh "CREATE_RELEASE=1 PUSH_RELEASE=1 ./scripts/ci/release-version"
         }
       }
