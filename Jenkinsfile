@@ -2,7 +2,7 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["master", "jgieseke/refactor-ci" ] as String[]
 
 pipeline {
   agent {
@@ -44,21 +44,21 @@ pipeline {
       }
     }
 
-    stage('Lint') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run lint'''
-        }
-      }
-    }
+    // stage('Lint') {
+    //   steps {
+    //     ansiColor('xterm') {
+    //       sh '''npm run lint'''
+    //     }
+    //   }
+    // }
 
-    stage('Unit Test') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run test -- --maxWorkers=2'''
-        }
-      }
-    }
+    // stage('Unit Test') {
+    //   steps {
+    //     ansiColor('xterm') {
+    //       sh '''npm run test -- --maxWorkers=2'''
+    //     }
+    //   }
+    // }
 
     stage('Build') {
       steps {
@@ -78,47 +78,47 @@ pipeline {
     }
 
 
-    stage('Integration Test') {
-      steps {
-        unstash 'dist'
-        sh "npm run integration-tests"
-      }
+    // stage('Integration Test') {
+    //   steps {
+    //     unstash 'dist'
+    //     sh "npm run integration-tests"
+    //   }
 
-      post {
-        always {
-          archiveArtifacts 'cypress/**/*'
-          junit 'cypress/results.xml'
-        }
-      }
-    }
+    //   post {
+    //     always {
+    //       archiveArtifacts 'cypress/**/*'
+    //       junit 'cypress/results.xml'
+    //     }
+    //   }
+    // }
 
-    stage('System Test') {
-     steps {
-       withCredentials([
-          [
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]
-        ]) {
-         unstash 'dist'
+    // stage('System Test') {
+    //  steps {
+    //    withCredentials([
+    //       [
+    //         $class: 'AmazonWebServicesCredentialsBinding',
+    //         credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
+    //         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+    //         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+    //       ]
+    //     ]) {
+    //      unstash 'dist'
 
-         ansiColor('xterm') {
-           retry(2) {
-             sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
-           }
-         }
-       }
-     }
+    //      ansiColor('xterm') {
+    //        retry(2) {
+    //          sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
+    //        }
+    //      }
+    //    }
+    //  }
 
-     post {
-       always {
-         archiveArtifacts 'results/**/*'
-         junit 'results/results.xml'
-       }
-     }
-    }
+    //  post {
+    //    always {
+    //      archiveArtifacts 'results/**/*'
+    //      junit 'results/results.xml'
+    //    }
+    //  }
+    // }
 
     // update the mesosphere:dcos-ui/latest branch
     stage('Release Latest') {
