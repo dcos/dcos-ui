@@ -35,6 +35,16 @@ PKG_VERSION="$(python -c "import sys, json; \
 
 DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 
+
+
+
+git fetch
+git checkout ${BRANCH_NAME}
+npm run release -- --tag-prefix $(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')+v
+git --no-pager log --decorate=short --pretty=oneline -n1
+git push --follow-tags https://$GIT_USER:$GIT_PASSWORD@github.com/dcos/dcos-ui ${BRANCH_NAME}
+
+
 ## Create Assets & Generate Upload Data
 #####################################################################
 
