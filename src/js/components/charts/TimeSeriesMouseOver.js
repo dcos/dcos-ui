@@ -44,6 +44,12 @@ var TimeSeriesMouseOver = React.createClass({
       return false;
     }
 
+    mouse.yPercent = Math.round(
+      ((0 - boundingBox.bottom + (mouse.y - boundingBox.top)) * -1 -
+        boundingBox.top) /
+        (boundingBox.bottom - boundingBox.top) *
+        100
+    );
     mouse.x -= boundingBox.left;
     mouse.y -= boundingBox.top;
 
@@ -64,12 +70,6 @@ var TimeSeriesMouseOver = React.createClass({
     var firstDataSet = props.data[0];
     // how many data points we don't show
     var hiddenDataPoints = 1;
-    // find the data point at the given mouse position
-    var index =
-      mouse.x *
-      (firstDataSet.values.length - hiddenDataPoints - 1) /
-      props.width;
-    index = Math.round(index + hiddenDataPoints);
 
     d3
       .select(this.refs.xMousePosition)
@@ -84,16 +84,16 @@ var TimeSeriesMouseOver = React.createClass({
       .style("opacity", 1)
       .transition()
       .duration(50)
-      .attr("y1", props.yScale(firstDataSet.values[index][props.y]))
-      .attr("y2", props.yScale(firstDataSet.values[index][props.y]));
+      .attr("y1", mouse.y)
+      .attr("y2", mouse.y);
 
     d3
       .select(this.refs.yAxisCurrent)
       .transition()
       .duration(50)
-      .attr("y", props.yScale(firstDataSet.values[index][props.y]))
+      .attr("y", mouse.y)
       // Default to 0 if state is unsuccessful.
-      .text((firstDataSet.values[index][props.y] || 0) + props.yCaption);
+      .text(mouse.yPercent + props.yCaption);
 
     // An extra -2 on each because we show the extra data point at the end
 
