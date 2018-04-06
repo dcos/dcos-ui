@@ -44,8 +44,11 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   remote add upstream "${DCOS_UPSTREAM}"
 
+# git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+#   pull --rebase -X theirs upstream ${PKG_TARGET}
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  pull --rebase -X theirs upstream ${PKG_TARGET}
+  pull --rebase -X theirs upstream master
+
 
 # copy previously created files
 if [ -f "${PROJECT_ROOT}/buildinfo.json" ]; then
