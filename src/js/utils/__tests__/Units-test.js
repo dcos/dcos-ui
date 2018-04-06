@@ -23,6 +23,16 @@ describe("Units", function() {
       const value = Units.formatResource("disk", 3481.6);
       expect(value).toEqual("3.4 GiB");
     });
+
+    it("formats gpus", function() {
+      const value = Units.formatResource("gpus", 4.3);
+      expect(value).toEqual(4.3);
+    });
+
+    it("rounds gpus values", function() {
+      const value = Units.formatResource("gpus", 3.405);
+      expect(value).toEqual(3.41);
+    });
   });
 
   describe("#filesize", function() {

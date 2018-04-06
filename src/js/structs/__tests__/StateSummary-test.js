@@ -79,7 +79,7 @@ describe("StateSummary", function() {
   describe("#getSlaveTotalResources", function() {
     it("defaults to 0 available resources if there's nothing", function() {
       const instance = new StateSummary();
-      const defaultSum = { cpus: 0, mem: 0, disk: 0 };
+      const defaultSum = { cpus: 0, mem: 0, disk: 0, gpus: 0 };
       expect(instance.getSlaveTotalResources()).toEqual(defaultSum);
     });
 
@@ -87,12 +87,12 @@ describe("StateSummary", function() {
       const snapshot = {
         frameworks: [],
         slaves: [
-          { resources: { cpus: 1, mem: 0, disk: 2 } },
-          { resources: { cpus: 1, mem: 0, disk: 2 } },
-          { resources: { cpus: 1, mem: 0, disk: 2 } }
+          { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+          { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+          { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } }
         ]
       };
-      const aggregate = { cpus: 3, mem: 0, disk: 6 };
+      const aggregate = { cpus: 3, mem: 0, disk: 6, gpus: 0 };
       const instance = new StateSummary({ snapshot });
       expect(instance.getSlaveTotalResources()).toEqual(aggregate);
     });
@@ -101,7 +101,7 @@ describe("StateSummary", function() {
   describe("#getSlaveUsedResources", function() {
     it("defaults to 0 available resources if there's nothing", function() {
       const instance = new StateSummary();
-      const defaultSum = { cpus: 0, mem: 0, disk: 0 };
+      const defaultSum = { cpus: 0, mem: 0, disk: 0, gpus: 0 };
       expect(instance.getSlaveUsedResources()).toEqual(defaultSum);
     });
 
@@ -109,12 +109,12 @@ describe("StateSummary", function() {
       const snapshot = {
         frameworks: [],
         slaves: [
-          { used_resources: { cpus: 1, mem: 0, disk: 2 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2 } }
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } }
         ]
       };
-      const aggregate = { cpus: 3, mem: 0, disk: 6 };
+      const aggregate = { cpus: 3, mem: 0, disk: 6, gpus: 0 };
       const instance = new StateSummary({ snapshot });
       expect(instance.getSlaveUsedResources()).toEqual(aggregate);
     });
@@ -123,20 +123,20 @@ describe("StateSummary", function() {
   describe("#getServiceUsedResources", function() {
     it("defaults to 0 available resources if there's nothing", function() {
       const instance = new StateSummary();
-      const defaultSum = { cpus: 0, mem: 0, disk: 0 };
+      const defaultSum = { cpus: 0, mem: 0, disk: 0, gpus: 0 };
       expect(instance.getServiceUsedResources()).toEqual(defaultSum);
     });
 
     it("calculates total resources available in slaves", function() {
       const snapshot = {
         frameworks: [
-          { used_resources: { cpus: 1, mem: 0, disk: 2 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2 } }
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } }
         ],
         slaves: []
       };
-      const aggregate = { cpus: 3, mem: 0, disk: 6 };
+      const aggregate = { cpus: 3, mem: 0, disk: 6, gpus: 0 };
       const instance = new StateSummary({ snapshot });
       expect(instance.getServiceUsedResources()).toEqual(aggregate);
     });

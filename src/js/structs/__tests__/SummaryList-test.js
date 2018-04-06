@@ -73,9 +73,9 @@ describe("SummaryList", function() {
         metadata: {
           date: thisNow + 1,
           successfulSnapshot: true,
-          serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveTotalResources: { cpus: 0, mem: 0, disk: 0 }
+          serviceUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+          slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+          slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
         }
       };
 
@@ -95,9 +95,9 @@ describe("SummaryList", function() {
         metadata: {
           date: thisNow,
           successfulSnapshot: true,
-          serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveTotalResources: { cpus: 0, mem: 0, disk: 0 }
+          serviceUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+          slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+          slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
         }
       };
 
@@ -120,10 +120,10 @@ describe("SummaryList", function() {
       thisList.addSnapshot(
         {
           frameworks: [
-            { id: 1, used_resources: { cpus: 1, mem: 3, disk: 1 } },
-            { id: 2, used_resources: { cpus: 1, mem: 3, disk: 1 } }
+            { id: 1, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } },
+            { id: 2, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } }
           ],
-          slaves: [{ resources: { cpus: 10, mem: 10, disk: 10 } }]
+          slaves: [{ resources: { cpus: 10, mem: 10, disk: 10, gpus: 9 } }]
         },
         thisNow
       );
@@ -132,7 +132,7 @@ describe("SummaryList", function() {
     it("returns empty resource lists", function() {
       const list = new SummaryList();
       const resources = list.getResourceStatesForServiceIDs();
-      expect(resources).toEqual({ cpus: [], mem: [], disk: [] });
+      expect(resources).toEqual({ cpus: [], mem: [], disk: [], gpus: [] });
     });
 
     it("doesn't filter by ids", function() {
@@ -140,7 +140,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
         mem: [{ date: thisNow, percentage: 60, value: 6 }],
-        disk: [{ date: thisNow, percentage: 20, value: 2 }]
+        disk: [{ date: thisNow, percentage: 20, value: 2 }],
+        gpus: [{ date: thisNow, percentage: 22, value: 2 }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -151,7 +152,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 10, value: 1 }],
         mem: [{ date: thisNow, percentage: 30, value: 3 }],
-        disk: [{ date: thisNow, percentage: 10, value: 1 }]
+        disk: [{ date: thisNow, percentage: 10, value: 1 }],
+        gpus: [{ date: thisNow, percentage: 11, value: 1 }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -162,7 +164,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
         mem: [{ date: thisNow, percentage: 60, value: 6 }],
-        disk: [{ date: thisNow, percentage: 20, value: 2 }]
+        disk: [{ date: thisNow, percentage: 20, value: 2 }],
+        gpus: [{ date: thisNow, percentage: 22, value: 2 }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -172,10 +175,10 @@ describe("SummaryList", function() {
       thisList.addSnapshot(
         {
           frameworks: [
-            { id: 1, used_resources: { cpus: 1, mem: 3, disk: 1 } },
-            { id: 2, used_resources: { cpus: 1, mem: 3, disk: 1 } }
+            { id: 1, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } },
+            { id: 2, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } }
           ],
-          slaves: [{ resources: { cpus: 10, mem: 10, disk: 10 } }]
+          slaves: [{ resources: { cpus: 10, mem: 10, disk: 10, gpus: 9 } }]
         },
         thisNow + 1
       );
@@ -193,6 +196,10 @@ describe("SummaryList", function() {
         disk: [
           { date: thisNow, percentage: 10, value: 1 },
           { date: thisNow + 1, percentage: 10, value: 1 }
+        ],
+        gpus: [
+          { date: thisNow, percentage: 11, value: 1 },
+          { date: thisNow + 1, percentage: 11, value: 1 }
         ]
       };
 
@@ -206,7 +213,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: null, value: null }],
         mem: [{ date: thisNow, percentage: null, value: null }],
-        disk: [{ date: thisNow, percentage: null, value: null }]
+        disk: [{ date: thisNow, percentage: null, value: null }],
+        gpus: [{ date: thisNow, percentage: null, value: null }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -222,13 +230,13 @@ describe("SummaryList", function() {
           slaves: [
             {
               id: 1,
-              resources: { cpus: 5, mem: 5, disk: 5 },
-              used_resources: { cpus: 1, mem: 3, disk: 1 }
+              resources: { cpus: 5, mem: 5, disk: 5, gpus: 6 },
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
             },
             {
               id: 2,
-              resources: { cpus: 5, mem: 5, disk: 5 },
-              used_resources: { cpus: 1, mem: 3, disk: 1 }
+              resources: { cpus: 5, mem: 5, disk: 5, gpus: 6 },
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
             }
           ]
         },
@@ -239,7 +247,7 @@ describe("SummaryList", function() {
     it("returns empty resource lists", function() {
       const list = new SummaryList();
       const resources = list.getResourceStatesForNodeIDs();
-      expect(resources).toEqual({ cpus: [], mem: [], disk: [] });
+      expect(resources).toEqual({ cpus: [], mem: [], disk: [], gpus: [] });
     });
 
     it("doesn't filter by ids", function() {
@@ -247,7 +255,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
         mem: [{ date: thisNow, percentage: 60, value: 6 }],
-        disk: [{ date: thisNow, percentage: 20, value: 2 }]
+        disk: [{ date: thisNow, percentage: 20, value: 2 }],
+        gpus: [{ date: thisNow, percentage: 33, value: 4 }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -258,7 +267,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 1 }],
         mem: [{ date: thisNow, percentage: 60, value: 3 }],
-        disk: [{ date: thisNow, percentage: 20, value: 1 }]
+        disk: [{ date: thisNow, percentage: 20, value: 1 }],
+        gpus: [{ date: thisNow, percentage: 33, value: 2 }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -269,7 +279,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
         mem: [{ date: thisNow, percentage: 60, value: 6 }],
-        disk: [{ date: thisNow, percentage: 20, value: 2 }]
+        disk: [{ date: thisNow, percentage: 20, value: 2 }],
+        gpus: [{ date: thisNow, percentage: 33, value: 4 }]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -281,13 +292,13 @@ describe("SummaryList", function() {
           slaves: [
             {
               id: 1,
-              resources: { cpus: 10, mem: 10, disk: 10 },
-              used_resources: { cpus: 1, mem: 3, disk: 1 }
+              resources: { cpus: 10, mem: 10, disk: 10, gpus: 6 },
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
             },
             {
               id: 2,
-              resources: { cpus: 10, mem: 10, disk: 10 },
-              used_resources: { cpus: 1, mem: 3, disk: 1 }
+              resources: { cpus: 10, mem: 10, disk: 10, gpus: 6 },
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
             }
           ]
         },
@@ -307,6 +318,10 @@ describe("SummaryList", function() {
         disk: [
           { date: thisNow, percentage: 20, value: 1 },
           { date: thisNow + 1, percentage: 10, value: 1 }
+        ],
+        gpus: [
+          { date: thisNow, percentage: 33, value: 2 },
+          { date: thisNow + 1, percentage: 33, value: 2 }
         ]
       };
 
@@ -320,7 +335,8 @@ describe("SummaryList", function() {
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: null, value: null }],
         mem: [{ date: thisNow, percentage: null, value: null }],
-        disk: [{ date: thisNow, percentage: null, value: null }]
+        disk: [{ date: thisNow, percentage: null, value: null }],
+        gpus: [{ date: thisNow, percentage: null, value: null }]
       };
 
       expect(resources).toEqual(expectedResult);

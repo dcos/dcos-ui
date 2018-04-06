@@ -19,6 +19,7 @@
 
   "DASHBOARD.VIEW_ALL": "View all {servicesCount} Services",
   "DASHBOARD.PANEL_HEADING.CPU": "CPU Allocation",
+  "DASHBOARD.PANEL_HEADING.GPU": "GPU Allocation",
   "DASHBOARD.PANEL_HEADING.MEMORY": "Memory Allocation",
   "DASHBOARD.PANEL_HEADING.DISK": "Disk Allocation",
   "DASHBOARD.PANEL_HEADING.SERVICES_STATUS": "Services Status",

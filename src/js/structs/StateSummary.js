@@ -15,9 +15,9 @@ module.exports = class StateSummary {
     this.metadata = {
       date: undefined,
       successfulSnapshot: true,
-      serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
-      slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
-      slaveTotalResources: { cpus: 0, mem: 0, disk: 0 }
+      serviceUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+      slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+      slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
     };
     const snapshot = options.snapshot || this.snapshot;
     // Only place where we normalize server data

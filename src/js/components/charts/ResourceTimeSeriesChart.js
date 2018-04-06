@@ -38,7 +38,7 @@ var ResourceTimeSeriesChart = React.createClass({
 
   getHeadline(usedValue, totalValue) {
     const { mode } = this.props;
-    if (mode === "cpus") {
+    if (mode === "cpus" || mode === "gpus") {
       return usedValue + " of " + totalValue + " Shares";
     } else {
       return (
