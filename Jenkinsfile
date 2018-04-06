@@ -19,6 +19,7 @@ pipeline {
     JENKINS_VERSION = 'yes'
     NODE_PATH = 'node_modules'
     INSTALLER_URL= 'https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh'
+    DEBUG=1
   }
 
   options {
