@@ -66,7 +66,7 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  push --force-with-lease origin ${DCOS_BRANCH}
+  push --set-upstream origin $DCOS_BRANCH
 
 # leave & cleanup
 rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
