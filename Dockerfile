@@ -2,8 +2,8 @@ FROM mesosphere/dcos-system-test-driver:latest
 
 # Specify the component versions to use
 ENV NODE_VERSION="8.9.4" \
-    NPM_VERSION="5.6.0" \
-    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+  NPM_VERSION="5.6.0" \
+  JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # Expose the 4200 port
 EXPOSE 4200
@@ -19,7 +19,7 @@ COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 RUN set -x \
   # Install aws-cli
   && pip install awscli --upgrade \
-  # Install node 4.4.7 & npm 3.9
+  # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
   # Install cypress dependencies & JRE (required by Jenkins)
