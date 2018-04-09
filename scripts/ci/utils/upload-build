@@ -70,7 +70,7 @@ EOF
 ## Upload tarball
 #####################################################################
 
-if [ ${FORCE_UPLOAD} -eq 0 ] && [ -n "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" ]; then
+if [ ${FORCE_UPLOAD} -eq 0 ] && [ "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" -ne 0 ]; then
   echo "This release was already uploaded, stopping here"
   exit 1
 fi
