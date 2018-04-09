@@ -6,15 +6,31 @@ import CreateServiceModal
   from "#PLUGINS/services/src/js/components/modals/CreateServiceModal";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import Page from "#SRC/js/components/Page";
 
 class EditServiceModal extends Component {
   render() {
     const { id = "/" } = this.props.params;
     const serviceID = decodeURIComponent(id);
+    const serviceLoaded = DCOSStore.serviceDataReceived;
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    if (!service) {
+    // Loading, showing an empty modal instead
+    if (!serviceLoaded) {
       return <FullScreenModal open={true} />;
+    }
+
+    // Service not found
+    if (!service) {
+      return (
+        <Page>
+          <Page.Header />
+          <RequestErrorMsg
+            header={<p>This service does not exist, you can not edit it</p>}
+          />
+        </Page>
+      );
     }
 
     if (
