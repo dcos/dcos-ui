@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+[ -n "${DEBUG}" ] && set -x
+
+# This file is intended to run on Jenkins, if you want to create a 
+# release locally, just run `npm run release`
+
+## Configuration
+#####################################################################
+
+CREATE_RELEASE=${CREATE_RELEASE:-0}
+PUSH_RELEASE=${PUSH_RELEASE:-0}
+PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+
+## Create Release and Push it
+#####################################################################
+
+
+# fetch whole repo (jenkins only checks out one sha)
+git fetch
+
+# checkout correct branch name (jenkins checks out a sha, not a named branch)
+git checkout ${BRANCH_NAME}
+
+# create relase with correct version number: PKG_TARGET+v<SEMVER>
+if [ ${CREATE_RELEASE} -eq 0 ]; then
+  echo "No release, no Bump!"
+  exit 1
+fi
+npm run release
+
+# push new release to branch, this pushes to the corresponsing release "master"!
+git push --follow-tags https://$GIT_USER:$GIT_PASSWORD@github.com/dcos/dcos-ui ${BRANCH_NAME}
+if [ $? -ne 0 ]; then
+  echo "Failed to push new release to master, stopping here"
+  exit 1
+fi
