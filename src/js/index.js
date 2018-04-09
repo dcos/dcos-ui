@@ -2,10 +2,7 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
-import { IntlProvider } from "react-intl";
 import { RequestUtil } from "mesosphere-shared-reactjs";
-import { Router, hashHistory } from "react-router";
-import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
@@ -14,17 +11,11 @@ import "../styles/index.less";
 import "./utils/MomentJSConfig";
 import { CONFIG_ERROR } from "./constants/EventTypes";
 import ApplicationUtil from "./utils/ApplicationUtil";
-import appRoutes from "./routes/index";
 import ConfigStore from "./stores/ConfigStore";
-import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
-import RouterUtil from "./utils/RouterUtil";
-
-// Translations
-import enUS from "./translations/en-US.json";
+import App from "./app";
 
 const domElement = global.document.getElementById("application");
-const navigatorLanguage = "en-US";
 
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javscript files are parsed because it
@@ -84,18 +75,7 @@ RequestUtil.json = function(options = {}) {
       }
 
       function renderApplicationToDOM() {
-        const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
-        NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
-
-        renderAppToDOM(
-          <Provider store={PluginSDK.Store}>
-            <IntlProvider locale={navigatorLanguage} messages={enUS}>
-              <Router history={hashHistory} routes={routes} />
-            </IntlProvider>
-          </Provider>
-        );
-
-        PluginSDK.Hooks.doAction("routes", routes);
+        renderAppToDOM(<App store={PluginSDK.Store} />);
       }
     }
   }

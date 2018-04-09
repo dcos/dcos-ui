@@ -1,4 +1,4 @@
-const { DefinePlugin } = require("webpack");
+const { DefinePlugin, NamedModulesPlugin } = require("webpack");
 const merge = require("webpack-merge");
 const DashboardPlugin = require("webpack-dashboard/plugin");
 
@@ -14,6 +14,9 @@ module.exports = merge(common, {
     index: "./src/js/index.js",
     vendor: Object.keys(dependencies)
   },
+  devServer: {
+    hot: true
+  },
   devtool: "cheap-module-eval-source-map",
   plugins: [
     new DashboardPlugin(),
@@ -22,6 +25,7 @@ module.exports = merge(common, {
         NODE_ENV: JSON.stringify("development"),
         LATER_COV: false
       }
-    })
+    }),
+    new NamedModulesPlugin()
   ]
 });
