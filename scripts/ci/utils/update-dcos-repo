@@ -27,6 +27,8 @@ PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 
+DCOS_BASE_BRANCH=${DCOS_BASE_BRANCH:-"$(echo ${PKG_TARGET})"}
+
 ## Check Params
 #####################################################################
 
@@ -54,10 +56,8 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   fetch upstream
 
-# git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-#   reset --hard upstream/${PKG_TARGET}
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  reset --hard upstream/master
+  reset --hard upstream/${DCOS_BASE_BRANCH}
 
 # copy previously created files
 if [ -f "${PROJECT_ROOT}/buildinfo.json" ]; then
