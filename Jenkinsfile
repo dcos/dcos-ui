@@ -2,7 +2,7 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def master_branches = ["master", ] as String[]
+def release_branches = ["master", ] as String[]
 
 pipeline {
   agent {
@@ -12,7 +12,7 @@ pipeline {
   }
 
   parameters {
-    booleanParam(defaultValue: false, description: 'Create Release & Bump against DC/OS?', name: 'CREATE_RELEASE')
+    booleanParam(defaultValue: false, description: 'Bump version, upload tarball and create bump package on DC/OS', name: 'CREATE_RELEASE')
   }
 
   environment {
@@ -28,7 +28,7 @@ pipeline {
   stages {
     stage('Authorization') {
       steps {
-        user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+        user_is_authorized(release_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
       }
     }
 
@@ -124,7 +124,7 @@ pipeline {
     stage('Update Latest') {
       when {
         expression {
-          master_branches.contains(BRANCH_NAME)
+          release_branches.contains(BRANCH_NAME)
         }
       }
 
@@ -149,11 +149,10 @@ pipeline {
       }
     }
 
-    // open a Bump PR against dcos/dcos
-    stage('Release'){
+    stage('Release Version'){
       when {
         expression {
-          master_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == true
+          release_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == true
         }
       }
 
