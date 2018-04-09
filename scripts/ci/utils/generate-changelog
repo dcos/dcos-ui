@@ -9,17 +9,18 @@ set -e
 ## Configuration
 #####################################################################
 
+# path of this file
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
+# project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
-
-GIT_DIR=${GIT_DIR:-"$(echo ${PROJECT_ROOT})"}
 
 ## Script
 #####################################################################
-set -e
 
-TAGS=($(git -C "${GIT_DIR}" tag -l --sort=-version:refname))
+
+# get tags to get changes between
+TAGS=($(git -C "${PROJECT_ROOT}" tag -l --sort=-version:refname))
 CURRENT_TAG=${TAGS[0]}
 PREVIOUS_TAG=${TAGS[1]}
 
@@ -28,15 +29,18 @@ then
   exit 1
 fi
 
-COMMITS=$(git -C "${GIT_DIR}" log $PREVIOUS_TAG..$CURRENT_TAG --pretty=format:"%H")
+# get commit between given tags
+COMMITS=$(git -C "${PROJECT_ROOT}" log $PREVIOUS_TAG..$CURRENT_TAG --pretty=format:"%H")
+
+# build markdown from commit messages
 JIRA_PREFIX="(DCOS|DCOS_OSS|MARATHON)"
 MARKDOWN=""
 
 for COMMIT in $COMMITS; do
 
-  COMMIT_BODY=$(git -C "${GIT_DIR}" log -1 ${COMMIT})
+  COMMIT_BODY=$(git -C "${PROJECT_ROOT}" log -1 ${COMMIT})
   COMMIT_BODY_ONELINE=$(echo $COMMIT_BODY)
-  COMMIT_COMMENT=$(git -C "${GIT_DIR}" log --format=%B -n 1 ${COMMIT})
+  COMMIT_COMMENT=$(git -C "${PROJECT_ROOT}" log --format=%B -n 1 ${COMMIT})
 
   if [[ $COMMIT_BODY_ONELINE =~ Closes\ ${JIRA_PREFIX}-[0-9]* ]]; then
     TASK_NUMBER=$(echo $COMMIT_BODY_ONELINE | grep -Eo "${JIRA_PREFIX}-[0-9]*")
@@ -47,4 +51,5 @@ for COMMIT in $COMMITS; do
   fi
 done
 
+# "return" markdown
 echo $MARKDOWN

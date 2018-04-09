@@ -167,9 +167,9 @@ pipeline {
           sh "git config --global user.name 'MesosphereCI Robot'"
           sh "git config credential.helper 'cache --timeout=300'"
 
-          sh "CREATE_RELEASE=1 PUSH_RELEASE=1 BRANCH_NAME=$BRANCH_NAME ./scripts/bump-version"
+          sh "CREATE_RELEASE=1 PUSH_RELEASE=1 ./scripts/bump-version"
 
-          sh "CREATE_RELEASE=1 PUSH_RELEASE=1 GIT_USER=$GIT_USER GIT_PASSWORD=$GIT_PASSWORD ./scripts/ci/release-version"
+          sh "./scripts/ci/release-version"
         }
       }
     }

@@ -3,8 +3,8 @@
 set -e
 [ -n "${DEBUG}" ] && set -x
 
-# This file is intended to run on Jenkins, if you want create a latest release locally,
-# you need to provide some environment variables:
+# This file is intended to run on Jenkins, if you need to run it 
+# locally, you need to provide some environment variables:
 #
 # GIT_COMMIT: Commit SHA to work on
 # BRANCH_NAME: Branch Name to work on
@@ -12,7 +12,7 @@ set -e
 # GIT_PASSWORD: git password for curl command
 # aws login credentials
 #
-# run these from project root:
+# run these commands from project root:
 # 1. npm run build
 # 2. tar czf "release.tar.gz" dist
 # 3. <get aws credentials setup in AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY>
@@ -21,19 +21,30 @@ set -e
 ## Configuration
 #####################################################################
 
-# path of this file ()
+# path of this file
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 # project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
+# forces overwrite of file (latest is overwritten each time)
 FORCE_UPLOAD=${FORCE_UPLOAD:-0}
 
-# `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
+# get release target `master`` is fine, but if BRANCH_NAME is 
+# `release/1.11` we only want `1.11`
 PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+
+# release name
 PKG_NAME="dcos-ui"
+
+# release version
 PKG_VERSION="latest"
 
+# dcos branch to work with
+# Examples:
+# - dcos-ui/master/dcos-ui-latest
+# - dcos-ui/1.12/dcos-ui-latest
+# - dcos-ui/1.11/dcos-ui-latest
 DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 
 ## Create Assets & Generate Upload Data
@@ -43,7 +54,7 @@ FORCE_UPLOAD=${FORCE_UPLOAD} \
   PKG_TARGET=${PKG_TARGET} \
   PKG_NAME=${PKG_NAME} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/upload-build || exit 1
+  ${SCRIPT_PATH}/utils/upload-build
 
 
 ## Update DC/OS
@@ -52,4 +63,6 @@ FORCE_UPLOAD=${FORCE_UPLOAD} \
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/update-dcos-repo || exit 1
+  DCOS_ORIGIN=${DCOS_ORIGIN} \
+  DCOS_UPSTREAM=${DCOS_UPSTREAM} \
+  ${SCRIPT_PATH}/utils/update-dcos-repo

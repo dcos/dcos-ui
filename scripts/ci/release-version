@@ -3,34 +3,50 @@
 set -e
 [ -n "${DEBUG}" ] && set -x
 
-# This file is intended to run on Jenkins, if you want to run it locally,
-# you need to provide some environment variables:
+# This file is intended to run on Jenkins, if you need to run it 
+# locally, you need to provide some environment variables:
 #
 # GIT_COMMIT: Commit SHA to work on
 # BRANCH_NAME: Branch Name to work on
-# git credentials
+# GIT_USER: git user for curl command
+# GIT_PASSWORD: git password for curl command
 # aws login credentials
 #
-# Also make sure to `npm run build` before!
-#
-# Use this from project root:
-# npm run build && tar czf "release.tar.gz" dist && BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) CREATE_RELEASE=1 PUSH_RELEASE=1 ./scripts/ci/release-version
+# run these commands from project root:
+# 1. npm run build
+# 2. tar czf "release.tar.gz" dist
+# 3. <get aws credentials setup in AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY>
+# 4. npm run release
+# 5. git push --follow-tags <release_branch>
+# 6. BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) ./scripts/ci/release-version
 
 ## Configuration
 #####################################################################
 
+# path of this file
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
+# project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
-# `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
+# get release target `master`` is fine, but if BRANCH_NAME is 
+# `release/1.11` we only want `1.11`
 PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+
+# release name
 PKG_NAME="dcos-ui"
+
+# release version
 PKG_VERSION="$(python -c "import sys, json; \
   pkg = json.load(open('$PROJECT_ROOT/package.json')); \
   sys.stdout.write(str(pkg['version']));")"
-DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 
+# dcos branch to work with
+# Examples:
+# - dcos-ui/master/dcos-ui-latest
+# - dcos-ui/1.12/dcos-ui-latest
+# - dcos-ui/1.11/dcos-ui-latest
+DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
@@ -38,18 +54,23 @@ DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
 PKG_TARGET=${PKG_TARGET} \
   PKG_NAME=${PKG_NAME} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/upload-build || exit 1
+  ${SCRIPT_PATH}/utils/upload-build
 
-## Update DC/OS Repo & Create Bump PR
+## Update DC/OS Repo
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/update-dcos-repo || exit 1
+  DCOS_ORIGIN=${DCOS_ORIGIN} \
+  DCOS_UPSTREAM=${DCOS_UPSTREAM} \
+  ${SCRIPT_PATH}/utils/update-dcos-repo
+
+## Create Bump PR
+#####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
-  CHANGELOG=$(GIT_DIR=${PROJECT_ROOT} ${SCRIPT_PATH}/utils/generate-changelog)
-  ${SCRIPT_PATH}/utils/create-bump-pr || exit 1
+  CHANGELOG=$(${SCRIPT_PATH}/utils/generate-changelog)
+  ${SCRIPT_PATH}/utils/create-bump-pr

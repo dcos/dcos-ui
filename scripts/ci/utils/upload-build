@@ -9,29 +9,33 @@ set -e
 ## Configuration
 #####################################################################
 
+# path of this file
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
+# project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
 
+# aws bucket to upload to
 AWS_BUCKET='downloads.mesosphere.io'
 
+# aws bucket path to upload in
 BUCKET_PATH='dcos-ui'
 
+# overriding files? (latest releases are overwritten each time)
 FORCE_UPLOAD=${FORCE_UPLOAD:-0}
 
+# these are passed in from calling scripts
 PKG_TARGET=${PKG_TARGET:-""}
-
 PKG_NAME=${PKG_NAME:-""}
-
 PKG_VERSION=${PKG_VERSION:-""}
-
+#optional
 PKG_META=${PKG_META:-""}
 
 ## Check Params
 #####################################################################
 
 if [ -z "${PKG_TARGET}" ] || [ -z "${PKG_NAME}" ] || [ -z "${PKG_VERSION}" ]; then
-  echo "Cant update DC/OS repo without given \$PKG_TARGET, \$PKG_NAME and \$PKG_VERSION!"
+  echo "Cant upload build without given \$PKG_TARGET, \$PKG_NAME and \$PKG_VERSION!"
   exit 1
 fi
 

@@ -9,17 +9,23 @@ set -e
 ## Configuration
 #####################################################################
 
+# path of this file
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
+# project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
 
-DCOS_BRANCH=${DCOS_BRANCH:-""}
-DCOS_ORIGIN=${DCOS_ORIGIN:-"https://${GIT_USER}:${GIT_PASSWORD}@github.com/mesosphere/dcos"}
-DCOS_UPSTREAM=${DCOS_UPSTREAM:-"https://github.com/dcos/dcos"}
+# where to store dcos repo in
 DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
 
+# DCOS Origin and Upstream
+DCOS_ORIGIN=${DCOS_ORIGIN:-"https://${GIT_USER}:${GIT_PASSWORD}@github.com/mesosphere/dcos"}
+DCOS_UPSTREAM=${DCOS_UPSTREAM:-"https://github.com/dcos/dcos"}
+
+# these are passed in from calling script
 PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
+DCOS_BRANCH=${DCOS_BRANCH:-""}
 
 ## Check Params
 #####################################################################
@@ -65,8 +71,6 @@ if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
   git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
     add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json"
 fi
-
-# push changes (we want to create a new commit for easier checks in Github UI)
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
