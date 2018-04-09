@@ -11,7 +11,7 @@ set -e
 
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
-PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../../" && pwd )"
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
 
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 DCOS_ORIGIN=${DCOS_ORIGIN:-"https://${GIT_USER}:${GIT_PASSWORD}@github.com/mesosphere/dcos"}

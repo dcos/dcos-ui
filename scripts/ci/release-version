@@ -21,7 +21,7 @@ set -e
 
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
-PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
 # `master`` is fine, but if BRANCH_NAME is `release/1.11` we only want `1.11`
 PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')

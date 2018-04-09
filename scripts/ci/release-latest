@@ -3,25 +3,29 @@
 set -e
 [ -n "${DEBUG}" ] && set -x
 
-# This file is intended to run on Jenkins, if you want to run it locally,
+# This file is intended to run on Jenkins, if you want create a latest release locally,
 # you need to provide some environment variables:
 #
 # GIT_COMMIT: Commit SHA to work on
 # BRANCH_NAME: Branch Name to work on
-# git credentials
+# GIT_USER: git user for curl command
+# GIT_PASSWORD: git password for curl command
 # aws login credentials
 #
-# Also make sure to `npm run build` before!
-#
-# Use this from project root:
-# npm run build && tar czf "release.tar.gz" dist && BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) ./scripts/ci/release-latest
+# run these from project root:
+# 1. npm run build
+# 2. tar czf "release.tar.gz" dist
+# 3. <get aws credentials setup in AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY>
+# 4. FORCE_UPLOAD=1 BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) GIT_USER=<your_user> GIT_PASSWORD=<your_password> ./scripts/ci/release-latest
 
 ## Configuration
 #####################################################################
 
+# path of this file ()
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
-PROJECT_ROOT="$( cd "${SCRIPT_PATH}/../../" && pwd )"
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
 FORCE_UPLOAD=${FORCE_UPLOAD:-0}
 
