@@ -183,7 +183,7 @@ pipeline {
       steps {
         build job: "frontend/dcos-ui-ee-pipeline/${env.BRANCH_NAME}", parameters: [
           [$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME],
-          [$class: 'StringParameterValue', name: 'CREATE_RELEASE', value: param.CREATE_RELEASE]
+          [$class: 'StringParameterValue', name: 'CREATE_RELEASE', value: true]
         ]
       }
     }
