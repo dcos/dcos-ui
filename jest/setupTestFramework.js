@@ -1,4 +1,8 @@
 import path from 'path';
+import Enzyme from "enzyme";
+import Adapter from "enzyme-adapter-react-15.4";
+
+Enzyme.configure({ adapter: new Adapter() });
 
 if (process.env.TEAMCITY_VERSION != null) {
   var jasmineReporters = require('jasmine-reporters/src/teamcity_reporter');
