@@ -173,19 +173,5 @@ pipeline {
         }
       }
     }
-
-    // trigger the other job to update the upstream reference
-    stage ('Run Enterprise Job') {
-      when {
-        expression { master_branches.contains(BRANCH_NAME) }
-      }
-
-      steps {
-        build job: "frontend/dcos-ui-ee-pipeline/${env.BRANCH_NAME}", parameters: [
-          [$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME],
-          [$class: 'StringParameterValue', name: 'OSS_RELEASE_CREATED', value: "yes"]
-        ]
-      }
-    }
   }
 }
