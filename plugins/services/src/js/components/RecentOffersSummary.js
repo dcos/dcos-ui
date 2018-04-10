@@ -11,6 +11,7 @@ const displayedResourceValues = {
   roles: "Role",
   constraints: "Constraints",
   cpus: "CPU",
+  gpus: "GPU",
   mem: "Memory",
   disk: "Disk",
   ports: "Ports"
@@ -125,6 +126,11 @@ function getResourceTooltipContent(resource, data) {
   if (resource === "cpus") {
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
     explanatoryText = `The CPUs offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+  }
+
+  if (resource === "gpus") {
+    docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+    explanatoryText = `The GPUs offered ${explanatoryText} your service's requirements (${requestedValue}).`;
   }
 
   if (resource === "mem") {

@@ -87,24 +87,39 @@ describe("NodesList", function() {
   describe("#sumUsedResources", function() {
     it("returns all resources as 0 when there's no services", function() {
       const list = new NodesList();
-      expect(list.sumUsedResources()).toEqual({ cpus: 0, mem: 0, disk: 0 });
+      expect(list.sumUsedResources()).toEqual({
+        cpus: 0,
+        mem: 0,
+        disk: 0,
+        gpus: 0
+      });
     });
 
     it("returns used resources when there's one service", function() {
       const list = new NodesList({
-        items: [{ used_resources: { cpus: 1, mem: 3, disk: 1 } }]
+        items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }]
       });
-      expect(list.sumUsedResources()).toEqual({ cpus: 1, mem: 3, disk: 1 });
+      expect(list.sumUsedResources()).toEqual({
+        cpus: 1,
+        mem: 3,
+        disk: 1,
+        gpus: 0
+      });
     });
 
     it("sums used resources for services", function() {
       const list = new NodesList({
         items: [
-          { used_resources: { cpus: 1, mem: 3, disk: 1 } },
-          { used_resources: { cpus: 1, mem: 3, disk: 1 } }
+          { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },
+          { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }
         ]
       });
-      expect(list.sumUsedResources()).toEqual({ cpus: 2, mem: 6, disk: 2 });
+      expect(list.sumUsedResources()).toEqual({
+        cpus: 2,
+        mem: 6,
+        disk: 2,
+        gpus: 0
+      });
     });
   });
 });

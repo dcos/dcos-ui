@@ -16,8 +16,8 @@ describe("DC/OS UI [00j]", function() {
       cy.hash().should("match", /dashboard/);
     });
 
-    it("has six panels [00m]", function() {
-      cy.get("#application").find(".panel").should("to.have.length", 7);
+    it("has eight panels [00m]", function() {
+      cy.get("#application").find(".panel").should("to.have.length", 8);
     });
   });
 

@@ -37,7 +37,12 @@ const TaskTableUtil = {
         return TaskStatusSortingOrder[item.state];
       }
 
-      if (prop === "cpus" || prop === "mem" || prop === "disk") {
+      if (
+        prop === "cpus" ||
+        prop === "gpus" ||
+        prop === "mem" ||
+        prop === "disk"
+      ) {
         // This is necessary for tasks, since they are not structs
         let value = item[prop];
 

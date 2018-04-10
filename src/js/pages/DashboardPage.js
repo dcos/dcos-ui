@@ -227,6 +227,21 @@ var DashboardPage = React.createClass({
           </div>
           <div className={columnClasses}>
             <Panel
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading("DASHBOARD.PANEL_HEADING.GPU")}
+            >
+              <ResourceTimeSeriesChart
+                colorIndex={0}
+                usedResourcesStates={data.usedResourcesStates}
+                usedResources={data.usedResources}
+                totalResources={data.totalResources}
+                mode="gpus"
+                refreshRate={Config.getRefreshRate()}
+              />
+            </Panel>
+          </div>
+          <div className={columnClasses}>
+            <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow panel"
               heading={this.getHeading(
                 "DASHBOARD.PANEL_HEADING.SERVICES_STATUS"

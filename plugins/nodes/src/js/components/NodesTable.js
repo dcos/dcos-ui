@@ -117,7 +117,12 @@ class NodesTable extends PureComponent {
       node,
       prop
     ) {
-      if (prop === "cpus" || prop === "mem" || prop === "disk") {
+      if (
+        prop === "cpus" ||
+        prop === "gpus" ||
+        prop === "mem" ||
+        prop === "disk"
+      ) {
         return node.getUsageStats(prop).percentage;
       }
 
