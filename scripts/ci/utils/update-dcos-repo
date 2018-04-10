@@ -27,6 +27,7 @@ PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 
+# DCOS base branch to work on
 DCOS_BASE_BRANCH=${DCOS_BASE_BRANCH:-"${PKG_TARGET}"}
 
 ## Check Params
@@ -42,35 +43,23 @@ fi
 
 [ -d "${PROJECT_ROOT}/${DCOS_FOLDER}" ] && rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
 
-# clone & checkout correct branch
 git clone "${DCOS_ORIGIN}" "${PROJECT_ROOT}/${DCOS_FOLDER}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  checkout -B ${DCOS_BRANCH}
+  checkout -B "${DCOS_BRANCH}"
 
-# rebase onto latest master
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   remote add upstream "${DCOS_UPSTREAM}"
 
-# rebase onto latest master
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   fetch upstream
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  reset --hard upstream/${DCOS_BASE_BRANCH}
+  reset --hard "upstream/${DCOS_BASE_BRANCH}"
 
-# copy previously created files
-if [ -f "${PROJECT_ROOT}/buildinfo.json" ]; then
-  cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
-fi
-
-if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
-  cp -f ${PROJECT_ROOT}/upstream.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/upstream.json"
-fi
+cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
@@ -78,5 +67,4 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   push --force --set-upstream origin $DCOS_BRANCH
 
-# leave & cleanup
 rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
