@@ -12,7 +12,7 @@ pipeline {
   }
 
   parameters {
-    booleanParam(defaultValue: false, description: 'Bump version, upload tarball and create bump package on DC/OS', name: 'CREATE_RELEASE')
+    booleanParam(defaultValue: false, description: 'Create release and bump package version in DC/OS', name: 'CREATE_RELEASE')
   }
 
   environment {

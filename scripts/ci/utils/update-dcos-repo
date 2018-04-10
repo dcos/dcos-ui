@@ -27,13 +27,13 @@ PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 
-DCOS_BASE_BRANCH=${DCOS_BASE_BRANCH:-"$(echo ${PKG_TARGET})"}
+DCOS_BASE_BRANCH=${DCOS_BASE_BRANCH:-"${PKG_TARGET}"}
 
 ## Check Params
 #####################################################################
 
 if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ]; then
-  echo "Cant update DC/OS repo without given \$DCOS_BRANCH, \$PKG_TARGET and \$PKG_VERSION!"
+  echo "Can't update DC/OS repo without given \$DCOS_BRANCH, \$PKG_TARGET and \$PKG_VERSION!"
   exit 1
 fi
 
@@ -43,7 +43,7 @@ fi
 [ -d "${PROJECT_ROOT}/${DCOS_FOLDER}" ] && rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
 
 # clone & checkout correct branch
-git clone "${DCOS_ORIGIN}" ${PROJECT_ROOT}/${DCOS_FOLDER}
+git clone "${DCOS_ORIGIN}" "${PROJECT_ROOT}/${DCOS_FOLDER}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   checkout -B ${DCOS_BRANCH}
