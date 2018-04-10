@@ -98,13 +98,14 @@ class MesosStateStore extends GetSetBaseStore {
     // Since we introduced the fake event above, we have to guarantee certain
     // refresh limits to the UI. They are:
     //
-    // MOST once every (Config.getRefreshRate() * 0.5) ms. due to debounceTime.
-    // LEAST once every tick of Config.getRefreshRate() ms in Observable.interval
+    // MOST once every (Config.getRefreshRate() * 0.5) ms. due to sampleTime.
+    // LEAST once every tick of Config.getRefreshRate() ms in
+    // Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
     this.stream = waitStream
       .concat(eventTriggerStream)
-      .debounceTime(Config.getRefreshRate() * 0.5)
+      .sampleTime(Config.getRefreshRate() * 0.5)
       .retryWhen(linearBackoff(MAX_RETRIES, RETRY_DELAY))
       .subscribe(this.onStreamData, this.onStreamError);
   }
