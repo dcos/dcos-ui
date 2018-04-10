@@ -53,7 +53,7 @@ class MesosStateStore extends GetSetBaseStore {
     this.on(eventName, callback);
 
     if (this.shouldSubscribe()) {
-      Promise.resolve().then(() => this.subscribe());
+      this.subscribe();
     }
   }
 
@@ -96,8 +96,7 @@ class MesosStateStore extends GetSetBaseStore {
     // refresh limits to the UI. They are:
     //
     // MOST once every (Config.getRefreshRate() * 0.5) ms. due to debounceTime.
-    // LEAST once every tick of Config.getRefreshRate() ms in
-    // Observable.interval
+    // LEAST once every tick of Config.getRefreshRate() ms in Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
     this.stream = waitStream
