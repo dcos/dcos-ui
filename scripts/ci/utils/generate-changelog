@@ -15,12 +15,15 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 # project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
 
+# these are passed in from calling scripts
+PKG_TARGET=${PKG_TARGET:-""}
+
 ## Script
 #####################################################################
 
 
 # get tags to get changes between
-TAGS=($(git -C "${PROJECT_ROOT}" tag -l --sort=-version:refname))
+TAGS=($(git -C "${PROJECT_ROOT}" tag -l --sort=-version:refname | grep ${PKG_TARGET}))
 CURRENT_TAG=${TAGS[0]}
 PREVIOUS_TAG=${TAGS[1]}
 

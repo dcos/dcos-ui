@@ -70,5 +70,5 @@ DCOS_BRANCH=${DCOS_BRANCH} \
 DCOS_BRANCH=${DCOS_BRANCH} \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
-  CHANGELOG=$(${SCRIPT_PATH}/utils/generate-changelog) \
+  CHANGELOG=$(PKG_TARGET=${PKG_TARGET} ${SCRIPT_PATH}/utils/generate-changelog) \
   ${SCRIPT_PATH}/utils/create-bump-pr
