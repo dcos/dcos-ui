@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Observable";
 // WARNING: This is NOT a spec complete graphql implementation
 // https://facebook.github.io/graphql/October2016/
 
-/* eslint-disable-next-line import/prefer-default-export */
+// eslint-disable-next-line import/prefer-default-export
 export const graphqlObservable = (doc, schema, context) => {
   const translateOperation = {
     query: "Query"
