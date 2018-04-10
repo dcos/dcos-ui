@@ -3,18 +3,18 @@ import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/switchMap";
 
-// Recompose helps handle data down and event up as streams
-import { componentFromStream } from "#PACKAGES/data-service/recomposeRx";
-
-// Our in-house solution to resolve graphql queries using streams
-import { graphqlObservable } from "#PACKAGES/data-service/graphqlObservable";
+// graphqlObservable is our in house implementation of the graphql (not spec compliant yet)
+// componentFromStream transforms a stream of data into a React Component
+import { componentFromStream, graphqlObservable } from "data-service";
 
 // tools to make easier to create schemas and queries
 import { makeExecutableSchema } from "graphql-tools";
 import gql from "graphql-tag";
 
 // Streams we get our data from
-import { liveFetchRepositories } from "#PLUGINS/catalog/src/js/repositories/repositoriesStream";
+import {
+  liveFetchRepositories
+} from "#PLUGINS/catalog/src/js/repositories/repositoriesStream";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
 // The graphql schema and resolvers for those streams;
@@ -68,13 +68,12 @@ const components$ = searchTerm$
   })
   // We map over the data and return a component to render
   .map(data => {
-
     return (
       <RepositoriesTabUI
         repositories={data.packageRepository}
         searchTerm={data.searchTerm}
         // onSearch has arity 2 which prevents to pass `next` as reference
-        onSearch={(value) => {
+        onSearch={value => {
           searchTerm$.next(value);
         }}
       />
