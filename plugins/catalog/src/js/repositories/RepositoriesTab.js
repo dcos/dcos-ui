@@ -25,7 +25,7 @@ import RepositoriesTabUI from "./RepositoriesTabUI";
 
 // Using the data layer
 
-// 1. We first make an schema out of the resolvers and typeDefinitions
+// 1. We first make a schema out of the resolvers and typeDefinitions
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers
@@ -50,10 +50,13 @@ const searchTerm$ = new BehaviorSubject("");
 
 const packageRepository$ = liveFetchRepositories();
 
-const components$ = searchTerm$
+const keypressDebounceTime = 250;
+const searchResults$ = searchTerm$
+  .debounceTime(keypressDebounceTime)
   .switchMap(searchTerm => {
     const query = packageRepositoryQuery(searchTerm);
-    const liveQuery = graphqlObservable(query, schema, {
+
+    return graphqlObservable(query, schema, {
       query: packageRepository$
     }).map(result => {
       // Backwards compatible with the previous struct/RepositoryList for packages
@@ -61,10 +64,11 @@ const components$ = searchTerm$
         items: result.packageRepository
       });
     });
+  });
 
-    return liveQuery.map(packageRepository => {
-      return { packageRepository, searchTerm };
-    });
+const components$ = searchTerm$
+  .combineLatest(searchResults$, (searchTerm, packageRepository) => {
+    return { packageRepository, searchTerm };
   })
   // We map over the data and return a component to render
   .map(data => {
@@ -72,21 +76,14 @@ const components$ = searchTerm$
       <RepositoriesTabUI
         repositories={data.packageRepository}
         searchTerm={data.searchTerm}
-        // onSearch has arity 2 which prevents to pass `next` as reference
-        onSearch={value => {
-          searchTerm$.next(value);
-        }}
+        onSearch={value => searchTerm$.next(value)}
       />
     );
   })
   // The first component is the loading
   .startWith(<RepositoriesTabUI.Loading />)
   // If anything goes wrong, we render an error component
-  .catch(err => {
-    console.error(err);
-
-    return Observable.of(<RepositoriesTabUI.Error err={err} />);
-  });
+  .catch(err => Observable.of(<RepositoriesTabUI.Error err={err} />));
 
 // componentFromStream create a single component who render the latest emitted
 // component from the stream
