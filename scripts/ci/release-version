@@ -29,9 +29,8 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 # project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
-# get release target `master`` is fine, but if BRANCH_NAME is 
-# `release/1.11` we only want `1.11`
-PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+# get correct DC/OS target (=base branch!) from .dcosrc file
+PKG_TARGET=$(cat ${PROJECT_ROOT}/.dcosrc)
 
 # release name
 PKG_NAME="dcos-ui"

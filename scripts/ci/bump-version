@@ -18,9 +18,8 @@ CREATE_RELEASE=${CREATE_RELEASE:-0}
 # really push release? (prevents accedential calling)
 PUSH_RELEASE=${PUSH_RELEASE:-0}
 
-# get release target `master`` is fine, but if BRANCH_NAME is
-# `release/1.11` we only want `1.11`
-PKG_TARGET=$(echo ${BRANCH_NAME} | sed -E 's/([^/]*)$|./\1/g')
+# get correct DC/OS target (=base branch!) from .dcosrc file
+PKG_TARGET=$(cat ${PROJECT_ROOT}/.dcosrc)
 
 ## Create Release and Push it
 #####################################################################

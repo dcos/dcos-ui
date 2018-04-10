@@ -191,7 +191,7 @@
     "validate-build": "scripts/validate-build dist/*.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)",
     "tslint": "tslint -c tslint.json --project tsconfig.json",
-    "release": "standard-version --tag-prefix \"$(echo $(git branch | grep \\* | cut -d' ' -f2 | sed -E 's/([^/]*)$|./\\1/g'))+v\""
+    "release": "standard-version --tag-prefix \"$(cat ${PROJECT_ROOT}/.dcosrc)+v\""
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.dev.js"
