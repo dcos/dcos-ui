@@ -123,6 +123,11 @@ pipeline {
       }
     }
     
+    // Upload the current master as "latest" to s3 
+    // and update the corresponding DC/OS branch:
+    // For Example:
+    // - dcos-ui/master/dcos-ui-latest
+    // - dcos-ui/1.12/dcos-ui-latest
     stage('Release Latest') {
       when {
         expression {
