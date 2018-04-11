@@ -23,7 +23,7 @@ PKG_TARGET=${PKG_TARGET:-""}
 
 
 # get tags to get changes between
-TAGS=($(git -C "${PROJECT_ROOT}" tag -l --sort=-version:refname | grep ${PKG_TARGET}))
+TAGS=($(git -C "${PROJECT_ROOT}" tag -l --sort=-version:refname | grep "${PKG_TARGET}+v"))
 CURRENT_TAG=${TAGS[0]}
 PREVIOUS_TAG=${TAGS[1]}
 
