@@ -22,17 +22,20 @@ const typeDefs = `
   }
 `;
 
-const resolvers = {
+const mockResolvers = {
   Query: {
     launched: (parent, args, ctx) => {
       const { name } = args;
 
       // act according with the type of filter
       if (name === undefined) {
+        // When no filter is passed
         return ctx.query;
-      } else if (typeof name == "string") {
+      } else if (typeof name === "string") {
+        // When the filter is a value
         return ctx.query.map(els => els.filter(el => el.name === name));
       } else {
+        // when the filter is an observable
         return ctx.query
           .combineLatest(name, (res, name) => [res, name])
           .map(els => els[0].filter(el => el.name === els[1]));
@@ -43,7 +46,7 @@ const resolvers = {
 
 const schema = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers: mockResolvers
 });
 
 // jest helper who binds the marbles for you
