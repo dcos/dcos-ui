@@ -5,6 +5,7 @@ import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import { Badge } from "@dcos/ui-kit";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
@@ -138,7 +139,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
           itemCaption = (
             <span className="badge-container">
               <span className="badge-container-text">{localeVersion}</span>
-              <span className="badge">Active</span>
+              <Badge>Active</Badge>
             </span>
           );
         }
