@@ -110,16 +110,16 @@ function setup_plugins {
 function teardown_plugins {
   if [ -n "${PLUGINS_PATH}" ]; then
     if [ ${CLEANUP_TESTS} -eq 0 ]; then
-      echo "==> Cleaning up ./${TESTS_FOLDER} folder"
-      rm -r ${PROJECT_ROOT}/${TESTS_FOLDER}
-      git checkout ${PROJECT_ROOT}/${TESTS_FOLDER}
-      echo "==> done."
-    else
       echo ""
       echo "==> !!! PLUGINS TESTS ARE STILL IN YOUR ./${TESTS_FOLDER} FOLDER, MAKE SURE TO CLEAN UP !!!"
       echo "==> You can use 'rm -r ./${TESTS_FOLDER} && git checkout ./${TESTS_FOLDER}' to easily clean up."
       echo "==> Or you can provide CLEANUP_TESTS=1 to this script in order to automatically clean up."
       echo ""
+    else
+      echo "==> Cleaning up ./${TESTS_FOLDER} folder"
+      rm -r ${PROJECT_ROOT}/${TESTS_FOLDER}
+      git checkout ${PROJECT_ROOT}/${TESTS_FOLDER}
+      echo "==> done."
     fi
   fi
 }
