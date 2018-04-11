@@ -25,12 +25,12 @@ CHANGELOG=${CHANGELOG:-""}
 #####################################################################
 
 if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
-  echo "Cant Create Bump without given \$DCOS_BRANCH, \$PKG_TARGET, \$PKG_VERSION and \$CHANGELOG!"
+  echo "Can't create bump without given \$DCOS_BRANCH, \$PKG_TARGET, \$PKG_VERSION and \$CHANGELOG!"
   exit 1
 fi
 
 if [ -z "${GIT_USER}" ] || [ -z "${GIT_PASSWORD}" ]; then
-  echo "Cant Create Bump without given \$GIT_USER and \$GIT_PASSWORD!"
+  echo "Can't create bump without given \$GIT_USER and \$GIT_PASSWORD!"
   exit 1
 fi
 
