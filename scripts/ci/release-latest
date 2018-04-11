@@ -60,6 +60,8 @@ FORCE_UPLOAD=${FORCE_UPLOAD} \
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
+  DCOS_ORIGIN="mesosphere/dcos" \
+  DCOS_UPSTREAM="dcos/dcos" \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
   ${SCRIPT_PATH}/utils/update-dcos-repo

@@ -21,11 +21,15 @@ PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
 CHANGELOG=${CHANGELOG:-""}
 
+# DCOS Origin
+DCOS_ORIGIN=${DCOS_ORIGIN:-""}
+GITHUB_URL="https://api.github.com/repos/"
+
 ## Check Params
 #####################################################################
 
-if [ -z "${DCOS_BRANCH}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
-  echo "Can't create bump without given \$DCOS_BRANCH, \$PKG_TARGET, \$PKG_VERSION and \$CHANGELOG!"
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${DCOS_ORIGIN}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
+  echo "Can't create bump without given \$DCOS_BRANCH, \$DCOS_ORIGIN, \$PKG_TARGET, \$PKG_VERSION and \$CHANGELOG!"
   exit 1
 fi
 
@@ -37,7 +41,7 @@ fi
 ## Create DC/OS Bump PR
 #####################################################################
 
-TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" https://api.github.com/repos/dcos/dcos/contents/PULL_REQUEST_TEMPLATE.md)
+TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" ${GITHUB_URL}${DCOS_ORIGIN}/contents/PULL_REQUEST_TEMPLATE.md)
 TASKS_HEAD="Corresponding DC/OS tickets (obligatory)"
 
 PR_BODY=$(echo "${TEMPLATE}" | sed "s@${TASKS_HEAD}@${TASKS_HEAD}<br /><br />${CHANGELOG}@")
@@ -51,4 +55,9 @@ pullRequest="{
   \"base\": \"${PKG_TARGET}\"
 }"
 
-curl -H "Content-Type: application/json" -u "$GIT_USER:$GIT_PASSWORD" -X POST -d "${pullRequest}" https://api.github.com/repos/dcos/dcos/pulls
+curl 
+  -H "Content-Type: application/json" 
+  -u "$GIT_USER:$GIT_PASSWORD" 
+  -X POST 
+  -d "${pullRequest}" 
+  "${GITHUB_URL}${DCOS_ORIGIN}/pulls"
