@@ -16,6 +16,7 @@ describe("ServicesTable", function() {
   const healthyService = new Application({
     healthChecks: [{ path: "", protocol: "HTTP" }],
     cpus: 1,
+    gpus: 1,
     instances: 1,
     mem: 2048,
     disk: 0,
@@ -95,6 +96,15 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("1");
     });
 
+    it("renders resources/stats gpus property", function() {
+      var gpusCell = ReactDOM.render(
+        thisInstance.renderStats("gpus", healthyService),
+        thisContainer
+      );
+
+      expect(ReactDOM.findDOMNode(gpusCell).textContent).toEqual("1");
+    });
+
     it("renders resources/stats mem property", function() {
       var memCell = ReactDOM.render(
         thisInstance.renderStats("mem", healthyService),
@@ -134,10 +144,33 @@ describe("ServicesTable", function() {
       expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("2");
     });
 
+    it("renders sum of resources/stats gpus property", function() {
+      const application = new Application({
+        healthChecks: [{ path: "", protocol: "HTTP" }],
+        cpus: 1,
+        gpus: 1,
+        instances: 2,
+        mem: 2048,
+        disk: 0,
+        tasksStaged: 0,
+        tasksRunning: 2,
+        tasksHealthy: 2,
+        tasksUnhealthy: 0
+      });
+
+      var gpusCell = ReactDOM.render(
+        thisInstance.renderStats("gpus", application),
+        thisContainer
+      );
+
+      expect(ReactDOM.findDOMNode(gpusCell).textContent).toEqual("2");
+    });
+
     it("renders sum of resources/stats mem property", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
+        gpus: 1,
         instances: 2,
         mem: 2048,
         disk: 0,
@@ -159,6 +192,7 @@ describe("ServicesTable", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
+        gpus: 1,
         instances: 2,
         mem: 2048,
         disk: 0,

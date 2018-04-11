@@ -49,7 +49,8 @@ const columnClasses = {
   cpus: "service-table-column-cpus",
   mem: "service-table-column-mem",
   disk: "service-table-column-disk",
-  actions: "service-table-column-actions"
+  actions: "service-table-column-actions",
+  gpus: "service-table-column-gpus"
 };
 
 const METHODS_TO_BIND = [
@@ -497,6 +498,15 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
+        prop: "gpus",
+        render: this.renderStats,
+        sortable: true,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
+        heading
+      },
+      {
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: "actions",
         render: this.renderServiceActions,
         sortable: false,
@@ -516,6 +526,7 @@ class ServicesTable extends React.Component {
         <col className={columnClasses.cpus} />
         <col className={columnClasses.mem} />
         <col className={columnClasses.disk} />
+        <col className={columnClasses.gpus} />
         <col className={columnClasses.actions} />
       </colgroup>
     );

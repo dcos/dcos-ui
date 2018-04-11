@@ -65,6 +65,17 @@ function cpusCompareFunction(a, b) {
 }
 
 /**
+ * Compare service gpus
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
+ * @returns {number} a number indicating whether "a" comes before or after or
+ * is the same as "b" in sort order.
+ */
+function gpusCompareFunction(a, b) {
+  return numberCompareFunction(a.getResources().gpus, b.getResources().gpus);
+}
+
+/**
  * Compare service memory
  * @param {Service|ServiceTree} a
  * @param {Service|ServiceTree} b
@@ -111,6 +122,8 @@ function getCompareFunctionByProp(prop) {
       return statusCompareFunction;
     case "cpus":
       return cpusCompareFunction;
+    case "gpus":
+      return gpusCompareFunction;
     case "mem":
       return memCompareFunction;
     case "disk":
