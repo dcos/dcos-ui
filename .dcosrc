@@ -1,1 +1,4 @@
-master
+{
+  "base": "master",
+  "name": "dcos-ui"
+}

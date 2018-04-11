@@ -30,10 +30,14 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
 # get correct DC/OS target (=base branch!) from .dcosrc file
-PKG_TARGET=$(cat ${PROJECT_ROOT}/.dcosrc)
+PKG_TARGET=$(python -c "import sys, json; \
+  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
+  sys.stdout.write(str(dcosrc['base']));")
 
-# release name
-PKG_NAME="dcos-ui"
+# get correct package name from .dcosrc file
+PKG_NAME="$(python -c "import sys, json; \
+  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
+  sys.stdout.write(str(dcosrc['name']));")"
 
 # release version
 PKG_VERSION="$(python -c "import sys, json; \

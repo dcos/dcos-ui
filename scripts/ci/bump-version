@@ -19,7 +19,9 @@ CREATE_RELEASE=${CREATE_RELEASE:-0}
 PUSH_RELEASE=${PUSH_RELEASE:-0}
 
 # get correct DC/OS target (=base branch!) from .dcosrc file
-PKG_TARGET=$(cat ${PROJECT_ROOT}/.dcosrc)
+PKG_TARGET=$(python -c "import sys, json; \
+  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
+  sys.stdout.write(str(dcosrc['base']));")
 
 ## Create Release and Push it
 #####################################################################
