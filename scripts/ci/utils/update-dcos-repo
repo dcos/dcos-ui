@@ -27,9 +27,6 @@ PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
 DCOS_BRANCH=${DCOS_BRANCH:-""}
 
-# DCOS base branch to work on
-DCOS_BASE_BRANCH=${DCOS_BASE_BRANCH:-"${PKG_TARGET}"}
-
 ## Check Params
 #####################################################################
 
@@ -55,7 +52,7 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   fetch upstream
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  reset --hard "upstream/${DCOS_BASE_BRANCH}"
+  reset --hard "upstream/${PKG_TARGET}"
 
 cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \

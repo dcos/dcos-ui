@@ -21,9 +21,6 @@ PKG_VERSION=${PKG_VERSION:-""}
 PKG_TARGET=${PKG_TARGET:-""}
 CHANGELOG=${CHANGELOG:-""}
 
-# DCOS base branch to create a PR against
-DCOS_BASE_BRANCH=${DCOS_BASE_BRANCH:-"${PKG_TARGET}"}
-
 ## Check Params
 #####################################################################
 
@@ -51,7 +48,7 @@ pullRequest="{
   \"title\": \"Bump DC/OS UI Package ${PKG_VERSION}\",
   \"body\": \"${PR_BODY_NO_NEWLINES_NO_HEADING}\",
   \"head\": \"mesosphere:${DCOS_BRANCH}\",
-  \"base\": \"${DCOS_BASE_BRANCH}\"
+  \"base\": \"${PKG_TARGET}\"
 }"
 
 curl -H "Content-Type: application/json" -u "$GIT_USER:$GIT_PASSWORD" -X POST -d "${pullRequest}" https://api.github.com/repos/dcos/dcos/pulls
