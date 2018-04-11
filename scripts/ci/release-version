@@ -34,29 +34,25 @@ PKG_TARGET=$(python -c "import sys, json; \
   dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
   sys.stdout.write(str(dcosrc['base']));")
 
-# get correct package name from .dcosrc file
-PKG_NAME="$(python -c "import sys, json; \
-  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
-  sys.stdout.write(str(dcosrc['name']));")"
-
 # release version
 PKG_VERSION="$(python -c "import sys, json; \
   pkg = json.load(open('$PROJECT_ROOT/package.json')); \
   sys.stdout.write(str(pkg['version']));")"
+
+# build release name for branch and file names
+RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
 
 # dcos branch to work with
 # Examples:
 # - dcos-ui/master/dcos-ui-latest
 # - dcos-ui/1.12/dcos-ui-latest
 # - dcos-ui/1.11/dcos-ui-latest
-DCOS_BRANCH="dcos-ui/${PKG_TARGET}/${PKG_NAME}-${PKG_VERSION}"
+DCOS_BRANCH="dcos-ui/${RELEASE_NAME}"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
 
-PKG_TARGET=${PKG_TARGET} \
-  PKG_NAME=${PKG_NAME} \
-  PKG_VERSION=${PKG_VERSION} \
+RELEASE_NAME="${RELEASE_NAME}" \
   ${SCRIPT_PATH}/utils/upload-build
 
 ## Update DC/OS Repo
