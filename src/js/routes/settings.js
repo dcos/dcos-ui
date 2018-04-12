@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router";
 
-import RepositoriesTab
-  from "#PLUGINS/catalog/src/js/repositories/RepositoriesTab";
+import RepositoriesList
+  from "#PLUGINS/catalog/src/js/repositories/RepositoriesList";
 import SettingsPage from "../pages/SettingsPage";
 
 const settingsRoutes = [
@@ -20,7 +20,7 @@ const settingsRoutes = [
       {
         type: Route,
         path: "repositories",
-        component: RepositoriesTab,
+        component: RepositoriesList,
         isInSidebar: true
       }
     ]

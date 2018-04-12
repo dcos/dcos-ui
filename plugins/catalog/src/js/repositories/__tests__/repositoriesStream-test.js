@@ -6,7 +6,7 @@ import {
   liveFetchRepositories,
   addRepository,
   deleteRepository
-} from "../repositoriesStream";
+} from "../data/repositoriesStream";
 
 jest.mock("@dcos/http-service");
 
