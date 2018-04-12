@@ -14,14 +14,14 @@ import gql from "graphql-tag";
 // Streams we get our data from
 import {
   liveFetchRepositories
-} from "#PLUGINS/catalog/src/js/repositories/repositoriesStream";
+} from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
 // The graphql schema and resolvers for those streams;
-import { typeDefs, resolvers } from "./repositoriesModel";
+import { typeDefs, resolvers } from "./data/repositoriesModel";
 
 // UI components
-import RepositoriesTabUI from "./RepositoriesTabUI";
+import RepositoriesTabUI from "./components/RepositoriesTabUI";
 
 // Using the data layer
 
@@ -87,13 +87,13 @@ const components$ = searchTerm$
 
 // componentFromStream create a single component who render the latest emitted
 // component from the stream
-const RepositoriesTab = componentFromStream(() => components$);
+const RepositoriesList = componentFromStream(() => components$);
 
 // the reason we don`t `export componentFromStream()` is so you can add those
 // router specific things
-RepositoriesTab.routeConfig = {
+RepositoriesList.routeConfig = {
   label: "Package Repositories",
   matches: /^\/settings\/repositories/
 };
 
-module.exports = RepositoriesTab;
+module.exports = RepositoriesList;

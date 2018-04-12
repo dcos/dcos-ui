@@ -1,6 +1,6 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import * as repositoriesStream
-  from "#PLUGINS/catalog/src/js/repositories/repositoriesStream";
+  from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 
 import {
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
