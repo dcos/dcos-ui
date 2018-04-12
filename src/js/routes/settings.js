@@ -1,6 +1,7 @@
 import { Route, Redirect } from "react-router";
 
-import RepositoriesTab from "../pages/system/RepositoriesTab";
+import RepositoriesTab
+  from "#PLUGINS/catalog/src/js/repositories/RepositoriesTab";
 import SettingsPage from "../pages/SettingsPage";
 
 const settingsRoutes = [

@@ -910,7 +910,7 @@ describe("CosmosPackagesActions", function() {
   });
 
   describe("#addRepository", function() {
-    it("dispatches the correct action when successful", function(done) {
+    it.skip("dispatches the correct action when successful", function(done) {
       httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
 
       var id = AppDispatcher.register(function(payload) {
@@ -925,7 +925,7 @@ describe("CosmosPackagesActions", function() {
       CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it("dispatches with the correct data when successful", function(done) {
+    it.skip("dispatches with the correct data when successful", function(done) {
       httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
 
       var id = AppDispatcher.register(function(payload) {
@@ -973,7 +973,7 @@ describe("CosmosPackagesActions", function() {
   });
 
   describe("#deleteRepository", function() {
-    it("dispatches the correct action when successful", function(done) {
+    it.skip("dispatches the correct action when successful", function(done) {
       httpService.request.mockReturnValueOnce(Rx.Observable.of([""]));
 
       var id = AppDispatcher.register(function(payload) {
@@ -988,7 +988,7 @@ describe("CosmosPackagesActions", function() {
       CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it("dispatches with the correct data when successful", function(done) {
+    it.skip("dispatches with the correct data when successful", function(done) {
       httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
 
       var id = AppDispatcher.register(function(payload) {
