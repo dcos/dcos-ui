@@ -6,8 +6,6 @@ import CreateServiceModal
   from "#PLUGINS/services/src/js/components/modals/CreateServiceModal";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
-import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
-import Page from "#SRC/js/components/Page";
 
 class EditServiceModal extends Component {
   render() {
@@ -23,14 +21,9 @@ class EditServiceModal extends Component {
 
     // Service not found
     if (!service) {
-      return (
-        <Page>
-          <Page.Header />
-          <RequestErrorMsg
-            header={<p>This service does not exist, you can not edit it</p>}
-          />
-        </Page>
-      );
+      this.props.history.push("/services/404");
+
+      return null;
     }
 
     if (

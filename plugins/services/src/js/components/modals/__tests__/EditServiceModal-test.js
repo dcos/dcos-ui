@@ -28,14 +28,16 @@ describe("EditServiceModal", function() {
         return null;
       }
     };
+    const pushMock = jest.fn();
 
-    const wrapper = mount(
-      <EditServiceModal params={{ id: "/my-non-existant-service" }} />
+    mount(
+      <EditServiceModal
+        history={{ push: pushMock }}
+        params={{ id: "/my-non-existant-service" }}
+      />
     );
 
-    expect(wrapper.text()).toContain(
-      "This service does not exist, you can not edit it"
-    );
+    expect(pushMock).toHaveBeenCalled();
   });
 
   it("renders an edit modal if the service has been created", function() {
