@@ -71,6 +71,7 @@
     "babel-preset-jest": "19.0.0",
     "babel-preset-react": "6.5.0",
     "babel-preset-react-hmre": "1.1.1",
+    "babel-preset-stage-3": "6.24.1",
     "babel-register": "6.24.1",
     "babel-runtime": "6.23.0",
     "colors": "1.1.2",
