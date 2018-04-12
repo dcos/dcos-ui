@@ -19,6 +19,7 @@ import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
+import { Badge } from "@dcos/ui-kit/dist/components";
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 
@@ -198,7 +199,7 @@ var NodesOverview = React.createClass({
         <span className="badge-container-text">
           <span>{StringUtil.capitalize(filterName)}</span>
         </span>
-        <span className="badge">{count || 0}</span>
+        <Badge>{count || 0}</Badge>
       </span>
     );
   },

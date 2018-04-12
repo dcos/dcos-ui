@@ -51,7 +51,7 @@ describe("FilterByService", function() {
       );
 
       var node = ReactDOM.findDOMNode(item);
-      var text = node.querySelector(".badge");
+      var text = node.querySelector(".badge-container-text + span");
 
       expect(parseInt(text.textContent, 10)).toEqual(
         MockFrameworks.frameworks[4].slave_ids.length

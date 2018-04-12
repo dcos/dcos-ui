@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown } from "reactjs-components";
 
+import { Badge } from "@dcos/ui-kit/dist/components";
 import Framework from "../structs/Framework";
 
 var defaultId = "default";
@@ -37,9 +38,7 @@ var FilterByService = React.createClass({
     return (
       <span className="badge-container">
         <span className="badge-container-text">{service.get("name")}</span>
-        <span className="badge">
-          {service.getNodeIDs().length}
-        </span>
+        <Badge>{service.getNodeIDs().length}</Badge>
       </span>
     );
   },

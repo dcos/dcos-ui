@@ -4,6 +4,7 @@ import { Link, formatPattern } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
+import { Badge } from "@dcos/ui-kit";
 import TabsUtil from "../utils/TabsUtil";
 import Util from "../utils/Util";
 import NotificationStore from "../stores/NotificationStore";
@@ -117,11 +118,7 @@ const TabsMixin = {
     });
 
     if (hasNotification) {
-      badge = (
-        <span className="badge">
-          {notificationCount}
-        </span>
-      );
+      badge = <Badge>{notificationCount}</Badge>;
     }
 
     return (
