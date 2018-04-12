@@ -631,6 +631,7 @@ describe("ServiceTree", function() {
           cpus: 1,
           mem: 2048,
           disk: 0,
+          gpus: 2,
           instances: 1
         })
       );
@@ -639,6 +640,7 @@ describe("ServiceTree", function() {
           cpus: 6,
           mem: 1024,
           disk: 6,
+          gpus: 8,
           instances: 1
         })
       );
@@ -646,7 +648,8 @@ describe("ServiceTree", function() {
       expect(thisInstance.getResources()).toEqual({
         cpus: 7,
         mem: 3072,
-        disk: 6
+        disk: 6,
+        gpus: 10
       });
     });
   });
