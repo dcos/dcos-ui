@@ -26,7 +26,7 @@ module.exports = {
       if (joinedPath === "labels") {
         switch (type) {
           case ADD_ITEM:
-            this.labels.push({ key: null, value: null });
+            this.labels.push({ key: null, value: "" });
             break;
           case REMOVE_ITEM:
             this.labels = this.labels.filter((item, index) => {
@@ -36,7 +36,7 @@ module.exports = {
         }
 
         return this.labels.reduce((memo, item) => {
-          if (item.key != null || item.value != null) {
+          if (item.key != null) {
             memo[item.key] = item.value;
           }
 
@@ -54,7 +54,7 @@ module.exports = {
     }
 
     return this.labels.reduce((memo, item) => {
-      if (item.key != null || item.value != null) {
+      if (item.key != null) {
         memo[item.key] = item.value;
       }
 

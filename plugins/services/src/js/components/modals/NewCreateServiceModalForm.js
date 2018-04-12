@@ -83,7 +83,20 @@ class NewCreateServiceModalForm extends Component {
     // Hint: When you add something to the state, make sure to update the
     //       shouldComponentUpdate function, since we are trying to reduce
     //       the number of updates as much as possible.
+    // In the Next line we are destructing the config to keep labels as it is and even keep labels with an empty value
+    const { labels = {}, ...serviceConfig } = ServiceUtil.getServiceJSON(
+      this.props.service
+    );
 
+    let newServiceConfig = {
+      labels,
+      ...CreateServiceModalFormUtil.stripEmptyProperties(serviceConfig)
+    };
+    if (Object.keys(labels).length === 0) {
+      newServiceConfig = CreateServiceModalFormUtil.stripEmptyProperties(
+        serviceConfig
+      );
+    }
     this.state = Object.assign(
       {
         appConfig: null,
@@ -96,10 +109,8 @@ class NewCreateServiceModalForm extends Component {
         jsonParser() {}
       },
       this.getNewStateForJSON(
-        CreateServiceModalFormUtil.stripEmptyProperties(
-          ServiceUtil.getServiceJSON(this.props.service)
-        ),
-        false,
+        newServiceConfig,
+        true,
         this.props.service instanceof PodSpec
       )
     );
@@ -296,9 +307,19 @@ class NewCreateServiceModalForm extends Component {
     KEY_VALUE_FIELDS.forEach(function(field) {
       delete baseConfig[field];
     });
-    const patch = batch.reduce(this.props.jsonConfigReducers, {});
+    const newConfig = batch.reduce(this.props.jsonConfigReducers, {});
 
-    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    // In the Next line we are destructing the config to keep labels as it is and even keep labels with an empty value
+    const { labels, ...config } = newConfig;
+
+    if (Object.keys(labels).length === 0) {
+      return CreateServiceModalFormUtil.stripEmptyProperties(config);
+    }
+
+    return {
+      labels,
+      ...CreateServiceModalFormUtil.stripEmptyProperties(config)
+    };
   }
 
   getErrors() {
