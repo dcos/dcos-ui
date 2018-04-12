@@ -31,9 +31,9 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/* \
   # Post-install java certificates
   /var/lib/dpkg/info/ca-certificates-java.postinst configure \
-  # Install npm dependencies
+  # Install npm dependencies (System Tests!)
   && cd /dcos-ui \
-  && npm install -g junit-merge@1.3.0 git://github.com/johntron/http-server.git#proxy-secure-flag \
+  && npm install -g git://github.com/johntron/http-server.git#proxy-secure-flag \
   # Install dcos-launch
   && curl 'https://downloads.dcos.io/dcos-launch/bin/linux/dcos-launch' > /usr/local/bin/dcos-launch \
   && chmod +x /usr/local/bin/dcos-launch \
