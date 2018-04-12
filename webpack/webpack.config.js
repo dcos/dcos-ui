@@ -89,7 +89,8 @@ module.exports = {
               "babel-preset-es2015",
               "babel-preset-stage-3",
               "babel-preset-react"
-            ])
+            ]),
+            plugins: requireAll(["react-hot-loader/babel"])
           }
         }
       },
@@ -139,7 +140,8 @@ module.exports = {
             {
               loader: "less-loader",
               options: {
-                sourceMap: true,
+                paths: [path.resolve(__dirname, "../node_modules")],
+                sourceMap: false,
                 plugins: [LessColorLighten]
               }
             }

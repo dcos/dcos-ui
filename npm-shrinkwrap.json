@@ -1469,9 +1469,9 @@
       }
     },
     "babel-loader": {
-      "version": "7.1.3",
-      "resolved": "https://registry.npmjs.org/babel-loader/-/babel-loader-7.1.3.tgz",
-      "integrity": "sha512-PeN29YvOynPMvNk7QCzsHqxpmfXwKAC+uxkiSNFQsmXBBVltzEkVWmv/Ip3tx7yk149dQUwk497bTXNu+DZjLA==",
+      "version": "7.1.4",
+      "resolved": "https://registry.npmjs.org/babel-loader/-/babel-loader-7.1.4.tgz",
+      "integrity": "sha512-/hbyEvPzBJuGpk9o80R0ZyTej6heEOr59GoEUtn8qFKbnx4cJm9FWES6J/iv644sYgrtVw9JJQkjaLW/bqb5gw==",
       "dev": true,
       "requires": {
         "find-cache-dir": "1.0.0",
@@ -23889,30 +23889,30 @@
         "prop-types": "15.6.0"
       }
     },
-    "react-hot-api": {
-      "version": "0.4.7",
-      "resolved": "https://registry.npmjs.org/react-hot-api/-/react-hot-api-0.4.7.tgz",
-      "integrity": "sha1-p+IqVtJS4Rq9k2a2EmTPRJLFgXE=",
-      "dev": true
-    },
     "react-hot-loader": {
-      "version": "1.3.1",
-      "resolved": "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-1.3.1.tgz",
-      "integrity": "sha1-yVZHrni3Pfzv9uxx/8sEGC/22vk=",
+      "version": "3.1.3",
+      "resolved": "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-3.1.3.tgz",
+      "integrity": "sha512-d7nZf78irxoGN5PY4zd6CSgZiroOhvIWzRast3qwTn4sSnBwlt08kV8WMQ9mitmxEdlCTwZt+5ClrRSjxWguMQ==",
       "dev": true,
       "requires": {
-        "react-hot-api": "0.4.7",
-        "source-map": "0.4.4"
+        "global": "4.3.2",
+        "react-deep-force-update": "2.1.1",
+        "react-proxy": "3.0.0-alpha.1",
+        "redbox-react": "1.5.0",
+        "source-map": "0.6.1"
       },
       "dependencies": {
+        "react-deep-force-update": {
+          "version": "2.1.1",
+          "resolved": "https://registry.npmjs.org/react-deep-force-update/-/react-deep-force-update-2.1.1.tgz",
+          "integrity": "sha1-jqQmPNZFWgULN0RbPwj9g52G6Qk=",
+          "dev": true
+        },
         "source-map": {
-          "version": "0.4.4",
-          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.4.4.tgz",
-          "integrity": "sha1-66T12pwNyZneaAMti092FzZSA2s=",
-          "dev": true,
-          "requires": {
-            "amdefine": "1.0.1"
-          }
+          "version": "0.6.1",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz",
+          "integrity": "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==",
+          "dev": true
         }
       }
     },
@@ -23956,13 +23956,12 @@
       }
     },
     "react-proxy": {
-      "version": "1.1.8",
-      "resolved": "https://registry.npmjs.org/react-proxy/-/react-proxy-1.1.8.tgz",
-      "integrity": "sha1-nb/Z2SdSjDqp9ETkVYw3gwq4wmo=",
+      "version": "3.0.0-alpha.1",
+      "resolved": "https://registry.npmjs.org/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz",
+      "integrity": "sha1-RABCa8+oDKpnJMd1VpUxUgn6Swc=",
       "dev": true,
       "requires": {
-        "lodash": "4.17.5",
-        "react-deep-force-update": "1.1.1"
+        "lodash": "4.17.5"
       },
       "dependencies": {
         "lodash": {
@@ -24023,6 +24022,24 @@
       "requires": {
         "global": "4.3.2",
         "react-proxy": "1.1.8"
+      },
+      "dependencies": {
+        "lodash": {
+          "version": "4.17.5",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz",
+          "integrity": "sha512-svL3uiZf1RwhH+cWrfZn3A4+U58wbP0tGVTLQPbjplZxZ8ROD9VLuNgsRniTlLe7OlSqR79RUehXgpBW/s0IQw==",
+          "dev": true
+        },
+        "react-proxy": {
+          "version": "1.1.8",
+          "resolved": "https://registry.npmjs.org/react-proxy/-/react-proxy-1.1.8.tgz",
+          "integrity": "sha1-nb/Z2SdSjDqp9ETkVYw3gwq4wmo=",
+          "dev": true,
+          "requires": {
+            "lodash": "4.17.5",
+            "react-deep-force-update": "1.1.1"
+          }
+        }
       }
     },
     "react-transition-group": {
