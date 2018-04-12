@@ -1,0 +1,16 @@
+{
+  "name": "data-service",
+  "module": "./src/index.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "graphql": "0.13.2",
+    "graphql-tag": "2.8.0",
+    "graphql-tools": "2.23.1",
+    "recompose": "0.26.0",
+    "rxjs": "5.4.3"
+  },
+  "devDependencies": {
+    "rxjs-marbles": "2.3.1"
+  }
+}
