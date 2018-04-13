@@ -122,8 +122,8 @@ pipeline {
         }
       }
     }
-    
-    // Upload the current master as "latest" to s3 
+
+    // Upload the current master as "latest" to s3
     // and update the corresponding DC/OS branch:
     // For Example:
     // - dcos-ui/master/dcos-ui-latest
