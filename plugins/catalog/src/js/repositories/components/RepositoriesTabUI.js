@@ -1,13 +1,11 @@
 import React from "react";
 
-import AddRepositoryFormModal
-  from "#SRC/js/components/modals/AddRepositoryFormModal";
-
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
-import RepositoriesTable from "./RepositoriesTable";
 
 import RepositoriesPage from "./RepositoriesPage";
+import RepositoriesTable from "./RepositoriesTable";
+import RepositoriesAdd from "../RepositoriesAdd";
 
 const METHODS_TO_BIND = ["handleCloseAddRepository", "handleOpenAddRepository"];
 
@@ -48,7 +46,7 @@ export default class RepositoriesTabUI extends React.Component {
           />
         </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchTerm} />
-        <AddRepositoryFormModal
+        <RepositoriesAdd
           numberOfRepositories={repositories.getItems().length}
           open={addRepositoryModalOpen}
           onClose={this.handleCloseAddRepository}
