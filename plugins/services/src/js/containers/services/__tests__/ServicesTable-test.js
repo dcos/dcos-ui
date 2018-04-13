@@ -1,21 +1,22 @@
+import { shallow } from "enzyme";
 // Explicitly mock for react-intl
 jest.mock("../../../components/modals/ServiceActionDisabledModal");
 
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */
-const ReactDOM = require("react-dom");
 const renderer = require("react-test-renderer");
 const ServicesTable = require("../ServicesTable");
 const Application = require("../../../structs/Application");
 const ServiceStatus = require("../../../constants/ServiceStatus");
 
-let thisContainer, thisInstance;
+let thisInstance;
 
 describe("ServicesTable", function() {
   const healthyService = new Application({
     healthChecks: [{ path: "", protocol: "HTTP" }],
     cpus: 1,
+    gpus: 1,
     instances: 1,
     mem: 2048,
     disk: 0,
@@ -26,15 +27,7 @@ describe("ServicesTable", function() {
   });
 
   beforeEach(function() {
-    thisContainer = global.document.createElement("div");
-    thisInstance = ReactDOM.render(
-      <ServicesTable.WrappedComponent />,
-      thisContainer
-    );
-  });
-
-  afterEach(function() {
-    ReactDOM.unmountComponentAtNode(thisContainer);
+    thisInstance = shallow(<ServicesTable.WrappedComponent />);
   });
 
   describe("#renderStatus", function() {
@@ -87,30 +80,35 @@ describe("ServicesTable", function() {
 
   describe("#renderStats", function() {
     it("renders resources/stats cpus property", function() {
-      var cpusCell = ReactDOM.render(
-        thisInstance.renderStats("cpus", healthyService),
-        thisContainer
+      var cpusCell = shallow(
+        thisInstance.instance().renderStats("cpus", healthyService)
       );
 
-      expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("1");
+      expect(cpusCell.text()).toEqual("1");
+    });
+
+    it("renders resources/stats gpus property", function() {
+      var gpusCell = shallow(
+        thisInstance.instance().renderStats("gpus", healthyService)
+      );
+
+      expect(gpusCell.text()).toEqual("1");
     });
 
     it("renders resources/stats mem property", function() {
-      var memCell = ReactDOM.render(
-        thisInstance.renderStats("mem", healthyService),
-        thisContainer
+      var memCell = shallow(
+        thisInstance.instance().renderStats("mem", healthyService)
       );
 
-      expect(ReactDOM.findDOMNode(memCell).textContent).toEqual("2 GiB");
+      expect(memCell.text()).toEqual("2 GiB");
     });
 
     it("renders resources/stats disk property", function() {
-      var disksCell = ReactDOM.render(
-        thisInstance.renderStats("disk", healthyService),
-        thisContainer
+      var disksCell = shallow(
+        thisInstance.instance().renderStats("disk", healthyService)
       );
 
-      expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual("0 B");
+      expect(disksCell.text()).toEqual("0 B");
     });
 
     it("renders sum of resources/stats cpus property", function() {
@@ -126,18 +124,39 @@ describe("ServicesTable", function() {
         tasksUnhealthy: 0
       });
 
-      var cpusCell = ReactDOM.render(
-        thisInstance.renderStats("cpus", application),
-        thisContainer
+      var cpusCell = shallow(
+        thisInstance.instance().renderStats("cpus", application)
       );
 
-      expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual("2");
+      expect(cpusCell.text()).toEqual("2");
+    });
+
+    it("renders sum of resources/stats gpus property", function() {
+      const application = new Application({
+        healthChecks: [{ path: "", protocol: "HTTP" }],
+        cpus: 1,
+        gpus: 1,
+        instances: 2,
+        mem: 2048,
+        disk: 0,
+        tasksStaged: 0,
+        tasksRunning: 2,
+        tasksHealthy: 2,
+        tasksUnhealthy: 0
+      });
+
+      var gpusCell = shallow(
+        thisInstance.instance().renderStats("gpus", application)
+      );
+
+      expect(gpusCell.text()).toEqual("2");
     });
 
     it("renders sum of resources/stats mem property", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
+        gpus: 1,
         instances: 2,
         mem: 2048,
         disk: 0,
@@ -147,18 +166,18 @@ describe("ServicesTable", function() {
         tasksUnhealthy: 0
       });
 
-      var memCell = ReactDOM.render(
-        thisInstance.renderStats("mem", application),
-        thisContainer
+      var memCell = shallow(
+        thisInstance.instance().renderStats("mem", application)
       );
 
-      expect(ReactDOM.findDOMNode(memCell).textContent).toEqual("4 GiB");
+      expect(memCell.text()).toEqual("4 GiB");
     });
 
     it("renders sum of resources/stats disk property", function() {
       const application = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         cpus: 1,
+        gpus: 1,
         instances: 2,
         mem: 2048,
         disk: 0,
@@ -168,12 +187,11 @@ describe("ServicesTable", function() {
         tasksUnhealthy: 0
       });
 
-      var disksCell = ReactDOM.render(
-        thisInstance.renderStats("disk", application),
-        thisContainer
+      var disksCell = shallow(
+        thisInstance.instance().renderStats("disk", application)
       );
 
-      expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual("0 B");
+      expect(disksCell.text()).toEqual("0 B");
     });
   });
 });

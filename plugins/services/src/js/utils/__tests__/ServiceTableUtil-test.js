@@ -9,6 +9,7 @@ describe("ServiceTableUtil", function() {
     id: "/healthy-service",
     healthChecks: [{ path: "", protocol: "HTTP" }],
     cpus: 2,
+    gpus: 2,
     mem: 2048,
     disk: 10,
     instances: 2,
@@ -22,6 +23,7 @@ describe("ServiceTableUtil", function() {
     id: "/unhealthy-service",
     healthChecks: [{ path: "", protocol: "HTTP" }],
     cpus: 1,
+    gpus: 1,
     mem: 1024,
     disk: 0,
     instances: 2,
@@ -180,6 +182,30 @@ describe("ServiceTableUtil", function() {
       });
 
       it("returns -1 if a has less cpus than b", function() {
+        expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
+          -1
+        );
+      });
+    });
+
+    describe("compare item gpus", function() {
+      beforeEach(function() {
+        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
+          "gpus"
+        );
+      });
+
+      it("returns 1 if a has more gpus than b", function() {
+        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
+          1
+        );
+      });
+
+      it("returns 0 if a has same number of gpus as b", function() {
+        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
+      });
+
+      it("returns -1 if a has less gpus than b", function() {
         expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );

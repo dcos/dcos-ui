@@ -10,6 +10,7 @@ import Util from "./Util";
 
 const LEFT_ALIGN_PROPS = [
   "cpus",
+  "gpus",
   "disk",
   "log",
   "mem",

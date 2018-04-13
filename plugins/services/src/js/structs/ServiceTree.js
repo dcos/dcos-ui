@@ -315,16 +315,17 @@ module.exports = class ServiceTree extends Tree {
     return this.reduceItems(
       function(resources, item) {
         if (item instanceof Service) {
-          const { cpus = 0, mem = 0, disk = 0 } = item.getResources();
+          const { cpus = 0, mem = 0, disk = 0, gpus = 0 } = item.getResources();
 
           resources.cpus += cpus;
           resources.mem += mem;
           resources.disk += disk;
+          resources.gpus += gpus;
         }
 
         return resources;
       },
-      { cpus: 0, mem: 0, disk: 0 }
+      { cpus: 0, mem: 0, disk: 0, gpus: 0 }
     );
   }
 
