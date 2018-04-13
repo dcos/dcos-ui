@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -e
+[ -n "${DEBUG}" ] && set -x
+
+# This script is intended to be called by the ci scripts, please dont 
+# execute it directly.
+
+## Configuration
+#####################################################################
+
+# path of this file
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
+
+# these are passed in from calling script
+DCOS_BRANCH=${DCOS_BRANCH:-""}
+PKG_VERSION=${PKG_VERSION:-""}
+PKG_TARGET=${PKG_TARGET:-""}
+CHANGELOG=${CHANGELOG:-""}
+
+# DCOS Origin
+DCOS_ORIGIN=${DCOS_ORIGIN:-""}
+GITHUB_URL="https://api.github.com/repos/"
+
+## Check Params
+#####################################################################
+
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${DCOS_ORIGIN}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ] || [ -z "${CHANGELOG}" ]; then
+  echo "Can't create bump without given \$DCOS_BRANCH, \$DCOS_ORIGIN, \$PKG_TARGET, \$PKG_VERSION and \$CHANGELOG!"
+  exit 1
+fi
+
+if [ -z "${GIT_USER}" ] || [ -z "${GIT_PASSWORD}" ]; then
+  echo "Can't create bump without given \$GIT_USER and \$GIT_PASSWORD!"
+  exit 1
+fi
+
+## Create DC/OS Bump PR
+#####################################################################
+
+TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" ${GITHUB_URL}${DCOS_ORIGIN}/contents/PULL_REQUEST_TEMPLATE.md)
+TASKS_HEAD="Corresponding DC/OS tickets (obligatory)"
+
+PR_BODY=$(echo "${TEMPLATE}" | sed "s@${TASKS_HEAD}@${TASKS_HEAD}<br /><br />${CHANGELOG}@")
+PR_BODY_NO_NEWLINES=$(echo "${PR_BODY//$'\n'/<br />}")
+PR_BODY_NO_NEWLINES_NO_HEADING=$(echo "${PR_BODY_NO_NEWLINES//$'#'/}")
+
+pullRequest="{
+  \"title\": \"Bump DC/OS UI Package ${PKG_VERSION}\",
+  \"body\": \"${PR_BODY_NO_NEWLINES_NO_HEADING}\",
+  \"head\": \"mesosphere:${DCOS_BRANCH}\",
+  \"base\": \"${PKG_TARGET}\"
+}"
+
+curl 
+  -H "Content-Type: application/json" 
+  -u "$GIT_USER:$GIT_PASSWORD" 
+  -X POST 
+  -d "${pullRequest}" 
+  "${GITHUB_URL}${DCOS_ORIGIN}/pulls"

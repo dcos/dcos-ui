@@ -2,15 +2,17 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def master_branches = ["master", ] as String[]
-
-def SEMVER_REGEX = /^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?/
+def release_branches = ["master", ] as String[]
 
 pipeline {
   agent {
     dockerfile {
       args  '--shm-size=2g'
     }
+  }
+
+  parameters {
+    booleanParam(defaultValue: false, description: 'Create release and bump package version in DC/OS', name: 'CREATE_RELEASE')
   }
 
   environment {
@@ -26,7 +28,7 @@ pipeline {
   stages {
     stage('Authorization') {
       steps {
-        user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+        user_is_authorized(release_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
       }
     }
 
@@ -62,72 +64,88 @@ pipeline {
       steps {
         ansiColor('xterm') {
           sh '''npm run build-assets'''
+          sh "npm run validate-build"
+          sh "tar czf release.tar.gz dist"
         }
       }
 
       post {
         always {
           stash includes: 'dist/*', name: 'dist'
+          stash includes: 'release.tar.gz', name: 'release'
         }
       }
     }
 
+    stage("Tests") {
+      parallel {
+        stage('Integration Test') {
+          steps {
+            unstash 'dist'
+            sh "npm run integration-tests"
+          }
 
-    stage('Integration Test') {
-      steps {
-        unstash 'dist'
-        sh "npm run integration-tests"
-      }
+          post {
+            always {
+              archiveArtifacts 'cypress/**/*'
+              junit 'cypress/results.xml'
+            }
+          }
+        }
 
-      post {
-        always {
-          archiveArtifacts 'cypress/**/*'
-          junit 'cypress/results.xml'
+        stage('System Test') {
+          steps {
+            withCredentials([
+                [
+                  $class: 'AmazonWebServicesCredentialsBinding',
+                  credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
+                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]
+              ]) {
+              unstash 'dist'
+
+              ansiColor('xterm') {
+                retry(2) {
+                  sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
+                }
+              }
+            }
+          }
+
+          post {
+            always {
+              archiveArtifacts 'results/**/*'
+              junit 'results/results.xml'
+            }
+          }
         }
       }
     }
-
-    stage('System Test') {
-     steps {
-       withCredentials([
-          [
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'f40eebe0-f9aa-4336-b460-b2c4d7876fde',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]
-        ]) {
-         unstash 'dist'
-
-         ansiColor('xterm') {
-           retry(2) {
-             sh '''dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh'''
-           }
-         }
-       }
-     }
-
-     post {
-       always {
-         archiveArtifacts 'results/**/*'
-         junit 'results/results.xml'
-       }
-     }
-    }
-
-    // when env.BRANCH_NAME == 'master', we will update the mesosphere:dcos-ui/latest branch
-    // when env.BRANCH_NAME =~ /(tag-name-regex)/, we will open a release PR against dcos/dcos
-    stage('Upload Build') {
+    
+    // Upload the current master as "latest" to s3 
+    // and update the corresponding DC/OS branch:
+    // For Example:
+    // - dcos-ui/master/dcos-ui-latest
+    // - dcos-ui/1.12/dcos-ui-latest
+    stage('Release Latest') {
       when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
+        expression {
+          release_branches.contains(BRANCH_NAME)
+        }
       }
 
       steps {
         withCredentials([
             string(credentialsId: '3f0dbb48-de33-431f-b91c-2366d2f0e1cf',variable: 'AWS_ACCESS_KEY_ID'),
-            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY')
+            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
+            usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
         ]) {
-          sh "BRANCH_NAME=${env.BRANCH_NAME} ./scripts/ci/upload-build"
+          sh "git config --global user.email $GIT_USER@users.noreply.github.com"
+          sh "git config --global user.name 'MesosphereCI Robot'"
+          sh "git config credential.helper 'cache --timeout=300'"
+
+          sh "FORCE_UPLOAD=1 ./scripts/ci/release-latest"
         }
       }
 
@@ -138,28 +156,27 @@ pipeline {
       }
     }
 
-    stage('Update Github'){
+    stage('Release Version'){
       when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
+        expression {
+          release_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == true
+        }
       }
 
       steps {
         withCredentials([
-          usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
+            string(credentialsId: '3f0dbb48-de33-431f-b91c-2366d2f0e1cf',variable: 'AWS_ACCESS_KEY_ID'),
+            string(credentialsId: 'f585ec9a-3c38-4f67-8bdb-79e5d4761937',variable: 'AWS_SECRET_ACCESS_KEY'),
+            usernamePassword(credentialsId: 'a7ac7f84-64ea-4483-8e66-bb204484e58f', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USER')
         ]) {
-          sh "GIT_PASSWORD=${GIT_PASSWORD} GIT_USER=${GIT_USER} ./scripts/ci/update-github"
+          sh "git config --global user.email $GIT_USER@users.noreply.github.com"
+          sh "git config --global user.name 'MesosphereCI Robot'"
+          sh "git config credential.helper 'cache --timeout=300'"
+
+          sh "CREATE_RELEASE=1 PUSH_RELEASE=1 ./scripts/ci/bump-version"
+
+          sh "./scripts/ci/release-version"
         }
-      }
-    }
-
-    // trigger the other job to update the upstream reference
-    stage ('Trigger Enterprise Update') {
-      when {
-        expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME =~ SEMVER_REGEX }
-      }
-
-      steps {
-        build job: "frontend/dcos-ui-ee-release/${env.BRANCH_NAME}", parameters: [[$class: 'StringParameterValue', name: 'BRANCH_NAME', value: env.BRANCH_NAME]]
       }
     }
   }

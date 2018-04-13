@@ -1,0 +1,67 @@
+#!/bin/bash
+
+set -e
+[ -n "${DEBUG}" ] && set -x
+
+# This file is intended to run on Jenkins, if you need to run it 
+# locally, you need to provide some environment variables:
+#
+# GIT_COMMIT: Commit SHA to work on
+# BRANCH_NAME: Branch Name to work on
+# GIT_USER: git user for curl command
+# GIT_PASSWORD: git password for curl command
+# aws login credentials
+#
+# run these commands from project root:
+# 1. npm run build
+# 2. tar czf "release.tar.gz" dist
+# 3. <get aws credentials setup in AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY>
+# 4. FORCE_UPLOAD=1 BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) GIT_USER=<your_user> GIT_PASSWORD=<your_password> ./scripts/ci/release-latest
+
+## Configuration
+#####################################################################
+
+# path of this file
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
+
+# forces overwrite of file (latest is overwritten each time)
+FORCE_UPLOAD=${FORCE_UPLOAD:-0}
+
+# get correct DC/OS target (=base branch!) from .dcosrc file
+PKG_TARGET=$(python -c "import sys, json; \
+  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
+  sys.stdout.write(str(dcosrc['base']));")
+
+# release version
+PKG_VERSION="latest"
+
+# build release name for branch and file names
+RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
+
+# dcos branch to work with
+# Examples:
+# - dcos-ui/master/dcos-ui-latest
+# - dcos-ui/1.12/dcos-ui-latest
+# - dcos-ui/1.11/dcos-ui-latest
+DCOS_BRANCH="dcos-ui/${RELEASE_NAME}"
+
+## Create Assets & Generate Upload Data
+#####################################################################
+
+FORCE_UPLOAD=${FORCE_UPLOAD} \
+  RELEASE_NAME="${RELEASE_NAME}" \
+  ${SCRIPT_PATH}/utils/upload-build
+
+
+## Update DC/OS
+#####################################################################
+
+DCOS_BRANCH=${DCOS_BRANCH} \
+  DCOS_ORIGIN="mesosphere/dcos" \
+  DCOS_UPSTREAM="dcos/dcos" \
+  PKG_TARGET=${PKG_TARGET} \
+  PKG_VERSION=${PKG_VERSION} \
+  ${SCRIPT_PATH}/utils/update-dcos-repo

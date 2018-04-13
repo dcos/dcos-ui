@@ -1,0 +1,79 @@
+#!/bin/bash
+
+set -e
+[ -n "${DEBUG}" ] && set -x
+
+# This script is intended to be called by the ci scripts, please dont 
+# execute it directly.
+
+## Configuration
+#####################################################################
+
+# path of this file
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
+
+# where to store dcos repo in
+DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
+
+# DCOS Origin and Upstream
+DCOS_ORIGIN=${DCOS_ORIGIN:-""}
+DCOS_UPSTREAM=${DCOS_UPSTREAM:-""}
+GITHUB_URL="https://${GIT_USER}:${GIT_PASSWORD}@github.com/"
+
+# these are passed in from calling script
+PKG_VERSION=${PKG_VERSION:-""}
+PKG_TARGET=${PKG_TARGET:-""}
+DCOS_BRANCH=${DCOS_BRANCH:-""}
+
+## Check Params
+#####################################################################
+
+if [ -z "${DCOS_BRANCH}" ] || [ -z "${DCOS_ORIGIN}" ] || [ -z "${PKG_TARGET}" ] || [ -z "${PKG_VERSION}" ]; then
+  echo "Can't update DC/OS repo without given \$DCOS_BRANCH, \$DCOS_ORIGIN, \$PKG_TARGET and \$PKG_VERSION!"
+  exit 1
+fi
+
+## Update DC/OS Repo
+#####################################################################
+
+[ -d "${PROJECT_ROOT}/${DCOS_FOLDER}" ] && rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
+
+git clone "${GITHUB_URL}${DCOS_ORIGIN}" "${PROJECT_ROOT}/${DCOS_FOLDER}"
+
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  checkout -B "${DCOS_BRANCH}"
+
+if [ -n "${DCOS_UPSTREAM}" ]; then
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    remote add upstream "${GITHUB_URL}${DCOS_UPSTREAM}"
+
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    fetch upstream
+
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    reset --hard "upstream/${PKG_TARGET}"
+else
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    reset --hard "origin/${PKG_TARGET}"
+fi
+
+cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
+
+if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
+  cp -f ${PROJECT_ROOT}/upstream.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/upstream.json
+  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/upstream.json"
+fi
+
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
+
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  push --force --set-upstream origin $DCOS_BRANCH
+
+rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}

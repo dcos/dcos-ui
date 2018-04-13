@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -e
+[ -n "${DEBUG}" ] && set -x
+
+# This script is intended to be called by the ci scripts, please dont
+# execute it directly.
+
+## Configuration
+#####################################################################
+
+# path of this file
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
+
+# aws bucket to upload to
+AWS_BUCKET='downloads.mesosphere.io'
+
+# aws bucket path to upload in
+BUCKET_PATH='dcos-ui'
+
+# overriding files? (latest releases are overwritten each time)
+FORCE_UPLOAD=${FORCE_UPLOAD:-0}
+
+# these are passed in from calling scripts
+RELEASE_NAME=${RELEASE_NAME:-''}
+
+## Check Params
+#####################################################################
+
+if [ -z "${RELEASE_NAME}" ]; then
+  echo "Cant upload build without given \$RELEASE_NAME!"
+  exit 1
+fi
+
+if [ ! -f "${PROJECT_ROOT}/release.tar.gz" ]; then
+  echo "./release.tar.gz not found, stopping here"
+  exit 1
+fi
+
+## Building release name
+#####################################################################
+
+RELEASE_NAME="${RELEASE_NAME}.tar.gz"
+
+ENCODED_RELEASE_NAME=$(echo ${RELEASE_NAME} | sed "s/\+/\%2B/g")
+
+## Write buildinfo.json
+#####################################################################
+
+# cat config to artifact file
+cat <<EOF > "${PROJECT_ROOT}/buildinfo.json"
+{
+  "single_source": {
+    "kind": "url_extract",
+    "url": "$(echo "https://${AWS_BUCKET}/${BUCKET_PATH}/${ENCODED_RELEASE_NAME}")",
+    "sha1": "$(shasum "${PROJECT_ROOT}/release.tar.gz" | cut -d " " -f1)"
+  }
+}
+EOF
+
+## Upload tarball
+#####################################################################
+
+if [ ${FORCE_UPLOAD} -eq 0 ] && [ "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" -ne 0 ]; then
+  echo "This release was already uploaded, stopping here"
+  exit 1
+fi
+
+aws s3 cp "${PROJECT_ROOT}/release.tar.gz" "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME"
