@@ -22,6 +22,8 @@ import { typeDefs, resolvers } from "./data/repositoriesModel";
 
 // UI components
 import RepositoriesTabUI from "./components/RepositoriesTabUI";
+import RepositoriesLoading from "./components/RepositoriesLoading";
+import RepositoriesError from "./components/RepositoriesError";
 
 // Using the data layer
 
@@ -81,9 +83,9 @@ const components$ = searchTerm$
     );
   })
   // The first component is the loading
-  .startWith(<RepositoriesTabUI.Loading />)
+  .startWith(<RepositoriesLoading />)
   // If anything goes wrong, we render an error component
-  .catch(err => Observable.of(<RepositoriesTabUI.Error err={err} />));
+  .catch(err => Observable.of(<RepositoriesError err={err} />));
 
 // componentFromStream create a single component who render the latest emitted
 // component from the stream
