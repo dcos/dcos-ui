@@ -27075,15 +27075,6 @@
       "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
       "integrity": "sha1-3Eu8emyp2Rbe5dQ1FvAJK1j3uKs="
     },
-    "semver-diff": {
-      "version": "2.1.0",
-      "resolved": "https://registry.npmjs.org/semver-diff/-/semver-diff-2.1.0.tgz",
-      "integrity": "sha1-S7uEN8jTfksM8aaP1ybsbWRdbTY=",
-      "dev": true,
-      "requires": {
-        "semver": "5.5.0"
-      }
-    },
     "semver-regex": {
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/semver-regex/-/semver-regex-1.0.0.tgz",
