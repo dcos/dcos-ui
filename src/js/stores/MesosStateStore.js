@@ -81,6 +81,7 @@ class MesosStateStore extends GetSetBaseStore {
       .distinctUntilChanged()
       .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
       .do(state => {
+        // The tasks received here have not GPU
         CompositeState.addState(state);
         this.setState(state);
       });

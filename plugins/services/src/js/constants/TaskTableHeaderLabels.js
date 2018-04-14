@@ -1,5 +1,6 @@
 var TaskTableHeaderLabels = {
   cpus: "CPU",
+  gpus: "GPU",
   disk: "Disk",
   host: "Host",
   zone: "Zone",
