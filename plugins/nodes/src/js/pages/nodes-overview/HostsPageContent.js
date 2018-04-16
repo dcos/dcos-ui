@@ -20,6 +20,7 @@ import NodesZoneDSLFilter from "../../components/dsl/NodesZoneDSLFilter";
 import NodesHealthFilter from "../../filters/NodesHealthFilter";
 import NodesRegionFilter from "../../filters/NodesRegionFilter";
 import NodesZoneFilter from "../../filters/NodesZoneFilter";
+import NodesTextFilter from "../../filters/NodesTextFilter";
 
 const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
 
@@ -31,7 +32,10 @@ class HostsPageContent extends React.Component {
     this.state = {
       expression: "",
       filterExpression: new DSLExpression(""),
-      filters: new DSLFilterList([new NodesHealthFilter()]),
+      filters: new DSLFilterList([
+        new NodesHealthFilter(),
+        new NodesTextFilter()
+      ]),
       defaultFilterData: { regions: [], zones: [] }
     };
 
@@ -120,6 +124,7 @@ class HostsPageContent extends React.Component {
 
     const filters = new DSLFilterList([
       new NodesHealthFilter(),
+      new NodesTextFilter(),
       new NodesRegionFilter(newRegions),
       new NodesZoneFilter(newZones)
     ]);
