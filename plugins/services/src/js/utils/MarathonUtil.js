@@ -136,7 +136,7 @@ function parsePod(pod) {
 
     const mounts = pod.spec.containers.reduce(function(
       memo,
-      { name: containerName, volumeMounts }
+      { name: containerName, volumeMounts = [] }
     ) {
       if (volumeMounts.length > 0) {
         volumeMounts.forEach(function(volumeMount) {
