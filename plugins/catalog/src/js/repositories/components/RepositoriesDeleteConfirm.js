@@ -30,8 +30,7 @@ const RepositoriesDeleteConfirm = ({
   deleteError
 }) => {
   const heading = <ModalHeading>Delete Repository</ModalHeading>;
-  const rightButtonText = `${StringUtil.capitalize(UserActions.DELETE)}
-          Repository`;
+  const rightButtonText = `${StringUtil.capitalize(UserActions.DELETE)} Repository`;
 
   return (
     <Confirm
