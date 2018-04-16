@@ -55,9 +55,9 @@ pullRequest="{
   \"base\": \"${PKG_TARGET}\"
 }"
 
-curl 
-  -H "Content-Type: application/json" 
-  -u "$GIT_USER:$GIT_PASSWORD" 
-  -X POST 
-  -d "${pullRequest}" 
+curl
+  -H "Content-Type: application/json"
+  -u "$GIT_USER:$GIT_PASSWORD"
+  -X POST
+  -d "${pullRequest}"
   "${GITHUB_URL}${DCOS_ORIGIN}/pulls"
