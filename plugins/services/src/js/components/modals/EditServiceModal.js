@@ -11,10 +11,19 @@ class EditServiceModal extends Component {
   render() {
     const { id = "/" } = this.props.params;
     const serviceID = decodeURIComponent(id);
+    const serviceLoaded = DCOSStore.serviceDataReceived;
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    if (!service) {
+    // Loading, showing an empty modal instead
+    if (!serviceLoaded) {
       return <FullScreenModal open={true} />;
+    }
+
+    // Service not found
+    if (!service) {
+      this.props.history.push("/services/404");
+
+      return null;
     }
 
     if (

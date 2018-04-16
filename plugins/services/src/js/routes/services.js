@@ -4,6 +4,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
+import NotFoundPage from "#SRC/js/pages/NotFoundPage";
 import ServicesContainer from "../containers/services/ServicesContainer";
 import CreateServiceModal from "../components/modals/CreateServiceModal";
 import EditServiceModal from "../components/modals/EditServiceModal";
@@ -68,6 +69,11 @@ const serviceRoutes = [
         type: Redirect,
         from: "/services/detail/:id",
         to: "/services/detail/:id/tasks"
+      },
+      {
+        type: Route,
+        path: "404",
+        component: NotFoundPage
       },
       {
         type: Route,
