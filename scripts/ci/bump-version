@@ -32,12 +32,6 @@ PKG_TARGET=$(python -c "import sys, json; \
 ## Create Release and Push it
 #####################################################################
 
-# fetch whole repo (jenkins only checks out one sha)
-git fetch
-
-# checkout correct branch name (jenkins checks out a sha, not a named branch)
-git checkout ${BRANCH_NAME}
-
 # create relase with correct version number: PKG_TARGET+v<SEMVER>
 if [ ${CREATE_RELEASE} -eq 0 ]; then
   echo "No release, no Bump!"
@@ -50,4 +44,5 @@ if [ ${PUSH_RELEASE} -eq 0 ]; then
   echo "No push, no Bump!"
   exit 1
 fi
+# this command should fail if something has changed on the branch in the meantime, canceling this release.
 git push --follow-tags https://$GIT_USER:$GIT_PASSWORD@github.com/dcos/dcos-ui ${BRANCH_NAME}

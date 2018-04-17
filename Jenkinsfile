@@ -32,6 +32,22 @@ pipeline {
       }
     }
 
+    stage('Checkout') {
+      when {
+        expression {
+          release_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == true
+        }
+      }
+
+      steps {
+        // fetch whole repo (jenkins only checks out one sha)
+        sh "git fetch --tags"
+
+        // checkout correct branch name (jenkins checks out a sha, not a named branch)
+        sh "git checkout ${BRANCH_NAME}"
+      }
+    }
+
     stage('Initialization') {
       steps {
         ansiColor('xterm') {
