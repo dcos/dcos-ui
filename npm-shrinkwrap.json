@@ -1,6 +1,6 @@
 {
   "name": "dcos-ui",
-  "version": "1.1.14",
+  "version": "1.13.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -9894,6 +9894,7 @@
       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-1.1.3.tgz",
       "integrity": "sha512-WIr7iDkdmdbxu/Gh6eKEZJL6KPE74/5MEsf2whTOFNxbIoIixogroLdKYqB6FDav4Wavh/lZdzzd3b2KxIXC5Q==",
       "dev": true,
+      "optional": true,
       "requires": {
         "nan": "2.10.0",
         "node-pre-gyp": "0.6.39"
