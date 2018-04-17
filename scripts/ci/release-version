@@ -45,7 +45,7 @@ RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
 # - dcos-ui/master/dcos-ui-latest
 # - dcos-ui/1.12/dcos-ui-latest
 # - dcos-ui/1.11/dcos-ui-latest
-DCOS_BRANCH="dcos-ui/${RELEASE_NAME}"
+DCOS_BRANCH="mesosphere:dcos-ui/${RELEASE_NAME}"
 
 ## Create Assets & Generate Upload Data
 #####################################################################

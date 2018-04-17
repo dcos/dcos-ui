@@ -51,7 +51,7 @@ PR_BODY_NO_NEWLINES_NO_HEADING=$(echo "${PR_BODY_NO_NEWLINES//$'#'/}")
 pullRequest="{
   \"title\": \"Bump DC/OS UI Package ${PKG_VERSION}\",
   \"body\": \"${PR_BODY_NO_NEWLINES_NO_HEADING}\",
-  \"head\": \"mesosphere:${DCOS_BRANCH}\",
+  \"head\": \"${DCOS_BRANCH}\",
   \"base\": \"${PKG_TARGET}\"
 }"
 
