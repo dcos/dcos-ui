@@ -173,6 +173,12 @@ pipeline {
           sh "./scripts/ci/release-version"
         }
       }
+      post {
+        always {
+          archiveArtifacts 'pr.json'
+          archiveArtifacts 'comment.json'
+        }
+      }
     }
   }
 }
