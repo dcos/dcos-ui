@@ -6,8 +6,6 @@ set -e
 # This file is intended to run on Jenkins, if you need to run it
 # locally, you need to provide some environment variables:
 #
-# GIT_COMMIT: Commit SHA to work on
-# BRANCH_NAME: Branch Name to work on
 # GIT_USER: git user for curl command
 # GIT_PASSWORD: git password for curl command
 # aws login credentials
