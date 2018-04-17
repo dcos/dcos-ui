@@ -23,7 +23,9 @@ class NodesTextFilter extends DSLFilter {
    */
   filterApply(resultset, filterType, filterArguments) {
     return resultset.filterItems(node => {
-      return node.getHostName().includes(filterArguments.text);
+      const hostName = node.getHostName();
+
+      return hostName && hostName.includes(filterArguments.text);
     });
   }
 }
