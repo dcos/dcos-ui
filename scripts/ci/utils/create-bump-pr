@@ -49,7 +49,7 @@ PR_BODY_NO_NEWLINES=$(echo "${PR_BODY//$'\n'/<br />}")
 PR_BODY_NO_NEWLINES_NO_HEADING=$(echo "${PR_BODY_NO_NEWLINES//$'#'/}")
 
 PR_JSON="{
-  \"title\": \"Bump DC/OS UI Package ${PKG_VERSION}\",
+  \"title\": \"[${PKG_TARGET}] Bump DC/OS UI Package to ${PKG_VERSION}\",
   \"body\": \"${PR_BODY_NO_NEWLINES_NO_HEADING}\",
   \"head\": \"${DCOS_BRANCH}\",
   \"base\": \"${PKG_TARGET}\"
