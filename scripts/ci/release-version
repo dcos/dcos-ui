@@ -67,7 +67,7 @@ DCOS_BRANCH=${DCOS_BRANCH} \
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
-  DCOS_ORIGIN="mesosphere/dcos" \
+  DCOS_ORIGIN="dcos/dcos" \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
   CHANGELOG=$(PKG_TARGET=${PKG_TARGET} ${SCRIPT_PATH}/utils/generate-changelog) \
