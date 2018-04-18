@@ -4,7 +4,7 @@ import UserAccountDropdownTrigger from "./UserAccountDropdownTrigger";
 
 class UserAccountDropdown extends React.Component {
   getMenuItems() {
-    return [this.props.menuItems];
+    return this.props.menuItems;
   }
 
   getTrigger() {
