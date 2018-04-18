@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown } from "reactjs-components";
 
-import { Badge } from "@dcos/ui-kit/dist/components";
+import { Badge } from "@dcos/ui-kit";
 import Framework from "../structs/Framework";
 
 var defaultId = "default";

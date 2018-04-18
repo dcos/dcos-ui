@@ -19,7 +19,7 @@ import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
-import { Badge } from "@dcos/ui-kit/dist/components";
+import { Badge } from "@dcos/ui-kit";
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 

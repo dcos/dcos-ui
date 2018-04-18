@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import { Link } from "react-router";
 
-import { Badge } from "@dcos/ui-kit/dist/components";
+import { Badge } from "@dcos/ui-kit";
 import NotificationStore from "../stores/NotificationStore";
 
 const PrimarySidebarLink = ({

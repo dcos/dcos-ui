@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import { Badge } from "@dcos/ui-kit/dist/components";
+import { Badge } from "@dcos/ui-kit";
 import ModalHeading from "./ModalHeading";
 import StringUtil from "../../utils/StringUtil";
 import Util from "../../utils/Util";

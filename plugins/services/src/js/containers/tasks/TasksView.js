@@ -15,7 +15,7 @@ import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
-import { Badge } from "@dcos/ui-kit/dist/components";
+import { Badge } from "@dcos/ui-kit";
 import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
 import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
