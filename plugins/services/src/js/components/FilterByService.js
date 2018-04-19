@@ -34,11 +34,13 @@ var FilterByService = React.createClass({
     }
   },
 
-  getItemHtml(service) {
+  getItemHtml(service, isSelected = false) {
+    const appearance = isSelected ? "outline" : "default";
+
     return (
       <span className="badge-container">
         <span className="badge-container-text">{service.get("name")}</span>
-        <Badge>{service.getNodeIDs().length}</Badge>
+        <Badge appearance={appearance}>{service.getNodeIDs().length}</Badge>
       </span>
     );
   },
@@ -55,8 +57,9 @@ var FilterByService = React.createClass({
     const items = [defaultItem].concat(this.props.services);
 
     return items.map(service => {
-      var selectedHtml = this.getItemHtml(service);
-      var dropdownHtml = <a>{selectedHtml}</a>;
+      const serviceId = service.get("id");
+      const selectedHtml = this.getItemHtml(service);
+      const dropdownHtml = <a>{selectedHtml}</a>;
 
       var item = {
         id: service.get("id"),
@@ -65,7 +68,11 @@ var FilterByService = React.createClass({
         selectedHtml
       };
 
-      if (service.get("id") === defaultId) {
+      if (serviceId === this.props.byServiceFilter) {
+        item.selectedHtml = this.getItemHtml(service, true);
+      }
+
+      if (serviceId === defaultId) {
         item.selectedHtml = <span>Filter by Service</span>;
       }
 

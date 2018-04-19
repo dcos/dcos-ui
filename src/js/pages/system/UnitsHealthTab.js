@@ -95,12 +95,14 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     );
   }
 
-  getButtonContent(filterName, count) {
+  getButtonContent(filterName, count, isActive) {
     const dotClassSet = classNames({
       dot: filterName !== "all",
       danger: filterName === "unhealthy",
       success: filterName === "healthy"
     });
+
+    isActive = isActive ? "outline" : "default";
 
     return (
       <span className="badge-container button-align-content label flush">
@@ -108,7 +110,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         <span className="badge-container-text">
           <span>{StringUtil.capitalize(filterName)}</span>
         </span>
-        <Badge>{count || 0}</Badge>
+        <Badge appearance={isActive}>{count || 0}</Badge>
       </span>
     );
   }
