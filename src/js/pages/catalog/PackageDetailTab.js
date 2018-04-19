@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
@@ -21,6 +20,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import { Badge } from "@dcos/ui-kit";
 
 const semver = require("semver");
 
@@ -253,15 +253,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
   getPackageBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
     const badgeCopy = isCertified ? "Certified" : "Community";
-    const badgeClasses = classNames("badge badge-large", {
-      "badge--primary": isCertified
-    });
+    const appearance = isCertified ? "primary" : "default";
 
     return (
-      <span className="column-3 badge-container selected-badge">
-        <span className={badgeClasses}>
-          {badgeCopy}
-        </span>
+      <span className="column-3">
+        <Badge appearance={appearance}>{badgeCopy}</Badge>
       </span>
     );
   }
@@ -303,8 +299,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
-      tooltipContent = `This version of ${cosmosPackage.getName()} requires DC/OS 
-        version ${cosmosPackage.minDcosReleaseVersion} or higher, but you are 
+      tooltipContent = `This version of ${cosmosPackage.getName()} requires DC/OS
+        version ${cosmosPackage.minDcosReleaseVersion} or higher, but you are
         running DC/OS version ${semver.coerce(MetadataStore.version)}`;
       installButtonIsDisabled = true;
     }

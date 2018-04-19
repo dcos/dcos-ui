@@ -7,6 +7,7 @@ import { MountService } from "foundation-ui";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Badge } from "@dcos/ui-kit";
 
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import AlertPanel from "../../components/AlertPanel";
@@ -179,11 +180,9 @@ class PackagesTab extends mixin(StoreMixin) {
   getPackageOptionBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
     const copy = isCertified ? "Certified" : "Community";
-    const classes = classNames("badge", {
-      "badge--primary": isCertified
-    });
+    const appearance = isCertified ? "primary" : "default";
 
-    return <span className={classes}>{copy}</span>;
+    return <Badge appearance={appearance}>{copy}</Badge>;
   }
 
   getCertifiedPackagesGrid(packages) {

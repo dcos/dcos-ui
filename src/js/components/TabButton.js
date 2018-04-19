@@ -2,6 +2,7 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import { BadgeButton } from "@dcos/ui-kit";
 
 const METHODS_TO_BIND = ["handleClick"];
 
@@ -40,12 +41,9 @@ class TabButton extends React.Component {
         maxWidth={300}
         wrapText={true}
       >
-        <span
-          className="badge badge-danger badge-rounded"
-          onClick={onClickBadge}
-        >
+        <BadgeButton appearance="danger" onClick={onClickBadge}>
           {count}
-        </span>
+        </BadgeButton>
       </Tooltip>
     );
   }

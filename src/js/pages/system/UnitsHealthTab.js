@@ -7,6 +7,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Table } from "reactjs-components";
 
+import { Badge } from "@dcos/ui-kit";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import FilterBar from "../../components/FilterBar";
@@ -94,12 +95,14 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     );
   }
 
-  getButtonContent(filterName, count) {
+  getButtonContent(filterName, count, isActive) {
     const dotClassSet = classNames({
       dot: filterName !== "all",
       danger: filterName === "unhealthy",
       success: filterName === "healthy"
     });
+
+    isActive = isActive ? "outline" : "default";
 
     return (
       <span className="badge-container button-align-content label flush">
@@ -107,7 +110,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         <span className="badge-container-text">
           <span>{StringUtil.capitalize(filterName)}</span>
         </span>
-        <span className="badge">{count || 0}</span>
+        <Badge appearance={isActive}>{count || 0}</Badge>
       </span>
     );
   }

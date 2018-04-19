@@ -136,7 +136,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -181,7 +181,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -226,7 +226,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -271,7 +271,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -316,7 +316,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -361,7 +361,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -406,7 +406,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -451,7 +451,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -496,7 +496,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge badge--primary"
+                className="css-361qnz"
               >
                 Certified
               </span>
@@ -559,7 +559,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -604,7 +604,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -649,7 +649,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -694,7 +694,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -739,7 +739,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -784,7 +784,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -829,7 +829,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -874,7 +874,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -919,7 +919,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -964,7 +964,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1009,7 +1009,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1054,7 +1054,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1099,7 +1099,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1144,7 +1144,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1189,7 +1189,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1234,7 +1234,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1279,7 +1279,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1324,7 +1324,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1369,7 +1369,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1414,7 +1414,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1459,7 +1459,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1504,7 +1504,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1549,7 +1549,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1594,7 +1594,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1639,7 +1639,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1684,7 +1684,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1729,7 +1729,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1774,7 +1774,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1819,7 +1819,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1864,7 +1864,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1909,7 +1909,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1954,7 +1954,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -1999,7 +1999,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2044,7 +2044,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2089,7 +2089,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2134,7 +2134,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2179,7 +2179,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2224,7 +2224,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2269,7 +2269,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2314,7 +2314,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2359,7 +2359,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2404,7 +2404,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2449,7 +2449,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2494,7 +2494,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2539,7 +2539,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2584,7 +2584,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2629,7 +2629,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2674,7 +2674,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2719,7 +2719,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2764,7 +2764,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2809,7 +2809,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2854,7 +2854,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2899,7 +2899,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2944,7 +2944,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -2989,7 +2989,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3034,7 +3034,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3079,7 +3079,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3124,7 +3124,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3169,7 +3169,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3214,7 +3214,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3259,7 +3259,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3304,7 +3304,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3349,7 +3349,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3394,7 +3394,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3439,7 +3439,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3484,7 +3484,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3529,7 +3529,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3574,7 +3574,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3619,7 +3619,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3664,7 +3664,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3709,7 +3709,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3754,7 +3754,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3799,7 +3799,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3844,7 +3844,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3889,7 +3889,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3934,7 +3934,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -3979,7 +3979,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4024,7 +4024,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4069,7 +4069,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4114,7 +4114,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4159,7 +4159,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4204,7 +4204,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4249,7 +4249,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4294,7 +4294,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4339,7 +4339,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4384,7 +4384,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4429,7 +4429,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>
@@ -4474,7 +4474,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="badge"
+                className="css-i4ctwy"
               >
                 Community
               </span>

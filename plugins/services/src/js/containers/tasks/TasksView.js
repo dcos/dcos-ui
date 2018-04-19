@@ -15,6 +15,7 @@ import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
+import { Badge } from "@dcos/ui-kit";
 import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
 import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
@@ -106,7 +107,7 @@ class TasksView extends mixin(SaveStateMixin) {
         <span className="badge-container-text">
           {StringUtil.capitalize(filterName)}
         </span>
-        <span className="badge">{count || 0}</span>
+        <Badge>{count || 0}</Badge>
       </span>
     );
   }
