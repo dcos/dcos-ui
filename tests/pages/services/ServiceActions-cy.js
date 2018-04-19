@@ -131,7 +131,7 @@ describe("Service Actions", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy
-        .get(".modal .menu-tabbed-container .badge.badge-danger")
+        .get(".modal .menu-tabbed-container span[class*='css-']")
         .should("to.have.length", 1);
     });
 
