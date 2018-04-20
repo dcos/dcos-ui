@@ -174,5 +174,16 @@ pipeline {
         }
       }
     }
+
+    stage('Run Enterprise Pipeline') {
+      when {
+        expression {
+          release_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == false
+        }
+      }
+      steps {
+        build job: "frontend/dcos-ui-ee-pipeline/" + env.BRANCH_NAME.replaceAll("/", "%2F"), wait: true
+      }
+    }
   }
 }
