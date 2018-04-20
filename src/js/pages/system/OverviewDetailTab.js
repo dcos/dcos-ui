@@ -9,6 +9,8 @@ import { FormattedMessage } from "react-intl";
 import moment from "moment";
 import { request } from "@dcos/mesos-client";
 
+import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
+
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import Config from "../../config/Config";
@@ -22,8 +24,6 @@ import ConfigurationMapValue from "../../components/ConfigurationMapValue";
 import { findNestedPropertyInObject } from "../../utils/Util";
 import HashMapDisplay from "../../components/HashMapDisplay";
 import Loader from "../../components/Loader";
-import MarathonStore
-  from "../../../../plugins/services/src/js/stores/MarathonStore";
 import MetadataStore from "../../stores/MetadataStore";
 import Page from "../../components/Page";
 import VersionsModal from "../../components/modals/VersionsModal";
@@ -74,7 +74,10 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     ];
 
-    request({ type: "GET_FLAGS" }).subscribe(message => {
+    request(
+      { type: "GET_FLAGS" },
+      "/mesos/api/v1?GET_FLAGS"
+    ).subscribe(message => {
       const cluster = JSON.parse(message).get_flags.flags.find(
         flag => flag.name === "cluster"
       );
@@ -84,24 +87,33 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     });
 
-    request({ type: "GET_VERSION" }).subscribe(message => {
+    request(
+      { type: "GET_VERSION" },
+      "/mesos/api/v1?GET_VERSION"
+    ).subscribe(message => {
       const info = JSON.parse(message).get_version.version_info;
 
       if (info) {
         this.setState({
           version: info.version,
-          buildTime: info.build_time,
-          startTime: info.start_time
+          buildTime: info.build_time
         });
       }
     });
 
-    request({ type: "GET_MASTER" }).subscribe(message => {
-      const masterInfo = JSON.parse(message).get_master.master_info;
+    request(
+      { type: "GET_MASTER" },
+      "/mesos/api/v1?GET_MASTER"
+    ).subscribe(message => {
+      const {
+        get_master: {
+          master_info: masterInfo,
+          elected_time: electedTime,
+          start_time: startTime
+        }
+      } = JSON.parse(message);
 
-      if (masterInfo) {
-        this.setState({ masterInfo });
-      }
+      this.setState({ masterInfo, electedTime, startTime });
     });
 
     METHODS_TO_BIND.forEach(method => {

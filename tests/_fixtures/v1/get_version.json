@@ -1,0 +1,12 @@
+{
+    "type": "GET_VERSION",
+    "get_version": {
+        "version_info": {
+            "version": "1.5.0",
+            "build_date": "2018-01-19 23:46:47",
+            "build_time": 1516405607,
+            "build_user": "",
+            "git_sha": "a9f5ddb8614ef057537994f389eb7e19f0c85652"
+        }
+    }
+}

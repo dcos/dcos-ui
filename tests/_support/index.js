@@ -1,5 +1,6 @@
 const router = require("./utils/router");
 require("./formChildCommands");
+require("./utils/ServicesUtil");
 
 Cypress.Commands.add("configureCluster", function(configuration) {
   if (Object.keys(configuration).length === 0) {
@@ -34,6 +35,33 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   router.clearRoutes();
   cy.server();
+
+  if (configuration.mesos === "cluster-overview") {
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?GET_FLAGS/,
+        response: require("../_fixtures/v1/get_flags"),
+        headers: { "Content-Type": "application/json" }
+      })
+      .as("getFlags");
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?GET_VERSION/,
+        response: require("../_fixtures/v1/get_version"),
+        headers: { "Content-Type": "application/json" }
+      })
+      .as("getVersion");
+    cy
+      .route({
+        method: "POST",
+        url: /mesos\/api\/v1\?GET_MASTER/,
+        response: require("../_fixtures/v1/get_master"),
+        headers: { "Content-Type": "application/json" }
+      })
+      .as("getMaster");
+  }
 
   if (configuration.mesos === "1-task-healthy") {
     cy
