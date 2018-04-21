@@ -19,7 +19,7 @@ PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd
 DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
 
 BUILDINFO_PATH=${BUILDINFO_PATH:-'packages/dcos-ui/buildinfo.json'}
-UPSTREAM_PATH=${UPSTREAM_PATH:-'upstream.json'}
+UPSTREAM_PATH=${UPSTREAM_PATH:-'packages/upstream.json'}
 
 # DCOS Origin and Upstream
 DCOS_ORIGIN=${DCOS_ORIGIN:-""}
