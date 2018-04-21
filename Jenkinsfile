@@ -193,7 +193,7 @@ pipeline {
         string(credentialsId: '8b793652-f26a-422f-a9ba-0d1e47eb9d89', variable: 'SLACK_TOKEN')
       ]) {
         slackSend (
-          channel: '#frontend-dev',
+          channel: '#frontend-ci-status',
           color: 'danger',
           message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
           teamDomain: 'mesosphere',
@@ -206,7 +206,7 @@ pipeline {
         string(credentialsId: '8b793652-f26a-422f-a9ba-0d1e47eb9d89', variable: 'SLACK_TOKEN')
       ]) {
         slackSend (
-          channel: '#frontend-dev',
+          channel: '#frontend-ci-status',
           color: 'warning',
           message: "UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
           teamDomain: 'mesosphere',
