@@ -74,7 +74,7 @@ if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
 fi
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
+  commit -m "chore(dcos-ui): bump package ${PKG_VERSION}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   push --force --set-upstream origin $DCOS_BRANCH
