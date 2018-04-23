@@ -24,7 +24,7 @@ const METHODS_TO_BIND = [
   "handleOpenConfirm"
 ];
 
-class RepositoriesTableUI extends React.Component {
+class RepositoriesTable extends React.Component {
   constructor() {
     super();
 
@@ -167,15 +167,15 @@ class RepositoriesTableUI extends React.Component {
   }
 }
 
-RepositoriesTableUI.defaultProps = {
+RepositoriesTable.defaultProps = {
   repositories: new List()
 };
 
-RepositoriesTableUI.propTypes = {
+RepositoriesTable.propTypes = {
   repositories: PropTypes.object.isRequired,
   removeRepository: PropTypes.func.isRequired,
   repositoryRemoveError: PropTypes.string,
   pendingRequest: PropTypes.bool.isRequired
 };
 
-module.exports = RepositoriesTableUI;
+module.exports = RepositoriesTable;
