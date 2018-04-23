@@ -20,7 +20,7 @@ const displayedResourceValues = {
 const MAX_BAR_HEIGHT = 200;
 
 function getGraphBar(resource, data, index) {
-  const resourceOfferSummary = data[resource];
+  const resourceOfferSummary = data[resource] || { offers: 0, matched: 0 };
   const matchedOffers = resourceOfferSummary.matched;
   const offeredCount = resourceOfferSummary.offers;
   let percentageMatched = null;
@@ -99,7 +99,10 @@ function getGraphSpacer({ key, showIcon = true }) {
 }
 
 function getResourceTooltipContent(resource, data) {
-  let { matched, offers, requested: requestedValue } = data[resource];
+  let { matched, offers, requested: requestedValue } = data[resource] || {
+    offers: 0,
+    matched: 0
+  };
   let docsURI = null;
   let explanatoryText = null;
 
@@ -158,7 +161,15 @@ function getResourceTooltipContent(resource, data) {
 }
 
 function RecentOffersSummary({ data }) {
-  const funnelItems = ["roles", "constraints", "cpus", "mem", "disk", "ports"];
+  const funnelItems = [
+    "roles",
+    "constraints",
+    "cpus",
+    "mem",
+    "disk",
+    "gpus",
+    "ports"
+  ];
   const funnelGraphItems = funnelItems.reduce((accumulator, item, index) => {
     accumulator.push(getGraphBar(item, data, index));
 

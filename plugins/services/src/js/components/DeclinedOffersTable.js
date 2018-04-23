@@ -87,7 +87,7 @@ class DeclinedOffersTable extends React.Component {
         "text-danger": isResourceUnmatched
       });
 
-      let requestedResource = summary[prop].requested;
+      let requestedResource = (summary[prop] || { requested: 0 }).requested;
       let receivedResource = row.offered[prop];
 
       let requestedResourceSuffix = "";
@@ -288,6 +288,19 @@ class DeclinedOffersTable extends React.Component {
           this.getMatchedResourcesSortFn(
             DeclinedOffersReasons.INSUFFICIENT_DISK
           )
+        )
+      },
+      {
+        heading: this.getColumnHeadingFn("GPU"),
+        prop: "gpus",
+        className: this.getColumnClassNameFn("text-align-center"),
+        render: this.getMatchedOfferRenderFn(
+          DeclinedOffersReasons.INSUFFICIENT_GPU
+        ),
+        sortable: true,
+        sortFunction: TableUtil.getSortFunction(
+          "timestamp",
+          this.getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_GPU)
         )
       },
       {
