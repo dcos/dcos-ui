@@ -164,6 +164,10 @@ class TasksContainer extends React.Component {
       newZones.length === zones.length &&
       newZones.every(zone => zones.indexOf(zone) !== -1)
     ) {
+      this.setState({
+        filterExpression: new DSLExpression(query)
+      });
+
       return;
     }
 
