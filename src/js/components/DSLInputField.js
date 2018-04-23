@@ -4,14 +4,10 @@ import React from "react";
 
 import Icon from "./Icon";
 import DSLExpression from "../structs/DSLExpression";
-import Util from "../utils/Util";
-
-const DEBOUNCE_TIMEOUT = 250;
 
 const METHODS_TO_BIND = [
   "handleBlur",
   "handleChange",
-  "handleDebounceUpdate",
   "handleFocus",
   "handleInputClear"
 ];
@@ -44,16 +40,9 @@ class DSLInputField extends React.Component {
       focus: false
     };
 
-    this.debounceTimer = null;
-
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-
-    this.handleDebounceUpdate = Util.debounce(
-      this.handleDebounceUpdate,
-      DEBOUNCE_TIMEOUT
-    );
   }
 
   /**
@@ -98,18 +87,12 @@ class DSLInputField extends React.Component {
    * @param {SyntheticEvent} event - The change event
    */
   handleChange(event) {
-    this.setState({
-      expression: new DSLExpression(event.target.value)
-    });
-
-    this.handleDebounceUpdate();
-  }
-
-  /**
-   * Forward property change update after the debounce timer expired
-   */
-  handleDebounceUpdate() {
-    this.props.onChange(this.state.expression);
+    this.setState(
+      {
+        expression: new DSLExpression(event.target.value)
+      },
+      () => this.props.onChange(this.state.expression)
+    );
   }
 
   /**
