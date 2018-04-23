@@ -9,14 +9,16 @@ export default class Application {
   }
 
   start() {
-    for (const extension of this._extensionsProvider.getExtensions()) {
-      if (extension.initialize) {
-        extension.initialize();
+    this._extensionsProvider.subscribe(() => {
+      for (const extension of this._extensionsProvider.getAllExtensions()) {
+        if (extension.initialize) {
+          extension.initialize();
+        }
+        if (extension.onStart) {
+          extension.onStart(this);
+        }
       }
-      if (extension.onStart) {
-        extension.onStart(this);
-      }
-    }
+    });
   }
 }
 inversify.decorate(inversify.injectable(), Application);
