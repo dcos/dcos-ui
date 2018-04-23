@@ -2,7 +2,7 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def release_branches = ["master", ] as String[]
+def release_branches = ["master", "feature/data-layer"] as String[]
 
 pipeline {
   agent {
