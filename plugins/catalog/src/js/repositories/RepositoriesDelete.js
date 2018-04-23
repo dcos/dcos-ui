@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import { componentFromStream } from "data-service";
 import { Subject } from "rxjs/Subject";
