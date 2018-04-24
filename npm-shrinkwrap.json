@@ -67,9 +67,9 @@
       "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-0.2.1.tgz"
     },
     "@dcos/mesos-client": {
-      "version": "0.1.10",
-      "from": "@dcos/mesos-client@0.1.10",
-      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.1.10.tgz"
+      "version": "0.2.0",
+      "from": "@dcos/mesos-client@0.2.0",
+      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.2.0.tgz"
     },
     "@dcos/recordio": {
       "version": "0.1.6",
@@ -105,6 +105,11 @@
       "version": "4.14.87",
       "from": "@types/lodash@4.14.87",
       "resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.87.tgz"
+    },
+    "@types/lodash-es": {
+      "version": "4.17.0",
+      "from": "@types/lodash-es@>=4.0.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/@types/lodash-es/-/lodash-es-4.17.0.tgz"
     },
     "@types/minimatch": {
       "version": "3.0.1",
@@ -9274,6 +9279,11 @@
       "version": "5.4.3",
       "from": "rxjs@5.4.3",
       "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.4.3.tgz"
+    },
+    "rxjs-marbles": {
+      "version": "2.3.1",
+      "from": "rxjs-marbles@2.3.1",
+      "resolved": "https://registry.npmjs.org/rxjs-marbles/-/rxjs-marbles-2.3.1.tgz"
     },
     "safe-buffer": {
       "version": "5.1.1",
