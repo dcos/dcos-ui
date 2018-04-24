@@ -110,12 +110,14 @@
     "gulp-connect": "3.2.2",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.16.0",
+    "http-server": "github:johntron/http-server#proxy-secure-flag",
     "image-webpack-loader": "1.7.0",
     "jasmine-reporters": "2.1.1",
     "jest-cli": "16.0.2",
     "jest-webpack-alias": "3.3.0",
     "jison-loader": "1.0.0",
     "json-loader": "0.5.4",
+    "junit-merge": "1.3.0",
     "less": "2.6.1",
     "less-loader": "2.2.3",
     "license-checker": "5.1.2",
@@ -168,7 +170,8 @@
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "validate-build": "scripts/validate-build dist/*.js",
-    "release": "standard-version --tag-prefix \"$(python -c \"import sys, json; dcosrc = json.load(open('.dcosrc')); sys.stdout.write(str(dcosrc['base']));\")+v\""
+    "release": "standard-version --tag-prefix \"$(python -c \"import sys, json; dcosrc = json.load(open('.dcosrc')); sys.stdout.write(str(dcosrc['base']));\")+v\"",
+    "integration-tests": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/run-integration-tests"
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.test.js"
