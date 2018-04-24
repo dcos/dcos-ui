@@ -15,10 +15,13 @@ import {
 } from "../constants/EventTypes";
 import MesosStateUtil from "../utils/MesosStateUtil";
 import pipe from "../utils/pipe";
+import { linearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
+const MAX_RETRIES = 5;
+const RETRY_DELAY = 5000;
 const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
 
 class MesosStateStore extends GetSetBaseStore {
@@ -70,7 +73,7 @@ class MesosStateStore extends GetSetBaseStore {
     const getMasterRequest = request(
       { type: "GET_MASTER" },
       "/mesos/api/v1?get_master"
-    ).retry(3);
+    ).retryWhen(linearBackoff(MAX_RETRIES, RETRY_DELAY));
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const dataStream = mesosStream
@@ -103,6 +106,7 @@ class MesosStateStore extends GetSetBaseStore {
     this.stream = waitStream
       .concat(eventTriggerStream)
       .debounceTime(Config.getRefreshRate() * 0.5)
+      .retryWhen(linearBackoff(MAX_RETRIES, RETRY_DELAY))
       .subscribe(this.onStreamData, this.onStreamError);
   }
 
