@@ -6,8 +6,6 @@ set -e
 # This file is intended to run on Jenkins, if you need to run it
 # locally, you need to provide some environment variables:
 #
-# GIT_COMMIT: Commit SHA to work on
-# BRANCH_NAME: Branch Name to work on
 # GIT_USER: git user for curl command
 # GIT_PASSWORD: git password for curl command
 # aws login credentials
@@ -47,7 +45,7 @@ RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
 # - dcos-ui/master/dcos-ui-latest
 # - dcos-ui/1.12/dcos-ui-latest
 # - dcos-ui/1.11/dcos-ui-latest
-DCOS_BRANCH="dcos-ui/${RELEASE_NAME}"
+DCOS_BRANCH="mesosphere:dcos-ui/${RELEASE_NAME}"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
@@ -69,7 +67,7 @@ DCOS_BRANCH=${DCOS_BRANCH} \
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
-  DCOS_ORIGIN="mesosphere/dcos" \
+  DCOS_ORIGIN="dcos/dcos" \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
   CHANGELOG=$(PKG_TARGET=${PKG_TARGET} ${SCRIPT_PATH}/utils/generate-changelog) \

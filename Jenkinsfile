@@ -2,7 +2,13 @@
 
 @Library('sec_ci_libs@v2-latest') _
 
-def release_branches = ["master", ] as String[]
+// master_branches are for authentication library, feel free to add your feature/* branch here
+def master_branches = ["master"] as String[]
+
+// release branches are for autmatic version bumps
+// Do NOT add feature branches here!
+// Do NOT add anything you might want to merge into a release branch here!
+def release_branches = ["master"] as String[]
 
 pipeline {
   agent {
@@ -28,7 +34,23 @@ pipeline {
   stages {
     stage('Authorization') {
       steps {
-        user_is_authorized(release_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+        user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+      }
+    }
+
+    stage('Checkout') {
+      when {
+        expression {
+          release_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == true
+        }
+      }
+
+      steps {
+        // fetch whole repo (jenkins only checks out one sha)
+        sh "git fetch --tags"
+
+        // checkout correct branch name (jenkins checks out a sha, not a named branch)
+        sh "git checkout ${BRANCH_NAME}"
       }
     }
 
@@ -171,6 +193,12 @@ pipeline {
           sh "CREATE_RELEASE=1 PUSH_RELEASE=1 ./scripts/ci/bump-version"
 
           sh "./scripts/ci/release-version"
+        }
+      }
+      post {
+        always {
+          archiveArtifacts 'pr.json'
+          archiveArtifacts 'comment.json'
         }
       }
     }

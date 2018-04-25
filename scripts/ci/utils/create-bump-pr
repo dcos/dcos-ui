@@ -48,16 +48,31 @@ PR_BODY=$(echo "${TEMPLATE}" | sed "s@${TASKS_HEAD}@${TASKS_HEAD}<br /><br />${C
 PR_BODY_NO_NEWLINES=$(echo "${PR_BODY//$'\n'/<br />}")
 PR_BODY_NO_NEWLINES_NO_HEADING=$(echo "${PR_BODY_NO_NEWLINES//$'#'/}")
 
-pullRequest="{
-  \"title\": \"Bump DC/OS UI Package ${PKG_VERSION}\",
+PR_JSON="{
+  \"title\": \"[${PKG_TARGET}] Bump DC/OS UI Package to ${PKG_VERSION}\",
   \"body\": \"${PR_BODY_NO_NEWLINES_NO_HEADING}\",
-  \"head\": \"mesosphere:${DCOS_BRANCH}\",
+  \"head\": \"${DCOS_BRANCH}\",
   \"base\": \"${PKG_TARGET}\"
 }"
 
-curl
-  -H "Content-Type: application/json"
-  -u "$GIT_USER:$GIT_PASSWORD"
-  -X POST
-  -d "${pullRequest}"
-  "${GITHUB_URL}${DCOS_ORIGIN}/pulls"
+curl \
+  -H "Content-Type: application/json" \
+  -u "$GIT_USER:$GIT_PASSWORD" \
+  -X POST \
+  -d "${PR_JSON}" \
+  "${GITHUB_URL}${DCOS_ORIGIN}/pulls" > pr.json
+
+PULL_NUMBER="$(python -c "import sys, json; \
+  dcosrc = json.load(open('$PROJECT_ROOT/pr.json')); \
+  sys.stdout.write(str(dcosrc['number']));")"
+
+COMMENT_JSON="{
+  \"body\": \"@mesosphere-mergebot label [Ready For Review]\"
+}"
+
+curl \
+  -H "Content-Type: application/json" \
+  -u "$GIT_USER:$GIT_PASSWORD" \
+  -X POST \
+  -d "${COMMENT_JSON}" \
+  "${GITHUB_URL}${DCOS_ORIGIN}/issues/${PULL_NUMBER}/comments" > comment.json
