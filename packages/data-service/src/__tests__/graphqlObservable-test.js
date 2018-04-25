@@ -20,6 +20,11 @@ const typeDefs = `
   type Query {
     launched(name: String): [Shuttle!]!
   }
+  
+  type Mutation {
+    createShuttle(name: String): Shuttle!
+    createShuttleList(name: String): [Shuttle!]!
+  }  
 `;
 
 const mockResolvers = {
@@ -40,6 +45,14 @@ const mockResolvers = {
           .combineLatest(name, (res, name) => [res, name])
           .map(els => els[0].filter(el => el.name === els[1]));
       }
+    }
+  },
+  Mutation: {
+    createShuttle: (parent, args, ctx) => {
+      return ctx.mutation;
+    },
+    createShuttleList: (parent, args, ctx) => {
+      return ctx.mutation;
     }
   }
 };
@@ -216,6 +229,91 @@ describe("graphqlObservable", function() {
       });
 
       m.expect(result.take(1)).toBeObservable(expected);
+    });
+  });
+
+  describe("Mutation", function() {
+    itMarbles("createShuttle adds a shuttle and return its name", function(m) {
+      const mutation = gql`
+        mutation {
+          createShuttle(name: "RocketShip") {
+            name
+          }
+        }
+      `;
+
+      const fakeRequest = { name: "RocketShip" };
+      const commandContext = Observable.of(fakeRequest);
+
+      const result = graphqlObservable(mutation, schema, {
+        mutation: commandContext
+      });
+
+      const expected = m.cold("(a|)", {
+        a: { createShuttle: { name: "RocketShip" } }
+      });
+
+      m.expect(result).toBeObservable(expected);
+    });
+
+    itMarbles(
+      "createShuttleList adds a shuttle and return all shuttles",
+      function(m) {
+        const mutation = gql`
+          mutation {
+            createShuttleList(name: "RocketShip") {
+              name
+            }
+          }
+        `;
+
+        const fakeRequest = [
+          { name: "discovery" },
+          { name: "challenger" },
+          { name: "RocketShip" }
+        ];
+        const commandContext = Observable.of(fakeRequest);
+
+        const result = graphqlObservable(mutation, schema, {
+          mutation: commandContext
+        });
+
+        const expected = m.cold("(a|)", {
+          a: {
+            createShuttleList: [
+              { name: "discovery" },
+              { name: "challenger" },
+              { name: "RocketShip" }
+            ]
+          }
+        });
+
+        m.expect(result).toBeObservable(expected);
+      }
+    );
+
+    itMarbles("accept alias name", function(m) {
+      const mutation = gql`
+        mutation addShuttle($name: String) {
+          createShuttle(name: $name) {
+            name
+          }
+        }
+      `;
+
+      const fakeRequest = { name: "RocketShip" };
+      const commandContext = Observable.of(fakeRequest);
+
+      const result = graphqlObservable(mutation, schema, {
+        mutation: commandContext,
+        name: "RocketShip"
+      });
+
+      const expected = m.cold("(a|)", {
+        a: { addShuttle: { name: "RocketShip" } }
+      });
+
+      m.expect(result).toBeObservable(expected);
     });
   });
 });

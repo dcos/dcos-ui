@@ -1,4 +1,8 @@
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/throw";
+import "rxjs/add/observable/of";
+import "rxjs/add/operator/combineLatest";
+import "rxjs/add/operator/map";
 
 // TODO: refactor this once it has a more comprehensive implementation
 // of the graphql api
@@ -7,7 +11,8 @@ import { Observable } from "rxjs/Observable";
 // https://facebook.github.io/graphql/October2016/
 
 const translateOperation = {
-  query: "Query"
+  query: "Query",
+  mutation: "Mutation"
 };
 
 function resolveStep(typeMap, definition, context, parent) {
@@ -32,12 +37,11 @@ function resolveStep(typeMap, definition, context, parent) {
   // Node Field
   if (definition.kind === "Field" && definition.selectionSet !== undefined) {
     const args = definition.arguments
-      .map(
-        arg =>
-          (arg.value.kind === "Variable"
-            ? { [arg.name.value]: context[arg.value.name.value] }
-            : { [arg.name.value]: arg.value.value })
-      )
+      .map(arg => {
+        return arg.value.kind === "Variable"
+          ? { [arg.name.value]: context[arg.value.name.value] }
+          : { [arg.name.value]: arg.value.value };
+      })
       .reduce(Object.assign, {});
 
     const resolvedObservable = typeMap[definition.name.value].resolve(
@@ -48,6 +52,10 @@ function resolveStep(typeMap, definition, context, parent) {
     );
 
     return resolvedObservable.map(emittedResults => {
+      if (!emittedResults.map) {
+        return emittedResults;
+      }
+
       return emittedResults.map(result => {
         return definition.selectionSet.selections.reduce((acc, sel) => {
           acc[sel.name.value] = resolveStep(typeMap, sel, context, result);
@@ -64,7 +72,9 @@ function resolveStep(typeMap, definition, context, parent) {
   }
 
   return Observable.throw(
-    new Error("graphqlObservable does not recognise ${definition.kind}")
+    new Error(
+      "graphqlObservable error: kind ${definition.kind} is not supported"
+    )
   );
 }
 
