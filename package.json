@@ -130,7 +130,7 @@
     "clean": "rm -rf dist",
     "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
-    "prebuild-assets": "./node_modules/.bin/gulp checkDependencies && npm install compression-webpack-plugin@latest",
+    "prebuild-assets": "./node_modules/.bin/gulp checkDependencies && npm install compression-webpack-plugin@0.4.0",
     "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
     "postbuild-assets": "rm -rf node_modules/compression-webpack-plugin",
     "build": "npm run lint && npm test && npm run build-assets && npm run validate-build",
