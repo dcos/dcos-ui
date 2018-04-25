@@ -41,7 +41,7 @@ fi
 ## Create DC/OS Bump PR
 #####################################################################
 
-TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" ${GITHUB_URL}${DCOS_ORIGIN}/contents/PULL_REQUEST_TEMPLATE.md)
+TEMPLATE=$(curl -H "Accept: application/vnd.github.v3.raw" -u "$GIT_USER:$GIT_PASSWORD" ${GITHUB_URL}${DCOS_ORIGIN}/contents/PULL_REQUEST_TEMPLATE.md)
 TASKS_HEAD="Corresponding DC/OS tickets (obligatory)"
 
 PR_BODY=$(echo "${TEMPLATE}" | sed "s@${TASKS_HEAD}@${TASKS_HEAD}<br /><br />${CHANGELOG}@")

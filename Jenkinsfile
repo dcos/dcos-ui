@@ -174,5 +174,45 @@ pipeline {
         }
       }
     }
+
+    stage('Run Enterprise Pipeline') {
+      when {
+        expression {
+          release_branches.contains(BRANCH_NAME) && params.CREATE_RELEASE == false
+        }
+      }
+      steps {
+        build job: "frontend/dcos-ui-ee-pipeline/" + env.BRANCH_NAME.replaceAll("/", "%2F"), wait: false, propagate: false
+      }
+    }
+  }
+
+  post {
+    failure {
+      withCredentials([
+        string(credentialsId: '8b793652-f26a-422f-a9ba-0d1e47eb9d89', variable: 'SLACK_TOKEN')
+      ]) {
+        slackSend (
+          channel: '#frontend-ci-status',
+          color: 'danger',
+          message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          teamDomain: 'mesosphere',
+          token: "${env.SLACK_TOKEN}",
+        )
+      }
+    }
+    unstable {
+      withCredentials([
+        string(credentialsId: '8b793652-f26a-422f-a9ba-0d1e47eb9d89', variable: 'SLACK_TOKEN')
+      ]) {
+        slackSend (
+          channel: '#frontend-ci-status',
+          color: 'warning',
+          message: "UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          teamDomain: 'mesosphere',
+          token: "${env.SLACK_TOKEN}",
+        )
+      }
+    }
   }
 }

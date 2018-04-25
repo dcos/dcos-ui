@@ -33,7 +33,12 @@ CLEANUP_TESTS=${CLEANUP_TESTS:-0}
 PROXY_PORT=${PROXY_PORT:-4200}
 PROXY_PID=0
 
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
+# path of this file
+SCRIPT_PATH="$( cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd )"
+
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts++)" && pwd )"
+
 CYPRESS_FOLDER="cypress"
 TESTS_FOLDER="tests"
 

@@ -18,6 +18,9 @@ PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd
 # where to store dcos repo in
 DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
 
+BUILDINFO_PATH=${BUILDINFO_PATH:-'packages/dcos-ui/buildinfo.json'}
+UPSTREAM_PATH=${UPSTREAM_PATH:-'packages/upstream.json'}
+
 # DCOS Origin and Upstream
 DCOS_ORIGIN=${DCOS_ORIGIN:-""}
 DCOS_UPSTREAM=${DCOS_UPSTREAM:-""}
@@ -60,18 +63,18 @@ else
     reset --hard "origin/${PKG_TARGET}"
 fi
 
-cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
+cp -f "${PROJECT_ROOT}/buildinfo.json" "${PROJECT_ROOT}/${DCOS_FOLDER}/${BUILDINFO_PATH}"
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
+  add "${PROJECT_ROOT}/${DCOS_FOLDER}/${BUILDINFO_PATH}"
 
 if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
-  cp -f ${PROJECT_ROOT}/upstream.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/upstream.json
+  cp -f "${PROJECT_ROOT}/upstream.json" "${PROJECT_ROOT}/${DCOS_FOLDER}/${UPSTREAM_PATH}"
   git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/upstream.json"
+    add "${PROJECT_ROOT}/${DCOS_FOLDER}/${UPSTREAM_PATH}"
 fi
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
+  commit -m "chore(dcos-ui): bump package ${PKG_VERSION}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   push --force --set-upstream origin $DCOS_BRANCH
