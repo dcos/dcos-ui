@@ -49,10 +49,16 @@ const mockResolvers = {
   },
   Mutation: {
     createShuttle: (parent, args, ctx) => {
-      return ctx.mutation;
+      return ctx.mutation.map(() => ({
+        name: args.name
+      }));
     },
     createShuttleList: (parent, args, ctx) => {
-      return ctx.mutation;
+      return ctx.mutation.map(() => [
+        { name: "discovery" },
+        { name: "challenger" },
+        { name: args.name }
+      ]);
     }
   }
 };
@@ -267,12 +273,7 @@ describe("graphqlObservable", function() {
           }
         `;
 
-        const fakeRequest = [
-          { name: "discovery" },
-          { name: "challenger" },
-          { name: "RocketShip" }
-        ];
-        const commandContext = Observable.of(fakeRequest);
+        const commandContext = Observable.of("a request");
 
         const result = graphqlObservable(mutation, schema, {
           mutation: commandContext
@@ -301,8 +302,7 @@ describe("graphqlObservable", function() {
         }
       `;
 
-      const fakeRequest = { name: "RocketShip" };
-      const commandContext = Observable.of(fakeRequest);
+      const commandContext = Observable.of("a resquest");
 
       const result = graphqlObservable(mutation, schema, {
         mutation: commandContext,
