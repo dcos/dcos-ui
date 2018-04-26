@@ -201,7 +201,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.MEMORY")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={6}
+                colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
@@ -216,7 +216,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.DISK")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={3}
+                colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
