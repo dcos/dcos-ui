@@ -53,7 +53,7 @@ class TaskTable extends React.Component {
   }
 
   getStatValue(task, prop) {
-    return task.resources[prop];
+    return task.resources[prop] || 0;
   }
 
   getStatusValue(task) {

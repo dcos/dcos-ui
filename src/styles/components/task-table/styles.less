@@ -5,6 +5,7 @@
     &-zone-address,
     &-host-address,
     &-cpus,
+    &-gpus,
     &-mem,
     &-name,
     &-updated,
@@ -48,7 +49,8 @@
       width: 32px;
     }
 
-    &-cpus {
+    &-cpus,
+    &-gpus {
       width: 65px;
     }
 
@@ -67,6 +69,7 @@
     }
 
     &-cpus,
+    &-gpus,
     &-mem {
 
       // Extra specificity is necessary to override external vendor styles.
@@ -121,6 +124,7 @@
       &-zone-address,
       &-host-address,
       &-cpus,
+      &-gpus,
       &-mem {
         display: table-cell;
 
