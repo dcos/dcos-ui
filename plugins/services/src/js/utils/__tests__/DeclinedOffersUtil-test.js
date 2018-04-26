@@ -20,6 +20,7 @@ describe("DeclinedOffersUtil", function() {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         app: {
           cpus: 0.5,
+          gpus: 3,
           mem: 128,
           disk: 0,
           ports: [10010],
@@ -94,6 +95,11 @@ describe("DeclinedOffersUtil", function() {
           requested: 0.5,
           offers: 123,
           matched: 48
+        },
+        gpus: {
+          requested: 3,
+          matched: 23,
+          offers: 23
         },
         mem: {
           requested: 128,
@@ -220,6 +226,11 @@ describe("DeclinedOffersUtil", function() {
           requested: 6,
           offers: 123,
           matched: 48
+        },
+        gpus: {
+          requested: 0,
+          matched: 23,
+          offers: 23
         },
         mem: {
           requested: 600,
@@ -350,6 +361,11 @@ describe("DeclinedOffersUtil", function() {
           requested: 16,
           offers: 123,
           matched: 48
+        },
+        gpus: {
+          requested: 0,
+          matched: 23,
+          offers: 23
         },
         mem: {
           requested: 620,
