@@ -1,5 +1,6 @@
 var NodesTableHeaderLabels = {
   cpus: "CPU",
+  gpus: "GPU",
   disk: "Disk",
   health: "Health",
   hostname: "Name",
