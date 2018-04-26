@@ -17,7 +17,7 @@ describe("ResourcesUtil", function() {
       cpus: 0,
       mem: 0,
       disk: 0,
-      gpu: 0,
+      gpus: 0,
       bananas: 0
     });
   });
@@ -76,14 +76,14 @@ describe("ResourcesUtil", function() {
         cpus: 0,
         mem: 0,
         disk: 0,
-        gpu: 0,
+        gpus: 0,
         bananas: 0
       });
     });
 
     it("returns resources that are unknown to the application", function() {
       const resources = ResourcesUtil.getAdditionalResources();
-      expect(resources).toEqual(["bananas", "gpu"]);
+      expect(resources).toEqual(["bananas"]);
     });
 
     it("returns an empty array if there is no unknown resources", function() {
@@ -122,7 +122,7 @@ describe("ResourcesUtil", function() {
         bananas: "Bananas",
         cpus: "CPU",
         disk: "Disk",
-        gpu: "GPU",
+        gpus: "GPU",
         mem: "Memory"
       });
     });
@@ -162,7 +162,7 @@ describe("ResourcesUtil", function() {
         cpus: 0,
         mem: 6,
         disk: 3,
-        gpu: 2,
+        gpus: 0,
         bananas: 1
       });
     });
