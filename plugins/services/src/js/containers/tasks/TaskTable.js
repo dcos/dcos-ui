@@ -28,6 +28,7 @@ const tableColumnClasses = {
   logs: "task-table-column-logs",
   cpus: "task-table-column-cpus",
   mem: "task-table-column-mem",
+  gpus: "task-table-column-gpus",
   updated: "task-table-column-updated",
   version: "task-table-column-version"
 };
@@ -52,7 +53,7 @@ class TaskTable extends React.Component {
   }
 
   getStatValue(task, prop) {
-    return task.resources[prop];
+    return task.resources[prop] || 0;
   }
 
   getStatusValue(task) {
@@ -177,6 +178,17 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
+        cacheCell: true,
+        className,
+        getValue: this.getStatValue,
+        headerClassName: className,
+        heading,
+        prop: "gpus",
+        render: this.renderStats,
+        sortable: true,
+        sortFunction
+      },
+      {
         className,
         headerClassName: className,
         heading,
@@ -184,24 +196,6 @@ class TaskTable extends React.Component {
         render: ResourceTableUtil.renderUpdated,
         sortable: true,
         sortFunction
-      },
-      {
-        cacheCell: true,
-        className,
-        getValue: this.getVersionValue,
-        headerClassName: className,
-        heading,
-        prop: "version",
-        render: this.renderVersion,
-        sortable: true,
-        sortFunction: TableUtil.getSortFunction("id", task => {
-          const version = this.getVersionValue(task);
-          if (version == null) {
-            return null;
-          }
-
-          return new Date(version);
-        })
       }
     ];
   }
@@ -220,8 +214,8 @@ class TaskTable extends React.Component {
         <col className={tableColumnClasses.logs} />
         <col className={tableColumnClasses.cpus} />
         <col className={tableColumnClasses.mem} />
+        <col className={tableColumnClasses.gpus} />
         <col className={tableColumnClasses.updated} />
-        <col className={tableColumnClasses.version} />
       </colgroup>
     );
   }
