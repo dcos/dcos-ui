@@ -44,7 +44,7 @@ var HostTimeSeriesChart = React.createClass({
     return [
       {
         name: "Nodes",
-        colorIndex: 4,
+        colorIndex: 0,
         values: props.data
       }
     ];
@@ -70,7 +70,7 @@ var HostTimeSeriesChart = React.createClass({
     return (
       <div className="chart">
         <TimeSeriesLabel
-          colorIndex={4}
+          colorIndex={0}
           currentValue={props.currentValue}
           subHeading={"Connected Nodes"}
           y="slavesCount"

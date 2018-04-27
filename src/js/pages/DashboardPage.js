@@ -201,7 +201,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.MEMORY")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={6}
+                colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
@@ -216,7 +216,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.DISK")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={3}
+                colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
@@ -236,6 +236,18 @@ var DashboardPage = React.createClass({
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
                 mode="gpus"
+                refreshRate={Config.getRefreshRate()}
+              />
+            </Panel>
+          </div>
+          <div className={columnClasses}>
+            <Panel
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading("DASHBOARD.PANEL_HEADING.NODES")}
+            >
+              <HostTimeSeriesChart
+                data={data.activeNodes}
+                currentValue={data.hostCount}
                 refreshRate={Config.getRefreshRate()}
               />
             </Panel>
@@ -272,18 +284,6 @@ var DashboardPage = React.createClass({
               <ComponentList
                 displayCount={this.props.componentsListLength}
                 units={this.getUnits()}
-              />
-            </Panel>
-          </div>
-          <div className={columnClasses}>
-            <Panel
-              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.NODES")}
-            >
-              <HostTimeSeriesChart
-                data={data.activeNodes}
-                currentValue={data.hostCount}
-                refreshRate={Config.getRefreshRate()}
               />
             </Panel>
           </div>
