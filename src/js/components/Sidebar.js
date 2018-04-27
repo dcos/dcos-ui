@@ -9,8 +9,6 @@ import { navigation } from "foundation-ui";
 import { keyCodes } from "../utils/KeyboardUtil";
 import EventTypes from "../constants/EventTypes";
 import Icon from "../components/Icon";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
-import MesosSummaryStore from "../stores/MesosSummaryStore";
 import MetadataStore from "../stores/MetadataStore";
 import PrimarySidebarLink from "../components/PrimarySidebarLink";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
@@ -35,19 +33,23 @@ const defaultMenuItems = [
 ];
 
 const { Hooks } = PluginSDK;
+const METHODS_TO_BIND = [
+  "onNavigationChange",
+  "onDCOSMetadataChange",
+  "handleKeyPress",
+  "handleSidebarTransitionEnd"
+];
 
-var Sidebar = React.createClass({
-  displayName: "Sidebar",
+class Sidebar extends React.Component {
+  constructor() {
+    super();
 
-  mixins: [InternalStorageMixin],
+    this.state = { expandedItems: [] };
 
-  contextTypes: {
-    router: routerShape
-  },
-
-  getInitialState() {
-    return { expandedItems: [] };
-  },
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   componentWillMount() {
     const pathnameSegments = this.props.location.pathname.split("/");
@@ -57,14 +59,10 @@ var Sidebar = React.createClass({
     if (pathnameSegments.length > 1) {
       this.setState({ expandedItems: [`/${pathnameSegments[1]}`] });
     }
-  },
+  }
 
   componentDidMount() {
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
-
-    this.internalStorage_update({
-      mesosInfo: MesosSummaryStore.get("states").lastSuccessful()
-    });
 
     MetadataStore.addChangeListener(
       EventTypes.DCOS_METADATA_CHANGE,
@@ -79,7 +77,7 @@ var Sidebar = React.createClass({
     }
 
     global.addEventListener("keydown", this.handleKeyPress, true);
-  },
+  }
 
   componentWillUnmount() {
     NavigationService.removeListener(
@@ -100,15 +98,15 @@ var Sidebar = React.createClass({
     }
 
     global.removeEventListener("keydown", this.handleKeyPress, true);
-  },
+  }
 
   onDCOSMetadataChange() {
     this.forceUpdate();
-  },
+  }
 
   onNavigationChange() {
     this.forceUpdate();
-  },
+  }
 
   handleKeyPress(event) {
     const nodeName = event.target.nodeName;
@@ -122,11 +120,41 @@ var Sidebar = React.createClass({
       // has had a chance to update before Gemini re-renders.
       this.toggleSidebarDocking();
     }
-  },
+  }
 
   handleSubmenuItemClick() {
     SidebarActions.close();
-  },
+  }
+
+  handleClusterHeaderUpdate() {
+    ScrollbarUtil.updateWithRef(this.geminiRef);
+  }
+
+  handlePrimarySidebarLinkClick(element, isChildActive) {
+    const { expandedItems } = this.state;
+    const { path } = element;
+    const expandedItemIndex = expandedItems.indexOf(path);
+
+    if (expandedItemIndex === -1) {
+      expandedItems.push(path);
+    } else if (!isChildActive) {
+      expandedItems.splice(expandedItemIndex, 1);
+    }
+
+    this.setState({ expandedItems });
+  }
+
+  handleSidebarTransitionEnd(event) {
+    // Some elements (graphs and Gemini) need to update when the main content
+    // width changes, so we emit an event.
+    if (event.target === this.sidebarWrapperRef) {
+      SidebarActions.sidebarWidthChange();
+    }
+  }
+
+  handleOverlayClick() {
+    SidebarActions.close();
+  }
 
   getNavigationSections() {
     const definition = NavigationService.getDefinition();
@@ -154,7 +182,7 @@ var Sidebar = React.createClass({
         </div>
       );
     });
-  },
+  }
 
   getNavigationGroup(group) {
     const menuItems = Hooks.applyFilter(
@@ -221,7 +249,7 @@ var Sidebar = React.createClass({
     }
 
     return null;
-  },
+  }
 
   getGroupSubmenu(path, children) {
     const { pathname } = this.props.location;
@@ -278,7 +306,7 @@ var Sidebar = React.createClass({
     );
 
     return [<ul>{menuItems}</ul>, isChildActive];
-  },
+  }
 
   getVersion() {
     const data = MetadataStore.get("dcosMetadata");
@@ -287,37 +315,7 @@ var Sidebar = React.createClass({
     }
 
     return <span className="version-number">v.{data.version}</span>;
-  },
-
-  handleClusterHeaderUpdate() {
-    ScrollbarUtil.updateWithRef(this.geminiRef);
-  },
-
-  handlePrimarySidebarLinkClick(element, isChildActive) {
-    const { expandedItems } = this.state;
-    const { path } = element;
-    const expandedItemIndex = expandedItems.indexOf(path);
-
-    if (expandedItemIndex === -1) {
-      expandedItems.push(path);
-    } else if (!isChildActive) {
-      expandedItems.splice(expandedItemIndex, 1);
-    }
-
-    this.setState({ expandedItems });
-  },
-
-  handleSidebarTransitionEnd(event) {
-    // Some elements (graphs and Gemini) need to update when the main content
-    // width changes, so we emit an event.
-    if (event.target === this.sidebarWrapperRef) {
-      SidebarActions.sidebarWidthChange();
-    }
-  },
-
-  handleOverlayClick() {
-    SidebarActions.close();
-  },
+  }
 
   toggleSidebarDocking() {
     global.requestAnimationFrame(() => {
@@ -327,7 +325,7 @@ var Sidebar = React.createClass({
         SidebarActions.dock();
       }
     });
-  },
+  }
 
   render() {
     let dockIconID = "sidebar-expand";
@@ -382,6 +380,10 @@ var Sidebar = React.createClass({
       </div>
     );
   }
-});
+}
+
+Sidebar.contextTypes = {
+  router: routerShape
+};
 
 module.exports = Sidebar;
