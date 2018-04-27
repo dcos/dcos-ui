@@ -58,6 +58,8 @@ const DeclinedOffersUtil = {
       declinedOffersMap[DeclinedOffersReasons.UNFULFILLED_CONSTRAINT];
     const cpuOfferSummary =
       declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_CPU];
+    const gpuOfferSummary =
+      declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_GPU];
     const memOfferSummary =
       declinedOffersMap[DeclinedOffersReasons.INSUFFICIENT_MEM];
     const diskOfferSummary =
@@ -75,6 +77,8 @@ const DeclinedOffersUtil = {
           // Tally the total number of requested resources.
           accumulator.cpus +=
             Util.findNestedPropertyInObject(container, "resources.cpus") || 0;
+          accumulator.gpus +=
+            Util.findNestedPropertyInObject(container, "resources.gpus") || 0;
           accumulator.mem +=
             Util.findNestedPropertyInObject(container, "resources.mem") || 0;
           accumulator.disk +=
@@ -105,6 +109,10 @@ const DeclinedOffersUtil = {
             pod,
             "executorResources.cpus"
           ) || 0,
+          gpus: Util.findNestedPropertyInObject(
+            pod,
+            "executorResources.gpus"
+          ) || 0,
           mem: Util.findNestedPropertyInObject(pod, "executorResources.mem") ||
             0,
           disk: Util.findNestedPropertyInObject(
@@ -122,6 +130,7 @@ const DeclinedOffersUtil = {
         ) || ["*"],
         constraints: Util.findNestedPropertyInObject(app, "constraints") || [],
         cpus: app.cpus || 0,
+        gpus: app.gpus || 0,
         mem: app.mem || 0,
         disk: app.disk || 0,
         ports: [app.ports] || [[]]
@@ -159,6 +168,11 @@ const DeclinedOffersUtil = {
         requested: requestedResources.cpus,
         offers: cpuOfferSummary.processed,
         matched: cpuOfferSummary.processed - cpuOfferSummary.declined
+      },
+      gpus: {
+        requested: requestedResources.gpus,
+        offers: gpuOfferSummary.processed,
+        matched: gpuOfferSummary.processed - gpuOfferSummary.declined
       },
       mem: {
         requested: requestedResources.mem,
