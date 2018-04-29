@@ -53,7 +53,5 @@ module.exports = {
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],
-  // We need this to override jest's default ['/node_modules/']
-  transformIgnorePatterns: [],
   testPathIgnorePatterns: ["/tmp/", "/node_modules/"]
 };
