@@ -47,8 +47,8 @@ const MesosSummaryUtil = {
   },
 
   filterHostsByService(hosts, frameworkId) {
-    return hosts.filter(function(host) {
-      return host.framework_ids.includes(frameworkId);
+    return hosts.filter(function({ framework_ids = [] }) {
+      return framework_ids.includes(frameworkId);
     });
   },
 
