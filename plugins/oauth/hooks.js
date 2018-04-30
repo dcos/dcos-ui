@@ -37,7 +37,8 @@ module.exports = Object.assign({}, StoreMixin, {
     "applicationRoutes",
     "delayApplicationLoad",
     "organizationRoutes",
-    "serverErrorModalListeners"
+    "serverErrorModalListeners",
+    "userAddPolicy"
   ],
 
   initialize() {
@@ -220,5 +221,21 @@ module.exports = Object.assign({}, StoreMixin, {
 
   navigateToLoginPage() {
     global.location.href = "#/login";
+  },
+
+  userAddPolicy() {
+    return (
+      <p className="form-control-feedback">
+        By adding a user you understand we will process personal information in accordance with our
+        {" "}
+        <a
+          className="reset-color"
+          href="https://mesosphere.com/privacy/"
+          target="_blank"
+        >
+          Privacy Policy
+        </a>.
+      </p>
+    );
   }
 });
