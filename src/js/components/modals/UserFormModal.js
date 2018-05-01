@@ -123,7 +123,11 @@ class UserFormModal extends mixin(StoreMixin) {
         <p className="form-control-feedback">
           By adding a user you understand we will process personal information in accordance with our
           {" "}
-          <a href="https://mesosphere.com/privacy/" target="_blank">
+          <a
+            className="small inverse unset-display"
+            href="https://mesosphere.com/privacy/"
+            target="_blank"
+          >
             Privacy Policy
           </a>
         </p>
