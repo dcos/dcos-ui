@@ -1,102 +1,150 @@
 #!/usr/bin/env groovy
 
-@Library('sec_ci_libs@v2-latest') _
+@Library("sec_ci_libs@v2-latest") _
 
-def master_branches = ["release/1.11"] as String[]
+def master_branches = ["release/1.11", ] as String[]
 
 pipeline {
   agent {
     dockerfile {
-      args  '--shm-size=2g'
+      args  "--shm-size=1g"
     }
   }
 
   environment {
-    JENKINS_VERSION = 'yes'
-    NODE_PATH = 'node_modules'
+    JENKINS_VERSION = "yes"
+    NODE_PATH = "node_modules"
+    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/1.11/dcos_generate_config.sh"
   }
 
   options {
-    timeout(time: 3, unit: 'HOURS')
+    timeout(time: 2, unit: "HOURS")
+    disableConcurrentBuilds()
   }
 
   stages {
-    stage('Authorization') {
+    stage("Authorization") {
       steps {
-        user_is_authorized(master_branches, '8b793652-f26a-422f-a9ba-0d1e47eb9d89', '#frontend-dev')
+        user_is_authorized(master_branches, "8b793652-f26a-422f-a9ba-0d1e47eb9d89", "#frontend-dev")
       }
     }
 
-    stage('Initialization') {
+    stage("Build") {
       steps {
-        ansiColor('xterm') {
-          retry(2) {
-            sh '''npm --unsafe-perm install'''
+        sh "npm --unsafe-perm install"
+        sh "npm run build"
+        sh "tar czf release.tar.gz dist"
+      }
+    }
+
+    stage("Test") {
+      parallel {
+        stage("Integration Test") {
+          steps {
+            sh "npm run integration-tests"
           }
 
-          sh '''npm run scaffold'''
+          post {
+            always {
+              archiveArtifacts "cypress/**/*"
+              junit "cypress/results.xml"
+            }
+          }
+        }
+        stage("System Test") {
+          steps {
+            withCredentials([
+                [
+                  $class: "AmazonWebServicesCredentialsBinding",
+                  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                  accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+                ]
+              ]) {
+              sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+            }
+          }
+
+          post {
+            always {
+              archiveArtifacts "results/**/*"
+              junit "results/results.xml"
+            }
+          }
         }
       }
     }
 
-    stage('Lint') {
-      steps {
-        ansiColor('xterm') {
-          sh '''npm run lint'''
+    // Upload the current master as "latest" to s3
+    // and update the corresponding DC/OS branch:
+    // For Example:
+    // - dcos-ui/master/dcos-ui-latest
+    // - dcos-ui/1.12/dcos-ui-latest
+    stage("Release Latest") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
         }
       }
-    }
 
-    stage('Unit Test') {
       steps {
-        ansiColor('xterm') {
-          sh '''npm run test -- --coverage'''
+        withCredentials([
+            string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"),
+            string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"),
+            usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
+        ]) {
+          sh "git config --global user.email $GIT_USER@users.noreply.github.com"
+          sh "git config --global user.name 'MesosphereCI Robot'"
+          sh "git config credential.helper 'cache --timeout=300'"
+
+          sh "FORCE_UPLOAD=1 ./scripts/ci/release-latest"
         }
       }
 
       post {
         always {
-          junit 'jest/test-results/*.xml'
-          step([$class             : 'CoberturaPublisher',
-                autoUpdateHealth   : false,
-                autoUpdateStability: false,
-                coberturaReportFile: 'coverage/cobertura-coverage.xml',
-                failUnhealthy      : true,
-                failUnstable       : true,
-                maxNumberOfBuilds  : 0,
-                onlyStable         : false,
-                sourceEncoding     : 'ASCII',
-                zoomCoverageChart  : false])
+          archiveArtifacts "buildinfo.json"
         }
       }
     }
 
-    stage('Build') {
+    stage("Run Enterprise Pipeline") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
       steps {
-        ansiColor('xterm') {
-          sh '''npm run build-assets'''
-        }
+        build job: "frontend/dcos-ui-ee-pipeline/" + env.BRANCH_NAME.replaceAll("/", "%2F"), wait: false
       }
-
-      post {
-        always {
-          stash includes: 'dist/*', name: 'dist'
-        }
-      }
-
     }
+  }
 
-    stage('Integration Test') {
-      steps {
-        unstash 'dist'
-        sh "npm run integration-tests"
+  post {
+    failure {
+      withCredentials([
+        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+      ]) {
+        slackSend (
+          channel: "#frontend-ci-status",
+          color: "danger",
+          message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          teamDomain: "mesosphere",
+          token: "${env.SLACK_TOKEN}",
+        )
       }
-
-      post {
-        always {
-          archiveArtifacts 'cypress/**/*'
-          junit 'cypress/results.xml'
-        }
+    }
+    unstable {
+      withCredentials([
+        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+      ]) {
+        slackSend (
+          channel: "#frontend-ci-status",
+          color: "warning",
+          message: "UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          teamDomain: "mesosphere",
+          token: "${env.SLACK_TOKEN}",
+        )
       }
     }
   }
