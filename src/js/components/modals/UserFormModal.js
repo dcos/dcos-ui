@@ -124,7 +124,7 @@ class UserFormModal extends mixin(StoreMixin) {
           By adding a user you understand we will process personal information in accordance with our
           {" "}
           <a
-            className="small inverse unset-display"
+            className="reset-color"
             href="https://mesosphere.com/privacy/"
             target="_blank"
           >
