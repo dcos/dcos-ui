@@ -16,7 +16,8 @@ import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 const COLOR_CLASSNAMES = {
   cpus: "color-1",
   mem: "color-2",
-  disk: "color-3"
+  disk: "color-3",
+  gpus: "color-1"
 };
 
 class NodesTable extends PureComponent {
@@ -212,6 +213,15 @@ class NodesTable extends PureComponent {
         sortable: true,
         sortFunction,
         heading
+      },
+      {
+        className,
+        headerClassName: className,
+        prop: "gpus",
+        render: this.renderStats,
+        sortable: true,
+        sortFunction,
+        heading
       }
     ];
   }
@@ -227,6 +237,7 @@ class NodesTable extends PureComponent {
         <col className="node-table--col-cpus hidden-small-down" />
         <col className="node-table--col-mem hidden-small-down" />
         <col className="node-table--col-disk hidden-small-down" />
+        <col className="node-table--col-gpus hidden-small-down" />
       </colgroup>
     );
   }
