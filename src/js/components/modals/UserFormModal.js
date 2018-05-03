@@ -129,7 +129,7 @@ class UserFormModal extends mixin(StoreMixin) {
             target="_blank"
           >
             Privacy Policy
-          </a>
+          </a>.
         </p>
         {Hooks.applyFilter(
           "userFormModalFooter",
