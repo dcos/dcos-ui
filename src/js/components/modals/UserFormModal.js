@@ -120,17 +120,20 @@ class UserFormModal extends mixin(StoreMixin) {
   getFooter() {
     return (
       <div>
-        <p className="form-control-feedback">
-          By adding a user you understand we will process personal information in accordance with our
-          {" "}
-          <a
-            className="reset-color"
-            href="https://mesosphere.com/privacy/"
-            target="_blank"
-          >
-            Privacy Policy
-          </a>.
-        </p>
+        {Hooks.applyFilter(
+          "userAddPolicy",
+          <p className="form-control-feedback">
+            By adding a user you understand we will process personal information in accordance with our
+            {" "}
+            <a
+              className="reset-color"
+              href="https://mesosphere.com/privacy/"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>.
+          </p>
+        )}
         {Hooks.applyFilter(
           "userFormModalFooter",
           <p className="form-group-without-top-label flush-bottom text-align-center">
