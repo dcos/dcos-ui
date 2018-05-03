@@ -27,6 +27,11 @@
     "listEmittedFiles": true,
     "pretty": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["*", "packages/*"]
+    }
   },
   "include": [
     "src/**/*",
