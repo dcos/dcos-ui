@@ -17,6 +17,8 @@ COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 
 # Install required components & prepare environment
 RUN set -x \
+  # Install aws-cli
+  && pip install awscli --upgrade \
   # Install node 4.4.7 & npm 3.9
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
@@ -39,7 +41,10 @@ RUN set -x \
   && chmod +x /usr/local/bin/dcos-ui-docker-entrypoint \
   # Make sure bash is the default shell
   && rm /bin/sh \
-  && ln -sf /bin/bash /bin/sh
+  && ln -sf /bin/bash /bin/sh \
+  # Fix system tests as long as upstream dependency has errors
+  && pip install 'six==1.10.0' \
+  && pip install 'python-dateutil==2.6.0'
 
 # Define entrypoint
 ENTRYPOINT [ "/bin/bash", "/usr/local/bin/dcos-ui-docker-entrypoint" ]
