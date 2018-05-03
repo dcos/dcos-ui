@@ -108,10 +108,30 @@ module.exports = {
   },
 
   userLoginPolicy() {
-    return null;
+    return (
+      <p>
+        By logging in to DC/OS you understand we will process personal
+        information in accordance with our{" "}
+        <a href="https://mesosphere.com/privacy/" target="_blank">
+          Privacy Policy
+        </a>.
+      </p>
+    );
   },
 
   userAddPolicy() {
-    return null;
+    return (
+      <p className="form-control-feedback">
+        By adding a user you understand we will process personal information in accordance with our
+        {" "}
+        <a
+          className="reset-color"
+          href="https://mesosphere.com/privacy/"
+          target="_blank"
+        >
+          Privacy Policy
+        </a>.
+      </p>
+    );
   }
 };
