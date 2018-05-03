@@ -25,7 +25,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "listEmittedFiles": true,
-    "pretty": true
+    "pretty": true,
+    "experimentalDecorators": true,
   },
   "include": [
     "src/**/*",
