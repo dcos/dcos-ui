@@ -46,7 +46,7 @@ describe("ServiceUtil", function() {
         disk: null,
         instances: null,
         labels: {
-          DCOS_PACKAGE_FRAMEWORK_NAME: "Test Framework"
+          DCOS_PACKAGE_FRAMEWORK_NAME: "FrameworkNotCosmos"
         }
       });
 
