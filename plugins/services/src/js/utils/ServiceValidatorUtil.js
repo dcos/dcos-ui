@@ -74,7 +74,9 @@ const ServiceValidatorUtil = {
     return (
       ServiceValidatorUtil.isApplicationResponse(data) &&
       data.labels &&
-      data.labels.DCOS_PACKAGE_FRAMEWORK_NAME
+      data.labels.DCOS_PACKAGE_NAME &&
+      data.labels.DCOS_PACKAGE_FRAMEWORK_NAME &&
+      data.labels.DCOS_PACKAGE_VERSION
     );
   },
 
