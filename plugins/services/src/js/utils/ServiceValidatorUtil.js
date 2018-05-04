@@ -72,7 +72,7 @@ const ServiceValidatorUtil = {
     // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
     // should be converted to an Application or Framework instance.
     // It is possible to DCOS_PACKAGE_FRAMEWORK_NAME without being a Cosmos package,
-    // for example, with Marathon-on-Marathon EE, which is intentionally 
+    // for example, with Marathon-on-Marathon EE, which is intentionally
     // not available as a Cosmos package.
     return (
       ServiceValidatorUtil.isApplicationResponse(data) &&
