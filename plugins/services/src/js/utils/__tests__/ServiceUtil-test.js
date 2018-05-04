@@ -28,11 +28,29 @@ describe("ServiceUtil", function() {
         disk: null,
         instances: null,
         labels: {
-          DCOS_PACKAGE_FRAMEWORK_NAME: "Test Framework"
+          DCOS_PACKAGE_NAME: "Test Framework",
+          DCOS_PACKAGE_FRAMEWORK_NAME: "Test Framework",
+          DCOS_PACKAGE_VERSION: "1.0.0"
         }
       });
 
       expect(instance instanceof Framework).toBeTruthy();
+    });
+
+    it("creates Application with Framework label instances", function() {
+      const instance = ServiceUtil.createServiceFromResponse({
+        id: "/test",
+        cmd: "sleep 1000;",
+        cpus: null,
+        mem: null,
+        disk: null,
+        instances: null,
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: "Test Framework"
+        }
+      });
+
+      expect(instance instanceof Application).toBeTruthy();
     });
 
     it("creates Pod instances", function() {
