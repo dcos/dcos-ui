@@ -208,7 +208,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "alpha",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "alpha",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
@@ -229,7 +229,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "alpha",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "alpha",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
@@ -245,7 +245,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "beta",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
@@ -265,7 +265,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "alpha",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "alpha",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
@@ -287,7 +287,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "beta",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
@@ -308,7 +308,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "alpha",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "alpha",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
@@ -523,7 +523,7 @@ describe("DCOSStore", function() {
               labels: {
                 DCOS_PACKAGE_NAME: "alpha",
                 DCOS_PACKAGE_FRAMEWORK_NAME: "alpha",
-                DCOS_PACKAGE_VERSION: "v1",
+                DCOS_PACKAGE_VERSION: "v1"
               }
             }
           ]
