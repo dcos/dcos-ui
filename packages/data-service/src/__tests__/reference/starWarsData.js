@@ -95,7 +95,7 @@ const droidData = {
  */
 function getCharacter(id) {
   // Returning a promise just to illustrate GraphQL.js's support.
-  return humanData[id] || droidData[id];
+  return Promise.resolve(humanData[id] || droidData[id]);
 }
 
 /*

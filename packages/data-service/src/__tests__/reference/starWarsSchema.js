@@ -173,7 +173,7 @@ const humanType = new GraphQLObjectType({
     friends: {
       type: GraphQLList(characterInterface),
       description: "The friends of the human, or an empty list if they have none.",
-      resolve: human => getFriends(human)
+      resolve: human => Observable.fromPromise(Promise.all(getFriends(human)))
     },
     appearsIn: {
       type: GraphQLList(episodeEnum),
@@ -222,7 +222,7 @@ const droidType = new GraphQLObjectType({
     friends: {
       type: GraphQLList(characterInterface),
       description: "The friends of the droid, or an empty list if they have none.",
-      resolve: droid => getFriends(droid)
+      resolve: droid => Observable.fromPromise(Promise.all(getFriends(droid)))
     },
     appearsIn: {
       type: GraphQLList(episodeEnum),

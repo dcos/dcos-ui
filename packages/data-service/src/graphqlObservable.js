@@ -27,22 +27,29 @@ function resolveFields(types, definition, context, parent) {
       return { ...acc, [fieldName]: emitted };
     };
 
-    return merger(acc, result);
-  }, {});
+    return acc.combineLatest(result, merger);
+  }, Observable.of({}));
 }
 
-function resolveRoot(types, definition, context, parent) {
-  return definition.selectionSet.selections.reduce((acc, sel) => {
-    const resolvedObservable = resolveStep(types, sel, context, parent);
+function resolveList(values, resolver, types, definition, context) {
+  return values.reduce((acc, result) => {
+    const refinedTypes = resolver.type.resolveType
+      ? resolver.type.resolveType(values).getFields()
+      : types;
+
+    const resultObserver = resolveFields(
+      refinedTypes,
+      definition,
+      context,
+      result
+    );
 
     const merger = (acc, emitted) => {
-      const fieldName = (sel.alias || sel.name).value;
-
-      return { ...acc, [fieldName]: emitted };
+      return acc.concat(emitted);
     };
 
-    return acc.combineLatest(resolvedObservable, merger);
-  }, Observable.of({}));
+    return acc.combineLatest(resultObserver, merger);
+  }, Observable.of([]));
 }
 
 function resolveStep(types, definition, context, parent) {
@@ -51,7 +58,7 @@ function resolveStep(types, definition, context, parent) {
       translateOperation[definition.operation]
     ].getFields();
 
-    return resolveRoot(nextTypeMap, definition, context, parent);
+    return resolveFields(nextTypeMap, definition, context, parent);
   }
 
   // Node Field
@@ -86,13 +93,13 @@ function resolveStep(types, definition, context, parent) {
       );
     }
 
-    // if (!(resolvedObservable instanceof Observable)) {
-    //   return Observable.throw(
-    //     new Error("graphqlObservable error: not an observable")
-    //   );
-    // }
+    if (!(resolvedObservable instanceof Observable)) {
+      return Observable.throw(
+        new Error("graphqlObservable error: not an observable")
+      );
+    }
 
-    return resolvedObservable.map(emittedResults => {
+    return resolvedObservable.concatMap(emittedResults => {
       if (!emittedResults) {
         return Observable.throw(
           new Error("graphqlObservable error: result not emitted")
@@ -107,18 +114,17 @@ function resolveStep(types, definition, context, parent) {
         return resolveFields(refinedTypes, definition, context, emittedResults);
       }
 
-      return emittedResults.map(result => {
-        return resolveFields(types, definition, context, result);
-      });
+      return resolveList(emittedResults, resolver, types, definition, context);
     });
   }
+
   if (definition.kind === "Field") {
-    return parent[definition.name.value];
+    return Observable.of(parent[definition.name.value]);
   }
 
   return Observable.throw(
     new Error(
-      "graphqlObservable error: kind ${definition.kind} is not supported"
+      `graphqlObservable error: kind ${definition.kind} is not supported`
     )
   );
 }

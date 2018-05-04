@@ -57,7 +57,7 @@ describe("Star Wars Query Tests", () => {
 
     it("Allows us to query for the ID and friends of R2-D2", async () => {
       const query = `
-        query HeroNameAndFriendsQuery {
+        query HerNameAndFriendsQuery {
           hero {
             id
             name
