@@ -2,7 +2,9 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/combineLatest";
+import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/concatMap";
 
 // TODO: refactor this once it has a more comprehensive implementation
 // of the graphql api
@@ -15,23 +17,41 @@ const translateOperation = {
   mutation: "Mutation"
 };
 
-function resolveStep(typeMap, definition, context, parent) {
+function resolveFields(types, definition, context, parent) {
+  return definition.selectionSet.selections.reduce((acc, sel) => {
+    const result = resolveStep(types, sel, context, parent);
+
+    const merger = (acc, emitted) => {
+      const fieldName = (sel.alias || sel.name).value;
+
+      return { ...acc, [fieldName]: emitted };
+    };
+
+    return merger(acc, result);
+  }, {});
+}
+
+function resolveRoot(types, definition, context, parent) {
+  return definition.selectionSet.selections.reduce((acc, sel) => {
+    const resolvedObservable = resolveStep(types, sel, context, parent);
+
+    const merger = (acc, emitted) => {
+      const fieldName = (sel.alias || sel.name).value;
+
+      return { ...acc, [fieldName]: emitted };
+    };
+
+    return acc.combineLatest(resolvedObservable, merger);
+  }, Observable.of({}));
+}
+
+function resolveStep(types, definition, context, parent) {
   if (definition.kind === "OperationDefinition") {
-    const nextTypeMap = typeMap[
+    const nextTypeMap = types[
       translateOperation[definition.operation]
     ].getFields();
 
-    return definition.selectionSet.selections.reduce((acc, sel) => {
-      const resolvedObservable = resolveStep(nextTypeMap, sel, context);
-
-      const merger = (acc, emitted) => {
-        const propertyName = (definition.name || sel.name).value;
-
-        return { ...acc, [propertyName]: emitted };
-      };
-
-      return acc.combineLatest(resolvedObservable, merger);
-    }, Observable.of({}));
+    return resolveRoot(nextTypeMap, definition, context, parent);
   }
 
   // Node Field
@@ -44,29 +64,54 @@ function resolveStep(typeMap, definition, context, parent) {
       })
       .reduce(Object.assign, {});
 
-    const resolvedObservable = typeMap[definition.name.value].resolve(
+    const resolver = types[definition.name.value];
+    if (!resolver) {
+      return Observable.throw(
+        new Error(
+          `graphqlObservable error: cant find resolver for ${definition.name.value}`
+        )
+      );
+    }
+
+    const resolvedObservable = resolver.resolve(
       parent,
       args,
       context,
       null // that would be the info
     );
 
+    if (!resolvedObservable) {
+      return Observable.throw(
+        new Error("graphqlObservable error: empty resolution")
+      );
+    }
+
+    // if (!(resolvedObservable instanceof Observable)) {
+    //   return Observable.throw(
+    //     new Error("graphqlObservable error: not an observable")
+    //   );
+    // }
+
     return resolvedObservable.map(emittedResults => {
+      if (!emittedResults) {
+        return Observable.throw(
+          new Error("graphqlObservable error: result not emitted")
+        );
+      }
+
       if (!emittedResults.map) {
-        return emittedResults;
+        const refinedTypes = resolver.type.resolveType
+          ? resolver.type.resolveType(emittedResults).getFields()
+          : types;
+
+        return resolveFields(refinedTypes, definition, context, emittedResults);
       }
 
       return emittedResults.map(result => {
-        return definition.selectionSet.selections.reduce((acc, sel) => {
-          acc[sel.name.value] = resolveStep(typeMap, sel, context, result);
-
-          return acc;
-        }, {});
+        return resolveFields(types, definition, context, result);
       });
     });
   }
-
-  // LeafField
   if (definition.kind === "Field") {
     return parent[definition.name.value];
   }
@@ -80,22 +125,16 @@ function resolveStep(typeMap, definition, context, parent) {
 
 // eslint-disable-next-line import/prefer-default-export
 export function graphqlObservable(doc, schema, context) {
-  if (doc.definitions.length === 1) {
-    return resolveStep(schema._typeMap, doc.definitions[0], context, null);
+  if (doc.definitions.length !== 1) {
+    return Observable.throw(
+      new Error("graphqlObservable error: unsupported multi root document")
+    );
   }
 
-  return doc.definitions.reduce((acc, definition) => {
-    const resolvedObservable = resolveStep(
-      schema._typeMap,
-      definition,
-      context,
-      null
-    );
-
-    const merger = (acc, resolved) => {
-      return { ...acc, ...resolved };
-    };
-
-    return acc.combineLatest(resolvedObservable, merger);
-  }, Observable.of({}));
+  return resolveStep(
+    schema._typeMap,
+    doc.definitions[0],
+    context,
+    null
+  ).map(data => ({ data }));
 }

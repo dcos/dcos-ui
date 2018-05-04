@@ -92,7 +92,9 @@ describe("graphqlObservable", function() {
 
       const expectedData = [{ name: "discovery" }];
       const dataSource = Observable.of(expectedData);
-      const expected = m.cold("(a|)", { a: { launched: expectedData } });
+      const expected = m.cold("(a|)", {
+        a: { data: { launched: expectedData } }
+      });
 
       const result = graphqlObservable(query, schema, { query: dataSource });
 
@@ -109,11 +111,13 @@ describe("graphqlObservable", function() {
         }
       `;
 
-      const expectedData = [{ name: "discovery" }, { name: "challenger" }];
+      const expectedData = [{ name: "apollo11" }, { name: "challenger" }];
       const dataSource = Observable.of(expectedData);
-      const expected = m.cold("(a|)", { a: { launched: [expectedData[0]] } });
+      const expected = m.cold("(a|)", {
+        a: { data: { launched: [expectedData[0]] } }
+      });
 
-      const nameFilter = Observable.of("discovery");
+      const nameFilter = Observable.of("apollo11");
       const result = graphqlObservable(query, schema, {
         query: dataSource,
         nameFilter
@@ -125,37 +129,17 @@ describe("graphqlObservable", function() {
     itMarbles("filters by static argument", function(m) {
       const query = gql`
         query {
-          launched(name: "discovery") {
+          launched(name: "apollo13") {
             name
             firstFlight
           }
         }
       `;
 
-      const expectedData = [{ name: "discovery" }, { name: "challenger" }];
-      const dataSource = Observable.of(expectedData);
-      const expected = m.cold("(a|)", { a: { launched: [expectedData[0]] } });
-
-      const result = graphqlObservable(query, schema, {
-        query: dataSource
-      });
-
-      m.expect(result.take(1)).toBeObservable(expected);
-    });
-
-    itMarbles("filters out fields", function(m) {
-      const query = gql`
-        query {
-          launched {
-            name
-          }
-        }
-      `;
-
-      const expectedData = [{ name: "discovery", firstFlight: 1984 }];
+      const expectedData = [{ name: "apollo13" }, { name: "challenger" }];
       const dataSource = Observable.of(expectedData);
       const expected = m.cold("(a|)", {
-        a: { launched: [{ name: "discovery" }] }
+        a: { data: { launched: [expectedData[0]] } }
       });
 
       const result = graphqlObservable(query, schema, {
@@ -177,7 +161,7 @@ describe("graphqlObservable", function() {
       const expectedData = [{ name: "discovery", firstFlight: 1984 }];
       const dataSource = Observable.of(expectedData);
       const expected = m.cold("(a|)", {
-        a: { launched: [{ name: "discovery" }] }
+        a: { data: { launched: [{ name: "discovery" }] } }
       });
 
       const result = graphqlObservable(query, schema, {
@@ -187,47 +171,19 @@ describe("graphqlObservable", function() {
       m.expect(result.take(1)).toBeObservable(expected);
     });
 
-    itMarbles("resolve with query alias", function(m) {
+    itMarbles("resolve with name alias", function(m) {
       const query = gql`
-        query nasa {
+        query {
           launched {
-            name
+            title: name
           }
         }
       `;
 
-      const expectedData = [{ name: "discovery", firstFlight: 1984 }];
+      const expectedData = [{ name: "challenger", firstFlight: 1984 }];
       const dataSource = Observable.of(expectedData);
       const expected = m.cold("(a|)", {
-        a: { nasa: [{ name: "discovery" }] }
-      });
-
-      const result = graphqlObservable(query, schema, {
-        query: dataSource
-      });
-
-      m.expect(result.take(1)).toBeObservable(expected);
-    });
-
-    itMarbles("resolve multiple queries with alias", function(m) {
-      const query = gql`
-        query nasa {
-          launched {
-            name
-          }
-        }
-
-        query roscosmos {
-          launched {
-            name
-          }
-        }
-      `;
-
-      const expectedData = [{ name: "discovery", firstFlight: 1984 }];
-      const dataSource = Observable.of(expectedData);
-      const expected = m.cold("(a|)", {
-        a: { nasa: [{ name: "discovery" }], roscosmos: [{ name: "discovery" }] }
+        a: { data: { launched: [{ title: "challenger" }] } }
       });
 
       const result = graphqlObservable(query, schema, {
@@ -256,7 +212,7 @@ describe("graphqlObservable", function() {
       });
 
       const expected = m.cold("(a|)", {
-        a: { createShuttle: { name: "RocketShip" } }
+        a: { data: { createShuttle: { name: "RocketShip" } } }
       });
 
       m.expect(result).toBeObservable(expected);
@@ -281,11 +237,13 @@ describe("graphqlObservable", function() {
 
         const expected = m.cold("(a|)", {
           a: {
-            createShuttleList: [
-              { name: "discovery" },
-              { name: "challenger" },
-              { name: "RocketShip" }
-            ]
+            data: {
+              createShuttleList: [
+                { name: "discovery" },
+                { name: "challenger" },
+                { name: "RocketShip" }
+              ]
+            }
           }
         });
 
@@ -295,8 +253,8 @@ describe("graphqlObservable", function() {
 
     itMarbles("accept alias name", function(m) {
       const mutation = gql`
-        mutation addShuttle($name: String) {
-          createShuttle(name: $name) {
+        mutation {
+          shut: createShuttle(name: $name) {
             name
           }
         }
@@ -310,7 +268,7 @@ describe("graphqlObservable", function() {
       });
 
       const expected = m.cold("(a|)", {
-        a: { addShuttle: { name: "RocketShip" } }
+        a: { data: { shut: { name: "RocketShip" } } }
       });
 
       m.expect(result).toBeObservable(expected);
