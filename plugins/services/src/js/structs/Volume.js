@@ -38,6 +38,10 @@ class Volume extends Item {
   getType() {
     return this.get("type");
   }
+
+  getMounts() {
+    return this.get("mounts") || [];
+  }
 }
 
 module.exports = Volume;

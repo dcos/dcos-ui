@@ -1,5 +1,4 @@
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
-
 import ServiceSpec from "./ServiceSpec";
 
 module.exports = class PodSpec extends ServiceSpec {

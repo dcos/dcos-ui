@@ -1,3 +1,5 @@
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+
 import VolumeDefinitions from "../constants/VolumeDefinitions";
 import VolumeStatus from "../constants/VolumeStatus";
 
@@ -84,7 +86,8 @@ function parseApp(app) {
 }
 
 function parsePod(pod) {
-  const { id } = pod;
+  const { id, spec, instances } = pod;
+  const { volumes } = spec;
 
   if (id == null || !id.startsWith("/") || id.endsWith("/")) {
     throw new Error(
@@ -93,7 +96,85 @@ function parsePod(pod) {
     );
   }
 
-  return pod;
+  if (volumes == null || !Array.isArray(volumes)) {
+    return pod;
+  }
+
+  const volumeDefinitionMap = new Map();
+  const volumeData = [];
+
+  // Parse container volumes to extract external volumes
+  // and persistent volume definitions
+  volumes
+    .filter(({ persistent }) => persistent != null)
+    .forEach(function({ name, mode, persistent }) {
+      const { size } = persistent;
+
+      volumeDefinitionMap.set(name, {
+        type: VolumeDefinitions.PERSISTENT.type,
+        mode,
+        size
+      });
+    });
+
+  if (instances == null || !Array.isArray(instances)) {
+    return Object.assign({ volumeData }, pod);
+  }
+
+  instances.forEach(function({
+    agentId: host,
+    id: taskID,
+    localVolumes,
+    status: statusCode
+  }) {
+    let status = VolumeStatus.DETACHED;
+    if (statusCode === "STABLE") {
+      status = VolumeStatus.ATTACHED;
+    }
+
+    if (!Array.isArray(localVolumes)) {
+      return;
+    }
+
+    const containers = findNestedPropertyInObject(pod, "spec.containers");
+
+    const mounts = containers
+      .filter(({ volumeMounts = [] }) => volumeMounts.length > 0)
+      .reduce(function(memo, { name: containerName, volumeMounts = [] }) {
+        volumeMounts.forEach(function({ name, mountPath }) {
+          if (memo[name] == null) {
+            memo[name] = [];
+          }
+
+          memo[name] = [
+            ...memo[name],
+            {
+              containerName,
+              mountPath
+            }
+          ];
+        });
+
+        return memo;
+      }, {});
+
+    volumeData.push(
+      ...localVolumes.map(function({ containerPath, persistenceId: id }) {
+        const volumeDefinition = volumeDefinitionMap.get(containerPath);
+
+        return Object.assign({}, volumeDefinition, {
+          status,
+          host,
+          containerPath,
+          id,
+          mounts: mounts[containerPath],
+          taskID
+        });
+      })
+    );
+  });
+
+  return Object.assign({ volumeData }, pod);
 }
 
 const MarathonUtil = {
