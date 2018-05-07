@@ -150,6 +150,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
         </div>
         <HashMapDisplay
           hash={frameworkData}
+          headingLevel={0}
           renderKeys={this.getHashMapRenderKeys(frameworkData)}
           headlineClassName={"text-capitalize"}
           emptyValue={EmptyStates.CONFIG_VALUE}
