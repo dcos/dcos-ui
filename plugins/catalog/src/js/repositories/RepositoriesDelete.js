@@ -38,7 +38,7 @@ const deleteRepository$ = deleteEvent$
   })
   .startWith({ pendingRequest: false })
   .catch(error => {
-    return Observable.of({
+    return deleteRepository$.startWith({
       error: getErrorMessage(error.response),
       pendingRequest: false
     });

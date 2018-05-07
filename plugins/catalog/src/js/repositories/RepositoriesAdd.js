@@ -9,8 +9,6 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/observable/empty";
 
-import { Observable } from "rxjs/Observable";
-
 import { addRepository } from "./data/repositoriesStream";
 import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
 
@@ -35,7 +33,8 @@ const addRepository$ = addRepositoryEvent$
     });
   })
   .catch(error => {
-    return Observable.of({
+    // Add the error as value and continue
+    return addRepository$.startWith({
       error: getErrorMessage(error.response),
       pendingRequest: false
     });
