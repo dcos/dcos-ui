@@ -2,11 +2,13 @@ var babel = require("babel-core");
 var jestPreset = require("babel-preset-jest");
 var jison = require("jison");
 var webpackAlias = require("jest-webpack-alias");
+const tsc = require("typescript");
+const tsConfig = require("../tsconfig.json");
 
 module.exports = {
   // Gets called by jest during test prep for every module.
   // src is the raw module content as a String.
-  process: function(src, filename) {
+  process(src, filename) {
     var isJISON = filename.match(/\.jison$/i);
     // Don't bother doing anything to node_modules
     if (
@@ -21,8 +23,16 @@ module.exports = {
       if (isJISON) {
         src = new jison.Generator(src).generate();
       }
+      if (filename.endsWith(".ts") || filename.endsWith(".tsx")) {
+        src = tsc.transpile(src, tsConfig.compilerOptions, filename, []);
+      }
       // Run our modules through Babel before running tests
-      if (babel.util.canCompile(filename) || isJISON) {
+      if (
+        babel.util.canCompile(filename) ||
+        isJISON ||
+        filename.endsWith(".ts") ||
+        filename.endsWith(".tsx")
+      ) {
         src = babel.transform(src, {
           auxiliaryCommentBefore: " istanbul ignore next ",
           filename,

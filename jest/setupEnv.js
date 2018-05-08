@@ -1,4 +1,5 @@
 require("babel-polyfill");
+require("reflect-metadata");
 var EventEmitter = require("events").EventEmitter;
 
 // jsdom doesn't have support for localStorage at the moment

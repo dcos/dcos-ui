@@ -2,13 +2,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
-const stores = {
-  CosmosPackagesStore: "../stores/CosmosPackagesStore",
-  MesosStateStore: "../stores/MesosStateStore",
-  MesosSummaryStore: "../stores/MesosSummaryStore",
-  MetadataStore: "../stores/MetadataStore"
-};
-
 // Private router stub
 const RouterStub = {
   push() {},
@@ -27,14 +20,6 @@ const defaultGetTimezoneOffset = Date.prototype.getTimezoneOffset;
 const defaultToLocaleString = Date.prototype.toLocaleString;
 
 const JestUtil = {
-  unMockStores(storeIDs) {
-    Object.keys(stores).forEach(function(storeID) {
-      if (storeIDs.indexOf(storeID) === -1) {
-        jest.setMock(stores[storeID], {});
-      }
-    });
-  },
-
   /**
    * Generates a callback function to a filter() call that will
    * keep only DOMElements matching the given tag name(s)

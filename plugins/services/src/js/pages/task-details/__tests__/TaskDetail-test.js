@@ -1,26 +1,12 @@
-const JestUtil = require("#SRC/js/utils/JestUtil");
-
-JestUtil.unMockStores([
-  "MarathonStore",
-  "MesosStateStore",
-  "MesosSummaryStore"
-]);
-
+jest.mock("#SRC/js/stores/MetadataStore");
+jest.mock("#SRC/js/stores/MesosStateStore");
 jest.mock("#SRC/js/utils/RouterUtil", function() {
   return {
     reconstructPathFromRoutes: jest.fn()
   };
 });
+jest.mock("react-router");
 
-jest.mock("react-router", function() {
-  return {
-    formatPattern: jest.fn()
-  };
-});
-
-/* eslint-disable no-unused-vars */
-const MesosSummaryStore = require("#SRC/js/stores/MesosSummaryStore");
-/* eslint-enable no-unused-vars */
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 const Task = require("../../../structs/Task");
 const TaskDirectory = require("../../../structs/TaskDirectory");

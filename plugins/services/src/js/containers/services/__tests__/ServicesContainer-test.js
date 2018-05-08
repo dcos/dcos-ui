@@ -1,6 +1,7 @@
 import { mount } from "enzyme";
 
 jest.mock("#SRC/js/stores/DCOSStore");
+jest.mock("#SRC/js/stores/MesosStateStore");
 
 const JestUtil = require("#SRC/js/utils/JestUtil");
 const DSLExpression = require("#SRC/js/structs/DSLExpression");
