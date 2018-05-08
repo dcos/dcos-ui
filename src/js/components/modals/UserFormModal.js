@@ -118,11 +118,16 @@ class UserFormModal extends mixin(StoreMixin) {
   }
 
   getFooter() {
-    return Hooks.applyFilter(
-      "userFormModalFooter",
-      <p className="flush-bottom text-align-center">
-        <strong>Important:</strong> {TELEMETRY_NOTIFICATION}
-      </p>
+    return (
+      <div>
+        {Hooks.applyFilter("userAddPolicy", null)}
+        {Hooks.applyFilter(
+          "userFormModalFooter",
+          <p className="form-group-without-top-label flush-bottom text-align-center">
+            <strong>Important:</strong> {TELEMETRY_NOTIFICATION}
+          </p>
+        )}
+      </div>
     );
   }
 
