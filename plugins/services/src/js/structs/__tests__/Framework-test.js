@@ -1,7 +1,3 @@
-const JestUtil = require("#SRC/js/utils/JestUtil");
-
-JestUtil.unMockStores(["MesosStateStore"]);
-
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
 const Framework = require("../Framework");

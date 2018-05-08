@@ -25,7 +25,13 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "listEmittedFiles": true,
-    "pretty": true
+    "pretty": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["*", "packages/*"]
+    }
   },
   "include": [
     "src/**/*",

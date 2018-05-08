@@ -3,10 +3,6 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-const JestUtil = require("../../../utils/JestUtil");
-
-JestUtil.unMockStores(["MetadataStore"]);
-
 const CliInstallModal = require("../CliInstallModal");
 
 // Set a new Getter. Navigator doesn't have a Setter.
