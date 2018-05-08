@@ -63,7 +63,7 @@ const searchResults$ = searchTerm$
     }).map(result => {
       // Backwards compatible with the previous struct/RepositoryList for packages
       return new RepositoryList({
-        items: result.packageRepository
+        items: result.data.packageRepository
       });
     });
   });
