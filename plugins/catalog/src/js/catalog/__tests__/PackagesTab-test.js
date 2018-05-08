@@ -3,8 +3,8 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { mount } from "enzyme";
 
-jest.mock("../../../utils/ScrollbarUtil");
-jest.mock("../../../components/Page", function() {
+jest.mock("#SRC/js/utils/ScrollbarUtil");
+jest.mock("#SRC/js/components/Page", function() {
   const Page = ({ children }) => <div>{children}</div>;
   Page.Header = ({ children }) => <div>{children}</div>;
 
@@ -13,15 +13,15 @@ jest.mock("../../../components/Page", function() {
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
 /* eslint-disable import/newline-after-import */
-const Config = require("../../../config/Config");
+const Config = require("#SRC/js/config/Config");
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
-const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
+const CosmosPackagesStore = require("#SRC/js/stores/CosmosPackagesStore");
 Config.useFixtures = configUseFixtures;
 /* eslint-enable import/newline-after-import */
 
 const PackagesTab = require("../PackagesTab");
-const UniversePackagesList = require("../../../structs/UniversePackagesList");
+const UniversePackagesList = require("#SRC/js/structs/UniversePackagesList");
 
 const renderer = require("react-test-renderer");
 

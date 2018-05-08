@@ -10,23 +10,25 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Badge } from "@dcos/ui-kit";
 
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
-import AlertPanel from "../../components/AlertPanel";
-import AlertPanelHeader from "../../components/AlertPanelHeader";
-import Breadcrumb from "../../components/Breadcrumb";
-import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
-import CosmosErrorMessage from "../../components/CosmosErrorMessage";
-import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
+import AlertPanel from "#SRC/js/components/AlertPanel";
+import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+import Breadcrumb from "#SRC/js/components/Breadcrumb";
+import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
+import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
+import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import CreateServiceModalCatalogPanelOption
-  from "../../components/CreateServiceModalCatalogPanelOption";
+  from "#SRC/js/components/CreateServiceModalCatalogPanelOption";
+import FilterInputText from "#SRC/js/components/FilterInputText";
+import Image from "#SRC/js/components/Image";
+import Loader from "#SRC/js/components/Loader";
+import Page from "#SRC/js/components/Page";
+import StringUtil from "#SRC/js/utils/StringUtil";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
+
 import defaultServiceImage
-  from "../../../../plugins/services/src/img/icon-service-default-medium@2x.png";
-import FilterInputText from "../../components/FilterInputText";
-import Image from "../../components/Image";
-import Loader from "../../components/Loader";
-import Page from "../../components/Page";
-import StringUtil from "../../utils/StringUtil";
+  from "#PLUGINS/services/src/img/icon-service-default-medium@2x.png";
+
 import CatalogPackageOption from "./CatalogPackageOption";
-import MetadataStore from "../../stores/MetadataStore";
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [

@@ -1,0 +1,17 @@
+{
+  "name": "dcos-sdk",
+  "module": "index.ts",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "inversify": "4.3.0",
+    "plugin-baby": "0.1.0",
+    "react-router": "2.8.1"
+  },
+  "devDependencies": {
+    "jest-cli": "^22.4.0"
+  }
+}

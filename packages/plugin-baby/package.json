@@ -1,18 +1,11 @@
 {
   "name": "plugin-baby",
-  "module": "index.js",
-  "main": "index.js",
+  "module": "index.ts",
   "version": "0.1.0",
   "license": "Apache-2.0",
-  "scripts": {
-    "test": "jest",
-    "test:watch": "npm test -- --watch"
-  },
+  "scripts": {},
   "peerDependencies": {
-    "inversify": "4.3.0",
-    "reflect-metadata": "0.1.10"
+    "inversify": "4.3.0"
   },
-  "devDependencies": {
-    "jest-cli": "22.4.0"
-  }
+  "devDependencies": {}
 }

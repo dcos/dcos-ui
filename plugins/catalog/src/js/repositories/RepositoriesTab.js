@@ -6,16 +6,16 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import AddRepositoryFormModal
-  from "../../components/modals/AddRepositoryFormModal";
-import Breadcrumb from "../../components/Breadcrumb";
-import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
-import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
-import FilterBar from "../../components/FilterBar";
-import FilterInputText from "../../components/FilterInputText";
-import Loader from "../../components/Loader";
-import Page from "../../components/Page";
-import RepositoriesTable from "../../components/RepositoriesTable";
-import RequestErrorMsg from "../../components/RequestErrorMsg";
+  from "#SRC/js/components/modals/AddRepositoryFormModal";
+import Breadcrumb from "#SRC/js/components/Breadcrumb";
+import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
+import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
+import FilterBar from "#SRC/js/components/FilterBar";
+import FilterInputText from "#SRC/js/components/FilterInputText";
+import Loader from "#SRC/js/components/Loader";
+import Page from "#SRC/js/components/Page";
+import RepositoriesTable from "#SRC/js/components/RepositoriesTable";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 
 const RepositoriesBreadcrumbs = addButton => {
   const crumbs = [

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Panel from "../../components/Panel";
+import Panel from "#SRC/js/components/Panel";
 
 function CatalogPackageOption(props) {
   const { children, image, label, onOptionSelect } = props;

@@ -1,4 +1,3 @@
-import { routing } from "foundation-ui";
 import { Route, Redirect } from "react-router";
 import { Hooks } from "PluginSDK";
 
@@ -13,24 +12,34 @@ import Organization from "./factories/organization";
 import services from "../../../plugins/services/src/js/routes/services";
 import settings from "./settings";
 import systemOverview from "./system-overview";
-import catalog from "./catalog";
+import RouterUtil from "../utils/RouterUtil";
 
 // Modules that produce routes
 const routeFactories = [Organization, Network];
+let routes = null;
 
-function getApplicationRoutes() {
+function getRoutes(routingService) {
+  if (routes) {
+    return routes;
+  }
+
   // Statically defined routes
-  let routes = [].concat(
+  routes = [].concat(
     {
       type: Redirect,
       path: "/",
       to: Hooks.applyFilter("applicationRedirectRoute", "/dashboard")
     },
+    {
+      type: Route,
+      getChildRoutes(partialNextState, callback) {
+        callback(null, routingService.getRoutes(partialNextState));
+      }
+    },
     dashboard,
     services,
     jobs,
     nodes,
-    catalog,
     systemOverview,
     components,
     settings
@@ -78,22 +87,8 @@ function getApplicationRoutes() {
     }
   ];
 
-  return routes;
-}
-
-function getRoutes() {
-  // Get application routes
-  let routes = getApplicationRoutes();
-
-  // Provide opportunity for plugins to inject routes
   routes = Hooks.applyFilter("applicationRoutes", routes);
-
-  const indexRoute = routes[0].children.find(route => route.id === "index");
-
-  // Register packages
-  indexRoute.children = indexRoute.children.concat(
-    routing.RoutingService.getDefinition()
-  );
+  routes = RouterUtil.buildRoutes(routes);
 
   return routes;
 }

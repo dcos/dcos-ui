@@ -2,12 +2,13 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
-import * as inversify from "inversify";
+import { decorate, injectable, inject } from "inversify";
 import { IntlProvider } from "react-intl";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import { Router, hashHistory } from "react-router";
 import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
+
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
 // require them in the component.js
@@ -17,10 +18,7 @@ import { CONFIG_ERROR } from "../constants/EventTypes";
 import ApplicationUtil from "../utils/ApplicationUtil";
 import appRoutes from "../routes/index";
 import ConfigStore from "../stores/ConfigStore";
-import NavigationServiceUtil from "../utils/NavigationServiceUtil";
 import RequestErrorMsg from "../components/RequestErrorMsg";
-
-import RouterUtil from "../utils/RouterUtil";
 
 // Translations
 import enUS from "../translations/en-US.json";
@@ -63,6 +61,11 @@ RequestUtil.json = function(options = {}) {
 };
 
 export default class DCOSApplication {
+  constructor(routingService, navigationService) {
+    this._routingService = routingService;
+    this._navigationService = navigationService;
+  }
+
   onStart() {
     if (!global.Intl) {
       require.ensure(["intl", "intl/locale-data/jsonp/en.js"], function(
@@ -78,42 +81,41 @@ export default class DCOSApplication {
     }
   }
 
-  renderApplication() {
-    function renderAppToDOM(content) {
-      ReactDOM.render(content, domElement, function() {
-        PluginSDK.Hooks.doAction("applicationRendered");
-      });
-    }
+  renderAppToDOM(content) {
+    ReactDOM.render(content, domElement, function() {
+      PluginSDK.Hooks.doAction("applicationRendered");
+    });
+  }
 
+  renderApplicationToDOM() {
+    const routes = appRoutes.getRoutes(this._routingService);
+
+    this.renderAppToDOM(
+      <Provider store={PluginSDK.Store}>
+        <IntlProvider locale={navigatorLanguage} messages={enUS}>
+          <Router history={hashHistory} routes={routes} />
+        </IntlProvider>
+      </Provider>
+    );
+
+    PluginSDK.Hooks.doAction("routes", routes);
+  }
+
+  renderApplication() {
     // Allow overriding of application contents
     const contents = PluginSDK.Hooks.applyFilter("applicationContents", null);
     if (contents) {
-      renderAppToDOM(contents);
-    } else {
-      if (PluginSDK.Hooks.applyFilter("delayApplicationLoad", true)) {
-        // Let's make sure we get Mesos Summary data before we render app
-        // Mesos may unreachable, so we will render even on request failure
-        ApplicationUtil.beginTemporaryPolling(function() {
-          ApplicationUtil.invokeAfterPageLoad(renderApplicationToDOM);
-        });
-      } else {
-        renderApplicationToDOM();
-      }
-
-      function renderApplicationToDOM() {
-        const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
-        NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
-
-        renderAppToDOM(
-          <Provider store={PluginSDK.Store}>
-            <IntlProvider locale={navigatorLanguage} messages={enUS}>
-              <Router history={hashHistory} routes={routes} />
-            </IntlProvider>
-          </Provider>
+      this.renderAppToDOM(contents);
+    } else if (PluginSDK.Hooks.applyFilter("delayApplicationLoad", true)) {
+      // Let's make sure we get Mesos Summary data before we render app
+      // Mesos may unreachable, so we will render even on request failure
+      ApplicationUtil.beginTemporaryPolling(() => {
+        ApplicationUtil.invokeAfterPageLoad(
+          this.renderApplicationToDOM.bind(this)
         );
-
-        PluginSDK.Hooks.doAction("routes", routes);
-      }
+      });
+    } else {
+      this.renderApplicationToDOM.bind(this)();
     }
   }
 
@@ -163,4 +165,6 @@ export default class DCOSApplication {
     ConfigStore.fetchConfig();
   }
 }
-inversify.decorate(inversify.injectable(), DCOSApplication);
+decorate(injectable(), DCOSApplication);
+decorate(inject("RoutingService"), DCOSApplication, 0);
+decorate(inject("NavigationService"), DCOSApplication, 1);

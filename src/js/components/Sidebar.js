@@ -4,7 +4,7 @@ import GeminiScrollbar from "react-gemini-scrollbar";
 import { Link, routerShape } from "react-router";
 import React from "react";
 import PluginSDK from "PluginSDK";
-import { navigation } from "foundation-ui";
+import { NavigationService } from "dcos-sdk";
 
 import { keyCodes } from "../utils/KeyboardUtil";
 import EventTypes from "../constants/EventTypes";
@@ -15,8 +15,7 @@ import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SidebarActions from "../events/SidebarActions";
 import SidebarHeader from "./SidebarHeader";
 import SidebarStore from "../stores/SidebarStore";
-
-const { NavigationService, EventTypes: { NAVIGATION_CHANGE } } = navigation;
+import container from "../container";
 
 const defaultMenuItems = [
   "/dashboard",
@@ -46,6 +45,7 @@ class Sidebar extends React.Component {
 
     this.state = { expandedItems: [] };
 
+    this.navigationService = container.get("NavigationService");
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
@@ -62,7 +62,10 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount() {
-    NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
+    this.navigationService.on(
+      NavigationService.NAVIGATION_CHANGE,
+      this.onNavigationChange
+    );
 
     MetadataStore.addChangeListener(
       EventTypes.DCOS_METADATA_CHANGE,
@@ -80,8 +83,8 @@ class Sidebar extends React.Component {
   }
 
   componentWillUnmount() {
-    NavigationService.removeListener(
-      NAVIGATION_CHANGE,
+    this.navigationService.removeListener(
+      NavigationService.NAVIGATION_CHANGE,
       this.onNavigationChange
     );
 
@@ -157,7 +160,7 @@ class Sidebar extends React.Component {
   }
 
   getNavigationSections() {
-    const definition = NavigationService.getDefinition();
+    const definition = this.navigationService.getDefinition();
 
     return definition.map((group, index) => {
       let heading = null;
@@ -167,10 +170,10 @@ class Sidebar extends React.Component {
         return null;
       }
 
-      if (group.category !== "root") {
+      if (group.path !== "root") {
         heading = (
           <h3 className="sidebar-section-header">
-            {group.category}
+            {group.name}
           </h3>
         );
       }
@@ -218,7 +221,7 @@ class Sidebar extends React.Component {
             isChildActive={isChildActive}
             isExpanded={isExpanded}
             to={element.path}
-            icon={element.options.icon}
+            icon={element.icon}
             onClick={this.handlePrimarySidebarLinkClick.bind(
               this,
               element,
@@ -272,8 +275,8 @@ class Sidebar extends React.Component {
 
     const menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
-        const isActive = currentChild.options.isActiveRegex != null
-          ? currentChild.options.isActiveRegex.test(pathname)
+        const isActive = currentChild.isActiveRegex != null
+          ? currentChild.isActiveRegex.test(pathname)
           : pathname.startsWith(currentChild.path);
 
         const menuItemClasses = classNames({ selected: isActive });

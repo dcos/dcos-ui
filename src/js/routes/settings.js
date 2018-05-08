@@ -1,6 +1,5 @@
 import { Route, Redirect } from "react-router";
 
-import RepositoriesTab from "../pages/system/RepositoriesTab";
 import SettingsPage from "../pages/SettingsPage";
 
 const settingsRoutes = [
@@ -15,14 +14,7 @@ const settingsRoutes = [
     component: SettingsPage,
     category: "system",
     isInSidebar: true,
-    children: [
-      {
-        type: Route,
-        path: "repositories",
-        component: RepositoriesTab,
-        isInSidebar: true
-      }
-    ]
+    children: []
   }
 ];
 

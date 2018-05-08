@@ -1,16 +1,18 @@
 import { ContainerModule } from "inversify";
-import Application, { ApplicationExtension } from "./src/js/Application";
+import Application, { ApplicationExtension } from "./src/Application";
 import {
   bindExtensionProvider,
-  ExtensionProvider
-} from "./src/js/ExtensionProvider";
-import EventedContainer from "./src/js/EventedContainer";
+  ExtensionProvider,
+  IExtensionProvider
+} from "./src/ExtensionProvider";
+import EventedContainer from "./src/EventedContainer";
 
 export {
   Application,
   ApplicationExtension,
   EventedContainer,
   ExtensionProvider,
+  IExtensionProvider,
   bindExtensionProvider
 };
 
