@@ -1,4 +1,5 @@
 import "rxjs/add/operator/combineLatest";
+import "rxjs/add/operator/map";
 
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
