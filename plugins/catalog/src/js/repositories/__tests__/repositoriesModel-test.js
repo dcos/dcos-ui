@@ -35,7 +35,7 @@ describe("Repository Model", function() {
           a: ["Universe", "Marvel Universe", "DC Universe"]
         });
         const context = {
-          query
+          query: { packageRepository: query }
         };
 
         const result = resolvers.Query.packageRepository(
@@ -61,7 +61,7 @@ describe("Repository Model", function() {
           a: ["Marvel Universe"]
         });
         const context = {
-          query
+          query: { packageRepository: query }
         };
 
         const result = resolvers.Query.packageRepository(

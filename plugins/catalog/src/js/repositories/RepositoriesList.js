@@ -59,7 +59,7 @@ const searchResults$ = searchTerm$
     const query = packageRepositoryQuery(searchTerm);
 
     return graphqlObservable(query, schema, {
-      query: packageRepository$
+      query: { packageRepository: packageRepository$ }
     }).map(result => {
       // Backwards compatible with the previous struct/RepositoryList for packages
       return new RepositoryList({

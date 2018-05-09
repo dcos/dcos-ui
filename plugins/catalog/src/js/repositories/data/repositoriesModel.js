@@ -19,19 +19,20 @@ export const typeDefs = `
   }
 `;
 
+const getRepositoryList = filter => result =>
+  Object.values(
+    new RepositoryList({ items: result.repositories })
+      .filterItemsByText(filter)
+      .getItems()
+  );
+
 export const resolvers = {
   Query: {
     packageRepository: (parent, args, context) => {
       const { filter } = args;
 
       // Filter Logic Backwards compatible with the previous struct/RepositoryList
-      return context.query.map(result =>
-        Object.values(
-          new RepositoryList({ items: result.repositories })
-            .filterItemsByText(filter)
-            .getItems()
-        )
-      );
+      return context.query.packageRepository.map(getRepositoryList(filter));
     }
   },
   Mutation: {}
