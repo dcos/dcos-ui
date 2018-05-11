@@ -1,6 +1,5 @@
 import React from "react";
 
-import { componentFromStream } from "data-service";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/combineLatest";
@@ -8,10 +7,14 @@ import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 
+import { componentFromStream, graphqlObservable } from "data-service";
+import gql from "graphql-tag";
+
 import { deleteRepository } from "./data/repositoriesStream";
 
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
 import RepositoriesError from "./components/RepositoriesError";
+import { defaultSchema } from "./data/repositoriesModel";
 
 const getErrorMessage = (response = {}) => {
   if (typeof response === "string") {
@@ -21,10 +24,28 @@ const getErrorMessage = (response = {}) => {
   return response.description || response.message || "An error has occurred.";
 };
 
+const removePackageRepository = gql`
+  mutation {
+    removePackageRepository(name: $name, uri: $uri) {
+      name
+    }
+  }
+`;
+
+const removePackageRepositoryGraphql = (name, uri) => {
+  return graphqlObservable(removePackageRepository, defaultSchema, {
+    name,
+    uri,
+    mutation: {
+      removePackageRepository: deleteRepository
+    }
+  });
+};
+
 const deleteEvent$ = new Subject();
 const deleteRepository$ = deleteEvent$
   .switchMap(repository => {
-    return deleteRepository(repository.name, repository.url)
+    return removePackageRepositoryGraphql(repository.name, repository.url)
       .startWith({ pendingRequest: true })
       .map(result => {
         return {
