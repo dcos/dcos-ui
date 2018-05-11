@@ -28,6 +28,8 @@ import RepositoriesError from "./components/RepositoriesError";
 // Using the data layer
 
 // 1. We first make a schema out of the resolvers and typeDefinitions
+// You could as well just import (or inject) the default schema
+// import { defaultSchema } from "./data/repositoriesModel";
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers

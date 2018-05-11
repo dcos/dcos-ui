@@ -2,13 +2,15 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import { componentFromStream } from "data-service";
+import { componentFromStream, graphqlObservable } from "data-service";
+import gql from "graphql-tag";
 
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/observable/empty";
 
+import { defaultSchema } from "./data/repositoriesModel";
 import { addRepository } from "./data/repositoriesStream";
 import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
 
@@ -21,10 +23,29 @@ const getErrorMessage = (response = {}) => {
   return response.description || response.message || "An error has occurred.";
 };
 
+const addPackageRepositoryMutation = gql`
+  mutation {
+    addPackageRepository(name: $name, uri: $uri, priority: $index) {
+      name
+    }
+  }
+`;
+
+const addRepositoryGraphql = (name, uri, index) => {
+  return graphqlObservable(addPackageRepositoryMutation, defaultSchema, {
+    name,
+    uri,
+    index,
+    mutation: {
+      addPackageRepository: addRepository
+    }
+  });
+};
+
 const addRepositoryEvent$ = new Subject();
 const addRepository$ = addRepositoryEvent$
   .switchMap(repository => {
-    return addRepository(
+    return addRepositoryGraphql(
       repository.name,
       repository.uri,
       repository.priority

@@ -2,6 +2,7 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/map";
 
 import RepositoryList from "#SRC/js/structs/RepositoryList";
+import { makeExecutableSchema } from "graphql-tools/dist/index";
 
 export const typeDefs = `
   type PackageRepository {
@@ -49,3 +50,8 @@ export const resolvers = {
     }
   }
 };
+
+export const defaultSchema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
