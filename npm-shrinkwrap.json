@@ -992,9 +992,9 @@
       }
     },
     "@dcos/tslint-config": {
-      "version": "0.0.1",
-      "resolved": "https://registry.npmjs.org/@dcos/tslint-config/-/tslint-config-0.0.1.tgz",
-      "integrity": "sha512-sAhDv7MocndxNokKsj+u//jkYNPJG9V41/iVdFl6RASOPrqBaA98pCPd3wfaNoeXkOKloLc7qzBUp+Jo1UQWQA=="
+      "version": "0.0.2",
+      "resolved": "https://registry.npmjs.org/@dcos/tslint-config/-/tslint-config-0.0.2.tgz",
+      "integrity": "sha512-DLTSOGGYRHUMnBUoRBq64YH3jMcLhzxgHqITdXxeYtPas0JAtGpk3/Iti0Dc/itxC29tXegaDvuj71l0pyJrzA=="
     },
     "@dcos/ui-kit": {
       "version": "1.0.0",
@@ -17241,7 +17241,7 @@
     "marked": {
       "version": "0.3.12",
       "resolved": "https://registry.npmjs.org/marked/-/marked-0.3.12.tgz",
-      "integrity": "sha512-k4NaW+vS7ytQn6MgJn3fYpQt20/mOgYM5Ft9BYMfQJDz2QT6yEeS9XJ8k2Nw8JTeWK/znPPW2n3UJGzyYEiMoA==",
+      "integrity": "sha1-fPJf8iUmMvP+JAa94ljpTu6SdRk=",
       "dev": true
     },
     "math-expression-evaluator": {
@@ -22199,6 +22199,15 @@
               "resolved": "https://registry.npmjs.org/is-npm/-/is-npm-1.0.0.tgz",
               "integrity": "sha1-8vtjpl5JBbQGyGBydloaTceTufQ=",
               "dev": true
+            },
+            "semver-diff": {
+              "version": "2.1.0",
+              "resolved": "https://registry.npmjs.org/semver-diff/-/semver-diff-2.1.0.tgz",
+              "integrity": "sha1-S7uEN8jTfksM8aaP1ybsbWRdbTY=",
+              "dev": true,
+              "requires": {
+                "semver": "5.4.1"
+              }
             }
           }
         },
@@ -26349,9 +26358,9 @@
       }
     },
     "reflect-metadata": {
-      "version": "0.1.10",
-      "resolved": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.10.tgz",
-      "integrity": "sha1-tPg3BEFqytiZiMmxVjXUfgO5NEo="
+      "version": "0.1.12",
+      "resolved": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.12.tgz",
+      "integrity": "sha512-n+IyV+nGz3+0q3/Yf1ra12KpCyi001bi4XFxSjbiWWjfqb52iTTtpGXmCCAOWWIAn9KEuFZKGqBERHmrtScZ3A=="
     },
     "regenerate": {
       "version": "1.3.3",
@@ -26835,8 +26844,8 @@
         "anymatch": "2.0.0",
         "exec-sh": "0.2.1",
         "fb-watchman": "2.0.0",
-        "fsevents": "1.2.3",
-        "micromatch": "3.1.10",
+        "fsevents": "1.1.3",
+        "micromatch": "3.1.9",
         "minimist": "1.2.0",
         "walker": "1.0.7",
         "watch": "0.18.0"
