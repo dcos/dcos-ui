@@ -9,13 +9,14 @@ export const typeDefs = `
     name: String!
     uri: String!
   }
-  
+
   type Query {
     packageRepository(filter: String): [PackageRepository!]!
   }
 
   type Mutation {
-    addPackageRepository(uri: String!, name: String!): PackageRepository
+    addPackageRepository(name: String!, uri: String!, index: Int! ): [PackageRepository!]!
+    removePackageRepository(name: String!, uri: String!): [PackageRepository!]!
   }
 `;
 
@@ -35,5 +36,16 @@ export const resolvers = {
       return context.query.packageRepository.map(getRepositoryList(filter));
     }
   },
-  Mutation: {}
+  Mutation: {
+    addPackageRepository: (parent, args, context) => {
+      return context.mutation
+        .addPackageRepository(args.name, args.uri, args.index)
+        .map(getRepositoryList(""));
+    },
+    removePackageRepository: (parent, args, context) => {
+      return context.mutation
+        .removePackageRepository(args.name, args.uri)
+        .map(getRepositoryList(""));
+    }
+  }
 };
