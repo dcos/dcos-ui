@@ -1,67 +1,40 @@
 import classNames from "classnames";
-import { Confirm, Table } from "reactjs-components";
-import mixin from "reactjs-mixin";
+import { Table } from "reactjs-components";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CollapsingString from "./CollapsingString";
-import Config from "../config/Config";
-import CosmosPackagesStore from "../stores/CosmosPackagesStore";
-import List from "../structs/List";
-import ModalHeading from "./modals/ModalHeading";
-import ResourceTableUtil from "../utils/ResourceTableUtil";
+import CollapsingString from "#SRC/js/components/CollapsingString";
+
+import List from "#SRC/js/structs/List";
+import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import RepositoriesTableHeaderLabels
-  from "../constants/RepositoriesTableHeaderLabels";
-import StringUtil from "../utils/StringUtil";
-import TableUtil from "../utils/TableUtil";
-import UserActions from "../constants/UserActions";
+  from "#SRC/js/constants/RepositoriesTableHeaderLabels";
+import StringUtil from "#SRC/js/utils/StringUtil";
+import TableUtil from "#SRC/js/utils/TableUtil";
+import UserActions from "#SRC/js/constants/UserActions";
+import RepositoriesDelete from "../RepositoriesDelete";
 
 const METHODS_TO_BIND = [
   "getHeadline",
   "getPriority",
   "getRemoveButton",
   "handleDeleteCancel",
-  "handleDeleteRepository",
   "handleOpenConfirm"
 ];
 
-class RepositoriesTable extends mixin(StoreMixin) {
+class RepositoriesTable extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      repositoryToRemove: null,
-      repositoryRemoveError: null,
-      pendingRequest: false
+      repositoryToRemove: null
     };
-
-    this.store_listeners = [
-      {
-        name: "cosmosPackages",
-        events: ["repositoryDeleteError", "repositoryDeleteSuccess"],
-        listenAlways: true
-      }
-    ];
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  onCosmosPackagesStoreRepositoryDeleteError(error) {
-    this.setState({ repositoryRemoveError: error, pendingRequest: false });
-  }
-
-  onCosmosPackagesStoreRepositoryDeleteSuccess() {
-    this.setState({
-      repositoryToRemove: null,
-      repositoryRemoveError: null,
-      pendingRequest: false
-    });
-    CosmosPackagesStore.fetchRepositories();
   }
 
   handleOpenConfirm(repositoryToRemove) {
@@ -70,16 +43,6 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   handleDeleteCancel() {
     this.setState({ repositoryToRemove: null });
-  }
-
-  handleDeleteRepository() {
-    const { repositoryToRemove } = this.state;
-    CosmosPackagesStore.deleteRepository(
-      repositoryToRemove.get("name"),
-      repositoryToRemove.get("url")
-    );
-
-    this.setState({ pendingRequest: true });
   }
 
   getClassName(prop, sortBy, row) {
@@ -183,36 +146,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
     );
   }
 
-  getRemoveModalContent() {
-    const { repositoryRemoveError, repositoryToRemove } = this.state;
-    let repositoryLabel = "This repository";
-    if (repositoryToRemove && repositoryToRemove.get("name")) {
-      repositoryLabel = repositoryToRemove.get("name");
-    }
-
-    let error = null;
-
-    if (repositoryRemoveError != null) {
-      error = <p className="text-error-state">{repositoryRemoveError}</p>;
-    }
-
-    return (
-      <div>
-        <p>
-          {`Repository (${repositoryLabel}) will be ${UserActions.DELETED} from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
-        </p>
-        {error}
-      </div>
-    );
-  }
-
   render() {
     const { props, state } = this;
-    const heading = (
-      <ModalHeading>
-        Delete Repository
-      </ModalHeading>
-    );
 
     return (
       <div>
@@ -223,21 +158,10 @@ class RepositoriesTable extends mixin(StoreMixin) {
           data={props.repositories.getItems().slice()}
           sortBy={{ prop: "priority", order: "asc" }}
         />
-        <Confirm
-          closeByBackdropClick={true}
-          disabled={state.pendingRequest}
-          header={heading}
-          open={!!state.repositoryToRemove}
+        <RepositoriesDelete
+          repository={state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
-          leftButtonCallback={this.handleDeleteCancel}
-          leftButtonClassName="button button-primary-link flush-left"
-          rightButtonCallback={this.handleDeleteRepository}
-          rightButtonClassName="button button-danger"
-          rightButtonText={`${StringUtil.capitalize(UserActions.DELETE)} Repository`}
-          showHeader={true}
-        >
-          {this.getRemoveModalContent()}
-        </Confirm>
+        />
       </div>
     );
   }
@@ -248,7 +172,10 @@ RepositoriesTable.defaultProps = {
 };
 
 RepositoriesTable.propTypes = {
-  repositories: PropTypes.object.isRequired
+  repositories: PropTypes.object.isRequired,
+  removeRepository: PropTypes.func.isRequired,
+  repositoryRemoveError: PropTypes.string,
+  pendingRequest: PropTypes.bool.isRequired
 };
 
 module.exports = RepositoriesTable;

@@ -1,6 +1,6 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import * as repositoriesStream
-  from "#PLUGINS/catalog/src/js/repositories/repositoriesStream";
+  from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 
 import {
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
@@ -409,6 +409,7 @@ const CosmosPackagesActions = {
   },
 
   addRepository(name, uri, index) {
+    console.warn("DEPRECATED", "use the new data-layer approach");
     repositoriesStream.addRepository(name, uri, index).subscribe(
       function success(response) {
         AppDispatcher.handleServerAction({
@@ -430,6 +431,7 @@ const CosmosPackagesActions = {
   },
 
   deleteRepository(name, uri) {
+    console.warn("DEPRECATED", "use the new data-layer approach");
     repositoriesStream.deleteRepository(name, uri).subscribe(
       function success(response) {
         AppDispatcher.handleServerAction({
