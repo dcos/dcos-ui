@@ -53,11 +53,15 @@
       }
 
       .login-modal-product-name {
-        bottom: @login-modal-product-name-vertical-offset;
         left: 50%;
         position: absolute;
+        top: @login-modal-product-name-vertical-offset;
         transform: translateX(-50%);
         width: 100%;
+      }
+
+      .login-modal-product-name a {
+        color: inherit;
       }
     }
   }
@@ -82,7 +86,7 @@
           }
 
           .login-modal-product-name {
-            bottom: @login-modal-product-name-vertical-offset-screen-small;
+            top: @login-modal-product-name-vertical-offset-screen-small;
           }
         }
       }
@@ -109,7 +113,7 @@
           }
 
           .login-modal-product-name {
-            bottom: @login-modal-product-name-vertical-offset-screen-medium;
+            top: @login-modal-product-name-vertical-offset-screen-medium;
           }
         }
       }
@@ -136,7 +140,7 @@
           }
 
           .login-modal-product-name {
-            bottom: @login-modal-product-name-vertical-offset-screen-large;
+            top: @login-modal-product-name-vertical-offset-screen-large;
           }
         }
       }
@@ -163,7 +167,7 @@
           }
 
           .login-modal-product-name {
-            bottom: @login-modal-product-name-vertical-offset-screen-jumbo;
+            top: @login-modal-product-name-vertical-offset-screen-jumbo;
           }
         }
       }
