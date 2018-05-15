@@ -205,7 +205,7 @@ class Sidebar extends React.Component {
       let isChildActive = false;
       if (isExpanded && hasChildren) {
         [submenu, isChildActive] = this.getGroupSubmenu(
-          group.path,
+          element.path,
           element.children
         );
       }
@@ -258,17 +258,13 @@ class Sidebar extends React.Component {
     const childRoutesPaths = children.map(({ path }) => path);
     const filteredPaths = Hooks.applyFilter(
       "secondaryNavigation",
-      path,
-      childRoutesPaths
+      childRoutesPaths,
+      path
     );
 
-    // Defaulting to unfiltered set of paths
-    const childRoutesMap = (filteredPaths || childRoutesPaths)
-      .reduce((routesMap, path) => routesMap.set(path, true), new Map());
-
-    const filteredChildRoutes = children.filter(({ path }) =>
-      childRoutesMap.has(path)
-    );
+    const filteredChildRoutes = Array.isArray(filteredPaths)
+      ? children.filter(({ path }) => filteredPaths.includes(path))
+      : children;
 
     const menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
