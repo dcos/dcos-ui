@@ -243,7 +243,7 @@ class TasksView extends mixin(SaveStateMixin) {
       rightAlignLastNChildren = 1;
     }
 
-    const mergedTasks = tasks.map(TaskMergeDataUtil.mergeData);
+    const mergedTasks = TaskMergeDataUtil.mergeTaskData(tasks);
 
     return (
       <div className="flex-container-col flex-grow">
