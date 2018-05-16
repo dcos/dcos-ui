@@ -440,6 +440,27 @@ class DCOSStore extends EventEmitter {
     });
   }
 
+  get taskLookupTable() {
+    return this.buildFlatServiceTree(this.serviceTree);
+  }
+
+  buildFlatServiceTree(serviceTree) {
+    return serviceTree.reduceItems((memo, item) => {
+      if (item instanceof ServiceTree) {
+        return memo;
+      }
+
+      const taskData = {
+        version: item.version,
+        health: item.healthCheckResults
+      };
+
+      memo[item.getId()] = taskData;
+
+      return memo;
+    }, {});
+  }
+
   get jobDataReceived() {
     return this.data.metronome.dataReceived;
   }

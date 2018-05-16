@@ -27,8 +27,8 @@ function getTaskHealthFromMesos(task) {
   return null;
 }
 
-function getTaskHealthFromMarathon(task) {
-  const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
+function getTaskHealthFromMarathon(task, taskLookupTable) {
+  const marathonTask = taskLookupTable[task.id];
 
   if (marathonTask != null) {
     const { healthCheckResults } = marathonTask;
@@ -43,13 +43,13 @@ function getTaskHealthFromMarathon(task) {
   return null;
 }
 
-function mergeHealth(task) {
+function mergeHealth(task, taskLookupTable) {
   let health = TaskHealthStates.UNKNOWN;
 
   let taskHealth = getTaskHealthFromMesos(task);
 
   if (taskHealth === null) {
-    taskHealth = getTaskHealthFromMarathon(task);
+    taskHealth = getTaskHealthFromMarathon(task, taskLookupTable);
   }
   // task status should only reflect health if taskHealth is defined
   if (taskHealth === true) {
@@ -72,8 +72,8 @@ function mergeHealth(task) {
   return task;
 }
 
-function mergeVersion(task) {
-  const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
+function mergeVersion(task, taskLookupTable) {
+  const marathonTask = taskLookupTable[task.id];
 
   if (marathonTask) {
     task.version = marathonTask.version;
@@ -96,15 +96,21 @@ function mergeHostname(task) {
   return task;
 }
 
-module.exports = {
-  mergeData(task) {
-    // Merge version from Marathon
-    task = mergeVersion(task);
-    // Get Health from Mesos first, and fallback on Marathon
-    task = mergeHealth(task);
-    // Merge hostname if we can find it
-    task = mergeHostname(task);
+function mergeData(task, taskLookupTable) {
+  // Merge version from Marathon
+  task = mergeVersion(task, taskLookupTable);
+  // Get Health from Mesos first, and fallback on Marathon
+  task = mergeHealth(task, taskLookupTable);
+  // Merge hostname if we can find it
+  task = mergeHostname(task);
 
-    return task;
-  }
+  return task;
+}
+
+function mergeTaskData(tasks) {
+  return tasks.map(task => mergeData(task, DCOSStore.taskLookupTable));
+}
+
+module.exports = {
+  mergeTaskData
 };
