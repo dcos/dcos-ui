@@ -246,7 +246,7 @@ class TasksView extends mixin(SaveStateMixin) {
       rightAlignLastNChildren = 1;
     }
 
-    filteredTasks = filteredTasks.map(GraphQLTaskUtil.mergeData);
+    filteredTasks = GraphQLTaskUtil.mergeTaskData(filteredTasks);
 
     return (
       <div className="flex-container-col flex-grow">
