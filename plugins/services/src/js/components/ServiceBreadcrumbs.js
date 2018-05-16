@@ -1,19 +1,18 @@
-import ReactDOM from "react-dom";
-import React from "react";
-import { Link } from "react-router";
-
-import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent
   from "#SRC/js/components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Util from "#SRC/js/utils/Util";
-
+import deepEqual from "deep-equal";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Link } from "react-router";
+import ServiceTree from "../structs/ServiceTree";
 import HealthBar from "./HealthBar";
 import ServiceStatusWarningWithDebugInformation
   from "./ServiceStatusWarningWithDebugInstruction";
-import ServiceTree from "../structs/ServiceTree";
 
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;
@@ -41,6 +40,22 @@ class ServiceBreadcrumbs extends React.Component {
   componentDidMount() {
     this.checkBreadcrumbOverflow();
     global.addEventListener("resize", this.handleViewportResize);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const hasServiceIDChanged = this.props.serviceID !== nextProps.serviceID;
+    const hasTaskIDChanged = this.props.taskID !== nextProps.taskID;
+    const hasTaskNameChanged = this.props.taskName !== nextProps.taskName;
+    const hasExtraNotChanged =
+      this.props.extra === nextProps.extra ||
+      deepEqual(this.props.extra, nextProps.extra);
+
+    return (
+      hasServiceIDChanged ||
+      hasTaskIDChanged ||
+      hasTaskNameChanged ||
+      !hasExtraNotChanged
+    );
   }
 
   componentDidUpdate() {
