@@ -12,7 +12,6 @@ var MesosStateActions = {
       return function() {
         RequestUtil.json({
           url: `${Config.historyServer}/mesos/master/state`,
-          timeout: 2000,
           success(response) {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_SUCCESS,
