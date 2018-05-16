@@ -603,4 +603,51 @@ describe("DCOSStore", function() {
       expect(DCOSStore.storeID).toEqual("dcos");
     });
   });
+
+  describe("#buildFlatServiceTree", function() {
+    beforeEach(function() {
+      this.filterProperties = {
+        id(item) {
+          return item.id;
+        }
+      };
+    });
+
+    it("for an empty ServiceTree", function() {
+      const serviceTree = new ServiceTree({
+        id: "/group",
+        items: [],
+        filterProperties: this.filterProperties
+      });
+
+      const flatTree = DCOSStore.buildFlatServiceTree(serviceTree);
+      expect(Object.keys(flatTree).length).toEqual(0);
+    });
+
+    it("for a tree with one element", function() {
+      const serviceTree = new ServiceTree({
+        id: "/group",
+        items: [
+          {
+            id: "group/test",
+            items: [
+              {
+                id: "group/test/a",
+                version: "1.0",
+                healthCheckResults: [{ alive: true }]
+              }
+            ]
+          }
+        ],
+        filterProperties: this.filterProperties
+      });
+
+      const flatTree = DCOSStore.buildFlatServiceTree(serviceTree);
+      expect(flatTree["group/test/a"]).toEqual({
+        health: [{ alive: true }],
+        version: "1.0"
+      });
+      expect(Object.keys(flatTree).length).toEqual(1);
+    });
+  });
 });
