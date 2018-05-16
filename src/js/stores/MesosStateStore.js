@@ -1,4 +1,5 @@
 import PluginSDK from "PluginSDK";
+import throttle from "lodash.throttle";
 
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
@@ -19,22 +20,24 @@ import MesosStateUtil from "../utils/MesosStateUtil";
 import Task from "../../../plugins/services/src/js/structs/Task";
 import VisibilityStore from "./VisibilityStore";
 
-var requestInterval = null;
+let isPolling = false;
 
-function startPolling() {
-  if (requestInterval == null) {
-    MesosStateActions.fetchState();
-    requestInterval = setInterval(
-      MesosStateActions.fetchState,
-      Config.getRefreshRate()
-    );
+const throttledFetchState = throttle(
+  MesosStateActions.fetchState,
+  Config.getRefreshRate()
+);
+
+function poll() {
+  if (!isPolling) {
+    isPolling = true;
   }
+  throttledFetchState();
 }
 
 function stopPolling() {
-  if (requestInterval != null) {
-    clearInterval(requestInterval);
-    requestInterval = null;
+  if (isPolling) {
+    throttledFetchState.cancel();
+    isPolling = false;
   }
 }
 
@@ -108,6 +111,15 @@ class MesosStateStore extends GetSetBaseStore {
           break;
       }
 
+      if (
+        this.shouldPoll() &&
+        (action.type === ActionTypes.REQUEST_MESOS_STATE_SUCCESS ||
+          action.type === ActionTypes.REQUEST_MESOS_STATE_ERROR ||
+          action.type === ActionTypes.REQUEST_MESOS_STATE_ONGOING)
+      ) {
+        poll();
+      }
+
       return true;
     });
 
@@ -121,7 +133,7 @@ class MesosStateStore extends GetSetBaseStore {
     this.on(eventName, callback);
 
     if (this.shouldPoll()) {
-      startPolling();
+      poll();
     }
   }
 
@@ -135,7 +147,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   onVisibilityStoreChange() {
     if (!VisibilityStore.isInactive() && this.shouldPoll()) {
-      startPolling();
+      poll();
 
       return;
     }
