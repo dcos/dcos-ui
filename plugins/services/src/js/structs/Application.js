@@ -13,16 +13,10 @@ module.exports = class Application extends Service {
   constructor() {
     super(...arguments);
 
-    // For performance reasons only one instance of the spec is created
-    // instead of creating a new instance every time a user calls `getSpec()`.
-    //
-    // State and other _useless_ information is removed to create a clean
-    // service spec.
-    //
     // The variable is prefixed because `Item` will expose all the properties
     // it gets as a properties of this object and we want to avoid any naming
     // collisions.
-    this._spec = new ApplicationSpec(cleanServiceJSON(this.get()));
+    this._spec = null;
   }
 
   getDeployments() {
@@ -33,6 +27,12 @@ module.exports = class Application extends Service {
    * @override
    */
   getSpec() {
+    if (this._spec == null) {
+      // State and other _useless_ information is removed to create a clean
+      // service spec.
+      this._spec = new ApplicationSpec(cleanServiceJSON(this.get()));
+    }
+
     return this._spec;
   }
 
