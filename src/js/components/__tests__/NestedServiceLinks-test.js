@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const React = require("react");
 const enzyme = require("enzyme");
 
