@@ -175,6 +175,7 @@ class ServicesTable extends React.Component {
     if (this.props.isFiltered) {
       return (
         <NestedServiceLinks
+          serviceLink={serviceLink}
           serviceID={id}
           className="service-breadcrumb"
           majorLinkClassName="service-breadcrumb-service-id"
