@@ -541,6 +541,93 @@ describe("MesosStateStore", function() {
     });
   });
 
+  describe("#getSchedulerTasksMap", function() {
+    beforeEach(function() {
+      this.get = MesosStateStore.get;
+    });
+
+    afterEach(function() {
+      MesosStateStore.get = this.get;
+    });
+
+    it("returns scheduled tasks", function() {
+      MesosStateStore.get = function() {
+        return {
+          frameworks: [
+            {
+              id: "marathon-1",
+              name: "marathon",
+              active: true
+            }
+          ],
+          tasks: [
+            {
+              id: "foo",
+              framework_id: "marathon-1",
+              isSchedulerTask: true,
+              labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "foo" }]
+            },
+            {
+              id: "bar"
+            },
+            {
+              id: "baz",
+              framework_id: "marathon-1",
+              isSchedulerTask: true,
+              labels: [{ key: "DCOS_PACKAGE_FRAMEWORK_NAME", value: "baz" }]
+            }
+          ]
+        };
+      };
+
+      const schedulerTasksMap = MesosStateStore.getSchedulerTasksMap();
+      expect(schedulerTasksMap).toEqual({
+        foo: {
+          framework_id: "marathon-1",
+          isSchedulerTask: true,
+          labels: [
+            {
+              key: "DCOS_PACKAGE_FRAMEWORK_NAME",
+              value: "foo"
+            }
+          ]
+        },
+        baz: {
+          framework_id: "marathon-1",
+          isSchedulerTask: true,
+          labels: [
+            {
+              key: "DCOS_PACKAGE_FRAMEWORK_NAME",
+              value: "baz"
+            }
+          ]
+        }
+      });
+    });
+
+    it("returs plain tasks", function() {
+      MesosStateStore.get = function() {
+        return {
+          frameworks: [
+            {
+              id: "marathon-1",
+              name: "marathon",
+              active: true
+            }
+          ],
+          tasks: [
+            {
+              id: "bar"
+            }
+          ]
+        };
+      };
+
+      const schedulerTasksMap = MesosStateStore.getSchedulerTasksMap();
+      expect(schedulerTasksMap).toEqual({});
+    });
+  });
+
   describe("#getSchedulerTaskFromServiceName", function() {
     beforeEach(function() {
       this.get = MesosStateStore.get;
