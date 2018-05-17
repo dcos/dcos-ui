@@ -44,15 +44,15 @@ function stopPolling() {
 /**
  * Assigns a property to task if it is a scheduler task.
  * @param  {Object} task
- * @param  {Array} schedulerTasks Array of scheduler task
+ * @param  {Object} schedulerTasksMap Map of scheduler task
  * @return {Object} task
  */
-function assignSchedulerTaskField(task, schedulerTasks) {
-  if (schedulerTasks.some(({ id }) => task.id === id)) {
-    return Object.assign({}, task, { schedulerTask: true });
+function assignSchedulerTaskField(task, schedulerTasksMap) {
+  if (schedulerTasksMap[task.id] == null) {
+    return task;
   }
 
-  return task;
+  return { ...task, schedulerTask: true };
 }
 
 /**
@@ -231,7 +231,7 @@ class MesosStateStore extends GetSetBaseStore {
     const frameworks = this.get("lastMesosState").frameworks || [];
     const memberTasks = {};
 
-    const schedulerTasks = this.getSchedulerTasks();
+    const schedulerTasksMap = this.getSchedulerTasksMap();
 
     frameworks.forEach(framework => {
       framework.tasks.forEach(function(task) {
@@ -243,7 +243,7 @@ class MesosStateStore extends GetSetBaseStore {
               item.getFrameworkName() === framework.name
             );
           });
-          task = assignSchedulerTaskField(task, schedulerTasks);
+          task = assignSchedulerTaskField(task, schedulerTasksMap);
           task = flagSDKTask(task, service);
           memberTasks[task.id] = task;
         }
@@ -281,6 +281,13 @@ class MesosStateStore extends GetSetBaseStore {
 
       return labels.some(({ key }) => key === "DCOS_PACKAGE_FRAMEWORK_NAME");
     });
+  }
+
+  getSchedulerTasksMap() {
+    return this.getSchedulerTasks().reduce(
+      (acc, { id, ...rest }) => ({ [id]: rest, ...acc }),
+      {}
+    );
   }
 
   getSchedulerTaskFromServiceName(serviceName) {
@@ -326,7 +333,7 @@ class MesosStateStore extends GetSetBaseStore {
       return [];
     }
 
-    const schedulerTasks = this.getSchedulerTasks();
+    const schedulerTasksMap = this.getSchedulerTasksMap();
     const serviceIsFramework = service && service instanceof Framework;
     const serviceFrameworkName = serviceIsFramework
       ? service.getFrameworkName()
@@ -346,7 +353,7 @@ class MesosStateStore extends GetSetBaseStore {
       if (serviceIsFramework && serviceFrameworkName === name) {
         return serviceTasks
           .concat(tasks, completed_tasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasks))
+          .map(task => assignSchedulerTaskField(task, schedulerTasksMap))
           .map(task => flagSDKTask(task, service));
       }
 
@@ -356,7 +363,7 @@ class MesosStateStore extends GetSetBaseStore {
           .concat(completed_tasks, unreachable_tasks)
           .filter(({ name }) => name === mesosTaskName)
           .concat(serviceTasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasks))
+          .map(task => assignSchedulerTaskField(task, schedulerTasksMap))
           .map(task => flagSDKTask(task, service));
       }
 
