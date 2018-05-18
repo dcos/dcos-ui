@@ -402,6 +402,10 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
+    return this.buildServiceTree();
+  }
+
+  buildServiceTree() {
     const { marathon: { serviceTree, queue, versions }, mesos } = this.data;
 
     // Create framework dict from Mesos data
