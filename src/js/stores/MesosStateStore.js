@@ -231,8 +231,6 @@ class MesosStateStore extends GetSetBaseStore {
     const frameworks = this.get("lastMesosState").frameworks || [];
     const memberTasks = {};
 
-    const schedulerTasksMap = this.getSchedulerTasksMap();
-
     frameworks.forEach(framework => {
       framework.tasks.forEach(function(task) {
         if (task.slave_id === nodeID) {
@@ -243,7 +241,6 @@ class MesosStateStore extends GetSetBaseStore {
               item.getFrameworkName() === framework.name
             );
           });
-          task = assignSchedulerTaskField(task, schedulerTasksMap);
           task = flagSDKTask(task, service);
           memberTasks[task.id] = task;
         }
@@ -269,10 +266,11 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   /**
+   * @param  {Array} frameworks
    * @return {Array} list of scheduler tasks
    */
-  getSchedulerTasks() {
-    const tasks = this.getTasksFromServiceName("marathon");
+  getSchedulerTasks(frameworks) {
+    const tasks = this.getTasksFromServiceName("marathon", frameworks);
 
     return tasks.filter(function({ labels }) {
       if (!labels) {
@@ -283,30 +281,14 @@ class MesosStateStore extends GetSetBaseStore {
     });
   }
 
-  getSchedulerTasksMap() {
-    return this.getSchedulerTasks().reduce(
+  getSchedulerTasksMap(frameworks) {
+    return this.getSchedulerTasks(frameworks).reduce(
       (acc, { id, ...rest }) => ({ [id]: rest, ...acc }),
       {}
     );
   }
 
-  getSchedulerTaskFromServiceName(serviceName) {
-    const tasks = this.getSchedulerTasks();
-
-    return tasks.find(function({ labels }) {
-      return labels.some(({ key, value }) => {
-        return key === "DCOS_PACKAGE_FRAMEWORK_NAME" && value === serviceName;
-      });
-    });
-  }
-
-  getTasksFromServiceName(serviceName) {
-    const frameworks = this.get("lastMesosState").frameworks;
-
-    if (!frameworks) {
-      return null;
-    }
-
+  getTasksFromServiceName(serviceName, frameworks = []) {
     const framework = frameworks.find(function(framework) {
       return framework.name === serviceName;
     });
@@ -333,7 +315,6 @@ class MesosStateStore extends GetSetBaseStore {
       return [];
     }
 
-    const schedulerTasksMap = this.getSchedulerTasksMap();
     const serviceIsFramework = service && service instanceof Framework;
     const serviceFrameworkName = serviceIsFramework
       ? service.getFrameworkName()
@@ -353,7 +334,6 @@ class MesosStateStore extends GetSetBaseStore {
       if (serviceIsFramework && serviceFrameworkName === name) {
         return serviceTasks
           .concat(tasks, completed_tasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasksMap))
           .map(task => flagSDKTask(task, service));
       }
 
@@ -363,7 +343,6 @@ class MesosStateStore extends GetSetBaseStore {
           .concat(completed_tasks, unreachable_tasks)
           .filter(({ name }) => name === mesosTaskName)
           .concat(serviceTasks)
-          .map(task => assignSchedulerTaskField(task, schedulerTasksMap))
           .map(task => flagSDKTask(task, service));
       }
 
@@ -379,6 +358,29 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   processStateSuccess(lastMesosState) {
+    const schedulerTasksMap = this.getSchedulerTasksMap(
+      lastMesosState.frameworks
+    );
+
+    lastMesosState.frameworks = lastMesosState.frameworks.reduce(
+      (acc, framework) => {
+        const tasks = (framework.tasks || [])
+          .map(task => assignSchedulerTaskField(task, schedulerTasksMap));
+        const completed_tasks = (framework.completed_tasks || [])
+          .map(task => assignSchedulerTaskField(task, schedulerTasksMap));
+        const unreachable_tasks = (framework.unreachable_tasks || [])
+          .map(task => assignSchedulerTaskField(task, schedulerTasksMap));
+
+        return acc.concat({
+          ...framework,
+          tasks,
+          completed_tasks,
+          unreachable_tasks
+        });
+      },
+      []
+    );
+
     CompositeState.addState(lastMesosState);
     const taskCache = this.indexTasksByID(lastMesosState);
     this.set({ lastMesosState, taskCache });
