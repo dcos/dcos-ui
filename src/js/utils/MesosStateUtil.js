@@ -278,15 +278,15 @@ const MesosStateUtil = {
   /**
    * Assigns a property to task if it is a scheduler task.
    * @param  {Object} task
-   * @param  {Array} schedulerTasks Array of scheduler task
+   * @param  {Object} schedulerTasksMap Map of scheduler task
    * @return {Object} task
    */
-  assignSchedulerTaskField(task, schedulerTasks) {
-    if (schedulerTasks.some(({ id }) => task.id === id)) {
-      return Object.assign({}, task, { schedulerTask: true });
+  assignSchedulerTaskField(task, schedulerTasksMap) {
+    if (schedulerTasksMap[task.id] == null) {
+      return task;
     }
 
-    return task;
+    return { ...task, schedulerTask: true };
   },
 
   /**
