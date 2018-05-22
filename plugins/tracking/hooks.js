@@ -4,8 +4,6 @@ import React from "react";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import Config from "#SRC/js/config/Config";
 import DOMUtils from "#SRC/js/utils/DOMUtils";
-import EventTypes from "#SRC/js/constants/EventTypes";
-import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import { ANALYTICS_LOAD_TIMEOUT } from "./constants/PluginConstants";
 import Actions from "./actions/Actions";
@@ -22,12 +20,7 @@ module.exports = {
     "userAddPolicy"
   ],
 
-  actions: [
-    "pluginsConfigured",
-    "userLoginSuccess",
-    "userLogoutSuccess",
-    "routes"
-  ],
+  actions: ["userLoginSuccess", "userLogoutSuccess", "routes"],
 
   initialize(configuration) {
     this.configuration = configuration;
@@ -62,33 +55,6 @@ module.exports = {
     promiseArray.push(promise);
 
     return promiseArray;
-  },
-
-  pluginsConfigured() {
-    // Ensure analytics is actually ready, because in #pluginsLoadedCheck we
-    // may skip the check so that we don't completely block the applicaiton
-    global.analytics.ready(() => {
-      const updateTrackJSConfiguration = () => {
-        global.trackJs.configure({ version: MetadataStore.version });
-        global.trackJs.addMetadata("version", MetadataStore.version);
-      };
-
-      if (this.configuration && this.configuration.metadata) {
-        const config = this.configuration.metadata;
-        Object.keys(config).forEach(metaKey => {
-          global.trackJs.addMetadata(metaKey, config[metaKey]);
-        });
-      }
-
-      if (!MetadataStore.version) {
-        MetadataStore.addChangeListener(
-          EventTypes.DCOS_METADATA_CHANGE,
-          updateTrackJSConfiguration
-        );
-      } else {
-        updateTrackJSConfiguration();
-      }
-    });
   },
 
   userLoginSuccess() {
