@@ -1,0 +1,51 @@
+import { makeExecutableSchema } from "graphql-tools";
+import { addTask, removeTask, getTasks } from "./support";
+
+const processTasks = tasks => {
+  const result = Object.entries(tasks).map(task => ({
+    id: task[0],
+    value: task[1]
+  }));
+
+  return result;
+};
+
+const typeDefs = `
+  type Task {
+    id: Int!
+    name: String!
+  }
+
+  type Query {
+    getTasks: [Task]!
+  }
+
+  type Mutation {
+    addTask(name: String!): [Task]!
+    removeTask(id: Int!): [Task]!
+  }
+`;
+
+const resolvers = {
+  Query: {
+    getTasks: () => {
+      return getTasks()
+        .map(store => store.data)
+        .map(tasks => processTasks(tasks))
+        .do(x => console.log("ss", x));
+    }
+  },
+  Mutation: {
+    addTask: (parent, args) => {
+      return addTask(args.name);
+    },
+    removeTask: (parent, args) => {
+      return removeTask(args.id);
+    }
+  }
+};
+
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
