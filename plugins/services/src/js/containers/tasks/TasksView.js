@@ -147,6 +147,10 @@ class TasksView extends mixin(SaveStateMixin) {
     );
   }
 
+  isSchedulerTask(task) {
+    return task.labels.some(({ key }) => key === "DCOS_PACKAGE_FRAMEWORK_NAME");
+  }
+
   getStopButtons() {
     const { tasks } = this.props;
     const { checkedItems } = this.state;
@@ -170,7 +174,7 @@ class TasksView extends mixin(SaveStateMixin) {
 
     // Only show Stop if a scheduler task isn't selected
     const hasSchedulerTask = tasks.some(
-      task => task.id in checkedItems && task.schedulerTask
+      task => task.id in checkedItems && this.isSchedulerTask(task)
     );
 
     // Using Button's native "disabled" prop prevents onMouseLeave from

@@ -42,20 +42,6 @@ function stopPolling() {
 }
 
 /**
- * Assigns a property to task if it is a scheduler task.
- * @param  {Object} task
- * @param  {Object} schedulerTasksMap Map of scheduler task
- * @return {Object} task
- */
-function assignSchedulerTaskField(task, schedulerTasksMap) {
-  if (schedulerTasksMap[task.id] == null) {
-    return task;
-  }
-
-  return { ...task, schedulerTask: true };
-}
-
-/**
  * Assigns a property to task if it belongs to an SDK service.
  * @param  {Object} task
  * @param  {Array} service task belongs to
@@ -265,45 +251,6 @@ class MesosStateStore extends GetSetBaseStore {
     return new Task(foundTask);
   }
 
-  /**
-   * @param  {Array} frameworks
-   * @return {Array} list of scheduler tasks
-   */
-  getSchedulerTasks(frameworks) {
-    const tasks = this.getTasksFromServiceName("marathon", frameworks);
-
-    return tasks.filter(function({ labels }) {
-      if (!labels) {
-        return false;
-      }
-
-      return labels.some(({ key }) => key === "DCOS_PACKAGE_FRAMEWORK_NAME");
-    });
-  }
-
-  getSchedulerTasksMap(frameworks) {
-    return this.getSchedulerTasks(frameworks).reduce(
-      (acc, { id, ...rest }) => ({ [id]: rest, ...acc }),
-      {}
-    );
-  }
-
-  getTasksFromServiceName(serviceName, frameworks = []) {
-    const framework = frameworks.find(function(framework) {
-      return framework.name === serviceName;
-    });
-
-    if (framework) {
-      const activeTasks = framework.tasks || [];
-      const completedTasks = framework.completed_tasks || [];
-      const unreachableTasks = framework.unreachable_tasks || [];
-
-      return activeTasks.concat(completedTasks, unreachableTasks);
-    }
-
-    return [];
-  }
-
   getTasksByService(service) {
     const frameworks = this.get("lastMesosState").frameworks;
     const serviceName = service.getName();
@@ -358,29 +305,6 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   processStateSuccess(lastMesosState) {
-    const schedulerTasksMap = this.getSchedulerTasksMap(
-      lastMesosState.frameworks
-    );
-
-    lastMesosState.frameworks = lastMesosState.frameworks.reduce(
-      (acc, framework) => {
-        const tasks = (framework.tasks || [])
-          .map(task => assignSchedulerTaskField(task, schedulerTasksMap));
-        const completed_tasks = (framework.completed_tasks || [])
-          .map(task => assignSchedulerTaskField(task, schedulerTasksMap));
-        const unreachable_tasks = (framework.unreachable_tasks || [])
-          .map(task => assignSchedulerTaskField(task, schedulerTasksMap));
-
-        return acc.concat({
-          ...framework,
-          tasks,
-          completed_tasks,
-          unreachable_tasks
-        });
-      },
-      []
-    );
-
     CompositeState.addState(lastMesosState);
     const taskCache = this.indexTasksByID(lastMesosState);
     this.set({ lastMesosState, taskCache });
