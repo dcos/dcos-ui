@@ -23,15 +23,6 @@ const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(function(
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
 const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)$/;
 
-function setIsStartedByMarathonFlag(marathon_id, tasks) {
-  return tasks.map(function(task) {
-    return Object.assign(
-      { isStartedByMarathon: marathon_id === task.framework_id },
-      task
-    );
-  });
-}
-
 const MesosStateUtil = {
   /**
    * De-compose the given task id into it's primitive components
@@ -47,26 +38,6 @@ const MesosStateUtil = {
       instanceID,
       taskName
     };
-  },
-
-  flagMarathonTasks(state) {
-    if (!state.frameworks) {
-      return state;
-    }
-
-    const marathon = state.frameworks.find(
-      framework => framework.name === "marathon"
-    );
-
-    if (!marathon) {
-      return state;
-    }
-
-    const { tasks = [] } = state;
-
-    return Object.assign(state, {
-      tasks: setIsStartedByMarathonFlag(marathon.id, tasks)
-    });
   },
 
   /**
@@ -273,20 +244,6 @@ const MesosStateUtil = {
    */
   isPodTaskId(taskID) {
     return POD_TASK_REGEX.test(taskID);
-  },
-
-  /**
-   * Assigns a property to task if it is a scheduler task.
-   * @param  {Object} task
-   * @param  {Object} schedulerTasksMap Map of scheduler task
-   * @return {Object} task
-   */
-  assignSchedulerTaskField(task, schedulerTasksMap) {
-    if (schedulerTasksMap[task.id] == null) {
-      return task;
-    }
-
-    return { ...task, schedulerTask: true };
   },
 
   /**
