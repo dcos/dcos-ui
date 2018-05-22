@@ -650,4 +650,41 @@ describe("DCOSStore", function() {
       expect(Object.keys(flatTree).length).toEqual(1);
     });
   });
+
+  describe("taskLookupTable", function() {
+    let buildFlatServiceTree;
+    beforeEach(function() {
+      buildFlatServiceTree = DCOSStore.buildFlatServiceTree;
+      DCOSStore.buildFlatServiceTree = jest.fn(function() {
+        return {
+          "group/test/a": {
+            health: [{ alive: true }],
+            version: "1.0"
+          }
+        };
+      });
+    });
+
+    afterEach(function() {
+      DCOSStore.buildFlatServiceTree = buildFlatServiceTree;
+    });
+
+    it("calculates the data on an empty state", function() {
+      DCOSStore.taskLookupTable; // eslint-disable-line no-unused-expressions
+      expect(DCOSStore.buildFlatServiceTree).toHaveBeenCalled();
+    });
+
+    it("does not calculate the data if there is pre-existing state", function() {
+      DCOSStore.taskLookupTable; // eslint-disable-line no-unused-expressions
+      DCOSStore.taskLookupTable; // eslint-disable-line no-unused-expressions
+      expect(DCOSStore.buildFlatServiceTree).toHaveBeenCalledTimes(1);
+    });
+
+    it("calculates the data if the pre-existing state got stale", function() {
+      DCOSStore.taskLookupTable; // eslint-disable-line no-unused-expressions
+      DCOSStore.serviceTree = null;
+      DCOSStore.taskLookupTable; // eslint-disable-line no-unused-expressions
+      expect(DCOSStore.buildFlatServiceTree).toHaveBeenCalledTimes(2);
+    });
+  });
 });
