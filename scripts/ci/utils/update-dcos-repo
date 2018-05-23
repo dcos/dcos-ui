@@ -60,6 +60,11 @@ else
     reset --hard "origin/${PKG_TARGET}"
 fi
 
+# this is an intermediate step we need until we actually bumped the new process to DC/OS
+echo 'cp -r "/pkg/src/dcos-ui" "$PKG_PATH"/usr/' > ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/build
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/build"
+
 cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
