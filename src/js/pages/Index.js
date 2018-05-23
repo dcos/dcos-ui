@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import React from "react";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -66,8 +66,7 @@ var Index = React.createClass({
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !(deepEqual(this.props, nextProps) &&
-      deepEqual(this.state, nextState));
+    return !(isEqual(this.props, nextProps) && isEqual(this.state, nextState));
   },
 
   componentWillUnmount() {

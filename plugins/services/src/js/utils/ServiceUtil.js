@@ -1,5 +1,5 @@
 import { Hooks } from "PluginSDK";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 
 import Application from "../structs/Application";
 import ApplicationSpec from "../structs/ApplicationSpec";
@@ -73,7 +73,7 @@ const ServiceUtil = {
     }
 
     // Only compare the service specs as everything else is status data
-    return deepEqual(serviceA.getSpec(), serviceB.getSpec());
+    return isEqual(serviceA.getSpec(), serviceB.getSpec());
   },
 
   getBaseID(serviceID) {

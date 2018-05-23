@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -26,9 +26,9 @@ const ServiceList = React.createClass({
 
   shouldComponentUpdate(nextProps, nextState) {
     var changedState =
-      nextState !== undefined && !deepEqual(this.state, nextState);
+      nextState !== undefined && !isEqual(this.state, nextState);
 
-    return !deepEqual(this.props, nextProps) || changedState;
+    return !isEqual(this.props, nextProps) || changedState;
   },
 
   handleServiceClick(service, event) {

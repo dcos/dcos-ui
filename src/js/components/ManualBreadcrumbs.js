@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import DeepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -52,7 +52,7 @@ class ManualBreadcrumbs extends React.Component {
       return true;
     }
 
-    return !DeepEqual(this.props, nextProps);
+    return !isEqual(this.props, nextProps);
   }
 
   handleResize() {

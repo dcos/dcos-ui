@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -151,7 +151,7 @@ describe("NodesGridDials", function() {
       host.active = false;
       var config2 = thisInstance.instance().getDialConfig(new Node(host));
 
-      expect(deepEqual(config1, config2)).toEqual(false);
+      expect(isEqual(config1, config2)).toEqual(false);
     });
   });
 

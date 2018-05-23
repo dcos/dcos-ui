@@ -6,7 +6,7 @@ import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import Util from "#SRC/js/utils/Util";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -48,15 +48,13 @@ class ServiceBreadcrumbs extends React.Component {
     const hasServiceIDChanged = this.props.serviceID !== nextProps.serviceID;
     const hasTaskIDChanged = this.props.taskID !== nextProps.taskID;
     const hasTaskNameChanged = this.props.taskName !== nextProps.taskName;
-    const hasExtraNotChanged =
-      this.props.extra === nextProps.extra ||
-      deepEqual(this.props.extra, nextProps.extra);
+    const hasExtraChanged = !isEqual(this.props.extra, nextProps.extra);
 
     return (
       hasServiceIDChanged ||
       hasTaskIDChanged ||
       hasTaskNameChanged ||
-      !hasExtraNotChanged
+      hasExtraChanged
     );
   }
 

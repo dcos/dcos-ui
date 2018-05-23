@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -26,7 +26,7 @@ var TimeSeriesLabel = React.createClass({
 
   shouldComponentUpdate(nextProps) {
     // If equal, do not update
-    return !deepEqual(this.props, nextProps);
+    return !isEqual(this.props, nextProps);
   },
 
   render() {

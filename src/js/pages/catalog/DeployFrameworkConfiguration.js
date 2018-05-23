@@ -2,7 +2,7 @@ import React from "react";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import qs from "query-string";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { routerShape } from "react-router";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
@@ -93,7 +93,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onFormDataChange(formData) {
-    if (deepEqual(formData, this.state.formData, { strict: true })) {
+    if (isEqual(formData, this.state.formData)) {
       return false;
     }
 
@@ -101,7 +101,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   }
 
   onFormErrorChange(formErrors) {
-    if (deepEqual(formErrors, this.state.formErrors)) {
+    if (isEqual(formErrors, this.state.formErrors)) {
       return false;
     }
 

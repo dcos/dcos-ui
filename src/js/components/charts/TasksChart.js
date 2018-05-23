@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -36,7 +36,7 @@ var TasksChart = React.createClass({
     var newTasks = this.getTasks(nextProps.tasks);
 
     // If equal, do not update
-    return !deepEqual(previousTasks, newTasks);
+    return !isEqual(previousTasks, newTasks);
   },
 
   getTaskInfo(tasks) {

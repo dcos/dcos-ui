@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import { Tooltip } from "reactjs-components";
 import DefaultSchemaField
   from "react-jsonschema-form/lib/components/fields/SchemaField";
@@ -20,8 +20,8 @@ import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 class SchemaField extends Component {
   shouldComponentUpdate(nextProps) {
     return (
-      !deepEqual(nextProps.formData, this.props.formData, { strict: true }) ||
-      !deepEqual(nextProps.uiSchema, this.props.uiSchema)
+      !isEqual(nextProps.formData, this.props.formData) ||
+      !isEqual(nextProps.uiSchema, this.props.uiSchema)
     );
   }
 

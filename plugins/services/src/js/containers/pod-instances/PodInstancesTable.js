@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
@@ -72,7 +72,7 @@ class PodInstancesTable extends React.Component {
 
     if (
       Object.keys(checkedItems).length &&
-      !deepEqual(prevInstances, nextInstances)
+      !isEqual(prevInstances, nextInstances)
     ) {
       this.triggerSelectionChange(checkedItems, nextProps.instances);
     }

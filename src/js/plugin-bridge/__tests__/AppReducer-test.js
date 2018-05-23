@@ -1,4 +1,4 @@
-const deepEqual = require("deep-equal");
+const isEqual = require("deep-equal");
 
 const EventTypes = require("../../constants/EventTypes");
 const PluginSDK = require("PluginSDK");
@@ -31,7 +31,7 @@ describe("AppReducer", function() {
 
     var state = getApplicationState();
 
-    expect(deepEqual(state, expectedState)).toEqual(true);
+    expect(isEqual(state, expectedState)).toEqual(true);
   });
 
   it("alters state correctly after plugins loaded", function() {
@@ -64,7 +64,7 @@ describe("AppReducer", function() {
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
-    expect(deepEqual(state, expectedState)).toEqual(true);
+    expect(isEqual(state, expectedState)).toEqual(true);
   });
 
   it("alters state correctly for storeID", function() {
@@ -82,7 +82,7 @@ describe("AppReducer", function() {
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
-    expect(deepEqual(state, expectedState)).toEqual(true);
+    expect(isEqual(state, expectedState)).toEqual(true);
   });
 
   it("does not alter state if action dispatched from plugin", function() {
@@ -109,7 +109,7 @@ describe("AppReducer", function() {
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
-    expect(deepEqual(state, expectedState)).toEqual(true);
+    expect(isEqual(state, expectedState)).toEqual(true);
   });
 
   it("clones state", function() {

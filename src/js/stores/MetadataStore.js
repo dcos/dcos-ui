@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PluginSDK from "PluginSDK";
 
 import {
@@ -52,7 +52,7 @@ class MetadataStore extends GetSetBaseStore {
           var metadata = action.data;
 
           // only emitting on change
-          if (!deepEqual(oldMetadata, metadata)) {
+          if (!isEqual(oldMetadata, metadata)) {
             this.set({ metadata });
             this.emitChange(METADATA_CHANGE);
           }
@@ -62,7 +62,7 @@ class MetadataStore extends GetSetBaseStore {
           var dcosMetadata = action.data;
 
           // only emitting on change
-          if (!deepEqual(oldDCOSMetadata, dcosMetadata)) {
+          if (!isEqual(oldDCOSMetadata, dcosMetadata)) {
             this.set({ dcosMetadata });
             this.emitChange(DCOS_METADATA_CHANGE);
           }
@@ -74,7 +74,7 @@ class MetadataStore extends GetSetBaseStore {
           const prevDCOSBuildInfo = this.get("dcosBuildInfo");
           const nextDCOSBuildInfo = action.data;
 
-          if (!deepEqual(prevDCOSBuildInfo, nextDCOSBuildInfo)) {
+          if (!isEqual(prevDCOSBuildInfo, nextDCOSBuildInfo)) {
             this.set({ dcosBuildInfo: nextDCOSBuildInfo });
             this.emitChange(DCOS_BUILD_INFO_CHANGE);
           }
