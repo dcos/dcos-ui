@@ -46,19 +46,14 @@ git clone "${GITHUB_URL}${DCOS_ORIGIN}" "${PROJECT_ROOT}/${DCOS_FOLDER}"
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   checkout -B "${DCOS_BRANCH}"
 
-if [ -n "${DCOS_UPSTREAM}" ]; then
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    remote add upstream "${GITHUB_URL}${DCOS_UPSTREAM}"
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  remote add upstream "${GITHUB_URL}${DCOS_UPSTREAM}"
 
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    fetch upstream
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  fetch upstream
 
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    reset --hard "upstream/${PKG_TARGET}"
-else
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    reset --hard "origin/${PKG_TARGET}"
-fi
+git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
+  reset --hard "upstream/${PKG_TARGET}"
 
 # this is an intermediate step we need until we actually bumped the new process to DC/OS
 echo -e '#!/bin/bash\n\ncp -r "/pkg/src/dcos-ui" "$PKG_PATH"/usr/' > ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/build
@@ -68,12 +63,6 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
 cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
-
-if [ -f "${PROJECT_ROOT}/upstream.json" ]; then
-  cp -f ${PROJECT_ROOT}/upstream.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/upstream.json
-  git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-    add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/upstream.json"
-fi
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
