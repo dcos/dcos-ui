@@ -204,6 +204,7 @@ class DCOSStore extends EventEmitter {
       );
     });
 
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -237,6 +238,7 @@ class DCOSStore extends EventEmitter {
     // Populate deployments with services data immediately
     this.onMarathonDeploymentsChange();
 
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -280,6 +282,7 @@ class DCOSStore extends EventEmitter {
       }
     });
 
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -295,6 +298,7 @@ class DCOSStore extends EventEmitter {
 
     currentVersions.set(versionID, version);
 
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -308,6 +312,7 @@ class DCOSStore extends EventEmitter {
     }
 
     versions.set(serviceID, nextVersions);
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -318,6 +323,7 @@ class DCOSStore extends EventEmitter {
     }
 
     this.data.mesos = states;
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -328,6 +334,7 @@ class DCOSStore extends EventEmitter {
     metronome.jobTree = MetronomeStore.jobTree;
     metronome.dataReceived = true;
 
+    this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
 
@@ -402,7 +409,19 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
-    return this.buildServiceTree();
+    if (!this._serviceTree) {
+      this.serviceTree = this.buildServiceTree();
+    }
+
+    return this._serviceTree;
+  }
+
+  set serviceTree(newValue) {
+    this._serviceTree = newValue;
+  }
+
+  clearServiceTreeCache() {
+    this.serviceTree = null;
   }
 
   buildServiceTree() {
