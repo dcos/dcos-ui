@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -35,7 +35,7 @@ class CreateServiceJsonOnly extends React.Component {
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(service);
     // Make sure to not set state unless the service has actually changed
-    if (deepEqual(prevJSON, nextJSON)) {
+    if (isEqual(prevJSON, nextJSON)) {
       return;
     }
 

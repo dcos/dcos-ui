@@ -1,7 +1,7 @@
 import AceEditor from "react-ace";
 import PropTypes from "prop-types";
 import React from "react";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import "brace/ext/searchbox";
 
 import { omit } from "../utils/Util";
@@ -112,7 +112,7 @@ class JSONEditor extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     // Synchronize error updates
-    if (!deepEqual(this.externalErrors, nextProps.errors)) {
+    if (!isEqual(this.externalErrors, nextProps.errors)) {
       this.externalErrors = (nextProps.errors || []).slice();
       this.updateEditorState();
     }
@@ -130,7 +130,7 @@ class JSONEditor extends React.Component {
     // If this update originates from an onChange -> prop={value} loop, the
     // object defined in the `internalValue` property should be equal to the
     // `value` property we just received. In this case, don't update anything.
-    if (deepEqual(this.jsonValue, nextProps.value)) {
+    if (isEqual(this.jsonValue, nextProps.value)) {
       return;
     }
 
@@ -167,7 +167,7 @@ class JSONEditor extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // Update if ACE editor properties are changed
     if (
-      !deepEqual(nextProps.editorProps, this.props.editorProps) ||
+      !isEqual(nextProps.editorProps, this.props.editorProps) ||
       nextProps.height !== this.props.height ||
       nextProps.width !== this.props.width
     ) {

@@ -1,4 +1,4 @@
-const deepEqual = require("deep-equal");
+const isEqual = require("deep-equal");
 
 const PluginSDK = require("PluginSDK");
 const PluginTestUtils = require("PluginTestUtils");
@@ -47,7 +47,7 @@ describe("PluginSDK", function() {
           }
         });
         var state = PluginSDK.Store.getState();
-        expect(deepEqual(state.fakePlugin2, { foo: "bar" })).toEqual(true);
+        expect(isEqual(state.fakePlugin2, { foo: "bar" })).toEqual(true);
       });
 
       it("throws an error if reducer is not a function", function() {
@@ -124,7 +124,7 @@ describe("PluginSDK", function() {
       };
       expect(store.dispatch.mock.calls.length).toEqual(1);
       expect(
-        deepEqual(store.dispatch.mock.calls[0][0], dispatchedObject)
+        isEqual(store.dispatch.mock.calls[0][0], dispatchedObject)
       ).toEqual(true);
       // Undo
       store.dispatch = storeDispatch;
@@ -189,33 +189,33 @@ describe("PluginSDK", function() {
     it("calls reducer with correct state", function() {
       thisTestArgs.dispatch({ type: "foo" });
       var prevState = thisMockReducer.mock.calls[3][0];
-      expect(deepEqual(prevState, { foo: 1 })).toEqual(true);
+      expect(isEqual(prevState, { foo: 1 })).toEqual(true);
     });
 
     it("calls reducer with correct action", function() {
       thisTestArgs.dispatch({ type: "foo" });
       var action = thisMockReducer.mock.calls[3][1];
       expect(
-        deepEqual(action, { type: "foo", __origin: "anotherFakePlugin" })
+        isEqual(action, { type: "foo", __origin: "anotherFakePlugin" })
       ).toEqual(true);
     });
 
     it("updates Store with new state #1", function() {
       thisTestArgs.dispatch({ type: "reset" });
       var state = PluginSDK.Store.getState().anotherFakePlugin;
-      expect(deepEqual(state, { foo: 1 })).toEqual(true);
+      expect(isEqual(state, { foo: 1 })).toEqual(true);
     });
 
     it("updates Store with new state #2", function() {
       thisTestArgs.dispatch({ type: "foo" });
       var state = PluginSDK.Store.getState().anotherFakePlugin;
-      expect(deepEqual(state, { foo: 2 })).toEqual(true);
+      expect(isEqual(state, { foo: 2 })).toEqual(true);
     });
 
     it("updates Store with new state #3", function() {
       thisTestArgs.dispatch({ type: "bar" });
       var state = PluginSDK.Store.getState().anotherFakePlugin;
-      expect(deepEqual(state, { foo: 2, bar: "qux" })).toEqual(true);
+      expect(isEqual(state, { foo: 2, bar: "qux" })).toEqual(true);
     });
   });
 });

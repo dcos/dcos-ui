@@ -1,5 +1,5 @@
 import d3 from "d3";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -81,7 +81,7 @@ var TimeSeriesChart = React.createClass({
     // happens after mount and ends up keeping the axis code outside of react
     // unfortunately.
     // If non `data` props change then we need to update the whole graph
-    if (!deepEqual(Util.omit(props, "data"), Util.omit(nextProps, "data"))) {
+    if (!isEqual(Util.omit(props, "data"), Util.omit(nextProps, "data"))) {
       var height = this.getHeight(nextProps);
       var width = this.getWidth(nextProps);
 
@@ -101,7 +101,7 @@ var TimeSeriesChart = React.createClass({
       return value[props.y];
     });
 
-    return !deepEqual(prevY, nextY);
+    return !isEqual(prevY, nextY);
   },
 
   componentDidUpdate() {

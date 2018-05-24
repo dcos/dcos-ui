@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import md5 from "md5";
 import { hashHistory, match } from "react-router";
 
@@ -128,7 +128,7 @@ var Actions = {
       return;
     }
 
-    if (deepEqual(this.previousFakePageLog, fakePageLog)) {
+    if (isEqual(this.previousFakePageLog, fakePageLog)) {
       return;
     }
 

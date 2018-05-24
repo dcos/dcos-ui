@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import d3 from "d3";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -59,7 +59,7 @@ var BarChart = React.createClass({
     return (
       this.props.height !== nextProps.height ||
       this.props.width !== nextProps.width ||
-      !deepEqual(this.props.data, nextProps.data)
+      !isEqual(this.props.data, nextProps.data)
     );
   },
 

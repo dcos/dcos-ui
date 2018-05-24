@@ -1,4 +1,4 @@
-const deepEqual = require("deep-equal");
+const isEqual = require("deep-equal");
 const Item = require("../../structs/Item");
 const List = require("../../structs/List");
 const StructUtil = require("../StructUtil");
@@ -24,12 +24,12 @@ describe("StructUtil", function() {
       var fn = function() {};
       var originalObject = [1, "string", fn, true];
       var newObj = StructUtil.copyRawObject(originalObject);
-      expect(deepEqual(newObj, originalObject)).toBeTruthy();
+      expect(isEqual(newObj, originalObject)).toBeTruthy();
     });
 
     it("returns original data from List struct", function() {
       var newObj = StructUtil.copyRawObject(listStruct);
-      expect(deepEqual(newObj, expectedArrayItems)).toBeTruthy();
+      expect(isEqual(newObj, expectedArrayItems)).toBeTruthy();
     });
 
     it("clones Objects", function() {
@@ -61,7 +61,7 @@ describe("StructUtil", function() {
         },
         foobar: fn
       };
-      expect(deepEqual(newObj, expectedObj)).toBeTruthy();
+      expect(isEqual(newObj, expectedObj)).toBeTruthy();
     });
   });
 });

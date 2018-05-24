@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
@@ -159,7 +159,7 @@ class CreateServiceModal extends Component {
     // Skip update if there was no change to props
     if (
       nextProps.location.pathname === location.pathname &&
-      deepEqual(nextProps.params, params)
+      isEqual(nextProps.params, params)
     ) {
       return;
     }

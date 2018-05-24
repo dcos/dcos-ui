@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
@@ -58,7 +58,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
     const { serviceColors } = this.state;
 
-    if (!deepEqual(Object.keys(serviceColors), ids)) {
+    if (!isEqual(Object.keys(serviceColors), ids)) {
       this.computeServiceColors(services);
       this.computeShownServices(services);
     }

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import deepEqual from "deep-equal";
+import isEqual from "lodash.isequal";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -131,9 +131,9 @@ class CreateServiceModalForm extends Component {
     // as the contents of the last rendered appConfig in the state.
     if (
       this.state.isPod !== isPod ||
-      (!deepEqual(prevJSON, nextJSON) &&
-        !deepEqual(this.state.appConfig, nextJSON) &&
-        !deepEqual(this.props.errors, nextProps.errors))
+      (!isEqual(prevJSON, nextJSON) &&
+        !isEqual(this.state.appConfig, nextJSON) &&
+        !isEqual(this.props.errors, nextProps.errors))
     ) {
       this.setState(this.getNewStateForJSON(nextJSON, isPod));
     }
@@ -146,7 +146,7 @@ class CreateServiceModalForm extends Component {
     const shouldUpdate =
       editingFieldPath === null &&
       (prevState.editingFieldPath !== null ||
-        !deepEqual(appConfig, prevState.appConfig));
+        !isEqual(appConfig, prevState.appConfig));
     if (shouldUpdate) {
       onChange(new service.constructor(appConfig));
     }
@@ -177,8 +177,8 @@ class CreateServiceModalForm extends Component {
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     if (
-      !deepEqual(prevJSON, nextJSON) &&
-      !deepEqual(this.state.appConfig, nextJSON)
+      !isEqual(prevJSON, nextJSON) &&
+      !isEqual(this.state.appConfig, nextJSON)
     ) {
       return true;
     }
@@ -195,7 +195,7 @@ class CreateServiceModalForm extends Component {
       didBatchChange ||
       didEditingFieldPathChange ||
       didActiveTabChange ||
-      !deepEqual(this.props.errors, nextProps.errors)
+      !isEqual(this.props.errors, nextProps.errors)
     );
   }
 
