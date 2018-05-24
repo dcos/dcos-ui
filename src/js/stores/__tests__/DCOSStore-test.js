@@ -634,7 +634,13 @@ describe("DCOSStore", function() {
               {
                 id: "group/test/a",
                 version: "1.0",
-                healthCheckResults: [{ alive: true }]
+                tasks: [
+                  {
+                    healthCheckResults: [{ alive: true }],
+                    version: "1.0",
+                    id: "bananas"
+                  }
+                ]
               }
             ]
           }
@@ -643,8 +649,8 @@ describe("DCOSStore", function() {
       });
 
       const flatTree = DCOSStore.buildFlatServiceTree(serviceTree);
-      expect(flatTree["group/test/a"]).toEqual({
-        health: [{ alive: true }],
+      expect(flatTree["bananas"]).toEqual({
+        healthCheckResults: [{ alive: true }],
         version: "1.0"
       });
       expect(Object.keys(flatTree).length).toEqual(1);

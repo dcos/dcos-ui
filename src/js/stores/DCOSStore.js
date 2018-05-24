@@ -473,12 +473,16 @@ class DCOSStore extends EventEmitter {
         return memo;
       }
 
-      const taskData = {
-        version: item.version,
-        health: item.healthCheckResults
-      };
+      if (item.tasks) {
+        item.tasks.forEach(task => {
+          const taskData = {
+            version: task.version,
+            healthCheckResults: task.healthCheckResults
+          };
 
-      memo[item.getId()] = taskData;
+          memo[task.id] = taskData;
+        });
+      }
 
       return memo;
     }, {});
