@@ -52,7 +52,7 @@ module.exports = {
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
   testRegex: "/__tests__/.*\\-test\\.(es6|js|ts)$",
-  moduleFileExtensions: ["ts", "js", "json", "es6", "ts", "tsx"],
+  moduleFileExtensions: ["js", "json", "es6", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],
