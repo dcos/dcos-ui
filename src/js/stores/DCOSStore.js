@@ -422,6 +422,7 @@ class DCOSStore extends EventEmitter {
 
   clearServiceTreeCache() {
     this.serviceTree = null;
+    this._flatServiceTree = null;
   }
 
   buildServiceTree() {
@@ -464,7 +465,11 @@ class DCOSStore extends EventEmitter {
   }
 
   get taskLookupTable() {
-    return this.buildFlatServiceTree(this.serviceTree);
+    if (!this._flatServiceTree) {
+      this._flatServiceTree = this.buildFlatServiceTree(this.serviceTree);
+    }
+
+    return this._flatServiceTree;
   }
 
   buildFlatServiceTree(serviceTree) {
