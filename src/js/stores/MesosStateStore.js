@@ -49,7 +49,7 @@ function stopPolling() {
  */
 function flagSDKTask(task, service) {
   if (isSDKService(service) && task.sdkTask === undefined) {
-    return Object.assign({}, task, { sdkTask: true });
+    task.sdkTask = true;
   }
 
   return task;
