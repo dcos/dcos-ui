@@ -5,6 +5,10 @@ const Application = require("../../../structs/Application");
 const ServiceConfigurationContainer = require("../ServiceConfigurationContainer");
 const ServiceConfigDisplay = require("../../../service-configuration/ServiceConfigDisplay");
 
+jest.mock("#SRC/js/events/MetronomeActions", () => ({
+  fetchJobs: jest.fn()
+}));
+
 let thisInstance;
 
 describe("ServiceConfigurationContainer", function() {

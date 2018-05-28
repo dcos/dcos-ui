@@ -4,6 +4,9 @@ import React from "react";
 import { mount } from "enzyme";
 
 jest.mock("#SRC/js/stores/DCOSStore");
+jest.mock("#SRC/js/events/MetronomeActions", () => ({
+  fetchJobs: jest.fn()
+}));
 
 const JestUtil = require("../../utils/JestUtil");
 
