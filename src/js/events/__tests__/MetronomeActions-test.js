@@ -1,107 +1,119 @@
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { Observable } from "rxjs";
+
+const mockCreateJob = jest.fn();
+const mockDeleteJob = jest.fn();
+const mockFetchJobDetail = jest.fn();
+const mockFetchJobs = jest.fn();
+const mockUpdateJob = jest.fn();
+const mockRunJob = jest.fn();
+const mockStopJobRun = jest.fn();
+const mockUpdateSchedule = jest.fn();
+
+jest.mock("../MetronomeClient", () => ({
+  createJob: mockCreateJob,
+  deleteJob: mockDeleteJob,
+  fetchJobDetail: mockFetchJobDetail,
+  fetchJobs: mockFetchJobs,
+  updateJob: mockUpdateJob,
+  runJob: mockRunJob,
+  stopJobRun: mockStopJobRun,
+  updateSchedule: mockUpdateSchedule
+}));
 
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../AppDispatcher");
-const Config = require("#SRC/js/config/Config").default;
 const MetronomeActions = require("../MetronomeActions");
-
-let thisConfiguration;
 
 describe("MetronomeActions", function() {
   describe("#createJob", function() {
     beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      MetronomeActions.createJob();
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+      jest.clearAllMocks();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
+    it("calls the createJob", function() {
+      mockCreateJob.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.createJob({});
+
+      expect(mockCreateJob).toHaveBeenCalled();
     });
 
-    it("sends data to the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v0/scheduled-jobs`
-      );
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_CREATE_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockCreateJob.mockReturnValueOnce(Observable.of({}));
+
+      MetronomeActions.createJob({});
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_CREATE_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockCreateJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+
+      MetronomeActions.createJob({});
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the correct error when unsucessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.xhr).toEqual({
-          foo: "bar",
-          responseJSON: { description: "baz" }
-        });
+        expect(action.xhr).toEqual({ message: "error" });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockCreateJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+
+      MetronomeActions.createJob({});
     });
   });
 
   describe("#fetchJobs", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
+    it("calls the createJob", function() {
+      mockFetchJobs.mockReturnValueOnce(Observable.of([]));
       MetronomeActions.fetchJobs();
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+
+      expect(mockFetchJobs).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("fetches data from the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(`${Config.metronomeAPI}/v1/jobs`);
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_METRONOME_JOBS_SUCCESS);
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockFetchJobs.mockReturnValueOnce(Observable.of([]));
+      MetronomeActions.fetchJobs();
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_METRONOME_JOBS_ERROR);
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockFetchJobs.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      MetronomeActions.fetchJobs();
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the xhr when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -109,33 +121,28 @@ describe("MetronomeActions", function() {
           foo: "bar",
           responseJSON: { description: "baz" }
         });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockFetchJobs.mockReturnValueOnce(
+        Observable.throw({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        })
+      );
+      MetronomeActions.fetchJobs();
     });
   });
 
   describe("#fetchJobDetail", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      MetronomeActions.fetchJobDetail("foo");
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+    it("calls fetchJobDetail", function() {
+      mockFetchJobDetail.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.fetchJobDetail("my/id");
+
+      expect(mockFetchJobDetail).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("fetches data from the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v1/jobs/foo`
-      );
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -143,13 +150,16 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS
         );
-        expect(action.jobID).toEqual("foo");
+        expect(action.jobID).toEqual("my/id");
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockFetchJobDetail.mockReturnValueOnce(Observable.of({}));
+
+      MetronomeActions.fetchJobDetail("my/id");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -157,13 +167,18 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_DETAIL_ERROR
         );
-        expect(action.jobID).toEqual("foo");
+        expect(action.jobID).toEqual("my/id");
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockFetchJobDetail.mockReturnValueOnce(
+        Observable.throw({ message: "error" })
+      );
+
+      MetronomeActions.fetchJobDetail("my/id");
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the xhr when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -171,123 +186,110 @@ describe("MetronomeActions", function() {
           foo: "bar",
           responseJSON: { description: "baz" }
         });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockFetchJobDetail.mockReturnValueOnce(
+        Observable.throw({ foo: "bar", responseJSON: { description: "baz" } })
+      );
+
+      MetronomeActions.fetchJobDetail("my/id");
     });
   });
 
   describe("#deleteJob", function() {
     beforeEach(function() {
-      spyOn(RequestUtil, "json");
+      jest.clearAllMocks();
+    });
+
+    it("calls the createJob", function() {
+      mockDeleteJob.mockReturnValueOnce(Observable.of({}));
       MetronomeActions.deleteJob("foo");
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+
+      expect(mockDeleteJob).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("fetches data from the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v1/jobs/foo?stopCurrentJobRuns=false`
-      );
-    });
-
-    it("fetches data with the correct method", function() {
-      expect(thisConfiguration.method).toEqual("DELETE");
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_DELETE_SUCCESS
         );
-        expect(action.jobID).toEqual("foo");
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockDeleteJob.mockReturnValueOnce(Observable.of({}));
+
+      MetronomeActions.deleteJob("foo");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_DELETE_ERROR
         );
-        expect(action.jobID).toEqual("foo");
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockDeleteJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+
+      MetronomeActions.deleteJob("foo");
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the correct error when unsucessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.xhr).toEqual({
-          foo: "bar",
-          responseJSON: { description: "baz" }
-        });
+        expect(action.xhr).toEqual({ message: "error" });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockDeleteJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+
+      MetronomeActions.deleteJob("foo");
     });
   });
 
   describe("#updateJob", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      MetronomeActions.updateJob("foo", { id: "foo", labels: { foo: "bar" } });
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+    it("calls the updateJob", function() {
+      mockUpdateJob.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.updateJob({});
+
+      expect(mockUpdateJob).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("sends data to the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v0/scheduled-jobs/foo`
-      );
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_UPDATE_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockUpdateJob.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.updateJob("foo", {});
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_UPDATE_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockUpdateJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      MetronomeActions.updateJob("foo", {});
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the xhr when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -295,41 +297,28 @@ describe("MetronomeActions", function() {
           foo: "bar",
           responseJSON: { description: "baz" }
         });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockUpdateJob.mockReturnValueOnce(
+        Observable.throw({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        })
+      );
+      MetronomeActions.updateJob("foo", {});
     });
   });
 
   describe("#runJob", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
+    it("calls the runJob", function() {
+      mockRunJob.mockReturnValueOnce(Observable.of({}));
       MetronomeActions.runJob("foo");
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+
+      expect(mockRunJob).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("POSTs data to the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v1/jobs/foo/runs`
-      );
-    });
-
-    it("POSTs data with the correct method", function() {
-      expect(thisConfiguration.method).toEqual("POST");
-    });
-
-    it("POSTs with the an empty object", function() {
-      expect(thisConfiguration.data).toEqual({});
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -337,12 +326,14 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_RUN_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockRunJob.mockReturnValueOnce(Observable.of([]));
+      MetronomeActions.runJob("foo");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -350,12 +341,14 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_RUN_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockRunJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      MetronomeActions.runJob("foo");
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the xhr when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -363,38 +356,28 @@ describe("MetronomeActions", function() {
           foo: "bar",
           responseJSON: { description: "baz" }
         });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockRunJob.mockReturnValueOnce(
+        Observable.throw({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        })
+      );
+      MetronomeActions.runJob("foo");
     });
   });
 
   describe("#stopJobRun", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      MetronomeActions.stopJobRun("foo", "foo.1990-01-03t00:00:00z-1");
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+    it("calls the stopJobRun", function() {
+      mockStopJobRun.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.stopJobRun("foo");
+
+      expect(mockStopJobRun).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("sends data to the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v1/jobs/foo/runs` +
-          "/foo.1990-01-03t00:00:00z-1/actions/stop"
-      );
-    });
-
-    it("uses the correct method", function() {
-      expect(thisConfiguration.method).toEqual("POST");
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -402,12 +385,14 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS
         );
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockStopJobRun.mockReturnValueOnce(Observable.of([]));
+      MetronomeActions.stopJobRun("foo");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -415,12 +400,16 @@ describe("MetronomeActions", function() {
         expect(action.type).toEqual(
           ActionTypes.REQUEST_METRONOME_JOB_STOP_RUN_ERROR
         );
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockStopJobRun.mockReturnValueOnce(
+        Observable.throw({ message: "error" })
+      );
+      MetronomeActions.stopJobRun("foo");
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the xhr when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -428,41 +417,28 @@ describe("MetronomeActions", function() {
           foo: "bar",
           responseJSON: { description: "baz" }
         });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockStopJobRun.mockReturnValueOnce(
+        Observable.throw({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        })
+      );
+      MetronomeActions.stopJobRun("foo");
     });
   });
 
   describe("#updateSchedule", function() {
-    beforeEach(function() {
-      spyOn(RequestUtil, "json");
-      MetronomeActions.updateSchedule("foo", { id: "bar" });
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+    it("calls the updateSchedule", function() {
+      mockUpdateSchedule.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.updateSchedule("foo", {});
+
+      expect(mockStopJobRun).toHaveBeenCalled();
     });
 
-    it("calls #json from the RequestUtil", function() {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("PUTs data to the correct URL", function() {
-      expect(thisConfiguration.url).toEqual(
-        `${Config.metronomeAPI}/v1/jobs/foo/schedules/bar`
-      );
-    });
-
-    it("PUTs data with the correct method", function() {
-      expect(thisConfiguration.method).toEqual("PUT");
-    });
-
-    it("PUTs data with the correct data", function() {
-      expect(thisConfiguration.data).toEqual({ id: "bar" });
-    });
-
-    it("dispatches the correct action when successful", function() {
+    it("dispatches the correct action when successful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -471,12 +447,14 @@ describe("MetronomeActions", function() {
           ActionTypes.REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS
         );
         expect(action.jobID).toEqual("foo");
+        done();
       });
 
-      thisConfiguration.success([]);
+      mockUpdateSchedule.mockReturnValueOnce(Observable.of({}));
+      MetronomeActions.updateSchedule("foo", {});
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -485,12 +463,16 @@ describe("MetronomeActions", function() {
           ActionTypes.REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR
         );
         expect(action.jobID).toEqual("foo");
+        done();
       });
 
-      thisConfiguration.error({ message: "error" });
+      mockUpdateSchedule.mockReturnValueOnce(
+        Observable.throw({ message: "error" })
+      );
+      MetronomeActions.updateSchedule("foo", {});
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
+    it("dispatches the xhr when unsuccessful", function(done) {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
@@ -498,12 +480,16 @@ describe("MetronomeActions", function() {
           foo: "bar",
           responseJSON: { description: "baz" }
         });
+        done();
       });
 
-      thisConfiguration.error({
-        foo: "bar",
-        responseJSON: { description: "baz" }
-      });
+      mockUpdateSchedule.mockReturnValueOnce(
+        Observable.throw({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        })
+      );
+      MetronomeActions.updateSchedule("foo", {});
     });
   });
 });

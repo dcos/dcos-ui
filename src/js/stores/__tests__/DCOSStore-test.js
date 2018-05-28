@@ -2,6 +2,9 @@ const MockDate = require("mockdate");
 
 jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
 jest.mock("../MesosSummaryStore");
+jest.mock("../../events/MetronomeActions", () => ({
+  fetchJobs: jest.fn()
+}));
 
 const DCOSStore = require("../DCOSStore");
 const EventTypes = require("../../constants/EventTypes");

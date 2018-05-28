@@ -20,197 +20,134 @@ import {
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
+import * as MetronomeClient from "./MetronomeClient";
 
 const MetronomeActions = {
   createJob(data) {
-    RequestUtil.json({
-      url: `${Config.metronomeAPI}/v0/scheduled-jobs`,
-      method: "POST",
-      data,
-      success() {
+    MetronomeClient.createJob(data).subscribe({
+      next: () =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_CREATE_SUCCESS
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_CREATE_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           xhr
-        });
-      }
+        })
     });
   },
 
-  fetchJobs: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function(resolve, reject) {
-      return function() {
-        RequestUtil.json({
-          url: `${Config.metronomeAPI}/v1/jobs`,
-          data: [
-            { name: "embed", value: "activeRuns" },
-            { name: "embed", value: "schedules" },
-            { name: "embed", value: "historySummary" }
-          ],
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_METRONOME_JOBS_SUCCESS,
-              data: response
-            });
-          },
-          error(xhr) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_METRONOME_JOBS_ERROR,
-              data: xhr.message,
-              xhr
-            });
-            reject();
-          }
-        });
-      };
-    },
-    { delayAfterCount: Config.delayAfterErrorCount }
-  ),
+  fetchJobs() {
+    MetronomeClient.fetchJobs().subscribe({
+      next: data =>
+        AppDispatcher.handleServerAction({
+          type: REQUEST_METRONOME_JOBS_SUCCESS,
+          data
+        }),
+      error: xhr =>
+        AppDispatcher.handleServerAction({
+          type: REQUEST_METRONOME_JOBS_ERROR,
+          data: xhr.message,
+          xhr
+        })
+    });
+  },
 
   fetchJobDetail(jobID) {
-    RequestUtil.json({
-      url: `${Config.metronomeAPI}/v1/jobs/${jobID}`,
-      data: [
-        { name: "embed", value: "activeRuns" },
-        { name: "embed", value: "history" },
-        { name: "embed", value: "schedules" }
-      ],
-      success(response) {
+    MetronomeClient.fetchJobDetail(jobID).subscribe({
+      next: response =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
           data: response,
           jobID
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           jobID,
           xhr
-        });
-      },
-      hangingRequestCallback() {
-        AppDispatcher.handleServerAction({
-          type: REQUEST_METRONOME_JOB_DETAIL_ONGOING,
-          jobID
-        });
-      }
+        })
     });
   },
 
   deleteJob(jobID, stopCurrentJobRuns = false) {
-    RequestUtil.json({
-      url:
-        `${Config.metronomeAPI}/v1/jobs/${jobID}` +
-        `?stopCurrentJobRuns=${stopCurrentJobRuns}`,
-      method: "DELETE",
-      success() {
+    MetronomeClient.deleteJob(jobID, stopCurrentJobRuns).subscribe({
+      next: () =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DELETE_SUCCESS,
           jobID
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DELETE_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           jobID,
           xhr
-        });
-      }
+        })
     });
   },
 
   updateJob(jobID, data) {
-    RequestUtil.json({
-      url: `${Config.metronomeAPI}/v0/scheduled-jobs/${jobID}`,
-      method: "PUT",
-      data,
-      success() {
+    MetronomeClient.updateJob(jobID, data).subscribe({
+      next: () =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_UPDATE_SUCCESS
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_UPDATE_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           xhr
-        });
-      }
+        })
     });
   },
 
   runJob(jobID) {
-    RequestUtil.json({
-      url: `${Config.metronomeAPI}/v1/jobs/${jobID}/runs`,
-      method: "POST",
-      data: {},
-      success() {
+    MetronomeClient.runJob(jobID).subscribe({
+      next: () =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_RUN_SUCCESS
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_RUN_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           xhr
-        });
-      }
+        })
     });
   },
 
   stopJobRun(jobID, jobRunID) {
-    const url =
-      `${Config.metronomeAPI}/v1/jobs/${jobID}` +
-      `/runs/${jobRunID}/actions/stop`;
-
-    RequestUtil.json({
-      url,
-      method: "POST",
-      data: {},
-      success() {
+    MetronomeClient.stopJobRun(jobID, jobRunID).subscribe({
+      next: () =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_STOP_RUN_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           xhr
-        });
-      }
+        })
     });
   },
 
   updateSchedule(jobID, data) {
-    RequestUtil.json({
-      url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
-      method: "PUT",
-      data,
-      success() {
+    MetronomeClient.updateSchedule(jobID, data).subscribe({
+      next: () =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
           jobID
-        });
-      },
-      error(xhr) {
+        }),
+      error: xhr =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: xhr.response,
           jobID,
           xhr
-        });
-      }
+        })
     });
   }
 };
