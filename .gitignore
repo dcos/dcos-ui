@@ -8,7 +8,7 @@ results/
 build/
 npm-debug.log
 node_modules/
-src/js/config/Config.dev.js
+src/js/config/Config.dev.ts
 serve
 tmp/
 *.orig

@@ -5,7 +5,7 @@ const AppDispatcher = require("../../events/AppDispatcher");
 const ActionTypes = require("../../constants/ActionTypes");
 const EventTypes = require("../../constants/EventTypes");
 const UsersList = require("../../structs/UsersList");
-const Config = require("../../config/Config");
+const Config = require("#SRC/js/config/Config").default;
 
 const usersFixture = require("../../../../tests/_fixtures/acl/users-unicode.json");
 

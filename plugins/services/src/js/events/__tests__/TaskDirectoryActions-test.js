@@ -3,7 +3,7 @@ const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 const TaskDirectoryActions = require("../TaskDirectoryActions");
-const Config = require("#SRC/js/config/Config");
+const Config = require("#SRC/js/config/Config").default;
 
 let thisConfiguration,
   thisRequestUtilJSON,

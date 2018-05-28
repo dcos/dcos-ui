@@ -1,5 +1,5 @@
 // put in your config overrides here
-var ConfigDev = {
+export default {
   applicationRenderDelay: 100,
   rootUrl: "",
   historyServer: "",
@@ -7,6 +7,4 @@ var ConfigDev = {
   stateRefresh: 3000,
   useFixtures: false,
   useUIConfigFixtures: false
-};
-
-module.exports = ConfigDev;
+}

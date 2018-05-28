@@ -15,7 +15,7 @@ PluginTestUtils.loadPluginsByName({
 });
 
 const AppDispatcher = require("../AppDispatcher");
-const Config = require("../../config/Config");
+const Config = require("#SRC/js/config/Config").default;
 const MesosSummaryActions = require("../MesosSummaryActions");
 const TimeScales = require("../../constants/TimeScales");
 

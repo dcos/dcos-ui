@@ -7,10 +7,10 @@ var shrinkwrap = require("./npm-shrinkwrap.json");
 
 gulp.task("ensureConfig", function() {
   // Make sure we have a Config.dev so we don't error on Config loading
-  var configFilePath = "./src/js/config/Config.dev.js";
+  var configFilePath = "./src/js/config/Config.dev.ts";
   if (!fs.existsSync(configFilePath)) {
     var template = fs.readFileSync(
-      "./src/js/config/Config.template.js",
+      "./src/js/config/Config.template.ts",
       "utf8"
     );
     fs.writeFileSync(configFilePath, template, "utf8");
