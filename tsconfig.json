@@ -30,6 +30,7 @@
     "emitDecoratorMetadata": true,
     "baseUrl": "./",
     "paths": {
+      "@dcos/http-service": ["src/typings/dcos__http-service"],
       "*": ["*", "packages/*"]
     }
   },
