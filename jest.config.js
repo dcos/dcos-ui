@@ -45,11 +45,14 @@ module.exports = {
     __DEV__: true
   },
   // TODO: split up transforms
-  transform: { ".*": "./jest/preprocessor.js" },
+  transform: {
+    "^.+\\.tsx?$": "ts-jest",
+    ".*": "./jest/preprocessor.js"
+  },
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
-  testRegex: "/__tests__/.*\\-test\\.(es6|js)$",
-  moduleFileExtensions: ["ts", "js", "json", "es6"],
+  testRegex: "/__tests__/.*\\-test\\.(es6|js|ts)$",
+  moduleFileExtensions: ["ts", "js", "json", "es6", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],
