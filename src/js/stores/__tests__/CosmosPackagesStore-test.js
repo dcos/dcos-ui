@@ -1,7 +1,7 @@
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const AppDispatcher = require("../../events/AppDispatcher");
-const Config = require("../../config/Config");
+const Config = require("#SRC/js/config/Config").default;
 const EventTypes = require("../../constants/EventTypes");
 const CosmosPackagesStore = require("../CosmosPackagesStore");
 const packageDescribeFixture = require("./fixtures/MockPackageDescribeResponse.json");

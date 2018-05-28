@@ -1,8 +1,43 @@
 /* eslint no-redeclare: 0 */
-import ConfigDev from "./Config.dev.js";
-import ConfigTest from "./Config.test.js";
 
-var Config = {
+import ConfigDev from "./Config.dev";
+import ConfigTest from "./Config.test";
+
+interface Configuration {
+  acsAPIPrefix: string
+  analyticsKey: string
+  applicationRenderDelay: number
+  cosmosAPIPrefix: string
+  delayAfterErrorCount: number
+  documentationURI: string
+  downloadsURI: string
+  environment?: string,
+  fullProductName: string
+  getRefreshRate: () => number
+  historyLength: number
+  historyServer: string
+  logsAPIPrefix: string
+  marathonAPIPrefix: string
+  mesosDocsURI: string
+  metronomeAPI: string
+  networkingAPIPrefix: string
+  productHomepageURI: string
+  productName: string
+  rootUrl: string
+  secretsAPIPrefix: string
+  setInactiveAfter: number
+  slackChannel: string
+  stateRefresh: number
+  supportEmail: string
+  tailRefresh: number
+  testHistoryInterval: number
+  unitHealthAPIPrefix: string
+  useFixtures?: boolean
+  version: string
+  virtualNetworksApi: string
+}
+
+let Config: Configuration = {
   analyticsKey: "51ybGTeFEFU1xo6u10XMDrr6kATFyRyh",
   acsAPIPrefix: "/acs/api/v1",
   applicationRenderDelay: 1000,
@@ -31,11 +66,10 @@ var Config = {
   unitHealthAPIPrefix: "/system/health/v1",
   logsAPIPrefix: "/system/v1/agent",
   version: "@@VERSION",
-  virtualNetworksApi: "/mesos/overlay-master"
-};
-
-Config.getRefreshRate = function() {
-  return this.stateRefresh;
+  virtualNetworksApi: "/mesos/overlay-master",
+  getRefreshRate: function() {
+    return this.stateRefresh;
+  }
 };
 
 if (Config.environment === "development") {
@@ -48,4 +82,4 @@ if (Config.environment === "development") {
   Config.useFixtures = false;
 }
 
-module.exports = Config;
+export default Config;

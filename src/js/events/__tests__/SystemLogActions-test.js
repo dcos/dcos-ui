@@ -2,7 +2,7 @@ const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../../events/AppDispatcher");
-const Config = require("../../config/Config");
+const Config = require("#SRC/js/config/Config").default;
 const SystemLogActions = require("../SystemLogActions");
 
 let thisEventSource, thisMessageSpy, thisConfiguration;

@@ -13,7 +13,7 @@ jest.mock("../../../components/Page", function() {
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
 /* eslint-disable import/newline-after-import */
-const Config = require("../../../config/Config");
+const Config = require("#SRC/js/config/Config").default;
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");

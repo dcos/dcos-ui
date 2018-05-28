@@ -2,7 +2,7 @@ const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("#SRC/js/constants/ActionTypes");
 const AppDispatcher = require("#SRC/js/events/AppDispatcher");
-const Config = require("#SRC/js/config/Config");
+const Config = require("#SRC/js/config/Config").default;
 const EventTypes = require("#SRC/js/constants/EventTypes");
 const NodesList = require("#SRC/js/structs/NodesList");
 const NodeHealthStore = require("../NodeHealthStore");

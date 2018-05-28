@@ -1,6 +1,6 @@
 // Configuration overrides
 
-var ConfigDev = {
+export default {
   analyticsKey: "39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP",
   rootUrl: "",
   historyServer: "",
@@ -36,5 +36,3 @@ var ConfigDev = {
   // Use uiConfigurationFixture defined above
   useUIConfigFixtures: false
 };
-
-module.exports = ConfigDev;

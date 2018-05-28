@@ -1,7 +1,7 @@
 const MockDate = require("mockdate");
 
 const ApplicationUtil = require("../ApplicationUtil");
-const Config = require("../../config/Config");
+const Config = require("#SRC/js/config/Config").default;
 const EventTypes = require("../../constants/EventTypes");
 const MesosSummaryStore = require("../../stores/MesosSummaryStore");
 
