@@ -10,10 +10,8 @@ import {
   REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
   REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOB_DETAIL_ERROR,
-  REQUEST_METRONOME_JOB_DETAIL_ONGOING,
   REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
   REQUEST_METRONOME_JOBS_ERROR,
-  REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
   REQUEST_METRONOME_JOB_CREATE_SUCCESS,
   REQUEST_METRONOME_JOB_CREATE_ERROR,
@@ -68,11 +66,6 @@ const MetronomeActions = {
               xhr
             });
             reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_METRONOME_JOBS_ONGOING
-            });
           }
         });
       };
