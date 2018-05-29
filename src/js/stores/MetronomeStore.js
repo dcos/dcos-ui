@@ -7,7 +7,6 @@ import {
   REQUEST_METRONOME_JOB_DELETE_ERROR,
   REQUEST_METRONOME_JOB_DELETE_SUCCESS,
   REQUEST_METRONOME_JOB_DETAIL_ERROR,
-  REQUEST_METRONOME_JOB_DETAIL_ONGOING,
   REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
   REQUEST_METRONOME_JOB_RUN_ERROR,
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
@@ -18,7 +17,6 @@ import {
   REQUEST_METRONOME_JOB_UPDATE_ERROR,
   REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOBS_ERROR,
-  REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
   SERVER_ACTION
 } from "../constants/ActionTypes";
@@ -135,8 +133,6 @@ class MetronomeStore extends EventEmitter {
 
           this.emit(METRONOME_JOB_DETAIL_CHANGE);
           break;
-        case REQUEST_METRONOME_JOB_DETAIL_ONGOING:
-          break;
         case REQUEST_METRONOME_JOB_DETAIL_ERROR:
           this.emit(METRONOME_JOB_DETAIL_ERROR);
           break;
@@ -169,8 +165,6 @@ class MetronomeStore extends EventEmitter {
           action.data.forEach(this.setJob.bind(this));
 
           this.emit(METRONOME_JOBS_CHANGE);
-          break;
-        case REQUEST_METRONOME_JOBS_ONGOING:
           break;
         case REQUEST_METRONOME_JOBS_ERROR:
           this.emit(METRONOME_JOBS_ERROR);
