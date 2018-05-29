@@ -3,6 +3,7 @@ import { componentFromStream, graphqlObservable } from "data-service";
 import { Observable, Subject } from "rxjs";
 import gql from "graphql-tag";
 
+import { addTask, removeTask, getTasks } from "./support";
 import { Error, Loading, Tasks } from "./ui";
 import { schema } from "./graphql";
 
@@ -49,7 +50,7 @@ const executeRemoveTask = (id) => {
 export default componentFromStream(prop$ => {
   prop$.subscribe(console.log);
 
-  return tasks$.combineLatest(prop$.delay(2000), (tasks, {placeholder}) => {
+  return tasks$.combineLatest(prop$, (tasks, {placeholder}) => {
     return {tasks, placeholder};
   }).map(({tasks, placeholder}) => (
     <Tasks
@@ -66,3 +67,4 @@ export default componentFromStream(prop$ => {
       return Observable.of(<Error error={err.message} />);
     });
 });
+

@@ -13,7 +13,7 @@ const processTasks = tasks => {
 const typeDefs = `
   type Task {
     id: Int!
-    name: String!
+    value: String!
   }
 
   type Query {
@@ -21,7 +21,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addTask(name: String!): [Task]!
+    addTask(value: String!): [Task]!
     removeTask(id: Int!): [Task]!
   }
 `;
@@ -31,13 +31,12 @@ const resolvers = {
     getTasks: () => {
       return getTasks()
         .map(store => store.data)
-        .map(tasks => processTasks(tasks))
-        .do(x => console.log("ss", x));
+        .map(tasks => processTasks(tasks));
     }
   },
   Mutation: {
     addTask: (parent, args) => {
-      return addTask(args.name);
+      return addTask(args.value);
     },
     removeTask: (parent, args) => {
       return removeTask(args.id);

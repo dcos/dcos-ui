@@ -58,9 +58,9 @@ export const TaskItem = ({task, id, removeTask}) => {
   );
 };
 
-export const TaskList = ({tasks, onTaskDelete}) => {
+export const TaskList = ({tasks, onTaskRemove}) => {
   const removeTask = id => () => {
-    onTaskDelete(id);
+    onTaskRemove(id);
   };
 
   return (
@@ -72,12 +72,12 @@ export const TaskList = ({tasks, onTaskDelete}) => {
   );
 };
 
-export const Tasks = ({tasks, placeholder, onTaskAdd, onTaskDelete}) => {
+export const Tasks = ({tasks, placeholder, onTaskAdd, onTaskRemove}) => {
   return (
     <div>
       <section className="todoapp">
         <AddTask placeholder={placeholder} onTaskAdd={onTaskAdd} />
-        <TaskList tasks={tasks} onTaskDelete={onTaskDelete} />
+        <TaskList tasks={tasks} onTaskRemove={onTaskRemove} />
       </section>
     </div>
   );
