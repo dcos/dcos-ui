@@ -1,48 +1,53 @@
 import classNames from "classnames";
-import { Confirm } from "reactjs-components";
-import mixin from "reactjs-mixin";
+import { StoreMixin } from "mesosphere-shared-reactjs";
 import prettycron from "prettycron";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
-
-import { StoreMixin } from "mesosphere-shared-reactjs";
-
+import { Confirm } from "reactjs-components";
+import mixin from "reactjs-mixin";
+import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
 import Icon from "../../components/Icon";
-import JobConfiguration from "./JobConfiguration";
-import JobFormModal from "../../components/modals/JobFormModal";
-import JobRunHistoryTable from "./JobRunHistoryTable";
-import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
 import Loader from "../../components/Loader";
-import MetronomeStore from "../../stores/MetronomeStore";
 import Page from "../../components/Page";
 import RequestErrorMsg from "../../components/RequestErrorMsg";
-import StringUtil from "../../utils/StringUtil";
-import TabsMixin from "../../mixins/TabsMixin";
 import TimeAgo from "../../components/TimeAgo";
-import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
+import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
+import JobFormModal from "../../components/modals/JobFormModal";
 import UserActions from "../../constants/UserActions";
+import TabsMixin from "../../mixins/TabsMixin";
+import MetronomeStore from "../../stores/MetronomeStore";
+import StringUtil from "../../utils/StringUtil";
+import JobConfiguration from "./JobConfiguration";
+import JobRunHistoryTable from "./JobRunHistoryTable";
 
-const METHODS_TO_BIND = [
-  "closeDialog",
-  "handleEditButtonClick",
-  "handleRunNowButtonClick",
-  "handleDisableScheduleButtonClick",
-  "handleEnableScheduleButtonClick",
-  "handleDestroyButtonClick",
-  "onMetronomeStoreJobDeleteError",
-  "onMetronomeStoreJobDeleteSuccess",
-  "onMetronomeStoreJobDetailError",
-  "onMetronomeStoreJobDetailChange"
-];
+const METHODS_TO_BIND = [];
 
 const DIALOGS = {
   EDIT: "edit",
   DESTROY: "destroy"
 };
 
-class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
+const LoadingScreen = function({ jobTree }) {
+  return (
+    <Page>
+      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={jobTree} />} />
+      <Loader />
+    </Page>
+  );
+};
+
+const ErrorScreen = function({ jobTree }) {
+  return (
+    <Page>
+      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={jobTree} />} />
+      <RequestErrorMsg />
+    </Page>
+  );
+};
+
+class JobDetailPageContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -63,24 +68,45 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       }
     ];
 
-    this.tabs_tabs = {
-      runHistory: "Run History",
-      configuration: "Configuration"
-    };
-
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift(),
-      disabledDialog: null,
-      jobActionDialog: null,
       errorMsg: null,
       errorCount: 0,
       isJobFormModalOpen: false,
-      isLoading: true
+      isLoading: true,
+      disabledDialog: null,
+      jobActionDialog: null
     };
 
-    METHODS_TO_BIND.forEach(method => {
+    [
+      "onMetronomeStoreJobDeleteError",
+      "onMetronomeStoreJobDeleteSuccess",
+      "onMetronomeStoreJobDetailError",
+      "onMetronomeStoreJobDetailChange",
+      "handleRunNowButtonClick",
+      "handleDisableScheduleButtonClick",
+      "handleEnableScheduleButtonClick",
+      "handleAcceptDestroyDialog",
+      "closeDialog",
+      "handleEditButtonClick",
+      "handleDestroyButtonClick"
+    ].forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  closeDialog() {
+    this.setState({
+      disabledDialog: null,
+      jobActionDialog: null
+    });
+  }
+
+  handleEditButtonClick() {
+    this.setState({ jobActionDialog: DIALOGS.EDIT });
+  }
+
+  handleDestroyButtonClick() {
+    this.setState({ jobActionDialog: DIALOGS.DESTROY });
   }
 
   componentDidMount() {
@@ -91,36 +117,6 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   componentWillUnmount() {
     super.componentWillUnmount(...arguments);
     MetronomeStore.stopJobDetailMonitor(this.props.params.id);
-  }
-
-  onMetronomeStoreJobDeleteError(id, error) {
-    const { message: errorMsg } = error;
-    if (id !== this.props.params.id || errorMsg == null) {
-      return;
-    }
-
-    this.setState({
-      jobActionDialog: DIALOGS.DESTROY,
-      disabledDialog: null,
-      errorMsg
-    });
-  }
-
-  onMetronomeStoreJobDeleteSuccess() {
-    this.closeDialog();
-    this.context.router.push("/jobs");
-  }
-
-  onMetronomeStoreJobDetailError() {
-    this.setState({ errorCount: this.state.errorCount + 1 });
-  }
-
-  onMetronomeStoreJobDetailChange() {
-    this.setState({ errorCount: 0, isLoading: false });
-  }
-
-  handleEditButtonClick() {
-    this.setState({ jobActionDialog: DIALOGS.EDIT });
   }
 
   handleRunNowButtonClick() {
@@ -137,27 +133,90 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.toggleSchedule(this.props.params.id, true);
   }
 
-  handleDestroyButtonClick() {
-    this.setState({ jobActionDialog: DIALOGS.DESTROY });
+  handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
+    MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
   }
 
-  handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
-    this.setState({ disabledDialog: DIALOGS.DESTROY }, () => {
-      MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
+  onMetronomeStoreJobDeleteError(id, error) {
+    const { message: errorMsg } = error;
+    if (id !== this.props.params.id || errorMsg == null) {
+      return;
+    }
+
+    this.setState({
+      jobActionDialog: DIALOGS.DESTROY,
+      errorMsg
     });
   }
 
-  closeDialog() {
-    this.setState({
-      disabledDialog: null,
-      errorMsg: null,
-      jobActionDialog: null
+  onMetronomeStoreJobDeleteSuccess() {
+    // TODO: remove the closeDialog here.
+    this.closeDialog();
+    this.context.router.push("/jobs");
+  }
+
+  onMetronomeStoreJobDetailError() {
+    this.setState({ errorCount: this.state.errorCount + 1 });
+  }
+
+  onMetronomeStoreJobDetailChange() {
+    this.setState({ errorCount: 0, isLoading: false });
+  }
+
+  render() {
+    const jobTree = MetronomeStore.jobTree;
+    if (this.state.errorCount > 3) {
+      return <ErrorScreen jobTree={jobTree} />;
+    }
+
+    if (this.state.isLoading) {
+      return <LoadingScreen jobTree={jobTree} />;
+    }
+
+    const job = MetronomeStore.getJob(this.props.params.id);
+    const props = {
+      handleEditButtonClick: this.handleEditButtonClick,
+      handleRunNowButtonClick: this.handleRunNowButtonClick,
+      handleDisableScheduleButtonClick: this.handleDisableScheduleButtonClick,
+      handleEnableScheduleButtonClick: this.handleEnableScheduleButtonClick,
+      handleDestroyButtonClick: this.handleDestroyButtonClick,
+      handleAcceptDestroyDialog: this.handleAcceptDestroyDialog,
+      closeDialog: this.closeDialog,
+      job,
+      jobTree,
+      errorMsg: this.state.errorMsg,
+      disabledDialog: this.state.disabledDialog,
+      jobActionDialog: this.state.jobActionDialog
+    };
+
+    return <JobDetailPage {...this.props} {...props} />;
+  }
+}
+JobDetailPageContainer.contextTypes = {
+  router: routerShape
+};
+
+class JobDetailPage extends mixin(TabsMixin) {
+  constructor() {
+    super(...arguments);
+
+    this.tabs_tabs = {
+      runHistory: "Run History",
+      configuration: "Configuration"
+    };
+
+    this.state = {
+      currentTab: Object.keys(this.tabs_tabs).shift()
+    };
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
     });
   }
 
   getDestroyConfirmDialog() {
     const { id } = this.props.params;
-    const { disabledDialog, jobActionDialog, errorMsg } = this.state;
+    const { jobActionDialog, disabledDialog, errorMsg } = this.props;
     let stopCurrentJobRuns = false;
     let actionButtonLabel = `${StringUtil.capitalize(UserActions.DELETE)} Job`;
     let message =
@@ -190,39 +249,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         children={content}
         disabled={disabledDialog === DIALOGS.DESTROY}
         open={jobActionDialog === DIALOGS.DESTROY}
-        onClose={this.closeDialog}
+        onClose={this.props.closeDialog}
         leftButtonText="Cancel"
-        leftButtonCallback={this.closeDialog}
+        leftButtonCallback={this.props.closeDialog}
         leftButtonClassName="button button-primary-link"
         rightButtonText={actionButtonLabel}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.handleAcceptDestroyDialog.bind(
-          this,
-          stopCurrentJobRuns
-        )}
+        rightButtonCallback={() =>
+          this.setState({ disabledDialog: DIALOGS.DESTROY }, () => {
+            this.props.handleAcceptDestroyDialog(stopCurrentJobRuns);
+          })
+        }
       />
-    );
-  }
-
-  getErrorScreen() {
-    return (
-      <Page>
-        <Page.Header
-          breadcrumbs={<JobsBreadcrumbs tree={MetronomeStore.jobTree} />}
-        />
-        <RequestErrorMsg />
-      </Page>
-    );
-  }
-
-  getLoadingScreen() {
-    return (
-      <Page>
-        <Page.Header
-          breadcrumbs={<JobsBreadcrumbs tree={MetronomeStore.jobTree} />}
-        />
-        <Loader />
-      </Page>
     );
   }
 
@@ -319,39 +357,39 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getActions() {
-    const job = MetronomeStore.getJob(this.props.params.id);
+    const job = this.props.job;
     const [schedule] = job.getSchedules();
 
     const actions = [];
 
     actions.push({
       label: "Edit",
-      onItemSelect: this.handleEditButtonClick
+      onItemSelect: this.props.handleEditButtonClick
     });
 
     actions.push({
       label: "Run Now",
-      onItemSelect: this.handleRunNowButtonClick
+      onItemSelect: this.props.handleRunNowButtonClick
     });
 
     if (schedule != null && schedule.enabled) {
       actions.push({
         label: "Disable Schedule",
-        onItemSelect: this.handleDisableScheduleButtonClick
+        onItemSelect: this.props.handleDisableScheduleButtonClick
       });
     }
 
     if (schedule != null && !schedule.enabled) {
       actions.push({
         label: "Enable Schedule",
-        onItemSelect: this.handleEnableScheduleButtonClick
+        onItemSelect: this.props.handleEnableScheduleButtonClick
       });
     }
 
     actions.push({
       className: "text-danger",
       label: StringUtil.capitalize(UserActions.DELETE),
-      onItemSelect: this.handleDestroyButtonClick
+      onItemSelect: this.props.handleDestroyButtonClick
     });
 
     return actions;
@@ -379,36 +417,26 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   render() {
-    if (this.state.errorCount > 3) {
-      return this.getErrorScreen();
-    }
-
-    if (this.state.isLoading) {
-      return this.getLoadingScreen();
-    }
-
     // TaskDetailView
     if (this.props.params.taskID) {
       return this.props.children;
     }
 
-    const job = MetronomeStore.getJob(this.props.params.id);
+    const { job, jobTree } = this.props;
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={
-            <JobsBreadcrumbs tree={MetronomeStore.jobTree} item={job} />
-          }
+          breadcrumbs={<JobsBreadcrumbs tree={jobTree} item={job} />}
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
         <JobFormModal
           isEdit={true}
           job={job}
-          open={this.state.jobActionDialog === DIALOGS.EDIT}
-          onClose={this.closeDialog}
+          open={this.props.jobActionDialog === DIALOGS.EDIT}
+          onClose={this.props.closeDialog}
         />
         {this.getDestroyConfirmDialog()}
       </Page>
@@ -420,4 +448,4 @@ JobDetailPage.contextTypes = {
   router: routerShape
 };
 
-module.exports = JobDetailPage;
+module.exports = JobDetailPageContainer;
