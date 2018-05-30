@@ -62,7 +62,7 @@ EOF
 #####################################################################
 
 if [ "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" -ne 0 ]; then
-  echo "This release was already uploaded, stopping here"
+  echo "This release was already uploaded, can't overwrite already existing files."
   exit 1
 fi
 
