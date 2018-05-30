@@ -27,16 +27,13 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 # project root for this file
 PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
 
-# forces overwrite of file (latest is overwritten each time)
-FORCE_UPLOAD=${FORCE_UPLOAD:-0}
-
 # get correct DC/OS target (=base branch!) from .dcosrc file
 PKG_TARGET=$(python -c "import sys, json; \
   dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
   sys.stdout.write(str(dcosrc['base']));")
 
 # release version
-PKG_VERSION="latest"
+PKG_VERSION="latest+${GIT_COMMIT:0:8}"
 
 # build release name for branch and file names
 RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
@@ -46,15 +43,13 @@ RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
 # - dcos-ui/master/dcos-ui-latest
 # - dcos-ui/1.12/dcos-ui-latest
 # - dcos-ui/1.11/dcos-ui-latest
-DCOS_BRANCH="dcos-ui/${RELEASE_NAME}"
+DCOS_BRANCH="dcos-ui/${RELEASE_NAME%+${GIT_COMMIT:0:8}}"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
 
-FORCE_UPLOAD=${FORCE_UPLOAD} \
-  RELEASE_NAME="${RELEASE_NAME}" \
-  ${SCRIPT_PATH}/utils/upload-build
-
+RELEASE_NAME="${RELEASE_NAME}" \
+  ${SCRIPT_PATH}/utils/upload-build || exit 0
 
 ## Update DC/OS
 #####################################################################
