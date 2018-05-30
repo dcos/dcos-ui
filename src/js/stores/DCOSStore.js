@@ -422,6 +422,7 @@ class DCOSStore extends EventEmitter {
 
   clearServiceTreeCache() {
     this.serviceTree = null;
+    this._flatServiceTree = null;
   }
 
   buildServiceTree() {
@@ -461,6 +462,35 @@ class DCOSStore extends EventEmitter {
 
       return new item.constructor(Object.assign(options, item));
     });
+  }
+
+  get taskLookupTable() {
+    if (!this._flatServiceTree) {
+      this._flatServiceTree = this.buildFlatServiceTree(this.serviceTree);
+    }
+
+    return this._flatServiceTree;
+  }
+
+  buildFlatServiceTree(serviceTree) {
+    return serviceTree.reduceItems((memo, item) => {
+      if (item instanceof ServiceTree) {
+        return memo;
+      }
+
+      if (item.tasks) {
+        item.tasks.forEach(task => {
+          const taskData = {
+            version: task.version,
+            healthCheckResults: task.healthCheckResults
+          };
+
+          memo[task.id] = taskData;
+        });
+      }
+
+      return memo;
+    }, {});
   }
 
   get jobDataReceived() {
