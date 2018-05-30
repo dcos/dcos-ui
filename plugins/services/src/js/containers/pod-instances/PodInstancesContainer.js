@@ -113,9 +113,9 @@ class PodInstancesContainer extends React.Component {
     const query =
       Util.findNestedPropertyInObject(props, "location.query.q") || "is:active";
 
-    const mergedInstances = instances
-      .getItems()
-      .map(TaskMergeDataUtil.mergeData);
+    const mergedInstances = TaskMergeDataUtil.mergeTaskData(
+      instances.getItems()
+    );
 
     const newZones = Object.keys(
       mergedInstances.reduce(function(prev, instance) {
