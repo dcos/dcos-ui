@@ -10,11 +10,8 @@ const ServiceNoEndpointPanel = props => {
     <AlertPanel>
       <AlertPanelHeader>No Endpoints</AlertPanelHeader>
       <p className="tall">
-        There are no endpoints currently configured for
-        {" "}
-        {serviceId}.
-        {" "}
-        You can edit the configuration to add service endpoints.
+        There are no endpoints currently configured for {serviceId}. You can
+        edit the configuration to add service endpoints.
       </p>
       <div className="button-collection flush-bottom">
         <button className="button-primary-link" onClick={onClick}>

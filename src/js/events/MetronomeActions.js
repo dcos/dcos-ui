@@ -114,7 +114,8 @@ const MetronomeActions = {
 
   deleteJob(jobID, stopCurrentJobRuns = false) {
     RequestUtil.json({
-      url: `${Config.metronomeAPI}/v1/jobs/${jobID}` +
+      url:
+        `${Config.metronomeAPI}/v1/jobs/${jobID}` +
         `?stopCurrentJobRuns=${stopCurrentJobRuns}`,
       method: "DELETE",
       success() {

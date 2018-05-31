@@ -18,8 +18,7 @@ import JobFormModal from "../../components/modals/JobFormModal";
 import JobTree from "../../structs/JobTree";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
-import ServiceFilterTypes
-  from "../../../../plugins/services/src/js/constants/ServiceFilterTypes";
+import ServiceFilterTypes from "../../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
 const METHODS_TO_BIND = [
   "getHeadline",
@@ -79,7 +78,9 @@ class JobsTab extends mixin(StoreMixin) {
 
   handleFilterChange(filterValue) {
     const { router } = this.context;
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     const query = { [JobFilterTypes.TEXT]: filterValue };
 
     router.push({ pathname, query });
@@ -90,7 +91,9 @@ class JobsTab extends mixin(StoreMixin) {
   }
 
   resetFilterQueryParams() {
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     const query = Object.assign({}, location.query);
 
     Object.values(ServiceFilterTypes).forEach(function(filterKey) {
@@ -120,11 +123,11 @@ class JobsTab extends mixin(StoreMixin) {
     const { state } = this;
     const jobs = item.getItems();
 
-    const hasFiltersApplied = Object.keys(
-      DEFAULT_FILTER_OPTIONS
-    ).some(filterKey => {
-      return state[filterKey] != null && state[filterKey].length > 0;
-    });
+    const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS).some(
+      filterKey => {
+        return state[filterKey] != null && state[filterKey].length > 0;
+      }
+    );
 
     if (hasFiltersApplied) {
       return (
@@ -221,7 +224,8 @@ class JobsTab extends mixin(StoreMixin) {
         <AlertPanel>
           <AlertPanelHeader>No active jobs</AlertPanelHeader>
           <p className="tall">
-            Create both one-off or scheduled jobs to perform tasks at a predefined interval.
+            Create both one-off or scheduled jobs to perform tasks at a
+            predefined interval.
           </p>
           {this.getAlertPanelFooter()}
         </AlertPanel>

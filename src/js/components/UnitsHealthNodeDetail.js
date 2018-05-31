@@ -7,8 +7,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import Loader from "./Loader";
 import RequestErrorMsg from "./RequestErrorMsg";
 import UnitHealthStore from "../stores/UnitHealthStore";
-import UnitsHealthNodeDetailPanel
-  from "../pages/system/units-health-node-detail/UnitsHealthNodeDetailPanel";
+import UnitsHealthNodeDetailPanel from "../pages/system/units-health-node-detail/UnitsHealthNodeDetailPanel";
 import UnitSummaries from "../constants/UnitSummaries";
 
 class UnitsHealthNodeDetail extends mixin(StoreMixin) {

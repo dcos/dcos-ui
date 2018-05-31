@@ -14,22 +14,20 @@ import { findNestedPropertyInObject, omit } from "#SRC/js/utils/Util";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-import VolumeDefinitions
-  from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
 
 import ContainerConstants from "../../constants/ContainerConstants";
 
-import {
-  FormReducer as volumes
-} from "../../reducers/serviceForm/FormReducers/Volumes";
+import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/Volumes";
 
-const { type: { DOCKER } } = ContainerConstants;
+const {
+  type: { DOCKER }
+} = ContainerConstants;
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];
@@ -297,9 +295,7 @@ class VolumesFormSection extends Component {
         index={key}
         errors={this.props.errors}
       >
-        <FieldLabel>
-          Unable to edit this Volume{" "}
-        </FieldLabel>
+        <FieldLabel>Unable to edit this Volume </FieldLabel>
         <pre>
           {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
         </pre>
@@ -365,14 +361,12 @@ class VolumesFormSection extends Component {
                           label={VolumeDefinitions[type].name}
                         >
                           <div className="dropdown-select-item-title">
-                            <span>
-                              {VolumeDefinitions[type].name}
-                            </span>
-                            {VolumeDefinitions[type].recommended
-                              ? <span className="dropdown-select-item-title__badge badge">
-                                  Recommended
-                                </span>
-                              : null}
+                            <span>{VolumeDefinitions[type].name}</span>
+                            {VolumeDefinitions[type].recommended ? (
+                              <span className="dropdown-select-item-title__badge badge">
+                                Recommended
+                              </span>
+                            ) : null}
                           </div>
                           <span className="dropdown-select-item-description">
                             {VolumeDefinitions[type].description}
@@ -424,7 +418,8 @@ class VolumesFormSection extends Component {
           </FormGroupHeading>
         </h1>
         <p>
-          Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
+          Create a stateful service by configuring a persistent volume.
+          Persistent volumes enable instances to be restarted without data loss.
         </p>
         {this.getVolumesLines(data.volumes)}
         <div>

@@ -25,11 +25,7 @@ class ConfigurationMapBooleanValue extends React.Component {
       value = options.falsy;
     }
 
-    return (
-      <ConfigurationMapValue>
-        {value}
-      </ConfigurationMapValue>
-    );
+    return <ConfigurationMapValue>{value}</ConfigurationMapValue>;
   }
 }
 

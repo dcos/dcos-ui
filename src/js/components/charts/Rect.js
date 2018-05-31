@@ -15,8 +15,7 @@ class Rect extends React.Component {
     const { transitionDuration, transform } = props;
     const el = ReactDOM.findDOMNode(this);
 
-    d3
-      .select(el)
+    d3.select(el)
       .transition()
       .duration(transitionDuration)
       .ease("linear")

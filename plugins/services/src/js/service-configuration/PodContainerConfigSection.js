@@ -3,23 +3,17 @@ import React from "react";
 import { MountService } from "foundation-ui";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
-import ConfigurationMapBooleanValue
-  from "../components/ConfigurationMapBooleanValue";
-import ConfigurationMapMultilineValue
-  from "../components/ConfigurationMapMultilineValue";
+import ConfigurationMapBooleanValue from "../components/ConfigurationMapBooleanValue";
+import ConfigurationMapMultilineValue from "../components/ConfigurationMapMultilineValue";
 import ConfigurationMapSizeValue from "../components/ConfigurationMapSizeValue";
-import ConfigurationMapValueWithDefault
-  from "../components/ConfigurationMapValueWithDefault";
-import PodContainerArtifactsConfigSection
-  from "./PodContainerArtifactsConfigSection";
+import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValueWithDefault";
+import PodContainerArtifactsConfigSection from "./PodContainerArtifactsConfigSection";
 import { getContainerNameWithIcon } from "../utils/ServiceConfigDisplayUtil";
 
 function getCommand(containerConfig) {
@@ -95,44 +89,50 @@ const PodContainerConfigSection = ({
         </ConfigurationMapRow>
 
         {/* Resources */}
-        {Boolean(fields.resources.cpus) &&
+        {Boolean(fields.resources.cpus) && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.resources.cpus} />
             {action}
-          </ConfigurationMapRow>}
-        {Boolean(fields.resources.mem) &&
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.resources.mem) && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
             <ConfigurationMapSizeValue value={fields.resources.mem} />
             {action}
-          </ConfigurationMapRow>}
-        {Boolean(fields.resources.disk) &&
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.resources.disk) && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
             <ConfigurationMapSizeValue value={fields.resources.disk} />
             {action}
-          </ConfigurationMapRow>}
-        {Boolean(fields.resources.gpus) &&
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.resources.gpus) && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.resources.gpus} />
             {action}
-          </ConfigurationMapRow>}
+          </ConfigurationMapRow>
+        )}
 
         {/* Global Properties */}
-        {Boolean(fields.user) &&
+        {Boolean(fields.user) && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
             <ConfigurationMapValue value={fields.user} />
             {action}
-          </ConfigurationMapRow>}
-        {Boolean(fields.command) &&
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.command) && (
           <ConfigurationMapRow>
             <ConfigurationMapLabel>Command</ConfigurationMapLabel>
             <ConfigurationMapMultilineValue value={fields.command} />
             {action}
-          </ConfigurationMapRow>}
+          </ConfigurationMapRow>
+        )}
 
         {/* Container artifacts */}
         <PodContainerArtifactsConfigSection

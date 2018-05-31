@@ -4,16 +4,11 @@ import PropTypes from "prop-types";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import CreateServiceModalServicePickerOption
-  from "#SRC/js/components/CreateServiceModalServicePickerOption";
-import CreateServiceModalServicePickerOptionContent
-  from "#SRC/js/components/CreateServiceModalServicePickerOptionContent";
-import CreateServiceModalServicePickerOptionImage
-  from "#SRC/js/components/CreateServiceModalServicePickerOptionImage";
-import CreateServiceModalServicePickerOptionWrapper
-  from "#SRC/js/components/CreateServiceModalServicePickerOptionWrapper";
-import defaultServiceImage
-  from "../../../img/icon-service-default-large@2x.png";
+import CreateServiceModalServicePickerOption from "#SRC/js/components/CreateServiceModalServicePickerOption";
+import CreateServiceModalServicePickerOptionContent from "#SRC/js/components/CreateServiceModalServicePickerOptionContent";
+import CreateServiceModalServicePickerOptionImage from "#SRC/js/components/CreateServiceModalServicePickerOptionImage";
+import CreateServiceModalServicePickerOptionWrapper from "#SRC/js/components/CreateServiceModalServicePickerOptionWrapper";
+import defaultServiceImage from "../../../img/icon-service-default-large@2x.png";
 import jsonServiceImage from "../../../img/service-image-json-large@2x.png";
 
 function SingleContainerOption({ columnClasses, onOptionSelect }) {

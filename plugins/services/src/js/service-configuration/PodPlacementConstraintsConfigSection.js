@@ -3,10 +3,8 @@ import React from "react";
 import { MountService } from "foundation-ui";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
@@ -30,10 +28,11 @@ class PodPlacementConstraintsConfigSection extends React.Component {
   }
 
   getConstraints() {
-    const constraints = findNestedPropertyInObject(
-      this.props.appConfig,
-      "scheduling.placement.constraints"
-    ) || [];
+    const constraints =
+      findNestedPropertyInObject(
+        this.props.appConfig,
+        "scheduling.placement.constraints"
+      ) || [];
 
     return constraints.map(function({ fieldName, operator, value }) {
       if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
@@ -55,9 +54,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>
-          Placement
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading level={1}>Placement</ConfigurationMapHeading>
         <ConfigurationMapSection>
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:Pod:PlacementConstraints"

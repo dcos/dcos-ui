@@ -97,9 +97,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
   getVersionsActions() {
     return (
       <div className="pod flush-top flush-right flush-left">
-        <div className="button-collection">
-          {this.getVersionsDropdown()}
-        </div>
+        <div className="button-collection">{this.getVersionsDropdown()}</div>
       </div>
     );
   }
@@ -123,9 +121,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               onClick={onEditClick}
             >
               <Icon id="pencil" size="mini" family="system" />
-              <span>
-                {"Edit Config"}
-              </span>
+              <span>{"Edit Config"}</span>
             </button>
             <a
               className="button button-primary-link flush-right"
@@ -142,9 +138,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               )}
             >
               <Icon id="download" size="mini" family="system" />
-              <span>
-                {"Download Config"}
-              </span>
+              <span>{"Download Config"}</span>
             </a>
           </div>
         </div>

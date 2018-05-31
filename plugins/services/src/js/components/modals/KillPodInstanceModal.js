@@ -86,13 +86,16 @@ class KillPodInstanceModal extends React.Component {
   getModalContents() {
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action];
-    const instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize("Instance", selectedItemsLength)}`;
+    const instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize(
+      "Instance",
+      selectedItemsLength
+    )}`;
 
     return (
       <div>
         <p>
-          You are about to {action.toLowerCase()} {instanceCountContent}.
-          Are you sure you want to continue?
+          You are about to {action.toLowerCase()} {instanceCountContent}. Are
+          you sure you want to continue?
         </p>
         {this.getErrorMessage()}
       </div>
@@ -127,8 +130,7 @@ class KillPodInstanceModal extends React.Component {
 
     const header = (
       <ModalHeading className="text-danger">
-        {ACTION_DISPLAY_NAMES[action]}
-        {" "}
+        {ACTION_DISPLAY_NAMES[action]}{" "}
         {StringUtil.pluralize("Instance", selectedItems.length)}
       </ModalHeading>
     );

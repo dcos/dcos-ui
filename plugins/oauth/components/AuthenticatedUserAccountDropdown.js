@@ -2,8 +2,7 @@ import React from "react";
 
 import AuthStore from "#SRC/js/stores/AuthStore";
 import UserAccountDropdown from "#SRC/js/components/UserAccountDropdown";
-import UserAccountDropdownTrigger
-  from "#SRC/js/components/UserAccountDropdownTrigger";
+import UserAccountDropdownTrigger from "#SRC/js/components/UserAccountDropdownTrigger";
 
 class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
   getUserLabel() {

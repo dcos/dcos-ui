@@ -49,6 +49,8 @@ module.exports = class JobTree extends Tree {
   }
 
   getName() {
-    return this.getId().split(".").pop();
+    return this.getId()
+      .split(".")
+      .pop();
   }
 };

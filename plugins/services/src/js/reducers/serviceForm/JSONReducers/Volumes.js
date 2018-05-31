@@ -5,7 +5,9 @@ import Transaction from "#SRC/js/structs/Transaction";
 
 import ContainerConstants from "../../../constants/ContainerConstants";
 
-const { type: { MESOS, DOCKER } } = ContainerConstants;
+const {
+  type: { MESOS, DOCKER }
+} = ContainerConstants;
 
 const mapVolumes = function(volume) {
   if (volume.type === "EXTERNAL") {

@@ -10,13 +10,11 @@ import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 
 import OperatorTypes from "#PLUGINS/services/src/js/constants/OperatorTypes";
-import PlacementConstraintsUtil
-  from "#PLUGINS/services/src/js/utils/PlacementConstraintsUtil";
+import PlacementConstraintsUtil from "#PLUGINS/services/src/js/utils/PlacementConstraintsUtil";
 
 // &nbsp; to space the table rows
 const NBSP = "\u00A0";
@@ -127,10 +125,11 @@ export default class PlacementConstraintsPartial extends Component {
             </Select>
 
             {operatorError && <FieldError>{operatorError}</FieldError>}
-            {!operatorError &&
+            {!operatorError && (
               <FieldHelp>
                 {isLastField ? "Specify where your app will run." : NBSP}
-              </FieldHelp>}
+              </FieldHelp>
+            )}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -145,8 +144,9 @@ export default class PlacementConstraintsPartial extends Component {
               value={constraint.fieldName}
             />
             {fieldNameError && <FieldError>{fieldNameError}</FieldError>}
-            {!fieldNameError &&
-              <FieldHelp>{isLastField ? "E.g hostname." : NBSP}</FieldHelp>}
+            {!fieldNameError && (
+              <FieldHelp>{isLastField ? "E.g hostname." : NBSP}</FieldHelp>
+            )}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -157,18 +157,20 @@ export default class PlacementConstraintsPartial extends Component {
             {valueIsRequiredEmpty
               ? this.getToolTip(fieldValue, typeSettings.tooltipContent)
               : fieldValue}
-            {valueError &&
+            {valueError && (
               <FieldError className={{ hidden: hideValueColumn }}>
                 {valueError}
-              </FieldError>}
-            {!valueError &&
+              </FieldError>
+            )}
+            {!valueError && (
               <FieldHelp>
                 {isLastField ? "A string, integer or regex value. " : NBSP}
                 {typeSettings &&
                   !typeSettings.requiresValue &&
                   !typeSettings.requiresEmptyValue &&
                   "This field is optional."}
-              </FieldHelp>}
+              </FieldHelp>
+            )}
           </FormGroup>
 
           <FormGroup applyLabelOffset={index === 0} hasNarrowMargins={true}>
@@ -197,9 +199,7 @@ export default class PlacementConstraintsPartial extends Component {
     if (hasErrors) {
       errorNode = (
         <FormGroup showError={hasErrors}>
-          <FieldError>
-            {constraintsErrors}
-          </FieldError>
+          <FieldError>{constraintsErrors}</FieldError>
         </FormGroup>
       );
     }

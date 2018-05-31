@@ -41,9 +41,9 @@ describe("Repository Model", function() {
           context
         );
 
-        m
-          .expect(result.map(item => item.map(({ name }) => name)))
-          .toBeObservable(expected);
+        m.expect(
+          result.map(item => item.map(({ name }) => name))
+        ).toBeObservable(expected);
       })
     );
 
@@ -67,9 +67,9 @@ describe("Repository Model", function() {
           context
         );
 
-        m
-          .expect(result.map(item => item.map(({ name }) => name)))
-          .toBeObservable(expected);
+        m.expect(
+          result.map(item => item.map(({ name }) => name))
+        ).toBeObservable(expected);
       })
     );
   });
@@ -101,9 +101,9 @@ describe("Repository Model", function() {
           context
         );
 
-        m
-          .expect(result.map(item => item.map(({ name }) => name)))
-          .toBeObservable(expected);
+        m.expect(
+          result.map(item => item.map(({ name }) => name))
+        ).toBeObservable(expected);
         expect(context.mutation.addPackageRepository).toHaveBeenCalledWith(
           "DC Universe",
           "https://dc.universe.mesosphere.com/batmans-repo",
@@ -170,9 +170,9 @@ describe("Repository Model", function() {
           context
         );
 
-        m
-          .expect(result.map(item => item.map(({ name }) => name)))
-          .toBeObservable(expected);
+        m.expect(
+          result.map(item => item.map(({ name }) => name))
+        ).toBeObservable(expected);
         expect(context.mutation.removePackageRepository).toHaveBeenCalledWith(
           "Marvel Universe",
           "https://marvel.universe.mesosphere.com"

@@ -36,9 +36,7 @@ export default class TaskIpAddressesRow extends React.Component {
 
     return (
       <ConfigurationMapRow>
-        <ConfigurationMapLabel>
-          IP Addresses
-        </ConfigurationMapLabel>
+        <ConfigurationMapLabel>IP Addresses</ConfigurationMapLabel>
         <ConfigurationMapValue>
           {this.getIPAddressesForTask(service, taskId).join(", ")}
         </ConfigurationMapValue>

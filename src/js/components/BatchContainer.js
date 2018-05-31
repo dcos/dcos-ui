@@ -18,9 +18,10 @@ export default class BatchContainer extends Component {
       return;
     }
 
-    const value = event.target.type === "checkbox"
-      ? event.target.checked
-      : event.target.value;
+    const value =
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : event.target.value;
 
     const path = fieldName.split(".");
     const batch = this.props.batch.add(new Transaction(path, value));

@@ -34,7 +34,10 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location: { query }, hosts } = nextProps;
+    const {
+      location: { query },
+      hosts
+    } = nextProps;
     const filters = {
       health: query.filterHealth || "all",
       name: query.searchString || "",

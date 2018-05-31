@@ -12,9 +12,7 @@ import { makeExecutableSchema } from "graphql-tools";
 import gql from "graphql-tag";
 
 // Streams we get our data from
-import {
-  liveFetchRepositories
-} from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
+import { liveFetchRepositories } from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
 // The graphql schema and resolvers for those streams;

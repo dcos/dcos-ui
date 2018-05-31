@@ -7,7 +7,10 @@ describe("ConfigurationMapBooleanValue", function() {
   it("shows the default value for `true`", function() {
     const instance = mount(<ConfigurationMapBooleanValue value={true} />);
 
-    const contentText = instance.find(".configuration-map-value").text().trim();
+    const contentText = instance
+      .find(".configuration-map-value")
+      .text()
+      .trim();
 
     expect(contentText).toEqual("Enabled");
   });
@@ -15,7 +18,10 @@ describe("ConfigurationMapBooleanValue", function() {
   it("shows the default value for `false`", function() {
     const instance = mount(<ConfigurationMapBooleanValue value={false} />);
 
-    const contentText = instance.find(".configuration-map-value").text().trim();
+    const contentText = instance
+      .find(".configuration-map-value")
+      .text()
+      .trim();
 
     expect(contentText).toEqual("Disabled");
   });
@@ -28,7 +34,10 @@ describe("ConfigurationMapBooleanValue", function() {
       />
     );
 
-    const contentText = instance.find(".configuration-map-value").text().trim();
+    const contentText = instance
+      .find(".configuration-map-value")
+      .text()
+      .trim();
 
     expect(contentText).toEqual("foo");
   });
@@ -41,7 +50,10 @@ describe("ConfigurationMapBooleanValue", function() {
       />
     );
 
-    const contentText = instance.find(".configuration-map-value").text().trim();
+    const contentText = instance
+      .find(".configuration-map-value")
+      .text()
+      .trim();
 
     expect(contentText).toEqual("bar");
   });
@@ -51,7 +63,10 @@ describe("ConfigurationMapBooleanValue", function() {
       <ConfigurationMapBooleanValue value={null} defaultValue="-" />
     );
 
-    const contentText = instance.find(".configuration-map-value").text().trim();
+    const contentText = instance
+      .find(".configuration-map-value")
+      .text()
+      .trim();
 
     expect(contentText).toEqual("-");
   });

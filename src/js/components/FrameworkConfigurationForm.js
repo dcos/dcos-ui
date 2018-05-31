@@ -11,17 +11,14 @@ import Util from "#SRC/js/utils/Util";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import JSONEditor from "#SRC/js/components/JSONEditor";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
-import PageHeaderNavigationDropdown
-  from "#SRC/js/components/PageHeaderNavigationDropdown";
+import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import SchemaField from "#SRC/js/components/SchemaField";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import PlacementConstraintsSchemaField
-  from "#SRC/js/components/PlacementConstraintsSchemaField";
+import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
 import YamlEditorSchemaField from "#SRC/js/components/YamlEditorSchemaField";
-import FrameworkConfigurationConstants
-  from "#SRC/js/constants/FrameworkConfigurationConstants";
+import FrameworkConfigurationConstants from "#SRC/js/constants/FrameworkConfigurationConstants";
 
 MountService.MountService.registerComponent(
   PlacementConstraintsSchemaField,
@@ -64,14 +61,14 @@ class FrameworkConfigurationForm extends Component {
     const { errorSchema } = this.state;
     const { formData } = this.props;
 
-    const fieldsWithErrors = Object.keys(
-      errorSchema[activeTab]
-    ).filter(field => {
-      return (
-        errorSchema[activeTab][field].__errors &&
-        errorSchema[activeTab][field].__errors.length > 0
-      );
-    });
+    const fieldsWithErrors = Object.keys(errorSchema[activeTab]).filter(
+      field => {
+        return (
+          errorSchema[activeTab][field].__errors &&
+          errorSchema[activeTab][field].__errors.length > 0
+        );
+      }
+    );
 
     // first field with errors in the current tab
     const fieldToFocus = Object.keys(formData[activeTab]).find(field => {
@@ -325,9 +322,7 @@ class FrameworkConfigurationForm extends Component {
                   vertical={true}
                   className={"menu-tabbed-container-fixed"}
                 >
-                  <TabButtonList>
-                    {this.getFormTabList()}
-                  </TabButtonList>
+                  <TabButtonList>{this.getFormTabList()}</TabButtonList>
                   <div className="menu-tabbed-view-container">
                     {errorsAlert}
                     {defaultConfigWarningMessage}

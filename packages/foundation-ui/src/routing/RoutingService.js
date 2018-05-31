@@ -155,7 +155,9 @@ class RoutingService extends EventEmitter {
     } else if (existingRedirect) {
       return throwError(
         new Error(
-          `Attempt to override Redirect of ${path} from ${existingRedirect.to} to ${to}!`
+          `Attempt to override Redirect of ${path} from ${
+            existingRedirect.to
+          } to ${to}!`
         )
       );
     }

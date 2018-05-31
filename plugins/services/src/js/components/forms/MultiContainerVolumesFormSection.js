@@ -12,20 +12,16 @@ import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { omit } from "#SRC/js/utils/Util";
 
-import VolumeDefinitions
-  from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
-import {
-  FormReducer as volumeMounts
-} from "../../reducers/serviceForm/MultiContainerVolumes";
+import { FormReducer as volumeMounts } from "../../reducers/serviceForm/MultiContainerVolumes";
 import VolumeConstants from "../../constants/VolumeConstants";
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
@@ -90,12 +86,8 @@ class MultiContainerVolumesFormSection extends Component {
         data={this.props.data}
         errors={this.props.errors}
       >
-        <FieldLabel>
-          Unable to edit this Volume
-        </FieldLabel>
-        <pre>
-          {JSON.stringify(omit(volumes, ["type"]), null, 2)}
-        </pre>
+        <FieldLabel>Unable to edit this Volume</FieldLabel>
+        <pre>{JSON.stringify(omit(volumes, ["type"]), null, 2)}</pre>
       </MountService.Mount>
     );
   }
@@ -148,7 +140,6 @@ class MultiContainerVolumesFormSection extends Component {
                 volumes={volumes}
                 index={key}
               >
-
                 <Select
                   name={`volumeMounts.${key}.type`}
                   value={volumes.type}
@@ -164,14 +155,12 @@ class MultiContainerVolumesFormSection extends Component {
                           label={VolumeDefinitions[type].name}
                         >
                           <div className="dropdown-select-item-title">
-                            <span>
-                              {VolumeDefinitions[type].name}
-                            </span>
-                            {VolumeDefinitions[type].recommended
-                              ? <span className="dropdown-select-item-title__badge badge">
-                                  Recommended
-                                </span>
-                              : null}
+                            <span>{VolumeDefinitions[type].name}</span>
+                            {VolumeDefinitions[type].recommended ? (
+                              <span className="dropdown-select-item-title__badge badge">
+                                Recommended
+                              </span>
+                            ) : null}
                           </div>
                           <span className="dropdown-select-item-description">
                             {VolumeDefinitions[type].description}
@@ -314,7 +303,8 @@ class MultiContainerVolumesFormSection extends Component {
       <div>
         {this.getHeadline()}
         <p>
-          Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.
+          Create a stateful service by configuring a persistent volume.
+          Persistent volumes enable instances to be restarted without data loss.
         </p>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>

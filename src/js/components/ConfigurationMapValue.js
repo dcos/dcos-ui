@@ -6,11 +6,7 @@ const ConfigurationMapValue = props => {
     "configuration-map-value-stacked": props.stacked
   });
 
-  return (
-    <div className={classes}>
-      {props.value || props.children}
-    </div>
-  );
+  return <div className={classes}>{props.value || props.children}</div>;
 };
 
 module.exports = ConfigurationMapValue;

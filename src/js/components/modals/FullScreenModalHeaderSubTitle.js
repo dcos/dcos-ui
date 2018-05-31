@@ -7,11 +7,7 @@ class FullScreenModalHeaderSubTitle extends React.Component {
     const { children, className } = this.props;
     const classes = classNames("small", className);
 
-    return (
-      <div className={classes}>
-        {children}
-      </div>
-    );
+    return <div className={classes}>{children}</div>;
   }
 }
 

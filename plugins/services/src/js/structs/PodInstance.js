@@ -101,8 +101,10 @@ module.exports = class PodInstance extends Item {
   }
 
   getIpAddresses() {
-    return (this.get("networks") || [])
-      .reduce((acc, network) => acc.concat(network.addresses), []);
+    return (this.get("networks") || []).reduce(
+      (acc, network) => acc.concat(network.addresses),
+      []
+    );
   }
 
   hasHealthChecks() {

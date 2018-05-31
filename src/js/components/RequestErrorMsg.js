@@ -11,19 +11,12 @@ function getDefaultMessage() {
     </a>
   );
   const supportLink = (
-    <a href={`mailto:${Config.supportEmail}`}>
-      {Config.supportEmail}
-    </a>
+    <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>
   );
 
   return (
     <p className="text-align-center flush-bottom">
-      You can also join us on our
-      {" "}
-      {slackLink}
-      {" "}
-      or send us an email at
-      {" "}
+      You can also join us on our {slackLink} or send us an email at{" "}
       {supportLink}
       .
     </p>
@@ -43,9 +36,7 @@ class RequestErrorMsg extends React.Component {
     return (
       <div className="row">
         <div className={columnClasses}>
-          <h3 className="text-align-center flush-top">
-            {header}
-          </h3>
+          <h3 className="text-align-center flush-top">{header}</h3>
           {message}
         </div>
       </div>

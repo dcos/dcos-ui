@@ -17,9 +17,7 @@ const ServiceItemNotFound = function({ message }) {
   return (
     <AlertPanel>
       <AlertPanelHeader>Service not found</AlertPanelHeader>
-      <p className="tall">
-        {message}
-      </p>
+      <p className="tall">{message}</p>
       {footer}
     </AlertPanel>
   );

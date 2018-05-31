@@ -71,7 +71,9 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     });
 
     router.push(
-      `/catalog/packages/${encodeURIComponent(params.packageName)}?${qs.stringify(query)}`
+      `/catalog/packages/${encodeURIComponent(
+        params.packageName
+      )}?${qs.stringify(query)}`
     );
   }
 

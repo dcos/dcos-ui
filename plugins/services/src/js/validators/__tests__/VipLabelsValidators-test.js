@@ -35,7 +35,8 @@ describe("VipLabelsValidators", function() {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message: "VIP label must be in the following format: <ip-addres|name>:<port>",
+            message:
+              "VIP label must be in the following format: <ip-addres|name>:<port>",
             path: ["portDefinitions", 0, "labels", "VIP_0"]
           }
         ]);
@@ -49,7 +50,8 @@ describe("VipLabelsValidators", function() {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message: "VIP label must be in the following format: <ip-addres|name>:<port>",
+            message:
+              "VIP label must be in the following format: <ip-addres|name>:<port>",
             path: ["container", "portMappings", 0, "labels", "VIP_0"]
           }
         ]);
@@ -82,11 +84,13 @@ describe("VipLabelsValidators", function() {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message: "VIP label must be in the following format: <ip-addres|name>:<port>",
+            message:
+              "VIP label must be in the following format: <ip-addres|name>:<port>",
             path: ["container", "portMappings", 0, "labels", "VIP_0"]
           },
           {
-            message: "VIP label must be in the following format: <ip-addres|name>:<port>",
+            message:
+              "VIP label must be in the following format: <ip-addres|name>:<port>",
             path: ["container", "portMappings", 3, "labels", "VIP_3"]
           }
         ]);
@@ -120,7 +124,8 @@ describe("VipLabelsValidators", function() {
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
-            message: "VIP label must be in the following format: <ip-addres|name>:<port>",
+            message:
+              "VIP label must be in the following format: <ip-addres|name>:<port>",
             path: ["containers", 0, "endpoints", 0, "labels", "VIP_0"]
           }
         ]);

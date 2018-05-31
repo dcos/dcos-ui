@@ -65,9 +65,7 @@ class FilterHeadline extends React.Component {
           Showing {currentLength} of {totalLength} {name}
         </li>
         <li className={anchorClassSet} onClick={this.handleReset}>
-          <a className="small flush">
-            (Clear)
-          </a>
+          <a className="small flush">(Clear)</a>
         </li>
         <li className={unfilteredClassSet}>
           {totalLength} {name}

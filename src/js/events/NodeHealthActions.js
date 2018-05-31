@@ -56,7 +56,9 @@ const NodeHealthActions = {
 
   fetchNodeUnits(nodeID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/nodes/${nodeID}/units`,
+      url: `${Config.rootUrl}${
+        Config.unitHealthAPIPrefix
+      }/nodes/${nodeID}/units`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODE_UNITS_SUCCESS,
@@ -77,7 +79,9 @@ const NodeHealthActions = {
 
   fetchNodeUnit(nodeID, unitID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/nodes/${nodeID}/units/${unitID}`,
+      url: `${Config.rootUrl}${
+        Config.unitHealthAPIPrefix
+      }/nodes/${nodeID}/units/${unitID}`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODE_UNIT_SUCCESS,

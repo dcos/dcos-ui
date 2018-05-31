@@ -167,7 +167,10 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   getActiveServices() {
-    return this.get("states").lastSuccessful().getServiceList().getItems();
+    return this.get("states")
+      .lastSuccessful()
+      .getServiceList()
+      .getItems();
   }
 
   getServiceFromName(name) {

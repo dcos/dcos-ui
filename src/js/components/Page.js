@@ -109,11 +109,7 @@ var Page = React.createClass({
       return null;
     }
 
-    return (
-      <div className="page-header-navigation">
-        {navigation}
-      </div>
-    );
+    return <div className="page-header-navigation">{navigation}</div>;
   },
 
   getPageHeader() {
@@ -135,9 +131,7 @@ var Page = React.createClass({
     return (
       <div className="page-header-title-container">
         <SidebarToggle />
-        <h1 className="page-header-title flush">
-          {title}
-        </h1>
+        <h1 className="page-header-title flush">{title}</h1>
       </div>
     );
   },
@@ -152,11 +146,7 @@ var Page = React.createClass({
       }
     );
 
-    const content = (
-      <div className={contentClassSet}>
-        {this.getChildren()}
-      </div>
-    );
+    const content = <div className={contentClassSet}>{this.getChildren()}</div>;
 
     if (dontScroll) {
       return content;

@@ -112,7 +112,6 @@ class DSLFilterField extends React.Component {
         className="form-group dropdown-panel-group"
         onClick={this.handleIgnoreClick}
       >
-
         <DSLInputField
           hasErrors={expression.hasErrors}
           hasDropdown={hasForm}

@@ -31,7 +31,8 @@ var HostTimeSeriesChart = React.createClass({
     });
     const maxSlavesCount = Math.max(...slavesCounts);
 
-    var maxY = maxSlavesCount + (roundUpValue - maxSlavesCount % roundUpValue);
+    var maxY =
+      maxSlavesCount + (roundUpValue - (maxSlavesCount % roundUpValue));
 
     if (maxY < props.minMaxY) {
       maxY = props.minMaxY;

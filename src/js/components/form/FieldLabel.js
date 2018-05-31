@@ -37,11 +37,7 @@ const FieldLabel = props => {
     return label;
   }
 
-  return (
-    <div className="form-control-input-height">
-      {label}
-    </div>
-  );
+  return <div className="form-control-input-height">{label}</div>;
 };
 
 FieldLabel.propTypes = {

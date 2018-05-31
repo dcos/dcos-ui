@@ -57,7 +57,8 @@ const MarathonErrorUtil = {
         return [
           {
             path: [],
-            message: "An unknown error occurred (Marathon did not provide any description)",
+            message:
+              "An unknown error occurred (Marathon did not provide any description)",
             type: ServiceErrorTypes.GENERIC,
             variables: {}
           }

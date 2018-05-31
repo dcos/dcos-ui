@@ -4,8 +4,7 @@ import React from "react";
 
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import ConfigurationMap from "./ConfigurationMap";
-import defaultServiceImage
-  from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
+import defaultServiceImage from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
 import HashMapDisplay from "./HashMapDisplay";
 import Icon from "./Icon";
 import Image from "./Image";

@@ -55,7 +55,8 @@ describe("MarathonErrorUtil", function() {
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
         {
           path: [],
-          message: "An unknown error occurred (Marathon did not provide any description)",
+          message:
+            "An unknown error occurred (Marathon did not provide any description)",
           type: ServiceErrorTypes.GENERIC,
           variables: {}
         }

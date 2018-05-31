@@ -6,8 +6,8 @@ import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
 class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
-  * @override
-  */
+   * @override
+   */
   shouldExcludeItem() {
     const { labels } = this.props.appConfig;
 

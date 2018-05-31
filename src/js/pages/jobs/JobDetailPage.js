@@ -21,8 +21,7 @@ import RequestErrorMsg from "../../components/RequestErrorMsg";
 import StringUtil from "../../utils/StringUtil";
 import TabsMixin from "../../mixins/TabsMixin";
 import TimeAgo from "../../components/TimeAgo";
-import TaskStates
-  from "../../../../plugins/services/src/js/constants/TaskStates";
+import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
 import UserActions from "../../constants/UserActions";
 
 const METHODS_TO_BIND = [
@@ -166,9 +165,15 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       "This action is irreversible.";
 
     if (/stopCurrentJobRuns=true/.test(errorMsg)) {
-      actionButtonLabel = `Stop Current Runs and ${StringUtil.capitalize(UserActions.DELETE)} Job`;
+      actionButtonLabel = `Stop Current Runs and ${StringUtil.capitalize(
+        UserActions.DELETE
+      )} Job`;
       stopCurrentJobRuns = true;
-      message = `Couldn't ${UserActions.DELETE} ${id} as there are currently active job runs. Do you want to stop all runs and ${UserActions.DELETE} the job?`;
+      message = `Couldn't ${
+        UserActions.DELETE
+      } ${id} as there are currently active job runs. Do you want to stop all runs and ${
+        UserActions.DELETE
+      } the job?`;
     }
 
     const content = (
@@ -222,11 +227,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getNavigationTabs() {
-    return (
-      <ul className="menu-tabbed">
-        {this.tabs_getUnroutedTabs()}
-      </ul>
-    );
+    return <ul className="menu-tabbed">{this.tabs_getUnroutedTabs()}</ul>;
   }
 
   getPrettySchedule(job) {
@@ -279,7 +280,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
       const status = TaskStates[longestRunningTask.getStatus()];
       const statusClasses = classNames("job-details-header-status", {
-        "text-success": status.stateTypes.includes("success") &&
+        "text-success":
+          status.stateTypes.includes("success") &&
           !status.stateTypes.includes("failure"),
         "text-danger": status.stateTypes.includes("failure")
       });

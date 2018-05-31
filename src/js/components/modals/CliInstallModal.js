@@ -70,7 +70,9 @@ class CliInstallModal extends React.Component {
     if (version !== "latest") {
       version = `dcos-${version}`;
     }
-    const downloadUrl = `https://downloads.dcos.io/binaries/cli/${osTypes[selectedOS]}/x86-64/${version}/dcos`;
+    const downloadUrl = `https://downloads.dcos.io/binaries/cli/${
+      osTypes[selectedOS]
+    }/x86-64/${version}/dcos`;
     if (selectedOS === "Windows") {
       return this.getWindowsInstallInstruction(clusterUrl, downloadUrl);
     }
@@ -131,7 +133,8 @@ class CliInstallModal extends React.Component {
     return (
       <ol>
         <li>
-          Download and install: <a href={downloadUrl + ".exe"}>
+          Download and install:{" "}
+          <a href={downloadUrl + ".exe"}>
             <Icon id="download" size="mini" /> Download dcos.exe
           </a>.
         </li>
@@ -172,9 +175,7 @@ class CliInstallModal extends React.Component {
             documentation
           </a>.
         </p>
-        <div className="button-group">
-          {this.getOSButtons()}
-        </div>
+        <div className="button-group">{this.getOSButtons()}</div>
         {this.getCliInstructions()}
       </div>
     );

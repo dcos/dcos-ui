@@ -49,7 +49,10 @@ const ServiceList = React.createClass({
     return services.map(service => {
       const instancesCount = service.getInstancesCount();
       const runningInstances = service.getRunningInstancesCount();
-      const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
+      const tooltipContent = `${runningInstances} ${StringUtil.pluralize(
+        "instance",
+        runningInstances
+      )} running out of ${instancesCount}`;
 
       return {
         content: [

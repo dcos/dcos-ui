@@ -8,19 +8,15 @@ import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import Page from "#SRC/js/components/Page";
 
-import DeploymentStatusIndicator
-  from "../../components/DeploymentStatusIndicator";
+import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
 import EmptyServiceTree from "./EmptyServiceTree";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 import Service from "../../structs/Service";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
-import ServiceHealthDSLSection
-  from "../../components/dsl/ServiceHealthDSLSection";
-import ServiceOtherDSLSection
-  from "../../components/dsl/ServiceOtherDSLSection";
+import ServiceHealthDSLSection from "../../components/dsl/ServiceHealthDSLSection";
+import ServiceOtherDSLSection from "../../components/dsl/ServiceOtherDSLSection";
 import ServicesTable from "./ServicesTable";
-import ServiceStatusDSLSection
-  from "../../components/dsl/ServiceStatusDSLSection";
+import ServiceStatusDSLSection from "../../components/dsl/ServiceStatusDSLSection";
 import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceTreeView extends React.Component {
@@ -71,9 +67,10 @@ class ServiceTreeView extends React.Component {
 
     const { modalHandlers } = this.context;
     // Only add id if service is not root
-    const routePath = serviceTree.id === "/"
-      ? "/services/overview/create"
-      : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
+    const routePath =
+      serviceTree.id === "/"
+        ? "/services/overview/create"
+        : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
 
     const createService = () => {
       this.context.router.push(routePath);

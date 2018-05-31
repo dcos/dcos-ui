@@ -7,8 +7,7 @@ import React, { Component } from "react";
 import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { pluralize } from "#SRC/js/utils/StringUtil";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
-import AdvancedSectionContent
-  from "#SRC/js/components/form/AdvancedSectionContent";
+import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import Batch from "#SRC/js/structs/Batch";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
@@ -16,8 +15,7 @@ import ErrorMessageUtil from "#SRC/js/utils/ErrorMessageUtil";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import JSONEditor from "#SRC/js/components/JSONEditor";
-import PageHeaderNavigationDropdown
-  from "#SRC/js/components/PageHeaderNavigationDropdown";
+import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
@@ -33,14 +31,10 @@ import CreateServiceModalFormUtil from "../../utils/CreateServiceModalFormUtil";
 import EnvironmentFormSection from "../forms/EnvironmentFormSection";
 import GeneralServiceFormSection from "../forms/GeneralServiceFormSection";
 import HealthChecksFormSection from "../forms/HealthChecksFormSection";
-import MultiContainerHealthChecksFormSection
-  from "../forms/MultiContainerHealthChecksFormSection";
-import MultiContainerNetworkingFormSection
-  from "../forms/MultiContainerNetworkingFormSection";
-import MultiContainerVolumesFormSection
-  from "../forms/MultiContainerVolumesFormSection";
-import MultiContainerFormAdvancedSection
-  from "../forms/MultiContainerFormAdvancedSection";
+import MultiContainerHealthChecksFormSection from "../forms/MultiContainerHealthChecksFormSection";
+import MultiContainerNetworkingFormSection from "../forms/MultiContainerNetworkingFormSection";
+import MultiContainerVolumesFormSection from "../forms/MultiContainerVolumesFormSection";
+import MultiContainerFormAdvancedSection from "../forms/MultiContainerFormAdvancedSection";
 import PlacementSection from "../forms/PlacementSection";
 import NetworkingFormSection from "../forms/NetworkingFormSection";
 import PodSpec from "../../structs/PodSpec";
@@ -379,10 +373,8 @@ class CreateServiceModalForm extends Component {
     return containers.map((item, index) => {
       const artifactsPath = `containers.${index}.artifacts`;
       const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
-      const artifactErrors = findNestedPropertyInObject(
-        errors,
-        artifactsPath
-      ) || [];
+      const artifactErrors =
+        findNestedPropertyInObject(errors, artifactsPath) || [];
 
       return (
         <TabView key={index} id={`container${index}`}>
@@ -391,11 +383,10 @@ class CreateServiceModalForm extends Component {
             pathMapping={ServiceErrorPathMapping}
             hideTopLevelErrors={!showAllErrors}
           />
-          <h1 className="flush-top short-bottom">
-            Container
-          </h1>
+          <h1 className="flush-top short-bottom">Container</h1>
           <p>
-            Configure your container below. Enter a container image or command you want to run.
+            Configure your container below. Enter a container image or command
+            you want to run.
           </p>
           <ContainerServiceFormSection
             data={data}
@@ -407,9 +398,7 @@ class CreateServiceModalForm extends Component {
           />
 
           <AdvancedSection>
-            <AdvancedSectionLabel>
-              More Settings
-            </AdvancedSectionLabel>
+            <AdvancedSectionLabel>More Settings</AdvancedSectionLabel>
             <AdvancedSectionContent>
               <MultiContainerFormAdvancedSection
                 data={data}
@@ -752,9 +741,7 @@ class CreateServiceModalForm extends Component {
                   handleTabChange={handleTabChange}
                   vertical={true}
                 >
-                  <TabButtonList>
-                    {tabButtonListItems}
-                  </TabButtonList>
+                  <TabButtonList>{tabButtonListItems}</TabButtonList>
                   <TabViewList>
                     <TabView id="services">
                       <ErrorsAlert

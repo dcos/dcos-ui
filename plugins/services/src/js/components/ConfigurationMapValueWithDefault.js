@@ -17,11 +17,7 @@ class ConfigurationMapValueWithDefault extends React.Component {
       return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
     }
 
-    return (
-      <ConfigurationMapValue>
-        {value}
-      </ConfigurationMapValue>
-    );
+    return <ConfigurationMapValue>{value}</ConfigurationMapValue>;
   }
 }
 

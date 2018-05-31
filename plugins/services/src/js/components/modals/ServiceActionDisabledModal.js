@@ -69,8 +69,7 @@ class ServiceActionDisabledModal extends React.Component {
     return (
       <div>
         <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_RESTART" })}
-          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_RESTART" })}{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/cli/command-reference/dcos-marathon/dcos-marathon-app-restart/"
@@ -92,8 +91,7 @@ class ServiceActionDisabledModal extends React.Component {
     return (
       <div>
         <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_STOP" })}
-          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_STOP" })}{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/config-universe-service/"
@@ -115,8 +113,7 @@ class ServiceActionDisabledModal extends React.Component {
     return (
       <div>
         <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_RESUME" })}
-          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_RESUME" })}{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/config-universe-service/"
@@ -137,14 +134,10 @@ class ServiceActionDisabledModal extends React.Component {
 
     return (
       <div>
+        <p>{intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SCALE" })}</p>
         <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SCALE" })}
-        </p>
-        <p>
-          <span className="emphasis">Note:</span>
-          {" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SCALE_NOTE" })}
-          {" "}
+          <span className="emphasis">Note:</span>{" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SCALE_NOTE" })}{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/config-universe-service/"
@@ -152,8 +145,7 @@ class ServiceActionDisabledModal extends React.Component {
             target="_blank"
           >
             {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
-          </a>
-          {" "}
+          </a>{" "}
         </p>
         {this.getClipboardTrigger(command)}
       </div>
@@ -170,8 +162,7 @@ class ServiceActionDisabledModal extends React.Component {
         service={service}
       >
         <div className="center">
-          Editing this service is only available on
-          {" "}
+          Editing this service is only available on{" "}
           <a href="https://mesosphere.com/product/" target="_blank">
             Mesosphere Enterprise DC/OS
           </a>
@@ -201,18 +192,21 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getServiceTypes(testFunction) {
-    return this.props.service.flattenItems().getItems().reduce(function(
-      memo,
-      item
-    ) {
-      if (testFunction(item)) {
-        memo.selectedServices.push(item);
-      } else {
-        memo.otherServices.push(item);
-      }
+    return this.props.service
+      .flattenItems()
+      .getItems()
+      .reduce(
+        function(memo, item) {
+          if (testFunction(item)) {
+            memo.selectedServices.push(item);
+          } else {
+            memo.otherServices.push(item);
+          }
 
-      return memo;
-    }, { selectedServices: [], otherServices: [] });
+          return memo;
+        },
+        { selectedServices: [], otherServices: [] }
+      );
   }
 
   getServiceList(services) {
@@ -222,7 +216,8 @@ class ServiceActionDisabledModal extends React.Component {
 
       return (
         <span key={itemID}>
-          <span className="emphasis">{itemID}</span>{comma}
+          <span className="emphasis">{itemID}</span>
+          {comma}
         </span>
       );
     });
@@ -258,11 +253,12 @@ class ServiceActionDisabledModal extends React.Component {
       otherServicesMessage = (
         <div>
           <p>
-            {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_7" })}
-            {" "}
+            {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_7" })}{" "}
             {otherServicesList}
-            : {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_8" })}
-            {" "}
+            :{" "}
+            {intl.formatMessage({
+              id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_8"
+            })}{" "}
             <code>options.json</code>
             {". "}
             <a
@@ -286,23 +282,19 @@ class ServiceActionDisabledModal extends React.Component {
     return (
       <div>
         <p>
-          {intl.formatMessage({ id: ServiceActionLabels[actionID] })}
-          {" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1" })}
-          {" "}
-          {updateDescription}
-          {" "}
+          {intl.formatMessage({ id: ServiceActionLabels[actionID] })}{" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1" })}{" "}
+          {updateDescription}{" "}
           {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_2" })}.
         </p>
         <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_3" })}
-          {" "}
+          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_3" })}{" "}
           {sdkServicesList}
           {": "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_4" })}
-          {" "}
-          <code>{"<package-name>-options.json"}</code>
-          {" "}
+          {intl.formatMessage({
+            id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_4"
+          })}{" "}
+          <code>{"<package-name>-options.json"}</code>{" "}
           {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_5" })}
           {". "}
           <a
@@ -354,9 +346,7 @@ class ServiceActionDisabledModal extends React.Component {
             <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
           </ClipboardTrigger>
         </div>
-        <pre className="prettyprint flush-bottom prettyprinted">
-          {command}
-        </pre>
+        <pre className="prettyprint flush-bottom prettyprinted">{command}</pre>
       </div>
     );
   }
@@ -378,11 +368,7 @@ class ServiceActionDisabledModal extends React.Component {
       ? intl.formatMessage({ id: ServiceActionLabels[actionID] })
       : actionID;
 
-    return (
-      <ModalHeading>
-        {`${action} ${itemText}`}
-      </ModalHeading>
-    );
+    return <ModalHeading>{`${action} ${itemText}`}</ModalHeading>;
   }
 
   getFooter() {
@@ -399,9 +385,10 @@ class ServiceActionDisabledModal extends React.Component {
 
   render() {
     const { open, onClose, service } = this.props;
-    const message = service instanceof ServiceTree
-      ? this.getGroupMessage()
-      : this.getServiceMessage();
+    const message =
+      service instanceof ServiceTree
+        ? this.getGroupMessage()
+        : this.getServiceMessage();
 
     return (
       <Modal

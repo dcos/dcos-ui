@@ -69,7 +69,8 @@ describe("PlacementsValidators", function() {
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
           path: [0, "value"],
-          message: "Must only contain characters between 0-9 for operator GROUP_BY",
+          message:
+            "Must only contain characters between 0-9 for operator GROUP_BY",
           type: SYNTAX_ERROR,
           variables: { name: "value" }
         }
@@ -86,7 +87,8 @@ describe("PlacementsValidators", function() {
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
           path: [0, "value"],
-          message: "Must only contain characters between 0-9 for operator MAX_PER",
+          message:
+            "Must only contain characters between 0-9 for operator MAX_PER",
           type: SYNTAX_ERROR,
           variables: { name: "value" }
         }

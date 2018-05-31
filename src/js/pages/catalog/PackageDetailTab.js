@@ -11,8 +11,7 @@ import Icon from "#SRC/js/components/Icon";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
-import defaultServiceImage
-  from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
+import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
 import Image from "#SRC/js/components/Image";
 import ImageViewer from "#SRC/js/components/ImageViewer";
 import Loader from "#SRC/js/components/Loader";
@@ -140,7 +139,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const { params, location } = this.props;
 
     router.push(
-      `/catalog/packages/${encodeURIComponent(params.packageName)}/deploy?version=${location.query.version}`
+      `/catalog/packages/${encodeURIComponent(
+        params.packageName
+      )}/deploy?version=${location.query.version}`
     );
   }
 
@@ -188,11 +189,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     if (typeof value === "string") {
-      value = (
-        <p className="flush">
-          {value}
-        </p>
-      );
+      value = <p className="flush">{value}</p>;
     }
 
     return (
@@ -200,9 +197,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
         className="pod pod-shorter flush-top flush-right flush-left"
         key={key}
       >
-        <h2 className="short-bottom">
-          {label}
-        </h2>
+        <h2 className="short-bottom">{label}</h2>
         {value}
       </div>
     );
@@ -404,7 +399,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
             <div className="button-collection button-collection-stacked horizontal-center">
               <a
                 className="button button-success button-block"
-                href={`#/services/detail/${encodeURIComponent(location.query.appId)}`}
+                href={`#/services/detail/${encodeURIComponent(
+                  location.query.appId
+                )}`}
               >
                 Open Service
               </a>
@@ -441,18 +438,20 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const definition = [
       {
         label: "Description",
-        value: description &&
+        value: description && (
           <div
             dangerouslySetInnerHTML={StringUtil.parseMarkdown(description)}
           />
+        )
       },
       {
         label: " ",
-        value: preInstallNotes &&
+        value: preInstallNotes && (
           <div
             className="pre-install-notes flush-bottom message message-warning"
             dangerouslySetInnerHTML={preInstallNotesParsed}
           />
+        )
       },
       {
         label: "Information",
@@ -489,14 +488,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               <div className="media-object-item media-object-item-grow">
                 <div className="flex flex-direction-left-to-right">
-                  <h1 className="short flush-top">
-                    {name}
-                  </h1>
+                  <h1 className="short flush-top">{name}</h1>
                   {this.getPackageVersionsDropdown()}
                 </div>
-                <div className="row">
-                  {this.getPackageBadge(cosmosPackage)}
-                </div>
+                <div className="row">{this.getPackageBadge(cosmosPackage)}</div>
               </div>
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}

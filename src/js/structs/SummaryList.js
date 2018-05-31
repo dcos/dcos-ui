@@ -50,10 +50,14 @@ class SummaryList extends List {
   getResourceStatesForServiceIDs(ids) {
     const items = this.getItems() || [];
     const stateResources = items.map(function(state) {
-      let resources = null, totalResources = null;
+      let resources = null,
+        totalResources = null;
 
       if (state.isSnapshotSuccessful()) {
-        resources = state.getServiceList().filter({ ids }).sumUsedResources();
+        resources = state
+          .getServiceList()
+          .filter({ ids })
+          .sumUsedResources();
         totalResources = state.getSlaveTotalResources();
       }
 
@@ -69,11 +73,18 @@ class SummaryList extends List {
 
   getResourceStatesForNodeIDs(ids) {
     const stateResources = this.getItems().map(function(state) {
-      let resources = null, totalResources = null;
+      let resources = null,
+        totalResources = null;
 
       if (state.isSnapshotSuccessful()) {
-        resources = state.getNodesList().filter({ ids }).sumUsedResources();
-        totalResources = state.getNodesList().filter({ ids }).sumResources();
+        resources = state
+          .getNodesList()
+          .filter({ ids })
+          .sumUsedResources();
+        totalResources = state
+          .getNodesList()
+          .filter({ ids })
+          .sumResources();
       }
 
       return {

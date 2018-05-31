@@ -14,8 +14,7 @@ import CookieUtils from "#SRC/js/utils/CookieUtils";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import UsersPage from "#SRC/js/pages/system/UsersPage";
 
-import AuthenticatedUserAccountDropdown
-  from "./components/AuthenticatedUserAccountDropdown";
+import AuthenticatedUserAccountDropdown from "./components/AuthenticatedUserAccountDropdown";
 import LoginPage from "./components/LoginPage";
 
 const SDK = require("./SDK").getSDK();
@@ -226,8 +225,8 @@ module.exports = Object.assign({}, StoreMixin, {
   userAddPolicy() {
     return (
       <p className="form-control-feedback">
-        By adding a user you understand we will process personal information in accordance with our
-        {" "}
+        By adding a user you understand we will process personal information in
+        accordance with our{" "}
         <a
           className="reset-color"
           href="https://mesosphere.com/privacy/"

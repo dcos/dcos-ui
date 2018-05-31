@@ -100,7 +100,9 @@ module.exports = class Application extends Service {
   }
 
   getName() {
-    return this.getId().split("/").pop();
+    return this.getId()
+      .split("/")
+      .pop();
   }
 
   getPorts() {
@@ -222,11 +224,8 @@ module.exports = class Application extends Service {
    * @override
    */
   getWebURL() {
-    const {
-      DCOS_SERVICE_NAME,
-      DCOS_SERVICE_PORT_INDEX,
-      DCOS_SERVICE_SCHEME
-    } = this.getLabels() || {};
+    const { DCOS_SERVICE_NAME, DCOS_SERVICE_PORT_INDEX, DCOS_SERVICE_SCHEME } =
+      this.getLabels() || {};
 
     const serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
 

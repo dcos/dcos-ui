@@ -47,7 +47,9 @@ function testHistoryOnline() {
 }
 
 function requestFromHistoryServer(resolve, reject, timeScale = "last") {
-  const url = `${Config.historyServer}/dcos-history-service/history/${timeScale}`;
+  const url = `${
+    Config.historyServer
+  }/dcos-history-service/history/${timeScale}`;
   let successEventType = REQUEST_SUMMARY_SUCCESS;
 
   if (timeScale === TimeScales.MINUTE) {

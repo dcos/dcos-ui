@@ -308,7 +308,9 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getName() {
-    return this.getId().split("/").pop();
+    return this.getId()
+      .split("/")
+      .pop();
   }
 
   getResources() {
@@ -403,13 +405,15 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getRunningInstancesCount() {
-    return this.flattenItems().getItems().reduce(function(memo, service) {
-      if (service instanceof ServiceTree) {
-        return memo;
-      }
+    return this.flattenItems()
+      .getItems()
+      .reduce(function(memo, service) {
+        if (service instanceof ServiceTree) {
+          return memo;
+        }
 
-      return memo + service.getRunningInstancesCount();
-    }, 0);
+        return memo + service.getRunningInstancesCount();
+      }, 0);
   }
 
   getFrameworks() {

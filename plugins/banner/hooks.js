@@ -125,11 +125,13 @@ module.exports = {
     }
 
     return (
-      <span className="
+      <span
+        className="
         icon
         icon-small
         icon-image-container
-        icon-app-container">
+        icon-app-container"
+      >
         <img src={imagePath} />
       </span>
     );

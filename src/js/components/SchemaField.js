@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import isEqual from "lodash.isequal";
 import { Tooltip } from "reactjs-components";
-import DefaultSchemaField
-  from "react-jsonschema-form/lib/components/fields/SchemaField";
+import DefaultSchemaField from "react-jsonschema-form/lib/components/fields/SchemaField";
 import { MountService } from "foundation-ui";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
@@ -10,8 +9,7 @@ import Icon from "#SRC/js/components/Icon";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
@@ -91,7 +89,11 @@ class SchemaField extends Component {
     } = props;
 
     const options = schema.enum.map(option => {
-      return <option key={option} value={option}>{option}</option>;
+      return (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      );
     });
 
     let field = (
@@ -110,11 +112,7 @@ class SchemaField extends Component {
       </FieldSelect>
     );
     if (autofocus) {
-      field = (
-        <FieldAutofocus>
-          {field}
-        </FieldAutofocus>
-      );
+      field = <FieldAutofocus>{field}</FieldAutofocus>;
     }
 
     return (
@@ -163,11 +161,7 @@ class SchemaField extends Component {
       />
     );
     if (autofocus) {
-      field = (
-        <FieldAutofocus>
-          {field}
-        </FieldAutofocus>
-      );
+      field = <FieldAutofocus>{field}</FieldAutofocus>;
     }
 
     return (
@@ -218,11 +212,7 @@ class SchemaField extends Component {
       />
     );
     if (autofocus) {
-      field = (
-        <FieldAutofocus>
-          {field}
-        </FieldAutofocus>
-      );
+      field = <FieldAutofocus>{field}</FieldAutofocus>;
     }
 
     return (
@@ -312,9 +302,8 @@ class SchemaField extends Component {
     const { schema, errorSchema, uiSchema, registry, idSchema } = this.props;
 
     if (schema.type === "object") {
-      const nextLevel = idSchema.$id === "root"
-        ? 0
-        : registry.formContext.level + 1;
+      const nextLevel =
+        idSchema.$id === "root" ? 0 : registry.formContext.level + 1;
       const nextRegistry = {
         ...registry,
         formContext: { level: nextLevel }

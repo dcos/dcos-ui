@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 
-import PlacementConstraintsPartial
-  from "#SRC/js/components/PlacementConstraintsPartial";
+import PlacementConstraintsPartial from "#SRC/js/components/PlacementConstraintsPartial";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
@@ -49,7 +47,8 @@ export default class PlacementSection extends Component {
           </FormGroupHeading>
         </h1>
         <p>
-          Constraints control where apps run to allow optimization for either fault tolerance or locality.
+          Constraints control where apps run to allow optimization for either
+          fault tolerance or locality.
         </p>
         <PlacementConstraintsPartial
           data={data}

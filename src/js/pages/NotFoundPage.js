@@ -25,9 +25,8 @@ var NotFoundPage = React.createClass({
         <AlertPanel>
           <AlertPanelHeader>Page not found</AlertPanelHeader>
           <p>
-            The page you requested cannot be found. Check the address you provided, or head back to the
-            {" "}
-            <Link to="/dashboard">Dashboard</Link>
+            The page you requested cannot be found. Check the address you
+            provided, or head back to the <Link to="/dashboard">Dashboard</Link>
             .
           </p>
         </AlertPanel>

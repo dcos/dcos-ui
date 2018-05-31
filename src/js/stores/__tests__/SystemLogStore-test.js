@@ -297,11 +297,13 @@ describe("SystemLogStore", function() {
         subscriptionID: "subscriptionID"
       });
 
-      expect(
-        changeHandler
-      ).toHaveBeenCalledWith("subscriptionID", SystemLogTypes.APPEND, {
-        error: "foo"
-      });
+      expect(changeHandler).toHaveBeenCalledWith(
+        "subscriptionID",
+        SystemLogTypes.APPEND,
+        {
+          error: "foo"
+        }
+      );
     });
 
     it("emits event after #processLogPrepend event is dispatched", function() {
@@ -337,11 +339,13 @@ describe("SystemLogStore", function() {
         subscriptionID: "subscriptionID"
       });
 
-      expect(
-        changeHandler
-      ).toHaveBeenCalledWith("subscriptionID", SystemLogTypes.APPEND, {
-        error: "foo"
-      });
+      expect(changeHandler).toHaveBeenCalledWith(
+        "subscriptionID",
+        SystemLogTypes.APPEND,
+        {
+          error: "foo"
+        }
+      );
     });
   });
 });

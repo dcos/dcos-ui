@@ -185,11 +185,7 @@ class ManualBreadcrumbs extends React.Component {
       this.props.breadcrumbClasses
     );
 
-    return (
-      <ol className={classSet}>
-        {this.renderCrumbs(this.props.crumbs)}
-      </ol>
-    );
+    return <ol className={classSet}>{this.renderCrumbs(this.props.crumbs)}</ol>;
   }
 }
 

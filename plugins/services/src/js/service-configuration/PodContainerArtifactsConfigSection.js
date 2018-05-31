@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 
-import ConfigurationMapBooleanValue
-  from "../components/ConfigurationMapBooleanValue";
+import ConfigurationMapBooleanValue from "../components/ConfigurationMapBooleanValue";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 const BOOLEAN_OPTIONS = {

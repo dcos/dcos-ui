@@ -97,9 +97,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   getSubHeader(name) {
     return (
       <div key={name}>
-        <div className="h3 form-row-element flush-bottom flush-top">
-          {name}
-        </div>
+        <div className="h3 form-row-element flush-bottom flush-top">{name}</div>
       </div>
     );
   }
@@ -107,12 +105,12 @@ class TabForm extends mixin(InternalStorageMixin) {
   getLabel(description, label) {
     return (
       <label>
-        <span className="media-object-spacing-wrapper
-          media-object-spacing-narrow">
+        <span
+          className="media-object-spacing-wrapper
+          media-object-spacing-narrow"
+        >
           <div className="media-object">
-            <span className="media-object-item">
-              {label}
-            </span>
+            <span className="media-object-item">{label}</span>
             <Tooltip
               content={description}
               interactive={true}
@@ -197,11 +195,7 @@ class TabForm extends mixin(InternalStorageMixin) {
     // On initial render, we don't want to render with Gemini because it will
     // cancel the parent's animation, due to it measuring the component.
     if (!this.state.renderGemini) {
-      return (
-        <div className={multipleDefinitionClasses}>
-          {panels}
-        </div>
-      );
+      return <div className={multipleDefinitionClasses}>{panels}</div>;
     }
 
     return (

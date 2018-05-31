@@ -65,11 +65,7 @@ var ServicesPage = React.createClass({
       return null;
     }
 
-    return (
-      <ul className="menu-tabbed">
-        {this.tabs_getRoutedTabs()}
-      </ul>
-    );
+    return <ul className="menu-tabbed">{this.tabs_getRoutedTabs()}</ul>;
   },
 
   render() {

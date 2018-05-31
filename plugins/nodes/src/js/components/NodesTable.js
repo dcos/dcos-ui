@@ -39,11 +39,7 @@ class NodesTable extends PureComponent {
   }
 
   renderZone(_prop, node) {
-    return (
-      <span title={node.getZoneName()}>
-        {node.getZoneName()}
-      </span>
-    );
+    return <span title={node.getZoneName()}>{node.getZoneName()}</span>;
   }
 
   renderHeadline(prop, node) {
@@ -80,19 +76,11 @@ class NodesTable extends PureComponent {
 
     const health = node.getHealth();
 
-    return (
-      <span className={health.classNames}>
-        {health.title}
-      </span>
-    );
+    return <span className={health.classNames}>{health.title}</span>;
   }
 
   renderTask(prop, node) {
-    return (
-      <span>
-        {node[prop]}
-      </span>
-    );
+    return <span>{node[prop]}</span>;
   }
 
   renderStats(prop, node) {

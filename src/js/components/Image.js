@@ -38,7 +38,10 @@ class Image extends React.Component {
   }
 
   onImageError(event) {
-    const { props: { fallbackSrc }, state: { imageErrorCount } } = this;
+    const {
+      props: { fallbackSrc },
+      state: { imageErrorCount }
+    } = this;
 
     if (imageErrorCount === 0) {
       event.target.src = fallbackSrc;
@@ -49,7 +52,10 @@ class Image extends React.Component {
   }
 
   render() {
-    const { props, state: { imageErrorCount } } = this;
+    const {
+      props,
+      state: { imageErrorCount }
+    } = this;
     const classes = classNames(
       { hidden: imageErrorCount > 1 },
       props.className

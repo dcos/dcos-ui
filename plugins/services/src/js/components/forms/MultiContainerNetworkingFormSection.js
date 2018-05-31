@@ -15,8 +15,7 @@ import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import Networking from "#SRC/js/constants/Networking";
@@ -25,9 +24,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 
-import {
-  FormReducer as networks
-} from "../../reducers/serviceForm/MultiContainerNetwork";
+import { FormReducer as networks } from "../../reducers/serviceForm/MultiContainerNetwork";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 
 const { CONTAINER, HOST } = Networking.type;
@@ -256,14 +253,16 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getLoadBalancedPortField(endpoint, index, containerIndex) {
-    const { errors, data: { id, portsAutoAssign } } = this.props;
+    const {
+      errors,
+      data: { id, portsAutoAssign }
+    } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
     const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
 
     // clear placeholder when HOST network portsAutoAssign is true
-    const placeholder = this.isHostNetwork() && portsAutoAssign
-      ? ""
-      : defaultVipPort;
+    const placeholder =
+      this.isHostNetwork() && portsAutoAssign ? "" : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError = findNestedPropertyInObject(
@@ -301,9 +300,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const helpText = (
-      <FieldHelp>
-        Load balance this service internally at {hostName}
-      </FieldHelp>
+      <FieldHelp>Load balance this service internally at {hostName}</FieldHelp>
     );
 
     return (
@@ -550,9 +547,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect name="networks.0" value={network}>
-        <option value={HOST}>
-          Host
-        </option>
+        <option value={HOST}>Host</option>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
@@ -574,7 +569,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           ports documentation
-        </a> for more information.
+        </a>{" "}
+        for more information.
       </span>
     );
 
@@ -594,12 +590,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div className="form flush-bottom">
-        <h1 className="flush-top short-bottom">
-          Networking
-        </h1>
-        <p>
-          Configure the networking for your service.
-        </p>
+        <h1 className="flush-top short-bottom">Networking</h1>
+        <p>Configure the networking for your service.</p>
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
@@ -645,7 +637,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           </FormGroupHeading>
         </h2>
         <p>
-          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints
+          DC/OS can automatically generate a Service Address to connect to each
+          of your load balanced endpoints
         </p>
         {this.getServiceEndpoints()}
       </div>

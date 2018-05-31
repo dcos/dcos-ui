@@ -12,7 +12,10 @@ describe("TasksChart", function() {
     });
 
     it("renders two task info labels when there is no data", function() {
-      const taskLabels = thisInstance.find(".row").last().find(".unit");
+      const taskLabels = thisInstance
+        .find(".row")
+        .last()
+        .find(".unit");
       expect(taskLabels.length).toEqual(2);
     });
 
@@ -21,7 +24,10 @@ describe("TasksChart", function() {
         <TasksChart tasks={{ tasks: { TASK_RUNNING: 1 } }} />
       );
 
-      const taskLabels = thisInstance.find(".row").last().find(".unit");
+      const taskLabels = thisInstance
+        .find(".row")
+        .last()
+        .find(".unit");
       expect(taskLabels.length).toEqual(2);
     });
   });

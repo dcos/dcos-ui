@@ -190,7 +190,9 @@ const RouterUtil = {
    */
   getResourceDownloadPath(dataType, filename, data) {
     if (dataType && filename && data) {
-      return `data:${dataType};content-disposition=attachment;filename=${filename};charset=utf-8,${encodeURIComponent(data)}`;
+      return `data:${dataType};content-disposition=attachment;filename=${filename};charset=utf-8,${encodeURIComponent(
+        data
+      )}`;
     }
 
     return "";

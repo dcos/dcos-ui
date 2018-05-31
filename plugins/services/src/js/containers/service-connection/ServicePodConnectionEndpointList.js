@@ -3,12 +3,10 @@ import React from "react";
 import { routerShape } from "react-router";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
@@ -71,25 +69,19 @@ class ServicePodConnectionEndpointList extends React.Component {
             {portDefinition.name}
           </ConfigurationMapHeading>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Protocol
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>Protocol</ConfigurationMapLabel>
             <ConfigurationMapValue>
               <span>{this.getProtocolValue(portDefinition)}</span>
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Host Port
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>Host Port</ConfigurationMapLabel>
             <ConfigurationMapValue>
               {this.getHostPortValue(portDefinition)}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Container
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>Container</ConfigurationMapLabel>
             <ConfigurationMapValue>
               <span>{portDefinition.containerName}</span>
             </ConfigurationMapValue>

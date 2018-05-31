@@ -9,15 +9,19 @@ function isNotMultipleProp(key) {
 
 function containsMultipleProp(prop, fieldColumn, id) {
   if (id) {
-    return !!(fieldColumn &&
+    return !!(
+      fieldColumn &&
       fieldColumn.name &&
-      fieldColumn.name.includes(`${prop}[${id}]`));
+      fieldColumn.name.includes(`${prop}[${id}]`)
+    );
   }
 
-  return !!(fieldColumn &&
+  return !!(
+    fieldColumn &&
     fieldColumn.name &&
     fieldColumn.name.startsWith(`${prop}[`) &&
-    fieldColumn.name.includes("]"));
+    fieldColumn.name.includes("]")
+  );
 }
 
 const FormUtil = {

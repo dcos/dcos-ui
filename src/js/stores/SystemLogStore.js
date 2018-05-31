@@ -100,10 +100,8 @@ class SystemLogStore extends BaseStore {
   }
 
   getFullLog(subscriptionID) {
-    const entries = findNestedPropertyInObject(
-      this.logs[subscriptionID],
-      "entries"
-    ) || [];
+    const entries =
+      findNestedPropertyInObject(this.logs[subscriptionID], "entries") || [];
 
     // Formatting logs as we do in the CLI:
     // https://github.com/dcos/dcos-cli/pull/817/files#diff-8f3b06e62cf338c8e4e2ac6414447d26R260

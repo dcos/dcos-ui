@@ -4,13 +4,14 @@ import { Table } from "reactjs-components";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 
-class ServiceEnvironmentVariablesConfigSection
-  extends ServiceConfigBaseSectionDisplay {
+class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
-  * @override
-  */
+   * @override
+   */
   shouldExcludeItem() {
-    const { appConfig: { env } } = this.props;
+    const {
+      appConfig: { env }
+    } = this.props;
 
     return (
       env == null ||

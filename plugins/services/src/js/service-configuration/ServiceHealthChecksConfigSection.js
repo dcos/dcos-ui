@@ -1,8 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Util from "#SRC/js/utils/Util";
 import EmptyStates from "#SRC/js/constants/EmptyStates";
@@ -12,8 +11,7 @@ import {
   getColumnHeadingFn,
   getDisplayValue
 } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapDurationValue
-  from "../components/ConfigurationMapDurationValue";
+import ConfigurationMapDurationValue from "../components/ConfigurationMapDurationValue";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
   COMMAND,
@@ -71,7 +69,6 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="service-health-checks-heading"
                 level={1}
               >
-
                 Health Checks
               </ConfigurationMapHeading>
             );
@@ -178,7 +175,6 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="service-endpoint-health-checks-heading"
                 level={2}
               >
-
                 Service Endpoint Health Checks
               </ConfigurationMapHeading>,
               <Table
@@ -210,9 +206,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
 
                   return (
                     <ConfigurationMapValue>
-                      <pre className="flush transparent wrap">
-                        {value}
-                      </pre>
+                      <pre className="flush transparent wrap">{value}</pre>
                     </ConfigurationMapValue>
                   );
                 },
@@ -284,7 +278,6 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="command-health-checks-heading"
                 level={2}
               >
-
                 Command Health Checks
               </ConfigurationMapHeading>,
               <Table

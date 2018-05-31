@@ -5,8 +5,7 @@ import Objektiv from "objektiv";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
-import AdvancedSectionContent
-  from "#SRC/js/components/form/AdvancedSectionContent";
+import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -16,8 +15,7 @@ import FieldTextarea from "#SRC/js/components/form/FieldTextarea";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
@@ -37,14 +35,15 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     const intervalHelpText = (
       <span>
-        (Optional. Default: 60): Number of seconds to wait between health checks.
+        (Optional. Default: 60): Number of seconds to wait between health
+        checks.
       </span>
     );
 
     const timeoutHelpText = (
       <span>
-        (Optional. Default: 20): Number of seconds after which a health check
-        is considered a failure regardless of the response.
+        (Optional. Default: 20): Number of seconds after which a health check is
+        considered a failure regardless of the response.
       </span>
     );
 
@@ -267,8 +266,8 @@ class MultiContainerHealthChecksFormSection extends Component {
     );
     const pathHelpText = (
       <span>
-        Enter a path that is reachable in your service and where you expect
-        a response code between 200 and 399.
+        Enter a path that is reachable in your service and where you expect a
+        response code between 200 and 399.
       </span>
     );
 
@@ -502,9 +501,7 @@ class MultiContainerHealthChecksFormSection extends Component {
     if (!data.containers || !data.containers.length) {
       return (
         <div>
-          <h1 className="flush-top short-bottom">
-            {heading}
-          </h1>
+          <h1 className="flush-top short-bottom">{heading}</h1>
           <p>
             {"Please "}
             <a
@@ -521,12 +518,10 @@ class MultiContainerHealthChecksFormSection extends Component {
 
     return (
       <div className="form flush-bottom">
-        <h1 className="form-header flush-top short-bottom">
-          {heading}
-        </h1>
+        <h1 className="form-header flush-top short-bottom">{heading}</h1>
         <p>
-          Health checks may be specified per application to be run against
-          the application{"'"}s instances.
+          Health checks may be specified per application to be run against the
+          application{"'"}s instances.
         </p>
         {this.getContainerHealthChecks(data.containers)}
       </div>

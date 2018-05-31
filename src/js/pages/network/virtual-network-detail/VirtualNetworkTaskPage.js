@@ -6,8 +6,7 @@ import Breadcrumb from "../../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
 import MesosStateStore from "../../../stores/MesosStateStore";
 import Page from "../../../components/Page";
-import TaskDetail
-  from "../../../../../plugins/services/src/js/pages/task-details/TaskDetail";
+import TaskDetail from "../../../../../plugins/services/src/js/pages/task-details/TaskDetail";
 import VirtualNetworksStore from "../../../stores/VirtualNetworksStore";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
@@ -32,18 +31,14 @@ const NetworksDetailTaskBreadcrumbs = ({
     crumbs.push(
       <Breadcrumb key={1} title={overlayName}>
         <BreadcrumbTextContent>
-          <Link to={`/networking/networks/${overlayName}`}>
-            {overlayName}
-          </Link>
+          <Link to={`/networking/networks/${overlayName}`}>{overlayName}</Link>
         </BreadcrumbTextContent>
       </Breadcrumb>
     );
   } else {
     crumbs.push(
       <Breadcrumb key={1} title={overlayID}>
-        <BreadcrumbTextContent>
-          {overlayID}
-        </BreadcrumbTextContent>
+        <BreadcrumbTextContent>{overlayID}</BreadcrumbTextContent>
       </Breadcrumb>
     );
   }
@@ -62,9 +57,7 @@ const NetworksDetailTaskBreadcrumbs = ({
   } else {
     crumbs.push(
       <Breadcrumb key={2} title={taskID}>
-        <BreadcrumbTextContent>
-          {taskID}
-        </BreadcrumbTextContent>
+        <BreadcrumbTextContent>{taskID}</BreadcrumbTextContent>
       </Breadcrumb>
     );
   }

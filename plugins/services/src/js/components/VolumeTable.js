@@ -145,7 +145,11 @@ class VolumeTable extends React.Component {
       routePath = `/nodes/${nodeID}/tasks/${taskID}/volumes/${volumeID}`;
     }
 
-    return <Link className="table-cell-link-primary" to={routePath}>{id}</Link>;
+    return (
+      <Link className="table-cell-link-primary" to={routePath}>
+        {id}
+      </Link>
+    );
   }
 
   renderStatusColumn(prop, row) {
@@ -155,11 +159,7 @@ class VolumeTable extends React.Component {
       "text-success": value === VolumeStatus.ATTACHED
     });
 
-    return (
-      <span className={classes}>
-        {row[prop]}
-      </span>
-    );
+    return <span className={classes}>{row[prop]}</span>;
   }
 
   render() {

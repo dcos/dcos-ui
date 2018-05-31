@@ -5,11 +5,7 @@ const Highlight = require("../Highlight");
 
 describe("Highlight instance", function() {
   it("is what it says it is", function() {
-    const instance = mount(
-      <Highlight search="world">
-        Hello World
-      </Highlight>
-    );
+    const instance = mount(<Highlight search="world">Hello World</Highlight>);
 
     expect(instance.type()).toEqual(Highlight);
     expect(instance.find(".highlight").text()).toEqual("World");

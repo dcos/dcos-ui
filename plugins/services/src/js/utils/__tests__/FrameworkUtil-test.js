@@ -73,7 +73,8 @@ describe("FrameworkUtil", function() {
   describe("#getMetadataFromLabels", function() {
     beforeEach(function() {
       thisLabels = {
-        DCOS_PACKAGE_METADATA: "eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29" +
+        DCOS_PACKAGE_METADATA:
+          "eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29" +
           "uLXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoia" +
           "WNvbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWN" +
           "lLWxhcmdlLnBuZyJ9fQ=="

@@ -1,17 +1,9 @@
 import { simpleReducer } from "#SRC/js/utils/ReducerUtil";
 
-import {
-  JSONReducer as constraints
-} from "./serviceForm/MultiContainerConstraints";
-import {
-  JSONReducer as containers
-} from "./serviceForm/JSONReducers/Containers";
-import {
-  JSONReducer as environment
-} from "./serviceForm/JSONReducers/EnvironmentVariables";
-import {
-  JSONReducer as residency
-} from "./serviceForm/JSONReducers/MultiContainerResidency";
+import { JSONReducer as constraints } from "./serviceForm/MultiContainerConstraints";
+import { JSONReducer as containers } from "./serviceForm/JSONReducers/Containers";
+import { JSONReducer as environment } from "./serviceForm/JSONReducers/EnvironmentVariables";
+import { JSONReducer as residency } from "./serviceForm/JSONReducers/MultiContainerResidency";
 import { JSONReducer as fetch } from "./serviceForm/JSONReducers/Artifacts";
 import { JSONReducer as scaling } from "./serviceForm/MultiContainerScaling";
 import { JSONReducer as labels } from "./serviceForm/JSONReducers/Labels";
@@ -25,9 +17,10 @@ module.exports = {
   scaling,
   labels,
   scheduling(state = { placement: { constraints: [] } }, transaction) {
-    const constraintsState = state != null && state.placement != null
-      ? state.placement.constraints
-      : [];
+    const constraintsState =
+      state != null && state.placement != null
+        ? state.placement.constraints
+        : [];
 
     return {
       residency: residency.bind(this)(state.residency, transaction),

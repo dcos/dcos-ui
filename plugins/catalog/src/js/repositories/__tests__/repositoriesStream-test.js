@@ -26,8 +26,10 @@ describe("#fetchRepositories", function() {
         method: "POST",
         body: "{}",
         headers: {
-          Accept: "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
-          "Content-Type": "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
+          Accept:
+            "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
+          "Content-Type":
+            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
         }
       }
     );
@@ -50,8 +52,10 @@ describe("#liveFetchRepositories", function() {
         method: "POST",
         body: "{}",
         headers: {
-          Accept: "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
-          "Content-Type": "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
+          Accept:
+            "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
+          "Content-Type":
+            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
         }
       }
     );
@@ -74,8 +78,10 @@ describe("#addRepository", function() {
         method: "POST",
         body: JSON.stringify({ name: "bar", uri: "foo", index: 1 }),
         headers: {
-          Accept: "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
-          "Content-Type": "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
+          Accept:
+            "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
+          "Content-Type":
+            "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
         }
       }
     );
@@ -115,8 +121,10 @@ describe("#deleteRepository", function() {
         method: "POST",
         body: JSON.stringify({ name: "bar", uri: "foo" }),
         headers: {
-          Accept: "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
-          "Content-Type": "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
+          Accept:
+            "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
+          "Content-Type":
+            "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
         }
       }
     );

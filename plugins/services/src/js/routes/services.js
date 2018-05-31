@@ -10,23 +10,19 @@ import CreateServiceModal from "../components/modals/CreateServiceModal";
 import EditServiceModal from "../components/modals/EditServiceModal";
 import ServicesPage from "../pages/ServicesPage";
 import ServiceTaskDetailPage from "../pages/task-details/ServiceTaskDetailPage";
-import ServiceVolumeContainer
-  from "../containers/volume-detail/ServiceVolumeContainer";
+import ServiceVolumeContainer from "../containers/volume-detail/ServiceVolumeContainer";
 import TaskDetailsTab from "../pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "../pages/task-details/TaskFileBrowser";
 import TaskFilesTab from "../pages/task-details/TaskFilesTab";
 import TaskFileViewer from "../pages/task-details/TaskFileViewer";
 import TaskLogsContainer from "../pages/task-details/TaskLogsContainer";
-import TaskVolumeContainer
-  from "../containers/volume-detail/TaskVolumeContainer";
+import TaskVolumeContainer from "../containers/volume-detail/TaskVolumeContainer";
 import VolumeTable from "../components/VolumeTable";
 import PodVolumeTable from "../components/PodVolumeTable";
-import HighOrderServiceConfiguration
-  from "../components/HighOrderServiceConfiguration";
+import HighOrderServiceConfiguration from "../components/HighOrderServiceConfiguration";
 import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
 import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
-import ServiceConnectionContainer
-  from "../components/ServiceConnectionContainer";
+import ServiceConnectionContainer from "../components/ServiceConnectionContainer";
 import PodVolumeContainer from "../containers/volume-detail/PodVolumeContainer";
 
 const serviceRoutes = [
@@ -175,7 +171,8 @@ const serviceRoutes = [
                 children: [
                   {
                     component: TaskFileBrowser,
-                    fileViewerRoutePath: "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
+                    fileViewerRoutePath:
+                      "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                     hideHeaderNavigation: true,
                     type: IndexRoute
                   },

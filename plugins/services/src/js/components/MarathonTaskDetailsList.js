@@ -2,12 +2,10 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import TaskStates from "../constants/TaskStates";
 
@@ -54,52 +52,36 @@ class MarathonTaskDetailsList extends React.Component {
           Marathon Task Configuration
         </ConfigurationMapHeading>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Host
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {task.host}
-          </ConfigurationMapValue>
+          <ConfigurationMapLabel>Host</ConfigurationMapLabel>
+          <ConfigurationMapValue>{task.host}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Ports
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Ports</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {this.getTaskPorts(task)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Status
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Status</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {this.getTaskStatus(task)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Staged at
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Staged at</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {this.getTimeField(task.stagedAt)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Started at
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Started at</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {this.getTimeField(task.startedAt)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Version
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {task.version}
-          </ConfigurationMapValue>
+          <ConfigurationMapLabel>Version</ConfigurationMapLabel>
+          <ConfigurationMapValue>{task.version}</ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
     );
@@ -128,44 +110,30 @@ class MarathonTaskDetailsList extends React.Component {
             Health Check Result {i + 1}
           </ConfigurationMapHeading>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              First success
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>First success</ConfigurationMapLabel>
             <ConfigurationMapValue>
               {this.getTimeField(result.firstSuccess)}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Last success
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>Last success</ConfigurationMapLabel>
             <ConfigurationMapValue>
               {this.getTimeField(result.lastSuccess)}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Last failure
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>Last failure</ConfigurationMapLabel>
             <ConfigurationMapValue>
               {this.getTimeField(result.lastFailure)}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Consecutive failures
-            </ConfigurationMapLabel>
-            <ConfigurationMapValue>
-              {consecutiveFailures}
-            </ConfigurationMapValue>
+            <ConfigurationMapLabel>Consecutive failures</ConfigurationMapLabel>
+            <ConfigurationMapValue>{consecutiveFailures}</ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>
-              Alive
-            </ConfigurationMapLabel>
-            <ConfigurationMapValue>
-              {alive}
-            </ConfigurationMapValue>
+            <ConfigurationMapLabel>Alive</ConfigurationMapLabel>
+            <ConfigurationMapValue>{alive}</ConfigurationMapValue>
           </ConfigurationMapRow>
         </ConfigurationMapSection>
       );

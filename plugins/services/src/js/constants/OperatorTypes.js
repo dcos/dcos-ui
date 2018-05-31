@@ -29,7 +29,8 @@ const OperatorTypes = {
     stringNumberValue: false,
     tooltipContent: null,
     name: "Is",
-    description: "Run app tasks on nodes having attribute ID with a specific value"
+    description:
+      "Run app tasks on nodes having attribute ID with a specific value"
   },
   LIKE: {
     requiresValue: true,

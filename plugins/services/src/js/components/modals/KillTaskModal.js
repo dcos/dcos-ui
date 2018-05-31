@@ -85,13 +85,16 @@ class KillTaskModal extends React.Component {
   getModalContents() {
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action] || "";
-    const taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize("task", selectedItemsLength)}`;
+    const taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize(
+      "task",
+      selectedItemsLength
+    )}`;
 
     return (
       <div>
         <p>
-          You are about to {action.toLowerCase()} {taskCountContent}.
-          Are you sure you want to continue?
+          You are about to {action.toLowerCase()} {taskCountContent}. Are you
+          sure you want to continue?
         </p>
         {this.getErrorMessage()}
       </div>
@@ -108,7 +111,10 @@ class KillTaskModal extends React.Component {
       selectedItems
     } = this.props;
 
-    let buttonText = `${ACTION_DISPLAY_NAMES[action]} ${StringUtil.pluralize("Task", selectedItems.length)}`;
+    let buttonText = `${ACTION_DISPLAY_NAMES[action]} ${StringUtil.pluralize(
+      "Task",
+      selectedItems.length
+    )}`;
 
     if (this.shouldForceUpdate()) {
       buttonText = "Force " + buttonText;
@@ -119,8 +125,7 @@ class KillTaskModal extends React.Component {
 
     const header = (
       <ModalHeading className="text-danger">
-        {ACTION_DISPLAY_NAMES[action]}
-        {" "}
+        {ACTION_DISPLAY_NAMES[action]}{" "}
         {StringUtil.pluralize("Task", selectedItems.length)}
       </ModalHeading>
     );

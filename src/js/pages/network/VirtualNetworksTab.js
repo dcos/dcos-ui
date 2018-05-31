@@ -86,7 +86,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       <AlertPanel>
         <AlertPanelHeader>No virtual networks detected</AlertPanelHeader>
         <p className="flush">
-          There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster.
+          There a currently no other virtual networks found on your datacenter.
+          Virtual networks are configured during setup of your DC/OS cluster.
         </p>
       </AlertPanel>
     );

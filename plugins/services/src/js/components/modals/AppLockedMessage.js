@@ -18,10 +18,8 @@ const AppLockedMessage = function({ service }) {
 
   return (
     <h4 className="text-align-center text-danger flush-top">
-      {itemType}
-      {" "}
-      is currently locked by one or more deployments. Press the button
-      again to forcefully change and deploy the new configuration.
+      {itemType} is currently locked by one or more deployments. Press the
+      button again to forcefully change and deploy the new configuration.
     </h4>
   );
 };

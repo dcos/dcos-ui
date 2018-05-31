@@ -157,9 +157,7 @@ class CollapsibleErrorMessage extends React.Component {
     return (
       <div className="collapsible-toggled">
         <div>
-          <ul>
-            {this.getDetailsListItems()}
-          </ul>
+          <ul>{this.getDetailsListItems()}</ul>
         </div>
       </div>
     );

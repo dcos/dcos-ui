@@ -13,9 +13,7 @@ function AddButton({ children, className, icon, onClick }) {
   return (
     <a className={classes} onClick={onClick}>
       {icon}
-      <span>
-        {children}
-      </span>
+      <span>{children}</span>
     </a>
   );
 }

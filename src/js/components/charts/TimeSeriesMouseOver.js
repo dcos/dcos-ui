@@ -66,29 +66,25 @@ var TimeSeriesMouseOver = React.createClass({
     var hiddenDataPoints = 1;
     // find the data point at the given mouse position
     var index =
-      mouse.x *
-      (firstDataSet.values.length - hiddenDataPoints - 1) /
+      (mouse.x * (firstDataSet.values.length - hiddenDataPoints - 1)) /
       props.width;
     index = Math.round(index + hiddenDataPoints);
 
-    d3
-      .select(this.refs.xMousePosition)
+    d3.select(this.refs.xMousePosition)
       .style("opacity", 1)
       .transition()
       .duration(50)
       .attr("x1", mouse.x)
       .attr("x2", mouse.x);
 
-    d3
-      .select(this.refs.yMousePosition)
+    d3.select(this.refs.yMousePosition)
       .style("opacity", 1)
       .transition()
       .duration(50)
       .attr("y1", props.yScale(firstDataSet.values[index][props.y]))
       .attr("y2", props.yScale(firstDataSet.values[index][props.y]));
 
-    d3
-      .select(this.refs.yAxisCurrent)
+    d3.select(this.refs.yAxisCurrent)
       .transition()
       .duration(50)
       .attr("y", props.yScale(firstDataSet.values[index][props.y]))
@@ -97,7 +93,7 @@ var TimeSeriesMouseOver = React.createClass({
 
     // An extra -2 on each because we show the extra data point at the end
 
-    var _index = mouse.x * (firstDataSet.values.length - 1) / props.width;
+    var _index = (mouse.x * (firstDataSet.values.length - 1)) / props.width;
 
     var mappedValue = Maths.mapValue(Math.round(_index), {
       min: firstDataSet.values.length - hiddenDataPoints,
@@ -116,8 +112,7 @@ var TimeSeriesMouseOver = React.createClass({
     } else {
       value = "-" + value + "s";
     }
-    d3
-      .select(this.refs.xAxisCurrent)
+    d3.select(this.refs.xAxisCurrent)
       .transition()
       .duration(50)
       .attr("x", xPosition)
@@ -126,8 +121,12 @@ var TimeSeriesMouseOver = React.createClass({
   },
 
   handleMouseOut() {
-    d3.select(this.refs.yMousePosition).interrupt().style("opacity", 0);
-    d3.select(this.refs.xMousePosition).interrupt().style("opacity", 0);
+    d3.select(this.refs.yMousePosition)
+      .interrupt()
+      .style("opacity", 0);
+    d3.select(this.refs.xMousePosition)
+      .interrupt()
+      .style("opacity", 0);
     d3.select(this.refs.xAxisCurrent).text("");
     d3.select(this.refs.yAxisCurrent).text("");
   },

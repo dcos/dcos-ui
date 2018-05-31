@@ -226,8 +226,8 @@ function nestedSchemaToFieldDefinition(options) {
           fieldName: nestedFieldName,
           fieldProps: nestedPropertyValue,
           formParent: nestedDefinition.definition,
-          isRequired: requiredProps &&
-            requiredProps.indexOf(nestedFieldName) > -1,
+          isRequired:
+            requiredProps && requiredProps.indexOf(nestedFieldName) > -1,
           renderLabel
         })
       );
@@ -284,27 +284,27 @@ const SchemaUtil = {
           secondLevelObject.type === "group" &&
           secondLevelObject.properties != null
         ) {
-          fieldDefinition = Object.keys(
-            secondLevelObject.properties
-          ).map(function(key) {
-            const field = secondLevelObject.properties[key];
+          fieldDefinition = Object.keys(secondLevelObject.properties).map(
+            function(key) {
+              const field = secondLevelObject.properties[key];
 
-            return schemaToFieldDefinition({
-              fieldName: key,
-              fieldProps: field,
-              formParent: topLevelProp,
-              isRequired: requiredProps &&
-                requiredProps.indexOf(secondLevelProp) > -1,
-              renderLabel
-            });
-          });
+              return schemaToFieldDefinition({
+                fieldName: key,
+                fieldProps: field,
+                formParent: topLevelProp,
+                isRequired:
+                  requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
+                renderLabel
+              });
+            }
+          );
         } else if (secondLevelObject.properties == null) {
           fieldDefinition = schemaToFieldDefinition({
             fieldName: secondLevelProp,
             fieldProps: secondLevelObject,
             formParent: definitionForm.definition,
-            isRequired: requiredProps &&
-              requiredProps.indexOf(secondLevelProp) > -1,
+            isRequired:
+              requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
             renderLabel,
             renderRemove
           });

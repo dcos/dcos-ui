@@ -75,7 +75,8 @@ class TimeAgo extends React.Component {
         title={DateUtil.msToUTCDate(time)}
         dateTime={DateUtil.msToUTCDate(time)}
       >
-        {prefixString}{relativeTime}
+        {prefixString}
+        {relativeTime}
       </time>
     );
   }

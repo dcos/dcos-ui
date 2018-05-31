@@ -250,11 +250,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
       });
     }
 
-    const navigationTabs = (
-      <ul className="menu-tabbed">
-        {tabsArray}
-      </ul>
-    );
+    const navigationTabs = <ul className="menu-tabbed">{tabsArray}</ul>;
 
     const taskState = task.get("state");
     const serviceStatus = TaskStates[taskState].displayName;
@@ -285,9 +281,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
         <h3 className="flush-top text-align-center">
           {`Error finding ${item}`}
         </h3>
-        <p className="flush">
-          {`Did not find a ${item} with id "${itemID}"`}
-        </p>
+        <p className="flush">{`Did not find a ${item} with id "${itemID}"`}</p>
       </div>
     );
   }

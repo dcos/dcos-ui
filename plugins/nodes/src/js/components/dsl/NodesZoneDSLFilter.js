@@ -4,8 +4,7 @@ import React from "react";
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLExpressionPart from "#SRC/js/structs/DSLExpressionPart";
-import DSLFormWithExpressionUpdates
-  from "#SRC/js/components/DSLFormWithExpressionUpdates";
+import DSLFormWithExpressionUpdates from "#SRC/js/components/DSLFormWithExpressionUpdates";
 import DSLUtil from "#SRC/js/utils/DSLUtil";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -15,7 +14,11 @@ const EXPRESSION_PARTS = {};
 
 class NodesZoneDSLSection extends React.Component {
   render() {
-    const { expression, onChange, defaultData: { zones } } = this.props;
+    const {
+      expression,
+      onChange,
+      defaultData: { zones }
+    } = this.props;
 
     if (!zones || zones.length === 0) {
       return null;
@@ -40,7 +43,6 @@ class NodesZoneDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-
         <label>Zones</label>
         <div className="row">
           <div className="column-12">

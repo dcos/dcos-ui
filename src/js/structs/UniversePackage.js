@@ -1,6 +1,5 @@
 import Item from "./Item";
-import FrameworkUtil
-  from "../../../plugins/services/src/js/utils/FrameworkUtil";
+import FrameworkUtil from "../../../plugins/services/src/js/utils/FrameworkUtil";
 import Util from "../utils/Util";
 import StringUtil from "../utils/StringUtil";
 

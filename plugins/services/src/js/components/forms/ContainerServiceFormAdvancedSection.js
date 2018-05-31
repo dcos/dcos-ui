@@ -9,16 +9,11 @@ import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 
-import {
-  FormReducer as ContainerReducer
-} from "../../reducers/serviceForm/Container";
-import {
-  FormReducer as ContainersReducer
-} from "../../reducers/serviceForm/FormReducers/Containers";
+import { FormReducer as ContainerReducer } from "../../reducers/serviceForm/Container";
+import { FormReducer as ContainersReducer } from "../../reducers/serviceForm/FormReducers/Containers";
 import ArtifactsSection from "./ArtifactsSection";
 import ContainerConstants from "../../constants/ContainerConstants";
 import PodSpec from "../../structs/PodSpec";
@@ -29,14 +24,17 @@ const containerSettings = {
   privileged: {
     runtimes: [DOCKER],
     label: "Grant Runtime Privileges",
-    helpText: "By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.",
-    unavailableText: "Grant runtime privileges option isn't supported by selected runtime."
+    helpText:
+      "By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.",
+    unavailableText:
+      "Grant runtime privileges option isn't supported by selected runtime."
   },
   forcePullImage: {
     runtimes: [DOCKER, MESOS],
     label: "Force Pull Image On Launch",
     helpText: "Force Docker to pull the image before launching each instance.",
-    unavailableText: "Force pull image on launch option isn't supported by selected runtime."
+    unavailableText:
+      "Force pull image on launch option isn't supported by selected runtime."
   }
 };
 
@@ -125,9 +123,7 @@ class ContainerServiceFormAdvancedSection extends Component {
         showError={Boolean(!gpusDisabled && gpusErrors)}
       >
         <FieldLabel className="text-no-transform">
-          <FormGroupHeadingContent primary={true}>
-            GPUs
-          </FormGroupHeadingContent>
+          <FormGroupHeadingContent primary={true}>GPUs</FormGroupHeadingContent>
         </FieldLabel>
         {inputNode}
         <FieldError>{gpusErrors}</FieldError>
@@ -145,52 +141,55 @@ class ContainerServiceFormAdvancedSection extends Component {
     const containerType = findNestedPropertyInObject(data, typePath);
     const typeErrors = findNestedPropertyInObject(errors, typePath);
     const sectionCount = Object.keys(containerSettings).length;
-    const selections = Object.keys(
-      containerSettings
-    ).map((settingName, index) => {
-      const { runtimes, helpText, label, unavailableText } = containerSettings[
-        settingName
-      ];
-      const settingsPath = this.getFieldPath(path, settingName);
-      const checked = findNestedPropertyInObject(data, settingsPath);
-      const isDisabled = !runtimes.includes(containerType);
-      const labelNodeClasses = classNames({
-        "disabled muted": isDisabled,
-        "flush-bottom": index === sectionCount - 1
-      });
+    const selections = Object.keys(containerSettings).map(
+      (settingName, index) => {
+        const {
+          runtimes,
+          helpText,
+          label,
+          unavailableText
+        } = containerSettings[settingName];
+        const settingsPath = this.getFieldPath(path, settingName);
+        const checked = findNestedPropertyInObject(data, settingsPath);
+        const isDisabled = !runtimes.includes(containerType);
+        const labelNodeClasses = classNames({
+          "disabled muted": isDisabled,
+          "flush-bottom": index === sectionCount - 1
+        });
 
-      let labelNode = (
-        <FieldLabel key={`label.${index}`} className={labelNodeClasses}>
-          <FieldInput
-            checked={!isDisabled && Boolean(checked)}
-            name={settingsPath}
-            type="checkbox"
-            disabled={isDisabled}
-            value={settingName}
-          />
-          {label}
-          <FieldHelp>{helpText}</FieldHelp>
-        </FieldLabel>
-      );
-
-      if (isDisabled) {
-        labelNode = (
-          <Tooltip
-            content={unavailableText}
-            elementTag="label"
-            key={`tooltip.${index}`}
-            position="top"
-            width={300}
-            wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
-            wrapText={true}
-          >
-            {labelNode}
-          </Tooltip>
+        let labelNode = (
+          <FieldLabel key={`label.${index}`} className={labelNodeClasses}>
+            <FieldInput
+              checked={!isDisabled && Boolean(checked)}
+              name={settingsPath}
+              type="checkbox"
+              disabled={isDisabled}
+              value={settingName}
+            />
+            {label}
+            <FieldHelp>{helpText}</FieldHelp>
+          </FieldLabel>
         );
-      }
 
-      return labelNode;
-    });
+        if (isDisabled) {
+          labelNode = (
+            <Tooltip
+              content={unavailableText}
+              elementTag="label"
+              key={`tooltip.${index}`}
+              position="top"
+              width={300}
+              wrapperClassName="tooltip-wrapper tooltip-block-wrapper"
+              wrapText={true}
+            >
+              {labelNode}
+            </Tooltip>
+          );
+        }
+
+        return labelNode;
+      }
+    );
 
     return (
       <FormGroup showError={Boolean(typeErrors)}>
@@ -204,18 +203,14 @@ class ContainerServiceFormAdvancedSection extends Component {
     const { data, errors, path } = this.props;
     const artifactsPath = this.getFieldPath(path, "artifacts");
     const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
-    const artifactErrors = findNestedPropertyInObject(
-      errors,
-      artifactsPath
-    ) || [];
+    const artifactErrors =
+      findNestedPropertyInObject(errors, artifactsPath) || [];
     const diskPath = this.getFieldPath(path, "disk");
     const diskErrors = findNestedPropertyInObject(errors, diskPath);
 
     return (
       <div>
-        <h2 className="short-bottom">
-          Advanced Settings
-        </h2>
+        <h2 className="short-bottom">Advanced Settings</h2>
         <p>Advanced settings related to the runtime you have selected above.</p>
         {this.getContainerSettings()}
         <FormRow>

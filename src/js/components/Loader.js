@@ -69,9 +69,7 @@ class Loader extends React.Component {
 
     return (
       <div className={classes}>
-        <div className={innerClasses}>
-          {this.getDivs(config.divCount)}
-        </div>
+        <div className={innerClasses}>{this.getDivs(config.divCount)}</div>
       </div>
     );
   }

@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Icon from "./Icon";
-import ServiceFilterTypes
-  from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
+import ServiceFilterTypes from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
 const METHODS_TO_BIND = [
   "handleBlur",

@@ -20,8 +20,7 @@ import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
-import ServiceActionDisabledModal
-  from "../../components/modals/ServiceActionDisabledModal";
+import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 import {
   DELETE,
   EDIT,
@@ -232,7 +231,9 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   getTabs() {
-    const { service: { id } } = this.props;
+    const {
+      service: { id }
+    } = this.props;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [

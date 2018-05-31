@@ -5,8 +5,7 @@ import { Route, IndexRoute } from "react-router";
 
 import ComponentsPage from "../pages/ComponentsPage";
 import UnitsHealthDetail from "../pages/system/UnitsHealthDetail";
-import ComponentsUnitsHealthNodeDetailPage
-  from "../pages/system/ComponentsUnitsHealthNodeDetailPage";
+import ComponentsUnitsHealthNodeDetailPage from "../pages/system/ComponentsUnitsHealthNodeDetailPage";
 import UnitsHealthTab from "../pages/system/UnitsHealthTab";
 
 const componentsRoutes = {

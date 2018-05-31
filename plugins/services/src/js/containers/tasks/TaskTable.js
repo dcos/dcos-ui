@@ -259,7 +259,9 @@ class TaskTable extends React.Component {
       const title = task[prop];
       const { id, nodeID } = this.props.params;
 
-      let linkTo = `/services/detail/${encodeURIComponent(id)}/tasks/${task.id}`;
+      let linkTo = `/services/detail/${encodeURIComponent(id)}/tasks/${
+        task.id
+      }`;
       if (nodeID != null) {
         linkTo = `/nodes/${nodeID}/tasks/${task.id}`;
       }
@@ -280,7 +282,9 @@ class TaskTable extends React.Component {
     const title = task.name || task.id;
     const { id, nodeID } = this.props.params;
 
-    let linkTo = `/services/detail/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
+    let linkTo = `/services/detail/${encodeURIComponent(id)}/tasks/${
+      task.id
+    }/logs`;
     if (nodeID != null) {
       linkTo = `/nodes/${nodeID}/tasks/${task.id}/logs`;
     }
@@ -339,9 +343,7 @@ class TaskTable extends React.Component {
 
   renderStats(prop, task) {
     return (
-      <span>
-        {Units.formatResource(prop, this.getStatValue(task, prop))}
-      </span>
+      <span>{Units.formatResource(prop, this.getStatValue(task, prop))}</span>
     );
   }
 
@@ -351,9 +353,7 @@ class TaskTable extends React.Component {
 
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className={statusLabelClasses}>
-          {this.getStatusValue(task)}
-        </span>
+        <span className={statusLabelClasses}>{this.getStatusValue(task)}</span>
       </div>
     );
   }
@@ -415,11 +415,7 @@ class TaskTable extends React.Component {
 
     const localeVersion = new Date(version).toLocaleString();
 
-    return (
-      <span>
-        {localeVersion}
-      </span>
-    );
+    return <span>{localeVersion}</span>;
   }
 
   render() {
@@ -457,7 +453,8 @@ TaskTable.propTypes = {
 };
 
 TaskTable.defaultProps = {
-  className: "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
+  className:
+    "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
   tasks: []
 };
 

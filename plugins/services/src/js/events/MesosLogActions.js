@@ -8,7 +8,9 @@ import ActionTypes from "../constants/ActionTypes";
 const MesosLogActions = {
   requestOffset(slaveID, path) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=-1`,
+      url: `${
+        Config.rootUrl
+      }/agent/${slaveID}/files/read?path=${path}&offset=-1`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS,
@@ -31,7 +33,9 @@ const MesosLogActions = {
 
   fetchLog(slaveID, path, offset, length) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=${offset}&length=${length}`,
+      url: `${
+        Config.rootUrl
+      }/agent/${slaveID}/files/read?path=${path}&offset=${offset}&length=${length}`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_MESOS_LOG_SUCCESS,
@@ -54,7 +58,9 @@ const MesosLogActions = {
 
   fetchPreviousLog(slaveID, path, offset, length) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=${offset}&length=${length}`,
+      url: `${
+        Config.rootUrl
+      }/agent/${slaveID}/files/read?path=${path}&offset=${offset}&length=${length}`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS,

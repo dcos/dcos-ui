@@ -5,8 +5,7 @@ import Objektiv from "objektiv";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
-import AdvancedSectionContent
-  from "#SRC/js/components/form/AdvancedSectionContent";
+import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
@@ -17,8 +16,7 @@ import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Icon from "#SRC/js/components/Icon";
@@ -29,9 +27,7 @@ import {
   MESOS_HTTPS,
   COMMAND
 } from "../../constants/HealthCheckProtocols";
-import {
-  FormReducer as healthChecks
-} from "../../reducers/serviceForm/FormReducers/HealthChecks";
+import { FormReducer as healthChecks } from "../../reducers/serviceForm/FormReducers/HealthChecks";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 const errorsLens = Objektiv.attr("healthChecks", []);
@@ -58,14 +54,15 @@ class HealthChecksFormSection extends Component {
 
     const intervalHelpText = (
       <span>
-        (Optional. Default: 60): Number of seconds to wait between health checks.
+        (Optional. Default: 60): Number of seconds to wait between health
+        checks.
       </span>
     );
 
     const timeoutHelpText = (
       <span>
-        (Optional. Default: 20): Number of seconds after which a health check
-        is considered a failure regardless of the response.
+        (Optional. Default: 20): Number of seconds after which a health check is
+        considered a failure regardless of the response.
       </span>
     );
 
@@ -266,7 +263,11 @@ class HealthChecksFormSection extends Component {
     const { data } = this.props;
 
     return data.portDefinitions.map((port, index) => {
-      return <option key={index} value={index}>{port.name || index}</option>;
+      return (
+        <option key={index} value={index}>
+          {port.name || index}
+        </option>
+      );
     });
   }
 
@@ -312,8 +313,8 @@ class HealthChecksFormSection extends Component {
     );
     const pathHelpText = (
       <span>
-        Enter a path that is reachable in your service and where you expect
-        a response code between 200 and 399.
+        Enter a path that is reachable in your service and where you expect a
+        response code between 200 and 399.
       </span>
     );
 
@@ -410,12 +411,8 @@ class HealthChecksFormSection extends Component {
               path: "healthChecks"
             })}
           >
-            <FieldLabel>
-              Unable to edit this HealthCheck
-            </FieldLabel>
-            <pre>
-              {JSON.stringify(healthCheck, null, 2)}
-            </pre>
+            <FieldLabel>Unable to edit this HealthCheck</FieldLabel>
+            <pre>{JSON.stringify(healthCheck, null, 2)}</pre>
           </FormGroupContainer>
         );
       }
@@ -473,7 +470,7 @@ class HealthChecksFormSection extends Component {
                 name={`healthChecks.${key}.protocol`}
                 value={
                   healthCheck.protocol &&
-                    healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)
+                  healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)
                 }
               >
                 <option value="">Select Protocol</option>
@@ -530,8 +527,8 @@ class HealthChecksFormSection extends Component {
           </FormGroupHeading>
         </h1>
         <p>
-          Health checks may be specified per application to be run against
-          the application{"'"}s instances.
+          Health checks may be specified per application to be run against the
+          application{"'"}s instances.
         </p>
         {this.getHealthChecksLines(data.healthChecks)}
         <FormRow>

@@ -4,12 +4,9 @@ import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
-import ServiceConnectionEndpointList
-  from "../containers/service-connection/ServiceConnectionEndpointList";
-import ServicePodConnectionEndpointList
-  from "../containers/service-connection/ServicePodConnectionEndpointList";
-import SDKServiceConnectionEndpointList
-  from "../containers/service-connection/SDKServiceConnectionEndpointList";
+import ServiceConnectionEndpointList from "../containers/service-connection/ServiceConnectionEndpointList";
+import ServicePodConnectionEndpointList from "../containers/service-connection/ServicePodConnectionEndpointList";
+import SDKServiceConnectionEndpointList from "../containers/service-connection/SDKServiceConnectionEndpointList";
 
 const ServiceConnectionContainer = function(props) {
   const { service } = props;

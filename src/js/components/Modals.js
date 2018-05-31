@@ -97,11 +97,8 @@ var Modals = React.createClass({
       showErrorModal: true,
       modalErrorMsg: (
         <p className="text-align-center flush-bottom">
-          We are unable to retrieve the version
-          {" "}
-          {Config.productName}
-          {" "}
-          versions. Please try again.
+          We are unable to retrieve the version {Config.productName} versions.
+          Please try again.
         </p>
       )
     });

@@ -72,9 +72,7 @@ class PageHeader extends React.Component {
             onClick={action.onItemSelect}
           >
             {editIcon}
-            <span>
-              {action.label}
-            </span>
+            <span>{action.label}</span>
           </a>
         );
       });
@@ -84,9 +82,7 @@ class PageHeader extends React.Component {
         <div className={pageHeaderInnerClasses}>
           <div className={pageHeaderSectionPrimaryClasses}>
             <SidebarToggle />
-            <div className={pageHeaderContentClasses}>
-              {breadcrumbs}
-            </div>
+            <div className={pageHeaderContentClasses}>{breadcrumbs}</div>
             <div className={pageHeaderActionsPrimaryClasses}>
               {editButton}
               <PageHeaderActions

@@ -47,9 +47,7 @@ const ServiceConfigDisplayUtil = {
     // Display nested objects nicely if the render didn't already cover it.
     if (isObject(value) && !React.isValidElement(value)) {
       return (
-        <pre className="flush transparent wrap">
-          {JSON.stringify(value)}
-        </pre>
+        <pre className="flush transparent wrap">{JSON.stringify(value)}</pre>
       );
     }
 

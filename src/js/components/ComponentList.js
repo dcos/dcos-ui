@@ -40,14 +40,14 @@ class ComponentList extends React.Component {
   }
 
   /**
- * Order health status
- * based on HealthSorting mapping value
- * where lowest (0) (top of the list) is most important for visibility
- * and highest (3) (bottom of the list) 3 is least important for visibility
- *
- * @param {Array} items
- * @returns {Number} item position
- */
+   * Order health status
+   * based on HealthSorting mapping value
+   * where lowest (0) (top of the list) is most important for visibility
+   * and highest (3) (bottom of the list) 3 is least important for visibility
+   *
+   * @param {Array} items
+   * @returns {Number} item position
+   */
   getSortedHealthValues(items) {
     items.sort(function(a, b) {
       let aHealthScore = a.getHealth().sortingValue;

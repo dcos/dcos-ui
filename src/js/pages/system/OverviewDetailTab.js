@@ -74,47 +74,44 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     ];
 
-    request(
-      { type: "GET_FLAGS" },
-      "/mesos/api/v1?GET_FLAGS"
-    ).subscribe(message => {
-      const cluster = JSON.parse(message).get_flags.flags.find(
-        flag => flag.name === "cluster"
-      );
+    request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
+      message => {
+        const cluster = JSON.parse(message).get_flags.flags.find(
+          flag => flag.name === "cluster"
+        );
 
-      if (cluster) {
-        this.setState({ cluster: cluster.value });
-      }
-    });
-
-    request(
-      { type: "GET_VERSION" },
-      "/mesos/api/v1?GET_VERSION"
-    ).subscribe(message => {
-      const info = JSON.parse(message).get_version.version_info;
-
-      if (info) {
-        this.setState({
-          version: info.version,
-          buildTime: info.build_time
-        });
-      }
-    });
-
-    request(
-      { type: "GET_MASTER" },
-      "/mesos/api/v1?GET_MASTER"
-    ).subscribe(message => {
-      const {
-        get_master: {
-          master_info: masterInfo,
-          elected_time: electedTime,
-          start_time: startTime
+        if (cluster) {
+          this.setState({ cluster: cluster.value });
         }
-      } = JSON.parse(message);
+      }
+    );
 
-      this.setState({ masterInfo, electedTime, startTime });
-    });
+    request({ type: "GET_VERSION" }, "/mesos/api/v1?GET_VERSION").subscribe(
+      message => {
+        const info = JSON.parse(message).get_version.version_info;
+
+        if (info) {
+          this.setState({
+            version: info.version,
+            buildTime: info.build_time
+          });
+        }
+      }
+    );
+
+    request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").subscribe(
+      message => {
+        const {
+          get_master: {
+            master_info: masterInfo,
+            elected_time: electedTime,
+            start_time: startTime
+          }
+        } = JSON.parse(message);
+
+        this.setState({ masterInfo, electedTime, startTime });
+      }
+    );
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -166,25 +163,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
           <ConfigurationMapLabel>
             {Config.productName} Version
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {productVersion}
-          </ConfigurationMapValue>
+          <ConfigurationMapValue>{productVersion}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="ccid">
           <ConfigurationMapLabel>
             Cryptographic Cluster ID
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {ccid}
-          </ConfigurationMapValue>
+          <ConfigurationMapValue>{ccid}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="publicIP">
-          <ConfigurationMapLabel>
-            Public IP
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {publicIP}
-          </ConfigurationMapValue>
+          <ConfigurationMapLabel>Public IP</ConfigurationMapLabel>
+          <ConfigurationMapValue>{publicIP}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <MountService.Mount
           type="OverviewDetailTab:AdditionalGeneralDetails:Nodes"
@@ -300,9 +289,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
           <ConfigurationMapLabel>
             <FormattedMessage id="COMMON.CLUSTER" />
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {mesosCluster}
-          </ConfigurationMapValue>
+          <ConfigurationMapValue>{mesosCluster}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="leader">
           <ConfigurationMapLabel>
@@ -316,35 +303,27 @@ class OverviewDetailTab extends mixin(StoreMixin) {
           <ConfigurationMapLabel>
             <FormattedMessage id="COMMON.VERSION" />
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {mesosVersion}
-          </ConfigurationMapValue>
+          <ConfigurationMapValue>{mesosVersion}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="built">
           <ConfigurationMapLabel>
             <FormattedMessage id="COMMON.BUILT" />
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {mesosBuilt}
-            {" "}
-            {this.getMesosBuildUser(mesosBuildUser)}
+            {mesosBuilt} {this.getMesosBuildUser(mesosBuildUser)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="started">
           <ConfigurationMapLabel>
             <FormattedMessage id="COMMON.STARTED" />
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {mesosStarted}
-          </ConfigurationMapValue>
+          <ConfigurationMapValue>{mesosStarted}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="elected">
           <ConfigurationMapLabel>
             <FormattedMessage id="COMMON.ELECTED" />
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {mesosElected}
-          </ConfigurationMapValue>
+          <ConfigurationMapValue>{mesosElected}</ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
     );

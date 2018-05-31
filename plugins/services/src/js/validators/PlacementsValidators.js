@@ -25,7 +25,9 @@ function checkDuplicateOperatorField(constraints) {
     const operatorFieldPair = constraint.operator
       ? { fieldName: constraint.fieldName, operator: constraint.operator }
       : { fieldName: constraint[0], operator: constraint[1] };
-    const key = `{${operatorFieldPair.operator}}{${operatorFieldPair.fieldName}}`;
+    const key = `{${operatorFieldPair.operator}}{${
+      operatorFieldPair.fieldName
+    }}`;
 
     if (visitedOperatorFieldPairs.includes(key)) {
       errors.push(

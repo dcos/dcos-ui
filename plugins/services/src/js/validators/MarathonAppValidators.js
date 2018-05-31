@@ -125,7 +125,8 @@ const MarathonAppValidators = {
       return [
         {
           path: ["container", "docker", "image"],
-          message: 'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
+          message:
+            'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
           type: "PROP_IS_MISSING",
           variables: {}
         }

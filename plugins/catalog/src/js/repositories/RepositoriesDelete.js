@@ -79,7 +79,8 @@ const RepositoriesDelete = componentFromStream(props$ => {
         <RepositoriesDeleteConfirm
           onCancel={props.onClose}
           onDelete={() =>
-            deleteEvent$.next({ complete: props.onClose, ...props.repository })}
+            deleteEvent$.next({ complete: props.onClose, ...props.repository })
+          }
           pendingRequest={props.pendingRequest}
           repository={props.repository}
           deleteError={props.error}

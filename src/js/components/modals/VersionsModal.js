@@ -25,11 +25,7 @@ var VersionsModal = React.createClass({
   },
 
   render() {
-    const header = (
-      <ModalHeading>
-        {Config.productName} Info
-      </ModalHeading>
-    );
+    const header = <ModalHeading>{Config.productName} Info</ModalHeading>;
 
     return (
       <Modal
@@ -39,9 +35,7 @@ var VersionsModal = React.createClass({
         header={header}
         size="large"
       >
-        <ClickToSelect>
-          {this.getContent()}
-        </ClickToSelect>
+        <ClickToSelect>{this.getContent()}</ClickToSelect>
       </Modal>
     );
   }

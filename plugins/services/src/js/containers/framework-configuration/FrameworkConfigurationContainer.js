@@ -5,8 +5,7 @@ import UniversePackage from "#SRC/js/structs/UniversePackage";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import { routerShape } from "react-router";
-import FrameworkConfigurationReviewScreen
-  from "#SRC/js/components/FrameworkConfigurationReviewScreen";
+import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 import Loader from "#SRC/js/components/Loader";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StringUtil from "#SRC/js/utils/StringUtil";

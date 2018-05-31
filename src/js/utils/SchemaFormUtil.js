@@ -254,7 +254,8 @@ tv4.addLanguage("en-us", {
   ENUM_MISMATCH: "No enum match for: {value}",
   ANY_OF_MISSING: "Data does not match any schemas from 'anyOf'",
   ONE_OF_MISSING: "Data does not match any schemas from 'oneOf'",
-  ONE_OF_MULTIPLE: "Data is valid against more than one schema from 'oneOf': indices {index1} and {index2}",
+  ONE_OF_MULTIPLE:
+    "Data is valid against more than one schema from 'oneOf': indices {index1} and {index2}",
   NOT_PASSED: "Data matches schema from 'not'",
 
   // Numeric errors
@@ -271,11 +272,14 @@ tv4.addLanguage("en-us", {
   STRING_PATTERN: "Not in the expected format. Consult the documentation.",
 
   // Object errors
-  OBJECT_PROPERTIES_MINIMUM: "Too few properties defined ({propertyCount}), minimum {minimum}",
-  OBJECT_PROPERTIES_MAXIMUM: "Too many properties defined ({propertyCount}), maximum {maximum}",
+  OBJECT_PROPERTIES_MINIMUM:
+    "Too few properties defined ({propertyCount}), minimum {minimum}",
+  OBJECT_PROPERTIES_MAXIMUM:
+    "Too many properties defined ({propertyCount}), maximum {maximum}",
   OBJECT_REQUIRED: "Missing required property: {key}",
   OBJECT_ADDITIONAL_PROPERTIES: "Additional properties not allowed",
-  OBJECT_DEPENDENCY_KEY: "Dependency failed - key must exist: {missing} (due to key: {key})",
+  OBJECT_DEPENDENCY_KEY:
+    "Dependency failed - key must exist: {missing} (due to key: {key})",
 
   // Array errors
   ARRAY_LENGTH_SHORT: "Array is too short ({length}), minimum {minimum}",

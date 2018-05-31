@@ -6,12 +6,10 @@ import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
@@ -67,41 +65,29 @@ class NodeDetailTab extends PureComponent {
         <ConfigurationMap>
           <ConfigurationMapSection>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                ID
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {node.id}
-              </ConfigurationMapValue>
+              <ConfigurationMapLabel>ID</ConfigurationMapLabel>
+              <ConfigurationMapValue>{node.id}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Active
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Active</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {StringUtil.capitalize(node.active.toString().toLowerCase())}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Registered
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Registered</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {DateUtil.msToDateStr(node.registered_time.toFixed(3) * 1000)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Master Version
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Master Version</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {this.state.version || <Loader size="small" type="ballBeat" />}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Region
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Region</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {node.getRegionName()}
                 {this.state.masterRegion === node.getRegionName()
@@ -110,9 +96,7 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Zone
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Zone</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {node.getZoneName()}
               </ConfigurationMapValue>
@@ -120,29 +104,21 @@ class NodeDetailTab extends PureComponent {
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>
-              Resources
-            </ConfigurationMapHeading>
+            <ConfigurationMapHeading>Resources</ConfigurationMapHeading>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Disk
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {Units.formatResource("disk", resources.disk)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Mem
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Mem</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {Units.formatResource("mem", resources.mem)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                CPUs
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {Units.formatResource("cpus", resources.cpus)}
               </ConfigurationMapValue>

@@ -5,12 +5,10 @@ import { routerShape } from "react-router";
 import Alert from "#SRC/js/components/Alert";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 
@@ -50,9 +48,7 @@ class PodDebugTabView extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={2}>
-          Details
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading level={2}>Details</ConfigurationMapHeading>
         <DeclinedOffersTable
           offers={queue.declinedOffers.offers}
           service={pod}
@@ -67,9 +63,7 @@ class PodDebugTabView extends React.Component {
     if (!history.length) {
       return (
         <ConfigurationMapSection>
-          <ConfigurationMapHeading>
-            Last Terminations
-          </ConfigurationMapHeading>
+          <ConfigurationMapHeading>Last Terminations</ConfigurationMapHeading>
           <p>(No data)</p>
         </ConfigurationMapSection>
       );
@@ -89,11 +83,7 @@ class PodDebugTabView extends React.Component {
       } else {
         headline = (
           <ConfigurationMapHeading level={2}>
-            Terminated at
-            {" "}
-            {terminatedAt.toString()}
-            {" "}
-            (
+            Terminated at {terminatedAt.toString()} (
             <TimeAgo time={terminatedAt} />
             )
           </ConfigurationMapHeading>
@@ -105,25 +95,15 @@ class PodDebugTabView extends React.Component {
           {headline}
           <ConfigurationMapSection>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Instance ID
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {item.getId()}
-              </ConfigurationMapValue>
+              <ConfigurationMapLabel>Instance ID</ConfigurationMapLabel>
+              <ConfigurationMapValue>{item.getId()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Message
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {item.getMessage()}
-              </ConfigurationMapValue>
+              <ConfigurationMapLabel>Message</ConfigurationMapLabel>
+              <ConfigurationMapValue>{item.getMessage()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Started At
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Started At</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {startedAt.toString()} (<TimeAgo time={startedAt} />)
               </ConfigurationMapValue>
@@ -153,13 +133,9 @@ class PodDebugTabView extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>
-          Last Changes
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading>Last Changes</ConfigurationMapHeading>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Configuration
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Configuration</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {lastUpdated.toString()} (<TimeAgo time={lastUpdated} />)
           </ConfigurationMapValue>
@@ -177,16 +153,18 @@ class PodDebugTabView extends React.Component {
     let offerCount = null;
 
     if (queue != null && queue.declinedOffers.summary != null) {
-      const { declinedOffers: { summary } } = queue;
-      const { roles: { offers = 0 } } = summary;
+      const {
+        declinedOffers: { summary }
+      } = queue;
+      const {
+        roles: { offers = 0 }
+      } = summary;
 
       introText = DeclinedOffersHelpText.summaryIntro;
 
       mainContent = (
         <div>
-          <ConfigurationMapHeading level={2}>
-            Summary
-          </ConfigurationMapHeading>
+          <ConfigurationMapHeading level={2}>Summary</ConfigurationMapHeading>
           <RecentOffersSummary data={summary} />
         </div>
       );
@@ -230,7 +208,8 @@ class PodDebugTabView extends React.Component {
         {
           "DC/OS has been waiting for resources and is unable to complete this deployment for "
         }
-        {DateUtil.getDuration(timeWaiting, null)}{". "}
+        {DateUtil.getDuration(timeWaiting, null)}
+        {". "}
         <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>
           See recent resource offers
         </a>.

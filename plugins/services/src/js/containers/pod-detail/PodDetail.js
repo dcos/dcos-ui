@@ -14,8 +14,7 @@ import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import Pod from "../../structs/Pod";
 import PodHeader from "./PodHeader";
 import Service from "../../structs/Service";
-import ServiceActionDisabledModal
-  from "../../components/modals/ServiceActionDisabledModal";
+import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
@@ -208,7 +207,9 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   getTabs() {
-    const { pod: { id } } = this.props;
+    const {
+      pod: { id }
+    } = this.props;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [

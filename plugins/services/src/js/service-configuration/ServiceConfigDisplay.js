@@ -6,27 +6,22 @@ import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import { translateErrorMessages } from "#SRC/js/utils/ErrorMessageUtil";
 import PodContainersConfigSection from "./PodContainersConfigSection";
-import PodEnvironmentVariablesConfigSection
-  from "./PodEnvironmentVariablesConfigSection";
+import PodEnvironmentVariablesConfigSection from "./PodEnvironmentVariablesConfigSection";
 import PodGeneralConfigSection from "./PodGeneralConfigSection";
 import PodHealthChecksConfigSection from "./PodHealthChecksConfigSection";
 import PodLabelsConfigSection from "./PodLabelsConfigSection";
 import PodNetworkConfigSection from "./PodNetworkConfigSection";
-import PodPlacementConstraintsConfigSection
-  from "./PodPlacementConstraintsConfigSection";
+import PodPlacementConstraintsConfigSection from "./PodPlacementConstraintsConfigSection";
 import PodSpec from "../structs/PodSpec";
 import PodStorageConfigSection from "./PodStorageConfigSection";
-import ServiceEnvironmentVariablesConfigSection
-  from "./ServiceEnvironmentVariablesConfigSection";
+import ServiceEnvironmentVariablesConfigSection from "./ServiceEnvironmentVariablesConfigSection";
 import ServiceErrorMessages from "../constants/ServiceErrorMessages";
 import ServiceErrorPathMapping from "../constants/ServiceErrorPathMapping";
 import ServiceGeneralConfigSection from "./ServiceGeneralConfigSection";
-import ServiceHealthChecksConfigSection
-  from "./ServiceHealthChecksConfigSection";
+import ServiceHealthChecksConfigSection from "./ServiceHealthChecksConfigSection";
 import ServiceLabelsConfigSection from "./ServiceLabelsConfigSection";
 import ServiceNetworkingConfigSection from "./ServiceNetworkingConfigSection";
-import ServicePlacementConstraintsConfigSection
-  from "./ServicePlacementConstraintsConfigSection";
+import ServicePlacementConstraintsConfigSection from "./ServicePlacementConstraintsConfigSection";
 import ServiceStorageConfigSection from "./ServiceStorageConfigSection";
 
 const PRIORITIES_PAD_NUMBER = 100;

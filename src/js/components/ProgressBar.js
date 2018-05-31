@@ -62,12 +62,12 @@ class ProgressBar extends React.Component {
       return null;
     }
     const indexesLessThanThreshold = [];
-    const unassignedPortion = unassignedValue / max * 100;
+    const unassignedPortion = (unassignedValue / max) * 100;
 
     const barSizes = data.map(function(status, index) {
       const { value } = status;
 
-      const relativeSize = value / max * 100;
+      const relativeSize = (value / max) * 100;
 
       if (relativeSize > 0 && relativeSize < MIN_SIZE) {
         indexesLessThanThreshold.push(index);

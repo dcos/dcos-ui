@@ -26,7 +26,8 @@ const Schedule = {
       title: "CRON Schedule",
       helpBlock: (
         <span>
-          Use cron format to set your schedule, e.g. <i>0 0 20 * *</i>{". "}
+          Use cron format to set your schedule, e.g. <i>0 0 20 * *</i>
+          {". "}
           <a
             href={MetadataStore.buildDocsURI("/deploying-jobs/")}
             target="_blank"
@@ -79,7 +80,8 @@ const Schedule = {
     },
     startingDeadlineSeconds: {
       title: "Starting Deadline",
-      description: "Time in seconds to start the job if it misses " +
+      description:
+        "Time in seconds to start the job if it misses " +
         "scheduled time for any reason. Missed jobs executions will be " +
         "counted as failed ones.",
       type: "number",

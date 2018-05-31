@@ -96,9 +96,7 @@ class SideTabs extends React.Component {
           {this.getSelectedTabTitle(selectedTab, tabs)}
           <span className={caretClasses} />
         </span>
-        <ul className={classes}>
-          {this.getTabs()}
-        </ul>
+        <ul className={classes}>{this.getTabs()}</ul>
       </div>
     );
   }

@@ -14,7 +14,9 @@ class PageHeaderBreadcrumbs extends React.Component {
   }
 
   render() {
-    const { props: { breadcrumbs, iconID, iconRoute } } = this;
+    const {
+      props: { breadcrumbs, iconID, iconRoute }
+    } = this;
     const breadcrumbCount = breadcrumbs.length;
     const sectionIcon = (
       <Breadcrumb key={-1} isIcon={true} title="Section Icon">
@@ -63,11 +65,7 @@ class PageHeaderBreadcrumbs extends React.Component {
       "breadcrumbs--is-truncated": shouldTruncateBreadcrumbs
     });
 
-    return (
-      <div className={breadcrumbClasses}>
-        {breadcrumbElements}
-      </div>
-    );
+    return <div className={breadcrumbClasses}>{breadcrumbElements}</div>;
   }
 }
 

@@ -385,7 +385,8 @@ describe("MarathonUtil", function() {
         statusSince: "2018-04-30T13:36:22.741Z",
         instances: [
           {
-            id: "pod-without-volumes.instance-75490c65-4c7b-11e8-9c30-2641ffb20201",
+            id:
+              "pod-without-volumes.instance-75490c65-4c7b-11e8-9c30-2641ffb20201",
             status: "STABLE",
             statusSince: "2018-04-30T13:36:22.741Z",
             conditions: [],
@@ -406,7 +407,8 @@ describe("MarathonUtil", function() {
                 status: "TASK_RUNNING",
                 statusSince: "2018-04-30T13:36:22.741Z",
                 conditions: [],
-                containerId: "pod-without-volumes.instance-75490c65-4c7b-11e8-9c30-2641ffb20201.container-1",
+                containerId:
+                  "pod-without-volumes.instance-75490c65-4c7b-11e8-9c30-2641ffb20201.container-1",
                 endpoints: [],
                 resources: {
                   cpus: 0.1,
@@ -418,7 +420,8 @@ describe("MarathonUtil", function() {
                 lastChanged: "2018-04-30T13:36:22.741Z"
               }
             ],
-            specReference: "/v2/pods/pod-without-volumes::versions/2018-04-30T13:36:15.993Z",
+            specReference:
+              "/v2/pods/pod-without-volumes::versions/2018-04-30T13:36:15.993Z",
             localVolumes: [],
             lastUpdated: "2018-04-30T13:36:22.741Z",
             lastChanged: "2018-04-30T13:36:22.741Z"
@@ -479,7 +482,8 @@ describe("MarathonUtil", function() {
             statusSince: "2018-04-30T13:52:01.687Z",
             instances: [
               {
-                id: "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
+                id:
+                  "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
                 status: "STAGING",
                 statusSince: "2018-04-30T13:52:01.687Z",
                 conditions: [],
@@ -491,20 +495,23 @@ describe("MarathonUtil", function() {
                     status: "TASK_STARTING",
                     statusSince: "2018-04-30T13:52:00.698Z",
                     conditions: [],
-                    containerId: "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201.container-1.8",
+                    containerId:
+                      "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201.container-1.8",
                     endpoints: [],
                     resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                     lastUpdated: "2018-04-30T13:52:00.698Z",
                     lastChanged: "2018-04-30T13:52:00.698Z"
                   }
                 ],
-                specReference: "/v2/pods/pod-with-volume::versions/2018-04-30T13:51:40.599Z",
+                specReference:
+                  "/v2/pods/pod-with-volume::versions/2018-04-30T13:51:40.599Z",
                 localVolumes: [
                   {
                     runSpecId: "/pod-with-volume",
                     containerPath: "home",
                     uuid: "9bf97558-4c7d-11e8-9c30-2641ffb20201",
-                    persistenceId: "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201"
+                    persistenceId:
+                      "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201"
                   }
                 ],
                 lastUpdated: "2018-04-30T13:52:01.687Z",
@@ -529,7 +536,8 @@ describe("MarathonUtil", function() {
                 containers: [
                   {
                     conditions: [],
-                    containerId: "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201.container-1.8",
+                    containerId:
+                      "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201.container-1.8",
                     endpoints: [],
                     lastChanged: "2018-04-30T13:52:00.698Z",
                     lastUpdated: "2018-04-30T13:52:00.698Z",
@@ -539,20 +547,23 @@ describe("MarathonUtil", function() {
                     statusSince: "2018-04-30T13:52:00.698Z"
                   }
                 ],
-                id: "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
+                id:
+                  "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
                 lastChanged: "2018-04-30T13:52:01.687Z",
                 lastUpdated: "2018-04-30T13:52:01.687Z",
                 localVolumes: [
                   {
                     containerPath: "home",
-                    persistenceId: "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201",
+                    persistenceId:
+                      "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201",
                     runSpecId: "/pod-with-volume",
                     uuid: "9bf97558-4c7d-11e8-9c30-2641ffb20201"
                   }
                 ],
                 networks: [],
                 resources: { cpus: 0.2, disk: 10, gpus: 0, mem: 160 },
-                specReference: "/v2/pods/pod-with-volume::versions/2018-04-30T13:51:40.599Z",
+                specReference:
+                  "/v2/pods/pod-with-volume::versions/2018-04-30T13:51:40.599Z",
                 status: "STAGING",
                 statusSince: "2018-04-30T13:52:01.687Z"
               }
@@ -606,7 +617,8 @@ describe("MarathonUtil", function() {
                 ],
                 size: 10,
                 status: "Detached",
-                taskID: "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
+                taskID:
+                  "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
                 type: "Persistent"
               }
             ]
@@ -669,7 +681,8 @@ describe("MarathonUtil", function() {
             statusSince: "2018-04-30T13:59:08.689Z",
             instances: [
               {
-                id: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
+                id:
+                  "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
                 status: "STAGING",
                 statusSince: "2018-04-30T13:59:08.689Z",
                 conditions: [],
@@ -687,7 +700,8 @@ describe("MarathonUtil", function() {
                     status: "TASK_STARTING",
                     statusSince: "2018-04-30T13:59:07.759Z",
                     conditions: [],
-                    containerId: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-1.1",
+                    containerId:
+                      "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-1.1",
                     endpoints: [],
                     resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                     lastUpdated: "2018-04-30T13:59:07.759Z",
@@ -698,20 +712,23 @@ describe("MarathonUtil", function() {
                     status: "TASK_STARTING",
                     statusSince: "2018-04-30T13:59:07.759Z",
                     conditions: [],
-                    containerId: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-2.1",
+                    containerId:
+                      "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-2.1",
                     endpoints: [],
                     resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                     lastUpdated: "2018-04-30T13:59:07.759Z",
                     lastChanged: "2018-04-30T13:59:07.759Z"
                   }
                 ],
-                specReference: "/v2/pods/pod-with-volume::versions/2018-04-30T13:59:05.786Z",
+                specReference:
+                  "/v2/pods/pod-with-volume::versions/2018-04-30T13:59:05.786Z",
                 localVolumes: [
                   {
                     runSpecId: "/pod-with-volume",
                     containerPath: "home",
                     uuid: "a643c6ea-4c7e-11e8-9c30-2641ffb20201",
-                    persistenceId: "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201"
+                    persistenceId:
+                      "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201"
                   }
                 ],
                 lastUpdated: "2018-04-30T13:59:08.689Z",
@@ -736,7 +753,8 @@ describe("MarathonUtil", function() {
                 containers: [
                   {
                     conditions: [],
-                    containerId: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-1.1",
+                    containerId:
+                      "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-1.1",
                     endpoints: [],
                     lastChanged: "2018-04-30T13:59:07.759Z",
                     lastUpdated: "2018-04-30T13:59:07.759Z",
@@ -747,7 +765,8 @@ describe("MarathonUtil", function() {
                   },
                   {
                     conditions: [],
-                    containerId: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-2.1",
+                    containerId:
+                      "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201.container-2.1",
                     endpoints: [],
                     lastChanged: "2018-04-30T13:59:07.759Z",
                     lastUpdated: "2018-04-30T13:59:07.759Z",
@@ -757,13 +776,15 @@ describe("MarathonUtil", function() {
                     statusSince: "2018-04-30T13:59:07.759Z"
                   }
                 ],
-                id: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
+                id:
+                  "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
                 lastChanged: "2018-04-30T13:59:08.689Z",
                 lastUpdated: "2018-04-30T13:59:08.689Z",
                 localVolumes: [
                   {
                     containerPath: "home",
-                    persistenceId: "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201",
+                    persistenceId:
+                      "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201",
                     runSpecId: "/pod-with-volume",
                     uuid: "a643c6ea-4c7e-11e8-9c30-2641ffb20201"
                   }
@@ -775,7 +796,8 @@ describe("MarathonUtil", function() {
                   gpus: 0,
                   mem: 288
                 },
-                specReference: "/v2/pods/pod-with-volume::versions/2018-04-30T13:59:05.786Z",
+                specReference:
+                  "/v2/pods/pod-with-volume::versions/2018-04-30T13:59:05.786Z",
                 status: "STAGING",
                 statusSince: "2018-04-30T13:59:08.689Z"
               }
@@ -837,7 +859,8 @@ describe("MarathonUtil", function() {
                 ],
                 size: 10,
                 status: "Detached",
-                taskID: "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
+                taskID:
+                  "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
                 type: "Persistent"
               }
             ]

@@ -98,11 +98,7 @@ var Chart = React.createClass({
   render() {
     // at the moment, 'chart' is used to inject the chart color palette.
     // we should reclaim it as the rightful className of <Chart />
-    return (
-      <div className="chart-chart">
-        {this.getChildren()}
-      </div>
-    );
+    return <div className="chart-chart">{this.getChildren()}</div>;
   }
 });
 

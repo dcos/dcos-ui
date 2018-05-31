@@ -10,18 +10,13 @@ import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldTextarea from "#SRC/js/components/form/FieldTextarea";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-import {
-  FormReducer as ContainerReducer
-} from "../../reducers/serviceForm/Container";
-import {
-  FormReducer as ContainersReducer
-} from "../../reducers/serviceForm/FormReducers/Containers";
+import { FormReducer as ContainerReducer } from "../../reducers/serviceForm/Container";
+import { FormReducer as ContainersReducer } from "../../reducers/serviceForm/FormReducers/Containers";
 import PodSpec from "../../structs/PodSpec";
 
 const appPaths = {
@@ -184,9 +179,7 @@ class ContainerServiceFormSection extends Component {
           <FormGroup className="column-3" showError={Boolean(cpusErrors)}>
             <FieldLabel className="text-no-transform">
               <FormGroupHeading required={true}>
-                <FormGroupHeadingContent>
-                  CPUs
-                </FormGroupHeadingContent>
+                <FormGroupHeadingContent>CPUs</FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput

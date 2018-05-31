@@ -38,7 +38,9 @@ describe("Panel", function() {
 
     it("uses default className to content node", function() {
       expect(
-        shallow(<Panel />).find(".panel-content").prop("className")
+        shallow(<Panel />)
+          .find(".panel-content")
+          .prop("className")
       ).toContain("panel-content");
     });
 

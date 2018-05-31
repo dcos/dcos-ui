@@ -9,7 +9,9 @@ const graphql = (schema, query, _arg1, _arg2, params) => {
     const taggedQuery = gql`
       ${query}
     `;
-    graphqlObservable(taggedQuery, schema, params).take(1).subscribe(resolve);
+    graphqlObservable(taggedQuery, schema, params)
+      .take(1)
+      .subscribe(resolve);
   });
 };
 
@@ -225,25 +227,22 @@ describe("Star Wars Query Tests", () => {
     });
 
     // Requires support to errors https://jira.mesosphere.com/browse/DCOS-22062
-    it.skip(
-      "Allows us to create a generic query, then pass an invalid ID to get null back",
-      async () => {
-        const query = `
+    it.skip("Allows us to create a generic query, then pass an invalid ID to get null back", async () => {
+      const query = `
           query humanQuery($id: String!) {
             human(id: $id) {
               name
             }
           }
         `;
-        const params = { id: "not a valid id" };
-        const result = await graphql(StarWarsSchema, query, null, null, params);
-        expect(result).toEqual({
-          data: {
-            human: null
-          }
-        });
-      }
-    );
+      const params = { id: "not a valid id" };
+      const result = await graphql(StarWarsSchema, query, null, null, params);
+      expect(result).toEqual({
+        data: {
+          human: null
+        }
+      });
+    });
   });
 
   describe("Using aliases to change the key in the response", () => {
@@ -320,10 +319,8 @@ describe("Star Wars Query Tests", () => {
     });
 
     // Require support to fragments https://jira.mesosphere.com/browse/DCOS-22356
-    it.skip(
-      "Allows us to use a fragment to avoid duplicating content",
-      async () => {
-        const query = `
+    it.skip("Allows us to use a fragment to avoid duplicating content", async () => {
+      const query = `
           query UseFragment {
             luke: human(id: "1000") {
               ...HumanFragment
@@ -338,21 +335,20 @@ describe("Star Wars Query Tests", () => {
             homePlanet
           }
         `;
-        const result = await graphql(StarWarsSchema, query);
-        expect(result).toEqual({
-          data: {
-            luke: {
-              name: "Luke Skywalker",
-              homePlanet: "Tatooine"
-            },
-            leia: {
-              name: "Leia Organa",
-              homePlanet: "Alderaan"
-            }
+      const result = await graphql(StarWarsSchema, query);
+      expect(result).toEqual({
+        data: {
+          luke: {
+            name: "Luke Skywalker",
+            homePlanet: "Tatooine"
+          },
+          leia: {
+            name: "Leia Organa",
+            homePlanet: "Alderaan"
           }
-        });
-      }
-    );
+        }
+      });
+    });
   });
 
   // Not supporting introspection

@@ -10,14 +10,10 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import Util from "#SRC/js/utils/Util";
 
-import PodInstanceStatusFilter
-  from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
-import PodInstancesZoneFilter
-  from "#PLUGINS/services/src/js/filters/PodInstancesZoneFilter";
-import PodInstancesRegionFilter
-  from "#PLUGINS/services/src/js/filters/PodInstancesRegionFilter";
-import PodInstanceTextFilter
-  from "#PLUGINS/services/src/js/filters/PodInstanceTextFilter";
+import PodInstanceStatusFilter from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
+import PodInstancesZoneFilter from "#PLUGINS/services/src/js/filters/PodInstancesZoneFilter";
+import PodInstancesRegionFilter from "#PLUGINS/services/src/js/filters/PodInstancesRegionFilter";
+import PodInstanceTextFilter from "#PLUGINS/services/src/js/filters/PodInstanceTextFilter";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
@@ -89,7 +85,9 @@ class PodInstancesContainer extends React.Component {
 
   handleExpressionChange(filterExpression = { value: "" }) {
     const { router } = this.context;
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });

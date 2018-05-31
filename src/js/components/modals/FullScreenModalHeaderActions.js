@@ -40,11 +40,7 @@ class FullScreenModalHeaderActions extends React.Component {
       className
     );
 
-    return (
-      <div className={classes}>
-        {this.getActions()}
-      </div>
-    );
+    return <div className={classes}>{this.getActions()}</div>;
   }
 }
 

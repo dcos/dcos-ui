@@ -1,9 +1,7 @@
 import { formatResource } from "#SRC/js/utils/Units";
 import Util from "#SRC/js/utils/Util";
-import VolumeDefinitions
-  from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
-import VolumeConstants
-  from "#PLUGINS/services/src/js/constants/VolumeConstants";
+import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import VolumeConstants from "#PLUGINS/services/src/js/constants/VolumeConstants";
 
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";

@@ -147,7 +147,11 @@ class PodVolumeTable extends React.Component {
       routePath = `/nodes/${nodeID}/tasks/${taskID}/podvolumes/${volumeID}`;
     }
 
-    return <Link className="table-cell-link-primary" to={routePath}>{id}</Link>;
+    return (
+      <Link className="table-cell-link-primary" to={routePath}>
+        {id}
+      </Link>
+    );
   }
 
   renderSizeColumn(prop, row) {
@@ -161,11 +165,7 @@ class PodVolumeTable extends React.Component {
       unit = "GiB";
     }
 
-    return (
-      <span>
-        {`${size} ${unit}`}
-      </span>
-    );
+    return <span>{`${size} ${unit}`}</span>;
   }
 
   renderStatusColumn(prop, row) {
@@ -175,11 +175,7 @@ class PodVolumeTable extends React.Component {
       "text-success": value === VolumeStatus.ATTACHED
     });
 
-    return (
-      <span className={classes}>
-        {row[prop]}
-      </span>
-    );
+    return <span className={classes}>{row[prop]}</span>;
   }
 
   render() {

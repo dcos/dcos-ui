@@ -68,7 +68,8 @@ var PodUtil = {
       memo[podInstance.getId()] = podInstance.get();
 
       return memo;
-    }, {});
+    },
+    {});
 
     // Then merge historical instance information in the pod instance map
     const combinedInstanceMap = historicalInstances.reduce(function(
@@ -102,7 +103,8 @@ var PodUtil = {
       podInstance.containers = combinedContainers;
 
       return memo;
-    }, podInstancesMap);
+    },
+    podInstancesMap);
 
     // Re-compose PodInstances from plain objects
     const instances = Object.values(combinedInstanceMap).map(function(
@@ -115,7 +117,10 @@ var PodUtil = {
   },
 
   getInstanceIdFromTaskId(taskId) {
-    return taskId.split(".").slice(0, 2).join(".");
+    return taskId
+      .split(".")
+      .slice(0, 2)
+      .join(".");
   }
 };
 

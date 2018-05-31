@@ -16,10 +16,8 @@ import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import CosmosErrorMessage from "../../components/CosmosErrorMessage";
 import CosmosPackagesStore from "../../stores/CosmosPackagesStore";
-import CreateServiceModalCatalogPanelOption
-  from "../../components/CreateServiceModalCatalogPanelOption";
-import defaultServiceImage
-  from "../../../../plugins/services/src/img/icon-service-default-medium@2x.png";
+import CreateServiceModalCatalogPanelOption from "../../components/CreateServiceModalCatalogPanelOption";
+import defaultServiceImage from "../../../../plugins/services/src/img/icon-service-default-medium@2x.png";
 import FilterInputText from "../../components/FilterInputText";
 import Image from "../../components/Image";
 import Loader from "../../components/Loader";
@@ -45,8 +43,8 @@ const PackagesEmptyState = () => {
     <AlertPanel>
       <AlertPanelHeader>No package repositories</AlertPanelHeader>
       <p className="tall">
-        You need at least one package repository with some packages to be
-        able to install packages. For more {" "}
+        You need at least one package repository with some packages to be able
+        to install packages. For more{" "}
         <a
           target="_blank"
           href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
@@ -166,12 +164,8 @@ class PackagesTab extends mixin(StoreMixin) {
           label={this.getPackageOptionBadge(cosmosPackage)}
           onOptionSelect={this.handleDetailOpen.bind(this, cosmosPackage)}
         >
-          <div className="h3 flush">
-            {cosmosPackage.getName()}
-          </div>
-          <small className="flush">
-            {cosmosPackage.getVersion()}
-          </small>
+          <div className="h3 flush">{cosmosPackage.getName()}</div>
+          <small className="flush">{cosmosPackage.getVersion()}</small>
         </CatalogPackageOption>
       );
     });
@@ -194,11 +188,10 @@ class PackagesTab extends mixin(StoreMixin) {
       <div className="pod flush-top flush-horizontal clearfix">
         <h1 className="short flush-top">Certified</h1>
         <p className="tall flush-top">
-          Certified packages are verified by Mesosphere for interoperability with DC/OS.
+          Certified packages are verified by Mesosphere for interoperability
+          with DC/OS.
         </p>
-        <div className="panel-grid row">
-          {this.getPackageGrid(packages)}
-        </div>
+        <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
   }
@@ -210,7 +203,8 @@ class PackagesTab extends mixin(StoreMixin) {
 
     let subtitle = (
       <p className="tall flush-top">
-        Community packages are unverified and unreviewed content from the community.
+        Community packages are unverified and unreviewed content from the
+        community.
       </p>
     );
     let title = "Community";
@@ -232,9 +226,7 @@ class PackagesTab extends mixin(StoreMixin) {
       <div className="clearfix">
         <h1 className={titleClasses}>{title}</h1>
         {subtitle}
-        <div className="panel-grid row">
-          {this.getPackageGrid(packages)}
-        </div>
+        <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
   }

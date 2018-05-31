@@ -17,7 +17,8 @@ function checkServiceEndpoints(ports, pathPrefix) {
       if (!vipLabelMatch) {
         return errorsMemo.concat({
           path: pathPrefix.concat([index, "labels", label]),
-          message: "VIP label must be in the following format: <ip-addres|name>:<port>"
+          message:
+            "VIP label must be in the following format: <ip-addres|name>:<port>"
         });
       }
 
@@ -64,7 +65,8 @@ const VipLabelsValidators = {
       pathPrefix = ["containers", containerIndex, "endpoints"];
 
       return memo.concat(checkServiceEndpoints(endpoints, pathPrefix));
-    }, []);
+    },
+    []);
   }
 };
 
