@@ -14,7 +14,7 @@ import { deleteRepository } from "./data/repositoriesStream";
 
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
 import RepositoriesError from "./components/RepositoriesError";
-import { defaultSchema } from "./data/repositoriesModel";
+import { defaultSchema } from "./data/PackageRepositoryClient";
 
 const getErrorMessage = (response = {}) => {
   if (typeof response === "string") {

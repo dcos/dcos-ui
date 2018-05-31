@@ -10,7 +10,7 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/observable/empty";
 
-import { defaultSchema } from "./data/repositoriesModel";
+import { defaultSchema } from "./data/PackageRepositoryClient";
 import { addRepository } from "./data/repositoriesStream";
 import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
 

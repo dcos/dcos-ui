@@ -16,7 +16,7 @@ import { liveFetchRepositories } from "#PLUGINS/catalog/src/js/repositories/data
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
 // The graphql schema and resolvers for those streams;
-import { typeDefs, resolvers } from "./data/repositoriesModel";
+import { typeDefs, resolvers } from "./data/PackageRepositoryClient";
 
 // UI components
 import RepositoriesTabUI from "./components/RepositoriesTabUI";
