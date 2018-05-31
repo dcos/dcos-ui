@@ -4,6 +4,13 @@ import "rxjs/add/operator/map";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 import { makeExecutableSchema } from "graphql-tools/dist/index";
 
+// Streams we get our data from
+import {
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
+} from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
+
 export const typeDefs = `
   type PackageRepository {
     id: ID!
@@ -30,23 +37,21 @@ const getRepositoryList = filter => result =>
 
 export const resolvers = {
   Query: {
-    packageRepository: (parent, args, context) => {
+    packageRepository: (parent, args) => {
       const { filter } = args;
 
       // Filter Logic Backwards compatible with the previous struct/RepositoryList
-      return context.query.packageRepository.map(getRepositoryList(filter));
+      return liveFetchRepositories().map(getRepositoryList(filter));
     }
   },
   Mutation: {
-    addPackageRepository: (parent, args, context) => {
-      return context.mutation
-        .addPackageRepository(args.name, args.uri, args.index)
-        .map(getRepositoryList(""));
+    addPackageRepository: (parent, args) => {
+      return addRepository(args.name, args.uri, args.index).map(
+        getRepositoryList("")
+      );
     },
-    removePackageRepository: (parent, args, context) => {
-      return context.mutation
-        .removePackageRepository(args.name, args.uri)
-        .map(getRepositoryList(""));
+    removePackageRepository: (parent, args) => {
+      return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
     }
   }
 };

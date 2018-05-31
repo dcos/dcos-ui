@@ -11,7 +11,6 @@ import "rxjs/add/operator/do";
 import "rxjs/observable/empty";
 
 import { defaultSchema } from "./data/PackageRepositoryClient";
-import { addRepository } from "./data/repositoriesStream";
 import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
 
 // Imported from the Cosmos Store
@@ -35,10 +34,7 @@ const addRepositoryGraphql = (name, uri, index) => {
   return graphqlObservable(addPackageRepositoryMutation, defaultSchema, {
     name,
     uri,
-    index,
-    mutation: {
-      addPackageRepository: addRepository
-    }
+    index
   });
 };
 

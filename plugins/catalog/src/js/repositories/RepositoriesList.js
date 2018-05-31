@@ -11,8 +11,6 @@ import { componentFromStream, graphqlObservable } from "data-service";
 import { makeExecutableSchema } from "graphql-tools";
 import gql from "graphql-tag";
 
-// Streams we get our data from
-import { liveFetchRepositories } from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
 // The graphql schema and resolvers for those streams;
@@ -50,17 +48,13 @@ const searchTerm$ = new BehaviorSubject("");
 // we get the props for our component.
 // The idea is from an Observable of data and events, compose a stream o React.Components
 
-const packageRepository$ = liveFetchRepositories();
-
 const keypressDebounceTime = 250;
 const searchResults$ = searchTerm$
   .debounceTime(keypressDebounceTime)
   .switchMap(searchTerm => {
     const query = packageRepositoryQuery(searchTerm);
 
-    return graphqlObservable(query, schema, {
-      query: { packageRepository: packageRepository$ }
-    }).map(result => {
+    return graphqlObservable(query, schema).map(result => {
       // Backwards compatible with the previous struct/RepositoryList for packages
       return new RepositoryList({
         items: result.data.packageRepository

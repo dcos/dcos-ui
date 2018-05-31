@@ -10,8 +10,6 @@ import "rxjs/add/operator/catch";
 import { componentFromStream, graphqlObservable } from "data-service";
 import gql from "graphql-tag";
 
-import { deleteRepository } from "./data/repositoriesStream";
-
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
 import RepositoriesError from "./components/RepositoriesError";
 import { defaultSchema } from "./data/PackageRepositoryClient";
@@ -35,10 +33,7 @@ const removePackageRepository = gql`
 const removePackageRepositoryGraphql = (name, uri) => {
   return graphqlObservable(removePackageRepository, defaultSchema, {
     name,
-    uri,
-    mutation: {
-      removePackageRepository: deleteRepository
-    }
+    uri
   });
 };
 
