@@ -3,7 +3,7 @@
 import ConfigDev from "./Config.dev";
 import ConfigTest from "./Config.test";
 
-interface Configuration {
+interface IConfiguration {
   acsAPIPrefix: string
   analyticsKey: string
   applicationRenderDelay: number
@@ -31,13 +31,15 @@ interface Configuration {
   supportEmail: string
   tailRefresh: number
   testHistoryInterval: number
+  uiConfigurationFixture?: object
+  useUIConfigFixtures?: boolean
   unitHealthAPIPrefix: string
   useFixtures?: boolean
   version: string
   virtualNetworksApi: string
 }
 
-let Config: Configuration = {
+let Config: IConfiguration = {
   analyticsKey: "51ybGTeFEFU1xo6u10XMDrr6kATFyRyh",
   acsAPIPrefix: "/acs/api/v1",
   applicationRenderDelay: 1000,
@@ -67,17 +69,17 @@ let Config: Configuration = {
   logsAPIPrefix: "/system/v1/agent",
   version: "@@VERSION",
   virtualNetworksApi: "/mesos/overlay-master",
-  getRefreshRate: function() {
+  getRefreshRate() {
     return this.stateRefresh;
   }
 };
 
 if (Config.environment === "development") {
   Config.analyticsKey = ""; // Safeguard from developers logging to prod
-  Config = Object.assign(Config, ConfigDev);
+  Config = {...Config, ...ConfigDev};
 } else if (Config.environment === "testing") {
   Config.analyticsKey = ""; // Safeguard from developers logging to prod
-  Config = Object.assign(Config, ConfigTest);
+  Config = {...Config, ...ConfigTest};
 } else if (Config.environment === "production") {
   Config.useFixtures = false;
 }
