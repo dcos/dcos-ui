@@ -4,10 +4,11 @@ import { Link } from "react-router";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 
-import TaskDetail from "../../../../plugins/services/src/js/pages/task-details/TaskDetail";
+import TaskDetail from "#PLUGINS/services/src/js/pages/task-details/TaskDetail";
+import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+
 import MesosStateStore from "../../stores/MesosStateStore";
 import MetronomeStore from "../../stores/MetronomeStore";
-import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
 import Page from "../../components/Page";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";

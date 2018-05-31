@@ -8,14 +8,14 @@ jest.mock("#SRC/js/events/MetronomeActions", () => ({
   fetchJobs: jest.fn()
 }));
 
-const JestUtil = require("../../utils/JestUtil");
+const JestUtil = require("#SRC/js/utils/JestUtil");
 
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
-const AlertPanel = require("../../components/AlertPanel");
-const MetronomeUtil = require("../../utils/MetronomeUtil");
-const JobsTab = require("../jobs/JobsTab");
-const JobTree = require("../../structs/JobTree");
-const JobsTable = require("../../pages/jobs/JobsTable");
+const AlertPanel = require("#SRC/js/components/AlertPanel");
+const MetronomeUtil = require("#SRC/js/utils/MetronomeUtil");
+const JobsTabContainer = require("../JobsTabContainer");
+const JobTree = require("#SRC/js/structs/JobTree");
+const JobsTable = require("../components/JobsTable");
 
 describe("JobsTab", function() {
   beforeEach(function() {
@@ -32,7 +32,7 @@ describe("JobsTab", function() {
   describe("#render", function() {
     it("renders the job table", function() {
       const wrapper = mount(
-        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } })
+        JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
       );
 
       expect(wrapper.find(JobsTable).exists());
@@ -41,7 +41,7 @@ describe("JobsTab", function() {
     it("renders loading screen", function() {
       DCOSStore.jobDataReceived = false;
       const wrapper = mount(
-        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } })
+        JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
       );
 
       expect(wrapper.find(".ball-scale").exists());
@@ -49,7 +49,7 @@ describe("JobsTab", function() {
 
     it("renders correct empty panel", function() {
       const wrapper = mount(
-        JestUtil.stubRouterContext(JobsTab, { params: { id: "/" } })
+        JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
       );
 
       expect(wrapper.find(AlertPanel).exists());

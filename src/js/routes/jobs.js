@@ -2,15 +2,16 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { IndexRoute, Redirect, Route } from "react-router";
-import TaskDetailsTab from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
-import TaskFileBrowser from "../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
-import TaskFileViewer from "../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
-import TaskFilesTab from "../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
-import TaskLogsContainer from "../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
-import JobsPage from "../pages/JobsPage";
+
+import JobsTabContainer from "#PLUGINS/jobs/src/js/JobsTabContainer";
+import TaskDetailsTab from "#PLUGINS/services/src/js/pages/task-details/TaskDetailsTab";
+import TaskFileBrowser from "#PLUGINS/services/src/js/pages/task-details/TaskFileBrowser";
+import TaskFileViewer from "#PLUGINS/services/src/js/pages/task-details/TaskFileViewer";
+import TaskFilesTab from "#PLUGINS/services/src/js/pages/task-details/TaskFilesTab";
+import TaskLogsContainer from "#PLUGINS/services/src/js/pages/task-details/TaskLogsContainer";
 import { JobDetailPageContainer } from "../pages/jobs/JobDetailPageContainer";
+import JobsPage from "../pages/JobsPage";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
-import JobsTab from "../pages/jobs/JobsTab";
 
 const jobsRoutes = [
   {
@@ -27,7 +28,7 @@ const jobsRoutes = [
     children: [
       {
         type: Route,
-        component: JobsTab,
+        component: JobsTabContainer,
         path: "overview",
         children: [
           {

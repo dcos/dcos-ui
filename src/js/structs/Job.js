@@ -1,8 +1,9 @@
+import JobStatus from "#PLUGINS/jobs/src/js/constants/JobStatus";
+
 import { cleanJobJSON } from "../utils/CleanJSONUtil";
 import DateUtil from "../utils/DateUtil";
 import Item from "./Item";
 import JobRunList from "./JobRunList";
-import JobStatus from "../constants/JobStatus";
 import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
