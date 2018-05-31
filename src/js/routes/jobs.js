@@ -1,17 +1,16 @@
-import { Redirect, IndexRoute, Route } from "react-router";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-
-import JobDetailPage from "../pages/jobs/JobDetailPage";
-import JobsPage from "../pages/JobsPage";
-import JobsTab from "../pages/jobs/JobsTab";
-import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
+import { IndexRoute, Redirect, Route } from "react-router";
 import TaskDetailsTab from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
-import TaskFilesTab from "../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
 import TaskFileViewer from "../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
+import TaskFilesTab from "../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
 import TaskLogsContainer from "../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
+import JobsPage from "../pages/JobsPage";
+import { JobDetailPageContainer } from "../pages/jobs/JobDetailPageContainer";
+import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
+import JobsTab from "../pages/jobs/JobsTab";
 
 const jobsRoutes = [
   {
@@ -44,7 +43,7 @@ const jobsRoutes = [
       },
       {
         type: Route,
-        component: JobDetailPage,
+        component: JobDetailPageContainer,
         path: "detail/:id",
         children: [
           {
