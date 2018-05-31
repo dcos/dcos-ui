@@ -101,11 +101,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   }
 
   render() {
-    const header = (
-      <ModalHeading level={5}>
-        An error has occurred
-      </ModalHeading>
-    );
+    const header = <ModalHeading level={5}>An error has occurred</ModalHeading>;
 
     return (
       <Modal

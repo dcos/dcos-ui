@@ -1,5 +1,4 @@
-import HealthSorting
-  from "../../../plugins/services/src/js/constants/HealthSorting";
+import HealthSorting from "../../../plugins/services/src/js/constants/HealthSorting";
 import UnitHealthStatus from "../constants/UnitHealthStatus";
 import Util from "./Util";
 
@@ -136,9 +135,9 @@ var TableUtil = {
   },
 
   /**
- *
- * @returns {Function} sortHealthValues
- */
+   *
+   * @returns {Function} sortHealthValues
+   */
   getHealthSortingOrder() {
     return TableUtil.sortHealthValues;
   }

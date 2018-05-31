@@ -119,8 +119,7 @@ var BarChart = React.createClass({
     var data = this.internalStorage_get();
     var el = ReactDOM.findDOMNode(this);
 
-    d3
-      .select(el)
+    d3.select(el)
       .append("defs")
       .append("clipPath")
       .attr("id", data.clipPathID)
@@ -153,7 +152,10 @@ var BarChart = React.createClass({
   },
 
   getYScale(props) {
-    return d3.scale.linear().domain([0, props.maxY]).range([props.height, 0]);
+    return d3.scale
+      .linear()
+      .domain([0, props.maxY])
+      .range([props.height, 0]);
   },
 
   formatYAxis(ticks, maxY) {
@@ -204,8 +206,7 @@ var BarChart = React.createClass({
         .ticks(xTicks)
         .tickFormat(this.formatXAxis)
         .orient("bottom");
-      d3
-        .select(this.refs.xAxis)
+      d3.select(this.refs.xAxis)
         .interrupt()
         .attr("class", xAxisClass)
         .call(xAxis);
@@ -221,10 +222,11 @@ var BarChart = React.createClass({
       .ticks(props.ticksY)
       .tickFormat(this.formatYAxis(props.ticksY, props.maxY))
       .orient("left");
-    d3.select(this.refs.yAxis).attr("class", yAxisClass).call(yAxis);
+    d3.select(this.refs.yAxis)
+      .attr("class", yAxisClass)
+      .call(yAxis);
 
-    d3
-      .select(this.refs.yGrid)
+    d3.select(this.refs.yGrid)
       .attr("class", "grid y")
       .call(
         d3.svg
@@ -240,8 +242,7 @@ var BarChart = React.createClass({
     if (props.xGridLines != null) {
       xGridLines = props.xGridLines;
     }
-    d3
-      .select(this.refs.xGrid)
+    d3.select(this.refs.xGrid)
       .attr("class", "grid x")
       .call(
         d3.svg
@@ -279,8 +280,7 @@ var BarChart = React.createClass({
     // the axis is reset right before we update the bar to the new value/position
     // prevents subsequent animations from animating from 0
     if (data.rectWidth) {
-      d3
-        .select(this.refs.xAxis)
+      d3.select(this.refs.xAxis)
         .interrupt()
         .transition()
         .delay(0)
@@ -325,7 +325,7 @@ var BarChart = React.createClass({
           // flush svg rect edges together
           shapeRendering = "crispEdges";
         } else {
-          rectHeight = props.height * val[y] / props.maxY - peaklineHeight;
+          rectHeight = (props.height * val[y]) / props.maxY - peaklineHeight;
           colorClass = `path-color-${service.colorIndex}`;
 
           // Will increase the margin between bars as they become smaller

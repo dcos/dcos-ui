@@ -105,9 +105,7 @@ var NodesGridView = React.createClass({
     }
 
     return (
-      <ul className="list list-unstyled nodes-grid-service-list">
-        {items}
-      </ul>
+      <ul className="list list-unstyled nodes-grid-service-list">{items}</ul>
     );
   },
 
@@ -121,7 +119,6 @@ var NodesGridView = React.createClass({
 
     return (
       <div className="nodes-grid">
-
         <div className={classSet}>
           <label className="show-services-label h5 tall flush-top">
             <Form

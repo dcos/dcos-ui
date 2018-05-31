@@ -442,9 +442,7 @@ class JobFormModal extends mixin(StoreMixin) {
             </ToggleButton>
           </div>
         </div>
-        <div className="header-full-width">
-          {this.getErrorMessage()}
-        </div>
+        <div className="header-full-width">{this.getErrorMessage()}</div>
       </div>
     );
   }

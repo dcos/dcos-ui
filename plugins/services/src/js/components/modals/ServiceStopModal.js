@@ -98,11 +98,7 @@ class ServiceStopModal extends React.Component {
   getModalHeading() {
     const serviceLabel = this.getServiceLabel();
 
-    return (
-      <ModalHeading>
-        Stop {serviceLabel}
-      </ModalHeading>
-    );
+    return <ModalHeading>Stop {serviceLabel}</ModalHeading>;
   }
 
   render() {
@@ -124,17 +120,10 @@ class ServiceStopModal extends React.Component {
         showHeader={true}
       >
         <p>
-          Stopping the
-          {" "}
-          <strong>{serviceName}</strong>
-          {" "}
-          {serviceLabel.toLowerCase()}
-          {" "}
-          will remove all currently running instances of the
-          {" "}
-          {serviceLabel.toLowerCase()}.
-          {" "}
-          The {serviceLabel.toLowerCase()} will not be deleted.
+          Stopping the <strong>{serviceName}</strong>{" "}
+          {serviceLabel.toLowerCase()} will remove all currently running
+          instances of the {serviceLabel.toLowerCase()}. The{" "}
+          {serviceLabel.toLowerCase()} will not be deleted.
         </p>
         {this.getErrorMessage()}
       </Confirm>

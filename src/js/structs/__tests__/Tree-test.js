@@ -149,7 +149,12 @@ describe("Tree", function() {
         return item.name === "one";
       });
 
-      expect(filteredTree.getItems()[0].getItems()[0].getItems()[0]).toEqual({
+      expect(
+        filteredTree
+          .getItems()[0]
+          .getItems()[0]
+          .getItems()[0]
+      ).toEqual({
         name: "one"
       });
     });
@@ -408,7 +413,8 @@ describe("Tree", function() {
         }
 
         return previousValue + currentValue.value;
-      }, 0);
+      },
+      0);
 
       expect(value).toEqual(42);
     });
@@ -426,7 +432,8 @@ describe("Tree", function() {
         previousValue.push(currentValue.name);
 
         return previousValue;
-      }, []);
+      },
+      []);
 
       expect(value).toEqual([
         "foo",

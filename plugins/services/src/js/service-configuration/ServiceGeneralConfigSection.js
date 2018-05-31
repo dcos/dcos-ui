@@ -12,7 +12,10 @@ import {
   getDisplayValue
 } from "../utils/ServiceConfigDisplayUtil";
 
-const { type: { DOCKER, MESOS }, labelMap } = ContainerConstants;
+const {
+  type: { DOCKER, MESOS },
+  labelMap
+} = ContainerConstants;
 
 class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
@@ -223,7 +226,9 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             const args = value.map((arg, index) => (
-              <pre key={index} className="flush transparent wrap">{arg}</pre>
+              <pre key={index} className="flush transparent wrap">
+                {arg}
+              </pre>
             ));
 
             return <div>{args}</div>;

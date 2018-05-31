@@ -27,18 +27,10 @@ describe("Tabs", function() {
           </TabButton>
         </TabButtonList>
         <TabViewList>
-          <TabView id="foo">
-            Foo
-          </TabView>
-          <TabView id="bar">
-            Bar
-          </TabView>
-          <TabView id="baz">
-            Baz
-          </TabView>
-          <TabView id="qux">
-            Qux
-          </TabView>
+          <TabView id="foo">Foo</TabView>
+          <TabView id="bar">Bar</TabView>
+          <TabView id="baz">Baz</TabView>
+          <TabView id="qux">Qux</TabView>
         </TabViewList>
       </Tabs>
     );
@@ -47,7 +39,10 @@ describe("Tabs", function() {
   it("calls handleTabChange function", function() {
     const tabButtons = thisInstance.find(".menu-tabbed-item");
 
-    tabButtons.at(1).find(".menu-tabbed-item-label").simulate("click");
+    tabButtons
+      .at(1)
+      .find(".menu-tabbed-item-label")
+      .simulate("click");
     expect(thisHandleTabChange.mock.calls[0]).toEqual(["bar"]);
   });
 
@@ -75,23 +70,35 @@ describe("Tabs", function() {
       .filterWhere(n => n.text() === "Foo")
       .simulate("click");
 
-    expect(thisInstance.find(TabViewList).first().prop("activeTab")).toEqual(
-      "foo"
-    );
-    expect(thisInstance.find(TabButtonList).first().prop("activeTab")).toEqual(
-      "foo"
-    );
+    expect(
+      thisInstance
+        .find(TabViewList)
+        .first()
+        .prop("activeTab")
+    ).toEqual("foo");
+    expect(
+      thisInstance
+        .find(TabButtonList)
+        .first()
+        .prop("activeTab")
+    ).toEqual("foo");
   });
 
   it("passes the change handler to TabButtonList", function() {
-    expect(thisInstance.find(TabButtonList).first().prop("onChange")).toEqual(
-      thisHandleTabChange
-    );
+    expect(
+      thisInstance
+        .find(TabButtonList)
+        .first()
+        .prop("onChange")
+    ).toEqual(thisHandleTabChange);
   });
 
   it("passes the vertical prop to TabButtonList", function() {
-    expect(thisInstance.find(TabButtonList).first().prop("vertical")).toEqual(
-      true
-    );
+    expect(
+      thisInstance
+        .find(TabButtonList)
+        .first()
+        .prop("vertical")
+    ).toEqual(true);
   });
 });

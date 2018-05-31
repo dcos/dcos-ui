@@ -7,16 +7,11 @@ import JobDetailPage from "../pages/jobs/JobDetailPage";
 import JobsPage from "../pages/JobsPage";
 import JobsTab from "../pages/jobs/JobsTab";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
-import TaskDetailsTab
-  from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
-import TaskFileBrowser
-  from "../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
-import TaskFilesTab
-  from "../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
-import TaskFileViewer
-  from "../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
-import TaskLogsContainer
-  from "../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
+import TaskDetailsTab from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
+import TaskFileBrowser from "../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
+import TaskFilesTab from "../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
+import TaskFileViewer from "../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
+import TaskLogsContainer from "../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
 
 const jobsRoutes = [
   {
@@ -80,7 +75,8 @@ const jobsRoutes = [
                 children: [
                   {
                     component: TaskFileBrowser,
-                    fileViewerRoutePath: "/jobs/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
+                    fileViewerRoutePath:
+                      "/jobs/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                     hideHeaderNavigation: true,
                     type: IndexRoute
                   },

@@ -98,11 +98,7 @@ class ServiceRestartModal extends React.Component {
   getModalHeading() {
     const serviceLabel = this.getServiceLabel();
 
-    return (
-      <ModalHeading>
-        Restart {serviceLabel}
-      </ModalHeading>
-    );
+    return <ModalHeading>Restart {serviceLabel}</ModalHeading>;
   }
 
   render() {
@@ -121,21 +117,15 @@ class ServiceRestartModal extends React.Component {
         rightButtonText={`Restart ${serviceLabel}`}
         rightButtonClassName="button button-danger"
         rightButtonCallback={() =>
-          restartService(service, this.shouldForceUpdate())}
+          restartService(service, this.shouldForceUpdate())
+        }
         showHeader={true}
       >
         <p>
-          Restarting the
-          {" "}
-          <strong>{serviceName}</strong>
-          {" "}
-          {serviceLabel.toLowerCase()}
-          {" "}
-          will remove all currently running instances of the
-          {" "}
-          {serviceLabel.toLowerCase()}
-          {" "}
-          and then attempt to create new instances identical to those removed.
+          Restarting the <strong>{serviceName}</strong>{" "}
+          {serviceLabel.toLowerCase()} will remove all currently running
+          instances of the {serviceLabel.toLowerCase()} and then attempt to
+          create new instances identical to those removed.
         </p>
         {this.getErrorMessage()}
       </Confirm>

@@ -67,9 +67,7 @@ var TasksChart = React.createClass({
 
       return (
         <div key={key} className={classSet}>
-          <p className="h1 unit flush-top">
-            {task.value}
-          </p>
+          <p className="h1 unit flush-top">{task.value}</p>
           <p
             className={
               "unit-label short-top flush-bottom path-color-" + info.colorIndex
@@ -126,12 +124,8 @@ var TasksChart = React.createClass({
 
     return (
       <div className="chart">
-        <Chart>
-          {this.getDialChart(tasks)}
-        </Chart>
-        <div className="row">
-          {this.getTaskInfo(tasks)}
-        </div>
+        <Chart>{this.getDialChart(tasks)}</Chart>
+        <div className="row">{this.getTaskInfo(tasks)}</div>
       </div>
     );
   }

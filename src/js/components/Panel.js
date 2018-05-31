@@ -4,9 +4,12 @@ import React from "react";
 
 const defaultClasses = {
   panel: "panel",
-  content: "panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless",
-  footer: "panel-footer panel-cell panel-cell-narrow panel-cell-short flush-top",
-  heading: "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter"
+  content:
+    "panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless",
+  footer:
+    "panel-footer panel-cell panel-cell-narrow panel-cell-short flush-top",
+  heading:
+    "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter"
 };
 
 var Panel = React.createClass({
@@ -48,11 +51,7 @@ var Panel = React.createClass({
       props[nodeName + "Class"]
     );
 
-    return (
-      <div className={classes}>
-        {node}
-      </div>
-    );
+    return <div className={classes}>{node}</div>;
   },
 
   render() {
@@ -66,9 +65,7 @@ var Panel = React.createClass({
     return (
       <div className={panelClasses} onClick={this.props.onClick}>
         {this.getNode("heading")}
-        <div className={contentClasses}>
-          {props.children}
-        </div>
+        <div className={contentClasses}>{props.children}</div>
         {this.getNode("footer")}
       </div>
     );

@@ -256,7 +256,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
     ) {
       let actionText = "Rollback";
       if (deployment.isStarting()) {
-        actionText = `${actionText} & ${StringUtil.capitalize(UserActions.DELETE)}`;
+        actionText = `${actionText} & ${StringUtil.capitalize(
+          UserActions.DELETE
+        )}`;
       }
 
       const dropdownItems = [
@@ -268,11 +270,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
         },
         {
           id: "rollback",
-          html: (
-            <span className="text-danger">
-              {actionText}
-            </span>
-          )
+          html: <span className="text-danger">{actionText}</span>
         }
       ];
 
@@ -324,9 +322,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
             <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right deployment-service-icon">
               <Image src={defaultServiceImage} />
             </span>
-            <span className="table-cell-value">
-              {item.serviceID}
-            </span>
+            <span className="table-cell-value">{item.serviceID}</span>
           </div>
         </div>
       );
@@ -348,9 +344,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
             <span className="table-cell-icon icon icon-mini icon-image-container icon-margin-right icon-app-container deployment-service-icon">
               <Image fallbackSrc={defaultServiceImage} src={image} />
             </span>
-            <span className="table-cell-value">
-              {item.getName()}
-            </span>
+            <span className="table-cell-value">{item.getName()}</span>
           </a>
         </div>
         <div className="deployment-service-path text-overflow">
@@ -380,11 +374,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
       deploymentRollbackError
     } = this.state;
 
-    const heading = (
-      <ModalHeading>
-        Are you sure?
-      </ModalHeading>
-    );
+    const heading = <ModalHeading>Are you sure?</ModalHeading>;
 
     if (deploymentToRollback != null) {
       return (
@@ -443,7 +433,8 @@ class DeploymentsModal extends mixin(StoreMixin) {
         memo[action.app] = action.action;
 
         return memo;
-      }, {});
+      },
+      {});
     }
 
     let statusText = item.getStatus();

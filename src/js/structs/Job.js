@@ -48,9 +48,8 @@ module.exports = class Job extends Item {
 
   getJobRuns() {
     const activeRuns = this.get("activeRuns") || [];
-    const { failedFinishedRuns = [], successfulFinishedRuns = [] } = this.get(
-      "history"
-    ) || {};
+    const { failedFinishedRuns = [], successfulFinishedRuns = [] } =
+      this.get("history") || {};
 
     return new JobRunList({
       items: [].concat(activeRuns, failedFinishedRuns, successfulFinishedRuns)
@@ -98,7 +97,9 @@ module.exports = class Job extends Item {
   }
 
   getName() {
-    return this.getId().split(".").pop();
+    return this.getId()
+      .split(".")
+      .pop();
   }
 
   getSchedules() {

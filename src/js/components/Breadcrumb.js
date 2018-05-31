@@ -15,11 +15,7 @@ class Breadcrumb extends React.Component {
       "breadcrumb--is-icon": isIcon
     });
 
-    return (
-      <div className={classes}>
-        {children}
-      </div>
-    );
+    return <div className={classes}>{children}</div>;
   }
 }
 

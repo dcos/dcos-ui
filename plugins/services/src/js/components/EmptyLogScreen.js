@@ -10,9 +10,7 @@ function EmptyLogScreen({ logName }) {
       <h3 className="text-align-center flush-top">
         {`${logName} Log is Currently Empty`}
       </h3>
-      <p className="text-align-center flush-bottom">
-        Please try again later.
-      </p>
+      <p className="text-align-center flush-bottom">Please try again later.</p>
     </div>
   );
 }

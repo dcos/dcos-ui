@@ -67,9 +67,12 @@ const SystemLogUtil = {
       }
 
       return memo;
-    }, []);
+    },
+    []);
 
-    return `${Config.logsAPIPrefix}/${nodeID}/logs/v1/${base}/${idArray.join("/")}${endpoint}?${paramsArray.join("&")}`;
+    return `${Config.logsAPIPrefix}/${nodeID}/logs/v1/${base}/${idArray.join(
+      "/"
+    )}${endpoint}?${paramsArray.join("&")}`;
   },
 
   /**

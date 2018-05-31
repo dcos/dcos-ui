@@ -4,7 +4,10 @@ import { mount } from "enzyme";
 const ConfigurationMapSizeValue = require("../ConfigurationMapSizeValue");
 
 function getValue(instance) {
-  return instance.find(".configuration-map-value").text().trim();
+  return instance
+    .find(".configuration-map-value")
+    .text()
+    .trim();
 }
 
 describe("ConfigurationMapSizeValue", function() {

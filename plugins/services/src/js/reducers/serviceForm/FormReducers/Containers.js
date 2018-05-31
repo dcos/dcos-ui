@@ -2,12 +2,8 @@ import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import { combineReducers, simpleReducer } from "#SRC/js/utils/ReducerUtil";
 import { DEFAULT_POD_CONTAINER } from "../../../constants/DefaultPod";
 import { FormReducer as endpointsFormReducer } from "./Endpoints";
-import {
-  FormReducer as multiContainerArtifacts
-} from "./MultiContainerArtifacts";
-import {
-  FormReducer as multiContainerHealthFormReducer
-} from "../MultiContainerHealthChecks";
+import { FormReducer as multiContainerArtifacts } from "./MultiContainerArtifacts";
+import { FormReducer as multiContainerHealthFormReducer } from "../MultiContainerHealthChecks";
 
 const containerReducer = combineReducers({
   cpus: simpleReducer("resources.cpus"),

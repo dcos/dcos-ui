@@ -16,9 +16,7 @@ class DetailViewHeader extends React.Component {
 
     return (
       <div className="detail-view-header-icon">
-        <div className={iconClasses}>
-          {icon}
-        </div>
+        <div className={iconClasses}>{icon}</div>
       </div>
     );
   }
@@ -62,11 +60,7 @@ class DetailViewHeader extends React.Component {
       return null;
     }
 
-    return (
-      <div className={buttonCollectionClasses}>
-        {actionButtons}
-      </div>
-    );
+    return <div className={buttonCollectionClasses}>{actionButtons}</div>;
   }
 
   render() {
@@ -100,9 +94,7 @@ class DetailViewHeader extends React.Component {
           <div className={detailViewHeaderContentHeadingClasses}>
             <div className="detail-view-header-content-primary">
               {this.getIcon()}
-              <div className="detail-view-header-title">
-                {this.getTitle()}
-              </div>
+              <div className="detail-view-header-title">{this.getTitle()}</div>
             </div>
             <div className="detail-view-header-content-secondary">
               {this.renderActionButtons()}

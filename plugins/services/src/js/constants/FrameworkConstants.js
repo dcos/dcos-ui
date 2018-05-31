@@ -4,7 +4,9 @@ const constants = {
 };
 
 constants.FRAMEWORK_RESOURCE_ID_REGEXP = new RegExp(
-  `^${constants.ROUTE_ACCESS_PREFIX}[${constants.FRAMEWORK_ID_VALID_CHARACTERS}]+$`
+  `^${constants.ROUTE_ACCESS_PREFIX}[${
+    constants.FRAMEWORK_ID_VALID_CHARACTERS
+  }]+$`
 );
 
 module.exports = constants;

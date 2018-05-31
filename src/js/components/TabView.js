@@ -6,11 +6,7 @@ class TabView extends React.Component {
   render() {
     const classes = classNames("menu-tabbed-view", this.props.className);
 
-    return (
-      <div className={classes}>
-        {this.props.children}
-      </div>
-    );
+    return <div className={classes}>{this.props.children}</div>;
   }
 }
 

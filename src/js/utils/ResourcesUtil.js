@@ -17,7 +17,8 @@ const fakeUsedResources = Object.keys(DefaultResourceTypes).reduce(function(
   memo[resource] = 0;
 
   return memo;
-}, {});
+},
+{});
 const fakeNode = new Node({ used_resources: fakeUsedResources });
 
 const usedColors = Object.keys(DefaultResourceTypes).map(function(resource) {

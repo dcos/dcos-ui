@@ -75,9 +75,10 @@ class ServiceResumeModal extends React.Component {
   }
 
   handleConfirmation() {
-    const instances = this.state.instancesFieldValue == null
-      ? 1
-      : this.state.instancesFieldValue;
+    const instances =
+      this.state.instancesFieldValue == null
+        ? 1
+        : this.state.instancesFieldValue;
 
     this.props.resumeService(instances, this.shouldForceUpdate());
   }
@@ -105,7 +106,9 @@ class ServiceResumeModal extends React.Component {
   }
 
   getModalContent() {
-    const { props: { service } } = this;
+    const {
+      props: { service }
+    } = this;
 
     if (service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       return (
@@ -118,7 +121,9 @@ class ServiceResumeModal extends React.Component {
     return (
       <div>
         <p>
-          This service is currently stopped. Do you want to resume this service? You can change the number of instances to resume by using the field below.
+          This service is currently stopped. Do you want to resume this service?
+          You can change the number of instances to resume by using the field
+          below.
         </p>
         <FormRow>
           <FormGroup className="form-row-element column-12 form-row-input">
@@ -141,11 +146,7 @@ class ServiceResumeModal extends React.Component {
   render() {
     const { isPending, onClose, open } = this.props;
 
-    const heading = (
-      <ModalHeading>
-        Resume Service
-      </ModalHeading>
-    );
+    const heading = <ModalHeading>Resume Service</ModalHeading>;
 
     return (
       <Confirm

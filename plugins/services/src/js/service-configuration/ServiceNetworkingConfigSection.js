@@ -1,8 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import Networking from "#SRC/js/constants/Networking";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
@@ -219,7 +218,6 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 key="service-endpoints-heading"
                 level={2}
               >
-
                 Service Endpoints
               </ConfigurationMapHeading>,
               <Table

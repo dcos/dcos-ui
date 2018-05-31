@@ -2,12 +2,10 @@ import React from "react";
 import { MountService } from "foundation-ui";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
@@ -81,9 +79,7 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
         // Otherwise we treat the row as "label:value" type display.
         return (
           <ConfigurationMapRow key={reactKey}>
-            <ConfigurationMapLabel>
-              {row.label}
-            </ConfigurationMapLabel>
+            <ConfigurationMapLabel>{row.label}</ConfigurationMapLabel>
             <ConfigurationMapValue>
               {this.getDisplayValue(row.type, value)}
             </ConfigurationMapValue>

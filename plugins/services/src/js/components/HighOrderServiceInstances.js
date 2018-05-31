@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Pod from "../structs/Pod";
-import PodInstancesContainer
-  from "../containers/pod-instances/PodInstancesContainer";
+import PodInstancesContainer from "../containers/pod-instances/PodInstancesContainer";
 import Service from "../structs/Service";
-import ServiceInstancesContainer
-  from "../containers/service-instances/ServiceInstancesContainer";
+import ServiceInstancesContainer from "../containers/service-instances/ServiceInstancesContainer";
 
 const HighOrderServiceInstances = function(props) {
   const { service, params, location } = props;

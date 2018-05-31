@@ -13,8 +13,7 @@ import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import ApplicationSpec from "../../structs/ApplicationSpec";
-import ServiceConfigDisplay
-  from "../../service-configuration/ServiceConfigDisplay";
+import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
 import Service from "../../structs/Service";
 import { getDefinitionFromSpec } from "../../utils/ServiceUtil";
 
@@ -214,18 +213,14 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     return (
       <div className="container">
         <div className="row">
-          <div className="column-6">
-            {this.getVersionsActions()}
-          </div>
+          <div className="column-6">{this.getVersionsActions()}</div>
           <div className="column-6 text-align-right">
             <button
               className="button button-primary-link button-inline-flex"
               onClick={this.handleEditButtonClick}
             >
               <Icon id="pencil" size="mini" family="system" />
-              <span>
-                {"Edit Config"}
-              </span>
+              <span>{"Edit Config"}</span>
             </button>
             <a
               className="button button-primary-link flush-right"
@@ -242,9 +237,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               )}
             >
               <Icon id="download" size="mini" family="system" />
-              <span>
-                {"Download Config"}
-              </span>
+              <span>{"Download Config"}</span>
             </a>
           </div>
         </div>

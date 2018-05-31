@@ -107,10 +107,11 @@ const TaskUtil = {
   },
 
   getIPAddresses(task) {
-    const ipAddresses = Util.findNestedPropertyInObject(
-      task,
-      "statuses.0.container_status.network_infos.0.ip_addresses"
-    ) || [];
+    const ipAddresses =
+      Util.findNestedPropertyInObject(
+        task,
+        "statuses.0.container_status.network_infos.0.ip_addresses"
+      ) || [];
 
     return ipAddresses.map(function(item) {
       return item.ip_address;

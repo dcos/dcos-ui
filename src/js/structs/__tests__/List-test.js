@@ -324,7 +324,8 @@ describe("List", function() {
         currentValue
       ) {
         return previousValue + currentValue.name;
-      }, "");
+      },
+      "");
       expect(expectedValue).toEqual("foobar");
     });
   });

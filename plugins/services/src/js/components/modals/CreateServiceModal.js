@@ -13,12 +13,9 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import AppValidators from "#SRC/resources/raml/marathon/v2/types/app.raml";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
-import FullScreenModalHeader
-  from "#SRC/js/components/modals/FullScreenModalHeader";
-import FullScreenModalHeaderActions
-  from "#SRC/js/components/modals/FullScreenModalHeaderActions";
-import FullScreenModalHeaderTitle
-  from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
+import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
+import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
+import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import PodValidators from "#SRC/resources/raml/marathon/v2/types/pod.raml";
 import ToggleButton from "#SRC/js/components/ToggleButton";
@@ -48,21 +45,15 @@ import MarathonAppValidators from "../../validators/MarathonAppValidators";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
 import CreateServiceModalServicePicker from "./CreateServiceModalServicePicker";
 import CreateServiceModalForm from "./CreateServiceModalForm";
-import ServiceConfigDisplay
-  from "../../service-configuration/ServiceConfigDisplay";
+import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
 import GeneralServiceFormSection from "../forms/GeneralServiceFormSection";
 import HealthChecksFormSection from "../forms/HealthChecksFormSection";
-import JSONSingleContainerReducers
-  from "../../reducers/JSONSingleContainerReducers";
+import JSONSingleContainerReducers from "../../reducers/JSONSingleContainerReducers";
 import JSONMultiContainerParser from "../../reducers/JSONMultiContainerParser";
-import JSONMultiContainerReducers
-  from "../../reducers/JSONMultiContainerReducers";
-import JSONSingleContainerParser
-  from "../../reducers/JSONSingleContainerParser";
-import MultiContainerNetworkingFormSection
-  from "../forms/MultiContainerNetworkingFormSection";
-import MultiContainerVolumesFormSection
-  from "../forms/MultiContainerVolumesFormSection";
+import JSONMultiContainerReducers from "../../reducers/JSONMultiContainerReducers";
+import JSONSingleContainerParser from "../../reducers/JSONSingleContainerParser";
+import MultiContainerNetworkingFormSection from "../forms/MultiContainerNetworkingFormSection";
+import MultiContainerVolumesFormSection from "../forms/MultiContainerVolumesFormSection";
 import NetworkingFormSection from "../forms/NetworkingFormSection";
 import ServiceErrorTypes from "../../constants/ServiceErrorTypes";
 import VolumesFormSection from "../forms/VolumesFormSection";
@@ -573,9 +564,7 @@ class CreateServiceModal extends Component {
           actions={this.getSecondaryActions()}
           type="secondary"
         />
-        <FullScreenModalHeaderTitle>
-          {title}
-        </FullScreenModalHeaderTitle>
+        <FullScreenModalHeaderTitle>{title}</FullScreenModalHeaderTitle>
         <FullScreenModalHeaderActions
           actions={this.getPrimaryActions()}
           type="primary"
@@ -909,7 +898,8 @@ class CreateServiceModal extends Component {
           showHeader={true}
         >
           <p>
-            Are you sure you want to leave this page? Any data you entered will be lost.
+            Are you sure you want to leave this page? Any data you entered will
+            be lost.
           </p>
         </Confirm>
       </FullScreenModal>

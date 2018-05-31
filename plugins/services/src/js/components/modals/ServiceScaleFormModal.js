@@ -125,11 +125,7 @@ class ServiceScaleFormModal extends React.Component {
         "By which factor would you like to scale all applications within this group?";
     }
 
-    return (
-      <p>
-        {bodyText}
-      </p>
-    );
+    return <p>{bodyText}</p>;
   }
 
   render() {

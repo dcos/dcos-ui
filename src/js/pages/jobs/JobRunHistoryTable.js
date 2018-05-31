@@ -13,8 +13,7 @@ import FilterHeadline from "../../components/FilterHeadline";
 import Icon from "../../components/Icon";
 import JobStates from "../../constants/JobStates";
 import JobStopRunModal from "../../components/modals/JobStopRunModal";
-import TaskStates
-  from "../../../../plugins/services/src/js/constants/TaskStates";
+import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
 import TimeAgo from "../../components/TimeAgo";
 
 const columnClasses = {
@@ -164,19 +163,22 @@ class JobRunHistoryTable extends React.Component {
     const jobRuns = job.getJobRuns();
 
     return jobRuns.getItems().map(function(jobRun) {
-      const children = jobRun.getTasks().getItems().map(function(jobTask) {
-        const startedAt = jobTask.getDateStarted();
-        const finishedAt = jobTask.getDateCompleted();
-        const runTime = calculateRunTime(startedAt, finishedAt);
+      const children = jobRun
+        .getTasks()
+        .getItems()
+        .map(function(jobTask) {
+          const startedAt = jobTask.getDateStarted();
+          const finishedAt = jobTask.getDateCompleted();
+          const runTime = calculateRunTime(startedAt, finishedAt);
 
-        return {
-          taskID: jobTask.getTaskID(),
-          status: jobTask.getStatus(),
-          startedAt,
-          finishedAt,
-          runTime
-        };
-      });
+          return {
+            taskID: jobTask.getTaskID(),
+            status: jobTask.getStatus(),
+            startedAt,
+            finishedAt,
+            runTime
+          };
+        });
 
       const startedAt = jobRun.getDateCreated();
       const finishedAt = jobRun.getDateFinished();
@@ -195,13 +197,16 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getDisabledItemsMap(job) {
-    return job.getJobRuns().getItems().reduce(function(memo, jobRun) {
-      const isDisabled =
-        ["ACTIVE", "INITIAL", "STARTING"].indexOf(jobRun.getStatus()) < 0;
-      memo[jobRun.get("id")] = isDisabled;
+    return job
+      .getJobRuns()
+      .getItems()
+      .reduce(function(memo, jobRun) {
+        const isDisabled =
+          ["ACTIVE", "INITIAL", "STARTING"].indexOf(jobRun.getStatus()) < 0;
+        memo[jobRun.get("id")] = isDisabled;
 
-      return memo;
-    }, {});
+        return memo;
+      }, {});
   }
 
   getStopButton(hasCheckedTasks) {
@@ -287,42 +292,32 @@ class JobRunHistoryTable extends React.Component {
       );
     }
 
-    return (
-      <div className="expanding-table-primary-cell">
-        {cellContent}
-      </div>
-    );
+    return <div className="expanding-table-primary-cell">{cellContent}</div>;
   }
 
   renderStatusColumn(prop, row, rowOptions = {}) {
     if (rowOptions.isParent) {
       const status = JobStates[row[prop]];
       const statusClasses = classNames({
-        "text-success": status.stateTypes.includes("success") &&
+        "text-success":
+          status.stateTypes.includes("success") &&
           !status.stateTypes.includes("failure"),
         "text-danger": status.stateTypes.includes("failure"),
         "text-neutral": status.stateTypes.includes("active")
       });
 
-      return (
-        <span className={statusClasses}>
-          {status.displayName}
-        </span>
-      );
+      return <span className={statusClasses}>{status.displayName}</span>;
     }
 
     const status = TaskStates[row[prop]];
     const statusClasses = classNames({
-      "text-success": status.stateTypes.includes("success") &&
+      "text-success":
+        status.stateTypes.includes("success") &&
         !status.stateTypes.includes("failure"),
       "text-danger": status.stateTypes.includes("failure")
     });
 
-    return (
-      <span className={statusClasses}>
-        {status.displayName}
-      </span>
-    );
+    return <span className={statusClasses}>{status.displayName}</span>;
   }
 
   renderRunTimeColumn(prop, row) {
@@ -359,7 +354,8 @@ class JobRunHistoryTable extends React.Component {
       }
 
       return filteredItems;
-    }, {});
+    },
+    {});
 
     if (hasCheckedTasks) {
       rightAlignLastNChildren = 1;

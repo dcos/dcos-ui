@@ -4,12 +4,10 @@ import { routerShape } from "react-router";
 
 import Loader from "#SRC/js/components/Loader";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import Icon from "#SRC/js/components/Icon";
@@ -67,29 +65,21 @@ class SDKServiceConnectionEndpointList extends React.Component {
   getJSONEndpoint(endpoint, key) {
     return (
       <ConfigurationMapSection key={key}>
-        <ConfigurationMapHeading>
-          {endpoint.getName()}
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading>{endpoint.getName()}</ConfigurationMapHeading>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Address
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Address</ConfigurationMapLabel>
           <ConfigurationMapValue>
             <span>{this.getClipboardTrigger(endpoint.getAddress())}</span>
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            DNS
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>DNS</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {this.getClipboardTrigger(endpoint.getDns())}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            VIP
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>VIP</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {this.getClipboardTrigger(endpoint.getVip())}
           </ConfigurationMapValue>
@@ -101,9 +91,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
   getFileEndpoint(endpoint, key) {
     return (
       <ConfigurationMapRow key={key}>
-        <ConfigurationMapLabel>
-          {endpoint.getName()}
-        </ConfigurationMapLabel>
+        <ConfigurationMapLabel>{endpoint.getName()}</ConfigurationMapLabel>
         <ConfigurationMapValue>
           <a
             className="active endpoint-download"
@@ -119,8 +107,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
                 id="download"
                 className="endpoint-download-icon"
                 size="mini"
-              />
-              {" "}
+              />{" "}
               Download
             </span>
           </a>
@@ -158,9 +145,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>
-          Files
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading>Files</ConfigurationMapHeading>
         {fileEndpoints.map((endpoint, index) => {
           return this.getFileEndpoint(endpoint, index);
         })}
@@ -171,11 +156,8 @@ class SDKServiceConnectionEndpointList extends React.Component {
   getAlertPanelSDKDeploying() {
     return (
       <div className="endpoint-sdk-deploying">
-        Endpoints for
-        {" "}
-        {this.props.service.getId()}
-        {" "}
-        will appear here once it is fully deployed and running.
+        Endpoints for {this.props.service.getId()} will appear here once it is
+        fully deployed and running.
       </div>
     );
   }

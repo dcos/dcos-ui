@@ -2,10 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
@@ -52,9 +50,7 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>
-          Placement
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading level={1}>Placement</ConfigurationMapHeading>
         <ConfigurationMapSection>
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:App:PlacementConstraints"

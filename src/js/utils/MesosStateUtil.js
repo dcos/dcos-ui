@@ -3,8 +3,7 @@ import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import StructUtil from "#SRC/js/utils/StructUtil";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
-import PodInstanceState
-  from "#PLUGINS/services/src/js/constants/PodInstanceState";
+import PodInstanceState from "#PLUGINS/services/src/js/constants/PodInstanceState";
 
 import Util from "./Util";
 
@@ -143,14 +142,17 @@ const MesosStateUtil = {
 
             // The last status can give us information about the time the
             // container was last updated, so we need the latest status item
-            const lastStatus = (task.statuses || [])
-              .reduce(function(memo, status) {
-                if (!memo || status.timestamp > memo.timestamp) {
-                  return status;
-                }
+            const lastStatus = (task.statuses || []).reduce(function(
+              memo,
+              status
+            ) {
+              if (!memo || status.timestamp > memo.timestamp) {
+                return status;
+              }
 
-                return memo;
-              }, null);
+              return memo;
+            },
+            null);
 
             // Add additional fields to the task structure in order to make it
             // as close as possible to something a PodContainer will understand.

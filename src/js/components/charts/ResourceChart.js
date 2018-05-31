@@ -47,9 +47,7 @@ class ResourceChart extends React.Component {
 
     return (
       <div key={resource} className="column-12">
-        <h4 className="flush-top flush-bottom">
-          {resourceValue}
-        </h4>
+        <h4 className="flush-top flush-bottom">{resourceValue}</h4>
         <div
           className={`side-panel-resource-label
             text-color-${colorIndex}`}

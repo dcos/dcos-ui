@@ -4,8 +4,7 @@ import { Link } from "react-router";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 
-import TaskDetail
-  from "../../../../plugins/services/src/js/pages/task-details/TaskDetail";
+import TaskDetail from "../../../../plugins/services/src/js/pages/task-details/TaskDetail";
 import MesosStateStore from "../../stores/MesosStateStore";
 import MetronomeStore from "../../stores/MetronomeStore";
 import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
@@ -20,7 +19,9 @@ class JobTaskDetailPage extends React.Component {
     const { location, params, routes } = this.props;
     const { id, taskID } = params;
 
-    const routePrefix = `/jobs/detail/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/jobs/detail/${encodeURIComponent(
+      id
+    )}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       { label: "Details", routePath: routePrefix + "/details" },
       { label: "Files", routePath: routePrefix + "/files" },

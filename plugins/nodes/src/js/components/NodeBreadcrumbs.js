@@ -13,14 +13,18 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
   const crumbs = [
     <Breadcrumb key={-1} title="Nodes">
       <BreadcrumbTextContent>
-        <Link to="/nodes" key={-1}>Nodes</Link>
+        <Link to="/nodes" key={-1}>
+          Nodes
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
   let node;
 
   if (nodeID != null && trimmedNodeID.length > 0) {
-    node = CompositeState.getNodesList().filter({ ids: [nodeID] }).last();
+    node = CompositeState.getNodesList()
+      .filter({ ids: [nodeID] })
+      .last();
 
     if (node) {
       crumbs.push(
@@ -55,7 +59,9 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
       <Breadcrumb key="unit-health" title={unitTitle}>
         <BreadcrumbTextContent>
           <Link
-            to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get("id")}`}
+            to={`/nodes/${encodedNodeID}/health/${node.hostname}/${unit.get(
+              "id"
+            )}`}
             key={-1}
           >
             {`${unitTitle} `}

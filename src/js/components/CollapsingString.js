@@ -129,7 +129,7 @@ class CollapsingString extends React.Component {
     let stringEnding = null;
 
     if (endLength == null) {
-      endLength = Math.floor(fullString.length * 1 / 3);
+      endLength = Math.floor((fullString.length * 1) / 3);
     }
 
     if (this.state.collapsed) {

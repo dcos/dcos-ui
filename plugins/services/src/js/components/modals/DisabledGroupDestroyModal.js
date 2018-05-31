@@ -13,9 +13,7 @@ const DisabledGroupDestroyModal = props => {
   );
 
   const modalHeading = (
-    <ModalHeading className="text-danger">
-      Delete Group
-    </ModalHeading>
+    <ModalHeading className="text-danger">Delete Group</ModalHeading>
   );
 
   return (
@@ -29,7 +27,8 @@ const DisabledGroupDestroyModal = props => {
       showHeader={true}
     >
       <div>
-        This group needs to be empty to delete it. Please delete any services in the group first.
+        This group needs to be empty to delete it. Please delete any services in
+        the group first.
       </div>
     </Modal>
   );

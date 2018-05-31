@@ -4,8 +4,7 @@ import React from "react";
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLExpressionPart from "#SRC/js/structs/DSLExpressionPart";
-import DSLFormWithExpressionUpdates
-  from "#SRC/js/components/DSLFormWithExpressionUpdates";
+import DSLFormWithExpressionUpdates from "#SRC/js/components/DSLFormWithExpressionUpdates";
 import DSLUtil from "#SRC/js/utils/DSLUtil";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -34,7 +33,6 @@ class ServiceStatusDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-
         <label>Status</label>
         <div className="row">
           <div className="column-6">

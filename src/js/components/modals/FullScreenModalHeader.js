@@ -7,11 +7,7 @@ class FullScreenModalHeader extends React.Component {
     const { children, className } = this.props;
     const classes = classNames("modal-full-screen-header pod", className);
 
-    return (
-      <div className={classes}>
-        {children}
-      </div>
-    );
+    return <div className={classes}>{children}</div>;
   }
 }
 

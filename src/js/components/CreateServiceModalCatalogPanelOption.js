@@ -1,14 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import packageServiceImage
-  from "../../img/service-picker-options/service-image-package-large@2x.png";
-import CreateServiceModalServicePickerOption
-  from "./CreateServiceModalServicePickerOption";
-import CreateServiceModalServicePickerOptionContent
-  from "./CreateServiceModalServicePickerOptionContent";
-import CreateServiceModalServicePickerOptionImage
-  from "./CreateServiceModalServicePickerOptionImage";
+import packageServiceImage from "../../img/service-picker-options/service-image-package-large@2x.png";
+import CreateServiceModalServicePickerOption from "./CreateServiceModalServicePickerOption";
+import CreateServiceModalServicePickerOptionContent from "./CreateServiceModalServicePickerOptionContent";
+import CreateServiceModalServicePickerOptionImage from "./CreateServiceModalServicePickerOptionImage";
 
 class CreateServicePickerCatalogOption extends React.Component {
   render() {

@@ -48,32 +48,34 @@ module.exports = {
   },
 
   JSONParser(state) {
-    const transactions = (state.networks || [])
-      .reduce(function(memo, network, index) {
-        const name = network.name;
-        const mode = name != null ? CONTAINER : network.mode;
+    const transactions = (state.networks || []).reduce(function(
+      memo,
+      network,
+      index
+    ) {
+      const name = network.name;
+      const mode = name != null ? CONTAINER : network.mode;
 
-        memo = memo.concat(new Transaction(["networks"], network, ADD_ITEM));
+      memo = memo.concat(new Transaction(["networks"], network, ADD_ITEM));
 
-        if (mode == null && name == null) {
-          return memo;
-        }
-
-        if (name != null) {
-          memo = memo.concat(
-            new Transaction(["networks", index, "name"], name)
-          );
-        }
-        if (mode != null) {
-          const internalMode = Networking.jsonToInternal[mode.toLowerCase()];
-
-          memo = memo.concat(
-            new Transaction(["networks", index, "mode"], internalMode)
-          );
-        }
-
+      if (mode == null && name == null) {
         return memo;
-      }, []);
+      }
+
+      if (name != null) {
+        memo = memo.concat(new Transaction(["networks", index, "name"], name));
+      }
+      if (mode != null) {
+        const internalMode = Networking.jsonToInternal[mode.toLowerCase()];
+
+        memo = memo.concat(
+          new Transaction(["networks", index, "mode"], internalMode)
+        );
+      }
+
+      return memo;
+    },
+    []);
 
     return transactions;
   }

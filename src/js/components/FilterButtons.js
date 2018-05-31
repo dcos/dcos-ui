@@ -67,9 +67,7 @@ class FilterButtons extends React.Component {
 
   render() {
     return (
-      <div className="button-group flush-bottom">
-        {this.getFilterButtons()}
-      </div>
+      <div className="button-group flush-bottom">{this.getFilterButtons()}</div>
     );
   }
 }

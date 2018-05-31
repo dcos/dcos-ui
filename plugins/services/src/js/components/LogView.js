@@ -154,7 +154,10 @@ class LogView extends React.Component {
   }
 
   handleGoToBottom() {
-    const { logContainer, props: { highlightText } } = this;
+    const {
+      logContainer,
+      props: { highlightText }
+    } = this;
     // Do not scroll to bottom if we want to highlight a word in the log,
     // or we are already scrolling
     if (logContainer == null || highlightText) {
@@ -301,11 +304,7 @@ class LogView extends React.Component {
 
   getLogPrepend() {
     if (this.props.hasLoadedTop) {
-      return (
-        <div className="text-muted">
-          (AT BEGINNING OF FILE)
-        </div>
-      );
+      return <div className="text-muted">(AT BEGINNING OF FILE)</div>;
     }
 
     // Show loader since we will start a request for more logs

@@ -12,11 +12,17 @@ module.exports = class Service extends Item {
   }
 
   getMesosId() {
-    return this.getId().split("/").slice(1).reverse().join(".");
+    return this.getId()
+      .split("/")
+      .slice(1)
+      .reverse()
+      .join(".");
   }
 
   getName() {
-    return this.getId().split("/").pop();
+    return this.getId()
+      .split("/")
+      .pop();
   }
 
   getSpec() {

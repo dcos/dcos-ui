@@ -1,9 +1,7 @@
 import React from "react";
 
-import CreateServiceModalServicePickerOptionContent
-  from "./CreateServiceModalServicePickerOptionContent";
-import CreateServiceModalServicePickerOptionImage
-  from "./CreateServiceModalServicePickerOptionImage";
+import CreateServiceModalServicePickerOptionContent from "./CreateServiceModalServicePickerOptionContent";
+import CreateServiceModalServicePickerOptionImage from "./CreateServiceModalServicePickerOptionImage";
 import Panel from "./Panel";
 
 function getChildOfType(children, type) {

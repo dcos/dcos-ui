@@ -3,12 +3,10 @@ import React from "react";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Loader from "#SRC/js/components/Loader";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
@@ -80,9 +78,7 @@ class TaskDetailsTab extends React.Component {
     if (service != null) {
       serviceRow = (
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Service
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Service</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {service.name} ({service.id})
           </ConfigurationMapValue>
@@ -93,9 +89,7 @@ class TaskDetailsTab extends React.Component {
     if (node != null) {
       nodeRow = (
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Node
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Node</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {node.getHostName()} ({node.getID()})
           </ConfigurationMapValue>
@@ -106,28 +100,18 @@ class TaskDetailsTab extends React.Component {
     if (sandBoxPath) {
       sandBoxRow = (
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Sandbox Path
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {sandBoxPath}
-          </ConfigurationMapValue>
+          <ConfigurationMapLabel>Sandbox Path</ConfigurationMapLabel>
+          <ConfigurationMapValue>{sandBoxPath}</ConfigurationMapValue>
         </ConfigurationMapRow>
       );
     }
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>
-          Configuration
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading>Configuration</ConfigurationMapHeading>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Task ID
-          </ConfigurationMapLabel>
-          <ConfigurationMapValue>
-            {mesosTask.id}
-          </ConfigurationMapValue>
+          <ConfigurationMapLabel>Task ID</ConfigurationMapLabel>
+          <ConfigurationMapValue>{mesosTask.id}</ConfigurationMapValue>
         </ConfigurationMapRow>
         {serviceRow}
         {nodeRow}
@@ -135,17 +119,13 @@ class TaskDetailsTab extends React.Component {
         <TaskIpAddressesRow taskId={mesosTask.id} />
         {resourceRows}
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Zone
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Zone</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {TaskUtil.getZoneName(mesosTask)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>
-            Region
-          </ConfigurationMapLabel>
+          <ConfigurationMapLabel>Region</ConfigurationMapLabel>
           <ConfigurationMapValue>
             {TaskUtil.getRegionName(mesosTask)}
           </ConfigurationMapValue>
@@ -165,12 +145,8 @@ class TaskDetailsTab extends React.Component {
       labelRows = mesosTask.labels.map(function({ key, value }) {
         return (
           <ConfigurationMapRow key={key}>
-            <ConfigurationMapLabel>
-              {key}
-            </ConfigurationMapLabel>
-            <ConfigurationMapValue>
-              {value}
-            </ConfigurationMapValue>
+            <ConfigurationMapLabel>{key}</ConfigurationMapLabel>
+            <ConfigurationMapValue>{value}</ConfigurationMapValue>
           </ConfigurationMapRow>
         );
       });
@@ -178,9 +154,7 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>
-          Labels
-        </ConfigurationMapHeading>
+        <ConfigurationMapHeading>Labels</ConfigurationMapHeading>
         {labelRows}
       </ConfigurationMapSection>
     );

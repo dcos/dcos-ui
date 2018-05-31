@@ -16,7 +16,10 @@ import SidebarActions from "../events/SidebarActions";
 import SidebarHeader from "./SidebarHeader";
 import SidebarStore from "../stores/SidebarStore";
 
-const { NavigationService, EventTypes: { NAVIGATION_CHANGE } } = navigation;
+const {
+  NavigationService,
+  EventTypes: { NAVIGATION_CHANGE }
+} = navigation;
 
 const defaultMenuItems = [
   "/dashboard",
@@ -168,11 +171,7 @@ class Sidebar extends React.Component {
       }
 
       if (group.category !== "root") {
-        heading = (
-          <h3 className="sidebar-section-header">
-            {group.category}
-          </h3>
-        );
+        heading = <h3 className="sidebar-section-header">{group.category}</h3>;
       }
 
       return (
@@ -268,9 +267,10 @@ class Sidebar extends React.Component {
 
     const menuItems = filteredChildRoutes.reduce(
       (children, currentChild, index) => {
-        const isActive = currentChild.options.isActiveRegex != null
-          ? currentChild.options.isActiveRegex.test(pathname)
-          : pathname.startsWith(currentChild.path);
+        const isActive =
+          currentChild.options.isActiveRegex != null
+            ? currentChild.options.isActiveRegex.test(pathname)
+            : pathname.startsWith(currentChild.path);
 
         const menuItemClasses = classNames({ selected: isActive });
 

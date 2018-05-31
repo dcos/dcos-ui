@@ -128,9 +128,7 @@ const TabsMixin = {
         onClick={this.tabs_handleTabClick.bind(this, tab)}
         {...attributes}
       >
-        <span className={textClasses}>
-          {this.tabs_tabs[tab]}
-        </span>
+        <span className={textClasses}>{this.tabs_tabs[tab]}</span>
         {badge}
       </Link>
     );

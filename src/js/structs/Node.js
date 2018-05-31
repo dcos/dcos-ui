@@ -46,7 +46,7 @@ class Node extends Item {
       return { percentage: 0, total: 0, value: 0 };
     }
 
-    const percentage = Math.round(100 * value / Math.max(1, total));
+    const percentage = Math.round((100 * value) / Math.max(1, total));
 
     return { percentage, total, value };
   }

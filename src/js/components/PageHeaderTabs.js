@@ -29,7 +29,9 @@ class PageHeaderTabs extends React.Component {
   }
 
   getTabs() {
-    const { props: { tabs } } = this;
+    const {
+      props: { tabs }
+    } = this;
 
     const tabElements = tabs.map(function(tab, index) {
       const { isActive, callback, label, routePath } = tab;
@@ -39,9 +41,7 @@ class PageHeaderTabs extends React.Component {
       });
 
       const innerLinkSpan = (
-        <span className="menu-tabbed-item-label-text">
-          {label}
-        </span>
+        <span className="menu-tabbed-item-label-text">{label}</span>
       );
       let link = (
         <a className={linkClasses} onClick={callback}>
@@ -65,9 +65,7 @@ class PageHeaderTabs extends React.Component {
     });
 
     return (
-      <ul className="page-header-navigation-tabs menu-tabbed">
-        {tabElements}
-      </ul>
+      <ul className="page-header-navigation-tabs menu-tabbed">{tabElements}</ul>
     );
   }
 

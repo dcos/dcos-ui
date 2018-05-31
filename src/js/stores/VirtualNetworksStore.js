@@ -102,9 +102,12 @@ class VirtualNetworksStore extends BaseStore {
     return VirtualNetworksActions.fetch(...arguments);
   }
 
-  processVirtualNetworks(
-    { overlays, vtep_mac_oui, vtep_subnet, vtep_subnet6 } = {}
-  ) {
+  processVirtualNetworks({
+    overlays,
+    vtep_mac_oui,
+    vtep_subnet,
+    vtep_subnet6
+  } = {}) {
     this.data.overlays = overlays || [];
     this.data.vtep_mac_oui = vtep_mac_oui;
     this.data.vtep_subnet = vtep_subnet;

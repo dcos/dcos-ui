@@ -10,8 +10,7 @@ import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import NodesList from "#SRC/js/structs/NodesList";
 import ResourceBarChart from "#SRC/js/components/charts/ResourceBarChart";
 
-import FilterByService
-  from "../../../../../services/src/js/components/FilterByService";
+import FilterByService from "../../../../../services/src/js/components/FilterByService";
 
 import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
 import NodesRegionDSLFilter from "../../components/dsl/NodesRegionDSLFilter";

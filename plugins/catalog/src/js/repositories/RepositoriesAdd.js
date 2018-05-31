@@ -68,7 +68,8 @@ const RepositoriesAdd = componentFromStream(props$ => {
         numberOfRepositories={props.numberOfRepositories}
         open={props.open}
         addRepository={value =>
-          addRepository$.next({ complete: props.onClose, ...value })}
+          addRepository$.next({ complete: props.onClose, ...value })
+        }
         onClose={props.onClose}
         errorMsg={result.error}
       />

@@ -14,7 +14,9 @@ class ServiceTaskDetailPage extends React.Component {
     const { location, params, routes } = this.props;
     const { id, taskID } = params;
 
-    const routePrefix = `/services/detail/${encodeURIComponent(id)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/services/detail/${encodeURIComponent(
+      id
+    )}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       { label: "Details", routePath: routePrefix + "/details" },
       { label: "Files", routePath: routePrefix + "/files" },

@@ -104,11 +104,7 @@ class HealthTab extends React.Component {
   renderHealth(prop, node) {
     const health = node.getHealth();
 
-    return (
-      <span className={health.classNames}>
-        {health.title}
-      </span>
-    );
+    return <span className={health.classNames}>{health.title}</span>;
   }
 
   renderUnitHealthCheck(prop, unit) {

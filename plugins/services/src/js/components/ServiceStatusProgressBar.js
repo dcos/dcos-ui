@@ -18,7 +18,10 @@ class ServiceStatusProgressBar extends React.Component {
     return (
       <div className="tooltip-line-item">
         <span>
-          {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesTotal}`}
+          {`${runningInstances} ${StringUtil.pluralize(
+            "instance",
+            runningInstances
+          )} running out of ${instancesTotal}`}
         </span>
       </div>
     );

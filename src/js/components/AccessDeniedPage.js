@@ -50,7 +50,8 @@ module.exports = class AccessDeniedPage extends React.Component {
                   target="_blank"
                 >
                   security documentation
-                </a> for more information.
+                </a>{" "}
+                for more information.
               </p>
               {this.getFooter()}
             </AlertPanel>

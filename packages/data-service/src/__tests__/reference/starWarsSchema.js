@@ -172,7 +172,8 @@ const humanType = new GraphQLObjectType({
     },
     friends: {
       type: GraphQLList(characterInterface),
-      description: "The friends of the human, or an empty list if they have none.",
+      description:
+        "The friends of the human, or an empty list if they have none.",
       resolve: human => Observable.fromPromise(Promise.all(getFriends(human)))
     },
     appearsIn: {
@@ -221,7 +222,8 @@ const droidType = new GraphQLObjectType({
     },
     friends: {
       type: GraphQLList(characterInterface),
-      description: "The friends of the droid, or an empty list if they have none.",
+      description:
+        "The friends of the droid, or an empty list if they have none.",
       resolve: droid => Observable.fromPromise(Promise.all(getFriends(droid)))
     },
     appearsIn: {
@@ -264,7 +266,8 @@ const queryType = new GraphQLObjectType({
       type: characterInterface,
       args: {
         episode: {
-          description: "If omitted, returns the hero of the whole saga. If " +
+          description:
+            "If omitted, returns the hero of the whole saga. If " +
             "provided, returns the hero of that particular episode.",
           type: episodeEnum
         }

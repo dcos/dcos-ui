@@ -190,11 +190,7 @@ class Highlight extends mixin(InternalStorageMixin) {
   renderPlain(string) {
     this.count++;
 
-    return (
-      <span key={this.count}>
-        {string}
-      </span>
-    );
+    return <span key={this.count}>{string}</span>;
   }
 
   /**
@@ -247,11 +243,7 @@ class Highlight extends mixin(InternalStorageMixin) {
   }
 
   render() {
-    return (
-      <div {...this.props}>
-        {this.renderElement(this.props.children)}
-      </div>
-    );
+    return <div {...this.props}>{this.renderElement(this.props.children)}</div>;
   }
 }
 

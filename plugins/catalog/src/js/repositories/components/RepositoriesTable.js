@@ -9,8 +9,7 @@ import CollapsingString from "#SRC/js/components/CollapsingString";
 
 import List from "#SRC/js/structs/List";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import RepositoriesTableHeaderLabels
-  from "#SRC/js/constants/RepositoriesTableHeaderLabels";
+import RepositoriesTableHeaderLabels from "#SRC/js/constants/RepositoriesTableHeaderLabels";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import UserActions from "#SRC/js/constants/UserActions";

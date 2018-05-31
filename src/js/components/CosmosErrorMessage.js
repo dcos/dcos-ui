@@ -91,7 +91,8 @@ class CosmosErrorMessage extends React.Component {
   appendRepositoryLink(message) {
     return (
       <span>
-        <strong>{`${message}. `}</strong><br />
+        <strong>{`${message}. `}</strong>
+        <br />
         {"You can go to the "}
         <a href="/#/settings/repositories/">Repositories Settings</a>
         {" page to change installed repositories."}
@@ -104,9 +105,7 @@ class CosmosErrorMessage extends React.Component {
       <Alert flushBottom={this.props.flushBottom}>
         {this.getMessage()}
         <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
-          <ul className="short flush-bottom">
-            {this.getDetails()}
-          </ul>
+          <ul className="short flush-bottom">{this.getDetails()}</ul>
         </div>
       </Alert>
     );

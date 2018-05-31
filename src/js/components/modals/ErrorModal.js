@@ -18,11 +18,7 @@ var ErrorModal = React.createClass({
   },
 
   render() {
-    const header = (
-      <ModalHeading>
-        Looks Like Something is Wrong
-      </ModalHeading>
-    );
+    const header = <ModalHeading>Looks Like Something is Wrong</ModalHeading>;
 
     return (
       <Modal

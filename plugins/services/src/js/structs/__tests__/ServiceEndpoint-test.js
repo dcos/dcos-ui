@@ -18,7 +18,8 @@ describe("ServiceEndpoint", function() {
       serviceId: "/hdfs",
       contentType: "text/plain",
       endpointName: "core-site.xml",
-      endpointData: "<endpoint1>master.elastic.l4lb.thisdcos.directory:9200</endpoint1>"
+      endpointData:
+        "<endpoint1>master.elastic.l4lb.thisdcos.directory:9200</endpoint1>"
     });
   });
   describe("#getName", function() {

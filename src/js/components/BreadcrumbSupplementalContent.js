@@ -15,11 +15,7 @@ class BreadcrumbSupplementalContent extends React.Component {
       { "breadcrumb__content--has-status-bar": hasProgressBar }
     );
 
-    return (
-      <div className={classes}>
-        {children}
-      </div>
-    );
+    return <div className={classes}>{children}</div>;
   }
 }
 

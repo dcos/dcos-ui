@@ -200,7 +200,10 @@ describe("PodInstancesTable", function() {
         thisInstance = mount(component);
 
         // 1 click on the header (ascending)
-        thisInstance.find(".task-table-column-primary").at(0).simulate("click");
+        thisInstance
+          .find(".task-table-column-primary")
+          .at(0)
+          .simulate("click");
       });
 
       it("sorts the name column", function() {

@@ -210,7 +210,11 @@ class ActionsModal extends mixin(StoreMixin) {
         const repeatTimes = errorMap[error];
 
         if (repeatTimes === 1) {
-          return <p className="text-error-state" key={index}>{error}</p>;
+          return (
+            <p className="text-error-state" key={index}>
+              {error}
+            </p>
+          );
         } else {
           return (
             <p className="text-error-state" key={index}>
@@ -237,11 +241,7 @@ class ActionsModal extends mixin(StoreMixin) {
       return null;
     }
 
-    const heading = (
-      <ModalHeading>
-        {this.props.actionText.title}
-      </ModalHeading>
-    );
+    const heading = <ModalHeading>{this.props.actionText.title}</ModalHeading>;
 
     return (
       <Confirm

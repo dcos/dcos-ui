@@ -2,17 +2,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
-import ConfigurationMapDurationValue
-  from "../components/ConfigurationMapDurationValue";
+import ConfigurationMapDurationValue from "../components/ConfigurationMapDurationValue";
 import { getContainerNameWithIcon } from "../utils/ServiceConfigDisplayUtil";
-import ConfigurationMapValueWithDefault
-  from "../components/ConfigurationMapValueWithDefault";
+import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValueWithDefault";
 
 const COMMON_COLUMNS = [
   {
@@ -141,7 +137,7 @@ class PodHealthChecksConfigSection extends React.Component {
           Health Checks
         </ConfigurationMapHeading>
 
-        {healthChecks.endpoints.length !== 0 &&
+        {healthChecks.endpoints.length !== 0 && (
           <div>
             <ConfigurationMapHeading level={2}>
               Service Endpoint Health Checks
@@ -161,9 +157,10 @@ class PodHealthChecksConfigSection extends React.Component {
                 />
               </MountService.Mount>
             </ConfigurationMapSection>
-          </div>}
+          </div>
+        )}
 
-        {healthChecks.command.length !== 0 &&
+        {healthChecks.command.length !== 0 && (
           <div>
             <ConfigurationMapHeading level={2}>
               Command Health Checks
@@ -183,8 +180,8 @@ class PodHealthChecksConfigSection extends React.Component {
                 />
               </MountService.Mount>
             </ConfigurationMapSection>
-          </div>}
-
+          </div>
+        )}
       </div>
     );
   }

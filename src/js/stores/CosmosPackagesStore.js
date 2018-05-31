@@ -53,8 +53,7 @@ import {
   SERVER_ACTION
 } from "../constants/ActionTypes";
 import RepositoryList from "../structs/RepositoryList";
-import UniverseInstalledPackagesList
-  from "../structs/UniverseInstalledPackagesList";
+import UniverseInstalledPackagesList from "../structs/UniverseInstalledPackagesList";
 import UniversePackage from "../structs/UniversePackage";
 import UniversePackageVersions from "../structs/UniversePackageVersions";
 import UniversePackagesList from "../structs/UniversePackagesList";

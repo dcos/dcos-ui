@@ -11,8 +11,7 @@ import Loader from "../../components/Loader";
 import Page from "../../components/Page";
 import RequestErrorMsg from "../../components/RequestErrorMsg";
 import UnitHealthStore from "../../stores/UnitHealthStore";
-import UnitsHealthNodeDetailPanel
-  from "./units-health-node-detail/UnitsHealthNodeDetailPanel";
+import UnitsHealthNodeDetailPanel from "./units-health-node-detail/UnitsHealthNodeDetailPanel";
 import UnitSummaries from "../../constants/UnitSummaries";
 
 const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {

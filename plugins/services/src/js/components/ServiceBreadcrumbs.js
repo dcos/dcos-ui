@@ -1,6 +1,5 @@
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
-import BreadcrumbSupplementalContent
-  from "#SRC/js/components/BreadcrumbSupplementalContent";
+import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -13,8 +12,7 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router";
 import ServiceTree from "../structs/ServiceTree";
 import ServiceStatusProgressBar from "./ServiceStatusProgressBar";
-import ServiceStatusWarningWithDebugInformation
-  from "./ServiceStatusWarningWithDebugInstruction";
+import ServiceStatusWarningWithDebugInformation from "./ServiceStatusWarningWithDebugInstruction";
 
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;
@@ -142,7 +140,10 @@ class ServiceBreadcrumbs extends React.Component {
     let iconDisplay = null;
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
-    const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
+    const tooltipContent = `${runningInstances} ${StringUtil.pluralize(
+      "instance",
+      runningInstances
+    )} running out of ${instancesCount}`;
 
     if (this.props.taskID == null && this.props.params != null) {
       progressBar = (
@@ -228,9 +229,7 @@ class ServiceBreadcrumbs extends React.Component {
             <BreadcrumbTextContent
               ref={ref => (this.primaryBreadcrumbTextRef = ref)}
             >
-              <Link to={routePath}>
-                {id}
-              </Link>
+              <Link to={routePath}>{id}</Link>
             </BreadcrumbTextContent>
             {breadcrumbStatus}
           </Breadcrumb>

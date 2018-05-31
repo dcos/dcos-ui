@@ -16,21 +16,16 @@ import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
-import SingleContainerPortDefinitions
-  from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
-import SingleContainerPortMappings
-  from "../../reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer";
-import {
-  FormReducer as networks
-} from "../../reducers/serviceForm/FormReducers/Networks";
+import SingleContainerPortDefinitions from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
+import SingleContainerPortMappings from "../../reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer";
+import { FormReducer as networks } from "../../reducers/serviceForm/FormReducers/Networks";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 
@@ -68,7 +63,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(portDefinition, index) {
     let hostPortValue = portDefinition.hostPort;
-    const { errors, data: { portsAutoAssign } } = this.props;
+    const {
+      errors,
+      data: { portsAutoAssign }
+    } = this.props;
     const hostPortError =
       findNestedPropertyInObject(errors, `portDefinitions.${index}.port`) ||
       findNestedPropertyInObject(
@@ -204,14 +202,16 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getLoadBalancedPortField(endpoint, index) {
-    const { errors, data: { id, portsAutoAssign } } = this.props;
+    const {
+      errors,
+      data: { id, portsAutoAssign }
+    } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
     const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
 
     // clear placeholder when HOST network portsAutoAssign is true
-    const placeholder = this.isHostNetwork() && portsAutoAssign
-      ? ""
-      : defaultVipPort;
+    const placeholder =
+      this.isHostNetwork() && portsAutoAssign ? "" : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError =
@@ -251,9 +251,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const helpText = (
-      <FieldHelp>
-        Load balance this service internally at {hostName}
-      </FieldHelp>
+      <FieldHelp>Load balance this service internally at {hostName}</FieldHelp>
     );
 
     return (
@@ -391,9 +389,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FormGroup className="column-3" showError={Boolean(containerPortError)}>
-        <FieldLabel>
-          Container Port
-        </FieldLabel>
+        <FieldLabel>Container Port</FieldLabel>
         <FieldAutofocus>
           <FieldInput
             min="0"
@@ -444,7 +440,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getServiceEndpoints() {
-    const { errors, data: { networks } } = this.props;
+    const {
+      errors,
+      data: { networks }
+    } = this.props;
     const networkType = findNestedPropertyInObject(networks, "0.mode") || HOST;
 
     const endpoints = this.isHostNetwork()
@@ -556,12 +555,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     const selections = (
       <FieldSelect name="networks.0.network" value={selectedValue}>
-        <option value={HOST}>
-          Host
-        </option>
-        <option value={BRIDGE}>
-          Bridge
-        </option>
+        <option value={HOST}>Host</option>
+        <option value={BRIDGE}>Bridge</option>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
@@ -608,7 +603,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           {heading}
         </h2>
         <p key="service-endpoints-description">
-          DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
+          DC/OS can automatically generate a Service Address to connect to each
+          of your load balanced endpoints.
         </p>
         {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpoints()}
@@ -680,7 +676,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           ports documentation
-        </a> for more information.
+        </a>{" "}
+        for more information.
       </span>
     );
 
@@ -694,29 +691,21 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
       return (
         <div>
-          <h2 className="flush-top short-bottom">
-            Networking
-          </h2>
+          <h2 className="flush-top short-bottom">Networking</h2>
           <p>
             {"This service has advanced networking configuration, which we" +
               " don't currently support in the UI. Please use the JSON editor" +
               " to make changes."}
           </p>
-          <pre>
-            {JSON.stringify(networks, null, 2)}
-          </pre>
+          <pre>{JSON.stringify(networks, null, 2)}</pre>
         </div>
       );
     }
 
     return (
       <div>
-        <h1 className="flush-top short-bottom">
-          Networking
-        </h1>
-        <p>
-          Configure the networking for your service.
-        </p>
+        <h1 className="flush-top short-bottom">Networking</h1>
+        <p>Configure the networking for your service.</p>
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>

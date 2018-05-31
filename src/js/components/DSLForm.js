@@ -28,11 +28,7 @@ class DSLForm extends React.Component {
       );
     });
 
-    return (
-      <div>
-        {components}
-      </div>
-    );
+    return <div>{components}</div>;
   }
 }
 

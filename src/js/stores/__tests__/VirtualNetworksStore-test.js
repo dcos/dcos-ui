@@ -36,11 +36,15 @@ describe("VirtualNetworksStore", function() {
       );
 
       expect(
-        VirtualNetworksStore.getOverlays().getItems()[0].getName()
+        VirtualNetworksStore.getOverlays()
+          .getItems()[0]
+          .getName()
       ).toEqual("foo");
 
       expect(
-        VirtualNetworksStore.getOverlays().getItems()[0].getSubnet()
+        VirtualNetworksStore.getOverlays()
+          .getItems()[0]
+          .getSubnet()
       ).toEqual("bar");
     });
   });
@@ -60,11 +64,15 @@ describe("VirtualNetworksStore", function() {
         });
 
         expect(
-          VirtualNetworksStore.getOverlays().getItems()[0].getName()
+          VirtualNetworksStore.getOverlays()
+            .getItems()[0]
+            .getName()
         ).toEqual("foo");
 
         expect(
-          VirtualNetworksStore.getOverlays().getItems()[1].getName()
+          VirtualNetworksStore.getOverlays()
+            .getItems()[1]
+            .getName()
         ).toEqual("bar");
       });
 

@@ -40,8 +40,8 @@ function getGraphBar(resource, data, index) {
   }
 
   const barGraphMatchedClasses = classNames("funnel-graph-item-bar-matched", {
-    "funnel-graph-item-bar-matched-border-top": percentageMatched > 0 &&
-      percentageMatched < 1
+    "funnel-graph-item-bar-matched-border-top":
+      percentageMatched > 0 && percentageMatched < 1
   });
 
   const offeredHeight = Math.ceil(MAX_BAR_HEIGHT * percentageOffered);
@@ -155,7 +155,10 @@ function getResourceTooltipContent(resource, data) {
 
   return (
     <span>
-      {explanatoryText} <a href={docsURI} target="_blank">Learn more</a>.
+      {explanatoryText}{" "}
+      <a href={docsURI} target="_blank">
+        Learn more
+      </a>.
     </span>
   );
 }
@@ -188,9 +191,7 @@ function RecentOffersSummary({ data }) {
 
   return (
     <div className="funnel-graph pod flush-horizontal">
-      <div className="funnel-graph-bars">
-        {funnelGraphItems}
-      </div>
+      <div className="funnel-graph-bars">{funnelGraphItems}</div>
       <div className="funnel-graph-key">
         <div className="funnel-graph-key-item">
           <span className="funnel-graph-key-dot funnel-graph-key-dot-matched dot" />

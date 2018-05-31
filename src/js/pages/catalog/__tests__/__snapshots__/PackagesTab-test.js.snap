@@ -18,7 +18,7 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
       <p
         className="tall"
       >
-        You need at least one package repository with some packages to be able to install packages. For more 
+        You need at least one package repository with some packages to be able to install packages. For more
          
         <a
           href="https://docs.mesosphere.com/latest/administering-clusters/repo"

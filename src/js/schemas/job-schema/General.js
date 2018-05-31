@@ -3,8 +3,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import JobValidatorUtil from "../../utils/JobValidatorUtil";
 import ValidatorUtil from "../../utils/ValidatorUtil";
-import MesosConstants
-  from "../../../../plugins/services/src/js/constants/MesosConstants";
+import MesosConstants from "../../../../plugins/services/src/js/constants/MesosConstants";
 import JobResources from "../../constants/JobResources";
 
 const General = {

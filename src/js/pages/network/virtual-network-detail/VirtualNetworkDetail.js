@@ -35,9 +35,7 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
   } else {
     crumbs.push(
       <Breadcrumb key={1} title={overlayID}>
-        <BreadcrumbTextContent>
-          {overlayID}
-        </BreadcrumbTextContent>
+        <BreadcrumbTextContent>{overlayID}</BreadcrumbTextContent>
       </Breadcrumb>
     );
   }

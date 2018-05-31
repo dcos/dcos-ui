@@ -25,11 +25,7 @@ class Tabs extends React.Component {
       "menu-tabbed-container-vertical": this.props.vertical
     });
 
-    return (
-      <div className={classes}>
-        {this.getChildren()}
-      </div>
-    );
+    return <div className={classes}>{this.getChildren()}</div>;
   }
 }
 

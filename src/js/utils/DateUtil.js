@@ -49,7 +49,9 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
   msToUTCDate(ms) {
-    return moment(ms).utc().format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+    return moment(ms)
+      .utc()
+      .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
   },
 
   /**
@@ -58,7 +60,9 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
   msToLogTime(ms) {
-    return moment(ms).utc().format("YYYY-MM-DD hh:mm:ss");
+    return moment(ms)
+      .utc()
+      .format("YYYY-MM-DD hh:mm:ss");
   },
 
   /**

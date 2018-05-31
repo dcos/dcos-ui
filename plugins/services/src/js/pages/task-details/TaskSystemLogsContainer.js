@@ -353,11 +353,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   render() {
     const actions = [this.getActions(), this.getDownloadButton()];
 
-    return (
-      <SearchLog actions={actions}>
-        {this.getLogView()}
-      </SearchLog>
-    );
+    return <SearchLog actions={actions}>{this.getLogView()}</SearchLog>;
   }
 }
 

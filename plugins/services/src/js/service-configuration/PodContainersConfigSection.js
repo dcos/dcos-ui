@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Alert from "#SRC/js/components/Alert";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import PodContainerConfigSection from "./PodContainerConfigSection";
 
 function renderContainers(appConfig, handleEditClick) {

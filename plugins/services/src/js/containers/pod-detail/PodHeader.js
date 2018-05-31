@@ -7,8 +7,7 @@ import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
 
-import ServiceStatusProgressBar
-  from "../../components/ServiceStatusProgressBar";
+import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
 import StatusMapping from "../../constants/StatusMapping";
 import PodActionItem from "../../constants/PodActionItem";
@@ -151,11 +150,7 @@ class PodHeader extends React.Component {
       podIcon = <img src={podImages["icon-large"]} />;
     }
 
-    const tabs = (
-      <ul className="menu-tabbed">
-        {this.props.tabs}
-      </ul>
-    );
+    const tabs = <ul className="menu-tabbed">{this.props.tabs}</ul>;
 
     return (
       <DetailViewHeader

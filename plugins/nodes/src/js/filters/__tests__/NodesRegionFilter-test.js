@@ -29,8 +29,11 @@ describe("NodesRegionFilter", function() {
       new NodesRegionFilter(["region-1"])
     );
 
-    expect(expr.filter(filters, nodes).getItems()[0].getRegionName()).toEqual(
-      thisMockItems[0].getRegionName()
-    );
+    expect(
+      expr
+        .filter(filters, nodes)
+        .getItems()[0]
+        .getRegionName()
+    ).toEqual(thisMockItems[0].getRegionName());
   });
 });

@@ -1,6 +1,5 @@
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
-import ServicesList
-  from "../../../plugins/services/src/js/structs/ServicesList";
+import ServicesList from "../../../plugins/services/src/js/structs/ServicesList";
 import NodesList from "./NodesList";
 
 module.exports = class StateSummary {

@@ -42,11 +42,7 @@ class AdvancedSection extends React.Component {
   render() {
     const classes = classNames("advanced-section", this.props.className);
 
-    return (
-      <div className={classes}>
-        {this.getChildren()}
-      </div>
-    );
+    return <div className={classes}>{this.getChildren()}</div>;
   }
 }
 

@@ -9,8 +9,7 @@ import JobTree from "#SRC/js/structs/JobTree";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 
 import Breadcrumb from "../../components/Breadcrumb";
-import BreadcrumbSupplementalContent
-  from "../../components/BreadcrumbSupplementalContent";
+import BreadcrumbSupplementalContent from "../../components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import Icon from "../Icon";
 import PageHeaderBreadcrumbs from "../../components/PageHeaderBreadcrumbs";
@@ -74,16 +73,13 @@ function getItemSchedule(item) {
 function getBreadcrumb(item, details = true) {
   const id = item.getId();
   const name = item.getName();
-  const link = item instanceof Job
-    ? `/jobs/detail/${id}`
-    : `/jobs/overview/${id}`;
+  const link =
+    item instanceof Job ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
 
   return (
     <Breadcrumb key={id} title="Jobs">
       <BreadcrumbTextContent>
-        <Link to={link}>
-          {name === "" ? "Jobs" : name}
-        </Link>
+        <Link to={link}>{name === "" ? "Jobs" : name}</Link>
       </BreadcrumbTextContent>
       {details ? getItemSchedule(item) : null}
       {details ? getItemStatus(item) : null}

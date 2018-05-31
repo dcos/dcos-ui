@@ -154,15 +154,8 @@ class ServiceDestroyModal extends React.Component {
     return (
       <div>
         <p>
-          This action
-          {" "}
-          <strong>CANNOT</strong>
-          {" "}
-          be undone. This will permanently delete the
-          {" "}
-          <strong>{serviceName}</strong>
-          {" "}
-          {serviceLabel.toLowerCase()}
+          This action <strong>CANNOT</strong> be undone. This will permanently
+          delete the <strong>{serviceName}</strong> {serviceLabel.toLowerCase()}
           .
         </p>
         <div className="form-group flush-bottom">
@@ -185,7 +178,9 @@ class ServiceDestroyModal extends React.Component {
   getDestroyServiceModal() {
     const { open } = this.props;
     const serviceLabel = this.getServiceLabel();
-    const itemText = `${StringUtil.capitalize(UserActions.DELETE)} ${serviceLabel}`;
+    const itemText = `${StringUtil.capitalize(
+      UserActions.DELETE
+    )} ${serviceLabel}`;
 
     return (
       <Confirm

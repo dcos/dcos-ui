@@ -47,7 +47,10 @@ if (
 const Store = createStore(
   combineReducers(reducers),
   initialState,
-  compose(applyMiddleware(...middleware), devToolIfEnabled)
+  compose(
+    applyMiddleware(...middleware),
+    devToolIfEnabled
+  )
 );
 
 /**

@@ -165,7 +165,6 @@ class PodInstancesView extends React.Component {
           pod={this.props.pod}
           filterText={filterText}
         />
-
       </div>
     );
   }

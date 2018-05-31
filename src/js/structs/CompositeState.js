@@ -1,7 +1,6 @@
 import NodesList from "./NodesList";
 import Node from "./Node";
-import ServicesList
-  from "../../../plugins/services/src/js/structs/ServicesList";
+import ServicesList from "../../../plugins/services/src/js/structs/ServicesList";
 
 const BLANK_NODE = {
   health: 3

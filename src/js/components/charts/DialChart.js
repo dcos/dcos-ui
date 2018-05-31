@@ -36,9 +36,12 @@ var DialChart = React.createClass({
     var value = this.props.value;
     var data = Object.assign(
       {
-        pie: d3.layout.pie().sort(null).value(function(d) {
-          return d[value];
-        })
+        pie: d3.layout
+          .pie()
+          .sort(null)
+          .value(function(d) {
+            return d[value];
+          })
       },
       this.getArcs(this.props)
     );
@@ -138,7 +141,10 @@ var DialChart = React.createClass({
         .arc()
         .outerRadius(radius * 0.9)
         .innerRadius(radius * 0.84),
-      outerArc: d3.svg.arc().outerRadius(radius).innerRadius(radius),
+      outerArc: d3.svg
+        .arc()
+        .outerRadius(radius)
+        .innerRadius(radius),
       innerRadius: radius * 0.5
     };
   },

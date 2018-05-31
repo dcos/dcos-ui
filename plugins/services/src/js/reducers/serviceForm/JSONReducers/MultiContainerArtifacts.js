@@ -20,11 +20,11 @@ module.exports = {
         this.artifactState[index].push({ uri: null });
         break;
       case REMOVE_ITEM:
-        this.artifactState[index] = this.artifactState[
-          index
-        ].filter((item, index) => {
-          return index !== value;
-        });
+        this.artifactState[index] = this.artifactState[index].filter(
+          (item, index) => {
+            return index !== value;
+          }
+        );
         break;
       case SET:
         this.artifactState[index][secondIndex][name] = value;

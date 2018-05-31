@@ -16,11 +16,7 @@ const PrimarySidebarLink = ({
 }) => {
   const notificationCount = NotificationStore.getNotificationCount(to);
 
-  let sidebarText = (
-    <span className="sidebar-menu-item-label">
-      {children}
-    </span>
-  );
+  let sidebarText = <span className="sidebar-menu-item-label">{children}</span>;
 
   if (notificationCount > 0) {
     sidebarText = (
@@ -44,12 +40,18 @@ const PrimarySidebarLink = ({
 
     return (
       <a className={classes} onClick={onClick}>
-        {icon}{sidebarText}
+        {icon}
+        {sidebarText}
       </a>
     );
   }
 
-  return <Link to={to}>{icon}{sidebarText}</Link>;
+  return (
+    <Link to={to}>
+      {icon}
+      {sidebarText}
+    </Link>
+  );
 };
 
 module.exports = PrimarySidebarLink;

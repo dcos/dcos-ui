@@ -6,13 +6,9 @@ import Transaction from "#SRC/js/structs/Transaction";
 import Networking from "#SRC/js/constants/Networking";
 
 import { DEFAULT_POD_CONTAINER } from "../../../constants/DefaultPod";
-import {
-  JSONReducer as volumeMountsReducer
-} from "./MultiContainerVolumeMounts";
+import { JSONReducer as volumeMountsReducer } from "./MultiContainerVolumeMounts";
 import { JSONReducer as endpointsJSONReducer } from "./Endpoints";
-import {
-  JSONReducer as multiContainerArtifactsJSONReducer
-} from "./MultiContainerArtifacts";
+import { JSONReducer as multiContainerArtifactsJSONReducer } from "./MultiContainerArtifacts";
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
   JSONSegmentParser as multiContainerHealthCheckParser

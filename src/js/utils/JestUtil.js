@@ -110,7 +110,7 @@ const JestUtil = {
    * @param {object} [contextTypes]
    * @param {object} [context]
    * @returns {React.Element} wrapped component element
-  */
+   */
   stubRouterContext(
     Component,
     props = {},

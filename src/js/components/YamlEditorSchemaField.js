@@ -22,9 +22,7 @@ export default class YamlEditorSchemaField extends Component {
 
     return (
       <div>
-        <FieldLabel>
-          {label}
-        </FieldLabel>
+        <FieldLabel>{label}</FieldLabel>
         <div>
           <AceEditor
             mode="yaml"

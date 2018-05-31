@@ -3,24 +3,18 @@ import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
-import FullScreenModalHeader
-  from "#SRC/js/components/modals/FullScreenModalHeader";
-import FullScreenModalHeaderActions
-  from "#SRC/js/components/modals/FullScreenModalHeaderActions";
-import FullScreenModalHeaderTitle
-  from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
-import FullScreenModalHeaderSubTitle
-  from "#SRC/js/components/modals/FullScreenModalHeaderSubTitle";
+import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
+import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
+import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
+import FullScreenModalHeaderSubTitle from "#SRC/js/components/modals/FullScreenModalHeaderSubTitle";
 import ToggleButton from "#SRC/js/components/ToggleButton";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
-import FrameworkConfigurationForm
-  from "#SRC/js/components/FrameworkConfigurationForm";
-import FrameworkConfigurationReviewScreen
-  from "#SRC/js/components/FrameworkConfigurationReviewScreen";
+import FrameworkConfigurationForm from "#SRC/js/components/FrameworkConfigurationForm";
+import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 
 const METHODS_TO_BIND = [
   "handleJSONToggle",
@@ -199,7 +193,9 @@ class FrameworkConfiguration extends Component {
     const preInstallNotes = packageDetails.getPreInstallNotes();
     if (preInstallNotes) {
       const message = StringUtil.parseMarkdown(preInstallNotes);
-      message.__html = `<strong>Preinstall Notes: </strong>${message.__html} ${this.getTermsAndConditions().__html}`;
+      message.__html = `<strong>Preinstall Notes: </strong>${message.__html} ${
+        this.getTermsAndConditions().__html
+      }`;
 
       return (
         <div
@@ -349,7 +345,8 @@ class FrameworkConfiguration extends Component {
           showHeader={true}
         >
           <p>
-            Are you sure you want to leave this page? Any data you entered will be lost.
+            Are you sure you want to leave this page? Any data you entered will
+            be lost.
           </p>
         </Confirm>
       </FullScreenModal>

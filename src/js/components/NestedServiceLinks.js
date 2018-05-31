@@ -83,9 +83,7 @@ class NestedServiceLinks extends React.Component {
 
     return (
       <Link className={anchorClasses} to={serviceLink} title={label}>
-        <span className="text-overflow">
-          {label}
-        </span>
+        <span className="text-overflow">{label}</span>
       </Link>
     );
   }
@@ -139,12 +137,8 @@ class NestedServiceLinks extends React.Component {
 
     return (
       <div className={classes}>
-        <div className={majorLinkClasses}>
-          {this.getMajorLink()}
-        </div>
-        <div className={minorLinkWrapperClasses}>
-          {this.getMinorLinks()}
-        </div>
+        <div className={majorLinkClasses}>{this.getMajorLink()}</div>
+        <div className={minorLinkWrapperClasses}>{this.getMinorLinks()}</div>
       </div>
     );
   }

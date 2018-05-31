@@ -101,24 +101,19 @@ const DeclinedOffersUtil = {
             pod,
             "scheduling.placement.acceptedResourceRoles"
           ) || ["*"],
-          constraints: Util.findNestedPropertyInObject(
-            pod,
-            "scheduling.placement.constraints"
-          ) || [],
-          cpus: Util.findNestedPropertyInObject(
-            pod,
-            "executorResources.cpus"
-          ) || 0,
-          gpus: Util.findNestedPropertyInObject(
-            pod,
-            "executorResources.gpus"
-          ) || 0,
-          mem: Util.findNestedPropertyInObject(pod, "executorResources.mem") ||
-            0,
-          disk: Util.findNestedPropertyInObject(
-            pod,
-            "executorResources.disk"
-          ) || 0,
+          constraints:
+            Util.findNestedPropertyInObject(
+              pod,
+              "scheduling.placement.constraints"
+            ) || [],
+          cpus:
+            Util.findNestedPropertyInObject(pod, "executorResources.cpus") || 0,
+          gpus:
+            Util.findNestedPropertyInObject(pod, "executorResources.gpus") || 0,
+          mem:
+            Util.findNestedPropertyInObject(pod, "executorResources.mem") || 0,
+          disk:
+            Util.findNestedPropertyInObject(pod, "executorResources.disk") || 0,
           ports: []
         }
       );
@@ -144,25 +139,26 @@ const DeclinedOffersUtil = {
         matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
       constraints: {
-        requested: requestedResources.constraints
-          .map((constraint = []) => {
-            if (Array.isArray(constraint)) {
-              return constraint.join(":");
-            }
+        requested:
+          requestedResources.constraints
+            .map((constraint = []) => {
+              if (Array.isArray(constraint)) {
+                return constraint.join(":");
+              }
 
-            // pod
-            const { fieldName, operator, value } = constraint;
+              // pod
+              const { fieldName, operator, value } = constraint;
 
-            return [fieldName, operator, value]
-              .filter(function(value) {
-                return value && value !== "";
-              })
-              .join(":");
-          })
-          .join(", ") || UNAVAILABLE_TEXT,
+              return [fieldName, operator, value]
+                .filter(function(value) {
+                  return value && value !== "";
+                })
+                .join(":");
+            })
+            .join(", ") || UNAVAILABLE_TEXT,
         offers: constraintOfferSummary.processed,
-        matched: constraintOfferSummary.processed -
-          constraintOfferSummary.declined
+        matched:
+          constraintOfferSummary.processed - constraintOfferSummary.declined
       },
       cpus: {
         requested: requestedResources.cpus,
@@ -185,11 +181,12 @@ const DeclinedOffersUtil = {
         matched: diskOfferSummary.processed - diskOfferSummary.declined
       },
       ports: {
-        requested: requestedResources.ports
-          .map((resourceArr = []) => {
-            return resourceArr.join(", ");
-          })
-          .join(", ") || UNAVAILABLE_TEXT,
+        requested:
+          requestedResources.ports
+            .map((resourceArr = []) => {
+              return resourceArr.join(", ");
+            })
+            .join(", ") || UNAVAILABLE_TEXT,
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined
       }

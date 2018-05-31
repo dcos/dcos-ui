@@ -2,10 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 
 import {
   getSharedIconWithLabel,

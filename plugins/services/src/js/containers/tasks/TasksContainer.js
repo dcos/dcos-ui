@@ -8,13 +8,10 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import Tree from "#SRC/js/structs/Tree";
 
-import TasksStatusFilter
-  from "#PLUGINS/services/src/js/filters/TasksStatusFilter";
+import TasksStatusFilter from "#PLUGINS/services/src/js/filters/TasksStatusFilter";
 import TasksZoneFilter from "#PLUGINS/services/src/js/filters/TasksZoneFilter";
-import TasksRegionFilter
-  from "#PLUGINS/services/src/js/filters/TasksRegionFilter";
-import TaskNameTextFilter
-  from "#PLUGINS/services/src/js/filters/TaskNameTextFilter";
+import TasksRegionFilter from "#PLUGINS/services/src/js/filters/TasksRegionFilter";
+import TaskNameTextFilter from "#PLUGINS/services/src/js/filters/TaskNameTextFilter";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
@@ -109,7 +106,9 @@ class TasksContainer extends React.Component {
 
   handleExpressionChange(filterExpression) {
     const { router } = this.context;
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });

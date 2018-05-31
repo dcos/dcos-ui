@@ -12,8 +12,10 @@ export const fetchRepositories = type => {
       method: "POST",
       body: JSON.stringify({ type }),
       headers: {
-        Accept: "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
-        "Content-Type": "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
+        Accept:
+          "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
+        "Content-Type":
+          "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
       }
     })
   );
@@ -28,8 +30,10 @@ export const addRepository = (name, uri, index) =>
     method: "POST",
     body: JSON.stringify({ name, uri, index }),
     headers: {
-      Accept: "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
-      "Content-Type": "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
+      Accept:
+        "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
+      "Content-Type":
+        "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
     }
   }).do(() => reloadSubject.next());
 
@@ -38,7 +42,9 @@ export const deleteRepository = (name, uri) =>
     method: "POST",
     body: JSON.stringify({ name, uri }),
     headers: {
-      Accept: "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
-      "Content-Type": "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
+      Accept:
+        "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
+      "Content-Type":
+        "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
     }
   }).do(() => reloadSubject.next());

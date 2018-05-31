@@ -14,15 +14,12 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from "../../../plugins/services/src/js/constants/EventTypes";
 
-import DeclinedOffersUtil
-  from "../../../plugins/services/src/js/utils/DeclinedOffersUtil";
-import DeploymentsList
-  from "../../../plugins/services/src/js/structs/DeploymentsList";
+import DeclinedOffersUtil from "../../../plugins/services/src/js/utils/DeclinedOffersUtil";
+import DeploymentsList from "../../../plugins/services/src/js/structs/DeploymentsList";
 import Item from "../structs/Item";
 import Framework from "../../../plugins/services/src/js/structs/Framework";
 import JobTree from "../structs/JobTree";
-import MarathonStore
-  from "../../../plugins/services/src/js/stores/MarathonStore";
+import MarathonStore from "../../../plugins/services/src/js/stores/MarathonStore";
 import MesosSummaryStore from "./MesosSummaryStore";
 import MetronomeStore from "./MetronomeStore";
 import NotificationStore from "./NotificationStore";
@@ -243,7 +240,9 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonQueueChange(nextQueue) {
-    const { marathon: { queue } } = this.data;
+    const {
+      marathon: { queue }
+    } = this.data;
 
     const queuedAppIDs = [];
     nextQueue.forEach(entry => {
@@ -288,7 +287,9 @@ class DCOSStore extends EventEmitter {
 
   onMarathonServiceVersionChange(event) {
     const { serviceID, versionID, version } = event;
-    const { marathon: { versions } } = this.data;
+    const {
+      marathon: { versions }
+    } = this.data;
     let currentVersions = versions.get(serviceID);
 
     if (!currentVersions) {
@@ -304,7 +305,9 @@ class DCOSStore extends EventEmitter {
 
   onMarathonServiceVersionsChange(event) {
     let { serviceID, versions: nextVersions } = event;
-    const { marathon: { versions } } = this.data;
+    const {
+      marathon: { versions }
+    } = this.data;
     const currentVersions = versions.get(serviceID);
 
     if (currentVersions) {
@@ -426,7 +429,10 @@ class DCOSStore extends EventEmitter {
   }
 
   buildServiceTree() {
-    const { marathon: { serviceTree, queue, versions }, mesos } = this.data;
+    const {
+      marathon: { serviceTree, queue, versions },
+      mesos
+    } = this.data;
 
     // Create framework dict from Mesos data
     const frameworks = mesos

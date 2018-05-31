@@ -111,9 +111,7 @@ class UserFormModal extends mixin(StoreMixin) {
   getHeader() {
     return Hooks.applyFilter(
       "userFormModalHeader",
-      <ModalHeading>
-        Add User to Cluster
-      </ModalHeading>
+      <ModalHeading>Add User to Cluster</ModalHeading>
     );
   }
 

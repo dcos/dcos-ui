@@ -21,11 +21,7 @@ class TabViewList extends React.Component {
       this.props.classNames
     );
 
-    return (
-      <div className={classes}>
-        {this.getChildren()}
-      </div>
-    );
+    return <div className={classes}>{this.getChildren()}</div>;
   }
 }
 

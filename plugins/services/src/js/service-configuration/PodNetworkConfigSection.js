@@ -2,18 +2,15 @@ import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
 
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
-import ConfigurationMapValueWithDefault
-  from "../components/ConfigurationMapValueWithDefault";
+import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValueWithDefault";
 
 const NETWORK_MODE_NAME = {
   container: "Container",

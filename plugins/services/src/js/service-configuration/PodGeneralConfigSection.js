@@ -3,18 +3,15 @@ import React from "react";
 import { MountService } from "foundation-ui";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import ConfigurationMapHeading
-  from "#SRC/js/components/ConfigurationMapHeading";
+import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Units from "#SRC/js/utils/Units";
 import EmptyStates from "#SRC/js/constants/EmptyStates";
 
-import ConfigurationMapValueWithDefault
-  from "../components/ConfigurationMapValueWithDefault";
+import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValueWithDefault";
 import DurationValue from "../components/ConfigurationMapDurationValue";
 
 /**
@@ -154,42 +151,47 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
             </ConfigurationMapValue>
             {action}
           </ConfigurationMapRow>
-          {Boolean(fields.backoff) &&
+          {Boolean(fields.backoff) && (
             <ConfigurationMapRow>
               <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
               <DurationValue units="sec" value={fields.backoff} />
               {action}
-            </ConfigurationMapRow>}
-          {Boolean(fields.backoffFactor) &&
+            </ConfigurationMapRow>
+          )}
+          {Boolean(fields.backoffFactor) && (
             <ConfigurationMapRow>
               <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
               <ConfigurationMapValue value={fields.backoffFactor} />
               {action}
-            </ConfigurationMapRow>}
-          {Boolean(fields.maxLaunchDelay) &&
+            </ConfigurationMapRow>
+          )}
+          {Boolean(fields.maxLaunchDelay) && (
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 Backoff Max Launch Delay
               </ConfigurationMapLabel>
               <DurationValue units="sec" value={fields.maxLaunchDelay} />
               {action}
-            </ConfigurationMapRow>}
-          {Boolean(fields.minimumHealthCapacity) &&
+            </ConfigurationMapRow>
+          )}
+          {Boolean(fields.minimumHealthCapacity) && (
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 Upgrade Min Health Capacity
               </ConfigurationMapLabel>
               <ConfigurationMapValue value={fields.minimumHealthCapacity} />
               {action}
-            </ConfigurationMapRow>}
-          {Boolean(fields.maximumOverCapacity) &&
+            </ConfigurationMapRow>
+          )}
+          {Boolean(fields.maximumOverCapacity) && (
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 Upgrade Max Overcapacity
               </ConfigurationMapLabel>
               <ConfigurationMapValue value={fields.maximumOverCapacity} />
               {action}
-            </ConfigurationMapRow>}
+            </ConfigurationMapRow>
+          )}
         </MountService.Mount>
       </ConfigurationMapSection>
     </div>

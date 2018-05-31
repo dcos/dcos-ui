@@ -58,7 +58,8 @@ class ServiceGroupFormModal extends React.Component {
         showLabel: false,
         writeType: "input",
         validation: ServiceValidatorUtil.isValidServiceID,
-        validationErrorText: "Group name must be at least 1 character and " +
+        validationErrorText:
+          "Group name must be at least 1 character and " +
           "may only contain digits (0-9), dashes (-), dots (.), " +
           "and lowercase letters (a-z). The name may not begin or end " +
           "with a dash."

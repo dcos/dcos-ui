@@ -110,9 +110,7 @@ const ResourceBarChart = React.createClass({
 
     return (
       <div>
-        <h4 className="flush">
-          {headline}
-        </h4>
+        <h4 className="flush">{headline}</h4>
         <p className="flush">
           {this.props.itemCount + " Total " + this.props.resourceType}
         </p>
@@ -128,9 +126,7 @@ const ResourceBarChart = React.createClass({
             <div className="panel-options button-group">
               {this.getModeButtons()}
             </div>
-            <div>
-              {this.getHeadline(this.props.selectedResource)}
-            </div>
+            <div>{this.getHeadline(this.props.selectedResource)}</div>
           </div>
           <div className="panel-cell panel-content" ref="panelContent">
             {this.getBarChart()}

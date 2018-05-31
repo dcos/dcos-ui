@@ -10,23 +10,15 @@ import NodeDetailTaskTab from "../pages/nodes/NodeDetailTaskTab";
 import NodesGridContainer from "../pages/nodes/nodes-grid/NodesGridContainer";
 import NodesOverview from "../pages/NodesOverview";
 import NodesPage from "../pages/NodesPage";
-import NodesTableContainer
-  from "../pages/nodes/nodes-table/NodesTableContainer";
+import NodesTableContainer from "../pages/nodes/nodes-table/NodesTableContainer";
 import NodesTaskDetailPage from "../pages/nodes/NodesTaskDetailPage";
-import TaskDetailsTab
-  from "../../../../services/src/js/pages/task-details/TaskDetailsTab";
-import TaskFileBrowser
-  from "../../../../services/src/js/pages/task-details/TaskFileBrowser";
-import TaskFilesTab
-  from "../../../../services/src/js/pages/task-details/TaskFilesTab";
-import TaskFileViewer
-  from "../../../../services/src/js/pages/task-details/TaskFileViewer";
-import TaskLogsContainer
-  from "../../../../services/src/js/pages/task-details/TaskLogsContainer";
-import TaskVolumeContainer
-  from "../../../../services/src/js/containers/volume-detail/TaskVolumeContainer";
-import NodesUnitsHealthDetailPage
-  from "../pages/nodes/NodesUnitsHealthDetailPage";
+import TaskDetailsTab from "../../../../services/src/js/pages/task-details/TaskDetailsTab";
+import TaskFileBrowser from "../../../../services/src/js/pages/task-details/TaskFileBrowser";
+import TaskFilesTab from "../../../../services/src/js/pages/task-details/TaskFilesTab";
+import TaskFileViewer from "../../../../services/src/js/pages/task-details/TaskFileViewer";
+import TaskLogsContainer from "../../../../services/src/js/pages/task-details/TaskLogsContainer";
+import TaskVolumeContainer from "../../../../services/src/js/containers/volume-detail/TaskVolumeContainer";
+import NodesUnitsHealthDetailPage from "../pages/nodes/NodesUnitsHealthDetailPage";
 import VolumeTable from "../../../../services/src/js/components/VolumeTable";
 
 const nodesRoutes = {
@@ -110,7 +102,8 @@ const nodesRoutes = {
           children: [
             {
               component: TaskFileBrowser,
-              fileViewerRoutePath: "/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))",
+              fileViewerRoutePath:
+                "/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))",
               hideHeaderNavigation: true,
               type: IndexRoute
             },

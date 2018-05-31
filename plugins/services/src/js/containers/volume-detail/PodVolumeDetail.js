@@ -8,8 +8,7 @@ import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
-import ConfigurationMapSection
-  from "#SRC/js/components/ConfigurationMapSection";
+import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
 import Page from "#SRC/js/components/Page";
@@ -48,10 +47,11 @@ class PodVolumeDetail extends React.Component {
       <Breadcrumb key={-1} title="Services">
         <BreadcrumbTextContent>
           <Link
-            to={`/services/detail/${encodedServiceId}/podvolumes/${escape(volumeId)}`}
+            to={`/services/detail/${encodedServiceId}/podvolumes/${escape(
+              volumeId
+            )}`}
             key="volume"
           >
-
             {volumeId}
           </Link>
         </BreadcrumbTextContent>
@@ -73,50 +73,34 @@ class PodVolumeDetail extends React.Component {
                 <ConfigurationMapLabel>
                   {containerName} Path
                 </ConfigurationMapLabel>
-                <ConfigurationMapValue>
-                  {mountPath}
-                </ConfigurationMapValue>
+                <ConfigurationMapValue>{mountPath}</ConfigurationMapValue>
               </ConfigurationMapRow>
             ))}
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 {this.getSizeLabel()}
               </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {volume.getSize()}
-              </ConfigurationMapValue>
+              <ConfigurationMapValue>{volume.getSize()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Application
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {serviceID}
-              </ConfigurationMapValue>
+              <ConfigurationMapLabel>Application</ConfigurationMapLabel>
+              <ConfigurationMapValue>{serviceID}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Profile Name
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Profile Name</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {volume.getProfile()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Task ID
-              </ConfigurationMapLabel>
+              <ConfigurationMapLabel>Task ID</ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {volume.getTaskID()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                Host
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {volume.getHost()}
-              </ConfigurationMapValue>
+              <ConfigurationMapLabel>Host</ConfigurationMapLabel>
+              <ConfigurationMapValue>{volume.getHost()}</ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>
         </ConfigurationMap>

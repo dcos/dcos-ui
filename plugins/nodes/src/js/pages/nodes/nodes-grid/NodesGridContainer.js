@@ -51,7 +51,11 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   componentWillReceiveProps(props) {
-    const { services, location: { query }, hosts } = props;
+    const {
+      services,
+      location: { query },
+      hosts
+    } = props;
     const ids = services.map(function(service) {
       return service.id;
     });

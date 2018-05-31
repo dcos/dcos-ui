@@ -26,17 +26,12 @@ import Pod from "../../structs/Pod";
 import PodDetail from "../pod-detail/PodDetail";
 import Service from "../../structs/Service";
 import ServiceActionItem from "../../constants/ServiceActionItem";
-import ServiceAttributeHasVolumesFilter
-  from "../../filters/ServiceAttributeHasVolumesFilter";
-import ServiceAttributeHealthFilter
-  from "../../filters/ServiceAttributeHealthFilter";
+import ServiceAttributeHasVolumesFilter from "../../filters/ServiceAttributeHasVolumesFilter";
+import ServiceAttributeHealthFilter from "../../filters/ServiceAttributeHealthFilter";
 import ServiceAttributeIsFilter from "../../filters/ServiceAttributeIsFilter";
-import ServiceAttributeIsPodFilter
-  from "../../filters/ServiceAttributeIsPodFilter";
-import ServiceAttributeIsCatalogFilter
-  from "../../filters/ServiceAttributeIsCatalogFilter";
-import ServiceAttributeNoHealthchecksFilter
-  from "../../filters/ServiceAttributeNoHealthchecksFilter";
+import ServiceAttributeIsPodFilter from "../../filters/ServiceAttributeIsPodFilter";
+import ServiceAttributeIsCatalogFilter from "../../filters/ServiceAttributeIsCatalogFilter";
+import ServiceAttributeNoHealthchecksFilter from "../../filters/ServiceAttributeNoHealthchecksFilter";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceDetail from "../service-detail/ServiceDetail";
 import ServiceItemNotFound from "../../components/ServiceItemNotFound";
@@ -325,7 +320,9 @@ class ServicesContainer extends React.Component {
 
   handleFilterExpressionChange(filterExpression) {
     const { router } = this.context;
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });
@@ -605,9 +602,10 @@ class ServicesContainer extends React.Component {
     }
 
     // Find item in root tree
-    const item = itemId === "/"
-      ? DCOSStore.serviceTree
-      : DCOSStore.serviceTree.findItemById(itemId);
+    const item =
+      itemId === "/"
+        ? DCOSStore.serviceTree
+        : DCOSStore.serviceTree.findItemById(itemId);
 
     // Show Tree
     const currentRoutePath = reconstructPathFromRoutes(routes);

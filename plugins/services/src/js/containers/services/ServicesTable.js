@@ -15,12 +15,10 @@ import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-import ServiceStatusProgressBar
-  from "../../components/ServiceStatusProgressBar";
+import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
-import ServiceActionDisabledModal
-  from "../../components/modals/ServiceActionDisabledModal";
+import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 import {
   DELETE,
   EDIT,
@@ -360,7 +358,10 @@ class ServicesTable extends React.Component {
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
-    const tooltipContent = `${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`;
+    const tooltipContent = `${runningInstances} ${StringUtil.pluralize(
+      "instance",
+      runningInstances
+    )} running out of ${instancesCount}`;
     const hasStatusText = serviceStatusText !== ServiceStatus.NA.displayName;
 
     return (
@@ -371,8 +372,9 @@ class ServicesTable extends React.Component {
             showTooltip={true}
             tooltipContent={tooltipContent}
           />
-          {hasStatusText &&
-            <span className="status-bar-text">{serviceStatusText}</span>}
+          {hasStatusText && (
+            <span className="status-bar-text">{serviceStatusText}</span>
+          )}
         </div>
         <div className="service-status-progressbar-wrapper">
           <ServiceStatusProgressBar service={service} />
@@ -384,34 +386,32 @@ class ServicesTable extends React.Component {
   renderStats(prop, service) {
     const resource = service.getResources()[prop];
 
-    return (
-      <span>
-        {Units.formatResource(prop, resource)}
-      </span>
-    );
+    return <span>{Units.formatResource(prop, resource)}</span>;
   }
 
   renderInstances(prop, service) {
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
-    const overview = runningInstances === instancesCount
-      ? ` ${runningInstances}`
-      : ` ${runningInstances}/${instancesCount}`;
+    const overview =
+      runningInstances === instancesCount
+        ? ` ${runningInstances}`
+        : ` ${runningInstances}/${instancesCount}`;
 
     const content = !Number.isInteger(instancesCount)
       ? EmptyStates.CONFIG_VALUE
       : overview;
     const tooltipContent = (
       <span>
-        {`${runningInstances} ${StringUtil.pluralize("instance", runningInstances)} running out of ${instancesCount}`}
+        {`${runningInstances} ${StringUtil.pluralize(
+          "instance",
+          runningInstances
+        )} running out of ${instancesCount}`}
       </span>
     );
 
     return (
       <Tooltip content={tooltipContent}>
-        <span>
-          {content}
-        </span>
+        <span>{content}</span>
       </Tooltip>
     );
   }

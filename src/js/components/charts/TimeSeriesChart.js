@@ -117,8 +117,7 @@ var TimeSeriesChart = React.createClass({
     var el = this.refs.movingEls;
 
     // create clip path for areas and x-axis
-    d3
-      .select(el)
+    d3.select(el)
       .append("defs")
       .append("clipPath")
       .attr("id", data.clipPathID)
@@ -233,7 +232,10 @@ var TimeSeriesChart = React.createClass({
       dateDelta = values[values.length - 1 - hiddenValuesCount].date;
     }
 
-    return d3.time.scale().range([0, width]).domain([date, dateDelta]);
+    return d3.time
+      .scale()
+      .range([0, width])
+      .domain([date, dateDelta]);
   },
 
   getYScale(height, maxY) {
@@ -292,8 +294,7 @@ var TimeSeriesChart = React.createClass({
       .tickValues(this.getXTickValues(xScale))
       .tickFormat(this.formatXAxis)
       .orient("bottom");
-    d3
-      .select(this.refs.xAxis)
+    d3.select(this.refs.xAxis)
       .interrupt()
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
@@ -306,17 +307,15 @@ var TimeSeriesChart = React.createClass({
       .orient("left");
     d3.select(this.refs.yAxis).call(yAxis);
 
-    d3
-      .select(this.refs.grid)
-      .call(
-        d3.svg
-          .axis()
-          .scale(yScale)
-          .orient("left")
-          .ticks(props.ticksY)
-          .tickSize(-width, 0, 0)
-          .tickFormat("")
-      );
+    d3.select(this.refs.grid).call(
+      d3.svg
+        .axis()
+        .scale(yScale)
+        .orient("left")
+        .ticks(props.ticksY)
+        .tickSize(-width, 0, 0)
+        .tickFormat("")
+    );
   },
 
   getTransitionTime(data) {
@@ -353,9 +352,10 @@ var TimeSeriesChart = React.createClass({
   },
 
   getAreaList(props, yScale, xTimeScale) {
-    var firstSuccess = props.data[0].values.find(function(stateResource) {
-      return stateResource[props.y] != null;
-    }) || {};
+    var firstSuccess =
+      props.data[0].values.find(function(stateResource) {
+        return stateResource[props.y] != null;
+      }) || {};
     // We need firstSuccess because if the current value is null,
     // we want to make it equal to the most recent successful value in order to
     // have a straight line on the graph.

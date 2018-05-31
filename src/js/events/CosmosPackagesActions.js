@@ -1,6 +1,5 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
-import * as repositoriesStream
-  from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
+import * as repositoriesStream from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 
 import {
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
@@ -116,15 +115,17 @@ const CosmosPackagesActions = {
         const packages = response.packages || [];
         // Map list data to match other endpoint structures
         const data = packages.map(function(item) {
-          const cosmosPackage = Util.findNestedPropertyInObject(
-            item,
-            "packageInformation.packageDefinition"
-          ) || {};
+          const cosmosPackage =
+            Util.findNestedPropertyInObject(
+              item,
+              "packageInformation.packageDefinition"
+            ) || {};
           cosmosPackage.appId = item.appId;
-          cosmosPackage.resource = Util.findNestedPropertyInObject(
-            item,
-            "packageInformation.resourceDefinition"
-          ) || {};
+          cosmosPackage.resource =
+            Util.findNestedPropertyInObject(
+              item,
+              "packageInformation.resourceDefinition"
+            ) || {};
 
           if (cosmosPackage.images) {
             cosmosPackage.resource.images = cosmosPackage.images;

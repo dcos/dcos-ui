@@ -179,8 +179,10 @@ class JobsTable extends React.Component {
     }
 
     return (
-      <div className="job-table-heading flex-box
-        flex-box-align-vertical-center table-cell-flex-box">
+      <div
+        className="job-table-heading flex-box
+        flex-box-align-vertical-center table-cell-flex-box"
+      >
         <Link to={url} className="table-cell-icon">
           {itemImage}
         </Link>
@@ -188,9 +190,7 @@ class JobsTable extends React.Component {
           to={url}
           className="table-cell-link-primary table-cell-value flex-box flex-box-col"
         >
-          <span className="text-overflow">
-            {name}
-          </span>
+          <span className="text-overflow">{name}</span>
           {scheduleIcon}
         </Link>
       </div>

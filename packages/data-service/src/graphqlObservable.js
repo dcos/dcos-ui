@@ -17,12 +17,9 @@ export function graphqlObservable(doc, schema, context) {
     return throwObservable("document root must have a single definition");
   }
 
-  return resolve(
-    schema._typeMap,
-    doc.definitions[0],
-    context,
-    null
-  ).map(data => ({ data }));
+  return resolve(schema._typeMap, doc.definitions[0], context, null).map(
+    data => ({ data })
+  );
 }
 
 function throwObservable(error) {

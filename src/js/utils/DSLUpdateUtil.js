@@ -83,7 +83,9 @@ const DSLUpdateUtil = {
     const { position, filterType } = node;
     let textStart = position[0][0] + offset;
     let textEnd = position[0][1] + offset;
-    let { filterParams: { text } } = newNode;
+    let {
+      filterParams: { text }
+    } = newNode;
 
     if (filterType !== newNode.filterType) {
       if (Config.environment === "development") {
@@ -121,7 +123,9 @@ const DSLUpdateUtil = {
     const { position, filterType } = node;
     const labelStart = position[0][0] + offset;
     const labelEnd = position[0][1] + offset;
-    const { filterParams: { label } } = newNode;
+    const {
+      filterParams: { label }
+    } = newNode;
 
     if (filterType !== newNode.filterType) {
       if (Config.environment === "development") {

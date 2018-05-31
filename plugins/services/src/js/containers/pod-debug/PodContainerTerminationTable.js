@@ -114,7 +114,8 @@ class PodContainerTerminationTable extends React.Component {
 }
 
 PodContainerTerminationTable.defaultProps = {
-  className: "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
+  className:
+    "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
   containers: []
 };
 

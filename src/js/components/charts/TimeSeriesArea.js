@@ -17,8 +17,7 @@ var TimeSeriesArea = React.createClass({
   componentDidMount() {
     var props = this.props;
 
-    d3
-      .select(ReactDOM.findDOMNode(this))
+    d3.select(ReactDOM.findDOMNode(this))
       .transition()
       .duration(props.transitionTime)
       .ease("linear")
@@ -26,8 +25,7 @@ var TimeSeriesArea = React.createClass({
   },
 
   componentWillReceiveProps(props) {
-    d3
-      .select(ReactDOM.findDOMNode(this))
+    d3.select(ReactDOM.findDOMNode(this))
       .interrupt()
       .attr("transform", null)
       .transition()

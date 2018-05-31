@@ -7,11 +7,7 @@ const ConfigurationMapLabel = props => {
     "configuration-map-label-no-text-transform": props.keepTextCase
   });
 
-  return (
-    <div className={labelClasses}>
-      {props.children}
-    </div>
-  );
+  return <div className={labelClasses}>{props.children}</div>;
 };
 
 ConfigurationMapLabel.propTypes = {

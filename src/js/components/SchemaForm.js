@@ -5,8 +5,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Tooltip } from "reactjs-components";
 
-import defaultServiceImage
-  from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
+import defaultServiceImage from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
 import FormUtil from "../utils/FormUtil";
 import Icon from "./Icon";
 import Image from "./Image";
@@ -114,11 +113,11 @@ class SchemaForm extends mixin(StoreMixin) {
       index
     );
 
-    const deleteButtonTop = Object.values(
-      definition.itemShapes || {}
-    ).some(function(itemShape) {
-      return itemShape.deleteButtonTop;
-    });
+    const deleteButtonTop = Object.values(definition.itemShapes || {}).some(
+      function(itemShape) {
+        return itemShape.deleteButtonTop;
+      }
+    );
 
     // Default to prepending.
     let lastIndex = -1;
@@ -220,9 +219,7 @@ class SchemaForm extends mixin(StoreMixin) {
         className="form-row-element duplicable-row-title-wrapper"
       >
         <div className="duplicable-row-title-container">
-          <div className="duplicable-row-title">
-            {title}
-          </div>
+          <div className="duplicable-row-title">{title}</div>
         </div>
         {deleteButton}
       </div>
@@ -323,13 +320,13 @@ class SchemaForm extends mixin(StoreMixin) {
     );
 
     return (
-      <div className="media-object-spacing-wrapper
-          media-object-spacing-narrow">
+      <div
+        className="media-object-spacing-wrapper
+          media-object-spacing-narrow"
+      >
         <div className="media-object">
           <div className="media-object-item">
-            <div className={subheaderClasses}>
-              {name}
-            </div>
+            <div className={subheaderClasses}>{name}</div>
             {subtitle}
           </div>
           {tooltip}
@@ -355,9 +352,7 @@ class SchemaForm extends mixin(StoreMixin) {
       return (
         <span className="media-object-spacing-wrapper media-object-spacing-wrapper-inline media-object-spacing-narrow">
           <div className="media-object media-object-inline">
-            <span className="media-object-item">
-              {label}
-            </span>
+            <span className="media-object-item">{label}</span>
             {tooltip}
           </div>
         </span>
@@ -368,9 +363,7 @@ class SchemaForm extends mixin(StoreMixin) {
       <label>
         <span className="media-object-spacing-wrapper media-object-spacing-narrow">
           <div className="media-object media-object-inline">
-            <span className="media-object-item">
-              {label}
-            </span>
+            <span className="media-object-item">{label}</span>
             {tooltip}
           </div>
         </span>

@@ -11,17 +11,12 @@ import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
-import FormGroupHeadingContent
-  from "#SRC/js/components/form/FormGroupHeadingContent";
+import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
-import {
-  FormReducer as env
-} from "../../reducers/serviceForm/FormReducers/EnvironmentVariables";
-import {
-  FormReducer as labels
-} from "../../reducers/serviceForm/FormReducers/Labels";
+import { FormReducer as env } from "../../reducers/serviceForm/FormReducers/EnvironmentVariables";
+import { FormReducer as labels } from "../../reducers/serviceForm/FormReducers/Labels";
 
 class EnvironmentFormSection extends Component {
   getEnvironmentLines(data) {
@@ -202,7 +197,8 @@ class EnvironmentFormSection extends Component {
           </FormGroupHeading>
         </h1>
         <p>
-          Configure any environment values to be attached to each instance that is launched.
+          Configure any environment values to be attached to each instance that
+          is launched.
         </p>
         <h2 className="short-bottom">
           <FormGroupHeading>

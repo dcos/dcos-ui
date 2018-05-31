@@ -15,8 +15,9 @@ export default function getExecutorsAction(state, message) {
     return state;
   }
 
-  const executors = (message.get_executors.executors || [])
-    .map(processExecutor);
+  const executors = (message.get_executors.executors || []).map(
+    processExecutor
+  );
 
   return Object.assign({}, state, { executors });
 }

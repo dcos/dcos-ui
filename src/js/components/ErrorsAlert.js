@@ -40,19 +40,13 @@ const ErrorsAlert = function(props) {
   }, []);
 
   const errorItems = errorMessages.map((message, index) => {
-    return (
-      <li key={index}>
-        {message}
-      </li>
-    );
+    return <li key={index}>{message}</li>;
   });
 
   return (
     <Alert>
       <h4>There is an error with your configuration</h4>
-      <ul>
-        {errorItems}
-      </ul>
+      <ul>{errorItems}</ul>
     </Alert>
   );
 };

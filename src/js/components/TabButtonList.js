@@ -30,11 +30,7 @@ class TabButtonList extends React.Component {
       className
     );
 
-    return (
-      <div className={classes}>
-        {this.getChildren()}
-      </div>
-    );
+    return <div className={classes}>{this.getChildren()}</div>;
   }
 }
 

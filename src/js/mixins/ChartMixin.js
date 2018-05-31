@@ -10,7 +10,10 @@ var ChartMixin = {
 
     var timeAgo = -(length - 1) * (refreshRate / 1000);
 
-    return d3.scale.linear().range([0, width]).domain([timeAgo, 0]);
+    return d3.scale
+      .linear()
+      .range([0, width])
+      .domain([timeAgo, 0]);
   },
 
   // Only used by TimeSeriesChart, but is meant to be re-used elsewhere

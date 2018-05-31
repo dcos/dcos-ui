@@ -1,7 +1,7 @@
 /**
-* Sort order is ordered by most important (lowest number, top of list)
-* to least important (largest number, bottom of list)
-*/
+ * Sort order is ordered by most important (lowest number, top of list)
+ * to least important (largest number, bottom of list)
+ */
 const JobStatus = {
   "N/A": {
     displayName: "N/A",

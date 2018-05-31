@@ -47,7 +47,9 @@ class LoginPage extends mixin(StoreMixin) {
   onMessageReceived(event) {
     if (event.origin !== SDK.config.authHost) {
       console.warn(
-        `Event Origin "${event.origin}" does not match allowed origin "${SDK.config.authHost}"`
+        `Event Origin "${event.origin}" does not match allowed origin "${
+          SDK.config.authHost
+        }"`
       );
 
       return;
@@ -108,7 +110,8 @@ class LoginPage extends mixin(StoreMixin) {
           showFooter={false}
         >
           <p className="text-align-center">
-            Unable to login to your DC/OS cluster. Clusters must be connected to the internet.
+            Unable to login to your DC/OS cluster. Clusters must be connected to
+            the internet.
           </p>
           <p className="flush-bottom text-align-center">
             {"Please contact your system administrator or see the "}

@@ -14,10 +14,8 @@ module.exports = {
    * portMapping takes precedence.
    */
   JSONParser(state) {
-    const portMappings = findNestedPropertyInObject(
-      state,
-      "container.portMappings"
-    ) || [];
+    const portMappings =
+      findNestedPropertyInObject(state, "container.portMappings") || [];
     const portDefinitionsLength =
       findNestedPropertyInObject(state, "portDefinitions.length") || 0;
 

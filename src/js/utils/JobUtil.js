@@ -100,7 +100,8 @@ const JobUtil = {
         timezone,
         concurrencyPolicy = schedulePolicy,
         startingDeadlineSeconds
-      } = schedule || {};
+      } =
+        schedule || {};
 
       spec.schedules.push({
         id,

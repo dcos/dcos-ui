@@ -40,7 +40,10 @@ class ServiceStatusIcon extends Component {
         DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(service.getQueue()));
 
       return this.getTooltip(
-        `DC/OS has been waiting for resources and is unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`
+        `DC/OS has been waiting for resources and is unable to complete this deployment for ${DateUtil.getDuration(
+          timeWaiting,
+          null
+        )}.`
       );
     }
 
@@ -64,7 +67,10 @@ class ServiceStatusIcon extends Component {
 
     if (appsWithWarningsCount > 0) {
       return this.getTooltip(
-        `DC/OS is waiting for resources and is unable to complete the deployment of ${appsWithWarningsCount} ${StringUtil.pluralize("service", appsWithWarningsCount)} in this group.`
+        `DC/OS is waiting for resources and is unable to complete the deployment of ${appsWithWarningsCount} ${StringUtil.pluralize(
+          "service",
+          appsWithWarningsCount
+        )} in this group.`
       );
     }
 
@@ -96,7 +102,10 @@ class ServiceStatusIcon extends Component {
   getUnableToLaunchWarning(service) {
     if (this.isUnableToLaunch(service)) {
       return this.getTooltip(
-        `DC/OS has been unable to complete this deployment for ${DateUtil.getDuration(Date.now() - DateUtil.strToMs(service.getQueue().since), null)}.`
+        `DC/OS has been unable to complete this deployment for ${DateUtil.getDuration(
+          Date.now() - DateUtil.strToMs(service.getQueue().since),
+          null
+        )}.`
       );
     }
 

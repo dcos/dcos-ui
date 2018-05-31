@@ -7,25 +7,16 @@ import { IndexRoute, Route, Redirect } from "react-router";
 
 import { Hooks } from "PluginSDK";
 import NetworkPage from "../../pages/NetworkPage";
-import TaskDetailsTab
-  from "../../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
-import TaskFileBrowser
-  from "../../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
-import TaskFilesTab
-  from "../../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
-import TaskFileViewer
-  from "../../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
-import TaskLogsContainer
-  from "../../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
-import VirtualNetworkDetail
-  from "../../pages/network/virtual-network-detail/VirtualNetworkDetail";
-import VirtualNetworkDetailsTab
-  from "../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab";
+import TaskDetailsTab from "../../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
+import TaskFileBrowser from "../../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
+import TaskFilesTab from "../../../../plugins/services/src/js/pages/task-details/TaskFilesTab";
+import TaskFileViewer from "../../../../plugins/services/src/js/pages/task-details/TaskFileViewer";
+import TaskLogsContainer from "../../../../plugins/services/src/js/pages/task-details/TaskLogsContainer";
+import VirtualNetworkDetail from "../../pages/network/virtual-network-detail/VirtualNetworkDetail";
+import VirtualNetworkDetailsTab from "../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab";
 import VirtualNetworksTab from "../../pages/network/VirtualNetworksTab";
-import VirtualNetworkTaskPage
-  from "../../pages/network/virtual-network-detail/VirtualNetworkTaskPage";
-import VirtualNetworkTaskTab
-  from "../../pages/network/virtual-network-detail/VirtualNetworkTaskTab";
+import VirtualNetworkTaskPage from "../../pages/network/virtual-network-detail/VirtualNetworkTaskPage";
+import VirtualNetworkTaskTab from "../../pages/network/virtual-network-detail/VirtualNetworkTaskTab";
 
 const RouteFactory = {
   getNetworkRoutes() {
@@ -83,7 +74,8 @@ const RouteFactory = {
             children: [
               {
                 component: TaskFileBrowser,
-                fileViewerRoutePath: "/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))",
+                fileViewerRoutePath:
+                  "/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))",
                 hideHeaderNavigation: true,
                 type: IndexRoute
               },

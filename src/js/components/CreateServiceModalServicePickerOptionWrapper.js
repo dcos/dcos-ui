@@ -18,9 +18,7 @@ function OptionsWrapper({ children }) {
 
   return (
     <div className={containerClasses}>
-      <div className="row panel-grid">
-        {clonedChildren}
-      </div>
+      <div className="row panel-grid">{clonedChildren}</div>
     </div>
   );
 }

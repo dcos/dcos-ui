@@ -47,7 +47,8 @@ const CMDORDOCKERIMAGE_ERRORS = [
 const MUSTCONTAINIMAGEONDOCKER_ERRORS = [
   {
     path: ["container", "docker", "image"],
-    message: 'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
+    message:
+      'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
     type: "PROP_IS_MISSING",
     variables: {}
   }
@@ -291,7 +292,8 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
           path: ["constraints", 0, "value"],
-          message: "Must only contain characters between 0-9 for operator GROUP_BY",
+          message:
+            "Must only contain characters between 0-9 for operator GROUP_BY",
           type: SYNTAX_ERROR,
           variables: { name: "value" }
         }
@@ -312,7 +314,8 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
           path: ["constraints", 0, "value"],
-          message: "Must only contain characters between 0-9 for operator MAX_PER",
+          message:
+            "Must only contain characters between 0-9 for operator MAX_PER",
           type: SYNTAX_ERROR,
           variables: { name: "value" }
         }

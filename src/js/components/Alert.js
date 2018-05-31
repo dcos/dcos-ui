@@ -27,9 +27,7 @@ const Alert = ({ children, flushBottom, showIcon, type }) => {
   return (
     <div className={classes}>
       {icon}
-      <div className="message-content message-type-style">
-        {children}
-      </div>
+      <div className="message-content message-type-style">{children}</div>
     </div>
   );
 };

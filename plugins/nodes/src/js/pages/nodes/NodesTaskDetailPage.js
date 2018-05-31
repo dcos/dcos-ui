@@ -8,8 +8,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
 
-import TaskDetail
-  from "../../../../../services/src/js/pages/task-details/TaskDetail";
+import TaskDetail from "../../../../../services/src/js/pages/task-details/TaskDetail";
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
@@ -31,7 +30,9 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     const { location, params, routes } = this.props;
     const { nodeID, taskID } = params;
 
-    const routePrefix = `/nodes/${encodeURIComponent(nodeID)}/tasks/${encodeURIComponent(taskID)}`;
+    const routePrefix = `/nodes/${encodeURIComponent(
+      nodeID
+    )}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
       { label: "Details", routePath: routePrefix + "/details" },
       { label: "Files", routePath: routePrefix + "/files" },
