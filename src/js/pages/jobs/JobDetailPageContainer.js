@@ -4,10 +4,12 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
 import mixin from "reactjs-mixin";
+
+import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
 import RequestErrorMsg from "../../components/RequestErrorMsg";
-import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
 import MetronomeStore from "../../stores/MetronomeStore";
 import JobDetailPage from "./JobDetailPage";
 

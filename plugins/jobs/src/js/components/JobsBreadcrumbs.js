@@ -4,15 +4,15 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
+// everything that is references as #ALIAS/something has to be refactored once our DI system is in place
 import Job from "#SRC/js/structs/Job";
 import JobTree from "#SRC/js/structs/JobTree";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
-
-import Breadcrumb from "../../components/Breadcrumb";
-import BreadcrumbSupplementalContent from "../../components/BreadcrumbSupplementalContent";
-import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
-import Icon from "../Icon";
-import PageHeaderBreadcrumbs from "../../components/PageHeaderBreadcrumbs";
+import Breadcrumb from "#SRC/js/components/Breadcrumb";
+import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
+import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
+import Icon from "#SRC/js/components/Icon";
+import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
 function getLongestRunningTask(item) {
   if (!(item instanceof Job)) {

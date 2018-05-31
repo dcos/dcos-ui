@@ -5,13 +5,14 @@ import React from "react";
 
 import moment from "moment";
 
+import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
+
 import CollapsingString from "../../components/CollapsingString";
 import CheckboxTable from "../../components/CheckboxTable";
 import ExpandingTable from "../../components/ExpandingTable";
 import FilterBar from "../../components/FilterBar";
 import FilterHeadline from "../../components/FilterHeadline";
 import Icon from "../../components/Icon";
-import JobStates from "../../constants/JobStates";
 import JobStopRunModal from "../../components/modals/JobStopRunModal";
 import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
 import TimeAgo from "../../components/TimeAgo";
