@@ -31,7 +31,7 @@
   "dependencies": {
     "@dcos/http-service": "0.3.0",
     "@dcos/mesos-client": "0.2.1",
-    "@dcos/tslint-config": "0.0.2",
+    "@dcos/tslint-config": "0.1.0",
     "babel-polyfill": "6.23.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
