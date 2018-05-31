@@ -992,9 +992,9 @@
       }
     },
     "@dcos/tslint-config": {
-      "version": "0.0.2",
-      "resolved": "https://registry.npmjs.org/@dcos/tslint-config/-/tslint-config-0.0.2.tgz",
-      "integrity": "sha512-DLTSOGGYRHUMnBUoRBq64YH3jMcLhzxgHqITdXxeYtPas0JAtGpk3/Iti0Dc/itxC29tXegaDvuj71l0pyJrzA=="
+      "version": "0.1.0",
+      "resolved": "https://registry.npmjs.org/@dcos/tslint-config/-/tslint-config-0.1.0.tgz",
+      "integrity": "sha512-WcTnrk4lc6vwMWn+pOrcGk9tTy6it03dCfQtqE+fw9bQ2llqzfxnLO7Har+la4kkJVnyTPAt7Nvpb50sjzsQXA=="
     },
     "@dcos/ui-kit": {
       "version": "1.0.0",
