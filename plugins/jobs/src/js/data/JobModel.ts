@@ -252,6 +252,9 @@ type Query {
     sortDirection: SortDirection
   ): Job
 }
+type Mutation {
+  runJob(id: String!): JobRun!
+}
 `;
 
 interface ResolverArgs {
@@ -542,6 +545,15 @@ export const resolvers = ({
       const responses$ = pollingInterval$.switchMap(() => fetchJobDetail(id));
 
       return responses$.map(response => typeResolvers.Job(response));
+    }
+  },
+  Mutation: {
+    runJob(
+      _obj = {},
+      _args: GeneralArgs,
+      _context = {}
+    ): Observable<Job | null> {
+      return MetronomeClient.runJob(_args.id);
     }
   }
 });

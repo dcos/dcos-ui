@@ -6,12 +6,14 @@ import React from "react";
 import { routerShape } from "react-router";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
-import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
+
+import JobsMenu from "#PLUGINS/jobs/src/js/JobsMenu";
+
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
 import TimeAgo from "../../components/TimeAgo";
-import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
 import JobFormModal from "../../components/modals/JobFormModal";
+import TaskStates from "../../../../plugins/services/src/js/constants/TaskStates";
 import UserActions from "../../constants/UserActions";
 import TabsMixin from "../../mixins/TabsMixin";
 import StringUtil from "../../utils/StringUtil";
@@ -186,11 +188,6 @@ class JobDetailPage extends mixin(TabsMixin) {
       onItemSelect: this.props.handleEditButtonClick
     });
 
-    actions.push({
-      label: "Run Now",
-      onItemSelect: this.props.handleRunNowButtonClick
-    });
-
     if (schedule != null && schedule.enabled) {
       actions.push({
         label: "Disable Schedule",
@@ -245,10 +242,12 @@ class JobDetailPage extends mixin(TabsMixin) {
 
     return (
       <Page>
-        <Page.Header
+        <JobsMenu
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs tree={jobTree} item={job} />}
           tabs={this.getTabs()}
+          job={job}
+          tree={jobTree}
+          isPageHeader={true}
         />
         {this.tabs_getTabView(job)}
         <JobFormModal

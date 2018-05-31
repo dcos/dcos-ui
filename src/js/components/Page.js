@@ -98,7 +98,7 @@ var Page = React.createClass({
       return TemplateUtil.filterTemplateChildren(
         this.constructor,
         this.props.children
-      );
+      ).filter(child => !child || !child.props || !child.props.isPageHeader);
     }
 
     return null;
@@ -113,9 +113,11 @@ var Page = React.createClass({
   },
 
   getPageHeader() {
-    return TemplateUtil.getChildOfType(
-      this.props.children,
-      this.constructor.Header
+    return (
+      this.props.children.find(
+        child => child && child.props && child.props.isPageHeader
+      ) ||
+      TemplateUtil.getChildOfType(this.props.children, this.constructor.Header)
     );
   },
 
