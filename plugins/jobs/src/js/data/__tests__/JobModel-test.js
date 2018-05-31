@@ -1884,4 +1884,28 @@ describe("JobModel Resolver", () => {
       );
     });
   });
+
+  describe("runNow", () => {
+    it(
+      "returns a JobLink shaped object",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          runJob: () =>
+            Observable.of({
+              jobId: "bestJobEver",
+              somethingElse: true
+            })
+        }).Mutation.runJob({}, { id: "bestJobEver" });
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold("(x|)", {
+            x: {
+              jobId: "bestJobEver"
+            }
+          })
+        );
+      })
+    );
+  });
 });

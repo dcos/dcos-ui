@@ -10,6 +10,8 @@ import mixin from "reactjs-mixin";
 import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+import jobsMenu from "#PLUGINS/jobs/src/js/jobsMenu";
+
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
 import TimeAgo from "../../components/TimeAgo";
@@ -180,37 +182,45 @@ class JobDetailPage extends mixin(TabsMixin) {
     const job = this.props.job;
     const [schedule] = job.getSchedules();
 
-    const actions = [];
+    // TODO: All the actions will be provided by jobsMenu in the future, which
+    // should be a list.
+    // https://jira.mesosphere.com/browse/DCOS-37616
+    let actions = [];
 
-    actions.push({
-      label: "Edit",
-      onItemSelect: this.props.handleEditButtonClick
-    });
+    actions = actions.concat([
+      {
+        label: "Edit",
+        onItemSelect: this.props.handleEditButtonClick
+      }
+    ]);
 
-    actions.push({
-      label: "Run Now",
-      onItemSelect: this.props.handleRunNowButtonClick
-    });
+    actions = actions.concat(jobsMenu(job.getId()));
 
     if (schedule != null && schedule.enabled) {
-      actions.push({
-        label: "Disable Schedule",
-        onItemSelect: this.props.handleDisableScheduleButtonClick
-      });
+      actions = actions.concat([
+        {
+          label: "Disable Schedule",
+          onItemSelect: this.props.handleDisableScheduleButtonClick
+        }
+      ]);
     }
 
     if (schedule != null && !schedule.enabled) {
-      actions.push({
-        label: "Enable Schedule",
-        onItemSelect: this.props.handleEnableScheduleButtonClick
-      });
+      actions = actions.concat([
+        {
+          label: "Enable Schedule",
+          onItemSelect: this.props.handleEnableScheduleButtonClick
+        }
+      ]);
     }
 
-    actions.push({
-      className: "text-danger",
-      label: StringUtil.capitalize(UserActions.DELETE),
-      onItemSelect: this.props.handleDestroyButtonClick
-    });
+    actions = actions.concat([
+      {
+        className: "text-danger",
+        label: StringUtil.capitalize(UserActions.DELETE),
+        onItemSelect: this.props.handleDestroyButtonClick
+      }
+    ]);
 
     return actions;
   }
