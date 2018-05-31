@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import {
   fetchJobs,
   fetchJobDetail,
+  runJob,
   JobResponse as MetronomeJobResponse,
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
@@ -20,6 +21,8 @@ import {
   JobSchema
 } from "#PLUGINS/jobs/src/js/types/Job";
 
+import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
+
 export interface Query {
   jobs: JobConnection | null;
   job: Job | null;
@@ -29,6 +32,7 @@ export interface ResolverArgs {
   fetchJobs: () => Observable<MetronomeJobResponse[]>;
   fetchJobDetail: (id: string) => Observable<MetronomeJobDetailResponse>;
   pollingInterval: number;
+  runJob: (id: string) => Observable<JobLink>;
 }
 
 export interface GeneralArgs {
@@ -52,6 +56,7 @@ export type SortDirection = "ASC" | "DESC";
 
 export const typeDefs = `
   ${JobSchema}
+  ${JobLinkSchema}
   ${JobConnectionSchema}
 
   enum SortOption {
@@ -73,6 +78,10 @@ export const typeDefs = `
     job(
       id: ID!
     ): Job
+  }
+  
+  type Mutation {
+    runJob(id: String!): JobLink!
   }
   `;
 
@@ -153,7 +162,8 @@ function filterJobsByNamespace(
 export const resolvers = ({
   fetchJobs,
   fetchJobDetail,
-  pollingInterval
+  pollingInterval,
+  runJob
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
@@ -186,7 +196,11 @@ export const resolvers = ({
           nodes: jobs
         }));
     },
-    job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
+    job(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<Job | null> {
       if (!isJobQueryArg(args)) {
         return Observable.throw("The job resolver expects an id as argument");
       }
@@ -198,6 +212,15 @@ export const resolvers = ({
 
       return responses$.map(response => JobTypeResolver(response));
     }
+  },
+  Mutation: {
+    runJob(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<JobLink> {
+      return runJob(args.id).map(({ jobId }) => ({ jobId }));
+    }
   }
 });
 
@@ -206,6 +229,7 @@ export default makeExecutableSchema({
   resolvers: resolvers({
     fetchJobs,
     fetchJobDetail,
-    pollingInterval: Config.getRefreshRate()
+    pollingInterval: Config.getRefreshRate(),
+    runJob
   })
 });
