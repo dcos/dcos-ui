@@ -1,15 +1,15 @@
 describe("DC/OS UI [00j]", function() {
   beforeEach(function() {
-    cy
-      .configureCluster({
-        mesos: "1-task-healthy"
-      })
-      .visitUrl({ url: "/", identify: true, fakeAnalytics: true });
+    cy.configureCluster({
+      mesos: "1-task-healthy"
+    }).visitUrl({ url: "/", identify: true, fakeAnalytics: true });
   });
 
   context("Dashboard [00k]", function() {
     beforeEach(function() {
-      cy.get(".sidebar-menu-item").contains("Dashboard").click();
+      cy.get(".sidebar-menu-item")
+        .contains("Dashboard")
+        .click();
     });
 
     it("can change hash to dashboard page [00l]", function() {
@@ -17,13 +17,17 @@ describe("DC/OS UI [00j]", function() {
     });
 
     it("has eight panels [00m]", function() {
-      cy.get("#application").find(".panel").should("to.have.length", 8);
+      cy.get("#application")
+        .find(".panel")
+        .should("to.have.length", 8);
     });
   });
 
   xcontext("Services [00n]", function() {
     beforeEach(function() {
-      cy.get(".sidebar-menu-item").contains("Services").click();
+      cy.get(".sidebar-menu-item")
+        .contains("Services")
+        .click();
       cy.get("table tbody tr").as("tableRows");
     });
 
@@ -42,7 +46,9 @@ describe("DC/OS UI [00j]", function() {
 
   context("Nodes [00r]", function() {
     beforeEach(function() {
-      cy.get(".sidebar-menu-item").contains("Nodes").click();
+      cy.get(".sidebar-menu-item")
+        .contains("Nodes")
+        .click();
     });
 
     it("can change hash to nodes page [00s]", function() {
@@ -50,7 +56,9 @@ describe("DC/OS UI [00j]", function() {
     });
 
     it("displays one row on the table [00t]", function() {
-      cy.get("table tbody tr").should("to.have.length", 3).contains("dcos-01");
+      cy.get("table tbody tr")
+        .should("to.have.length", 6)
+        .contains("dcos-01");
     });
   });
 });
