@@ -50,7 +50,7 @@ describe("DC/OS UI [00j]", function() {
     });
 
     it("should display one row on the table [00t]", function() {
-      cy.get("table tbody tr").should("to.have.length", 3).contains("dcos-01");
+      cy.get("table tbody tr").should("to.have.length", 6).contains("dcos-01");
     });
   });
 });
