@@ -9,6 +9,7 @@ import ConfigStore from "../stores/ConfigStore";
 import EventTypes from "../constants/EventTypes";
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MetadataStore from "../stores/MetadataStore";
+import MesosStateStore from "../stores/MesosStateStore";
 import Modals from "../components/Modals";
 import RequestErrorMsg from "../components/RequestErrorMsg";
 import ServerErrorModal from "../components/ServerErrorModal";
@@ -40,6 +41,10 @@ var Index = React.createClass({
   componentWillMount() {
     MetadataStore.init();
     SidebarStore.init();
+    MesosStateStore.addChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.onMesosStoreChange
+    );
 
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
@@ -80,6 +85,10 @@ var Index = React.createClass({
       EventTypes.CONFIG_ERROR,
       this.onConfigError
     );
+    MesosStateStore.removeChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.onMesosStoreChange
+    );
   },
 
   onSideBarChange() {
@@ -107,6 +116,8 @@ var Index = React.createClass({
       mesosSummaryErrorCount: this.state.mesosSummaryErrorCount + 1
     });
   },
+
+  onMesosStoreChange() {},
 
   getErrorScreen(showErrorScreen) {
     if (!showErrorScreen) {
