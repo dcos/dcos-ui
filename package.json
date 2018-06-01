@@ -181,7 +181,7 @@
     "prebuild": "./scripts/validate-tests",
     "build": "npm run lint && ([ -z \"${npm_config_externalplugins}\" ] || npm run lint-plugins) && npm test && npm run build-assets && npm run validate-build",
     "lint": "npm run stylelint && npm run eslint && npm run tslint",
-    "eslint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/js,plugins,packages}/**/*.js\"; fi ; eslint --quiet ${opts}' 0",
+    "eslint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/js,plugins,packages}/**/*.js\"; fi ; eslint --fix --quiet ${opts}' 0",
     "cypress": "cypress run",
     "stylelint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
     "commitlint": "./node_modules/.bin/commitlint",

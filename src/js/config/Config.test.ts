@@ -7,4 +7,4 @@ export default {
   stateRefresh: 3000,
   useFixtures: false,
   useUIConfigFixtures: false
-}
+};
