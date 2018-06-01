@@ -166,8 +166,7 @@
     "webpack": "3.10.0",
     "webpack-dev-server": "2.11.1",
     "webpack-merge": "4.1.1",
-    "webpack-notifier": "1.5.1",
-    "zopfli-webpack-plugin": "0.1.0"
+    "webpack-notifier": "1.5.1"
   },
   "scripts": {
     "check-env": "./scripts/validate-engine-versions",
