@@ -4,39 +4,39 @@ import ConfigDev from "./Config.dev";
 import ConfigTest from "./Config.test";
 
 interface IConfiguration {
-  acsAPIPrefix: string
-  analyticsKey: string
-  applicationRenderDelay: number
-  cosmosAPIPrefix: string
-  delayAfterErrorCount: number
-  documentationURI: string
-  downloadsURI: string
-  environment?: string,
-  fullProductName: string
-  getRefreshRate: () => number
-  historyLength: number
-  historyServer: string
-  logsAPIPrefix: string
-  marathonAPIPrefix: string
-  mesosDocsURI: string
-  metronomeAPI: string
-  networkingAPIPrefix: string
-  productHomepageURI: string
-  productName: string
-  rootUrl: string
-  secretsAPIPrefix: string
-  setInactiveAfter: number
-  slackChannel: string
-  stateRefresh: number
-  supportEmail: string
-  tailRefresh: number
-  testHistoryInterval: number
-  uiConfigurationFixture?: object
-  useUIConfigFixtures?: boolean
-  unitHealthAPIPrefix: string
-  useFixtures?: boolean
-  version: string
-  virtualNetworksApi: string
+  acsAPIPrefix: string;
+  analyticsKey: string;
+  applicationRenderDelay: number;
+  cosmosAPIPrefix: string;
+  delayAfterErrorCount: number;
+  documentationURI: string;
+  downloadsURI: string;
+  environment?: string;
+  fullProductName: string;
+  getRefreshRate: () => number;
+  historyLength: number;
+  historyServer: string;
+  logsAPIPrefix: string;
+  marathonAPIPrefix: string;
+  mesosDocsURI: string;
+  metronomeAPI: string;
+  networkingAPIPrefix: string;
+  productHomepageURI: string;
+  productName: string;
+  rootUrl: string;
+  secretsAPIPrefix: string;
+  setInactiveAfter: number;
+  slackChannel: string;
+  stateRefresh: number;
+  supportEmail: string;
+  tailRefresh: number;
+  testHistoryInterval: number;
+  uiConfigurationFixture?: object;
+  useUIConfigFixtures?: boolean;
+  unitHealthAPIPrefix: string;
+  useFixtures?: boolean;
+  version: string;
+  virtualNetworksApi: string;
 }
 
 let Config: IConfiguration = {
@@ -76,10 +76,10 @@ let Config: IConfiguration = {
 
 if (Config.environment === "development") {
   Config.analyticsKey = ""; // Safeguard from developers logging to prod
-  Config = {...Config, ...ConfigDev};
+  Config = { ...Config, ...ConfigDev };
 } else if (Config.environment === "testing") {
   Config.analyticsKey = ""; // Safeguard from developers logging to prod
-  Config = {...Config, ...ConfigTest};
+  Config = { ...Config, ...ConfigTest };
 } else if (Config.environment === "production") {
   Config.useFixtures = false;
 }
