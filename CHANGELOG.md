@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.14.0"></a>
+# [1.14.0](https://github.com/dcos/dcos-ui/compare/v1.11.1...v1.14.0) (2018-06-04)
+
+
+### Bug Fixes
+
+* **DCOSStore:** enable health checks to be shown again ([e3a29bf](https://github.com/dcos/dcos-ui/commit/e3a29bf))
+* **DSLInputField:** adjust change event handling ([c227b22](https://github.com/dcos/dcos-ui/commit/c227b22))
+* **editservicemodal:** render empty modal if the service is not loaded ([bd2d9e9](https://github.com/dcos/dcos-ui/commit/bd2d9e9))
+* **marathonUtil:** fix parsePod function ([d4373f5](https://github.com/dcos/dcos-ui/commit/d4373f5))
+* **MesosStateStore:** add linearBackoff retry to the stream ([132279e](https://github.com/dcos/dcos-ui/commit/132279e))
+* ignore unused React ([cd1d2f9](https://github.com/dcos/dcos-ui/commit/cd1d2f9))
+* **MesosStateStore:** adjust stream data handling ([f20cf55](https://github.com/dcos/dcos-ui/commit/f20cf55))
+* prevent service breadcrumb to update without changes ([402a48f](https://github.com/dcos/dcos-ui/commit/402a48f))
+* shows filter default on task page loading ([52041fa](https://github.com/dcos/dcos-ui/commit/52041fa))
+* **MesosStateStore:** adjust stream event sampling ([2b2b0a2](https://github.com/dcos/dcos-ui/commit/2b2b0a2))
+* **MesosStream:** delay reconnections ([fec41d8](https://github.com/dcos/dcos-ui/commit/fec41d8))
+* **NestedServiceLinks:** group link ([5346e1a](https://github.com/dcos/dcos-ui/commit/5346e1a))
+* **OverviewDetailTab:** display mesos start and elected time ([ce29e25](https://github.com/dcos/dcos-ui/commit/ce29e25))
+* **tasknametextfilter:** include id search in task text filter ([#2875](https://github.com/dcos/dcos-ui/issues/2875)) ([d4ac40d](https://github.com/dcos/dcos-ui/commit/d4ac40d))
+* **UserAccountDropdown:** fix menuItems data type ([683fb84](https://github.com/dcos/dcos-ui/commit/683fb84))
+
+
+### Features
+
+* **EditServiceModal:** show cosmos services in json-schema form ([13ab6be](https://github.com/dcos/dcos-ui/commit/13ab6be))
+* **privacy:** add privacy in login and user form ([bb19e66](https://github.com/dcos/dcos-ui/commit/bb19e66))
+* caches the flat tree together wit the service tree ([755de4d](https://github.com/dcos/dcos-ui/commit/755de4d))
+
+
+### Performance Improvements
+
+* **DCOSStore:** cache service tree and flat service tree ([cdbbf1e](https://github.com/dcos/dcos-ui/commit/cdbbf1e))
+* **MesosStateStore:** introduce a schedulerTasksMap to improve lookups ([fe948be](https://github.com/dcos/dcos-ui/commit/fe948be))
+* **Service:** defer service spec creation ([2214f2f](https://github.com/dcos/dcos-ui/commit/2214f2f))
+* **TaskMergeDataUtil:** flatten the service tree to avoid extra lookups ([19b09da](https://github.com/dcos/dcos-ui/commit/19b09da))
+
+
+
 <a name="1.13.0"></a>
 # [1.13.0](https://github.com/dcos/dcos-ui/compare/v1.11.1...v1.13.0) (2018-05-24)
 
