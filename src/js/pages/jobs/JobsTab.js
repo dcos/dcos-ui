@@ -1,10 +1,4 @@
-import mixin from "reactjs-mixin";
-import PropTypes from "prop-types";
-import React from "react";
-import { routerShape } from "react-router";
-
-import { StoreMixin } from "mesosphere-shared-reactjs";
-import DCOSStore from "#SRC/js/stores/DCOSStore";
+import React, { Component } from "react";
 
 import AlertPanel from "../../components/AlertPanel";
 import AlertPanelHeader from "../../components/AlertPanelHeader";
@@ -13,59 +7,116 @@ import FilterHeadline from "../../components/FilterHeadline";
 import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
 import JobsTable from "./JobsTable";
 import JobSearchFilter from "../../components/JobSearchFilter";
-import JobFilterTypes from "../../constants/JobFilterTypes";
 import JobFormModal from "../../components/modals/JobFormModal";
 import JobTree from "../../structs/JobTree";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
-import ServiceFilterTypes from "../../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
-const METHODS_TO_BIND = [
-  "getHeadline",
-  "handleFilterChange",
-  "handleCloseJobFormModal",
-  "handleOpenJobFormModal",
-  "resetFilter",
-  "resetFilterQueryParams"
-];
+const METHODS_TO_BIND = ["handleCloseJobFormModal", "handleOpenJobFormModal"];
 
-var DEFAULT_FILTER_OPTIONS = {
-  searchString: ""
+const ConditionalFilterHeadline = ({
+  item,
+  filteredJobs,
+  hasFilterApplied,
+  resetFilter
+}) => {
+  const jobs = item.getItems();
+
+  if (hasFilterApplied) {
+    return (
+      <FilterHeadline
+        onReset={resetFilter}
+        name="Jobs"
+        currentLength={filteredJobs.length}
+        totalLength={jobs.length}
+      />
+    );
+  }
+
+  return null;
 };
 
-class JobsTab extends mixin(StoreMixin) {
+const JobsTabLoading = ({ root }) => {
+  return (
+    <Page>
+      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={root} />} />
+      <Loader />
+    </Page>
+  );
+};
+
+const JobsTabList = ({
+  item,
+  root,
+  modal,
+  filteredJobs,
+  searchString,
+  handleFilterChange,
+  handleOpenJobFormModal,
+  resetFilter,
+  hasFilterApplied
+}) => {
+  return (
+    <Page>
+      <Page.Header
+        addButton={{
+          label: "Create a job",
+          onItemSelect: handleOpenJobFormModal
+        }}
+        breadcrumbs={<JobsBreadcrumbs tree={root} item={item} />}
+      />
+      <div className="flex-grow">
+        <ConditionalFilterHeadline
+          item={item}
+          filteredJobs={filteredJobs}
+          hasFilterApplied={hasFilterApplied}
+          resetFilter={resetFilter}
+        />
+        <FilterBar>
+          <JobSearchFilter onChange={handleFilterChange} value={searchString} />
+        </FilterBar>
+        <JobsTable jobs={filteredJobs} />
+      </div>
+      {modal}
+    </Page>
+  );
+};
+
+const JobsTabEmpty = ({ handleOpenJobFormModal, modal, root }) => {
+  return (
+    <Page>
+      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={root} />} />
+      <AlertPanel>
+        <AlertPanelHeader>No active jobs</AlertPanelHeader>
+        <p className="tall">
+          Create both one-off or scheduled jobs to perform tasks at a predefined
+          interval.
+        </p>
+        <div className="button-collection flush-bottom">
+          <button
+            className="button button-primary"
+            onClick={handleOpenJobFormModal}
+          >
+            Create a Job
+          </button>
+        </div>
+      </AlertPanel>
+      {modal}
+    </Page>
+  );
+};
+
+class JobsTab extends Component {
   constructor() {
     super(...arguments);
 
-    this.state = Object.assign(
-      {
-        isJobFormModalOpen: false
-      },
-      DEFAULT_FILTER_OPTIONS
-    );
-
-    this.store_listeners = [
-      { name: "dcos", events: ["change"], suppressUpdate: false },
-      {
-        name: "metronome",
-        events: ["change", "jobCreateSuccess"],
-        suppressUpdate: false
-      }
-    ];
+    this.state = {
+      isJobFormModalOpen: false
+    };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  componentDidMount() {
-    super.componentDidMount();
-    this.updateFromProps(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
-    this.updateFromProps(nextProps);
   }
 
   handleCloseJobFormModal() {
@@ -76,170 +127,17 @@ class JobsTab extends mixin(StoreMixin) {
     this.setState({ isJobFormModalOpen: true });
   }
 
-  handleFilterChange(filterValue) {
-    const { router } = this.context;
-    const {
-      location: { pathname }
-    } = this.props;
-    const query = { [JobFilterTypes.TEXT]: filterValue };
-
-    router.push({ pathname, query });
-
-    this.setState({
-      searchString: filterValue
-    });
-  }
-
-  resetFilterQueryParams() {
-    const {
-      location: { pathname }
-    } = this.props;
-    const query = Object.assign({}, location.query);
-
-    Object.values(ServiceFilterTypes).forEach(function(filterKey) {
-      delete query[filterKey];
-    });
-
-    this.context.router.push({ pathname, query });
-  }
-
-  resetFilter() {
-    var state = Object.assign({}, this.state, DEFAULT_FILTER_OPTIONS);
-    this.setState(state, this.resetFilterQueryParams);
-  }
-
-  updateFromProps(props) {
-    const { location = { query: {} } } = props;
-
-    if (location.query[JobFilterTypes.TEXT] != null) {
-      const state = {};
-
-      state[JobFilterTypes.TEXT] = location.query[JobFilterTypes.TEXT];
-      this.setState(state);
-    }
-  }
-
-  getHeadline(item, filteredJobs) {
-    const { state } = this;
-    const jobs = item.getItems();
-
-    const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS).some(
-      filterKey => {
-        return state[filterKey] != null && state[filterKey].length > 0;
-      }
-    );
-
-    if (hasFiltersApplied) {
-      return (
-        <FilterHeadline
-          onReset={this.resetFilter}
-          name="Jobs"
-          currentLength={filteredJobs.length}
-          totalLength={jobs.length}
-        />
-      );
-    }
-  }
-
-  getFilteredJobs(item) {
-    const { searchString } = this.state;
-    let jobs = item.getItems();
-
-    if (searchString) {
-      const filterProperties = Object.assign({}, item.getFilterProperties(), {
-        name(item) {
-          return item.getId();
-        }
-      });
-
-      jobs = item.filterItemsByText(searchString, filterProperties).getItems();
-    }
-
-    return jobs;
-  }
-
-  getJobTreeView(item, modal) {
-    const filteredJobs = this.getFilteredJobs(item);
-
-    return (
-      <Page>
-        <Page.Header
-          addButton={{
-            label: "Create a job",
-            onItemSelect: this.handleOpenJobFormModal
-          }}
-          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} item={item} />}
-        />
-        <div className="flex-grow">
-          {this.getHeadline(item, filteredJobs)}
-          <FilterBar>
-            <JobSearchFilter
-              onChange={this.handleFilterChange}
-              value={this.state.searchString}
-            />
-          </FilterBar>
-          <JobsTable jobs={filteredJobs} />
-        </div>
-        {modal}
-      </Page>
-    );
-  }
-
-  getAlertPanelFooter() {
-    return (
-      <div className="button-collection flush-bottom">
-        <button
-          className="button button-primary"
-          onClick={this.handleOpenJobFormModal}
-        >
-          Create a Job
-        </button>
-      </div>
-    );
-  }
-
-  getContents(item, modal) {
-    // Render loading screen
-    if (!DCOSStore.jobDataReceived) {
-      return (
-        <Page>
-          <Page.Header
-            breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
-          />
-          <Loader />
-        </Page>
-      );
-    }
-
-    if (item instanceof JobTree && item.getItems().length > 0) {
-      return this.getJobTreeView(item, modal);
-    }
-
-    // Render empty panel
-    return (
-      <Page>
-        <Page.Header
-          breadcrumbs={<JobsBreadcrumbs tree={DCOSStore.jobTree} />}
-        />
-        <AlertPanel>
-          <AlertPanelHeader>No active jobs</AlertPanelHeader>
-          <p className="tall">
-            Create both one-off or scheduled jobs to perform tasks at a
-            predefined interval.
-          </p>
-          {this.getAlertPanelFooter()}
-        </AlertPanel>
-        {modal}
-      </Page>
-    );
-  }
-
   render() {
-    const id = decodeURIComponent(this.props.params.id);
-    const jobTree =
-      DCOSStore.jobTree.findItem(function(item) {
-        return item instanceof JobTree && item.id === id;
-      }) || DCOSStore.jobTree;
+    const {
+      item,
+      isLoading,
+      root,
+      filteredJobs,
+      searchString,
+      handleFilterChange,
+      resetFilter,
+      hasFilterApplied
+    } = this.props;
 
     const modal = (
       <JobFormModal
@@ -248,13 +146,37 @@ class JobsTab extends mixin(StoreMixin) {
       />
     );
 
-    return this.getContents(jobTree, modal);
+    // Render loading screen
+    if (!isLoading) {
+      return <JobsTabLoading root={root} />;
+    }
+
+    // render list view
+    if (item instanceof JobTree && item.getItems().length > 0) {
+      return (
+        <JobsTabList
+          item={item}
+          root={root}
+          modal={modal}
+          filteredJobs={filteredJobs}
+          searchString={searchString}
+          handleFilterChange={handleFilterChange}
+          handleOpenJobFormModal={this.handleOpenJobFormModal}
+          resetFilter={resetFilter}
+          hasFilterApplied={hasFilterApplied}
+        />
+      );
+    }
+
+    // Render empty panel
+    return (
+      <JobsTabEmpty
+        handleOpenJobFormModal={this.handleOpenJobFormModal}
+        modal={modal}
+        root={root}
+      />
+    );
   }
 }
-
-JobsTab.contextTypes = {
-  router: routerShape,
-  location: PropTypes.object.isRequired
-};
 
 module.exports = JobsTab;

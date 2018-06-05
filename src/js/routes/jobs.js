@@ -5,7 +5,7 @@ import React from "react";
 
 import JobDetailPage from "../pages/jobs/JobDetailPage";
 import JobsPage from "../pages/JobsPage";
-import JobsTab from "../pages/jobs/JobsTab";
+import JobsTabContainer from "../pages/jobs/JobsTabContainer";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
 import TaskDetailsTab from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
@@ -28,7 +28,7 @@ const jobsRoutes = [
     children: [
       {
         type: Route,
-        component: JobsTab,
+        component: JobsTabContainer,
         path: "overview",
         children: [
           {
