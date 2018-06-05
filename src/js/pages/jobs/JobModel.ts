@@ -136,9 +136,15 @@ export const resolvers = ({
 }) => ({
   Query: {
     metronomeItems(obj = {}, args: IJobsArg = {}, context = {}) {
-      const { sortBy = "id", sortDirection = "ASC" } = args;
+      const { sortBy = "id", sortDirection = "ASC", filter } = args;
       const pollingInterval$ = Observable.interval(pollingInterval);
       const responses$ = pollingInterval$.switchMap(fetchJobs);
+
+      const filteredResponses$ = !filter
+        ? responses$
+        : responses$.map(jobs =>
+            jobs.filter(({ id }) => id.indexOf(filter) !== -1)
+          );
 
       // TODO: data mangling
       // .map(response => ({ ...response, struct: new Job(response) }))
@@ -154,7 +160,7 @@ export const resolvers = ({
       //   status: response.struct.getScheduleStatus()
       // }));
 
-      return responses$.map(jobs =>
+      return filteredResponses$.map(jobs =>
         jobs.sort((a, b) => {
           const direction = sortDirection === "ASC" ? 1 : -1;
           const isANamespace = isNamespace(a);

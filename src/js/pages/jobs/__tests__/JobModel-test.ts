@@ -221,4 +221,52 @@ describe("JobData", () => {
       );
     }
   });
+
+  describe("filter", () => {
+    const cases = [
+      {
+        name: "jobs by substring",
+        filter: "cola",
+        input: ["fanta", "cola", "pepsi", "fritzcola"],
+        output: ["cola", "fritzcola"]
+      },
+      {
+        name: "namespaced jobs by substring",
+        filter: "cake",
+        input: [
+          "cola",
+          "cake.strawberry",
+          "strawberry.cake",
+          "strawberry",
+          "cake",
+          "soda"
+        ],
+        output: ["cake.strawberry", "strawberry.cake", "cake"]
+      }
+    ];
+    for (const { name, filter, input, output } of cases) {
+      it(
+        name,
+        marbles(m => {
+          m.bind();
+
+          const fetchJobs = () =>
+            Observable.of(input.map(id => ({ ...defaultJob, id })));
+
+          const result$ = resolvers({
+            fetchJobs,
+            pollingInterval: m.time("--|")
+          }).Query.metronomeItems({}, { filter });
+
+          const expected$ = m.cold("--(x|)", {
+            x: output
+          });
+
+          m.expect(
+            result$.take(1).map(result => result.map(item => item.id))
+          ).toBeObservable(expected$);
+        })
+      );
+    }
+  });
 });
