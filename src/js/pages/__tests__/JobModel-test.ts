@@ -131,6 +131,50 @@ describe("JobData", () => {
           { ...defaultJob, id: "heidi" }
         ],
         output: ["foo.bar.baz", "abc.de.f", "peter", "heidi", "anna"]
+      },
+      {
+        sortBy: "status",
+        sortDirection: "ASC",
+        input: [
+          { ...defaultJob, status: "INITIAL" },
+          { ...defaultJob, status: "ACTIVE" },
+          { ...defaultJob, status: "FAILED" },
+          { ...defaultJob, status: "SUCCESS" },
+          { ...defaultJob, status: "COMPLETED" },
+          { ...defaultJob, status: "SCHEDULED" },
+          { ...defaultJob, status: "UNSCHEDULED" }
+        ],
+        output: [
+          "FAILED",
+          "UNSCHEDULED",
+          "SCHEDULED",
+          "INITIAL",
+          "ACTIVE",
+          "COMPLETED",
+          "SUCCESS"
+        ]
+      },
+      {
+        sortBy: "status",
+        sortDirection: "DESC",
+        input: [
+          { ...defaultJob, status: "INITIAL" },
+          { ...defaultJob, status: "ACTIVE" },
+          { ...defaultJob, status: "FAILED" },
+          { ...defaultJob, status: "SUCCESS" },
+          { ...defaultJob, status: "COMPLETED" },
+          { ...defaultJob, status: "SCHEDULED" },
+          { ...defaultJob, status: "UNSCHEDULED" }
+        ],
+        output: [
+          "SUCCESS",
+          "COMPLETED",
+          "ACTIVE",
+          "INITIAL",
+          "SCHEDULED",
+          "UNSCHEDULED",
+          "FAILED"
+        ]
       }
     ];
 

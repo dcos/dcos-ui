@@ -1,6 +1,8 @@
 import { Observable } from "rxjs";
 import { makeExecutableSchema } from "graphql-tools";
 
+import JobStates from "../../constants/JobStates";
+
 interface ISchedule {
   concurrencyPolicy: string;
   cron: string;
@@ -109,7 +111,13 @@ function isNamespace(job: IJobResponse): boolean {
   return job.id.split(".").length > 1;
 }
 
-function sortJobById(a: Job, b: Job): number {}
+function sortJobById(a: IJobResponse, b: IJobResponse): number {
+  return a.id.localeCompare(b.id);
+}
+
+function sortJobByStatus(a: IJobResponse, b: IJobResponse): number {
+  return JobStates[a.status].sortOrder - JobStates[b.status].sortOrder;
+}
 
 export const resolvers = ({
   fetchJobs,
@@ -152,7 +160,17 @@ export const resolvers = ({
             return 1;
           }
 
-          const result = a.id.localeCompare(b.id);
+          let result = 0;
+
+          switch (sortBy) {
+            case "id":
+              result = sortJobById(a, b);
+              break;
+            case "status":
+              result = sortJobByStatus(a, b);
+              break;
+          }
+
           return result * direction;
         })
       );
