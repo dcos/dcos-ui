@@ -2,7 +2,7 @@
  * Sort order is ordered by most important (lowest number, top of list)
  * to least important (largest number, bottom of list)
  */
-const JobStates = {
+export default {
   INITIAL: {
     stateTypes: ["active"],
     displayName: "Starting",
@@ -44,5 +44,3 @@ const JobStates = {
     sortOrder: 1
   }
 };
-
-module.exports = JobStates;
