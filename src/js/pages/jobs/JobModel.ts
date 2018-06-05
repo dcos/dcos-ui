@@ -131,7 +131,7 @@ export const resolvers = ({
   fetchJobs,
   pollingInterval
 }: {
-  fetchJobs: () => IJobResponse[];
+  fetchJobs: () => Observable<IJobResponse[]>;
   pollingInterval: number;
 }) => ({
   Query: {
