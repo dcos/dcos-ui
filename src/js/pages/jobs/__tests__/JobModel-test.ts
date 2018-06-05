@@ -2,7 +2,7 @@
 // tslint:disable-next-line:no-submodule-imports
 import { marbles } from "rxjs-marbles/jest";
 
-import { resolvers } from "../jobs/JobModel";
+import { resolvers } from "../JobModel";
 import { Observable } from "rxjs";
 
 const defaultJob = {
