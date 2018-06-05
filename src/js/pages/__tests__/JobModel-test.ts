@@ -175,6 +175,26 @@ describe("JobData", () => {
           "UNSCHEDULED",
           "FAILED"
         ]
+      },
+      {
+        sortBy: "lastRun",
+        sortDirection: "ASC",
+        input: [
+          { ...defaultJob, lastRun: { status: "N/A" } },
+          { ...defaultJob, lastRun: { status: "Success" } },
+          { ...defaultJob, lastRun: { status: "Failed" } }
+        ],
+        output: [{ status: "Failed" }, { status: "N/A" }, { status: "Success" }]
+      },
+      {
+        sortBy: "lastRun",
+        sortDirection: "DESC",
+        input: [
+          { ...defaultJob, lastRun: { status: "N/A" } },
+          { ...defaultJob, lastRun: { status: "Success" } },
+          { ...defaultJob, lastRun: { status: "Failed" } }
+        ],
+        output: [{ status: "Success" }, { status: "N/A" }, { status: "Failed" }]
       }
     ];
 
@@ -200,11 +220,5 @@ describe("JobData", () => {
         })
       );
     }
-
-    it("sorts by status ASC");
-    it("sorts by status DESC");
-
-    it("sorts by lastRun ASC");
-    it("sorts by lastRun DESC");
   });
 });

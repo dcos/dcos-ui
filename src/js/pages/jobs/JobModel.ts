@@ -2,6 +2,7 @@ import { Observable } from "rxjs";
 import { makeExecutableSchema } from "graphql-tools";
 
 import JobStates from "../../constants/JobStates";
+import JobStatus from "../../constants/JobStatus";
 
 interface ISchedule {
   concurrencyPolicy: string;
@@ -119,6 +120,13 @@ function sortJobByStatus(a: IJobResponse, b: IJobResponse): number {
   return JobStates[a.status].sortOrder - JobStates[b.status].sortOrder;
 }
 
+function sortJobByLastRun(a: IJobResponse, b: IJobResponse): number {
+  return (
+    JobStatus[a.lastRun.status].sortOrder -
+    JobStatus[b.lastRun.status].sortOrder
+  );
+}
+
 export const resolvers = ({
   fetchJobs,
   pollingInterval
@@ -168,6 +176,9 @@ export const resolvers = ({
               break;
             case "status":
               result = sortJobByStatus(a, b);
+              break;
+            case "lastRun":
+              result = sortJobByLastRun(a, b);
               break;
           }
 
