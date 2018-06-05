@@ -2,7 +2,6 @@ import { Observable } from "rxjs";
 import { makeExecutableSchema } from "graphql-tools";
 
 import JobStates from "../../constants/JobStates";
-import JobStatus from "../../constants/JobStatus";
 
 interface ISchedule {
   concurrencyPolicy: string;
@@ -76,6 +75,7 @@ export const typeDefs = `
 
   type Namespace {
     id: ID!
+    name: String!
     items: MetronomeItem
   }
 
@@ -127,6 +127,23 @@ function sortJobByLastRun(a: IJobResponse, b: IJobResponse): number {
   );
 }
 
+function response2Namespace(response: IJobResponse) {
+  return {
+    id: "ns-" + response.id.split(".")[0],
+    name: response.id.split(".")[0],
+    response,
+    items: []
+  };
+}
+function response2Job(response: IJobResponse) {
+  return {
+    id: "j-" + response.id,
+    name: response.id,
+    status: "TBD",
+    lastrun: "TBD"
+  };
+}
+
 export const resolvers = ({
   fetchJobs,
   pollingInterval
@@ -134,6 +151,11 @@ export const resolvers = ({
   fetchJobs: () => Observable<IJobResponse[]>;
   pollingInterval: number;
 }) => ({
+  MetronomeItem: {
+    __resolverType(obj = {}, args: IJobsArg = {}, context = {}) {
+      return isNamespace(obj) ? "Namespace" : "Job";
+    }
+  },
   Query: {
     metronomeItems(obj = {}, args: IJobsArg = {}, context = {}) {
       const { sortBy = "id", sortDirection = "ASC", filter } = args;
@@ -160,37 +182,50 @@ export const resolvers = ({
       //   status: response.struct.getScheduleStatus()
       // }));
 
-      return filteredResponses$.map(jobs =>
-        jobs.sort((a, b) => {
-          const direction = sortDirection === "ASC" ? 1 : -1;
-          const isANamespace = isNamespace(a);
-          const isBNamespace = isNamespace(b);
+      return filteredResponses$
+        .map(jobs =>
+          jobs.sort((a, b) => {
+            const direction = sortDirection === "ASC" ? 1 : -1;
+            const isANamespace = isNamespace(a);
+            const isBNamespace = isNamespace(b);
 
-          if (isANamespace && !isBNamespace) {
-            return -1;
-          }
+            if (isANamespace && !isBNamespace) {
+              return -1;
+            }
 
-          if (!isANamespace && isBNamespace) {
-            return 1;
-          }
+            if (!isANamespace && isBNamespace) {
+              return 1;
+            }
 
-          let result = 0;
+            let result = 0;
 
-          switch (sortBy) {
-            case "id":
-              result = sortJobById(a, b);
-              break;
-            case "status":
-              result = sortJobByStatus(a, b);
-              break;
-            case "lastRun":
-              result = sortJobByLastRun(a, b);
-              break;
-          }
+            switch (sortBy) {
+              case "id":
+                result = sortJobById(a, b);
+                break;
+              case "status":
+                result = sortJobByStatus(a, b);
+                break;
+              case "lastRun":
+                result = sortJobByLastRun(a, b);
+                break;
+            }
 
-          return result * direction;
-        })
-      );
+            return result * direction;
+          })
+        )
+        .map(responses => {
+          // MetronomeResult
+          return {
+            count: responses.length,
+            items: responses.map(response => {
+              // MetronomeItem
+              return isNamespace(response)
+                ? response2Namespace(response)
+                : response2Job(response);
+            })
+          };
+        });
     },
     metronomeItem(obj = {}, args = {}, context = {}) {
       return Observable.of({});
