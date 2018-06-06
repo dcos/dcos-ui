@@ -5,6 +5,7 @@ import { componentFromStream, graphqlObservable } from "data-service";
 import gql from "graphql-tag";
 
 import JobTree from "#SRC/js/structs/JobTree";
+import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
 import JobsTab from "./components/JobsTab";
 
 interface IData {
@@ -13,10 +14,12 @@ interface IData {
   searchString: string
 }
 
-MetronomeStore.on("METRONOME_CHANGE", () => {})
-MetronomeStore.on("METRONOME_JOB_CREATE_SUCCESS", () => {})
+const fetchJobs$ = MetronomeClient.fetchJobs();
 
-const data$ = Observable.empty();
+const pollingInterval: number = 2000;
+const pollingInterval$ = Observable.interval(pollingInterval);
+
+const data$ = pollingInterval$.exhaustMap(() => fetchJobs$);
 
 function filterJobs(item: any, searchString: string) {
   let jobs = item.getItems();
