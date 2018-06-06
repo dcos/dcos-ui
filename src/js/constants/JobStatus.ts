@@ -2,7 +2,14 @@
  * Sort order is ordered by most important (lowest number, top of list)
  * to least important (largest number, bottom of list)
  */
-export default {
+interface IJobStatus {
+  [key: string]: {
+    displayName: string;
+    sortOrder: number;
+  };
+}
+
+const status: IJobStatus = {
   "N/A": {
     displayName: "N/A",
     sortOrder: 1
@@ -16,3 +23,5 @@ export default {
     sortOrder: 0
   }
 };
+
+export default status;

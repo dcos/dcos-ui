@@ -2,7 +2,15 @@
  * Sort order is ordered by most important (lowest number, top of list)
  * to least important (largest number, bottom of list)
  */
-export default {
+
+export interface IJobStates {
+  [state: string]: {
+    stateTypes: string[];
+    displayName: string;
+    sortOrder: number;
+  };
+}
+const states: IJobStates = {
   INITIAL: {
     stateTypes: ["active"],
     displayName: "Starting",
@@ -44,3 +52,5 @@ export default {
     sortOrder: 1
   }
 };
+
+export default states;

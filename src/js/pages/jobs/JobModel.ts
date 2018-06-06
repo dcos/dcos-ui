@@ -1,7 +1,7 @@
-import { Observable } from "rxjs";
 import { makeExecutableSchema } from "graphql-tools";
-
+import { Observable } from "rxjs";
 import JobStates from "../../constants/JobStates";
+import JobStatus from "../../constants/JobStatus";
 
 interface ISchedule {
   concurrencyPolicy: string;
@@ -43,69 +43,69 @@ interface IJobsArg {
 }
 
 export const typeDefs = `
-  type JobRunSummary {
-    lastFailureAt: String
-    lastSuccessAt: String
-    status: JobRunStatus
-  }
+	type JobRunSummary {
+		lastFailureAt: String
+		lastSuccessAt: String
+		status: JobRunStatus
+	}
 
-  type Job {
-    id: ID!
-    name: String!
-    status: JobStatus!
-    lastRun: JobRunSummary!
-  }
+	type Job {
+		id: ID!
+		name: String!
+		status: JobStatus!
+		lastRun: JobRunSummary!
+	}
 
-  enum JobRunStatus {
-    NOT_AVAILABLE
-    SUCCESS
-    FAILED
-  }
+	enum JobRunStatus {
+		NOT_AVAILABLE
+		SUCCESS
+		FAILED
+	}
 
-  enum JobStatus {
-    RUNNING
-    COMPLETED
-    SCHEDULED
-    UNSCHEDULED
-    FAILED
-    ACTIVE
-    STARTING
-    INITIAL
-  }
+	enum JobStatus {
+		RUNNING
+		COMPLETED
+		SCHEDULED
+		UNSCHEDULED
+		FAILED
+		ACTIVE
+		STARTING
+		INITIAL
+	}
 
-  type Namespace {
-    id: ID!
-    name: String!
-    items: MetronomeItem
-  }
+	type Namespace {
+		id: ID!
+		name: String!
+		items: MetronomeItem
+	}
 
-  union MetronomeItem = Job | Namespace
+	union MetronomeItem = Job | Namespace
 
-  type SearchCount {
-    all: Int!
-    filtered: Int!
-  }
+	type SearchCount {
+		all: Int!
+		filtered: Int!
+	}
 
-  type MetronomeResult {
-    count: SearchCount!
-    items: [MetronomeItem]!
-  }
+	type MetronomeResult {
+		count: SearchCount!
+		items: [MetronomeItem]!
+	}
 
-  enum SortOption {
-    ID
-    STATUS
-    LAST_RUN
-  }
+	enum SortOption {
+		ID
+		STATUS
+		LAST_RUN
+	}
 
-  enum SortDirection {
-    ASC
-    DESC
-  }
+	enum SortDirection {
+		ASC
+		DESC
+	}
 
-  type Query {
-    metronomeItems(filter: String, sortBy: SortOption, sortDirection: SortDirection): MetronomeResult
-    metronomeItem(id: ID!, filter: String, sortBy: SortOption, sortDirection: SortDirection): MetronomeResult
-  }
+	type Query {
+		metronomeItems(filter: String, sortBy: SortOption, sortDirection: SortDirection): MetronomeResult
+		metronomeItem(id: ID!, filter: String, sortBy: SortOption, sortDirection: SortDirection): MetronomeResult
+	}
 `;
 
 function isNamespace(job: IJobResponse): boolean {
@@ -116,11 +116,24 @@ function sortJobById(a: IJobResponse, b: IJobResponse): number {
   return a.id.localeCompare(b.id);
 }
 
-function sortJobByStatus(a: IJobResponse, b: IJobResponse): number {
+interface IJobResponseWithStatus extends IJobResponse {
+  status: string;
+  lastRun: {
+    status: string;
+  };
+}
+
+function sortJobByStatus(
+  a: IJobResponseWithStatus,
+  b: IJobResponseWithStatus
+): number {
   return JobStates[a.status].sortOrder - JobStates[b.status].sortOrder;
 }
 
-function sortJobByLastRun(a: IJobResponse, b: IJobResponse): number {
+function sortJobByLastRun(
+  a: IJobResponseWithStatus,
+  b: IJobResponseWithStatus
+): number {
   return (
     JobStatus[a.lastRun.status].sortOrder -
     JobStatus[b.lastRun.status].sortOrder
@@ -152,12 +165,12 @@ export const resolvers = ({
   pollingInterval: number;
 }) => ({
   MetronomeItem: {
-    __resolverType(obj = {}, args: IJobsArg = {}, context = {}) {
+    __resolverType(obj: IJobResponse, _args: IJobsArg = {}, _context = {}) {
       return isNamespace(obj) ? "Namespace" : "Job";
     }
   },
   Query: {
-    metronomeItems(obj = {}, args: IJobsArg = {}, context = {}) {
+    metronomeItems(_obj = {}, args: IJobsArg = {}, _context = {}) {
       const { sortBy = "id", sortDirection = "ASC", filter } = args;
       const pollingInterval$ = Observable.interval(pollingInterval);
       const responses$ = pollingInterval$.switchMap(fetchJobs);
@@ -227,7 +240,7 @@ export const resolvers = ({
           };
         });
     },
-    metronomeItem(obj = {}, args = {}, context = {}) {
+    metronomeItem(_obj = {}, _args = {}, _context = {}) {
       return Observable.of({});
     }
   }
