@@ -8,14 +8,14 @@ jest.mock("#SRC/js/events/MetronomeActions", () => ({
   fetchJobs: jest.fn()
 }));
 
-const JestUtil = require("../../utils/JestUtil");
+const JestUtil = require("#SRC/js/utils/JestUtil");
 
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
-const AlertPanel = require("../../components/AlertPanel");
-const MetronomeUtil = require("../../utils/MetronomeUtil");
-const JobsTabContainer = require("../jobs/JobsTabContainer");
-const JobTree = require("../../structs/JobTree");
-const JobsTable = require("../../pages/jobs/JobsTable");
+const AlertPanel = require("#SRC/js/components/AlertPanel");
+const MetronomeUtil = require("#SRC/js/utils/MetronomeUtil");
+const JobTree = require("#SRC/js/structs/JobTree");
+const JobsTable = require("#SRC/js/pages/jobs/JobsTable");
+const JobsTabContainer = require("../JobsTabContainer");
 
 describe("JobsTab", function() {
   beforeEach(function() {

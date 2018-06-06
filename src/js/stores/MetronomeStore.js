@@ -115,6 +115,8 @@ class MetronomeStore extends EventEmitter {
       if (source !== SERVER_ACTION) {
         return false;
       }
+
+      console.log(action);
       switch (action.type) {
         case REQUEST_METRONOME_JOB_CREATE_SUCCESS:
           this.emit(METRONOME_JOB_CREATE_SUCCESS);
@@ -163,6 +165,7 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOBS_SUCCESS:
           this.removeOldJobs(action.data);
           action.data.forEach(this.setJob.bind(this));
+          console.log("I DID IT");
 
           this.emit(METRONOME_JOBS_CHANGE);
           break;

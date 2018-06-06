@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 
-import AlertPanel from "../../components/AlertPanel";
-import AlertPanelHeader from "../../components/AlertPanelHeader";
-import FilterBar from "../../components/FilterBar";
-import FilterHeadline from "../../components/FilterHeadline";
-import JobsBreadcrumbs from "../../components/breadcrumbs/JobsBreadcrumbs";
-import JobsTable from "./JobsTable";
-import JobSearchFilter from "../../components/JobSearchFilter";
-import JobFormModal from "../../components/modals/JobFormModal";
-import JobTree from "../../structs/JobTree";
-import Loader from "../../components/Loader";
-import Page from "../../components/Page";
+import AlertPanel from "#SRC/js/components/AlertPanel";
+import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+import FilterBar from "#SRC/js/components/FilterBar";
+import FilterHeadline from "#SRC/js/components/FilterHeadline";
+import JobsBreadcrumbs from "#SRC/js/components/breadcrumbs/JobsBreadcrumbs";
+import JobsTable from "#SRC/js/pages/jobs/JobsTable";
+import JobSearchFilter from "#SRC/js/components/JobSearchFilter";
+import JobFormModal from "#SRC/js/components/modals/JobFormModal";
+import JobTree from "#SRC/js/structs/JobTree";
+import Loader from "#SRC/js/components/Loader";
+import Page from "#SRC/js/components/Page";
 
 const METHODS_TO_BIND = ["handleCloseJobFormModal", "handleOpenJobFormModal"];
 

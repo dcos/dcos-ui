@@ -4,14 +4,13 @@ import React from "react";
 import { routerShape } from "react-router";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import DCOSStore from "#SRC/js/stores/DCOSStore";
+import MetronomeStore from "#SRC/js/stores/MetronomeStore";
 
-import JobFilterTypes from "../../constants/JobFilterTypes";
-import JobTree from "../../structs/JobTree";
-import ServiceFilterTypes
-  from "../../../../plugins/services/src/js/constants/ServiceFilterTypes";
+import JobFilterTypes from "#SRC/js/constants/JobFilterTypes";
+import JobTree from "#SRC/js/structs/JobTree";
+import ServiceFilterTypes from "#PLUGINS/services/src/js/constants/ServiceFilterTypes";
 
-import JobsTab from "./JobsTab";
+import JobsTab from "./components/JobsTab";
 
 const METHODS_TO_BIND = [
   "handleFilterChange",
@@ -30,7 +29,6 @@ class JobsTabContainer extends mixin(StoreMixin) {
     this.state = { ...DEFAULT_FILTER_OPTIONS };
 
     this.store_listeners = [
-      { name: "dcos", events: ["change"], suppressUpdate: false },
       {
         name: "metronome",
         events: ["change", "jobCreateSuccess"],
@@ -55,7 +53,9 @@ class JobsTabContainer extends mixin(StoreMixin) {
 
   handleFilterChange(filterValue) {
     const { router } = this.context;
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     const query = { [JobFilterTypes.TEXT]: filterValue };
 
     router.push({ pathname, query });
@@ -66,7 +66,9 @@ class JobsTabContainer extends mixin(StoreMixin) {
   }
 
   resetFilterQueryParams() {
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname }
+    } = this.props;
     const query = Object.assign({}, location.query);
 
     Object.values(ServiceFilterTypes).forEach(function(filterKey) {
@@ -110,22 +112,25 @@ class JobsTabContainer extends mixin(StoreMixin) {
   }
 
   render() {
+    console.log("FOOBAR jobs render");
     const id = decodeURIComponent(this.props.params.id);
     const item =
-      DCOSStore.jobTree.findItem(function(item) {
+      MetronomeStore.jobTree.findItem(function(item) {
         return item instanceof JobTree && item.id === id;
-      }) || DCOSStore.jobTree;
-    const isLoading = DCOSStore.jobDataReceived;
-    const root = DCOSStore.jobTree;
+      }) || MetronomeStore.jobTree;
+    const isLoading = true;
+    const root = MetronomeStore.jobTree;
     const filteredJobs = this.getFilteredJobs(item);
     const searchString = this.state.searchString;
     const handleFilterChange = this.handleFilterChange;
     const resetFilter = this.resetFilter;
-    const hasFilterApplied = Object.keys(
-      DEFAULT_FILTER_OPTIONS
-    ).some(filterKey => {
-      return this.state[filterKey] != null && this.state[filterKey].length > 0;
-    });
+    const hasFilterApplied = Object.keys(DEFAULT_FILTER_OPTIONS).some(
+      filterKey => {
+        return (
+          this.state[filterKey] != null && this.state[filterKey].length > 0
+        );
+      }
+    );
 
     return (
       <JobsTab

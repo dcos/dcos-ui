@@ -200,7 +200,7 @@ class DCOSStore extends EventEmitter {
         deployment
       );
     });
-
+    console.log("onMarathonDeploymentsChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
@@ -235,6 +235,7 @@ class DCOSStore extends EventEmitter {
     // Populate deployments with services data immediately
     this.onMarathonDeploymentsChange();
 
+    console.log("onMarathonGroupsChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
@@ -280,7 +281,7 @@ class DCOSStore extends EventEmitter {
         queue.delete(id);
       }
     });
-
+    console.log("onMarathonQueueChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
@@ -298,7 +299,7 @@ class DCOSStore extends EventEmitter {
     }
 
     currentVersions.set(versionID, version);
-
+    console.log("onMarathonServiceVersionChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
@@ -315,6 +316,8 @@ class DCOSStore extends EventEmitter {
     }
 
     versions.set(serviceID, nextVersions);
+
+    console.log("onMarathonServiceVersionsChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
@@ -326,6 +329,8 @@ class DCOSStore extends EventEmitter {
     }
 
     this.data.mesos = states;
+
+    console.log("onMesosSummaryChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }
@@ -337,6 +342,7 @@ class DCOSStore extends EventEmitter {
     metronome.jobTree = MetronomeStore.jobTree;
     metronome.dataReceived = true;
 
+    console.log("onMetronomeChange");
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   }

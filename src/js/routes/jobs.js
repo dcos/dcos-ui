@@ -3,9 +3,9 @@ import { Redirect, IndexRoute, Route } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
+import JobsTabContainer from "#PLUGINS/jobs-queues/src/js/jobs/JobsTabContainer";
 import JobDetailPage from "../pages/jobs/JobDetailPage";
 import JobsPage from "../pages/JobsPage";
-import JobsTabContainer from "../pages/jobs/JobsTabContainer";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
 import TaskDetailsTab from "../../../plugins/services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "../../../plugins/services/src/js/pages/task-details/TaskFileBrowser";
