@@ -21,9 +21,6 @@ AWS_BUCKET='downloads.mesosphere.io'
 # aws bucket path to upload in
 BUCKET_PATH='dcos-ui'
 
-# overriding files? (latest releases are overwritten each time)
-FORCE_UPLOAD=${FORCE_UPLOAD:-0}
-
 # these are passed in from calling scripts
 RELEASE_NAME=${RELEASE_NAME:-''}
 
@@ -64,8 +61,8 @@ EOF
 ## Upload tarball
 #####################################################################
 
-if [ ${FORCE_UPLOAD} -eq 0 ] && [ "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" -ne 0 ]; then
-  echo "This release was already uploaded, stopping here"
+if [ "$(aws s3 ls "s3://$AWS_BUCKET/$BUCKET_PATH/$RELEASE_NAME" | wc -l)" -ne 0 ]; then
+  echo "This release was already uploaded, can't overwrite already existing files."
   exit 1
 fi
 
