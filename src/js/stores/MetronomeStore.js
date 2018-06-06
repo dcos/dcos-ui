@@ -163,9 +163,16 @@ class MetronomeStore extends EventEmitter {
           this.emit(METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS, action.jobID);
           break;
         case REQUEST_METRONOME_JOBS_SUCCESS:
-          this.removeOldJobs(action.data);
-          action.data.forEach(this.setJob.bind(this));
-          console.log("I DID IT");
+          this.data.jobTree = null;
+          this.data.jobMap = new Map(
+            action.data
+              .map(newJob => {
+                return this.data.jobMap.has(newJob.id)
+                  ? Object.assign({}, this.data.jobMap.get(newJob.id), newJob)
+                  : newJob;
+              })
+              .map(job => [job.id, job])
+          );
 
           this.emit(METRONOME_JOBS_CHANGE);
           break;
