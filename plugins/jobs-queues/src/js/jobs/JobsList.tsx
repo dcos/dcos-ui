@@ -9,9 +9,19 @@ import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
 import JobsTab from "./components/JobsTab";
 
 interface IData {
-  jobTree: JobTree
-  jobDataReceived: boolean
-  searchString: string
+  jobTree: JobTree;
+  jobDataReceived: boolean;
+  searchString: string;
+}
+
+// copied from MetronomeClient -> want to import
+interface IJobResponse {
+  id: string;
+}
+
+interface IJobCache {
+  oldData?: IJobResponse;
+  newData?: IJobResponse;
 }
 
 const fetchJobs$ = MetronomeClient.fetchJobs();
@@ -19,7 +29,32 @@ const fetchJobs$ = MetronomeClient.fetchJobs();
 const pollingInterval: number = 2000;
 const pollingInterval$ = Observable.interval(pollingInterval);
 
-const data$ = pollingInterval$.exhaustMap(() => fetchJobs$);
+// change any to something
+function buildJobMap(oldData: any, newData: any) {
+  return new Map(
+    newData
+      .map((newJob: any) => {
+        return oldData.jobMap.has(newJob.id)
+          ? Object.assign({}, oldData.jobMap.get(newJob.id), newJob)
+          : newJob;
+      })
+      .map((job: any) => [job.id, job])
+  );
+}
+
+const data$: Observable<Map<any, any>> = pollingInterval$
+  .exhaustMap((): Observable<IJobResponse> => fetchJobs$)
+  .scan(
+    (acc: IJobCache, jobs): IJobCache => {
+      return { oldData: acc.newData, newData: jobs };
+    },
+    { oldData: undefined, newData: undefined }
+  )
+  .map(({ oldData, newData}: IJobCache) => {
+    return buildJobMap(oldData, newData);
+  })
+  .map(jobMap => setTree)
+  .startWith({ tree: null });
 
 function filterJobs(item: any, searchString: string) {
   let jobs = item.getItems();
@@ -38,8 +73,8 @@ function filterJobs(item: any, searchString: string) {
 }
 
 export default componentFromStream((prop$: any) => {
+  //figure out the right combinator
   return prop$.combine(data$).map((props: any, data: IData) => {
-
     const id = decodeURIComponent(props.id); //done
 
     const item =
@@ -57,7 +92,8 @@ export default componentFromStream((prop$: any) => {
 
     const resetFilter = () => {};
 
-    const hasFilterApplied = data.searchString != null && data.searchString.length > 0;
+    const hasFilterApplied =
+      data.searchString != null && data.searchString.length > 0;
 
     return (
       <JobsTab

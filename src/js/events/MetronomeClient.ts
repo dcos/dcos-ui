@@ -9,7 +9,7 @@ import Config from "../config/Config";
 interface IJobData {
   id: string;
 }
-interface IJobResponse {
+export interface IJobResponse {
   id: string;
 }
 interface IScheduleData {
