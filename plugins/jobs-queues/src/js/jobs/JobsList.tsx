@@ -1,12 +1,17 @@
-import React from "react";
+import * as React from "react";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/empty";
-import { componentFromStream, graphqlObservable } from "data-service";
-import gql from "graphql-tag";
 
-import JobTree from "#SRC/js/structs/JobTree";
+import * as PropTypes from "prop-types";
+import { routerShape } from "react-router";
+
+import { componentFromStream } from "data-service"; // graphqlObservable
+// import gql from "graphql-tag";
+
+import { JobTree } from "#SRC/js/structs/JobTree";
 import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
-import JobsTab from "./components/JobsTab";
+import * as MetronomeUtil from "#SRC/js/utils/MetronomeUtil";
+import { JobsTab } from "./components/JobsTab";
 
 interface IData {
   jobTree: JobTree;
@@ -19,42 +24,19 @@ interface IJobResponse {
   id: string;
 }
 
-interface IJobCache {
-  oldData?: IJobResponse;
-  newData?: IJobResponse;
-}
-
 const fetchJobs$ = MetronomeClient.fetchJobs();
 
 const pollingInterval: number = 2000;
 const pollingInterval$ = Observable.interval(pollingInterval);
 
-// change any to something
-function buildJobMap(oldData: any, newData: any) {
-  return new Map(
-    newData
-      .map((newJob: any) => {
-        return oldData.jobMap.has(newJob.id)
-          ? Object.assign({}, oldData.jobMap.get(newJob.id), newJob)
-          : newJob;
-      })
-      .map((job: any) => [job.id, job])
+const data$: Observable<JobTree> = pollingInterval$
+  .exhaustMap((): Observable<IJobResponse[]> => fetchJobs$)
+  .map(
+    (jobs): JobTree => {
+      console.log(MetronomeUtil);
+      return new JobTree(MetronomeUtil.parseJobs(jobs));
+    }
   );
-}
-
-const data$: Observable<Map<any, any>> = pollingInterval$
-  .exhaustMap((): Observable<IJobResponse> => fetchJobs$)
-  .scan(
-    (acc: IJobCache, jobs): IJobCache => {
-      return { oldData: acc.newData, newData: jobs };
-    },
-    { oldData: undefined, newData: undefined }
-  )
-  .map(({ oldData, newData}: IJobCache) => {
-    return buildJobMap(oldData, newData);
-  })
-  .map(jobMap => setTree)
-  .startWith({ tree: null });
 
 function filterJobs(item: any, searchString: string) {
   let jobs = item.getItems();
@@ -72,15 +54,15 @@ function filterJobs(item: any, searchString: string) {
   return jobs;
 }
 
-export default componentFromStream((prop$: any) => {
+const JobsList = componentFromStream((prop$: any) => {
   //figure out the right combinator
-  return prop$.combine(data$).map((props: any, data: IData) => {
-    const id = decodeURIComponent(props.id); //done
+  return prop$.combineLatest(data$).map((props: any, data: IData) => {
+    const id = new Number(decodeURIComponent(props.id));
 
     const item =
-      data.jobTree.findItem(function(item: any) {
-        return item instanceof JobTree && item.id === id;
-      }) || data.jobTree; //done
+      data.jobTree.findItem(function(item: JobTree) {
+        return item instanceof JobTree && item.getId() === id;
+      }) || data.jobTree;
 
     const isLoading = data.jobDataReceived;
 
@@ -88,9 +70,9 @@ export default componentFromStream((prop$: any) => {
 
     const filteredJobs = filterJobs(item, data.searchString);
 
-    const handleFilterChange = () => {};
+    const handleFilterChange = () => {}; // @TODO
 
-    const resetFilter = () => {};
+    const resetFilter = () => {}; // @TODO
 
     const hasFilterApplied =
       data.searchString != null && data.searchString.length > 0;
@@ -109,3 +91,10 @@ export default componentFromStream((prop$: any) => {
     );
   });
 });
+
+JobsList.contextTypes = {
+  router: routerShape,
+  location: PropTypes.object.isRequired
+};
+
+export default JobsList;

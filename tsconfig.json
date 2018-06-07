@@ -31,7 +31,9 @@
     "baseUrl": "./",
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
-      "*": ["*", "packages/*"]
+      "*": ["*", "packages/*"],
+      "#SRC/*" : ["src/*"],
+      "#PLUGINS/*" : ["plugins/*"]
     }
   },
   "include": [

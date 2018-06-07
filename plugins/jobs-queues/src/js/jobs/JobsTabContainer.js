@@ -43,12 +43,10 @@ class JobsTabContainer extends mixin(StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount();
-    this.updateFromProps(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     super.componentWillReceiveProps(...arguments);
-    this.updateFromProps(nextProps);
   }
 
   handleFilterChange(filterValue) {

@@ -3,7 +3,7 @@ import { Redirect, IndexRoute, Route } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import JobsTabContainer from "#PLUGINS/jobs-queues/src/js/jobs/JobsTabContainer";
+import JobsList from "#PLUGINS/jobs-queues/src/js/jobs/JobsList";
 import JobDetailPage from "../pages/jobs/JobDetailPage";
 import JobsPage from "../pages/JobsPage";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
@@ -28,7 +28,7 @@ const jobsRoutes = [
     children: [
       {
         type: Route,
-        component: JobsTabContainer,
+        component: JobsList,
         path: "overview",
         children: [
           {

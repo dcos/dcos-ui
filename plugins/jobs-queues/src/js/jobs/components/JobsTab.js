@@ -119,6 +119,14 @@ class JobsTab extends Component {
     });
   }
 
+  componentDidMount() {
+    this.updateFromProps(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateFromProps(nextProps);
+  }
+
   handleCloseJobFormModal() {
     this.setState({ isJobFormModalOpen: false });
   }
