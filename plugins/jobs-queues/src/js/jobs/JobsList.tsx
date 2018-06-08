@@ -8,7 +8,7 @@ import { routerShape } from "react-router";
 import { componentFromStream } from "data-service"; // graphqlObservable
 // import gql from "graphql-tag";
 
-import { JobTree } from "#SRC/js/structs/JobTree";
+import * as JobTree from "#SRC/js/structs/JobTree";
 import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
 import * as MetronomeUtil from "#SRC/js/utils/MetronomeUtil";
 import { JobsTab } from "./components/JobsTab";
@@ -42,11 +42,12 @@ function filterJobs(item: any, searchString: string) {
   let jobs = item.getItems();
 
   if (searchString) {
-    const filterProperties = Object.assign({}, item.getFilterProperties(), {
+    const filterProperties = {
+      ...item.getFilterProperties(),
       name(item: any) {
         return item.getId();
       }
-    });
+    };
 
     jobs = item.filterItemsByText(searchString, filterProperties).getItems();
   }
@@ -55,12 +56,13 @@ function filterJobs(item: any, searchString: string) {
 }
 
 const JobsList = componentFromStream((prop$: any) => {
-  //figure out the right combinator
+  // figure out the right combinator
+
   return prop$.combineLatest(data$).map((props: any, data: IData) => {
     const id = new Number(decodeURIComponent(props.id));
 
     const item =
-      data.jobTree.findItem(function(item: JobTree) {
+      data.jobTree.findItem((item: JobTree) => {
         return item instanceof JobTree && item.getId() === id;
       }) || data.jobTree;
 
