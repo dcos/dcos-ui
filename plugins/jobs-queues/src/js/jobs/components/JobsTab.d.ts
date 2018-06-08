@@ -11,7 +11,7 @@ interface IJobsTabsProps {
   hasFilterApplied: any;
 }
 
-export declare class JobsTab extends React.Component<IJobsTabsProps, {}> {
+declare class JobsTab extends React.Component<IJobsTabsProps, {}> {
     constructor();
     render():any
 }
