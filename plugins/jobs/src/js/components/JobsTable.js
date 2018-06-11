@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
 
-// everything that is references as #ALIAS/something has to be refactored once our DI system is in place
 import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";

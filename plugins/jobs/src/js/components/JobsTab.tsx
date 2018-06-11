@@ -1,15 +1,33 @@
-import React, { Component } from "react";
+import * as React from "react";
 
-// everything that is references as #ALIAS/something has to be refactored once our DI system is in place
+// tslint:disable-next-line:no-submodule-imports
 import JobFormModal from "#SRC/js/components/modals/JobFormModal";
+// tslint:disable-next-line:no-submodule-imports
 import JobTree from "#SRC/js/structs/JobTree";
+// tslint:disable-next-line:no-submodule-imports
+import Job from "#SRC/js/structs/Job";
 
 import JobsTabList from "./JobsTabList";
 import JobsTabEmpty from "./JobsTabEmpty";
 
-const METHODS_TO_BIND = ["handleCloseJobFormModal", "handleOpenJobFormModal"];
+interface JobsTabsProps {
+  item: JobTree;
+  root: JobTree;
+  filteredJobs: Job[];
+  searchString: string;
+  handleFilterChange: () => void;
+  resetFilter: () => void;
+  hasFilterApplied: boolean;
+}
 
-export default class JobsTab extends Component {
+interface JobsTabState {
+  isJobFormModalOpen: boolean;
+}
+
+export default class JobsTab extends React.Component<
+  JobsTabsProps,
+  JobsTabState
+> {
   constructor() {
     super(...arguments);
 
@@ -17,9 +35,8 @@ export default class JobsTab extends Component {
       isJobFormModalOpen: false
     };
 
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
+    this.handleCloseJobFormModal = this.handleCloseJobFormModal.bind(this);
+    this.handleOpenJobFormModal = this.handleOpenJobFormModal.bind(this);
   }
 
   handleCloseJobFormModal() {

@@ -1,14 +1,31 @@
-import React, { Component } from "react";
+import * as React from "react";
 
-// everything that is references as #ALIAS/something has to be refactored once our DI system is in place
+// tslint:disable-next-line:no-submodule-imports
 import FilterBar from "#SRC/js/components/FilterBar";
+// tslint:disable-next-line:no-submodule-imports
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
+// tslint:disable-next-line:no-submodule-imports
+import JobTree from "#SRC/js/structs/JobTree";
+// tslint:disable-next-line:no-submodule-imports
+import Job from "#SRC/js/structs/Job";
 
 import JobSearchFilter from "./JobSearchFilter";
 import JobsTable from "./JobsTable";
 import JobsPage from "./JobsPage";
 
-export default class JobsTabList extends Component {
+interface JobsTabListProps {
+  item: JobTree;
+  root: JobTree;
+  modal: JSX.Element;
+  filteredJobs: Job[];
+  searchString: string;
+  handleFilterChange: () => void;
+  handleOpenJobFormModal: () => void;
+  resetFilter: () => void;
+  hasFilterApplied: boolean;
+}
+
+export default class JobsTabList extends React.Component<JobsTabListProps> {
   render() {
     const {
       item,

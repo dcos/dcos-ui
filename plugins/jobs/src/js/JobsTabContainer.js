@@ -1,11 +1,12 @@
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-// these have to go!
+// tslint:disable-next-line:no-submodule-imports
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+// tslint:disable-next-line:no-submodule-imports
 import JobTree from "#SRC/js/structs/JobTree";
 
 import JobFilterTypes from "./constants/JobFilterTypes";

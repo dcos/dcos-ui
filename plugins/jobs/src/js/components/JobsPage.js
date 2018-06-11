@@ -1,20 +1,21 @@
-import React from "react";
+import * as React from "react";
 
-// everything that is references as #ALIAS/something has to be refactored once our DI system is in place
 import Page from "#SRC/js/components/Page";
 
 import JobsBreadcrumbs from "./JobsBreadcrumbs";
 
-const JobsPage = ({ addButton, children, root, item }) => {
-  return (
-    <Page>
-      <Page.Header
-        addButton={addButton}
-        breadcrumbs={<JobsBreadcrumbs tree={root} item={item} />}
-      />
-      {children}
-    </Page>
-  );
-};
+export default class JobsPage extends React.Component {
+  render() {
+    const { addButton, children, root, item } = this.props;
 
-export default JobsPage;
+    return (
+      <Page>
+        <Page.Header
+          addButton={addButton}
+          breadcrumbs={<JobsBreadcrumbs tree={root} item={item} />}
+        />
+        {children}
+      </Page>
+    );
+  }
+}
