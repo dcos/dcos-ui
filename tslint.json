@@ -1,6 +1,7 @@
 {
   "extends": ["@dcos/tslint-config"],
   "rules": {
-    "interface-name": [false]
+    "interface-name": [false],
+    "no-submodule-imports": [false]
   }
 }

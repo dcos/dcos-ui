@@ -26,13 +26,12 @@
     "baseUrl": "./",
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
-      "*": ["*", "packages/*"],
+      "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
       "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
       "#PLUGINS/*": ["plugins/*"]
     }
   },
   "include": ["src/**/*", "packages/**/*", "plugins/**/*"],
-
   "exclude": ["node_modules", "src/styles/**/*"]
 }
