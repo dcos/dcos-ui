@@ -1,5 +1,6 @@
 {
-    "extends": [
-        "@dcos/tslint-config"
-    ]
+  "extends": ["@dcos/tslint-config"],
+  "rules": {
+    "interface-name": [false]
+  }
 }
