@@ -10,19 +10,99 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/take";
 // tslint:enable
-
-import * as MetronomeClient from "../MetronomeClient";
+import {
+  fetchJobDetail,
+  fetchJobs,
+  createJob,
+  updateJob,
+  updateSchedule,
+  runJob,
+  deleteJob,
+  stopJobRun,
+  IJobResponse,
+  IJobDetailResponse
+} from "../MetronomeClient";
 import Config from "../../config/Config";
 
 describe("MetronomeClient", () => {
   const jobId = "my/awesome/job/id";
   const jobRunId = "my/awesome/job/id.1990-01-03t00:00:00z-1";
-  const jobData = {
-    id: "/myJob/is/the/best",
+
+  const jobData: IJobResponse = {
+    id: "testid",
+    labels: {},
     run: {
-      cpus: 0.1,
-      mem: 42,
-      disk: 0
+      cpus: 0.01,
+      mem: 128,
+      disk: 0,
+      cmd: "sleep 10",
+      env: {},
+      placement: {
+        constraints: []
+      },
+      artifacts: []
+    },
+    schedules: [],
+    historySummary: {
+      failureCount: 0,
+      lastFailureAt: null,
+      lastSuccessAt: "2018-06-07T11:48:17.278+0000",
+      successCount: 90
+    }
+  };
+
+  const jobDetailData: IJobDetailResponse = {
+    id: "testid",
+    description: "test description",
+    labels: {},
+    run: {
+      cpus: 0.01,
+      mem: 128,
+      disk: 0,
+      cmd: "sleep 10",
+      env: {},
+      placement: {
+        constraints: []
+      },
+      artifacts: [],
+      maxLaunchDelay: 3600,
+      volumes: [],
+      restart: {
+        policy: "NEVER"
+      },
+      secrets: {}
+    },
+    schedules: [],
+    activeRuns: [],
+    history: {
+      successCount: 3,
+      failureCount: 0,
+      lastSuccessAt: "2018-06-06T10:49:44.471+0000",
+      lastFailureAt: null,
+      successfulFinishedRuns: [
+        {
+          id: "20180606104932xsDzH",
+          createdAt: "2018-06-06T10:49:32.336+0000",
+          finishedAt: "2018-06-06T10:49:44.471+0000"
+        },
+        {
+          id: "20180606104545rjSRE",
+          createdAt: "2018-06-06T10:45:45.890+0000",
+          finishedAt: "2018-06-06T10:45:57.236+0000"
+        },
+        {
+          id: "20180606100732E88WQ",
+          createdAt: "2018-06-06T10:07:32.972+0000",
+          finishedAt: "2018-06-06T10:07:44.265+0000"
+        }
+      ],
+      failedFinishedRuns: [
+        {
+          createdAt: "2018-06-06T09:31:46.254+0000",
+          finishedAt: "2018-06-06T09:31:47.760+0000",
+          id: "20180606093146gr5Pi"
+        }
+      ]
     }
   };
   const scheduleData = {
@@ -35,12 +115,12 @@ describe("MetronomeClient", () => {
 
   describe("#createJob", () => {
     it("makes a request", () => {
-      MetronomeClient.createJob(jobData);
+      createJob(jobDetailData);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.createJob(jobData);
+      createJob(jobDetailData);
       expect(mockRequest).toHaveBeenCalledWith(
         `${Config.metronomeAPI}/v0/scheduled-jobs`,
         expect.anything()
@@ -48,7 +128,7 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct method", () => {
-      MetronomeClient.createJob(jobData);
+      createJob(jobDetailData);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         body: expect.anything(),
         method: "POST",
@@ -57,9 +137,9 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct stringified data", () => {
-      MetronomeClient.createJob(jobData);
+      createJob(jobDetailData);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
-        body: JSON.stringify(jobData),
+        body: JSON.stringify(jobDetailData),
         method: expect.anything(),
         headers: expect.anything()
       });
@@ -71,11 +151,11 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobData
+          j: jobDetailData
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.createJob(jobData);
+        const result$ = createJob(jobDetailData);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -85,13 +165,13 @@ describe("MetronomeClient", () => {
   describe("#fetchJobs", () => {
     it("makes a request", () => {
       mockRequest.mockReturnValueOnce(Observable.of({}));
-      MetronomeClient.fetchJobs();
+      fetchJobs();
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
       mockRequest.mockReturnValueOnce(Observable.of({}));
-      MetronomeClient.fetchJobs();
+      fetchJobs();
       expect(mockRequest).toHaveBeenCalledWith(
         `${
           Config.metronomeAPI
@@ -104,12 +184,13 @@ describe("MetronomeClient", () => {
       "emits an event if the data is received",
       marbles(m => {
         m.bind();
+        const expectedResult = [jobData, jobData] as IJobResponse[];
         const expected$ = m.cold("--j|", {
-          j: [jobData, jobData]
+          j: expectedResult
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.fetchJobs();
+        const result$ = fetchJobs();
         m.expect(result$).toBeObservable(expected$);
       })
     );
@@ -117,12 +198,12 @@ describe("MetronomeClient", () => {
 
   describe("#fetchJobDetail", () => {
     it("makes a request", () => {
-      MetronomeClient.fetchJobDetail(jobId);
+      fetchJobDetail(jobId);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.fetchJobDetail(jobId);
+      fetchJobDetail(jobId);
       expect(mockRequest).toHaveBeenCalledWith(
         `${
           Config.metronomeAPI
@@ -137,11 +218,11 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobData
+          j: jobDetailData as IJobDetailResponse
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.fetchJobDetail(jobId);
+        const result$ = fetchJobDetail(jobId);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -150,12 +231,12 @@ describe("MetronomeClient", () => {
 
   describe("#deleteJob", () => {
     it("makes a request", () => {
-      MetronomeClient.deleteJob(jobId, true);
+      deleteJob(jobId, true);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.deleteJob(jobId, true);
+      deleteJob(jobId, true);
       expect(mockRequest).toHaveBeenCalledWith(
         `${Config.metronomeAPI}/v1/jobs/${jobId}?stopCurrentJobRuns=true`,
         expect.anything()
@@ -163,7 +244,7 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct method", () => {
-      MetronomeClient.deleteJob(jobId, true);
+      deleteJob(jobId, true);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "DELETE",
         headers: expect.anything()
@@ -180,7 +261,7 @@ describe("MetronomeClient", () => {
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.deleteJob(jobId, true);
+        const result$ = deleteJob(jobId, true);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -189,12 +270,12 @@ describe("MetronomeClient", () => {
 
   describe("#updateJob", () => {
     it("makes a request", () => {
-      MetronomeClient.updateJob(jobId, jobData);
+      updateJob(jobId, jobDetailData);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.updateJob(jobId, jobData);
+      updateJob(jobId, jobDetailData);
       expect(mockRequest).toHaveBeenCalledWith(
         `${
           Config.metronomeAPI
@@ -204,10 +285,10 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct method", () => {
-      MetronomeClient.updateJob(jobId, jobData);
+      updateJob(jobId, jobDetailData);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "PUT",
-        body: JSON.stringify(jobData),
+        body: JSON.stringify(jobDetailData),
         headers: expect.anything()
       });
     });
@@ -218,11 +299,11 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobData
+          j: jobDetailData
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.updateJob(jobId, jobData);
+        const result$ = updateJob(jobId, jobDetailData);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -231,12 +312,12 @@ describe("MetronomeClient", () => {
 
   describe("#runJob", () => {
     it("makes a request", () => {
-      MetronomeClient.runJob(jobId);
+      runJob(jobId);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.runJob(jobId);
+      runJob(jobId);
       expect(mockRequest).toHaveBeenCalledWith(
         `${
           Config.metronomeAPI
@@ -246,7 +327,7 @@ describe("MetronomeClient", () => {
     });
 
     it("sends a POST request", () => {
-      MetronomeClient.runJob(jobId);
+      runJob(jobId);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         headers: expect.anything(),
         method: "POST",
@@ -264,7 +345,7 @@ describe("MetronomeClient", () => {
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.runJob(jobId);
+        const result$ = runJob(jobId);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -273,12 +354,12 @@ describe("MetronomeClient", () => {
 
   describe("#stopJobRun", () => {
     it("makes a request", () => {
-      MetronomeClient.stopJobRun(jobId, jobRunId);
+      stopJobRun(jobId, jobRunId);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.stopJobRun(jobId, jobRunId);
+      stopJobRun(jobId, jobRunId);
       expect(mockRequest).toHaveBeenCalledWith(
         `${Config.metronomeAPI}/v1/jobs/${jobId}/runs/${jobRunId}/actions/stop`,
         expect.anything()
@@ -286,7 +367,7 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct method", () => {
-      MetronomeClient.stopJobRun(jobId, jobRunId);
+      stopJobRun(jobId, jobRunId);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "POST",
         headers: expect.anything(),
@@ -304,7 +385,7 @@ describe("MetronomeClient", () => {
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.stopJobRun(jobId, jobRunId);
+        const result$ = stopJobRun(jobId, jobRunId);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -313,12 +394,12 @@ describe("MetronomeClient", () => {
 
   describe("#updateSchedule", () => {
     it("makes a request", () => {
-      MetronomeClient.updateSchedule(jobId, scheduleData);
+      updateSchedule(jobId, scheduleData);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      MetronomeClient.updateSchedule(jobId, scheduleData);
+      updateSchedule(jobId, scheduleData);
       expect(mockRequest).toHaveBeenCalledWith(
         `${Config.metronomeAPI}/v1/jobs/${jobId}/schedules/my-schedule-data`,
         expect.anything()
@@ -326,7 +407,7 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct method", () => {
-      MetronomeClient.updateSchedule(jobId, scheduleData);
+      updateSchedule(jobId, scheduleData);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "PUT",
         headers: expect.anything(),
@@ -344,7 +425,7 @@ describe("MetronomeClient", () => {
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = MetronomeClient.updateSchedule(jobId, scheduleData);
+        const result$ = updateSchedule(jobId, scheduleData);
 
         m.expect(result$).toBeObservable(expected$);
       })
