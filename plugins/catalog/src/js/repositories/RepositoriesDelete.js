@@ -12,7 +12,7 @@ import gql from "graphql-tag";
 
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
 import RepositoriesError from "./components/RepositoriesError";
-import { defaultSchema } from "./data/PackageRepositoryClient";
+import { schema } from "./data/repositoriesModel";
 
 const getErrorMessage = (response = {}) => {
   if (typeof response === "string") {
@@ -31,7 +31,7 @@ const removePackageRepository = gql`
 `;
 
 const removePackageRepositoryGraphql = (name, uri) => {
-  return graphqlObservable(removePackageRepository, defaultSchema, {
+  return graphqlObservable(removePackageRepository, schema, {
     name,
     uri
   });

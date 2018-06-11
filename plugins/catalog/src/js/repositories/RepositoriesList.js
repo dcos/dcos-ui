@@ -14,7 +14,7 @@ import gql from "graphql-tag";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 
 // The graphql schema and resolvers for those streams;
-import { typeDefs, resolvers } from "./data/PackageRepositoryClient";
+import { typeDefs, resolvers } from "./data/repositoriesModel";
 
 // UI components
 import RepositoriesTabUI from "./components/RepositoriesTabUI";
@@ -25,7 +25,7 @@ import RepositoriesError from "./components/RepositoriesError";
 
 // 1. We first make a schema out of the resolvers and typeDefinitions
 // You could as well just import (or inject) the default schema
-// import { defaultSchema } from "./data/repositoriesModel";
+// import { schema } from "./data/repositoriesModel";
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers
