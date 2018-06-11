@@ -1,12 +1,20 @@
-import React, { Component } from "react";
+import * as React from "react";
 
-// everything that is references as #ALIAS/something has to be refactored once our DI system is in place
+// tslint:disable-next-line:no-submodule-imports
 import AlertPanel from "#SRC/js/components/AlertPanel";
+// tslint:disable-next-line:no-submodule-imports
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+// tslint:disable-next-line:no-submodule-imports
+import JobTree from "#SRC/js/structs/JobTree";
 
 import JobsPage from "./JobsPage";
 
-export default class JobsTabEmpty extends Component {
+interface JobsTabEmptyProps {
+  handleOpenJobFormModal: () => void;
+  modal: JSX.Element;
+  root: JobTree;
+}
+export default class JobsTabEmpty extends React.Component<JobsTabEmptyProps> {
   render() {
     const { handleOpenJobFormModal, modal, root } = this.props;
 
