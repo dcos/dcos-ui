@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "ESNext",
-    "lib": [
-      "es5",
-      "es6",
-      "esnext",
-      "dom"
-    ],
+    "lib": ["es5", "es6", "esnext", "dom"],
     "allowJs": false,
     "jsx": "react",
     "sourceMap": true,
@@ -31,17 +26,13 @@
     "baseUrl": "./",
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
-      "*": ["*", "packages/*"]
+      "*": ["*", "packages/*"],
+      "#SRC/*": ["src/*"],
+      "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
+      "#PLUGINS/*": ["plugins/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "packages/**/*",
-    "plugins/**/*"
-  ],
+  "include": ["src/**/*", "packages/**/*", "plugins/**/*"],
 
-  "exclude": [
-    "node_modules",
-    "src/styles/**/*"
-  ]
+  "exclude": ["node_modules", "src/styles/**/*"]
 }
