@@ -3,7 +3,7 @@
  * to least important (largest number, bottom of list)
  */
 
-export interface IJobStates {
+export interface JobStates {
   [state: string]: {
     stateTypes: string[];
     displayName: string;
@@ -11,7 +11,7 @@ export interface IJobStates {
   };
 }
 
-const states: IJobStates = {
+const states: JobStates = {
   INITIAL: {
     stateTypes: ["active"],
     displayName: "Starting",
