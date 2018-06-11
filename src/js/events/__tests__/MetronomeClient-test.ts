@@ -19,8 +19,8 @@ import {
   runJob,
   deleteJob,
   stopJobRun,
-  IJobResponse,
-  IJobDetailResponse
+  JobResponse,
+  JobDetailResponse
 } from "../MetronomeClient";
 import Config from "../../config/Config";
 
@@ -28,7 +28,7 @@ describe("MetronomeClient", () => {
   const jobId = "my/awesome/job/id";
   const jobRunId = "my/awesome/job/id.1990-01-03t00:00:00z-1";
 
-  const jobData: IJobResponse = {
+  const jobData: JobResponse = {
     id: "testid",
     labels: {},
     run: {
@@ -51,7 +51,7 @@ describe("MetronomeClient", () => {
     }
   };
 
-  const jobDetailData: IJobDetailResponse = {
+  const jobDetailData: JobDetailResponse = {
     id: "testid",
     description: "test description",
     labels: {},
@@ -184,7 +184,7 @@ describe("MetronomeClient", () => {
       "emits an event if the data is received",
       marbles(m => {
         m.bind();
-        const expectedResult = [jobData, jobData] as IJobResponse[];
+        const expectedResult = [jobData, jobData] as JobResponse[];
         const expected$ = m.cold("--j|", {
           j: expectedResult
         });
@@ -218,7 +218,7 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobDetailData as IJobDetailResponse
+          j: jobDetailData as JobDetailResponse
         });
 
         mockRequest.mockReturnValueOnce(expected$);
