@@ -128,7 +128,7 @@ pipeline {
         slackSend (
           channel: "#frontend-ci-status",
           color: "danger",
-          message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          message: (env.CHANGE_TARGET == null) ? "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})" : "FAILED: PR '${env.CHANGE_TITLE}' (${env.RUN_DISPLAY_URL})",
           teamDomain: "mesosphere",
           token: "${env.SLACK_TOKEN}",
         )
