@@ -58,21 +58,459 @@ const defaultJobDetailData = {
 };
 
 describe("JobModel Resolver", () => {
+  let jobsData, jobsList;
+  beforeEach(() => {
+    jobsData = {
+      a: {
+        ...defaultJobDetailData,
+        id: "a",
+        activeRuns: [
+          {
+            jobId: "1",
+            createdAt: "2018-06-12T16:25:35.593+0000",
+            completedAt: "2018-06-12T17:25:35.593+0000",
+            status: "FAILED",
+            tasks: []
+          }
+        ],
+        schedules: [
+          {
+            concurrencyPolicy: "ALLOW",
+            cron: "* * * * *",
+            enabled: true,
+            id: "default",
+            nextRunAt: "2018-06-13T08:39:00.000+0000",
+            startingDeadlineSeconds: 900,
+            timezone: "UTC"
+          }
+        ],
+        history: {
+          lastFailureAt: "2018-06-12T16:25:35.593+0000",
+          lastSuccessAt: null,
+          successCount: 0,
+          failureCount: 0,
+          successfulFinishedRuns: [],
+          failedFinishedRuns: []
+        }
+      },
+      b: {
+        ...defaultJobDetailData,
+        id: "b",
+        activeRuns: [
+          {
+            jobId: "1",
+            createdAt: "2018-06-12T16:25:35.593+0000",
+            completedAt: "2018-06-12T17:25:35.593+0000",
+            status: "COMPLETED",
+            tasks: []
+          }
+        ],
+        schedules: [
+          {
+            concurrencyPolicy: "ALLOW",
+            cron: "* * * * *",
+            enabled: false,
+            id: "default",
+            nextRunAt: "2018-06-13T08:39:00.000+0000",
+            startingDeadlineSeconds: 900,
+            timezone: "UTC"
+          }
+        ],
+        history: {
+          lastFailureAt: null,
+          lastSuccessAt: null,
+          successCount: 0,
+          failureCount: 0,
+          successfulFinishedRuns: [],
+          failedFinishedRuns: []
+        }
+      },
+      c: {
+        ...defaultJobDetailData,
+        id: "c",
+        activeRuns: [],
+        schedules: []
+      }
+    };
+
+    jobsList = Object.values(jobsData);
+  });
+
   describe("jobs", () => {
-    it("polls the endpoint");
-    it("waits for running requests to finish before sending new ones");
+    const oneJobsResponse = (
+      m,
+      filter = "",
+      sortBy = "ID",
+      sortDirection = "ASC"
+    ) => {
+      const fetchJobs = () => m.cold("(j|)", { j: jobsList });
+      const fetchJobDetail = id => m.cold("(j|)", { j: jobsData[id] });
+      const resolverResult$ = resolvers({
+        fetchJobs,
+        fetchJobDetail,
+        pollingInterval: m.time("--|")
+      }).Query.jobs({}, { sortBy, sortDirection, filter });
 
-    // TODO: write this part in greater detail
-    it("returns a JobsConnection");
+      return resolverResult$.take(1);
+    };
 
-    describe("ordering", () => {
-      it("orders by ID");
-      it("orders by STATUS");
-      it("orders by LAST_RUN");
+    describe("nodes", () => {
+      it(
+        "returns a list of jobs",
+        marbles(m => {
+          m.bind();
+
+          const fetchJobs = () => m.cold("(j|)", { j: [defaultJobDetailData] });
+          const fetchJobDetail = _id =>
+            m.cold("(j|)", { j: defaultJobDetailData });
+          const resolverResult$ = resolvers({
+            fetchJobs,
+            fetchJobDetail,
+            pollingInterval: m.time("--|")
+          }).Query.jobs();
+
+          const expected$ = m.cold("(j|)", {
+            j: true
+          });
+
+          const result$ = resolverResult$
+            .take(1)
+            .map(jobsConnection => Array.isArray(jobsConnection.nodes));
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+
+      it(
+        "polls the endpoint",
+        marbles(m => {
+          m.bind();
+          const fetchJobs = () => m.cold("(j|)", { j: [defaultJobDetailData] });
+          const fetchJobDetail = _id =>
+            m.cold("(j|)", { j: defaultJobDetailData });
+          const resolverResult$ = resolvers({
+            fetchJobs,
+            fetchJobDetail,
+            pollingInterval: m.time("--|")
+          }).Query.jobs();
+
+          const expected$ = m.cold("(j|)", {
+            j: ["testid"]
+          });
+
+          const result$ = resolverResult$
+            .take(1)
+            .map(({ nodes }) => nodes.map(job => job.id));
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+
+      describe("ordering", () => {
+        it(
+          "orders by ID",
+          marbles(m => {
+            m.bind();
+
+            const result$ = oneJobsResponse(m, null, "ID", "ASC")
+              .map(({ nodes }) => nodes.map(job => job.id))
+
+              .map(jobs => jobs);
+
+            const expected$ = m.cold("(j|)", {
+              j: ["a", "b", "c"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "orders by ID DESC",
+          marbles(m => {
+            m.bind();
+
+            const result$ = oneJobsResponse(m, null, "ID", "DESC").map(
+              ({ nodes }) => nodes.map(job => job.id)
+            );
+
+            const expected$ = m.cold("(j|)", {
+              j: ["c", "b", "a"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "orders by STATUS",
+          marbles(m => {
+            m.bind();
+
+            const result$ = oneJobsResponse(m, null, "STATUS", "ASC").map(
+              ({ nodes }) => nodes.map(job => job.scheduleStatus)
+            );
+
+            const expected$ = m.cold("(j|)", {
+              j: ["FAILED", "UNSCHEDULED", "COMPLETED"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "orders by LAST_RUN",
+          marbles(m => {
+            m.bind();
+
+            const result$ = oneJobsResponse(m, null, "LAST_RUN", "ASC").map(
+              ({ nodes }) => nodes.map(job => job.lastRunStatus.status)
+            );
+
+            const expected$ = m.cold("(j|)", {
+              j: ["Failed", "N/A", "Success"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+      });
+
+      describe("filter", () => {
+        it(
+          "filters by ID",
+          marbles(m => {
+            m.bind();
+
+            const result$ = oneJobsResponse(m, "b").map(({ nodes }) =>
+              nodes.map(job => job.id)
+            );
+
+            const expected$ = m.cold("(j|)", {
+              j: ["b"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+      });
+
+      describe("namespace", () => {
+        const jobsResponseWithIds = (m, ids, namespace = "", filter = "") => {
+          const fetchJobs = () =>
+            m.cold("(j|)", {
+              j: ids.map(id => ({ ...defaultJobDetailData, id }))
+            });
+          const fetchJobDetail = id =>
+            m.cold("(j|)", { j: { ...defaultJobDetailData, id } });
+          const resolverResult$ = resolvers({
+            fetchJobs,
+            fetchJobDetail,
+            pollingInterval: m.time("--|")
+          }).Query.jobs({}, { namespace, filter });
+
+          return resolverResult$.take(1);
+        };
+
+        it(
+          "only shows jobs within the namespace",
+          marbles(m => {
+            m.bind();
+
+            const result$ = jobsResponseWithIds(
+              m,
+              [
+                "foo.bar.baz",
+                "bat.bar",
+                "foo.bar.other",
+                "foo.bar.clock",
+                "bar.cocktails"
+              ],
+              "foo"
+            ).map(({ nodes }) => nodes.map(job => job.id));
+
+            const expected$ = m.cold("(j|)", {
+              j: ["foo.bar.baz", "foo.bar.clock", "foo.bar.other"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "handles nested namespaces",
+          marbles(m => {
+            m.bind();
+
+            const result$ = jobsResponseWithIds(
+              m,
+              [
+                "foo.bar.baz",
+                "bat.bar",
+                "foo.big.other",
+                "foo.baz.clock",
+                "bar.cocktails"
+              ],
+              "foo.bar"
+            ).map(({ nodes }) => nodes.map(job => job.id));
+
+            const expected$ = m.cold("(j|)", {
+              j: ["foo.bar.baz"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "filters by ID within the namespace",
+          marbles(m => {
+            m.bind();
+
+            const result$ = jobsResponseWithIds(
+              m,
+              [
+                "foo.bar.baz",
+                "bat.bar",
+                "foo.big.other",
+                "foo.baz.clock",
+                "bar.cocktails"
+              ],
+              "foo",
+              "ba"
+            ).map(({ nodes }) => nodes.map(job => job.id));
+
+            const expected$ = m.cold("(j|)", {
+              j: ["foo.bar.baz", "foo.baz.clock"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "calculates the filteredCount from namespaced jobs",
+          marbles(m => {
+            m.bind();
+
+            const result$ = jobsResponseWithIds(
+              m,
+              [
+                "foo.bar.baz",
+                "bat.bar",
+                "foo.big.other",
+                "foo.baz.clock",
+                "bar.cocktails"
+              ],
+              "foo",
+              "ba"
+            ).map(({ filteredCount }) => filteredCount);
+
+            const expected$ = m.cold("(j|)", {
+              j: 2
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+
+        it(
+          "calculates the totalCount from namespaced jobs",
+          marbles(m => {
+            m.bind();
+
+            const result$ = jobsResponseWithIds(
+              m,
+              [
+                "foo.bar.baz",
+                "bat.bar",
+                "foo.big.other",
+                "foo.baz.clock",
+                "bar.cocktails"
+              ],
+              "foo",
+              "ba"
+            ).map(({ totalCount }) => totalCount);
+
+            const expected$ = m.cold("(j|)", {
+              j: 3
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+      });
+
+      describe("details", () => {
+        it(
+          "has the information from the job details query",
+          marbles(m => {
+            m.bind();
+
+            const jobListWithoutScheduleStatus = jobsList.map(job => ({
+              ...job,
+              schedules: []
+            }));
+
+            const fetchJobs = () =>
+              m.cold("(j|)", { j: jobListWithoutScheduleStatus });
+            const fetchJobDetail = id => m.cold("(j|)", { j: jobsData[id] });
+            const resolverResult$ = resolvers({
+              fetchJobs,
+              fetchJobDetail,
+              pollingInterval: m.time("--|")
+            }).Query.jobs({}, {});
+
+            const result$ = resolverResult$
+              .take(1)
+              .map(({ nodes }) => nodes.map(job => job.scheduleStatus));
+
+            const expected$ = m.cold("(j|)", {
+              j: ["FAILED", "COMPLETED", "UNSCHEDULED"]
+            });
+
+            m.expect(result$).toBeObservable(expected$);
+          })
+        );
+      });
     });
 
-    describe("filter", () => {
-      it("filters by ID");
+    describe("filteredCount", () => {
+      it(
+        "returns number of jobs after filtering",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, "b").map(
+            jobsConnection => jobsConnection.filteredCount
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: 1
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+    });
+
+    describe("totalCount", () => {
+      it(
+        "returns number of jobs after filtering",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, "b").map(
+            jobsConnection => jobsConnection.totalCount
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: 3
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
     });
   });
 
