@@ -54,6 +54,11 @@ module.exports = {
   testRegex: "/__tests__/.*\\-test\\.(es6|js|ts)$",
   moduleFileExtensions: ["js", "json", "es6", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
+  moduleNameMapper: {
+    "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
+    "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
+    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"
+  },
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],
   testPathIgnorePatterns: ["/tmp/", "/node_modules/"]

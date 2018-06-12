@@ -1,5 +1,12 @@
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs";
+// TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
+// tslint:disable-next-line:no-submodule-imports
+import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
+// tslint:disable-next-line:no-submodule-imports
+import JobRunList from "#SRC/js/structs/JobRunList";
+// tslint:disable-next-line:no-submodule-imports
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -59,21 +66,19 @@ export interface JobRunConnection {
 
 export interface JobRun {
   dateCreated: number;
-  dateFinished: number;
+  dateFinished: number | null;
   jobID: string;
-  status: JobRunStatusSummary;
+  status: MetronomeClient.JobStatus;
   tasks: JobTaskConnection;
 }
 
 export interface JobRunStatusSummary {
-  status: JobRunStatus | null;
+  status: MetronomeClient.JobStatus | null;
   time: number | null;
 }
 
-export type JobRunStatus = "FAILED" | "NOT_AVAILABLE" | "SUCCESS";
-
 export interface JobTaskConnection {
-  longestRunningTask: JobTask;
+  longestRunningTask: JobTask | null;
   nodes: JobTask[];
 }
 
@@ -132,13 +137,9 @@ export interface Schedule {
 }
 
 export type JobStatus =
-  | "ACTIVE"
+  | MetronomeClient.JobStatus
   | "COMPLETED"
-  | "FAILED"
-  | "INITIAL"
-  | "RUNNING"
   | "SCHEDULED"
-  | "STARTING"
   | "UNSCHEDULED";
 
 export const typeDefs = `
@@ -166,13 +167,13 @@ type JobRunConnection {
 }
 type JobRun {
   dateCreated: Int!
-  dateFinished: Int!
+  dateFinished: Int
   jobID: String!
-  status: JobRunStatusSummary!
+  status: JobRunStatus!
   tasks: JobTaskConnection!
 }
 type JobTaskConnection {
-  longestRunningTask: JobTask!
+  longestRunningTask: JobTask
   nodes: [JobTask]!
 }
 type JobTask {
@@ -271,8 +272,104 @@ type Query {
 }
 `;
 
-// Pass implementation of MetronomeClient to the resolvers for easier testability
-export const resolvers = (): IResolvers => ({
+interface ResolverArgs {
+  fetchJobDetail: (id: string) => Observable<MetronomeClient.JobDetailResponse>;
+  pollingInterval: number;
+}
+
+const typeResolvers = {
+  JobRunConnection(runs: MetronomeClient.ActiveJobRun[]): JobRunConnection {
+    return {
+      longestRunningActiveRun: fieldResolvers.JobRunConnection.longestRunningActiveRun(
+        runs
+      ),
+      nodes: runs.map(run => typeResolvers.JobRun(run))
+    };
+  },
+  JobRun(run: MetronomeClient.ActiveJobRun): JobRun {
+    return {
+      jobID: run.jobId,
+      dateCreated: DateUtil.strToMs(run.createdAt),
+      dateFinished: run.completedAt ? DateUtil.strToMs(run.completedAt) : null,
+      status: run.status,
+      tasks: {
+        longestRunningTask: null,
+        nodes: []
+      }
+    };
+  }
+};
+
+// We currently don't support field resolvers directly, so we need to
+// call these manually.
+const fieldResolvers = {
+  Job: {
+    name(job: MetronomeClient.JobDetailResponse) {
+      return job.id.split(".").pop();
+    },
+    scheduleStatus(job: MetronomeClient.JobDetailResponse): JobStatus {
+      const activeRuns = new JobRunList({ items: job.activeRuns });
+      const activeRunsLength = activeRuns.getItems().length;
+      const scheduleLength = job.schedules.length;
+
+      if (activeRunsLength > 0) {
+        const longestRunningActiveRun = activeRuns.getLongestRunningActiveRun();
+
+        return longestRunningActiveRun.status;
+      }
+
+      if (scheduleLength > 0) {
+        const schedule = job.schedules[0];
+
+        if (schedule != null && schedule.enabled) {
+          return "SCHEDULED";
+        }
+      }
+
+      if (scheduleLength === 0 && activeRunsLength === 0) {
+        return "UNSCHEDULED";
+      }
+
+      return "COMPLETED";
+    },
+
+    activeRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
+      return typeResolvers.JobRunConnection(job.activeRuns);
+    }
+  },
+  JobRunConnection: {
+    longestRunningActiveRun(
+      runs: MetronomeClient.ActiveJobRun[]
+    ): JobRun | null {
+      if (!runs.length) {
+        return null;
+      }
+
+      const sortedRuns = runs.sort((a, b) => {
+        if (a.createdAt == null && b.createdAt == null) {
+          return 0;
+        }
+
+        if (a.createdAt == null) {
+          return 1;
+        }
+
+        if (b.createdAt == null) {
+          return -1;
+        }
+
+        return DateUtil.strToMs(a.createdAt) - DateUtil.strToMs(b.createdAt);
+      });
+
+      return typeResolvers.JobRun(sortedRuns[0]);
+    }
+  }
+};
+
+export const resolvers = ({
+  fetchJobDetail,
+  pollingInterval
+}: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
       _obj = {},
@@ -281,13 +378,33 @@ export const resolvers = (): IResolvers => ({
     ): Observable<JobConnection | null> {
       return Observable.of(null);
     },
-    job(_obj = {}, _args: GeneralArgs, _context = {}): Observable<Job | null> {
-      return Observable.of(null);
+    job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
+      // TODO: We should not need to do the casting here
+      const { id } = args as JobQueryArgs;
+      const pollingInterval$ = Observable.timer(0, pollingInterval);
+      const responses$ = pollingInterval$.switchMap(() => fetchJobDetail(id));
+
+      return responses$.map(response => {
+        return {
+          id: response.id,
+          description: response.description,
+          command: response.run.cmd,
+          disk: response.run.disk,
+          mem: response.run.mem,
+          cpus: response.run.cpus,
+          name: fieldResolvers.Job.name(response),
+          scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
+          activeRuns: typeResolvers.JobRunConnection(response.activeRuns)
+        };
+      });
     }
   }
 });
 
 export default makeExecutableSchema({
   typeDefs,
-  resolvers: resolvers()
+  resolvers: resolvers({
+    fetchJobDetail: MetronomeClient.fetchJobDetail,
+    pollingInterval: 0
+  })
 });

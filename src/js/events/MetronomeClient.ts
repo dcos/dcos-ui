@@ -54,8 +54,8 @@ export interface JobDetailResponse {
     };
     secrets: object;
   };
-  schedules: any[];
-  activeRuns: any[];
+  schedules: Schedule[];
+  activeRuns: ActiveJobRun[];
   history: JobHistory;
 }
 export interface Schedule {
@@ -66,6 +66,21 @@ export interface Schedule {
   nextRunAt: string;
   startingDeadlineSeconds: number;
   timezone: string;
+}
+
+export type JobStatus =
+  | "ACTIVE"
+  | "FAILED"
+  | "INITIAL"
+  | "RUNNING"
+  | "STARTING";
+
+export interface ActiveJobRun {
+  completedAt?: string | null;
+  createdAt: string;
+  id: string;
+  jobId: string;
+  status: JobStatus;
 }
 
 export interface JobHistory {
