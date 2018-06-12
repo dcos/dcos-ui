@@ -514,7 +514,6 @@ const fieldResolvers = {
       if (!tasks.length) {
         return null;
       }
-
       const sortedTasks = [...tasks].sort(
         (a, b) => (a.dateStarted || Infinity) - (b.dateStarted || Infinity)
       );
