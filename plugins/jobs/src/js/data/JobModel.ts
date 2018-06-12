@@ -1,11 +1,15 @@
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs/Observable";
 import {
+  fetchJobs,
   fetchJobDetail,
+  JobResponse as MetronomeJobResponse,
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
 
 import Config from "#SRC/js/config/Config";
+import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
+import JobStatus from "#PLUGINS/jobs/src/js/constants/JobStatus";
 import {
   JobConnection,
   JobConnectionSchema
@@ -22,6 +26,7 @@ export interface Query {
 }
 
 export interface ResolverArgs {
+  fetchJobs: () => Observable<MetronomeJobResponse[]>;
   fetchJobDetail: (id: string) => Observable<MetronomeJobDetailResponse>;
   pollingInterval: number;
 }
@@ -32,8 +37,9 @@ export interface GeneralArgs {
 
 export interface JobsQueryArgs {
   filter?: string | null;
-  sortBy?: SortOption | null;
-  sortDirection?: SortDirection | null;
+  namespace?: string | null;
+  sortBy?: SortOption;
+  sortDirection?: SortDirection;
 }
 
 export interface JobQueryArgs {
@@ -60,14 +66,12 @@ export const typeDefs = `
   type Query {
     jobs(
       filter: String
+      namespace: String
       sortBy: SortOption
       sortDirection: SortDirection
     ): JobConnection
     job(
       id: ID!
-      filter: String
-      sortBy: SortOption
-      sortDirection: SortDirection
     ): Job
   }
   `;
@@ -76,17 +80,117 @@ function isJobQueryArg(arg: any): arg is JobQueryArgs {
   return arg.id !== undefined;
 }
 
+// Sort and filtering
+function sortJobs(
+  jobs: Job[],
+  sortBy: SortOption = "ID",
+  sortDirection: SortDirection = "ASC"
+): Job[] {
+  jobs.sort((a, b) => {
+    let result;
+
+    switch (sortBy) {
+      case "ID":
+        result = sortJobById(a, b);
+        break;
+      case "STATUS":
+        result = sortJobByStatus(a, b);
+        break;
+      case "LAST_RUN":
+        result = sortJobByLastRun(a, b);
+        break;
+      default:
+        result = 0;
+    }
+
+    const direction = sortDirection === "ASC" ? 1 : -1;
+    return result * direction;
+  });
+
+  return jobs;
+}
+
+function sortJobById(a: Job, b: Job): number {
+  return a.id.localeCompare(b.id);
+}
+
+function sortJobByStatus(a: Job, b: Job): number {
+  return (
+    JobStates[a.scheduleStatus].sortOrder -
+    JobStates[b.scheduleStatus].sortOrder
+  );
+}
+
+function sortJobByLastRun(a: Job, b: Job): number {
+  return (
+    JobStatus[a.lastRunStatus.status].sortOrder -
+    JobStatus[b.lastRunStatus.status].sortOrder
+  );
+}
+
+function filterJobsById(
+  jobs: MetronomeJobResponse[],
+  filter: string | null
+): MetronomeJobResponse[] {
+  if (filter === null) {
+    return jobs;
+  }
+
+  return jobs.filter(({ id }) => id.indexOf(filter) !== -1);
+}
+
+function filterJobsByNamespace(
+  jobs: MetronomeJobResponse[],
+  namespace: string | null
+): MetronomeJobResponse[] {
+  if (namespace === null) {
+    return jobs;
+  }
+
+  return jobs.filter(({ id }) => id.startsWith(namespace));
+}
+
 export const resolvers = ({
+  fetchJobs,
   fetchJobDetail,
   pollingInterval
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
-      _obj = {},
-      _args: GeneralArgs = {},
+      _parent = {},
+      args: GeneralArgs = {},
       _context = {}
     ): Observable<JobConnection | null> {
-      return Observable.of(null);
+      const {
+        sortBy = "ID",
+        sortDirection = "ASC",
+        filter = null,
+        namespace = null
+      } = args as JobsQueryArgs;
+
+      const pollingInterval$ = Observable.timer(0, pollingInterval);
+      const responses$ = pollingInterval$.exhaustMap(fetchJobs);
+
+      const jobsInNamespace$ = responses$.map(jobs =>
+        filterJobsByNamespace(jobs, namespace)
+      );
+      const count$ = jobsInNamespace$.map(jobs => jobs.length);
+
+      return (
+        jobsInNamespace$
+          .map(jobs => filterJobsById(jobs, filter))
+          //TODO We need to remove the N + 1 query
+          // https://jira.mesosphere.com/browse/DCOS-38201
+          .map(jobs => jobs.map(job => fetchJobDetail(job.id)))
+          .switchMap(observable$ => Observable.combineLatest(observable$))
+          .map(requests => requests.map(JobTypeResolver))
+          .map(jobs => sortJobs(jobs, sortBy, sortDirection))
+          .combineLatest(count$, (jobs, totalCount) => ({
+            filteredCount: jobs.length,
+            totalCount,
+            nodes: jobs
+          }))
+      );
     },
     job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
       if (!isJobQueryArg(args)) {
@@ -106,6 +210,7 @@ export const resolvers = ({
 export default makeExecutableSchema({
   typeDefs,
   resolvers: resolvers({
+    fetchJobs,
     fetchJobDetail,
     pollingInterval: Config.getRefreshRate()
   })
