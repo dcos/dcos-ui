@@ -280,7 +280,7 @@ const typeResolvers = {
       jobRuns: fieldResolvers.Job.jobRuns(response),
       scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
       activeRuns: typeResolvers.JobRunConnection(response.activeRuns),
-      schedules: fieldResolvers.Job.schedules(response.schedules)
+      schedules: fieldResolvers.Job.schedules(response)
     };
   },
   JobRun(run: MetronomeClient.ActiveJobRun | JobHistoryRunWithStatus): JobRun {
@@ -364,8 +364,8 @@ const fieldResolvers = {
     name(job: MetronomeClient.JobDetailResponse) {
       return job.id.split(".").pop();
     },
-    schedules(schedules: MetronomeClient.Schedule[]): Schedule[] {
-      return schedules.map(typeResolvers.Schedule);
+    schedules(job: MetronomeClient.JobDetailResponse): Schedule[] {
+      return job.schedules.map(typeResolvers.Schedule);
     },
     scheduleStatus(job: MetronomeClient.JobDetailResponse): JobStatus {
       const activeRuns = new JobRunList({ items: job.activeRuns });
