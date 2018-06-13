@@ -877,7 +877,56 @@ describe("JobModel Resolver", () => {
     });
 
     describe("jobRuns", () => {
-      it("contains all types of job runs");
+      it(
+        "contains all types of job runs",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                id: "/foo",
+                activeRuns: [
+                  {
+                    jobId: "1",
+                    createdAt: "2018-06-12T16:25:35.593+0000",
+                    completedAt: "2018-06-12T17:25:35.593+0000",
+                    status: "ACTIVE",
+                    id: "20180612162535qXvcx",
+                    tasks: []
+                  }
+                ],
+                history: {
+                  successfulFinishedRuns: [
+                    {
+                      id: "2",
+                      createdAt: "2018-06-12T16:25:35.593+0000",
+                      finishedAt: "2018-06-12T17:25:35.593+0000"
+                    }
+                  ],
+                  failedFinishedRuns: [
+                    {
+                      id: "2",
+                      createdAt: "2018-06-12T16:25:35.593+0000",
+                      finishedAt: "2018-06-12T17:25:35.593+0000"
+                    }
+                  ]
+                }
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$
+              .take(1)
+              .map(({ jobRuns: { nodes } }) => nodes.map(node => node.jobID))
+          ).toBeObservable(
+            m.cold("(x|)", {
+              x: ["1", "2", "3"]
+            })
+          );
+        })
+      );
       it("contains same information for each type");
     });
 
