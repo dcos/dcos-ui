@@ -1,5 +1,3 @@
-// TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
-// tslint:disable-next-line:no-submodule-imports
 import { Observable } from "rxjs";
 import { marbles } from "rxjs-marbles/jest";
 import { resolvers } from "../JobModel";
