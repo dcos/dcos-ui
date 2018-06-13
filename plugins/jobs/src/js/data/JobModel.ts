@@ -260,6 +260,7 @@ type Mutation {
 interface ResolverArgs {
   fetchJobDetail: (id: string) => Observable<MetronomeClient.JobDetailResponse>;
   pollingInterval: number;
+  runJob: (id: string) => Observable<JobRun | null>;
 }
 
 function isActiveRun(arg: any): arg is MetronomeClient.ActiveJobRun {
@@ -528,7 +529,8 @@ const fieldResolvers = {
 
 export const resolvers = ({
   fetchJobDetail,
-  pollingInterval
+  pollingInterval,
+  runJob
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
@@ -552,8 +554,8 @@ export const resolvers = ({
       _obj = {},
       _args: GeneralArgs,
       _context = {}
-    ): Observable<Job | null> {
-      return MetronomeClient.runJob(_args.id);
+    ): Observable<JobRun | null> {
+      return runJob(_args.id);
     }
   }
 });
@@ -562,6 +564,7 @@ export default makeExecutableSchema({
   typeDefs,
   resolvers: resolvers({
     fetchJobDetail: MetronomeClient.fetchJobDetail,
-    pollingInterval: Config.getRefreshRate()
+    pollingInterval: Config.getRefreshRate(),
+    runJob: MetronomeClient.runJob
   })
 });
