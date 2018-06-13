@@ -1,13 +1,8 @@
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs";
-// TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
-// tslint:disable-next-line:no-submodule-imports
 import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
-// tslint:disable-next-line:no-submodule-imports
 import JobRunList from "#SRC/js/structs/JobRunList";
-// tslint:disable-next-line:no-submodule-imports
 import DateUtil from "#SRC/js/utils/DateUtil";
-import { JobHistory } from "src/js/events/MetronomeClient";
 
 export interface Query {
   jobs: JobConnection | null;
