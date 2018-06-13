@@ -35,28 +35,36 @@ const getRepositoryList = filter => result =>
       .getItems()
   );
 
-export const resolvers = {
-  Query: {
-    packageRepository: (parent, args) => {
-      const { filter } = args;
+export function resolvers(
+  fetchRepositoriesRequest,
+  addRepositoryRequest,
+  deleteRepositoryRequest,
+) {
+  return {
+    Query: {
+      packageRepository: (parent, args) => {
+        const { filter } = args;
 
-      // Filter Logic Backwards compatible with the previous struct/RepositoryList
-      return liveFetchRepositories().map(getRepositoryList(filter));
-    }
-  },
-  Mutation: {
-    addPackageRepository: (parent, args) => {
-      return addRepository(args.name, args.uri, args.index).map(
-        getRepositoryList("")
-      );
+        // Filter Logic Backwards compatible with the previous struct/RepositoryList
+        return fetchRepositoriesRequest().map(getRepositoryList(filter));
+      }
     },
-    removePackageRepository: (parent, args) => {
-      return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
+    Mutation: {
+      addPackageRepository: (parent, args) => {
+        return addRepositoryRequest(args.name, args.uri, args.index).map(() =>
+          getRepositoryList("")
+        );
+      },
+      removePackageRepository: (parent, args) => {
+        return deleteRepositoryRequest(args.name, args.uri).map(() =>
+          getRepositoryList("")
+        );
+      }
     }
-  }
-};
+  };
+}
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers: resolvers(liveFetchRepositories, addRepository, deleteRepository)
 });
