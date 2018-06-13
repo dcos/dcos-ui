@@ -1020,7 +1020,9 @@ describe("JobModel Resolver", () => {
                   failureCount: 0,
                   lastFailureAt: null,
                   lastSuccessAt: null,
-                  successCount: 0
+                  successCount: 0,
+                  successfulFinishedRuns: [],
+                  failedFinishedRuns: []
                 }
               }),
             pollingInterval: m.time("-|")
