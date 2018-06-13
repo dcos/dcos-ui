@@ -876,7 +876,11 @@ describe("JobModel Resolver", () => {
       });
     });
 
-    // describe("jobRuns");
+    describe("jobRuns", () => {
+      it("contains all types of job runs");
+      it("contains same information for each type");
+    });
+
     // describe("lastRuns");
     // describe("lastRunsSummary");
     // describe("lastRunStatus");

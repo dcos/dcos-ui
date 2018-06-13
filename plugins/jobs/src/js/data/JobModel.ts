@@ -259,6 +259,14 @@ interface ResolverArgs {
   pollingInterval: number;
 }
 
+function isActiveRun(arg: any): arg is MetronomeClient.ActiveJobRun {
+  return arg.jobId !== undefined;
+}
+
+function isHistoryRun(arg: any): arg is MetronomeClient.JobHistoryRun {
+  return arg.jobId !== undefined;
+}
+
 const typeResolvers = {
   Job(response: MetronomeClient.JobDetailResponse): Job {
     return {
@@ -269,21 +277,24 @@ const typeResolvers = {
       mem: response.run.mem,
       cpus: response.run.cpus,
       name: fieldResolvers.Job.name(response),
+      jobRuns: fieldResolvers.Job.jobRuns(response),
       scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
       activeRuns: typeResolvers.JobRunConnection(response.activeRuns),
       schedules: fieldResolvers.Job.schedules(response.schedules)
     };
   },
-  JobRun(run: MetronomeClient.ActiveJobRun): JobRun {
+  JobRun(run: MetronomeClient.ActiveJobRun | JobHistoryRunWithStatus): JobRun {
     return {
-      jobID: run.jobId,
+      jobID: fieldResolvers.JobRun.jobID(run),
       dateCreated: DateUtil.strToMs(run.createdAt),
-      dateFinished: run.completedAt ? DateUtil.strToMs(run.completedAt) : null,
-      status: run.status,
-      tasks: typeResolvers.JobTaskConnection(run.tasks)
+      dateFinished: fieldResolvers.JobRun.dateFinished(run),
+      status: run.status, // TODO: derive from where it comes from before passing to this function
+      tasks: fieldResolvers.JobRun.tasks(run)
     };
   },
-  JobRunConnection(runs: MetronomeClient.ActiveJobRun[]): JobRunConnection {
+  JobRunConnection(
+    runs: Array<MetronomeClient.ActiveJobRun | JobHistoryRunWithStatus>
+  ): JobRunConnection {
     return {
       longestRunningActiveRun: fieldResolvers.JobRunConnection.longestRunningActiveRun(
         runs
@@ -319,10 +330,37 @@ const typeResolvers = {
   }
 };
 
+interface JobHistoryRunWithStatus extends MetronomeClient.JobHistoryRun {
+  status: MetronomeClient.JobStatus;
+}
+
 // We currently don't support field resolvers directly, so we need to
 // call these manually.
 const fieldResolvers = {
   Job: {
+    activeRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
+      return typeResolvers.JobRunConnection(job.activeRuns);
+    },
+    jobRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
+      const { successfulFinishedRuns, failedFinishedRuns } = job.history;
+
+      const successfulFinishedRunsWithStatus: JobHistoryRunWithStatus[] = successfulFinishedRuns.map(
+        run => ({ ...run, status: "FAILED" as MetronomeClient.JobStatus })
+      );
+
+      const failedFinishedRunsWithStatus: JobHistoryRunWithStatus[] = failedFinishedRuns.map(
+        run => ({
+          ...run,
+          status: "COMPLETED" as MetronomeClient.JobStatus
+        })
+      );
+
+      return typeResolvers.JobRunConnection([
+        ...job.activeRuns,
+        ...successfulFinishedRunsWithStatus,
+        ...failedFinishedRunsWithStatus
+      ]);
+    },
     name(job: MetronomeClient.JobDetailResponse) {
       return job.id.split(".").pop();
     },
@@ -353,15 +391,40 @@ const fieldResolvers = {
       }
 
       return "COMPLETED";
-    },
+    }
+  },
+  JobRun: {
+    jobID(
+      run: MetronomeClient.ActiveJobRun | MetronomeClient.JobHistoryRun
+    ): string {
+      if (isActiveRun(run)) {
+        return run.jobId;
+      }
 
-    activeRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
-      return typeResolvers.JobRunConnection(job.activeRuns);
+      if (isHistoryRun(run)) {
+        return run.id;
+      }
+
+      // Only for typescript, should be impossible
+      return "";
+    },
+    dateFinished(
+      run: MetronomeClient.ActiveJobRun | MetronomeClient.JobHistoryRun
+    ): number | null {
+      if (isActiveRun(run) && run.completedAt) {
+        return DateUtil.strToMs(run.completedAt);
+      }
+      return null;
+    },
+    tasks(
+      run: MetronomeClient.ActiveJobRun | MetronomeClient.JobHistoryRun
+    ): JobTaskConnection {
+      return typeResolvers.JobTaskConnection(isActiveRun(run) ? run.tasks : []);
     }
   },
   JobRunConnection: {
     longestRunningActiveRun(
-      runs: MetronomeClient.ActiveJobRun[]
+      runs: Array<MetronomeClient.ActiveJobRun | JobHistoryRunWithStatus>
     ): JobRun | null {
       if (!runs.length) {
         return null;
