@@ -274,17 +274,21 @@ const typeResolvers = {
       dateCreated: DateUtil.strToMs(run.createdAt),
       dateFinished: run.completedAt ? DateUtil.strToMs(run.completedAt) : null,
       status: run.status,
-      tasks: {
-        longestRunningTask: null,
-        nodes: (run.tasks || []).map(task => ({
-          dateStarted: DateUtil.strToMs(task.createdAt),
-          dateCompleted: task.finishedAt
-            ? DateUtil.strToMs(task.finishedAt)
-            : null,
-          status: task.status,
-          taskId: task.id
-        }))
-      }
+      tasks: typeResolvers.JobTaskConnection(run.tasks)
+    };
+  },
+  JobTaskConnection(tasks: MetronomeClient.JobRunTasks[]): JobTaskConnection {
+    return {
+      longestRunningTask: null,
+      nodes: (tasks || []).map(task => typeResolvers.JobTask(task))
+    };
+  },
+  JobTask(task: MetronomeClient.JobRunTasks): JobTask {
+    return {
+      dateStarted: DateUtil.strToMs(task.createdAt),
+      dateCompleted: task.finishedAt ? DateUtil.strToMs(task.finishedAt) : null,
+      status: task.status,
+      taskId: task.id
     };
   }
 };
