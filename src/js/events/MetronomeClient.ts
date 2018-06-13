@@ -54,8 +54,8 @@ export interface JobDetailResponse {
     };
     secrets: object;
   };
-  schedules: any[];
-  activeRuns: any[];
+  schedules: Schedule[];
+  activeRuns: ActiveJobRun[];
   history: JobHistory;
 }
 export interface Schedule {
@@ -68,11 +68,52 @@ export interface Schedule {
   timezone: string;
 }
 
+export type JobStatus =
+  | "ACTIVE"
+  | "FAILED"
+  | "INITIAL"
+  | "RUNNING"
+  | "STARTING"
+  | "COMPLETED";
+
+export interface ActiveJobRun {
+  completedAt?: string | null;
+  createdAt: string;
+  id: string;
+  jobId: string;
+  status: JobStatus;
+  tasks: JobRunTasks[];
+}
+
+export interface JobRunTasks {
+  id: string;
+  createdAt: string;
+  finishedAt: string | null;
+  status: JobTaskStatus;
+}
+
+export type JobTaskStatus =
+  | "TASK_CREATED"
+  | "TASK_DROPPED"
+  | "TASK_ERROR"
+  | "TASK_FAILED"
+  | "TASK_FINISHED"
+  | "TASK_GONE"
+  | "TASK_GONE_BY_OPERATOR"
+  | "TASK_KILLED"
+  | "TASK_KILLING"
+  | "TASK_LOST"
+  | "TASK_RUNNING"
+  | "TASK_STAGING"
+  | "TASK_STARTED"
+  | "TASK_STARTING"
+  | "TASK_UNKNOWN"
+  | "TASK_UNREACHABLE";
 export interface JobHistory {
   successCount: number;
   failureCount: number;
-  lastSuccessAt: string;
-  lastFailureAt: null;
+  lastSuccessAt: string | null;
+  lastFailureAt: string | null;
   successfulFinishedRuns: JobHistoryRun[];
   failedFinishedRuns: JobHistoryRun[];
 }
