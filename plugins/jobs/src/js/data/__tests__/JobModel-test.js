@@ -1027,11 +1027,7 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => {
-              console.log("hm", response);
-
-              return response.lastRunsSummary;
-            })
+            result$.take(1).map(response => response.lastRunsSummary)
           ).toBeObservable(
             m.cold("(x|)", {
               x: {
