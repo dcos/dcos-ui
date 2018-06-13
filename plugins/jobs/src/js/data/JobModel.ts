@@ -388,6 +388,10 @@ const fieldResolvers = {
   },
   JobTaskConnection: {
     longestRunningTask(tasks: JobTask[]): JobTask | null {
+      if (!tasks.length) {
+        return null;
+      }
+
       const sortedTasks = [...tasks].sort((a, b) => {
         if (a.dateStarted == null && b.dateStarted == null) {
           return 0;
