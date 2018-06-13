@@ -67,7 +67,7 @@ export interface JobRun {
   dateCreated: number;
   dateFinished: number | null;
   jobID: string;
-  status: MetronomeClient.JobStatus; 
+  status: MetronomeClient.JobStatus;
   tasks: JobTaskConnection;
 }
 

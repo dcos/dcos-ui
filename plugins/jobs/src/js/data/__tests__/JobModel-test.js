@@ -172,8 +172,7 @@ describe("JobModel Resolver", () => {
       m,
       filter = "",
       sortBy = "ID",
-      sortDirection = "ASC",
-      mapBy = "id"
+      sortDirection = "ASC"
     ) => {
       const fetchJobs = () => m.cold("(j|)", { j: jobsList });
       const fetchJobDetail = id => m.cold("(j|)", { j: jobsData[id] });
