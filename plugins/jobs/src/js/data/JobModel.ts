@@ -275,7 +275,7 @@ const typeResolvers = {
       cpus: response.run.cpus,
       docker: fieldResolvers.Job.docker(response),
       json: fieldResolvers.Job.json(response),
-      labels: [],
+      labels: fieldResolvers.Job.labels(response),
       lastRunStatus: fieldResolvers.Job.lastRunStatus(response),
       name: fieldResolvers.Job.name(response),
       jobRuns: fieldResolvers.Job.jobRuns(response),
@@ -388,6 +388,9 @@ const fieldResolvers = {
     },
     json(job: MetronomeClient.JobDetailResponse): string {
       return JSON.stringify(cleanJobJSON(job));
+    },
+    labels(job: MetronomeClient.JobDetailResponse): Label[] {
+      return Object.entries(job.labels).map(([key, value]) => ({ key, value }));
     },
     lastRunStatus(job: MetronomeClient.JobDetailResponse): JobRunStatusSummary {
       return typeResolvers.JobRunStatusSummary(job);

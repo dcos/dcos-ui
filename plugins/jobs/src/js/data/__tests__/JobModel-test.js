@@ -1156,6 +1156,33 @@ describe("JobModel Resolver", () => {
         })
       );
     });
+
+    it(
+      "returns labels as array of key and value",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          fetchJobDetail: () =>
+            Observable.of({
+              ...defaultJobDetailData,
+              labels: {
+                foo: "bar",
+                baz: "nice"
+              }
+            }),
+          pollingInterval: m.time("-|")
+        }).Query.job({}, { id: "xyz" });
+
+        m.expect(
+          result$.take(1).map(response => response.labels)
+        ).toBeObservable(
+          m.cold("(x|)", {
+            x: [{ key: "foo", value: "bar" }, { key: "baz", value: "nice" }]
+          })
+        );
+      })
+    );
+
     // describe("lastRunsSummary");
     // describe("lastRunStatus");
 
