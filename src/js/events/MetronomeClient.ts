@@ -112,8 +112,8 @@ export type JobTaskStatus =
 export interface JobHistory {
   successCount: number;
   failureCount: number;
-  lastSuccessAt: string;
-  lastFailureAt: null;
+  lastSuccessAt: string | null;
+  lastFailureAt: string | null;
   successfulFinishedRuns: JobHistoryRun[];
   failedFinishedRuns: JobHistoryRun[];
 }

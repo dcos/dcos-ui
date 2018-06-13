@@ -1007,6 +1007,44 @@ describe("JobModel Resolver", () => {
       );
     });
 
+    describe("lastRunsSummary", () => {
+      it(
+        "contains default if job wasnt run yet",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                history: {
+                  failureCount: 0,
+                  lastFailureAt: null,
+                  lastSuccessAt: null,
+                  successCount: 0
+                }
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(response => {
+              console.log("hm", response);
+
+              return response.lastRunsSummary;
+            })
+          ).toBeObservable(
+            m.cold("(x|)", {
+              x: {
+                failureCount: 0,
+                lastFailureAt: null,
+                lastSuccessAt: null,
+                successCount: 0
+              }
+            })
+          );
+        })
+      );
+    });
     // describe("lastRunsSummary");
     // describe("lastRunStatus");
 

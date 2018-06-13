@@ -7,6 +7,7 @@ import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
 import JobRunList from "#SRC/js/structs/JobRunList";
 // tslint:disable-next-line:no-submodule-imports
 import DateUtil from "#SRC/js/utils/DateUtil";
+import { JobHistory } from "src/js/events/MetronomeClient";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -282,6 +283,7 @@ const typeResolvers = {
       lastRunStatus: fieldResolvers.Job.lastRunStatus(response),
       name: fieldResolvers.Job.name(response),
       jobRuns: fieldResolvers.Job.jobRuns(response),
+      lastRunsSummary: fieldResolvers.Job.lastRunsSummary(response),
       scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
       activeRuns: typeResolvers.JobRunConnection(response.activeRuns),
       schedules: fieldResolvers.Job.schedules(response)
@@ -336,6 +338,14 @@ const typeResolvers = {
       startingDeadlineSeconds: schedule.startingDeadlineSeconds,
       timezone: schedule.timezone
     };
+  },
+  JobHistorySummary(history: MetronomeClient.JobHistory): JobHistorySummary {
+    return {
+      failureCount: history.failureCount,
+      lastFailureAt: history.lastFailureAt,
+      lastSuccessAt: history.lastSuccessAt,
+      successCount: history.successCount
+    };
   }
 };
 
@@ -372,6 +382,9 @@ const fieldResolvers = {
     },
     lastRunStatus(job: MetronomeClient.JobDetailResponse): JobRunStatusSummary {
       return typeResolvers.JobRunStatusSummary(job);
+    },
+    lastRunsSummary(job: MetronomeClient.JobDetailResponse): JobHistorySummary {
+      return typeResolvers.JobHistorySummary(job.history);
     },
     name(job: MetronomeClient.JobDetailResponse) {
       return job.id.split(".").pop();
