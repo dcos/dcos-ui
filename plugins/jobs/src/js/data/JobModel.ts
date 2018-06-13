@@ -73,7 +73,7 @@ export interface JobRun {
 
 export interface JobRunStatusSummary {
   status: JobRunStatus;
-  time: string | null;
+  time: number | null;
 }
 
 export interface JobTaskConnection {
@@ -179,7 +179,7 @@ type Label {
 }
 type JobRunStatusSummary {
   status: JobRunStatus
-  time: String
+  time: Int
 }
 type ScheduleConnection {
   nodes: [Schedule]!
@@ -333,7 +333,7 @@ const typeResolvers = {
       }
     }
 
-    return { status, time };
+    return { status, time: time ? DateUtil.strToMs(time) : null };
   },
   JobTask(task: MetronomeClient.JobRunTasks): JobTask {
     return {

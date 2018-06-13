@@ -1221,7 +1221,7 @@ describe("JobModel Resolver", () => {
             result$.take(1).map(({ lastRunStatus }) => lastRunStatus.time)
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "2018-06-06T10:49:44.471+0000"
+              x: 1528282184471
             })
           );
         })
@@ -1302,7 +1302,7 @@ describe("JobModel Resolver", () => {
             result$.take(1).map(({ lastRunStatus }) => lastRunStatus)
           ).toBeObservable(
             m.cold("(x|)", {
-              x: { status: "SUCCESS", time: "2018-06-06T10:49:44.471+0000" }
+              x: { status: "SUCCESS", time: 1528282184471 }
             })
           );
         })
