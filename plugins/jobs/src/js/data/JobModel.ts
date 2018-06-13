@@ -361,10 +361,7 @@ const fieldResolvers = {
       return typeResolvers.JobRunConnection(job.activeRuns);
     },
     jobRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
-      const {
-        successfulFinishedRuns = [],
-        failedFinishedRuns = []
-      } = job.history;
+      const { successfulFinishedRuns, failedFinishedRuns } = job.history;
 
       const successfulFinishedRunsWithStatus: JobHistoryRunWithStatus[] = successfulFinishedRuns.map(
         run => ({ ...run, status: "COMPLETED" as MetronomeClient.JobStatus }) // TODO: investiagte why we need to cast this
