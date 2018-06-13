@@ -596,8 +596,135 @@ describe("JobModel Resolver", () => {
                   );
                 })
               );
-              it("contains the taskId");
-              it("contains the status");
+
+              it(
+                "contains the taskId",
+                marbles(m => {
+                  m.bind();
+                  const result$ = resolvers({
+                    fetchJobDetail: () =>
+                      Observable.of({
+                        ...defaultJobDetailData,
+                        id: "/foo",
+                        activeRuns: [
+                          {
+                            jobId: "1",
+                            createdAt: "2018-06-12T16:25:35.593+0000",
+                            completedAt: "2018-06-12T17:25:35.593+0000",
+                            status: "ACTIVE",
+                            id: "20180612162535qXvcx",
+                            tasks: [
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
+                                createdAt: "2018-06-13T08:08:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                createdAt: "2018-06-13T08:09:34.773+0000",
+                                status: "TASK_STARTING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                createdAt: "2018-06-12T08:09:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                createdAt: "2018-06-12T08:09:34.773+0000",
+                                status: "TASK_FINISHED",
+                                finishedAt: "2018-06-13T08:10:15.367+0000"
+                              }
+                            ]
+                          }
+                        ]
+                      }),
+                    pollingInterval: m.time("-|")
+                  }).Query.job({}, { id: "xyz" });
+
+                  m.expect(
+                    result$
+                      .take(1)
+                      .map(
+                        ({ activeRuns: { nodes } }) =>
+                          nodes[0].tasks.nodes[0].taskId
+                      )
+                  ).toBeObservable(
+                    m.cold("(x|)", {
+                      x:
+                        "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282"
+                    })
+                  );
+                })
+              );
+
+              it(
+                "contains the status",
+                marbles(m => {
+                  m.bind();
+                  const result$ = resolvers({
+                    fetchJobDetail: () =>
+                      Observable.of({
+                        ...defaultJobDetailData,
+                        id: "/foo",
+                        activeRuns: [
+                          {
+                            jobId: "1",
+                            createdAt: "2018-06-12T16:25:35.593+0000",
+                            completedAt: "2018-06-12T17:25:35.593+0000",
+                            status: "ACTIVE",
+                            id: "20180612162535qXvcx",
+                            tasks: [
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
+                                createdAt: "2018-06-13T08:08:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                createdAt: "2018-06-13T08:09:34.773+0000",
+                                status: "TASK_STARTING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                createdAt: "2018-06-12T08:09:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                createdAt: "2018-06-12T08:09:34.773+0000",
+                                status: "TASK_FINISHED",
+                                finishedAt: "2018-06-13T08:10:15.367+0000"
+                              }
+                            ]
+                          }
+                        ]
+                      }),
+                    pollingInterval: m.time("-|")
+                  }).Query.job({}, { id: "xyz" });
+
+                  m.expect(
+                    result$
+                      .take(1)
+                      .map(
+                        ({ activeRuns: { nodes } }) =>
+                          nodes[0].tasks.nodes[0].status
+                      )
+                  ).toBeObservable(
+                    m.cold("(x|)", {
+                      x: "TASK_RUNNING"
+                    })
+                  );
+                })
+              );
             });
 
             it("exposes longestRunningTask");
