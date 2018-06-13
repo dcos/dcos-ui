@@ -737,6 +737,69 @@ describe("JobModel Resolver", () => {
     // describe("lastRuns");
     // describe("lastRunsSummary");
     // describe("lastRunStatus");
-    // describe("schedules");
+    describe("schedules", () => {
+      it(
+        "contains empty array for schedules if response did",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(({ schedules }) => schedules)
+          ).toBeObservable(
+            m.cold("(x|)", {
+              x: []
+            })
+          );
+        })
+      );
+
+      it(
+        "contains schedule if response did",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                schedules: [
+                  {
+                    concurrencyPolicy: "ALLOW",
+                    cron: "* * * * *",
+                    enabled: false,
+                    id: "default",
+                    nextRunAt: "2018-06-13T08:39:00.000+0000",
+                    startingDeadlineSeconds: 900,
+                    timezone: "UTC"
+                  }
+                ]
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(({ schedules }) => schedules)
+          ).toBeObservable(
+            m.cold("(x|)", {
+              x: [
+                {
+                  cron: "* * * * *",
+                  enabled: false,
+                  id: "default",
+                  startingDeadlineSeconds: 900,
+                  timezone: "UTC"
+                }
+              ]
+            })
+          );
+        })
+      );
+    });
   });
 });

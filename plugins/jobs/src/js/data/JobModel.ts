@@ -290,6 +290,15 @@ const typeResolvers = {
       longestRunningTask: null,
       nodes: (tasks || []).map(task => typeResolvers.JobTask(task))
     };
+  },
+  Schedule(schedule: MetronomeClient.Schedule): Schedule {
+    return {
+      cron: schedule.cron,
+      enabled: schedule.enabled,
+      id: schedule.id,
+      startingDeadlineSeconds: schedule.startingDeadlineSeconds,
+      timezone: schedule.timezone
+    };
   }
 };
 
@@ -299,6 +308,9 @@ const fieldResolvers = {
   Job: {
     name(job: MetronomeClient.JobDetailResponse) {
       return job.id.split(".").pop();
+    },
+    schedules(schedules: MetronomeClient.Schedule[]): Schedule[] {
+      return schedules.map(typeResolvers.Schedule);
     },
     scheduleStatus(job: MetronomeClient.JobDetailResponse): JobStatus {
       const activeRuns = new JobRunList({ items: job.activeRuns });
@@ -387,7 +399,8 @@ export const resolvers = ({
           cpus: response.run.cpus,
           name: fieldResolvers.Job.name(response),
           scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
-          activeRuns: typeResolvers.JobRunConnection(response.activeRuns)
+          activeRuns: typeResolvers.JobRunConnection(response.activeRuns),
+          schedules: fieldResolvers.Job.schedules(response.schedules)
         };
       });
     }
