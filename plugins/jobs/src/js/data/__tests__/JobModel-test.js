@@ -1117,6 +1117,45 @@ describe("JobModel Resolver", () => {
         })
       );
     });
+
+    describe("json", () => {
+      it(
+        "returns json representation",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                id: "json-id"
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(response => JSON.parse(response.json).id)
+          ).toBeObservable(m.cold("(x|)", { x: "json-id" }));
+        })
+      );
+
+      it(
+        "removes blacklisted keys from JSON",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(response => JSON.parse(response.json).history)
+          ).toBeObservable(m.cold("(x|)", { x: undefined }));
+        })
+      );
+    });
     // describe("lastRunsSummary");
     // describe("lastRunStatus");
 

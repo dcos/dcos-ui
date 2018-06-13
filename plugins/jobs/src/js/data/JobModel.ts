@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
 import JobRunList from "#SRC/js/structs/JobRunList";
 import DateUtil from "#SRC/js/utils/DateUtil";
+import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -273,7 +274,7 @@ const typeResolvers = {
       mem: response.run.mem,
       cpus: response.run.cpus,
       docker: fieldResolvers.Job.docker(response),
-      json: "",
+      json: fieldResolvers.Job.json(response),
       labels: [],
       lastRunStatus: fieldResolvers.Job.lastRunStatus(response),
       name: fieldResolvers.Job.name(response),
@@ -384,6 +385,9 @@ const fieldResolvers = {
         ...successfulFinishedRunsWithStatus,
         ...failedFinishedRunsWithStatus
       ]);
+    },
+    json(job: MetronomeClient.JobDetailResponse): string {
+      return JSON.stringify(cleanJobJSON(job));
     },
     lastRunStatus(job: MetronomeClient.JobDetailResponse): JobRunStatusSummary {
       return typeResolvers.JobRunStatusSummary(job);
