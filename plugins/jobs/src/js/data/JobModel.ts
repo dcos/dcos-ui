@@ -31,6 +31,8 @@ export type SortOption = "ID" | "STATUS" | "LAST_RUN";
 
 export type SortDirection = "ASC" | "DESC";
 
+export type JobRunStatus = "FAILED" | "NOT_AVAILABLE" | "SUCCESS";
+
 export interface JobConnection {
   filteredCount: number;
   totalCount: number;
@@ -70,8 +72,8 @@ export interface JobRun {
 }
 
 export interface JobRunStatusSummary {
-  status: MetronomeClient.JobStatus | null;
-  time: number | null;
+  status: JobRunStatus;
+  time: string | null;
 }
 
 export interface JobTaskConnection {
@@ -177,7 +179,7 @@ type Label {
 }
 type JobRunStatusSummary {
   status: JobRunStatus
-  time: Int
+  time: String
 }
 type ScheduleConnection {
   nodes: [Schedule]!
@@ -307,7 +309,31 @@ const typeResolvers = {
   JobRunStatusSummary(
     response: MetronomeClient.JobDetailResponse
   ): JobRunStatusSummary {
-    return {};
+    const summary = fieldResolvers.Job.lastRunsSummary(response);
+    let status = "NOT_AVAILABLE" as JobRunStatus;
+    let time: string | null = null;
+    let lastFailureAt = 0;
+    let lastSuccessAt = 0;
+
+    if (summary.lastFailureAt !== null) {
+      lastFailureAt = DateUtil.strToMs(summary.lastFailureAt);
+    }
+
+    if (summary.lastSuccessAt !== null) {
+      lastSuccessAt = DateUtil.strToMs(summary.lastSuccessAt);
+    }
+
+    if (summary.lastFailureAt !== null || summary.lastSuccessAt !== null) {
+      if (lastFailureAt > lastSuccessAt) {
+        status = "FAILED" as JobRunStatus;
+        time = summary.lastFailureAt;
+      } else {
+        status = "SUCCESS" as JobRunStatus;
+        time = summary.lastSuccessAt;
+      }
+    }
+
+    return { status, time };
   },
   JobTask(task: MetronomeClient.JobRunTasks): JobTask {
     return {
@@ -334,6 +360,11 @@ const typeResolvers = {
       startingDeadlineSeconds: schedule.startingDeadlineSeconds,
       timezone: schedule.timezone
     };
+  },
+  ScheduleConnection(
+    schedules: MetronomeClient.Schedule[]
+  ): ScheduleConnection {
+    return { nodes: schedules.map(typeResolvers.Schedule) };
   },
   JobHistorySummary(history: MetronomeClient.JobHistory): JobHistorySummary {
     return {
@@ -398,11 +429,11 @@ const fieldResolvers = {
     lastRunsSummary(job: MetronomeClient.JobDetailResponse): JobHistorySummary {
       return typeResolvers.JobHistorySummary(job.history);
     },
-    name(job: MetronomeClient.JobDetailResponse) {
-      return job.id.split(".").pop();
+    name(job: MetronomeClient.JobDetailResponse): string {
+      return job.id.split(".").pop() || "";
     },
-    schedules(job: MetronomeClient.JobDetailResponse): Schedule[] {
-      return job.schedules.map(typeResolvers.Schedule);
+    schedules(job: MetronomeClient.JobDetailResponse): ScheduleConnection {
+      return typeResolvers.ScheduleConnection(job.schedules);
     },
     scheduleStatus(job: MetronomeClient.JobDetailResponse): JobStatus {
       const activeRuns = new JobRunList({ items: job.activeRuns });

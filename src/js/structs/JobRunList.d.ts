@@ -7,7 +7,7 @@ interface JobRunItem {
 }
 interface JobRunSchedule {}
 export default class JobRunList extends List {
-  constructor(args: { items: JobRunItem[] });
+  constructor(options: object);
   getItems(): JobRunItem[];
   getLongestRunningActiveRun(): JobRunItem;
   getLongestRunningActiveRun(): JobRun;
