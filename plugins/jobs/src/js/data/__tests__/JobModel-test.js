@@ -757,12 +757,6 @@ describe("JobModel Resolver", () => {
                                 id: "longest-running",
                                 createdAt: "2018-06-12T08:09:34.773+0000",
                                 status: "TASK_RUNNING"
-                              },
-                              {
-                                id: "not-running-anymore",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_FINISHED",
-                                finishedAt: "2018-06-13T08:10:15.367+0000"
                               }
                             ]
                           }
@@ -786,7 +780,58 @@ describe("JobModel Resolver", () => {
                 })
               );
 
-              it("ignores createdAt");
+              it(
+                "ignores createdAt",
+                marbles(m => {
+                  m.bind();
+                  const result$ = resolvers({
+                    fetchJobDetail: () =>
+                      Observable.of({
+                        ...defaultJobDetailData,
+                        id: "/foo",
+                        activeRuns: [
+                          {
+                            jobId: "1",
+                            createdAt: "2018-06-12T16:25:35.593+0000",
+                            completedAt: "2018-06-12T17:25:35.593+0000",
+                            status: "ACTIVE",
+                            id: "20180612162535qXvcx",
+                            tasks: [
+                              {
+                                id: "shortest-running",
+                                createdAt: "2018-06-13T08:08:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id: "longest-running",
+                                createdAt: "2017-06-13T08:09:34.773+0000",
+                                status: "TASK_STARTING"
+                              },
+                              {
+                                id: "without-created-at",
+                                status: "TASK_RUNNING"
+                              }
+                            ]
+                          }
+                        ]
+                      }),
+                    pollingInterval: m.time("-|")
+                  }).Query.job({}, { id: "xyz" });
+
+                  m.expect(
+                    result$
+                      .take(1)
+                      .map(
+                        ({ activeRuns: { nodes } }) =>
+                          nodes[0].tasks.longestRunningTask.taskId
+                      )
+                  ).toBeObservable(
+                    m.cold("(x|)", {
+                      x: "longest-running"
+                    })
+                  );
+                })
+              );
               it("returns null if there are no unfinished tasks");
               it("returns null if there are no tasks");
             });
