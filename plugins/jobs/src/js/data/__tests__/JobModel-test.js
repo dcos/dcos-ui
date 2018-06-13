@@ -1007,9 +1007,14 @@ describe("JobModel Resolver", () => {
       );
     });
 
-    // describe("lastRuns");
     // describe("lastRunsSummary");
     // describe("lastRunStatus");
+
+    describe("lastRunStatus", () => {
+      it("returns status of last run");
+      it("returns time of last run");
+    });
+
     describe("schedules", () => {
       it(
         "contains empty array for schedules if response did",

@@ -276,6 +276,10 @@ const typeResolvers = {
       disk: response.run.disk,
       mem: response.run.mem,
       cpus: response.run.cpus,
+      docker: null,
+      json: "",
+      labels: [],
+      lastRunStatus: fieldResolvers.Job.lastRunStatus(response),
       name: fieldResolvers.Job.name(response),
       jobRuns: fieldResolvers.Job.jobRuns(response),
       scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
@@ -302,6 +306,11 @@ const typeResolvers = {
       nodes: runs.map(run => typeResolvers.JobRun(run))
     };
   },
+  JobRunStatusSummary(response: MetronomeClient.JobDetailResponse): JobRunStatusSummary {
+    return {
+
+    };
+  }
   JobTask(task: MetronomeClient.JobRunTasks): JobTask {
     return {
       dateStarted: DateUtil.strToMs(task.createdAt),
@@ -360,6 +369,9 @@ const fieldResolvers = {
         ...successfulFinishedRunsWithStatus,
         ...failedFinishedRunsWithStatus
       ]);
+    },
+    lastRunStatus(job: MetronomeClient.JobDetailResponse): JobRunStatusSummary {
+      return typeResolvers.JobRunStatusSummary(job);
     },
     name(job: MetronomeClient.JobDetailResponse) {
       return job.id.split(".").pop();
