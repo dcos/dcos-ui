@@ -1,9 +1,12 @@
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs";
-import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
 import JobRunList from "#SRC/js/structs/JobRunList";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
+import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
+import JobStates from "#SRC/js/constants/JobStates";
+import JobStatus from "#SRC/js/constants/JobStatus";
+import Config from "#SRC/js/config/Config";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -15,23 +18,20 @@ export interface GeneralArgs {
 }
 
 export interface JobsQueryArgs {
-  filter?: string | null;
-  sortBy?: SortOption | null;
-  sortDirection?: SortDirection | null;
+  filter?: string;
+  sortBy?: SortOption;
+  sortDirection?: SortDirection;
 }
 
 export interface JobQueryArgs {
   id: string;
-  filter?: string | null;
-  sortBy?: SortOption | null;
-  sortDirection?: SortDirection | null;
 }
 
 export type SortOption = "ID" | "STATUS" | "LAST_RUN";
 
 export type SortDirection = "ASC" | "DESC";
 
-export type JobRunStatus = "FAILED" | "NOT_AVAILABLE" | "SUCCESS";
+export type JobRunStatus = "Failed" | "N/A" | "Success";
 
 export interface JobConnection {
   filteredCount: number;
@@ -67,7 +67,7 @@ export interface JobRun {
   dateCreated: number;
   dateFinished: number | null;
   jobID: string;
-  status: MetronomeClient.JobStatus;
+  status: MetronomeClient.JobStatus; 
   tasks: JobTaskConnection;
 }
 
@@ -178,7 +178,7 @@ type Label {
   value: String!
 }
 type JobRunStatusSummary {
-  status: JobRunStatus
+  status: JobRunStatus!
   time: Int
 }
 type ScheduleConnection {
@@ -210,9 +210,9 @@ enum JobTaskStatus {
   TASK_UNREACHABLE
 }
 enum JobRunStatus {
-  FAILED
-  NOT_AVAILABLE
-  SUCCESS
+  Failed
+  "N/A"
+  Success
 }
 enum JobStatus {
   ACTIVE
@@ -234,10 +234,12 @@ enum SortOption {
   STATUS
   LAST_RUN
 }
+
 enum SortDirection {
   ASC
   DESC
 }
+
 type Query {
   jobs(
     filter: String
@@ -246,14 +248,73 @@ type Query {
   ): JobConnection
   job(
     id: ID!
-    filter: String
-    sortBy: SortOption
-    sortDirection: SortDirection
   ): Job
 }
 `;
+// see if we can do enum input types
+
+function sortJobs(
+  jobs: Job[],
+  sortBy: SortOption = "ID",
+  sortDirection: SortDirection = "ASC"
+): Job[] {
+  jobs.sort((a, b) => {
+    let result;
+
+    switch (sortBy) {
+      case "ID":
+        result = sortJobById(a, b);
+        break;
+      case "STATUS":
+        result = sortJobByStatus(a, b);
+        break;
+      case "LAST_RUN":
+        result = sortJobByLastRun(a, b);
+        break;
+      default:
+        result = 0;
+    }
+
+    const direction = sortDirection === "ASC" ? 1 : -1;
+    return result * direction;
+  });
+
+  return jobs;
+}
+
+function sortJobById(a: Job, b: Job): number {
+  return a.id.localeCompare(b.id);
+}
+
+function sortJobByStatus(a: Job, b: Job): number {
+  console.log("status");
+  return (
+    JobStates[a.scheduleStatus].sortOrder -
+    JobStates[b.scheduleStatus].sortOrder
+  );
+}
+
+function sortJobByLastRun(a: Job, b: Job): number {
+  console.log(a.lastRunStatus, b.lastRunStatus)
+  return (
+    JobStatus[a.lastRunStatus.status].sortOrder -
+    JobStatus[b.lastRunStatus.status].sortOrder
+  );
+}
+
+function filterJobs(
+  jobs: MetronomeClient.JobResponse[],
+  filter: string | null
+): MetronomeClient.JobResponse[] {
+  if (filter === null) {
+    return jobs;
+  }
+
+  return jobs.filter(({ id }) => id.indexOf(filter) !== -1);
+}
 
 interface ResolverArgs {
+  fetchJobs: () => Observable<MetronomeClient.JobResponse[]>;
   fetchJobDetail: (id: string) => Observable<MetronomeClient.JobDetailResponse>;
   pollingInterval: number;
 }
@@ -310,7 +371,7 @@ const typeResolvers = {
     response: MetronomeClient.JobDetailResponse
   ): JobRunStatusSummary {
     const summary = fieldResolvers.Job.lastRunsSummary(response);
-    let status = "NOT_AVAILABLE" as JobRunStatus;
+    let status: JobStates = "N/A";
     let time: string | null = null;
     let lastFailureAt = 0;
     let lastSuccessAt = 0;
@@ -325,10 +386,10 @@ const typeResolvers = {
 
     if (summary.lastFailureAt !== null || summary.lastSuccessAt !== null) {
       if (lastFailureAt > lastSuccessAt) {
-        status = "FAILED" as JobRunStatus;
+        status = "Failed";
         time = summary.lastFailureAt;
       } else {
-        status = "SUCCESS" as JobRunStatus;
+        status = "Success";
         time = summary.lastSuccessAt;
       }
     }
@@ -545,16 +606,34 @@ const fieldResolvers = {
 };
 
 export const resolvers = ({
+  fetchJobs,
   fetchJobDetail,
   pollingInterval
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
-      _obj = {},
-      _args: GeneralArgs = {},
+      _parent = {},
+      args: GeneralArgs = {},
       _context = {}
-    ): Observable<JobConnection | null> {
-      return Observable.of(null);
+    ): Observable<Job[] | null> {
+      const {
+        sortBy = "ID",
+        sortDirection = "ASC",
+        filter = null
+      } = args as JobsQueryArgs;
+
+      const pollingInterval$ = Observable.timer(0, pollingInterval);
+      const responses$ = pollingInterval$.switchMap(fetchJobs);
+
+      return (
+        responses$
+          .map(jobs => filterJobs(jobs, filter))
+          // N+1 request madness
+          .map(jobs => jobs.map(job => fetchJobDetail(job.id)))
+          .switchMap(obs => Observable.combineLatest(obs))
+          .map(requests => requests.map(typeResolvers.Job))
+          .map(jobs => sortJobs(jobs, sortBy, sortDirection))
+      );
     },
     job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
       // TODO: Write typeguard here
@@ -570,7 +649,8 @@ export const resolvers = ({
 export default makeExecutableSchema({
   typeDefs,
   resolvers: resolvers({
+    fetchJobs: MetronomeClient.fetchJobs,
     fetchJobDetail: MetronomeClient.fetchJobDetail,
-    pollingInterval: 0
+    pollingInterval: Config.getRefreshRate()
   })
 });

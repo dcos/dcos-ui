@@ -58,21 +58,254 @@ const defaultJobDetailData = {
 };
 
 describe("JobModel Resolver", () => {
-  describe("jobs", () => {
-    it("polls the endpoint");
-    it("waits for running requests to finish before sending new ones");
+  let jobsData, jobsList;
+  beforeEach(() => {
+    jobsData = {
+      a: {
+        ...defaultJobDetailData,
+        id: "a",
+        activeRuns: [
+          {
+            jobId: "1",
+            createdAt: "2018-06-12T16:25:35.593+0000",
+            completedAt: "2018-06-12T17:25:35.593+0000",
+            status: "FAILED"
+          }
+        ],
+        schedules: [
+          {
+            concurrencyPolicy: "ALLOW",
+            cron: "* * * * *",
+            enabled: true,
+            id: "default",
+            nextRunAt: "2018-06-13T08:39:00.000+0000",
+            startingDeadlineSeconds: 900,
+            timezone: "UTC"
+          }
+        ]
+      },
+      b: {
+        ...defaultJobDetailData,
+        id: "b",
+        activeRuns: [
+          {
+            jobId: "1",
+            createdAt: "2018-06-12T16:25:35.593+0000",
+            completedAt: "2018-06-12T17:25:35.593+0000",
+            status: "COMPLETED"
+          }
+        ],
+        schedules: [
+          {
+            concurrencyPolicy: "ALLOW",
+            cron: "* * * * *",
+            enabled: false,
+            id: "default",
+            nextRunAt: "2018-06-13T08:39:00.000+0000",
+            startingDeadlineSeconds: 900,
+            timezone: "UTC"
+          }
+        ]
+      },
+      c: {
+        ...defaultJobDetailData,
+        id: "c",
+        activeRuns: [],
+        schedules: []
+      }
+    };
 
-    // TODO: write this part in greater detail
-    it("returns a JobsConnection");
+    jobsList = Object.values(jobsData);
+  });
+
+  describe("jobs", () => {
+    it(
+      "returns a list of jobs",
+      marbles(m => {
+        m.bind();
+
+        const fetchJobs = () => m.cold("(j|)", { j: [defaultJobDetailData] });
+        const fetchJobDetail = _id =>
+          m.cold("(j|)", { j: defaultJobDetailData });
+        const resolverResult$ = resolvers({
+          fetchJobs,
+          fetchJobDetail,
+          pollingInterval: m.time("--|")
+        }).Query.jobs();
+
+        const expected$ = m.cold("(j|)", {
+          j: true
+        });
+
+        const result$ = resolverResult$
+          .take(1)
+          .map(jobs => Array.isArray(jobs));
+        m.expect(result$).toBeObservable(expected$);
+      })
+    );
+
+    it(
+      "polls the endpoint",
+      marbles(m => {
+        m.bind();
+        const fetchJobs = () => m.cold("(j|)", { j: [defaultJobDetailData] });
+        const fetchJobDetail = _id =>
+          m.cold("(j|)", { j: defaultJobDetailData });
+        const resolverResult$ = resolvers({
+          fetchJobs,
+          fetchJobDetail,
+          pollingInterval: m.time("--|")
+        }).Query.jobs();
+
+        const expected$ = m.cold("(j|)", {
+          j: ["testid"]
+        });
+
+        const result$ = resolverResult$
+          .take(1)
+          .map(jobs => jobs.map(job => job.id));
+        m.expect(result$).toBeObservable(expected$);
+      })
+    );
+
+    const oneJobsResponse = (
+      m,
+      filter = "",
+      sortBy = "ID",
+      sortDirection = "ASC",
+      mapBy = "id"
+    ) => {
+      const fetchJobs = () => m.cold("(j|)", { j: jobsList });
+      const fetchJobDetail = id => m.cold("(j|)", { j: jobsData[id] });
+      const resolverResult$ = resolvers({
+        fetchJobs,
+        fetchJobDetail,
+        pollingInterval: m.time("--|")
+      }).Query.jobs({}, { sortBy, sortDirection, filter });
+
+      return resolverResult$.take(1).map(jobs => jobs);
+    };
 
     describe("ordering", () => {
-      it("orders by ID");
-      it("orders by STATUS");
-      it("orders by LAST_RUN");
+      it(
+        "orders by ID",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, null, "ID", "ASC").map(jobs =>
+            jobs.map(job => job.id)
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: ["a", "b", "c"]
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+
+      it(
+        "orders by ID DESC",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, null, "ID", "DESC").map(jobs =>
+            jobs.map(job => job.id)
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: ["c", "b", "a"]
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+
+      it(
+        "orders by STATUS",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, null, "STATUS", "ASC").map(jobs =>
+            jobs.map(job => job.scheduleStatus)
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: ["FAILED", "UNSCHEDULED", "COMPLETED"]
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+
+      it.only(
+        "orders by LAST_RUN",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, null, "LAST_RUN", "ASC").map(
+            jobs => jobs.map(job => job.lastRunStatus.status)
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: ["Failed", "N/A", "Success"]
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
     });
 
     describe("filter", () => {
-      it("filters by ID");
+      it(
+        "filters by ID",
+        marbles(m => {
+          m.bind();
+
+          const result$ = oneJobsResponse(m, "b").map(jobs =>
+            jobs.map(job => job.id)
+          );
+
+          const expected$ = m.cold("(j|)", {
+            j: ["b"]
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
+    });
+
+    describe("details", () => {
+      it(
+        "it has the information from the job details query",
+        marbles(m => {
+          m.bind();
+
+          const jobListWithoutScheduleStatus = jobsList.map(job => ({
+            ...job,
+            schedules: []
+          }));
+
+          const fetchJobs = () =>
+            m.cold("(j|)", { j: jobListWithoutScheduleStatus });
+          const fetchJobDetail = id => m.cold("(j|)", { j: jobsData[id] });
+          const resolverResult$ = resolvers({
+            fetchJobs,
+            fetchJobDetail,
+            pollingInterval: m.time("--|")
+          }).Query.jobs({}, {});
+
+          const result$ = resolverResult$
+            .take(1)
+            .map(jobs => jobs.map(job => job.scheduleStatus));
+
+          const expected$ = m.cold("(j|)", {
+            j: ["FAILED", "COMPLETED", "UNSCHEDULED"]
+          });
+
+          m.expect(result$).toBeObservable(expected$);
+        })
+      );
     });
   });
 
