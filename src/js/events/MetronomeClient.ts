@@ -86,7 +86,8 @@ export interface ActiveJobRun {
 
 export interface JobRunTasks {
   id: string;
-  startedAt: string;
+  createdAt: string;
+  finishedAt: string | null;
   status: JobTaskStatus;
 }
 

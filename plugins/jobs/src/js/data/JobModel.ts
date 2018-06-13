@@ -83,7 +83,7 @@ export interface JobTaskConnection {
 }
 
 export interface JobTask {
-  dateCompleted: number;
+  dateCompleted: number | null;
   dateStarted: number;
   status: MetronomeClient.JobTaskStatus;
   taskId: string;
@@ -276,7 +276,14 @@ const typeResolvers = {
       status: run.status,
       tasks: {
         longestRunningTask: null,
-        nodes: (run.tasks || []).map(() => null)
+        nodes: (run.tasks || []).map(task => ({
+          dateStarted: DateUtil.strToMs(task.createdAt),
+          dateCompleted: task.finishedAt
+            ? DateUtil.strToMs(task.finishedAt)
+            : null,
+          status: task.status,
+          taskId: task.id
+        }))
       }
     };
   }
