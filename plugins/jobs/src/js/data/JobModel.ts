@@ -260,14 +260,6 @@ interface ResolverArgs {
 }
 
 const typeResolvers = {
-  JobRunConnection(runs: MetronomeClient.ActiveJobRun[]): JobRunConnection {
-    return {
-      longestRunningActiveRun: fieldResolvers.JobRunConnection.longestRunningActiveRun(
-        runs
-      ),
-      nodes: runs.map(run => typeResolvers.JobRun(run))
-    };
-  },
   JobRun(run: MetronomeClient.ActiveJobRun): JobRun {
     return {
       jobID: run.jobId,
@@ -277,10 +269,12 @@ const typeResolvers = {
       tasks: typeResolvers.JobTaskConnection(run.tasks)
     };
   },
-  JobTaskConnection(tasks: MetronomeClient.JobRunTasks[]): JobTaskConnection {
+  JobRunConnection(runs: MetronomeClient.ActiveJobRun[]): JobRunConnection {
     return {
-      longestRunningTask: null,
-      nodes: (tasks || []).map(task => typeResolvers.JobTask(task))
+      longestRunningActiveRun: fieldResolvers.JobRunConnection.longestRunningActiveRun(
+        runs
+      ),
+      nodes: runs.map(run => typeResolvers.JobRun(run))
     };
   },
   JobTask(task: MetronomeClient.JobRunTasks): JobTask {
@@ -289,6 +283,12 @@ const typeResolvers = {
       dateCompleted: task.finishedAt ? DateUtil.strToMs(task.finishedAt) : null,
       status: task.status,
       taskId: task.id
+    };
+  },
+  JobTaskConnection(tasks: MetronomeClient.JobRunTasks[]): JobTaskConnection {
+    return {
+      longestRunningTask: null,
+      nodes: (tasks || []).map(task => typeResolvers.JobTask(task))
     };
   }
 };
