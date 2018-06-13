@@ -1043,6 +1043,80 @@ describe("JobModel Resolver", () => {
         })
       );
     });
+
+    describe("docker", () => {
+      it(
+        "is null if no docker information is provided",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                run: {
+                  ...defaultJobDetailData.run,
+                  docker: null
+                }
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(response => response.docker)
+          ).toBeObservable(m.cold("(x|)", { x: null }));
+        })
+      );
+
+      it(
+        "returns forcePullImage",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                run: {
+                  ...defaultJobDetailData.run,
+                  docker: {
+                    forcePullImage: true,
+                    image: "node:10"
+                  }
+                }
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(response => response.docker.forcePullImage)
+          ).toBeObservable(m.cold("(x|)", { x: true }));
+        })
+      );
+
+      it(
+        "returns image",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({
+                ...defaultJobDetailData,
+                run: {
+                  ...defaultJobDetailData.run,
+                  docker: {
+                    forcePullImage: true,
+                    image: "node:10"
+                  }
+                }
+              }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "xyz" });
+
+          m.expect(
+            result$.take(1).map(response => response.docker.image)
+          ).toBeObservable(m.cold("(x|)", { x: "node:10" }));
+        })
+      );
+    });
     // describe("lastRunsSummary");
     // describe("lastRunStatus");
 

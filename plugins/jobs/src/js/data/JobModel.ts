@@ -277,7 +277,7 @@ const typeResolvers = {
       disk: response.run.disk,
       mem: response.run.mem,
       cpus: response.run.cpus,
-      docker: null,
+      docker: fieldResolvers.Job.docker(response),
       json: "",
       labels: [],
       lastRunStatus: fieldResolvers.Job.lastRunStatus(response),
@@ -359,6 +359,16 @@ const fieldResolvers = {
   Job: {
     activeRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
       return typeResolvers.JobRunConnection(job.activeRuns);
+    },
+    docker(job: MetronomeClient.JobDetailResponse): Docker | null {
+      if (!job.run.docker) {
+        return null;
+      }
+
+      return {
+        forcePullImage: job.run.docker.forcePullImage,
+        image: job.run.docker.image
+      };
     },
     jobRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
       const { successfulFinishedRuns, failedFinishedRuns } = job.history;
