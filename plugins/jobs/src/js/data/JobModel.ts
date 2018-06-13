@@ -85,27 +85,9 @@ export interface JobTaskConnection {
 export interface JobTask {
   dateCompleted: number;
   dateStarted: number;
-  status: JobTaskStatus;
+  status: MetronomeClient.JobTaskStatus;
   taskId: string;
 }
-
-export type JobTaskStatus =
-  | "TASK_CREATED"
-  | "TASK_DROPPED"
-  | "TASK_ERROR"
-  | "TASK_FAILED"
-  | "TASK_FINISHED"
-  | "TASK_GONE"
-  | "TASK_GONE_BY_OPERATOR"
-  | "TASK_KILLED"
-  | "TASK_KILLING"
-  | "TASK_LOST"
-  | "TASK_RUNNING"
-  | "TASK_STAGING"
-  | "TASK_STARTED"
-  | "TASK_STARTING"
-  | "TASK_UNKNOWN"
-  | "TASK_UNREACHABLE";
 
 export interface Docker {
   forcePullImage: boolean;
@@ -294,7 +276,7 @@ const typeResolvers = {
       status: run.status,
       tasks: {
         longestRunningTask: null,
-        nodes: []
+        nodes: (run.tasks || []).map(() => null)
       }
     };
   }
