@@ -300,9 +300,12 @@ const typeResolvers = {
     };
   },
   JobTaskConnection(tasks: MetronomeClient.JobRunTasks[]): JobTaskConnection {
+    const parsedTasks = (tasks || []).map(task => typeResolvers.JobTask(task));
     return {
-      longestRunningTask: null,
-      nodes: (tasks || []).map(task => typeResolvers.JobTask(task))
+      longestRunningTask: fieldResolvers.JobTaskConnection.longestRunningTask(
+        parsedTasks
+      ),
+      nodes: parsedTasks
     };
   },
   Schedule(schedule: MetronomeClient.Schedule): Schedule {
@@ -381,6 +384,27 @@ const fieldResolvers = {
       });
 
       return typeResolvers.JobRun(sortedRuns[0]);
+    }
+  },
+  JobTaskConnection: {
+    longestRunningTask(tasks: JobTask[]): JobTask | null {
+      const sortedTasks = [...tasks].sort((a, b) => {
+        if (a.dateStarted == null && b.dateStarted == null) {
+          return 0;
+        }
+
+        if (a.dateStarted == null) {
+          return 1;
+        }
+
+        if (b.dateStarted == null) {
+          return -1;
+        }
+
+        return a.dateStarted - b.dateStarted;
+      });
+
+      return sortedTasks[0];
     }
   }
 };
