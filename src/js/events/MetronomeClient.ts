@@ -73,7 +73,8 @@ export type JobStatus =
   | "FAILED"
   | "INITIAL"
   | "RUNNING"
-  | "STARTING";
+  | "STARTING"
+  | "COMPLETED";
 
 export interface ActiveJobRun {
   completedAt?: string | null;

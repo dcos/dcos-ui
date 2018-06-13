@@ -906,7 +906,7 @@ describe("JobModel Resolver", () => {
                   ],
                   failedFinishedRuns: [
                     {
-                      id: "2",
+                      id: "3",
                       createdAt: "2018-06-12T16:25:35.593+0000",
                       finishedAt: "2018-06-12T17:25:35.593+0000"
                     }

@@ -264,7 +264,7 @@ function isActiveRun(arg: any): arg is MetronomeClient.ActiveJobRun {
 }
 
 function isHistoryRun(arg: any): arg is MetronomeClient.JobHistoryRun {
-  return arg.jobId !== undefined;
+  return arg.id !== undefined;
 }
 
 const typeResolvers = {
@@ -345,13 +345,13 @@ const fieldResolvers = {
       const { successfulFinishedRuns, failedFinishedRuns } = job.history;
 
       const successfulFinishedRunsWithStatus: JobHistoryRunWithStatus[] = successfulFinishedRuns.map(
-        run => ({ ...run, status: "FAILED" as MetronomeClient.JobStatus })
+        run => ({ ...run, status: "COMPLETED" as MetronomeClient.JobStatus }) // TODO: investiagte why we need to cast this
       );
 
       const failedFinishedRunsWithStatus: JobHistoryRunWithStatus[] = failedFinishedRuns.map(
         run => ({
           ...run,
-          status: "COMPLETED" as MetronomeClient.JobStatus
+          status: "FAILED" as MetronomeClient.JobStatus
         })
       );
 
@@ -489,7 +489,7 @@ export const resolvers = ({
       return Observable.of(null);
     },
     job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
-      // TODO: We should not need to do the casting here
+      // TODO: Write typeguard here
       const { id } = args as JobQueryArgs;
       const pollingInterval$ = Observable.timer(0, pollingInterval);
       const responses$ = pollingInterval$.switchMap(() => fetchJobDetail(id));
