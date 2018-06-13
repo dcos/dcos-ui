@@ -260,6 +260,20 @@ interface ResolverArgs {
 }
 
 const typeResolvers = {
+  Job(response: MetronomeClient.JobDetailResponse): Job {
+    return {
+      id: response.id,
+      description: response.description,
+      command: response.run.cmd,
+      disk: response.run.disk,
+      mem: response.run.mem,
+      cpus: response.run.cpus,
+      name: fieldResolvers.Job.name(response),
+      scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
+      activeRuns: typeResolvers.JobRunConnection(response.activeRuns),
+      schedules: fieldResolvers.Job.schedules(response.schedules)
+    };
+  },
   JobRun(run: MetronomeClient.ActiveJobRun): JobRun {
     return {
       jobID: run.jobId,
@@ -389,20 +403,7 @@ export const resolvers = ({
       const pollingInterval$ = Observable.timer(0, pollingInterval);
       const responses$ = pollingInterval$.switchMap(() => fetchJobDetail(id));
 
-      return responses$.map(response => {
-        return {
-          id: response.id,
-          description: response.description,
-          command: response.run.cmd,
-          disk: response.run.disk,
-          mem: response.run.mem,
-          cpus: response.run.cpus,
-          name: fieldResolvers.Job.name(response),
-          scheduleStatus: fieldResolvers.Job.scheduleStatus(response),
-          activeRuns: typeResolvers.JobRunConnection(response.activeRuns),
-          schedules: fieldResolvers.Job.schedules(response.schedules)
-        };
-      });
+      return responses$.map(response => typeResolvers.Job(response));
     }
   }
 });
