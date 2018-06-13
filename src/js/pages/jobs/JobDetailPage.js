@@ -6,12 +6,13 @@ import React from "react";
 import { routerShape } from "react-router";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
+
+import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
 import TimeAgo from "../../components/TimeAgo";
-import JobFormModal from "../../components/modals/JobFormModal";
 import UserActions from "../../constants/UserActions";
 import TabsMixin from "../../mixins/TabsMixin";
 import StringUtil from "../../utils/StringUtil";
@@ -251,7 +252,7 @@ class JobDetailPage extends mixin(TabsMixin) {
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
-        <JobFormModal
+        <JobFormModalContainer
           isEdit={true}
           job={job}
           open={this.props.jobActionDialog === DIALOGS.EDIT}

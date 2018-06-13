@@ -1,41 +1,28 @@
-import Ace from "react-ace";
-import mixin from "reactjs-mixin";
-import { Modal } from "reactjs-components";
-import PropTypes from "prop-types";
-import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
+import * as React from "react";
 
-import "brace/mode/json";
-import "brace/theme/monokai";
-import "brace/ext/language_tools";
+import CollapsibleErrorMessage from "#SRC/js/components/CollapsibleErrorMessage";
+import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
+import Job from "#SRC/js/structs/Job";
+import { Definition, forEachDefinition } from "#SRC/js/utils/FormUtil";
+import * as JobUtil from "#SRC/js/utils/JobUtil";
+import * as JobSchema from "#SRC/js/schemas/JobSchema";
+import { DataTriple } from "#SRC/js/components/SchemaForm";
+import MetronomeStore from "#SRC/js/stores/MetronomeStore";
+import * as SchemaUtil from "#SRC/js/utils/SchemaUtil";
+import {
+  METRONOME_JOB_CREATE_ERROR,
+  METRONOME_JOB_CREATE_SUCCESS,
+  METRONOME_JOB_UPDATE_ERROR,
+  METRONOME_JOB_UPDATE_SUCCESS
+} from "#SRC/js/constants/EventTypes";
 
-import CollapsibleErrorMessage from "../CollapsibleErrorMessage";
-import { cleanJobJSON } from "../../utils/CleanJSONUtil";
-import FormUtil from "../../utils/FormUtil";
-import Job from "../../structs/Job";
-import JobForm from "../JobForm";
-import JobUtil from "../../utils/JobUtil";
-import JobSchema from "../../schemas/JobSchema";
-import MetronomeStore from "../../stores/MetronomeStore";
-import ModalHeading from "../modals/ModalHeading";
-import SchemaUtil from "../../utils/SchemaUtil";
-import ToggleButton from "../ToggleButton";
+import JobFormModal from "./components/JobFormModal";
 
-const METHODS_TO_BIND = [
-  "handleCancel",
-  "handleFormChange",
-  "handleJSONEditorChange",
-  "handleInputModeToggle",
-  "handleSubmit",
-  "handleTabChange",
-  "handleTriggerSubmit",
-  "onMetronomeStoreJobCreateSuccess",
-  "onMetronomeStoreJobCreateError",
-  "onMetronomeStoreJobUpdateSuccess",
-  "onMetronomeStoreJobUpdateError"
-];
+interface ResponseMapping {
+  [key: string]: string;
+}
 
-const serverResponseMappings = {
+const serverResponseMappings: ResponseMapping = {
   "error.path.missing": "Specify a path",
   "error.minLength": "Field may not be blank",
   "error.expected.jsnumber": "A number is expected",
@@ -44,7 +31,7 @@ const serverResponseMappings = {
 
 // The values of this map are only used to generate the error strings atm.
 // This mapping will make sense when we introduce client-side validation.
-const responseAttributePathToFieldIdMap = {
+const responseAttributePathToFieldIdMap: ResponseMapping = {
   "/id": "id",
   "/description": "description",
   "/run/cpus": "cpus",
@@ -60,46 +47,119 @@ const responseAttributePathToFieldIdMap = {
   "/labels": "labels"
 };
 
-class JobFormModal extends mixin(StoreMixin) {
+type FormSubmitCallback = undefined | (() => DataTriple);
+interface ErrorDetail {
+  path: string;
+  errors: string[];
+}
+type ErrorMessage = null | { message: string; details: null | ErrorDetail[] };
+
+interface JobFormModalContainerState {
+  errorMessage: null | ErrorMessage;
+  jobFormModel: null | object;
+  jobJsonString: null | string;
+  jsonMode: boolean;
+}
+
+interface JobFormModalContainerProps {
+  isEdit?: boolean;
+  job?: Job;
+  open: boolean;
+  onClose: () => void;
+}
+
+export default class JobFormModalContainer extends React.Component<
+  JobFormModalContainerProps,
+  JobFormModalContainerState
+> {
+  public static defaultProps: Partial<JobFormModalContainerProps> = {
+    isEdit: false,
+    job: new Job(),
+    open: false,
+    onClose: () => {} // tslint:disable-line:no-empty
+  };
+  private triggerFormSubmit: FormSubmitCallback;
+
   constructor() {
     super(...arguments);
 
     this.state = {
-      defaultTab: "",
       errorMessage: null,
-      job: new Job(),
       jobFormModel: null,
       jobJsonString: null,
       jsonMode: false
     };
 
-    this.store_listeners = [
-      {
-        name: "metronome",
-        events: [
-          "jobCreateSuccess",
-          "jobCreateError",
-          "jobUpdateSuccess",
-          "jobUpdateError"
-        ],
-        suppressUpdate: true
-      }
-    ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleJSONEditorChange = this.handleJSONEditorChange.bind(this);
+    this.handleInputModeToggle = this.handleInputModeToggle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTriggerSubmit = this.handleTriggerSubmit.bind(this);
+    this.onMetronomeStoreJobCreateSuccess = this.onMetronomeStoreJobCreateSuccess.bind(
+      this
+    );
+    this.onMetronomeStoreJobCreateError = this.onMetronomeStoreJobCreateError.bind(
+      this
+    );
+    this.onMetronomeStoreJobUpdateSuccess = this.onMetronomeStoreJobUpdateSuccess.bind(
+      this
+    );
+    this.onMetronomeStoreJobUpdateError = this.onMetronomeStoreJobUpdateError.bind(
+      this
+    );
 
     this.triggerFormSubmit = undefined;
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillMount() {
+    MetronomeStore.addListener(
+      METRONOME_JOB_CREATE_SUCCESS,
+      this.onMetronomeStoreJobCreateSuccess
+    );
+    MetronomeStore.addListener(
+      METRONOME_JOB_CREATE_ERROR,
+      this.onMetronomeStoreJobCreateError
+    );
+    MetronomeStore.addListener(
+      METRONOME_JOB_UPDATE_SUCCESS,
+      this.onMetronomeStoreJobUpdateSuccess
+    );
+    MetronomeStore.addListener(
+      METRONOME_JOB_UPDATE_ERROR,
+      this.onMetronomeStoreJobUpdateError
+    );
+  }
+
+  componentWillUnmount() {
+    MetronomeStore.removeListener(
+      METRONOME_JOB_CREATE_SUCCESS,
+      this.onMetronomeStoreJobCreateSuccess
+    );
+    MetronomeStore.removeListener(
+      METRONOME_JOB_CREATE_ERROR,
+      this.onMetronomeStoreJobCreateError
+    );
+    MetronomeStore.removeListener(
+      METRONOME_JOB_UPDATE_SUCCESS,
+      this.onMetronomeStoreJobUpdateSuccess
+    );
+    MetronomeStore.removeListener(
+      METRONOME_JOB_UPDATE_ERROR,
+      this.onMetronomeStoreJobUpdateError
+    );
+  }
+
+  componentWillReceiveProps(nextProps: JobFormModalContainerProps) {
     if (nextProps.open !== this.props.open) {
       this.resetState();
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(
+    nextProps: JobFormModalContainerProps,
+    nextState: JobFormModalContainerState
+  ) {
     const { errorMessage, jsonMode } = this.state;
     const { open } = this.props;
 
@@ -115,7 +175,7 @@ class JobFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  onMetronomeStoreJobCreateError(errorMessage) {
+  onMetronomeStoreJobCreateError(errorMessage: ErrorMessage) {
     this.setState({
       errorMessage
     });
@@ -126,7 +186,7 @@ class JobFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  onMetronomeStoreJobUpdateError(errorMessage) {
+  onMetronomeStoreJobUpdateError(errorMessage: ErrorMessage) {
     this.setState({
       errorMessage
     });
@@ -135,11 +195,10 @@ class JobFormModal extends mixin(StoreMixin) {
   resetState() {
     const { job } = this.props;
     this.setState({
-      defaultTab: "",
       errorMessage: null,
       jobFormModel: JobUtil.createFormModelFromSchema(JobSchema, job),
       jobJsonString: JSON.stringify(
-        cleanJobJSON(JobUtil.createJobSpecFromJob(job)),
+        cleanJobJSON(JobUtil.createJobSpecFromJob(job as Job)),
         null,
         2
       ),
@@ -149,10 +208,13 @@ class JobFormModal extends mixin(StoreMixin) {
 
   createJobFromEditorContents(keepValidationErrors = false) {
     const { jobJsonString, jsonMode } = this.state;
-    let jobDefinition = null;
+    let jobDefinition;
 
     // Try to parse JSON string and detect errors
     try {
+      if (typeof jobJsonString !== "string") {
+        throw new Error();
+      }
       jobDefinition = JSON.parse(jobJsonString);
     } catch (e) {
       this.setState({
@@ -169,10 +231,8 @@ class JobFormModal extends mixin(StoreMixin) {
 
     if (jsonMode) {
       // Really hackish way to validate the json string schema, trying to re-use
-      // as much code as possilbe without getting nasty.
-      const dummyItemRenderer = function() {
-        return <div />;
-      };
+      // as much code as possible without getting nasty.
+      const dummyItemRenderer = () => <div />;
 
       const formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
       const formMultiDef = SchemaUtil.schemaToMultipleDefinition({
@@ -181,25 +241,23 @@ class JobFormModal extends mixin(StoreMixin) {
         renderLabel: dummyItemRenderer,
         renderRemove: dummyItemRenderer,
         renderAdd: dummyItemRenderer
-      });
-      const errorDetails = [];
+      }) as Definition;
+      const errorDetails: ErrorDetail[] = [];
 
-      FormUtil.forEachDefinition(formMultiDef, definition => {
+      forEachDefinition(formMultiDef, definition => {
         definition.showError = false;
 
-        if (typeof definition.externalValidator !== "function") {
-          return null;
-        }
-
-        const fieldValidated = definition.externalValidator(
-          formModel,
-          definition
-        );
-        if (!fieldValidated) {
-          errorDetails.push({
-            path: "/",
-            errors: [definition.showError]
-          });
+        if (typeof definition.externalValidator === "function") {
+          const fieldValidated = definition.externalValidator(
+            formModel,
+            definition
+          );
+          if (!fieldValidated) {
+            errorDetails.push({
+              path: "/",
+              errors: [definition.showError.toString()]
+            });
+          }
         }
       });
 
@@ -226,7 +284,10 @@ class JobFormModal extends mixin(StoreMixin) {
 
     // Therefore we need to ask the SchemaForm to perform validation
     // and return the model once again
-    const { model, isValidated } = this.triggerFormSubmit();
+    const { model = null, isValidated = false } =
+      typeof this.triggerFormSubmit === "function"
+        ? this.triggerFormSubmit()
+        : {};
 
     if (!isValidated) {
       this.setState({
@@ -260,7 +321,7 @@ class JobFormModal extends mixin(StoreMixin) {
       this.setState({
         errorMessage: null,
         jobJsonString: JSON.stringify(
-          cleanJobJSON(JobUtil.createJobSpecFromJob(job)),
+          cleanJobJSON(JobUtil.createJobSpecFromJob(job as Job)),
           null,
           2
         ),
@@ -269,7 +330,7 @@ class JobFormModal extends mixin(StoreMixin) {
     }
   }
 
-  handleFormChange(event) {
+  handleFormChange(event: { model: object }) {
     if (!event.model) {
       return;
     }
@@ -279,7 +340,7 @@ class JobFormModal extends mixin(StoreMixin) {
     });
   }
 
-  handleJSONEditorChange(jsonDefinition) {
+  handleJSONEditorChange(jsonDefinition: string) {
     this.setState({
       errorMessage: null,
       jobJsonString: jsonDefinition
@@ -301,17 +362,13 @@ class JobFormModal extends mixin(StoreMixin) {
     }
   }
 
-  handleTabChange(tab) {
-    this.setState({ defaultTab: tab });
-  }
-
-  handleTriggerSubmit(submitFunction) {
+  handleTriggerSubmit(submitFunction: () => DataTriple) {
     this.triggerFormSubmit = submitFunction;
   }
 
   getErrorMessage() {
     const { errorMessage } = this.state;
-    let errorList = null;
+    let errorList;
 
     if (!errorMessage) {
       return null;
@@ -319,7 +376,7 @@ class JobFormModal extends mixin(StoreMixin) {
 
     // Stringify error details
     if (errorMessage.details != null) {
-      errorList = errorMessage.details.map(function({ path, errors }) {
+      errorList = errorMessage.details.map(({ path, errors }) => {
         let fieldId = "general";
 
         // See: https://github.com/dcos/metronome/issues/71
@@ -342,7 +399,7 @@ class JobFormModal extends mixin(StoreMixin) {
           fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
         }
 
-        errors = errors.map(function(error) {
+        errors = errors.map(error => {
           if (serverResponseMappings[error]) {
             return serverResponseMappings[error];
           }
@@ -364,120 +421,26 @@ class JobFormModal extends mixin(StoreMixin) {
     );
   }
 
-  getModalContents() {
-    const { defaultTab, jobFormModel, jobJsonString, jsonMode } = this.state;
-
-    if (jsonMode) {
-      return (
-        <Ace
-          editorProps={{ $blockScrolling: true }}
-          mode="json"
-          onChange={this.handleJSONEditorChange}
-          showGutter={true}
-          showPrintMargin={false}
-          theme="monokai"
-          height="100%"
-          value={jobJsonString}
-          width="100%"
-        />
-      );
-    }
+  render() {
+    const { jsonMode, jobFormModel, jobJsonString } = this.state;
+    const { isEdit, open, job } = this.props;
 
     return (
-      <JobForm
-        defaultTab={defaultTab}
-        onTabChange={this.handleTabChange}
-        onChange={this.handleFormChange}
-        getTriggerSubmit={this.handleTriggerSubmit}
-        model={jobFormModel}
-        isEdit={this.props.isEdit}
-        schema={JobSchema}
+      <JobFormModal
+        errorMessage={this.getErrorMessage()}
+        handleCancel={this.handleCancel}
+        handleFormChange={this.handleFormChange}
+        handleInputModeToggle={this.handleInputModeToggle}
+        handleJSONEditorChange={this.handleJSONEditorChange}
+        handleSubmit={this.handleSubmit}
+        handleTriggerSubmit={this.handleTriggerSubmit}
+        isEdit={isEdit as boolean}
+        isOpen={open}
+        job={job as Job}
+        jobFormModel={jobFormModel}
+        jobJsonString={jobJsonString}
+        jsonMode={jsonMode}
       />
     );
   }
-
-  getModalFooter() {
-    let submitLabel = "Create Job";
-    if (this.props.isEdit) {
-      submitLabel = "Save Job";
-    }
-
-    return (
-      <div className="flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small flex-justify-items-space-between-screen-small">
-        <button
-          className="button button-primary-link flush-left"
-          onClick={this.handleCancel}
-        >
-          Cancel
-        </button>
-        <button className="button button-primary" onClick={this.handleSubmit}>
-          {submitLabel}
-        </button>
-      </div>
-    );
-  }
-
-  getModalTitle() {
-    let heading = " New Job";
-    if (this.props.isEdit) {
-      heading = `Edit Job (${this.props.job.getName()})`;
-    }
-
-    return (
-      <div>
-        <div className="header-flex">
-          <div className="header-left">
-            <ModalHeading align="left" level={4}>
-              {heading}
-            </ModalHeading>
-          </div>
-          <div className="header-right">
-            <ToggleButton
-              className="modal-form-title-label flush-bottom"
-              checkboxClassName="toggle-button"
-              checked={this.state.jsonMode}
-              onChange={this.handleInputModeToggle}
-            >
-              JSON mode
-            </ToggleButton>
-          </div>
-        </div>
-        <div className="header-full-width">{this.getErrorMessage()}</div>
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <Modal
-        backdropClass="modal-backdrop default-cursor"
-        modalWrapperClass="multiple-form-modal modal-form"
-        open={this.props.open}
-        scrollContainerClass="multiple-form-modal-body"
-        showHeader={true}
-        footer={this.getModalFooter()}
-        header={this.getModalTitle()}
-        showFooter={true}
-        useGemini={false}
-      >
-        {this.getModalContents()}
-      </Modal>
-    );
-  }
 }
-
-JobFormModal.defaultProps = {
-  isEdit: false,
-  job: new Job(),
-  onClose() {},
-  open: false
-};
-
-JobFormModal.propTypes = {
-  isEdit: PropTypes.bool,
-  job: PropTypes.instanceOf(Job),
-  open: PropTypes.bool,
-  onClose: PropTypes.func
-};
-
-module.exports = JobFormModal;

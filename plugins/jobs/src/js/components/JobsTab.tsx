@@ -1,8 +1,6 @@
 import * as React from "react";
 
-// tslint:disable-next-line:no-submodule-imports
-import JobFormModal from "#SRC/js/components/modals/JobFormModal";
-// tslint:disable-next-line:no-submodule-imports
+import JobFormModalContainer from "../JobFormModalContainer";
 import JobTree from "#SRC/js/structs/JobTree";
 // tslint:disable-next-line:no-submodule-imports
 import Job from "#SRC/js/structs/Job";
@@ -59,7 +57,7 @@ export default class JobsTab extends React.Component<
     } = this.props;
 
     const modal = (
-      <JobFormModal
+      <JobFormModalContainer
         open={this.state.isJobFormModalOpen}
         onClose={this.handleCloseJobFormModal}
       />
