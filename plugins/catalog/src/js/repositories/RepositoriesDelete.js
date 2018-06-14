@@ -10,11 +10,9 @@ import "rxjs/add/operator/catch";
 import { componentFromStream, graphqlObservable } from "data-service";
 import gql from "graphql-tag";
 
-import { deleteRepository } from "./data/repositoriesStream";
-
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
 import RepositoriesError from "./components/RepositoriesError";
-import { defaultSchema } from "./data/repositoriesModel";
+import { schema } from "./data/repositoriesModel";
 
 const getErrorMessage = (response = {}) => {
   if (typeof response === "string") {
@@ -33,12 +31,9 @@ const removePackageRepository = gql`
 `;
 
 const removePackageRepositoryGraphql = (name, uri) => {
-  return graphqlObservable(removePackageRepository, defaultSchema, {
+  return graphqlObservable(removePackageRepository, schema, {
     name,
-    uri,
-    mutation: {
-      removePackageRepository: deleteRepository
-    }
+    uri
   });
 };
 

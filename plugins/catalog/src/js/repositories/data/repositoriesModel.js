@@ -4,6 +4,13 @@ import "rxjs/add/operator/map";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 import { makeExecutableSchema } from "graphql-tools/dist/index";
 
+// Streams we get our data from
+import {
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
+} from "#PLUGINS/catalog/src/js/repositories/data/PackageRepositoryClient";
+
 export const typeDefs = `
   type PackageRepository {
     id: ID!
@@ -28,30 +35,38 @@ const getRepositoryList = filter => result =>
       .getItems()
   );
 
-export const resolvers = {
-  Query: {
-    packageRepository: (parent, args, context) => {
-      const { filter } = args;
+export function resolvers({
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
+}) {
+  return {
+    Query: {
+      packageRepository: (parent, args) => {
+        const { filter } = args;
 
-      // Filter Logic Backwards compatible with the previous struct/RepositoryList
-      return context.query.packageRepository.map(getRepositoryList(filter));
-    }
-  },
-  Mutation: {
-    addPackageRepository: (parent, args, context) => {
-      return context.mutation
-        .addPackageRepository(args.name, args.uri, args.index)
-        .map(getRepositoryList(""));
+        // Filter Logic Backwards compatible with the previous struct/RepositoryList
+        return liveFetchRepositories().map(getRepositoryList(filter));
+      }
     },
-    removePackageRepository: (parent, args, context) => {
-      return context.mutation
-        .removePackageRepository(args.name, args.uri)
-        .map(getRepositoryList(""));
+    Mutation: {
+      addPackageRepository: (parent, args) => {
+        return addRepository(args.name, args.uri, args.index).map(
+          getRepositoryList("")
+        );
+      },
+      removePackageRepository: (parent, args) => {
+        return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
+      }
     }
-  }
-};
+  };
+}
 
-export const defaultSchema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers: resolvers({
+    liveFetchRepositories,
+    addRepository,
+    deleteRepository
+  })
 });

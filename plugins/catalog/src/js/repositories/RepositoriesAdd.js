@@ -10,8 +10,7 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/observable/empty";
 
-import { defaultSchema } from "./data/repositoriesModel";
-import { addRepository } from "./data/repositoriesStream";
+import { schema } from "./data/repositoriesModel";
 import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
 
 // Imported from the Cosmos Store
@@ -32,13 +31,10 @@ const addPackageRepositoryMutation = gql`
 `;
 
 const addRepositoryGraphql = (name, uri, index) => {
-  return graphqlObservable(addPackageRepositoryMutation, defaultSchema, {
+  return graphqlObservable(addPackageRepositoryMutation, schema, {
     name,
     uri,
-    index,
-    mutation: {
-      addPackageRepository: addRepository
-    }
+    index
   });
 };
 
