@@ -35,30 +35,28 @@ const getRepositoryList = filter => result =>
       .getItems()
   );
 
-export function resolvers(
-  fetchRepositoriesRequest,
-  addRepositoryRequest,
-  deleteRepositoryRequest
-) {
+export function resolvers({
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
+}) {
   return {
     Query: {
       packageRepository: (parent, args) => {
         const { filter } = args;
 
         // Filter Logic Backwards compatible with the previous struct/RepositoryList
-        return fetchRepositoriesRequest().map(getRepositoryList(filter));
+        return liveFetchRepositories().map(getRepositoryList(filter));
       }
     },
     Mutation: {
       addPackageRepository: (parent, args) => {
-        return addRepositoryRequest(args.name, args.uri, args.index).map(() =>
-          getRepositoryList("")
-        );
+        return addRepository(args.name, args.uri, args.index)
+          .do(x => console.log(x))
+          .map(getRepositoryList(""));
       },
       removePackageRepository: (parent, args) => {
-        return deleteRepositoryRequest(args.name, args.uri).map(() =>
-          getRepositoryList("")
-        );
+        return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
       }
     }
   };
@@ -66,5 +64,9 @@ export function resolvers(
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: resolvers(liveFetchRepositories, addRepository, deleteRepository)
+  resolvers: resolvers({
+    liveFetchRepositories,
+    addRepository,
+    deleteRepository
+  })
 });
