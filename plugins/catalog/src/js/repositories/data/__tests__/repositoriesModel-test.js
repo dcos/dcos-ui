@@ -177,11 +177,6 @@ describe("Repository Model", function() {
         }).Mutation.removePackageRepository(null, {});
 
         m.expect(result).toBeObservable(expected);
-
-        expect(deleteRepository).toHaveBeenCalledWith(
-          "Marvel Universe",
-          "https://marvel.universe.mesosphere.com"
-        );
       })
     );
   });

@@ -51,9 +51,9 @@ export function resolvers({
     },
     Mutation: {
       addPackageRepository: (parent, args) => {
-        return addRepository(args.name, args.uri, args.index)
-          .do(x => console.log(x))
-          .map(getRepositoryList(""));
+        return addRepository(args.name, args.uri, args.index).map(
+          getRepositoryList("")
+        );
       },
       removePackageRepository: (parent, args) => {
         return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
