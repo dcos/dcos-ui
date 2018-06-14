@@ -8,13 +8,10 @@ import "rxjs/add/operator/switchMap";
 import { componentFromStream, graphqlObservable } from "data-service";
 
 // tools to make easier to create schemas and queries
-import { makeExecutableSchema } from "graphql-tools";
+// import { makeExecutableSchema } from "graphql-tools";
 import gql from "graphql-tag";
 
 import RepositoryList from "#SRC/js/structs/RepositoryList";
-
-// The graphql schema and resolvers for those streams;
-import { typeDefs, resolvers } from "./data/repositoriesModel";
 
 // UI components
 import RepositoriesTabUI from "./components/RepositoriesTabUI";
@@ -25,11 +22,11 @@ import RepositoriesError from "./components/RepositoriesError";
 
 // 1. We first make a schema out of the resolvers and typeDefinitions
 // You could as well just import (or inject) the default schema
-// import { schema } from "./data/repositoriesModel";
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-});
+// const schema = makeExecutableSchema({
+//   typeDefs,
+//   resolvers
+// });
+import { schema } from "./data/repositoriesModel";
 
 // 2. We declare which data our component needs in graphql (data down)
 const packageRepositoryQuery = filter => gql`

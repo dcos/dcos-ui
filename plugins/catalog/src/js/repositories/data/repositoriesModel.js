@@ -9,7 +9,7 @@ import {
   liveFetchRepositories,
   addRepository,
   deleteRepository
-} from "#PLUGINS/catalog/src/js/repositories/data/packageRepositoryClient";
+} from "#PLUGINS/catalog/src/js/repositories/data/PackageRepositoryClient";
 
 export const typeDefs = `
   type PackageRepository {
