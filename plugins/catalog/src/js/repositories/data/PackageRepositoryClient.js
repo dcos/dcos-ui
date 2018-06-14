@@ -1,62 +1,50 @@
-import "rxjs/add/operator/combineLatest";
-import "rxjs/add/operator/map";
+import { request } from "@dcos/http-service";
+import { Subject } from "rxjs/Subject";
+import Config from "#SRC/js/config/Config";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/concatMap";
 
-import RepositoryList from "#SRC/js/structs/RepositoryList";
-import { makeExecutableSchema } from "graphql-tools/dist/index";
+const reloadSubject = new Subject();
 
-// Streams we get our data from
-import {
-  liveFetchRepositories,
-  addRepository,
-  deleteRepository
-} from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
-
-export const typeDefs = `
-  type PackageRepository {
-    id: ID!
-    name: String!
-    uri: String!
-  }
-
-  type Query {
-    packageRepository(filter: String): [PackageRepository!]!
-  }
-
-  type Mutation {
-    addPackageRepository(name: String!, uri: String!, index: Int! ): [PackageRepository!]!
-    removePackageRepository(name: String!, uri: String!): [PackageRepository!]!
-  }
-`;
-
-const getRepositoryList = filter => result =>
-  Object.values(
-    new RepositoryList({ items: result.repositories })
-      .filterItemsByText(filter)
-      .getItems()
+export const fetchRepositories = type => {
+  return reloadSubject.startWith(null).concatMap(() =>
+    request(`${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/list`, {
+      method: "POST",
+      body: JSON.stringify({ type }),
+      headers: {
+        Accept:
+          "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
+        "Content-Type":
+          "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
+      }
+    })
   );
-
-export const resolvers = {
-  Query: {
-    packageRepository: (parent, args) => {
-      const { filter } = args;
-
-      // Filter Logic Backwards compatible with the previous struct/RepositoryList
-      return liveFetchRepositories().map(getRepositoryList(filter));
-    }
-  },
-  Mutation: {
-    addPackageRepository: (parent, args) => {
-      return addRepository(args.name, args.uri, args.index).map(
-        getRepositoryList("")
-      );
-    },
-    removePackageRepository: (parent, args) => {
-      return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
-    }
-  }
 };
 
-export const defaultSchema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-});
+export const liveFetchRepositories = type => {
+  return reloadSubject.startWith(null).concatMap(() => fetchRepositories(type));
+};
+
+export const addRepository = (name, uri, index) =>
+  request(`${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/add`, {
+    method: "POST",
+    body: JSON.stringify({ name, uri, index }),
+    headers: {
+      Accept:
+        "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
+      "Content-Type":
+        "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
+    }
+  }).do(() => reloadSubject.next());
+
+export const deleteRepository = (name, uri) =>
+  request(`${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/delete`, {
+    method: "POST",
+    body: JSON.stringify({ name, uri }),
+    headers: {
+      Accept:
+        "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
+      "Content-Type":
+        "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
+    }
+  }).do(() => reloadSubject.next());

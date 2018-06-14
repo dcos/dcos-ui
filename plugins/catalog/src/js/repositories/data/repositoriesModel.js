@@ -38,7 +38,7 @@ const getRepositoryList = filter => result =>
 export function resolvers(
   fetchRepositoriesRequest,
   addRepositoryRequest,
-  deleteRepositoryRequest,
+  deleteRepositoryRequest
 ) {
   return {
     Query: {
