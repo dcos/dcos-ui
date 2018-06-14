@@ -178,29 +178,12 @@ class JobDetailPage extends mixin(TabsMixin) {
   }
 
   getActions() {
-    const job = this.props.job;
-    const [schedule] = job.getSchedules();
-
     const actions = [];
 
     actions.push({
       label: "Edit",
       onItemSelect: this.props.handleEditButtonClick
     });
-
-    if (schedule != null && schedule.enabled) {
-      actions.push({
-        label: "Disable Schedule",
-        onItemSelect: this.props.handleDisableScheduleButtonClick
-      });
-    }
-
-    if (schedule != null && !schedule.enabled) {
-      actions.push({
-        label: "Enable Schedule",
-        onItemSelect: this.props.handleEnableScheduleButtonClick
-      });
-    }
 
     actions.push({
       className: "text-danger",

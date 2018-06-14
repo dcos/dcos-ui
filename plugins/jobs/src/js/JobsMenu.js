@@ -7,30 +7,40 @@ import "rxjs/add/operator/combineLatest";
 
 import Page from "#SRC/js/components/Page";
 import JobsBreadcrumbs from "#SRC/js/components/breadcrumbs/JobsBreadcrumbs";
+
+import { jobsToggleSchedule, jobsToggleSchedule$ } from "./JobsToggleSchedule";
 import { jobsRunNowAction, jobsRunNow$ } from "./JobsRunNow";
 
 const getActions = function(props) {
+  const job = props.job;
   const [edit, ...rest] = props.actions;
   const newActions = [];
 
   newActions.push(edit);
+  newActions.push(jobsRunNowAction(job.getId()));
 
-  newActions.push(jobsRunNowAction(props.job.getId()));
+  if (job.hasSchedule()) {
+    newActions.push(jobsToggleSchedule(job));
+  }
 
   return newActions.concat(rest);
 };
 
 const JobsMenu = componentFromStream(props$ => {
-  return props$.combineLatest(jobsRunNow$.startWith({}), props => {
-    return (
-      <Page.Header
-        actions={getActions(props)}
-        breadcrumbs={<JobsBreadcrumbs tree={props.tree} item={props.job} />}
-        tabs={props.tabs}
-        isPageHeader={props.isPageHeader}
-      />
-    );
-  });
+  return props$.combineLatest(
+    jobsRunNow$.startWith({}),
+    jobsToggleSchedule$.startWith({}),
+    props => {
+      return (
+        <Page.Header
+          actions={getActions(props)}
+          breadcrumbs={<JobsBreadcrumbs tree={props.tree} item={props.job} />}
+          tabs={props.tabs}
+          isPageHeader={props.isPageHeader}
+        />
+      );
+    }
+  );
 });
 
 export default JobsMenu;

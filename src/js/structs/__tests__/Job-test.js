@@ -355,6 +355,34 @@ describe("Job", function() {
     });
   });
 
+  describe("#hasSchedule", function() {
+    it("returns true if schedules exist", function() {
+      const job = new Job({ id: "foo", schedules: ["bar"] });
+
+      expect(job.hasSchedule()).toEqual(true);
+    });
+
+    it("returns false if schedules don't exist", function() {
+      const job = new Job({ id: "foo", schedules: null });
+
+      expect(job.hasSchedule()).toEqual(false);
+    });
+  });
+
+  describe("#isScheduleEnabled", function() {
+    it("returns true if schedule is enabled", function() {
+      const job = new Job({ id: "foo", schedules: [{ enabled: true }] });
+
+      expect(job.isScheduleEnabled()).toEqual(true);
+    });
+
+    it("returns false if schedule is disabled", function() {
+      const job = new Job({ id: "foo", schedules: [{ enabled: false }] });
+
+      expect(job.isScheduleEnabled()).toEqual(false);
+    });
+  });
+
   describe("#toJSON", function() {
     it("returns a object with the values in _itemData", function() {
       const item = new Job({ foo: "bar", baz: "qux" });

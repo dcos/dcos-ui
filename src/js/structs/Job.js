@@ -138,6 +138,18 @@ module.exports = class Job extends Item {
     return "COMPLETED";
   }
 
+  hasSchedule() {
+    const [schedule] = this.getSchedules();
+
+    return schedule != null;
+  }
+
+  isScheduleEnabled() {
+    const [schedule] = this.getSchedules();
+
+    return !!schedule.enabled;
+  }
+
   toJSON() {
     return cleanJobJSON(this.get());
   }
