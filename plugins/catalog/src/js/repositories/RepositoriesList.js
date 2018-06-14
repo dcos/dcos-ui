@@ -8,15 +8,10 @@ import "rxjs/add/operator/switchMap";
 import { componentFromStream, graphqlObservable } from "data-service";
 
 // tools to make easier to create schemas and queries
-import { makeExecutableSchema } from "graphql-tools";
+// import { makeExecutableSchema } from "graphql-tools";
 import gql from "graphql-tag";
 
-// Streams we get our data from
-import { liveFetchRepositories } from "#PLUGINS/catalog/src/js/repositories/data/repositoriesStream";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
-
-// The graphql schema and resolvers for those streams;
-import { typeDefs, resolvers } from "./data/repositoriesModel";
 
 // UI components
 import RepositoriesTabUI from "./components/RepositoriesTabUI";
@@ -27,11 +22,11 @@ import RepositoriesError from "./components/RepositoriesError";
 
 // 1. We first make a schema out of the resolvers and typeDefinitions
 // You could as well just import (or inject) the default schema
-// import { defaultSchema } from "./data/repositoriesModel";
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-});
+// const schema = makeExecutableSchema({
+//   typeDefs,
+//   resolvers
+// });
+import { schema } from "./data/repositoriesModel";
 
 // 2. We declare which data our component needs in graphql (data down)
 const packageRepositoryQuery = filter => gql`
@@ -50,17 +45,13 @@ const searchTerm$ = new BehaviorSubject("");
 // we get the props for our component.
 // The idea is from an Observable of data and events, compose a stream o React.Components
 
-const packageRepository$ = liveFetchRepositories();
-
 const keypressDebounceTime = 250;
 const searchResults$ = searchTerm$
   .debounceTime(keypressDebounceTime)
   .switchMap(searchTerm => {
     const query = packageRepositoryQuery(searchTerm);
 
-    return graphqlObservable(query, schema, {
-      query: { packageRepository: packageRepository$ }
-    }).map(result => {
+    return graphqlObservable(query, schema).map(result => {
       // Backwards compatible with the previous struct/RepositoryList for packages
       return new RepositoryList({
         items: result.data.packageRepository
