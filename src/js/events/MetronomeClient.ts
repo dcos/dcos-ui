@@ -7,7 +7,7 @@ import Config from "../config/Config";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 export interface JobResponse {
   id: string;
-  labels?: object;
+  labels?: LabelResponse;
   run: {
     cpus: number;
     mem: number;
@@ -27,10 +27,15 @@ export interface JobResponse {
     successCount: number;
   };
 }
+
+interface LabelResponse {
+  [key: string]: string;
+}
+
 export interface JobDetailResponse {
   id: string;
   description: string;
-  labels: JobLabels;
+  labels: LabelResponse;
   run: {
     cpus: number;
     mem: number;

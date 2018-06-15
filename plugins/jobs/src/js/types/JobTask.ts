@@ -42,7 +42,6 @@ export const JobTaskFieldResolvers = {
     return task.finishedAt ? DateUtil.strToMs(task.finishedAt) : null;
   },
   status(task: MetronomeJobRunTask): JobTaskStatus {
-    // TODO: this should use JobTaskStatusTypeResolver…
     return task.status;
   },
   taskId(task: MetronomeJobRunTask): string {
