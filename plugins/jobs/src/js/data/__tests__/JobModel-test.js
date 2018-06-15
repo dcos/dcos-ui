@@ -160,12 +160,16 @@ describe("JobModel Resolver", () => {
                 ...defaultJobDetailData,
                 activeRuns: [
                   {
+                    jobId: 1,
                     status: "foo",
-                    createdAt: "1985-01-03t00:00:00z-1"
+                    createdAt: "1985-01-03t00:00:00z-1",
+                    tasks: []
                   },
                   {
+                    jobId: 2,
                     status: "bar",
-                    createdAt: "1990-01-03t00:00:00z-1"
+                    createdAt: "1990-01-03t00:00:00z-1",
+                    tasks: []
                   }
                 ]
               }),
@@ -212,7 +216,7 @@ describe("JobModel Resolver", () => {
       );
 
       it(
-        "returns scheduled if there are no active runs and the schedule is enabled",
+        "returns unscheduled if there are no active runs and the schedule is enabled",
         marbles(m => {
           m.bind();
           const result$ = resolvers({
@@ -288,6 +292,10 @@ describe("JobModel Resolver", () => {
                   ({ activeRuns: { longestRunningActiveRun } }) =>
                     longestRunningActiveRun
                 )
+                .catch(e => {
+                  console.error(e);
+                  throw e;
+                })
             ).toBeObservable(
               m.cold("(x|)", {
                 x: null
@@ -306,9 +314,21 @@ describe("JobModel Resolver", () => {
                   ...defaultJobDetailData,
                   id: "/foo",
                   activeRuns: [
-                    { jobId: "1", createdAt: "1990-01-03T00:00:00Z-1" },
-                    { jobId: "2", createdAt: "1985-01-03T00:00:00Z-1" },
-                    { jobId: "3", createdAt: "1995-01-03T00:00:00Z-1" }
+                    {
+                      jobId: "1",
+                      createdAt: "1990-01-03T00:00:00Z-1",
+                      tasks: []
+                    },
+                    {
+                      jobId: "2",
+                      createdAt: "1985-01-03T00:00:00Z-1",
+                      tasks: []
+                    },
+                    {
+                      jobId: "3",
+                      createdAt: "1995-01-03T00:00:00Z-1",
+                      tasks: []
+                    }
                   ]
                 }),
               pollingInterval: m.time("-|")
@@ -339,9 +359,17 @@ describe("JobModel Resolver", () => {
                   ...defaultJobDetailData,
                   id: "/foo",
                   activeRuns: [
-                    { jobId: "1", createdAt: "1990-01-03T00:00:00Z-1" },
-                    { jobId: "2", createdAt: null },
-                    { jobId: "3", createdAt: "1995-01-03T00:00:00Z-1" }
+                    {
+                      jobId: "1",
+                      createdAt: "1990-01-03T00:00:00Z-1",
+                      tasks: []
+                    },
+                    { jobId: "2", createdAt: null, tasks: [] },
+                    {
+                      jobId: "3",
+                      createdAt: "1995-01-03T00:00:00Z-1",
+                      tasks: []
+                    }
                   ]
                 }),
               pollingInterval: m.time("-|")
@@ -374,9 +402,17 @@ describe("JobModel Resolver", () => {
                   ...defaultJobDetailData,
                   id: "/foo",
                   activeRuns: [
-                    { jobId: "1", createdAt: "1990-01-03T00:00:00Z-1" },
-                    { jobId: "2", createdAt: null },
-                    { jobId: "3", createdAt: "1995-01-03T00:00:00Z-1" }
+                    {
+                      jobId: "1",
+                      createdAt: "1990-01-03T00:00:00Z-1",
+                      tasks: []
+                    },
+                    { jobId: "2", createdAt: null, tasks: [] },
+                    {
+                      jobId: "3",
+                      createdAt: "1995-01-03T00:00:00Z-1",
+                      tasks: []
+                    }
                   ]
                 }),
               pollingInterval: m.time("-|")
@@ -408,7 +444,8 @@ describe("JobModel Resolver", () => {
                         createdAt: "2018-06-12T16:25:35.593+0000",
                         completedAt: "2018-06-12T17:25:35.593+0000",
                         status: "ACTIVE",
-                        id: "20180612162535qXvcx"
+                        id: "20180612162535qXvcx",
+                        tasks: []
                       }
                     ]
                   }),
@@ -446,7 +483,8 @@ describe("JobModel Resolver", () => {
                         createdAt: "2018-06-12T16:25:35.593+0000",
                         completedAt: "2018-06-12T17:25:35.593+0000",
                         status: "ACTIVE",
-                        id: "20180612162535qXvcx"
+                        id: "20180612162535qXvcx",
+                        tasks: []
                       }
                     ]
                   }),
@@ -457,6 +495,10 @@ describe("JobModel Resolver", () => {
                 result$
                   .take(1)
                   .map(({ activeRuns: { nodes } }) => nodes[0].status)
+                  .catch(e => {
+                    console.error(e);
+                    throw e;
+                  })
               ).toBeObservable(
                 m.cold("(x|)", {
                   x: "ACTIVE"

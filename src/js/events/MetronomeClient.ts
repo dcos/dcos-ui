@@ -27,11 +27,10 @@ export interface JobResponse {
     successCount: number;
   };
 }
-
 export interface JobDetailResponse {
   id: string;
   description: string;
-  labels: object;
+  labels: JobLabels;
   run: {
     cpus: number;
     mem: number;
@@ -47,17 +46,25 @@ export interface JobDetailResponse {
     restart: {
       policy: string;
     };
-    docker?: {
-      secrets: object;
-      forcePullImage: boolean;
-      image: string;
-    };
+    docker?: JobDocker;
     secrets: object;
   };
   schedules: Schedule[];
   activeRuns: ActiveJobRun[];
   history: JobHistory;
 }
+
+export interface JobLabels {
+  key: string;
+  value: string;
+}
+
+export interface JobDocker {
+  secrets: object;
+  forcePullImage: boolean;
+  image: string;
+}
+
 export interface Schedule {
   concurrencyPolicy: string;
   cron: string;
@@ -82,10 +89,10 @@ export interface ActiveJobRun {
   id: string;
   jobId: string;
   status: JobStatus;
-  tasks: JobRunTasks[];
+  tasks: JobRunTask[];
 }
 
-export interface JobRunTasks {
+export interface JobRunTask {
   id: string;
   createdAt: string;
   finishedAt: string | null;
