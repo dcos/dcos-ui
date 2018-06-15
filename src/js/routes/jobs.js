@@ -2,14 +2,13 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { IndexRoute, Redirect, Route } from "react-router";
-
 import JobsTabContainer from "#PLUGINS/jobs/src/js/JobsTabContainer";
 import TaskDetailsTab from "#PLUGINS/services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "#PLUGINS/services/src/js/pages/task-details/TaskFileBrowser";
 import TaskFileViewer from "#PLUGINS/services/src/js/pages/task-details/TaskFileViewer";
 import TaskFilesTab from "#PLUGINS/services/src/js/pages/task-details/TaskFilesTab";
 import TaskLogsContainer from "#PLUGINS/services/src/js/pages/task-details/TaskLogsContainer";
-import { JobDetailPageContainer } from "../pages/jobs/JobDetailPageContainer";
+import { default as JobDetailPageContainer } from "../pages/jobs/JobDetailPageContainer";
 import JobsPage from "../pages/JobsPage";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
 

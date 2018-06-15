@@ -81,6 +81,7 @@ type Job {
   lastRunStatus: JobRunStatusSummary
   mem: Int!
   name: String!
+  path: [String]!
   schedules: ScheduleConnection!
   scheduleStatus: JobStatus!
 }
@@ -162,6 +163,9 @@ export const JobFieldResolvers = {
   },
   name(job: MetronmeGenericJobResponse): string {
     return job.id.split(".").pop() || "";
+  },
+  path(job: MetronmeGenericJobResponse): string[] {
+    return job.id.split(".").slice(0, -1);
   },
   schedules(job: MetronmeGenericJobResponse): JobScheduleConnection {
     return JobScheduleConnectionTypeResolver(job.schedules);
