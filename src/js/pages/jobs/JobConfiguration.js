@@ -8,7 +8,6 @@ import ConfigurationMapRow from "../../components/ConfigurationMapRow";
 import ConfigurationMapSection from "../../components/ConfigurationMapSection";
 import ConfigurationMapValue from "../../components/ConfigurationMapValue";
 import HashMapDisplay from "../../components/HashMapDisplay";
-import Job from "../../structs/Job";
 
 class JobConfiguration extends React.Component {
   getSchedule(job) {
@@ -27,28 +26,28 @@ class JobConfiguration extends React.Component {
         <ConfigurationMapHeading>General</ConfigurationMapHeading>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>ID</ConfigurationMapLabel>
-          <ConfigurationMapValue>{job.getId()}</ConfigurationMapValue>
+          <ConfigurationMapValue>{job.id}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Description</ConfigurationMapLabel>
-          <ConfigurationMapValue>{job.getDescription()}</ConfigurationMapValue>
+          <ConfigurationMapValue>{job.description}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
-          <ConfigurationMapValue>{job.getCpus()}</ConfigurationMapValue>
+          <ConfigurationMapValue>{job.cpus}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Memory (MiB)</ConfigurationMapLabel>
-          <ConfigurationMapValue>{job.getMem()}</ConfigurationMapValue>
+          <ConfigurationMapValue>{job.mem}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Disk Space (Mib)</ConfigurationMapLabel>
-          <ConfigurationMapValue>{job.getDisk()}</ConfigurationMapValue>
+          <ConfigurationMapValue>{job.disk}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <ConfigurationMapLabel>Command</ConfigurationMapLabel>
           <ConfigurationMapValue>
-            <pre className="flush transparent wrap">{job.getCommand()}</pre>
+            <pre className="flush transparent wrap">{job.command}</pre>
           </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
@@ -56,7 +55,7 @@ class JobConfiguration extends React.Component {
   }
 
   getScheduleSection(job) {
-    const [schedule] = job.getSchedules();
+    const [schedule] = job.schedules.nodes;
     if (schedule == null) {
       return null;
     }
@@ -91,7 +90,7 @@ class JobConfiguration extends React.Component {
   }
 
   getDockerContainerSection(job) {
-    const docker = job.getDocker();
+    const docker = job.docker;
     if (docker == null || !docker.image) {
       return null;
     }
@@ -108,7 +107,15 @@ class JobConfiguration extends React.Component {
   }
 
   getLabelSection(job) {
-    return <HashMapDisplay hash={job.getLabels()} headline="Labels" />;
+    return (
+      <HashMapDisplay
+        hash={job.labels.reduce(
+          (memo, { key, value }) => ({ ...memo, [key]: value }),
+          {}
+        )}
+        headline="Labels"
+      />
+    );
   }
 
   render() {
@@ -128,7 +135,7 @@ class JobConfiguration extends React.Component {
 }
 
 JobConfiguration.propTypes = {
-  job: PropTypes.instanceOf(Job).isRequired
+  job: PropTypes.object.isRequired
 };
 
 module.exports = JobConfiguration;

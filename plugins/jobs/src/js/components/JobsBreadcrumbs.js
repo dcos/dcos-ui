@@ -70,8 +70,8 @@ function getItemSchedule(item) {
 }
 
 function getBreadcrumb(item, details = true) {
-  const id = item.getId();
-  const name = item.getName();
+  const id = item.id;
+  const name = item.name;
   const link =
     item instanceof Job ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
 
@@ -93,10 +93,7 @@ function getBreadcrumbList(tree, item, details) {
 
   return tree
     .filterItems(function(currentItem) {
-      return (
-        item.getId() === currentItem.getId() &&
-        item.constructor === currentItem.constructor
-      );
+      return item.id === currentItem.id;
     })
     .reduceItems(function(acc, currentItem) {
       return acc.concat(getBreadcrumb(currentItem, details));
@@ -117,7 +114,8 @@ JobsBreadcrumbs.propTypes = {
   tree: PropTypes.instanceOf(JobTree).isRequired,
   item: PropTypes.oneOfType([
     PropTypes.instanceOf(JobTree),
-    PropTypes.instanceOf(Job)
+    PropTypes.instanceOf(Job),
+    PropTypes.object
   ])
 };
 
