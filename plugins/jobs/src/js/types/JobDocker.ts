@@ -1,4 +1,4 @@
-import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
+import { JobDocker as MetronomeJobDocker } from "#SRC/js/events/MetronomeClient";
 export interface JobDocker {
   forcePullImage: boolean;
   image: string;
@@ -12,7 +12,7 @@ type Docker {
 `;
 
 export function JobDockerTypeResolver(
-  docker: MetronomeClient.JobDocker
+  docker: MetronomeJobDocker
 ): JobDocker | null {
   return {
     forcePullImage: JobDockerFieldResolvers.forcePullImage(docker),
@@ -21,10 +21,10 @@ export function JobDockerTypeResolver(
 }
 
 export const JobDockerFieldResolvers = {
-  forcePullImage(docker: MetronomeClient.JobDocker): boolean {
+  forcePullImage(docker: MetronomeJobDocker): boolean {
     return docker.forcePullImage;
   },
-  image(docker: MetronomeClient.JobDocker): string {
+  image(docker: MetronomeJobDocker): string {
     return docker.image;
   }
 };

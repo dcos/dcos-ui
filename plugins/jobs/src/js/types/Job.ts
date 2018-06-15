@@ -1,4 +1,7 @@
-import * as MetronomeClient from "#SRC/js/events/MetronomeClient";
+import {
+  JobDetailResponse as MetronomeJobDetailResponse,
+  JobStatus as MetronomeJobStatus
+} from "#SRC/js/events/MetronomeClient";
 import {
   JobRunConnection,
   JobRunConnectionTypeResolver,
@@ -24,7 +27,6 @@ import {
   JobStatusSchema
 } from "#PLUGINS/jobs/src/js/types/JobStatus";
 import { JobHistoryRun } from "#PLUGINS/jobs/src/js/types/JobHistoryRun";
-import JobRunList from "#SRC/js/structs/JobRunList";
 import {
   JobDockerTypeResolver,
   JobDocker,
@@ -32,8 +34,6 @@ import {
 } from "#PLUGINS/jobs/src/js/types/JobDocker";
 import { JobLabel, LabelSchema } from "#PLUGINS/jobs/src/js/types/JobLabel";
 import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
-import status from "plugins/jobs/src/js/constants/JobStatus";
-import { JobConnection } from "plugins/jobs/src/js/types/JobConnection";
 export interface Job {
   activeRuns: JobRunConnection;
   command: string;
@@ -82,9 +82,7 @@ type Job {
 }
 `;
 
-export function JobTypeResolver(
-  response: MetronomeClient.JobDetailResponse
-): Job {
+export function JobTypeResolver(response: MetronomeJobDetailResponse): Job {
   return {
     id: fieldResolvers.id(response),
     description: fieldResolvers.description(response),
@@ -105,52 +103,52 @@ export function JobTypeResolver(
   };
 }
 export const fieldResolvers = {
-  id(job: MetronomeClient.JobDetailResponse): string {
+  id(job: MetronomeJobDetailResponse): string {
     return job.id;
   },
-  description(job: MetronomeClient.JobDetailResponse): string {
+  description(job: MetronomeJobDetailResponse): string {
     return job.description;
   },
-  command(job: MetronomeClient.JobDetailResponse): string {
+  command(job: MetronomeJobDetailResponse): string {
     return job.run.cmd;
   },
-  disk(job: MetronomeClient.JobDetailResponse): number {
+  disk(job: MetronomeJobDetailResponse): number {
     return job.run.disk;
   },
-  mem(job: MetronomeClient.JobDetailResponse): number {
+  mem(job: MetronomeJobDetailResponse): number {
     return job.run.mem;
   },
-  cpus(job: MetronomeClient.JobDetailResponse): number {
+  cpus(job: MetronomeJobDetailResponse): number {
     return job.run.cpus;
   },
-  activeRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
+  activeRuns(job: MetronomeJobDetailResponse): JobRunConnection {
     return JobRunConnectionTypeResolver(job.activeRuns);
   },
-  docker(job: MetronomeClient.JobDetailResponse): JobDocker | null {
+  docker(job: MetronomeJobDetailResponse): JobDocker | null {
     return job.run.docker ? JobDockerTypeResolver(job.run.docker) : null;
   },
-  jobRuns(job: MetronomeClient.JobDetailResponse): JobRunConnection {
+  jobRuns(job: MetronomeJobDetailResponse): JobRunConnection {
     return AddStatusToHistoryJobRuns(job);
   },
-  json(job: MetronomeClient.JobDetailResponse): string {
+  json(job: MetronomeJobDetailResponse): string {
     return JSON.stringify(cleanJobJSON(job));
   },
-  labels(job: MetronomeClient.JobDetailResponse): JobLabel[] {
+  labels(job: MetronomeJobDetailResponse): JobLabel[] {
     return Object.entries(job.labels).map(([key, value]) => ({ key, value }));
   },
-  lastRunsSummary(job: MetronomeClient.JobDetailResponse): JobHistorySummary {
+  lastRunsSummary(job: MetronomeJobDetailResponse): JobHistorySummary {
     return JobHistorySummaryTypeResolver(job.history);
   },
-  lastRunStatus(job: MetronomeClient.JobDetailResponse): JobRunStatusSummary {
+  lastRunStatus(job: MetronomeJobDetailResponse): JobRunStatusSummary {
     return JobRunStatusSummaryTypeResolver(job);
   },
-  name(job: MetronomeClient.JobDetailResponse): string {
+  name(job: MetronomeJobDetailResponse): string {
     return job.id.split(".").pop() || "";
   },
-  schedules(job: MetronomeClient.JobDetailResponse): JobScheduleConnection {
+  schedules(job: MetronomeJobDetailResponse): JobScheduleConnection {
     return JobScheduleConnectionTypeResolver(job.schedules);
   },
-  scheduleStatus(job: MetronomeClient.JobDetailResponse): JobStatus {
+  scheduleStatus(job: MetronomeJobDetailResponse): JobStatus {
     const jobRunConnection = AddStatusToHistoryJobRuns(job);
 
     if (jobRunConnection.longestRunningActiveRun !== null) {
@@ -179,18 +177,18 @@ export const fieldResolvers = {
 };
 
 function AddStatusToHistoryJobRuns(
-  job: MetronomeClient.JobDetailResponse
+  job: MetronomeJobDetailResponse
 ): JobRunConnection {
   const { successfulFinishedRuns, failedFinishedRuns } = job.history;
 
   const successfulFinishedRunsWithStatus: JobHistoryRun[] = successfulFinishedRuns.map(
-    run => ({ ...run, status: "COMPLETED" as MetronomeClient.JobStatus }) // TODO: investiagte why we need to cast this
+    run => ({ ...run, status: "COMPLETED" as MetronomeJobStatus }) // TODO: investiagte why we need to cast this
   );
 
   const failedFinishedRunsWithStatus: JobHistoryRun[] = failedFinishedRuns.map(
     run => ({
       ...run,
-      status: "FAILED" as MetronomeClient.JobStatus
+      status: "FAILED" as MetronomeJobStatus
     })
   );
 
