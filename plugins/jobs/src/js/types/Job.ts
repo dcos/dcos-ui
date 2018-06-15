@@ -34,6 +34,7 @@ import {
 } from "#PLUGINS/jobs/src/js/types/JobDocker";
 import { JobLabel, LabelSchema } from "#PLUGINS/jobs/src/js/types/JobLabel";
 import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
+
 export interface Job {
   activeRuns: JobRunConnection;
   command: string;
@@ -84,25 +85,25 @@ type Job {
 
 export function JobTypeResolver(response: MetronomeJobDetailResponse): Job {
   return {
-    id: fieldResolvers.id(response),
-    description: fieldResolvers.description(response),
-    command: fieldResolvers.command(response),
-    disk: fieldResolvers.disk(response),
-    mem: fieldResolvers.mem(response),
-    cpus: fieldResolvers.cpus(response),
-    docker: fieldResolvers.docker(response),
-    json: fieldResolvers.json(response),
-    labels: fieldResolvers.labels(response),
-    lastRunStatus: fieldResolvers.lastRunStatus(response),
-    name: fieldResolvers.name(response),
-    jobRuns: fieldResolvers.jobRuns(response),
-    lastRunsSummary: fieldResolvers.lastRunsSummary(response),
-    scheduleStatus: fieldResolvers.scheduleStatus(response),
-    activeRuns: fieldResolvers.activeRuns(response),
-    schedules: fieldResolvers.schedules(response)
+    id: JobFieldResolvers.id(response),
+    description: JobFieldResolvers.description(response),
+    command: JobFieldResolvers.command(response),
+    disk: JobFieldResolvers.disk(response),
+    mem: JobFieldResolvers.mem(response),
+    cpus: JobFieldResolvers.cpus(response),
+    docker: JobFieldResolvers.docker(response),
+    json: JobFieldResolvers.json(response),
+    labels: JobFieldResolvers.labels(response),
+    lastRunStatus: JobFieldResolvers.lastRunStatus(response),
+    name: JobFieldResolvers.name(response),
+    jobRuns: JobFieldResolvers.jobRuns(response),
+    lastRunsSummary: JobFieldResolvers.lastRunsSummary(response),
+    scheduleStatus: JobFieldResolvers.scheduleStatus(response),
+    activeRuns: JobFieldResolvers.activeRuns(response),
+    schedules: JobFieldResolvers.schedules(response)
   };
 }
-export const fieldResolvers = {
+export const JobFieldResolvers = {
   id(job: MetronomeJobDetailResponse): string {
     return job.id;
   },

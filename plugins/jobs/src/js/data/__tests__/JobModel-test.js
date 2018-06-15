@@ -292,10 +292,6 @@ describe("JobModel Resolver", () => {
                   ({ activeRuns: { longestRunningActiveRun } }) =>
                     longestRunningActiveRun
                 )
-                .catch(e => {
-                  console.error(e);
-                  throw e;
-                })
             ).toBeObservable(
               m.cold("(x|)", {
                 x: null
@@ -495,10 +491,6 @@ describe("JobModel Resolver", () => {
                 result$
                   .take(1)
                   .map(({ activeRuns: { nodes } }) => nodes[0].status)
-                  .catch(e => {
-                    console.error(e);
-                    throw e;
-                  })
               ).toBeObservable(
                 m.cold("(x|)", {
                   x: "ACTIVE"

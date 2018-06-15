@@ -38,9 +38,6 @@ export interface JobsQueryArgs {
 
 export interface JobQueryArgs {
   id: string;
-  filter?: string | null;
-  sortBy?: SortOption | null;
-  sortDirection?: SortDirection | null;
 }
 
 export type SortOption = "ID" | "STATUS" | "LAST_RUN";
