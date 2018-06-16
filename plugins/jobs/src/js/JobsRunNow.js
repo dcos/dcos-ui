@@ -30,7 +30,7 @@ export const jobsRunNowAction = id => {
   return {
     label: "Run Now",
     onItemSelect() {
-      runNowEvent$.next({ id });
+      runNowJobGraphql(id);
     }
   };
 };

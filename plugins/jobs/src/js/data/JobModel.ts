@@ -73,7 +73,7 @@ export const typeDefs = `
     ): Job
   }
   type Mutation {
-    runJob(id: String!): JobRun!
+    runJob(id: String!): Job!
   }
   `;
 

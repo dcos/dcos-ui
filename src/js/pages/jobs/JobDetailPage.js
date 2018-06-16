@@ -9,7 +9,8 @@ import mixin from "reactjs-mixin";
 
 import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
-import JobsMenu from "#PLUGINS/jobs/src/js/JobsMenu";
+import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+import menuGetActions from "#PLUGINS/jobs/src/js/JobsMenu";
 
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
@@ -239,15 +240,16 @@ class JobDetailPage extends mixin(TabsMixin) {
     }
 
     const { job, jobTree } = this.props;
+    menuGetActions(this.getActions(), job.getId()).subscribe(() => {
+      console.log("changed");
+    });
 
     return (
       <Page>
-        <JobsMenu
+        <Page.Header
           actions={this.getActions()}
+          breadcrumbs={<JobsBreadcrumbs tree={jobTree} item={job} />}
           tabs={this.getTabs()}
-          job={job}
-          tree={jobTree}
-          isPageHeader={true}
         />
         {this.tabs_getTabView(job)}
         <JobFormModalContainer
