@@ -69,54 +69,71 @@ function getItemSchedule(item) {
   );
 }
 
-function getBreadcrumb(item, details = true) {
-  const id = item.id;
-  const name = item.name;
-  const link =
-    item instanceof Job ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
+function getBreadcrumb(item, id = "", name = "", details = true) {
+  console.log("getBreadcrumb", id);
+  const link = item.id === id ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
 
   return (
     <Breadcrumb key={id} title="Jobs">
       <BreadcrumbTextContent>
         <Link to={link}>{name === "" ? "Jobs" : name}</Link>
       </BreadcrumbTextContent>
-      {details ? getItemSchedule(item) : null}
-      {details ? getItemStatus(item) : null}
+      {/* {details ? getItemSchedule(item) : null}
+      {details ? getItemStatus(item) : null} */}
     </Breadcrumb>
   );
 }
 
-function getBreadcrumbList(tree, item, details) {
+function getBreadcrumbList(item, details) {
   if (item == null) {
     return [];
   }
 
-  return tree
-    .filterItems(function(currentItem) {
-      return item.id === currentItem.id;
-    })
-    .reduceItems(function(acc, currentItem) {
-      return acc.concat(getBreadcrumb(currentItem, details));
-    }, []);
+  return item.id
+    .split(".")
+    .reduce((memo, segment) => {
+      const [first] = memo;
+      if (first) {
+        return [[...first, segment], ...memo];
+      }
+
+      return [[segment]];
+    }, [])
+    .reverse()
+    .map(segment =>
+      getBreadcrumb(
+        item,
+        segment.join("."),
+        segment[segment.length - 1],
+        details
+      )
+    );
 }
 
-const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
-  const breadcrumbs = [].concat(
-    getBreadcrumb(tree, details),
-    getBreadcrumbList(tree, item, details),
-    React.Children.toArray(children)
-  );
+const JobsBreadcrumbs = ({ item, children }) => {
+  try {
+    console.log("JobsBreadcrumb", item, getBreadcrumbList(item, false));
+    let breadcrumbs = [];
+    if (item) {
+      // TODO: details should be true for only the last item in the tree
+      const details = false;
+      breadcrumbs = [].concat(
+        getBreadcrumb(item),
+        getBreadcrumbList(item, details),
+        React.Children.toArray(children)
+      );
+    }
 
-  return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbs} />;
+    return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbs} />;
+  } catch (e) {
+    console.error("Breadcrumb", e);
+
+    return null;
+  }
 };
 
 JobsBreadcrumbs.propTypes = {
-  tree: PropTypes.instanceOf(JobTree).isRequired,
-  item: PropTypes.oneOfType([
-    PropTypes.instanceOf(JobTree),
-    PropTypes.instanceOf(Job),
-    PropTypes.object
-  ])
+  item: PropTypes.object
 };
 
 module.exports = JobsBreadcrumbs;

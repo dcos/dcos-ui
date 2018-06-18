@@ -15,19 +15,21 @@ export const DIALOGS = {
   DESTROY: "destroy"
 };
 
-const LoadingScreen = function({ jobTree }) {
+const LoadingScreen = function() {
+  // TODO: fix null
   return (
     <Page>
-      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={jobTree} />} />
+      <Page.Header breadcrumbs={null} />
       <Loader />
     </Page>
   );
 };
 
-const ErrorScreen = function({ jobTree }) {
+const ErrorScreen = function() {
+  // TODO: fix null
   return (
     <Page>
-      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={jobTree} />} />
+      <Page.Header breadcrumbs={null} />
       <RequestErrorMsg />
     </Page>
   );
@@ -95,10 +97,11 @@ export default componentFromStream(props$ => {
         return <LoadingScreen jobTree={jobTree} />;
       }
 
+      console.log("JobDetailPagContainer", job);
+
       props = {
         ...props,
         job,
-        jobTree,
         jobActionDialog,
         disabledDialog,
         errorMsg: null,
@@ -122,6 +125,6 @@ export default componentFromStream(props$ => {
 
       return <JobDetailPage {...props} />;
     })
-    .startWith(<LoadingScreen jobTree={MetronomeStore.jobTree} />)
-    .catch(<ErrorScreen jobTree={MetronomeStore.jobTree} />);
+    .startWith(<LoadingScreen />)
+    .catch(<ErrorScreen />);
 });
