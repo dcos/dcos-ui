@@ -85,7 +85,7 @@ function getBreadcrumb(item, id = "", name = "", details = true) {
 }
 
 function getBreadcrumbList(item, details) {
-  if (item == null) {
+  if (item == null || item.id === "") {
     return [];
   }
 
