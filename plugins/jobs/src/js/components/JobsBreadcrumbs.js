@@ -13,33 +13,13 @@ import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import Icon from "#SRC/js/components/Icon";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
-function getLongestRunningTask(item) {
-  if (!(item instanceof Job)) {
-    return null;
-  }
-
-  const longestRunningActiveRun = item
-    .getActiveRuns()
-    .getLongestRunningActiveRun();
-
-  if (!longestRunningActiveRun) {
-    return null;
-  }
-
-  return longestRunningActiveRun.getTasks().getLongestRunningTask();
-}
-
-function getItemStatus(item) {
-  const longestRunningTask = getLongestRunningTask(item);
-
-  if (!longestRunningTask) {
-    return null;
-  }
+function ItemStatus({ item }) {
+  console.log("ItemStatus", item);
 
   return (
     <BreadcrumbSupplementalContent>
       <div className="service-page-header-status muted">
-        ({TaskStates[longestRunningTask.getStatus()].displayName})
+        ({TaskStates[item.status].displayName})
       </div>
     </BreadcrumbSupplementalContent>
   );
@@ -69,56 +49,67 @@ function getItemSchedule(item) {
   );
 }
 
-function getBreadcrumb(item, details = true) {
-  const id = item.getId();
-  const name = item.getName();
-  const link =
-    item instanceof Job ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
+function getBreadcrumb(item, id = "", name = "") {
+  console.log("getBreadcrumb", id);
+  const isDetailPage = item.id === id;
+  const link = isDetailPage ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
 
   return (
     <Breadcrumb key={id} title="Jobs">
       <BreadcrumbTextContent>
         <Link to={link}>{name === "" ? "Jobs" : name}</Link>
       </BreadcrumbTextContent>
-      {details ? getItemSchedule(item) : null}
-      {details ? getItemStatus(item) : null}
+      {/* {details ? getItemSchedule(item) : null */}
+      {isDetailPage ? <ItemStatus item={item} /> : null}}
     </Breadcrumb>
   );
 }
 
-function getBreadcrumbList(tree, item, details) {
-  if (item == null) {
+function getBreadcrumbList(item, details) {
+  if (item == null || item.id === "") {
     return [];
   }
 
-  return tree
-    .filterItems(function(currentItem) {
-      return (
-        item.getId() === currentItem.getId() &&
-        item.constructor === currentItem.constructor
-      );
-    })
-    .reduceItems(function(acc, currentItem) {
-      return acc.concat(getBreadcrumb(currentItem, details));
-    }, []);
+  return item.id
+    .split(".")
+    .reduce((memo, segment) => {
+      const [first] = memo;
+      if (first) {
+        return [[...first, segment], ...memo];
+      }
+
+      return [[segment]];
+    }, [])
+    .reverse()
+    .map(segment =>
+      getBreadcrumb(
+        item,
+        segment.join("."),
+        segment[segment.length - 1],
+        details
+      )
+    );
 }
 
-const JobsBreadcrumbs = ({ tree, item, children, details = true }) => {
-  const breadcrumbs = [].concat(
-    getBreadcrumb(tree, details),
-    getBreadcrumbList(tree, item, details),
-    React.Children.toArray(children)
-  );
+const JobsBreadcrumbs = ({ item, children }) => {
+  let breadcrumbs = [];
 
+  if (item) {
+    // TODO: details should be true for only the last item in the tree
+    const details = false;
+    breadcrumbs = [].concat(
+      getBreadcrumb(item),
+      getBreadcrumbList(item, details),
+      React.Children.toArray(children)
+    );
+  }
+
+  console.log("Will render", breadcrumbs);
   return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbs} />;
 };
 
 JobsBreadcrumbs.propTypes = {
-  tree: PropTypes.instanceOf(JobTree).isRequired,
-  item: PropTypes.oneOfType([
-    PropTypes.instanceOf(JobTree),
-    PropTypes.instanceOf(Job)
-  ])
+  item: PropTypes.object
 };
 
 module.exports = JobsBreadcrumbs;

@@ -19,6 +19,7 @@ import StringUtil from "../../utils/StringUtil";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "./JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
+import Job from "../../structs/Job";
 
 class JobDetailPage extends mixin(TabsMixin) {
   constructor() {
@@ -75,11 +76,10 @@ class JobDetailPage extends mixin(TabsMixin) {
         leftButtonClassName="button button-primary-link"
         rightButtonText={actionButtonLabel}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={() =>
-          this.setState({ disabledDialog: DIALOGS.DESTROY }, () => {
-            this.props.handleAcceptDestroyDialog(stopCurrentJobRuns);
-          })
-        }
+        rightButtonCallback={() => {
+          this.props.disableDialog();
+          this.props.handleAcceptDestroyDialog(stopCurrentJobRuns);
+        }}
       />
     );
   }
@@ -89,7 +89,7 @@ class JobDetailPage extends mixin(TabsMixin) {
   }
 
   getPrettySchedule(job) {
-    const schedules = job.getSchedules();
+    const schedules = job.schedules;
     if (schedules == null || schedules.length === 0) {
       return null;
     }
@@ -178,7 +178,7 @@ class JobDetailPage extends mixin(TabsMixin) {
 
   getActions() {
     const job = this.props.job;
-    const [schedule] = job.getSchedules();
+    const [schedule] = job.schedules.nodes;
 
     const actions = [];
 
@@ -242,19 +242,20 @@ class JobDetailPage extends mixin(TabsMixin) {
       return this.props.children;
     }
 
-    const { job, jobTree } = this.props;
+    const { job } = this.props;
+    console.log("JobDetailPage", job);
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs tree={jobTree} item={job} />}
+          breadcrumbs={<JobsBreadcrumbs item={job} />}
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
         <JobFormModalContainer
           isEdit={true}
-          job={job}
+          job={new Job(JSON.parse(job.json))}
           open={this.props.jobActionDialog === DIALOGS.EDIT}
           onClose={this.props.closeDialog}
         />

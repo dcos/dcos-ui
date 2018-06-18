@@ -121,7 +121,7 @@ PageHeader.propTypes = {
     PropTypes.object
   ]),
   actions: PropTypes.array,
-  breadcrumbs: PropTypes.node.isRequired,
+  breadcrumbs: PropTypes.node,
   pageHeaderClassName: classProps,
   pageHeaderInnerClassName: classProps,
   pageHeaderSectionPrimaryClassName: classProps,
