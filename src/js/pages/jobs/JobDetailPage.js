@@ -243,6 +243,7 @@ class JobDetailPage extends mixin(TabsMixin) {
     }
 
     const { job } = this.props;
+    console.log("JobDetailPage", job);
 
     return (
       <Page>

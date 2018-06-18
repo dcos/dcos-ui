@@ -16,20 +16,20 @@ export const DIALOGS = {
 };
 
 const LoadingScreen = function() {
-  // TODO: fix null
+  // TODO: fix breadcrumbs
   return (
     <Page>
-      <Page.Header breadcrumbs={null} />
+      {/* <Page.Header breadcrumbs={[]} /> */}
       <Loader />
     </Page>
   );
 };
 
 const ErrorScreen = function() {
-  // TODO: fix null
+  // TODO: fix breadcrumbs
   return (
     <Page>
-      <Page.Header breadcrumbs={null} />
+      {/* <Page.Header breadcrumbs={[]} /> */}
       <RequestErrorMsg />
     </Page>
   );
@@ -80,10 +80,15 @@ query {
   );
 
 export default componentFromStream(props$ => {
-  const id$ = props$.map(props => props.params.id).distinctUntilChanged();
+  const id$ = props$
+    .map(props => props.params.id)
+    .distinctUntilChanged()
+    .do(x => console.log(x));
   const jobs$ = id$
     .switchMap(id => getInput$(id))
-    .map(({ data: { job } }) => job);
+    .do(x => console.log(x))
+    .map(({ data: { job } }) => job)
+    .do(x => console.log(x));
 
   return Observable.combineLatest([
     jobs$,
@@ -91,11 +96,11 @@ export default componentFromStream(props$ => {
     jobActionDialog$,
     disabledDialog$
   ])
+    .do(x => console.log(x))
     .map(([job, props, jobActionDialog, disabledDialog]) => {
-      const jobTree = MetronomeStore.jobTree;
-      if (job == null) {
-        return <LoadingScreen jobTree={jobTree} />;
-      }
+      // if (job == null) {
+      //   return <LoadingScreen />;
+      // }
 
       console.log("JobDetailPagContainer", job);
 
@@ -125,6 +130,12 @@ export default componentFromStream(props$ => {
 
       return <JobDetailPage {...props} />;
     })
+    .do(x => console.log(x))
+    .catch(error => {
+      console.error(error);
+
+      return Observable.of(<ErrorScreen />);
+    })
     .startWith(<LoadingScreen />)
-    .catch(<ErrorScreen />);
+    .do(x => console.log(x));
 });
