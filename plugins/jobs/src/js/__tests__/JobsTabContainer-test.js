@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 
 jest.mock("#SRC/js/stores/DCOSStore");
 jest.mock("#SRC/js/events/MetronomeActions", () => ({
@@ -31,7 +31,7 @@ describe("JobsTab", function() {
 
   describe("#render", function() {
     it("renders the job table", function() {
-      const wrapper = mount(
+      const wrapper = shallow(
         JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
       );
 
@@ -40,7 +40,7 @@ describe("JobsTab", function() {
 
     it("renders loading screen", function() {
       DCOSStore.jobDataReceived = false;
-      const wrapper = mount(
+      const wrapper = shallow(
         JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
       );
 
@@ -48,7 +48,7 @@ describe("JobsTab", function() {
     });
 
     it("renders correct empty panel", function() {
-      const wrapper = mount(
+      const wrapper = shallow(
         JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
       );
 

@@ -237,18 +237,17 @@ class JobDetailPage extends mixin(TabsMixin) {
   }
 
   render() {
-    // TaskDetailView
     if (this.props.params.taskID) {
       return this.props.children;
     }
 
-    const { job, jobTree } = this.props;
+    const { job } = this.props;
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs tree={jobTree} item={job} />}
+          breadcrumbs={<JobsBreadcrumbs item={job} />}
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}

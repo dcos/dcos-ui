@@ -3,7 +3,6 @@ import { componentFromStream, graphqlObservable } from "data-service";
 import { Observable, BehaviorSubject } from "rxjs";
 import gql from "graphql-tag";
 import { default as schema } from "#PLUGINS/jobs/src/js/data/JobModel";
-import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
 import RequestErrorMsg from "../../components/RequestErrorMsg";
@@ -15,19 +14,19 @@ export const DIALOGS = {
   DESTROY: "destroy"
 };
 
-const LoadingScreen = function({ jobTree }) {
+const LoadingScreen = function() {
   return (
     <Page>
-      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={jobTree} />} />
+      <Page.Header breadcrumbs={[]} />
       <Loader />
     </Page>
   );
 };
 
-const ErrorScreen = function({ jobTree }) {
+const ErrorScreen = function() {
   return (
     <Page>
-      <Page.Header breadcrumbs={<JobsBreadcrumbs tree={jobTree} />} />
+      <Page.Header breadcrumbs={[]} />
       <RequestErrorMsg />
     </Page>
   );
@@ -53,52 +52,47 @@ const closeDialog = () => {
   disabledDialog$.next(null);
 };
 
-const getInput$ = id =>
+const getGraphQL = id =>
   graphqlObservable(
     gql`
-query {
-  job(id: "${id}") {
-    id
-    name
-    command
-    schedules
-    cpus
-    description
-    mem
-    docker
-    disk
-    labels
-    jobRuns
-    json
-  }
-}
-`,
+      query {
+        job(id: $id) {
+          id
+          name
+          path
+          command
+          schedules
+          cpus
+          description
+          mem
+          docker
+          disk
+          labels
+          jobRuns
+          json
+        }
+      }
+    `,
     schema,
-    {}
+    { id }
   );
 
 export default componentFromStream(props$ => {
   const id$ = props$.map(props => props.params.id).distinctUntilChanged();
-  const jobs$ = id$
-    .switchMap(id => getInput$(id))
+  const job$ = id$
+    .switchMap(id => getGraphQL(id))
     .map(({ data: { job } }) => job);
 
   return Observable.combineLatest([
-    jobs$,
+    job$,
     props$,
     jobActionDialog$,
     disabledDialog$
   ])
     .map(([job, props, jobActionDialog, disabledDialog]) => {
-      const jobTree = MetronomeStore.jobTree;
-      if (job == null) {
-        return <LoadingScreen jobTree={jobTree} />;
-      }
-
       const enhancedProps = {
         ...props,
         job,
-        jobTree,
         jobActionDialog,
         disabledDialog,
         errorMsg: null,

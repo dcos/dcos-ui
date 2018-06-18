@@ -53,6 +53,7 @@ export interface Job {
   lastRunStatus: JobRunStatusSummary | null;
   mem: number;
   name: string;
+  path: string[];
   schedules: JobScheduleConnection;
   scheduleStatus: JobStatus;
 }
@@ -100,6 +101,7 @@ export function JobTypeResolver(response: MetronmeGenericJobResponse): Job {
     labels: JobFieldResolvers.labels(response),
     lastRunStatus: JobFieldResolvers.lastRunStatus(response),
     name: JobFieldResolvers.name(response),
+    path: JobFieldResolvers.path(response),
     jobRuns: JobFieldResolvers.jobRuns(response),
     lastRunsSummary: JobFieldResolvers.lastRunsSummary(response),
     scheduleStatus: JobFieldResolvers.scheduleStatus(response),
