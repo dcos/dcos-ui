@@ -113,6 +113,7 @@ export const resolvers = ({
       _args: GeneralArgs,
       _context = {}
     ): Observable<Job | null> {
+      debugger;
       return runJob(_args.id);
     }
   }

@@ -182,12 +182,14 @@ class JobDetailPage extends mixin(TabsMixin) {
     const job = this.props.job;
     const [schedule] = job.getSchedules();
 
-    const actions = [];
+    let actions = [];
 
     actions.push({
       label: "Edit",
       onItemSelect: this.props.handleEditButtonClick
     });
+
+    actions = actions.concat(menuGetActions(job.getId()));
 
     if (schedule != null && schedule.enabled) {
       actions.push({
@@ -240,9 +242,6 @@ class JobDetailPage extends mixin(TabsMixin) {
     }
 
     const { job, jobTree } = this.props;
-    menuGetActions(this.getActions(), job.getId()).subscribe(() => {
-      console.log("changed");
-    });
 
     return (
       <Page>

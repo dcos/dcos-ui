@@ -4,9 +4,7 @@ import React from "react";
 
 import { graphqlObservable } from "data-service";
 import gql from "graphql-tag";
-import "rxjs/add/operator/concatMap";
 
-import { Subject } from "rxjs/Subject";
 import defaultSchema from "./data/JobModel";
 
 const runNowJobMutation = gql`
@@ -21,16 +19,11 @@ const runNowJobGraphql = id => {
   return graphqlObservable(runNowJobMutation, defaultSchema, id);
 };
 
-export const runNowEvent$ = new Subject();
-export const jobsRunNow$ = runNowEvent$.switchMap(id => {
-  return runNowJobGraphql(id);
-});
-
-export const jobsRunNowAction = id => {
+export default function(id) {
   return {
     label: "Run Now",
     onItemSelect() {
-      runNowJobGraphql(id);
+      runNowJobGraphql({ id }).subscribe();
     }
   };
-};
+}
