@@ -5,7 +5,7 @@ import { Observable } from "rxjs/Observable";
 import Config from "../config/Config";
 
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
-export interface JobResponse {
+export interface GenericJobResponse {
   id: string;
   labels?: LabelResponse;
   run: {
@@ -14,34 +14,6 @@ export interface JobResponse {
     disk: number;
     cmd: string;
     env: object;
-    placement: {
-      constraints: any[];
-    };
-    artifacts: any[];
-  };
-  schedules: Schedule[];
-  historySummary: {
-    failureCount: number;
-    lastFailureAt: string | null;
-    lastSuccessAt: string | null;
-    successCount: number;
-  };
-}
-
-interface LabelResponse {
-  [key: string]: string;
-}
-
-export interface JobDetailResponse {
-  id: string;
-  description: string;
-  labels: LabelResponse;
-  run: {
-    cpus: number;
-    mem: number;
-    disk: number;
-    cmd: string;
-    env: {};
     placement: {
       constraints: any[];
     };
@@ -55,8 +27,25 @@ export interface JobDetailResponse {
     secrets: object;
   };
   schedules: Schedule[];
+}
+
+export interface JobResponse extends GenericJobResponse {
+  historySummary: {
+    failureCount: number;
+    lastFailureAt: string | null;
+    lastSuccessAt: string | null;
+    successCount: number;
+  };
+}
+
+export interface JobDetailResponse extends GenericJobResponse {
+  description: string;
   activeRuns: ActiveJobRun[];
   history: JobHistory;
+}
+
+interface LabelResponse {
+  [key: string]: string;
 }
 
 export interface JobLabels {

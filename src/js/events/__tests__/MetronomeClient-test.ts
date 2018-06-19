@@ -36,11 +36,17 @@ describe("MetronomeClient", () => {
       mem: 128,
       disk: 0,
       cmd: "sleep 10",
+      maxLaunchDelay: 3600,
+      restart: {
+        policy: "NEVER"
+      },
+      volumes: [],
       env: {},
       placement: {
         constraints: []
       },
-      artifacts: []
+      artifacts: [],
+      secrets: {}
     },
     schedules: [],
     historySummary: {
