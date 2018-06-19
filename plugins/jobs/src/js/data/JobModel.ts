@@ -91,13 +91,13 @@ function sortJobs(
 
     switch (sortBy) {
       case "ID":
-        result = sortJobById(a, b);
+        result = compareJobById(a, b);
         break;
       case "STATUS":
-        result = sortJobByStatus(a, b);
+        result = compareJobByStatus(a, b);
         break;
       case "LAST_RUN":
-        result = sortJobByLastRun(a, b);
+        result = compareJobByLastRun(a, b);
         break;
       default:
         result = 0;
@@ -110,18 +110,18 @@ function sortJobs(
   return jobs;
 }
 
-function sortJobById(a: Job, b: Job): number {
+function compareJobById(a: Job, b: Job): number {
   return a.id.localeCompare(b.id);
 }
 
-function sortJobByStatus(a: Job, b: Job): number {
+function compareJobByStatus(a: Job, b: Job): number {
   return (
     JobStates[a.scheduleStatus].sortOrder -
     JobStates[b.scheduleStatus].sortOrder
   );
 }
 
-function sortJobByLastRun(a: Job, b: Job): number {
+function compareJobByLastRun(a: Job, b: Job): number {
   const statusA = a.lastRunStatus ? a.lastRunStatus.status : "N/A";
   const statusB = b.lastRunStatus ? b.lastRunStatus.status : "N/A";
 
