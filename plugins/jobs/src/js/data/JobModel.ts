@@ -122,10 +122,10 @@ function sortJobByStatus(a: Job, b: Job): number {
 }
 
 function sortJobByLastRun(a: Job, b: Job): number {
-  return (
-    JobStatus[a.lastRunStatus.status].sortOrder -
-    JobStatus[b.lastRunStatus.status].sortOrder
-  );
+  const statusA = a.lastRunStatus ? a.lastRunStatus.status : "N/A";
+  const statusB = b.lastRunStatus ? b.lastRunStatus.status : "N/A";
+
+  return JobStatus[statusA].sortOrder - JobStatus[statusB].sortOrder;
 }
 
 function filterJobsById(
@@ -176,21 +176,15 @@ export const resolvers = ({
       );
       const count$ = jobsInNamespace$.map(jobs => jobs.length);
 
-      return (
-        jobsInNamespace$
-          .map(jobs => filterJobsById(jobs, filter))
-          //TODO We need to remove the N + 1 query
-          // https://jira.mesosphere.com/browse/DCOS-38201
-          .map(jobs => jobs.map(job => fetchJobDetail(job.id)))
-          .switchMap(observable$ => Observable.combineLatest(observable$))
-          .map(requests => requests.map(JobTypeResolver))
-          .map(jobs => sortJobs(jobs, sortBy, sortDirection))
-          .combineLatest(count$, (jobs, totalCount) => ({
-            filteredCount: jobs.length,
-            totalCount,
-            nodes: jobs
-          }))
-      );
+      return jobsInNamespace$
+        .map(jobs => filterJobsById(jobs, filter))
+        .map(jobs => jobs.map(JobTypeResolver))
+        .map(jobs => sortJobs(jobs, sortBy, sortDirection))
+        .combineLatest(count$, (jobs, totalCount) => ({
+          filteredCount: jobs.length,
+          totalCount,
+          nodes: jobs
+        }));
     },
     job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
       if (!isJobQueryArg(args)) {

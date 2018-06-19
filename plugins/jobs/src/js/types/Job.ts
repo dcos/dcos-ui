@@ -1,6 +1,9 @@
 import {
   JobDetailResponse as MetronomeJobDetailResponse,
-  JobStatus as MetronomeJobStatus
+  GenericJobResponse as MetronmeGenericJobResponse,
+  JobResponse as MetronomeJobResponse,
+  JobStatus as MetronomeJobStatus,
+  isDetailResponse as isMetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
 import {
   JobRunConnection,
@@ -36,18 +39,18 @@ import { JobLabel, LabelSchema } from "#PLUGINS/jobs/src/js/types/JobLabel";
 import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
 
 export interface Job {
-  activeRuns: JobRunConnection;
+  activeRuns: JobRunConnection | null;
   command: string;
   cpus: number;
-  description: string;
+  description: string | null;
   disk: number;
   docker: JobDocker | null;
   id: string;
-  jobRuns: JobRunConnection;
+  jobRuns: JobRunConnection | null;
   json: string;
   labels: JobLabel[];
-  lastRunsSummary: JobHistorySummary;
-  lastRunStatus: JobRunStatusSummary;
+  lastRunsSummary: JobHistorySummary | null;
+  lastRunStatus: JobRunStatusSummary | null;
   mem: number;
   name: string;
   schedules: JobScheduleConnection;
@@ -64,18 +67,18 @@ ${JobDockerSchema}
 ${JobScheduleConnectionSchema}
 
 type Job {
-  activeRuns: JobRunConnection!
+  activeRuns: JobRunConnection
   command: String!
   cpus: Float!
-  description: String!
+  description: String
   disk: Float!
   docker: Docker
   id: ID!
-  jobRuns: JobRunConnection!
+  jobRuns: JobRunConnection
   json: String!
   labels: [Label]!
-  lastRunsSummary: JobHistorySummary!
-  lastRunStatus: JobRunStatusSummary!
+  lastRunsSummary: JobHistorySummary
+  lastRunStatus: JobRunStatusSummary
   mem: Int!
   name: String!
   schedules: ScheduleConnection!
@@ -83,7 +86,7 @@ type Job {
 }
 `;
 
-export function JobTypeResolver(response: MetronomeJobDetailResponse): Job {
+export function JobTypeResolver(response: MetronmeGenericJobResponse): Job {
   return {
     id: JobFieldResolvers.id(response),
     description: JobFieldResolvers.description(response),
@@ -103,73 +106,85 @@ export function JobTypeResolver(response: MetronomeJobDetailResponse): Job {
     schedules: JobFieldResolvers.schedules(response)
   };
 }
+
 export const JobFieldResolvers = {
-  id(job: MetronomeJobDetailResponse): string {
+  id(job: MetronmeGenericJobResponse): string {
     return job.id;
   },
-  description(job: MetronomeJobDetailResponse): string {
-    return job.description;
+  description(job: MetronmeGenericJobResponse): string | null {
+    return isMetronomeJobDetailResponse(job) ? job.description : null;
   },
-  command(job: MetronomeJobDetailResponse): string {
+  command(job: MetronmeGenericJobResponse): string {
     return job.run.cmd;
   },
-  disk(job: MetronomeJobDetailResponse): number {
+  disk(job: MetronmeGenericJobResponse): number {
     return job.run.disk;
   },
-  mem(job: MetronomeJobDetailResponse): number {
+  mem(job: MetronmeGenericJobResponse): number {
     return job.run.mem;
   },
-  cpus(job: MetronomeJobDetailResponse): number {
+  cpus(job: MetronmeGenericJobResponse): number {
     return job.run.cpus;
   },
-  activeRuns(job: MetronomeJobDetailResponse): JobRunConnection {
-    return JobRunConnectionTypeResolver(job.activeRuns);
+  activeRuns(job: MetronmeGenericJobResponse): JobRunConnection | null {
+    return isMetronomeJobDetailResponse(job)
+      ? JobRunConnectionTypeResolver(job.activeRuns)
+      : null;
   },
-  docker(job: MetronomeJobDetailResponse): JobDocker | null {
-    return job.run.docker ? JobDockerTypeResolver(job.run.docker) : null;
+  docker(job: MetronmeGenericJobResponse): JobDocker | null {
+    if (isMetronomeJobDetailResponse(job) && job.run.docker) {
+      return JobDockerTypeResolver(job.run.docker);
+    }
+    return null;
   },
-  jobRuns(job: MetronomeJobDetailResponse): JobRunConnection {
-    return AddStatusToHistoryJobRuns(job);
+  jobRuns(job: MetronmeGenericJobResponse): JobRunConnection | null {
+    return isMetronomeJobDetailResponse(job)
+      ? AddStatusToHistoryJobRuns(job)
+      : null;
   },
-  json(job: MetronomeJobDetailResponse): string {
+  json(job: MetronmeGenericJobResponse): string {
     return JSON.stringify(cleanJobJSON(job));
   },
-  labels(job: MetronomeJobDetailResponse): JobLabel[] {
+  labels(job: MetronmeGenericJobResponse): JobLabel[] {
     return Object.entries(job.labels).map(([key, value]) => ({ key, value }));
   },
-  lastRunsSummary(job: MetronomeJobDetailResponse): JobHistorySummary {
-    return JobHistorySummaryTypeResolver(job.history);
+  lastRunsSummary(job: MetronmeGenericJobResponse): JobHistorySummary {
+    return isMetronomeJobDetailResponse(job)
+      ? JobHistorySummaryTypeResolver(job.history)
+      : JobHistorySummaryTypeResolver(
+          (job as MetronomeJobResponse).historySummary
+        );
   },
-  lastRunStatus(job: MetronomeJobDetailResponse): JobRunStatusSummary {
-    return JobRunStatusSummaryTypeResolver(job);
+  lastRunStatus(job: MetronmeGenericJobResponse): JobRunStatusSummary | null {
+    return isMetronomeJobDetailResponse(job)
+      ? JobRunStatusSummaryTypeResolver(job)
+      : null;
   },
-  name(job: MetronomeJobDetailResponse): string {
+  name(job: MetronmeGenericJobResponse): string {
     return job.id.split(".").pop() || "";
   },
-  schedules(job: MetronomeJobDetailResponse): JobScheduleConnection {
+  schedules(job: MetronmeGenericJobResponse): JobScheduleConnection {
     return JobScheduleConnectionTypeResolver(job.schedules);
   },
-  scheduleStatus(job: MetronomeJobDetailResponse): JobStatus {
-    const jobRunConnection = AddStatusToHistoryJobRuns(job);
-
-    if (jobRunConnection.longestRunningActiveRun !== null) {
-      return jobRunConnection.longestRunningActiveRun.status;
-    }
-
+  scheduleStatus(job: MetronmeGenericJobResponse): JobStatus {
     const scheduleConnection = JobScheduleConnectionTypeResolver(job.schedules);
 
-    if (jobRunConnection.nodes.length > 0) {
-      const schedule = scheduleConnection.nodes[0];
+    if (isMetronomeJobDetailResponse(job)) {
+      const jobRunConnection = AddStatusToHistoryJobRuns(job);
 
-      if (schedule != null && schedule.enabled) {
-        return "SCHEDULED";
+      if (jobRunConnection.longestRunningActiveRun !== null) {
+        return jobRunConnection.longestRunningActiveRun.status;
+      }
+      if (jobRunConnection.nodes.length > 0) {
+        const schedule = scheduleConnection.nodes[0];
+
+        if (schedule != null && schedule.enabled) {
+          return "SCHEDULED";
+        }
       }
     }
 
-    if (
-      scheduleConnection.nodes.length === 0 &&
-      JobRunConnectionTypeResolver(job.activeRuns).nodes.length === 0
-    ) {
+    if (scheduleConnection.nodes.length === 0) {
       return "UNSCHEDULED";
     }
 

@@ -1,4 +1,4 @@
-import { JobHistory as MetronomeJobHistory } from "#SRC/js/events/MetronomeClient";
+import { JobHistorySummary as MetronomeJobHistorySummary } from "#SRC/js/events/MetronomeClient";
 export interface JobHistorySummary {
   failureCount: number;
   lastFailureAt: string | null;
@@ -16,7 +16,7 @@ type JobHistorySummary {
 `;
 
 export function JobHistorySummaryTypeResolver(
-  history: MetronomeJobHistory
+  history: MetronomeJobHistorySummary
 ): JobHistorySummary {
   return {
     failureCount: JobHistorySummaryFieldResolvers.failureCount(history),
@@ -27,16 +27,16 @@ export function JobHistorySummaryTypeResolver(
 }
 
 export const JobHistorySummaryFieldResolvers = {
-  failureCount(history: MetronomeJobHistory): number {
+  failureCount(history: MetronomeJobHistorySummary): number {
     return history.failureCount;
   },
-  lastFailureAt(history: MetronomeJobHistory): string | null {
+  lastFailureAt(history: MetronomeJobHistorySummary): string | null {
     return history.lastFailureAt;
   },
-  lastSuccessAt(history: MetronomeJobHistory): string | null {
+  lastSuccessAt(history: MetronomeJobHistorySummary): string | null {
     return history.lastSuccessAt;
   },
-  successCount(history: MetronomeJobHistory): number {
+  successCount(history: MetronomeJobHistorySummary): number {
     return history.successCount;
   }
 };
