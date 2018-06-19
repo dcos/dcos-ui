@@ -7,7 +7,7 @@ import Config from "../config/Config";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 export interface GenericJobResponse {
   id: string;
-  labels?: LabelResponse;
+  labels: LabelResponse;
   run: {
     cpus: number;
     mem: number;
@@ -30,12 +30,7 @@ export interface GenericJobResponse {
 }
 
 export interface JobResponse extends GenericJobResponse {
-  historySummary: {
-    failureCount: number;
-    lastFailureAt: string | null;
-    lastSuccessAt: string | null;
-    successCount: number;
-  };
+  historySummary: JobHistorySummary;
 }
 
 export interface JobDetailResponse extends GenericJobResponse {
@@ -110,11 +105,15 @@ export type JobTaskStatus =
   | "TASK_STARTING"
   | "TASK_UNKNOWN"
   | "TASK_UNREACHABLE";
-export interface JobHistory {
+
+export interface JobHistorySummary {
   successCount: number;
   failureCount: number;
   lastSuccessAt: string | null;
   lastFailureAt: string | null;
+}
+
+export interface JobHistory extends JobHistorySummary {
   successfulFinishedRuns: JobHistoryRun[];
   failedFinishedRuns: JobHistoryRun[];
 }
@@ -132,6 +131,13 @@ export interface JobData {
 export interface ScheduleData {
   id: string;
 }
+
+export function isDetailResponse(
+  response: GenericJobResponse
+): response is JobDetailResponse {
+  return (response as JobDetailResponse).activeRuns !== undefined;
+}
+
 const defaultHeaders = {
   "Content-Type": "application/json; charset=utf-8"
 };
