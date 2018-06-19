@@ -73,7 +73,7 @@ export const typeDefs = `
     ): Job
   }
   type Mutation {
-    runJob(id: String!): JobRun!
+    runJob(id: String!): Job!
   }
   `;
 
@@ -113,6 +113,7 @@ export const resolvers = ({
       _args: GeneralArgs,
       _context = {}
     ): Observable<Job | null> {
+      debugger;
       return runJob(_args.id);
     }
   }
