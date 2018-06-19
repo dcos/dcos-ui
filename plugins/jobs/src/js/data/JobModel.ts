@@ -2,6 +2,7 @@ import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs/Observable";
 import {
   fetchJobDetail,
+  runJob,
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
 
@@ -24,6 +25,7 @@ export interface Query {
 export interface ResolverArgs {
   fetchJobDetail: (id: string) => Observable<MetronomeJobDetailResponse>;
   pollingInterval: number;
+  runJob: (id: string) => Observable<Job | null>;
 }
 
 export interface GeneralArgs {
@@ -70,6 +72,9 @@ export const typeDefs = `
       sortDirection: SortDirection
     ): Job
   }
+  type Mutation {
+    runJob(id: String!): JobRun!
+  }
   `;
 
 function isJobQueryArg(arg: any): arg is JobQueryArgs {
@@ -78,7 +83,8 @@ function isJobQueryArg(arg: any): arg is JobQueryArgs {
 
 export const resolvers = ({
   fetchJobDetail,
-  pollingInterval
+  pollingInterval,
+  runJob
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
@@ -100,6 +106,15 @@ export const resolvers = ({
 
       return responses$.map(response => JobTypeResolver(response));
     }
+  },
+  Mutation: {
+    runJob(
+      _obj = {},
+      _args: GeneralArgs,
+      _context = {}
+    ): Observable<Job | null> {
+      return runJob(_args.id);
+    }
   }
 });
 
@@ -107,6 +122,7 @@ export default makeExecutableSchema({
   typeDefs,
   resolvers: resolvers({
     fetchJobDetail,
-    pollingInterval: Config.getRefreshRate()
+    pollingInterval: Config.getRefreshRate(),
+    runJob
   })
 });
