@@ -36,14 +36,17 @@ export interface GeneralArgs {
 }
 
 export interface JobsQueryArgs {
-  filter?: string | null;
   namespace?: string | null;
+  filter?: string | null;
   sortBy?: SortOption;
   sortDirection?: SortDirection;
 }
 
 export interface JobQueryArgs {
   id: string;
+  filter?: string | null;
+  sortBy?: SortOption | null;
+  sortDirection?: SortDirection | null;
 }
 
 export type SortOption = "ID" | "STATUS" | "LAST_RUN";

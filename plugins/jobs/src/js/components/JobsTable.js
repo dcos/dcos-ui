@@ -72,34 +72,37 @@ class JobsTable extends React.Component {
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData() {
-    return this.props.jobs.map(function(job) {
+    const retval = this.props.jobs.map(function(job) {
       const isGroup = job instanceof Tree;
       let lastRun = {};
       let schedules = null;
       let status = null;
 
       if (!isGroup) {
-        const lastRunsSummary = job.getLastRunsSummary();
+        const lastRunsSummary = job.lastRunsSummary;
 
         lastRun = {
-          status: job.getLastRunStatus().status,
+          status: job.lastRunStatus.status,
           lastSuccessAt: lastRunsSummary.lastSuccessAt,
           lastFailureAt: lastRunsSummary.lastFailureAt
         };
 
-        schedules = job.getSchedules();
-        status = job.getScheduleStatus();
+        schedules = job.schedules;
+        status = job.scheduleStatus;
       }
 
       return {
-        id: job.getId(),
+        id: job.id,
         isGroup,
-        name: job.getName(),
+        name: job.name || job.id,
         schedules,
         status,
         lastRun
       };
     });
+    console.log(retval);
+
+    return retval;
   }
 
   getCompareFunctionByProp(prop) {
@@ -162,8 +165,8 @@ class JobsTable extends React.Component {
       );
     }
 
-    if (schedules && schedules.length !== 0) {
-      const schedule = schedules[0];
+    if (schedules && schedules.nodes.length !== 0) {
+      const schedule = schedules.nodes[0];
 
       if (schedule.enabled) {
         scheduleIcon = (

@@ -1,6 +1,6 @@
 import * as React from "react";
-import Job from "#SRC/js/structs/Job";
 import JobTree from "#SRC/js/structs/JobTree";
+import { Job } from "#PLUGINS/jobs/src/js/types/Job";
 
 interface JobsTableProps {
   jobs: Array<JobTree | Job>;

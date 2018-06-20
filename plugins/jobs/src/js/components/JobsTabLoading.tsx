@@ -8,7 +8,7 @@ import JobTree from "#SRC/js/structs/JobTree";
 import JobsPage from "./JobsPage";
 
 interface JobsTabLoadingProps {
-  root: JobTree;
+  root?: JobTree;
 }
 
 export default class JobsTabLoading extends React.Component<
@@ -18,7 +18,9 @@ export default class JobsTabLoading extends React.Component<
     const { root } = this.props;
 
     return (
-      <JobsPage root={root}>
+      <JobsPage
+        root={root || new JobTree({})} // only for breadcrumb -> removed / replaced with "root"
+      >
         <Loader />
       </JobsPage>
     );

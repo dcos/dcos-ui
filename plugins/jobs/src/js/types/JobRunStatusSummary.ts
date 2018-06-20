@@ -1,4 +1,4 @@
-import { JobDetailResponse as MetronomeJobDetailResponse } from "#SRC/js/events/MetronomeClient";
+import { JobHistorySummary as MetronomeJobHistorySummary } from "#SRC/js/events/MetronomeClient";
 import { JobRunStatus } from "#PLUGINS/jobs/src/js/types/JobRunStatus";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import { JobHistorySummaryTypeResolver } from "#PLUGINS/jobs/src/js/types/JobHistorySummary";
@@ -16,9 +16,9 @@ type JobRunStatusSummary {
 `;
 
 export function JobRunStatusSummaryTypeResolver(
-  response: MetronomeJobDetailResponse
+  history: MetronomeJobHistorySummary
 ): JobRunStatusSummary {
-  const summary = JobHistorySummaryTypeResolver(response.history);
+  const summary = JobHistorySummaryTypeResolver(history);
   let status = "N/A" as JobRunStatus;
   let time: string | null = null;
   let lastFailureAt = 0;
@@ -46,8 +46,8 @@ export function JobRunStatusSummaryTypeResolver(
 }
 
 export const JobRunStatusSummaryFieldResolver = {
-  status(response: MetronomeJobDetailResponse): JobRunStatus {
-    const summary = JobHistorySummaryTypeResolver(response.history);
+  status(history: MetronomeJobHistorySummary): JobRunStatus {
+    const summary = JobHistorySummaryTypeResolver(history);
     let status = "N/A" as JobRunStatus;
     let lastFailureAt = 0;
     let lastSuccessAt = 0;
@@ -69,8 +69,8 @@ export const JobRunStatusSummaryFieldResolver = {
 
     return status;
   },
-  time(response: MetronomeJobDetailResponse): number | null {
-    const summary = JobHistorySummaryTypeResolver(response.history);
+  time(history: MetronomeJobHistorySummary): number | null {
+    const summary = JobHistorySummaryTypeResolver(history);
     let time: string | null = null;
     let lastFailureAt = 0;
     let lastSuccessAt = 0;

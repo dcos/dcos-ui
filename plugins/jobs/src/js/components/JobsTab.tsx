@@ -3,19 +3,20 @@ import * as React from "react";
 import JobFormModalContainer from "../JobFormModalContainer";
 import JobTree from "#SRC/js/structs/JobTree";
 // tslint:disable-next-line:no-submodule-imports
-import Job from "#SRC/js/structs/Job";
 
 import JobsTabList from "./JobsTabList";
 import JobsTabEmpty from "./JobsTabEmpty";
+import { Job } from "#PLUGINS/jobs/src/js/types/Job";
 
 interface JobsTabsProps {
   item: JobTree;
   root: JobTree;
-  searchString: string;
   filteredJobs: Array<JobTree | Job>;
+  searchString?: string | null;
   handleFilterChange: (searchString: string) => void;
   resetFilter: () => void;
-  hasFilterApplied: boolean;
+  filteredCount: number;
+  totalCount: number;
 }
 
 interface JobsTabState {
@@ -53,7 +54,8 @@ export default class JobsTab extends React.Component<
       searchString,
       handleFilterChange,
       resetFilter,
-      hasFilterApplied
+      filteredCount,
+      totalCount
     } = this.props;
 
     const modal = (
@@ -74,7 +76,8 @@ export default class JobsTab extends React.Component<
           handleFilterChange={handleFilterChange}
           handleOpenJobFormModal={this.handleOpenJobFormModal}
           resetFilter={resetFilter}
-          hasFilterApplied={hasFilterApplied}
+          filteredCount={filteredCount}
+          totalCount={totalCount}
         />
       );
     }

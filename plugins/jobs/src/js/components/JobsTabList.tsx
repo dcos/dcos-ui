@@ -6,23 +6,23 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 // tslint:disable-next-line:no-submodule-imports
 import JobTree from "#SRC/js/structs/JobTree";
-// tslint:disable-next-line:no-submodule-imports
-import Job from "#SRC/js/structs/Job";
 
 import JobSearchFilter from "./JobSearchFilter";
 import JobsTable from "./JobsTable";
 import JobsPage from "./JobsPage";
+import { Job } from "#PLUGINS/jobs/src/js/types/Job";
 
 interface JobsTabListProps {
   item: JobTree;
   root: JobTree;
   modal: JSX.Element;
-  searchString: string;
   filteredJobs: Array<JobTree | Job>;
+  searchString?: string | null;
   handleFilterChange: (searchString: string) => void;
   handleOpenJobFormModal: () => void;
   resetFilter: () => void;
-  hasFilterApplied: boolean;
+  filteredCount: number;
+  totalCount: number;
 }
 
 export default class JobsTabList extends React.Component<JobsTabListProps> {
@@ -36,16 +36,18 @@ export default class JobsTabList extends React.Component<JobsTabListProps> {
       handleFilterChange,
       handleOpenJobFormModal,
       resetFilter,
-      hasFilterApplied
+      filteredCount,
+      totalCount
     } = this.props;
-    const headline = hasFilterApplied ? (
-      <FilterHeadline
-        onReset={resetFilter}
-        name="Jobs"
-        currentLength={filteredJobs.length}
-        totalLength={item.getItems().length}
-      />
-    ) : null;
+    const headline =
+      filteredCount < totalCount ? (
+        <FilterHeadline
+          onReset={resetFilter}
+          name="Jobs"
+          currentLength={filteredJobs.length}
+          totalLength={item.length}
+        />
+      ) : null;
 
     return (
       <JobsPage

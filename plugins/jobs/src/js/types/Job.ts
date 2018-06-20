@@ -49,8 +49,8 @@ export interface Job {
   jobRuns: JobRunConnection | null;
   json: string;
   labels: JobLabel[];
-  lastRunsSummary: JobHistorySummary | null;
-  lastRunStatus: JobRunStatusSummary | null;
+  lastRunsSummary: JobHistorySummary;
+  lastRunStatus: JobRunStatusSummary;
   mem: number;
   name: string;
   schedules: JobScheduleConnection;
@@ -155,10 +155,12 @@ export const JobFieldResolvers = {
           (job as MetronomeJobResponse).historySummary
         );
   },
-  lastRunStatus(job: MetronmeGenericJobResponse): JobRunStatusSummary | null {
+  lastRunStatus(job: MetronmeGenericJobResponse): JobRunStatusSummary {
     return isMetronomeJobDetailResponse(job)
-      ? JobRunStatusSummaryTypeResolver(job)
-      : null;
+      ? JobRunStatusSummaryTypeResolver(job.history)
+      : JobRunStatusSummaryTypeResolver(
+          (job as MetronomeJobResponse).historySummary
+        );
   },
   name(job: MetronmeGenericJobResponse): string {
     return job.id.split(".").pop() || "";
