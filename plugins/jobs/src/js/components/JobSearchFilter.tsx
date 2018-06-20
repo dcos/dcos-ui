@@ -5,7 +5,7 @@ import * as React from "react";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 
 interface JobSearchFilterProps {
-  onChange: () => void;
+  onChange: (searchString: string) => void;
   value: string;
 }
 

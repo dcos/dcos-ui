@@ -13,7 +13,7 @@ const JestUtil = require("#SRC/js/utils/JestUtil");
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const AlertPanel = require("#SRC/js/components/AlertPanel");
 const MetronomeUtil = require("#SRC/js/utils/MetronomeUtil");
-const JobsTabContainer = require("../JobsTabContainer");
+const JobsOverview = require("../JobsOverview");
 const JobTree = require("#SRC/js/structs/JobTree");
 const JobsTable = require("../components/JobsTable");
 
@@ -32,7 +32,7 @@ describe("JobsTab", function() {
   describe("#render", function() {
     it("renders the job table", function() {
       const wrapper = mount(
-        JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
+        JestUtil.stubRouterContext(JobsOverview, { params: { id: "/" } })
       );
 
       expect(wrapper.find(JobsTable).exists());
@@ -41,7 +41,7 @@ describe("JobsTab", function() {
     it("renders loading screen", function() {
       DCOSStore.jobDataReceived = false;
       const wrapper = mount(
-        JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
+        JestUtil.stubRouterContext(JobsOverview, { params: { id: "/" } })
       );
 
       expect(wrapper.find(".ball-scale").exists());
@@ -49,7 +49,7 @@ describe("JobsTab", function() {
 
     it("renders correct empty panel", function() {
       const wrapper = mount(
-        JestUtil.stubRouterContext(JobsTabContainer, { params: { id: "/" } })
+        JestUtil.stubRouterContext(JobsOverview, { params: { id: "/" } })
       );
 
       expect(wrapper.find(AlertPanel).exists());

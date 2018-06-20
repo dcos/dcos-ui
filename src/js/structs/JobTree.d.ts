@@ -1,4 +1,4 @@
-import Job from "./Job"
+import Job from "./Job";
 
 export default class JobTree {
   constructor(props: any);
@@ -6,4 +6,6 @@ export default class JobTree {
   getId(): number;
   getName(): string;
   getItems(): Array<Job>;
+  id: string;
+  length: number;
 }

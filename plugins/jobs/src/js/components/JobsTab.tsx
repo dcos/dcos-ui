@@ -11,9 +11,9 @@ import JobsTabEmpty from "./JobsTabEmpty";
 interface JobsTabsProps {
   item: JobTree;
   root: JobTree;
-  filteredJobs: Job[];
   searchString: string;
-  handleFilterChange: () => void;
+  filteredJobs: Array<JobTree | Job>;
+  handleFilterChange: (searchString: string) => void;
   resetFilter: () => void;
   hasFilterApplied: boolean;
 }

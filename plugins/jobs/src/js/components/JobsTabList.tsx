@@ -17,9 +17,9 @@ interface JobsTabListProps {
   item: JobTree;
   root: JobTree;
   modal: JSX.Element;
-  filteredJobs: Job[];
   searchString: string;
-  handleFilterChange: () => void;
+  filteredJobs: Array<JobTree | Job>;
+  handleFilterChange: (searchString: string) => void;
   handleOpenJobFormModal: () => void;
   resetFilter: () => void;
   hasFilterApplied: boolean;
