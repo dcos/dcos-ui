@@ -1,6 +1,7 @@
 {
   "name": "data-service",
   "module": "./src/index.js",
+  "typings": "./src/data-service.d.ts",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "peerDependencies": {
@@ -11,6 +12,7 @@
     "rxjs": "5.4.3"
   },
   "devDependencies": {
+    "@types/recompose": "0.26.0",
     "rxjs-marbles": "2.3.1"
   }
 }
