@@ -86,6 +86,7 @@
     "@types/prop-types": "15.5.3",
     "@types/react": "15.0.39",
     "@types/react-router": "2.0.54",
+    "@types/recompose": "0.26.1",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.24.1",
     "babel-core": "6.24.1",
