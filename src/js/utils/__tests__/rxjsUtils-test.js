@@ -15,12 +15,40 @@ describe("linearBackoff", function() {
       m.bind();
 
       const source = m.cold("1--2#");
-      const expected = m.cold("1--2--1--2----1--2------1--2#");
+      const expected = m.cold("1--2--1--2----1--2#");
 
       // In test env we don't want to wait for the real wall clock
       // so we encode time intervals with a special helper `m.time`
-      const result = source.retryWhen(linearBackoff(3, m.time("--|")));
+      const result = source.retryWhen(linearBackoff(2, m.time("--|")));
 
+      m.expect(result).toBeObservable(expected);
+    })
+  );
+
+  it(
+    "linearly grows the retry delay",
+    marbles(function(m) {
+      m.bind();
+
+      const source = m.cold("1--2#");
+      const expected = m.cold("1--2--1--2----1--2------1--2#");
+
+      const result = source.retryWhen(linearBackoff(3, m.time("--|")));
+      m.expect(result).toBeObservable(expected);
+    })
+  );
+
+  it(
+    "delays the retry no longer than max delay",
+    marbles(function(m) {
+      m.bind();
+
+      const source = m.cold("1--2#");
+      const expected = m.cold("1--2--1--2----1--2----1--2----1--2#");
+
+      const result = source.retryWhen(
+        linearBackoff(4, m.time("--|"), m.time("----|"))
+      );
       m.expect(result).toBeObservable(expected);
     })
   );
