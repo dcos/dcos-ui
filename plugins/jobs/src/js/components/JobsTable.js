@@ -8,7 +8,6 @@ import { Table, Tooltip } from "reactjs-components";
 import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
-import Tree from "#SRC/js/structs/Tree";
 
 import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
@@ -71,38 +70,63 @@ class JobsTable extends React.Component {
   }
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
-  getData() {
-    const retval = this.props.jobs.map(function(job) {
-      const isGroup = job instanceof Tree;
-      let lastRun = {};
-      let schedules = null;
-      let status = null;
+  // data: JobConnection
+  getData(data) {
+    return Object.values(
+      data.nodes.reduce((acc, job) => {
+        /*
+        * we can find out if current job is nested in another namespace by
+        * comparing the job.namespace array with our given filters.namespace
+        *
+        * we know already, that all jobs are in our given filter.namespace -
+        * no need to check for something like bar.bar.baz
+        *
+        * Example:
+        * job.namespace = "foo.bar.baz";
+        * namespace = "foo.bar";
+        * => isGroup should be true, because there is "baz" as extra namespace below our prefix
+        */
+        const isGroup = job.namespace.slice(data.namespace.length).length > 0;
+        let lastRun = {};
+        let schedules = null;
+        let status = null;
+        let name = "";
+        let id = "";
 
-      if (!isGroup) {
-        const lastRunsSummary = job.lastRunsSummary;
+        if (!isGroup) {
+          const lastRunsSummary = job.lastRunsSummary;
 
-        lastRun = {
-          status: job.lastRunStatus.status,
-          lastSuccessAt: lastRunsSummary.lastSuccessAt,
-          lastFailureAt: lastRunsSummary.lastFailureAt
+          lastRun = {
+            status: job.lastRunStatus.status,
+            lastSuccessAt: lastRunsSummary.lastSuccessAt,
+            lastFailureAt: lastRunsSummary.lastFailureAt
+          };
+
+          schedules = job.schedules;
+          status = job.scheduleStatus;
+          name = job.name;
+          id = job.id;
+        } else {
+          // now we need to extract this "baz" part from above and save it as name
+          name = job.namespace.slice(data.namespace.length)[0];
+          // and build up "next-level-link" (this misuses `id` field, we need to refactor this component…)
+          id = data.namespace.concat([name]).join(".");
+        }
+
+        // to avoid duplicates in our listing, we need to hack this… (again, this whole thing needs refactoring…)
+        // we're getting an array back with the wrapping Object.values(…)
+        acc[isGroup ? `namespace:${id}` : `job:${id}`] = {
+          id,
+          isGroup,
+          name,
+          schedules,
+          status,
+          lastRun
         };
 
-        schedules = job.schedules;
-        status = job.scheduleStatus;
-      }
-
-      return {
-        id: job.id,
-        isGroup,
-        name: job.name || job.id,
-        schedules,
-        status,
-        lastRun
-      };
-    });
-    console.log(retval);
-
-    return retval;
+        return acc;
+      }, {})
+    );
   }
 
   getCompareFunctionByProp(prop) {
@@ -256,12 +280,14 @@ class JobsTable extends React.Component {
   }
 
   render() {
+    // console.log(this.props.data.nodes.length, this.getData(this.props.data));
+
     return (
       <Table
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
-        data={this.getData()}
+        data={this.getData(this.props.data)}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{ prop: "name", order: "asc" }}
       />
@@ -270,7 +296,7 @@ class JobsTable extends React.Component {
 }
 
 JobsTable.propTypes = {
-  jobs: PropTypes.array.isRequired
+  data: PropTypes.object.isRequired // JobConnection
 };
 
 module.exports = JobsTable;

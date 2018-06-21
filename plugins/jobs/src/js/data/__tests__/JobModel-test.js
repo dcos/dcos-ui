@@ -149,7 +149,7 @@ describe("JobModel Resolver", () => {
         fetchJobs,
         fetchJobDetail,
         pollingInterval: m.time("--|")
-      }).Query.jobs({}, { sortBy, sortDirection, filter });
+      }).Query.jobs({}, { sortBy, sortDirection, filter, namespace: [] });
 
       return resolverResult$.take(1);
     };
@@ -307,7 +307,7 @@ describe("JobModel Resolver", () => {
             fetchJobs,
             fetchJobDetail,
             pollingInterval: m.time("--|")
-          }).Query.jobs({}, { namespace, filter });
+          }).Query.jobs({}, { namespace: namespace.split("."), filter });
 
           return resolverResult$.take(1);
         };
@@ -582,6 +582,46 @@ describe("JobModel Resolver", () => {
         m.expect(result$.take(1).map(({ name }) => name)).toBeObservable(
           m.cold("(x|)", {
             x: "baz"
+          })
+        );
+      })
+    );
+
+    it(
+      "returns the namespace (job has namespace)",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          fetchJobDetail: () =>
+            Observable.of({ ...defaultJobDetailData, id: "foo.bar.baz" }),
+          pollingInterval: m.time("-|")
+        }).Query.job({}, { id: "foo" });
+
+        m.expect(
+          result$.take(1).map(({ namespace }) => namespace)
+        ).toBeObservable(
+          m.cold("(x|)", {
+            x: ["foo", "bar"]
+          })
+        );
+      })
+    );
+
+    it(
+      "returns empty array (job has no namespace)",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          fetchJobDetail: () =>
+            Observable.of({ ...defaultJobDetailData, id: "foo" }),
+          pollingInterval: m.time("-|")
+        }).Query.job({}, { id: "foo" });
+
+        m.expect(
+          result$.take(1).map(({ namespace }) => namespace)
+        ).toBeObservable(
+          m.cold("(x|)", {
+            x: []
           })
         );
       })

@@ -3,7 +3,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { IndexRoute, Redirect, Route } from "react-router";
 
-import JobsOverview from "#PLUGINS/jobs/src/js/JobsOverview";
+import JobsOverviewRouteProvider from "#PLUGINS/jobs/src/js/JobsOverviewRouteProvider";
 import TaskDetailsTab from "#PLUGINS/services/src/js/pages/task-details/TaskDetailsTab";
 import TaskFileBrowser from "#PLUGINS/services/src/js/pages/task-details/TaskFileBrowser";
 import TaskFileViewer from "#PLUGINS/services/src/js/pages/task-details/TaskFileViewer";
@@ -28,7 +28,7 @@ const jobsRoutes = [
     children: [
       {
         type: Route,
-        component: JobsOverview,
+        component: JobsOverviewRouteProvider,
         path: "overview",
         children: [
           {

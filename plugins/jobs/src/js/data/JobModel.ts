@@ -25,6 +25,10 @@ export interface Query {
   job: Job | null;
 }
 
+export type SortOption = "ID" | "STATUS" | "LAST_RUN";
+
+export type SortDirection = "ASC" | "DESC";
+
 export interface ResolverArgs {
   fetchJobs: () => Observable<MetronomeJobResponse[]>;
   fetchJobDetail: (id: string) => Observable<MetronomeJobDetailResponse>;
@@ -36,22 +40,14 @@ export interface GeneralArgs {
 }
 
 export interface JobsQueryArgs {
-  namespace?: string | null;
+  namespace: string[];
   filter?: string | null;
   sortBy?: SortOption;
   sortDirection?: SortDirection;
 }
-
 export interface JobQueryArgs {
   id: string;
-  filter?: string | null;
-  sortBy?: SortOption | null;
-  sortDirection?: SortDirection | null;
 }
-
-export type SortOption = "ID" | "STATUS" | "LAST_RUN";
-
-export type SortDirection = "ASC" | "DESC";
 
 export const typeDefs = `
   ${JobSchema}
@@ -133,24 +129,25 @@ function compareJobByLastRun(a: Job, b: Job): number {
 
 function filterJobsById(
   jobs: MetronomeJobResponse[],
-  filter: string | null
+  filter?: string | null
 ): MetronomeJobResponse[] {
-  if (filter === null) {
+  // null | undefined | ""
+  if (!filter) {
     return jobs;
   }
 
-  return jobs.filter(({ id }) => id.indexOf(filter) !== -1);
+  return jobs.filter(({ id }) => id.includes(filter));
 }
 
 function filterJobsByNamespace(
   jobs: MetronomeJobResponse[],
-  namespace: string | null
+  namespace?: string[] | null
 ): MetronomeJobResponse[] {
-  if (namespace === null) {
+  if (!namespace) {
     return jobs;
   }
 
-  return jobs.filter(({ id }) => id.startsWith(namespace));
+  return jobs.filter(({ id }) => id.startsWith(namespace.join(".")));
 }
 
 export const resolvers = ({
@@ -161,17 +158,21 @@ export const resolvers = ({
   Query: {
     jobs(
       _parent = {},
-      args: GeneralArgs = {},
+      args: GeneralArgs = {
+        sortBy: "ID",
+        sortDirection: "ASC",
+        filter: null,
+        namespace: []
+      },
       _context = {}
     ): Observable<JobConnection | null> {
       const {
-        sortBy = "ID",
-        sortDirection = "ASC",
-        filter = null,
-        namespace = null
+        filter,
+        namespace,
+        sortBy,
+        sortDirection
       } = args as JobsQueryArgs;
-
-      const pollingInterval$ = Observable.timer(0, pollingInterval);
+      const pollingInterval$ = Observable.timer(0, pollingInterval * 10);
       const responses$ = pollingInterval$.exhaustMap(fetchJobs);
 
       const jobsInNamespace$ = responses$.map(jobs =>
@@ -184,6 +185,7 @@ export const resolvers = ({
         .map(jobs => jobs.map(JobTypeResolver))
         .map(jobs => sortJobs(jobs, sortBy, sortDirection))
         .combineLatest(count$, (jobs, totalCount) => ({
+          namespace,
           filteredCount: jobs.length,
           totalCount,
           nodes: jobs

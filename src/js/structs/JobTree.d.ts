@@ -5,7 +5,7 @@ export default class JobTree {
   findItem(fn: (item: JobTree) => boolean): JobTree;
   getId(): number;
   getName(): string;
-  getItems(): Array<Job>;
+  getItems(): Array<Job | JobTree>;
   id: string;
   length: number;
 }

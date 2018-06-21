@@ -1,6 +1,4 @@
-import * as PropTypes from "prop-types";
 import * as React from "react";
-import { routerShape, LocationDescriptor } from "react-router";
 // tslint:disable-next-line:no-submodule-imports
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 // tslint:disable-next-line:no-submodule-imports
@@ -10,98 +8,127 @@ import { graphqlObservable, componentFromStream } from "data-service";
 import gql from "graphql-tag";
 
 import JobsTabLoading from "./components/JobsTabLoading";
-import JobsTab from "./components/JobsTab";
+import JobsTabError from "./components/JobsTabError";
+import JobsTabList from "./components/JobsTabList";
+import JobsTabEmpty from "./components/JobsTabEmpty";
 
-import JobModel, { JobsQueryArgs } from "./data/JobModel";
+import JobFormModalContainer from "./JobFormModalContainer";
+
+import JobModel, {
+  JobsQueryArgs,
+  SortOption,
+  SortDirection
+} from "./data/JobModel";
 import { combineLatest } from "rxjs/observable/combineLatest";
-import { Observable } from "rxjs/Observable";
-import JobTree from "#SRC/js/structs/JobTree";
-import { Job } from "#PLUGINS/jobs/src/js/types/Job";
+import { Observable, Subscribable } from "rxjs/Observable";
 import { JobConnection } from "#PLUGINS/jobs/src/js/types/JobConnection";
-import { parseJobs } from "#SRC/js/utils/MetronomeUtil";
 
 interface JobsOverviewProps {
-  params: { id?: string };
-  location: LocationDescriptor;
+  namespace: string[];
+  initialFilter: string;
+  setFilter(filter: string | null): void;
 }
 
-const jobsOverviewQuery: any = gql`
-  query {
-    jobs(
-      namespace: $namespace
-      filter: $filter
-      sortBy: $sortBy
-      sortDirection: $sortDirection
-    ) {
-      filteredCount
-      totalCount
-      nodes
-    }
-  }
-`;
+const JobsOverview = componentFromStream<JobsOverviewProps>(
+  (props$: Subscribable<JobsOverviewProps>): Subscribable<React.ReactNode> => {
+    const jobsOverviewQuery: any = gql`
+      query {
+        jobs(
+          namespace: $namespace
+          filter: $filter
+          sortBy: $sortBy
+          sortDirection: $sortDirection
+        ) {
+          namespace
+          filteredCount
+          totalCount
+          nodes
+        }
+      }
+    `;
 
-const filters$ = new BehaviorSubject<JobsQueryArgs>({});
+    const isModalOpen$ = new BehaviorSubject<boolean>(false);
 
-const jobs$: Observable<JobConnection> = filters$
-  .debounceTime(250)
-  .switchMap((filters: JobsQueryArgs) => {
-    return graphqlObservable(
-      jobsOverviewQuery,
-      JobModel,
-      filters
-    ) as Observable<{ data: { jobs: JobConnection } }>;
-  })
-  .map(data => data.data.jobs);
+    const filter$ = new BehaviorSubject<string>("");
 
-const JobsOverview = componentFromStream(
-  (props$: Observable<JobsOverviewProps>) => {
-    return combineLatest(filters$, props$, jobs$)
-      .map(([filters, props, jobs]) => {
-        function handleFilterChange(searchString: string) {
-          filters$.next({ filter: searchString, ...filters });
+    (props$ as Observable<JobsOverviewProps>)
+      .map(props => props.setFilter)
+      .distinctUntilChanged()
+      .combineLatest(filter$)
+      .subscribe(([setFilter, filter]) => setFilter(filter));
+
+    const namespace$ = (props$ as Observable<JobsOverviewProps>)
+      .map(props => props.namespace)
+      .distinctUntilChanged();
+
+    const args$: Observable<JobsQueryArgs> = combineLatest(
+      namespace$,
+      filter$
+    ).map(([namespace, filter]) => ({
+      namespace,
+      filter,
+      sortBy: "ID" as SortOption,
+      sortDirection: "ASC" as SortDirection
+    }));
+
+    const jobs$: Observable<JobConnection> = args$
+      .sampleTime(250)
+      .switchMap((args: JobsQueryArgs) => {
+        return graphqlObservable(
+          jobsOverviewQuery,
+          JobModel,
+          args
+        ) as Observable<{ data: { jobs: JobConnection } }>;
+      })
+      .map(data => data.data.jobs);
+
+    return combineLatest(filter$, isModalOpen$, jobs$)
+      .map(([filter, isModalOpen, jobs]) => {
+        function handleFilterChange(filter: string) {
+          filter$.next(filter);
         }
         function resetFilter() {
-          filters$.next({});
+          handleFilterChange("");
+        }
+        function handleCloseModal() {
+          isModalOpen$.next(false);
+        }
+        function handleOpenModal() {
+          isModalOpen$.next(true);
         }
 
-        const root: JobTree = new JobTree(parseJobs(jobs.nodes));
+        const modal = (
+          <JobFormModalContainer
+            open={isModalOpen}
+            onClose={handleCloseModal}
+          />
+        );
 
-        // item is necessary for legacy jobtree implementation
-        let item: Job | JobTree;
-        if (props.params.id !== undefined) {
-          item = root.findItem(item => {
-            return (
-              item instanceof JobTree &&
-              item.id === decodeURIComponent(props.params.id || "")
-            );
-          });
-        } else {
-          item = root;
+        if (jobs.totalCount > 0) {
+          return (
+            <JobsTabList
+              data={jobs}
+              filter={filter}
+              modal={modal}
+              handleFilterChange={handleFilterChange}
+              handleOpenJobFormModal={handleOpenModal}
+              resetFilter={resetFilter}
+            />
+          );
         }
 
         return (
-          <JobsTab
+          <JobsTabEmpty
             key={undefined}
-            root={root}
-            item={item}
-            filteredJobs={item.getItems()}
-            searchString={filters.filter || ""}
-            handleFilterChange={handleFilterChange}
-            resetFilter={resetFilter}
-            hasFilterApplied={jobs.filteredCount < jobs.totalCount}
+            handleOpenJobFormModal={handleOpenModal}
+            modal={modal}
+            namespace={jobs.namespace}
           />
         );
       })
-      .startWith(<JobsTabLoading root={new JobTree({ items: [] })} />)
-      .catch(() => {
-        return Observable.of(<span />);
-      });
+      .startWith(<JobsTabLoading />)
+      .catch(() => Observable.of(<JobsTabError />));
   }
 );
-
-JobsOverview.contextTypes = {
-  router: routerShape,
-  location: PropTypes.object.isRequired
-};
 
 export default JobsOverview;

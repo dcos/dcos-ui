@@ -4,22 +4,20 @@ import * as React from "react";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 // tslint:disable-next-line:no-submodule-imports
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
-// tslint:disable-next-line:no-submodule-imports
-import JobTree from "#SRC/js/structs/JobTree";
 
 import JobsPage from "./JobsPage";
 
 interface JobsTabEmptyProps {
   handleOpenJobFormModal: () => void;
   modal: JSX.Element;
-  root: JobTree;
+  namespace?: string[];
 }
 export default class JobsTabEmpty extends React.Component<JobsTabEmptyProps> {
   render() {
-    const { handleOpenJobFormModal, modal, root } = this.props;
+    const { handleOpenJobFormModal, modal, namespace } = this.props;
 
     return (
-      <JobsPage root={root}>
+      <JobsPage namespace={namespace}>
         <AlertPanel>
           <AlertPanelHeader>No active jobs</AlertPanelHeader>
           <p className="tall">

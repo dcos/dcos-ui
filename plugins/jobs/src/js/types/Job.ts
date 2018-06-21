@@ -52,6 +52,7 @@ export interface Job {
   lastRunsSummary: JobHistorySummary;
   lastRunStatus: JobRunStatusSummary;
   mem: number;
+  namespace: string[];
   name: string;
   schedules: JobScheduleConnection;
   scheduleStatus: JobStatus;
@@ -81,6 +82,7 @@ type Job {
   lastRunStatus: JobRunStatusSummary
   mem: Int!
   name: String!
+  namespace: [String]!
   schedules: ScheduleConnection!
   scheduleStatus: JobStatus!
 }
@@ -99,6 +101,7 @@ export function JobTypeResolver(response: MetronmeGenericJobResponse): Job {
     labels: JobFieldResolvers.labels(response),
     lastRunStatus: JobFieldResolvers.lastRunStatus(response),
     name: JobFieldResolvers.name(response),
+    namespace: JobFieldResolvers.namespace(response),
     jobRuns: JobFieldResolvers.jobRuns(response),
     lastRunsSummary: JobFieldResolvers.lastRunsSummary(response),
     scheduleStatus: JobFieldResolvers.scheduleStatus(response),
@@ -164,6 +167,9 @@ export const JobFieldResolvers = {
   },
   name(job: MetronmeGenericJobResponse): string {
     return job.id.split(".").pop() || "";
+  },
+  namespace(job: MetronmeGenericJobResponse): string[] {
+    return job.id.split(".").slice(0, -1);
   },
   schedules(job: MetronmeGenericJobResponse): JobScheduleConnection {
     return JobScheduleConnectionTypeResolver(job.schedules);
