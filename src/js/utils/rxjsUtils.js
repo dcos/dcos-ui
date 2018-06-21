@@ -4,7 +4,12 @@ import "rxjs/add/operator/delayWhen";
 import "rxjs/add/operator/scan";
 
 /* eslint-disable import/prefer-default-export */
-export function linearBackoff(maxRetries = 5, delay = 1000, scheduler = null) {
+export function linearBackoff(
+  maxRetries = 5,
+  delay = 1000,
+  maxDelay = Number.MAX_SAFE_INTEGER,
+  scheduler = null
+) {
   return errors =>
     errors
       .scan((count, error) => {
@@ -14,5 +19,7 @@ export function linearBackoff(maxRetries = 5, delay = 1000, scheduler = null) {
 
         return count + 1;
       }, 0)
-      .delayWhen(val => timer(val * delay, null, scheduler));
+      .delayWhen(val =>
+        timer(Math.min(val * delay, maxDelay), null, scheduler)
+      );
 }
