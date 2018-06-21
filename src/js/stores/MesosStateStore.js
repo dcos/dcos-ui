@@ -21,7 +21,8 @@ import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
 const MAX_RETRIES = 5;
-const RETRY_DELAY = 5000;
+const RETRY_DELAY = 500;
+const MAX_RETRY_DELAY = 5000;
 const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
 
 class MesosStateStore extends GetSetBaseStore {
@@ -106,7 +107,9 @@ class MesosStateStore extends GetSetBaseStore {
     this.stream = waitStream
       .concat(eventTriggerStream)
       .sampleTime(Config.getRefreshRate() * 0.5)
-      .retryWhen(linearBackoff(MAX_RETRIES, RETRY_DELAY))
+      .retryWhen(
+        linearBackoff(Number.MAX_SAFE_INTEGER, RETRY_DELAY, MAX_RETRY_DELAY)
+      )
       .subscribe(
         () => Promise.resolve().then(this.onStreamData),
         this.onStreamError
