@@ -1,10 +1,9 @@
 import { Component } from "react";
-import JobTree from "#SRC/js/structs/JobTree";
-import Job from "#SRC/js/structs/Job";
+import { Job } from "#PLUGINS/jobs/src/js/types/Job";
 
 export default class JobsBreadcrumbs extends Component {
   props: {
-    tree: JobTree;
-    item: JobTree | Job;
+    namespace?: string;
+    job?: Job;
   };
 }

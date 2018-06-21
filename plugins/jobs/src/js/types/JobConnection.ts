@@ -1,6 +1,7 @@
 import { Job } from "#PLUGINS/jobs/src/js/types/Job";
 
 export interface JobConnection {
+  namespace: string[];
   filteredCount: number;
   totalCount: number;
   nodes: Job[];
@@ -8,6 +9,7 @@ export interface JobConnection {
 
 export const JobConnectionSchema = `
 type JobConnection {
+  namespace: [String]!
   filteredCount: Int!
   totalCount: Int!
   nodes: [Job]!

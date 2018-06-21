@@ -5,8 +5,8 @@ import * as React from "react";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 
 interface JobSearchFilterProps {
-  onChange: () => void;
-  value: string;
+  onChange: (searchString: string) => void;
+  value?: string | null;
 }
 
 export default class JobSearchFilter extends React.Component<
@@ -18,7 +18,7 @@ export default class JobSearchFilter extends React.Component<
         className="flush-bottom"
         handleFilterChange={this.props.onChange}
         placeholder="Search"
-        searchString={this.props.value}
+        searchString={this.props.value || ""}
       />
     );
   }

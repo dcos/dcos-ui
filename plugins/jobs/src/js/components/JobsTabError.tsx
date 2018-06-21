@@ -1,7 +1,6 @@
 import * as React from "react";
 
-// tslint:disable-next-line:no-submodule-imports
-import Loader from "#SRC/js/components/Loader";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 
 import JobsPage from "./JobsPage";
 
@@ -9,7 +8,7 @@ export default class JobsTabLoading extends React.Component<{}> {
   render() {
     return (
       <JobsPage>
-        <Loader />
+        <RequestErrorMsg />
       </JobsPage>
     );
   }

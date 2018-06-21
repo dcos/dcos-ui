@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 interface FilterInputTextProps {
-  handleFilterChange: () => void;
+  handleFilterChange: (searchString: string) => void;
   inverseStyle?: boolean;
   placeholder?: string;
   searchString?: string;

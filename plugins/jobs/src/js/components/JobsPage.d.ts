@@ -1,11 +1,10 @@
-import * as React from 'react';
-import JobTree from '#SRC/js/structs/JobTree';
+import * as React from "react";
+import { JobConnection } from "#PLUGINS/jobs/src/js/types/JobConnection";
 
 interface JobsPageProps {
   addButton?: any;
   children: any;
-  root: JobTree;
-  item?: JobTree;
+  namespace?: string[];
 }
 
 export default class JobsPage extends React.Component<JobsPageProps> {}

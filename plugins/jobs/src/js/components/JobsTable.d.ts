@@ -1,8 +1,8 @@
 import * as React from "react";
-import Job from "#SRC/js/structs/Job";
+import { JobConnection } from "#PLUGINS/jobs/src/js/types/JobConnection";
 
 interface JobsTableProps {
-  jobs: Job[];
+  data: JobConnection;
 }
 
 export default class JobsTable extends React.Component<JobsTableProps> {}

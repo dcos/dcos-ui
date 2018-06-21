@@ -4,46 +4,37 @@ import * as React from "react";
 import FilterBar from "#SRC/js/components/FilterBar";
 // tslint:disable-next-line:no-submodule-imports
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-// tslint:disable-next-line:no-submodule-imports
-import JobTree from "#SRC/js/structs/JobTree";
-// tslint:disable-next-line:no-submodule-imports
-import Job from "#SRC/js/structs/Job";
 
 import JobSearchFilter from "./JobSearchFilter";
 import JobsTable from "./JobsTable";
 import JobsPage from "./JobsPage";
+import { JobConnection } from "#PLUGINS/jobs/src/js/types/JobConnection";
 
 interface JobsTabListProps {
-  item: JobTree;
-  root: JobTree;
+  data: JobConnection;
+  filter: string;
   modal: JSX.Element;
-  filteredJobs: Job[];
-  searchString: string;
-  handleFilterChange: () => void;
+  handleFilterChange: (searchString: string) => void;
   handleOpenJobFormModal: () => void;
   resetFilter: () => void;
-  hasFilterApplied: boolean;
 }
 
 export default class JobsTabList extends React.Component<JobsTabListProps> {
   render() {
     const {
-      item,
-      root,
+      data,
+      filter,
       modal,
-      filteredJobs,
-      searchString,
       handleFilterChange,
       handleOpenJobFormModal,
-      resetFilter,
-      hasFilterApplied
+      resetFilter
     } = this.props;
-    const headline = hasFilterApplied ? (
+    const headline = filter ? (
       <FilterHeadline
         onReset={resetFilter}
-        name="Jobs"
-        currentLength={filteredJobs.length}
-        totalLength={item.getItems().length}
+        name="Job"
+        currentLength={data.filteredCount}
+        totalLength={data.totalCount}
       />
     ) : null;
 
@@ -53,18 +44,14 @@ export default class JobsTabList extends React.Component<JobsTabListProps> {
           label: "Create a job",
           onItemSelect: handleOpenJobFormModal
         }}
-        root={root}
-        item={item}
+        namespace={data.namespace}
       >
         <div className="flex-grow">
           {headline}
           <FilterBar>
-            <JobSearchFilter
-              onChange={handleFilterChange}
-              value={searchString}
-            />
+            <JobSearchFilter onChange={handleFilterChange} value={filter} />
           </FilterBar>
-          <JobsTable jobs={filteredJobs} />
+          <JobsTable data={data} />
         </div>
         {modal}
       </JobsPage>
