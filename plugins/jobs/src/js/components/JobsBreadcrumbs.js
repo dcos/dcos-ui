@@ -53,6 +53,7 @@ export default function Breadcrumbs({ item, children, renderStates }) {
 Breadcrumbs.propTypes = {
   renderStates: PropTypes.func.isRequired,
   item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
     path: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 };
