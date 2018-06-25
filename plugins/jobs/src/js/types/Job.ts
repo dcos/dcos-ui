@@ -49,10 +49,11 @@ export interface Job {
   jobRuns: JobRunConnection | null;
   json: string;
   labels: JobLabel[];
-  lastRunsSummary: JobHistorySummary | null;
-  lastRunStatus: JobRunStatusSummary | null;
+  lastRunsSummary: JobHistorySummary;
+  lastRunStatus: JobRunStatusSummary;
   mem: number;
   name: string;
+  path: string[];
   schedules: JobScheduleConnection;
   scheduleStatus: JobStatus;
 }
@@ -81,6 +82,7 @@ type Job {
   lastRunStatus: JobRunStatusSummary
   mem: Int!
   name: String!
+  path: [String]!
   schedules: ScheduleConnection!
   scheduleStatus: JobStatus!
 }
@@ -99,6 +101,7 @@ export function JobTypeResolver(response: MetronmeGenericJobResponse): Job {
     labels: JobFieldResolvers.labels(response),
     lastRunStatus: JobFieldResolvers.lastRunStatus(response),
     name: JobFieldResolvers.name(response),
+    path: JobFieldResolvers.path(response),
     jobRuns: JobFieldResolvers.jobRuns(response),
     lastRunsSummary: JobFieldResolvers.lastRunsSummary(response),
     scheduleStatus: JobFieldResolvers.scheduleStatus(response),
@@ -155,13 +158,18 @@ export const JobFieldResolvers = {
           (job as MetronomeJobResponse).historySummary
         );
   },
-  lastRunStatus(job: MetronmeGenericJobResponse): JobRunStatusSummary | null {
+  lastRunStatus(job: MetronmeGenericJobResponse): JobRunStatusSummary {
     return isMetronomeJobDetailResponse(job)
-      ? JobRunStatusSummaryTypeResolver(job)
-      : null;
+      ? JobRunStatusSummaryTypeResolver(job.history)
+      : JobRunStatusSummaryTypeResolver(
+          (job as MetronomeJobResponse).historySummary
+        );
   },
   name(job: MetronmeGenericJobResponse): string {
     return job.id.split(".").pop() || "";
+  },
+  path(job: MetronmeGenericJobResponse): string[] {
+    return job.id.split(".").slice(0, -1);
   },
   schedules(job: MetronmeGenericJobResponse): JobScheduleConnection {
     return JobScheduleConnectionTypeResolver(job.schedules);
