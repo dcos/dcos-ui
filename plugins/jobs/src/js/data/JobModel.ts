@@ -8,11 +8,11 @@ import {
 } from "#SRC/js/events/MetronomeClient";
 
 import Config from "#SRC/js/config/Config";
-import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
-import JobStatus from "#PLUGINS/jobs/src/js/constants/JobStatus";
 import {
   JobConnection,
-  JobConnectionSchema
+  JobConnectionSchema,
+  JobConnectionTypeResolver,
+  JobsQueryArgs
 } from "#PLUGINS/jobs/src/js/types/JobConnection";
 import {
   Job,
@@ -35,20 +35,9 @@ export interface GeneralArgs {
   [key: string]: any;
 }
 
-export interface JobsQueryArgs {
-  filter?: string | null;
-  namespace?: string | null;
-  sortBy?: SortOption;
-  sortDirection?: SortDirection;
-}
-
 export interface JobQueryArgs {
   id: string;
 }
-
-export type SortOption = "ID" | "STATUS" | "LAST_RUN";
-
-export type SortDirection = "ASC" | "DESC";
 
 export const typeDefs = `
   ${JobSchema}
@@ -66,10 +55,10 @@ export const typeDefs = `
   type Query {
     jobs(
       filter: String
-      namespace: String
+      path: String
       sortBy: SortOption
       sortDirection: SortDirection
-    ): JobConnection
+    ): JobConnection!
     job(
       id: ID!
     ): Job
@@ -80,74 +69,8 @@ function isJobQueryArg(arg: any): arg is JobQueryArgs {
   return arg.id !== undefined;
 }
 
-// Sort and filtering
-function sortJobs(
-  jobs: Job[],
-  sortBy: SortOption = "ID",
-  sortDirection: SortDirection = "ASC"
-): Job[] {
-  jobs.sort((a, b) => {
-    let result;
-
-    switch (sortBy) {
-      case "ID":
-        result = compareJobById(a, b);
-        break;
-      case "STATUS":
-        result = compareJobByStatus(a, b);
-        break;
-      case "LAST_RUN":
-        result = compareJobByLastRun(a, b);
-        break;
-      default:
-        result = 0;
-    }
-
-    const direction = sortDirection === "ASC" ? 1 : -1;
-    return result * direction;
-  });
-
-  return jobs;
-}
-
-function compareJobById(a: Job, b: Job): number {
-  return a.id.localeCompare(b.id);
-}
-
-function compareJobByStatus(a: Job, b: Job): number {
-  return (
-    JobStates[a.scheduleStatus].sortOrder -
-    JobStates[b.scheduleStatus].sortOrder
-  );
-}
-
-function compareJobByLastRun(a: Job, b: Job): number {
-  const statusA = a.lastRunStatus ? a.lastRunStatus.status : "N/A";
-  const statusB = b.lastRunStatus ? b.lastRunStatus.status : "N/A";
-
-  return JobStatus[statusA].sortOrder - JobStatus[statusB].sortOrder;
-}
-
-function filterJobsById(
-  jobs: MetronomeJobResponse[],
-  filter: string | null
-): MetronomeJobResponse[] {
-  if (filter === null) {
-    return jobs;
-  }
-
-  return jobs.filter(({ id }) => id.indexOf(filter) !== -1);
-}
-
-function filterJobsByNamespace(
-  jobs: MetronomeJobResponse[],
-  namespace: string | null
-): MetronomeJobResponse[] {
-  if (namespace === null) {
-    return jobs;
-  }
-
-  return jobs.filter(({ id }) => id.startsWith(namespace));
+function isJobsQueryArg(arg: GeneralArgs): arg is JobsQueryArgs {
+  return (arg as JobsQueryArgs).path !== undefined;
 }
 
 export const resolvers = ({
@@ -160,31 +83,16 @@ export const resolvers = ({
       _parent = {},
       args: GeneralArgs = {},
       _context = {}
-    ): Observable<JobConnection | null> {
-      const {
-        sortBy = "ID",
-        sortDirection = "ASC",
-        filter = null,
-        namespace = null
-      } = args as JobsQueryArgs;
+    ): Observable<JobConnection> {
+      if (!isJobsQueryArg(args)) {
+        return Observable.throw(
+          "Jobs resolver arguments arent valid for type JobsQueryArgs"
+        );
+      }
 
-      const pollingInterval$ = Observable.timer(0, pollingInterval);
-      const responses$ = pollingInterval$.exhaustMap(fetchJobs);
-
-      const jobsInNamespace$ = responses$.map(jobs =>
-        filterJobsByNamespace(jobs, namespace)
-      );
-      const count$ = jobsInNamespace$.map(jobs => jobs.length);
-
-      return jobsInNamespace$
-        .map(jobs => filterJobsById(jobs, filter))
-        .map(jobs => jobs.map(JobTypeResolver))
-        .map(jobs => sortJobs(jobs, sortBy, sortDirection))
-        .combineLatest(count$, (jobs, totalCount) => ({
-          filteredCount: jobs.length,
-          totalCount,
-          nodes: jobs
-        }));
+      return Observable.timer(0, pollingInterval)
+        .exhaustMap(fetchJobs)
+        .map(response => JobConnectionTypeResolver(response, args));
     },
     job(_obj = {}, args: GeneralArgs, _context = {}): Observable<Job | null> {
       if (!isJobQueryArg(args)) {
