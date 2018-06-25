@@ -1,88 +1,42 @@
 import { Link } from "react-router";
-import prettycron from "prettycron";
 import PropTypes from "prop-types";
 import React from "react";
-import { Tooltip } from "reactjs-components";
 
-import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
-import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
-import Icon from "#SRC/js/components/Icon";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
-function ItemStatus({ item: { jobRuns } }) {
-  if (!jobRuns) {
-    return null;
-  }
-  const { longestRunningActiveRun } = jobRuns;
-  if (
-    !longestRunningActiveRun ||
-    !longestRunningActiveRun.tasks.longestRunningTask
-  ) {
-    return null;
-  }
-  const { status } = longestRunningActiveRun.tasks.longestRunningTask;
+export default function Breadcrumbs({ item, children, renderStates }) {
+  function getBreadcrumb(item, id = "", name = "") {
+    const isDetailPage = [...item.path, item.name].join(".") === id;
+    const link = isDetailPage ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
 
-  return (
-    <BreadcrumbSupplementalContent>
-      <div className="service-page-header-status muted">
-        ({TaskStates[status].displayName})
-      </div>
-    </BreadcrumbSupplementalContent>
-  );
-}
+    return (
+      <Breadcrumb key={id} title="Jobs">
+        <BreadcrumbTextContent>
+          <Link to={link}>{name === "" ? "Jobs" : name}</Link>
+        </BreadcrumbTextContent>
 
-function ItemSchedule({ item: { schedules } }) {
-  if (!schedules || !schedules.nodes.length || !schedules.nodes[0].enabled) {
-    return null;
-  }
-  const { cron } = schedules.nodes[0];
-
-  return (
-    <BreadcrumbSupplementalContent>
-      <Tooltip
-        content={prettycron.toString(cron)}
-        maxWidth={250}
-        wrapText={true}
-      >
-        <Icon color="grey" id="repeat" size="mini" />
-      </Tooltip>
-    </BreadcrumbSupplementalContent>
-  );
-}
-
-function getBreadcrumb(item, id = "", name = "") {
-  const isDetailPage = [...item.path, item.id].join(".") === id;
-  const link = isDetailPage ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
-
-  return (
-    <Breadcrumb key={id} title="Jobs">
-      <BreadcrumbTextContent>
-        <Link to={link}>{name === "" ? "Jobs" : name}</Link>
-      </BreadcrumbTextContent>
-      {isDetailPage ? <ItemSchedule item={item} /> : null}
-      {isDetailPage ? <ItemStatus item={item} /> : null}
-    </Breadcrumb>
-  );
-}
-
-function getBreadcrumbList(item) {
-  if (item == null) {
-    return [];
+        {isDetailPage ? renderStates(item) : null}
+      </Breadcrumb>
+    );
   }
 
-  const pathSegments = [...item.path, item.name];
-  const segments = pathSegments.map((_, index) =>
-    pathSegments.slice(0, index + 1)
-  );
+  function getBreadcrumbList(item) {
+    if (item == null) {
+      return [];
+    }
 
-  return segments.map(segment =>
-    getBreadcrumb(item, segment.join("."), segment[segment.length - 1])
-  );
-}
+    const pathSegments = [...item.path, item.name];
+    const segments = pathSegments.map((_, index) =>
+      pathSegments.slice(0, index + 1)
+    );
 
-export default function Breadcrumbs({ item, children }) {
+    return segments.map(segment =>
+      getBreadcrumb(item, segment.join("."), segment[segment.length - 1])
+    );
+  }
+
   let breadcrumbs = [];
 
   if (item) {
@@ -97,24 +51,9 @@ export default function Breadcrumbs({ item, children }) {
 }
 
 Breadcrumbs.propTypes = {
+  renderStates: PropTypes.func.isRequired,
   item: PropTypes.shape({
-    path: PropTypes.arrayOf(PropTypes.string).isRequired,
-    schedules: PropTypes.shape({
-      nodes: PropTypes.arrayOf(
-        PropTypes.shape({
-          enabled: PropTypes.bool.isRequired,
-          cron: PropTypes.string.isRequired
-        })
-      ).isRequired
-    }),
-    jobRuns: PropTypes.shape({
-      longestRunningActiveRun: PropTypes.shape({
-        tasks: PropTypes.shape({
-          longestRunningTask: PropTypes.shape({
-            status: PropTypes.string.isRequired
-          })
-        }).isRequired
-      })
-    }).isRequired
-  })
+    name: PropTypes.string.isRequired,
+    path: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired
 };

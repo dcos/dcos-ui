@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Status renders TASK_FAILED 1`] = `
+<div
+  className="breadcrumb__content breadcrumb__content--supplemental"
+>
+  <div
+    className="service-page-header-status muted"
+  >
+    (
+    Failed
+    )
+  </div>
+</div>
+`;
+
+exports[`Status renders TASK_RUNNING 1`] = `
+<div
+  className="breadcrumb__content breadcrumb__content--supplemental"
+>
+  <div
+    className="service-page-header-status muted"
+  >
+    (
+    Running
+    )
+  </div>
+</div>
+`;
+
+exports[`Status renders TASK_STARTED 1`] = `
+<div
+  className="breadcrumb__content breadcrumb__content--supplemental"
+>
+  <div
+    className="service-page-header-status muted"
+  >
+    (
+    Started
+    )
+  </div>
+</div>
+`;
+
+exports[`Status renders TASK_STARTING 1`] = `
+<div
+  className="breadcrumb__content breadcrumb__content--supplemental"
+>
+  <div
+    className="service-page-header-status muted"
+  >
+    (
+    Starting
+    )
+  </div>
+</div>
+`;
