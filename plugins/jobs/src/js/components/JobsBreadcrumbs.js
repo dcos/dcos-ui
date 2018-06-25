@@ -33,6 +33,20 @@ function ItemStatus({ item: { jobRuns } }) {
   );
 }
 
+ItemStatus.propTypes = {
+  item: PropTypes.shape({
+    jobRuns: PropTypes.shape({
+      longestRunningActiveRun: PropTypes.shape({
+        tasks: PropTypes.shape({
+          longestRunningTask: PropTypes.shape({
+            status: PropTypes.string.isRequired
+          })
+        }).isRequired
+      })
+    }).isRequired
+  })
+};
+
 function ItemSchedule({ item: { schedules } }) {
   if (!schedules || !schedules.nodes.length || !schedules.nodes[0].enabled) {
     return null;
@@ -52,8 +66,21 @@ function ItemSchedule({ item: { schedules } }) {
   );
 }
 
+ItemSchedule.propTypes = {
+  item: PropTypes.shape({
+    schedules: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          enabled: PropTypes.bool.isRequired,
+          cron: PropTypes.string.isRequired
+        })
+      ).isRequired
+    })
+  })
+};
+
 function getBreadcrumb(item, id = "", name = "") {
-  const isDetailPage = item.id === id;
+  const isDetailPage = [...item.path, item.id].join(".") === id;
   const link = isDetailPage ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
 
   return (
@@ -82,7 +109,7 @@ function getBreadcrumbList(item) {
   );
 }
 
-const JobsBreadcrumbs = ({ item, children }) => {
+export default function Breadcrumbs({ item, children }) {
   let breadcrumbs = [];
 
   if (item) {
@@ -94,10 +121,27 @@ const JobsBreadcrumbs = ({ item, children }) => {
   }
 
   return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbs} />;
-};
+}
 
-JobsBreadcrumbs.propTypes = {
-  item: PropTypes.object
+Breadcrumbs.propTypes = {
+  item: PropTypes.shape({
+    path: PropTypes.arrayOf(PropTypes.string).isRequired,
+    schedules: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          enabled: PropTypes.bool.isRequired,
+          cron: PropTypes.string.isRequired
+        })
+      ).isRequired
+    }),
+    jobRuns: PropTypes.shape({
+      longestRunningActiveRun: PropTypes.shape({
+        tasks: PropTypes.shape({
+          longestRunningTask: PropTypes.shape({
+            status: PropTypes.string.isRequired
+          })
+        }).isRequired
+      })
+    }).isRequired
+  })
 };
-
-module.exports = JobsBreadcrumbs;

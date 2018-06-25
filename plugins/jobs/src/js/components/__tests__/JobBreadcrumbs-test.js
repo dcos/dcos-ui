@@ -1,9 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import JobBreadcrumbs from "../JobsBreadcrumbs";
+import Breadcrumbs from "../JobsBreadcrumbs";
 
-describe("JobBreadcrumbs", () => {
+describe("Breadcrumbs", () => {
   const pathCases = [
     {
       name: "no path",
@@ -60,15 +60,13 @@ describe("JobBreadcrumbs", () => {
           jobRuns: {
             longestRunningActiveRun: {
               tasks: {
-                longestRunningTask: {
-                  status: annotationCase.jobTask
-                }
+                longestRunningTask: annotationCase.jobTask
               }
             }
           }
         };
         expect(
-          renderer.create(<JobBreadcrumbs item={item} />).toJSON()
+          renderer.create(<Breadcrumbs item={item} />).toJSON()
         ).toMatchSnapshot();
       });
     }

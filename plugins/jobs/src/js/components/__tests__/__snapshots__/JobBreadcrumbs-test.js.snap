@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`JobBreadcrumbs has a long path with enabled schedules 1`] = `
+exports[`Breadcrumbs has a long path with enabled schedules 1`] = `
 <div
   className="breadcrumbs breadcrumbs--is-truncated"
 >
@@ -104,7 +104,7 @@ exports[`JobBreadcrumbs has a long path with enabled schedules 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has a long path with job runs 1`] = `
+exports[`Breadcrumbs has a long path with job runs 1`] = `
 <div
   className="breadcrumbs breadcrumbs--is-truncated"
 >
@@ -208,7 +208,7 @@ exports[`JobBreadcrumbs has a long path with job runs 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has a long path with job task and schedule 1`] = `
+exports[`Breadcrumbs has a long path with job task and schedule 1`] = `
 <div
   className="breadcrumbs breadcrumbs--is-truncated"
 >
@@ -312,7 +312,7 @@ exports[`JobBreadcrumbs has a long path with job task and schedule 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has a long path with no schedule 1`] = `
+exports[`Breadcrumbs has a long path with no schedule 1`] = `
 <div
   className="breadcrumbs breadcrumbs--is-truncated"
 >
@@ -416,7 +416,7 @@ exports[`JobBreadcrumbs has a long path with no schedule 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has no path with enabled schedules 1`] = `
+exports[`Breadcrumbs has no path with enabled schedules 1`] = `
 <div
   className="breadcrumbs"
 >
@@ -460,6 +460,23 @@ exports[`JobBreadcrumbs has no path with enabled schedules 1`] = `
         Jobs
       </a>
     </div>
+    <div
+      className="breadcrumb__content breadcrumb__content--supplemental"
+    >
+      <div
+        className="tooltip-wrapper text-align-center"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <svg
+          className="icon icon-grey icon-mini"
+        >
+          <use
+            xlinkHref="#icon-system--repeat"
+          />
+        </svg>
+      </div>
+    </div>
   </div>
   <div
     className="breadcrumb breadcrumb--is-caret"
@@ -489,7 +506,7 @@ exports[`JobBreadcrumbs has no path with enabled schedules 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has no path with job runs 1`] = `
+exports[`Breadcrumbs has no path with job runs 1`] = `
 <div
   className="breadcrumbs"
 >
@@ -533,6 +550,17 @@ exports[`JobBreadcrumbs has no path with job runs 1`] = `
         Jobs
       </a>
     </div>
+    <div
+      className="breadcrumb__content breadcrumb__content--supplemental"
+    >
+      <div
+        className="service-page-header-status muted"
+      >
+        (
+        Running
+        )
+      </div>
+    </div>
   </div>
   <div
     className="breadcrumb breadcrumb--is-caret"
@@ -562,7 +590,7 @@ exports[`JobBreadcrumbs has no path with job runs 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has no path with job task and schedule 1`] = `
+exports[`Breadcrumbs has no path with job task and schedule 1`] = `
 <div
   className="breadcrumbs"
 >
@@ -606,6 +634,34 @@ exports[`JobBreadcrumbs has no path with job task and schedule 1`] = `
         Jobs
       </a>
     </div>
+    <div
+      className="breadcrumb__content breadcrumb__content--supplemental"
+    >
+      <div
+        className="tooltip-wrapper text-align-center"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <svg
+          className="icon icon-grey icon-mini"
+        >
+          <use
+            xlinkHref="#icon-system--repeat"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      className="breadcrumb__content breadcrumb__content--supplemental"
+    >
+      <div
+        className="service-page-header-status muted"
+      >
+        (
+        Running
+        )
+      </div>
+    </div>
   </div>
   <div
     className="breadcrumb breadcrumb--is-caret"
@@ -635,7 +691,7 @@ exports[`JobBreadcrumbs has no path with job task and schedule 1`] = `
 </div>
 `;
 
-exports[`JobBreadcrumbs has no path with no schedule 1`] = `
+exports[`Breadcrumbs has no path with no schedule 1`] = `
 <div
   className="breadcrumbs"
 >
