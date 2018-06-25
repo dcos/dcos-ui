@@ -10,6 +10,9 @@ import mixin from "reactjs-mixin";
 import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+import ItemSchedule from "#PLUGINS/jobs/src/js/components/breadcrumbs/Schedule";
+import ItemStatus from "#PLUGINS/jobs/src/js/components/breadcrumbs/Status";
+
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
 import TimeAgo from "../../components/TimeAgo";
@@ -29,6 +32,8 @@ class JobDetailPage extends mixin(TabsMixin) {
       runHistory: "Run History",
       configuration: "Configuration"
     };
+
+    this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
@@ -236,6 +241,13 @@ class JobDetailPage extends mixin(TabsMixin) {
     ];
   }
 
+  renderBreadcrumbStates(item) {
+    return [
+      <ItemSchedule key="schedule" item={item} />,
+      <ItemStatus key="status" item={item} />
+    ];
+  }
+
   render() {
     if (this.props.params.taskID) {
       return this.props.children;
@@ -247,7 +259,12 @@ class JobDetailPage extends mixin(TabsMixin) {
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs item={job} />}
+          breadcrumbs={
+            <JobsBreadcrumbs
+              renderStates={this.renderBreadcrumbStates}
+              item={job}
+            />
+          }
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
