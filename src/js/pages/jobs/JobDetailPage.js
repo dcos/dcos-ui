@@ -7,6 +7,8 @@ import { routerShape } from "react-router";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 
+import Util from "#SRC/js/utils/Util";
+
 import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
@@ -242,9 +244,23 @@ class JobDetailPage extends mixin(TabsMixin) {
   }
 
   renderBreadcrumbStates(item) {
+    const status = Util.findNestedPropertyInObject(
+      item,
+      "jobRuns.longestRunningActiveRun.tasks.longestRunningTask.status"
+    );
+
+    let schedule = null;
+    if (
+      item.schedules ||
+      item.schedules.nodes.length ||
+      item.schedules.nodes[0].enabled
+    ) {
+      schedule = item.schedules.nodes[0];
+    }
+
     return [
-      <ItemSchedule key="schedule" item={item} />,
-      <ItemStatus key="status" item={item} />
+      schedule ? <ItemSchedule key="schedule" schedule={schedule} /> : null,
+      status ? <ItemStatus key="status" status={status} /> : null
     ];
   }
 
