@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobDetailPage #renderBreadcrumbStates renders with enabled schedules 1`] = `
+<div>
+  <div
+    className="breadcrumb__content breadcrumb__content--supplemental"
+  >
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        className="icon icon-grey icon-mini"
+      >
+        <use
+          xlinkHref="#icon-system--repeat"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`JobDetailPage #renderBreadcrumbStates renders with job runs 1`] = `
+<div>
+  <div
+    className="breadcrumb__content breadcrumb__content--supplemental"
+  >
+    <div
+      className="service-page-header-status muted"
+    >
+      (
+      Running
+      )
+    </div>
+  </div>
+</div>
+`;
+
+exports[`JobDetailPage #renderBreadcrumbStates renders with job task and schedule 1`] = `
+<div>
+  <div
+    className="breadcrumb__content breadcrumb__content--supplemental"
+  >
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        className="icon icon-grey icon-mini"
+      >
+        <use
+          xlinkHref="#icon-system--repeat"
+        />
+      </svg>
+    </div>
+  </div>
+  <div
+    className="breadcrumb__content breadcrumb__content--supplemental"
+  >
+    <div
+      className="service-page-header-status muted"
+    >
+      (
+      Running
+      )
+    </div>
+  </div>
+</div>
+`;
+
+exports[`JobDetailPage #renderBreadcrumbStates renders with no schedule 1`] = `<div />`;
