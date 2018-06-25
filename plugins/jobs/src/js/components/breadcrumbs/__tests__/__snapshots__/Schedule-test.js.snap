@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Schedule renders the schedule 1`] = `
+<div
+  className="breadcrumb__content breadcrumb__content--supplemental"
+>
+  <div
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <svg
+      className="icon icon-grey icon-mini"
+    >
+      <use
+        xlinkHref="#icon-system--repeat"
+      />
+    </svg>
+  </div>
+</div>
+`;
