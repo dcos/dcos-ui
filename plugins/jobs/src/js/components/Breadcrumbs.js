@@ -6,54 +6,60 @@ import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
-export default function Breadcrumbs({ item, children, renderStates }) {
-  function getBreadcrumb(item, id = "", name = "") {
-    const isDetailPage = [...item.path, item.name].join(".") === id;
-    const link = isDetailPage ? `/jobs/detail/${id}` : `/jobs/overview/${id}`;
-
+export default function Breadcrumbs({ path, name, children, extra }) {
+  /**
+   * @param  {string} link
+   * @param  {string[]} pathname path including name (if given)
+   * @param  {JSX.Element} [extra=null] extra JSX Components to render
+   *
+   * @return {JSX.Element} Breadcrumb Part Component
+   */
+  function buildJSX(link, pathname, extra = null) {
     return (
-      <Breadcrumb key={id} title="Jobs">
+      <Breadcrumb key={pathname.join(".")} title="Jobs">
         <BreadcrumbTextContent>
-          <Link to={link}>{name === "" ? "Jobs" : name}</Link>
+          <Link to={link}>{pathname.slice(-1)}</Link>
         </BreadcrumbTextContent>
 
-        {isDetailPage ? renderStates(item) : null}
+        {extra}
       </Breadcrumb>
     );
   }
 
-  function getBreadcrumbList(item) {
-    if (item == null) {
-      return [];
+  // we're starting from the back, so first we have children
+  let breadcrumbs = React.Children.toArray(children);
+
+  // if we got a name, thats a detail link
+  if (name !== undefined && name !== "") {
+    breadcrumbs = [
+      buildJSX(
+        ["/jobs/detail/"].concat(path, [name]).join("."),
+        path.concat([name]),
+        extra
+      )
+    ].concat(breadcrumbs);
+  }
+
+  // build up breadcrumb for path, starting from the end!
+  if (path !== undefined) {
+    for (let index = path.length; index > 0; index--) {
+      breadcrumbs = [
+        buildJSX(
+          ["/jobs/overview/"].concat(path.slice(0, index)).join("."),
+          path.slice(0, index)
+        )
+      ].concat(breadcrumbs);
     }
-
-    const pathSegments = [...item.path, item.name];
-    const segments = pathSegments.map((_, index) =>
-      pathSegments.slice(0, index + 1)
-    );
-
-    return segments.map(segment =>
-      getBreadcrumb(item, segment.join("."), segment[segment.length - 1])
-    );
   }
 
-  let breadcrumbs = [];
-
-  if (item) {
-    breadcrumbs = [].concat(
-      getBreadcrumb(item),
-      getBreadcrumbList(item),
-      React.Children.toArray(children)
-    );
-  }
+  // add root element, here its named "Jobs"
+  breadcrumbs = [buildJSX("/jobs/overview/", ["Jobs"])].concat(breadcrumbs);
 
   return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbs} />;
 }
 
 Breadcrumbs.propTypes = {
-  renderStates: PropTypes.func.isRequired,
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    path: PropTypes.arrayOf(PropTypes.string).isRequired
-  }).isRequired
+  extra: PropTypes.node,
+  name: PropTypes.string,
+  path: PropTypes.arrayOf(PropTypes.string)
 };

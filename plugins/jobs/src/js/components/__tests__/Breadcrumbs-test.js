@@ -17,17 +17,27 @@ describe("Breadcrumbs", () => {
 
   for (const pathCase of pathCases) {
     it(`has ${pathCase.name}`, () => {
-      const item = {
-        path: pathCase.path,
-        name: "MyJob"
-      };
       expect(
         renderer
           .create(
-            <Breadcrumbs renderStates={() => <span>States</span>} item={item} />
+            <Breadcrumbs
+              extra={<span>States</span>}
+              path={pathCase.path}
+              name="MyJob"
+            />
           )
           .toJSON()
       ).toMatchSnapshot();
     });
   }
+
+  it(`has path but no name`, () => {
+    expect(
+      renderer.create(<Breadcrumbs path={["foo", "bar"]} />).toJSON()
+    ).toMatchSnapshot();
+  });
+
+  it(`has no props at all`, () => {
+    expect(renderer.create(<Breadcrumbs />).toJSON()).toMatchSnapshot();
+  });
 });
