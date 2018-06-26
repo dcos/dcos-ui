@@ -90,6 +90,15 @@ export default componentFromStream(props$ => {
     disabledDialog$
   ])
     .map(([job, props, jobActionDialog, disabledDialog]) => {
+      let schedule = null;
+      if (
+        job.schedules ||
+        job.schedules.nodes.length ||
+        job.schedules.nodes[0].enabled
+      ) {
+        schedule = job.schedules.nodes[0];
+      }
+
       const enhancedProps = {
         ...props,
         job,
@@ -100,10 +109,14 @@ export default componentFromStream(props$ => {
           MetronomeStore.runJob(job.id);
         },
         handleDisableScheduleButtonClick() {
-          MetronomeStore.toggleSchedule(job.id, false);
+          if (schedule) {
+            MetronomeStore.toggleSchedule(job.id, schedule, false);
+          }
         },
         handleEnableScheduleButtonClick() {
-          MetronomeStore.toggleSchedule(job.id, true);
+          if (schedule) {
+            MetronomeStore.toggleSchedule(job.id, schedule, true);
+          }
         },
         handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
           MetronomeStore.deleteJob(job.id, stopCurrentJobRuns);

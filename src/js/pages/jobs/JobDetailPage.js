@@ -251,8 +251,8 @@ class JobDetailPage extends mixin(TabsMixin) {
 
     let schedule = null;
     if (
-      item.schedules ||
-      item.schedules.nodes.length ||
+      item.schedules &&
+      item.schedules.nodes.length &&
       item.schedules.nodes[0].enabled
     ) {
       schedule = item.schedules.nodes[0];

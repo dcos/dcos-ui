@@ -337,6 +337,17 @@ describe("MetronomeStore", function() {
   });
 
   describe("#toggleSchedule", function() {
+    const schedule = {
+      enabled: false,
+      cron: "0 0 20 * *"
+    };
+
+    it("throws when no schedule is passed", function() {
+      expect(() => {
+        MetronomeStore.toggleSchedule("foo");
+      }).toThrowErrorMatchingSnapshot();
+    });
+
     it("passes the jobID to update schedule", function() {
       spyOn(MetronomeStore, "updateSchedule");
 
@@ -346,7 +357,7 @@ describe("MetronomeStore", function() {
         jobID: "foo"
       });
 
-      MetronomeStore.toggleSchedule("foo");
+      MetronomeStore.toggleSchedule("foo", schedule);
 
       expect(MetronomeStore.updateSchedule.calls.allArgs()[0][0]).toEqual(
         "foo"
@@ -362,7 +373,7 @@ describe("MetronomeStore", function() {
         jobID: "foo"
       });
 
-      MetronomeStore.toggleSchedule("foo", false);
+      MetronomeStore.toggleSchedule("foo", schedule, false);
 
       expect(
         MetronomeStore.updateSchedule.calls.allArgs()[0][1].enabled
@@ -378,35 +389,11 @@ describe("MetronomeStore", function() {
         jobID: "foo"
       });
 
-      MetronomeStore.toggleSchedule("foo");
+      MetronomeStore.toggleSchedule("foo", schedule);
 
       expect(
         MetronomeStore.updateSchedule.calls.allArgs()[0][1].enabled
       ).toEqual(true);
-    });
-
-    it("does nothing if job unknown", function() {
-      spyOn(MetronomeStore, "updateSchedule");
-
-      MetronomeStore.toggleSchedule("unknown", false);
-
-      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled();
-    });
-
-    it("does nothing if schedule undefined", function() {
-      spyOn(MetronomeStore, "updateSchedule");
-
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
-        data: {
-          id: "foo"
-        },
-        jobID: "foo"
-      });
-
-      MetronomeStore.toggleSchedule("foo");
-
-      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled();
     });
   });
 
