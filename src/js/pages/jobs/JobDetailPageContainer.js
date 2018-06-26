@@ -7,10 +7,10 @@ import mixin from "reactjs-mixin";
 
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
 
-import Loader from "../../components/Loader";
-import Page from "../../components/Page";
-import RequestErrorMsg from "../../components/RequestErrorMsg";
-import MetronomeStore from "../../stores/MetronomeStore";
+import Loader from "#SRC/js/components/Loader";
+import Page from "#SRC/js/components/Page";
+import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import MetronomeStore from "#SRC/js/stores/MetronomeStore";
 import JobDetailPage from "./JobDetailPage";
 
 export const DIALOGS = {

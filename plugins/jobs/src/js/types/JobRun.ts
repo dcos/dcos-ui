@@ -46,10 +46,13 @@ export const JobRunFieldResolvers = {
     return DateUtil.strToMs(run.createdAt);
   },
   dateFinished(run: MetronomeActiveJobRun | JobHistoryRun): number | null {
-    return isActiveJobRun(run) && run.completedAt
-      ? DateUtil.strToMs(run.completedAt)
-      : null;
+    if (isActiveJobRun(run)) {
+      return run.completedAt ? DateUtil.strToMs(run.completedAt) : null;
+    }
+
+    return DateUtil.strToMs(run.finishedAt);
   },
+
   jobID(run: MetronomeActiveJobRun | JobHistoryRun): string {
     return isActiveJobRun(run) ? run.jobId : run.id;
   },
