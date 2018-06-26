@@ -231,17 +231,9 @@ class MetronomeStore extends EventEmitter {
     MetronomeActions.stopJobRun(jobID, jobRunID);
   }
 
-  toggleSchedule(jobID, isEnabled = true) {
-    const job = this.getJob(jobID);
-
-    if (job == null) {
-      return null;
-    }
-
-    const [schedule] = job.getSchedules();
-
+  toggleSchedule(jobID, schedule, isEnabled = true) {
     if (schedule == null) {
-      return null;
+      throw new Error("toggleSchedule was called without a schedule");
     }
 
     this.updateSchedule(

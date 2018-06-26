@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MetronomeStore #toggleSchedule throws when no schedule is passed 1`] = `"toggleSchedule was called without a schedule"`;

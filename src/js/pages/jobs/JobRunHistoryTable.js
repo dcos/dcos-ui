@@ -161,36 +161,33 @@ class JobRunHistoryTable extends React.Component {
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData(job) {
-    const jobRuns = job.getJobRuns();
+    const jobRuns = job.jobRuns.nodes;
 
-    return jobRuns.getItems().map(function(jobRun) {
-      const children = jobRun
-        .getTasks()
-        .getItems()
-        .map(function(jobTask) {
-          const startedAt = jobTask.getDateStarted();
-          const finishedAt = jobTask.getDateCompleted();
-          const runTime = calculateRunTime(startedAt, finishedAt);
+    return jobRuns.map(function(jobRun) {
+      const children = jobRun.tasks.nodes.map(function(jobTask) {
+        const startedAt = jobTask.dateStarted;
+        const finishedAt = jobTask.dateCompleted;
+        const runTime = calculateRunTime(startedAt, finishedAt);
 
-          return {
-            taskID: jobTask.getTaskID(),
-            status: jobTask.getStatus(),
-            startedAt,
-            finishedAt,
-            runTime
-          };
-        });
+        return {
+          taskID: jobTask.taskId,
+          status: jobTask.status,
+          startedAt,
+          finishedAt,
+          runTime
+        };
+      });
 
-      const startedAt = jobRun.getDateCreated();
-      const finishedAt = jobRun.getDateFinished();
+      const startedAt = jobRun.dateCreated;
+      const finishedAt = jobRun.dateFinished;
       const runTime = calculateRunTime(startedAt, finishedAt);
 
       return {
-        finishedAt: jobRun.getDateFinished(),
-        id: jobRun.id,
-        jobID: jobRun.getJobID(),
-        startedAt: jobRun.getDateCreated(),
-        status: jobRun.getStatus(),
+        finishedAt: jobRun.dateFinished,
+        id: jobRun.jobID,
+        jobID: job.id,
+        startedAt: jobRun.dateCreated,
+        status: jobRun.status,
         runTime,
         children
       };
@@ -198,16 +195,13 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getDisabledItemsMap(job) {
-    return job
-      .getJobRuns()
-      .getItems()
-      .reduce(function(memo, jobRun) {
-        const isDisabled =
-          ["ACTIVE", "INITIAL", "STARTING"].indexOf(jobRun.getStatus()) < 0;
-        memo[jobRun.get("id")] = isDisabled;
+    return job.jobRuns.nodes.reduce(function(memo, jobRun) {
+      const isDisabled =
+        ["ACTIVE", "INITIAL", "STARTING"].indexOf(jobRun.status) < 0;
+      memo[jobRun.jobID] = isDisabled;
 
-        return memo;
-      }, {});
+      return memo;
+    }, {});
   }
 
   getStopButton(hasCheckedTasks) {
@@ -237,7 +231,7 @@ class JobRunHistoryTable extends React.Component {
 
     return (
       <JobStopRunModal
-        jobID={this.props.job.getId()}
+        jobID={this.props.job.id}
         selectedItems={jobRuns}
         onClose={this.handleStopJobRunModalClose}
         onSuccess={this.handleStopJobRunSuccess}
@@ -249,7 +243,7 @@ class JobRunHistoryTable extends React.Component {
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       const taskID = row.taskID;
-      const id = this.props.job.getId();
+      const id = this.props.job.id;
 
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
@@ -340,7 +334,7 @@ class JobRunHistoryTable extends React.Component {
     const { job } = this.props;
     let { checkedItems } = this.state;
     const disabledItems = this.getDisabledItemsMap(job);
-    const totalRunCount = job.getJobRuns().getItems().length;
+    const totalRunCount = job.jobRuns.nodes.length;
     let rightAlignLastNChildren = 0;
     let hasCheckedTasks = false;
 

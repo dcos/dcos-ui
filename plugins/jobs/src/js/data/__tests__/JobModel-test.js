@@ -569,6 +569,43 @@ describe("JobModel Resolver", () => {
       })
     );
 
+    describe("namepaces", () => {
+      it(
+        "returns an empty array if there is no namespace",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () => Observable.of(defaultJobDetailData),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "foo" });
+
+          m.expect(result$.take(1).map(({ path }) => path)).toBeObservable(
+            m.cold("(x|)", {
+              x: []
+            })
+          );
+        })
+      );
+
+      it(
+        "returns each namespace as an element in the array",
+        marbles(m => {
+          m.bind();
+          const result$ = resolvers({
+            fetchJobDetail: () =>
+              Observable.of({ ...defaultJobDetailData, id: "foo.bar.baz" }),
+            pollingInterval: m.time("-|")
+          }).Query.job({}, { id: "foo" });
+
+          m.expect(result$.take(1).map(({ path }) => path)).toBeObservable(
+            m.cold("(x|)", {
+              x: ["foo", "bar"]
+            })
+          );
+        })
+      );
+    });
+
     it(
       "returns the name",
       marbles(m => {

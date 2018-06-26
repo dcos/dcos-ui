@@ -7,9 +7,14 @@ import { routerShape } from "react-router";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 
+import Util from "#SRC/js/utils/Util";
+
 import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+import ItemSchedule from "#PLUGINS/jobs/src/js/components/breadcrumbs/Schedule";
+import ItemStatus from "#PLUGINS/jobs/src/js/components/breadcrumbs/Status";
+
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
 import TimeAgo from "../../components/TimeAgo";
@@ -19,6 +24,7 @@ import StringUtil from "../../utils/StringUtil";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "./JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
+import Job from "../../structs/Job";
 
 class JobDetailPage extends mixin(TabsMixin) {
   constructor() {
@@ -28,6 +34,8 @@ class JobDetailPage extends mixin(TabsMixin) {
       runHistory: "Run History",
       configuration: "Configuration"
     };
+
+    this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
@@ -75,11 +83,10 @@ class JobDetailPage extends mixin(TabsMixin) {
         leftButtonClassName="button button-primary-link"
         rightButtonText={actionButtonLabel}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={() =>
-          this.setState({ disabledDialog: DIALOGS.DESTROY }, () => {
-            this.props.handleAcceptDestroyDialog(stopCurrentJobRuns);
-          })
-        }
+        rightButtonCallback={() => {
+          this.props.disableDialog();
+          this.props.handleAcceptDestroyDialog(stopCurrentJobRuns);
+        }}
       />
     );
   }
@@ -89,7 +96,7 @@ class JobDetailPage extends mixin(TabsMixin) {
   }
 
   getPrettySchedule(job) {
-    const schedules = job.getSchedules();
+    const schedules = job.schedules;
     if (schedules == null || schedules.length === 0) {
       return null;
     }
@@ -178,7 +185,7 @@ class JobDetailPage extends mixin(TabsMixin) {
 
   getActions() {
     const job = this.props.job;
-    const [schedule] = job.getSchedules();
+    const [schedule] = job.schedules.nodes;
 
     const actions = [];
 
@@ -236,25 +243,50 @@ class JobDetailPage extends mixin(TabsMixin) {
     ];
   }
 
+  renderBreadcrumbStates(item) {
+    const status = Util.findNestedPropertyInObject(
+      item,
+      "jobRuns.longestRunningActiveRun.tasks.longestRunningTask.status"
+    );
+
+    let schedule = null;
+    if (
+      item.schedules &&
+      item.schedules.nodes.length &&
+      item.schedules.nodes[0].enabled
+    ) {
+      schedule = item.schedules.nodes[0];
+    }
+
+    return [
+      schedule ? <ItemSchedule key="schedule" schedule={schedule} /> : null,
+      status ? <ItemStatus key="status" status={status} /> : null
+    ];
+  }
+
   render() {
-    // TaskDetailView
     if (this.props.params.taskID) {
       return this.props.children;
     }
 
-    const { job, jobTree } = this.props;
+    const { job } = this.props;
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={<JobsBreadcrumbs tree={jobTree} item={job} />}
+          breadcrumbs={
+            <JobsBreadcrumbs
+              renderStates={this.renderBreadcrumbStates}
+              item={job}
+            />
+          }
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
         <JobFormModalContainer
           isEdit={true}
-          job={job}
+          job={new Job(JSON.parse(job.json))}
           open={this.props.jobActionDialog === DIALOGS.EDIT}
           onClose={this.props.closeDialog}
         />
