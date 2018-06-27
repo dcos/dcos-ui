@@ -180,49 +180,14 @@ class JobDetailPage extends mixin(TabsMixin) {
 
   getActions() {
     const job = this.props.job;
-    const [schedule] = job.getSchedules();
 
-    // TODO: All the actions will be provided by jobsMenu in the future, which
-    // should be a list.
-    // https://jira.mesosphere.com/browse/DCOS-37616
-    let actions = [];
+    const customActionHandlers = {
+      edit: this.props.handleEditButtonClick,
+      delete: this.props.handleDestroyButtonClick,
+      deleteComplete: this.props.handleAcceptDestroyDialog
+    };
 
-    actions = actions.concat([
-      {
-        label: "Edit",
-        onItemSelect: this.props.handleEditButtonClick
-      }
-    ]);
-
-    actions = actions.concat(jobsMenu(job.getId()));
-
-    if (schedule != null && schedule.enabled) {
-      actions = actions.concat([
-        {
-          label: "Disable Schedule",
-          onItemSelect: this.props.handleDisableScheduleButtonClick
-        }
-      ]);
-    }
-
-    if (schedule != null && !schedule.enabled) {
-      actions = actions.concat([
-        {
-          label: "Enable Schedule",
-          onItemSelect: this.props.handleEnableScheduleButtonClick
-        }
-      ]);
-    }
-
-    actions = actions.concat([
-      {
-        className: "text-danger",
-        label: StringUtil.capitalize(UserActions.DELETE),
-        onItemSelect: this.props.handleDestroyButtonClick
-      }
-    ]);
-
-    return actions;
+    return jobsMenu(job, customActionHandlers);
   }
 
   getTabs() {
