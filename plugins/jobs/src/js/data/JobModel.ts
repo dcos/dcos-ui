@@ -74,8 +74,8 @@ export const typeDefs = `
   }
   `;
 
-function isJobQueryArg(arg: any): arg is JobQueryArgs {
-  return arg.id !== undefined;
+function isJobQueryArg(arg: GeneralArgs): arg is JobQueryArgs {
+  return (arg as JobQueryArgs).id !== undefined;
 }
 
 function isJobsQueryArg(arg: GeneralArgs): arg is JobsQueryArgs {
@@ -110,7 +110,9 @@ export const resolvers = ({
       _context = {}
     ): Observable<Job | null> {
       if (!isJobQueryArg(args)) {
-        return Observable.throw("The job resolver expects an id as argument");
+        return Observable.throw(
+          "Job resolver arguments arent valid for type JobQueryArgs"
+        );
       }
 
       const pollingInterval$ = Observable.timer(0, pollingInterval);
