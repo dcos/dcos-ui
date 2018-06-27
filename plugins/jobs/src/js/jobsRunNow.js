@@ -13,7 +13,7 @@ const runNowJobMutation = gql`
   }
 `;
 
-export default jobId => {
+export default function jobsRunNow(jobId) {
   return {
     label: "Run Now",
     onItemSelect() {
@@ -24,4 +24,4 @@ export default jobId => {
         .subscribe();
     }
   };
-};
+}
