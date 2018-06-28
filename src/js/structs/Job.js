@@ -56,6 +56,10 @@ module.exports = class Job extends Item {
     });
   }
 
+  getParameters() {
+    return ((this.get("run") || {}).docker || {}).parameters || {};
+  }
+
   getLabels() {
     return this.get("labels") || {};
   }

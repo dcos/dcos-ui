@@ -76,6 +76,22 @@ const JobUtil = {
 
     if (docker && docker.image) {
       Object.assign(spec.run, { docker });
+      if (docker.parameters != null && docker.parameters.items != null) {
+        spec.run.docker.parameters = docker.parameters.items.reduce(function(
+          memo,
+          { key, value }
+        ) {
+          if (key == null) {
+            return memo;
+          }
+
+          // The 'undefined' value is not rendered by the JSON.stringify,
+          // so make sure empty environment variables are not left unrendered
+          memo[key] = value || "";
+
+          return memo;
+        }, {});
+      }
     }
 
     // Reset schedules
@@ -129,8 +145,13 @@ const JobUtil = {
     }
 
     const docker = job.getDocker();
+
     if (docker.image) {
       Object.assign(spec.run, { docker });
+      const parameters = docker.parameters;
+      if (Object.keys(parameters).length > 0) {
+        spec.run.docker.parameters = parameters;
+      }
     }
 
     const [schedule] = job.getSchedules();

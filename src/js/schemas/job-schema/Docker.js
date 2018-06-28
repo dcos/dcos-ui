@@ -2,6 +2,8 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 
+import Parameters from "./Parameters";
+
 const General = {
   title: "Docker Container",
   description: "Configure your job settings",
@@ -14,7 +16,15 @@ const General = {
       getter(job) {
         return job.getDocker().image;
       }
-    }
+    },
+    privileged: {
+      type: "boolean",
+      description: "Run this docker image in privileged mode",
+      getter(job) {
+        return job.getDocker().privileged;
+      }
+    },
+    parameters: Parameters
   },
   required: []
 };
