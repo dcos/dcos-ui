@@ -1946,4 +1946,93 @@ describe("JobModel Resolver", () => {
       })
     );
   });
+
+  describe("updateJob", () => {
+    const jobData = {
+      id: "bestJobEver"
+    };
+
+    it(
+      "returns a JobDetailResponse shaped object",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          updateJob: (_id, data) => Observable.of(data)
+        }).Mutation.updateJob({}, { id: "bestJobEver", data: jobData });
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold("(x|)", {
+            x: jobData
+          })
+        );
+      })
+    );
+
+    it(
+      "throws when arguments are missing",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          update: () => {}
+        }).Mutation.updateJob({}, {});
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold(
+            "#",
+            {},
+            {
+              response: {
+                message:
+                  "updateJob requires both `id` and `data` to be provided!"
+              }
+            }
+          )
+        );
+      })
+    );
+  });
+
+  describe("createJob", () => {
+    const jobData = {
+      id: "bestJobEver"
+    };
+
+    it(
+      "returns a JobDetailResponse shaped object",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          createJob: data => Observable.of(data)
+        }).Mutation.createJob({}, { data: jobData });
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold("(x|)", {
+            x: jobData
+          })
+        );
+      })
+    );
+
+    it(
+      "throws when arguments are missing",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          createJob: () => {}
+        }).Mutation.createJob({}, {});
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold(
+            "#",
+            {},
+            {
+              response: {
+                message: "createJob requires `data` to be provided!"
+              }
+            }
+          )
+        );
+      })
+    );
+  });
 });

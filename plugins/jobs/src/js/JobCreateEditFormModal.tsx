@@ -3,12 +3,30 @@ import * as React from "react";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { combineLatest } from "rxjs/observable/combineLatest";
 
-import { componentFromStream } from "data-service";
+import gql from "graphql-tag";
+import { componentFromStream, graphqlObservable } from "data-service";
 
-import { createJob, JobData, updateJob } from "#SRC/js/events/MetronomeClient";
+import { JobData } from "#SRC/js/events/MetronomeClient";
 import Job from "#SRC/js/structs/Job";
 
 import JobFormModal, { ErrorMessage } from "./components/JobFormModal";
+import defaultSchema from "./data/JobModel";
+
+const createJobMutation = gql`
+  mutation {
+    createJob(data: $jobSpec) {
+      jobId
+    }
+  }
+`;
+
+const updateJobMutation = gql`
+  mutation {
+    updateJob(id: $jobId, data: $jobSpec) {
+      jobId
+    }
+  }
+`;
 
 interface JobCreateEditFormModalProps {
   isEdit?: boolean;
@@ -27,10 +45,13 @@ const JobCreateEditFormModal = componentFromStream<JobCreateEditFormModalProps>(
       errorMessage$.next(errorMessage);
     }
 
-    function handleSubmit(isEdit: boolean, jobSpec: JobData, jobId: string) {
-      const request$ = isEdit ? updateJob(jobId, jobSpec) : createJob(jobSpec);
+    function handleSubmit(
+      isEdit: boolean,
+      data: { jobId: string; jobSpec: JobData }
+    ) {
+      const mutation = isEdit ? updateJobMutation : createJobMutation;
 
-      combineLatest(props$, request$)
+      combineLatest(props$, graphqlObservable(mutation, defaultSchema, data))
         .take(1) // unsubscribe after the first one to break ∞ react update loop
         .subscribe({
           next: ([props]) => props.onClose(),

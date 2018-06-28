@@ -142,7 +142,9 @@ const defaultHeaders = {
   "Content-Type": "application/json; charset=utf-8"
 };
 
-export function createJob(data: JobData) {
+export function createJob(
+  data: JobDetailResponse
+): Observable<JobDetailResponse> {
   return request(`${Config.metronomeAPI}/v0/scheduled-jobs`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -180,7 +182,10 @@ export function deleteJob(
   );
 }
 
-export function updateJob(jobID: string, data: JobData): Observable<any> {
+export function updateJob(
+  jobID: string,
+  data: JobDetailResponse
+): Observable<JobDetailResponse> {
   return request(
     `${
       Config.metronomeAPI
