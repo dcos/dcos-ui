@@ -12,7 +12,7 @@ import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
 import JobConfiguration from "./JobConfiguration";
-import { DIALOGS } from "./JobDetailPageContainer";
+import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
 
 class JobDetailPage extends mixin(TabsMixin) {

@@ -6,7 +6,7 @@ import { default as schema } from "#PLUGINS/jobs/src/js/data/JobModel";
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
-import JobDetailPage from "./JobDetailPage";
+import JobDetailPage from "./pages/JobDetailPage";
 
 export const DIALOGS = {
   EDIT: "edit",
