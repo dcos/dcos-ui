@@ -9,15 +9,20 @@ import mixin from "reactjs-mixin";
 import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
+import Util from "#SRC/js/utils/Util";
 
 import JobFormModalContainer from "../JobFormModalContainer";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "./JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
+import ItemSchedule from "../components/breadcrumbs/Schedule";
+import ItemStatus from "../components/breadcrumbs/Status";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 class JobDetailPage extends mixin(TabsMixin) {
   constructor() {
     super(...arguments);
+    this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
 
     this.tabs_tabs = {
       runHistory: "Run History",
@@ -43,6 +48,27 @@ class JobDetailPage extends mixin(TabsMixin) {
 
   renderRunHistoryTabView(job) {
     return <JobRunHistoryTable job={job} />;
+  }
+
+  renderBreadcrumbStates(item) {
+    const status = Util.findNestedPropertyInObject(
+      item,
+      "jobRuns.longestRunningActiveRun.tasks.longestRunningTask.status"
+    );
+
+    let schedule = null;
+    if (
+      item.schedules &&
+      item.schedules.nodes.length &&
+      item.schedules.nodes[0].enabled
+    ) {
+      schedule = item.schedules.nodes[0];
+    }
+
+    return [
+      schedule ? <ItemSchedule key="schedule" schedule={schedule} /> : null,
+      status ? <ItemStatus key="status" status={status} /> : null
+    ];
   }
 
   getActions() {
@@ -82,11 +108,19 @@ class JobDetailPage extends mixin(TabsMixin) {
 
     const { job } = this.props;
 
+    // TODO: wait for https://github.com/dcos/dcos-ui/pull/3029 to be merged and remove this line
+    const breadcrumbJob = { ...job, path: [] };
+
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
-          breadcrumbs={null}
+          breadcrumbs={
+            <Breadcrumbs
+              states={this.renderBreadcrumbStates(breadcrumbJob)}
+              item={breadcrumbJob}
+            />
+          }
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
