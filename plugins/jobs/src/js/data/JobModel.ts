@@ -1,9 +1,11 @@
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs/Observable";
 import {
+  createJob,
   fetchJobs,
   fetchJobDetail,
   runJob,
+  updateJob,
   JobResponse as MetronomeJobResponse,
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
@@ -20,7 +22,6 @@ import {
   JobTypeResolver,
   JobSchema
 } from "#PLUGINS/jobs/src/js/types/Job";
-
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
 
 export interface Query {
@@ -33,6 +34,13 @@ export interface ResolverArgs {
   fetchJobDetail: (id: string) => Observable<MetronomeJobDetailResponse>;
   pollingInterval: number;
   runJob: (id: string) => Observable<JobLink>;
+  createJob: (
+    data: MetronomeJobDetailResponse
+  ) => Observable<MetronomeJobDetailResponse>;
+  updateJob: (
+    id: string,
+    data: MetronomeJobDetailResponse
+  ) => Observable<MetronomeJobDetailResponse>;
 }
 
 export interface GeneralArgs {
@@ -68,9 +76,11 @@ export const typeDefs = `
       id: ID!
     ): Job
   }
-  
+
   type Mutation {
     runJob(id: String!): JobLink!
+    createJob(data: Job!): JobLink!
+    updateJob(id: String!, data: Job!): JobLink!
   }
   `;
 
@@ -86,7 +96,9 @@ export const resolvers = ({
   fetchJobs,
   fetchJobDetail,
   pollingInterval,
-  runJob
+  runJob,
+  createJob,
+  updateJob
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
@@ -130,6 +142,33 @@ export const resolvers = ({
       _context = {}
     ): Observable<JobLink> {
       return runJob(args.id).map(({ jobId }) => ({ jobId }));
+    },
+    createJob(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<MetronomeJobDetailResponse> {
+      if (args.data) {
+        return createJob(args.data);
+      }
+
+      return Observable.throw({
+        response: { message: "createJob requires `data` to be provided!" }
+      });
+    },
+    updateJob(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<MetronomeJobDetailResponse> {
+      if (args.id && args.data) {
+        return updateJob(args.id, args.data);
+      }
+      return Observable.throw({
+        response: {
+          message: "updateJob requires both `id` and `data` to be provided!"
+        }
+      });
     }
   }
 });
@@ -140,6 +179,8 @@ export default makeExecutableSchema({
     fetchJobs,
     fetchJobDetail,
     pollingInterval: Config.getRefreshRate(),
-    runJob
+    runJob,
+    createJob,
+    updateJob
   })
 });

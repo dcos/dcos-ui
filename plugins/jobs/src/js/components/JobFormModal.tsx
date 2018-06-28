@@ -125,7 +125,10 @@ interface JobFormModalProps {
   errorMessage: ErrorMessage | null;
   handleCancel: () => void;
   handleErrorMessageChange: (error: ErrorMessage | null) => void;
-  handleSubmit: (isEdit: boolean, jobSpec: JobData, jobId: string) => void;
+  handleSubmit: (
+    isEdit: boolean,
+    data: { jobSpec: JobData; jobId: string }
+  ) => void;
   isEdit: boolean;
   isOpen: boolean;
   job: Job;
@@ -195,7 +198,7 @@ export default class JobFormModal extends React.Component<
 
     const jobSpec = JobUtil.createJobSpecFromJob(job);
 
-    this.props.handleSubmit(isEdit, jobSpec, job.getId());
+    this.props.handleSubmit(isEdit, { jobId: job.getId(), jobSpec });
   }
 
   handleInputModeToggle() {
