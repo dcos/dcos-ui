@@ -6,11 +6,11 @@ import PropTypes from "prop-types";
 
 import mixin from "reactjs-mixin";
 
-import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
-
 import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
+
+import JobFormModalContainer from "../JobFormModalContainer";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
