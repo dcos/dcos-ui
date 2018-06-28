@@ -2,6 +2,8 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
+import PropTypes from "prop-types";
+
 import mixin from "reactjs-mixin";
 
 import JobFormModalContainer from "#PLUGINS/jobs/src/js/JobFormModalContainer";
@@ -102,6 +104,15 @@ class JobDetailPage extends mixin(TabsMixin) {
 
 JobDetailPage.contextTypes = {
   router: routerShape
+};
+
+JobDetailPage.propTypes = {
+  children: PropTypes.any,
+  closeDialog: PropTypes.func,
+  job: PropTypes.shape({
+    json: PropTypes.string.isRequired
+  }),
+  jobActionDialog: PropTypes.any
 };
 
 module.exports = JobDetailPage;
