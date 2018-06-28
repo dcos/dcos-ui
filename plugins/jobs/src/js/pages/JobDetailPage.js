@@ -48,9 +48,11 @@ class JobDetailPage extends mixin(TabsMixin) {
     }
 
     const schedule = schedules[0];
-    if (schedule.enabled) {
-      return prettycron.toString(schedule.cron);
+    if (!schedule.enabled) {
+      return null;
     }
+
+    return prettycron.toString(schedule.cron);
   }
 
   getSubTitle(job) {
