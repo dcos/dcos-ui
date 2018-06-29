@@ -148,10 +148,6 @@ const JobUtil = {
 
     if (docker.image) {
       Object.assign(spec.run, { docker });
-      const parameters = docker.parameters;
-      if (Object.keys(parameters).length > 0) {
-        spec.run.docker.parameters = parameters;
-      }
     }
 
     const [schedule] = job.getSchedules();

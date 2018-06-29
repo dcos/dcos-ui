@@ -2,6 +2,8 @@ import { cleanJobJSON } from "../utils/CleanJSONUtil";
 import DateUtil from "../utils/DateUtil";
 import Item from "./Item";
 import JobRunList from "./JobRunList";
+import Util from "../utils/Util";
+
 import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
@@ -57,7 +59,10 @@ module.exports = class Job extends Item {
   }
 
   getParameters() {
-    return ((this.get("run") || {}).docker || {}).parameters || {};
+    return (
+      Util.findNestedPropertyInObject(this.get("run"), "docker.parameters") || {
+      }
+    );
   }
 
   getLabels() {
