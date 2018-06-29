@@ -1497,14 +1497,14 @@ describe("JobModel Resolver", () => {
                 },
                 {
                   dateCreated: 1528820735593,
-                  dateFinished: null,
+                  dateFinished: 1528824335593,
                   jobID: "2",
                   status: "COMPLETED",
                   tasks: emptyTasks
                 },
                 {
                   dateCreated: 1528820735593,
-                  dateFinished: null,
+                  dateFinished: 1528824335593,
                   jobID: "3",
                   status: "FAILED",
                   tasks: emptyTasks

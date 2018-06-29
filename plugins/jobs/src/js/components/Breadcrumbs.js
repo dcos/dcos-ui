@@ -51,7 +51,10 @@ export default function Breadcrumbs({ item, children, states }) {
 }
 
 Breadcrumbs.propTypes = {
-  states: PropTypes.element,
+  states: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]),
   item: PropTypes.shape({
     name: PropTypes.string.isRequired,
     path: PropTypes.arrayOf(PropTypes.string).isRequired
