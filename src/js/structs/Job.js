@@ -2,13 +2,13 @@ import { cleanJobJSON } from "../utils/CleanJSONUtil";
 import DateUtil from "../utils/DateUtil";
 import Item from "./Item";
 import JobRunList from "./JobRunList";
-import Util from "../utils/Util";
 
 import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
   DEFAULT_MEM
 } from "../constants/JobResources";
+import { findNestedPropertyInObject } from "../utils/Util";
 
 module.exports = class Job extends Item {
   getActiveRuns() {
@@ -60,8 +60,7 @@ module.exports = class Job extends Item {
 
   getParameters() {
     return (
-      Util.findNestedPropertyInObject(this.get("run"), "docker.parameters") || {
-      }
+      findNestedPropertyInObject(this.get("run"), "docker.parameters") || []
     );
   }
 

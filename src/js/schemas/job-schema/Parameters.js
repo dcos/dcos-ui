@@ -8,14 +8,7 @@ const Parameters = {
       duplicable: true,
       addLabel: "Add Parameter",
       getter(job) {
-        const parameters = job.getParameters() || {};
-
-        return Object.keys(parameters).map(function(key) {
-          return {
-            key,
-            value: parameters[key]
-          };
-        });
+        return job.getParameters() || [];
       },
       itemShape: {
         properties: {
