@@ -8,6 +8,7 @@ import Config from "../config/Config";
 export interface GenericJobResponse {
   id: string;
   labels: LabelResponse;
+  activeRuns?: ActiveJobRun[];
   run: {
     cpus: number;
     mem: number;
@@ -135,7 +136,7 @@ export interface ScheduleData {
 export function isDetailResponse(
   response: GenericJobResponse
 ): response is JobDetailResponse {
-  return (response as JobDetailResponse).activeRuns !== undefined;
+  return (response as JobDetailResponse).history !== undefined;
 }
 
 const defaultHeaders = {
