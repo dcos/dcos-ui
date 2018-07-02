@@ -1,4 +1,5 @@
 import "rxjs/add/operator/retryWhen";
+import "rxjs/add/operator/take";
 import { marbles } from "rxjs-marbles/jest";
 
 import { linearBackoff } from "../rxjsUtils";
@@ -19,9 +20,22 @@ describe("linearBackoff", function() {
 
       // In test env we don't want to wait for the real wall clock
       // so we encode time intervals with a special helper `m.time`
-      const result = source.retryWhen(linearBackoff(2, m.time("--|")));
+      const result = source.retryWhen(linearBackoff(m.time("--|"), 2));
 
       m.expect(result).toBeObservable(expected);
+    })
+  );
+
+  it(
+    "retries infinitey when no maxRetries given",
+    marbles(function(m) {
+      m.bind();
+
+      const source = m.cold("1--2#");
+      const expected = m.cold("1--2--1--2----1--2------1--(2|)");
+
+      const result = source.retryWhen(linearBackoff(m.time("--|")));
+      m.expect(result.take(8)).toBeObservable(expected);
     })
   );
 
@@ -33,7 +47,7 @@ describe("linearBackoff", function() {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2------1--2#");
 
-      const result = source.retryWhen(linearBackoff(3, m.time("--|")));
+      const result = source.retryWhen(linearBackoff(m.time("--|"), 3));
       m.expect(result).toBeObservable(expected);
     })
   );
@@ -47,7 +61,7 @@ describe("linearBackoff", function() {
       const expected = m.cold("1--2--1--2----1--2----1--2----1--2#");
 
       const result = source.retryWhen(
-        linearBackoff(4, m.time("--|"), m.time("----|"))
+        linearBackoff(m.time("--|"), 4, m.time("----|"))
       );
       m.expect(result).toBeObservable(expected);
     })
