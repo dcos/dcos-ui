@@ -11,7 +11,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
 import Util from "#SRC/js/utils/Util";
 
-import JobFormModalContainer from "../JobFormModalContainer";
+import JobCreateEditFormModal from "#PLUGINS/jobs/src/js/JobCreateEditFormModal";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
@@ -124,7 +124,7 @@ class JobDetailPage extends mixin(TabsMixin) {
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
-        <JobFormModalContainer
+        <JobCreateEditFormModal
           isEdit={true}
           job={new Job(JSON.parse(job.json))}
           open={this.props.jobActionDialog === DIALOGS.EDIT}
