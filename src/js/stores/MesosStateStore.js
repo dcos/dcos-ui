@@ -74,7 +74,7 @@ class MesosStateStore extends GetSetBaseStore {
     const getMasterRequest = request(
       { type: "GET_MASTER" },
       "/mesos/api/v1?get_master"
-    ).retryWhen(linearBackoff(MAX_RETRIES, RETRY_DELAY));
+    ).retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES));
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const dataStream = mesosStream
@@ -107,9 +107,7 @@ class MesosStateStore extends GetSetBaseStore {
     this.stream = waitStream
       .concat(eventTriggerStream)
       .sampleTime(Config.getRefreshRate() * 0.5)
-      .retryWhen(
-        linearBackoff(Number.MAX_SAFE_INTEGER, RETRY_DELAY, MAX_RETRY_DELAY)
-      )
+      .retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
       .subscribe(
         () => Promise.resolve().then(this.onStreamData),
         this.onStreamError
