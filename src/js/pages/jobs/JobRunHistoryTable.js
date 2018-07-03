@@ -7,15 +7,15 @@ import moment from "moment";
 
 import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
+import { JobStopRun } from "#PLUGINS/jobs/src/js/JobStopRun";
 
-import CollapsingString from "#SRC/js/components/CollapsingString";
-import CheckboxTable from "#SRC/js/components/CheckboxTable";
-import ExpandingTable from "#SRC/js/components/ExpandingTable";
-import FilterBar from "#SRC/js/components/FilterBar";
-import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import Icon from "#SRC/js/components/Icon";
-import JobStopRunModal from "#SRC/js/components/modals/JobStopRunModal";
-import TimeAgo from "#SRC/js/components/TimeAgo";
+import CollapsingString from "../../components/CollapsingString";
+import CheckboxTable from "../../components/CheckboxTable";
+import ExpandingTable from "../../components/ExpandingTable";
+import FilterBar from "../../components/FilterBar";
+import FilterHeadline from "../../components/FilterHeadline";
+import Icon from "../../components/Icon";
+import TimeAgo from "../../components/TimeAgo";
 
 const columnClasses = {
   checkbox: "job-run-history-table-column-checkbox",
@@ -236,9 +236,9 @@ class JobRunHistoryTable extends React.Component {
     const jobRuns = Object.keys(checkedItems);
 
     return (
-      <JobStopRunModal
+      <JobStopRun
         jobID={this.props.job.getId()}
-        selectedItems={jobRuns}
+        jobRuns={jobRuns}
         onClose={this.handleStopJobRunModalClose}
         onSuccess={this.handleStopJobRunSuccess}
         open={isStopRunModalShown}
