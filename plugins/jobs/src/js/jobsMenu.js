@@ -1,32 +1,41 @@
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
+
 import jobsRunNow from "./jobsRunNow";
 import jobsToggleSchedule from "./jobsToggleSchedule";
+
+function jobsEdit(editAction) {
+  return {
+    label: "Edit",
+    onItemSelect: editAction
+  };
+}
+
+function jobsDelete(deleteHandler) {
+  return {
+    className: "text-danger",
+    label: StringUtil.capitalize(UserActions.DELETE),
+    onItemSelect: deleteHandler
+  };
+}
+
+function optionalJobsScheduleMenu(job) {
+  if (job.schedules.length === 0) {
+    return null;
+  }
+
+  return jobsToggleSchedule(job);
+}
 
 export default function jobsMenu(job, customActionHandlers) {
   if (!job) {
     return [];
   }
 
-  const actions = [];
-
-  actions.push({
-    label: "Edit",
-    onItemSelect: customActionHandlers.edit
-  });
-
-  actions.push(jobsRunNow(job.getId()));
-
-  if (job.schedules.length !== 0) {
-    actions.push(jobsToggleSchedule(job));
-  }
-
-  // TODO - use delete mediator https://jira.mesosphere.com/browse/DCOS-38492
-  actions.push({
-    className: "text-danger",
-    label: StringUtil.capitalize(UserActions.DELETE),
-    onItemSelect: customActionHandlers.delete
-  });
-
-  return actions;
+  return [
+    jobsEdit(customActionHandlers.edit),
+    jobsRunNow(job.getId()),
+    optionalJobsScheduleMenu(job),
+    jobsDelete(customActionHandlers.delete)
+  ].filter(menuItem => menuItem !== null);
 }
