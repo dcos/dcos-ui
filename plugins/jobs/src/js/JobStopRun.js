@@ -1,8 +1,7 @@
 import * as React from "react";
-import { componentFromStream } from "data-service";
-import { stopJobRun } from "#SRC/js/events/MetronomeClient";
 import PropTypes from "prop-types";
 
+import { componentFromStream, graphqlObservable } from "data-service";
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
@@ -10,11 +9,25 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/catch";
+import gql from "graphql-tag";
 
 import JobStopRunModal from "./components/JobStopRunModal";
 
-function executeStopRequest({ jobID, jobRun, onSuccess }) {
-  return stopJobRun(jobID, jobRun)
+import defaultSchema from "./data/JobModel";
+
+const stopJobRunMutation = gql`
+  mutation {
+    stopJobRun(id: $jobId, jobRunId: $jobRunId) {
+      jobId
+    }
+  }
+`;
+
+function executeStopJobRunMutation({ jobId, jobRunId, onSuccess }) {
+  return graphqlObservable(stopJobRunMutation, defaultSchema, {
+    jobId,
+    jobRunId
+  })
     .mapTo({ done: true })
     .do(_ => onSuccess())
     .startWith({ done: false });
@@ -22,17 +35,19 @@ function executeStopRequest({ jobID, jobRun, onSuccess }) {
 
 function stopEventHandler() {
   const stopSubject$ = new Subject();
-  const stop$ = stopSubject$.switchMap(executeStopRequest).catch(error => {
-    return stop$.startWith({
-      errorMsg: error.response.message,
-      done: true
+  const stop$ = stopSubject$
+    .switchMap(executeStopJobRunMutation)
+    .catch(error => {
+      return stop$.startWith({
+        errorMessage: error && error.response && error.response.message,
+        done: true
+      });
     });
-  });
 
   return {
     stop$,
-    stopHandler: (jobID, jobRun, onSuccess) => {
-      stopSubject$.next({ jobID, jobRun, onSuccess });
+    stopHandler: (jobId, jobRunId, onSuccess) => {
+      stopSubject$.next({ jobId, jobRunId, onSuccess });
     }
   };
 }
