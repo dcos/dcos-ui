@@ -8,9 +8,9 @@ import mixin from "reactjs-mixin";
 
 import JobCreateEditFormModal from "#PLUGINS/jobs/src/js/JobCreateEditFormModal";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
-import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
 import jobsMenu from "#PLUGINS/jobs/src/js/jobsMenu";
 import JobDelete from "#PLUGINS/jobs/src/js/JobDelete";
+import JobsBreadcrumbs from "../../components/JobsBreadcrumbs";
 
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";

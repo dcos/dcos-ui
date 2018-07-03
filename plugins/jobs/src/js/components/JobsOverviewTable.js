@@ -8,7 +8,6 @@ import { Table, Tooltip } from "reactjs-components";
 import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
-import Tree from "#SRC/js/structs/Tree";
 
 import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
@@ -16,7 +15,8 @@ import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 
 const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
 
-class JobsTable extends React.Component {
+// TODO: DCOS-38858
+export default class JobsOverviewTable extends React.Component {
   constructor() {
     super();
 
@@ -69,37 +69,68 @@ class JobsTable extends React.Component {
       }
     ];
   }
+  /**
+   * converts data from Job to table format.
+   *
+   * @param  {JobConnection} data
+   * @returns {Array<{ id, idGroup, name, schedules, status, lastRun }>} object with data needed by Table Component
+   */
+  getData(data) {
+    return Object.values(
+      data.nodes.reduce((acc, job) => {
+        /*
+        * we can find out if current job is nested in another path by
+        * comparing the job.path array with our given data.path
+        *
+        * we know already, that all jobs are in our given data.path -
+        * no need to check for something like bar.bar.baz when data.path is "foo.bar"
+        *
+        * Example:
+        * job.path = "foo.bar.baz";
+        * data.path = "foo.bar";
+        * => isGroup should be true, because there is "baz" as extra path below our prefix
+        */
+        const isGroup = job.path.slice(data.path.length).length > 0;
+        let lastRun = {};
+        let schedules = null;
+        let status = null;
+        let name = "";
+        let id = "";
 
-  // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
-  getData() {
-    return this.props.jobs.map(function(job) {
-      const isGroup = job instanceof Tree;
-      let lastRun = {};
-      let schedules = null;
-      let status = null;
+        if (!isGroup) {
+          const lastRunsSummary = job.lastRunsSummary;
 
-      if (!isGroup) {
-        const lastRunsSummary = job.getLastRunsSummary();
+          lastRun = {
+            status: job.lastRunStatus.status,
+            lastSuccessAt: lastRunsSummary.lastSuccessAt,
+            lastFailureAt: lastRunsSummary.lastFailureAt
+          };
 
-        lastRun = {
-          status: job.getLastRunStatus().status,
-          lastSuccessAt: lastRunsSummary.lastSuccessAt,
-          lastFailureAt: lastRunsSummary.lastFailureAt
+          schedules = job.schedules;
+          status = job.scheduleStatus;
+          name = job.name;
+          id = job.id;
+        } else {
+          // now we need to extract this "baz" part from above and save it as name
+          name = job.path.slice(data.path.length)[0];
+          // and build up "next-level-link" (the `id` variable is named incorrectly to cut the refactoring)
+          id = data.path.concat([name]).join(".");
+        }
+
+        // to avoid duplicates in our listing, we need to hack this… (again, this whole thing needs refactoring…)
+        // we're getting an array back with the wrapping Object.values(…)
+        acc[isGroup ? `path:${id}` : `job:${id}`] = {
+          id,
+          isGroup,
+          name,
+          schedules,
+          status,
+          lastRun
         };
 
-        schedules = job.getSchedules();
-        status = job.getScheduleStatus();
-      }
-
-      return {
-        id: job.getId(),
-        isGroup,
-        name: job.getName(),
-        schedules,
-        status,
-        lastRun
-      };
-    });
+        return acc;
+      }, {})
+    );
   }
 
   getCompareFunctionByProp(prop) {
@@ -162,8 +193,8 @@ class JobsTable extends React.Component {
       );
     }
 
-    if (schedules && schedules.length !== 0) {
-      const schedule = schedules[0];
+    if (schedules && schedules.nodes.length !== 0) {
+      const schedule = schedules.nodes[0];
 
       if (schedule.enabled) {
         scheduleIcon = (
@@ -258,7 +289,7 @@ class JobsTable extends React.Component {
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
-        data={this.getData()}
+        data={this.getData(this.props.data)}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{ prop: "name", order: "asc" }}
       />
@@ -266,8 +297,6 @@ class JobsTable extends React.Component {
   }
 }
 
-JobsTable.propTypes = {
-  jobs: PropTypes.array.isRequired
+JobsOverviewTable.propTypes = {
+  data: PropTypes.object.isRequired // JobConnection
 };
-
-module.exports = JobsTable;
