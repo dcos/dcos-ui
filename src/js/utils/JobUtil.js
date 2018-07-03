@@ -47,6 +47,7 @@ const JobUtil = {
       },
       labels = {},
       docker,
+      docker_parameters,
       schedule
     } = formModel;
 
@@ -76,6 +77,11 @@ const JobUtil = {
 
     if (docker && docker.image) {
       Object.assign(spec.run, { docker });
+      if (docker_parameters != null && docker_parameters.items != null) {
+        spec.run.docker.parameters = docker_parameters.items;
+      } else {
+        spec.run.docker.parameters = [];
+      }
     }
 
     // Reset schedules
@@ -129,8 +135,12 @@ const JobUtil = {
     }
 
     const docker = job.getDocker();
+
     if (docker.image) {
       Object.assign(spec.run, { docker });
+
+      const parameters = job.getParameters();
+      spec.run.docker.parameters = parameters;
     }
 
     const [schedule] = job.getSchedules();
