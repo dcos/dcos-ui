@@ -1,5 +1,7 @@
 import React from "react";
 import { componentFromStream, graphqlObservable } from "data-service";
+import { getContext } from "recompose";
+import { routerShape } from "react-router";
 import { Observable, BehaviorSubject } from "rxjs";
 import gql from "graphql-tag";
 import { default as schema } from "#PLUGINS/jobs/src/js/data/JobModel";
@@ -76,35 +78,43 @@ const getGraphQL = id =>
     { id }
   );
 
-export default componentFromStream(props$ => {
-  const id$ = props$.map(props => props.params.id).distinctUntilChanged();
-  const job$ = id$
-    .switchMap(id => getGraphQL(id))
-    .map(({ data: { job } }) => job);
+export default getContext({
+  router: routerShape
+})(
+  componentFromStream(props$ => {
+    const id$ = props$.map(props => props.params.id).distinctUntilChanged();
+    const job$ = id$
+      .switchMap(id => getGraphQL(id))
+      .map(({ data: { job } }) => job);
 
-  return Observable.combineLatest([
-    job$,
-    props$,
-    jobActionDialog$,
-    disabledDialog$
-  ])
-    .map(([job, props, jobActionDialog, disabledDialog]) => (
-      <JobDetailPage
-        {...props}
-        job={job}
-        jobActionDialog={jobActionDialog}
-        disabledDialog={disabledDialog}
-        errorMsg={null}
-        handleRunNowButtonClick={() => {}}
-        handleDisableScheduleButtonClick={() => {}}
-        handleEnableScheduleButtonClick={() => {}}
-        handleAcceptDestroyDialog={() => {}}
-        handleDestroyButtonClick={handleDestroyButtonClick}
-        handleEditButtonClick={handleEditButtonClick}
-        closeDialog={closeDialog}
-        disableDialog={disableDialog}
-      />
-    ))
-    .catch(() => Observable.of(<ErrorScreen />))
-    .startWith(<LoadingScreen />);
-});
+    return Observable.combineLatest([
+      job$,
+      props$,
+      jobActionDialog$,
+      disabledDialog$
+    ])
+      .map(([job, { router, ...props }, jobActionDialog, disabledDialog]) => {
+        function onJobDeleteSuccess() {
+          router.push("/jobs");
+          closeDialog();
+        }
+
+        return (
+          <JobDetailPage
+            {...props}
+            job={job}
+            jobActionDialog={jobActionDialog}
+            disabledDialog={disabledDialog}
+            errorMsg={null}
+            handleDestroyButtonClick={handleDestroyButtonClick}
+            handleEditButtonClick={handleEditButtonClick}
+            onJobDeleteSuccess={onJobDeleteSuccess}
+            closeDialog={closeDialog}
+            disableDialog={disableDialog}
+          />
+        );
+      })
+      .catch(() => Observable.of(<ErrorScreen />))
+      .startWith(<LoadingScreen />);
+  })
+);

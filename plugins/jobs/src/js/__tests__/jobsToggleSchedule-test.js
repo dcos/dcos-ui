@@ -10,12 +10,12 @@ jest.mock("data-service", () => ({
 
 const enabledJob = {
   id: "enabled",
-  schedules: [{ enabled: true }]
+  schedules: { nodes: [{ enabled: true }] }
 };
 
 const disabledJob = {
   id: "disabled",
-  schedules: [{ enabled: false }]
+  schedules: { nodes: [{ enabled: false }] }
 };
 
 describe("JobsToggleSchedule", function() {
