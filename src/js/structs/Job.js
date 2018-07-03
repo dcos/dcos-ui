@@ -9,6 +9,7 @@ import {
   DEFAULT_DISK,
   DEFAULT_MEM
 } from "../constants/JobResources";
+import { findNestedPropertyInObject } from "../utils/Util";
 
 module.exports = class Job extends Item {
   getActiveRuns() {
@@ -55,6 +56,12 @@ module.exports = class Job extends Item {
     return new JobRunList({
       items: [].concat(activeRuns, failedFinishedRuns, successfulFinishedRuns)
     });
+  }
+
+  getParameters() {
+    return (
+      findNestedPropertyInObject(this.get("run"), "docker.parameters") || []
+    );
   }
 
   getLabels() {
