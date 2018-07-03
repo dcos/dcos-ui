@@ -57,7 +57,6 @@ export class JobDetailPageContainer extends mixin(StoreMixin) {
     ];
 
     this.state = {
-      errorMsg: null,
       errorCount: 0,
       isJobFormModalOpen: false,
       isLoading: true,
@@ -66,15 +65,13 @@ export class JobDetailPageContainer extends mixin(StoreMixin) {
     };
 
     [
-      "onMetronomeStoreJobDeleteError",
-      "onMetronomeStoreJobDeleteSuccess",
       "onMetronomeStoreJobDetailError",
       "onMetronomeStoreJobDetailChange",
       "handleRunNowButtonClick",
       "handleDisableScheduleButtonClick",
       "handleEnableScheduleButtonClick",
-      "handleAcceptDestroyDialog",
       "closeDialog",
+      "onJobDeleteSuccess",
       "handleEditButtonClick",
       "handleDestroyButtonClick"
     ].forEach(method => {
@@ -121,23 +118,7 @@ export class JobDetailPageContainer extends mixin(StoreMixin) {
     MetronomeStore.toggleSchedule(this.props.params.id, true);
   }
 
-  handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
-    MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
-  }
-
-  onMetronomeStoreJobDeleteError(id, error) {
-    const { message: errorMsg } = error;
-    if (id !== this.props.params.id || errorMsg == null) {
-      return;
-    }
-
-    this.setState({
-      jobActionDialog: DIALOGS.DESTROY,
-      errorMsg
-    });
-  }
-
-  onMetronomeStoreJobDeleteSuccess() {
+  onJobDeleteSuccess() {
     // TODO: remove the closeDialog here.
     this.closeDialog();
     this.context.router.push("/jobs");
@@ -168,11 +149,10 @@ export class JobDetailPageContainer extends mixin(StoreMixin) {
       handleDisableScheduleButtonClick: this.handleDisableScheduleButtonClick,
       handleEnableScheduleButtonClick: this.handleEnableScheduleButtonClick,
       handleDestroyButtonClick: this.handleDestroyButtonClick,
-      handleAcceptDestroyDialog: this.handleAcceptDestroyDialog,
+      onJobDeleteSuccess: this.onJobDeleteSuccess,
       closeDialog: this.closeDialog,
       job,
       jobTree,
-      errorMsg: this.state.errorMsg,
       disabledDialog: this.state.disabledDialog,
       jobActionDialog: this.state.jobActionDialog
     };

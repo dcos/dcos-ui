@@ -11,7 +11,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
 import Util from "#SRC/js/utils/Util";
 
-import JobCreateEditFormModal from "#PLUGINS/jobs/src/js/JobCreateEditFormModal";
+import JobCreateEditFormModal from "../JobCreateEditFormModal";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
