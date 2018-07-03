@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 import TaskDetail from "#PLUGINS/services/src/js/pages/task-details/TaskDetail";
-import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
+import JobsBreadcrumbs from "../../components/JobsBreadcrumbs";
 
 import MesosStateStore from "../../stores/MesosStateStore";
 import MetronomeStore from "../../stores/MetronomeStore";
