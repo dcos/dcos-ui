@@ -20,7 +20,7 @@ function jobsDelete(deleteHandler) {
 }
 
 function optionalJobsScheduleMenu(job) {
-  if (job.schedules.length === 0) {
+  if (job.schedules.nodes.length === 0) {
     return null;
   }
 
@@ -34,7 +34,7 @@ export default function jobsMenu(job, customActionHandlers) {
 
   return [
     jobsEdit(customActionHandlers.edit),
-    jobsRunNow(job.getId()),
+    jobsRunNow(job.id),
     optionalJobsScheduleMenu(job),
     jobsDelete(customActionHandlers.delete)
   ].filter(menuItem => menuItem !== null);
