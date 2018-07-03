@@ -109,18 +109,12 @@ class JobDetailPage extends mixin(TabsMixin) {
 
     const { job, params } = this.props;
 
-    // TODO: wait for https://github.com/dcos/dcos-ui/pull/3029 to be merged and remove this line
-    const breadcrumbJob = { ...job, path: [] };
-
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
           breadcrumbs={
-            <Breadcrumbs
-              states={this.renderBreadcrumbStates(breadcrumbJob)}
-              item={breadcrumbJob}
-            />
+            <Breadcrumbs states={this.renderBreadcrumbStates(job)} item={job} />
           }
           tabs={this.getTabs()}
         />
