@@ -75,23 +75,12 @@ class JobStopRunModal extends mixin(StoreMixin) {
     return <span key="confirmText">You are about to stop {bodyText}.</span>;
   }
 
-  getModalContents() {
-    const { selectedItems } = this.props;
-    const selectedItemsLength = selectedItems.length;
-
-    return (
-      <div className="text-align-center">
-        {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
-      </div>
-    );
-  }
-
   render() {
     const { onClose, open, selectedItems } = this.props;
-    let rightButtonText = "Stop Job Run";
     const selectedItemsLength = selectedItems.length;
+    let rightButtonText = "Stop Job Run";
 
-    if (selectedItems.length > 1) {
+    if (selectedItemsLength > 1) {
       rightButtonText = "Stop Job Runs";
     }
 
@@ -110,7 +99,9 @@ class JobStopRunModal extends mixin(StoreMixin) {
         rightButtonCallback={this.handleButtonConfirm}
         showHeader={true}
       >
-        {this.getModalContents()}
+        <div className="text-align-center">
+          {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
+        </div>
       </Confirm>
     );
   }

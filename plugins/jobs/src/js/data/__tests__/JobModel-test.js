@@ -1945,6 +1945,175 @@ describe("JobModel Resolver", () => {
         );
       })
     );
+
+    it(
+      "throws when arguments are missing",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          runjob: () => {}
+        }).Mutation.runJob({}, {});
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold(
+            "#",
+            {},
+            {
+              response: {
+                message: "runJob requires the `id` of the job to run"
+              }
+            }
+          )
+        );
+      })
+    );
+  });
+
+  describe("deleteJob", () => {
+    it(
+      "returns a JobLink shaped object",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          deleteJob: () =>
+            Observable.of({
+              jobId: "bestJobEver",
+              somethingElse: true
+            })
+        }).Mutation.deleteJob(
+          {},
+          { id: "bestJobEver", stopCurrentJobRuns: false }
+        );
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold("(x|)", {
+            x: {
+              jobId: "bestJobEver"
+            }
+          })
+        );
+      })
+    );
+
+    it(
+      "throws when arguments are missing",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          deleteJob: () => {}
+        }).Mutation.deleteJob({}, {});
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold(
+            "#",
+            {},
+            {
+              response: {
+                message:
+                  "deleteJob requires both `id` and `stopCurrentJobRuns` to be provided!"
+              }
+            }
+          )
+        );
+      })
+    );
+  });
+
+  describe("stopJobRun", () => {
+    it(
+      "returns a JobLink shaped object",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          stopJobRun: () =>
+            Observable.of({
+              jobId: "bestJobEver",
+              somethingElse: true
+            })
+        }).Mutation.stopJobRun(
+          {},
+          { id: "bestJobEver", jobRunId: "theBestRun" }
+        );
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold("(x|)", {
+            x: {
+              jobId: "bestJobEver"
+            }
+          })
+        );
+      })
+    );
+
+    it(
+      "throws when arguments are missing",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          stopJobRun: () => {}
+        }).Mutation.stopJobRun({}, {});
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold(
+            "#",
+            {},
+            {
+              response: {
+                message:
+                  "stopJobRun requires both `id` and `jobRunId` to be provided!"
+              }
+            }
+          )
+        );
+      })
+    );
+  });
+
+  describe("updateSchedule", () => {
+    it(
+      "returns a JobLink shaped object",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          updateSchedule: () =>
+            Observable.of({
+              jobId: "bestJobEver",
+              somethingElse: true
+            })
+        }).Mutation.updateSchedule({}, { id: "bestJobEver", data: {} });
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold("(x|)", {
+            x: {
+              jobId: "bestJobEver"
+            }
+          })
+        );
+      })
+    );
+
+    it(
+      "throws when arguments are missing",
+      marbles(m => {
+        m.bind();
+        const result$ = resolvers({
+          updateSchedule: () => {}
+        }).Mutation.updateSchedule({}, {});
+
+        m.expect(result$.take(1)).toBeObservable(
+          m.cold(
+            "#",
+            {},
+            {
+              response: {
+                message:
+                  "updateSchedule requires the `id` and `data` of the job to run"
+              }
+            }
+          )
+        );
+      })
+    );
   });
 
   describe("updateJob", () => {

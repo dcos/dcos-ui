@@ -1,7 +1,5 @@
 import * as React from "react";
-import { componentFromStream } from "data-service";
-import { stopJobRun } from "#SRC/js/events/MetronomeClient";
-
+import { componentFromStream, graphqlObservable } from "data-service";
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
@@ -9,11 +7,25 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/catch";
+import gql from "graphql-tag";
 
 import JobStopRunModal from "./components/JobStopRunModal";
 
-function executeStop({ jobID, jobRun, onSuccess }) {
-  return stopJobRun(jobID, jobRun)
+import defaultSchema from "./data/JobModel";
+
+const stopJobRun = gql`
+  mutation {
+    stopJobRun(id: $jobId, jobRunId: $jobRunId) {
+      jobId
+    }
+  }
+`;
+
+function executeStop({ jobId, jobRunId, onSuccess }) {
+  return graphqlObservable(stopJobRun, defaultSchema, {
+    jobId,
+    jobRunId
+  })
     .map(_ => ({ done: true }))
     .do(_ => onSuccess())
     .startWith({ done: false });
@@ -30,8 +42,8 @@ function stopOperation() {
 
   return {
     stop$,
-    stopHandler: (jobID, jobRun, onSuccess) => {
-      stopSubject$.next({ jobID, jobRun, onSuccess });
+    stopHandler: (jobId, jobRunId, onSuccess) => {
+      stopSubject$.next({ jobId, jobRunId, onSuccess });
     }
   };
 }
