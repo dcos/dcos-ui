@@ -29,30 +29,19 @@ class JobStopRunModal extends React.Component {
     return <span key="confirmText">You are about to stop {bodyText}.</span>;
   }
 
-  getModalContents() {
-    const { selectedItems } = this.props;
-    const selectedItemsLength = selectedItems.length;
-
-    return (
-      <div className="text-align-center">
-        {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
-      </div>
-    );
-  }
-
   render() {
-    const { onClose, open, selectedItems } = this.props;
-    let rightButtonText = "Stop Job Run";
+    const { onClose, onSuccess, open, selectedItems, disabled } = this.props;
     const selectedItemsLength = selectedItems.length;
+    let rightButtonText = "Stop Job Run";
 
-    if (selectedItems.length > 1) {
+    if (selectedItemsLength > 1) {
       rightButtonText = "Stop Job Runs";
     }
 
     return (
       <Confirm
         closeByBackdropClick={true}
-        disabled={this.props.disabled}
+        disabled={disabled}
         header={this.getContentHeader(selectedItems, selectedItemsLength)}
         open={open}
         onClose={onClose}
@@ -61,10 +50,12 @@ class JobStopRunModal extends React.Component {
         leftButtonClassName="button button-primary-link"
         rightButtonText={rightButtonText}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.props.onSuccess}
+        rightButtonCallback={onSuccess}
         showHeader={true}
       >
-        {this.getModalContents()}
+        <div className="text-align-center">
+          {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
+        </div>
       </Confirm>
     );
   }

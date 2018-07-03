@@ -1,4 +1,15 @@
-import { updateSchedule } from "#SRC/js/events/MetronomeClient";
+import { graphqlObservable } from "data-service";
+import gql from "graphql-tag";
+
+import defaultSchema from "./data/JobModel";
+
+const runUpdateSchedule = gql`
+  mutation {
+    updateSchedule(id: $jobId, data: $data) {
+      jobId
+    }
+  }
+`;
 
 export default function jobsToggleSchedule(job) {
   const [schedule] = job.schedules;
@@ -11,10 +22,12 @@ export default function jobsToggleSchedule(job) {
   return {
     label,
     onItemSelect() {
-      // TODO - use graphql here https://jira.mesosphere.com/browse/DCOS-37617
       // take(1) makes sure the observable is going to complete after finishing
       // the request, so we don't have to care about unsubscribing.
-      updateSchedule(job.id, data)
+      graphqlObservable(runUpdateSchedule, defaultSchema, {
+        jobId: job.id,
+        data
+      })
         .take(1)
         .subscribe();
     }
