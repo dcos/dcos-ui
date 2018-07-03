@@ -2,19 +2,16 @@ import { timer } from "rxjs/observable/timer";
 
 import "rxjs/add/operator/delayWhen";
 import "rxjs/add/operator/scan";
+import { IScheduler } from "rxjs/Scheduler";
+import { Observable } from "rxjs/Observable";
 
-/* eslint-disable import/prefer-default-export */
-/**
- * linearBackoff callback to use with e.g. delayWhen
- *
- * @param  {number} delay
- * @param  {number} [maxRetries=-1]
- * @param  {number} [maxDelay=Number.MAX_SAFE_INTEGER]
- * @param  {Scheduler} [scheduler=null]
- * @return {Observable} notifier obervable
- */
-export function linearBackoff(delay, maxRetries = -1, maxDelay, scheduler) {
-  return errors =>
+export function linearBackoff(
+  delay: number,
+  maxRetries: number = -1,
+  maxDelay?: number,
+  scheduler?: IScheduler
+): (errors: Observable<any>) => Observable<any> {
+  return (errors: Observable<any>) =>
     errors
       .scan((count, error) => {
         if (maxRetries >= 0 && count >= maxRetries) {
