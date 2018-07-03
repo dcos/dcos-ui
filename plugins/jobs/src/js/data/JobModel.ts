@@ -5,7 +5,10 @@ import {
   fetchJobs,
   fetchJobDetail,
   runJob,
+  updateSchedule,
   updateJob,
+  deleteJob,
+  stopJobRun,
   JobResponse as MetronomeJobResponse,
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
@@ -41,6 +44,12 @@ export interface ResolverArgs {
     id: string,
     data: MetronomeJobDetailResponse
   ) => Observable<MetronomeJobDetailResponse>;
+  updateSchedule: (
+    id: string,
+    data: MetronomeJobDetailResponse
+  ) => Observable<JobLink>;
+  deleteJob: (id: string, stopCurrentJobRuns: boolean) => Observable<JobLink>;
+  stopJobRun: (id: string, jobRunId: string) => Observable<JobLink>;
 }
 
 export interface GeneralArgs {
@@ -81,6 +90,9 @@ export const typeDefs = `
     runJob(id: String!): JobLink!
     createJob(data: Job!): JobLink!
     updateJob(id: String!, data: Job!): JobLink!
+    updateSchedule(id: String!, data: Job!): JobLink!
+    deleteJob(id: String!, stopCurrentJobRuns: Boolean!): JobLink!
+    stopJobRun(id: String!, jobRunid: String!): JobLink!
   }
   `;
 
@@ -98,7 +110,10 @@ export const resolvers = ({
   pollingInterval,
   runJob,
   createJob,
-  updateJob
+  updateJob,
+  updateSchedule,
+  deleteJob,
+  stopJobRun
 }: ResolverArgs): IResolvers => ({
   Query: {
     jobs(
@@ -141,34 +156,99 @@ export const resolvers = ({
       args: GeneralArgs,
       _context = {}
     ): Observable<JobLink> {
+      if (!args.id) {
+        return Observable.throw({
+          response: { message: "runJob requires the `id` of the job to run" }
+        });
+      }
+
       return runJob(args.id).map(({ jobId }) => ({ jobId }));
+    },
+    updateSchedule(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<JobLink> {
+      if (!args.id || !args.data) {
+        return Observable.throw({
+          response: {
+            message:
+              "updateSchedule requires the `id` and `data` of the job to run"
+          }
+        });
+      }
+
+      return updateSchedule(args.id, args.data).map(({ jobId }) => ({
+        jobId
+      }));
     },
     createJob(
       _parent = {},
       args: GeneralArgs,
       _context = {}
     ): Observable<MetronomeJobDetailResponse> {
-      if (args.data) {
-        return createJob(args.data);
+      if (!args.data) {
+        return Observable.throw({
+          response: { message: "createJob requires `data` to be provided!" }
+        });
       }
 
-      return Observable.throw({
-        response: { message: "createJob requires `data` to be provided!" }
-      });
+      return createJob(args.data);
+    },
+    deleteJob(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<JobLink> {
+      const stopCurrentJobRunsIsBoolean =
+        typeof args.stopCurrentJobRuns === "boolean";
+
+      if (!args.id || !stopCurrentJobRunsIsBoolean) {
+        return Observable.throw({
+          response: {
+            message:
+              "deleteJob requires both `id` and `stopCurrentJobRuns` to" +
+              " be provided!"
+          }
+        });
+      }
+
+      return deleteJob(args.id, args.stopCurrentJobRuns).map(({ jobId }) => ({
+        jobId
+      }));
+    },
+    stopJobRun(
+      _parent = {},
+      args: GeneralArgs,
+      _context = {}
+    ): Observable<JobLink> {
+      if (!args.id || !args.jobRunId) {
+        return Observable.throw({
+          response: {
+            message:
+              "stopJobRun requires both `id` and `jobRunId` to be provided!"
+          }
+        });
+      }
+
+      return stopJobRun(args.id, args.jobRunId).map(({ jobId }) => ({
+        jobId
+      }));
     },
     updateJob(
       _parent = {},
       args: GeneralArgs,
       _context = {}
     ): Observable<MetronomeJobDetailResponse> {
-      if (args.id && args.data) {
-        return updateJob(args.id, args.data);
+      if (!args.id || !args.data) {
+        return Observable.throw({
+          response: {
+            message: "updateJob requires both `id` and `data` to be provided!"
+          }
+        });
       }
-      return Observable.throw({
-        response: {
-          message: "updateJob requires both `id` and `data` to be provided!"
-        }
-      });
+
+      return updateJob(args.id, args.data);
     }
   }
 });
@@ -181,6 +261,9 @@ export default makeExecutableSchema({
     pollingInterval: Config.getRefreshRate(),
     runJob,
     createJob,
-    updateJob
+    updateJob,
+    updateSchedule,
+    deleteJob,
+    stopJobRun
   })
 });

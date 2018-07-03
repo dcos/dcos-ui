@@ -1,10 +1,11 @@
 import { Observable } from "rxjs";
 import "rxjs/add/observable/of";
-import { updateSchedule } from "#SRC/js/events/MetronomeClient";
+
+import { graphqlObservable } from "data-service";
 import jobsToggleSchedule from "../jobsToggleSchedule";
 
-jest.mock("#SRC/js/events/MetronomeClient", () => ({
-  updateSchedule: jest.fn()
+jest.mock("data-service", () => ({
+  graphqlObservable: jest.fn()
 }));
 
 const enabledJob = {
@@ -35,21 +36,31 @@ describe("JobsToggleSchedule", function() {
 
     describe("onItemSelect", function() {
       it("triggers a graphql mutation to disable schedule", function() {
-        updateSchedule.mockReturnValue(Observable.of("response"));
+        graphqlObservable.mockReturnValue(Observable.of("response"));
         jobsToggleSchedule(enabledJob).onItemSelect();
 
-        expect(updateSchedule).toBeCalledWith("enabled", {
-          enabled: false
-        });
+        expect(graphqlObservable).toBeCalledWith(
+          expect.anything(),
+          expect.anything(),
+          {
+            jobId: "enabled",
+            data: { enabled: false }
+          }
+        );
       });
 
       it("triggers a graphql mutation to enable schedule", function() {
-        updateSchedule.mockReturnValue(Observable.of("response"));
+        graphqlObservable.mockReturnValue(Observable.of("response"));
         jobsToggleSchedule(disabledJob).onItemSelect();
 
-        expect(updateSchedule).toBeCalledWith("disabled", {
-          enabled: true
-        });
+        expect(graphqlObservable).toBeCalledWith(
+          expect.anything(),
+          expect.anything(),
+          {
+            jobId: "disabled",
+            data: { enabled: true }
+          }
+        );
       });
     });
   });
