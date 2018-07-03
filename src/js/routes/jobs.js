@@ -9,7 +9,7 @@ import TaskFileBrowser from "#PLUGINS/services/src/js/pages/task-details/TaskFil
 import TaskFileViewer from "#PLUGINS/services/src/js/pages/task-details/TaskFileViewer";
 import TaskFilesTab from "#PLUGINS/services/src/js/pages/task-details/TaskFilesTab";
 import TaskLogsContainer from "#PLUGINS/services/src/js/pages/task-details/TaskLogsContainer";
-import { JobDetailPageContainer } from "../pages/jobs/JobDetailPageContainer";
+import JobDetailPageContainer from "#PLUGINS/jobs/src/js/JobDetailPageContainer";
 import JobsPage from "../pages/JobsPage";
 import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
 
