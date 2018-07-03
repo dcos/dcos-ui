@@ -4,18 +4,17 @@ import prettycron from "prettycron";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
-import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 
 import JobCreateEditFormModal from "#PLUGINS/jobs/src/js/JobCreateEditFormModal";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import JobsBreadcrumbs from "#PLUGINS/jobs/src/js/components/JobsBreadcrumbs";
 import jobsMenu from "#PLUGINS/jobs/src/js/jobsMenu";
+import JobDelete from "#PLUGINS/jobs/src/js/JobDelete";
 
 import Icon from "../../components/Icon";
 import Page from "../../components/Page";
 import TimeAgo from "../../components/TimeAgo";
-import UserActions from "../../constants/UserActions";
 import TabsMixin from "../../mixins/TabsMixin";
 import StringUtil from "../../utils/StringUtil";
 import JobConfiguration from "./JobConfiguration";
@@ -34,56 +33,6 @@ class JobDetailPage extends mixin(TabsMixin) {
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
-  }
-
-  getDestroyConfirmDialog() {
-    const { id } = this.props.params;
-    const { jobActionDialog, disabledDialog, errorMsg } = this.props;
-    let stopCurrentJobRuns = false;
-    let actionButtonLabel = `${StringUtil.capitalize(UserActions.DELETE)} Job`;
-    let message =
-      `Are you sure you want to ${UserActions.DELETE} ${id}? ` +
-      "This action is irreversible.";
-
-    if (/stopCurrentJobRuns=true/.test(errorMsg)) {
-      actionButtonLabel = `Stop Current Runs and ${StringUtil.capitalize(
-        UserActions.DELETE
-      )} Job`;
-      stopCurrentJobRuns = true;
-      message = `Couldn't ${
-        UserActions.DELETE
-      } ${id} as there are currently active job runs. Do you want to stop all runs and ${
-        UserActions.DELETE
-      } the job?`;
-    }
-
-    const content = (
-      <div>
-        <h2 className="text-danger text-align-center flush-top">
-          {StringUtil.capitalize(UserActions.DELETE)} Job
-        </h2>
-        <p>{message}</p>
-      </div>
-    );
-
-    return (
-      <Confirm
-        children={content}
-        disabled={disabledDialog === DIALOGS.DESTROY}
-        open={jobActionDialog === DIALOGS.DESTROY}
-        onClose={this.props.closeDialog}
-        leftButtonText="Cancel"
-        leftButtonCallback={this.props.closeDialog}
-        leftButtonClassName="button button-primary-link"
-        rightButtonText={actionButtonLabel}
-        rightButtonClassName="button button-danger"
-        rightButtonCallback={() =>
-          this.setState({ disabledDialog: DIALOGS.DESTROY }, () => {
-            this.props.handleAcceptDestroyDialog(stopCurrentJobRuns);
-          })
-        }
-      />
-    );
   }
 
   getNavigationTabs() {
@@ -183,8 +132,7 @@ class JobDetailPage extends mixin(TabsMixin) {
 
     const customActionHandlers = {
       edit: this.props.handleEditButtonClick,
-      delete: this.props.handleDestroyButtonClick,
-      deleteComplete: this.props.handleAcceptDestroyDialog
+      delete: this.props.handleDestroyButtonClick
     };
 
     return jobsMenu(job, customActionHandlers);
@@ -217,7 +165,7 @@ class JobDetailPage extends mixin(TabsMixin) {
       return this.props.children;
     }
 
-    const { job, jobTree } = this.props;
+    const { params, job, jobTree } = this.props;
 
     return (
       <Page>
@@ -233,7 +181,12 @@ class JobDetailPage extends mixin(TabsMixin) {
           open={this.props.jobActionDialog === DIALOGS.EDIT}
           onClose={this.props.closeDialog}
         />
-        {this.getDestroyConfirmDialog()}
+        <JobDelete
+          jobId={params.id}
+          open={this.props.jobActionDialog === DIALOGS.DESTROY}
+          onSuccess={this.props.onJobDeleteSuccess}
+          onClose={this.props.closeDialog}
+        />
       </Page>
     );
   }
