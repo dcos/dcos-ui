@@ -150,7 +150,7 @@ const JobsOverview = withRouter(
           filter$.next(filter);
         });
 
-      const jobs$: Observable<JobConnection> = combineLatest(path$, filter$)
+      const jobs$ = combineLatest(path$, filter$)
         .sampleTime(250)
         .switchMap(([path, filter]) => {
           // tslint:disable-next-line:no-console
