@@ -18,6 +18,9 @@ import JobRunHistoryTable from "./JobRunHistoryTable";
 import ItemSchedule from "../components/breadcrumbs/Schedule";
 import ItemStatus from "../components/breadcrumbs/Status";
 import Breadcrumbs from "../components/Breadcrumbs";
+import JobDelete from "../JobDelete";
+
+import jobsMenu from "../jobsMenu";
 
 class JobDetailPage extends mixin(TabsMixin) {
   constructor() {
@@ -36,10 +39,6 @@ class JobDetailPage extends mixin(TabsMixin) {
 
   getNavigationTabs() {
     return <ul className="menu-tabbed">{this.tabs_getUnroutedTabs()}</ul>;
-  }
-
-  getDestroyConfirmDialog() {
-    return null;
   }
 
   renderConfigurationTabView(job) {
@@ -72,12 +71,14 @@ class JobDetailPage extends mixin(TabsMixin) {
   }
 
   getActions() {
-    return [
-      {
-        label: "Edit",
-        onItemSelect: this.props.handleEditButtonClick
-      }
-    ];
+    const job = this.props.job;
+
+    const customActionHandlers = {
+      edit: this.props.handleEditButtonClick,
+      delete: this.props.handleDestroyButtonClick
+    };
+
+    return jobsMenu(job, customActionHandlers);
   }
 
   getTabs() {
@@ -106,20 +107,14 @@ class JobDetailPage extends mixin(TabsMixin) {
       return this.props.children;
     }
 
-    const { job } = this.props;
-
-    // TODO: wait for https://github.com/dcos/dcos-ui/pull/3029 to be merged and remove this line
-    const breadcrumbJob = { ...job, path: [] };
+    const { job, params } = this.props;
 
     return (
       <Page>
         <Page.Header
           actions={this.getActions()}
           breadcrumbs={
-            <Breadcrumbs
-              states={this.renderBreadcrumbStates(breadcrumbJob)}
-              item={breadcrumbJob}
-            />
+            <Breadcrumbs states={this.renderBreadcrumbStates(job)} item={job} />
           }
           tabs={this.getTabs()}
         />
@@ -130,7 +125,12 @@ class JobDetailPage extends mixin(TabsMixin) {
           open={this.props.jobActionDialog === DIALOGS.EDIT}
           onClose={this.props.closeDialog}
         />
-        {this.getDestroyConfirmDialog()}
+        <JobDelete
+          jobId={params.id}
+          open={this.props.jobActionDialog === DIALOGS.DESTROY}
+          onSuccess={this.props.onJobDeleteSuccess}
+          onClose={this.props.closeDialog}
+        />
       </Page>
     );
   }
@@ -143,6 +143,9 @@ JobDetailPage.contextTypes = {
 JobDetailPage.propTypes = {
   children: PropTypes.any,
   closeDialog: PropTypes.func,
+  handleEditButtonClick: PropTypes.func.isRequired,
+  handleDestroyButtonClick: PropTypes.func.isRequired,
+  onJobDeleteSuccess: PropTypes.func.isRequired,
   job: PropTypes.shape({
     json: PropTypes.string.isRequired
   }),

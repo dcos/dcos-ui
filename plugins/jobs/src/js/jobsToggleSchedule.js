@@ -12,7 +12,7 @@ const runUpdateSchedule = gql`
 `;
 
 export default function jobsToggleSchedule(job) {
-  const [schedule] = job.schedules;
+  const [schedule] = job.schedules.nodes;
   const isEnabled = schedule ? schedule.enabled : false;
 
   const label = isEnabled ? "Disable Schedule" : "Enable Schedule";
