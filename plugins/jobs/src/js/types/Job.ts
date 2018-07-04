@@ -1,5 +1,4 @@
 import {
-  JobDetailResponse as MetronomeJobDetailResponse,
   GenericJobResponse as MetronmeGenericJobResponse,
   JobResponse as MetronomeJobResponse,
   JobStatus as MetronomeJobStatus,
@@ -176,20 +175,18 @@ export const JobFieldResolvers = {
   },
   scheduleStatus(job: MetronmeGenericJobResponse): JobStatus {
     const scheduleConnection = JobScheduleConnectionTypeResolver(job.schedules);
+    const jobRunConnection = AddStatusToHistoryJobRuns(job);
 
-    if (isMetronomeJobDetailResponse(job)) {
-      const jobRunConnection = AddStatusToHistoryJobRuns(job);
+    if (jobRunConnection.longestRunningActiveRun !== null) {
+      return jobRunConnection.longestRunningActiveRun.status;
+    }
 
-      if (jobRunConnection.longestRunningActiveRun !== null) {
-        return jobRunConnection.longestRunningActiveRun.status;
-      }
-      if (jobRunConnection.nodes.length > 0) {
-        const schedule = scheduleConnection.nodes[0];
-
-        if (schedule != null && schedule.enabled) {
-          return "SCHEDULED";
-        }
-      }
+    if (
+      scheduleConnection.nodes.length > 0 &&
+      scheduleConnection.nodes[0] != null &&
+      scheduleConnection.nodes[0].enabled
+    ) {
+      return "SCHEDULED";
     }
 
     if (scheduleConnection.nodes.length === 0) {
@@ -201,23 +198,26 @@ export const JobFieldResolvers = {
 };
 
 function AddStatusToHistoryJobRuns(
-  job: MetronomeJobDetailResponse
+  job: MetronmeGenericJobResponse
 ): JobRunConnection {
-  const { successfulFinishedRuns, failedFinishedRuns } = job.history;
+  let successfulFinishedRunsWithStatus: JobHistoryRun[] = [];
+  let failedFinishedRunsWithStatus: JobHistoryRun[] = [];
+  const activeRuns = job.activeRuns || [];
 
-  const successfulFinishedRunsWithStatus: JobHistoryRun[] = successfulFinishedRuns.map(
-    run => ({ ...run, status: "COMPLETED" as MetronomeJobStatus }) // TODO: investiagte why we need to cast this
-  );
+  if (isMetronomeJobDetailResponse(job)) {
+    const { successfulFinishedRuns, failedFinishedRuns } = job.history;
 
-  const failedFinishedRunsWithStatus: JobHistoryRun[] = failedFinishedRuns.map(
-    run => ({
+    successfulFinishedRunsWithStatus = successfulFinishedRuns.map(
+      run => ({ ...run, status: "COMPLETED" as MetronomeJobStatus }) // TODO: investiagte why we need to cast this
+    );
+
+    failedFinishedRunsWithStatus = failedFinishedRuns.map(run => ({
       ...run,
       status: "FAILED" as MetronomeJobStatus
-    })
-  );
-
+    }));
+  }
   return JobRunConnectionTypeResolver([
-    ...job.activeRuns,
+    ...activeRuns,
     ...successfulFinishedRunsWithStatus,
     ...failedFinishedRunsWithStatus
   ]);
