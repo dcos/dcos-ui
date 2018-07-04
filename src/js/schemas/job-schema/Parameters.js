@@ -23,8 +23,7 @@ const Parameters = {
         }
       }
     }
-  },
-  required: ["docker.image"]
+  }
 };
 
 module.exports = Parameters;
