@@ -224,50 +224,12 @@ describe("Framework", function() {
   });
 
   describe("#getResources", function() {
-    it("aggregates child task resources properly", function() {
-      MesosStateStore.getTasksByService = function() {
-        return [
-          {
-            id: "/fake_1",
-            isStartedByMarathon: true,
-            state: "TASK_RUNNING",
-            resources: { cpus: 0.2, mem: 300, gpus: 0 }
-          },
-          {
-            id: "/fake_2",
-            state: "TASK_RUNNING",
-            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 1000 }
-          },
-          {
-            id: "/fake_2",
-            state: "TASK_FINISHED",
-            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
-          }
-        ];
-      };
-
-      const service = new Framework({
-        instances: 1,
-        cpus: 1,
-        mem: 1000
-      });
-
-      expect(service.getResources()).toEqual({
-        cpus: 1.8,
-        mem: 1700,
-        gpus: 0,
-        disk: 1000
-      });
-    });
-  });
-
-  describe("#getUsedResources", function() {
     it("returns empty obj when resources are falsey", function() {
-      const node = new Framework({
+      const service = new Framework({
         used_resources: null
       });
 
-      expect(node.getUsedResources()).toEqual({
+      expect(service.getResources()).toEqual({
         cpus: 0,
         mem: 0,
         gpus: 0,
