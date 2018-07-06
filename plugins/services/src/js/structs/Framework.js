@@ -93,45 +93,10 @@ module.exports = class Framework extends Application {
   }
 
   getResources() {
-    // TODO: Circular reference workaround DCOS_OSS-783
-    const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
-
-    const tasks = MesosStateStore.getTasksByService(this) || [];
-
-    const instances = this.getInstancesCount();
-    const {
-      cpus = 0,
-      mem = 0,
-      gpus = 0,
-      disk = 0
-    } = this.getSpec().getResources();
-
-    const frameworkResources = {
-      cpus: cpus * instances,
-      mem: mem * instances,
-      gpus: gpus * instances,
-      disk: disk * instances
-    };
-
-    // Aggregate all the child tasks resources
-    // resources of child frameworks won't be aggregated
-    return tasks
-      .filter(function(task) {
-        return task.state === "TASK_RUNNING" && !task.isStartedByMarathon;
-      })
-      .reduce(function(memo, task) {
-        const { cpus = 0, mem = 0, gpus = 0, disk = 0 } = task.resources;
-
-        return {
-          cpus: memo.cpus + cpus,
-          mem: memo.mem + mem,
-          gpus: memo.gpus + gpus,
-          disk: memo.disk + disk
-        };
-      }, frameworkResources);
-  }
-
-  getUsedResources() {
+    // There's an unfortunate naming issue in Mesos.
+    // used_resources is actually allocated resources
+    // the name can't be changed to keep backward compatibility.
+    // This is why `getResources` returns `used_resources`
     return (
       this.get("used_resources") || {
         cpus: 0,
