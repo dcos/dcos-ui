@@ -11,9 +11,17 @@ body,
 
 .application-wrapper {
   display: flex;
+  flex-flow: column;
   height: 100%;
   overflow: hidden;
   width: 100%;
+}
+
+.application-wrapper-inner {
+  display: flex;
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 ::selection {

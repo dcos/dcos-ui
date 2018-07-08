@@ -151,14 +151,16 @@ var Index = React.createClass({
 
     return (
       <div className={classSet}>
-        {this.getScreenOverlays(showErrorScreen)}
-        <Sidebar location={this.props.location} />
-        {this.props.children}
-        <Modals
-          showErrorModal={this.state.showErrorModal}
-          modalErrorMsg={this.state.modalErrorMsg}
-        />
-        <ServerErrorModal />
+        <div className="application-wrapper-inner">
+          {this.getScreenOverlays(showErrorScreen)}
+          <Sidebar location={this.props.location} />
+          {this.props.children}
+          <Modals
+            showErrorModal={this.state.showErrorModal}
+            modalErrorMsg={this.state.modalErrorMsg}
+          />
+          <ServerErrorModal />
+        </div>
       </div>
     );
   }
