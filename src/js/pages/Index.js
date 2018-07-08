@@ -13,6 +13,7 @@ import MesosStateStore from "../stores/MesosStateStore";
 import Modals from "../components/Modals";
 import RequestErrorMsg from "../components/RequestErrorMsg";
 import ServerErrorModal from "../components/ServerErrorModal";
+import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
@@ -151,6 +152,7 @@ var Index = React.createClass({
 
     return (
       <div className={classSet}>
+        <HeaderBar />
         <div className="application-wrapper-inner">
           {this.getScreenOverlays(showErrorScreen)}
           <Sidebar location={this.props.location} />

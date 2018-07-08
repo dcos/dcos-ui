@@ -80,7 +80,7 @@
     "@commitlint/cli": "6.1.3",
     "@commitlint/config-conventional": "6.1.3",
     "@dcos/eslint-config": "0.3.0",
-    "@dcos/ui-kit": "1.0.0",
+    "@dcos/ui-kit": "1.1.1",
     "@types/events": "1.2.0",
     "@types/jest": "22.2.3",
     "@types/prop-types": "15.5.3",
