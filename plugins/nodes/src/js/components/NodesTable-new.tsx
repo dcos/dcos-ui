@@ -74,6 +74,8 @@ interface NodesTableState {
 
 type SortFunction<T> = (data: T[], sortDirection: SortDirection) => T[];
 
+// This whole component (except `render()`) will basically go into data layer.
+// After we moved to DL, `NodesTable` component should be stateless/functional.
 export default class NodesTable extends React.Component<
   NodesTableProps,
   NodesTableState
