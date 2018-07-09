@@ -440,7 +440,7 @@ class DCOSStore extends EventEmitter {
       .getServiceList()
       .reduceItems(function(memo, framework) {
         if (framework instanceof Item) {
-          memo[framework.get("name")] = framework.get();
+          memo[`/${framework.get("name")}`] = framework.get();
         }
 
         return memo;
@@ -459,7 +459,7 @@ class DCOSStore extends EventEmitter {
       };
 
       if (item instanceof Framework) {
-        options = Object.assign(options, frameworks[item.getName()]);
+        options = Object.assign(options, frameworks[item.getId()]);
       }
 
       if (item instanceof Item) {
