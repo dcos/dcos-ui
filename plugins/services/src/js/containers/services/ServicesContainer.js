@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 
-import { DCOS_CHANGE, MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
+import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
@@ -11,7 +11,6 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
-import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import {
@@ -143,10 +142,6 @@ class ServicesContainer extends React.Component {
 
   componentDidMount() {
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
-
-    // Don't block the whole screen if Mesos state is not there
-    // Mesos state is needed to aggregate frameworks resources correctly
-    MesosStateStore.addChangeListener(MESOS_STATE_CHANGE, function() {});
 
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.
