@@ -1,19 +1,19 @@
-<!--- Thank you for your contribution! Please provide enough information for others to best review your code. -->
+## Testing
 
-<!-- Prefer **small pull requests**. These are much easier to review and more likely to get merged. Make sure the PR does only one thing, otherwise please split it. -->
+<!--
+What is needed to test the changes? e.g. specific cluster, service definitions
+How can one see the result of your work? e.g. configurations, URLs
+-->
 
-<!-- Description of motivation for making this change, what does it solve and steps needed to see change. -->
+## Trade-offs
 
-![gif/image]()
+<!--
+Are you aware of any weak spots? e.g. performance, functionality
+Did you decide anything noteworthy? e.g. algorithms, data structures, tools
+-->
 
-```
-<!-- Suplemental codeblock -->
-```
+## Dependencies
 
-**Checklist**
-- [ ] Did you add a JIRA issue in a commit message or as part of the branch name?
-- [ ] Did you add new unit tests?
-- [ ] Did you add new integration tests?
-- [ ] If this is a regression, did you write a test to catch this in the future?
-
-<!-- More info can be found by clicking the "guidelines for contributing" link above. -->
+<!--
+What needs to happen before this can be merged? e.g. PRs merged, other events
+-->
