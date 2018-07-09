@@ -609,6 +609,151 @@ describe("DCOSStore", function() {
     });
   });
 
+  describe("#buildServiceTree", function() {
+    it("merges data from Mesos correctly", function() {
+      MarathonStore.__setKeyResponse(
+        "groups",
+        new ServiceTree({
+          items: [
+            {
+              id: "/blip/cassandra",
+              backoffFactor: 1.15,
+              backoffSeconds: 1,
+              cmd: "",
+              cpus: 1,
+              disk: 0,
+              env: {},
+              executor: "",
+              fetch: [],
+              healthChecks: [
+                {
+                  gracePeriodSeconds: 900,
+                  intervalSeconds: 30,
+                  maxConsecutiveFailures: 0,
+                  path: "/v1/health",
+                  portIndex: 0,
+                  protocol: "MESOS_HTTP",
+                  ipProtocol: "IPv4",
+                  timeoutSeconds: 30,
+                  delaySeconds: 15
+                }
+              ],
+              instances: 1,
+              labels: {
+                DCOS_COMMONS_UNINSTALL: "true",
+                DCOS_PACKAGE_OPTIONS: "",
+                DCOS_SERVICE_SCHEME: "http",
+                DCOS_PACKAGE_SOURCE: "https://universe.mesosphere.com/repo",
+                DCOS_PACKAGE_METADATA: "",
+                DCOS_SERVICE_NAME: "blip/cassandra",
+                DCOS_PACKAGE_FRAMEWORK_NAME: "blip/cassandra",
+                DCOS_SERVICE_PORT_INDEX: "0",
+                DCOS_PACKAGE_DEFINITION: "",
+                DCOS_PACKAGE_VERSION: "2.1.2-3.0.15-beta",
+                DCOS_COMMONS_API_VERSION: "v1",
+                DCOS_PACKAGE_NAME: "beta-cassandra",
+                MARATHON_SINGLE_INSTANCE_APP: "true"
+              },
+              maxLaunchDelaySeconds: 3600,
+              mem: 1024,
+              gpus: 0,
+              networks: [{ mode: "host" }],
+              portDefinitions: [
+                {
+                  port: 10000,
+                  labels: { VIP_0: "/api.blip/cassandra:80" },
+                  name: "api",
+                  protocol: "tcp"
+                }
+              ],
+              requirePorts: false,
+              upgradeStrategy: {
+                maximumOverCapacity: 0,
+                minimumHealthCapacity: 0
+              },
+              user: "nobody",
+              version: "2018-07-09T15:19:39.984Z",
+              versionInfo: {
+                lastScalingAt: "2018-07-09T15:19:39.984Z",
+                lastConfigChangeAt: "2018-07-09T15:19:39.984Z"
+              },
+              killSelection: "YOUNGEST_FIRST",
+              unreachableStrategy: {
+                inactiveAfterSeconds: 0,
+                expungeAfterSeconds: 0
+              },
+              tasksStaged: 0,
+              tasksRunning: 1,
+              tasksHealthy: 1,
+              tasksUnhealthy: 0,
+              deployments: [],
+              tasks: [],
+              taskStats: {}
+            }
+          ]
+        })
+      );
+      DCOSStore.onMarathonGroupsChange();
+
+      MesosSummaryStore.__setKeyResponse(
+        "states",
+        new SummaryList({
+          items: [
+            new StateSummary({
+              snapshot: {
+                frameworks: [
+                  {
+                    id: "3f420e28-ebcf-4bdb-8521-05aafa296335-0003",
+                    name: "blip/cassandra",
+                    used_resources: {
+                      disk: 10496,
+                      mem: 4128,
+                      gpus: 0,
+                      cpus: 0.6,
+                      ports: "[7000-7001, 7199-7199, 9042-9042]"
+                    },
+                    offered_resources: { disk: 0, mem: 0, gpus: 0, cpus: 0 },
+                    capabilities: ["RESERVATION_REFINEMENT"],
+                    hostname: "",
+                    webui_url: "",
+                    active: true,
+                    connected: true,
+                    recovered: false,
+                    TASK_STAGING: 0,
+                    TASK_STARTING: 0,
+                    TASK_RUNNING: 1,
+                    TASK_KILLING: 0,
+                    TASK_FINISHED: 1,
+                    TASK_KILLED: 0,
+                    TASK_FAILED: 0,
+                    TASK_LOST: 0,
+                    TASK_ERROR: 0,
+                    TASK_UNREACHABLE: 0,
+                    slave_ids: ["3f420e28-ebcf-4bdb-8521-05aafa296335-S1"]
+                  }
+                ]
+              },
+              successful: true
+            })
+          ]
+        })
+      );
+      DCOSStore.onMesosSummaryChange();
+
+      const serviceTree = DCOSStore.buildServiceTree();
+
+      expect(
+        serviceTree.findItemById("/blip/cassandra").get("used_resources")
+      ).toEqual({
+        disk: 10496,
+        mem: 4128,
+        gpus: 0,
+        cpus: 0.6,
+        ports: "[7000-7001, 7199-7199, 9042-9042]"
+      });
+    });
+  });
+
   describe("#buildFlatServiceTree", function() {
     beforeEach(function() {
       this.filterProperties = {
