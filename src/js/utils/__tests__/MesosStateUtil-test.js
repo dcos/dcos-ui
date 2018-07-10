@@ -13,7 +13,11 @@ describe("MesosStateUtil", function() {
       const frameworks = [{ name: "foo", id: "foo_1" }];
       const fooFramework = new Framework({
         name: "foo",
-        labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "foo" }
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: "foo",
+          DCOS_PACKAGE_NAME: "foo",
+          DCOS_PACKAGE_VERSION: "v1"
+        }
       });
       const serviceTree = new ServiceTree({ items: [fooFramework] });
 

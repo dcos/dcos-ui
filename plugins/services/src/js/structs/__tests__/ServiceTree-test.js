@@ -24,7 +24,9 @@ describe("ServiceTree", function() {
           {
             id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+              DCOS_PACKAGE_NAME: "beta",
+              DCOS_PACKAGE_VERSION: "beta"
             }
           },
           {
@@ -126,7 +128,9 @@ describe("ServiceTree", function() {
           {
             id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+              DCOS_PACKAGE_NAME: "beta",
+              DCOS_PACKAGE_VERSION: "beta"
             }
           },
           {
