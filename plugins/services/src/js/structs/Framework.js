@@ -97,13 +97,23 @@ module.exports = class Framework extends Application {
     // used_resources is actually allocated resources
     // the name can't be changed to keep backward compatibility.
     // This is why `getResources` returns `used_resources`
-    return (
-      this.get("used_resources") || {
-        cpus: 0,
-        mem: 0,
-        gpus: 0,
-        disk: 0
-      }
-    );
+    const allocatedFrameworkResources = this.get("used_resources") || {
+      cpus: 0,
+      mem: 0,
+      gpus: 0,
+      disk: 0
+    };
+
+    // Framework doesn't know how many resources its scheduler consumes.
+    // Scheduler is launched by Marathon not the Framework itself.
+    // So we should get this information separately from the Marathon spec
+    const schedulerResources = this.getSpec().getResources();
+
+    return {
+      cpus: allocatedFrameworkResources.cpus + schedulerResources.cpus,
+      mem: allocatedFrameworkResources.mem + schedulerResources.mem,
+      gpus: allocatedFrameworkResources.gpus + schedulerResources.gpus,
+      disk: allocatedFrameworkResources.disk + schedulerResources.disk
+    };
   }
 };
