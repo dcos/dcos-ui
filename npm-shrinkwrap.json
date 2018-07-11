@@ -997,9 +997,9 @@
       "integrity": "sha512-WcTnrk4lc6vwMWn+pOrcGk9tTy6it03dCfQtqE+fw9bQ2llqzfxnLO7Har+la4kkJVnyTPAt7Nvpb50sjzsQXA=="
     },
     "@dcos/ui-kit": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.1.1.tgz",
-      "integrity": "sha512-SNTq1ea9gDIC3SWhbvWgnQdooNYnWa6CsyD+4cdm4LXrXlyoae9/IXXbcFqTluXXYM31AIIp1oCUNxejaJE8lQ==",
+      "version": "1.2.2",
+      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.2.2.tgz",
+      "integrity": "sha512-Xd6mlnr6QRJbzEks5mljE9k2PJSmu3l1dhPtSxUe2ZIvlNyx0xvUsgJgsVs1UirVIIch+DY8vDaqnP+0lvVu+Q==",
       "dev": true,
       "requires": {
         "emotion": "9.2.4",
