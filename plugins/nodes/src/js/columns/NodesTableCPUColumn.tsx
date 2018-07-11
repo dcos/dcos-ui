@@ -7,12 +7,9 @@ import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs"
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 export function cpuRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38822
-  return <span>{data.get("used_resources").cpus.toString()}</span>;
+  return `${data.getUsageStats("cpus").percentage}%`;
 }
 export function cpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  // TODO: DCOS-38822
-  // current implementation is a rough idea, not sure if it is the best one…
   const sortedData = data.sort((a, b) =>
     compareValues(
       a.get("used_resources").cpus.toString(),
@@ -24,6 +21,6 @@ export function cpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 export function cpuSizer(args: WidthArgs): number {
-  // TODO: DCOS-38822
-  return Math.max(100, args.width / args.totalColumns);
+  // TODO: DCOS-39147
+  return Math.min(60, Math.max(60, args.width / args.totalColumns));
 }
