@@ -150,6 +150,7 @@ export default class NodesTable extends React.Component<
   }
 
   handleSortClick(columnName: string): void {
+    debugger
     const toggledDirection =
       this.state.sortDirection === "ASC" ? "DESC" : "ASC";
 
@@ -182,7 +183,7 @@ export default class NodesTable extends React.Component<
         <Column
           header={
             <SortableColumnHeader
-              columnContent="Name"
+              columnContent={"Name".toUpperCase()}
               sortHandler={this.handleSortClick.bind(null, "hostname")}
               sortDirection={sortColumn === "hostname" ? sortDirection : null}
             />
