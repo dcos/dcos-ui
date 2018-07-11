@@ -47,4 +47,23 @@ declare module "reactjs-components" {
 
   export class Modal extends Component<ModalProps, {}> {}
   export class Dropdown extends Component<DropdownProps, {}> {}
+
+  interface TooltipProps {
+    anchor?: string;
+    children: React.ReactNode;
+    className?: string;
+    content: React.ReactNode;
+    elementTag?: string;
+    interactive?: boolean;
+    maxWidth?: number |  string;
+    position?: string;
+    stayOpen?: boolean;
+    suppress?: boolean;
+    width?: number;
+    wrapperClassName?: string;
+    wrapText?: boolean;
+    contentClassName?: string;
+  }
+
+  export class Tooltip extends Component<TooltipProps, {}> {}
 }

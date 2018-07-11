@@ -5,16 +5,43 @@ import Node from "#SRC/js/structs/Node";
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { Link } from "react-router";
+import { Tooltip } from "reactjs-components";
+import Icon from "#SRC/js/components/Icon";
 
 export function hostnameRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38819
-  return <span>{data.getHostName().toString()}</span>;
+  const nodeID = data.get("id");
+  let headline = data.get("hostname");
+
+  if (!data.isActive()) {
+    return (
+      <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
+        <span title={headline}>
+          <Tooltip anchor="start" content="Connection to node lost">
+            <Icon
+              className="icon-alert icon-margin-right"
+              color="neutral"
+              id="yield"
+              size="mini"
+            />
+            {headline}
+          </Tooltip>
+        </span>
+      </Link>
+    );
+  }
+
+  return (
+    <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
+      <span title={headline}>{headline}</span>
+    </Link>
+  );
 }
+
 export function hostnameSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  // TODO: DCOS-38819
   // current implementation is a rough idea, not sure if it is the best one…
   const sortedData = data.sort((a, b) =>
     compareValues(
@@ -26,7 +53,7 @@ export function hostnameSorter(
   );
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
+
 export function hostnameSizer(args: WidthArgs): number {
-  // TODO: DCOS-38819
-  return Math.max(100, args.width / args.totalColumns);
+  return Math.max(150, args.width / args.totalColumns);
 }
