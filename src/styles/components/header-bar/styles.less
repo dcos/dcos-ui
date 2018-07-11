@@ -1,0 +1,27 @@
+& when (@header-bar-enabled) {
+
+  .header-bar-logo-wrapper {
+    display: inline-block;
+    height: 16px;
+    margin-left: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    width: @full-logo-width;
+
+    .header-bar-logo {
+      background-image: url(@product-logo-src);
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inherit;
+      height: inherit;
+      width: @full-logo-width;
+    }
+
+    & when (@layout-screen-small-enabled) {
+
+      @media (max-width: @layout-screen-small-min-width) {
+        width: @short-logo-width;
+      }
+    }
+  }
+}

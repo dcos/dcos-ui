@@ -10,7 +10,9 @@ export default function HeaderBar() {
   return (
     <UIHeaderBar>
       <span>toggle component here</span>
-      <span>logo component here</span>
+      <div className="header-bar-logo-wrapper">
+        <div className="header-bar-logo" />
+      </div>
       <span>user-menu component here</span>
       <span>cluster-menu component here</span>
     </UIHeaderBar>
