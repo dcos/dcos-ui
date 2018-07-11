@@ -787,17 +787,20 @@ describe("JobModel Resolver", () => {
                   id: "/foo",
                   activeRuns: [
                     {
-                      jobId: "1",
+                      id: "1",
+                      jobId: "foo",
                       createdAt: "1990-01-03T00:00:00Z-1",
                       tasks: []
                     },
                     {
-                      jobId: "2",
+                      id: "2",
+                      jobId: "foo",
                       createdAt: "1985-01-03T00:00:00Z-1",
                       tasks: []
                     },
                     {
-                      jobId: "3",
+                      id: "3",
+                      jobId: "foo",
                       createdAt: "1995-01-03T00:00:00Z-1",
                       tasks: []
                     }
@@ -832,13 +835,15 @@ describe("JobModel Resolver", () => {
                   id: "/foo",
                   activeRuns: [
                     {
-                      jobId: "1",
+                      id: "1",
+                      jobId: "foo",
                       createdAt: "1990-01-03T00:00:00Z-1",
                       tasks: []
                     },
-                    { jobId: "2", createdAt: null, tasks: [] },
+                    { id: "2", jobId: "foo", createdAt: null, tasks: [] },
                     {
-                      jobId: "3",
+                      id: "3",
+                      jobId: "foo",
                       createdAt: "1995-01-03T00:00:00Z-1",
                       tasks: []
                     }
@@ -1397,11 +1402,11 @@ describe("JobModel Resolver", () => {
                 id: "/foo",
                 activeRuns: [
                   {
-                    jobId: "1",
+                    id: "1",
+                    jobId: "foo",
                     createdAt: "2018-06-12T16:25:35.593+0000",
                     completedAt: "2018-06-12T17:25:35.593+0000",
                     status: "ACTIVE",
-                    id: "20180612162535qXvcx",
                     tasks: []
                   }
                 ],
@@ -1448,11 +1453,11 @@ describe("JobModel Resolver", () => {
                 id: "/foo",
                 activeRuns: [
                   {
-                    jobId: "1",
+                    jobId: "foo",
                     createdAt: "2018-06-12T16:25:35.593+0000",
                     completedAt: "2018-06-12T17:25:35.593+0000",
                     status: "ACTIVE",
-                    id: "20180612162535qXvcx",
+                    id: "1",
                     tasks: []
                   }
                 ],

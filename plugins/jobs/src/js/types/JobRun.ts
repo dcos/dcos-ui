@@ -54,7 +54,7 @@ export const JobRunFieldResolvers = {
   },
 
   jobID(run: MetronomeActiveJobRun | JobHistoryRun): string {
-    return isActiveJobRun(run) ? run.jobId : run.id;
+    return run.id;
   },
 
   status(run: MetronomeActiveJobRun | JobHistoryRun): JobStatus {
