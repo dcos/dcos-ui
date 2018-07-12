@@ -74,8 +74,6 @@ interface NodesTableState {
 
 type SortFunction<T> = (data: T[], sortDirection: SortDirection) => T[];
 
-// This whole component (except `render()`) will basically go into data layer.
-// After we moved to DL, `NodesTable` component should be stateless/functional.
 export default class NodesTable extends React.Component<
   NodesTableProps,
   NodesTableState
@@ -150,7 +148,6 @@ export default class NodesTable extends React.Component<
   }
 
   handleSortClick(columnName: string): void {
-    debugger
     const toggledDirection =
       this.state.sortDirection === "ASC" ? "DESC" : "ASC";
 
@@ -183,7 +180,7 @@ export default class NodesTable extends React.Component<
         <Column
           header={
             <SortableColumnHeader
-              columnContent={"Name".toUpperCase()}
+              columnContent="Name"
               sortHandler={this.handleSortClick.bind(null, "hostname")}
               sortDirection={sortColumn === "hostname" ? sortDirection : null}
             />
