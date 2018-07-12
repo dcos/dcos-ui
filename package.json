@@ -32,7 +32,7 @@
     "@dcos/http-service": "0.3.0",
     "@dcos/mesos-client": "0.2.3",
     "@dcos/tslint-config": "0.1.0",
-    "@dcos/ui-kit": "1.1.1",
+    "@dcos/ui-kit": "1.2.3",
     "babel-polyfill": "6.23.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
