@@ -4,6 +4,7 @@
  * JIRA: https://jira.mesosphere.com/browse/DCOS-39076
  */
 import * as React from "react";
+import { HeaderCell } from "@dcos/ui-kit";
 import { SortableColumnHeaderCellIcon } from "ui-kit-stage/SortableColumnHeaderCellIcon";
 
 type SortDirection = "ASC" | "DESC" | null;
@@ -17,11 +18,10 @@ export function SortableColumnHeader({
   sortDirection: SortDirection;
   columnContent: string | React.ReactNode;
 }) {
-  // TODO: DCOS-39069
   return (
-    <span onClick={sortHandler}>
+    <HeaderCell onClick={sortHandler}>
       {columnContent}
       <SortableColumnHeaderCellIcon sortDirection={sortDirection} />
-    </span>
+    </HeaderCell>
   );
 }
