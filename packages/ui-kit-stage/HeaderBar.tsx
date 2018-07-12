@@ -6,6 +6,7 @@
 import * as React from "react";
 import { coreColors } from "@dcos/ui-kit/dist/packages/shared/styles/color";
 
+// TODO: DCOS-39074
 const headerBarStyles: object = {
   backgroundColor: coreColors().purpleDarken4,
   height: "32px",
