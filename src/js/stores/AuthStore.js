@@ -96,6 +96,20 @@ class AuthStore extends GetSetBaseStore {
     }
   }
 
+  getUserLabel() {
+    const user = this.getUser();
+
+    if (!user) {
+      return null;
+    }
+
+    if (!user.is_remote) {
+      return user.description;
+    }
+
+    return user.uid;
+  }
+
   processLoginSuccess() {
     Hooks.doAction("userLoginSuccess");
     this.emit(AUTH_USER_LOGIN_CHANGED);
