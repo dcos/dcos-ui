@@ -23,7 +23,7 @@ module.exports = {
   //   }
   // },
   "*": {
-    target: "http://fe-eu-lq3-elasticl-ferbvdhls27h-1271118640.eu-central-1.elb.amazonaws.com",
+    target: "https://m1.dcos",
     secure: false
   }
 };
