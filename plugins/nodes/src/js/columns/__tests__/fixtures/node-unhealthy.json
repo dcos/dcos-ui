@@ -1,0 +1,13 @@
+{
+  "domain": {
+    "fault_domain": {
+      "region": { "name": "us-west-2" },
+      "zone": { "name": "us-west-2a" }
+    }
+  },
+  "hostname": "10.0.4.93",
+  "id": "9fbe915f-c14a-452a-96cd-4e600bf7478a",
+  "pid": "master@10.0.4.93:5050",
+  "health": 1,
+  "port": 5050
+}
