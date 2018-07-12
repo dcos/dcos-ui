@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NodesTableHealthColumn renderer renders with health status 'Healthy' 1`] = `
+<span
+  className="text-success"
+>
+  Healthy
+</span>
+`;
+
+exports[`NodesTableHealthColumn renderer renders with health status 'NA' 1`] = `
+<span
+  className="text-mute"
+>
+  N/A
+</span>
+`;
+
+exports[`NodesTableHealthColumn renderer renders with health status 'Unhealthy' 1`] = `
+<span
+  className="text-danger"
+>
+  Unhealthy
+</span>
+`;
+
+exports[`NodesTableHealthColumn renderer renders with health status 'Warn' 1`] = `
+<span
+  className="text-warning"
+>
+  Warning
+</span>
+`;
