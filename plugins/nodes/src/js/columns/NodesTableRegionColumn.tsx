@@ -6,16 +6,22 @@ import Node from "#SRC/js/structs/Node";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
-export function regionRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38826
-  return <span>{data.getRegionName().toString()}</span>;
+export function regionRenderer(
+  masterRegion: string,
+  data: Node
+): React.ReactNode {
+  const regionName = data.getRegionName();
+  return (
+    <span title={regionName}>
+      {regionName}
+      {masterRegion === regionName ? " (Local)" : null}
+    </span>
+  );
 }
 export function regionSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  // TODO: DCOS-38826
-  // current implementation is a rough idea, not sure if it is the best one…
   const sortedData = data.sort((a, b) =>
     compareValues(
       a.getRegionName().toLowerCase(),
@@ -27,6 +33,5 @@ export function regionSorter(
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 export function regionSizer(args: WidthArgs): number {
-  // TODO: DCOS-38826
-  return Math.max(100, args.width / args.totalColumns);
+  return Math.max(170, args.width / args.totalColumns);
 }
