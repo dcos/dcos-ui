@@ -78,6 +78,9 @@ export default class NodesTable extends React.Component<
   NodesTableProps,
   NodesTableState
 > {
+  // This workaround will be removed in DCOS-39332
+  private regionRenderer: (data: Node) => React.ReactNode;
+
   constructor() {
     super();
 
@@ -88,6 +91,8 @@ export default class NodesTable extends React.Component<
     };
 
     this.handleSortClick = this.handleSortClick.bind(this);
+    this.regionRenderer = (data: Node) =>
+      regionRenderer(this.props.masterRegion, data);
   }
 
   retrieveSortFunction(sortColumn: string): SortFunction<Node> {
@@ -197,7 +202,7 @@ export default class NodesTable extends React.Component<
               sortDirection={sortColumn === "region" ? sortDirection : null}
             />
           }
-          cellRenderer={regionRenderer}
+          cellRenderer={this.regionRenderer}
           width={regionSizer}
         />
 
