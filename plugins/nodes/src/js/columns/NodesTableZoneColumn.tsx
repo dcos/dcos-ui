@@ -7,12 +7,9 @@ import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs"
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 export function zoneRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38820
-  return <span>{data.getZoneName().toString()}</span>;
+  return <span title={data.getZoneName()}>{data.getZoneName()}</span>;
 }
 export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  // TODO: DCOS-38820
-  // current implementation is a rough idea, not sure if it is the best one…
   const sortedData = data.sort((a, b) =>
     compareValues(
       a.getZoneName().toLowerCase(),
@@ -24,6 +21,5 @@ export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 export function zoneSizer(args: WidthArgs): number {
-  // TODO: DCOS-38820
-  return Math.max(100, args.width / args.totalColumns);
+  return Math.max(125, args.width / args.totalColumns);
 }
