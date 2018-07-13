@@ -1,16 +1,9 @@
 import { Dropdown } from "reactjs-components";
 import React from "react";
-import UserAccountDropdownTrigger from "./UserAccountDropdownTrigger";
 
 class UserAccountDropdown extends React.Component {
   getMenuItems() {
     return this.props.menuItems;
-  }
-
-  getTrigger() {
-    const { clusterName } = this.props;
-
-    return <UserAccountDropdownTrigger primaryContent={clusterName} />;
   }
 
   handleItemSelection(item) {
@@ -22,7 +15,7 @@ class UserAccountDropdown extends React.Component {
   render() {
     return (
       <Dropdown
-        trigger={this.getTrigger()}
+        trigger={this.props.children}
         dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.getMenuItems()}

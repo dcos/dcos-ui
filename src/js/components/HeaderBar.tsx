@@ -3,9 +3,9 @@ import { HeaderBar as UIHeaderBar } from "ui-kit-stage/HeaderBar";
 
 export default function HeaderBar() {
   // remove this to activate component
-  if (arguments) {
-    return null;
-  }
+  // if (arguments) {
+  //   return null;
+  // }
 
   return (
     <UIHeaderBar>
