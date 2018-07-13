@@ -4,6 +4,10 @@ import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import AuthStore from "#SRC/js/stores/AuthStore";
+import UserAccountDropdownTrigger from "#SRC/js/components/UserAccountDropdownTrigger";
+import UserAccountDropdownTriggerContent from "#SRC/js/components/UserAccountDropdownTriggerContent";
+
 import ClipboardTrigger from "./ClipboardTrigger";
 import MetadataStore from "../stores/MetadataStore";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
@@ -80,6 +84,17 @@ class SidebarHeader extends mixin(StoreMixin) {
     this.setState({ isTextCopied: false });
   }
 
+  getUserLabel() {
+    const user = AuthStore.getUser();
+
+    if (user && !user.is_remote) {
+      return user.description;
+    } else if (user && user.is_remote) {
+      return user.uid;
+    }
+
+    return null;
+  }
   render() {
     const clusterName = this.getClusterName();
     const copyText = this.state.isTextCopied ? "Copied" : "Copy";
@@ -150,14 +165,23 @@ class SidebarHeader extends mixin(StoreMixin) {
       }
     ];
 
+    console.log("user", this.getUserLabel());
+    console.log("cluster", this.getClusterName());
+
     return (
       <MountService.Mount
         type="Sidebar:UserAccountDropdown"
-        clusterName={this.getClusterName()}
         limit={1}
         menuItems={menuItems}
         onUpdate={this.props.onUpdate}
-      />
+      >
+        <UserAccountDropdownTrigger>
+          <UserAccountDropdownTriggerContent
+            primaryContent={this.getClusterName()}
+            secondaryContent={this.getUserLabel()}
+          />
+        </UserAccountDropdownTrigger>
+      </MountService.Mount>
     );
   }
 }
