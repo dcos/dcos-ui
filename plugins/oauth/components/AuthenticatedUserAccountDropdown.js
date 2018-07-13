@@ -3,6 +3,7 @@ import React from "react";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import UserAccountDropdown from "#SRC/js/components/UserAccountDropdown";
 import UserAccountDropdownTrigger from "#SRC/js/components/UserAccountDropdownTrigger";
+import UserAccountDropdownTriggerContent from "#SRC/js/components/UserAccountDropdownTriggerContent";
 
 class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
   getUserLabel() {
@@ -32,10 +33,12 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
     nextMenuItems.unshift({
       className: "hidden",
       html: (
-        <UserAccountDropdownTrigger
-          primaryContent={clusterName}
-          secondaryContent={userLabel}
-        />
+        <UserAccountDropdownTrigger>
+          <UserAccountDropdownTriggerContent
+            primaryContent={clusterName}
+            secondaryContent={userLabel}
+          />
+        </UserAccountDropdownTrigger>
       ),
       id: "dropdown-trigger",
       selectable: false

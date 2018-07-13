@@ -2,7 +2,6 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import UserAccountDropdownTriggerContent from "./UserAccountDropdownTriggerContent";
 
 class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   constructor() {
@@ -24,12 +23,9 @@ class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   }
 
   render() {
-    return (
-      <UserAccountDropdownTriggerContent
-        {...this.props}
-        onClick={this.props.onTrigger}
-      />
-    );
+    return React.cloneElement(this.props.children, {
+      onClick: this.props.onTrigger
+    });
   }
 }
 
@@ -39,9 +35,7 @@ UserAccountDropdownTrigger.defaultProps = {
 };
 
 UserAccountDropdownTrigger.propTypes = {
-  clusterName: PropTypes.node,
-  onUpdate: PropTypes.func,
-  showCaret: PropTypes.bool
+  children: PropTypes.element.isRequired
 };
 
 module.exports = UserAccountDropdownTrigger;
