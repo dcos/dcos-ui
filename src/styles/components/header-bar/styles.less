@@ -24,4 +24,17 @@
       }
     }
   }
+
+  .header-bar-dropdown-trigger {
+    .element-text-size(header-title, null);
+    .element-text-style(header-title);
+    cursor: pointer;
+
+    &:after {
+      .triangle-base();
+      .triangle-color('down', @header-title-color);
+      align-self: center;
+      margin-left: 6px;
+    }
+  }
 }
