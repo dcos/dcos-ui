@@ -114,144 +114,149 @@ export const resolvers = ({
   updateSchedule,
   deleteJob,
   stopJobRun
-}: ResolverArgs): IResolvers => ({
-  Query: {
-    jobs(
-      _parent = {},
-      args: GeneralArgs = {},
-      _context = {}
-    ): Observable<JobConnection> {
-      if (!isJobsQueryArg(args)) {
-        return Observable.throw(
-          "Jobs resolver arguments arent valid for type JobsQueryArgs"
+}: ResolverArgs): IResolvers => {
+  const jobs$ = Observable.timer(0, pollingInterval)
+    .exhaustMap(fetchJobs)
+    .publishReplay(1)
+    .refCount();
+
+  return {
+    Query: {
+      jobs(
+        _parent = {},
+        args: GeneralArgs = {},
+        _context = {}
+      ): Observable<JobConnection> {
+        if (!isJobsQueryArg(args)) {
+          return Observable.throw(
+            "Jobs resolver arguments arent valid for type JobsQueryArgs"
+          );
+        }
+
+        return jobs$.map(response => JobConnectionTypeResolver(response, args));
+      },
+      job(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<Job | null> {
+        if (!isJobQueryArg(args)) {
+          return Observable.throw(
+            "Job resolver arguments arent valid for type JobQueryArgs"
+          );
+        }
+
+        const pollingInterval$ = Observable.timer(0, pollingInterval);
+        const responses$ = pollingInterval$.switchMap(() =>
+          fetchJobDetail(args.id)
         );
-      }
 
-      return Observable.timer(0, pollingInterval)
-        .exhaustMap(fetchJobs)
-        .map(response => JobConnectionTypeResolver(response, args));
+        return responses$.map(response => JobTypeResolver(response));
+      }
     },
-    job(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<Job | null> {
-      if (!isJobQueryArg(args)) {
-        return Observable.throw(
-          "Job resolver arguments arent valid for type JobQueryArgs"
-        );
+    Mutation: {
+      runJob(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<JobLink> {
+        if (!args.id) {
+          return Observable.throw({
+            response: { message: "runJob requires the `id` of the job to run" }
+          });
+        }
+
+        return runJob(args.id).map(({ jobId }) => ({ jobId }));
+      },
+      updateSchedule(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<JobLink> {
+        if (!args.id || !args.data) {
+          return Observable.throw({
+            response: {
+              message:
+                "updateSchedule requires the `id` and `data` of the job to run"
+            }
+          });
+        }
+
+        return updateSchedule(args.id, args.data).map(({ jobId }) => ({
+          jobId
+        }));
+      },
+      createJob(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<MetronomeJobDetailResponse> {
+        if (!args.data) {
+          return Observable.throw({
+            response: { message: "createJob requires `data` to be provided!" }
+          });
+        }
+
+        return createJob(args.data);
+      },
+      deleteJob(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<JobLink> {
+        const stopCurrentJobRunsIsBoolean =
+          typeof args.stopCurrentJobRuns === "boolean";
+
+        if (!args.id || !stopCurrentJobRunsIsBoolean) {
+          return Observable.throw({
+            response: {
+              message:
+                "deleteJob requires both `id` and `stopCurrentJobRuns` to" +
+                " be provided!"
+            }
+          });
+        }
+
+        return deleteJob(args.id, args.stopCurrentJobRuns).map(({ jobId }) => ({
+          jobId
+        }));
+      },
+      stopJobRun(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<JobLink> {
+        if (!args.id || !args.jobRunId) {
+          return Observable.throw({
+            response: {
+              message:
+                "stopJobRun requires both `id` and `jobRunId` to be provided!"
+            }
+          });
+        }
+
+        return stopJobRun(args.id, args.jobRunId).map(({ jobId }) => ({
+          jobId
+        }));
+      },
+      updateJob(
+        _parent = {},
+        args: GeneralArgs,
+        _context = {}
+      ): Observable<MetronomeJobDetailResponse> {
+        if (!args.id || !args.data) {
+          return Observable.throw({
+            response: {
+              message: "updateJob requires both `id` and `data` to be provided!"
+            }
+          });
+        }
+
+        return updateJob(args.id, args.data);
       }
-
-      const pollingInterval$ = Observable.timer(0, pollingInterval);
-      const responses$ = pollingInterval$.switchMap(() =>
-        fetchJobDetail(args.id)
-      );
-
-      return responses$.map(response => JobTypeResolver(response));
     }
-  },
-  Mutation: {
-    runJob(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<JobLink> {
-      if (!args.id) {
-        return Observable.throw({
-          response: { message: "runJob requires the `id` of the job to run" }
-        });
-      }
-
-      return runJob(args.id).map(({ jobId }) => ({ jobId }));
-    },
-    updateSchedule(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<JobLink> {
-      if (!args.id || !args.data) {
-        return Observable.throw({
-          response: {
-            message:
-              "updateSchedule requires the `id` and `data` of the job to run"
-          }
-        });
-      }
-
-      return updateSchedule(args.id, args.data).map(({ jobId }) => ({
-        jobId
-      }));
-    },
-    createJob(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<MetronomeJobDetailResponse> {
-      if (!args.data) {
-        return Observable.throw({
-          response: { message: "createJob requires `data` to be provided!" }
-        });
-      }
-
-      return createJob(args.data);
-    },
-    deleteJob(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<JobLink> {
-      const stopCurrentJobRunsIsBoolean =
-        typeof args.stopCurrentJobRuns === "boolean";
-
-      if (!args.id || !stopCurrentJobRunsIsBoolean) {
-        return Observable.throw({
-          response: {
-            message:
-              "deleteJob requires both `id` and `stopCurrentJobRuns` to" +
-              " be provided!"
-          }
-        });
-      }
-
-      return deleteJob(args.id, args.stopCurrentJobRuns).map(({ jobId }) => ({
-        jobId
-      }));
-    },
-    stopJobRun(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<JobLink> {
-      if (!args.id || !args.jobRunId) {
-        return Observable.throw({
-          response: {
-            message:
-              "stopJobRun requires both `id` and `jobRunId` to be provided!"
-          }
-        });
-      }
-
-      return stopJobRun(args.id, args.jobRunId).map(({ jobId }) => ({
-        jobId
-      }));
-    },
-    updateJob(
-      _parent = {},
-      args: GeneralArgs,
-      _context = {}
-    ): Observable<MetronomeJobDetailResponse> {
-      if (!args.id || !args.data) {
-        return Observable.throw({
-          response: {
-            message: "updateJob requires both `id` and `data` to be provided!"
-          }
-        });
-      }
-
-      return updateJob(args.id, args.data);
-    }
-  }
-});
+  };
+};
 
 export default makeExecutableSchema({
   typeDefs,
