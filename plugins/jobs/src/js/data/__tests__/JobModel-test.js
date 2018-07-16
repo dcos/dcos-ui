@@ -205,6 +205,39 @@ describe("JobModel Resolver", () => {
         })
       );
 
+      it(
+        "shares the subscription",
+        marbles(m => {
+          m.bind();
+          const fetchJobs = jest.fn(() =>
+            m.cold("(j|)", { j: [defaultJobDetailData] })
+          );
+          const fetchJobDetail = _id =>
+            m.cold("(j|)", { j: defaultJobDetailData });
+          const jobsQuery = resolvers({
+            fetchJobs,
+            fetchJobDetail,
+            pollingInterval: m.time("--|")
+          }).Query.jobs;
+
+          Observable.concat(
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1),
+            jobsQuery({}, { path: [] }).take(1)
+          ).subscribe(jest.fn(), jest.fn(), () => {
+            expect(fetchJobs).toHaveBeenCalledTimes(1);
+          });
+        })
+      );
+
       describe("ordering", () => {
         it(
           "orders by ID",
