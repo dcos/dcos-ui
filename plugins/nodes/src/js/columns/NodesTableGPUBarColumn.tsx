@@ -1,14 +1,23 @@
 import * as React from "react";
 import Node from "#SRC/js/structs/Node";
+
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
+import ProgressBar from "#SRC/js/components/ProgressBar";
 
 export function gpubarRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38825
-  return <span>{data.get("used_resources").gpus.toString()}</span>;
+  return (
+    <ProgressBar
+      data={[
+        { value: data.getUsageStats("gpus").percentage, className: "color-1" }
+      ]}
+      total={100}
+    />
+  );
 }
+
 export function gpubarSizer(args: WidthArgs): number {
-  // TODO: DCOS-38825
-  return Math.max(100, args.width / args.totalColumns);
+  // TODO: DCOS-39147
+  return Math.min(60, Math.max(60, args.width / args.totalColumns));
 }
