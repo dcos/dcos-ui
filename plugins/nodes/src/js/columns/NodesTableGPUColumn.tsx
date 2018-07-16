@@ -7,12 +7,9 @@ import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs"
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 export function gpuRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38825
-  return <span>{data.get("used_resources").gpus.toString()}</span>;
+  return `${data.getUsageStats("gpus").percentage}%`;
 }
 export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  // TODO: DCOS-38825
-  // current implementation is a rough idea, not sure if it is the best one…
   const sortedData = data.sort((a, b) =>
     compareValues(
       a.get("used_resources").gpus.toString(),
@@ -24,6 +21,5 @@ export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 export function gpuSizer(args: WidthArgs): number {
-  // TODO: DCOS-38825
-  return Math.max(100, args.width / args.totalColumns);
+  return Math.max(60, args.width / args.totalColumns);
 }
