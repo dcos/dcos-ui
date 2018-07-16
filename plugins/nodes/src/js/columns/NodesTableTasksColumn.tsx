@@ -7,14 +7,13 @@ import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs"
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 export function tasksRenderer(data: Node): React.ReactNode {
-  // TODO: DCOS-38821
   return <span>{data.get("TASK_RUNNING").toString()}</span>;
 }
+
 export function tasksSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  // TODO: DCOS-38821
   // current implementation is a rough idea, not sure if it is the best one…
   const sortedData = data.sort((a, b) =>
     compareValues(
@@ -26,7 +25,7 @@ export function tasksSorter(
   );
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
+
 export function tasksSizer(args: WidthArgs): number {
-  // TODO: DCOS-38821
   return Math.max(100, args.width / args.totalColumns);
 }
