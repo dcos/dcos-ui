@@ -15,7 +15,9 @@ export function SortableColumnHeaderCellIcon({
   if (sortDirection === null) {
     return null;
   }
-  // TODO: DCOS-39067
-  const icon = sortDirection === "ASC" ? "↗️" : "↘️";
-  return <span>{icon}</span>;
+  return sortDirection === "ASC" ? (
+    <span className="caret caret--asc caret--visible" />
+  ) : (
+    <span className="caret caret--desc caret--visible" />
+  );
 }
