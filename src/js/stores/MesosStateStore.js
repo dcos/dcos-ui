@@ -1,5 +1,5 @@
 import PluginSDK from "PluginSDK";
-import { Observable } from "rxjs/Observable";
+import Rx from "rxjs";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import Task from "#PLUGINS/services/src/js/structs/Task";
@@ -16,8 +16,6 @@ import pipe from "../utils/pipe";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
 import StreamWorker from "../stream.shared-worker.js";
-
-const streamWorker = new StreamWorker("stream");
 
 const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
 
@@ -68,15 +66,21 @@ class MesosStateStore extends GetSetBaseStore {
   subscribe() {
     const parsers = pipe(...Object.values(mesosStreamParsers));
 
-    Observable.create(function(observer) {
+    Rx.Observable.create(observer => {
+      const streamWorker = new StreamWorker("stream");
+
+      streamWorker.onerror = error => console.log(error);
+      streamWorker.port.onmessageerror = error => console.log(error);
+      streamWorker.port.onmessage = event => observer.next(event.data);
+
       streamWorker.port.start();
-      streamWorker.port.onmessage = function(e) {
-        console.log(e.data);
-        observer.next(e.data);
-      };
     })
       .distinctUntilChanged()
-      .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
+      .map(message => {
+        console.log(message);
+
+        return parsers(this.getLastMesosState(), JSON.parse(message));
+      })
       .do(state => {
         CompositeState.addState(state);
         this.setState(state);
@@ -85,7 +89,6 @@ class MesosStateStore extends GetSetBaseStore {
         () => Promise.resolve().then(this.onStreamData),
         this.onStreamError
       );
-    // replay subject
   }
 
   getLastMesosState() {
@@ -227,6 +230,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   onStreamData() {
+    console.log(this.getLastMesosState());
     this.emit(MESOS_STATE_CHANGE);
   }
 
