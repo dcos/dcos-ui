@@ -66,6 +66,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.worker\.js$/,
+        use: { loader: "worker-loader" }
+      },
+      {
+        test: /\.shared-worker\.js$/,
+        use: { loader: "sharedworker-loader" }
+      },
+      {
         test: /\.html$/,
         use: {
           loader: "html-loader",

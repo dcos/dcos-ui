@@ -1,12 +1,10 @@
 import PluginSDK from "PluginSDK";
-import { request } from "@dcos/mesos-client";
 import { Observable } from "rxjs/Observable";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import Task from "#PLUGINS/services/src/js/structs/Task";
 
 import CompositeState from "../structs/CompositeState";
-import Config from "../config/Config";
 import DCOSStore from "./DCOSStore";
 import GetSetBaseStore from "./GetSetBaseStore";
 import {
@@ -15,14 +13,12 @@ import {
 } from "../constants/EventTypes";
 import MesosStateUtil from "../utils/MesosStateUtil";
 import pipe from "../utils/pipe";
-import { linearBackoff } from "../utils/rxjsUtils";
-import { MesosStreamType } from "../core/MesosStream";
-import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
-const MAX_RETRIES = 5;
-const RETRY_DELAY = 500;
-const MAX_RETRY_DELAY = 5000;
+import StreamWorker from "../stream.shared-worker.js";
+
+const streamWorker = new StreamWorker("stream");
+
 const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
 
 class MesosStateStore extends GetSetBaseStore {
@@ -70,48 +66,26 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   subscribe() {
-    const mesosStream = container.get(MesosStreamType);
-    const getMasterRequest = request(
-      { type: "GET_MASTER" },
-      "/mesos/api/v1?get_master"
-    ).retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES));
-
     const parsers = pipe(...Object.values(mesosStreamParsers));
-    const dataStream = mesosStream
-      .merge(getMasterRequest)
+
+    Observable.create(function(observer) {
+      streamWorker.port.start();
+      streamWorker.port.onmessage = function(e) {
+        console.log(e.data);
+        observer.next(e.data);
+      };
+    })
       .distinctUntilChanged()
       .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
       .do(state => {
         CompositeState.addState(state);
         this.setState(state);
-      });
-
-    const waitStream = getMasterRequest.zip(mesosStream.take(1));
-    const eventTriggerStream = dataStream.merge(
-      // A lot of DCOS UI rely on the MesosStateStore emitting
-      // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
-      // event. To avoid a deeper refactor, we introduced this fake emitter.
-      //
-      // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-      Observable.interval(Config.getRefreshRate())
-    );
-
-    // Since we introduced the fake event above, we have to guarantee certain
-    // refresh limits to the UI. They are:
-    //
-    // MOST once every (Config.getRefreshRate() * 0.5) ms. due to sampleTime.
-    // LEAST once every tick of Config.getRefreshRate() ms in
-    // Observable.interval
-    //
-    // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-    this.stream = waitStream
-      .concat(eventTriggerStream)
-      .sampleTime(Config.getRefreshRate() * 0.5)
-      .retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
+      })
       .subscribe(
         () => Promise.resolve().then(this.onStreamData),
         this.onStreamError
       );
+    // replay subject
   }
 
   getLastMesosState() {
