@@ -66,21 +66,16 @@ class MesosStateStore extends GetSetBaseStore {
   subscribe() {
     const parsers = pipe(...Object.values(mesosStreamParsers));
 
-    Rx.Observable.create(observer => {
-      const streamWorker = new StreamWorker("stream");
+    this.stream = Rx.Observable.create(observer => {
+      const streamWorker = new StreamWorker("MesosStream");
 
-      streamWorker.onerror = error => console.log(error);
-      streamWorker.port.onmessageerror = error => console.log(error);
+      streamWorker.onerror = error => observer.error(error);
+      streamWorker.port.onmessageerror = error => observer.error(error);
       streamWorker.port.onmessage = event => observer.next(event.data);
 
       streamWorker.port.start();
     })
-      .distinctUntilChanged()
-      .map(message => {
-        console.log(message);
-
-        return parsers(this.getLastMesosState(), JSON.parse(message));
-      })
+      .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
       .do(state => {
         CompositeState.addState(state);
         this.setState(state);
@@ -230,7 +225,6 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   onStreamData() {
-    console.log(this.getLastMesosState());
     this.emit(MESOS_STATE_CHANGE);
   }
 
