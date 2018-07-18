@@ -1,30 +1,39 @@
 import * as React from "react";
-import { compareValues } from "#PLUGINS/nodes/src/js/utils/compareValues";
+import { sort, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import {
+  SortDirection,
+  directionAwareComparators
+} from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
 
+function getZoneName(data: Node): string {
+  return data.getZoneName();
+}
+function getHostname(data: Node): string {
+  return data.getHostName();
+}
 export function zoneRenderer(data: Node): React.ReactNode {
+  const zoneName = getZoneName(data);
+
   return (
     <TextCell>
-      <span title={data.getZoneName()}>{data.getZoneName()}</span>
+      <span title={zoneName}>{zoneName}</span>
     </TextCell>
   );
 }
 
 export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  const sortedData = data.sort((a, b) =>
-    compareValues(
-      a.getZoneName().toLowerCase(),
-      b.getZoneName().toLowerCase(),
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase()
-    )
+  return sort(
+    directionAwareComparators(
+      [compareString(getZoneName), compareString(getHostname)],
+      sortDirection
+    ),
+    data
   );
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 
 export function zoneSizer(args: WidthArgs): number {

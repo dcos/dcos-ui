@@ -1,30 +1,39 @@
 import * as React from "react";
-import { compareValues } from "#PLUGINS/nodes/src/js/utils/compareValues";
+import { sort, compareNumber, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
+import {
+  SortDirection,
+  directionAwareComparators
+} from "../types/SortDirection";
+
+function getCpuUsage(node: Node) {
+  return node.getUsageStats("cpus").percentage;
+}
+
+function getHostName(node: Node) {
+  return node.getHostName().toLowerCase();
+}
 
 export function cpuRenderer(data: Node): React.ReactNode {
   return (
     <TextCell>
-      <span>{data.getUsageStats("cpus").percentage}%</span>
+      <span>{getCpuUsage(data)}%</span>
     </TextCell>
   );
 }
 
 export function cpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  const sortedData = data.sort((a, b) =>
-    compareValues(
-      a.get("used_resources").cpus.toString(),
-      b.get("used_resources").cpus.toString(),
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase()
-    )
+  return sort(
+    directionAwareComparators(
+      [compareNumber(getCpuUsage), compareString(getHostName)],
+      sortDirection
+    ),
+    data
   );
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 
 export function cpuSizer(args: WidthArgs): number {

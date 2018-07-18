@@ -1,7 +1,7 @@
 export enum ComparisonResult {
   GREATER_THAN = 1,
   EQUAL = 0,
-  SMALLER_THAN = -1
+  LESS_THAN = -1
 }
 export type Comparator<T> = (a: T, b: T) => ComparisonResult;
 export type Getter<I, T> = (data: I) => T;
@@ -42,7 +42,7 @@ function compareStringValues(a: string, b: string): ComparisonResult {
 
   return result > 0
     ? ComparisonResult.GREATER_THAN
-    : ComparisonResult.SMALLER_THAN;
+    : ComparisonResult.LESS_THAN;
 }
 
 function compareNumericValues(a: number, b: number): ComparisonResult {
@@ -50,7 +50,7 @@ function compareNumericValues(a: number, b: number): ComparisonResult {
     return ComparisonResult.EQUAL;
   }
 
-  return a < b ? ComparisonResult.SMALLER_THAN : ComparisonResult.GREATER_THAN;
+  return a < b ? ComparisonResult.LESS_THAN : ComparisonResult.GREATER_THAN;
 }
 
 function comparatorWithGetter<I, T>(

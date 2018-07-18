@@ -4,7 +4,7 @@ const idLense = (x: any) => x;
 
 describe("compareNumber", () => {
   it("compares number", () => {
-    expect(compareNumber(idLense)(5, 8)).toBe(ComparisonResult.SMALLER_THAN);
+    expect(compareNumber(idLense)(5, 8)).toBe(ComparisonResult.LESS_THAN);
     expect(compareNumber(idLense)(8, 5)).toBe(ComparisonResult.GREATER_THAN);
     expect(compareNumber(idLense)(5, 5)).toBe(ComparisonResult.EQUAL);
   });

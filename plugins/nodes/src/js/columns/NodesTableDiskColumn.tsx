@@ -1,11 +1,14 @@
 import * as React from "react";
-import { compareValues } from "#PLUGINS/nodes/src/js/utils/compareValues";
+import { sort, compareNumber, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
+import {
+  SortDirection,
+  directionAwareComparators
+} from "plugins/nodes/src/js/types/SortDirection";
 
 export function diskRenderer(data: Node): React.ReactNode {
   return (
@@ -15,17 +18,22 @@ export function diskRenderer(data: Node): React.ReactNode {
   );
 }
 
+function getDiskUsage(data: Node) {
+  return data.getUsageStats("disk").percentage;
+}
+
+function getHostName(node: Node) {
+  return node.getHostName().toLowerCase();
+}
+
 export function diskSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  // current implementation is a rough idea, not sure if it is the best one…
-  const sortedData = data.sort((a, b) =>
-    compareValues(
-      a.get("used_resources").disk.toString(),
-      b.get("used_resources").disk.toString(),
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase()
-    )
+  return sort(
+    directionAwareComparators(
+      [compareNumber(getDiskUsage), compareString(getHostName)],
+      sortDirection
+    ),
+    data
   );
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 export function diskSizer(args: WidthArgs): number {
   // TODO: DCOS-39147

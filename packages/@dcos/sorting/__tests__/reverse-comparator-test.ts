@@ -17,10 +17,10 @@ describe("reverseComparator", () => {
     const neutralComparator = jest.fn().mockReturnValue(ComparisonResult.EQUAL);
     const negativeComparator = jest
       .fn()
-      .mockReturnValue(ComparisonResult.SMALLER_THAN);
+      .mockReturnValue(ComparisonResult.LESS_THAN);
 
     expect(reverseComparator(positiveComparator)(1, 2)).toEqual(
-      ComparisonResult.SMALLER_THAN
+      ComparisonResult.LESS_THAN
     );
     expect(reverseComparator(neutralComparator)(1, 2)).toEqual(
       ComparisonResult.EQUAL

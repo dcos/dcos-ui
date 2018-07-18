@@ -1,19 +1,29 @@
 import * as React from "react";
-import { compareValues } from "#PLUGINS/nodes/src/js/utils/compareValues";
+import { sort, compareNumber, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import {
+  SortDirection,
+  directionAwareComparators
+} from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
+
+function getRegionName(data: Node) {
+  return data.getRegionName();
+}
+function getHostname(data: Node): string {
+  return data.getHostName();
+}
 
 export function regionRenderer(
   masterRegion: string,
   data: Node
 ): React.ReactNode {
   const regionName =
-    data.getRegionName() +
-    (masterRegion === data.getRegionName() ? " (Local)" : "");
+    getRegionName(data) +
+    (masterRegion === getRegionName(data) ? " (Local)" : "");
 
   return (
     <TextCell>
@@ -26,15 +36,13 @@ export function regionSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  const sortedData = data.sort((a, b) =>
-    compareValues(
-      a.getRegionName().toLowerCase(),
-      b.getRegionName().toLowerCase(),
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase()
-    )
+  return sort(
+    directionAwareComparators(
+      [compareNumber(getRegionName), compareString(getHostname)],
+      sortDirection
+    ),
+    data
   );
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 
 export function regionSizer(args: WidthArgs): number {
