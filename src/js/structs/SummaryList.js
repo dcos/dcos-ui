@@ -96,6 +96,12 @@ class SummaryList extends List {
 
     return MesosSummaryUtil.stateResourcesToResourceStates(stateResources);
   }
+
+  getClusterName() {
+    const lastState = this.lastSuccessful();
+
+    return lastState ? lastState.getClusterName() : null;
+  }
 }
 
 module.exports = SummaryList;

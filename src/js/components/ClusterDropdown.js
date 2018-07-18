@@ -46,17 +46,8 @@ export default class ClusterDropdown extends mixin(StoreMixin) {
 
   getClusterName() {
     const states = MesosSummaryStore.get("states");
-    let clusterName = null;
 
-    if (states) {
-      const lastState = states.lastSuccessful();
-
-      if (lastState) {
-        clusterName = lastState.getClusterName();
-      }
-    }
-
-    return clusterName;
+    return states ? states.getClusterName() : null;
   }
 
   getPublicIP() {
