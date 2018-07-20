@@ -1,6 +1,7 @@
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
+import classNames from "classnames";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
@@ -8,7 +9,8 @@ import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import NodesList from "#SRC/js/structs/NodesList";
-import ResourceBarChart from "#SRC/js/components/charts/ResourceBarChart";
+
+import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 import FilterByService from "../../../../../services/src/js/components/FilterByService";
 
@@ -154,6 +156,34 @@ class HostsPageContent extends React.Component {
       </div>
     );
   }
+  isGridView() {
+    return this.props.location.pathname.includes("grid");
+  }
+  getGridViewResourceSwitch() {
+    if (!this.isGridView()) {
+      return null;
+    }
+
+    const resourceColors = ResourcesUtil.getResourceColors();
+    const resourceLabels = ResourcesUtil.getResourceLabels();
+    const buttons = ResourcesUtil.getDefaultResources().map(resource => {
+      const classSet = classNames("button button-outline", {
+        active: this.props.selectedResource === resource
+      });
+
+      return (
+        <button
+          key={resource}
+          className={`${classSet} path-color-${resourceColors[resource]}`}
+          onClick={this.props.onResourceSelectionChange.bind(null, resource)}
+        >
+          {resourceLabels[resource]}
+        </button>
+      );
+    });
+
+    return <div className="panel-options button-group">{buttons}</div>;
+  }
 
   render() {
     const {
@@ -164,28 +194,14 @@ class HostsPageContent extends React.Component {
       handleFilterChange,
       hosts,
       isFiltering,
-      nodeCount,
-      onResourceSelectionChange,
-      refreshRate,
       selectedResource,
       services,
-      totalHostsResources,
       totalNodeCount,
-      totalResources,
       viewTypeRadioButtons
     } = this.props;
 
     return (
       <div>
-        <ResourceBarChart
-          itemCount={nodeCount}
-          onResourceSelectionChange={onResourceSelectionChange}
-          refreshRate={refreshRate}
-          resourceType="Nodes"
-          resources={totalHostsResources}
-          selectedResource={selectedResource}
-          totalResources={totalResources}
-        />
         <FilterHeadline
           currentLength={filteredNodeCount}
           isFiltering={isFiltering}
@@ -193,7 +209,7 @@ class HostsPageContent extends React.Component {
           onReset={this.onResetFilter}
           totalLength={totalNodeCount}
         />
-        <FilterBar rightAlignLastNChildren={1}>
+        <FilterBar rightAlignLastNChildren={this.isGridView() ? 2 : 1}>
           {filterInputText}
           {this.getFilterBar()}
           <div className="form-group flush-bottom">
@@ -205,6 +221,7 @@ class HostsPageContent extends React.Component {
               totalHostsCount={totalNodeCount}
             />
           </div>
+          {this.getGridViewResourceSwitch()}
           {viewTypeRadioButtons}
         </FilterBar>
         {React.cloneElement(children, {
@@ -226,16 +243,12 @@ HostsPageContent.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   hosts: PropTypes.instanceOf(NodesList).isRequired,
   isFiltering: PropTypes.bool,
-  nodeCount: PropTypes.number.isRequired,
   onFilterChange: PropTypes.func,
   onResetFilter: PropTypes.func.isRequired,
   onResourceSelectionChange: PropTypes.func.isRequired,
-  refreshRate: PropTypes.number.isRequired,
   selectedResource: PropTypes.string.isRequired,
   services: PropTypes.array.isRequired,
-  totalHostsResources: PropTypes.object.isRequired,
   totalNodeCount: PropTypes.number.isRequired,
-  totalResources: PropTypes.object.isRequired,
   viewTypeRadioButtons: PropTypes.node.isRequired
 };
 
