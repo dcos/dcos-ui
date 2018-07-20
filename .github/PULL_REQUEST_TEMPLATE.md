@@ -1,4 +1,4 @@
-## Description
+## ℹ️ Description
 
 <!--
 What is the change your PR does?
@@ -12,20 +12,20 @@ Please add a short description here. (one sentence is enough)
 - ⚠️ Wasnt able to test it yet, cluster is still starting… 😅
   -->
 
-## Dependencies
+## ⚠️ Dependencies
 
 <!--
 What needs to happen before this can be merged? e.g. PRs merged, other events
 -->
 
-## Trade-offs
+## 🚧 Trade-offs
 
 <!--
 Are you aware of any weak spots? e.g. performance, functionality
 Did you decide anything noteworthy? e.g. algorithms, data structures, tools
 -->
 
-## Testing
+## 💥 Testing
 
 <!--
 What is needed to test the changes? e.g. specific cluster, service definitions
