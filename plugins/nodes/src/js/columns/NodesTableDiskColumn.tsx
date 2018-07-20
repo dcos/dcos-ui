@@ -25,15 +25,12 @@ function getDiskUsage(data: Node) {
 function getHostName(node: Node) {
   return node.getHostName().toLowerCase();
 }
-
+export const comparators = [
+  compareNumber(getDiskUsage),
+  compareString(getHostName)
+];
 export function diskSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareNumber(getDiskUsage), compareString(getHostName)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 export function diskSizer(args: WidthArgs): number {
   // TODO: DCOS-39147

@@ -31,18 +31,15 @@ export function regionRenderer(
     </TextCell>
   );
 }
-
+export const comparators = [
+  compareNumber(getRegionName),
+  compareString(getHostname)
+];
 export function regionSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareNumber(getRegionName), compareString(getHostname)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function regionSizer(args: WidthArgs): number {

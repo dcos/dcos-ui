@@ -20,17 +20,12 @@ export function healthRenderer(data: Node): React.ReactNode {
   );
 }
 
+export const comparators = [UnitHealthUtil.getHealthSortFunction];
 export function healthSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  return sort(
-    directionAwareComparators(
-      [UnitHealthUtil.getHealthSortFunction],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function healthSizer(args: WidthArgs): number {

@@ -17,6 +17,8 @@ import { IWidthArgs as WidthArgs } from "../types/IWidthArgs";
 function getHostname(data: Node): string {
   return data.getHostName();
 }
+
+export const comparators = [compareString(getHostname)];
 export function hostnameRenderer(data: Node): React.ReactNode {
   const nodeID = data.get("id");
   let headline = getHostname(data);
@@ -54,10 +56,7 @@ export function hostnameSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  return sort(
-    directionAwareComparators([compareString(getHostname)], sortDirection),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function hostnameSizer(args: WidthArgs): number {

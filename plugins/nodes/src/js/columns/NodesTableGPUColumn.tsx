@@ -24,15 +24,12 @@ export function gpuRenderer(data: Node): React.ReactNode {
     </TextCell>
   );
 }
-
+export const comparators = [
+  compareNumber(getGpuUsage),
+  compareString(getHostname)
+];
 export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareNumber(getGpuUsage), compareString(getHostname)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function gpuSizer(args: WidthArgs): number {

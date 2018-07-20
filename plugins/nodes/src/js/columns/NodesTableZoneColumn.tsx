@@ -26,14 +26,13 @@ export function zoneRenderer(data: Node): React.ReactNode {
   );
 }
 
+export const comparators = [
+  compareString(getZoneName),
+  compareString(getHostname)
+];
+
 export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareString(getZoneName), compareString(getHostname)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function zoneSizer(args: WidthArgs): number {

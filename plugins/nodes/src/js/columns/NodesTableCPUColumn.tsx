@@ -25,15 +25,12 @@ export function cpuRenderer(data: Node): React.ReactNode {
     </TextCell>
   );
 }
-
+export const comparators = [
+  compareNumber(getCpuUsage),
+  compareString(getHostName)
+];
 export function cpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareNumber(getCpuUsage), compareString(getHostName)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function cpuSizer(args: WidthArgs): number {

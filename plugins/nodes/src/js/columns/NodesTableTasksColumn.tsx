@@ -25,17 +25,12 @@ export function tasksRenderer(data: Node): React.ReactNode {
   );
 }
 
+export const comparators = [compareNumber(getTask), compareString(getHostname)];
 export function tasksSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareNumber(getTask), compareString(getHostname)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function tasksSizer(args: WidthArgs): number {

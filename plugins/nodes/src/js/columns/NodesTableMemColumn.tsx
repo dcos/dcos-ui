@@ -24,15 +24,12 @@ export function memRenderer(data: Node): React.ReactNode {
     </TextCell>
   );
 }
-
+export const comparators = [
+  compareNumber(getMemUsage),
+  compareString(getHostname)
+];
 export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  return sort(
-    directionAwareComparators(
-      [compareNumber(getMemUsage), compareString(getHostname)],
-      sortDirection
-    ),
-    data
-  );
+  return sort(directionAwareComparators(comparators, sortDirection), data);
 }
 
 export function memSizer(args: WidthArgs): number {
