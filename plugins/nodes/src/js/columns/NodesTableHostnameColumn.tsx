@@ -8,6 +8,7 @@ import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 import Icon from "#SRC/js/components/Icon";
+import { TextCell } from "@dcos/ui-kit";
 
 export function hostnameRenderer(data: Node): React.ReactNode {
   const nodeID = data.get("id");
@@ -15,26 +16,30 @@ export function hostnameRenderer(data: Node): React.ReactNode {
 
   if (!data.isActive()) {
     return (
-      <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
-        <span title={headline}>
-          <Tooltip anchor="start" content="Connection to node lost">
-            <Icon
-              className="icon-alert icon-margin-right"
-              color="neutral"
-              id="yield"
-              size="mini"
-            />
-            {headline}
-          </Tooltip>
-        </span>
-      </Link>
+      <TextCell>
+        <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
+          <span title={headline}>
+            <Tooltip anchor="start" content="Connection to node lost">
+              <Icon
+                className="icon-alert icon-margin-right"
+                color="neutral"
+                id="yield"
+                size="mini"
+              />
+              {headline}
+            </Tooltip>
+          </span>
+        </Link>
+      </TextCell>
     );
   }
 
   return (
-    <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
-      <span title={headline}>{headline}</span>
-    </Link>
+    <TextCell>
+      <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
+        <span title={headline}>{headline}</span>
+      </Link>
+    </TextCell>
   );
 }
 

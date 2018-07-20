@@ -5,10 +5,15 @@ import Node from "#SRC/js/structs/Node";
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { TextCell } from "@dcos/ui-kit";
 
 export function healthRenderer(data: Node): React.ReactNode {
   const health = data.getHealth();
-  return <span className={health.classNames}>{health.title}</span>;
+  return (
+    <TextCell>
+      <span className={health.classNames}>{health.title}</span>
+    </TextCell>
+  );
 }
 
 export function healthSorter(

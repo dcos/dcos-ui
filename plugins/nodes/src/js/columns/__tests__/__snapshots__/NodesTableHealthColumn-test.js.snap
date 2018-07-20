@@ -1,33 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NodesTableHealthColumn renderer renders with health status 'Healthy' 1`] = `
-<span
-  className="text-success"
+<div
+  className="css-19m5nce"
 >
-  Healthy
-</span>
+  <span
+    className="text-success"
+  >
+    Healthy
+  </span>
+</div>
 `;
 
 exports[`NodesTableHealthColumn renderer renders with health status 'NA' 1`] = `
-<span
-  className="text-mute"
+<div
+  className="css-19m5nce"
 >
-  N/A
-</span>
+  <span
+    className="text-mute"
+  >
+    N/A
+  </span>
+</div>
 `;
 
 exports[`NodesTableHealthColumn renderer renders with health status 'Unhealthy' 1`] = `
-<span
-  className="text-danger"
+<div
+  className="css-19m5nce"
 >
-  Unhealthy
-</span>
+  <span
+    className="text-danger"
+  >
+    Unhealthy
+  </span>
+</div>
 `;
 
 exports[`NodesTableHealthColumn renderer renders with health status 'Warn' 1`] = `
-<span
-  className="text-warning"
+<div
+  className="css-19m5nce"
 >
-  Warning
-</span>
+  <span
+    className="text-warning"
+  >
+    Warning
+  </span>
+</div>
 `;
