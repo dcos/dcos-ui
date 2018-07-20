@@ -7,20 +7,18 @@ import AccountDropdown from "./AccountDropdown";
 import SidebarToggle from "./SidebarToggle";
 
 export default function HeaderBar() {
-  // remove this to activate component
-  // when enabled, remove skip from Sidebar-cy.js
-  if (arguments) {
-    return null;
-  }
-
   return (
     <UIHeaderBar>
-      <SidebarToggle />
-      <Link to="/dashboard" className="header-bar-logo-wrapper">
-        <span className="header-bar-logo" />
-      </Link>
-      <AccountDropdown />
-      <ClusterHeader />
+      <div className="header-bar-left-align-wrapper">
+        <SidebarToggle />
+        <Link to="/dashboard" className="header-bar-logo-wrapper">
+          <span className="header-bar-logo" />
+        </Link>
+      </div>
+      <div className="header-bar-right-align-wrapper">
+        <AccountDropdown />
+        <ClusterHeader />
+      </div>
     </UIHeaderBar>
   );
 }

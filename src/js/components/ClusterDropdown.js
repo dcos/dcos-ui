@@ -4,7 +4,9 @@ import React from "react";
 const ClusterDropdownTrigger = ({ onTrigger, children }) => {
   return (
     <span className="header-bar-dropdown-trigger" onClick={onTrigger}>
-      {children}
+      <span className="header-bar-dropdown-trigger-content text-overflow">
+        {children}
+      </span>
     </span>
   );
 };
@@ -25,8 +27,9 @@ class ClusterDropdown extends React.Component {
 
     return (
       <Dropdown
+        anchorRight={true}
         trigger={<ClusterDropdownTrigger>{clusterName}</ClusterDropdownTrigger>}
-        dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
+        dropdownMenuClassName="user-account-dropdown-menu dropdown-menu header-bar-dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.getMenuItems()}
         onItemSelection={this.handleItemSelection}
