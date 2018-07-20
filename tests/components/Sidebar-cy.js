@@ -1,3 +1,5 @@
+const HEADER_BAR_HEIGHT = 32;
+
 const nestedRoutesToTest = [
   { url: "/networking/networks", parentMenuLabel: "Networking" },
   { url: "/settings/repositories", parentMenuLabel: "Settings" },
@@ -172,6 +174,95 @@ describe("Sidebar", function() {
       cy.viewport("iphone-6");
       cy.get(".sidebar-backdrop").click({ force: true });
       cy.get(".sidebar-backdrop").should("not.exist");
+    });
+
+    it("moves the sidebar content offscreen when it is undocked", function() {
+      cy.get(".sidebar-dock-trigger").click();
+
+      // We need to wait for the sidebar's transition to end.
+      cy.wait(500)
+        .get(".sidebar")
+        .then(function($sidebar) {
+          const sidebarRect = $sidebar.get(0).getBoundingClientRect();
+
+          // Assert that the sidebar's dimensions are outside of the viewport.
+          expect(sidebarRect.left).to.be.lessThan(0);
+          expect(sidebarRect.left).to.equal(sidebarRect.width * -1);
+          expect(sidebarRect.right).to.equal(0);
+        });
+    });
+
+    it("expands the page content to fill the viewport when sidebar is undocked", function() {
+      cy.get(".sidebar-dock-trigger").click();
+
+      // We need to wait for the sidebar's transition to end.
+      cy.wait(500)
+        .get(".page")
+        .then(function($page) {
+          const pageRect = $page.get(0).getBoundingClientRect();
+
+          expect(pageRect.left).to.equal(0);
+          expect(pageRect.top).to.equal(HEADER_BAR_HEIGHT);
+
+          cy.window().then(function($window) {
+            expect(pageRect.right).to.equal($window.innerWidth);
+            expect(pageRect.bottom).to.equal($window.innerHeight);
+          });
+        });
+    });
+
+    it("enters the viewport when the hamburger menu in the page header is clicked", function() {
+      cy.get(".sidebar-dock-trigger").click();
+
+      // We need to wait for the sidebar's exiting transition to end.
+      cy.wait(500);
+
+      // Let's first ensure that the sidebar is actually out of the viewport.
+      cy.get(".sidebar").then(function($sidebar) {
+        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
+        expect(sidebarRect.left).to.be.lessThan(0);
+        expect(sidebarRect.right).to.equal(0);
+      });
+
+      cy.get(".page-header-sidebar-toggle").click();
+
+      // We need to wait for the sidebar's entrance transition to end.
+      cy.wait(500);
+
+      cy.get(".sidebar").then(function($sidebar) {
+        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
+        expect(sidebarRect.left).to.equal(0);
+        expect(sidebarRect.right).to.be.greaterThan(0);
+        expect(sidebarRect.right).to.equal(sidebarRect.width);
+      });
+    });
+
+    it("renders on top of the page content when its visibility is toggled in undocked mode", function() {
+      cy.get(".sidebar-dock-trigger").click();
+
+      // We need to wait for the sidebar's exiting transition to end.
+      cy.wait(500);
+
+      cy.get(".page-header-sidebar-toggle").click();
+
+      // We need to wait for the sidebar's entrance transition to end.
+      cy.wait(500);
+
+      cy.get(".page").then(function($page) {
+        const pageRect = $page.get(0).getBoundingClientRect();
+        expect(pageRect.left).to.equal(0);
+      });
+
+      cy.get(".sidebar-backdrop").click();
+
+      // We need to wait for the sidebar's exit transition to end.
+      cy.wait(500);
+
+      cy.get(".sidebar").then(function($sidebar) {
+        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
+        expect(sidebarRect.left).to.be.lessThan(0);
+        expect(sidebarRect.right).to.equal(0);
+      });
     });
   });
 });
