@@ -98,38 +98,6 @@ describe("Sidebar", function() {
     });
   });
 
-  context("User Account Menu", function() {
-    beforeEach(function() {
-      cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
-    });
-
-    it("has a click-target with exactly the same width as the sidebar", function() {
-      cy.get(".sidebar").then(function($sidebar) {
-        const sidebarWidth = $sidebar.get(0).getBoundingClientRect().width;
-
-        cy.get(".header-dropdown").then(function($clickTarget) {
-          expect($clickTarget.get(0).getBoundingClientRect().width).to.equal(
-            sidebarWidth
-          );
-        });
-      });
-    });
-
-    it("has a click-target whose children are not any wider than the sidebar itself", function() {
-      cy.get(".header-dropdown").then(function($clickTarget) {
-        const targetWidth = $clickTarget.get(0).getBoundingClientRect().width;
-
-        cy.get(".header-dropdown *").then(function($children) {
-          $children.each(function(index, child) {
-            expect(child.getBoundingClientRect().width).to.be.lessThan(
-              targetWidth
-            );
-          });
-        });
-      });
-    });
-  });
-
   context("Sidebar toggle", function() {
     beforeEach(function() {
       cy.clearLocalStorage();

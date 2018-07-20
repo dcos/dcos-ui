@@ -9,9 +9,7 @@ import { keyCodes } from "../utils/KeyboardUtil";
 import EventTypes from "../constants/EventTypes";
 import MetadataStore from "../stores/MetadataStore";
 import PrimarySidebarLink from "../components/PrimarySidebarLink";
-import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SidebarActions from "../events/SidebarActions";
-import SidebarHeader from "./SidebarHeader";
 import { getCurrentViewport } from "../utils/ViewportUtil";
 import * as viewport from "../constants/Viewports";
 
@@ -128,10 +126,6 @@ class Sidebar extends React.Component {
     if (getCurrentViewport() === viewport.MOBILE) {
       SidebarActions.close();
     }
-  }
-
-  handleClusterHeaderUpdate() {
-    ScrollbarUtil.updateWithRef(this.geminiRef);
   }
 
   handlePrimarySidebarLinkClick(element, isChildActive) {
@@ -325,7 +319,6 @@ class Sidebar extends React.Component {
         }}
       >
         <div className="sidebar flex flex-direction-top-to-bottom">
-          <SidebarHeader onUpdate={this.handleClusterHeaderUpdate} />
           <GeminiScrollbar
             autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
