@@ -5,19 +5,23 @@ import Node from "#SRC/js/structs/Node";
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { TextCell } from "@dcos/ui-kit";
 
 export function regionRenderer(
   masterRegion: string,
   data: Node
 ): React.ReactNode {
-  const regionName = data.getRegionName();
+  const regionName =
+    data.getRegionName() +
+    (masterRegion === data.getRegionName() ? " (Local)" : "");
+
   return (
-    <span title={regionName}>
-      {regionName}
-      {masterRegion === regionName ? " (Local)" : null}
-    </span>
+    <TextCell>
+      <span title={regionName}>{regionName}</span>
+    </TextCell>
   );
 }
+
 export function regionSorter(
   data: Node[],
   sortDirection: SortDirection
@@ -32,6 +36,7 @@ export function regionSorter(
   );
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
+
 export function regionSizer(args: WidthArgs): number {
   return Math.max(170, args.width / args.totalColumns);
 }

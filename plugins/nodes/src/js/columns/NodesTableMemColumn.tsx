@@ -5,9 +5,14 @@ import Node from "#SRC/js/structs/Node";
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { TextCell } from "@dcos/ui-kit";
 
 export function memRenderer(data: Node): React.ReactNode {
-  return <span>{data.getUsageStats("mem").percentage}%</span>;
+  return (
+    <TextCell>
+      <span>{data.getUsageStats("mem").percentage}%</span>
+    </TextCell>
+  );
 }
 
 export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {

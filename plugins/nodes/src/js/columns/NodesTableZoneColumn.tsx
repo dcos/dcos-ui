@@ -5,10 +5,16 @@ import Node from "#SRC/js/structs/Node";
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { TextCell } from "@dcos/ui-kit";
 
 export function zoneRenderer(data: Node): React.ReactNode {
-  return <span title={data.getZoneName()}>{data.getZoneName()}</span>;
+  return (
+    <TextCell>
+      <span title={data.getZoneName()}>{data.getZoneName()}</span>
+    </TextCell>
+  );
 }
+
 export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const sortedData = data.sort((a, b) =>
     compareValues(
@@ -20,6 +26,7 @@ export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
   );
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
+
 export function zoneSizer(args: WidthArgs): number {
   return Math.max(125, args.width / args.totalColumns);
 }

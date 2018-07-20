@@ -5,10 +5,16 @@ import Node from "#SRC/js/structs/Node";
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { TextCell } from "@dcos/ui-kit";
 
 export function gpuRenderer(data: Node): React.ReactNode {
-  return `${data.getUsageStats("gpus").percentage}%`;
+  return (
+    <TextCell>
+      <span>{data.getUsageStats("gpus").percentage}%</span>
+    </TextCell>
+  );
 }
+
 export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const sortedData = data.sort((a, b) =>
     compareValues(
@@ -20,6 +26,7 @@ export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
   );
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
+
 export function gpuSizer(args: WidthArgs): number {
   return Math.max(60, args.width / args.totalColumns);
 }
