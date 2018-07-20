@@ -1,3 +1,17 @@
+## Description
+
+<!--
+What is the change your PR does?
+Please add a short description here. (one sentence is enough)
+-->
+
+- 🔖 JIRA: [DCOS-12345](https://jira.mesosphere.com/browse/DCOS-12345)
+  <!-- add things that reviewers need to know, e.g.
+- 🚫 This blocks #PRNumber
+- ⚠️ Component is not enabled yet (see testing)
+- ⚠️ Wasnt able to test it yet, cluster is still starting… 😅
+  -->
+
 ## Testing
 
 <!--
