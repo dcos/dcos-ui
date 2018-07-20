@@ -1,13 +1,9 @@
 import * as React from "react";
-import { sort, compareNumber, compareString } from "@dcos/sorting";
+import { compareNumber, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
 import { IWidthArgs as WidthArgs } from "../types/IWidthArgs";
-import {
-  SortDirection,
-  directionAwareComparators
-} from "../types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
 
 function getMemUsage(data: Node) {
@@ -28,9 +24,6 @@ export const comparators = [
   compareNumber(getMemUsage),
   compareString(getHostname)
 ];
-export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  return sort(directionAwareComparators(comparators, sortDirection), data);
-}
 
 export function memSizer(args: WidthArgs): number {
   // TODO: DCOS-39147
