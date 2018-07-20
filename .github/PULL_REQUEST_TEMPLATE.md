@@ -12,11 +12,10 @@ Please add a short description here. (one sentence is enough)
 - ⚠️ Wasnt able to test it yet, cluster is still starting… 😅
   -->
 
-## Testing
+## Dependencies
 
 <!--
-What is needed to test the changes? e.g. specific cluster, service definitions
-How can one see the result of your work? e.g. configurations, URLs
+What needs to happen before this can be merged? e.g. PRs merged, other events
 -->
 
 ## Trade-offs
@@ -26,8 +25,9 @@ Are you aware of any weak spots? e.g. performance, functionality
 Did you decide anything noteworthy? e.g. algorithms, data structures, tools
 -->
 
-## Dependencies
+## Testing
 
 <!--
-What needs to happen before this can be merged? e.g. PRs merged, other events
+What is needed to test the changes? e.g. specific cluster, service definitions
+How can one see the result of your work? e.g. configurations, URLs
 -->
