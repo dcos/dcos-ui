@@ -3,7 +3,7 @@ import { sort, compareNumber, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
-import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
+import { IWidthArgs as WidthArgs } from "../types/IWidthArgs";
 import { TextCell } from "@dcos/ui-kit";
 import {
   SortDirection,

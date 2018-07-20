@@ -3,17 +3,16 @@ import { sort, compareString } from "@dcos/sorting";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
-import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
-import Icon from "#SRC/js/components/Icon";
-
 import { TextCell } from "@dcos/ui-kit";
 
+import Icon from "#SRC/js/components/Icon";
 import {
   SortDirection,
   directionAwareComparators
-} from "#PLUGINS/nodes/src/js/types/SortDirection";
+} from "../types/SortDirection";
+import { IWidthArgs as WidthArgs } from "../types/IWidthArgs";
 
 function getHostname(data: Node): string {
   return data.getHostName();
