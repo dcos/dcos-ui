@@ -271,16 +271,12 @@ var NodesOverview = React.createClass({
           allHosts={CompositeState.getNodesList()}
           location={this.props.location}
           isFiltering={isFiltering}
-          nodeCount={data.nodes.getItems().length}
           onFilterChange={this.handleHealthFilterChange}
           onResetFilter={this.resetFilter}
           onResourceSelectionChange={this.onResourceSelectionChange}
-          refreshRate={data.refreshRate}
           selectedResource={selectedResource}
           services={data.services}
-          totalHostsResources={data.totalHostsResources}
           totalNodeCount={data.totalNodes}
-          totalResources={data.totalResources}
           viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}
         >
           {this.props.children}
