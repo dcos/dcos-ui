@@ -25,11 +25,12 @@ class AccountDropdownTrigger extends mixin(StoreMixin) {
   render() {
     const { content, onTrigger } = this.props;
 
-    // TODO: DCOS-38944
     return (
-      <a className="header-bar-dropdown" onClick={onTrigger}>
-        <span>{content}</span>
-      </a>
+      <span className="header-bar-dropdown-trigger" onClick={onTrigger}>
+        <span className="header-bar-dropdown-trigger-content text-overflow">
+          {content}
+        </span>
+      </span>
     );
   }
 }

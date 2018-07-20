@@ -1,16 +1,38 @@
 @header-bar-enabled: true;
 
+@header-bar-height: 32px;
+@header-bar-horizontal-padding: 20px;
+
 /*
  * Product Logo
  */
+
 @product-logo-src: '../../../img/layout/login/login-modal-product-logo-inverse.png';
-
-/*
-* Logo Widths
-*/
-
 @full-logo-width: 166px;
 @short-logo-width: 20px;
+
+/*
+* Screen Widths
+*/
+
+@layout-screen-dropdown-max-width: 200px;
+@layout-screen-dropdown-interval-large: 25px;
+@layout-screen-dropdown-interval-small: 10px;
+
+@layout-screen-iteration-1: (@layout-screen-small-max-width / 1.1);
+@layout-screen-iteration-2: (@layout-screen-small-max-width / 1.2);
+@layout-screen-iteration-3: (@layout-screen-small-max-width / 1.3);
+@layout-screen-iteration-4: (@layout-screen-small-max-width / 1.4);
+@layout-screen-iteration-5: (@layout-screen-small-max-width / 1.5);
+@layout-screen-iteration-6: (@layout-screen-small-max-width / 1.6);
+@layout-screen-iteration-7: (@layout-screen-small-max-width / 1.7);
+@layout-screen-iteration-8: (@layout-screen-small-max-width / 1.8);
+@layout-screen-iteration-9: (@layout-screen-small-max-width / 1.9);
+@layout-screen-iteration-10: (@layout-screen-small-max-width / 2);
+
+/*
+* Dropdowns
+*/
 
 @header-dropdown-caret-width: 10px;
 @header-dropdown-caret-height: 6px;
