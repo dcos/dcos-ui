@@ -10,8 +10,8 @@ import TaskFileViewer from "#PLUGINS/services/src/js/pages/task-details/TaskFile
 import TaskFilesTab from "#PLUGINS/services/src/js/pages/task-details/TaskFilesTab";
 import TaskLogsContainer from "#PLUGINS/services/src/js/pages/task-details/TaskLogsContainer";
 import JobDetailPageContainer from "#PLUGINS/jobs/src/js/JobDetailPageContainer";
+import JobsTaskDetailPage from "#PLUGINS/jobs/src/js/pages/JobTaskDetailPage";
 import JobsPage from "../pages/JobsPage";
-import JobsTaskDetailPage from "../pages/jobs/JobTaskDetailPage";
 
 const jobsRoutes = [
   {

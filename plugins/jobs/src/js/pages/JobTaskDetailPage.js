@@ -2,16 +2,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 
-import DCOSStore from "#SRC/js/stores/DCOSStore";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import Page from "#SRC/js/components/Page";
+import Breadcrumb from "#SRC/js/components/Breadcrumb";
+import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 
 import TaskDetail from "#PLUGINS/services/src/js/pages/task-details/TaskDetail";
-import JobsBreadcrumbs from "../../components/JobsBreadcrumbs";
-
-import MesosStateStore from "../../stores/MesosStateStore";
-import MetronomeStore from "../../stores/MetronomeStore";
-import Page from "../../components/Page";
-import Breadcrumb from "../../components/Breadcrumb";
-import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
@@ -29,16 +26,10 @@ class JobTaskDetailPage extends React.Component {
       { label: "Logs", routePath: routePrefix + "/logs" }
     ];
 
-    const job = MetronomeStore.getJob(id);
     const task = MesosStateStore.getTaskFromTaskID(taskID);
-
-    let breadcrumbs = (
-      <JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} details={false} />
-    );
-
-    if (task != null) {
-      breadcrumbs = (
-        <JobsBreadcrumbs tree={DCOSStore.jobTree} item={job} details={false}>
+    const breadcrumbs = (
+      <Breadcrumbs>
+        {task ? (
           <Breadcrumb key="task-name" title={task.getName()}>
             <BreadcrumbTextContent>
               <Link to={`/jobs/detail/${id}/tasks/${task.getId()}`}>
@@ -46,9 +37,9 @@ class JobTaskDetailPage extends React.Component {
               </Link>
             </BreadcrumbTextContent>
           </Breadcrumb>
-        </JobsBreadcrumbs>
-      );
-    }
+        ) : null}
+      </Breadcrumbs>
+    );
 
     const dontScroll = dontScrollRoutes.some(regex => {
       return regex.test(location.pathname);
