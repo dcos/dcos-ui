@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { CSSTransitionGroup } from "react-transition-group";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import { Link, routerShape } from "react-router";
 import React from "react";
@@ -8,13 +7,11 @@ import { navigation } from "foundation-ui";
 
 import { keyCodes } from "../utils/KeyboardUtil";
 import EventTypes from "../constants/EventTypes";
-import Icon from "../components/Icon";
 import MetadataStore from "../stores/MetadataStore";
 import PrimarySidebarLink from "../components/PrimarySidebarLink";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SidebarActions from "../events/SidebarActions";
 import SidebarHeader from "./SidebarHeader";
-import SidebarStore from "../stores/SidebarStore";
 
 const {
   NavigationService,
@@ -315,28 +312,11 @@ class Sidebar extends React.Component {
 
   toggleSidebarDocking() {
     global.requestAnimationFrame(() => {
-      if (SidebarStore.get("isDocked")) {
-        SidebarActions.undock();
-      } else {
-        SidebarActions.dock();
-      }
+      SidebarActions.toggle();
     });
   }
 
   render() {
-    let dockIconID = "sidebar-expand";
-    let overlay = null;
-
-    if (SidebarStore.get("isDocked")) {
-      dockIconID = "sidebar-collapse";
-    }
-
-    if (SidebarStore.get("isVisible")) {
-      overlay = (
-        <div className="sidebar-backdrop" onClick={this.handleOverlayClick} />
-      );
-    }
-
     return (
       <div
         className="sidebar-wrapper"
@@ -344,13 +324,6 @@ class Sidebar extends React.Component {
           this.sidebarWrapperRef = ref;
         }}
       >
-        <CSSTransitionGroup
-          transitionName="sidebar-backdrop"
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}
-        >
-          {overlay}
-        </CSSTransitionGroup>
         <div className="sidebar flex flex-direction-top-to-bottom">
           <SidebarHeader onUpdate={this.handleClusterHeaderUpdate} />
           <GeminiScrollbar
@@ -364,14 +337,6 @@ class Sidebar extends React.Component {
               </div>
             </div>
           </GeminiScrollbar>
-          <div className="sidebar-footer">
-            <Icon
-              className="sidebar-dock-trigger icon-white"
-              size="mini"
-              id={dockIconID}
-              onClick={this.toggleSidebarDocking}
-            />
-          </div>
         </div>
       </div>
     );

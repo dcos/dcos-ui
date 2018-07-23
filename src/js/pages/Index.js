@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import React from "react";
+import { CSSTransitionGroup } from "react-transition-group";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -20,10 +21,13 @@ import SidebarStore from "../stores/SidebarStore";
 
 function getSidebarState() {
   return {
-    isDocked: SidebarStore.get("isDocked"),
     isVisible: SidebarStore.get("isVisible")
   };
 }
+
+// We use this value in the css
+// when targeting tablet or mobile
+const mobileTreshold = 994;
 
 var Index = React.createClass({
   displayName: "Index",
@@ -66,7 +70,7 @@ var Index = React.createClass({
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.addEventListener("resize", SidebarActions.close);
+    global.addEventListener("resize", this.handleWindowResize);
 
     ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
   },
@@ -80,7 +84,7 @@ var Index = React.createClass({
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.removeEventListener("resize", SidebarActions.close);
+    global.addEventListener("resize", this.handleWindowResize);
 
     ConfigStore.removeChangeListener(
       EventTypes.CONFIG_ERROR,
@@ -140,14 +144,55 @@ var Index = React.createClass({
     );
   },
 
+  handleWindowResize(event) {
+    // TODO: trottle method using RXJS
+    const windowWidth = event.target.innerWidth;
+    const isVisible = SidebarStore.get("isVisible");
+
+    // TODO: open when > mobileTreshold
+    if (windowWidth <= mobileTreshold && isVisible) {
+      SidebarActions.close();
+    }
+
+    if (windowWidth > mobileTreshold && !isVisible) {
+      SidebarActions.open();
+    }
+  },
+
+  renderOverlay() {
+    const { isVisible } = this.internalStorage_get();
+    let overlay = null;
+
+    if (isVisible) {
+      overlay = (
+        <div className="sidebar-backdrop" onClick={SidebarActions.close} />
+      );
+    }
+
+    if (window.innerWidth <= mobileTreshold && isVisible) {
+      return (
+        <CSSTransitionGroup
+          transitionName="sidebar-backdrop"
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}
+        >
+          {overlay}
+        </CSSTransitionGroup>
+      );
+    }
+
+    return null;
+  },
+
   render() {
-    var { isDocked, isVisible } = this.internalStorage_get();
+    const { isVisible } = this.internalStorage_get();
+
     const showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
     var classSet = classNames("application-wrapper", {
       "sidebar-visible": isVisible,
-      "sidebar-docked": isDocked
+      "sidebar-docked": isVisible
     });
 
     return (
@@ -156,6 +201,7 @@ var Index = React.createClass({
         <div className="application-wrapper-inner">
           {this.getScreenOverlays(showErrorScreen)}
           <Sidebar location={this.props.location} />
+          {this.renderOverlay()}
           {this.props.children}
           <Modals
             showErrorModal={this.state.showErrorModal}
