@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { Form } from "reactjs-components";
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
@@ -24,23 +23,16 @@ var NodesGridView = React.createClass({
     hosts: PropTypes.instanceOf(NodesList).isRequired,
     receivedEmptyMesosState: PropTypes.bool,
     receivedNodeHealthResponse: PropTypes.bool,
-    onShowServices: PropTypes.func.isRequired,
     resourcesByFramework: PropTypes.object.isRequired,
     selectedResource: PropTypes.string.isRequired,
     serviceColors: PropTypes.object.isRequired,
-    services: PropTypes.array.isRequired,
-    showServices: PropTypes.bool
+    services: PropTypes.array.isRequired
   },
 
   defaultProps: {
     hasLoadingError: false,
     hiddenServices: [],
-    receivedNodeHealthResponse: false,
-    showServices: false
-  },
-
-  handleCheckboxChange(model) {
-    this.props.onShowServices(model.showServices);
+    receivedNodeHealthResponse: false
   },
 
   getLoadingScreen() {
@@ -113,36 +105,18 @@ var NodesGridView = React.createClass({
     var { props } = this;
 
     var classSet = classNames({
-      "side-list nodes-grid-legend": true,
-      disabled: !props.showServices
+      "side-list nodes-grid-legend": true
     });
 
     return (
       <div className="nodes-grid">
-        <div className={classSet}>
-          <label className="show-services-label h5 tall flush-top">
-            <Form
-              definition={[
-                {
-                  fieldType: "checkbox",
-                  name: "showServices",
-                  checked: props.showServices,
-                  label: "Show Services by Share",
-                  value: props.showServices
-                }
-              ]}
-              onChange={this.handleCheckboxChange}
-            />
-          </label>
-          {this.getServicesList(props)}
-        </div>
+        <div className={classSet}>{this.getServicesList(props)}</div>
 
         <NodesGridDials
           hosts={props.hosts.getItems()}
           resourcesByFramework={props.resourcesByFramework}
           selectedResource={props.selectedResource}
           serviceColors={props.serviceColors}
-          showServices={props.showServices}
         />
       </div>
     );

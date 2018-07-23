@@ -5,7 +5,6 @@ import React from "react";
 import { shallow } from "enzyme";
 
 const NodesGridDials = require("../NodesGridDials");
-const ResourcesUtil = require("#SRC/js/utils/ResourcesUtil");
 const Node = require("#SRC/js/structs/Node");
 
 var mockHost = {
@@ -19,11 +18,7 @@ var mockHost = {
   }
 };
 
-let thisHosts,
-  thisInstance,
-  thisResourceColor,
-  thisResourceLabel,
-  thisActiveSlices;
+let thisHosts, thisInstance, thisActiveSlices;
 
 describe("NodesGridDials", function() {
   beforeEach(function() {
@@ -33,7 +28,6 @@ describe("NodesGridDials", function() {
         hosts={thisHosts}
         selectedResource="cpus"
         serviceColors={{}}
-        showServices={false}
         resourcesByFramework={{}}
       />
     );
@@ -46,7 +40,6 @@ describe("NodesGridDials", function() {
           hosts={thisHosts}
           selectedResource="disk"
           serviceColors={{}}
-          showServices={false}
           resourcesByFramework={{
             foo: {
               cpus: 1,
@@ -67,8 +60,6 @@ describe("NodesGridDials", function() {
 
   describe("#getActiveSliceData", function() {
     beforeEach(function() {
-      thisResourceColor = ResourcesUtil.getResourceColor("cpus");
-      thisResourceLabel = ResourcesUtil.getResourceLabel("cpus");
       thisActiveSlices = thisInstance
         .instance()
         .getActiveSliceData(thisHosts[0]);
@@ -86,27 +77,6 @@ describe("NodesGridDials", function() {
       expect(typeof thisActiveSlices.usedPercentage).toEqual("number");
     });
 
-    it("contains a slice for the used resource", function() {
-      var slice = thisActiveSlices.data.find(datum => {
-        return datum.name === thisResourceLabel;
-      });
-      expect(typeof slice).toEqual("object");
-    });
-
-    it("uses the correct color", function() {
-      var slice = thisActiveSlices.data.find(datum => {
-        return datum.name === thisResourceLabel;
-      });
-      expect(slice.colorIndex).toEqual(thisResourceColor);
-    });
-
-    it("calculate the active percentage", function() {
-      var slice = thisActiveSlices.data.find(datum => {
-        return datum.name === thisResourceLabel;
-      });
-      expect(slice.percentage).toEqual(50);
-    });
-
     it("contains an unused resources slice", function() {
       var slice = thisActiveSlices.data.find(function(datum) {
         return datum.name === "Unused";
@@ -119,13 +89,6 @@ describe("NodesGridDials", function() {
         return datum.name === "Unused";
       });
       expect(slice.colorIndex).toEqual("unused");
-    });
-
-    it("calculates the used percentage", function() {
-      var slice = thisActiveSlices.data.find(function(datum) {
-        return datum.name === "Unused";
-      });
-      expect(slice.percentage).toEqual(50);
     });
   });
 
@@ -169,7 +132,6 @@ describe("NodesGridDials", function() {
           hosts={thisHosts}
           selectedResource="cpus"
           serviceColors={{}}
-          showServices={false}
           resourcesByFramework={{}}
         />
       );
