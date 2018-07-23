@@ -7,13 +7,14 @@ import { MountService } from "foundation-ui";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
-import Util from "#SRC/js/utils/Util";
+import Util, { isObject } from "#SRC/js/utils/Util";
 import JSONEditor from "#SRC/js/components/JSONEditor";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import PageHeaderNavigationDropdown
   from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
+import Alert from "#SRC/js/components/Alert";
 import SchemaField from "#SRC/js/components/SchemaField";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField
@@ -41,7 +42,22 @@ const METHODS_TO_BIND = [
   "handleBadgeClick",
   "validate"
 ];
-class FrameworkConfigurationForm extends Component {
+
+export function isValidFormData(formData, schema) {
+  if (!isObject(formData)) {
+    return true;
+  }
+
+  return Object.entries(formData).every(([key, value]) => {
+    if (!schema.properties[key]) {
+      return false;
+    }
+
+    return isValidFormData(value, schema.properties[key]);
+  });
+}
+
+export default class FrameworkConfigurationForm extends Component {
   constructor(props) {
     super(props);
 
@@ -260,6 +276,33 @@ class FrameworkConfigurationForm extends Component {
       "is-visible": jsonEditorActive
     });
 
+    const schema = packageDetails.getConfig();
+
+    if (!isValidFormData(formData, schema)) {
+      return (
+        <div>
+          <div className="column-6">
+            <Alert>
+              The package has an advanced configuration which we currently do
+              not support in the UI. Please use the JSON editor to change the
+              configuration.
+            </Alert>
+          </div>
+          <div className={jsonEditorClasses}>
+            <JSONEditor
+              errors={this.getErrorsForJSONEditor()}
+              showGutter={true}
+              showPrintMargin={false}
+              onChange={this.handleJSONChange}
+              theme="monokai"
+              height="100%"
+              value={formData}
+              width="100%"
+            />
+          </div>
+        </div>
+      );
+    }
     let errorsAlert = null;
     if (deployErrors) {
       errorsAlert = <CosmosErrorMessage error={deployErrors} />;
@@ -295,14 +338,12 @@ class FrameworkConfigurationForm extends Component {
                   vertical={true}
                   className={"menu-tabbed-container-fixed"}
                 >
-                  <TabButtonList>
-                    {this.getFormTabList()}
-                  </TabButtonList>
+                  <TabButtonList>{this.getFormTabList()}</TabButtonList>
                   <div className="menu-tabbed-view-container">
                     {errorsAlert}
                     {defaultConfigWarningMessage}
                     <SchemaForm
-                      schema={packageDetails.getConfig()}
+                      schema={schema}
                       formData={formData}
                       onChange={this.handleFormChange}
                       uiSchema={this.getUiSchema()}
@@ -352,5 +393,3 @@ FrameworkConfigurationForm.propTypes = {
   handleFocusFieldChange: PropTypes.func.isRequired,
   defaultConfigWarning: PropTypes.string
 };
-
-module.exports = FrameworkConfigurationForm;
