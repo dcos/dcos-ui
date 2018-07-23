@@ -2,25 +2,11 @@ import React from "react";
 
 import EventTypes from "../constants/EventTypes";
 import Icon from "../components/Icon";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
 
-function getSidebarState() {
-  return {
-    isDocked: SidebarStore.get("isDocked"),
-    isVisible: SidebarStore.get("isVisible")
-  };
-}
-
 var SidebarToggle = React.createClass({
   displayName: "SidebarToggle",
-
-  mixins: [InternalStorageMixin],
-
-  componentWillMount() {
-    this.internalStorage_set(getSidebarState());
-  },
 
   componentDidMount() {
     SidebarStore.addChangeListener(
@@ -37,21 +23,14 @@ var SidebarToggle = React.createClass({
   },
 
   onSidebarStateChange() {
-    this.internalStorage_set(getSidebarState());
     this.forceUpdate();
   },
 
   onClick(e) {
-    var data = this.internalStorage_get();
-
     e.preventDefault();
     e.stopPropagation();
 
-    if (data.isVisible) {
-      SidebarActions.close();
-    } else {
-      SidebarActions.open();
-    }
+    SidebarActions.toggle();
   },
 
   render() {

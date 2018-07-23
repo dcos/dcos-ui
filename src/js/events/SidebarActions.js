@@ -1,11 +1,10 @@
 import {
-  REQUEST_SIDEBAR_OPEN,
-  REQUEST_SIDEBAR_CLOSE,
-  REQUEST_SIDEBAR_DOCK,
-  REQUEST_SIDEBAR_UNDOCK,
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_CLUSTER_LINKING,
-  REQUEST_SIDEBAR_WIDTH_CHANGE
+  REQUEST_SIDEBAR_WIDTH_CHANGE,
+  REQUEST_SIDEBAR_TOGGLE,
+  REQUEST_SIDEBAR_CLOSE,
+  REQUEST_SIDEBAR_OPEN
 } from "../constants/ActionTypes";
 
 import AppDispatcher from "./AppDispatcher";
@@ -14,28 +13,20 @@ module.exports = {
   open() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_OPEN,
-      data: true
+      isVisible: true
     });
   },
 
   close() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_CLOSE,
-      data: false
+      isVisible: false
     });
   },
 
-  dock() {
+  toggle() {
     AppDispatcher.handleSidebarAction({
-      type: REQUEST_SIDEBAR_DOCK,
-      data: true
-    });
-  },
-
-  undock() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_SIDEBAR_UNDOCK,
-      data: false
+      type: REQUEST_SIDEBAR_TOGGLE
     });
   },
 

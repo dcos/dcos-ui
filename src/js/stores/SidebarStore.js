@@ -3,14 +3,13 @@ import PluginSDK from "PluginSDK";
 import {
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_CLUSTER_LINKING,
-  REQUEST_SIDEBAR_CLOSE,
-  REQUEST_SIDEBAR_OPEN,
-  REQUEST_SIDEBAR_DOCK,
-  REQUEST_SIDEBAR_UNDOCK,
   REQUEST_SIDEBAR_WIDTH_CHANGE,
   REQUEST_VERSIONS_ERROR,
   REQUEST_VERSIONS_SUCCESS,
-  SIDEBAR_ACTION
+  SIDEBAR_ACTION,
+  REQUEST_SIDEBAR_TOGGLE,
+  REQUEST_SIDEBAR_CLOSE,
+  REQUEST_SIDEBAR_OPEN
 } from "../constants/ActionTypes";
 import {
   SHOW_CLI_INSTRUCTIONS,
@@ -52,34 +51,22 @@ class SidebarStore extends GetSetBaseStore {
       var action = payload.action;
 
       switch (action.type) {
-        case REQUEST_SIDEBAR_DOCK:
-        case REQUEST_SIDEBAR_UNDOCK:
-          var nextDockedState = action.data;
-
-          if (this.get("isDocked") !== nextDockedState) {
-            const savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY) || {};
-
-            this.set({
-              isVisible: nextDockedState ? false : nextDockedState,
-              isDocked: nextDockedState
-            });
-
-            this.emitChange(SIDEBAR_CHANGE);
-
-            savedStates.sidebar = { isDocked: nextDockedState };
-            UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
-          }
-          break;
+        case REQUEST_SIDEBAR_TOGGLE:
         case REQUEST_SIDEBAR_CLOSE:
         case REQUEST_SIDEBAR_OPEN:
-          var oldisVisible = this.get("isVisible");
-          var isVisible = action.data;
+          const savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY) || {};
+          let isVisible = !this.get("isVisible");
 
-          // only emitting on change
-          if (oldisVisible !== isVisible) {
-            this.set({ isVisible });
-            this.emitChange(SIDEBAR_CHANGE);
+          if (action.isVisible) {
+            isVisible = action.isVisible;
           }
+
+          this.set({ isVisible });
+          this.emitChange(SIDEBAR_CHANGE);
+
+          savedStates.sidebar = { isVisible };
+          UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
+
           break;
         case REQUEST_CLI_INSTRUCTIONS:
           this.emitChange(SHOW_CLI_INSTRUCTIONS);
@@ -104,18 +91,17 @@ class SidebarStore extends GetSetBaseStore {
   }
 
   init() {
-    let isDocked = Util.findNestedPropertyInObject(
+    let isVisible = Util.findNestedPropertyInObject(
       UserSettingsStore.getKey(SAVED_STATE_KEY),
-      "sidebar.isDocked"
+      "sidebar.isVisible"
     );
 
-    if (isDocked == null) {
-      isDocked = true;
+    if (isVisible == null) {
+      isVisible = true;
     }
 
     this.set({
-      isDocked,
-      isVisible: false,
+      isVisible,
       versions: {}
     });
   }
