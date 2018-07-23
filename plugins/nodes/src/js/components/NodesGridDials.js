@@ -20,7 +20,6 @@ var NodesGridDials = React.createClass({
     hosts: PropTypes.array.isRequired,
     selectedResource: PropTypes.string.isRequired,
     serviceColors: PropTypes.object.isRequired,
-    showServices: PropTypes.bool.isRequired,
     resourcesByFramework: PropTypes.object.isRequired
   },
 
@@ -59,39 +58,8 @@ var NodesGridDials = React.createClass({
     return config;
   },
 
-  getUsedSliceConfig(node) {
-    const { selectedResource } = this.props;
-    const colorIndex = ResourcesUtil.getResourceColor(selectedResource);
-    const label = ResourcesUtil.getResourceLabel(selectedResource);
-    var serviceSlices = this.getServiceSlicesConfig(node);
-    var percentage;
-
-    if (serviceSlices.length > 0) {
-      percentage = serviceSlices.reduce(function(memo, slice) {
-        return memo + slice.percentage;
-      }, 0);
-    } else {
-      percentage = node.getUsageStats(selectedResource).percentage;
-    }
-
-    return [
-      {
-        colorIndex,
-        name: label,
-        percentage
-      }
-    ];
-  },
-
   getActiveSliceData(node) {
-    var config;
-    var props = this.props;
-
-    if (props.showServices) {
-      config = this.getServiceSlicesConfig(node);
-    } else {
-      config = this.getUsedSliceConfig(node);
-    }
+    var config = this.getServiceSlicesConfig(node);
 
     var percentage = config.reduce(function(memo, slice) {
       memo += slice.percentage;
