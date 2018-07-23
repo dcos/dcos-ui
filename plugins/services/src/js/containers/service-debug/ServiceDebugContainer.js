@@ -17,6 +17,7 @@ import DeclinedOffersTable from "../../components/DeclinedOffersTable";
 import MarathonStore from "../../stores/MarathonStore";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 import Service from "../../structs/Service";
+import Framework from "../../structs/Framework";
 import TaskStatsTable from "./TaskStatsTable";
 
 const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
@@ -211,7 +212,7 @@ class ServiceDebugContainer extends React.Component {
   getRecentOfferSummaryIntroText() {
     const { service } = this.props;
 
-    if (this.isFramework(service)) {
+    if (service instanceof Framework) {
       const frameworkName = service.getPackageName();
 
       return this.getRecentOfferSummaryDisabledText(frameworkName);
@@ -265,7 +266,7 @@ class ServiceDebugContainer extends React.Component {
   getWaitingForResourcesNotice() {
     const { service } = this.props;
 
-    if (this.isFramework(service)) {
+    if (service instanceof Framework) {
       return null;
     }
 
@@ -303,12 +304,6 @@ class ServiceDebugContainer extends React.Component {
     }
   }
 
-  isFramework(service) {
-    const { labels = {} } = service;
-
-    return labels.DCOS_PACKAGE_FRAMEWORK_NAME != null;
-  }
-
   shouldShowDeclinedOfferSummary() {
     const { service } = this.props;
 
@@ -331,7 +326,7 @@ class ServiceDebugContainer extends React.Component {
     const { service } = this.props;
     const queue = service.getQueue();
 
-    return queue == null || this.isFramework(service);
+    return queue == null || service instanceof Framework;
   }
 
   render() {
