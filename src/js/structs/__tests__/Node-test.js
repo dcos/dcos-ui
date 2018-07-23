@@ -155,4 +155,36 @@ describe("Node", function() {
       });
     });
   });
+
+  describe("#isPublic", function() {
+    const testCases = [
+      {
+        name: "returns true if attributes.public_ip is true",
+        expected: true,
+        value: { attributes: { public_ip: "true" } }
+      },
+      {
+        name: "returns false if attributes.public_ip is false",
+        expected: false,
+        value: { attributes: { public_ip: "false" } }
+      },
+      {
+        name: "returns false if attributes.public_ip is missing",
+        expected: false,
+        value: { attributes: {} }
+      },
+      {
+        name: "returns false if attributes is missing",
+        expected: false,
+        value: {}
+      }
+    ];
+
+    testCases.forEach(function(test) {
+      it(test.name, function() {
+        const node = new Node(test.value);
+        expect(node.isPublic()).toEqual(test.expected);
+      });
+    });
+  });
 });

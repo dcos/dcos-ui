@@ -13,4 +13,5 @@ export default class Node extends Item {
   getOutput: () => any;
   sumTaskTypesByState: (state: any) => any;
   getUsedResources: () => any;
+  isPublic: () => boolean;
 }

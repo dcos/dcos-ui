@@ -94,6 +94,12 @@ class Node extends Item {
       }
     );
   }
+
+  isPublic() {
+    return (
+      findNestedPropertyInObject(this.get("attributes"), "public_ip") === "true"
+    );
+  }
 }
 
 module.exports = Node;
