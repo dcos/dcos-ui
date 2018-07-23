@@ -52,5 +52,6 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
 Breadcrumbs.propTypes = {
   jobInfo: PropTypes.node,
   jobName: PropTypes.string,
-  jobPath: PropTypes.arrayOf(PropTypes.string)
+  jobPath: PropTypes.arrayOf(PropTypes.string),
+  children: PropTypes.node
 };
