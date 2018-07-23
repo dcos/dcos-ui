@@ -21,6 +21,7 @@ import DeclinedOffersUtil from "../../utils/DeclinedOffersUtil";
 import MarathonStore from "../../stores/MarathonStore";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 import Service from "../../structs/Service";
+import Framework from "../../structs/Framework";
 import TaskStatsTable from "./TaskStatsTable";
 import TimeAgo from "../../../../../../src/js/components/TimeAgo";
 
@@ -166,15 +167,8 @@ class ServiceDebugContainer extends React.Component {
     let mainContent = null;
     let offerCount = null;
 
-    if (this.isFramework(service)) {
-      const { labels = {} } = service;
-      const frameworkName = labels.DCOS_PACKAGE_FRAMEWORK_NAME;
-
-      if (frameworkName != null) {
-        introText = `Rejected offer analysis is not currently supported for ${frameworkName}.`;
-      } else {
-        introText = "Rejected offer analysis is not currently supported.";
-      }
+    if (service instanceof Framework) {
+      introText = `Rejected offer analysis is not currently supported for ${service.getName()}.`;
     } else if (
       !DeclinedOffersUtil.shouldDisplayDeclinedOffersWarning(service) ||
       queue.declinedOffers.summary == null
@@ -217,7 +211,7 @@ class ServiceDebugContainer extends React.Component {
   getDeclinedOffersTable() {
     const { service } = this.props;
 
-    if (this.isFramework(service)) {
+    if (service instanceof Framework) {
       return null;
     }
 
@@ -257,7 +251,7 @@ class ServiceDebugContainer extends React.Component {
   getWaitingForResourcesNotice() {
     const { service } = this.props;
 
-    if (this.isFramework(service)) {
+    if (service instanceof Framework) {
       return null;
     }
 
@@ -293,15 +287,6 @@ class ServiceDebugContainer extends React.Component {
     if (this.offerSummaryRef) {
       this.offerSummaryRef.scrollIntoView();
     }
-  }
-
-  isFramework(service) {
-    const { labels = {} } = service;
-
-    return (
-      labels.DCOS_PACKAGE_FRAMEWORK_NAME != null ||
-      labels.DCOS_PACKAGE_IS_FRAMEWORK != null
-    );
   }
 
   render() {
