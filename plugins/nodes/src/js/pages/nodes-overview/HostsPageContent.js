@@ -159,7 +159,6 @@ class HostsPageContent extends React.Component {
     const {
       byServiceFilter,
       children,
-      filterInputText,
       filteredNodeCount,
       handleFilterChange,
       hosts,
@@ -194,7 +193,6 @@ class HostsPageContent extends React.Component {
           totalLength={totalNodeCount}
         />
         <FilterBar rightAlignLastNChildren={1}>
-          {filterInputText}
           {this.getFilterBar()}
           <div className="form-group flush-bottom">
             <FilterByService
@@ -220,7 +218,6 @@ class HostsPageContent extends React.Component {
 HostsPageContent.propTypes = {
   byServiceFilter: PropTypes.string,
   filterButtonContent: PropTypes.func,
-  filterInputText: PropTypes.node,
   filterItemList: PropTypes.array.isRequired,
   filteredNodeCount: PropTypes.number.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
