@@ -13,7 +13,9 @@ import UniversePackage from "#SRC/js/structs/UniversePackage";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
-import FrameworkConfigurationForm from "#SRC/js/components/FrameworkConfigurationForm";
+import FrameworkConfigurationForm, {
+  isValidFormData
+} from "#SRC/js/components/FrameworkConfigurationForm";
 import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 
 const METHODS_TO_BIND = [
@@ -43,6 +45,15 @@ class FrameworkConfiguration extends Component {
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { packageDetails, formData } = nextProps;
+    this.setState({
+      jsonEditorActive:
+        !isValidFormData(formData, packageDetails.getConfig()) ||
+        this.state.jsonEditorActive
     });
   }
 
