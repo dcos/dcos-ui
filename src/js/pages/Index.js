@@ -148,7 +148,6 @@ var Index = React.createClass({
     const windowWidth = event.target.innerWidth;
     const isVisible = SidebarStore.get("isVisible");
 
-    // TODO: open when > mobileTreshold
     if (windowWidth <= mobileTreshold && isVisible) {
       SidebarActions.close();
     }
