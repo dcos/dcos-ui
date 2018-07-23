@@ -145,7 +145,6 @@ var Index = React.createClass({
   },
 
   handleWindowResize(event) {
-    // TODO: trottle method using RXJS
     const windowWidth = event.target.innerWidth;
     const isVisible = SidebarStore.get("isVisible");
 
