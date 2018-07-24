@@ -1,5 +1,11 @@
 import Item from "./Item";
 
+export enum AgentNodeStatus {
+  HEALTHY = "HEALTHY",
+  UNHEALTHY = "UNHEALTHY",
+  UNKNOWN = "UNKNOWN"
+}
+
 export default class Node extends Item {
   getID: () => any;
   getServiceIDs: () => any;
@@ -14,4 +20,5 @@ export default class Node extends Item {
   sumTaskTypesByState: (state: any) => any;
   getUsedResources: () => any;
   isPublic: () => boolean;
+  getStatus: () => AgentNodeStatus;
 }

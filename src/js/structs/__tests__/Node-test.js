@@ -187,4 +187,31 @@ describe("Node", function() {
       });
     });
   });
+
+  describe("getStatus", function() {
+    it("returns UNKNOWN if health info is missing", function() {
+      const node = new Node({});
+      expect(node.getStatus()).toEqual("UNKNOWN");
+    });
+
+    it("returns UNKNOWN if health info is set to an unknown number", function() {
+      const node = new Node({ health: 42 });
+      expect(node.getStatus()).toEqual("UNKNOWN");
+    });
+
+    it("returns UNKNOWN if health info is set to 3", function() {
+      const node = new Node({ health: 3 });
+      expect(node.getStatus()).toEqual("UNKNOWN");
+    });
+
+    it("returns UNHEALTHY if health info is set to 1", function() {
+      const node = new Node({ health: 1 });
+      expect(node.getStatus()).toEqual("UNHEALTHY");
+    });
+
+    it("returns HEALTHY if health info is set to 0", function() {
+      const node = new Node({ health: 0 });
+      expect(node.getStatus()).toEqual("HEALTHY");
+    });
+  });
 });
