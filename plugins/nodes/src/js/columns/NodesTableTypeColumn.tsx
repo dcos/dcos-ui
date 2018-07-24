@@ -5,20 +5,20 @@ import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/compon
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
 
-function getMemUsage(data: Node): number {
-  return data.getUsageStats("mem").percentage;
-}
-
-export function memRenderer(data: Node): React.ReactNode {
+export function typeRenderer(data: Node): React.ReactNode {
+  const type = data.isPublic() ? "Public" : "Private";
   return (
     <TextCell>
-      <span>{getMemUsage(data)}%</span>
+      <span>{type}</span>
     </TextCell>
   );
 }
 
-function compareNodesByMemUsage(a: Node, b: Node): number {
-  return getMemUsage(a) - getMemUsage(b);
+function compareNodesByType(a: Node, b: Node): number {
+  return a
+    .isPublic()
+    .toString()
+    .localeCompare(b.isPublic().toString());
 }
 
 function compareNodesByHostname(a: Node, b: Node): number {
@@ -28,13 +28,13 @@ function compareNodesByHostname(a: Node, b: Node): number {
     .localeCompare(b.getHostName().toLowerCase());
 }
 
-const comparators = [compareNodesByMemUsage, compareNodesByHostname];
-export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {
+const comparators = [compareNodesByType, compareNodesByHostname];
+
+export function typeSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
 }
 
-export function memSizer(_args: WidthArgs): number {
-  // TODO: DCOS-39147
+export function typeSizer(_args: WidthArgs): number {
   return 70;
 }

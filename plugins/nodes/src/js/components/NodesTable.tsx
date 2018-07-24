@@ -13,6 +13,11 @@ import {
   hostnameSizer
 } from "../columns/NodesTableHostnameColumn";
 import {
+  typeSorter,
+  typeRenderer,
+  typeSizer
+} from "#PLUGINS/nodes/src/js/columns/NodesTableTypeColumn";
+import {
   regionSorter,
   regionRenderer,
   regionSizer
@@ -99,6 +104,8 @@ export default class NodesTable extends React.Component<
     switch (sortColumn) {
       case "hostname":
         return hostnameSorter;
+      case "type":
+        return typeSorter;
       case "region":
         return regionSorter;
       case "zone":
@@ -192,6 +199,18 @@ export default class NodesTable extends React.Component<
           }
           cellRenderer={hostnameRenderer}
           width={hostnameSizer}
+        />
+
+        <Column
+          header={
+            <SortableColumnHeader
+              columnContent="Type"
+              sortHandler={this.handleSortClick.bind(null, "type")}
+              sortDirection={sortColumn === "type" ? sortDirection : null}
+            />
+          }
+          cellRenderer={typeRenderer}
+          width={typeSizer}
         />
 
         <Column

@@ -1,8 +1,6 @@
 import * as React from "react";
 import Node from "#SRC/js/structs/Node";
-// TODO: DCOS-39079
-// import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
-import { IWidthArgs as WidthArgs } from "#PLUGINS/nodes/src/js/types/IWidthArgs";
+import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import { Cell } from "@dcos/ui-kit";
 
