@@ -152,10 +152,6 @@ class Sidebar extends React.Component {
     }
   }
 
-  handleOverlayClick() {
-    SidebarActions.close();
-  }
-
   getNavigationSections() {
     const definition = NavigationService.getDefinition();
 

@@ -264,22 +264,6 @@
     flex: 1 1 auto;
     flex-direction: column;
   }
-
-  .sidebar-footer {
-    .property-variant(sidebar-footer, right, null, null);
-    .property-variant(sidebar-footer, bottom, null, null);
-    position: absolute;
-
-    .sidebar-dock-trigger {
-      align-self: flex-end;
-      opacity: 0.4;
-
-      &:hover {
-        cursor: pointer;
-        opacity: 1;
-      }
-    }
-  }
 }
 
 & when (@layout-screen-small-enabled) {
@@ -359,11 +343,6 @@
             }
           }
         }
-      }
-
-      .sidebar-footer {
-        .property-variant(sidebar-footer, right, null, screen-small);
-        .property-variant(sidebar-footer, bottom, null, screen-small);
       }
     }
   }
@@ -458,11 +437,6 @@
             }
           }
         }
-      }
-
-      .sidebar-footer {
-        .property-variant(sidebar-footer, right, null, screen-medium);
-        .property-variant(sidebar-footer, bottom, null, screen-medium);
       }
     }
   }
@@ -563,11 +537,6 @@
           }
         }
       }
-
-      .sidebar-footer {
-        .property-variant(sidebar-footer, right, null, screen-large);
-        .property-variant(sidebar-footer, bottom, null, screen-large);
-      }
     }
   }
 }
@@ -662,11 +631,6 @@
             }
           }
         }
-      }
-
-      .sidebar-footer {
-        .property-variant(sidebar-footer, right, null, screen-jumbo);
-        .property-variant(sidebar-footer, bottom, null, screen-jumbo);
       }
     }
   }
