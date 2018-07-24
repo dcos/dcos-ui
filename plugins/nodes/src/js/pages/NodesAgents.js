@@ -204,7 +204,14 @@ var NodesOverview = React.createClass({
   },
 
   getViewTypeRadioButtons(resetFilter) {
-    const isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
+    const isGridActive = /\/nodes\/agents\/grid\/?/i.test(
+      this.props.location.pathname
+    );
+    // const activeView = this.props.location.pathname.includes("agents")
+    //   ? "agents"
+    //   : "masters";
+
+    console.log(this.props.location);
 
     var listClassSet = classNames("button button-outline", {
       active: !isGridActive
@@ -216,10 +223,14 @@ var NodesOverview = React.createClass({
 
     return (
       <div className="button-group flush-bottom">
-        <Link className={listClassSet} onClick={resetFilter} to="/nodes">
+        <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
           List
         </Link>
-        <Link className={gridClassSet} onClick={resetFilter} to="/nodes/grid">
+        <Link
+          className={gridClassSet}
+          onClick={resetFilter}
+          to="/nodes/agents/grid"
+        >
           Grid
         </Link>
       </div>
@@ -239,7 +250,13 @@ var NodesOverview = React.createClass({
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<NodeBreadcrumbs />}
+          tabs={[
+            { label: "Agents", routePath: "/nodes/agents" },
+            { label: "Masters", routePath: "/nodes/masters" }
+          ]}
+        />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
           filterButtonContent={this.getButtonContent}
