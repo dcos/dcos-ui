@@ -16,8 +16,7 @@ describe("Sidebar", function() {
     it("opens nested items in the sidebar when clicked", function() {
       cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
 
-      cy
-        .get(".sidebar-sections .sidebar-menu-item")
+      cy.get(".sidebar-sections .sidebar-menu-item")
         .contains("Settings")
         .as("settingsMenuItem");
 
@@ -41,8 +40,7 @@ describe("Sidebar", function() {
     it("marks the active tab as selected", function() {
       cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
 
-      cy
-        .get(".sidebar-sections .sidebar-menu-item")
+      cy.get(".sidebar-sections .sidebar-menu-item")
         .contains("Jobs")
         .as("jobsMenuItem");
 
@@ -62,15 +60,16 @@ describe("Sidebar", function() {
     });
 
     nestedRoutesToTest.forEach(function(nestedRoute) {
-      it(`renders nested route ${nestedRoute.url} with parent selected when visiting directly`, function() {
+      it(`renders nested route ${
+        nestedRoute.url
+      } with parent selected when visiting directly`, function() {
         cy.visitUrl({
           url: nestedRoute.url,
           identify: true,
           fakeAnalytics: true
         });
 
-        cy
-          .get(".sidebar-sections .sidebar-menu-item")
+        cy.get(".sidebar-sections .sidebar-menu-item")
           .contains(nestedRoute.parentMenuLabel)
           .as("parentMenuItem");
 
@@ -143,26 +142,6 @@ describe("Sidebar", function() {
       });
     });
 
-    it("renders the dock button at the bottom of the sidebar and window", function() {
-      cy.get(".sidebar").then(function($sidebar) {
-        const { bottom: sidebarBottom } = $sidebar
-          .get(0)
-          .getBoundingClientRect();
-
-        cy.get(".sidebar-footer").then(function($sidebarFooter) {
-          const { bottom: sidebarFooterBottom } = $sidebarFooter
-            .get(0)
-            .getBoundingClientRect();
-
-          expect(sidebarFooterBottom).to.lessThan(sidebarBottom);
-
-          cy.window().then(function($window) {
-            expect(sidebarFooterBottom).to.lessThan($window.innerHeight);
-          });
-        });
-      });
-    });
-
     it("renders within the viewport on initial load", function() {
       cy.get(".sidebar").then(function($sidebar) {
         const sidebarRect = $sidebar.get(0).getBoundingClientRect();
@@ -187,91 +166,6 @@ describe("Sidebar", function() {
 
           expect(pageRect.left).to.equal(sidebarRect.right);
         });
-      });
-    });
-
-    it("moves the sidebar content offscreen when it is undocked", function() {
-      cy.get(".sidebar-dock-trigger").click();
-
-      // We need to wait for the sidebar's transition to end.
-      cy.wait(500).get(".sidebar").then(function($sidebar) {
-        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
-
-        // Assert that the sidebar's dimensions are outside of the viewport.
-        expect(sidebarRect.left).to.be.lessThan(0);
-        expect(sidebarRect.left).to.equal(sidebarRect.width * -1);
-        expect(sidebarRect.right).to.equal(0);
-      });
-    });
-
-    it("expands the page content to fill the viewport when sidebar is undocked", function() {
-      cy.get(".sidebar-dock-trigger").click();
-
-      // We need to wait for the sidebar's transition to end.
-      cy.wait(500).get(".page").then(function($page) {
-        const pageRect = $page.get(0).getBoundingClientRect();
-
-        expect(pageRect.left).to.equal(0);
-        expect(pageRect.top).to.equal(0);
-
-        cy.window().then(function($window) {
-          expect(pageRect.right).to.equal($window.innerWidth);
-          expect(pageRect.bottom).to.equal($window.innerHeight);
-        });
-      });
-    });
-
-    it("enters the viewport when the hamburger menu in the page header is clicked", function() {
-      cy.get(".sidebar-dock-trigger").click();
-
-      // We need to wait for the sidebar's exiting transition to end.
-      cy.wait(500);
-
-      // Let's first ensure that the sidebar is actually out of the viewport.
-      cy.get(".sidebar").then(function($sidebar) {
-        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
-        expect(sidebarRect.left).to.be.lessThan(0);
-        expect(sidebarRect.right).to.equal(0);
-      });
-
-      cy.get(".page-header-sidebar-toggle").click();
-
-      // We need to wait for the sidebar's entrance transition to end.
-      cy.wait(500);
-
-      cy.get(".sidebar").then(function($sidebar) {
-        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
-        expect(sidebarRect.left).to.equal(0);
-        expect(sidebarRect.right).to.be.greaterThan(0);
-        expect(sidebarRect.right).to.equal(sidebarRect.width);
-      });
-    });
-
-    it("renders on top of the page content when its visibility is toggled in undocked mode", function() {
-      cy.get(".sidebar-dock-trigger").click();
-
-      // We need to wait for the sidebar's exiting transition to end.
-      cy.wait(500);
-
-      cy.get(".page-header-sidebar-toggle").click();
-
-      // We need to wait for the sidebar's entrance transition to end.
-      cy.wait(500);
-
-      cy.get(".page").then(function($page) {
-        const pageRect = $page.get(0).getBoundingClientRect();
-        expect(pageRect.left).to.equal(0);
-      });
-
-      cy.get(".sidebar-backdrop").click();
-
-      // We need to wait for the sidebar's exit transition to end.
-      cy.wait(500);
-
-      cy.get(".sidebar").then(function($sidebar) {
-        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
-        expect(sidebarRect.left).to.be.lessThan(0);
-        expect(sidebarRect.right).to.equal(0);
       });
     });
   });

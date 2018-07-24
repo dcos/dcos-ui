@@ -27,7 +27,7 @@ function getSidebarState() {
 
 // We use this value in the css
 // when targeting tablet or mobile
-const mobileTreshold = 994;
+const MOBILE_THRESHOLD = 994;
 
 var Index = React.createClass({
   displayName: "Index",
@@ -146,13 +146,13 @@ var Index = React.createClass({
 
   handleWindowResize(event) {
     const windowWidth = event.target.innerWidth;
-    const isVisible = SidebarStore.get("isVisible");
+    const { isVisible } = this.internalStorage_get();
 
-    if (windowWidth <= mobileTreshold && isVisible) {
+    if (windowWidth <= MOBILE_THRESHOLD && isVisible) {
       SidebarActions.close();
     }
 
-    if (windowWidth > mobileTreshold && !isVisible) {
+    if (windowWidth > MOBILE_THRESHOLD && !isVisible) {
       SidebarActions.open();
     }
   },
@@ -161,13 +161,15 @@ var Index = React.createClass({
     const { isVisible } = this.internalStorage_get();
     let overlay = null;
 
-    if (isVisible) {
-      overlay = (
-        <div className="sidebar-backdrop" onClick={SidebarActions.close} />
-      );
+    if (!isVisible) {
+      return null;
     }
 
-    if (window.innerWidth <= mobileTreshold && isVisible) {
+    overlay = (
+      <div className="sidebar-backdrop" onClick={SidebarActions.close} />
+    );
+
+    if (window.innerWidth <= MOBILE_THRESHOLD) {
       return (
         <CSSTransitionGroup
           transitionName="sidebar-backdrop"
@@ -178,8 +180,6 @@ var Index = React.createClass({
         </CSSTransitionGroup>
       );
     }
-
-    return null;
   },
 
   render() {
