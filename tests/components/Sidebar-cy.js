@@ -130,7 +130,8 @@ describe("Sidebar", function() {
     });
   });
 
-  context("Sidebar toggle", function() {
+  // TODO: remove skip when sidebar new header toggle enabled
+  context.skip("Sidebar toggle", function() {
     beforeEach(function() {
       cy.clearLocalStorage();
       cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
