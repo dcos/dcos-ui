@@ -2,6 +2,16 @@
 
 & when (@page-header-enabled) {
 
+  .page-header-sidebar-toggle {
+    cursor: pointer;
+    display: block;
+    flex: 0 0 auto;
+
+    .page-header-sidebar-toggle-label {
+      display: none;
+    }
+  }
+
   .page-header {
     .clearfix();
     box-shadow: 0 0 0 1px fade(@grey-dark, 15%);
@@ -33,16 +43,6 @@
 
     .page-header-section-primary {
       .property-variant(page-header-section-primary, min-height, height, null, null);
-    }
-
-    .page-header-sidebar-toggle {
-      cursor: pointer;
-      display: block;
-      flex: 0 0 auto;
-
-      .page-header-sidebar-toggle-label {
-        display: none;
-      }
     }
 
     .page-header-actions-inner {
@@ -108,13 +108,6 @@
   @media (min-width: @layout-screen-large-min-width) {
 
     & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
-
-      .sidebar-docked {
-
-        .page-header-sidebar-toggle {
-          display: none;
-        }
-      }
 
       .page-header {
 
