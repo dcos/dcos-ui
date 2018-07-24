@@ -130,7 +130,8 @@ describe("Sidebar", function() {
     });
   });
 
-  context("Sidebar Docking", function() {
+  // TODO: remove skip when sidebar new header toggle enabled
+  context.skip("Sidebar toggle", function() {
     beforeEach(function() {
       cy.clearLocalStorage();
       cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
@@ -142,31 +143,35 @@ describe("Sidebar", function() {
       });
     });
 
-    it("renders within the viewport on initial load", function() {
-      cy.get(".sidebar").then(function($sidebar) {
-        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
+    it("close/open sidebar when sidebarToggle button clicked", function() {
+      // close sidebar
+      cy.get(".page-header-sidebar-toggle").click();
+      cy.get(".sidebar-visible").should("not.exist");
 
-        // Assert that the sidebar's dimensions are within the viewport.
-        expect(sidebarRect.left).to.equal(0);
-        expect(sidebarRect.top).to.equal(0);
-        expect(sidebarRect.right).to.be.greaterThan(0);
-
-        cy.window().then(function($window) {
-          expect(sidebarRect.bottom).to.equal($window.innerHeight);
-        });
-      });
+      // open sidebar
+      cy.get(".page-header-sidebar-toggle").click();
+      cy.get(".sidebar-visible").should("exist");
     });
 
-    it("offsets the page content so that they are sitting directly adjacent to one another without overlapping", function() {
-      cy.get(".sidebar").then(function($sidebar) {
-        const sidebarRect = $sidebar.get(0).getBoundingClientRect();
+    it("automatically close sidebar when view is mobile/tablet", function() {
+      cy.viewport("iphone-6");
+      cy.get(".sidebar-visible.sidebar-docked").should("not.exist");
 
-        cy.get(".page").then(function($page) {
-          const pageRect = $page.get(0).getBoundingClientRect();
+      // reset viewport back
+      cy.viewport("macbook-15");
+    });
 
-          expect(pageRect.left).to.equal(sidebarRect.right);
-        });
-      });
+    it("display overlay when sidebar is open on mobile/tablet", function() {
+      cy.viewport("iphone-6");
+
+      cy.get(".sidebar-visible.sidebar-docked").should("exist");
+      cy.get(".sidebar-backdrop").should("exist");
+    });
+
+    it("close Sidebar clicking on overlay when sidebar is open on mobile/tablet", function() {
+      cy.viewport("iphone-6");
+      cy.get(".sidebar-backdrop").click({ force: true });
+      cy.get(".sidebar-backdrop").should("not.exist");
     });
   });
 });

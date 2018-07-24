@@ -57,7 +57,7 @@ class SidebarStore extends GetSetBaseStore {
           const savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY) || {};
           let isVisible = !this.get("isVisible");
 
-          if (action.isVisible) {
+          if (action.isVisible !== undefined) {
             isVisible = action.isVisible;
           }
 

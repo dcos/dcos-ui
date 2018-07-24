@@ -7,7 +7,6 @@ import Icon from "#SRC/js/components/Icon";
 import PageHeaderActions from "./PageHeaderActions";
 import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
 import PageHeaderTabs from "./PageHeaderTabs";
-import SidebarToggle from "./SidebarToggle";
 
 class PageHeader extends React.Component {
   render() {
@@ -81,7 +80,6 @@ class PageHeader extends React.Component {
       <div className={pageHeaderClasses}>
         <div className={pageHeaderInnerClasses}>
           <div className={pageHeaderSectionPrimaryClasses}>
-            <SidebarToggle />
             <div className={pageHeaderContentClasses}>{breadcrumbs}</div>
             <div className={pageHeaderActionsPrimaryClasses}>
               {editButton}
