@@ -98,8 +98,6 @@ export default class NodesTable extends React.Component<
   }
 
   retrieveComparators(sortColumn: string): Array<Comparator<Node>> {
-    const equalComparator = () => 0;
-
     switch (sortColumn) {
       case "hostname":
         return hostnameComparators;
@@ -120,7 +118,7 @@ export default class NodesTable extends React.Component<
       case "gpu":
         return gpuComparators;
       default:
-        return [equalComparator];
+        return [];
     }
   }
 
