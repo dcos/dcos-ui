@@ -9,7 +9,10 @@ module.exports = {
 
     return Object.keys(state.environment)
       .filter(function(key) {
-        return typeof state.environment[key] === "string";
+        return (
+          state.environment[key] == null ||
+          typeof state.environment[key] === "string"
+        );
       })
       .reduce(function(memo, key, index) {
         /**
@@ -22,9 +25,15 @@ module.exports = {
          */
         memo.push(new Transaction(["env"], index, ADD_ITEM));
         memo.push(new Transaction(["env", index, "key"], key, SET));
-        memo.push(
-          new Transaction(["env", index, "value"], state.environment[key], SET)
-        );
+        if (typeof state.environment[key] === "string") {
+          memo.push(
+            new Transaction(
+              ["env", index, "value"],
+              state.environment[key],
+              SET
+            )
+          );
+        }
 
         return memo;
       }, []);
