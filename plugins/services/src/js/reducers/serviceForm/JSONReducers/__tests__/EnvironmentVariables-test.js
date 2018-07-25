@@ -48,6 +48,16 @@ describe("Environment Variables", function() {
         batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {})
       ).toEqual({ second: "value" });
     });
+
+    it("keeps environment variable with empty value", () => {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["env", 0, "key"], "first"));
+
+      expect(
+        batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {})
+      ).toEqual({ first: "" });
+    });
   });
 
   describe("#JSONParser", function() {
@@ -65,7 +75,22 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("should skip non-string values", function() {
+    it("returns an array of transactions for empty env var", function() {
+      expect(EnvironmentVariables.JSONParser({ env: { key: null } })).toEqual([
+        { type: ADD_ITEM, value: 0, path: ["env"] },
+        { type: SET, value: "key", path: ["env", 0, "key"] }
+      ]);
+    });
+
+    it("returns an array of transactions for empty string env var", function() {
+      expect(EnvironmentVariables.JSONParser({ env: { key: "" } })).toEqual([
+        { type: ADD_ITEM, value: 0, path: ["env"] },
+        { type: SET, value: "key", path: ["env", 0, "key"] },
+        { type: SET, value: "", path: ["env", 0, "value"] }
+      ]);
+    });
+
+    it("skips non-string values", function() {
       expect(EnvironmentVariables.JSONParser({ env: { FOO: {} } })).toEqual([]);
     });
   });

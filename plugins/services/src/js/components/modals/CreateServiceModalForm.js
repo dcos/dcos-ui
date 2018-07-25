@@ -75,6 +75,34 @@ const CONSTANTLY_UNMUTED_ERRORS = [
   /^localVolumes\.[0-9]+\./
 ];
 
+function cleanConfig(config) {
+  const { labels = {}, env = {}, environment = {}, ...serviceConfig } = config;
+
+  let newServiceConfig = CreateServiceModalFormUtil.stripEmptyProperties(
+    serviceConfig
+  );
+  if (Object.keys(labels).length !== 0) {
+    newServiceConfig = {
+      labels,
+      ...newServiceConfig
+    };
+  }
+  if (Object.keys(env).length !== 0) {
+    newServiceConfig = {
+      env,
+      ...newServiceConfig
+    };
+  }
+  if (Object.keys(environment).length !== 0) {
+    newServiceConfig = {
+      environment,
+      ...newServiceConfig
+    };
+  }
+
+  return newServiceConfig;
+}
+
 class CreateServiceModalForm extends Component {
   constructor() {
     super(...arguments);
@@ -83,19 +111,9 @@ class CreateServiceModalForm extends Component {
     //       shouldComponentUpdate function, since we are trying to reduce
     //       the number of updates as much as possible.
     // In the Next line we are destructing the config to keep labels as it is and even keep labels with an empty value
-    const { labels = {}, ...serviceConfig } = ServiceUtil.getServiceJSON(
-      this.props.service
+    const newServiceConfig = cleanConfig(
+      ServiceUtil.getServiceJSON(this.props.service)
     );
-
-    let newServiceConfig = {
-      labels,
-      ...CreateServiceModalFormUtil.stripEmptyProperties(serviceConfig)
-    };
-    if (Object.keys(labels).length === 0) {
-      newServiceConfig = CreateServiceModalFormUtil.stripEmptyProperties(
-        serviceConfig
-      );
-    }
     this.state = Object.assign(
       {
         appConfig: null,
@@ -330,16 +348,7 @@ class CreateServiceModalForm extends Component {
     );
 
     // In the Next line we are destructing the config to keep labels as it is and even keep labels with an empty value
-    const { labels, ...config } = newConfig;
-
-    if (Object.keys(labels).length === 0) {
-      return CreateServiceModalFormUtil.stripEmptyProperties(config);
-    }
-
-    return {
-      labels,
-      ...CreateServiceModalFormUtil.stripEmptyProperties(config)
-    };
+    return cleanConfig(newConfig);
   }
 
   getErrors() {

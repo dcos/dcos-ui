@@ -22,7 +22,7 @@ module.exports = {
       if (joinedPath === "env") {
         switch (type) {
           case ADD_ITEM:
-            this.env.push({ key: null, value: null });
+            this.env.push({ key: null, value: "" });
             break;
           case REMOVE_ITEM:
             this.env = this.env.filter((item, index) => {
@@ -32,7 +32,7 @@ module.exports = {
         }
 
         return this.env.reduce((memo, item) => {
-          if (item.key != null && item.value != null) {
+          if (item.key != null) {
             memo[item.key] = item.value;
           }
 
@@ -50,7 +50,7 @@ module.exports = {
     }
 
     return this.env.reduce((memo, item) => {
-      if (item.key != null && item.value != null) {
+      if (item.key != null) {
         memo[item.key] = item.value;
       }
 
@@ -65,7 +65,7 @@ module.exports = {
 
     return Object.keys(state.env)
       .filter(function(key) {
-        return typeof state.env[key] === "string";
+        return state.env[key] == null || typeof state.env[key] === "string";
       })
       .reduce(function(memo, key, index) {
         /**
@@ -78,9 +78,11 @@ module.exports = {
          */
         memo.push(new Transaction(["env"], index, ADD_ITEM));
         memo.push(new Transaction(["env", index, "key"], key, SET));
-        memo.push(
-          new Transaction(["env", index, "value"], state.env[key], SET)
-        );
+        if (typeof state.env[key] === "string") {
+          memo.push(
+            new Transaction(["env", index, "value"], state.env[key], SET)
+          );
+        }
 
         return memo;
       }, []);
