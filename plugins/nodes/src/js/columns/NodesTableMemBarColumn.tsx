@@ -19,7 +19,7 @@ export function membarRenderer(data: Node): React.ReactNode {
   );
 }
 
-export function membarSizer(args: WidthArgs): number {
+export function membarSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 60;
 }

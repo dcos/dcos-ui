@@ -28,7 +28,7 @@ export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 
-export function memSizer(args: WidthArgs): number {
+export function memSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 60;
 }

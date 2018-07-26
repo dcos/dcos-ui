@@ -27,6 +27,6 @@ export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 
-export function zoneSizer(args: WidthArgs): number {
-  return Math.max(125, args.width / args.totalColumns);
+export function zoneSizer(_args: WidthArgs): number {
+  return 200;
 }
