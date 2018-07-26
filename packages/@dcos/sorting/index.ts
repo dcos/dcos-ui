@@ -7,18 +7,22 @@ export type Comparator<T> = (a: T, b: T) => ComparisonResult;
 export type Getter<I, T> = (data: I) => T;
 type compareWithGetter<T> = <I>(getter: Getter<I, T>) => Comparator<I>;
 
-export function sort<T>(comparators: Array<Comparator<T>>, data: T[]): T[] {
-  return [...data].sort((a, b) => {
-    for (const comparator of comparators) {
-      const result = comparator(a, b);
-
-      if (result !== 0) {
-        return result;
-      }
-    }
-
+function sortByComparators<T>(
+  a: T,
+  b: T,
+  comparators: Array<Comparator<T>>
+): ComparisonResult {
+  if (!comparators.length) {
     return 0;
-  });
+  }
+
+  const [comparator, ...otherComparators] = comparators;
+  const result = comparator(a, b);
+  return result !== 0 ? result : sortByComparators(a, b, otherComparators);
+}
+
+export function sort<T>(comparators: Array<Comparator<T>>, data: T[]): T[] {
+  return [...data].sort((a, b) => sortByComparators(a, b, comparators));
 }
 
 export function reverseComparator<T>(comparator: Comparator<T>): Comparator<T> {
