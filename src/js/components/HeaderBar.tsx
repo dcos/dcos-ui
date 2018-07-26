@@ -7,6 +7,11 @@ import AccountDropdown from "./AccountDropdown";
 import SidebarToggle from "./SidebarToggle";
 
 export default function HeaderBar() {
+  // remove this to activate component
+  if (arguments) {
+    return null;
+  }
+
   return (
     <UIHeaderBar>
       <SidebarToggle />

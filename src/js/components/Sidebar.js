@@ -12,6 +12,7 @@ import PrimarySidebarLink from "../components/PrimarySidebarLink";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SidebarActions from "../events/SidebarActions";
 import SidebarHeader from "./SidebarHeader";
+import { isMobile } from "../utils/Util";
 
 const {
   NavigationService,
@@ -123,7 +124,9 @@ class Sidebar extends React.Component {
   }
 
   handleSubmenuItemClick() {
-    SidebarActions.close();
+    if (isMobile()) {
+      SidebarActions.close();
+    }
   }
 
   handleClusterHeaderUpdate() {

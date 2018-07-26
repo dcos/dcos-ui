@@ -142,12 +142,17 @@ describe("Sidebar", function() {
       });
     });
 
-    it("Close sidebar when sidebarToggle button clicked", function() {
+    it("close/open sidebar when sidebarToggle button clicked", function() {
+      // close sidebar
       cy.get(".page-header-sidebar-toggle").click();
       cy.get(".sidebar-visible").should("not.exist");
+
+      // open sidebar
+      cy.get(".page-header-sidebar-toggle").click();
+      cy.get(".sidebar-visible").should("exist");
     });
 
-    it("Automatically close sidebar when view is mobile/tablet", function() {
+    it("automatically close sidebar when view is mobile/tablet", function() {
       cy.viewport("iphone-6");
       cy.get(".sidebar-visible.sidebar-docked").should("not.exist");
 
@@ -155,14 +160,14 @@ describe("Sidebar", function() {
       cy.viewport("macbook-15");
     });
 
-    it("Display overlay when sidebar is open on mobile/tablet", function() {
+    it("display overlay when sidebar is open on mobile/tablet", function() {
       cy.viewport("iphone-6");
 
       cy.get(".sidebar-visible.sidebar-docked").should("exist");
       cy.get(".sidebar-backdrop").should("exist");
     });
 
-    it("Close Sidebar clicking on overlay when sidebar is open on mobile/tablet", function() {
+    it("close Sidebar clicking on overlay when sidebar is open on mobile/tablet", function() {
       cy.viewport("iphone-6");
       cy.get(".sidebar-backdrop").click({ force: true });
       cy.get(".sidebar-backdrop").should("not.exist");

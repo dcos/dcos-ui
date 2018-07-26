@@ -8,7 +8,6 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import Config from "../config/Config";
 import ConfigStore from "../stores/ConfigStore";
 import EventTypes from "../constants/EventTypes";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MetadataStore from "../stores/MetadataStore";
 import MesosStateStore from "../stores/MesosStateStore";
 import Modals from "../components/Modals";
@@ -18,6 +17,8 @@ import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
+import { isViewportChangingTo } from "../utils/Util";
+import * as viewport from "../constants/Viewports";
 
 function getSidebarState() {
   return {
@@ -25,14 +26,13 @@ function getSidebarState() {
   };
 }
 
-// We use this value in the css
-// when targeting tablet or mobile
-const MOBILE_THRESHOLD = 994;
+// By default users use desktop
+let previousWidth = null;
 
 var Index = React.createClass({
   displayName: "Index",
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [StoreMixin],
 
   getInitialState() {
     return {
@@ -60,9 +60,6 @@ var Index = React.createClass({
         suppressUpdate: true
       }
     ];
-
-    const state = getSidebarState();
-    this.internalStorage_set(state);
   },
 
   componentDidMount() {
@@ -73,6 +70,9 @@ var Index = React.createClass({
     global.addEventListener("resize", this.handleWindowResize);
 
     ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
+
+    // set current window width
+    previousWidth = window.innerWidth;
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -97,7 +97,6 @@ var Index = React.createClass({
   },
 
   onSideBarChange() {
-    this.internalStorage_update(getSidebarState());
     this.forceUpdate();
   },
 
@@ -146,19 +145,20 @@ var Index = React.createClass({
 
   handleWindowResize(event) {
     const windowWidth = event.target.innerWidth;
-    const { isVisible } = this.internalStorage_get();
 
-    if (windowWidth <= MOBILE_THRESHOLD && isVisible) {
+    if (isViewportChangingTo(previousWidth, windowWidth) === viewport.DESKTOP) {
+      SidebarActions.open();
+    }
+
+    if (isViewportChangingTo(previousWidth, windowWidth) === viewport.MOBILE) {
       SidebarActions.close();
     }
 
-    if (windowWidth > MOBILE_THRESHOLD && !isVisible) {
-      SidebarActions.open();
-    }
+    previousWidth = windowWidth;
   },
 
   renderOverlay() {
-    const { isVisible } = this.internalStorage_get();
+    const { isVisible } = getSidebarState();
     let overlay = null;
 
     if (!isVisible) {
@@ -169,7 +169,7 @@ var Index = React.createClass({
       <div className="sidebar-backdrop" onClick={SidebarActions.close} />
     );
 
-    if (window.innerWidth <= MOBILE_THRESHOLD) {
+    if (window.innerWidth <= viewport.MOBILE_THRESHOLD) {
       return (
         <CSSTransitionGroup
           transitionName="sidebar-backdrop"
@@ -183,7 +183,7 @@ var Index = React.createClass({
   },
 
   render() {
-    const { isVisible } = this.internalStorage_get();
+    const { isVisible } = getSidebarState();
 
     const showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;

@@ -8,7 +8,6 @@ import BasePageHeader from "../components/PageHeader";
 import FluidGeminiScrollbar from "./FluidGeminiScrollbar";
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
-import SidebarToggle from "../components/SidebarToggle";
 import TemplateUtil from "../utils/TemplateUtil";
 
 const PageHeader = ({
@@ -116,23 +115,6 @@ var Page = React.createClass({
     return TemplateUtil.getChildOfType(
       this.props.children,
       this.constructor.Header
-    );
-  },
-
-  getTitle(title) {
-    if (!title) {
-      return null;
-    }
-
-    if (React.isValidElement(title)) {
-      return title;
-    }
-
-    return (
-      <div className="page-header-title-container">
-        <SidebarToggle />
-        <h1 className="page-header-title flush">{title}</h1>
-      </div>
     );
   },
 
