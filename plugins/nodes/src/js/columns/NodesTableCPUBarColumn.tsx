@@ -20,7 +20,7 @@ export function cpubarRenderer(data: Node): React.ReactNode {
   );
 }
 
-export function cpubarSizer(args: WidthArgs): number {
+export function cpubarSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 60;
 }
