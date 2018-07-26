@@ -1,13 +1,12 @@
 import TestRenderer from "react-test-renderer";
 import Node from "#SRC/js/structs/Node";
-import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 import NA from "./fixtures/node-without-health.json";
 import Healthy from "./fixtures/node-healthy.json";
 import Unhealthy from "./fixtures/node-unhealthy.json";
 import Warn from "./fixtures/node-warn.json";
 
-import { healthRenderer, healthSorter } from "../NodesTableHealthColumn";
+import { healthRenderer } from "../NodesTableHealthColumn";
 
 describe("NodesTableHealthColumn", () => {
   describe("renderer", () => {
@@ -19,20 +18,5 @@ describe("NodesTableHealthColumn", () => {
         ).toMatchSnapshot();
       });
     }
-  });
-
-  describe("sorter", () => {
-    it("calls the unit health sorter", () => {
-      const mockSort = jest.fn(() => ({
-        reverse: jest.fn()
-      }));
-      const arrayMock = {
-        sort: mockSort
-      };
-      healthSorter(arrayMock);
-      expect(mockSort).toHaveBeenCalledWith(
-        UnitHealthUtil.getHealthSortFunction
-      );
-    });
   });
 });

@@ -1,46 +1,50 @@
 import * as React from "react";
+import { sort, Comparator } from "@dcos/sorting";
 import { Table, Column } from "@dcos/ui-kit";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
 
 import { SortableColumnHeader } from "ui-kit-stage/SortableColumnHeader";
-import { SortDirection } from "../types/SortDirection";
+import {
+  SortDirection,
+  directionAwareComparators
+} from "../types/SortDirection";
 
 import {
-  hostnameSorter,
+  comparators as hostnameComparators,
   hostnameRenderer,
   hostnameSizer
 } from "../columns/NodesTableHostnameColumn";
 import {
-  regionSorter,
+  comparators as regionComparators,
   regionRenderer,
   regionSizer
 } from "../columns/NodesTableRegionColumn";
 import {
-  zoneSorter,
+  comparators as zoneComparators,
   zoneRenderer,
   zoneSizer
 } from "../columns/NodesTableZoneColumn";
 import {
-  healthSorter,
+  comparators as healthComparators,
   healthRenderer,
   healthSizer
 } from "../columns/NodesTableHealthColumn";
 import {
-  tasksSorter,
+  comparators as tasksComparators,
   tasksRenderer,
   tasksSizer
 } from "../columns/NodesTableTasksColumn";
 import { cpubarRenderer, cpubarSizer } from "../columns/NodesTableCPUBarColumn";
 import {
-  cpuSorter,
+  comparators as cpuComparators,
   cpuRenderer,
   cpuSizer
 } from "../columns/NodesTableCPUColumn";
 import { membarRenderer, membarSizer } from "../columns/NodesTableMemBarColumn";
 import {
-  memSorter,
+  comparators as memComparators,
   memRenderer,
   memSizer
 } from "../columns/NodesTableMemColumn";
@@ -49,13 +53,13 @@ import {
   diskbarSizer
 } from "../columns/NodesTableDiskBarColumn";
 import {
-  diskSorter,
+  comparators as diskComparators,
   diskRenderer,
   diskSizer
 } from "../columns/NodesTableDiskColumn";
 import { gpubarSizer, gpubarRenderer } from "../columns/NodesTableGPUBarColumn";
 import {
-  gpuSorter,
+  comparators as gpuComparators,
   gpuRenderer,
   gpuSizer
 } from "../columns/NodesTableGPUColumn";
@@ -71,8 +75,6 @@ interface NodesTableState {
   sortDirection: SortDirection;
   sortColumn: string;
 }
-
-type SortFunction<T> = (data: T[], sortDirection: SortDirection) => T[];
 
 export default class NodesTable extends React.Component<
   NodesTableProps,
@@ -95,28 +97,28 @@ export default class NodesTable extends React.Component<
       regionRenderer(this.props.masterRegion, data);
   }
 
-  retrieveSortFunction(sortColumn: string): SortFunction<Node> {
+  retrieveComparators(sortColumn: string): Array<Comparator<Node>> {
     switch (sortColumn) {
       case "hostname":
-        return hostnameSorter;
+        return hostnameComparators;
       case "region":
-        return regionSorter;
+        return regionComparators;
       case "zone":
-        return zoneSorter;
+        return zoneComparators;
       case "health":
-        return healthSorter;
+        return healthComparators;
       case "tasks":
-        return tasksSorter;
+        return tasksComparators;
       case "cpu":
-        return cpuSorter;
+        return cpuComparators;
       case "mem":
-        return memSorter;
+        return memComparators;
       case "disk":
-        return diskSorter;
+        return diskComparators;
       case "gpu":
-        return gpuSorter;
+        return gpuComparators;
       default:
-        return (data, _sortDirection) => data;
+        return [];
     }
   }
 
@@ -142,11 +144,13 @@ export default class NodesTable extends React.Component<
     ) {
       return { data: copiedData.reverse(), sortDirection, sortColumn };
     }
-
-    const sortFunction = this.retrieveSortFunction(sortColumn);
+    const comparators = this.retrieveComparators(sortColumn);
 
     return {
-      data: sortFunction(copiedData, sortDirection),
+      data: sort(
+        directionAwareComparators(comparators, sortDirection),
+        copiedData
+      ),
       sortDirection,
       sortColumn
     };

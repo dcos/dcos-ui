@@ -11,6 +11,7 @@
   - [Breaking Changes](#breaking-changes)
   - [Examples](#examples)
 - [ReactJS Components](#reactjs-components)
+- [@dcos/sorting](#sorting)
 - [Testing](#testing)
   - [Unit Testing](#unit-testing)
   - [Integration Testing](#integration-testing)
@@ -173,6 +174,11 @@ it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
 3. Run `npm link reactjs-components` in your `dcos-ui` directory.
 4. Run `export REACTJS_COMPONENTS_LOCAL=true; npm start` to start the Webpack dev server with the proper configuration variable.
 5. After any changes are made to `reactjs-components`, run `npm run dist-src` in the `reactjs-components` directory.
+
+## Sorting
+
+We use the `@dcos/sorting package` for all sorting being done in our application.
+It can be found under `packages/@dcos/sorting`.
 
 ## Development Setup (Sublime Text Only)
 

@@ -6,7 +6,7 @@ import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 
-import NodesTable from "../../../components/NodesTable";
+import NodesTable from "../../../components/NodesTable-new";
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
