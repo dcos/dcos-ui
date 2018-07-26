@@ -100,6 +100,16 @@ class Node extends Item {
       findNestedPropertyInObject(this.get("attributes"), "public_ip") === "true"
     );
   }
+
+  getStatus() {
+    const stateMapping = {
+      0: "HEALTHY",
+      1: "UNHEALTHY",
+      3: "UNKNOWN"
+    };
+
+    return stateMapping[this.get("health")] || "UNKNOWN";
+  }
 }
 
 module.exports = Node;
