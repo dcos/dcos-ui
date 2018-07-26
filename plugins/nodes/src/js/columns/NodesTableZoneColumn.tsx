@@ -1,5 +1,5 @@
 import * as React from "react";
-import { compareValues } from "#PLUGINS/nodes/src/js/utils/compareValues";
+import sort from "array-sort";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
@@ -15,16 +15,25 @@ export function zoneRenderer(data: Node): React.ReactNode {
   );
 }
 
+function compareNodesByZone(a: Node, b: Node): number {
+  return a
+    .getZoneName()
+    .toLowerCase()
+    .localeCompare(b.getZoneName().toLowerCase());
+}
+
+function compareNodesByHostname(a: Node, b: Node): number {
+  return a
+    .getHostName()
+    .toLowerCase()
+    .localeCompare(b.getHostName().toLowerCase());
+}
+
+const comparators = [compareNodesByZone, compareNodesByHostname];
+
 export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  const sortedData = data.sort((a, b) =>
-    compareValues(
-      a.getZoneName().toLowerCase(),
-      b.getZoneName().toLowerCase(),
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase()
-    )
-  );
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
+  const reverse = sortDirection !== "ASC";
+  return sort(data, comparators, { reverse });
 }
 
 export function zoneSizer(args: WidthArgs): number {
