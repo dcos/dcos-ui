@@ -35,6 +35,6 @@ export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sort(data, comparators, { reverse });
 }
 
-export function gpuSizer(args: WidthArgs): number {
-  return Math.max(60, args.width / args.totalColumns);
+export function gpuSizer(_args: WidthArgs): number {
+  return 80;
 }

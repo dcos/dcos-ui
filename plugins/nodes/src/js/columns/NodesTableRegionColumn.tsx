@@ -43,6 +43,6 @@ export function regionSorter(
   return sort(data, comparators, { reverse });
 }
 
-export function regionSizer(args: WidthArgs): number {
-  return Math.max(170, args.width / args.totalColumns);
+export function regionSizer(_args: WidthArgs): number {
+  return 200;
 }

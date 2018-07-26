@@ -35,5 +35,5 @@ export function diskSorter(data: Node[], sortDirection: SortDirection): Node[] {
 }
 export function diskSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return 70;
+  return 80;
 }

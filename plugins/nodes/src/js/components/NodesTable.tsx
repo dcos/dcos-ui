@@ -64,6 +64,10 @@ import {
   gpuRenderer,
   gpuSizer
 } from "../columns/NodesTableGPUColumn";
+import {
+  spacingSizer,
+  spacingRenderer
+} from "../columns/NodesTableSpacingColumn";
 
 interface NodesTableProps {
   hosts: NodesList;
@@ -332,6 +336,12 @@ export default class NodesTable extends React.Component<
             }
             cellRenderer={gpuRenderer}
             width={gpuSizer}
+          />
+
+          <Column
+            header={<span title="Spacing" />}
+            cellRenderer={spacingRenderer}
+            width={spacingSizer}
           />
         </Table>
       </div>
