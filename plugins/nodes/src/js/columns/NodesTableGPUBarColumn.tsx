@@ -17,7 +17,7 @@ export function gpubarRenderer(data: Node): React.ReactNode {
   );
 }
 
-export function gpubarSizer(args: WidthArgs): number {
+export function gpubarSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 80;
 }

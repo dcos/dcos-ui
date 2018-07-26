@@ -33,6 +33,6 @@ export function tasksSorter(
   return sort(data, comparators, { reverse });
 }
 
-export function tasksSizer(args: WidthArgs): number {
-  return Math.max(100, args.width / args.totalColumns);
+export function tasksSizer(_args: WidthArgs): number {
+  return 80;
 }

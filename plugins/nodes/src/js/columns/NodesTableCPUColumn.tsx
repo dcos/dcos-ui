@@ -34,7 +34,7 @@ export function cpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sort(data, comparators, { reverse });
 }
 
-export function cpuSizer(args: WidthArgs): number {
+export function cpuSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 80;
 }

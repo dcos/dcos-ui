@@ -36,5 +36,5 @@ export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {
 
 export function memSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return 70;
+  return 80;
 }

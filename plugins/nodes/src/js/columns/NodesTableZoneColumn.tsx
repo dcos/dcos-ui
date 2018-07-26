@@ -34,6 +34,6 @@ export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
   return sort(data, comparators, { reverse });
 }
 
-export function zoneSizer(args: WidthArgs): number {
-  return Math.max(125, args.width / args.totalColumns);
+export function zoneSizer(_args: WidthArgs): number {
+  return 200;
 }

@@ -57,6 +57,6 @@ export function hostnameSorter(
   return sort(data, comparators, { reverse });
 }
 
-export function hostnameSizer(args: WidthArgs): number {
-  return Math.max(150, args.width / args.totalColumns);
+export function hostnameSizer(_args: WidthArgs): number {
+  return 150;
 }
