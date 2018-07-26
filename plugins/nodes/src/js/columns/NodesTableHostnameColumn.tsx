@@ -1,5 +1,5 @@
 import * as React from "react";
-import { compareValues } from "#PLUGINS/nodes/src/js/utils/compareValues";
+import sort from "array-sort";
 import Node from "#SRC/js/structs/Node";
 // TODO: DCOS-39079
 // import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/packages/table/components/Column";
@@ -43,20 +43,20 @@ export function hostnameRenderer(data: Node): React.ReactNode {
   );
 }
 
+function compareNodesByHostname(a: Node, b: Node): number {
+  return a
+    .getHostName()
+    .toLowerCase()
+    .localeCompare(b.getHostName().toLowerCase());
+}
+
+const comparators = [compareNodesByHostname];
 export function hostnameSorter(
   data: Node[],
   sortDirection: SortDirection
 ): Node[] {
-  // current implementation is a rough idea, not sure if it is the best one…
-  const sortedData = data.sort((a, b) =>
-    compareValues(
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase(),
-      a.getHostName().toLowerCase(),
-      b.getHostName().toLowerCase()
-    )
-  );
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
+  const reverse = sortDirection !== "ASC";
+  return sort(data, comparators, { reverse });
 }
 
 export function hostnameSizer(args: WidthArgs): number {
