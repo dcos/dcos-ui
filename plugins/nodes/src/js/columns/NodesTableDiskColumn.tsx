@@ -35,7 +35,7 @@ export function diskSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
 }
-export function diskSizer(args: WidthArgs): number {
+export function diskSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 70;
 }
