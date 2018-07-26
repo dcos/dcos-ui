@@ -33,6 +33,7 @@
     "@dcos/mesos-client": "0.2.3",
     "@dcos/tslint-config": "0.1.0",
     "@dcos/ui-kit": "1.3.0",
+    "array-sort": "1.0.0",
     "babel-polyfill": "6.23.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
