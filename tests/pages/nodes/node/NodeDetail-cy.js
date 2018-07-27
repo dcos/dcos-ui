@@ -10,8 +10,9 @@ describe("Nodes Detail Page", function() {
     it("navigates to node detail page", function() {
       cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
       var nodeName;
-      cy
-        .get("tr a")
+      cy.get(
+        ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
+      )
         .eq(0)
         .should(function($row) {
           nodeName = $row[0].textContent;

@@ -6,7 +6,7 @@ describe("Nodes Page", function() {
         nodeHealth: true
       });
       cy.visitUrl({ url: "/nodes" });
-      cy.get("tbody tr td:first-child").as("hostnames");
+      cy.get(".BottomLeftGrid_ScrollWrapper").as("hostnames");
       cy.get(".filter-bar").as("filterBar");
     });
 
