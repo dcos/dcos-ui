@@ -1,11 +1,13 @@
 import * as viewport from "../constants/Viewports";
 
 export const getCurrentViewport = () => {
-  if (window.innerWidth <= viewport.MOBILE_THRESHOLD) {
+  const windowWidth = global.innerWidth;
+
+  if (windowWidth <= viewport.MOBILE_THRESHOLD) {
     return viewport.MOBILE;
   }
 
-  if (window.innerWidth > viewport.MOBILE_THRESHOLD) {
+  if (windowWidth > viewport.MOBILE_THRESHOLD) {
     return viewport.DESKTOP;
   }
 };

@@ -37,7 +37,7 @@ var Index = React.createClass({
       showErrorModal: false,
       modalErrorMsg: "",
       configErrorCount: 0,
-      previousWindowWidth: window.innerWidth
+      previousWindowWidth: global.innerWidth
     };
   },
 
@@ -75,12 +75,12 @@ var Index = React.createClass({
   },
 
   componentWillUnmount() {
+    global.remvoveEventListener("resize", this.handleWindowResize.bind(this));
+
     SidebarStore.removeChangeListener(
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.addEventListener("resize", this.handleWindowResize.bind(this));
-
     ConfigStore.removeChangeListener(
       EventTypes.CONFIG_ERROR,
       this.onConfigError
@@ -139,7 +139,7 @@ var Index = React.createClass({
   },
 
   handleWindowResize() {
-    const currentWindowWidth = window.innerWidth;
+    const currentWindowWidth = global.innerWidth;
 
     if (
       !hasViewportChanged(this.state.previousWindowWidth, currentWindowWidth)
