@@ -3,5 +3,4 @@
 export const MOBILE_THRESHOLD = 994;
 
 export const DESKTOP = "DESKTOP";
-export const TABLET = "TABLET";
 export const MOBILE = "MOBILE";

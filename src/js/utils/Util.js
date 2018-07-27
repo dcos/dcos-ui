@@ -1,5 +1,4 @@
 import ValidatorUtil from "./ValidatorUtil";
-import * as viewport from "../constants/Viewports";
 
 const uniqueIDMap = {};
 
@@ -250,30 +249,6 @@ const Util = {
       search: aElement.search,
       username: aElement.username
     };
-  },
-
-  isMobile() {
-    return window.innerWidth <= viewport.MOBILE_THRESHOLD;
-  },
-
-  isViewportChangingTo(previousWidth, windowWidth) {
-    // Transition from Mobile to Desktop
-    if (
-      windowWidth > viewport.MOBILE_THRESHOLD &&
-      previousWidth < viewport.MOBILE_THRESHOLD
-    ) {
-      return viewport.DESKTOP;
-    }
-
-    // Transition from Desktop to Mobile
-    if (
-      windowWidth < viewport.MOBILE_THRESHOLD &&
-      previousWidth > viewport.MOBILE_THRESHOLD
-    ) {
-      return viewport.MOBILE;
-    }
-
-    return false;
   }
 };
 

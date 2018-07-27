@@ -17,7 +17,7 @@ import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
-import { isViewportChangingTo } from "../utils/Util";
+import { hasViewportChanged, getCurrentViewport } from "../utils/ViewportUtil";
 import * as viewport from "../constants/Viewports";
 
 function getSidebarState() {
@@ -25,9 +25,6 @@ function getSidebarState() {
     isVisible: SidebarStore.get("isVisible")
   };
 }
-
-// By default users use desktop
-let previousWidth = null;
 
 var Index = React.createClass({
   displayName: "Index",
@@ -39,7 +36,8 @@ var Index = React.createClass({
       mesosSummaryErrorCount: 0,
       showErrorModal: false,
       modalErrorMsg: "",
-      configErrorCount: 0
+      configErrorCount: 0,
+      previousWindowWidth: window.innerWidth
     };
   },
 
@@ -67,12 +65,9 @@ var Index = React.createClass({
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.addEventListener("resize", this.handleWindowResize);
+    global.addEventListener("resize", this.handleWindowResize.bind(this));
 
     ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
-
-    // set current window width
-    previousWidth = window.innerWidth;
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -84,7 +79,7 @@ var Index = React.createClass({
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.addEventListener("resize", this.handleWindowResize);
+    global.addEventListener("resize", this.handleWindowResize.bind(this));
 
     ConfigStore.removeChangeListener(
       EventTypes.CONFIG_ERROR,
@@ -143,18 +138,30 @@ var Index = React.createClass({
     );
   },
 
-  handleWindowResize(event) {
-    const windowWidth = event.target.innerWidth;
+  handleWindowResize() {
+    const currentWindowWidth = window.innerWidth;
 
-    if (isViewportChangingTo(previousWidth, windowWidth) === viewport.DESKTOP) {
+    if (
+      !hasViewportChanged(this.state.previousWindowWidth, currentWindowWidth)
+    ) {
+      this.setState({
+        previousWindowWidth: currentWindowWidth
+      });
+
+      return;
+    }
+
+    if (getCurrentViewport() === viewport.DESKTOP) {
       SidebarActions.open();
     }
 
-    if (isViewportChangingTo(previousWidth, windowWidth) === viewport.MOBILE) {
+    if (getCurrentViewport() === viewport.MOBILE) {
       SidebarActions.close();
     }
 
-    previousWidth = windowWidth;
+    this.setState({
+      previousWindowWidth: currentWindowWidth
+    });
   },
 
   renderOverlay() {

@@ -8,6 +8,7 @@ import SidebarToggle from "./SidebarToggle";
 
 export default function HeaderBar() {
   // remove this to activate component
+  // when enabled, remove skip from Sidebar-cy.js
   if (arguments) {
     return null;
   }
