@@ -1,0 +1,7 @@
+{
+  "branch": "jg/DCOS-22340-semantic-release",
+  "tagFormat": "master+v${version}",
+  "verifyConditions": ["@semantic-release/github"],
+  "prepare": [],
+  "publish": ["@semantic-release/github"]
+}
