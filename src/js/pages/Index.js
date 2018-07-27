@@ -65,7 +65,7 @@ var Index = React.createClass({
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.addEventListener("resize", this.handleWindowResize.bind(this));
+    global.addEventListener("resize", this.handleWindowResize);
 
     ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
   },
