@@ -1,64 +1,77 @@
 import * as React from "react";
-import { Table, Column } from "@dcos/ui-kit";
+import { Table, Column } from "@dcos/ui-kit/dist/packages";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
 
 import { SortableColumnHeader } from "ui-kit-stage/SortableColumnHeader";
-import { SortDirection } from "../types/SortDirection";
+import { SortDirection } from "#PLUGINS/nodes/src/js/types/SortDirection";
 
 import {
   hostnameSorter,
   hostnameRenderer,
   hostnameSizer
-} from "../columns/NodesTableHostnameColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableHostnameColumn";
 import {
   regionSorter,
   regionRenderer,
   regionSizer
-} from "../columns/NodesTableRegionColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableRegionColumn";
 import {
   zoneSorter,
   zoneRenderer,
   zoneSizer
-} from "../columns/NodesTableZoneColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableZoneColumn";
 import {
   healthSorter,
   healthRenderer,
   healthSizer
-} from "../columns/NodesTableHealthColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableHealthColumn";
 import {
   tasksSorter,
   tasksRenderer,
   tasksSizer
-} from "../columns/NodesTableTasksColumn";
-import { cpubarRenderer, cpubarSizer } from "../columns/NodesTableCPUBarColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableTasksColumn";
+import {
+  cpubarRenderer,
+  cpubarSizer
+} from "#PLUGINS/nodes/src/js/columns/NodesTableCPUBarColumn";
 import {
   cpuSorter,
   cpuRenderer,
   cpuSizer
-} from "../columns/NodesTableCPUColumn";
-import { membarRenderer, membarSizer } from "../columns/NodesTableMemBarColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableCPUColumn";
+import {
+  membarRenderer,
+  membarSizer
+} from "#PLUGINS/nodes/src/js/columns/NodesTableMemBarColumn";
 import {
   memSorter,
   memRenderer,
   memSizer
-} from "../columns/NodesTableMemColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableMemColumn";
 import {
   diskbarRenderer,
   diskbarSizer
-} from "../columns/NodesTableDiskBarColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableDiskBarColumn";
 import {
   diskSorter,
   diskRenderer,
   diskSizer
-} from "../columns/NodesTableDiskColumn";
-import { gpubarSizer, gpubarRenderer } from "../columns/NodesTableGPUBarColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableDiskColumn";
+import {
+  gpubarSizer,
+  gpubarRenderer
+} from "#PLUGINS/nodes/src/js/columns/NodesTableGPUBarColumn";
 import {
   gpuSorter,
   gpuRenderer,
   gpuSizer
-} from "../columns/NodesTableGPUColumn";
+} from "#PLUGINS/nodes/src/js/columns/NodesTableGPUColumn";
+import {
+  spacingSizer,
+  spacingRenderer
+} from "#PLUGINS/nodes/src/js/columns/NodesTableSpacingColumn";
 
 interface NodesTableProps {
   hosts: NodesList;
@@ -312,6 +325,12 @@ export default class NodesTable extends React.Component<
           }
           cellRenderer={gpuRenderer}
           width={gpuSizer}
+        />
+
+        <Column
+          header={<span title="Spacing" />}
+          cellRenderer={spacingRenderer}
+          width={spacingSizer}
         />
       </Table>
     );

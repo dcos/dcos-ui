@@ -19,7 +19,7 @@ export function diskbarRenderer(data: Node): React.ReactNode {
   );
 }
 
-export function diskbarSizer(args: WidthArgs): number {
+export function diskbarSizer(_args: WidthArgs): number {
   // TODO: DCOS-39147
-  return Math.min(60, Math.max(60, args.width / args.totalColumns));
+  return 60;
 }

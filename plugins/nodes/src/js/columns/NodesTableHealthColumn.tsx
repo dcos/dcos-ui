@@ -24,7 +24,7 @@ export function healthSorter(
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
 }
 
-export function healthSizer(args: WidthArgs): number {
+export function healthSizer(_args: WidthArgs): number {
   // TODO: DCOS-38827
-  return Math.max(100, args.width / args.totalColumns);
+  return 120;
 }
