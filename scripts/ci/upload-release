@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-[ -n "${DEBUG}" ] && set -x
+set -x
 
 # This file is intended to run on Jenkins, if you need to run it
 # locally, you need to provide some environment variables:
@@ -32,26 +32,26 @@ PKG_TARGET=$(python -c "import sys, json; \
   dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
   sys.stdout.write(str(dcosrc['base']));")
 
-# release version
-PKG_VERSION="latest+${GIT_COMMIT:0:8}"
+# release version (after switching to semantic-release, we cant use package.json anymore)
+PKG_VERSION="$(git tag -l --sort=-version:refname | grep ${PKG_TARGET} | head -1 | cut -d'+' -f2)"
 
 # build release name for branch and file names
+# Examples:
+# - master+dcos-ui-v2.0.1
+# - 1.11+dcos-ui-v1.16.0
 RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
 
-# dcos branch to work with
-# Examples:
-# - dcos-ui/master/dcos-ui-latest
-# - dcos-ui/1.12/dcos-ui-latest
-# - dcos-ui/1.11/dcos-ui-latest
-DCOS_BRANCH="dcos-ui/${RELEASE_NAME%+${GIT_COMMIT:0:8}}"
+# latest dcos branch to work with
+DCOS_BRANCH="dcos-ui/${PKG_TARGET}+dcos-ui-latest"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
 
+# if this fails, there is already a release with this SHA -> stop.
 RELEASE_NAME="${RELEASE_NAME}" \
-  ${SCRIPT_PATH}/utils/upload-build || exit 0
+  ${SCRIPT_PATH}/utils/upload-build
 
-## Update DC/OS
+## Update Latest DC/OS PR
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \

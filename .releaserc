@@ -1,0 +1,7 @@
+{
+  "branch": "master",
+  "tagFormat": "master+v${version}",
+  "verifyConditions": ["@semantic-release/github"],
+  "prepare": [],
+  "publish": ["@semantic-release/github"]
+}
