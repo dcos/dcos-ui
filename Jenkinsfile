@@ -54,14 +54,16 @@ pipeline {
         stage("System Test") {
           steps {
             withCredentials([
-                [
-                  $class: "AmazonWebServicesCredentialsBinding",
-                  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                  accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                ]
-              ]) {
-              sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+              [
+                $class: "AmazonWebServicesCredentialsBinding",
+                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+              ]
+            ]) {
+              retry(3) {
+                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+              }
             }
           }
 
@@ -75,12 +77,17 @@ pipeline {
       }
     }
 
-    // Upload the current master as "latest" to s3
-    // and update the corresponding DC/OS branch:
-    // For Example:
-    // - dcos-ui/master/dcos-ui-latest
-    // - dcos-ui/1.12/dcos-ui-latest
-    stage("Release Latest") {
+    stage("Semantic Release") {
+      steps {
+        withCredentials([
+          string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN")
+        ]) {
+          sh "npx semantic-release"
+        }
+      }
+    }
+
+    stage("Upload Release") {
       when {
         expression {
           master_branches.contains(BRANCH_NAME)
@@ -97,7 +104,9 @@ pipeline {
           sh "git config --global user.name 'MesosphereCI Robot'"
           sh "git config credential.helper 'cache --timeout=300'"
 
-          sh "./scripts/ci/release-latest"
+          sh "git fetch --tags"
+
+          sh "./scripts/ci/upload-release"
         }
       }
 
