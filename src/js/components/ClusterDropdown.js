@@ -107,7 +107,6 @@ export default class ClusterDropdown extends mixin(StoreMixin) {
         html: "Overview",
         id: "overview",
         onClick: () => {
-          SidebarActions.close();
           this.context.router.push("/cluster/overview");
         }
       },
@@ -117,7 +116,6 @@ export default class ClusterDropdown extends mixin(StoreMixin) {
         ),
         id: "cluster-linking",
         onClick: () => {
-          SidebarActions.close();
           SidebarActions.openClusterLinkingModal();
         }
       },
@@ -131,7 +129,6 @@ export default class ClusterDropdown extends mixin(StoreMixin) {
         html: "Documentation",
         id: "documentation",
         onClick() {
-          SidebarActions.close();
           global.open(MetadataStore.buildDocsURI("/"), "_blank");
         }
       },
@@ -139,7 +136,6 @@ export default class ClusterDropdown extends mixin(StoreMixin) {
         html: "Install CLI",
         id: "install-cli",
         onClick() {
-          SidebarActions.close();
           SidebarActions.openCliInstructions();
         }
       }
