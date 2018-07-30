@@ -18,7 +18,7 @@ pipeline {
   }
 
   options {
-    timeout(time: 2, unit: "HOURS")
+    timeout(time: 5, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -37,11 +37,13 @@ pipeline {
       }
     }
 
-    stage("Test") {
+    stage("Tests") {
       parallel {
         stage("Integration Test") {
           steps {
-            sh "npm run integration-tests"
+            timeout(time: 60, unit: 'MINUTES') {
+              sh "npm run integration-tests"
+            }
           }
 
           post {
@@ -51,6 +53,7 @@ pipeline {
             }
           }
         }
+
         stage("System Test") {
           steps {
             withCredentials([
@@ -62,7 +65,9 @@ pipeline {
               ]
             ]) {
               retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+                timeout(time: 60, unit: 'MINUTES') {
+                  sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+                }
               }
             }
           }
