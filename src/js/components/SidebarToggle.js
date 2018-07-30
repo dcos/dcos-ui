@@ -10,17 +10,9 @@ export default class SidebarToggle extends React.Component {
 
   render() {
     return (
-      <div className="page-header-sidebar-toggle" onClick={this.onClick}>
-        <Icon
-          className="page-header-sidebar-toggle-icon"
-          id="menu"
-          size="mini"
-          color="grey"
-        />
-        <span className="page-header-sidebar-toggle-label">
-          Show/Hide Sidebar
-        </span>
-      </div>
+      <span className="header-bar-sidebar-toggle" onClick={this.onClick}>
+        <Icon id="menu" size="mini" />
+      </span>
     );
   }
 }
