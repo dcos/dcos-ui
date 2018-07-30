@@ -5,7 +5,11 @@ export default function getMaster(state, message) {
     return state;
   }
 
-  const { master_info } = message.get_master;
+  const { master_info, elected_time, start_time } = message.get_master;
+  const enhancedMasterInfo = Object.assign({}, master_info, {
+    elected_time,
+    start_time
+  });
 
-  return Object.assign({}, state, { master_info });
+  return Object.assign({}, state, { master_info: enhancedMasterInfo });
 }
