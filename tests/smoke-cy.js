@@ -9,7 +9,7 @@ describe("DC/OS UI [00j]", function() {
     beforeEach(function() {
       cy.get(".sidebar-menu-item")
         .contains("Dashboard")
-        .click();
+        .click({ force: true });
     });
 
     it("can change hash to dashboard page [00l]", function() {
@@ -48,7 +48,7 @@ describe("DC/OS UI [00j]", function() {
     beforeEach(function() {
       cy.get(".sidebar-menu-item")
         .contains("Nodes")
-        .click();
+        .click({ force: true });
     });
 
     it("can change hash to nodes page [00s]", function() {
@@ -56,8 +56,10 @@ describe("DC/OS UI [00j]", function() {
     });
 
     it("displays one row on the table [00t]", function() {
-      cy.get("table tbody tr")
-        .should("to.have.length", 6)
+      cy.get(
+        ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
+      )
+        .should("to.have.length", 4)
         .contains("dcos-01");
     });
   });
