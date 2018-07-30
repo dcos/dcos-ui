@@ -50,7 +50,7 @@ export default class MesosMasters extends React.Component {
 
     this.stream = Observable.interval(STORE_POLL_INTERVAL)
       .map(_ => {
-        return MesosStateStore.getLastMesosState();
+        return MesosStateStore.getMaster();
       })
       .map(mesosState => mesosState.master_info)
       .filter(master => !isEmptyObject(master))
