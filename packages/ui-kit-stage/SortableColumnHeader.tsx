@@ -8,20 +8,50 @@ import { HeaderCell } from "@dcos/ui-kit";
 import { SortableColumnHeaderCellIcon } from "ui-kit-stage/SortableColumnHeaderCellIcon";
 
 type SortDirection = "ASC" | "DESC" | null;
-
-export function SortableColumnHeader({
-  sortHandler,
-  sortDirection,
-  columnContent
-}: {
+interface Props {
   sortHandler: () => void;
   sortDirection: SortDirection;
   columnContent: string | React.ReactNode;
-}) {
-  return (
-    <HeaderCell onClick={sortHandler}>
-      {columnContent}
-      <SortableColumnHeaderCellIcon sortDirection={sortDirection} />
-    </HeaderCell>
-  );
+}
+interface State {
+  hovered: boolean;
+}
+
+export class SortableColumnHeader extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.hoverStart = this.hoverStart.bind(this);
+    this.hoverEnd = this.hoverEnd.bind(this);
+    this.state = {
+      hovered: false
+    };
+  }
+
+  hoverStart() {
+    this.setState({ hovered: true });
+  }
+
+  hoverEnd() {
+    this.setState({ hovered: false });
+  }
+
+  render() {
+    const { sortHandler, sortDirection, columnContent } = this.props;
+
+    const displaySortDirection =
+      sortDirection === null && this.state.hovered ? "DESC" : sortDirection;
+
+    return (
+      <HeaderCell
+        onMouseEnter={this.hoverStart}
+        onMouseLeave={this.hoverEnd}
+        onClick={sortHandler}
+        style={{ cursor: "pointer" }}
+      >
+        {columnContent}
+        <SortableColumnHeaderCellIcon sortDirection={displaySortDirection} />
+      </HeaderCell>
+    );
+  }
 }
