@@ -49,7 +49,7 @@ DCOS_BRANCH="dcos-ui/${PKG_TARGET}+dcos-ui-latest"
 
 # if this fails, there is already a release with this SHA -> stop.
 RELEASE_NAME="${RELEASE_NAME}" \
-  ${SCRIPT_PATH}/utils/upload-build
+  ${SCRIPT_PATH}/utils/upload-build || exit 0
 
 ## Update Latest DC/OS PR
 #####################################################################
