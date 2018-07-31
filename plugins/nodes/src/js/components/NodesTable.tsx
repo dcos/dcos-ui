@@ -16,7 +16,7 @@ import {
   typeSorter,
   typeRenderer,
   typeSizer
-} from "#PLUGINS/nodes/src/js/columns/NodesTableTypeColumn";
+} from "../columns/NodesTableTypeColumn";
 import {
   regionSorter,
   regionRenderer,
@@ -209,6 +209,18 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableColumnHeader
+                columnContent="Health"
+                sortHandler={this.handleSortClick.bind(null, "health")}
+                sortDirection={sortColumn === "health" ? sortDirection : null}
+              />
+            }
+            cellRenderer={healthRenderer}
+            width={healthSizer}
+          />
+
+          <Column
+            header={
+              <SortableColumnHeader
                 columnContent="Type"
                 sortHandler={this.handleSortClick.bind(null, "type")}
                 sortDirection={sortColumn === "type" ? sortDirection : null}
@@ -240,18 +252,6 @@ export default class NodesTable extends React.Component<
             }
             cellRenderer={zoneRenderer}
             width={zoneSizer}
-          />
-
-          <Column
-            header={
-              <SortableColumnHeader
-                columnContent="Health"
-                sortHandler={this.handleSortClick.bind(null, "health")}
-                sortDirection={sortColumn === "health" ? sortDirection : null}
-              />
-            }
-            cellRenderer={healthRenderer}
-            width={healthSizer}
           />
 
           <Column
