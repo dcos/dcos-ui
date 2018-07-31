@@ -75,7 +75,7 @@ var Index = React.createClass({
   },
 
   componentWillUnmount() {
-    global.remvoveEventListener("resize", this.handleWindowResize);
+    global.removeEventListener("resize", this.handleWindowResize);
 
     SidebarStore.removeChangeListener(
       EventTypes.SIDEBAR_CHANGE,
