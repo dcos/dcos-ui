@@ -98,8 +98,7 @@ describe("Sidebar", function() {
     });
   });
 
-  // TODO: remove skip when sidebar new header toggle enabled
-  context.skip("Sidebar toggle", function() {
+  context("Sidebar toggle", function() {
     beforeEach(function() {
       cy.clearLocalStorage();
       cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
@@ -113,11 +112,11 @@ describe("Sidebar", function() {
 
     it("close/open sidebar when sidebarToggle button clicked", function() {
       // close sidebar
-      cy.get(".page-header-sidebar-toggle").click();
+      cy.get(".header-bar-sidebar-toggle").click();
       cy.get(".sidebar-visible").should("not.exist");
 
       // open sidebar
-      cy.get(".page-header-sidebar-toggle").click();
+      cy.get(".header-bar-sidebar-toggle").click();
       cy.get(".sidebar-visible").should("exist");
     });
 
