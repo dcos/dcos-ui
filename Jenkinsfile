@@ -2,7 +2,7 @@
 
 @Library("sec_ci_libs@v2-latest") _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["master", "feature/DCOS-39712-masters-tab"] as String[]
 
 pipeline {
   agent {
