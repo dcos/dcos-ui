@@ -32,11 +32,6 @@ import {
   healthRenderer,
   healthSizer
 } from "../columns/NodesTableHealthColumn";
-import {
-  tasksSorter,
-  tasksRenderer,
-  tasksSizer
-} from "../columns/NodesTableTasksColumn";
 import { cpubarRenderer, cpubarSizer } from "../columns/NodesTableCPUBarColumn";
 import {
   cpuSorter,
@@ -116,8 +111,6 @@ export default class NodesTable extends React.Component<
         return zoneSorter;
       case "health":
         return healthSorter;
-      case "tasks":
-        return tasksSorter;
       case "cpu":
         return cpuSorter;
       case "mem":
@@ -252,18 +245,6 @@ export default class NodesTable extends React.Component<
             }
             cellRenderer={zoneRenderer}
             width={zoneSizer}
-          />
-
-          <Column
-            header={
-              <SortableColumnHeader
-                columnContent="Tasks"
-                sortHandler={this.handleSortClick.bind(null, "tasks")}
-                sortDirection={sortColumn === "tasks" ? sortDirection : null}
-              />
-            }
-            cellRenderer={tasksRenderer}
-            width={tasksSizer}
           />
 
           <Column
