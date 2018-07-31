@@ -81,10 +81,11 @@ class MesosStateStore extends GetSetBaseStore {
       "/mesos/api/v1?get_master"
     )
       .retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES))
-      .map(message =>
-        mesosStreamParsers.getMaster(this.getMaster(), JSON.parse(message))
-      )
-      .do(master => {
+      .do(message => {
+        const master = mesosStreamParsers.getMaster(
+          this.getMaster(),
+          JSON.parse(message)
+        );
         this.setMaster(master);
       });
 
