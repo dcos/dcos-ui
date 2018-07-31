@@ -7,11 +7,7 @@ import Node from "#SRC/js/structs/Node";
 import { SortableColumnHeader } from "ui-kit-stage/SortableColumnHeader";
 import { SortDirection } from "../types/SortDirection";
 
-import {
-  hostnameSorter,
-  hostnameRenderer,
-  hostnameSizer
-} from "../columns/NodesTableHostnameColumn";
+import { ipSorter, ipRenderer, ipSizer } from "../columns/NodesTableIpColumn";
 import {
   typeSorter,
   typeRenderer,
@@ -102,7 +98,7 @@ export default class NodesTable extends React.Component<
   retrieveSortFunction(sortColumn: string): SortFunction<Node> {
     switch (sortColumn) {
       case "hostname":
-        return hostnameSorter;
+        return ipSorter;
       case "type":
         return typeSorter;
       case "region":
@@ -195,8 +191,8 @@ export default class NodesTable extends React.Component<
                 sortDirection={sortColumn === "hostname" ? sortDirection : null}
               />
             }
-            cellRenderer={hostnameRenderer}
-            width={hostnameSizer}
+            cellRenderer={ipRenderer}
+            width={ipSizer}
           />
 
           <Column

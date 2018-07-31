@@ -8,7 +8,7 @@ import { Tooltip } from "reactjs-components";
 import Icon from "#SRC/js/components/Icon";
 import { TextCell } from "@dcos/ui-kit";
 
-export function hostnameRenderer(data: Node): React.ReactNode {
+export function ipRenderer(data: Node): React.ReactNode {
   const nodeID = data.get("id");
   let headline = data.get("hostname");
 
@@ -49,14 +49,11 @@ function compareNodesByHostname(a: Node, b: Node): number {
 }
 
 const comparators = [compareNodesByHostname];
-export function hostnameSorter(
-  data: Node[],
-  sortDirection: SortDirection
-): Node[] {
+export function ipSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
 }
 
-export function hostnameSizer(_args: WidthArgs): number {
-  return 150;
+export function ipSizer(args: WidthArgs): number {
+  return Math.max(150, args.width / args.totalColumns);
 }
