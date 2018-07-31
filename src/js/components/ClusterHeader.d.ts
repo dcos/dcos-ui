@@ -6,4 +6,4 @@ interface State {
   isTextCopied: boolean;
 }
 
-export default class ClusterDropdown extends Component<Props, State> {}
+export default class ClusterHeader extends Component<Props, State> {}

@@ -14,7 +14,7 @@ import CookieUtils from "#SRC/js/utils/CookieUtils";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import UsersPage from "#SRC/js/pages/system/UsersPage";
 
-import AuthenticatedUserAccountDropdown from "./components/AuthenticatedUserAccountDropdown";
+import AuthenticatedClusterDropdown from "./components/AuthenticatedClusterDropdown";
 import LoginPage from "./components/LoginPage";
 
 const SDK = require("./SDK").getSDK();
@@ -53,7 +53,7 @@ module.exports = Object.assign({}, StoreMixin, {
         events: ["success", "error"]
       }
     ]);
-    this.registerUserAccountDropdown();
+    this.registerClusterHeader();
   },
 
   redirectToLogin(nextState, replace) {
@@ -167,10 +167,10 @@ module.exports = Object.assign({}, StoreMixin, {
     return routeDefinition;
   },
 
-  registerUserAccountDropdown() {
+  registerClusterHeader() {
     MountService.MountService.registerComponent(
-      AuthenticatedUserAccountDropdown,
-      "Sidebar:UserAccountDropdown",
+      AuthenticatedClusterDropdown,
+      "Header:ClusterDropdown",
       100
     );
   },
