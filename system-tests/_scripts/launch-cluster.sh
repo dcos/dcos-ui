@@ -11,6 +11,8 @@ fi
 CLUSTER_CONFIG=/tmp/cluster-config.yaml
 CLUSTER_INFO=/tmp/cluster-info.json
 
+rm ${CLUSTER_INFO}
+
 # Create cluster config
 cat << EOF > ${CLUSTER_CONFIG}
 ---
