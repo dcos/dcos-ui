@@ -40,7 +40,7 @@ Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](ht
   ```sh
   npm run scaffold
   ```
-  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.js`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration. Edit `webpack/proxy.dev.js` to point to the  address of the `dcos-vagrant` machine.
+  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration. Edit `webpack/proxy.dev.js` to point to the  address of the `dcos-vagrant` machine.
 
 5. Start the development server:
 
