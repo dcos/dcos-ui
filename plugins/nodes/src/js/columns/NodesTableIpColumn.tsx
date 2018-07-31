@@ -7,10 +7,11 @@ import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 import Icon from "#SRC/js/components/Icon";
 import { TextCell } from "@dcos/ui-kit";
+import ipToInt from "ip-to-int";
 
 export function ipRenderer(data: Node): React.ReactNode {
   const nodeID = data.get("id");
-  let headline = data.get("hostname");
+  const headline = data.getIp();
 
   if (!data.isActive()) {
     return (
@@ -41,14 +42,22 @@ export function ipRenderer(data: Node): React.ReactNode {
   );
 }
 
-function compareNodesByHostname(a: Node, b: Node): number {
-  return a
-    .getHostName()
-    .toLowerCase()
-    .localeCompare(b.getHostName().toLowerCase());
+function compareNodesByIp(a: Node, b: Node): number {
+  try {
+    const ipA = ipToInt(a.getIp()).toInt();
+    const ipB = ipToInt(b.getIp()).toInt();
+
+    return ipA - ipB;
+  } catch (e) {
+    // Fallback to string compare
+    return a
+      .getHostName()
+      .toLowerCase()
+      .localeCompare(b.getHostName().toLowerCase());
+  }
 }
 
-const comparators = [compareNodesByHostname];
+const comparators = [compareNodesByIp];
 export function ipSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });

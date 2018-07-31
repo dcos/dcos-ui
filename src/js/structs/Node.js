@@ -100,6 +100,10 @@ class Node extends Item {
       findNestedPropertyInObject(this.get("attributes"), "public_ip") === "true"
     );
   }
+
+  getIp() {
+    return this.get("host_ip") || this.getHostName();
+  }
 }
 
 module.exports = Node;
