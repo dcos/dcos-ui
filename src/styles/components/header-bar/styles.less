@@ -25,15 +25,20 @@
 
     .header-bar-left-align-wrapper {
       display: flex;
-      margin-left: 8px;
 
       .header-bar-sidebar-toggle {
         color: @purple-lighten-4;
         cursor: pointer;
+        margin-left: @header-bar-sidebar-toggle-margin;
         margin-right: 15px;
+        margin-top: -1px;
 
         &:hover {
           color: @white;
+        }
+
+        @media (min-width: @layout-screen-jumbo-min-width) {
+          margin-left: (2 * @header-bar-sidebar-toggle-margin);
         }
       }
 

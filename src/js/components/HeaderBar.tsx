@@ -3,10 +3,10 @@ import * as React from "react";
 import { Link } from "react-router";
 
 import ClusterHeader from "./ClusterHeader";
-import AccountDropdown from "./AccountDropdown";
 import SidebarToggle from "./SidebarToggle";
+import AccountHeader from "#SRC/js/components/AccountHeader";
 
-export class HeaderBar extends React.Component {
+export default class HeaderBar extends React.Component {
   render() {
     return (
       <div className="header-bar">
@@ -17,7 +17,7 @@ export class HeaderBar extends React.Component {
           </Link>
         </div>
         <div className="header-bar-right-align-wrapper">
-          <AccountDropdown />
+          <AccountHeader />
           <ClusterHeader />
         </div>
       </div>
