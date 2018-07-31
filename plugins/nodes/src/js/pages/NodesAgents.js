@@ -10,7 +10,6 @@ import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import EventTypes from "#SRC/js/constants/EventTypes";
-import FilterInputText from "#SRC/js/components/FilterInputText";
 import Icon from "#SRC/js/components/Icon";
 import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
@@ -57,8 +56,8 @@ var DEFAULT_FILTER_OPTIONS = {
   filterExpression: new DSLExpression("")
 };
 
-var NodesOverview = React.createClass({
-  displayName: "NodesOverview",
+var NodesAgents = React.createClass({
+  displayName: "NodesAgents",
 
   mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
 
@@ -204,24 +203,10 @@ var NodesOverview = React.createClass({
     );
   },
 
-  getFilterInputText() {
-    var isVisible = this.props.location.pathname.endsWith("/nodes/");
-
-    if (!isVisible) {
-      return null;
-    }
-
-    return (
-      <FilterInputText
-        className="flush-bottom"
-        searchString={this.state.searchString}
-        handleFilterChange={this.handleSearchStringChange}
-      />
-    );
-  },
-
   getViewTypeRadioButtons(resetFilter) {
-    const isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
+    const isGridActive = /\/nodes\/agents\/grid\/?/i.test(
+      this.props.location.pathname
+    );
 
     var listClassSet = classNames("button button-outline", {
       active: !isGridActive
@@ -233,10 +218,14 @@ var NodesOverview = React.createClass({
 
     return (
       <div className="button-group flush-bottom">
-        <Link className={listClassSet} onClick={resetFilter} to="/nodes">
+        <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
           List
         </Link>
-        <Link className={gridClassSet} onClick={resetFilter} to="/nodes/grid">
+        <Link
+          className={gridClassSet}
+          onClick={resetFilter}
+          to="/nodes/agents/grid"
+        >
           Grid
         </Link>
       </div>
@@ -256,11 +245,16 @@ var NodesOverview = React.createClass({
 
     return (
       <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
+        <Page.Header
+          breadcrumbs={<NodeBreadcrumbs />}
+          tabs={[
+            { label: "Agents", routePath: "/nodes/agents" },
+            { label: "Masters", routePath: "/nodes/masters" }
+          ]}
+        />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
           filterButtonContent={this.getButtonContent}
-          filterInputText={this.getFilterInputText()}
           filterItemList={nodesHealth}
           filteredNodeCount={Math.min(
             nodesList.getItems().length,
@@ -320,4 +314,4 @@ var NodesOverview = React.createClass({
   }
 });
 
-module.exports = NodesOverview;
+module.exports = NodesAgents;
