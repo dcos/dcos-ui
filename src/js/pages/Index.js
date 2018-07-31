@@ -13,7 +13,7 @@ import MesosStateStore from "../stores/MesosStateStore";
 import Modals from "../components/Modals";
 import RequestErrorMsg from "../components/RequestErrorMsg";
 import ServerErrorModal from "../components/ServerErrorModal";
-import { HeaderBar } from "../components/HeaderBar";
+import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
