@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Table, Column } from "@dcos/ui-kit";
+import { Table, Column } from "@dcos/ui-kit/dist/packages";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";

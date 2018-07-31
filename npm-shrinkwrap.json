@@ -1,6 +1,6 @@
 {
   "name": "dcos-ui",
-  "version": "2.0.0",
+  "version": "0.0.0-dev+semantic-release",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -13723,6 +13723,11 @@
       "resolved": "https://registry.npmjs.org/ip-regex/-/ip-regex-1.0.3.tgz",
       "integrity": "sha1-3FiQdvZZ9BnCIgOaMzFvHHOH7/0=",
       "dev": true
+    },
+    "ip-to-int": {
+      "version": "0.3.1",
+      "resolved": "https://registry.npmjs.org/ip-to-int/-/ip-to-int-0.3.1.tgz",
+      "integrity": "sha1-TrMVwtDmBAEAR1FdtJnjix+z70A="
     },
     "ipaddr.js": {
       "version": "1.6.0",
