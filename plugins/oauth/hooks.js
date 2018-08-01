@@ -1,3 +1,4 @@
+import { MountService } from "foundation-ui";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -13,6 +14,7 @@ import CookieUtils from "#SRC/js/utils/CookieUtils";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import UsersPage from "#SRC/js/pages/system/UsersPage";
 
+import AuthenticatedUserAccountDropdown from "./components/AuthenticatedUserAccountDropdown";
 import LoginPage from "./components/LoginPage";
 
 const SDK = require("./SDK").getSDK();
@@ -51,6 +53,8 @@ module.exports = Object.assign({}, StoreMixin, {
         events: ["success", "error"]
       }
     ]);
+
+    this.registerUserAccountDropdown();
   },
 
   redirectToLogin(nextState, replace) {
@@ -162,6 +166,14 @@ module.exports = Object.assign({}, StoreMixin, {
     };
 
     return routeDefinition;
+  },
+
+  registerUserAccountDropdown() {
+    MountService.MountService.registerComponent(
+      AuthenticatedUserAccountDropdown,
+      "Sidebar:UserAccountDropdown",
+      100
+    );
   },
 
   userLoginSuccess() {
