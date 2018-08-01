@@ -40,4 +40,3 @@ UserAccountDropdownTrigger.propTypes = {
   onUpdate: PropTypes.func,
   onTrigger: PropTypes.func
 };
-
