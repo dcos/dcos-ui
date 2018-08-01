@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-class UserAccountDropdownTrigger extends mixin(StoreMixin) {
+export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -41,4 +41,3 @@ UserAccountDropdownTrigger.propTypes = {
   onTrigger: PropTypes.func
 };
 
-module.exports = UserAccountDropdownTrigger;

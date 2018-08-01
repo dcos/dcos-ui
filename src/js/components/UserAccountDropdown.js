@@ -2,15 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Dropdown } from "reactjs-components";
 
-class UserAccountDropdown extends React.Component {
-  getTrigger() {
-    return this.props.trigger;
-  }
-
-  getMenuItems() {
-    return this.props.menuItems;
-  }
-
+export default class UserAccountDropdown extends React.Component {
   handleItemSelection(item) {
     if (item.onClick) {
       item.onClick();
@@ -36,5 +28,3 @@ UserAccountDropdown.propTypes = {
   menuItems: PropTypes.arrayOf(PropTypes.object),
   trigger: PropTypes.node
 };
-
-module.exports = UserAccountDropdown;

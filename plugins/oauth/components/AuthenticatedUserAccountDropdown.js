@@ -4,7 +4,7 @@ import AuthStore from "#SRC/js/stores/AuthStore";
 import UserAccountDropdown from "#SRC/js/components/UserAccountDropdown";
 import UserAccountDropdownTrigger from "#SRC/js/components/UserAccountDropdownTrigger";
 
-class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
+export default class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
   constructor() {
     super(...arguments);
 
@@ -33,5 +33,3 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
     return menuItems;
   }
 }
-
-module.exports = AuthenticatedUserAccountDropdown;
