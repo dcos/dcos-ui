@@ -9,5 +9,6 @@
   },
   "videoUploadOnPasses": false,
   "numTestsKeptInMemory": 0,
-  "screenshotOnHeadlessFailure": false
+  "screenshotOnHeadlessFailure": false,
+  "chromeWebSecurity": false
 }
