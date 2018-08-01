@@ -66,6 +66,7 @@ var Page = React.createClass({
       PropTypes.string
     ]),
     dontScroll: PropTypes.bool,
+    flushBottom: PropTypes.bool,
     navigation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     title: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   },
@@ -119,12 +120,13 @@ var Page = React.createClass({
   },
 
   getContent() {
-    const { dontScroll } = this.props;
+    const { dontScroll, flushBottom } = this.props;
     const contentClassSet = classNames(
       "page-body-content pod pod-tall flex",
       "flex-direction-top-to-bottom flex-item-grow-1",
       {
-        "flex-item-shrink-1": dontScroll
+        "flex-item-shrink-1": dontScroll,
+        "flush-bottom": flushBottom
       }
     );
 
