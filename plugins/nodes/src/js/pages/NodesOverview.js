@@ -255,7 +255,7 @@ var NodesOverview = React.createClass({
     const isFiltering = filterExpression && filterExpression.defined;
 
     return (
-      <Page>
+      <Page dontScroll>
         <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
         <HostsPageContent
           byServiceFilter={byServiceFilter}

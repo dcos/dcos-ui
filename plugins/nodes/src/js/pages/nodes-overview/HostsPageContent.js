@@ -201,7 +201,7 @@ class HostsPageContent extends React.Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
         <FilterHeadline
           currentLength={filteredNodeCount}
           isFiltering={isFiltering}

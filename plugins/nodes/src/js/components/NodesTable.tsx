@@ -188,151 +188,153 @@ export default class NodesTable extends React.Component<
     const { data, sortColumn, sortDirection } = this.state;
 
     return (
-      <Table data={data.slice()}>
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Name"
-              sortHandler={this.handleSortClick.bind(null, "hostname")}
-              sortDirection={sortColumn === "hostname" ? sortDirection : null}
-            />
-          }
-          cellRenderer={hostnameRenderer}
-          width={hostnameSizer}
-        />
+      <div style={{ flexGrow: 1 }}>
+        <Table data={data.slice()}>
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Name"
+                sortHandler={this.handleSortClick.bind(null, "hostname")}
+                sortDirection={sortColumn === "hostname" ? sortDirection : null}
+              />
+            }
+            cellRenderer={hostnameRenderer}
+            width={hostnameSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Type"
-              sortHandler={this.handleSortClick.bind(null, "type")}
-              sortDirection={sortColumn === "type" ? sortDirection : null}
-            />
-          }
-          cellRenderer={typeRenderer}
-          width={typeSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Type"
+                sortHandler={this.handleSortClick.bind(null, "type")}
+                sortDirection={sortColumn === "type" ? sortDirection : null}
+              />
+            }
+            cellRenderer={typeRenderer}
+            width={typeSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Region"
-              sortHandler={this.handleSortClick.bind(null, "region")}
-              sortDirection={sortColumn === "region" ? sortDirection : null}
-            />
-          }
-          cellRenderer={this.regionRenderer}
-          width={regionSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Region"
+                sortHandler={this.handleSortClick.bind(null, "region")}
+                sortDirection={sortColumn === "region" ? sortDirection : null}
+              />
+            }
+            cellRenderer={this.regionRenderer}
+            width={regionSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Zone"
-              sortHandler={this.handleSortClick.bind(null, "zone")}
-              sortDirection={sortColumn === "zone" ? sortDirection : null}
-            />
-          }
-          cellRenderer={zoneRenderer}
-          width={zoneSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Zone"
+                sortHandler={this.handleSortClick.bind(null, "zone")}
+                sortDirection={sortColumn === "zone" ? sortDirection : null}
+              />
+            }
+            cellRenderer={zoneRenderer}
+            width={zoneSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Health"
-              sortHandler={this.handleSortClick.bind(null, "health")}
-              sortDirection={sortColumn === "health" ? sortDirection : null}
-            />
-          }
-          cellRenderer={healthRenderer}
-          width={healthSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Health"
+                sortHandler={this.handleSortClick.bind(null, "health")}
+                sortDirection={sortColumn === "health" ? sortDirection : null}
+              />
+            }
+            cellRenderer={healthRenderer}
+            width={healthSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Tasks"
-              sortHandler={this.handleSortClick.bind(null, "tasks")}
-              sortDirection={sortColumn === "tasks" ? sortDirection : null}
-            />
-          }
-          cellRenderer={tasksRenderer}
-          width={tasksSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Tasks"
+                sortHandler={this.handleSortClick.bind(null, "tasks")}
+                sortDirection={sortColumn === "tasks" ? sortDirection : null}
+              />
+            }
+            cellRenderer={tasksRenderer}
+            width={tasksSizer}
+          />
 
-        <Column
-          header={<span title="CPUBar" />}
-          cellRenderer={cpubarRenderer}
-          width={cpubarSizer}
-        />
+          <Column
+            header={<span title="CPUBar" />}
+            cellRenderer={cpubarRenderer}
+            width={cpubarSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="CPU"
-              sortHandler={this.handleSortClick.bind(null, "cpu")}
-              sortDirection={sortColumn === "cpu" ? sortDirection : null}
-            />
-          }
-          cellRenderer={cpuRenderer}
-          width={cpuSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="CPU"
+                sortHandler={this.handleSortClick.bind(null, "cpu")}
+                sortDirection={sortColumn === "cpu" ? sortDirection : null}
+              />
+            }
+            cellRenderer={cpuRenderer}
+            width={cpuSizer}
+          />
 
-        <Column
-          header={<span title="MemBar" />}
-          cellRenderer={membarRenderer}
-          width={membarSizer}
-        />
+          <Column
+            header={<span title="MemBar" />}
+            cellRenderer={membarRenderer}
+            width={membarSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Mem"
-              sortHandler={this.handleSortClick.bind(null, "mem")}
-              sortDirection={sortColumn === "mem" ? sortDirection : null}
-            />
-          }
-          cellRenderer={memRenderer}
-          width={memSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Mem"
+                sortHandler={this.handleSortClick.bind(null, "mem")}
+                sortDirection={sortColumn === "mem" ? sortDirection : null}
+              />
+            }
+            cellRenderer={memRenderer}
+            width={memSizer}
+          />
 
-        <Column
-          header={<span title="DiskBar" />}
-          cellRenderer={diskbarRenderer}
-          width={diskbarSizer}
-        />
+          <Column
+            header={<span title="DiskBar" />}
+            cellRenderer={diskbarRenderer}
+            width={diskbarSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="Disk"
-              sortHandler={this.handleSortClick.bind(null, "disk")}
-              sortDirection={sortColumn === "disk" ? sortDirection : null}
-            />
-          }
-          cellRenderer={diskRenderer}
-          width={diskSizer}
-        />
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="Disk"
+                sortHandler={this.handleSortClick.bind(null, "disk")}
+                sortDirection={sortColumn === "disk" ? sortDirection : null}
+              />
+            }
+            cellRenderer={diskRenderer}
+            width={diskSizer}
+          />
 
-        <Column
-          header={<span title="GPUBar" />}
-          cellRenderer={gpubarRenderer}
-          width={gpubarSizer}
-        />
+          <Column
+            header={<span title="GPUBar" />}
+            cellRenderer={gpubarRenderer}
+            width={gpubarSizer}
+          />
 
-        <Column
-          header={
-            <SortableColumnHeader
-              columnContent="GPU"
-              sortHandler={this.handleSortClick.bind(null, "gpu")}
-              sortDirection={sortColumn === "gpu" ? sortDirection : null}
-            />
-          }
-          cellRenderer={gpuRenderer}
-          width={gpuSizer}
-        />
-      </Table>
+          <Column
+            header={
+              <SortableColumnHeader
+                columnContent="GPU"
+                sortHandler={this.handleSortClick.bind(null, "gpu")}
+                sortDirection={sortColumn === "gpu" ? sortDirection : null}
+              />
+            }
+            cellRenderer={gpuRenderer}
+            width={gpuSizer}
+          />
+        </Table>
+      </div>
     );
   }
 }
