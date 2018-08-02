@@ -87,7 +87,7 @@ pipeline {
         withCredentials([
           string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN")
         ]) {
-          sh "npx semantic-release"
+          sh "npx semantic-release --debug"
         }
       }
     }
