@@ -1,4 +1,4 @@
-const { DefinePlugin } = require("webpack");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const LessColorLighten = require("less-color-lighten");
@@ -52,16 +52,17 @@ module.exports = {
     proxy: require("./proxy.dev.js")
   },
   plugins: [
-    new DefinePlugin({
+    new webpack.DefinePlugin({
       "process.env.LATER_COV": false
     }),
     new ExtractTextPlugin({
-      filename: "[name].[contenthash].css",
+      filename: "[name].[md5:contenthash:hex:20].css",
       disable: process.env.NODE_ENV === "development"
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
-    })
+    }),
+    new webpack.debug.ProfilingPlugin()
   ],
   module: {
     rules: [
