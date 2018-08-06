@@ -89,6 +89,86 @@ describe("Service Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fsleep\/volumes.*/);
       });
     });
+
+    context("Filter Tasks", function() {
+      const DEFAULT_ROWS = 3; // Headline plus invisible rows
+      beforeEach(function() {
+        cy.visitUrl({
+          url: "/services/detail/%2Fsleep/tasks"
+        });
+      });
+
+      it("starts with no filters", function() {
+        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 3);
+      });
+
+      it("can filter tasks by status", function() {
+        cy
+          .get('use[*|href$="#icon-system--caret-down"]')
+          .click({ force: true });
+
+        // Disable active
+        cy.contains("Active").click({ force: true });
+
+        // Enable completed
+        cy.contains("Completed").click({ force: true });
+
+        // Wait a moment to check it doesn't flip back
+        cy.wait(500);
+
+        // Apply filter
+        cy.contains("Apply").click({ force: true });
+
+        cy.get(".table tr.inactive").should("to.have.length", 22);
+      });
+
+      it("can filter tasks by name", function() {
+        cy
+          .get('use[*|href$="#icon-system--caret-down"]')
+          .click({ force: true });
+
+        // Disable active
+        cy.contains("Active").click({ force: true });
+
+        cy
+          .get(".dsl-form-group input[name='text']")
+          .type("sleep.7084272b-6b76-11e5-a953-08002719334c");
+
+        // Wait a moment to check it doesn't flip back
+        cy.wait(500);
+
+        // Apply filter
+        cy.contains("Apply").click({ force: true });
+
+        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
+      });
+
+      it("can filter tasks by zone", function() {
+        cy
+          .get('use[*|href$="#icon-system--caret-down"]')
+          .click({ force: true });
+
+        // Enable zone
+        cy.contains("ap-northeast-1a").click({ force: true });
+
+        // Wait a moment to check it doesn't flip back
+        cy.wait(500);
+
+        // Apply filter
+        cy.contains("Apply").click({ force: true });
+
+        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
+      });
+
+      it("can filter by typing a filter", function() {
+        cy
+          .get(".filter-input-text")
+          .focus()
+          .clear()
+          .type("region:ap-northeast-1");
+        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
+      });
+    });
   });
 
   context("SDK Services", function() {
