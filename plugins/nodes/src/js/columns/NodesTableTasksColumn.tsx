@@ -8,7 +8,7 @@ import { TextCell } from "@dcos/ui-kit";
 export function tasksRenderer(data: Node): React.ReactNode {
   return (
     <TextCell>
-      <span>{(data.get("TASK_RUNNING") || "").toString()}</span>
+      <span>{(data.get("TASK_RUNNING") || "0").toString()}</span>
     </TextCell>
   );
 }
