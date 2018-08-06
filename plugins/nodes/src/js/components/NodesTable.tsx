@@ -91,7 +91,7 @@ export default class NodesTable extends React.Component<
 
     this.state = {
       data: [],
-      sortColumn: "hostname",
+      sortColumn: "host",
       sortDirection: "ASC"
     };
 
@@ -102,7 +102,7 @@ export default class NodesTable extends React.Component<
 
   retrieveSortFunction(sortColumn: string): SortFunction<Node> {
     switch (sortColumn) {
-      case "hostname":
+      case "host":
         return ipSorter;
       case "type":
         return typeSorter;
@@ -193,9 +193,9 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableColumnHeader
-                columnContent="Name"
-                sortHandler={this.handleSortClick.bind(null, "hostname")}
-                sortDirection={sortColumn === "hostname" ? sortDirection : null}
+                columnContent="Host"
+                sortHandler={this.handleSortClick.bind(null, "host")}
+                sortDirection={sortColumn === "host" ? sortDirection : null}
               />
             }
             cellRenderer={ipRenderer}
