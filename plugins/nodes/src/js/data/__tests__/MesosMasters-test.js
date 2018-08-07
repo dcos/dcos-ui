@@ -1,4 +1,5 @@
 import { marbles } from "rxjs-marbles/jest";
+import "rxjs/add/operator/take";
 
 import { mesosMasterInfo, getRegion } from "../MesosMasters";
 
@@ -55,13 +56,13 @@ describe("MesosMasters", function() {
 
   describe("#getRegion", function() {
     it("retrieves region correctly", function() {
-      const master = masterData();
+      const master = masterData(faultDomainData()).master_info;
 
-      expect(getRegion(master)).toBe("N/A");
+      expect(getRegion(master)).toBe("us-east-1");
     });
 
     it("returns N/A for missing region", function() {
-      const master = masterData(faultDomainData());
+      const master = masterData().master_info;
 
       expect(getRegion(master)).toBe("N/A");
     });
