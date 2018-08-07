@@ -161,7 +161,9 @@ export default class NodesTable extends React.Component<
 
   handleSortClick(columnName: string): void {
     const toggledDirection =
-      this.state.sortDirection === "ASC" ? "DESC" : "ASC";
+      this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
+        ? "DESC"
+        : "ASC";
 
     this.setState(
       this.updateData(
