@@ -188,7 +188,7 @@ export default class NodesTable extends React.Component<
     const { data, sortColumn, sortDirection } = this.state;
 
     return (
-      <div style={{ flexGrow: 1 }}>
+      <div className="table-wrapper">
         <Table data={data.slice()}>
           <Column
             header={
