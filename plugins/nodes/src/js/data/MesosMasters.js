@@ -7,6 +7,7 @@ import "rxjs/add/operator/retry";
 import "rxjs/add/operator/filter";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import LeaderGrid from "../components/LeaderGrid";
 
@@ -18,19 +19,11 @@ function hostPort(address) {
   return `${address.hostname}:${address.port}`;
 }
 
-function supportsRegion(master) {
-  return (
-    master.domain &&
-    master.domain.fault_domain &&
-    master.domain.fault_domain.region &&
-    master.domain.fault_domain.region.name
-  );
-}
-
 export function getRegion(master) {
-  return supportsRegion(master)
-    ? master.domain.fault_domain.region.name
-    : "N/A";
+  return (
+    findNestedPropertyInObject(master, "domain.fault_domain.region.name") ||
+    "N/A"
+  );
 }
 
 const STORE_POLL_INTERVAL = 2000;
