@@ -11,6 +11,10 @@ import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 
+import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
+import { FilterNode } from "#SRC/js/structs/DSLASTNodes";
+import DSLUpdateUtil from "#SRC/js/utils/DSLUpdateUtil";
+
 const EXPRESSION_PARTS = {
   text: DSLExpressionPart.fuzzy
 };
@@ -40,13 +44,37 @@ class FuzzyTextDSLSection extends React.Component {
   }
 
   handleTextChange(event) {
+    const { onChange, expression } = this.props;
     const { target } = event;
     event.stopPropagation();
+
+    const value = target.value;
     this.setState({
       data: Object.assign({}, this.state.data, {
-        text: target.value
+        text: value
       })
     });
+
+    // TODO: find better abstraction here (DCOS-40235)
+    const newFuzzyNodes = value.replace(":", " ").split(" ").map(text => {
+      return new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text });
+    });
+
+    const updateNode = EXPRESSION_PARTS["text"];
+    // The node(s) relevant to the property we are updating
+    const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, updateNode);
+
+    // And replace the existing fuzzy nodes
+    const newExpression = DSLUpdateUtil.applyReplace(
+      expression,
+      matchingNodes,
+      newFuzzyNodes,
+      {
+        newCombiner: DSLCombinerTypes.AND
+      }
+    );
+
+    onChange(newExpression);
   }
 
   render() {
