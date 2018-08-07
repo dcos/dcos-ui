@@ -31,57 +31,45 @@ const ConfigurationRow = ({ keyValue, title, value }) => {
   );
 };
 
-export default class LeaderGrid extends React.Component {
-  getMesosDetails() {
-    const {
-      hostPort,
-      version,
-      electedTime,
-      startTime,
-      region
-    } = this.props.master;
+export default function LeaderGrid({ master }) {
+  return (
+    <div className="container">
+      <ConfigurationMap>
+        <ConfigurationMapHeading className="flush-top">
+          Leader
+        </ConfigurationMapHeading>
+        <ConfigurationMapSection>
+          <ConfigurationRow
+            keyValue="leader"
+            title="IP and Port"
+            value={master.hostPort}
+          />
 
-    return (
-      <ConfigurationMapSection>
-        <ConfigurationRow
-          keyValue="leader"
-          title="IP and Port"
-          value={hostPort}
-        />
+          <ConfigurationRow
+            keyValue="region"
+            title="Region"
+            value={master.region}
+          />
 
-        <ConfigurationRow keyValue="region" title="Region" value={region} />
+          <ConfigurationRow
+            keyValue="version"
+            title={<FormattedMessage id="COMMON.VERSION" />}
+            value={master.version}
+          />
 
-        <ConfigurationRow
-          keyValue="version"
-          title={<FormattedMessage id="COMMON.VERSION" />}
-          value={version}
-        />
+          <ConfigurationRow
+            keyValue="version"
+            title={<FormattedMessage id="COMMON.STARTED" />}
+            value={timeFromNow(master.startTime)}
+          />
 
-        <ConfigurationRow
-          keyValue="version"
-          title={<FormattedMessage id="COMMON.STARTED" />}
-          value={timeFromNow(startTime)}
-        />
-
-        <ConfigurationRow
-          keyValue="elected"
-          title={<FormattedMessage id="COMMON.ELECTED" />}
-          value={timeFromNow(electedTime)}
-        />
-      </ConfigurationMapSection>
-    );
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <ConfigurationMap>
-          <ConfigurationMapHeading className="flush-top">
-            Leader
-          </ConfigurationMapHeading>
-          {this.getMesosDetails()}
-        </ConfigurationMap>
-      </div>
-    );
-  }
+          <ConfigurationRow
+            keyValue="elected"
+            title={<FormattedMessage id="COMMON.ELECTED" />}
+            value={timeFromNow(master.electedTime)}
+          />
+        </ConfigurationMapSection>
+      </ConfigurationMap>
+    </div>
+  );
 }
