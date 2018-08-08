@@ -29,7 +29,7 @@ Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](ht
   git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
   ```
 
-3. Install dependencies:
+3. Install dependencies:dfgdg
 
   ```sh
   npm i
