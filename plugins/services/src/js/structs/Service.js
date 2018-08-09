@@ -7,6 +7,10 @@ import ServiceSpec from "./ServiceSpec";
 import VolumeList from "./VolumeList";
 
 module.exports = class Service extends Item {
+  constructor() {
+    super(...arguments);
+    this._regions = undefined;
+  }
   getId() {
     return this.get("id") || "";
   }
@@ -52,6 +56,27 @@ module.exports = class Service extends Item {
 
   getServiceStatus() {
     return ServiceStatus.NA;
+  }
+
+  getRegions() {
+    if (!this._regions) {
+      const regionCounts = (this.get("tasks") || []).reduce(
+        (regions, { region }) => {
+          if (region) {
+            regions[region] = regions[region] ? regions[region] + 1 : 1;
+          }
+
+          return regions;
+        },
+        {}
+      );
+
+      this._regions = Object.keys(regionCounts).sort(
+        (a, b) => regionCounts[b] - regionCounts[a]
+      );
+    }
+
+    return this._regions;
   }
 
   getImages() {
