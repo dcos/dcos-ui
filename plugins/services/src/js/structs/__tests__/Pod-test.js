@@ -83,6 +83,18 @@ describe("Pod", function() {
     });
   });
 
+  describe("#getVersion", function() {
+    it("returns correct version", function() {
+      const pod = new Pod({
+        spec: {
+          version: "2016-03-22T10:46:07.354Z"
+        }
+      });
+
+      expect(pod.getVersion()).toEqual("2016-03-22T10:46:07.354Z");
+    });
+  });
+
   describe("#getLabels", function() {
     it("passes through from specs", function() {
       const pod = new Pod(PodFixture);
