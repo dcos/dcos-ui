@@ -215,4 +215,26 @@ module.exports = class Pod extends Service {
   getVolumesData() {
     return new VolumeList({ items: this.get("volumeData") || [] });
   }
+
+  /**
+   * @override
+   */
+  getRegions() {
+    if (!this._regions) {
+      const regionCounts = this.getInstanceList()
+        .getItems()
+        .reduce((regions, instance) => {
+          const region = instance.getAgentRegion();
+          if (region !== "") {
+            regions[region] = regions[region] ? regions[region] + 1 : 1;
+          }
+
+          return regions;
+        }, {});
+
+      this._regions = Object.keys(regionCounts).sort();
+    }
+
+    return this._regions;
+  }
 };

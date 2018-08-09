@@ -66,6 +66,10 @@ module.exports = class ServiceTree extends Tree {
     return null;
   }
 
+  getRegions() {
+    return [];
+  }
+
   getHealth() {
     return this.reduceItems(function(aggregatedHealth, item) {
       if (item instanceof Service) {

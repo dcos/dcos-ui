@@ -74,6 +74,27 @@ describe("Pod", function() {
     });
   });
 
+  describe("#getRegions", function() {
+    it("returns empty array for empty Pod object", function() {
+      const pod = new Pod();
+      expect(pod.getRegions()).toEqual([]);
+    });
+    it("returns correct region for one instance", function() {
+      const pod = new Pod({ instances: [{ agentRegion: "Region-1" }] });
+      expect(pod.getRegions()).toEqual(["Region-1"]);
+    });
+    it("returns correct region for multiple instance", function() {
+      const pod = new Pod({
+        instances: [
+          { agentRegion: "Region-1" },
+          { agentRegion: "Region-2" },
+          { agentRegion: "Region-1" }
+        ]
+      });
+      expect(pod.getRegions()).toEqual(["Region-1", "Region-2"]);
+    });
+  });
+
   describe("#getInstancesCount", function() {
     it("passes through from specs", function() {
       const pod = new Pod(PodFixture);
