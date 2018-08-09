@@ -162,7 +162,7 @@ describe("ResourcesUtil", function() {
         cpus: 0,
         mem: 6,
         disk: 3,
-        gpus: 0,
+        gpus: 8,
         bananas: 1
       });
     });

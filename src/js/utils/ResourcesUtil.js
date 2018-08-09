@@ -6,7 +6,7 @@ const DefaultResourceTypes = {
   cpus: { label: "CPU", colorID: 0 },
   mem: { label: "Mem", colorID: 6 },
   disk: { label: "Disk", colorID: 3 },
-  gpus: { label: "GPU", colorID: 0 }
+  gpus: { label: "GPU", colorID: 8 }
 };
 
 // Let's create an instance of a Node with our default resources
