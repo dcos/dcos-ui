@@ -52,6 +52,32 @@ describe("PodInstance", function() {
     });
   });
 
+  describe("#getAgentRegion", function() {
+    it("returns the correct value", function() {
+      const podInstance = new PodInstance({ agentRegion: "Region-a" });
+
+      expect(podInstance.getAgentRegion()).toEqual("Region-a");
+    });
+
+    it("returns the correct default value", function() {
+      const podInstance = new PodInstance();
+      expect(podInstance.getAgentRegion()).toEqual("");
+    });
+  });
+
+  describe("#getAgentZone", function() {
+    it("returns the correct value", function() {
+      const podInstance = new PodInstance({ agentZone: "Zone-a" });
+
+      expect(podInstance.getAgentZone()).toEqual("Zone-a");
+    });
+
+    it("returns the correct default value", function() {
+      const podInstance = new PodInstance();
+      expect(podInstance.getAgentZone()).toEqual("");
+    });
+  });
+
   describe("#getStatus", function() {
     it("returns FINISHED when all containers are FINISHED", function() {
       const podInstance = new PodInstance({
