@@ -82,6 +82,14 @@ module.exports = class PodInstance extends Item {
     return new Date(this.get("lastChanged"));
   }
 
+  getAgentRegion() {
+    return this.get("agentRegion") || "";
+  }
+
+  getAgentZone() {
+    return this.get("agentZone") || "";
+  }
+
   getLastUpdated() {
     return new Date(this.get("lastUpdated"));
   }

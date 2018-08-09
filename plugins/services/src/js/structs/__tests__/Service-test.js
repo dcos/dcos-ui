@@ -32,6 +32,26 @@ describe("Service", function() {
     });
   });
 
+  describe("#getRegions", function() {
+    it("returns default correct regions data", function() {
+      expect(
+        new Service({
+          tasks: [
+            { region: "a" },
+            { region: "b" },
+            { region: "a" },
+            { region: "a" },
+            { region: "b" },
+            {}
+          ]
+        }).getRegions()
+      ).toEqual(["a", "b"]);
+    });
+    it("returns empty array for service without tasks", function() {
+      expect(new Service({}).getRegions()).toEqual([]);
+    });
+  });
+
   describe("#getRunningInstancesCount", function() {
     it("returns the number of reported tasks", function() {
       const service = new Service({
