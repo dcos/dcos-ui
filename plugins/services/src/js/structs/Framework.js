@@ -22,6 +22,10 @@ module.exports = class Framework extends Application {
     return this.getLabels().DCOS_PACKAGE_NAME;
   }
 
+  getPackageVersion() {
+    return this.getLabels().DCOS_PACKAGE_VERSION;
+  }
+
   getFrameworkName() {
     return this.getLabels().DCOS_PACKAGE_FRAMEWORK_NAME;
   }
