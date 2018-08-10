@@ -28,11 +28,11 @@ function filterLeader(leader, masters) {
   return masters.filter(master => master.host_ip !== leader.hostIp);
 }
 
-function combineMasterData(leaderDataSource, mastersDataSource) {
+export function combineMasterData(leaderDataSource, mesosMastersHealth) {
   const mesosLeader$ = leaderDataSource().startWith(
     mastersInitialState().leader
   );
-  const mesosMasters$ = mastersDataSource().startWith(undefined);
+  const mesosMasters$ = mesosMastersHealth().startWith(undefined);
 
   return function() {
     return mesosLeader$.combineLatest(mesosMasters$, (leader, masters) => ({
@@ -43,7 +43,7 @@ function combineMasterData(leaderDataSource, mastersDataSource) {
 }
 
 // This is an attempt of the mediator pattern without componentFromStream
-export function connectComponent(initialState, stream) {
+export function connectMasterComponent(initialState, stream) {
   class MesosMasters extends React.Component {
     constructor() {
       super(...arguments);
@@ -62,7 +62,6 @@ export function connectComponent(initialState, stream) {
 
     render() {
       const { masters, leader } = this.state;
-      console.log(masters, leader);
 
       return (
         <div>
@@ -81,4 +80,4 @@ const mastersWithHealth = combineMasterData(
   mesosMastersHealth
 );
 
-export default connectComponent(mastersInitialState, mastersWithHealth);
+export default connectMasterComponent(mastersInitialState, mastersWithHealth);
