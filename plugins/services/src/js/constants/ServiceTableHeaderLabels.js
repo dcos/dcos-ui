@@ -5,6 +5,7 @@ var ServiceTableHeaderLabels = {
   mem: "Mem",
   name: "Name",
   status: "Status",
+  version: "Version",
   instances: "Instances"
 };
 
