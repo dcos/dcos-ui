@@ -58,7 +58,7 @@ export default function LeaderGrid({ master }) {
           />
 
           <ConfigurationRow
-            keyValue="version"
+            keyValue="started"
             title={<FormattedMessage id="COMMON.STARTED" />}
             value={timeFromNow(master.startTime)}
           />
