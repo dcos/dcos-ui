@@ -31,7 +31,7 @@ const ConfigurationRow = ({ keyValue, title, value }) => {
   );
 };
 
-export default function LeaderGrid({ master }) {
+export default function LeaderGrid({ leader }) {
   return (
     <div className="container">
       <ConfigurationMap>
@@ -42,31 +42,31 @@ export default function LeaderGrid({ master }) {
           <ConfigurationRow
             keyValue="leader"
             title="IP and Port"
-            value={master.hostPort}
+            value={leader.hostPort}
           />
 
           <ConfigurationRow
             keyValue="region"
             title="Region"
-            value={master.region}
+            value={leader.region}
           />
 
           <ConfigurationRow
             keyValue="version"
             title={<FormattedMessage id="COMMON.VERSION" />}
-            value={master.version}
+            value={leader.version}
           />
 
           <ConfigurationRow
             keyValue="started"
             title={<FormattedMessage id="COMMON.STARTED" />}
-            value={timeFromNow(master.startTime)}
+            value={timeFromNow(leader.startTime)}
           />
 
           <ConfigurationRow
             keyValue="elected"
             title={<FormattedMessage id="COMMON.ELECTED" />}
-            value={timeFromNow(master.electedTime)}
+            value={timeFromNow(leader.electedTime)}
           />
         </ConfigurationMapSection>
       </ConfigurationMap>

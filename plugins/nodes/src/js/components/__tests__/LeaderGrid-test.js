@@ -13,10 +13,10 @@ const master = {
   region: "us-east-1"
 };
 
-const TestableLeaderGrid = ({ master }) => {
+const TestableLeaderGrid = ({ leader }) => {
   return (
     <IntlProvider locale="en" messages={enUS}>
-      <LeaderGrid master={master} />
+      <LeaderGrid leader={leader} />
     </IntlProvider>
   );
 };
@@ -32,7 +32,7 @@ describe("LeaderGrid", function() {
 
   it("renders with running status", function() {
     expect(
-      renderer.create(<TestableLeaderGrid master={master} />).toJSON()
+      renderer.create(<TestableLeaderGrid leader={master} />).toJSON()
     ).toMatchSnapshot();
   });
 });
