@@ -37,11 +37,16 @@ function withHealthDescription(masters) {
   );
 }
 
+export function mesosMastersHealthQuery(source, interval) {
+  const request$ = source().map(withHealthDescription);
+
+  return replayStream(pollStream(interval, request$));
+}
+
 const HEALTH_POLL_INTERVAL = 30000;
 export function mesosMastersHealth() {
-  const request$ = fetchUnit("dcos-mesos-master.service").map(
-    withHealthDescription
+  return mesosMastersHealthQuery(
+    () => fetchUnit("dcos-mesos-master.service"),
+    HEALTH_POLL_INTERVAL
   );
-
-  return replayStream(pollStream(HEALTH_POLL_INTERVAL, request$));
 }
