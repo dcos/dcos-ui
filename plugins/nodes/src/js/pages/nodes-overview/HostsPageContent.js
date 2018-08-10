@@ -1,7 +1,6 @@
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import classNames from "classnames";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
@@ -10,7 +9,7 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import NodesList from "#SRC/js/structs/NodesList";
 
-import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import ResourceSwitchDropdown from "#SRC/js/components/ResourceSwitchDropdown";
 
 import FilterByService from "../../../../../services/src/js/components/FilterByService";
 
@@ -156,33 +155,22 @@ class HostsPageContent extends React.Component {
       </div>
     );
   }
+
   isGridView() {
     return this.props.location.pathname.includes("grid");
   }
+
   getGridViewResourceSwitch() {
     if (!this.isGridView()) {
       return null;
     }
 
-    const resourceColors = ResourcesUtil.getResourceColors();
-    const resourceLabels = ResourcesUtil.getResourceLabels();
-    const buttons = ResourcesUtil.getDefaultResources().map(resource => {
-      const classSet = classNames("button button-outline", {
-        active: this.props.selectedResource === resource
-      });
-
-      return (
-        <button
-          key={resource}
-          className={`${classSet} path-color-${resourceColors[resource]}`}
-          onClick={this.props.onResourceSelectionChange.bind(null, resource)}
-        >
-          {resourceLabels[resource]}
-        </button>
-      );
-    });
-
-    return <div className="panel-options button-group">{buttons}</div>;
+    return (
+      <ResourceSwitchDropdown
+        selectedResource={this.props.selectedResource}
+        onResourceSelectionChange={this.props.onResourceSelectionChange}
+      />
+    );
   }
 
   render() {
