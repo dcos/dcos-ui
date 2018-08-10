@@ -1,7 +1,7 @@
 import { marbles } from "rxjs-marbles/jest";
 import "rxjs/add/operator/take";
 
-import { mesosMasterInfo, getRegion } from "../MesosMasters";
+import { mesosMasterLeaderQuery, getRegion } from "../MesosMastersLeader";
 
 function faultDomainData() {
   return {
@@ -26,7 +26,7 @@ function masterData(faultDomain) {
   };
 }
 
-describe("MesosMasters", function() {
+describe("MesosMastersLeader", function() {
   describe("#mesosMasterInfo", function() {
     it(
       "emits correct master",
@@ -41,7 +41,7 @@ describe("MesosMasters", function() {
           version: "1.2.2"
         };
 
-        const master$ = mesosMasterInfo(
+        const master$ = mesosMasterLeaderQuery(
           () => masterData(faultDomainData()),
           m.time("--|")
         );
