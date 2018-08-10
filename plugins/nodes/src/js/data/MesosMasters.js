@@ -1,84 +1,84 @@
 import React from "react";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/timer";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/retry";
-import "rxjs/add/operator/filter";
 
-import MesosStateStore from "#SRC/js/stores/MesosStateStore";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { mesosMastersLeader } from "./MesosMastersLeader";
+import { mesosMastersHealth } from "./MesosMastersHealth";
 
 import LeaderGrid from "../components/LeaderGrid";
+import NonLeadersGrid from "../components/NonLeadersGrid";
 
-function isEmptyObject(obj) {
-  return Object.keys(obj).length === 0;
-}
-
-function hostPort(address) {
-  return `${address.hostname}:${address.port}`;
-}
-
-export function getRegion(master) {
-  return (
-    findNestedPropertyInObject(master, "domain.fault_domain.region.name") ||
-    "N/A"
-  );
-}
-
-const STORE_POLL_INTERVAL = 2000;
-
-function mesosMasterEmpty() {
+function mastersInitialState() {
   return {
-    hostPort: undefined,
-    version: undefined,
-    electedTime: undefined,
-    startTime: undefined,
-    region: undefined
+    leader: {
+      hostPort: undefined,
+      hostIp: undefined,
+      version: undefined,
+      electedTime: undefined,
+      startTime: undefined,
+      region: undefined
+    },
+    masters: undefined
   };
 }
 
-export function mesosMasterInfo(
-  masterDataSource,
-  interval = STORE_POLL_INTERVAL
-) {
-  return Observable.timer(0, interval)
-    .map(_ => {
-      return masterDataSource();
-    })
-    .map(mesosState => mesosState.master_info)
-    .filter(master => !isEmptyObject(master))
-    .map(master => {
-      return {
-        hostPort: hostPort(master.address),
-        version: master.version,
-        electedTime: master.elected_time,
-        startTime: master.start_time,
-        region: getRegion(master)
-      };
-    });
+function filterLeader(leader, masters) {
+  if (masters === undefined) {
+    return undefined;
+  }
+
+  return masters.filter(master => master.host_ip !== leader.hostIp);
+}
+
+function combineMasterData(leaderDataSource, mastersDataSource) {
+  const mesosLeader$ = leaderDataSource().startWith(
+    mastersInitialState().leader
+  );
+  const mesosMasters$ = mastersDataSource().startWith(undefined);
+
+  return function() {
+    return mesosLeader$.combineLatest(mesosMasters$, (leader, masters) => ({
+      leader,
+      masters: filterLeader(leader, masters)
+    }));
+  };
 }
 
 // This is an attempt of the mediator pattern without componentFromStream
-export default class MesosMasters extends React.Component {
-  constructor() {
-    super(...arguments);
+export function connectComponent(initialState, stream) {
+  class MesosMasters extends React.Component {
+    constructor() {
+      super(...arguments);
 
-    this.state = mesosMasterEmpty();
+      this.stream = this.props.stream();
+      this.state = this.props.initialState();
+    }
 
-    const masterDataSource = MesosStateStore.getMaster.bind(MesosStateStore);
-    this.stream = mesosMasterInfo(masterDataSource);
+    componentDidMount() {
+      this.subscription = this.stream.subscribe(this.setState.bind(this));
+    }
+
+    componentWillUnmount() {
+      this.subscription.unsubscribe();
+    }
+
+    render() {
+      const { masters, leader } = this.state;
+      console.log(masters, leader);
+
+      return (
+        <div>
+          <LeaderGrid leader={leader} />
+          <NonLeadersGrid masters={masters} />
+        </div>
+      );
+    }
   }
 
-  componentDidMount() {
-    this.subscription = this.stream.subscribe(this.setState.bind(this));
-  }
-
-  componentWillUnmount() {
-    this.subscription.unsubscribe();
-  }
-
-  render() {
-    return <LeaderGrid master={this.state} />;
-  }
+  return () => <MesosMasters initialState={initialState} stream={stream} />;
 }
+
+const mastersWithHealth = combineMasterData(
+  mesosMastersLeader,
+  mesosMastersHealth
+);
+
+export default connectComponent(mastersInitialState, mastersWithHealth);
