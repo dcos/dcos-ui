@@ -22,7 +22,10 @@ module.exports = class Framework extends Application {
     return this.getLabels().DCOS_PACKAGE_NAME;
   }
 
-  getPackageVersion() {
+  /**
+   * @override
+   */
+  getVersion() {
     return this.getLabels().DCOS_PACKAGE_VERSION;
   }
 

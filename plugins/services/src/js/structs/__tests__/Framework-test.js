@@ -60,7 +60,7 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getPackageVersion", function() {
+  describe("#getVersion", function() {
     it("returns correct version", function() {
       const service = new Framework({
         id: "/test/framework",
@@ -69,7 +69,7 @@ describe("Framework", function() {
         }
       });
 
-      expect(service.getPackageVersion()).toEqual("1");
+      expect(service.getVersion()).toEqual("1");
     });
 
     it("returns undefined if package version is undefined", function() {
@@ -77,7 +77,7 @@ describe("Framework", function() {
         id: "/test/framework"
       });
 
-      expect(service.getPackageVersion()).toEqual(undefined);
+      expect(service.getVersion()).toEqual(undefined);
     });
   });
 

@@ -205,6 +205,10 @@ module.exports = class Pod extends Service {
     );
   }
 
+  getVersion() {
+    return this.get("version");
+  }
+
   getVolumesData() {
     return new VolumeList({ items: this.get("volumeData") || [] });
   }
