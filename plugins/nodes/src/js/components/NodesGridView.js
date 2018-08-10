@@ -86,8 +86,7 @@ var NodesGridView = React.createClass({
 
     // Add 'Others' node to the list
     if (activeServiceIds.length > MAX_SERVICES_TO_SHOW) {
-      var classNameOther =
-        `dot service-color-${OTHER_SERVICES_COLOR}`;
+      var classNameOther = `dot service-color-${OTHER_SERVICES_COLOR}`;
       items.push(
         <li key="other">
           <span className={classNameOther} />

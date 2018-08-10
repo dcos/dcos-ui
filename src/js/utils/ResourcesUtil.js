@@ -4,7 +4,7 @@ import StringUtil from "./StringUtil";
 
 const DefaultResourceTypes = {
   cpus: { label: "CPU", colorID: 0 },
-  mem: { label: "Memory", colorID: 6 },
+  mem: { label: "Mem", colorID: 6 },
   disk: { label: "Disk", colorID: 3 },
   gpus: { label: "GPU", colorID: 0 }
 };
