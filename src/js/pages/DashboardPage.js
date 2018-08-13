@@ -173,36 +173,72 @@ var DashboardPage = React.createClass({
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
     const resourceColors = ResourcesUtil.getResourceColors();
-    const resourceLabels = ResourcesUtil.getResourceLabels();
     var data = this.internalStorage_get();
 
     return (
       <Page title="Dashboard">
         <Page.Header breadcrumbs={<DashboardBreadcrumbs />} />
         <div className="panel-grid row">
-          {ResourcesUtil.getDefaultResources().map(resource => {
-            const headingTrnString = `DASHBOARD.PANEL_HEADING.${resourceLabels[
-              resource
-            ].toUpperCase()}`;
-
-            return (
-              <div className={columnClasses} key={resource}>
-                <Panel
-                  className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-                  heading={this.getHeading(headingTrnString)}
-                >
-                  <ResourceTimeSeriesChart
-                    colorIndex={resourceColors[resource]}
-                    usedResourcesStates={data.usedResourcesStates}
-                    usedResources={data.usedResources}
-                    totalResources={data.totalResources}
-                    mode={resource}
-                    refreshRate={Config.getRefreshRate()}
-                  />
-                </Panel>
-              </div>
-            );
-          })}
+          <div className={columnClasses}>
+            <Panel
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading("DASHBOARD.PANEL_HEADING.CPU")}
+            >
+              <ResourceTimeSeriesChart
+                colorIndex={resourceColors["cpus"]}
+                usedResourcesStates={data.usedResourcesStates}
+                usedResources={data.usedResources}
+                totalResources={data.totalResources}
+                mode="cpus"
+                refreshRate={Config.getRefreshRate()}
+              />
+            </Panel>
+          </div>
+          <div className={columnClasses}>
+            <Panel
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading("DASHBOARD.PANEL_HEADING.MEMORY")}
+            >
+              <ResourceTimeSeriesChart
+                colorIndex={resourceColors["mem"]}
+                usedResourcesStates={data.usedResourcesStates}
+                usedResources={data.usedResources}
+                totalResources={data.totalResources}
+                mode="mem"
+                refreshRate={Config.getRefreshRate()}
+              />
+            </Panel>
+          </div>
+          <div className={columnClasses}>
+            <Panel
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading("DASHBOARD.PANEL_HEADING.DISK")}
+            >
+              <ResourceTimeSeriesChart
+                colorIndex={resourceColors["disk"]}
+                usedResourcesStates={data.usedResourcesStates}
+                usedResources={data.usedResources}
+                totalResources={data.totalResources}
+                mode="disk"
+                refreshRate={Config.getRefreshRate()}
+              />
+            </Panel>
+          </div>
+          <div className={columnClasses}>
+            <Panel
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading("DASHBOARD.PANEL_HEADING.GPU")}
+            >
+              <ResourceTimeSeriesChart
+                colorIndex={resourceColors["gpus"]}
+                usedResourcesStates={data.usedResourcesStates}
+                usedResources={data.usedResources}
+                totalResources={data.totalResources}
+                mode="gpus"
+                refreshRate={Config.getRefreshRate()}
+              />
+            </Panel>
+          </div>
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
