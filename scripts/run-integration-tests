@@ -50,7 +50,7 @@ PLUGINS_PATH=${PLUGINS_PATH:-''}
 # FILE: file to test
 # OUTPUT_PATH: Directory where results are saved (e.g. "some/path/to/Testfile-cy.js-1")
 function executeCypress {
-  timeout 20m npm run --silent cypress -- \
+  npm run --silent cypress -- \
     --spec "${FILE}" \
     --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,videosFolder=${OUTPUT_PATH}/videos" \
     --reporter junit \
