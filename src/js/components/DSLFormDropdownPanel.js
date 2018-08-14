@@ -55,8 +55,7 @@ class DSLFormDropdownPanel extends React.Component {
    * @param {DSLExpression} expression - The new expression
    */
   handleChange(expression) {
-    this.setState({ expression });
-    this.props.onChange(expression);
+    this.setState({ expression }, () => this.props.onChange(expression));
   }
 
   /**
