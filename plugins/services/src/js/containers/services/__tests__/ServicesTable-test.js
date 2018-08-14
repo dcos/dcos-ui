@@ -194,4 +194,39 @@ describe("ServicesTable", function() {
       expect(disksCell.text()).toEqual("0 B");
     });
   });
+
+  describe("#renderRegions", function() {
+    const renderRegions =
+      ServicesTable.WrappedComponent.prototype.renderRegions;
+    let mockService;
+    beforeEach(function() {
+      mockService = {
+        getRegions: jest.fn()
+      };
+    });
+
+    it("renders with no regions", function() {
+      mockService.getRegions.mockReturnValue([]);
+
+      expect(
+        renderer.create(renderRegions(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+
+    it("renders with one region", function() {
+      mockService.getRegions.mockReturnValue(["aws/eu-central-1"]);
+
+      expect(
+        renderer.create(renderRegions(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+
+    it("renders with multiple regions", function() {
+      mockService.getRegions.mockReturnValue(["aws/eu-central-1", "dc-east"]);
+
+      expect(
+        renderer.create(renderRegions(null, mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+  });
 });

@@ -6,7 +6,8 @@ var ServiceTableHeaderLabels = {
   name: "Name",
   status: "Status",
   version: "Version",
-  instances: "Instances"
+  instances: "Instances",
+  regions: "Region"
 };
 
 module.exports = ServiceTableHeaderLabels;

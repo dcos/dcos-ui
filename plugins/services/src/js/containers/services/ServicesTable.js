@@ -15,6 +15,7 @@ import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import CompositeState from "#SRC/js/structs/CompositeState";
 import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
@@ -44,6 +45,7 @@ const columnClasses = {
   name: "service-table-column-name",
   status: "service-table-column-status",
   version: "service-table-column-version",
+  regions: "service-table-column-regions",
   instances: "service-table-column-instances",
   cpus: "service-table-column-cpus",
   mem: "service-table-column-mem",
@@ -58,6 +60,7 @@ const METHODS_TO_BIND = [
   "handleActionDisabledModalOpen",
   "handleActionDisabledModalClose",
   "renderHeadline",
+  "renderRegions",
   "renderStats",
   "renderStatus",
   "renderServiceActions"
@@ -238,6 +241,21 @@ class ServicesTable extends React.Component {
         </span>
       </div>
     );
+  }
+
+  renderRegions(prop, service) {
+    const localRegion = CompositeState.getMasterNode().getRegionName();
+    let regions = service.getRegions();
+
+    regions = regions.map(
+      region => (region === localRegion ? region + " (Local)" : region)
+    );
+
+    if (regions.length === 0) {
+      regions.push("N/A");
+    }
+
+    return <span title={regions.join(", ")}>{regions.join(", ")}</span>;
   }
 
   renderServiceActions(prop, service) {
@@ -482,6 +500,15 @@ class ServicesTable extends React.Component {
       {
         className: this.getCellClasses,
         headerClassName: this.getCellClasses,
+        prop: "regions",
+        render: this.renderRegions,
+        sortable: true,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
+        heading
+      },
+      {
+        className: this.getCellClasses,
+        headerClassName: this.getCellClasses,
         prop: "instances",
         render: this.renderInstances,
         sortable: true,
@@ -543,6 +570,7 @@ class ServicesTable extends React.Component {
         <col className={columnClasses.name} />
         <col className={columnClasses.status} />
         <col className={columnClasses.version} />
+        <col className={columnClasses.regions} />
         <col className={columnClasses.instances} />
         <col className={columnClasses.cpus} />
         <col className={columnClasses.mem} />
