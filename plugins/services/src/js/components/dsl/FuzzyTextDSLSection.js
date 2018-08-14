@@ -45,10 +45,9 @@ class FuzzyTextDSLSection extends React.Component {
 
   handleTextChange(event) {
     const { onChange, expression } = this.props;
-    const { target } = event;
-    event.stopPropagation();
+    const { target: { value } } = event;
 
-    const value = target.value;
+    event.stopPropagation();
     this.setState({
       data: Object.assign({}, this.state.data, {
         text: value
