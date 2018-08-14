@@ -3,7 +3,8 @@ import sort from "array-sort";
 import Node from "#SRC/js/structs/Node";
 import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
-import { TextCell } from "@dcos/ui-kit";
+import ProgressBar from "#SRC/js/components/ProgressBar";
+import { Cell } from "@dcos/ui-kit";
 
 function getGpuUsage(data: Node): number {
   return data.getUsageStats("gpus").percentage;
@@ -11,9 +12,15 @@ function getGpuUsage(data: Node): number {
 
 export function gpuRenderer(data: Node): React.ReactNode {
   return (
-    <TextCell>
-      <span>{getGpuUsage(data)}%</span>
-    </TextCell>
+    <Cell>
+      <ProgressBar
+        data={[
+          { value: data.getUsageStats("gpus").percentage, className: "color-1" }
+        ]}
+        total={100}
+      />
+      <span className="table-content-spacing-left">{getGpuUsage(data)}%</span>
+    </Cell>
   );
 }
 
@@ -36,5 +43,5 @@ export function gpuSorter(data: Node[], sortDirection: SortDirection): Node[] {
 }
 
 export function gpuSizer(_args: WidthArgs): number {
-  return 80;
+  return 110;
 }

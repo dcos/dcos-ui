@@ -3,7 +3,8 @@ import sort from "array-sort";
 import Node from "#SRC/js/structs/Node";
 import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
-import { TextCell } from "@dcos/ui-kit";
+import ProgressBar from "#SRC/js/components/ProgressBar";
+import { Cell } from "@dcos/ui-kit";
 
 function getMemUsage(data: Node): number {
   return data.getUsageStats("mem").percentage;
@@ -11,9 +12,16 @@ function getMemUsage(data: Node): number {
 
 export function memRenderer(data: Node): React.ReactNode {
   return (
-    <TextCell>
-      <span>{getMemUsage(data)}%</span>
-    </TextCell>
+    <Cell>
+      <ProgressBar
+        data={[
+          { value: data.getUsageStats("mem").percentage, className: "color-1" }
+        ]}
+        total={100}
+      />
+
+      <span className="table-content-spacing-left">{getMemUsage(data)}%</span>
+    </Cell>
   );
 }
 
@@ -35,6 +43,5 @@ export function memSorter(data: Node[], sortDirection: SortDirection): Node[] {
 }
 
 export function memSizer(_args: WidthArgs): number {
-  // TODO: DCOS-39147
-  return 80;
+  return 110;
 }

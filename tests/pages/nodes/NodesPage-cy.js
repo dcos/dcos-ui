@@ -73,44 +73,66 @@ describe("Nodes Page", function() {
         .should("contain", "1%");
     });
 
-    context("Filters nodes grid", function() {
+    context("On nodes grid", function() {
       beforeEach(function() {
         cy.visitUrl({ url: "/nodes/grid" });
-        cy.get(".filter-bar").as("filterBar");
       });
 
-      it("shows only cassandra-healthy nodes", function() {
-        cy.get("@filterBar").contains("Filter by Service").click();
-        cy.get(".dropdown-menu").contains("cassandra-healthy").click();
+      it("can switch resources", function() {
+        const resources = [
+          "Mem",
+          "Disk",
+          "CPU"
+        ];
 
-        cy
+        resources.forEach(resource => {
+          cy.get(".resource-switch-trigger").click();
+          cy.get(".resource-switch-dropdown-menu-list").contains(resource).click();
+
+          cy
           .get(".nodes-grid-dials")
-          .should("contain", "3%")
-          .should("not.contain", "5%")
-          .should("not.contain", "19%");
+          .should("contain", resource);
+        });
       });
 
-      it("doesn't display any nodes", function() {
-        cy.get("@filterBar").contains("Filter by Service").click();
-        cy.get(".dropdown-menu").contains("cassandra-na").click();
+      context("Filters nodes grid", function() {
+        beforeEach(function() {
+          cy.get(".filter-bar").as("filterBar");
+        });
 
-        cy
-          .get(".nodes-grid-dials")
-          .should("not.contain", "3%")
-          .should("not.contain", "5%")
-          .should("not.contain", "19%");
-      });
+        it("shows only cassandra-healthy nodes", function() {
+          cy.get("@filterBar").contains("Filter by Service").click();
+          cy.get(".dropdown-menu").contains("cassandra-healthy").click();
 
-      it("shows only unhealthy node", function() {
-        cy.get("@filterBar").contains("Filter by Service").click();
-        cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
-        cy.get(".filter-input-text").as("filterInputText");
-        cy.get("@filterInputText").type("is:healthy");
+          cy
+            .get(".nodes-grid-dials")
+            .should("contain", "3%")
+            .should("not.contain", "5%")
+            .should("not.contain", "19%");
+        });
 
-        cy
-          .get(".nodes-grid-dials")
-          .should("contain", "13%")
-          .should("not.contain", "19%");
+        it("doesn't display any nodes", function() {
+          cy.get("@filterBar").contains("Filter by Service").click();
+          cy.get(".dropdown-menu").contains("cassandra-na").click();
+
+          cy
+            .get(".nodes-grid-dials")
+            .should("not.contain", "3%")
+            .should("not.contain", "5%")
+            .should("not.contain", "19%");
+        });
+
+        it("shows only unhealthy node", function() {
+          cy.get("@filterBar").contains("Filter by Service").click();
+          cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
+          cy.get(".filter-input-text").as("filterInputText");
+          cy.get("@filterInputText").type("is:healthy");
+
+          cy
+            .get(".nodes-grid-dials")
+            .should("contain", "13%")
+            .should("not.contain", "19%");
+        });
       });
     });
   });

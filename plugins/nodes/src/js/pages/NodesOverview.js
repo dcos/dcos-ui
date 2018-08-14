@@ -22,6 +22,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import { Badge } from "@dcos/ui-kit";
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
+import NodesTableContainer from "./nodes/nodes-table/NodesTableContainer";
 
 const NODES_DISPLAY_LIMIT = 300;
 
@@ -254,8 +255,14 @@ var NodesOverview = React.createClass({
       });
     const isFiltering = filterExpression && filterExpression.defined;
 
+    const isNodesTableContainer =
+      this.props.children && this.props.children.type === NodesTableContainer;
+
     return (
-      <Page dontScroll>
+      <Page
+        dontScroll={isNodesTableContainer}
+        flushBottom={isNodesTableContainer}
+      >
         <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
