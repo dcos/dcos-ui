@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ServicesTable #renderRegions renders with multiple regions 1`] = `
+<span
+  title="aws/eu-central-1, dc-east"
+>
+  aws/eu-central-1, dc-east
+</span>
+`;
+
+exports[`ServicesTable #renderRegions renders with no regions 1`] = `
+<span
+  title="N/A"
+>
+  N/A
+</span>
+`;
+
+exports[`ServicesTable #renderRegions renders with one region 1`] = `
+<span
+  title="aws/eu-central-1"
+>
+  aws/eu-central-1
+</span>
+`;
+
 exports[`ServicesTable #renderStatus renders with deploying status 1`] = `
 <div
   className="flex"
