@@ -101,7 +101,7 @@ describe("ResourcesUtil", function() {
   describe("#getResourceLabel", function() {
     it("returns label for known resource", function() {
       const label = ResourcesUtil.getResourceLabel("mem");
-      expect(label).toEqual("Memory");
+      expect(label).toEqual("Mem");
     });
 
     it("returns label for unknown resource", function() {
@@ -123,7 +123,7 @@ describe("ResourcesUtil", function() {
         cpus: "CPU",
         disk: "Disk",
         gpus: "GPU",
-        mem: "Memory"
+        mem: "Mem"
       });
     });
   });

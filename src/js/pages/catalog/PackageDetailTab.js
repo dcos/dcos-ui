@@ -23,7 +23,7 @@ import { Badge } from "@dcos/ui-kit";
 
 const semver = require("semver");
 
-const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
+const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   const name = cosmosPackage.getName();
   const version = cosmosPackage.getVersion();
 
@@ -33,12 +33,14 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage }) => {
         <Link to="/catalog/packages">Catalog</Link>
       </BreadcrumbTextContent>
     </Breadcrumb>,
-    <Breadcrumb key={1} title={name}>
-      <BreadcrumbTextContent>
-        <Link to={`/catalog/packages/${name}`} query={{ version }} key={0}>
-          {name}
-        </Link>
-      </BreadcrumbTextContent>
+    <Breadcrumb key={1} title={!isLoading && name}>
+      {!isLoading && (
+        <BreadcrumbTextContent>
+          <Link to={`/catalog/packages/${name}`} query={{ version }} key={0}>
+            {name}
+          </Link>
+        </BreadcrumbTextContent>
+      )}
     </Breadcrumb>
   ];
 
@@ -472,7 +474,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
       <Page>
         <Page.Header
           breadcrumbs={
-            <PackageDetailBreadcrumbs cosmosPackage={cosmosPackage} />
+            <PackageDetailBreadcrumbs
+              cosmosPackage={cosmosPackage}
+              isLoading={state.isLoadingSelectedVersion}
+            />
           }
         />
         <div className="container">
@@ -482,17 +487,25 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
                   <Image
                     fallbackSrc={defaultServiceImage}
-                    src={cosmosPackage.getIcons()["icon-large"]}
+                    src={
+                      state.isLoadingSelectedVersion
+                        ? defaultServiceImage
+                        : cosmosPackage.getIcons()["icon-large"]
+                    }
                   />
                 </div>
               </div>
-              <div className="media-object-item media-object-item-grow">
-                <div className="flex flex-direction-left-to-right">
-                  <h1 className="short flush-top">{name}</h1>
-                  {this.getPackageVersionsDropdown()}
+              {!state.isLoadingSelectedVersion && (
+                <div className="media-object-item media-object-item-grow ">
+                  <div className="flex flex-direction-left-to-right">
+                    <h1 className="short flush-top">{name}</h1>
+                    {this.getPackageVersionsDropdown()}
+                  </div>
+                  <div className="row">
+                    {this.getPackageBadge(cosmosPackage)}
+                  </div>
                 </div>
-                <div className="row">{this.getPackageBadge(cosmosPackage)}</div>
-              </div>
+              )}
               <div className="media-object-item package-action-buttons">
                 {this.getInstallButtons(cosmosPackage)}
               </div>
