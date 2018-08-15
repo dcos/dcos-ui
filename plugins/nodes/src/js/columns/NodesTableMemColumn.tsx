@@ -1,6 +1,7 @@
 import * as React from "react";
 import sort from "array-sort";
 import Node from "#SRC/js/structs/Node";
+import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import ProgressBar from "#SRC/js/components/ProgressBar";
@@ -15,7 +16,10 @@ export function memRenderer(data: Node): React.ReactNode {
     <Cell>
       <ProgressBar
         data={[
-          { value: data.getUsageStats("mem").percentage, className: "color-1" }
+          {
+            value: data.getUsageStats("mem").percentage,
+            className: `color-${ResourcesUtil.getResourceColor("mem")}`
+          }
         ]}
         total={100}
       />
