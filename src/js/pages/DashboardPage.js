@@ -4,6 +4,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { FormattedMessage } from "react-intl";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 import Breadcrumb from "../components/Breadcrumb";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
@@ -171,6 +172,7 @@ var DashboardPage = React.createClass({
 
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
+    const resourceColors = ResourcesUtil.getResourceColors();
     var data = this.internalStorage_get();
 
     return (
@@ -183,7 +185,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.CPU")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={0}
+                colorIndex={resourceColors["cpus"]}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
@@ -198,7 +200,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.MEMORY")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={0}
+                colorIndex={resourceColors["mem"]}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
@@ -213,7 +215,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.DISK")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={0}
+                colorIndex={resourceColors["disk"]}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
@@ -228,7 +230,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading("DASHBOARD.PANEL_HEADING.GPU")}
             >
               <ResourceTimeSeriesChart
-                colorIndex={0}
+                colorIndex={resourceColors["gpus"]}
                 usedResourcesStates={data.usedResourcesStates}
                 usedResources={data.usedResources}
                 totalResources={data.totalResources}
