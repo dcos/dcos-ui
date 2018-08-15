@@ -22,33 +22,34 @@ You can choose from two ways of developing this repository.
 Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
 #### DC/OS Installation Instructions:
-1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
-2. Clone this repo:
+1. Clone this repo:
 
   ```sh
   git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
   ```
 
-3. Install dependencies:
+2. Install dependencies:
 
   ```sh
   npm i
   ```
 
-4. Add developer files for config overrides:
+3. Add developer files for config overrides:
 
   ```sh
   npm run scaffold
   ```
-  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration. Edit `webpack/proxy.dev.js` to point to the  address of the `dcos-vagrant` machine.
+  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration. Edit `webpack/proxy.dev.js` to point to the cluster address.
 
-5. Start the development server:
+4. Start the development server:
 
   ```sh
   npm start
   ```
 
-6. Navigate to [http://localhost:4200](http://localhost:4200)
+5. Navigate to [http://localhost:4200](http://localhost:4200)
+
+*6. (optional, not suggested) Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.*
 
 ### Development with Docker
 

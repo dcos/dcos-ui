@@ -236,5 +236,10 @@ describe("PackageDetailTab", function() {
       thisInstance.render();
       expect(thisInstance.getLoadingScreen).not.toHaveBeenCalled();
     });
+
+    it("does not render stale data when the service is changed", function() {
+      thisInstance.state.isLoadingSelectedVersion = true;
+      expect(thisInstance.render()).toMatchSnapshot();
+    });
   });
 });
