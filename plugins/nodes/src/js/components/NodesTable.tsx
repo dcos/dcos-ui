@@ -33,28 +33,21 @@ import {
   tasksRenderer,
   tasksSizer
 } from "../columns/NodesTableTasksColumn";
-import { cpubarRenderer, cpubarSizer } from "../columns/NodesTableCPUBarColumn";
 import {
   cpuSorter,
   cpuRenderer,
   cpuSizer
 } from "../columns/NodesTableCPUColumn";
-import { membarRenderer, membarSizer } from "../columns/NodesTableMemBarColumn";
 import {
   memSorter,
   memRenderer,
   memSizer
 } from "../columns/NodesTableMemColumn";
 import {
-  diskbarRenderer,
-  diskbarSizer
-} from "../columns/NodesTableDiskBarColumn";
-import {
   diskSorter,
   diskRenderer,
   diskSizer
 } from "../columns/NodesTableDiskColumn";
-import { gpubarSizer, gpubarRenderer } from "../columns/NodesTableGPUBarColumn";
 import {
   gpuSorter,
   gpuRenderer,
@@ -265,12 +258,6 @@ export default class NodesTable extends React.Component<
           />
 
           <Column
-            header={<span title="CPUBar" />}
-            cellRenderer={cpubarRenderer}
-            width={cpubarSizer}
-          />
-
-          <Column
             header={
               <SortableColumnHeader
                 columnContent="CPU"
@@ -280,12 +267,6 @@ export default class NodesTable extends React.Component<
             }
             cellRenderer={cpuRenderer}
             width={cpuSizer}
-          />
-
-          <Column
-            header={<span title="MemBar" />}
-            cellRenderer={membarRenderer}
-            width={membarSizer}
           />
 
           <Column
@@ -301,12 +282,6 @@ export default class NodesTable extends React.Component<
           />
 
           <Column
-            header={<span title="DiskBar" />}
-            cellRenderer={diskbarRenderer}
-            width={diskbarSizer}
-          />
-
-          <Column
             header={
               <SortableColumnHeader
                 columnContent="Disk"
@@ -316,12 +291,6 @@ export default class NodesTable extends React.Component<
             }
             cellRenderer={diskRenderer}
             width={diskSizer}
-          />
-
-          <Column
-            header={<span title="GPUBar" />}
-            cellRenderer={gpubarRenderer}
-            width={gpubarSizer}
           />
 
           <Column

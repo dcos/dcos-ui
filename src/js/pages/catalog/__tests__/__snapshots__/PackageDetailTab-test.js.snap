@@ -1,0 +1,678 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PackageDetailTab #render does not render stale data when the service is changed 1`] = `
+<Page>
+  <PageHeader
+    actions={Array []}
+    breadcrumbs={
+      <PackageDetailBreadcrumbs
+        cosmosPackage={
+          Object {
+            "config": Object {
+              "additionalProperties": false,
+              "description": "Marathon DCOS Service properties",
+              "properties": Object {
+                "jvm": Object {
+                  "additionalProperties": false,
+                  "description": "JVM configuration properties",
+                  "properties": Object {
+                    "heap-max": Object {
+                      "default": 768,
+                      "description": "Memory (MB) max size for the JVM heap. This number should be less than the memory allocated to the Marathon instance (General rule: 50%).",
+                      "minimum": 0,
+                      "type": "integer",
+                    },
+                    "heap-min": Object {
+                      "default": 256,
+                      "description": "Memory (MB) start size for the JVM heap. This number should be be less or equals than the heap-max.",
+                      "minimum": 0,
+                      "type": "integer",
+                    },
+                    "opts": Object {
+                      "description": "Allows additional JVM_OPTS to be applied outside of the standard mx and ms.",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "heap-min",
+                    "heap-max",
+                  ],
+                  "type": "object",
+                },
+                "marathon": Object {
+                  "additionalProperties": true,
+                  "description": "Marathon command line flags. These are the same flags that are passed through to Marathon when launching manually from the command line. See details here: https://mesosphere.github.io/marathon/docs/command-line-flags.html",
+                  "properties": Object {
+                    "access-control-allow-origin": Object {
+                      "description": "The origin(s) to allow in Marathon. Not set by default. Example values are \\"*\\", or \\"http://localhost:8888, http://domain.com\\"",
+                      "type": "string",
+                    },
+                    "artifact-store": Object {
+                      "description": "URL to the artifact store. Supported store types hdfs, file. Example: hdfs://localhost:54310/path/to/store, file:///var/log/store",
+                      "type": "string",
+                    },
+                    "checkpoint": Object {
+                      "default": true,
+                      "description": "Enabled: (Default) Enable checkpointing of tasks. Requires checkpointing enabled on slaves. Allows tasks to continue running during mesos-slave restarts and upgrades Disabled: Disable checkpointing of tasks.",
+                      "type": "boolean",
+                    },
+                    "decline-offer-duration": Object {
+                      "default": 120000,
+                      "description": "(Default: 120 seconds) The duration (milliseconds) for which to decline offers by default",
+                      "type": "integer",
+                    },
+                    "default-accepted-resource-roles": Object {
+                      "default": "*",
+                      "description": "Default for the defaultAcceptedResourceRoles attribute of all app definitions as a comma-separated list of strings. This defaults to all roles for which this Marathon instance is configured to receive offers.",
+                      "type": "string",
+                    },
+                    "default-network-name": Object {
+                      "description": "Network name, injected into applications' ipAddress{} specs that do not define their own networkName.",
+                      "type": "string",
+                    },
+                    "disable-http": Object {
+                      "default": false,
+                      "description": "Disable listening for HTTP requests completely. HTTPS is unaffected.",
+                      "type": "boolean",
+                    },
+                    "enable-features": Object {
+                      "default": "vips,task_killing",
+                      "description": "A comma-separated list of features. Available features are: secrets - Enable support for secrets in Marathon (experimental), external_volumes - Enable external volumes support in Marathon, vips - Enable networking VIPs UI, gpu_resources - Enable support for GPU in Marathon (experimental), task_killing - Enable the optional TASK_KILLING state, available in Mesos 0.28 and later",
+                      "type": "string",
+                    },
+                    "env-vars-prefix": Object {
+                      "description": "Prefix to use for environment variables injected automatically into all started tasks.",
+                      "type": "string",
+                    },
+                    "event-stream-max-outstanding-messages": Object {
+                      "default": 50,
+                      "description": "The event stream buffers events, that are not already consumed by clients. This number defines the number of events that get buffered on the server side, before messages are dropped.",
+                      "type": "integer",
+                    },
+                    "event-subscriber": Object {
+                      "description": "The event subscription module to use. E.g. http_callback.",
+                      "type": "string",
+                    },
+                    "executor": Object {
+                      "default": "//cmd",
+                      "description": "Executor to use when none is specified. If not defined the Mesos command executor is used by default.",
+                      "type": "string",
+                    },
+                    "failover-timeout": Object {
+                      "default": 604800,
+                      "description": "(Default: 1 week) The failover_timeout for mesos in seconds.",
+                      "type": "integer",
+                    },
+                    "framework-name": Object {
+                      "description": "(Default: service.name) Framework name to register with Mesos.",
+                      "type": "string",
+                    },
+                    "ha": Object {
+                      "default": true,
+                      "description": "Enabled: (Default) Run Marathon in HA mode with leader election. Allows starting an arbitrary number of other Marathons but all need to be started in HA mode. This mode requires a running ZooKeeper Disabled: Run Marathon in single node mode.",
+                      "type": "boolean",
+                    },
+                    "hostname": Object {
+                      "description": "The advertised hostname that is used for the communication with the Mesos master. The value is also stored in the persistent store so another standby host can redirect to the elected leader.",
+                      "type": "string",
+                    },
+                    "http-address": Object {
+                      "description": "The address to listen on for HTTP requests",
+                      "type": "string",
+                    },
+                    "http-compression": Object {
+                      "default": true,
+                      "description": "Enabled: (Default) Enable http compression. Disabled: Disable http compression. ",
+                      "type": "boolean",
+                    },
+                    "http-credentials": Object {
+                      "description": "Credentials for accessing the http service. If empty, anyone can access the HTTP endpoint. A username:password pair is expected where the username must not contain ':'. May also be specified with the \`MESOSPHERE_HTTP_CREDENTIALS\` environment variable. ",
+                      "type": "string",
+                    },
+                    "http-endpoints": Object {
+                      "description": "The URLs of the event endpoints added to the current list of subscribers on startup. You can manage this list during runtime by using the /v2/eventSubscriptions API endpoint.",
+                      "type": "string",
+                    },
+                    "http-event-callback-slow-consumer-timeout": Object {
+                      "default": 10000,
+                      "description": "A http event callback consumer is considered slow, if the delivery takes longer than this timeout (ms)",
+                      "type": "integer",
+                    },
+                    "http-event-request-timeout": Object {
+                      "default": 10000,
+                      "description": "A http event request timeout (ms)",
+                      "type": "integer",
+                    },
+                    "http-max-concurrent-requests": Object {
+                      "description": "The number of concurrent HTTP requests that are allowed before rejecting.",
+                      "type": "integer",
+                    },
+                    "http-port": Object {
+                      "description": "The port to listen on for HTTP requests",
+                      "type": "integer",
+                    },
+                    "http-realm": Object {
+                      "default": "Mesosphere",
+                      "description": "The security realm (aka 'area') associated with the credentials",
+                      "type": "string",
+                    },
+                    "https-address": Object {
+                      "description": "The address to listen on for HTTPS requests.",
+                      "type": "string",
+                    },
+                    "https-port": Object {
+                      "description": "The port to listen on for HTTPS requests",
+                      "type": "integer",
+                    },
+                    "launch-token-refresh-interval": Object {
+                      "default": 30000,
+                      "description": "The interval (ms) in which to refresh the launch tokens to --launch_token_count",
+                      "type": "integer",
+                    },
+                    "launch-tokens": Object {
+                      "default": 100,
+                      "description": "Launch tokens per interval",
+                      "type": "integer",
+                    },
+                    "leader-proxy-connection-timeout": Object {
+                      "default": 5000,
+                      "description": "Maximum time, in milliseconds, to wait for connecting to the current Marathon leader from another Marathon instance.",
+                      "type": "integer",
+                    },
+                    "leader-proxy-read-timeout": Object {
+                      "default": 10000,
+                      "description": "Maximum time, in milliseconds, for reading from the current Marathon leader.",
+                      "type": "integer",
+                    },
+                    "leader-proxy-ssl-ignore-hostname": Object {
+                      "default": false,
+                      "description": "Do not verify that the hostname of the Marathon leader matches the one in the SSL certificate when proxying API requests to the current leader.",
+                      "type": "boolean",
+                    },
+                    "local-port-max": Object {
+                      "default": 20000,
+                      "description": "Max port number to use when assigning globally unique service ports to apps.",
+                      "type": "integer",
+                    },
+                    "local-port-min": Object {
+                      "default": 10000,
+                      "description": "Min port number to use when assigning globally unique service ports to apps.",
+                      "type": "integer",
+                    },
+                    "logging-level": Object {
+                      "description": "Set logging level to one of: off, error, warn, info, debug, trace, all",
+                      "type": "string",
+                    },
+                    "logstash": Object {
+                      "description": "Logs destination URI in format (udp|tcp|ssl)://<host>:<port>",
+                      "type": "string",
+                    },
+                    "master": Object {
+                      "default": "zk://master.mesos:2181/mesos",
+                      "description": "The URL of the Mesos master",
+                      "type": "string",
+                    },
+                    "max-apps": Object {
+                      "description": "The maximum number of applications that may be created.",
+                      "type": "integer",
+                    },
+                    "max-instances-per-offer": Object {
+                      "description": "Max instances per offer. Do not start more than this number of app or pod instances on a single offer.",
+                      "type": "integer",
+                    },
+                    "max-tasks-per-offer": Object {
+                      "default": 1,
+                      "description": "(deprecated) Maximum tasks per offer. Do not start more than this number of tasks on a single offer.",
+                      "type": "integer",
+                    },
+                    "mesos-authentication": Object {
+                      "default": false,
+                      "description": "Enabled: Will use framework authentication while registering with Mesos with principal and optional secret. Disabled: (Default) will not use framework authentication while registering with Mesos.",
+                      "type": "boolean",
+                    },
+                    "mesos-authentication-principal": Object {
+                      "description": "(Default: service.name) Mesos Authentication Principal.",
+                      "type": "string",
+                    },
+                    "mesos-authentication-secret": Object {
+                      "description": "Mesos Authentication Secret.",
+                      "type": "string",
+                    },
+                    "mesos-authentication-secret-file": Object {
+                      "description": "Path to a file containing the Mesos Authentication Secret.",
+                      "type": "string",
+                    },
+                    "mesos-leader-ui-url": Object {
+                      "default": "/mesos",
+                      "description": "The host and port (e.g. \\"http://mesos_host:5050\\") of the Mesos master.",
+                      "type": "string",
+                    },
+                    "mesos-role": Object {
+                      "description": "(Default: service.name) Mesos role for this framework. If set, Marathon receives resource offers for the specified role in addition to resources with the role designation '*'.",
+                      "type": "string",
+                    },
+                    "mesos-user": Object {
+                      "description": "Mesos user for this framework.",
+                      "type": "string",
+                    },
+                    "metrics": Object {
+                      "default": true,
+                      "description": "Enabled: (Default) Expose the execution time of service method calls using code instrumentation via the metrics endpoint (/metrics). This might noticeably degrade performance but can help finding performance problems. Disabled: Disable exposing execution time of service method calls using code instrumentation via the metrics endpoing (/metrics). This does not turn off reporting of other metrics.",
+                      "type": "boolean",
+                    },
+                    "min-revive-offers-interval": Object {
+                      "default": 5000,
+                      "description": "Do not ask for all offers (also already seen ones) more often than this interval (ms).",
+                      "type": "integer",
+                    },
+                    "offer-matching-timeout": Object {
+                      "default": 1000,
+                      "description": "Offer matching timeout (ms). Stop trying to match additional tasks for this offer after this time.",
+                      "type": "integer",
+                    },
+                    "on-elected-prepare-timeout": Object {
+                      "default": 180000,
+                      "description": "The timeout for preparing the Marathon instance when elected as leader.",
+                      "type": "integer",
+                    },
+                    "plugin-conf": Object {
+                      "description": "The plugin configuration file.",
+                      "type": "string",
+                    },
+                    "plugin-dir": Object {
+                      "description": "Path to a local directory containing plugin jars.",
+                      "type": "string",
+                    },
+                    "reconciliation-initial-delay": Object {
+                      "default": 15000,
+                      "description": "This is the length of time, in milliseconds, before Marathon begins to periodically perform task reconciliation operations",
+                      "type": "integer",
+                    },
+                    "reconciliation-interval": Object {
+                      "default": 600000,
+                      "description": "This is the length of time, in milliseconds, between task reconciliation operations.",
+                      "type": "integer",
+                    },
+                    "reporter-datadog": Object {
+                      "description": "URL to dogstatsd agent. e.g. udp://localhost:8125?prefix=marathon-test&tags=marathon&interval=10",
+                      "type": "string",
+                    },
+                    "reporter-graphite": Object {
+                      "description": "URL to graphite agent. e.g. tcp://localhost:2003?prefix=marathon-test&interval=10",
+                      "type": "string",
+                    },
+                    "revive-offers-repetitions": Object {
+                      "default": 3,
+                      "description": "Repeat every reviveOffer request this many times, delayed by the --min_revive_offers_interval.",
+                      "type": "integer",
+                    },
+                    "save-tasks-to-launch-timeout": Object {
+                      "default": 3000,
+                      "description": "Timeout (ms) after matching an offer for saving all matched tasks that we are about to launch. When reaching the timeout, only the tasks that we could save within the timeout are also launched. All other task launches are temporarily rejected and retried later.",
+                      "type": "integer",
+                    },
+                    "scale-apps-initial-delay": Object {
+                      "default": 15000,
+                      "description": "This is the length of time, in milliseconds, before Marathon begins to periodically attempt to scale apps.",
+                      "type": "integer",
+                    },
+                    "scale-apps-interval": Object {
+                      "default": 300000,
+                      "description": "This is the length of time, in milliseconds, between task scale apps.",
+                      "type": "integer",
+                    },
+                    "sentry": Object {
+                      "description": "URI for sentry, e.g. https://<public>:<private>@sentryserver/",
+                      "type": "string",
+                    },
+                    "sentry-tags": Object {
+                      "description": "Tags to post to sentry with, e.g: tag1:value1,tag2:value2",
+                      "type": "string",
+                    },
+                    "ssl-keystore-password": Object {
+                      "description": "Password for the keystore supplied with the \`ssl_keystore_path\` option. Required if \`ssl_keystore_path\` is supplied. May also be specified with the \`MESOSPHERE_KEYSTORE_PASS\` environment variable.",
+                      "type": "string",
+                    },
+                    "ssl-keystore-path": Object {
+                      "description": "Path to the SSL keystore. HTTPS (SSL) will be enabled if this option is supplied. Requires \`--ssl_keystore_password\`. May also be specified with the \`MESOSPHERE_KEYSTORE_PATH\` environment variable.",
+                      "type": "string",
+                    },
+                    "store-cache": Object {
+                      "default": true,
+                      "description": "Enabled: (Default) Enable an in-memory cache for the storage layer. Disabled: Disable the in-memory cache for the storage layer. ",
+                      "type": "boolean",
+                    },
+                    "task-launch-confirm-timeout": Object {
+                      "default": 300000,
+                      "description": "Time, in milliseconds, to wait for a task to enter the TASK_STAGING state before killing it.",
+                      "type": "integer",
+                    },
+                    "task-launch-timeout": Object {
+                      "default": 300000,
+                      "description": "Time, in milliseconds, to wait for a task to enter the TASK_RUNNING state before killing it.",
+                      "type": "integer",
+                    },
+                    "task-lost-expunge-initial-delay": Object {
+                      "default": 300000,
+                      "description": "This is the length of time, in milliseconds, before Marathon begins to periodically perform task expunge gc operations",
+                      "type": "integer",
+                    },
+                    "task-lost-expunge-interval": Object {
+                      "default": 30000,
+                      "description": "This is the length of time in milliseconds, for lost task gc operations.",
+                      "type": "integer",
+                    },
+                    "task-reservation-timeout": Object {
+                      "default": 20000,
+                      "description": "Time, in milliseconds, to wait for a new reservation to be acknowledged via a received offer before deleting it.",
+                      "type": "integer",
+                    },
+                    "tracing": Object {
+                      "default": false,
+                      "description": "Enabled: Enable trace logging of service method calls. Disabled: (Default) Disable trace logging of service method calls.",
+                      "type": "boolean",
+                    },
+                    "webui-url": Object {
+                      "description": "The HTTP(S) url of the web ui, defaulting to the advertised hostname.",
+                      "type": "string",
+                    },
+                    "zk": Object {
+                      "description": "ZooKeeper URL for storing state. Format: zk://host1:port1,host2:port2,.../path",
+                      "type": "string",
+                    },
+                    "zk-compression": Object {
+                      "default": true,
+                      "description": "Enabled: (Default) Enable compression of zk nodes, if the size of the node is bigger than the configured threshold. Disabled: Disable compression of zk nodes",
+                      "type": "boolean",
+                    },
+                    "zk-compression-threshold": Object {
+                      "default": 65536,
+                      "description": "(Default: 64 KB) Threshold in bytes, when compression is applied to the ZooKeeper node.",
+                      "type": "integer",
+                    },
+                    "zk-max-node-size": Object {
+                      "default": 1024000,
+                      "description": "(Default: 1 MiB) Maximum allowed ZooKeeper node size (in bytes).",
+                      "type": "integer",
+                    },
+                    "zk-max-versions": Object {
+                      "default": 50,
+                      "description": "Limit the number of versions, stored for one entity.",
+                      "type": "integer",
+                    },
+                    "zk-session-timeout": Object {
+                      "default": 10000,
+                      "description": "The timeout for ZooKeeper sessions in milliseconds",
+                      "type": "integer",
+                    },
+                    "zk-timeout": Object {
+                      "default": 10000,
+                      "description": "The timeout for ZooKeeper operations in milliseconds.",
+                      "type": "integer",
+                    },
+                  },
+                  "required": Array [
+                    "master",
+                  ],
+                  "type": "object",
+                },
+                "service": Object {
+                  "additionalProperties": false,
+                  "description": "Marathon app configuration properties.",
+                  "properties": Object {
+                    "cpus": Object {
+                      "default": 2,
+                      "description": "CPU shares to allocate to each Marathon instance.",
+                      "minimum": 0,
+                      "type": "number",
+                    },
+                    "custom_yml": Object {
+                      "default": "ZGlzY292ZXJ5Og0KICAgIHplbjoNCiAgICAgICAgcGluZzoNCiAgICAgICAgICAgIG11bHRpY2FzdDoNCiAgICAgICAgICAgICAgICBlbmFibGVkOiBmYWxzZQ==",
+                      "description": "Custom YAML to be appended to config.yml on each node. This field must be base64 encoded.",
+                      "media": Object {
+                        "type": "application/x-yaml",
+                      },
+                      "type": "string",
+                    },
+                    "group": Object {
+                      "description": "The group of this Marathon service inside DCOS base Marathon. If a group is defined, the id of this service will be group/name",
+                      "pattern": "^[/]?(([a-z0-9])([a-z0-9\\\\-]*[a-z0-9]))([/](([a-z0-9])([a-z0-9\\\\-]*[a-z0-9])))*$",
+                      "type": "string",
+                    },
+                    "instances": Object {
+                      "default": 1,
+                      "description": "Number of Marathon instances to run.",
+                      "minimum": 0,
+                      "type": "integer",
+                    },
+                    "mem": Object {
+                      "default": 1536,
+                      "description": "Memory (MB) to allocate to each Marathon instance.",
+                      "minimum": 512,
+                      "type": "number",
+                    },
+                    "name": Object {
+                      "default": "marathon-user",
+                      "description": "The name of this Marathon service inside DCOS base Marathon.
+If not specified otherwise, this name will also be used for the framework name, dcos service name, zk path and mesos role.
+To create a nested path, please specify a group.",
+                      "pattern": "^(([a-z0-9]|[a-z0-9][a-z0-9\\\\-]*[a-z0-9])\\\\.)*([a-z0-9]|[a-z0-9][a-z0-9\\\\-]*[a-z0-9])$",
+                      "type": "string",
+                    },
+                    "placement_constraints": Object {
+                      "default": "[]",
+                      "description": "Placement Constraints",
+                      "media": Object {
+                        "type": "application/x-region-zone-constraints+json",
+                      },
+                      "type": "string",
+                    },
+                    "region": Object {
+                      "default": "",
+                      "description": "Region picker",
+                      "media": Object {
+                        "type": "application/x-region+string",
+                      },
+                      "type": "string",
+                    },
+                    "uris": Object {
+                      "default": Array [],
+                      "description": "List of URIs that will be downloaded and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
+                      "items": Object {
+                        "pattern": "^[\\\\s]+",
+                        "type": "string",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "required": Array [
+                    "cpus",
+                    "mem",
+                    "instances",
+                  ],
+                  "type": "object",
+                },
+              },
+              "required": Array [
+                "service",
+                "jvm",
+                "marathon",
+              ],
+              "type": "object",
+            },
+            "description": "A container orchestration platform for Mesos and DCOS.",
+            "framework": true,
+            "licenses": Array [
+              Object {
+                "name": "Apache License Version 2.0",
+                "url": "https://github.com/mesosphere/marathon/blob/master/LICENSE",
+              },
+            ],
+            "maintainer": "support@mesosphere.io",
+            "marathon": Object {
+              "v2AppMustacheTemplate": "CnsKICAiaWQiOiAie3sjc2VydmljZS5ncm91cH19e3tzZXJ2aWNlLmdyb3VwfX0ve3svc2VydmljZS5ncm91cH19e3tzZXJ2aWNlLm5hbWV9fSIsCiAgImNwdXMiOiB7e3NlcnZpY2UuY3B1c319LAogICJtZW0iOiB7e3NlcnZpY2UubWVtfX0sCiAgImluc3RhbmNlcyI6IHt7c2VydmljZS5pbnN0YW5jZXN9fSwKICAiY29uc3RyYWludHMiOiBbWyJob3N0bmFtZSIsICJVTklRVUUiXV0sCiAgInBvcnRzIjogWwogICAge3sjbWFyYXRob24uaHR0cC1wb3J0fX17e21hcmF0aG9uLmh0dHAtcG9ydH19e3svbWFyYXRob24uaHR0cC1wb3J0fX17e15tYXJhdGhvbi5odHRwLXBvcnR9fTB7ey9tYXJhdGhvbi5odHRwLXBvcnR9fQogICAgLCAwCiAgICB7eyNtYXJhdGhvbi5zc2wta2V5c3RvcmUtcGF0aH19CiAgICB7eyNtYXJhdGhvbi5zc2wta2V5c3RvcmUtcGFzc3dvcmR9fQogICAgLCB7eyNtYXJhdGhvbi5odHRwcy1wb3J0fX17e21hcmF0aG9uLmh0dHBzLXBvcnR9fXt7L21hcmF0aG9uLmh0dHBzLXBvcnR9fXt7Xm1hcmF0aG9uLmh0dHBzLXBvcnR9fTB7ey9tYXJhdGhvbi5odHRwcy1wb3J0fX0KICAgIHt7L21hcmF0aG9uLnNzbC1rZXlzdG9yZS1wYXNzd29yZH19CiAgICB7ey9tYXJhdGhvbi5zc2wta2V5c3RvcmUtcGF0aH19CiAgXSwKICAidXJpcyI6IHt7c2VydmljZS51cmlzfX0sCiAgImhlYWx0aENoZWNrcyI6IFsKICAgIHsKICAgICAgImdyYWNlUGVyaW9kU2Vjb25kcyI6IDE4MDAsCiAgICAgICJpbnRlcnZhbFNlY29uZHMiOiAxMCwKICAgICAgIm1heENvbnNlY3V0aXZlRmFpbHVyZXMiOiAzLAogICAgICAicGF0aCI6ICIvcGluZyIsCiAgICAgICJwb3J0SW5kZXgiOiAwLAogICAgICAicHJvdG9jb2wiOiAiSFRUUCIsCiAgICAgICJ0aW1lb3V0U2Vjb25kcyI6IDUKICAgIH0KICBdLAogICJjb250YWluZXIiOiB7CiAgICAidHlwZSI6ICJET0NLRVIiLAogICAgImRvY2tlciI6IHsKICAgICAgImltYWdlIjogInt7cmVzb3VyY2UuYXNzZXRzLmNvbnRhaW5lci5kb2NrZXIuaW1hZ2V9fSIsCiAgICAgICJuZXR3b3JrIjogIkhPU1QiCiAgICB9CiAgfSwKICAiZW52IjogewogICAgIkpWTV9PUFRTIjogIi1YbXN7e2p2bS5oZWFwLW1pbn19bSAtWG14e3tqdm0uaGVhcC1tYXh9fW0ge3sjanZtLm9wdHN9fXt7anZtLm9wdHN9fXt7L2p2bS5vcHRzfX0iCiAgfSwKICAiY21kIjogIkxJQlBST0NFU1NfUE9SVD0kUE9SVDEgJiYgLi9iaW4vc3RhcnQge3sjbWFyYXRob24uYWNjZXNzLWNvbnRyb2wtYWxsb3ctb3JpZ2lufX0tLWFjY2Vzc19jb250cm9sX2FsbG93X29yaWdpbiBcInt7bWFyYXRob24uYWNjZXNzLWNvbnRyb2wtYWxsb3ctb3JpZ2lufX1cInt7L21hcmF0aG9uLmFjY2Vzcy1jb250cm9sLWFsbG93LW9yaWdpbn19IHt7I21hcmF0aG9uLmFydGlmYWN0LXN0b3JlfX0tLWFydGlmYWN0X3N0b3JlIFwie3ttYXJhdGhvbi5hcnRpZmFjdC1zdG9yZX19XCJ7ey9tYXJhdGhvbi5hcnRpZmFjdC1zdG9yZX19IHt7I21hcmF0aG9uLmNoZWNrcG9pbnR9fSAtLWNoZWNrcG9pbnR7ey9tYXJhdGhvbi5jaGVja3BvaW50fX17e15tYXJhdGhvbi5jaGVja3BvaW50fX0tLWRpc2FibGVfY2hlY2twb2ludHt7L21hcmF0aG9uLmNoZWNrcG9pbnR9fSB7eyNtYXJhdGhvbi5kZWNsaW5lLW9mZmVyLWR1cmF0aW9ufX0tLWRlY2xpbmVfb2ZmZXJfZHVyYXRpb24gXCJ7e21hcmF0aG9uLmRlY2xpbmUtb2ZmZXItZHVyYXRpb259fVwie3svbWFyYXRob24uZGVjbGluZS1vZmZlci1kdXJhdGlvbn19IHt7I21hcmF0aG9uLmRlZmF1bHQtYWNjZXB0ZWQtcmVzb3VyY2Utcm9sZXN9fS0tZGVmYXVsdF9hY2NlcHRlZF9yZXNvdXJjZV9yb2xlcyBcInt7bWFyYXRob24uZGVmYXVsdC1hY2NlcHRlZC1yZXNvdXJjZS1yb2xlc319XCJ7ey9tYXJhdGhvbi5kZWZhdWx0LWFjY2VwdGVkLXJlc291cmNlLXJvbGVzfX0ge3sjbWFyYXRob24uZGVmYXVsdC1uZXR3b3JrLW5hbWV9fS0tZGVmYXVsdF9uZXR3b3JrX25hbWUgXCJ7e21hcmF0aG9uLmRlZmF1bHQtbmV0d29yay1uYW1lfX1cInt7L21hcmF0aG9uLmRlZmF1bHQtbmV0d29yay1uYW1lfX0ge3sjbWFyYXRob24uZGlzYWJsZS1odHRwfX0tLWRpc2FibGVfaHR0cHt7L21hcmF0aG9uLmRpc2FibGUtaHR0cH19IHt7I21hcmF0aG9uLmVuYWJsZS1mZWF0dXJlc319LS1lbmFibGVfZmVhdHVyZXMgXCJ7e21hcmF0aG9uLmVuYWJsZS1mZWF0dXJlc319XCJ7ey9tYXJhdGhvbi5lbmFibGUtZmVhdHVyZXN9fSB7eyNtYXJhdGhvbi5lbnYtdmFycy1wcmVmaXh9fS0tZW52X3ZhcnNfcHJlZml4IFwie3ttYXJhdGhvbi5lbnYtdmFycy1wcmVmaXh9fVwie3svbWFyYXRob24uZW52LXZhcnMtcHJlZml4fX0ge3sjbWFyYXRob24uZXZlbnQtc3RyZWFtLW1heC1vdXRzdGFuZGluZy1tZXNzYWdlc319LS1ldmVudF9zdHJlYW1fbWF4X291dHN0YW5kaW5nX21lc3NhZ2VzIFwie3ttYXJhdGhvbi5ldmVudC1zdHJlYW0tbWF4LW91dHN0YW5kaW5nLW1lc3NhZ2VzfX1cInt7L21hcmF0aG9uLmV2ZW50LXN0cmVhbS1tYXgtb3V0c3RhbmRpbmctbWVzc2FnZXN9fSB7eyNtYXJhdGhvbi5ldmVudC1zdWJzY3JpYmVyfX0tLWV2ZW50X3N1YnNjcmliZXIgXCJ7e21hcmF0aG9uLmV2ZW50LXN1YnNjcmliZXJ9fVwie3svbWFyYXRob24uZXZlbnQtc3Vic2NyaWJlcn19IHt7I21hcmF0aG9uLmV4ZWN1dG9yfX0tLWV4ZWN1dG9yIFwie3ttYXJhdGhvbi5leGVjdXRvcn19XCJ7ey9tYXJhdGhvbi5leGVjdXRvcn19IHt7I21hcmF0aG9uLmZhaWxvdmVyLXRpbWVvdXR9fS0tZmFpbG92ZXJfdGltZW91dCBcInt7bWFyYXRob24uZmFpbG92ZXItdGltZW91dH19XCJ7ey9tYXJhdGhvbi5mYWlsb3Zlci10aW1lb3V0fX0gLS1mcmFtZXdvcmtfbmFtZSB7eyNtYXJhdGhvbi5mcmFtZXdvcmstbmFtZX19e3ttYXJhdGhvbi5mcmFtZXdvcmstbmFtZX19e3svbWFyYXRob24uZnJhbWV3b3JrLW5hbWV9fXt7Xm1hcmF0aG9uLmZyYW1ld29yay1uYW1lfX17e3NlcnZpY2UubmFtZX19e3svbWFyYXRob24uZnJhbWV3b3JrLW5hbWV9fSB7eyNtYXJhdGhvbi5oYX19IC0taGF7ey9tYXJhdGhvbi5oYX19e3tebWFyYXRob24uaGF9fS0tZGlzYWJsZV9oYXt7L21hcmF0aG9uLmhhfX0gLS1ob3N0bmFtZSB7eyNtYXJhdGhvbi5ob3N0bmFtZX19e3ttYXJhdGhvbi5ob3N0bmFtZX19e3svbWFyYXRob24uaG9zdG5hbWV9fXt7Xm1hcmF0aG9uLmhvc3RuYW1lfX0kTElCUFJPQ0VTU19JUHt7L21hcmF0aG9uLmhvc3RuYW1lfX0ge3sjbWFyYXRob24uaHR0cC1hZGRyZXNzfX0tLWh0dHBfYWRkcmVzcyBcInt7bWFyYXRob24uaHR0cC1hZGRyZXNzfX1cInt7L21hcmF0aG9uLmh0dHAtYWRkcmVzc319IHt7I21hcmF0aG9uLmh0dHAtY29tcHJlc3Npb259fSAtLWh0dHBfY29tcHJlc3Npb257ey9tYXJhdGhvbi5odHRwLWNvbXByZXNzaW9ufX17e15tYXJhdGhvbi5odHRwLWNvbXByZXNzaW9ufX0tLWRpc2FibGVfaHR0cF9jb21wcmVzc2lvbnt7L21hcmF0aG9uLmh0dHAtY29tcHJlc3Npb259fSB7eyNtYXJhdGhvbi5odHRwLWNyZWRlbnRpYWxzfX0tLWh0dHBfY3JlZGVudGlhbHMgXCJ7e21hcmF0aG9uLmh0dHAtY3JlZGVudGlhbHN9fVwie3svbWFyYXRob24uaHR0cC1jcmVkZW50aWFsc319IHt7I21hcmF0aG9uLmh0dHAtZW5kcG9pbnRzfX0tLWh0dHBfZW5kcG9pbnRzIFwie3ttYXJhdGhvbi5odHRwLWVuZHBvaW50c319XCJ7ey9tYXJhdGhvbi5odHRwLWVuZHBvaW50c319IHt7I21hcmF0aG9uLmh0dHAtZXZlbnQtY2FsbGJhY2stc2xvdy1jb25zdW1lci10aW1lb3V0fX0tLWh0dHBfZXZlbnRfY2FsbGJhY2tfc2xvd19jb25zdW1lcl90aW1lb3V0IFwie3ttYXJhdGhvbi5odHRwLWV2ZW50LWNhbGxiYWNrLXNsb3ctY29uc3VtZXItdGltZW91dH19XCJ7ey9tYXJhdGhvbi5odHRwLWV2ZW50LWNhbGxiYWNrLXNsb3ctY29uc3VtZXItdGltZW91dH19IHt7I21hcmF0aG9uLmh0dHAtZXZlbnQtcmVxdWVzdC10aW1lb3V0fX0tLWh0dHBfZXZlbnRfcmVxdWVzdF90aW1lb3V0IFwie3ttYXJhdGhvbi5odHRwLWV2ZW50LXJlcXVlc3QtdGltZW91dH19XCJ7ey9tYXJhdGhvbi5odHRwLWV2ZW50LXJlcXVlc3QtdGltZW91dH19IHt7I21hcmF0aG9uLmh0dHAtbWF4LWNvbmN1cnJlbnQtcmVxdWVzdHN9fS0taHR0cF9tYXhfY29uY3VycmVudF9yZXF1ZXN0cyBcInt7bWFyYXRob24uaHR0cC1tYXgtY29uY3VycmVudC1yZXF1ZXN0c319XCJ7ey9tYXJhdGhvbi5odHRwLW1heC1jb25jdXJyZW50LXJlcXVlc3RzfX0gLS1odHRwX3BvcnQge3sjbWFyYXRob24uaHR0cC1wb3J0fX17e21hcmF0aG9uLmh0dHAtcG9ydH19e3svbWFyYXRob24uaHR0cC1wb3J0fX17e15tYXJhdGhvbi5odHRwLXBvcnR9fSAkUE9SVDAge3svbWFyYXRob24uaHR0cC1wb3J0fX0ge3sjbWFyYXRob24uaHR0cC1yZWFsbX19LS1odHRwX3JlYWxtIFwie3ttYXJhdGhvbi5odHRwLXJlYWxtfX1cInt7L21hcmF0aG9uLmh0dHAtcmVhbG19fSB7eyNtYXJhdGhvbi5odHRwcy1hZGRyZXNzfX0tLWh0dHBzX2FkZHJlc3MgXCJ7e21hcmF0aG9uLmh0dHBzLWFkZHJlc3N9fVwie3svbWFyYXRob24uaHR0cHMtYWRkcmVzc319IHt7I21hcmF0aG9uLnNzbC1rZXlzdG9yZS1wYXRofX0tLWh0dHBzX3BvcnQge3sjbWFyYXRob24uaHR0cHMtcG9ydH19e3ttYXJhdGhvbi5odHRwcy1wb3J0fX17ey9tYXJhdGhvbi5odHRwcy1wb3J0fX17e15tYXJhdGhvbi5odHRwcy1wb3J0fX0gJFBPUlQyIHt7L21hcmF0aG9uLmh0dHBzLXBvcnR9fXt7L21hcmF0aG9uLnNzbC1rZXlzdG9yZS1wYXRofX0ge3sjbWFyYXRob24ubGF1bmNoLXRva2VuLXJlZnJlc2gtaW50ZXJ2YWx9fS0tbGF1bmNoX3Rva2VuX3JlZnJlc2hfaW50ZXJ2YWwgXCJ7e21hcmF0aG9uLmxhdW5jaC10b2tlbi1yZWZyZXNoLWludGVydmFsfX1cInt7L21hcmF0aG9uLmxhdW5jaC10b2tlbi1yZWZyZXNoLWludGVydmFsfX0ge3sjbWFyYXRob24ubGF1bmNoLXRva2Vuc319LS1sYXVuY2hfdG9rZW5zIFwie3ttYXJhdGhvbi5sYXVuY2gtdG9rZW5zfX1cInt7L21hcmF0aG9uLmxhdW5jaC10b2tlbnN9fSB7eyNtYXJhdGhvbi5sZWFkZXItcHJveHktY29ubmVjdGlvbi10aW1lb3V0fX0tLWxlYWRlcl9wcm94eV9jb25uZWN0aW9uX3RpbWVvdXQgXCJ7e21hcmF0aG9uLmxlYWRlci1wcm94eS1jb25uZWN0aW9uLXRpbWVvdXR9fVwie3svbWFyYXRob24ubGVhZGVyLXByb3h5LWNvbm5lY3Rpb24tdGltZW91dH19IHt7I21hcmF0aG9uLmxlYWRlci1wcm94eS1yZWFkLXRpbWVvdXR9fS0tbGVhZGVyX3Byb3h5X3JlYWRfdGltZW91dCBcInt7bWFyYXRob24ubGVhZGVyLXByb3h5LXJlYWQtdGltZW91dH19XCJ7ey9tYXJhdGhvbi5sZWFkZXItcHJveHktcmVhZC10aW1lb3V0fX0ge3sjbWFyYXRob24ubGVhZGVyLXByb3h5LXNzbC1pZ25vcmUtaG9zdG5hbWV9fS0tbGVhZGVyX3Byb3h5X3NzbF9pZ25vcmVfaG9zdG5hbWUgXCJ7e21hcmF0aG9uLmxlYWRlci1wcm94eS1zc2wtaWdub3JlLWhvc3RuYW1lfX1cInt7L21hcmF0aG9uLmxlYWRlci1wcm94eS1zc2wtaWdub3JlLWhvc3RuYW1lfX0ge3sjbWFyYXRob24ubG9jYWwtcG9ydC1tYXh9fS0tbG9jYWxfcG9ydF9tYXggXCJ7e21hcmF0aG9uLmxvY2FsLXBvcnQtbWF4fX1cInt7L21hcmF0aG9uLmxvY2FsLXBvcnQtbWF4fX0ge3sjbWFyYXRob24ubG9jYWwtcG9ydC1taW59fS0tbG9jYWxfcG9ydF9taW4gXCJ7e21hcmF0aG9uLmxvY2FsLXBvcnQtbWlufX1cInt7L21hcmF0aG9uLmxvY2FsLXBvcnQtbWlufX0ge3sjbWFyYXRob24ubG9nZ2luZy1sZXZlbH19LS1sb2dnaW5nX2xldmVsIFwie3ttYXJhdGhvbi5sb2dnaW5nLWxldmVsfX1cInt7L21hcmF0aG9uLmxvZ2dpbmctbGV2ZWx9fSB7eyNtYXJhdGhvbi5sb2dzdGFzaH19LS1sb2dzdGFzaCBcInt7bWFyYXRob24ubG9nc3Rhc2h9fVwie3svbWFyYXRob24ubG9nc3Rhc2h9fSB7eyNtYXJhdGhvbi5tYXN0ZXJ9fS0tbWFzdGVyIFwie3ttYXJhdGhvbi5tYXN0ZXJ9fVwie3svbWFyYXRob24ubWFzdGVyfX0ge3sjbWFyYXRob24ubWF4LWFwcHN9fS0tbWF4X2FwcHMgXCJ7e21hcmF0aG9uLm1heC1hcHBzfX1cInt7L21hcmF0aG9uLm1heC1hcHBzfX0ge3sjbWFyYXRob24ubWF4LWluc3RhbmNlcy1wZXItb2ZmZXJ9fS0tbWF4X2luc3RhbmNlc19wZXJfb2ZmZXIgXCJ7e21hcmF0aG9uLm1heC1pbnN0YW5jZXMtcGVyLW9mZmVyfX1cInt7L21hcmF0aG9uLm1heC1pbnN0YW5jZXMtcGVyLW9mZmVyfX0ge3sjbWFyYXRob24ubWF4LXRhc2tzLXBlci1vZmZlcn19LS1tYXhfdGFza3NfcGVyX29mZmVyIFwie3ttYXJhdGhvbi5tYXgtdGFza3MtcGVyLW9mZmVyfX1cInt7L21hcmF0aG9uLm1heC10YXNrcy1wZXItb2ZmZXJ9fSB7eyNtYXJhdGhvbi5tZXNvcy1hdXRoZW50aWNhdGlvbn19IC0tbWVzb3NfYXV0aGVudGljYXRpb257ey9tYXJhdGhvbi5tZXNvcy1hdXRoZW50aWNhdGlvbn19e3tebWFyYXRob24ubWVzb3MtYXV0aGVudGljYXRpb259fS0tZGlzYWJsZV9tZXNvc19hdXRoZW50aWNhdGlvbnt7L21hcmF0aG9uLm1lc29zLWF1dGhlbnRpY2F0aW9ufX0gLS1tZXNvc19hdXRoZW50aWNhdGlvbl9wcmluY2lwYWwge3sjbWFyYXRob24ubWVzb3MtYXV0aGVudGljYXRpb24tcHJpbmNpcGFsfX17e21hcmF0aG9uLm1lc29zLWF1dGhlbnRpY2F0aW9uLXByaW5jaXBhbH19e3svbWFyYXRob24ubWVzb3MtYXV0aGVudGljYXRpb24tcHJpbmNpcGFsfX17e15tYXJhdGhvbi5tZXNvcy1hdXRoZW50aWNhdGlvbi1wcmluY2lwYWx9fXt7c2VydmljZS5uYW1lfX17ey9tYXJhdGhvbi5tZXNvcy1hdXRoZW50aWNhdGlvbi1wcmluY2lwYWx9fSB7eyNtYXJhdGhvbi5tZXNvcy1hdXRoZW50aWNhdGlvbi1zZWNyZXR9fS0tbWVzb3NfYXV0aGVudGljYXRpb25fc2VjcmV0IFwie3ttYXJhdGhvbi5tZXNvcy1hdXRoZW50aWNhdGlvbi1zZWNyZXR9fVwie3svbWFyYXRob24ubWVzb3MtYXV0aGVudGljYXRpb24tc2VjcmV0fX0ge3sjbWFyYXRob24ubWVzb3MtYXV0aGVudGljYXRpb24tc2VjcmV0LWZpbGV9fS0tbWVzb3NfYXV0aGVudGljYXRpb25fc2VjcmV0X2ZpbGUgXCJ7e21hcmF0aG9uLm1lc29zLWF1dGhlbnRpY2F0aW9uLXNlY3JldC1maWxlfX1cInt7L21hcmF0aG9uLm1lc29zLWF1dGhlbnRpY2F0aW9uLXNlY3JldC1maWxlfX0ge3sjbWFyYXRob24ubWVzb3MtbGVhZGVyLXVpLXVybH19LS1tZXNvc19sZWFkZXJfdWlfdXJsIFwie3ttYXJhdGhvbi5tZXNvcy1sZWFkZXItdWktdXJsfX1cInt7L21hcmF0aG9uLm1lc29zLWxlYWRlci11aS11cmx9fSAtLW1lc29zX3JvbGUge3sjbWFyYXRob24ubWVzb3Mtcm9sZX19e3ttYXJhdGhvbi5tZXNvcy1yb2xlfX17ey9tYXJhdGhvbi5tZXNvcy1yb2xlfX17e15tYXJhdGhvbi5tZXNvcy1yb2xlfX17e3NlcnZpY2UubmFtZX19e3svbWFyYXRob24ubWVzb3Mtcm9sZX19IHt7I21hcmF0aG9uLm1lc29zLXVzZXJ9fS0tbWVzb3NfdXNlciBcInt7bWFyYXRob24ubWVzb3MtdXNlcn19XCJ7ey9tYXJhdGhvbi5tZXNvcy11c2VyfX0ge3sjbWFyYXRob24ubWV0cmljc319IC0tbWV0cmljc3t7L21hcmF0aG9uLm1ldHJpY3N9fXt7Xm1hcmF0aG9uLm1ldHJpY3N9fS0tZGlzYWJsZV9tZXRyaWNze3svbWFyYXRob24ubWV0cmljc319IHt7I21hcmF0aG9uLm1pbi1yZXZpdmUtb2ZmZXJzLWludGVydmFsfX0tLW1pbl9yZXZpdmVfb2ZmZXJzX2ludGVydmFsIFwie3ttYXJhdGhvbi5taW4tcmV2aXZlLW9mZmVycy1pbnRlcnZhbH19XCJ7ey9tYXJhdGhvbi5taW4tcmV2aXZlLW9mZmVycy1pbnRlcnZhbH19IHt7I21hcmF0aG9uLm9mZmVyLW1hdGNoaW5nLXRpbWVvdXR9fS0tb2ZmZXJfbWF0Y2hpbmdfdGltZW91dCBcInt7bWFyYXRob24ub2ZmZXItbWF0Y2hpbmctdGltZW91dH19XCJ7ey9tYXJhdGhvbi5vZmZlci1tYXRjaGluZy10aW1lb3V0fX0ge3sjbWFyYXRob24ub24tZWxlY3RlZC1wcmVwYXJlLXRpbWVvdXR9fS0tb25fZWxlY3RlZF9wcmVwYXJlX3RpbWVvdXQgXCJ7e21hcmF0aG9uLm9uLWVsZWN0ZWQtcHJlcGFyZS10aW1lb3V0fX1cInt7L21hcmF0aG9uLm9uLWVsZWN0ZWQtcHJlcGFyZS10aW1lb3V0fX0ge3sjbWFyYXRob24ucGx1Z2luLWNvbmZ9fS0tcGx1Z2luX2NvbmYgXCJ7e21hcmF0aG9uLnBsdWdpbi1jb25mfX1cInt7L21hcmF0aG9uLnBsdWdpbi1jb25mfX0ge3sjbWFyYXRob24ucGx1Z2luLWRpcn19LS1wbHVnaW5fZGlyIFwie3ttYXJhdGhvbi5wbHVnaW4tZGlyfX1cInt7L21hcmF0aG9uLnBsdWdpbi1kaXJ9fSB7eyNtYXJhdGhvbi5yZWNvbmNpbGlhdGlvbi1pbml0aWFsLWRlbGF5fX0tLXJlY29uY2lsaWF0aW9uX2luaXRpYWxfZGVsYXkgXCJ7e21hcmF0aG9uLnJlY29uY2lsaWF0aW9uLWluaXRpYWwtZGVsYXl9fVwie3svbWFyYXRob24ucmVjb25jaWxpYXRpb24taW5pdGlhbC1kZWxheX19IHt7I21hcmF0aG9uLnJlY29uY2lsaWF0aW9uLWludGVydmFsfX0tLXJlY29uY2lsaWF0aW9uX2ludGVydmFsIFwie3ttYXJhdGhvbi5yZWNvbmNpbGlhdGlvbi1pbnRlcnZhbH19XCJ7ey9tYXJhdGhvbi5yZWNvbmNpbGlhdGlvbi1pbnRlcnZhbH19IHt7I21hcmF0aG9uLnJlcG9ydGVyLWRhdGFkb2d9fS0tcmVwb3J0ZXJfZGF0YWRvZyBcInt7bWFyYXRob24ucmVwb3J0ZXItZGF0YWRvZ319XCJ7ey9tYXJhdGhvbi5yZXBvcnRlci1kYXRhZG9nfX0ge3sjbWFyYXRob24ucmVwb3J0ZXItZ3JhcGhpdGV9fS0tcmVwb3J0ZXJfZ3JhcGhpdGUgXCJ7e21hcmF0aG9uLnJlcG9ydGVyLWdyYXBoaXRlfX1cInt7L21hcmF0aG9uLnJlcG9ydGVyLWdyYXBoaXRlfX0ge3sjbWFyYXRob24ucmV2aXZlLW9mZmVycy1yZXBldGl0aW9uc319LS1yZXZpdmVfb2ZmZXJzX3JlcGV0aXRpb25zIFwie3ttYXJhdGhvbi5yZXZpdmUtb2ZmZXJzLXJlcGV0aXRpb25zfX1cInt7L21hcmF0aG9uLnJldml2ZS1vZmZlcnMtcmVwZXRpdGlvbnN9fSB7eyNtYXJhdGhvbi5zYXZlLXRhc2tzLXRvLWxhdW5jaC10aW1lb3V0fX0tLXNhdmVfdGFza3NfdG9fbGF1bmNoX3RpbWVvdXQgXCJ7e21hcmF0aG9uLnNhdmUtdGFza3MtdG8tbGF1bmNoLXRpbWVvdXR9fVwie3svbWFyYXRob24uc2F2ZS10YXNrcy10by1sYXVuY2gtdGltZW91dH19IHt7I21hcmF0aG9uLnNjYWxlLWFwcHMtaW5pdGlhbC1kZWxheX19LS1zY2FsZV9hcHBzX2luaXRpYWxfZGVsYXkgXCJ7e21hcmF0aG9uLnNjYWxlLWFwcHMtaW5pdGlhbC1kZWxheX19XCJ7ey9tYXJhdGhvbi5zY2FsZS1hcHBzLWluaXRpYWwtZGVsYXl9fSB7eyNtYXJhdGhvbi5zY2FsZS1hcHBzLWludGVydmFsfX0tLXNjYWxlX2FwcHNfaW50ZXJ2YWwgXCJ7e21hcmF0aG9uLnNjYWxlLWFwcHMtaW50ZXJ2YWx9fVwie3svbWFyYXRob24uc2NhbGUtYXBwcy1pbnRlcnZhbH19IHt7I21hcmF0aG9uLnNlbnRyeX19LS1zZW50cnkgXCJ7e21hcmF0aG9uLnNlbnRyeX19XCJ7ey9tYXJhdGhvbi5zZW50cnl9fSB7eyNtYXJhdGhvbi5zZW50cnktdGFnc319LS1zZW50cnlfdGFncyBcInt7bWFyYXRob24uc2VudHJ5LXRhZ3N9fVwie3svbWFyYXRob24uc2VudHJ5LXRhZ3N9fSB7eyNtYXJhdGhvbi5zc2wta2V5c3RvcmUtcGFzc3dvcmR9fS0tc3NsX2tleXN0b3JlX3Bhc3N3b3JkIFwie3ttYXJhdGhvbi5zc2wta2V5c3RvcmUtcGFzc3dvcmR9fVwie3svbWFyYXRob24uc3NsLWtleXN0b3JlLXBhc3N3b3JkfX0ge3sjbWFyYXRob24uc3NsLWtleXN0b3JlLXBhdGh9fS0tc3NsX2tleXN0b3JlX3BhdGggXCJ7e21hcmF0aG9uLnNzbC1rZXlzdG9yZS1wYXRofX1cInt7L21hcmF0aG9uLnNzbC1rZXlzdG9yZS1wYXRofX0ge3sjbWFyYXRob24uc3RvcmUtY2FjaGV9fSAtLXN0b3JlX2NhY2hle3svbWFyYXRob24uc3RvcmUtY2FjaGV9fXt7Xm1hcmF0aG9uLnN0b3JlLWNhY2hlfX0tLWRpc2FibGVfc3RvcmVfY2FjaGV7ey9tYXJhdGhvbi5zdG9yZS1jYWNoZX19IHt7I21hcmF0aG9uLnRhc2stbGF1bmNoLWNvbmZpcm0tdGltZW91dH19LS10YXNrX2xhdW5jaF9jb25maXJtX3RpbWVvdXQgXCJ7e21hcmF0aG9uLnRhc2stbGF1bmNoLWNvbmZpcm0tdGltZW91dH19XCJ7ey9tYXJhdGhvbi50YXNrLWxhdW5jaC1jb25maXJtLXRpbWVvdXR9fSB7eyNtYXJhdGhvbi50YXNrLWxhdW5jaC10aW1lb3V0fX0tLXRhc2tfbGF1bmNoX3RpbWVvdXQgXCJ7e21hcmF0aG9uLnRhc2stbGF1bmNoLXRpbWVvdXR9fVwie3svbWFyYXRob24udGFzay1sYXVuY2gtdGltZW91dH19IHt7I21hcmF0aG9uLnRhc2stbG9zdC1leHB1bmdlLWluaXRpYWwtZGVsYXl9fS0tdGFza19sb3N0X2V4cHVuZ2VfaW5pdGlhbF9kZWxheSBcInt7bWFyYXRob24udGFzay1sb3N0LWV4cHVuZ2UtaW5pdGlhbC1kZWxheX19XCJ7ey9tYXJhdGhvbi50YXNrLWxvc3QtZXhwdW5nZS1pbml0aWFsLWRlbGF5fX0ge3sjbWFyYXRob24udGFzay1sb3N0LWV4cHVuZ2UtaW50ZXJ2YWx9fS0tdGFza19sb3N0X2V4cHVuZ2VfaW50ZXJ2YWwgXCJ7e21hcmF0aG9uLnRhc2stbG9zdC1leHB1bmdlLWludGVydmFsfX1cInt7L21hcmF0aG9uLnRhc2stbG9zdC1leHB1bmdlLWludGVydmFsfX0ge3sjbWFyYXRob24udGFzay1yZXNlcnZhdGlvbi10aW1lb3V0fX0tLXRhc2tfcmVzZXJ2YXRpb25fdGltZW91dCBcInt7bWFyYXRob24udGFzay1yZXNlcnZhdGlvbi10aW1lb3V0fX1cInt7L21hcmF0aG9uLnRhc2stcmVzZXJ2YXRpb24tdGltZW91dH19IHt7I21hcmF0aG9uLnRyYWNpbmd9fSAtLXRyYWNpbmd7ey9tYXJhdGhvbi50cmFjaW5nfX17e15tYXJhdGhvbi50cmFjaW5nfX0tLWRpc2FibGVfdHJhY2luZ3t7L21hcmF0aG9uLnRyYWNpbmd9fSB7eyNtYXJhdGhvbi53ZWJ1aS11cmx9fS0td2VidWlfdXJsIFwie3ttYXJhdGhvbi53ZWJ1aS11cmx9fVwie3svbWFyYXRob24ud2VidWktdXJsfX0gLS16ayB7eyNtYXJhdGhvbi56a319e3ttYXJhdGhvbi56a319e3svbWFyYXRob24uemt9fXt7Xm1hcmF0aG9uLnprfX16azovL21hc3Rlci5tZXNvczoyMTgxL3VuaXZlcnNlL3t7c2VydmljZS5uYW1lfX17ey9tYXJhdGhvbi56a319IHt7I21hcmF0aG9uLnprLWNvbXByZXNzaW9ufX0gLS16a19jb21wcmVzc2lvbnt7L21hcmF0aG9uLnprLWNvbXByZXNzaW9ufX17e15tYXJhdGhvbi56ay1jb21wcmVzc2lvbn19LS1kaXNhYmxlX3prX2NvbXByZXNzaW9ue3svbWFyYXRob24uemstY29tcHJlc3Npb259fSB7eyNtYXJhdGhvbi56ay1jb21wcmVzc2lvbi10aHJlc2hvbGR9fS0temtfY29tcHJlc3Npb25fdGhyZXNob2xkIFwie3ttYXJhdGhvbi56ay1jb21wcmVzc2lvbi10aHJlc2hvbGR9fVwie3svbWFyYXRob24uemstY29tcHJlc3Npb24tdGhyZXNob2xkfX0ge3sjbWFyYXRob24uemstbWF4LW5vZGUtc2l6ZX19LS16a19tYXhfbm9kZV9zaXplIFwie3ttYXJhdGhvbi56ay1tYXgtbm9kZS1zaXplfX1cInt7L21hcmF0aG9uLnprLW1heC1ub2RlLXNpemV9fSB7eyNtYXJhdGhvbi56ay1tYXgtdmVyc2lvbnN9fS0temtfbWF4X3ZlcnNpb25zIFwie3ttYXJhdGhvbi56ay1tYXgtdmVyc2lvbnN9fVwie3svbWFyYXRob24uemstbWF4LXZlcnNpb25zfX0ge3sjbWFyYXRob24uemstc2Vzc2lvbi10aW1lb3V0fX0tLXprX3Nlc3Npb25fdGltZW91dCBcInt7bWFyYXRob24uemstc2Vzc2lvbi10aW1lb3V0fX1cInt7L21hcmF0aG9uLnprLXNlc3Npb24tdGltZW91dH19IHt7I21hcmF0aG9uLnprLXRpbWVvdXR9fS0temtfdGltZW91dCBcInt7bWFyYXRob24uemstdGltZW91dH19XCJ7ey9tYXJhdGhvbi56ay10aW1lb3V0fX0iLAogICJsYWJlbHMiOiB7CiAgICAiRENPU19QQUNLQUdFX0ZSQU1FV09SS19OQU1FIjogInt7I21hcmF0aG9uLmZyYW1ld29yay1uYW1lfX17e21hcmF0aG9uLmZyYW1ld29yay1uYW1lfX17ey9tYXJhdGhvbi5mcmFtZXdvcmstbmFtZX19e3tebWFyYXRob24uZnJhbWV3b3JrLW5hbWV9fXt7c2VydmljZS5uYW1lfX17ey9tYXJhdGhvbi5mcmFtZXdvcmstbmFtZX19IiwKICAgICJEQ09TX1NFUlZJQ0VfTkFNRSI6ICJ7e3NlcnZpY2UubmFtZX19IiwKICAgICJEQ09TX1NFUlZJQ0VfU0NIRU1FIjogImh0dHAiLAogICAgIkRDT1NfU0VSVklDRV9QT1JUX0lOREVYIjogIjAiCiAgfQp9Cg==",
+            },
+            "minDcosReleaseVersion": "1.9",
+            "name": "marathon",
+            "packagingVersion": "3.0",
+            "postInstallNotes": "Marathon DCOS Service has been successfully installed!
+
+	Documentation: https://mesosphere.github.io/marathon
+	Issues: https://github.com/mesosphere/marathon/issues
+",
+            "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.
+Please follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
+            "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service.",
+            "releaseVersion": 10,
+            "resource": Object {
+              "assets": Object {
+                "container": Object {
+                  "docker": Object {
+                    "image": "mesosphere/marathon:v1.4.6",
+                  },
+                },
+              },
+              "images": Object {
+                "icon-large": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-large.png",
+                "icon-medium": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-medium.png",
+                "icon-small": "https://downloads.mesosphere.com/marathon/assets/icon-service-marathon-small.png",
+                "screenshots": Array [
+                  "https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png",
+                  "https://beingasysadmin.files.wordpress.com/2014/06/marathon2.png",
+                  "https://mesosphere.github.io/presentations/mug-ericsson-2014/assets/marathon-logo.jpg",
+                  "https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png",
+                  "http://www.clker.com/cliparts/0/f/d/b/12917289761851255679earth-map-huge.jpg",
+                  "https://mesosphere.github.io/presentations/mug-ericsson-2014/assets/marathon-logo.jpg",
+                  "http://33.media.tumblr.com/9ff4e10667237a30d89f55f13fc5b45b/tumblr_inline_mksdnegnw31qz4rgp.gif",
+                ],
+              },
+            },
+            "scm": "https://github.com/mesosphere/marathon.git",
+            "selected": true,
+            "tags": Array [
+              "init",
+              "long-running",
+            ],
+            "version": "1.4.6",
+          }
+        }
+        isLoading={true}
+      />
+    }
+    disabledActions={false}
+    tabs={Array []}
+  />
+  <div
+    className="container"
+  >
+    <div
+      className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset"
+    >
+      <div
+        className="media-object media-object-align-top media-object-wrap"
+      >
+        <div
+          className="media-object-item"
+        >
+          <div
+            className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white"
+          >
+            <Image
+              fallbackSrc={Object {}}
+              src={Object {}}
+            />
+          </div>
+        </div>
+        <div
+          className="media-object-item package-action-buttons"
+        >
+          <div
+            className="button-collection"
+          >
+            <Tooltip
+              anchor="center"
+              className="tooltip"
+              content="Loading selected version"
+              contentClassName="tooltip-content"
+              elementTag="div"
+              interactive={false}
+              position="top"
+              stayOpen={false}
+              suppress={false}
+              width={200}
+              wrapText={true}
+              wrapperClassName="button-group"
+            >
+              <button
+                className="button button-primary"
+                disabled={true}
+                onClick={[Function]}
+              >
+                Review & Run
+              </button>
+            </Tooltip>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Loader
+      className=""
+      innerClassName=""
+      suppressHorizontalCenter={false}
+      type="ballScale"
+    />
+  </div>
+  <Modal
+    modalClass="modal modal-small"
+    onClose={[Function]}
+    open={false}
+  >
+    <div
+      className="modal-install-package-tab-form-wrapper"
+    >
+      <div
+        className="modal-body"
+      >
+        <div
+          className="horizontal-center"
+        >
+          <span
+            className="text-success"
+          >
+            <Icon
+              color="green"
+              family="system"
+              id="circle-check"
+              size="large"
+            />
+          </span>
+          <h2
+            className="short-top short-bottom"
+          >
+            Success!
+          </h2>
+          <div
+            className="install-package-modal-package-notes text-overflow-break-word"
+          >
+            Marathon is being installed.
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <div
+          className="button-collection button-collection-stacked horizontal-center"
+        >
+          <a
+            className="button button-success button-block"
+            href="#/services/detail/undefined"
+          >
+            Open Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </Modal>
+</Page>
+`;
