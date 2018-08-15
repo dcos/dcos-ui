@@ -205,8 +205,11 @@ module.exports = class Pod extends Service {
     );
   }
 
+  /**
+   * @override
+   */
   getVersion() {
-    return this.get("version");
+    return this.getSpec().getVersion();
   }
 
   getVolumesData() {
