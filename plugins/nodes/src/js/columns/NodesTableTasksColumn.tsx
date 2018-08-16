@@ -3,13 +3,13 @@ import sort from "array-sort";
 import Node from "#SRC/js/structs/Node";
 import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
-import { TextCell } from "@dcos/ui-kit";
+import { NumberCell } from "@dcos/ui-kit";
 
 export function tasksRenderer(data: Node): React.ReactNode {
   return (
-    <TextCell>
+    <NumberCell>
       <span>{(data.get("TASK_RUNNING") || "0").toString()}</span>
-    </TextCell>
+    </NumberCell>
   );
 }
 
