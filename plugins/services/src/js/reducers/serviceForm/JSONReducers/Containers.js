@@ -1,6 +1,7 @@
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import { combineReducers, simpleFloatReducer } from "#SRC/js/utils/ReducerUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 import Transaction from "#SRC/js/structs/Transaction";
 import Networking from "#SRC/js/constants/Networking";
@@ -396,7 +397,10 @@ module.exports = {
     if (joinedPath === "containers") {
       switch (type) {
         case ADD_ITEM:
-          const name = `container-${newState.length + 1}`;
+          const name = ContainerUtil.getNewContainerName(
+            newState.length,
+            newState
+          );
 
           newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
           this.cache.push({});
