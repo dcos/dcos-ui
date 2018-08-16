@@ -1,70 +1,113 @@
-import { marbles } from "rxjs-marbles/jest";
-import "rxjs/add/operator/take";
+import React from "react";
+import renderer from "react-test-renderer";
+import { IntlProvider } from "react-intl";
+import { Observable } from "rxjs/Observable";
+import enUS from "#SRC/js/translations/en-US.json";
 
-import { mesosMasterInfo, getRegion } from "../MesosMasters";
+import { connectMasterComponent, combineMasterData } from "../MesosMasters";
 
-function faultDomainData() {
-  return {
-    region: { name: "us-east-1" }
-  };
-}
+const leader = {
+  hostPort: "127.1.2.3:8080",
+  version: "2.9.1",
+  electedTime: 1532340694.04573,
+  startTime: 1232340694.04573,
+  region: "us-east-1"
+};
 
-function masterData(faultDomain) {
-  return {
-    master_info: {
-      address: {
-        hostname: "127.0.0.1",
-        port: "8080"
-      },
-      start_time: 12345789.0,
-      elected_time: 12345789.0,
-      version: "1.2.2",
-      domain: {
-        fault_domain: faultDomain
-      }
+const nonLeader = [
+  {
+    host_ip: "192.168.0.1",
+    health: 0,
+    role: "master",
+    healthDescription: {
+      classNames: "text-success",
+      key: "HEALTHY",
+      sortingValue: 3,
+      title: "Healthy",
+      value: 0
     }
+  },
+  {
+    host_ip: "192.168.0.2",
+    health: 1,
+    role: "master",
+    healthDescription: {
+      classNames: "text-danger",
+      key: "UNHEALTHY",
+      sortingValue: 0,
+      title: "Unhealthy",
+      value: 1
+    }
+  },
+  {
+    host_ip: "192.168.0.3",
+    health: 2,
+    role: "master",
+    healthDescription: {
+      classNames: "text-warning",
+      key: "WAR",
+      sortingValue: 2,
+      title: "Warning",
+      value: 2
+    }
+  },
+  {
+    host_ip: "192.168.0.4",
+    health: 4,
+    role: "master",
+    healthDescription: {
+      classNames: "text-mute",
+      key: "NA",
+      sortingValue: 1,
+      title: "N/A",
+      value: 3
+    }
+  }
+];
+
+function mastersInitialState() {
+  return {
+    leader: {
+      hostPort: undefined,
+      hostIp: undefined,
+      version: undefined,
+      electedTime: undefined,
+      startTime: undefined,
+      region: undefined
+    },
+    masters: undefined
   };
 }
 
-describe("MesosMasters", function() {
-  describe("#mesosMasterInfo", function() {
-    it(
-      "emits correct master",
-      marbles(function(m) {
-        m.bind();
+const TestableMasterComponent = ({ component }) => {
+  return (
+    <IntlProvider locale="en" messages={enUS}>
+      {component}
+    </IntlProvider>
+  );
+};
 
-        const expectedData = {
-          electedTime: 12345789,
-          hostPort: "127.0.0.1:8080",
-          region: "us-east-1",
-          startTime: 12345789,
-          version: "1.2.2"
-        };
-
-        const master$ = mesosMasterInfo(
-          () => masterData(faultDomainData()),
-          m.time("--|")
-        );
-        const expected$ = m.cold("a-(a|)", {
-          a: expectedData
-        });
-
-        m.expect(master$.take(2)).toBeObservable(expected$);
-      })
-    );
+describe("LeaderGrid", function() {
+  beforeEach(function() {
+    Date.now = jest.fn(() => 1542340694);
   });
 
-  describe("#getRegion", function() {
-    it("retrieves region correctly", function() {
-      const master = masterData(faultDomainData()).master_info;
+  afterEach(function() {
+    Date.now.mockRestore();
+  });
 
-      expect(getRegion(master)).toBe("us-east-1");
-    });
+  it("renders with running status", function() {
+    const initialState = mastersInitialState;
 
-    it("returns N/A for missing region", function() {
-      const master = masterData().master_info;
+    const leaderData = () => Observable.of(leader);
+    const healthData = () => Observable.of(nonLeader);
+    const combinedData = combineMasterData(leaderData, healthData);
+    const MasterNodesTab = connectMasterComponent(initialState, combinedData);
 
-      expect(getRegion(master)).toBe("N/A");
-    });
+    expect(
+      renderer
+        .create(<TestableMasterComponent component={<MasterNodesTab />} />)
+        .toJSON()
+    ).toMatchSnapshot();
   });
 });
