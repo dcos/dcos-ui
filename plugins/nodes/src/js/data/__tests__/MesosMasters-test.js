@@ -88,6 +88,14 @@ const TestableMasterComponent = ({ component }) => {
 };
 
 describe("LeaderGrid", function() {
+  beforeEach(function() {
+    Date.now = jest.fn(() => 1542340694);
+  });
+
+  afterEach(function() {
+    Date.now.mockRestore();
+  });
+
   it("renders with running status", function() {
     const initialState = mastersInitialState;
 
