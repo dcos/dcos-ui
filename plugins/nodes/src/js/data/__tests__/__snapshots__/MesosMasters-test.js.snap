@@ -73,7 +73,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-value"
           >
-            10 years ago
+            in 39 years
           </div>
         </div>
         <div
@@ -89,7 +89,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-value"
           >
-            18 days ago
+            in 49 years
           </div>
         </div>
       </div>
