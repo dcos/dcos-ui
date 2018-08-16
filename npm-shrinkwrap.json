@@ -946,7 +946,7 @@
     "@dcos/copychars": {
       "version": "0.1.2",
       "resolved": "https://registry.npmjs.org/@dcos/copychars/-/copychars-0.1.2.tgz",
-      "integrity": "sha1-wpx1n+btFAaJMktSfLTW+6txCQs="
+      "integrity": "sha512-lS8hkmBZHf9f7JTJfCBtJ8n/WGyl5471J4hkIyzUihHwQHAx2+nbTMH4d3EudGD1Zrdi8YyAADyrjSQ6tQy2Uw=="
     },
     "@dcos/eslint-config": {
       "version": "0.3.0",
@@ -968,20 +968,20 @@
       }
     },
     "@dcos/mesos-client": {
-      "version": "0.2.3",
-      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.2.3.tgz",
-      "integrity": "sha1-5aPMJJ1oQUkffV5gCMHL8QLv/Dg=",
+      "version": "0.2.4",
+      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.2.4.tgz",
+      "integrity": "sha512-Mf2uplblFMExCuuLNAAT6KvjBhYrRt4XkgJEmF7Yf8X5CtSXKnlO3bd+MGkBkEAHWkAyrbRCkbH0CtISeZhFbw==",
       "requires": {
         "@dcos/copychars": "0.1.2",
         "@dcos/http-service": "0.3.0",
-        "@dcos/recordio": "0.1.7",
+        "@dcos/recordio": "0.1.8",
         "rxjs": "5.4.3"
       }
     },
     "@dcos/recordio": {
-      "version": "0.1.7",
-      "resolved": "https://registry.npmjs.org/@dcos/recordio/-/recordio-0.1.7.tgz",
-      "integrity": "sha1-x3djPxoObyAMO3MyUWA66c5sTdM=",
+      "version": "0.1.8",
+      "resolved": "https://registry.npmjs.org/@dcos/recordio/-/recordio-0.1.8.tgz",
+      "integrity": "sha512-tl+z+n3zS3Kv4TBGPUSO4zu3E43/C5NX71OxP1sr62ZnJDSwEBh/PeRIV4rPolT5U3EgKcaCdc2iGFy/1I5Aug==",
       "requires": {
         "@dcos/copychars": "^0.1.2"
       }
