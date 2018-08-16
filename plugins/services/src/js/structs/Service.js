@@ -71,9 +71,7 @@ module.exports = class Service extends Item {
         {}
       );
 
-      this._regions = Object.keys(regionCounts).sort(
-        (a, b) => regionCounts[b] - regionCounts[a]
-      );
+      this._regions = Object.keys(regionCounts).sort();
     }
 
     return this._regions;
