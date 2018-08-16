@@ -8,13 +8,11 @@ import "rxjs/add/operator/filter";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
-const STORE_POLL_INTERVAL = 2000;
-
 function isEmptyObject(obj) {
   return Object.keys(obj).length === 0;
 }
 
-function hostPort(address) {
+function hostWithPort(address) {
   return `${address.hostname}:${address.port}`;
 }
 
@@ -25,19 +23,14 @@ export function getRegion(master) {
   );
 }
 
-export function mesosMasterLeaderQuery(
-  masterDataSource,
-  interval = STORE_POLL_INTERVAL
-) {
+export function mesosMasterLeaderQuery(masterDataSource, interval) {
   return Observable.timer(0, interval)
-    .map(_ => {
-      return masterDataSource();
-    })
+    .map(_ => masterDataSource())
     .map(mesosState => mesosState.master_info)
     .filter(master => !isEmptyObject(master))
     .map(master => {
       return {
-        hostPort: hostPort(master.address),
+        hostPort: hostWithPort(master.address),
         hostIp: findNestedPropertyInObject(master, "address.ip"),
         version: master.version,
         electedTime: master.elected_time,
@@ -47,6 +40,7 @@ export function mesosMasterLeaderQuery(
     });
 }
 
+const STORE_POLL_INTERVAL = 2000;
 const masterDataSource = MesosStateStore.getMaster.bind(MesosStateStore);
 export function mesosMastersLeader() {
   return mesosMasterLeaderQuery(masterDataSource, STORE_POLL_INTERVAL);
