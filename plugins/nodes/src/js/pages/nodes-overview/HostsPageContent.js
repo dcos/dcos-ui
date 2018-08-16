@@ -140,7 +140,7 @@ class HostsPageContent extends React.Component {
     const { filterExpression, filters, defaultFilterData } = this.state;
 
     return (
-      <div className="column-12">
+      <div className="column-12 flush-left">
         <DSLFilterField
           filters={filters}
           formSections={[
