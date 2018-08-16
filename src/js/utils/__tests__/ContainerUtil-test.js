@@ -51,3 +51,24 @@ describe("#adjustPendingActions", function() {
     expect(pendingActions).toEqual({ foo: false, bar: false });
   });
 });
+
+describe("#getNewContainerName", function() {
+  const newState = [
+    { name: "container-1", resources: { cpus: 0.1, mem: 128, disk: "" } },
+    { name: "container-3", resources: { cpus: 0.1, mem: 128, disk: "" } }
+  ];
+  const newName = ContainerUtil.getNewContainerName(newState.length, newState);
+
+  it("does not return a duplicate name", function() {
+    const dupeNames = newState.filter(item => {
+      return item.name === newName;
+    });
+    expect(dupeNames.length).toBe(0);
+  });
+
+  it("increases container number", function() {
+    expect(parseInt(newName.split("-")[1], 10)).toBeGreaterThan(
+      newState.length
+    );
+  });
+});
