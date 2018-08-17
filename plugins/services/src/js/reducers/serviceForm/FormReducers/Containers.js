@@ -1,5 +1,6 @@
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import { combineReducers, simpleReducer } from "#SRC/js/utils/ReducerUtil";
+import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import { DEFAULT_POD_CONTAINER } from "../../../constants/DefaultPod";
 import { FormReducer as endpointsFormReducer } from "./Endpoints";
 import { FormReducer as multiContainerArtifacts } from "./MultiContainerArtifacts";
@@ -37,7 +38,10 @@ module.exports = {
     if (joinedPath === "containers") {
       switch (type) {
         case ADD_ITEM:
-          const name = `container-${newState.length + 1}`;
+          const name = ContainerUtil.getNewContainerName(
+            newState.length,
+            newState
+          );
 
           newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
           this.cache.push({});

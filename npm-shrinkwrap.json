@@ -992,9 +992,9 @@
       "integrity": "sha512-WcTnrk4lc6vwMWn+pOrcGk9tTy6it03dCfQtqE+fw9bQ2llqzfxnLO7Har+la4kkJVnyTPAt7Nvpb50sjzsQXA=="
     },
     "@dcos/ui-kit": {
-      "version": "1.8.0",
-      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.8.0.tgz",
-      "integrity": "sha512-1T04c5okc6f63lcTUzf0VXnvdb2QF83HPNSDM3di0f2UOF3h6jq8JWvXwZNJmbl5N4aHnLDzJH1YddH+jh/4dA==",
+      "version": "1.9.0",
+      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.9.0.tgz",
+      "integrity": "sha512-wC6dxcZgdLGxPiB6RO5protqEf4yZQZ1NKdcVFqL5mrXuKxHxtnuEvGsDdvUyw/56HxoI9StPDx/zuKKplCEGw==",
       "requires": {
         "emotion": "9.2.4",
         "memoize-one": "3.1.1",
