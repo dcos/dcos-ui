@@ -33,7 +33,6 @@ pipeline {
       steps {
         sh "npm --unsafe-perm install"
         sh "npm run build"
-        sh "tar czf release.tar.gz dist"
       }
     }
 
@@ -106,6 +105,8 @@ pipeline {
           sh "git config credential.helper 'cache --timeout=300'"
 
           sh "git fetch --tags"
+
+          sh "tar czf release.tar.gz dist"
 
           sh "./scripts/ci/upload-release"
         }
