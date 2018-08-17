@@ -84,7 +84,7 @@ export default class NodesTable extends React.Component<
 
     this.state = {
       data: [],
-      sortColumn: "host",
+      sortColumn: "health",
       sortDirection: "ASC"
     };
 
