@@ -4,6 +4,9 @@ import React from "react";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import Config from "#SRC/js/config/Config";
 import DOMUtils from "#SRC/js/utils/DOMUtils";
+import EventTypes from "#SRC/js/constants/EventTypes";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
+import Util from "#SRC/js/utils/Util";
 
 import { ANALYTICS_LOAD_TIMEOUT } from "./constants/PluginConstants";
 import Actions from "./actions/Actions";
@@ -22,7 +25,12 @@ module.exports = {
     "userAddPolicy"
   ],
 
-  actions: ["userLoginSuccess", "userLogoutSuccess", "routes"],
+  actions: [
+    "pluginsConfigured",
+    "userLoginSuccess",
+    "userLogoutSuccess",
+    "routes"
+  ],
 
   initialize(configuration) {
     this.configuration = configuration;
@@ -57,6 +65,37 @@ module.exports = {
     promiseArray.push(promise);
 
     return promiseArray;
+  },
+
+  pluginsConfigured() {
+    // Ensure analytics is actually ready, because in #pluginsLoadedCheck we
+    // may skip the check so that we don't completely block the applicaiton
+    const metadata =
+      Util.findNestedPropertyInObject(this, "configuration.metadata") || {};
+
+    global.analytics.ready(() => {
+      const setContext = () => {
+        if (!global.Raven) {
+          return;
+        }
+
+        global.Raven.setTagsContext({
+          ...metadata,
+          environment: process.env.NODE_ENV,
+          dcosVersion: MetadataStore.version,
+          dcosVariant: MetadataStore.variant
+        });
+      };
+
+      if (!MetadataStore.version) {
+        MetadataStore.addChangeListener(
+          EventTypes.DCOS_METADATA_CHANGE,
+          setContext
+        );
+      } else {
+        setContext();
+      }
+    });
   },
 
   userLoginSuccess() {

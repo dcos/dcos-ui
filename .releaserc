@@ -2,6 +2,11 @@
   "branch": "master",
   "tagFormat": "master+v${version}",
   "verifyConditions": ["@semantic-release/github"],
-  "prepare": [],
-  "publish": ["@semantic-release/github"]
+  "prepare": [
+    {
+      "path": "@semantic-release/exec",
+      "cmd": "sed -i '' 's/0\\.0\\.0-dev\\+semantic-release/${nextRelease.version}/' dist/index.html",
+    }
+  ],
+  "publish": ["@semantic-release/github"],
 }
