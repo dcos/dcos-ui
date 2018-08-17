@@ -35,7 +35,7 @@ const NonLeader = ({ master }) => {
 };
 
 const EmptyLeaderList = () => {
-  return <div>There are no more known masters in this cluster</div>;
+  return <div>There are no more known masters in this cluster.</div>;
 };
 
 const NonLeaderList = ({ masters }) => {
