@@ -18,6 +18,19 @@ const ContainerUtil = {
    */
   adjustPendingActions(pendingActions, actionType, isPending) {
     return Object.assign({}, pendingActions, { [actionType]: isPending });
+  },
+
+  getNewContainerName(containerLength, newState) {
+    const name = `container-${containerLength + 1}`;
+    const matchingNames = newState.filter(item => {
+      return item.name === name;
+    });
+
+    if (matchingNames.length > 0) {
+      return this.getNewContainerName(++containerLength, newState);
+    } else {
+      return name;
+    }
   }
 };
 
