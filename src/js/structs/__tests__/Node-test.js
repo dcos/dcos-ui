@@ -141,13 +141,13 @@ describe("Node", function() {
     });
   });
 
-  describe("#getUsedResources", function() {
+  describe("#getResources", function() {
     it("returns empty obj when resources are falsey", function() {
       const node = new Node({
         used_resources: null
       });
 
-      expect(node.getUsedResources()).toEqual({
+      expect(node.getResources()).toEqual({
         cpus: 0,
         mem: 0,
         gpus: 0,
