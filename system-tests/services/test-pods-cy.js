@@ -30,11 +30,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -77,11 +75,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -117,13 +113,9 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .type("nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
@@ -159,13 +151,9 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .type("nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
@@ -216,13 +204,10 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
+
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
@@ -257,13 +242,10 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
+
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
@@ -288,11 +270,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -363,11 +343,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -533,11 +511,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -604,11 +580,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -654,11 +628,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -719,11 +691,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -760,11 +730,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -859,11 +827,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")

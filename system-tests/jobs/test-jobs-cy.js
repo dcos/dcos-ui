@@ -28,14 +28,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
-    //
-    // TODO: Due to a bug in cypress you cannot type values with dots
-    // Cypress will also sometimes hang when typing long strings with hyphens
-    // cy
-    //   .root()
-    //   .getFormGroupInputFor('CPUs')
-    //   .type('{selectall}0.1');
-    //
+
+    cy.root()
+      .getFormGroupInputFor("CPUs *")
+      .type("{selectall}0.1");
+
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
@@ -108,13 +105,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
-    //
-    // TODO: Due to a bug in cypress you cannot type values with dots
-    // cy
-    //   .root()
-    //   .getFormGroupInputFor('CPUs')
-    //   .type('{selectall}0.5');
-    //
+
+    cy.root()
+      .getFormGroupInputFor("CPUs *")
+      .type("{selectall}0.5");
+
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
@@ -157,13 +152,10 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .should("have.value", `${fullJobName}`);
-    //
-    // TODO: Due to a bug in cypress you cannot type values with dots
-    // cy
-    //   .root()
-    //   .getFormGroupInputFor('CPUs')
-    //   .type('{selectall}0.5');
-    //
+
+    cy.root()
+      .getFormGroupInputFor("CPUs *")
+      .type("{selectall}0.5");
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .should("have.value", "32");

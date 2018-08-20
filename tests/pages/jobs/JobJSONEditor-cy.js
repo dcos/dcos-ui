@@ -26,13 +26,11 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
-    //
-    // TODO: Due to a bug in cypress you cannot type values with dots
-    // cy
-    //   .root()
-    //   .getFormGroupInputFor('CPUs')
-    //   .type('{selectall}0.1');
-    //
+
+    cy.root()
+      .getFormGroupInputFor("CPUs *")
+      .type("{selectall}0.1");
+
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
@@ -58,7 +56,7 @@ describe("Job JSON Editor", function() {
           id: fullJobName,
           description: "",
           run: {
-            cpus: 1,
+            cpus: 0.1,
             mem: 32,
             disk: 0,
             cmd: cmdline
@@ -85,6 +83,11 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
+
+    cy.root()
+      .getFormGroupInputFor("CPUs *")
+      .type("{selectall}0.1");
+
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
@@ -124,7 +127,7 @@ describe("Job JSON Editor", function() {
           id: fullJobName,
           description: "",
           run: {
-            cpus: 1,
+            cpus: 0.1,
             mem: 32,
             disk: 0,
             gpus: 1,

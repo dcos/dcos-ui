@@ -30,11 +30,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -169,13 +167,9 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .type("nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
@@ -211,13 +205,9 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .type("nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
@@ -357,11 +347,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -564,6 +552,10 @@ describe("Services", function() {
         .click();
 
       cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
+
+      cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
 
@@ -759,11 +751,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -945,11 +935,9 @@ describe("Services", function() {
         .contains("container-1")
         .click();
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -1124,6 +1112,10 @@ describe("Services", function() {
       cy.get(".menu-tabbed-item")
         .contains("container-1")
         .click();
+
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -1381,6 +1373,10 @@ describe("Services", function() {
         .click();
 
       cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
+
+      cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
 
@@ -1596,6 +1592,9 @@ describe("Services", function() {
         .contains(containerName)
         .click();
 
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
