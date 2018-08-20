@@ -138,7 +138,7 @@ pipeline {
         slackSend (
           channel: "#frontend-ci-status",
           color: "danger",
-          message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          message: "FAILED\nBranch: ${env.CHANGE_BRANCH}\nJob: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>",
           teamDomain: "mesosphere",
           token: "${env.SLACK_TOKEN}",
         )
@@ -151,7 +151,7 @@ pipeline {
         slackSend (
           channel: "#frontend-ci-status",
           color: "warning",
-          message: "UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          message: "UNSTABLE\nBranch: ${env.CHANGE_BRANCH}\nJob: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>",
           teamDomain: "mesosphere",
           token: "${env.SLACK_TOKEN}",
         )

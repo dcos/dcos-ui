@@ -60,6 +60,27 @@ describe("Framework", function() {
     });
   });
 
+  describe("#getVersion", function() {
+    it("returns correct version", function() {
+      const service = new Framework({
+        id: "/test/framework",
+        labels: {
+          DCOS_PACKAGE_VERSION: "1"
+        }
+      });
+
+      expect(service.getVersion()).toEqual("1");
+    });
+
+    it("returns undefined if package version is undefined", function() {
+      const service = new Framework({
+        id: "/test/framework"
+      });
+
+      expect(service.getVersion()).toEqual(undefined);
+    });
+  });
+
   describe("#getFrameworkName", function() {
     it("returns correct name", function() {
       const service = new Framework({

@@ -66,6 +66,10 @@ module.exports = class Service extends Item {
     return null;
   }
 
+  getVersion() {
+    return "";
+  }
+
   getInstancesCount() {
     return 0;
   }
