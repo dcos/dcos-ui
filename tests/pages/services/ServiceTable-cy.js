@@ -2,8 +2,7 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
 describe("Service Table", function() {
   function openDropdown(serviceName) {
-    cy
-      .get(".service-table")
+    cy.get(".service-table")
       .contains(serviceName)
       .closest("tr")
       .find(".dropdown")
@@ -11,7 +10,9 @@ describe("Service Table", function() {
   }
 
   function clickDropdownAction(actionText) {
-    cy.get(".dropdown-menu-items").contains(actionText).click();
+    cy.get(".dropdown-menu-items")
+      .contains(actionText)
+      .click();
   }
 
   context("Destroy Action", function() {
@@ -49,14 +50,15 @@ describe("Service Table", function() {
     it("hides the stop option in the service action dropdown", function() {
       openDropdown("sleep");
 
-      cy.get(".dropdown-menu-items li").contains("Stop").should("not.exist");
+      cy.get(".dropdown-menu-items li")
+        .contains("Stop")
+        .should("not.exist");
     });
 
     it("shows the resume option in the service action dropdown", function() {
       openDropdown("sleep");
 
-      cy
-        .get(".dropdown-menu-items li")
+      cy.get(".dropdown-menu-items li")
         .contains("Resume")
         .should("not.have.class", "hidden");
     });
@@ -65,8 +67,7 @@ describe("Service Table", function() {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
-      cy
-        .get(".modal-header")
+      cy.get(".modal-header")
         .contains("Resume Service")
         .should("have.length", 1);
     });
@@ -102,8 +103,7 @@ describe("Service Table", function() {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
-      cy
-        .get(".modal-footer .button-primary")
+      cy.get(".modal-footer .button-primary")
         .click()
         .should("have.class", "disabled");
     });
@@ -136,9 +136,10 @@ describe("Service Table", function() {
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-primary").click();
-      cy
-        .get(".modal-body .text-danger")
-        .should("to.have.text", "App is locked by one or more deployments.");
+      cy.get(".modal-body .text-danger").should(
+        "to.have.text",
+        "App is locked by one or more deployments."
+      );
     });
 
     it("shows error message on not authorized", function() {
@@ -155,9 +156,10 @@ describe("Service Table", function() {
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-primary").click();
-      cy
-        .get(".modal-body .text-danger")
-        .should("to.have.text", "Not Authorized to perform this action!");
+      cy.get(".modal-body .text-danger").should(
+        "to.have.text",
+        "Not Authorized to perform this action!"
+      );
     });
 
     it("reenables button after faulty request", function() {
@@ -171,7 +173,9 @@ describe("Service Table", function() {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
-      cy.get(".modal-footer .button-primary").as("primaryButton").click();
+      cy.get(".modal-footer .button-primary")
+        .as("primaryButton")
+        .click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
@@ -180,7 +184,9 @@ describe("Service Table", function() {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
-      cy.get(".modal-footer .button").contains("Cancel").click();
+      cy.get(".modal-footer .button")
+        .contains("Cancel")
+        .click();
       cy.get(".modal-body").should("to.have.length", 0);
     });
   });
@@ -199,15 +205,16 @@ describe("Service Table", function() {
       openDropdown("sdk-sleep");
       clickDropdownAction("Delete");
 
-      cy
-        .get(".modal-header")
+      cy.get(".modal-header")
         .contains("Delete Service")
         .should("to.have.length", 1);
 
       cy.get(".modal-body p").contains("sdk-sleep");
       cy.get(".modal .filter-input-text").should("exist");
 
-      cy.get(".modal button").contains("Cancel").click();
+      cy.get(".modal button")
+        .contains("Cancel")
+        .click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -216,18 +223,17 @@ describe("Service Table", function() {
       openDropdown("sdk-sleep");
       clickDropdownAction("Scale");
 
-      cy
-        .get(".modal-header")
+      cy.get(".modal-header")
         .contains("Scale Service")
         .should("to.have.length", 1);
 
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
+      cy.get(".modal pre").contains(
+        "dcos test --name=/services/sdk-sleep update start --options=options.json"
+      );
 
-      cy.get(".modal button").contains("Close").click();
+      cy.get(".modal button")
+        .contains("Close")
+        .click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -235,13 +241,17 @@ describe("Service Table", function() {
     it("restart does not exist", function() {
       openDropdown("sdk-sleep");
 
-      cy.get(".dropdown-menu-items").contains("restart").should("not.exist");
+      cy.get(".dropdown-menu-items")
+        .contains("restart")
+        .should("not.exist");
     });
 
     it("stop does not exist", function() {
       openDropdown("sdk-sleep");
 
-      cy.get(".dropdown-menu-items").contains("stop").should("not.exist");
+      cy.get(".dropdown-menu-items")
+        .contains("stop")
+        .should("not.exist");
     });
   });
 
@@ -259,19 +269,18 @@ describe("Service Table", function() {
       openDropdown("services");
       clickDropdownAction("Delete");
 
-      cy
-        .get(".modal-header")
+      cy.get(".modal-header")
         .contains("Delete Group")
         .should("to.have.length", 1);
 
-      cy
-        .get(".modal-body")
-        .contains(
-          "This group needs to be empty to delete it. Please delete any services in the group first."
-        );
+      cy.get(".modal-body").contains(
+        "This group needs to be empty to delete it. Please delete any services in the group first."
+      );
       cy.get(".modal .filter-input-text").should("not.exist");
 
-      cy.get(".modal button").contains("OK").click();
+      cy.get(".modal button")
+        .contains("OK")
+        .click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -280,22 +289,21 @@ describe("Service Table", function() {
       openDropdown("services");
       clickDropdownAction("Scale");
 
-      cy
-        .get(".modal-header")
+      cy.get(".modal-header")
         .contains("Scale Group")
         .should("to.have.length", 1);
 
-      cy
-        .get(".modal pre")
-        .contains(
-          "dcos test --name=/services/sdk-sleep update start --options=options.json"
-        );
+      cy.get(".modal pre").contains(
+        "dcos test --name=/services/sdk-sleep update start --options=options.json"
+      );
 
-      cy
-        .get(".modal pre")
-        .contains("dcos marathon app update /services/sleep options.json");
+      cy.get(".modal pre").contains(
+        "dcos marathon app update /services/sleep options.json"
+      );
 
-      cy.get(".modal button").contains("Close").click();
+      cy.get(".modal button")
+        .contains("Close")
+        .click();
 
       cy.get(".modal").should("not.exist");
     });
