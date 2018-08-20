@@ -201,6 +201,21 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview/%2Fservices" });
     });
 
+    it("updates package icon", function() {
+      const imageUrl = "foo.png";
+      const serviceName = "sdk-sleep-with-image";
+
+      cy.get(".service-table")
+        .find(`.icon-image-container img[src="${imageUrl}"]`)
+        .should("exist");
+
+      cy.contains(serviceName).click();
+
+      cy.get(".breadcrumb")
+        .find(`.icon-image-container img[src="${imageUrl}"]`)
+        .should("exist");
+    });
+
     it("opens the destroy dialog", function() {
       openDropdown("sdk-sleep");
       clickDropdownAction("Delete");

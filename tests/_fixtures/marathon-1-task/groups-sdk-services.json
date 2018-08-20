@@ -1,17 +1,17 @@
 {
   "id": "/",
   "dependencies": [
-    
+
   ],
   "version": "2017-05-04T16:48:10.710Z",
   "apps": [
-    
+
   ],
   "groups": [
     {
       "id": "/services",
       "dependencies": [
-        
+
       ],
       "version": "2017-05-04T16:48:10.710Z",
       "apps": [
@@ -21,7 +21,7 @@
           "args": null,
           "user": null,
           "env": {
-            
+
           },
           "instances": 1,
           "cpus": 0.1,
@@ -29,13 +29,13 @@
           "disk": 0,
           "executor": "",
           "constraints": [
-            
+
           ],
           "uris": [
-            
+
           ],
           "storeUrls": [
-            
+
           ],
           "ports": [
             10000
@@ -46,10 +46,10 @@
           "maxLaunchDelaySeconds": 3600,
           "container": null,
           "healthChecks": [
-            
+
           ],
           "dependencies": [
-            
+
           ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
@@ -67,16 +67,16 @@
           "tasksHealthy": 0,
           "tasksUnhealthy": 0,
           "deployments": [
-            
+
           ]
         },
         {
-          "id": "/services/sleep",
+          "id": "/services/sdk-sleep-with-image",
           "cmd": "sleep 3000",
           "args": null,
           "user": null,
           "env": {
-            
+
           },
           "instances": 1,
           "cpus": 0.1,
@@ -84,13 +84,13 @@
           "disk": 0,
           "executor": "",
           "constraints": [
-            
+
           ],
           "uris": [
-            
+
           ],
           "storeUrls": [
-            
+
           ],
           "ports": [
             10000
@@ -101,17 +101,24 @@
           "maxLaunchDelaySeconds": 3600,
           "container": null,
           "healthChecks": [
-            
+
           ],
           "dependencies": [
-            
+
           ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
             "maximumOverCapacity": 1
           },
           "labels": {
-            
+            "DCOS_COMMONS_API_VERSION": "v1",
+            "DCOS_PACKAGE_NAME": "test",
+            "DCOS_PACKAGE_FRAMEWORK_NAME": "/services/sdk-sleep"
+          },
+          "images": {
+            "icon-small": "foo.png",
+            "icon-medium": "bar.png",
+            "icon-large": "baz.png"
           },
           "acceptedResourceRoles": null,
           "version": "2015-08-28T01:26:14.620Z",
@@ -120,21 +127,74 @@
           "tasksHealthy": 0,
           "tasksUnhealthy": 0,
           "deployments": [
-            
+
+          ]
+        },
+        {
+          "id": "/services/sleep",
+          "cmd": "sleep 3000",
+          "args": null,
+          "user": null,
+          "env": {
+
+          },
+          "instances": 1,
+          "cpus": 0.1,
+          "mem": 16,
+          "disk": 0,
+          "executor": "",
+          "constraints": [
+
+          ],
+          "uris": [
+
+          ],
+          "storeUrls": [
+
+          ],
+          "ports": [
+            10000
+          ],
+          "requirePorts": false,
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": null,
+          "healthChecks": [
+
+          ],
+          "dependencies": [
+
+          ],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {
+
+          },
+          "acceptedResourceRoles": null,
+          "version": "2015-08-28T01:26:14.620Z",
+          "tasksStaged": 0,
+          "tasksRunning": 1,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 0,
+          "deployments": [
+
           ]
         }
       ],
       "groups": [
-        
+
       ],
       "pods": [
-        
+
       ]
     },
     {
       "id": "/other",
       "dependencies": [
-        
+
       ],
       "version": "2017-05-04T16:48:10.710Z",
       "apps": [
@@ -144,7 +204,7 @@
           "args": null,
           "user": null,
           "env": {
-            
+
           },
           "instances": 1,
           "cpus": 0.1,
@@ -152,13 +212,13 @@
           "disk": 0,
           "executor": "",
           "constraints": [
-            
+
           ],
           "uris": [
-            
+
           ],
           "storeUrls": [
-            
+
           ],
           "ports": [
             10000
@@ -169,17 +229,17 @@
           "maxLaunchDelaySeconds": 3600,
           "container": null,
           "healthChecks": [
-            
+
           ],
           "dependencies": [
-            
+
           ],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
             "maximumOverCapacity": 1
           },
           "labels": {
-            
+
           },
           "acceptedResourceRoles": null,
           "version": "2015-08-28T01:26:14.620Z",
@@ -188,19 +248,19 @@
           "tasksHealthy": 0,
           "tasksUnhealthy": 0,
           "deployments": [
-            
+
           ]
         }
       ],
       "groups": [
-        
+
       ],
       "pods": [
-        
+
       ]
     }
   ],
   "pods": [
-    
+
   ]
 }
