@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LeaderGrid renders empty 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="configuration-map"
+  >
+    <h1
+      className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
+    >
+      Non-Leaders
+    </h1>
+    <div>
+      There are no more known masters in this cluster.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`LeaderGrid renders loading 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="configuration-map"
+  >
+    <h1
+      className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
+    >
+      Non-Leaders
+    </h1>
+    <div
+      className="loader horizontal-center"
+    >
+      <div
+        className="ball-beat loader--small"
+      >
+        <div
+          className="loader-element"
+        />
+        <div
+          className="loader-element"
+        />
+        <div
+          className="loader-element"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`LeaderGrid renders masters 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="configuration-map"
+  >
+    <h1
+      className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
+    >
+      Non-Leaders
+    </h1>
+    <div
+      className="configuration-map-section"
+    >
+      <div
+        className="configuration-map-row table-row"
+      >
+        <div
+          className="configuration-map-label"
+        >
+          172.31.10.48
+        </div>
+        <div
+          className="configuration-map-value"
+        >
+          <span
+            className="text-success"
+          >
+            Healthy
+          </span>
+        </div>
+      </div>
+      <div
+        className="configuration-map-row table-row"
+      >
+        <div
+          className="configuration-map-label"
+        >
+          172.31.10.49
+        </div>
+        <div
+          className="configuration-map-value"
+        >
+          <span
+            className="text-success"
+          >
+            Healthy
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
