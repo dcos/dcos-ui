@@ -54,7 +54,10 @@ describe("ResourcesUtil", function() {
     });
 
     it("gets available resources from a node", function() {
-      CompositeState.getNodesList = createFnWithResources({ foo: 0, bar: 0 });
+      CompositeState.getNodesList = createFnWithNodeResources({
+        foo: 0,
+        bar: 0
+      });
 
       const resources = ResourcesUtil.getAvailableResources();
       expect(resources).toEqual(["foo", "bar"]);
