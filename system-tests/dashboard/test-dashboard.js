@@ -39,7 +39,7 @@ function getTaskCountElement() {
     .find(".unit-primary");
 }
 
-describe("Dashboard", function() {
+xdescribe("Dashboard", function() {
   describe("Create service tests", function() {
     beforeEach(() => {
       cy.visitUrl("dashboard");
@@ -96,8 +96,7 @@ describe("Dashboard", function() {
       const serviceName = serviceDefinition.id.substring(
         serviceDefinition.id.lastIndexOf("/") + 1
       );
-      cy
-        .get(".panel-header")
+      cy.get(".panel-header")
         .contains("Services Status")
         .parents(".panel")
         .find("li")
@@ -178,8 +177,7 @@ describe("Dashboard", function() {
       const serviceName = serviceDefinition.id.substring(
         serviceDefinition.id.lastIndexOf("/") + 1
       );
-      cy
-        .get(".panel-header")
+      cy.get(".panel-header")
         .contains("Services Status")
         .parents(".panel")
         .contains(serviceName)
