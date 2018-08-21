@@ -255,7 +255,16 @@ class ServicesTable extends React.Component {
       regions.push("N/A");
     }
 
-    return <span title={regions.join(", ")}>{regions.join(", ")}</span>;
+    return (
+      <Tooltip
+        elementTag="span"
+        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-overflow"
+        wrapText={true}
+        content={regions.join(", ")}
+      >
+        {regions.join(", ")}
+      </Tooltip>
+    );
   }
 
   renderServiceActions(prop, service) {

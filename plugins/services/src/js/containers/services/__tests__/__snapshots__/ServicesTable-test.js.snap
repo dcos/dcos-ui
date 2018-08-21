@@ -2,7 +2,9 @@
 
 exports[`ServicesTable #renderRegions renders with multiple regions 1`] = `
 <span
-  title="aws/eu-central-1, dc-east"
+  className="tooltip-wrapper tooltip-block-wrapper text-overflow"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   aws/eu-central-1, dc-east
 </span>
@@ -10,7 +12,9 @@ exports[`ServicesTable #renderRegions renders with multiple regions 1`] = `
 
 exports[`ServicesTable #renderRegions renders with no regions 1`] = `
 <span
-  title="N/A"
+  className="tooltip-wrapper tooltip-block-wrapper text-overflow"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   N/A
 </span>
@@ -18,7 +22,9 @@ exports[`ServicesTable #renderRegions renders with no regions 1`] = `
 
 exports[`ServicesTable #renderRegions renders with one region 1`] = `
 <span
-  title="aws/eu-central-1"
+  className="tooltip-wrapper tooltip-block-wrapper text-overflow"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   aws/eu-central-1
 </span>
