@@ -98,4 +98,28 @@ describe("FrameworkUtil", function() {
       });
     });
   });
+
+  describe("#extractBaseTechVersion", () => {
+    it("returns given version without dash", () => {
+      expect(FrameworkUtil.extractBaseTechVersion("1.2.3")).toEqual("1.2.3");
+    });
+    it("returns given base tech with 1 dash", () => {
+      expect(FrameworkUtil.extractBaseTechVersion("1.2.3-2.3.4")).toEqual(
+        "2.3.4"
+      );
+    });
+    it("returns given first and second base tech with 2 dashes", () => {
+      expect(
+        FrameworkUtil.extractBaseTechVersion("1.2.3-2.3.4e-lorem")
+      ).toEqual("2.3.4e-lorem");
+    });
+    it("returns given base tech and 'beta' suffix with 2 dashes", () => {
+      expect(FrameworkUtil.extractBaseTechVersion("1.2.3-2.3.4-beta")).toEqual(
+        "2.3.4-beta"
+      );
+    });
+    it("returns N/A on undefined version", () => {
+      expect(FrameworkUtil.extractBaseTechVersion()).toEqual("N/A");
+    });
+  });
 });
