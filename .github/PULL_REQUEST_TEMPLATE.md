@@ -17,3 +17,9 @@ Did you decide anything noteworthy? e.g. algorithms, data structures, tools
 <!--
 What needs to happen before this can be merged? e.g. PRs merged, other events
 -->
+
+## Screenshots
+
+<!--
+Would a visual be helpful for reviewers? e.g. "Before" and "After", visual changes a designer can check before merge
+-->
