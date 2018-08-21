@@ -220,16 +220,16 @@ var NodesAgents = React.createClass({
     return (
       <div className="flush-bottom">
         <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
-          <Icon family="system" id="list" size="mini" />
           <span className="invisible">List</span>
+          <Icon family="system" id="list" size="mini" />
         </Link>
         <Link
           className={gridClassSet}
           onClick={resetFilter}
           to="/nodes/agents/grid"
         >
-          <Icon family="system" id="donut" size="mini" />
           <span className="invisible">Grid</span>
+          <Icon family="system" id="donut" size="mini" />
         </Link>
       </div>
     );
