@@ -63,6 +63,8 @@ const CosmosPackagesActions = {
       data: JSON.stringify({ query }),
       success(response) {
         const packages = response.packages || [];
+        const packageImages = {};
+
         const data = packages.map(function(cosmosPackage) {
           if (!cosmosPackage.resource) {
             cosmosPackage.resource = {};
@@ -73,11 +75,14 @@ const CosmosPackagesActions = {
             delete cosmosPackage.images;
           }
 
+          packageImages[cosmosPackage.name] = cosmosPackage.resource.images;
+
           return cosmosPackage;
         });
+
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
-          data,
+          data: { packages: data, images: packageImages },
           query
         });
       },

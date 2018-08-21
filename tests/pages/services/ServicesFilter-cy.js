@@ -2,14 +2,15 @@
 function setFilter(param) {
   cy.visitUrl({ url: "/services/overview" });
   cy.get("[placeholder='Filter']").click();
-  cy.get("label").contains(param).click();
+  cy.get("label")
+    .contains(param)
+    .click();
 }
 
 function testFilterByStatus(param) {
   setFilter(param);
 
-  cy
-    .get(".service-table")
+  cy.get(".service-table")
     .getTableColumn("Status")
     .get(".status-bar-text")
     .contents()
@@ -89,8 +90,7 @@ describe("Services Filter", function() {
     it("filters Healthy services", function() {
       setFilter("Healthy");
 
-      cy
-        .get(".service-table")
+      cy.get(".service-table")
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
@@ -102,8 +102,7 @@ describe("Services Filter", function() {
     it("filters Unhealthy services", function() {
       setFilter("Unhealthy");
 
-      cy
-        .get(".service-table")
+      cy.get(".service-table")
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
@@ -113,8 +112,7 @@ describe("Services Filter", function() {
     it("filters N/A services", function() {
       setFilter("N/A");
 
-      cy
-        .get(".service-table")
+      cy.get(".service-table")
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
@@ -134,13 +132,14 @@ describe("Services Filter", function() {
       it("filters SDK services", function() {
         setFilter("Catalog");
 
-        cy
-          .get(".service-table")
+        const serviceNames = ["sdk-sleep", "sdk-sleep-with-image"];
+
+        cy.get(".service-table")
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
-          .each(function(v) {
-            expect(v).to.eq("sdk-sleep");
+          .each(function(v, index) {
+            expect(v).to.eq(serviceNames[index]);
           });
       });
     });
@@ -156,8 +155,7 @@ describe("Services Filter", function() {
       it("filters Pods", function() {
         setFilter("Pod");
 
-        cy
-          .get(".service-table")
+        cy.get(".service-table")
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
@@ -178,8 +176,7 @@ describe("Services Filter", function() {
       it("filters services with Volumes", function() {
         setFilter("Volumes");
 
-        cy
-          .get(".service-table")
+        cy.get(".service-table")
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
