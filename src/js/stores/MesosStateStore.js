@@ -23,7 +23,12 @@ import * as mesosStreamParsers from "./MesosStream/parsers";
 const MAX_RETRIES = 5;
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
-const METHODS_TO_BIND = ["setState", "onStreamData", "onStreamError"];
+const METHODS_TO_BIND = [
+  "setState",
+  "setMaster",
+  "onStreamData",
+  "onStreamError"
+];
 
 class MesosStateStore extends GetSetBaseStore {
   constructor() {
@@ -74,7 +79,15 @@ class MesosStateStore extends GetSetBaseStore {
     const getMasterRequest = request(
       { type: "GET_MASTER" },
       "/mesos/api/v1?get_master"
-    ).retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES));
+    )
+      .retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES))
+      .do(message => {
+        const master = mesosStreamParsers.getMaster(
+          this.getMaster(),
+          JSON.parse(message)
+        );
+        this.setMaster(master);
+      });
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const dataStream = mesosStream
@@ -124,6 +137,15 @@ class MesosStateStore extends GetSetBaseStore {
         tasks: []
       },
       this.get("lastMesosState")
+    );
+  }
+
+  getMaster() {
+    return Object.assign(
+      {
+        master_info: {}
+      },
+      this.get("master")
     );
   }
 
@@ -249,6 +271,12 @@ class MesosStateStore extends GetSetBaseStore {
   setState(state) {
     this.set({
       lastMesosState: state
+    });
+  }
+
+  setMaster(master) {
+    this.set({
+      master
     });
   }
 

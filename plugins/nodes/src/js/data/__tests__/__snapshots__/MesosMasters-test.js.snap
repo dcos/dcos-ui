@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LeaderGrid renders with running status 1`] = `
+<div>
+  <div
+    className="container"
+  >
+    <div
+      className="configuration-map"
+    >
+      <h1
+        className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
+      >
+        Leader
+      </h1>
+      <div
+        className="configuration-map-section"
+      >
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            IP and Port
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            127.1.2.3:8080
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            Region
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            us-east-1
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            <span>
+              Version
+            </span>
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            2.9.1
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            <span>
+              Started
+            </span>
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            in 39 years
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            <span>
+              Elected
+            </span>
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            in 49 years
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="configuration-map"
+    >
+      <h1
+        className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
+      >
+        Non-Leaders
+      </h1>
+      <div
+        className="configuration-map-section"
+      >
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            192.168.0.1
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            <span
+              className="text-success"
+            >
+              Healthy
+            </span>
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            192.168.0.2
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            <span
+              className="text-danger"
+            >
+              Unhealthy
+            </span>
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            192.168.0.3
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            <span
+              className="text-warning"
+            >
+              Warning
+            </span>
+          </div>
+        </div>
+        <div
+          className="configuration-map-row table-row"
+        >
+          <div
+            className="configuration-map-label"
+          >
+            192.168.0.4
+          </div>
+          <div
+            className="configuration-map-value"
+          >
+            <span
+              className="text-mute"
+            >
+              N/A
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
