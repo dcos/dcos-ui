@@ -203,7 +203,7 @@ class TasksView extends mixin(SaveStateMixin) {
 
     const filterExpressionValue = filterExpression.value;
 
-    const hostClasses = classNames({
+    const hostClasses = classNames("flush-left", {
       "column-medium-5": !filterExpressionValue,
       "column-medium-12": filterExpressionValue
     });
