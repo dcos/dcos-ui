@@ -69,13 +69,25 @@ describe("CosmosPackagesStore", function() {
       it("stores availablePackages when event is dispatched", function() {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
-          data: [{ gid: "foo", bar: "baz" }],
+          data: { packages: [{ gid: "foo", bar: "baz" }] },
           query: "foo"
         });
 
         var availablePackages = CosmosPackagesStore.getAvailablePackages().getItems();
         expect(availablePackages[0].get("gid")).toEqual("foo");
         expect(availablePackages[0].get("bar")).toEqual("baz");
+      });
+
+      it("stores packageImages when event is dispatched", function() {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
+          data: { images: { gid: "foo", bar: "baz" } },
+          query: "foo"
+        });
+
+        var packageImages = CosmosPackagesStore.getPackageImages();
+        expect(packageImages["gid"]).toEqual("foo");
+        expect(packageImages["bar"]).toEqual("baz");
       });
 
       it("dispatches the correct event upon success", function() {
@@ -86,7 +98,7 @@ describe("CosmosPackagesStore", function() {
         );
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
-          data: [{ gid: "foo", bar: "baz" }],
+          data: { packages: [{ gid: "foo", bar: "baz" }] },
           query: "foo"
         });
 

@@ -11,7 +11,9 @@ export function regionRenderer(
 ): React.ReactNode {
   const regionName =
     data.getRegionName() +
-    (masterRegion === data.getRegionName() ? " (Local)" : "");
+    (masterRegion === data.getRegionName() && masterRegion !== "N/A"
+      ? " (Local)"
+      : "");
 
   return (
     <TextCell>
