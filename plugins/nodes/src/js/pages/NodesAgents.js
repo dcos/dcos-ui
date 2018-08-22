@@ -209,25 +209,27 @@ var NodesAgents = React.createClass({
       this.props.location.pathname
     );
 
-    var listClassSet = classNames("button button-outline", {
+    var listClassSet = classNames("button button-link", {
       active: !isGridActive
     });
 
-    var gridClassSet = classNames("button button-outline", {
+    var gridClassSet = classNames("button button-link", {
       active: isGridActive
     });
 
     return (
-      <div className="button-group flush-bottom">
+      <div className="flush-bottom">
         <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
-          List
+          <span className="invisible">List</span>
+          <Icon family="system" id="list" size="mini" />
         </Link>
         <Link
           className={gridClassSet}
           onClick={resetFilter}
           to="/nodes/agents/grid"
         >
-          Grid
+          <span className="invisible">Grid</span>
+          <Icon family="system" id="donut" size="mini" />
         </Link>
       </div>
     );

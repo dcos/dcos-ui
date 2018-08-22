@@ -6,6 +6,8 @@ import Icon from "#SRC/js/components/Icon";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
+import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
+
 var ServicesPage = React.createClass({
   contextTypes: {
     router: routerShape
@@ -37,6 +39,10 @@ var ServicesPage = React.createClass({
       "/services/overview": "Services"
     };
     this.updateCurrentTab();
+  },
+
+  componentDidMount() {
+    CosmosPackagesStore.fetchAvailablePackages();
   },
 
   componentDidUpdate() {
