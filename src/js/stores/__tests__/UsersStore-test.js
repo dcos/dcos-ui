@@ -7,7 +7,7 @@ const EventTypes = require("../../constants/EventTypes");
 const UsersList = require("../../structs/UsersList");
 const Config = require("#SRC/js/config/Config").default;
 
-const usersFixture = require("../../../../tests/_fixtures/acl/users-unicode.json");
+const usersFixture = require("./fixtures/users-unicode.json");
 
 let thisRequestFn, thisUsersFixture, thisUseFixtures;
 
