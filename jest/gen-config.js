@@ -64,8 +64,6 @@ var config = {
   ],
   'timers': 'fake',
   'coverageReporters': ["json", "lcov", "cobertura", "text"],
-  // We need this to override jest's default ['/node_modules/']
-  'preprocessorIgnorePatterns' : [],
   'testPathIgnorePatterns': [
     '/tmp/',
     '/node_modules/'
