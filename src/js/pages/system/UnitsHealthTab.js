@@ -191,7 +191,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             />
             <FilterBar rightAlignLastNChildren={1}>
               <FilterInputText
-                className="flush-bottom health-tab"
+                className="flush-bottom"
                 searchString={searchString}
                 handleFilterChange={this.handleSearchStringChange}
               />
