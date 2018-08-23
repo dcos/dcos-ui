@@ -12,7 +12,7 @@ export default class Node extends Item {
   getHealth: () => any;
   getOutput: () => any;
   sumTaskTypesByState: (state: any) => any;
-  getUsedResources: () => any;
+  getResources: () => any;
   isPublic: () => boolean;
   getIp:() => string;
 }
