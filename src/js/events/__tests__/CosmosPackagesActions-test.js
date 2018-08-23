@@ -34,7 +34,10 @@ describe("CosmosPackagesActions", function() {
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.data).toEqual([{ bar: "baz", resource: {} }]);
+        expect(action.data).toEqual({
+          images: { undefined },
+          packages: [{ bar: "baz", resource: {} }]
+        });
       });
 
       thisConfiguration.success({ packages: [{ bar: "baz" }] });

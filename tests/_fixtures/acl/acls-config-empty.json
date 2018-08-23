@@ -1,5 +1,0 @@
-{
-  "title": "Bad Request",
-  "description": "No LDAP configuration stored yet.",
-  "code": "ERR_LDAP_CONFIG_NOT_AVAILABLE"
-}

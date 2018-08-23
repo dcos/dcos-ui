@@ -1,4 +1,5 @@
 import Util from "#SRC/js/utils/Util";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import ServiceImages from "../constants/ServiceImages";
 
@@ -42,6 +43,25 @@ const FrameworkUtil = {
 
   /**
    * Get service icon images from images object
+   * @param  {Object} packageImages containing urls for the different image sizes
+   * @return {Object}               containing urls from the extracted query string
+   * if all is not available in given object.
+   */
+  extractImageUrls(packageImages) {
+    const images = Object.assign({}, packageImages);
+
+    Object.keys(images).forEach(image => {
+      const queryString = images[image].substring(
+        images[image].lastIndexOf("?")
+      );
+      images[image] = RouterUtil.getQueryStringInUrl(queryString).url;
+    });
+
+    return images;
+  },
+
+  /**
+   * Get service icon images from images object
    * @param  {Object} images containing urls for the different image sizes
    * @return {Object}        containing urls for images. Returns default images
    * if all is not available in given object.
@@ -56,6 +76,26 @@ const FrameworkUtil = {
     }
 
     return images;
+  },
+
+  /**
+   * Tries to parse the given version string to display only the
+   * base tech version of packages
+   * @param {string} version Version to parse
+   * @returns {string} base tech version (if possible) or "N/A"
+   */
+  extractBaseTechVersion(version) {
+    if (!version) {
+      return "N/A";
+    }
+
+    const splitVersion = version.split("-");
+
+    if (splitVersion.length === 1) {
+      return splitVersion[0];
+    }
+
+    return splitVersion.slice(1).join("-");
   }
 };
 

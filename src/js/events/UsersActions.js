@@ -87,7 +87,7 @@ const UsersActions = {
 };
 
 if (Config.useFixtures) {
-  const usersFixture = require("../../../tests/_fixtures/acl/users-unicode.json");
+  const usersFixture = require("../stores/__tests__/fixtures/users-unicode.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};

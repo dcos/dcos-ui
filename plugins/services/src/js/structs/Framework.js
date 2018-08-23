@@ -5,6 +5,8 @@ import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from "../constants/FrameworkConstants";
+import FrameworkUtil from "../utils/FrameworkUtil";
+
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
@@ -16,6 +18,13 @@ module.exports = class Framework extends Application {
     // it gets as a properties of this object and we want to avoid any naming
     // collisions.
     this._spec = null;
+  }
+
+  /**
+   * @override
+   */
+  getImages() {
+    return FrameworkUtil.getServiceImages(this.get("images"));
   }
 
   getPackageName() {
