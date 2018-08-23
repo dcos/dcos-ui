@@ -35,7 +35,7 @@ const VirtualNetworksActions = {
 };
 
 if (Config.useFixtures) {
-  const virtualNetworksFixture = require("../../../tests/_fixtures/networking/virtual-networks.json");
+  const virtualNetworksFixture = require("./__tests__/_fixtures/virtual-networks.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
