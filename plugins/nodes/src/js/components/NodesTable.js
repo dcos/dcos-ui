@@ -32,7 +32,10 @@ class NodesTable extends PureComponent {
     return (
       <span title={node.getRegionName()}>
         {node.getRegionName()}
-        {this.props.masterRegion === node.getRegionName() ? " (Local)" : null}
+        {this.props.masterRegion === node.getRegionName() &&
+          this.props.masterRegion !== "N/A"
+          ? " (Local)"
+          : null}
       </span>
     );
   }
