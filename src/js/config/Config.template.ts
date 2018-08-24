@@ -11,6 +11,10 @@ export default {
         banner: {
           enabled: false
         },
+        intercom: {
+          enabled: true,
+          appId: "wn4z9z0y"
+        },
         mesos: {
           "logging-strategy": "logrotate"
         },

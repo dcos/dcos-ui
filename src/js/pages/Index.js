@@ -67,6 +67,7 @@ var Index = React.createClass({
     );
     global.addEventListener("resize", this.handleWindowResize);
 
+    ConfigStore.fetchCCID();
     ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
   },
 

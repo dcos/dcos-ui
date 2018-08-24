@@ -116,6 +116,24 @@ class MetadataStore extends GetSetBaseStore {
     MetadataActions.fetchDCOSBuildInfo();
   }
 
+  get bootstrapId() {
+    const metadata = this.get("dcosMetadata");
+
+    return metadata && metadata["bootstrap-id"];
+  }
+
+  get clusterId() {
+    const metadata = this.get("metadata");
+
+    return metadata && metadata.CLUSTER_ID;
+  }
+
+  get imageCommit() {
+    const metadata = this.get("dcosMetadata");
+
+    return metadata && metadata["dcos-image-commit"];
+  }
+
   get variant() {
     const metadata = this.get("dcosMetadata");
 
