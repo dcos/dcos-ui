@@ -84,6 +84,24 @@ describe("Job JSON Editor", function() {
     // Fill-in image
     cy.root().getFormGroupInputFor("Image").type("python:3");
 
+    // Select `Docker Parameters`
+    cy
+      .root()
+      .get(".multiple-form-modal-sidebar-menu-item")
+      .contains("Docker Parameters")
+      .click();
+
+    // Fill-in the first param
+    cy.root().getFormGroupInputFor("Parameter Name").eq(0).type("cap-drop");
+    cy.root().getFormGroupInputFor("Parameter Value").eq(0).type("ALL");
+
+    // Add an additional param
+    cy.get(".clickable").contains("Add Parameter").click({ force: true });
+
+    // Fill-in the second param
+    cy.root().getFormGroupInputFor("Parameter Name").eq(1).type("cap-add");
+    cy.root().getFormGroupInputFor("Parameter Value").eq(1).type("SYSLOG");
+
     // Check JSON mode
     cy.contains("JSON mode").click();
 
@@ -97,7 +115,18 @@ describe("Job JSON Editor", function() {
           disk: 0,
           cmd: cmdline,
           docker: {
-            image: "python:3"
+            image: "python:3",
+            privileged: false,
+            parameters: [
+              {
+                "key": "cap-drop",
+                "value": "ALL"
+              },
+              {
+                "key": "cap-add",
+                "value": "SYSLOG"
+              }
+            ]
           }
         },
         schedules: []
