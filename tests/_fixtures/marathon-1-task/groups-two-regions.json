@@ -1,0 +1,378 @@
+{
+  "apps": [
+    {
+      "id": "/sleep",
+      "tasks": [{ "region": "Region-A" }, { "region": "Region-B" }],
+      "cmd": "sleep 3000",
+      "args": null,
+      "user": null,
+      "env": {},
+      "instances": 1,
+      "cpus": 0.1,
+      "mem": 16,
+      "disk": 0,
+      "executor": "",
+      "volumes": [
+        {
+          "id": "volume-1",
+          "containerPath": "path-volume-1",
+          "mode": "RW",
+          "size": 1,
+          "type": "External",
+          "status": "Attached"
+        },
+        {
+          "id": "volume-2",
+          "containerPath": "path-volume-2",
+          "mode": "RW",
+          "size": 2,
+          "type": "Persistent",
+          "host": "10.0.1.54",
+          "status": "Detached"
+        }
+      ],
+      "constraints": [],
+      "uris": [],
+      "storeUrls": [],
+      "ports": [10000],
+      "requirePorts": false,
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [],
+      "dependencies": [],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {
+        "MARATHON_SINGLE_INSTANCE_APP": "true"
+      },
+      "acceptedResourceRoles": null,
+      "version": "2015-08-28T01:26:14.620Z",
+      "versionInfo": {
+        "lastScalingAt": "2015-08-28T01:26:14.620Z",
+        "lastConfigChangeAt": "2015-08-28T01:26:14.620Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 1,
+      "tasksUnhealthy": 0,
+      "deployments": []
+    }
+  ],
+  "groups": [
+    {
+      "id": "/unhealthy",
+      "apps": [
+        {
+          "id": "/unhealthy-sleep",
+          "cmd": "sleep 3000",
+          "args": null,
+          "user": null,
+          "env": {},
+          "instances": 1,
+          "cpus": 0.1,
+          "mem": 16,
+          "disk": 0,
+          "executor": "",
+          "volumes": [],
+          "constraints": [],
+          "uris": [],
+          "storeUrls": [],
+          "ports": [10000],
+          "requirePorts": false,
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": null,
+          "healthChecks": [],
+          "dependencies": [],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {
+            "MARATHON_SINGLE_INSTANCE_APP": "true"
+          },
+          "acceptedResourceRoles": null,
+          "version": "2015-08-28T01:26:14.620Z",
+          "versionInfo": {
+            "lastScalingAt": "2015-08-28T01:26:14.620Z",
+            "lastConfigChangeAt": "2015-08-28T01:26:14.620Z"
+          },
+          "tasksStaged": 0,
+          "tasksRunning": 1,
+          "tasksHealthy": 1,
+          "tasksUnhealthy": 1,
+          "deployments": []
+        }
+      ],
+      "dependencies": [],
+      "groups": [],
+      "pods": [],
+      "version": "2015-08-28T01:26:14.620Z"
+    },
+    {
+      "id": "/some/group-with-pods",
+      "apps": [],
+      "dependencies": [],
+      "groups": [],
+      "pods": [
+        {
+          "id": "/some/group-with-pods/podEFGH",
+          "spec": {
+            "id": "/some/group-with-pods/podEFGH",
+            "version": "2016-08-29T01:01:01.001",
+            "user": "user_name",
+            "environment": {
+              "FOO": "bar",
+              "SECRET": {
+                "secret": "name_of_the_secret"
+              }
+            },
+            "containers": [
+              {
+                "name": "nginx",
+                "image": {
+                  "kind": "DOCKER",
+                  "id": "jdef/my-web-service-abc:v1.1.1"
+                },
+                "resources": {
+                  "cpus": 0.5,
+                  "mem": 64,
+                  "disk": 0.5,
+                  "gpus": 2
+                },
+                "exec": {
+                  "command": {
+                    "argv": ["sleep", "100"]
+                  }
+                },
+                "environment": {
+                  "FOO": "bar",
+                  "SECRET": {
+                    "secret": "name_of_the_secret"
+                  }
+                },
+                "user": "root",
+                "labels": {
+                  "label_1": "value"
+                },
+                "lifecycle": {
+                  "killGracePeriodSeconds": 1.5
+                },
+                "healthCheck": {
+                  "http": {
+                    "endpoint": "0.0.0.0",
+                    "path": "/ping",
+                    "scheme": "HTTPS"
+                  },
+                  "tcp": {
+                    "endpoint": "endpoint_name"
+                  },
+                  "command": {
+                    "shell": "ping 0.0.0.0"
+                  },
+                  "gracePeriodSeconds": 10,
+                  "intervalSeconds": 40,
+                  "maxConsecutiveFailures": 2,
+                  "timeoutSeconds": 10,
+                  "delaySeconds": 5
+                },
+                "artifacts": [
+                  {
+                    "uri": "http://download.me/file.tgz",
+                    "extract": true,
+                    "executable": true,
+                    "cache": false,
+                    "destPath": "/tmp/path"
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "Volume Name",
+                    "mountPath": "/mnt/volume_1",
+                    "readOnly": false
+                  }
+                ],
+                "endpoints": [
+                  {
+                    "name": "nginx",
+                    "containerPort": 8888,
+                    "hostPort": 0,
+                    "protocol": "http",
+                    "labels": {
+                      "VIP_0": "1.2.3.4:80"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "flask",
+                "image": {
+                  "kind": "DOCKER",
+                  "id": "jdef/my-web-service-def:v1.1.1"
+                },
+                "endpoints": [
+                  {
+                    "name": "flask",
+                    "containerPort": 8080,
+                    "hostPort": 0,
+                    "protocol": "http",
+                    "labels": {
+                      "VIP_0": "1.2.3.5:80"
+                    }
+                  }
+                ],
+                "resources": {
+                  "cpus": 0.5,
+                  "mem": 64
+                }
+              }
+            ],
+            "secrets": {
+              "secret_1": {
+                "source": "secret_source"
+              }
+            },
+            "labels": {
+              "label_1": "value"
+            },
+            "volumes": [
+              {
+                "name": "volume_1",
+                "host": "/mnt/volume_1"
+              },
+              {
+                "name": "volume_2"
+              }
+            ],
+            "networks": [
+              {
+                "name": "network_1",
+                "mode": "host",
+                "labels": {
+                  "network_label_1_name": "network_label_1"
+                }
+              },
+              {
+                "name": "network_2",
+                "mode": "container"
+              }
+            ],
+            "scaling": {
+              "kind": "fixed",
+              "instances": 10
+            },
+            "scheduling": {
+              "placement": {
+                "constraints": [
+                  {
+                    "fieldName": "hostname",
+                    "operator": "UNIQUE"
+                  }
+                ],
+                "acceptedResourceRoles": ["slave_public"]
+              }
+            }
+          },
+          "status": "STAGING",
+          "statusSince": "2016-08-31T01:01:01.001",
+          "message": "All pod instances are running and in good health",
+          "lastUpdated": "2016-08-31T01:01:01.001",
+          "lastChanged": "2016-08-31T01:01:01.001",
+          "instances": [
+            {
+              "id": "pod-34590238602948",
+              "status": "STABLE",
+              "statusSince": "2016-08-31T01:01:01.001",
+              "agentHostname": "node-123-123-123-123",
+              "resources": {
+                "cpus": 0.6,
+                "mem": 96
+              },
+              "lastUpdated": "2016-08-31T01:01:01.001",
+              "lastChanged": "2016-08-31T01:01:01.001",
+              "containers": [
+                {
+                  "name": "nginx",
+                  "status": "RUNNING",
+                  "statusSince": "2016-08-31T01:01:01.001",
+                  "containerId": "podtask-3490824906824564563456",
+                  "endpoints": [
+                    {
+                      "name": "nginx",
+                      "allocatedHostPort": 31001
+                    }
+                  ],
+                  "lastUpdated": "2016-08-31T01:01:01.001",
+                  "lastChanged": "2016-08-31T01:01:01.001"
+                },
+                {
+                  "name": "flask",
+                  "status": "RUNNING",
+                  "statusSince": "2016-08-31T01:01:01.001",
+                  "containerId": "podtask-3490824906824564563456",
+                  "endpoints": [
+                    {
+                      "name": "flask",
+                      "allocatedHostPort": 31003
+                    }
+                  ],
+                  "lastUpdated": "2016-08-31T01:01:01.001",
+                  "lastChanged": "2016-08-31T01:01:01.001"
+                }
+              ]
+            },
+            {
+              "id": "pod-51373531528821",
+              "status": "STAGING",
+              "statusSince": "2016-08-41T01:01:01.001",
+              "agentHostname": "node-123-123-123-123",
+              "resources": {
+                "cpus": 0.6,
+                "mem": 96
+              },
+              "lastUpdated": "2016-08-41T01:01:01.001",
+              "lastChanged": "2016-08-41T01:01:01.001",
+              "containers": [
+                {
+                  "name": "nginx",
+                  "status": "RUNNING",
+                  "statusSince": "2016-08-31T01:01:01.001",
+                  "containerId": "podtask-3490824906824564563456",
+                  "endpoints": [
+                    {
+                      "name": "nginx",
+                      "allocatedHostPort": 31001
+                    }
+                  ],
+                  "lastUpdated": "2016-08-31T01:01:01.001",
+                  "lastChanged": "2016-08-31T01:01:01.001"
+                },
+                {
+                  "name": "flask",
+                  "status": "STAGING",
+                  "statusSince": "2016-08-41T01:01:01.001",
+                  "containerId": "podtask-6168613687221846724371",
+                  "endpoints": [
+                    {
+                      "name": "flask",
+                      "allocatedHostPort": 31002
+                    }
+                  ],
+                  "lastUpdated": "2016-08-41T01:01:01.001",
+                  "lastChanged": "2016-08-41T01:01:01.001"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "version": "2015-08-28T01:26:14.620Z"
+    }
+  ],
+  "id": "/"
+}
