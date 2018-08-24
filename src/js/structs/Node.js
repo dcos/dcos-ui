@@ -84,7 +84,7 @@ class Node extends Item {
     return sum;
   }
 
-  getUsedResources() {
+  getResources() {
     return (
       this.get("used_resources") || {
         cpus: 0,
