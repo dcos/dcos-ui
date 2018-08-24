@@ -400,7 +400,7 @@ class ServicesTable extends React.Component {
     const displayVersion =
       service && service instanceof Framework
         ? FrameworkUtil.extractBaseTechVersion(rawVersion)
-        : rawVersion;
+        : "";
 
     return <Tooltip content={rawVersion}>{displayVersion}</Tooltip>;
   }
