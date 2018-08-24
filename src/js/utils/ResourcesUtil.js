@@ -57,7 +57,7 @@ const ResourcesUtil = {
       }
     }
 
-    const usedResources = item.getUsedResources();
+    const usedResources = item.getResources();
     let resources = Object.keys(usedResources);
 
     if (excludeList.length > 0) {
