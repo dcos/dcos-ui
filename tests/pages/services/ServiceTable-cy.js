@@ -323,4 +323,43 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
   });
+  context("Region Column", function() {
+    context("Single Region", () => {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy-with-region",
+          regions: 1,
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+      });
+
+      it("does contain the right region", function() {
+        cy.get(".service-table")
+          .contains("sleep")
+          .closest("tr")
+          .contains("Region-A")
+          .should("to.have.length", 1);
+      });
+    });
+
+    context("Multiple Regions", () => {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy-with-region",
+          regions: 2,
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+      });
+
+      it("does contain the right region", function() {
+        cy.get(".service-table")
+          .contains("sleep")
+          .closest("tr")
+          .contains("Region-A, Region-B")
+          .should("to.have.length", 1);
+      });
+    });
+  });
 });
