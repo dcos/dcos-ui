@@ -121,7 +121,6 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
 
-    ConfigStore.fetchCCID();
     MarathonStore.fetchMarathonInstanceInfo();
     MetadataStore.fetchDCOSBuildInfo();
   }
