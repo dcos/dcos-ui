@@ -46,7 +46,7 @@ class RequestErrorMsg extends React.Component {
 
 RequestErrorMsg.defaultProps = {
   columnClasses: {},
-  header: "Cannot Connect With The Server",
+  header: "DC/OS UI cannot retrieve the requested information at this moment.",
   message: getDefaultMessage()
 };
 
