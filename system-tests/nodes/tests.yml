@@ -1,0 +1,10 @@
+  - name: nodes
+    title: Nodes
+    cluster:
+      features: []
+    results:
+      junit: "cypress/results.xml"
+      assets:
+        - cypress
+    scripts:
+      run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --spec nodes/test-nodes.js
