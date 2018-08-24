@@ -24,7 +24,7 @@ module.exports = merge(common, {
     new ModuleConcatenationPlugin(),
     new DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production"),
-      "process.env.version": packageInfo.version
+      "process.env.version": JSON.stringify(packageInfo.version)
     }),
     new UglifyJsPlugin({
       parallel: true,
