@@ -3,5 +3,12 @@
   "tagFormat": "master+v${version}",
   "verifyConditions": ["@semantic-release/github"],
   "prepare": [],
-  "publish": ["@semantic-release/github"]
+  "publish": [
+    {
+      "path": "@semantic-release/exec",
+      "cmd": "./scripts/ci/upload-release v${nextRelease.version}",
+      "shell": "/bin/bash"
+    },
+    "@semantic-release/github"
+  ]
 }
