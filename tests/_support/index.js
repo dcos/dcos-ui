@@ -55,7 +55,10 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     }).as("getMaster");
   }
 
-  if (configuration.mesos === "1-task-healthy") {
+  if (
+    configuration.mesos === "1-task-healthy" ||
+    configuration.mesos === "1-task-healthy-with-region"
+  ) {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
@@ -97,6 +100,23 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
+  }
+
+  if (configuration.mesos === "1-task-healthy-with-region") {
+    switch (configuration.regions) {
+      case 1:
+        router.route(
+          /service\/marathon\/v2\/groups/,
+          "fx:marathon-1-task/groups-region"
+        );
+        break;
+      default:
+        router.route(
+          /service\/marathon\/v2\/groups/,
+          "fx:marathon-1-task/groups-two-regions"
+        );
+        break;
+    }
   }
 
   if (configuration.mesos === "1-pod") {
