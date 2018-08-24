@@ -19,4 +19,19 @@ describe("Nodes", function() {
     cy.visitUrl("/nodes");
     cy.get(healthySelector).should("have.length", 2);
   });
+
+  it("shows leader in master tab", () => {
+    cy.visitUrl("/nodes");
+    cy.get(".menu-tabbed-item-label")
+      .contains("Masters")
+      .click();
+    cy.get(".configuration-map-section")
+      .first()
+      .find(".configuration-map-row.table-row .configuration-map-value")
+      .each(node => {
+        cy.wrap(node)
+          .get(".loader")
+          .should("not.exist");
+      });
+  });
 });
