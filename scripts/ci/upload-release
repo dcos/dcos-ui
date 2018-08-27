@@ -32,8 +32,8 @@ PKG_TARGET=$(python -c "import sys, json; \
   dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
   sys.stdout.write(str(dcosrc['base']));")
 
-# release version (after switching to semantic-release, we cant use package.json anymore)
-PKG_VERSION="$(git tag -l --sort=-version:refname | grep ${PKG_TARGET} | head -1 | cut -d'+' -f2)"
+# next release version (passed in by semantic-release)
+PKG_VERSION="${1}"
 
 # build release name for branch and file names
 # Examples:
@@ -47,6 +47,19 @@ DCOS_BRANCH="dcos-ui/${PKG_TARGET}+dcos-ui-latest"
 ## Create Assets & Generate Upload Data
 #####################################################################
 
+VERSION_PLACEHOLDER="0.0.0-dev+semantic-release"
+
+# first, replace placeholder in dist bundle and verify that it worked
+sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_TARGET}+${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
+if ! grep "${PKG_TARGET}+${PKG_VERSION}" ${PROJECT_ROOT}/dist/index.html; then
+  echo "Version injection into dist/index.html failed!"
+  exit 1
+fi
+
+# second, create tarball
+tar czf release.tar.gz dist
+
+# third, upload tarball
 # if this fails, there is already a release with this SHA -> stop.
 RELEASE_NAME="${RELEASE_NAME}" \
   ${SCRIPT_PATH}/utils/upload-build || exit 0

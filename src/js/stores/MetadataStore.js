@@ -116,6 +116,12 @@ class MetadataStore extends GetSetBaseStore {
     MetadataActions.fetchDCOSBuildInfo();
   }
 
+  get variant() {
+    const metadata = this.get("dcosMetadata");
+
+    return metadata && metadata["dcos-variant"];
+  }
+
   get version() {
     const metadata = this.get("dcosMetadata");
 
