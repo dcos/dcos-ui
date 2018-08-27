@@ -50,7 +50,7 @@ DCOS_BRANCH="dcos-ui/${PKG_TARGET}+dcos-ui-latest"
 VERSION_PLACEHOLDER="0.0.0-dev+semantic-release"
 
 # first, replace placeholder in dist bundle and verify that it worked
-sed -i "" "s/${VERSION_PLACEHOLDER}/${PKG_TARGET}+${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
+sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_TARGET}+${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
 if ! grep "${PKG_TARGET}+${PKG_VERSION}" ${PROJECT_ROOT}/dist/index.html; then
   echo "Version injection into dist/index.html failed!"
   exit 1
