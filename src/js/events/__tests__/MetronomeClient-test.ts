@@ -157,7 +157,11 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobDetailData
+          j: {
+            response: jobDetailData,
+            code: 200,
+            message: "ok"
+          }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -192,7 +196,11 @@ describe("MetronomeClient", () => {
         m.bind();
         const expectedResult = [jobData, jobData] as JobResponse[];
         const expected$ = m.cold("--j|", {
-          j: expectedResult
+          j: {
+            response: expectedResult,
+            code: 200,
+            message: "ok"
+          }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -224,7 +232,11 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobDetailData as JobDetailResponse
+          j: {
+            response: jobDetailData as JobDetailResponse,
+            code: 200,
+            message: "ok"
+          }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -263,7 +275,7 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: null
+          j: { response: null, code: 200, message: "ok" }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -305,7 +317,7 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: jobDetailData
+          j: { response: jobDetailData, code: 200, message: "ok" }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -347,7 +359,7 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: null
+          j: { response: null, code: 200, message: "ok" }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -387,7 +399,7 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: null
+          j: { response: null, code: 200, message: "ok" }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -427,7 +439,7 @@ describe("MetronomeClient", () => {
         m.bind();
 
         const expected$ = m.cold("--j|", {
-          j: null
+          j: { response: null, code: 200, message: "ok" }
         });
 
         mockRequest.mockReturnValueOnce(expected$);

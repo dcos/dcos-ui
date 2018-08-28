@@ -5,6 +5,12 @@ import { Observable } from "rxjs/Observable";
 import Config from "../config/Config";
 
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
+export interface RequestResponse<T> {
+  code: number;
+  message: string;
+  response: T;
+}
+
 export interface GenericJobResponse {
   id: string;
   labels: LabelResponse;
@@ -145,7 +151,7 @@ const defaultHeaders = {
 
 export function createJob(
   data: JobDetailResponse
-): Observable<JobDetailResponse> {
+): Observable<RequestResponse<JobDetailResponse>> {
   return request(`${Config.metronomeAPI}/v0/scheduled-jobs`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -153,7 +159,7 @@ export function createJob(
   });
 }
 
-export function fetchJobs(): Observable<JobResponse[]> {
+export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
   return request(
     `${
       Config.metronomeAPI
@@ -162,7 +168,9 @@ export function fetchJobs(): Observable<JobResponse[]> {
   );
 }
 
-export function fetchJobDetail(jobID: string): Observable<JobDetailResponse> {
+export function fetchJobDetail(
+  jobID: string
+): Observable<RequestResponse<JobDetailResponse>> {
   return request(
     `${
       Config.metronomeAPI
@@ -174,7 +182,7 @@ export function fetchJobDetail(jobID: string): Observable<JobDetailResponse> {
 export function deleteJob(
   jobID: string,
   stopCurrentJobRuns = false
-): Observable<any> {
+): Observable<RequestResponse<any>> {
   return request(
     `${
       Config.metronomeAPI
@@ -186,7 +194,7 @@ export function deleteJob(
 export function updateJob(
   jobID: string,
   data: JobDetailResponse
-): Observable<JobDetailResponse> {
+): Observable<RequestResponse<JobDetailResponse>> {
   return request(
     `${
       Config.metronomeAPI
@@ -199,7 +207,7 @@ export function updateJob(
   );
 }
 
-export function runJob(jobID: string): Observable<any> {
+export function runJob(jobID: string): Observable<RequestResponse<any>> {
   return request(
     `${
       Config.metronomeAPI
@@ -212,7 +220,10 @@ export function runJob(jobID: string): Observable<any> {
   );
 }
 
-export function stopJobRun(jobID: string, jobRunID: string): Observable<any> {
+export function stopJobRun(
+  jobID: string,
+  jobRunID: string
+): Observable<RequestResponse<any>> {
   return request(
     `${Config.metronomeAPI}/v1/jobs/${jobID}/runs/${jobRunID}/actions/stop`,
     { headers: defaultHeaders, method: "POST", body: "{}" }
@@ -222,7 +233,7 @@ export function stopJobRun(jobID: string, jobRunID: string): Observable<any> {
 export function updateSchedule(
   jobID: string,
   data: ScheduleData
-): Observable<any> {
+): Observable<RequestResponse<any>> {
   return request(
     `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
     { method: "PUT", headers: defaultHeaders, body: JSON.stringify(data) }

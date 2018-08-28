@@ -10,7 +10,8 @@ import {
   deleteJob,
   stopJobRun,
   JobResponse as MetronomeJobResponse,
-  JobDetailResponse as MetronomeJobDetailResponse
+  JobDetailResponse as MetronomeJobDetailResponse,
+  RequestResponse
 } from "#SRC/js/events/MetronomeClient";
 
 import Config from "#SRC/js/config/Config";
@@ -33,23 +34,31 @@ export interface Query {
 }
 
 export interface ResolverArgs {
-  fetchJobs: () => Observable<MetronomeJobResponse[]>;
-  fetchJobDetail: (id: string) => Observable<MetronomeJobDetailResponse>;
+  fetchJobs: () => Observable<RequestResponse<MetronomeJobResponse[]>>;
+  fetchJobDetail: (
+    id: string
+  ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   pollingInterval: number;
-  runJob: (id: string) => Observable<JobLink>;
+  runJob: (id: string) => Observable<RequestResponse<JobLink>>;
   createJob: (
     data: MetronomeJobDetailResponse
-  ) => Observable<MetronomeJobDetailResponse>;
+  ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   updateJob: (
     id: string,
     data: MetronomeJobDetailResponse
-  ) => Observable<MetronomeJobDetailResponse>;
+  ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   updateSchedule: (
     id: string,
     data: MetronomeJobDetailResponse
-  ) => Observable<JobLink>;
-  deleteJob: (id: string, stopCurrentJobRuns: boolean) => Observable<JobLink>;
-  stopJobRun: (id: string, jobRunId: string) => Observable<JobLink>;
+  ) => Observable<RequestResponse<JobLink>>;
+  deleteJob: (
+    id: string,
+    stopCurrentJobRuns: boolean
+  ) => Observable<RequestResponse<JobLink>>;
+  stopJobRun: (
+    id: string,
+    jobRunId: string
+  ) => Observable<RequestResponse<JobLink>>;
 }
 
 export interface GeneralArgs {
@@ -133,7 +142,9 @@ export const resolvers = ({
           );
         }
 
-        return jobs$.map(response => JobConnectionTypeResolver(response, args));
+        return jobs$.map(({ response }) =>
+          JobConnectionTypeResolver(response, args)
+        );
       },
       job(
         _parent = {},
@@ -148,7 +159,7 @@ export const resolvers = ({
 
         const pollingInterval$ = Observable.timer(0, pollingInterval);
         const responses$ = pollingInterval$.switchMap(() =>
-          fetchJobDetail(args.id)
+          fetchJobDetail(args.id).map(({ response }) => response)
         );
 
         return responses$.map(response => JobTypeResolver(response));
@@ -166,7 +177,7 @@ export const resolvers = ({
           });
         }
 
-        return runJob(args.id).map(({ jobId }) => ({ jobId }));
+        return runJob(args.id).map(({ response: { jobId } }) => ({ jobId }));
       },
       updateSchedule(
         _parent = {},
@@ -182,9 +193,11 @@ export const resolvers = ({
           });
         }
 
-        return updateSchedule(args.id, args.data).map(({ jobId }) => ({
-          jobId
-        }));
+        return updateSchedule(args.id, args.data).map(
+          ({ response: { jobId } }) => ({
+            jobId
+          })
+        );
       },
       createJob(
         _parent = {},
@@ -197,7 +210,7 @@ export const resolvers = ({
           });
         }
 
-        return createJob(args.data);
+        return createJob(args.data).map(({ response }) => response);
       },
       deleteJob(
         _parent = {},
@@ -217,9 +230,11 @@ export const resolvers = ({
           });
         }
 
-        return deleteJob(args.id, args.stopCurrentJobRuns).map(({ jobId }) => ({
-          jobId
-        }));
+        return deleteJob(args.id, args.stopCurrentJobRuns).map(
+          ({ response: { jobId } }) => ({
+            jobId
+          })
+        );
       },
       stopJobRun(
         _parent = {},
@@ -235,9 +250,11 @@ export const resolvers = ({
           });
         }
 
-        return stopJobRun(args.id, args.jobRunId).map(({ jobId }) => ({
-          jobId
-        }));
+        return stopJobRun(args.id, args.jobRunId).map(
+          ({ response: { jobId } }) => ({
+            jobId
+          })
+        );
       },
       updateJob(
         _parent = {},
@@ -252,7 +269,7 @@ export const resolvers = ({
           });
         }
 
-        return updateJob(args.id, args.data);
+        return updateJob(args.id, args.data).map(({ response }) => response);
       }
     }
   };

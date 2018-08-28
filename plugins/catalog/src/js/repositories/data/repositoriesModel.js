@@ -28,9 +28,9 @@ export const typeDefs = `
   }
 `;
 
-const getRepositoryList = filter => result =>
+const getRepositoryList = filter => ({ response }) =>
   Object.values(
-    new RepositoryList({ items: result.repositories })
+    new RepositoryList({ items: response.repositories })
       .filterItemsByText(filter)
       .getItems()
   );

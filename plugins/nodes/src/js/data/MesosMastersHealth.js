@@ -17,7 +17,7 @@ function fetchUnit(unitID) {
   }/units/${unitID}/nodes`;
 
   return request(unitUrl)
-    .map(response => response.nodes)
+    .map(({ response }) => response.nodes)
     .catch(_err => Observable.of([]));
 }
 

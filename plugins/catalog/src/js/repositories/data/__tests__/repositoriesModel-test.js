@@ -26,7 +26,7 @@ describe("Repository Model", function() {
       marbles(function(m) {
         m.bind();
         const queryResult = m.cold("a|", {
-          a: { repositories: data }
+          a: { response: { repositories: data } }
         });
         const expected = m.cold("a|", {
           a: ["Universe", "Marvel Universe", "DC Universe"]
@@ -47,7 +47,7 @@ describe("Repository Model", function() {
       marbles(function(m) {
         m.bind();
         const queryResult = m.cold("a|", {
-          a: { repositories: data }
+          a: { response: { repositories: data } }
         });
         const expected = m.cold("a|", {
           a: ["Marvel Universe"]
@@ -71,7 +71,7 @@ describe("Repository Model", function() {
         m.bind();
 
         const mutation = m.cold("a|", {
-          a: { repositories: data }
+          a: { response: { repositories: data } }
         });
         const expected = m.cold("a|", {
           a: ["Universe", "Marvel Universe", "DC Universe"]
@@ -135,7 +135,7 @@ describe("Repository Model", function() {
         m.bind();
 
         const mutation = m.cold("a|", {
-          a: { repositories: data }
+          a: { response: { repositories: data } }
         });
         const expected = m.cold("a|", {
           a: ["Universe", "Marvel Universe", "DC Universe"]
