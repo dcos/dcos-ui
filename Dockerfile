@@ -35,7 +35,8 @@ RUN set -x \
   && cd /dcos-ui \
   && npm install -g git://github.com/dcos-labs/http-server.git#proxy-secure-flag \
   # Install dcos-launch
-  && curl 'https://downloads.dcos.io/dcos-launch/bin/linux/dcos-launch' > /usr/local/bin/dcos-launch \
+  && pip install git+git://github.com/dcos/dcos-test-utils@5361c8623cd0751f9312cf79b66dde6f09da1e74\
+  && pip install git+git://github.com/dcos/dcos-launch.git@4a2515f4819f0a7efc051eb5ad2c5ceb34da5975 \
   && chmod +x /usr/local/bin/dcos-launch \
   # Ensure entrypoint is executable
   && chmod +x /usr/local/bin/dcos-ui-docker-entrypoint \
