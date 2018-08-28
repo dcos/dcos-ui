@@ -143,8 +143,9 @@ describe("JobModel Resolver", () => {
       sortBy = "ID",
       sortDirection = "ASC"
     ) => {
-      const fetchJobs = () => m.cold("(j|)", { j: jobsList });
-      const fetchJobDetail = id => m.cold("(j|)", { j: jobsData[id] });
+      const fetchJobs = () => m.cold("(j|)", { j: { response: jobsList } });
+      const fetchJobDetail = id =>
+        m.cold("(j|)", { j: { response: jobsData[id] } });
       const resolverResult$ = resolvers({
         fetchJobs,
         fetchJobDetail,
@@ -160,9 +161,10 @@ describe("JobModel Resolver", () => {
         marbles(m => {
           m.bind();
 
-          const fetchJobs = () => m.cold("(j|)", { j: [defaultJobDetailData] });
+          const fetchJobs = () =>
+            m.cold("(j|)", { j: { response: [defaultJobDetailData] } });
           const fetchJobDetail = _id =>
-            m.cold("(j|)", { j: defaultJobDetailData });
+            m.cold("(j|)", { j: { response: defaultJobDetailData } });
           const resolverResult$ = resolvers({
             fetchJobs,
             fetchJobDetail,
@@ -185,9 +187,10 @@ describe("JobModel Resolver", () => {
         "polls the endpoint",
         marbles(m => {
           m.bind();
-          const fetchJobs = () => m.cold("(j|)", { j: [defaultJobDetailData] });
+          const fetchJobs = () =>
+            m.cold("(j|)", { j: { response: [defaultJobDetailData] } });
           const fetchJobDetail = _id =>
-            m.cold("(j|)", { j: defaultJobDetailData });
+            m.cold("(j|)", { j: { response: defaultJobDetailData } });
           const resolverResult$ = resolvers({
             fetchJobs,
             fetchJobDetail,
@@ -210,10 +213,10 @@ describe("JobModel Resolver", () => {
         marbles(m => {
           m.bind();
           const fetchJobs = jest.fn(() =>
-            m.cold("(j|)", { j: [defaultJobDetailData] })
+            m.cold("(j|)", { j: { response: [defaultJobDetailData] } })
           );
           const fetchJobDetail = _id =>
-            m.cold("(j|)", { j: defaultJobDetailData });
+            m.cold("(j|)", { j: { response: defaultJobDetailData } });
           const jobsQuery = resolvers({
             fetchJobs,
             fetchJobDetail,
@@ -367,10 +370,12 @@ describe("JobModel Resolver", () => {
         const jobsResponseWithIds = (m, ids, path, filter) => {
           const fetchJobs = () =>
             m.cold("(j|)", {
-              j: ids.map(id => ({ ...defaultJobDetailData, id }))
+              j: { response: ids.map(id => ({ ...defaultJobDetailData, id })) }
             });
           const fetchJobDetail = id =>
-            m.cold("(j|)", { j: { ...defaultJobDetailData, id } });
+            m.cold("(j|)", {
+              j: { response: { ...defaultJobDetailData, id } }
+            });
           const resolverResult$ = resolvers({
             fetchJobs,
             fetchJobDetail,
@@ -555,7 +560,7 @@ describe("JobModel Resolver", () => {
       marbles(m => {
         m.bind();
         const fetchJobDetail = id =>
-          m.cold("--x|", { x: { ...defaultJobDetailData, id } });
+          m.cold("--x|", { x: { response: { ...defaultJobDetailData, id } } });
         const result$ = resolvers({
           fetchJobDetail,
           pollingInterval: m.time("--|")
@@ -574,7 +579,8 @@ describe("JobModel Resolver", () => {
       marbles(m => {
         m.bind();
         const result$ = resolvers({
-          fetchJobDetail: () => Observable.of(defaultJobDetailData),
+          fetchJobDetail: () =>
+            Observable.of({ response: defaultJobDetailData }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
@@ -610,7 +616,9 @@ describe("JobModel Resolver", () => {
         m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({ ...defaultJobDetailData, id: "foo.bar.baz" }),
+            Observable.of({
+              response: { ...defaultJobDetailData, id: "foo.bar.baz" }
+            }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
@@ -628,7 +636,9 @@ describe("JobModel Resolver", () => {
         m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({ ...defaultJobDetailData, id: "foo.bar.baz" }),
+            Observable.of({
+              response: { ...defaultJobDetailData, id: "foo.bar.baz" }
+            }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
@@ -646,7 +656,7 @@ describe("JobModel Resolver", () => {
         m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({ ...defaultJobDetailData, id: "foo" }),
+            Observable.of({ response: { ...defaultJobDetailData, id: "foo" } }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
@@ -666,21 +676,23 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                activeRuns: [
-                  {
-                    jobId: 1,
-                    status: "foo",
-                    createdAt: "1985-01-03t00:00:00z-1",
-                    tasks: []
-                  },
-                  {
-                    jobId: 2,
-                    status: "bar",
-                    createdAt: "1990-01-03t00:00:00z-1",
-                    tasks: []
-                  }
-                ]
+                response: {
+                  ...defaultJobDetailData,
+                  activeRuns: [
+                    {
+                      jobId: 1,
+                      status: "foo",
+                      createdAt: "1985-01-03t00:00:00z-1",
+                      tasks: []
+                    },
+                    {
+                      jobId: 2,
+                      status: "bar",
+                      createdAt: "1990-01-03t00:00:00z-1",
+                      tasks: []
+                    }
+                  ]
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -702,14 +714,16 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                id: "/foo",
-                activeRuns: [],
-                schedules: [
-                  {
-                    enabled: true
-                  }
-                ]
+                response: {
+                  ...defaultJobDetailData,
+                  id: "/foo",
+                  activeRuns: [],
+                  schedules: [
+                    {
+                      enabled: true
+                    }
+                  ]
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -731,14 +745,16 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                id: "/foo",
-                activeRuns: [],
-                scheduled: [
-                  {
-                    enabled: false
-                  }
-                ]
+                response: {
+                  ...defaultJobDetailData,
+                  id: "/foo",
+                  activeRuns: [],
+                  scheduled: [
+                    {
+                      enabled: false
+                    }
+                  ]
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -760,9 +776,11 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                id: "/foo",
-                activeRuns: []
+                response: {
+                  ...defaultJobDetailData,
+                  id: "/foo",
+                  activeRuns: []
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -787,9 +805,11 @@ describe("JobModel Resolver", () => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 Observable.of({
-                  ...defaultJobDetailData,
-                  id: "/foo",
-                  activeRuns: []
+                  response: {
+                    ...defaultJobDetailData,
+                    id: "/foo",
+                    activeRuns: []
+                  }
                 }),
               pollingInterval: m.time("-|")
             }).Query.job({}, { id: "xyz" });
@@ -816,28 +836,30 @@ describe("JobModel Resolver", () => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 Observable.of({
-                  ...defaultJobDetailData,
-                  id: "/foo",
-                  activeRuns: [
-                    {
-                      id: "1",
-                      jobId: "foo",
-                      createdAt: "1990-01-03T00:00:00Z-1",
-                      tasks: []
-                    },
-                    {
-                      id: "2",
-                      jobId: "foo",
-                      createdAt: "1985-01-03T00:00:00Z-1",
-                      tasks: []
-                    },
-                    {
-                      id: "3",
-                      jobId: "foo",
-                      createdAt: "1995-01-03T00:00:00Z-1",
-                      tasks: []
-                    }
-                  ]
+                  response: {
+                    ...defaultJobDetailData,
+                    id: "/foo",
+                    activeRuns: [
+                      {
+                        id: "1",
+                        jobId: "foo",
+                        createdAt: "1990-01-03T00:00:00Z-1",
+                        tasks: []
+                      },
+                      {
+                        id: "2",
+                        jobId: "foo",
+                        createdAt: "1985-01-03T00:00:00Z-1",
+                        tasks: []
+                      },
+                      {
+                        id: "3",
+                        jobId: "foo",
+                        createdAt: "1995-01-03T00:00:00Z-1",
+                        tasks: []
+                      }
+                    ]
+                  }
                 }),
               pollingInterval: m.time("-|")
             }).Query.job({}, { id: "xyz" });
@@ -864,23 +886,25 @@ describe("JobModel Resolver", () => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 Observable.of({
-                  ...defaultJobDetailData,
-                  id: "/foo",
-                  activeRuns: [
-                    {
-                      id: "1",
-                      jobId: "foo",
-                      createdAt: "1990-01-03T00:00:00Z-1",
-                      tasks: []
-                    },
-                    { id: "2", jobId: "foo", createdAt: null, tasks: [] },
-                    {
-                      id: "3",
-                      jobId: "foo",
-                      createdAt: "1995-01-03T00:00:00Z-1",
-                      tasks: []
-                    }
-                  ]
+                  response: {
+                    ...defaultJobDetailData,
+                    id: "/foo",
+                    activeRuns: [
+                      {
+                        id: "1",
+                        jobId: "foo",
+                        createdAt: "1990-01-03T00:00:00Z-1",
+                        tasks: []
+                      },
+                      { id: "2", jobId: "foo", createdAt: null, tasks: [] },
+                      {
+                        id: "3",
+                        jobId: "foo",
+                        createdAt: "1995-01-03T00:00:00Z-1",
+                        tasks: []
+                      }
+                    ]
+                  }
                 }),
               pollingInterval: m.time("-|")
             }).Query.job({}, { id: "xyz" });
@@ -909,21 +933,23 @@ describe("JobModel Resolver", () => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 Observable.of({
-                  ...defaultJobDetailData,
-                  id: "/foo",
-                  activeRuns: [
-                    {
-                      jobId: "1",
-                      createdAt: "1990-01-03T00:00:00Z-1",
-                      tasks: []
-                    },
-                    { jobId: "2", createdAt: null, tasks: [] },
-                    {
-                      jobId: "3",
-                      createdAt: "1995-01-03T00:00:00Z-1",
-                      tasks: []
-                    }
-                  ]
+                  response: {
+                    ...defaultJobDetailData,
+                    id: "/foo",
+                    activeRuns: [
+                      {
+                        jobId: "1",
+                        createdAt: "1990-01-03T00:00:00Z-1",
+                        tasks: []
+                      },
+                      { jobId: "2", createdAt: null, tasks: [] },
+                      {
+                        jobId: "3",
+                        createdAt: "1995-01-03T00:00:00Z-1",
+                        tasks: []
+                      }
+                    ]
+                  }
                 }),
               pollingInterval: m.time("-|")
             }).Query.job({}, { id: "xyz" });
@@ -946,18 +972,20 @@ describe("JobModel Resolver", () => {
               const result$ = resolvers({
                 fetchJobDetail: () =>
                   Observable.of({
-                    ...defaultJobDetailData,
-                    id: "/foo",
-                    activeRuns: [
-                      {
-                        jobId: "1",
-                        createdAt: "2018-06-12T16:25:35.593+0000",
-                        completedAt: "2018-06-12T17:25:35.593+0000",
-                        status: "ACTIVE",
-                        id: "20180612162535qXvcx",
-                        tasks: []
-                      }
-                    ]
+                    response: {
+                      ...defaultJobDetailData,
+                      id: "/foo",
+                      activeRuns: [
+                        {
+                          jobId: "1",
+                          createdAt: "2018-06-12T16:25:35.593+0000",
+                          completedAt: "2018-06-12T17:25:35.593+0000",
+                          status: "ACTIVE",
+                          id: "20180612162535qXvcx",
+                          tasks: []
+                        }
+                      ]
+                    }
                   }),
                 pollingInterval: m.time("-|")
               }).Query.job({}, { id: "xyz" });
@@ -985,18 +1013,20 @@ describe("JobModel Resolver", () => {
               const result$ = resolvers({
                 fetchJobDetail: () =>
                   Observable.of({
-                    ...defaultJobDetailData,
-                    id: "/foo",
-                    activeRuns: [
-                      {
-                        jobId: "1",
-                        createdAt: "2018-06-12T16:25:35.593+0000",
-                        completedAt: "2018-06-12T17:25:35.593+0000",
-                        status: "ACTIVE",
-                        id: "20180612162535qXvcx",
-                        tasks: []
-                      }
-                    ]
+                    response: {
+                      ...defaultJobDetailData,
+                      id: "/foo",
+                      activeRuns: [
+                        {
+                          jobId: "1",
+                          createdAt: "2018-06-12T16:25:35.593+0000",
+                          completedAt: "2018-06-12T17:25:35.593+0000",
+                          status: "ACTIVE",
+                          id: "20180612162535qXvcx",
+                          tasks: []
+                        }
+                      ]
+                    }
                   }),
                 pollingInterval: m.time("-|")
               }).Query.job({}, { id: "xyz" });
@@ -1021,43 +1051,45 @@ describe("JobModel Resolver", () => {
                 const result$ = resolvers({
                   fetchJobDetail: () =>
                     Observable.of({
-                      ...defaultJobDetailData,
-                      id: "/foo",
-                      activeRuns: [
-                        {
-                          jobId: "1",
-                          createdAt: "2018-06-12T16:25:35.593+0000",
-                          completedAt: "2018-06-12T17:25:35.593+0000",
-                          status: "ACTIVE",
-                          id: "20180612162535qXvcx",
-                          tasks: [
-                            {
-                              id:
-                                "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
-                              startedAt: "2018-06-13T08:08:34.773+0000",
-                              status: "TASK_RUNNING"
-                            },
-                            {
-                              id:
-                                "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                              startedAt: "2018-06-13T08:09:34.773+0000",
-                              status: "TASK_STARTING"
-                            },
-                            {
-                              id:
-                                "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                              startedAt: "2018-06-12T08:09:34.773+0000",
-                              status: "TASK_RUNNING"
-                            },
-                            {
-                              id:
-                                "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                              startedAt: "2018-06-12T08:09:34.773+0000",
-                              status: "TASK_FINISHED"
-                            }
-                          ]
-                        }
-                      ]
+                      response: {
+                        ...defaultJobDetailData,
+                        id: "/foo",
+                        activeRuns: [
+                          {
+                            jobId: "1",
+                            createdAt: "2018-06-12T16:25:35.593+0000",
+                            completedAt: "2018-06-12T17:25:35.593+0000",
+                            status: "ACTIVE",
+                            id: "20180612162535qXvcx",
+                            tasks: [
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
+                                startedAt: "2018-06-13T08:08:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                startedAt: "2018-06-13T08:09:34.773+0000",
+                                status: "TASK_STARTING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                startedAt: "2018-06-12T08:09:34.773+0000",
+                                status: "TASK_RUNNING"
+                              },
+                              {
+                                id:
+                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                startedAt: "2018-06-12T08:09:34.773+0000",
+                                status: "TASK_FINISHED"
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     }),
                   pollingInterval: m.time("-|")
                 }).Query.job({}, { id: "xyz" });
@@ -1084,44 +1116,46 @@ describe("JobModel Resolver", () => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       Observable.of({
-                        ...defaultJobDetailData,
-                        id: "/foo",
-                        activeRuns: [
-                          {
-                            jobId: "1",
-                            createdAt: "2018-06-12T16:25:35.593+0000",
-                            completedAt: "2018-06-12T17:25:35.593+0000",
-                            status: "ACTIVE",
-                            id: "20180612162535qXvcx",
-                            tasks: [
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
-                                createdAt: "2018-06-13T08:08:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-13T08:09:34.773+0000",
-                                status: "TASK_STARTING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_FINISHED",
-                                finishedAt: "2018-06-13T08:10:15.367+0000"
-                              }
-                            ]
-                          }
-                        ]
+                        response: {
+                          ...defaultJobDetailData,
+                          id: "/foo",
+                          activeRuns: [
+                            {
+                              jobId: "1",
+                              createdAt: "2018-06-12T16:25:35.593+0000",
+                              completedAt: "2018-06-12T17:25:35.593+0000",
+                              status: "ACTIVE",
+                              id: "20180612162535qXvcx",
+                              tasks: [
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
+                                  createdAt: "2018-06-13T08:08:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-13T08:09:34.773+0000",
+                                  status: "TASK_STARTING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_FINISHED",
+                                  finishedAt: "2018-06-13T08:10:15.367+0000"
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }),
                     pollingInterval: m.time("-|")
                   }).Query.job({}, { id: "xyz" });
@@ -1149,44 +1183,46 @@ describe("JobModel Resolver", () => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       Observable.of({
-                        ...defaultJobDetailData,
-                        id: "/foo",
-                        activeRuns: [
-                          {
-                            jobId: "1",
-                            createdAt: "2018-06-12T16:25:35.593+0000",
-                            completedAt: "2018-06-12T17:25:35.593+0000",
-                            status: "ACTIVE",
-                            id: "20180612162535qXvcx",
-                            tasks: [
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
-                                createdAt: "2018-06-13T08:08:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-13T08:09:34.773+0000",
-                                status: "TASK_STARTING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_FINISHED",
-                                finishedAt: "2018-06-13T08:10:15.367+0000"
-                              }
-                            ]
-                          }
-                        ]
+                        response: {
+                          ...defaultJobDetailData,
+                          id: "/foo",
+                          activeRuns: [
+                            {
+                              jobId: "1",
+                              createdAt: "2018-06-12T16:25:35.593+0000",
+                              completedAt: "2018-06-12T17:25:35.593+0000",
+                              status: "ACTIVE",
+                              id: "20180612162535qXvcx",
+                              tasks: [
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
+                                  createdAt: "2018-06-13T08:08:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-13T08:09:34.773+0000",
+                                  status: "TASK_STARTING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_FINISHED",
+                                  finishedAt: "2018-06-13T08:10:15.367+0000"
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }),
                     pollingInterval: m.time("-|")
                   }).Query.job({}, { id: "xyz" });
@@ -1214,44 +1250,46 @@ describe("JobModel Resolver", () => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       Observable.of({
-                        ...defaultJobDetailData,
-                        id: "/foo",
-                        activeRuns: [
-                          {
-                            jobId: "1",
-                            createdAt: "2018-06-12T16:25:35.593+0000",
-                            completedAt: "2018-06-12T17:25:35.593+0000",
-                            status: "ACTIVE",
-                            id: "20180612162535qXvcx",
-                            tasks: [
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
-                                createdAt: "2018-06-13T08:08:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-13T08:09:34.773+0000",
-                                status: "TASK_STARTING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id:
-                                  "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_FINISHED",
-                                finishedAt: "2018-06-13T08:10:15.367+0000"
-                              }
-                            ]
-                          }
-                        ]
+                        response: {
+                          ...defaultJobDetailData,
+                          id: "/foo",
+                          activeRuns: [
+                            {
+                              jobId: "1",
+                              createdAt: "2018-06-12T16:25:35.593+0000",
+                              completedAt: "2018-06-12T17:25:35.593+0000",
+                              status: "ACTIVE",
+                              id: "20180612162535qXvcx",
+                              tasks: [
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
+                                  createdAt: "2018-06-13T08:08:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-13T08:09:34.773+0000",
+                                  status: "TASK_STARTING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id:
+                                    "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_FINISHED",
+                                  finishedAt: "2018-06-13T08:10:15.367+0000"
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }),
                     pollingInterval: m.time("-|")
                   }).Query.job({}, { id: "xyz" });
@@ -1280,34 +1318,36 @@ describe("JobModel Resolver", () => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       Observable.of({
-                        ...defaultJobDetailData,
-                        id: "/foo",
-                        activeRuns: [
-                          {
-                            jobId: "1",
-                            createdAt: "2018-06-12T16:25:35.593+0000",
-                            completedAt: "2018-06-12T17:25:35.593+0000",
-                            status: "ACTIVE",
-                            id: "20180612162535qXvcx",
-                            tasks: [
-                              {
-                                id: "shortest-running",
-                                createdAt: "2018-06-13T08:08:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id: "middle-running",
-                                createdAt: "2018-06-13T08:09:34.773+0000",
-                                status: "TASK_STARTING"
-                              },
-                              {
-                                id: "longest-running",
-                                createdAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_RUNNING"
-                              }
-                            ]
-                          }
-                        ]
+                        response: {
+                          ...defaultJobDetailData,
+                          id: "/foo",
+                          activeRuns: [
+                            {
+                              jobId: "1",
+                              createdAt: "2018-06-12T16:25:35.593+0000",
+                              completedAt: "2018-06-12T17:25:35.593+0000",
+                              status: "ACTIVE",
+                              id: "20180612162535qXvcx",
+                              tasks: [
+                                {
+                                  id: "shortest-running",
+                                  createdAt: "2018-06-13T08:08:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id: "middle-running",
+                                  createdAt: "2018-06-13T08:09:34.773+0000",
+                                  status: "TASK_STARTING"
+                                },
+                                {
+                                  id: "longest-running",
+                                  createdAt: "2018-06-12T08:09:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }),
                     pollingInterval: m.time("-|")
                   }).Query.job({}, { id: "xyz" });
@@ -1334,33 +1374,35 @@ describe("JobModel Resolver", () => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       Observable.of({
-                        ...defaultJobDetailData,
-                        id: "/foo",
-                        activeRuns: [
-                          {
-                            jobId: "1",
-                            createdAt: "2018-06-12T16:25:35.593+0000",
-                            completedAt: "2018-06-12T17:25:35.593+0000",
-                            status: "ACTIVE",
-                            id: "20180612162535qXvcx",
-                            tasks: [
-                              {
-                                id: "shortest-running",
-                                createdAt: "2018-06-13T08:08:34.773+0000",
-                                status: "TASK_RUNNING"
-                              },
-                              {
-                                id: "longest-running",
-                                createdAt: "2017-06-13T08:09:34.773+0000",
-                                status: "TASK_STARTING"
-                              },
-                              {
-                                id: "without-created-at",
-                                status: "TASK_RUNNING"
-                              }
-                            ]
-                          }
-                        ]
+                        response: {
+                          ...defaultJobDetailData,
+                          id: "/foo",
+                          activeRuns: [
+                            {
+                              jobId: "1",
+                              createdAt: "2018-06-12T16:25:35.593+0000",
+                              completedAt: "2018-06-12T17:25:35.593+0000",
+                              status: "ACTIVE",
+                              id: "20180612162535qXvcx",
+                              tasks: [
+                                {
+                                  id: "shortest-running",
+                                  createdAt: "2018-06-13T08:08:34.773+0000",
+                                  status: "TASK_RUNNING"
+                                },
+                                {
+                                  id: "longest-running",
+                                  createdAt: "2017-06-13T08:09:34.773+0000",
+                                  status: "TASK_STARTING"
+                                },
+                                {
+                                  id: "without-created-at",
+                                  status: "TASK_RUNNING"
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }),
                     pollingInterval: m.time("-|")
                   }).Query.job({}, { id: "xyz" });
@@ -1387,18 +1429,20 @@ describe("JobModel Resolver", () => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       Observable.of({
-                        ...defaultJobDetailData,
-                        id: "/foo",
-                        activeRuns: [
-                          {
-                            jobId: "1",
-                            createdAt: "2018-06-12T16:25:35.593+0000",
-                            completedAt: "2018-06-12T17:25:35.593+0000",
-                            status: "ACTIVE",
-                            id: "20180612162535qXvcx",
-                            tasks: []
-                          }
-                        ]
+                        response: {
+                          ...defaultJobDetailData,
+                          id: "/foo",
+                          activeRuns: [
+                            {
+                              jobId: "1",
+                              createdAt: "2018-06-12T16:25:35.593+0000",
+                              completedAt: "2018-06-12T17:25:35.593+0000",
+                              status: "ACTIVE",
+                              id: "20180612162535qXvcx",
+                              tasks: []
+                            }
+                          ]
+                        }
                       }),
                     pollingInterval: m.time("-|")
                   }).Query.job({}, { id: "xyz" });
@@ -1431,33 +1475,35 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                id: "/foo",
-                activeRuns: [
-                  {
-                    id: "1",
-                    jobId: "foo",
-                    createdAt: "2018-06-12T16:25:35.593+0000",
-                    completedAt: "2018-06-12T17:25:35.593+0000",
-                    status: "ACTIVE",
-                    tasks: []
-                  }
-                ],
-                history: {
-                  successfulFinishedRuns: [
+                response: {
+                  ...defaultJobDetailData,
+                  id: "/foo",
+                  activeRuns: [
                     {
-                      id: "2",
+                      id: "1",
+                      jobId: "foo",
                       createdAt: "2018-06-12T16:25:35.593+0000",
-                      finishedAt: "2018-06-12T17:25:35.593+0000"
+                      completedAt: "2018-06-12T17:25:35.593+0000",
+                      status: "ACTIVE",
+                      tasks: []
                     }
                   ],
-                  failedFinishedRuns: [
-                    {
-                      id: "3",
-                      createdAt: "2018-06-12T16:25:35.593+0000",
-                      finishedAt: "2018-06-12T17:25:35.593+0000"
-                    }
-                  ]
+                  history: {
+                    successfulFinishedRuns: [
+                      {
+                        id: "2",
+                        createdAt: "2018-06-12T16:25:35.593+0000",
+                        finishedAt: "2018-06-12T17:25:35.593+0000"
+                      }
+                    ],
+                    failedFinishedRuns: [
+                      {
+                        id: "3",
+                        createdAt: "2018-06-12T16:25:35.593+0000",
+                        finishedAt: "2018-06-12T17:25:35.593+0000"
+                      }
+                    ]
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1482,33 +1528,35 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                id: "/foo",
-                activeRuns: [
-                  {
-                    jobId: "foo",
-                    createdAt: "2018-06-12T16:25:35.593+0000",
-                    completedAt: "2018-06-12T17:25:35.593+0000",
-                    status: "ACTIVE",
-                    id: "1",
-                    tasks: []
-                  }
-                ],
-                history: {
-                  successfulFinishedRuns: [
+                response: {
+                  ...defaultJobDetailData,
+                  id: "/foo",
+                  activeRuns: [
                     {
-                      id: "2",
+                      jobId: "foo",
                       createdAt: "2018-06-12T16:25:35.593+0000",
-                      finishedAt: "2018-06-12T17:25:35.593+0000"
+                      completedAt: "2018-06-12T17:25:35.593+0000",
+                      status: "ACTIVE",
+                      id: "1",
+                      tasks: []
                     }
                   ],
-                  failedFinishedRuns: [
-                    {
-                      id: "3",
-                      createdAt: "2018-06-12T16:25:35.593+0000",
-                      finishedAt: "2018-06-12T17:25:35.593+0000"
-                    }
-                  ]
+                  history: {
+                    successfulFinishedRuns: [
+                      {
+                        id: "2",
+                        createdAt: "2018-06-12T16:25:35.593+0000",
+                        finishedAt: "2018-06-12T17:25:35.593+0000"
+                      }
+                    ],
+                    failedFinishedRuns: [
+                      {
+                        id: "3",
+                        createdAt: "2018-06-12T16:25:35.593+0000",
+                        finishedAt: "2018-06-12T17:25:35.593+0000"
+                      }
+                    ]
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1562,14 +1610,16 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                history: {
-                  failureCount: 0,
-                  lastFailureAt: null,
-                  lastSuccessAt: null,
-                  successCount: 0,
-                  successfulFinishedRuns: [],
-                  failedFinishedRuns: []
+                response: {
+                  ...defaultJobDetailData,
+                  history: {
+                    failureCount: 0,
+                    lastFailureAt: null,
+                    lastSuccessAt: null,
+                    successCount: 0,
+                    successfulFinishedRuns: [],
+                    failedFinishedRuns: []
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1599,10 +1649,12 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                run: {
-                  ...defaultJobDetailData.run,
-                  docker: null
+                response: {
+                  ...defaultJobDetailData,
+                  run: {
+                    ...defaultJobDetailData.run,
+                    docker: null
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1621,12 +1673,14 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                run: {
-                  ...defaultJobDetailData.run,
-                  docker: {
-                    forcePullImage: true,
-                    image: "node:10"
+                response: {
+                  ...defaultJobDetailData,
+                  run: {
+                    ...defaultJobDetailData.run,
+                    docker: {
+                      forcePullImage: true,
+                      image: "node:10"
+                    }
                   }
                 }
               }),
@@ -1646,12 +1700,14 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                run: {
-                  ...defaultJobDetailData.run,
-                  docker: {
-                    forcePullImage: true,
-                    image: "node:10"
+                response: {
+                  ...defaultJobDetailData,
+                  run: {
+                    ...defaultJobDetailData.run,
+                    docker: {
+                      forcePullImage: true,
+                      image: "node:10"
+                    }
                   }
                 }
               }),
@@ -1673,8 +1729,10 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                id: "json-id"
+                response: {
+                  ...defaultJobDetailData,
+                  id: "json-id"
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1692,7 +1750,9 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData
+                response: {
+                  ...defaultJobDetailData
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1711,10 +1771,12 @@ describe("JobModel Resolver", () => {
         const result$ = resolvers({
           fetchJobDetail: () =>
             Observable.of({
-              ...defaultJobDetailData,
-              labels: {
-                foo: "bar",
-                baz: "nice"
+              response: {
+                ...defaultJobDetailData,
+                labels: {
+                  foo: "bar",
+                  baz: "nice"
+                }
               }
             }),
           pollingInterval: m.time("-|")
@@ -1738,7 +1800,9 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData
+                response: {
+                  ...defaultJobDetailData
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1759,7 +1823,9 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData
+                response: {
+                  ...defaultJobDetailData
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1781,14 +1847,16 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                history: {
-                  lastFailureAt: null,
-                  lastSuccessAt: null,
-                  successCount: 0,
-                  failureCount: 0,
-                  successfulFinishedRuns: [],
-                  failedFinishedRuns: []
+                response: {
+                  ...defaultJobDetailData,
+                  history: {
+                    lastFailureAt: null,
+                    lastSuccessAt: null,
+                    successCount: 0,
+                    failureCount: 0,
+                    successfulFinishedRuns: [],
+                    failedFinishedRuns: []
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1811,14 +1879,16 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                history: {
-                  lastFailureAt: null,
-                  lastSuccessAt: null,
-                  successCount: 0,
-                  failureCount: 0,
-                  successfulFinishedRuns: [],
-                  failedFinishedRuns: []
+                response: {
+                  ...defaultJobDetailData,
+                  history: {
+                    lastFailureAt: null,
+                    lastSuccessAt: null,
+                    successCount: 0,
+                    failureCount: 0,
+                    successfulFinishedRuns: [],
+                    failedFinishedRuns: []
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1841,20 +1911,22 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                history: {
-                  lastFailureAt: "2018-06-06T09:31:47.760+0000",
-                  lastSuccessAt: null,
-                  successCount: 0,
-                  failureCount: 1,
-                  successfulFinishedRuns: [],
-                  failedFinishedRuns: [
-                    {
-                      createdAt: "2018-06-06T09:31:46.254+0000",
-                      finishedAt: "2018-06-06T09:31:47.760+0000",
-                      id: "20180606093146gr5Pi"
-                    }
-                  ]
+                response: {
+                  ...defaultJobDetailData,
+                  history: {
+                    lastFailureAt: "2018-06-06T09:31:47.760+0000",
+                    lastSuccessAt: null,
+                    successCount: 0,
+                    failureCount: 1,
+                    successfulFinishedRuns: [],
+                    failedFinishedRuns: [
+                      {
+                        createdAt: "2018-06-06T09:31:46.254+0000",
+                        finishedAt: "2018-06-06T09:31:47.760+0000",
+                        id: "20180606093146gr5Pi"
+                      }
+                    ]
+                  }
                 }
               }),
             pollingInterval: m.time("-|")
@@ -1877,7 +1949,9 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData
+                response: {
+                  ...defaultJobDetailData
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1901,7 +1975,9 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData
+                response: {
+                  ...defaultJobDetailData
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1923,18 +1999,20 @@ describe("JobModel Resolver", () => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               Observable.of({
-                ...defaultJobDetailData,
-                schedules: [
-                  {
-                    concurrencyPolicy: "ALLOW",
-                    cron: "* * * * *",
-                    enabled: false,
-                    id: "default",
-                    nextRunAt: "2018-06-13T08:39:00.000+0000",
-                    startingDeadlineSeconds: 900,
-                    timezone: "UTC"
-                  }
-                ]
+                response: {
+                  ...defaultJobDetailData,
+                  schedules: [
+                    {
+                      concurrencyPolicy: "ALLOW",
+                      cron: "* * * * *",
+                      enabled: false,
+                      id: "default",
+                      nextRunAt: "2018-06-13T08:39:00.000+0000",
+                      startingDeadlineSeconds: 900,
+                      timezone: "UTC"
+                    }
+                  ]
+                }
               }),
             pollingInterval: m.time("-|")
           }).Query.job({}, { id: "xyz" });
@@ -1969,8 +2047,10 @@ describe("JobModel Resolver", () => {
         const result$ = resolvers({
           runJob: () =>
             Observable.of({
-              jobId: "bestJobEver",
-              somethingElse: true
+              response: {
+                jobId: "bestJobEver",
+                somethingElse: true
+              }
             })
         }).Mutation.runJob({}, { id: "bestJobEver" });
 
@@ -2015,8 +2095,10 @@ describe("JobModel Resolver", () => {
         const result$ = resolvers({
           deleteJob: () =>
             Observable.of({
-              jobId: "bestJobEver",
-              somethingElse: true
+              response: {
+                jobId: "bestJobEver",
+                somethingElse: true
+              }
             })
         }).Mutation.deleteJob(
           {},
@@ -2065,8 +2147,10 @@ describe("JobModel Resolver", () => {
         const result$ = resolvers({
           stopJobRun: () =>
             Observable.of({
-              jobId: "bestJobEver",
-              somethingElse: true
+              response: {
+                jobId: "bestJobEver",
+                somethingElse: true
+              }
             })
         }).Mutation.stopJobRun(
           {},
@@ -2115,8 +2199,10 @@ describe("JobModel Resolver", () => {
         const result$ = resolvers({
           updateSchedule: () =>
             Observable.of({
-              jobId: "bestJobEver",
-              somethingElse: true
+              response: {
+                jobId: "bestJobEver",
+                somethingElse: true
+              }
             })
         }).Mutation.updateSchedule({}, { id: "bestJobEver", data: {} });
 
@@ -2164,7 +2250,7 @@ describe("JobModel Resolver", () => {
       marbles(m => {
         m.bind();
         const result$ = resolvers({
-          updateJob: (_id, data) => Observable.of(data)
+          updateJob: (_id, data) => Observable.of({ response: data })
         }).Mutation.updateJob({}, { id: "bestJobEver", data: jobData });
 
         m.expect(result$.take(1)).toBeObservable(
@@ -2209,7 +2295,7 @@ describe("JobModel Resolver", () => {
       marbles(m => {
         m.bind();
         const result$ = resolvers({
-          createJob: data => Observable.of(data)
+          createJob: data => Observable.of({ response: data })
         }).Mutation.createJob({}, { data: jobData });
 
         m.expect(result$.take(1)).toBeObservable(

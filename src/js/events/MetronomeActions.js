@@ -40,10 +40,10 @@ const MetronomeActions = {
 
   fetchJobs() {
     MetronomeClient.fetchJobs().subscribe({
-      next: data =>
+      next: ({ response }) =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOBS_SUCCESS,
-          data
+          data: response
         }),
       error: xhr =>
         AppDispatcher.handleServerAction({
@@ -56,7 +56,7 @@ const MetronomeActions = {
 
   fetchJobDetail(jobID) {
     MetronomeClient.fetchJobDetail(jobID).subscribe({
-      next: response =>
+      next: ({ response }) =>
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
           data: response,

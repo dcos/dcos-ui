@@ -75,8 +75,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     ];
 
     request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
-      message => {
-        const cluster = JSON.parse(message).get_flags.flags.find(
+      response => {
+        const cluster = JSON.parse(response).get_flags.flags.find(
           flag => flag.name === "cluster"
         );
 
@@ -87,8 +87,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     );
 
     request({ type: "GET_VERSION" }, "/mesos/api/v1?GET_VERSION").subscribe(
-      message => {
-        const info = JSON.parse(message).get_version.version_info;
+      response => {
+        const info = JSON.parse(response).get_version.version_info;
 
         if (info) {
           this.setState({
@@ -100,14 +100,14 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     );
 
     request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").subscribe(
-      message => {
+      response => {
         const {
           get_master: {
             master_info: masterInfo,
             elected_time: electedTime,
             start_time: startTime
           }
-        } = JSON.parse(message);
+        } = JSON.parse(response);
 
         this.setState({ masterInfo, electedTime, startTime });
       }

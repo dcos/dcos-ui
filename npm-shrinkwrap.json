@@ -970,9 +970,9 @@
       }
     },
     "@dcos/http-service": {
-      "version": "0.3.0",
-      "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-0.3.0.tgz",
-      "integrity": "sha1-PxdCYN1Is927pZIxnJKhwWp6wKU=",
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/@dcos/http-service/-/http-service-1.0.0.tgz",
+      "integrity": "sha512-uhm0qMCtp5D3TKJBNc+o8dCPylXNqWddxgMltidx5T4zXC7gfQ3lXvKJnIo3peEFuDYUsu+vMHZAM533qqncQQ==",
       "requires": {
         "@dcos/connection-manager": "0.2.1",
         "@dcos/connections": "0.1.0",
@@ -980,12 +980,12 @@
       }
     },
     "@dcos/mesos-client": {
-      "version": "0.2.4",
-      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.2.4.tgz",
-      "integrity": "sha512-Mf2uplblFMExCuuLNAAT6KvjBhYrRt4XkgJEmF7Yf8X5CtSXKnlO3bd+MGkBkEAHWkAyrbRCkbH0CtISeZhFbw==",
+      "version": "0.2.5",
+      "resolved": "https://registry.npmjs.org/@dcos/mesos-client/-/mesos-client-0.2.5.tgz",
+      "integrity": "sha512-IKVcEb/5x64NeMcH7nlngcN8Xf/lRWwLv4rkiam+Tw/Moh5QMukIHGeqYmCpursApBQVWyYPK6lkOTTyQE45zg==",
       "requires": {
         "@dcos/copychars": "0.1.2",
-        "@dcos/http-service": "0.3.0",
+        "@dcos/http-service": "1.0.0",
         "@dcos/recordio": "0.1.8",
         "rxjs": "5.4.3"
       }
@@ -1004,16 +1004,16 @@
       "integrity": "sha512-WcTnrk4lc6vwMWn+pOrcGk9tTy6it03dCfQtqE+fw9bQ2llqzfxnLO7Har+la4kkJVnyTPAt7Nvpb50sjzsQXA=="
     },
     "@dcos/ui-kit": {
-      "version": "1.9.0",
-      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.9.0.tgz",
-      "integrity": "sha512-wC6dxcZgdLGxPiB6RO5protqEf4yZQZ1NKdcVFqL5mrXuKxHxtnuEvGsDdvUyw/56HxoI9StPDx/zuKKplCEGw==",
+      "version": "1.10.1",
+      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.10.1.tgz",
+      "integrity": "sha512-c2lD4fw7XT3xAL2ik0AOFvtdtxs9PnMN/xJy3OyTeCzI71Cry+Zh7Y+bwv5HeD+4pBN2xEos4l/AOkZ8Njsyog==",
       "requires": {
-        "emotion": "9.2.4",
-        "memoize-one": "3.1.1",
-        "react": "16.4.1",
+        "emotion": "9.2.6",
+        "memoize-one": "4.0.0",
+        "react": "16.4.2",
         "react-dom": "16.4.2",
-        "react-emotion": "9.2.4",
-        "react-virtualized": "9.19.1",
+        "react-emotion": "9.2.6",
+        "react-virtualized": "9.20.1",
         "semantic-release": "^15.9.6"
       },
       "dependencies": {
@@ -1094,24 +1094,17 @@
           "integrity": "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A=="
         },
         "execa": {
-          "version": "0.10.0",
-          "resolved": "https://registry.npmjs.org/execa/-/execa-0.10.0.tgz",
-          "integrity": "sha512-7XOMnz8Ynx1gGo/3hyV9loYNPWM94jG3+3T3Y8tsfSstFmETmENCMU/A/zj8Lyaj1lkgEepKepvd6240tBRvlw==",
+          "version": "1.0.0",
+          "resolved": "https://registry.npmjs.org/execa/-/execa-1.0.0.tgz",
+          "integrity": "sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==",
           "requires": {
             "cross-spawn": "^6.0.0",
-            "get-stream": "^3.0.0",
+            "get-stream": "^4.0.0",
             "is-stream": "^1.1.0",
             "npm-run-path": "^2.0.0",
             "p-finally": "^1.0.0",
             "signal-exit": "^3.0.0",
             "strip-eof": "^1.0.0"
-          },
-          "dependencies": {
-            "get-stream": {
-              "version": "3.0.0",
-              "resolved": "https://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz",
-              "integrity": "sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ="
-            }
           }
         },
         "fbjs": {
@@ -1215,9 +1208,9 @@
           }
         },
         "marked": {
-          "version": "0.4.0",
-          "resolved": "https://registry.npmjs.org/marked/-/marked-0.4.0.tgz",
-          "integrity": "sha512-tMsdNBgOsrUophCAFQl0XPe6Zqk/uy9gnue+jIIKhykO51hxyu6uNx7zBPy0+y/WKYVZZMspV9YeXLNdKk+iYw=="
+          "version": "0.5.0",
+          "resolved": "https://registry.npmjs.org/marked/-/marked-0.5.0.tgz",
+          "integrity": "sha512-UhjmkCWKu1SS/BIePL2a59BMJ7V42EYtTfksodPRXzPEGEph3Inp5dylseqt+KbU9Jglsx8xcMKmlumfJMBXAA=="
         },
         "object-assign": {
           "version": "4.1.1",
@@ -1323,9 +1316,9 @@
           }
         },
         "react": {
-          "version": "16.4.1",
-          "resolved": "https://registry.npmjs.org/react/-/react-16.4.1.tgz",
-          "integrity": "sha512-3GEs0giKp6E0Oh/Y9ZC60CmYgUPnp7voH9fbjWsvXtYFb4EWtgQub0ADSq0sJR0BbHc4FThLLtzlcFaFXIorwg==",
+          "version": "16.4.2",
+          "resolved": "https://registry.npmjs.org/react/-/react-16.4.2.tgz",
+          "integrity": "sha512-dMv7YrbxO4y2aqnvA7f/ik9ibeLSHQJTI6TrYAenPSaQ6OXfb+Oti+oJiy8WBxgRzlKatYqtCjphTgDSCEiWFg==",
           "requires": {
             "fbjs": "^0.8.16",
             "loose-envify": "^1.1.0",
@@ -1369,9 +1362,9 @@
           "integrity": "sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g=="
         },
         "semantic-release": {
-          "version": "15.9.8",
-          "resolved": "https://registry.npmjs.org/semantic-release/-/semantic-release-15.9.8.tgz",
-          "integrity": "sha512-NxHTuMiMhkZEaBfcs7V9fCjoDTTZe/yhcq4L2ryNRTD3Bdo1hSCj4CQgjFGJ6A7wYk5i70l5pQyGJygF1e5UFA==",
+          "version": "15.9.12",
+          "resolved": "https://registry.npmjs.org/semantic-release/-/semantic-release-15.9.12.tgz",
+          "integrity": "sha512-n+SeGQ5nol7yMphpGXZSp8MDcQFGHx2cvYQIeKgxzfikG56vM5C3CHg6tg5TfK6soiwzvhB1PCGlwGCf4Gn0lg==",
           "requires": {
             "@semantic-release/commit-analyzer": "^6.0.0",
             "@semantic-release/error": "^2.2.0",
@@ -1382,7 +1375,7 @@
             "cosmiconfig": "^5.0.1",
             "debug": "^3.1.0",
             "env-ci": "^2.0.0",
-            "execa": "^0.10.0",
+            "execa": "^1.0.0",
             "figures": "^2.0.0",
             "find-versions": "^2.0.0",
             "get-stream": "^4.0.0",
@@ -1391,7 +1384,7 @@
             "hook-std": "^1.1.0",
             "hosted-git-info": "^2.7.1",
             "lodash": "^4.17.4",
-            "marked": "^0.4.0",
+            "marked": "^0.5.0",
             "marked-terminal": "^3.0.0",
             "p-locate": "^3.0.0",
             "p-reduce": "^1.0.0",
@@ -1489,9 +1482,9 @@
       "integrity": "sha512-JlZbn5+adseTdDPTUkx/O1/UZbhaGR5fCLLWQDCIJ4eP9fJcVdP/qjlTveEX6mkNoJHWFbZ47wArWQQ0Qk6nMA=="
     },
     "@emotion/is-prop-valid": {
-      "version": "0.6.5",
-      "resolved": "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-0.6.5.tgz",
-      "integrity": "sha512-pfjQHT3FCZkAPxqY+sI6MmMTPMCKGIV3DcC1qhf68XkE9pGtKqb5WNN2vfmLgTMGnNVXnaFyx/VjdDYmGFcRaw==",
+      "version": "0.6.6",
+      "resolved": "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-0.6.6.tgz",
+      "integrity": "sha512-T6Bo3dtUJctwZ1I8kFdlkTVtcKU2XqVMsbzMKlDJaFDIyaxjWYpa6J4cGVp+OfC59CD1cxunbIwr9vzBammYsg==",
       "requires": {
         "@emotion/memoize": "^0.6.5"
       }
@@ -11549,12 +11542,12 @@
       "dev": true
     },
     "emotion": {
-      "version": "9.2.4",
-      "resolved": "https://registry.npmjs.org/emotion/-/emotion-9.2.4.tgz",
-      "integrity": "sha1-ATnnzBVLKEX0ua+qmW3U3hO7kOM=",
+      "version": "9.2.6",
+      "resolved": "https://registry.npmjs.org/emotion/-/emotion-9.2.6.tgz",
+      "integrity": "sha512-95/EiWkADklxyy1y1qlJeX5Cepa7WfpJBJSBgbLkDCBzOnP4maluvz52xcV5UaObBTfVnEBq77Go6/bgF7+xaA==",
       "requires": {
-        "babel-plugin-emotion": "^9.2.4",
-        "create-emotion": "^9.2.4"
+        "babel-plugin-emotion": "^9.2.6",
+        "create-emotion": "^9.2.6"
       }
     },
     "encodeurl": {
@@ -20525,9 +20518,9 @@
       }
     },
     "memoize-one": {
-      "version": "3.1.1",
-      "resolved": "https://registry.npmjs.org/memoize-one/-/memoize-one-3.1.1.tgz",
-      "integrity": "sha512-YqVh744GsMlZu6xkhGslPSqSurOv6P+kLN2J3ysBZfagLcL5FdRK/0UpgLoL8hwjjEvvAVkjJZyFP+1T6p1vgA=="
+      "version": "4.0.0",
+      "resolved": "https://registry.npmjs.org/memoize-one/-/memoize-one-4.0.0.tgz",
+      "integrity": "sha512-wdpOJ4XBejprGn/xhd1i2XR8Dv1A25FJeIvR7syQhQlz9eXsv+06llcvcmBxlWVGv4C73QBsWA8kxvZozzNwiQ=="
     },
     "memory-fs": {
       "version": "0.4.1",
@@ -28972,12 +28965,12 @@
       }
     },
     "react-emotion": {
-      "version": "9.2.4",
-      "resolved": "https://registry.npmjs.org/react-emotion/-/react-emotion-9.2.4.tgz",
-      "integrity": "sha1-mOAPcM4spO4TkjRgEj52PkksATo=",
+      "version": "9.2.6",
+      "resolved": "https://registry.npmjs.org/react-emotion/-/react-emotion-9.2.6.tgz",
+      "integrity": "sha512-3GwLQ0Vib/X0G7KWY7N1F/7NmfoBLkkg3g9Jd8t6By5QUH0PyCSUVdDmfFBbgVKsAcpkjA0vcsMbiWeZusaRrA==",
       "requires": {
-        "babel-plugin-emotion": "^9.2.4",
-        "create-emotion-styled": "^9.2.3"
+        "babel-plugin-emotion": "^9.2.6",
+        "create-emotion-styled": "^9.2.6"
       }
     },
     "react-gemini-scrollbar": {
@@ -29153,9 +29146,9 @@
       }
     },
     "react-virtualized": {
-      "version": "9.19.1",
-      "resolved": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-9.19.1.tgz",
-      "integrity": "sha512-2l6uFicZKZ3x4rdnS0W+1TfyLmPO/+hfZKsCtoChoSmH5aEezGLpSuHc7oplekNIOaEwChfCk30zjx+Zw6B8YQ==",
+      "version": "9.20.1",
+      "resolved": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-9.20.1.tgz",
+      "integrity": "sha512-xIWxBsyNAjceqD3hsE0nw5TcDVxKbIepsHhvS2XneHmNz0KlKxdLdGBmGZBM9ZesEmbZ5EO0Sw70TB1MeCmpbQ==",
       "requires": {
         "babel-runtime": "^6.26.0",
         "classnames": "^2.2.3",
