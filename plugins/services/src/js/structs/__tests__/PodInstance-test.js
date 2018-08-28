@@ -14,7 +14,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getAgentAddress", function() {
-    it("returns the correct value", function() {
+    it("returns the given agent address", function() {
       const podInstance = new PodInstance({ agentHostname: "agent-1234" });
 
       expect(podInstance.getAgentAddress()).toEqual("agent-1234");
@@ -27,7 +27,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getId", function() {
-    it("returns the correct value", function() {
+    it("returns the given id", function() {
       const podInstance = new PodInstance({ id: "instance-id-1234" });
 
       expect(podInstance.getId()).toEqual("instance-id-1234");
@@ -40,7 +40,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getName", function() {
-    it("returns the correct value", function() {
+    it("returns the given name", function() {
       const podInstance = new PodInstance({ id: "instance-id-1234" });
 
       expect(podInstance.getName()).toEqual(podInstance.getId());
@@ -53,7 +53,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getAgentRegion", function() {
-    it("returns the correct value", function() {
+    it("returns the given region", function() {
       const podInstance = new PodInstance({ agentRegion: "Region-a" });
 
       expect(podInstance.getAgentRegion()).toEqual("Region-a");
@@ -66,13 +66,13 @@ describe("PodInstance", function() {
   });
 
   describe("#getAgentZone", function() {
-    it("returns the correct value", function() {
+    it("returns the given zone", function() {
       const podInstance = new PodInstance({ agentZone: "Zone-a" });
 
       expect(podInstance.getAgentZone()).toEqual("Zone-a");
     });
 
-    it("returns the correct default value", function() {
+    it("returns an empty string as default zone", function() {
       const podInstance = new PodInstance();
       expect(podInstance.getAgentZone()).toEqual("");
     });
@@ -177,7 +177,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getLastChanged", function() {
-    it("returns the correct value", function() {
+    it("returns the given date", function() {
       const dateString = "2016-08-31T01:01:01.001";
       const podInstance = new PodInstance({ lastChanged: dateString });
 
@@ -191,7 +191,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getLastUpdated", function() {
-    it("returns the correct value", function() {
+    it("returns the given date", function() {
       const dateString = "2016-08-31T01:01:01.001";
       const podInstance = new PodInstance({ lastUpdated: dateString });
 
@@ -205,7 +205,7 @@ describe("PodInstance", function() {
   });
 
   describe("#getResources", function() {
-    it("returns the correct value", function() {
+    it("returns the correct resources", function() {
       const podInstance = new PodInstance({
         resources: { cpus: 0.5, mem: 64 }
       });
