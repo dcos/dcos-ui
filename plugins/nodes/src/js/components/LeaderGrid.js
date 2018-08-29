@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import moment from "moment";
+import { ToggleContent } from "@dcos/ui-kit";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -9,14 +9,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Loader from "#SRC/js/components/Loader";
-
-function timeFromNow(time) {
-  if (!time) {
-    return null;
-  }
-
-  return moment(time * 1000).fromNow();
-}
+import { msToRelativeTime, msToDateStr } from "#SRC/js/utils/DateUtil";
 
 const Loading = () => <Loader size="small" type="ballBeat" />;
 
@@ -60,13 +53,23 @@ export default function LeaderGrid({ leader }) {
           <ConfigurationRow
             keyValue="started"
             title={<FormattedMessage id="COMMON.STARTED" />}
-            value={timeFromNow(leader.startTime)}
+            value={
+              <ToggleContent
+                contentOn={msToRelativeTime(leader.startTime * 1000)}
+                contentOff={msToDateStr(leader.startTime * 1000)}
+              />
+            }
           />
 
           <ConfigurationRow
             keyValue="elected"
             title={<FormattedMessage id="COMMON.ELECTED" />}
-            value={timeFromNow(leader.electedTime)}
+            value={
+              <ToggleContent
+                contentOn={msToRelativeTime(leader.electedTime * 1000)}
+                contentOff={msToDateStr(leader.electedTime * 1000)}
+              />
+            }
           />
         </ConfigurationMapSection>
       </ConfigurationMap>
