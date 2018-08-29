@@ -3,7 +3,7 @@
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
 # Import utils
-source ${SCRIPT_PATH}/utils/message
+source "${SCRIPT_PATH}/utils/message"
 
 # Install/link GIT hooks
 # Example: install_hooks "pre-commit post-rewrite"

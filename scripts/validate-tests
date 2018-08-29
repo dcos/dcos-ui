@@ -3,8 +3,8 @@
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
 # Import utils
-source ${SCRIPT_PATH}/utils/message
-source ${SCRIPT_PATH}/utils/test
+source "${SCRIPT_PATH}/utils/message"
+source "${SCRIPT_PATH}/utils/test"
 
 title "Validating tests..."
 

@@ -25,7 +25,7 @@ set -x
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 # project root for this file
-PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
+PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 
 # get correct DC/OS target (=base branch!) from .dcosrc file
 PKG_TARGET=$(python -c "import sys, json; \
@@ -51,7 +51,7 @@ VERSION_PLACEHOLDER="0.0.0-dev+semantic-release"
 
 # first, replace placeholder in dist bundle and verify that it worked
 sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_TARGET}+${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
-if ! grep "${PKG_TARGET}+${PKG_VERSION}" ${PROJECT_ROOT}/dist/index.html; then
+if ! grep "${PKG_TARGET}+${PKG_VERSION}" "${PROJECT_ROOT}/dist/index.html"; then
   echo "Version injection into dist/index.html failed!"
   exit 1
 fi
@@ -62,7 +62,7 @@ tar czf release.tar.gz dist
 # third, upload tarball
 # if this fails, there is already a release with this SHA -> stop.
 RELEASE_NAME="${RELEASE_NAME}" \
-  ${SCRIPT_PATH}/utils/upload-build || exit 0
+  "${SCRIPT_PATH}/utils/upload-build" || exit 0
 
 ## Update Latest DC/OS PR
 #####################################################################
@@ -72,4 +72,4 @@ DCOS_BRANCH=${DCOS_BRANCH} \
   DCOS_UPSTREAM="dcos/dcos" \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/update-dcos-repo
+  "${SCRIPT_PATH}/utils/update-dcos-repo"

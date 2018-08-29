@@ -99,7 +99,7 @@ function runTestFile {
 function setup_plugins {
   if [ -n "${PLUGINS_PATH}" ]; then
     echo "==> Setup external plugins…"
-    rsync -aH ${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/ ${PROJECT_ROOT}/${TESTS_FOLDER}/
+    rsync -aH "${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/" "${PROJECT_ROOT}/${TESTS_FOLDER}/"
     echo "===> done."
   else
     echo "==> No Plugins configured."
@@ -109,7 +109,7 @@ function setup_plugins {
 # removes copied plugins files…
 function teardown_plugins {
   if [ -n "${PLUGINS_PATH}" ]; then
-    if [ ${CLEANUP_TESTS} -eq 0 ]; then
+    if [ "${CLEANUP_TESTS}" -eq 0 ]; then
       echo ""
       echo "==> !!! PLUGINS TESTS ARE STILL IN YOUR ./${TESTS_FOLDER} FOLDER, MAKE SURE TO CLEAN UP !!!"
       echo "==> You can use 'rm -r ./${TESTS_FOLDER} && git checkout ./${TESTS_FOLDER}' to easily clean up."
@@ -117,8 +117,8 @@ function teardown_plugins {
       echo ""
     else
       echo "==> Cleaning up ./${TESTS_FOLDER} folder"
-      rm -r ${PROJECT_ROOT}/${TESTS_FOLDER}
-      git checkout ${PROJECT_ROOT}/${TESTS_FOLDER}
+      rm -r "${PROJECT_ROOT:?}/${TESTS_FOLDER}"
+      git checkout "${PROJECT_ROOT}/${TESTS_FOLDER}"
       echo "==> done."
     fi
   fi
@@ -126,9 +126,9 @@ function teardown_plugins {
 
 # merges results from cypress runs into one file
 function teardown_merge {
-  if [ "$(find ${PROJECT_ROOT}/${CYPRESS_FOLDER}/ -type f -name result.xml | wc -l)" -ne 0 ]; then
+  if [ "$(find "${PROJECT_ROOT}/${CYPRESS_FOLDER}/" -type f -name result.xml | wc -l)" -ne 0 ]; then
     echo "==> Merging results from ./${CYPRESS_FOLDER}/*/result.xml into ./${CYPRESS_FOLDER}/results.xml…"
-    junit-merge --out ${PROJECT_ROOT}/${CYPRESS_FOLDER}/results.xml $(find ${PROJECT_ROOT}/${CYPRESS_FOLDER}/ -type f -name result.xml)
+    junit-merge --out "${PROJECT_ROOT}/${CYPRESS_FOLDER}/results.xml" $(find "${PROJECT_ROOT}/${CYPRESS_FOLDER}/" -type f -name result.xml)
     echo "===> done."
   else
     echo "==> Nothing to merge."
@@ -147,16 +147,16 @@ function setup {
   echo "=> Setup"
 
   ## Setup proxy
-  if [ -n "$(lsof -i :${PROXY_PORT})" ]; then
+  if [ -n "$(lsof -i :"${PROXY_PORT}")" ]; then
     echo "==> ERROR: Port ${PROXY_PORT} is already in use"
     exit 1
   fi
-  if [ ! -d ${PROJECT_ROOT}/dist ]; then
+  if [ ! -d "${PROJECT_ROOT}/dist" ]; then
     echo "==> ERROR: no dist folder! forgot npm run build?"
     exit 1
   fi
   echo "==> Starting http-server, serving files from ./dist…"
-  http-server -sp ${PROXY_PORT} ${PROJECT_ROOT}/dist&
+  http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist"&
   PROXY_PID=$!
   echo "===> done (PID: ${PROXY_PID})."
 
@@ -168,7 +168,7 @@ function setup {
   ## Remove old results
   if [ -d "${PROJECT_ROOT}/${CYPRESS_FOLDER}" ]; then
     echo "==> Directory ./${CYPRESS_FOLDER} already exists…"
-    rm -r "${PROJECT_ROOT}/${CYPRESS_FOLDER}"
+    rm -r "${PROJECT_ROOT:?}/${CYPRESS_FOLDER}"
     echo "===> removed."
   fi
 }
@@ -190,7 +190,7 @@ function run_tests {
   find "$PROJECT_ROOT/${TESTS_FOLDER}" -type f -name "${SEARCH}-cy.js" -print | \
     while read FOUND_FILE
     do
-      RELATIVE_PATH="$(echo ${FOUND_FILE} | sed s+${PROJECT_ROOT}/${TESTS_FOLDER}/++)" runTestFile || exit 1
+      RELATIVE_PATH="$(echo "${FOUND_FILE}" | sed s+${PROJECT_ROOT}/${TESTS_FOLDER}/++)" runTestFile || exit 1
     done
 }
 

@@ -3,9 +3,9 @@
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
 # Import utils
-source ${SCRIPT_PATH}/utils/git
-source ${SCRIPT_PATH}/utils/message
-source ${SCRIPT_PATH}/utils/test
+source "${SCRIPT_PATH}/utils/git"
+source "${SCRIPT_PATH}/utils/message"
+source "${SCRIPT_PATH}/utils/test"
 
 title "Run pre-push hook..."
 
@@ -13,7 +13,7 @@ fork_point=$(get_fork_point)
 
 header "Validate staged JavaScript tests..."
 debug_directives=$(
-  find_debug_directives $(git diff --name-only ${fork_point} HEAD  -- "*.js")
+  find_debug_directives $(git diff --name-only "${fork_point}" HEAD  -- "*.js")
 )
 
 if [ -n "${debug_directives}" ]
@@ -30,11 +30,11 @@ info "Staged JavaScript tests looks good"
 
 header "Lint commit messages..."
 linting_errors="$(
-  npm run commitlint --silent -- -f ${fork_point} -t HEAD;
+  npm run commitlint --silent -- -f "${fork_point}" -t HEAD;
   echo x$?
 )"
 
-if [  ${linting_errors##*x} -ne 0 ]
+if [  "${linting_errors##*x}" -ne 0 ]
 then
   warning "Wrong commit message format"
 

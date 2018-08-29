@@ -4,7 +4,7 @@ PROJECT_ROOT=$(git rev-parse --show-toplevel)
 SCRIPT_PATH="${PROJECT_ROOT}/scripts"
 
 # Import utils
-source ${SCRIPT_PATH}/utils/message
+source "${SCRIPT_PATH}/utils/message"
 
 # Make sure that we have the RAML files for the specified marathon version
 function install_marathon_raml() {
@@ -21,7 +21,7 @@ function install_marathon_raml() {
   title "Install RAML Marathon ${VERSION} specs..."
 
   # Check if the installer version matches the requested
-  local INSTALLED_VERSION=$(cat ${TARGET_DIR}/.marathon-version 2>/dev/null)
+  local INSTALLED_VERSION=$(cat "${TARGET_DIR}/.marathon-version" 2>/dev/null)
   if [ "$INSTALLED_VERSION" == "$VERSION" ]; then
     info "Local files are up to date"
     return
@@ -31,19 +31,19 @@ function install_marathon_raml() {
   header "Downloading marathon ${VERSION} archive"
   local URL="https://downloads.mesosphere.com/marathon/builds/${VERSION}/marathon-docs-${VERSION}.tgz"
   local TMP_DIR=`mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`
-  curl -L ${URL} | tar -zx -C $TMP_DIR
+  curl -L "${URL}" | tar -zx -C "${TMP_DIR}"
 
   # Empty the target raml directory
-  [ -d $TARGET_DIR ] && rm -rf $TARGET_DIR
-  mkdir -p $TARGET_DIR
+  [ -d "${TARGET_DIR}" ] && rm -rf "${TARGET_DIR}"
+  mkdir -p "${TARGET_DIR}"
 
   # Copy only relevant parts in the RAML directory
   header "Installing raml files"
-  cp -r $TMP_DIR/marathon-docs-${VERSION}/docs/rest-api/public/api/v2/{schema,types,*.raml} $TARGET_DIR \
-    && echo $VERSION > "${TARGET_DIR}/.marathon-version"
+  cp -r "${TMP_DIR}/marathon-docs-${VERSION}/docs/rest-api/public/api/v2/"{schema,types,*.raml} "${TARGET_DIR}" \
+    && echo "$VERSION" > "${TARGET_DIR}/.marathon-version"
 
   # Cleanup
-  rm -rf $TMP_DIR
+  rm -rf "${TMP_DIR:?}"
 
   info "Updated RAML in ${TARGET_DIR}"
 }
