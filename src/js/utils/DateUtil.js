@@ -40,7 +40,7 @@ const DateUtil = {
    * @return {String} time string with the format 'MM-DD-YYYY [at] h:mma'
    */
   msToDateStr(ms) {
-    return moment(ms).format("MM-DD-YYYY [at] h:mma");
+    return moment(ms).format("MMMM Do, YYYY h:mm a");
   },
 
   /**
