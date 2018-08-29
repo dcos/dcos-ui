@@ -104,8 +104,9 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
     return overlayList.filterItems(function(overlay) {
       return (
-        overlay.getName().includes(searchString) ||
-        overlay.getSubnet().includes(searchString)
+        (overlay.getName() && overlay.getName().includes(searchString)) ||
+        (overlay.getSubnet() && overlay.getSubnet().includes(searchString)) ||
+        (overlay.getSubnet6() && overlay.getSubnet6().includes(searchString))
       );
     });
   }
