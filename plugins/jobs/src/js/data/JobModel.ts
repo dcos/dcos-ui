@@ -10,9 +10,9 @@ import {
   deleteJob,
   stopJobRun,
   JobResponse as MetronomeJobResponse,
-  JobDetailResponse as MetronomeJobDetailResponse,
-  RequestResponse
+  JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
+import { RequestResponse } from "@dcos/http-service";
 
 import Config from "#SRC/js/config/Config";
 import {
