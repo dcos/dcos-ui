@@ -65,7 +65,7 @@ describe("DateUtil", function() {
 
       var result = DateUtil.msToDateStr(christmasValue);
 
-      expect(result).toEqual("12-25-2015 at 8:13am");
+      expect(result).toEqual("December 25th, 2015 8:13 am");
     });
 
     it("returns the correct string for PM", function() {
@@ -74,7 +74,7 @@ describe("DateUtil", function() {
 
       var result = DateUtil.msToDateStr(halloweenValue);
 
-      expect(result).toEqual("10-31-2015 at 8:30pm");
+      expect(result).toEqual("October 31st, 2015 8:30 pm");
     });
 
     it("can handle older dates", function() {
@@ -83,7 +83,7 @@ describe("DateUtil", function() {
 
       var result = DateUtil.msToDateStr(specialDayValue);
 
-      expect(result).toEqual("10-19-1993 at 11:29am");
+      expect(result).toEqual("October 19th, 1993 11:29 am");
     });
   });
 
