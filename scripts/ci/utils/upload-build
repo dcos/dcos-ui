@@ -13,7 +13,7 @@ set -e
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 # project root for this file
-PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
+PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci/utils++)" && pwd )"
 
 # aws bucket to upload to
 AWS_BUCKET='downloads.mesosphere.io'
@@ -42,7 +42,7 @@ fi
 
 RELEASE_NAME="${RELEASE_NAME}.tar.gz"
 
-ENCODED_RELEASE_NAME=$(echo ${RELEASE_NAME} | sed "s/\+/\%2B/g")
+ENCODED_RELEASE_NAME=$(echo "${RELEASE_NAME}" | sed "s/\+/\%2B/g")
 
 ## Write buildinfo.json
 #####################################################################
