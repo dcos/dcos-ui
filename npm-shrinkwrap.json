@@ -1004,9 +1004,9 @@
       "integrity": "sha512-WcTnrk4lc6vwMWn+pOrcGk9tTy6it03dCfQtqE+fw9bQ2llqzfxnLO7Har+la4kkJVnyTPAt7Nvpb50sjzsQXA=="
     },
     "@dcos/ui-kit": {
-      "version": "1.10.1",
-      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.10.1.tgz",
-      "integrity": "sha512-c2lD4fw7XT3xAL2ik0AOFvtdtxs9PnMN/xJy3OyTeCzI71Cry+Zh7Y+bwv5HeD+4pBN2xEos4l/AOkZ8Njsyog==",
+      "version": "1.10.3",
+      "resolved": "https://registry.npmjs.org/@dcos/ui-kit/-/ui-kit-1.10.3.tgz",
+      "integrity": "sha512-u1CTKIyPem/THnY+p3J0JNhBuOuBDICCX5CaOpNa2ed5TRunvVvyzksD//8BFbUge/8b69wflZ469rinl2xmYA==",
       "requires": {
         "emotion": "9.2.6",
         "memoize-one": "4.0.0",
@@ -1506,9 +1506,9 @@
       }
     },
     "@emotion/stylis": {
-      "version": "0.6.12",
-      "resolved": "https://registry.npmjs.org/@emotion/stylis/-/stylis-0.6.12.tgz",
-      "integrity": "sha512-yS+t7l5FeYeiIyADyqjFBJvdotpphHb2S3mP4qak5BpV7ODvxuyAVF24IchEslW+A1MWHAhn5SiOW6GZIumiEQ=="
+      "version": "0.7.0",
+      "resolved": "https://registry.npmjs.org/@emotion/stylis/-/stylis-0.7.0.tgz",
+      "integrity": "sha512-DTq3Wo4p63JoogA5TaVKZHj7QcU32kRF+iKLWJnfGlIw4S+v90rVHX8pLQETKILWXk05iZ2b0KUKFMTAHYbytw=="
     },
     "@emotion/unitless": {
       "version": "0.6.6",
@@ -6174,15 +6174,15 @@
       }
     },
     "babel-plugin-emotion": {
-      "version": "9.2.6",
-      "resolved": "https://registry.npmjs.org/babel-plugin-emotion/-/babel-plugin-emotion-9.2.6.tgz",
-      "integrity": "sha512-aCRXUPm2pwaUqUtpQ2Gzbn5EeOD2RyUDTQDJl5Yqwg1RLQPs3OvnB6Xt6GUrMomMISxuwFrxuWfBMajHv74UjQ==",
+      "version": "9.2.8",
+      "resolved": "https://registry.npmjs.org/babel-plugin-emotion/-/babel-plugin-emotion-9.2.8.tgz",
+      "integrity": "sha512-m+M0Xim43+y3Egpl0C4Zz5dI0f7JaBi6GZF1vtr1IdODRpxWOx47uzr7qXyuBCG/U/nB2DGaU996of0nJjwWbw==",
       "requires": {
         "@babel/helper-module-imports": "7.0.0-beta.51",
         "@emotion/babel-utils": "^0.6.4",
         "@emotion/hash": "^0.6.2",
         "@emotion/memoize": "^0.6.1",
-        "@emotion/stylis": "^0.6.10",
+        "@emotion/stylis": "^0.7.0",
         "babel-core": "^6.26.3",
         "babel-plugin-macros": "^2.0.0",
         "babel-plugin-syntax-jsx": "^6.18.0",
@@ -9304,12 +9304,19 @@
         "csstype": "^2.5.2",
         "stylis": "^3.5.0",
         "stylis-rule-sheet": "^0.0.10"
+      },
+      "dependencies": {
+        "@emotion/stylis": {
+          "version": "0.6.12",
+          "resolved": "https://registry.npmjs.org/@emotion/stylis/-/stylis-0.6.12.tgz",
+          "integrity": "sha512-yS+t7l5FeYeiIyADyqjFBJvdotpphHb2S3mP4qak5BpV7ODvxuyAVF24IchEslW+A1MWHAhn5SiOW6GZIumiEQ=="
+        }
       }
     },
     "create-emotion-styled": {
-      "version": "9.2.6",
-      "resolved": "https://registry.npmjs.org/create-emotion-styled/-/create-emotion-styled-9.2.6.tgz",
-      "integrity": "sha512-Kk6qWuEiHY9iptLsxzoJztHM237yedoY2Zhmc79HwkRkC+wZ7W8IFt5gP6AAGx6eN44hc3Zwc+WA5N7ku3QJfg==",
+      "version": "9.2.8",
+      "resolved": "https://registry.npmjs.org/create-emotion-styled/-/create-emotion-styled-9.2.8.tgz",
+      "integrity": "sha512-2LrNM5MREWzI5hZK+LyiBHglwE18WE3AEbBQgpHQ1+zmyLSm/dJsUZBeFAwuIMb+TjNZP0KsMZlV776ufOtFdg==",
       "requires": {
         "@emotion/is-prop-valid": "^0.6.1"
       }
