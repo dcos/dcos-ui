@@ -46,10 +46,10 @@ new Promise(function(resolve, reject) {
   bootstrap.CSS = css;
 });
 
-function requireFromString(src, filename) {
+function requireFromString(src) {
   const Module = module.constructor;
   const sourceModule = new Module();
-  sourceModule._compile(src, filename);
+  sourceModule._compile(src, "");
 
   return sourceModule.exports;
 }

@@ -1,3 +1,6 @@
 {
-  "extends": "stylelint-config-dcos"
+  "extends": "stylelint-config-dcos",
+  "rules": {
+    "no-empty-source": null
+  }
 }
