@@ -127,7 +127,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               {
                 heading: getColumnHeadingFn("Load Balanced Address"),
                 prop: "",
-                className: getColumnClassNameFn(),
+                className: getColumnClassNameFn("wrap-content"),
                 render(prop, row) {
                   const { port, labels } = row;
                   const vipLabel = ServiceConfigUtil.findVIPLabel(labels);
