@@ -13,13 +13,15 @@ var HostTimeSeriesChart = React.createClass({
     data: PropTypes.array.isRequired,
     refreshRate: PropTypes.number.isRequired,
     roundUpValue: PropTypes.number,
-    minMaxY: PropTypes.number
+    minMaxY: PropTypes.number,
+    colorIndex: PropTypes.number
   },
 
   getDefaultProps() {
     return {
       roundUpValue: 5,
-      minMaxY: 10
+      minMaxY: 10,
+      colorIndex: 0
     };
   },
 
@@ -45,7 +47,7 @@ var HostTimeSeriesChart = React.createClass({
     return [
       {
         name: "Nodes",
-        colorIndex: 0,
+        colorIndex: props.colorIndex,
         values: props.data
       }
     ];
@@ -71,7 +73,7 @@ var HostTimeSeriesChart = React.createClass({
     return (
       <div className="chart">
         <TimeSeriesLabel
-          colorIndex={0}
+          colorIndex={props.colorIndex}
           currentValue={props.currentValue}
           subHeading={"Connected Nodes"}
           y="slavesCount"

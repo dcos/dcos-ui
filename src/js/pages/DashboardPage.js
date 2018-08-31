@@ -248,6 +248,7 @@ var DashboardPage = React.createClass({
                 data={data.activeNodes}
                 currentValue={data.hostCount}
                 refreshRate={Config.getRefreshRate()}
+                colorIndex={4}
               />
             </Panel>
           </div>
