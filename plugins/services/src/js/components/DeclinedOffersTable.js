@@ -336,7 +336,7 @@ class DeclinedOffersTable extends React.Component {
     return (
       <MountService.Mount type="DeclinedOffersTable">
         <Table
-          className="table table-flush table-borderless-outer table-borderless-inner-columns table-header-nowrap table-break-word table-hover flush-bottom"
+          className="table table-flush table-borderless-outer table-borderless-inner-columns table-break-word table-hover flush-bottom"
           colGroup={this.getColGroup()}
           columns={this.getColumns()}
           data={offers}
