@@ -968,7 +968,6 @@ describe("Containers", function() {
           new Transaction(["containers"], null, ADD_ITEM),
           new Transaction(["volumeMounts"], null, ADD_ITEM),
           new Transaction(["volumeMounts", 0, "name"], "extvol", SET),
-          new Transaction(["volumeMounts", 0, "mountPath"], null, ADD_ITEM),
           new Transaction(["volumeMounts", 0, "mountPath", 0], "mount", SET),
           new Transaction(["volumeMounts"], 0, REMOVE_ITEM)
         ]);
