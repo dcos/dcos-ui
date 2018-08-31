@@ -442,6 +442,10 @@ module.exports = {
           });
       }
 
+      if (this.volumeMounts.length === 0 && container.volumeMounts != null) {
+        container.volumeMounts = [];
+      }
+
       return container;
     });
 
