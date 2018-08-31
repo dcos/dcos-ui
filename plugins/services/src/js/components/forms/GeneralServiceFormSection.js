@@ -241,7 +241,7 @@ class GeneralServiceFormSection extends Component {
       type = container.type;
     }
 
-    if (!isEmpty(gpus) && gpus !== 0) {
+    if (!isEmpty(gpus) && parseFloat(gpus) !== 0) {
       isDisabled[DOCKER] = true;
       disabledTooltipContent =
         "Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources.";
