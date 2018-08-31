@@ -72,15 +72,15 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-value"
         >
-          <div
-            className="css-bfgqus"
+          <span
+            className="css-10kci5c"
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
             tabIndex={-1}
           >
             in 39 years
-          </div>
+          </span>
         </div>
       </div>
       <div
@@ -96,15 +96,15 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-value"
         >
-          <div
-            className="css-bfgqus"
+          <span
+            className="css-10kci5c"
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
             tabIndex={-1}
           >
             in 49 years
-          </div>
+          </span>
         </div>
       </div>
     </div>
