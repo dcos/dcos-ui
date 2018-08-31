@@ -62,7 +62,7 @@ const PackagesEmptyState = () => {
   );
 };
 
-const METHODS_TO_BIND = ["handleSearchStringChange"];
+const METHODS_TO_BIND = ["handleSearchStringChange", "clearInput"];
 
 const shouldRenderCatalogOption = Hooks.applyFilter(
   "hasCapability",
@@ -127,6 +127,10 @@ class PackagesTab extends mixin(StoreMixin) {
 
   handleSearchStringChange(searchString = "") {
     this.setState({ searchString });
+  }
+
+  clearInput() {
+    this.handleSearchStringChange("");
   }
 
   getErrorScreen() {
@@ -197,7 +201,8 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   getCommunityPackagesGrid(packages) {
-    if (packages.getItems().length === 0) {
+    const isSearchActive = this.state.searchString !== "";
+    if (!isSearchActive && packages.getItems().length === 0) {
       return null;
     }
 
@@ -208,7 +213,6 @@ class PackagesTab extends mixin(StoreMixin) {
       </p>
     );
     let title = "Community";
-    const isSearchActive = this.state.searchString !== "";
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
       tall: isSearchActive
@@ -216,8 +220,20 @@ class PackagesTab extends mixin(StoreMixin) {
 
     if (isSearchActive) {
       const foundPackagesLength = packages.getItems().length;
-      const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
+      if (foundPackagesLength < 1) {
+        const noResults = `No results were found for your search: "${
+          this.state.searchString
+        }" `;
 
+        return (
+          <div className="clearfix">
+            {noResults}
+            (<a onClick={this.clearInput}>view all</a>)
+          </div>
+        );
+      }
+
+      const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
       subtitle = null;
       title = `${packages.getItems().length} ${packagesWord} found`;
     }
