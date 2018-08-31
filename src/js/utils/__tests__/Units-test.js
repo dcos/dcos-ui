@@ -33,6 +33,16 @@ describe("Units", function() {
       const value = Units.formatResource("gpus", 3.405);
       expect(value).toEqual(3.41);
     });
+
+    it("returns default for undefined mem", function() {
+      const value = Units.formatResource("mem", undefined);
+      expect(value).toEqual("0 B");
+    });
+
+    it("returns default for undefined gpu", function() {
+      const value = Units.formatResource("gpus", undefined);
+      expect(value).toEqual(0);
+    });
   });
 
   describe("#filesize", function() {
