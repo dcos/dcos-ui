@@ -8,7 +8,7 @@ const Units = {
       value = Units.filesize(value * 1024 * 1024, 1);
     }
 
-    return value;
+    return value || 0;
   },
 
   filesize(size, decimals, threshold, multiplier, units) {
