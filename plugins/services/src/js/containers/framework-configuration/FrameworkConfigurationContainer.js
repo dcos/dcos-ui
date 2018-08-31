@@ -6,7 +6,7 @@ import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import { routerShape } from "react-router";
 import FrameworkConfigurationReviewScreen
   from "#SRC/js/components/FrameworkConfigurationReviewScreen";
-import Loader from "src/js/components/Loader";
+import Loader from "#SRC/js/components/Loader";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import { COSMOS_SERVICE_DESCRIBE_CHANGE } from "#SRC/js/constants/EventTypes";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";

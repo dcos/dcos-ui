@@ -13,7 +13,7 @@ var Config = {
   documentationURI: "https://docs.mesosphere.com",
   mesosDocsURI: "https://mesos.apache.org/documentation/latest/",
   downloadsURI: "https://downloads.dcos.io",
-  environment: "@@ENV",
+  environment: process.env.NODE_ENV,
   historyLength: 31,
   historyServer: "",
   fullProductName: "Mesosphere DC/OS",
@@ -38,7 +38,6 @@ Config.getRefreshRate = function() {
   return this.stateRefresh;
 };
 
-// @@ENV gets replaced by Broccoli
 if (Config.environment === "development") {
   Config.analyticsKey = ""; // Safeguard from developers logging to prod
   Config = Object.assign(Config, ConfigDev);
