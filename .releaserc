@@ -1,7 +1,7 @@
 {
   "branch": "master",
   "tagFormat": "master+v${version}",
-  "verifyConditions": ["@semantic-release/github"],
+  "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
   "prepare": [],
   "publish": [
     {
@@ -10,5 +10,13 @@
       "shell": "/bin/bash"
     },
     "@semantic-release/github"
+  ],
+  "success": [
+    "@semantic-release/github",
+    {
+      "path": "semantic-release-jira",
+      "apiURL": "https://jira.mesosphere.com/rest/api/2/issue/${issueKey}",
+      "apiJSON": '{ "update": { "labels": [ { "add": "released-repo:dcos-ui" }, { "add": "released-tag:master+v${version}" } ] } }'
+    }
   ]
 }
