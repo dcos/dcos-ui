@@ -32,18 +32,7 @@ describe("Add Repository Form Modal", function() {
     cy
       .get(".modal .form-control-feedback")
       .eq(1)
-      .should("contain", "Must be a valid url with http:// or https://");
-  });
-
-  it("should display error if not a valid url", function() {
-    cy
-      .get(".modal .modal-footer .button.button-primary")
-      .contains("Add")
-      .click();
-
-    cy
-      .get(".modal .form-control-feedback")
-      .should("contain", "Must be a valid url with http:// or https://");
+      .should("contain", "Field cannot be empty.");
   });
 
   it("closes modal after add is successful", function() {

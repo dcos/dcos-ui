@@ -82,10 +82,12 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         name: "uri",
         placeholder: "URL",
         required: true,
-        validationErrorText: "Must be a valid url with http:// or https://",
+        showError: false,
         showLabel: false,
         writeType: "input",
-        validation: /^https?:\/\/.+\..+$/,
+        validation() {
+          return true;
+        },
         value: ""
       },
       {
