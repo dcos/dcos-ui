@@ -174,11 +174,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     ];
   }
 
-  getLoadBalancedServiceAddressField(endpoint, network, index, containerIndex) {
-    if (network !== CONTAINER) {
-      return null;
-    }
-
+  getLoadBalancedServiceAddressField(endpoint, index, containerIndex) {
     const { containerPort, hostPort, loadBalanced, vip } = endpoint;
     const { errors } = this.props;
     let loadBalancedError = findNestedPropertyInObject(
@@ -474,7 +470,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           </FormRow>
           {this.getLoadBalancedServiceAddressField(
             endpoint,
-            network,
             index,
             containerIndex
           )}
