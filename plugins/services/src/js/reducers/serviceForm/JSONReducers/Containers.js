@@ -46,14 +46,14 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       hostPort = 0;
     }
 
-    if (networkType === CONTAINER) {
-      labels = VipLabelUtil.generateVipLabel(
-        appState.id,
-        endpoint,
-        vipLabel || VipLabelUtil.defaultVip(index),
-        vipPort || containerPort || hostPort
-      );
+    labels = VipLabelUtil.generateVipLabel(
+      appState.id,
+      endpoint,
+      vipLabel || VipLabelUtil.defaultVip(index),
+      vipPort || containerPort || hostPort
+    );
 
+    if (networkType === CONTAINER) {
       return {
         name,
         containerPort,
