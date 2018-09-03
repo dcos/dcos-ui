@@ -239,7 +239,7 @@ describe("Tasks Table", function() {
     it("sorts DESC by region", function() {
       cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
 
-      cy.get("th.task-table-column-region-address").click();
+      cy.get("th.task-table-column-region-address").click({ force: true });
 
       cy
         .get(":nth-child(2) > .task-table-column-region-address")
@@ -255,8 +255,8 @@ describe("Tasks Table", function() {
     it("sorts ASC by region", function() {
       cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
 
-      cy.get("th.task-table-column-region-address").click();
-      cy.get("th.task-table-column-region-address").click();
+      cy.get("th.task-table-column-region-address").click({ force: true });
+      cy.get("th.task-table-column-region-address").click({ force: true });
 
       cy
         .get(":nth-child(2) > .task-table-column-region-address")
