@@ -1,11 +1,14 @@
 const MetadataStore = require("#SRC/js/stores/MetadataStore");
 const ConfigStore = require("#SRC/js/stores/ConfigStore");
+const AuthStore = require("#SRC/js/stores/AuthStore");
 const EventTypes = require("#SRC/js/constants/EventTypes");
 
 const NodeHealthStore = require("../../../nodes/src/js/stores/NodeHealthStore");
 
 const { INTERCOM_CHANGE } = require("../../constants/EventTypes");
 const IntercomStore = require("../IntercomStore");
+
+jest.mock("#SRC/js/stores/AuthStore");
 
 describe("IntercomStore", function() {
   it("adds attribute", function() {
@@ -58,6 +61,8 @@ describe("IntercomStore", function() {
     it("triggers an action upon ccid success", function() {
       const mockedFn = jest.genMockFunction();
       IntercomStore.onClusterCCIDSuccess = mockedFn;
+
+      AuthStore.getUser.mockResolvedValue({ uid: "user_uid" });
 
       addIntercomChangeListener();
 

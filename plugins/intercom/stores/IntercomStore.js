@@ -7,6 +7,7 @@ import {
   HEALTH_NODES_CHANGE,
   CLUSTER_CCID_SUCCESS
 } from "#SRC/js/constants/EventTypes";
+import AuthStore from "#SRC/js/stores/AuthStore";
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import NodeHealthStore from "../../nodes/src/js/stores/NodeHealthStore";
@@ -123,8 +124,13 @@ class IntercomStore extends GetSetBaseStore {
   }
 
   onClusterCCIDSuccess() {
+    const user = AuthStore.getUser();
     const ccid = ConfigStore.get("ccid");
-    this.set({ crypto_cluster_uuid: ccid.zbase32_public_key });
+
+    this.set({
+      crypto_cluster_uuid: ccid.zbase32_public_key,
+      user_id: `${user.uid}+${ccid.zbase32_public_key}`
+    });
 
     this.emit(INTERCOM_CHANGE);
   }
