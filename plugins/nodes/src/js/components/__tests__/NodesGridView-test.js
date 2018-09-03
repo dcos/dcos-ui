@@ -73,4 +73,33 @@ describe("NodesGridView", function() {
       expect(list).toEqual(["a", "b", "c", "d", "e", "f", "g", "z"]);
     });
   });
+
+  describe("#shouldRenderLoadingScreen", function() {
+    const shouldRenderLoadingScreen = props =>
+      NodesGridView.prototype.shouldRenderLoadingScreen.call({
+        props
+      });
+
+    it("returns true if it has a loading error", function() {
+      expect(shouldRenderLoadingScreen({ hasLoadingError: true })).toBeTruthy();
+    });
+
+    it("returns true if it has an empty mesos state", function() {
+      expect(
+        shouldRenderLoadingScreen({ receivedEmptyMesosState: true })
+      ).toBeTruthy();
+    });
+
+    it("returns true if it has no node healthy response", function() {
+      expect(
+        shouldRenderLoadingScreen({ receivedNodeHealthResponse: false })
+      ).toBeTruthy();
+    });
+
+    it("returns false otherwise", function() {
+      expect(
+        shouldRenderLoadingScreen({ receivedNodeHealthResponse: true })
+      ).toBeFalsy();
+    });
+  });
 });
