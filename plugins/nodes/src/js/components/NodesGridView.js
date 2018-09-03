@@ -121,18 +121,20 @@ var NodesGridView = React.createClass({
     );
   },
 
-  render() {
+  shouldRenderLoadingScreen() {
     const {
       hasLoadingError,
       receivedEmptyMesosState,
       receivedNodeHealthResponse
     } = this.props;
 
-    if (
-      hasLoadingError ||
-      receivedEmptyMesosState ||
-      !receivedNodeHealthResponse
-    ) {
+    return (
+      hasLoadingError || receivedEmptyMesosState || !receivedNodeHealthResponse
+    );
+  },
+
+  render() {
+    if (this.shouldRenderLoadingScreen()) {
       return this.getLoadingScreen();
     } else {
       return this.getNodesGrid();
