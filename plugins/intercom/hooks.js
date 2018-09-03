@@ -80,8 +80,7 @@ module.exports = {
     global.Intercom("boot", {
       app_id: this.configuration.appId,
       email: user.email,
-      name: user.name,
-      user_id: user.uid
+      name: AuthStore.getUserLabel()
     });
 
     IntercomStore.addChangeListener(
