@@ -447,6 +447,16 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
+  if (configuration.mesos === "no-agents") {
+    router
+      .route(
+        /system\/health\/v1\/nodes(\?_timestamp=[0-9]+)?$/,
+        "fx:no-agents/nodes"
+      )
+      .route(/history\/last/, "fx:no-agents/summary")
+      .route(/state-summary/, "fx:no-agents/summary");
+  }
+
   if (configuration.networkVIPSummaries) {
     router.route(
       /networking\/api\/v1\/summary/,
