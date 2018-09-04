@@ -228,7 +228,9 @@ class PackagesTab extends mixin(StoreMixin) {
         return (
           <div className="clearfix">
             {noResults}
-            (<a onClick={this.clearInput}>view all</a>)
+            (<a className="clickable" onClick={this.clearInput}>
+              view all
+            </a>)
           </div>
         );
       }
