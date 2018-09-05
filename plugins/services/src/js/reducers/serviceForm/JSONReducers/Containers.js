@@ -50,14 +50,14 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       hostPort = 0;
     }
 
-    if (networkType === CONTAINER) {
-      labels = VipLabelUtil.generateVipLabel(
-        appState.id,
-        endpoint,
-        vipLabel || `VIP_${index}`,
-        vipPort || containerPort || hostPort
-      );
+    labels = VipLabelUtil.generateVipLabel(
+      appState.id,
+      endpoint,
+      vipLabel || `VIP_${index}`,
+      vipPort || containerPort || hostPort
+    );
 
+    if (networkType === CONTAINER) {
       return {
         name,
         containerPort,
@@ -228,49 +228,43 @@ function containersParser(state) {
               endpoint.containerPort
             )
           );
+        }
 
-          const vip = VipLabelUtil.findVip(endpoint.labels);
+        const vip = VipLabelUtil.findVip(endpoint.labels);
 
-          if (vip != null) {
-            const [vipLabel, vipValue] = vip;
+        if (vip != null) {
+          const [vipLabel, vipValue] = vip;
+          memo.push(
+            new Transaction(
+              ["containers", index, "endpoints", endpointIndex, "loadBalanced"],
+              true
+            )
+          );
+
+          memo.push(
+            new Transaction(
+              ["containers", index, "endpoints", endpointIndex, "vipLabel"],
+              vipLabel
+            )
+          );
+
+          if (!vipValue.startsWith(`${state.id}:`)) {
             memo.push(
               new Transaction(
-                [
-                  "containers",
-                  index,
-                  "endpoints",
-                  endpointIndex,
-                  "loadBalanced"
-                ],
-                true
+                ["containers", index, "endpoints", endpointIndex, "vip"],
+                vipValue
               )
             );
+          }
 
+          const vipPortMatch = vipValue.match(/.+:(\d+)/);
+          if (vipPortMatch) {
             memo.push(
               new Transaction(
-                ["containers", index, "endpoints", endpointIndex, "vipLabel"],
-                vipLabel
+                ["containers", index, "endpoints", endpointIndex, "vipPort"],
+                vipPortMatch[1]
               )
             );
-
-            if (!vipValue.startsWith(`${state.id}:`)) {
-              memo.push(
-                new Transaction(
-                  ["containers", index, "endpoints", endpointIndex, "vip"],
-                  vipValue
-                )
-              );
-            }
-
-            const vipPortMatch = vipValue.match(/.+:(\d+)/);
-            if (vipPortMatch) {
-              memo.push(
-                new Transaction(
-                  ["containers", index, "endpoints", endpointIndex, "vipPort"],
-                  vipPortMatch[1]
-                )
-              );
-            }
           }
         }
 
