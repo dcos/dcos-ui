@@ -107,6 +107,11 @@ describe("Packages Tab", function() {
         expect($panels.length).to.equal(1);
       });
     });
+
+    it("shows message when no matching packages found", function() {
+      cy.get("input").type("notfound");
+      cy.contains("No results were found for your search");
+    });
   });
 
   context("selected packages", function() {
