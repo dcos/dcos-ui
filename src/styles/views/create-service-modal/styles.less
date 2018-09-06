@@ -17,6 +17,11 @@
       }
     }
 
+    &-tabButtonList {
+      margin-right: 0;
+      padding-top: @modal-full-screen-body-padding-vertical;
+    }
+
     &-form {
       display: flex;
       flex: 1 1 auto;
@@ -25,6 +30,11 @@
         display: flex;
         flex: 1 0 auto;
         flex-direction: row;
+        height: 100%;
+      }
+
+      &__scrollbar-container .gm-scroll-view {
+        overflow: hidden;
       }
 
       &__scrollbar-container {
@@ -53,9 +63,9 @@
         display: none;
 
         &:after {
-          bottom: -@modal-full-screen-body-padding-vertical;
+          bottom: 0;
           height: auto;
-          top: -@modal-full-screen-body-padding-vertical;
+          top: 0;
         }
       }
     }
@@ -104,20 +114,6 @@
 
     .create-service-modal {
 
-      &-form {
-
-        &-container {
-
-          .menu-tabbed-vertical {
-
-            &:after {
-              bottom: -@modal-full-screen-body-padding-vertical-screen-small;
-              top: -@modal-full-screen-body-padding-vertical-screen-small;
-            }
-          }
-        }
-      }
-
       &-json-only {
 
         &-introduction {
@@ -139,17 +135,6 @@
     .create-service-modal {
 
       &-form {
-
-        &-container {
-
-          .menu-tabbed-vertical {
-
-            &:after {
-              bottom: -@modal-full-screen-body-padding-vertical-screen-medium;
-              top: -@modal-full-screen-body-padding-vertical-screen-medium;
-            }
-          }
-        }
 
         .menu-tabbed-vertical {
           display: block;
@@ -176,20 +161,6 @@
 
     .create-service-modal {
 
-      &-form {
-
-        &-container {
-
-          .menu-tabbed-vertical {
-
-            &:after {
-              bottom: -@modal-full-screen-body-padding-vertical-screen-large;
-              top: -@modal-full-screen-body-padding-vertical-screen-large;
-            }
-          }
-        }
-      }
-
       &-json-only {
 
         &-introduction {
@@ -210,20 +181,6 @@
 
     .create-service-modal {
 
-      &-form {
-
-        &-container {
-
-          .menu-tabbed-vertical {
-
-            &:after {
-              bottom: -@modal-full-screen-body-padding-vertical-screen-jumbo;
-              top: -@modal-full-screen-body-padding-vertical-screen-jumbo;
-            }
-          }
-        }
-      }
-
       &-json-only {
 
         &-introduction {
@@ -234,6 +191,10 @@
 
     .artifacts-section {
       margin-top: @base-spacing-unit-screen-jumbo * 3/4;
+    }
+
+    .create-service-modal-tabButtonList {
+      padding-top: @modal-full-screen-body-padding-vertical-screen-jumbo;
     }
   }
 }

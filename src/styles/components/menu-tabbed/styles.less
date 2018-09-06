@@ -11,12 +11,33 @@
   }
 
   .menu-tabbed-container-fixed {
+    display: grid;
+    grid-auto-rows: 100%;
+
+    /* Reason: fr actually _is_ a unit */
+    /* stylelint-disable unit-no-unknown */
+    grid-template-columns: repeat(7, 1fr);
+    /* stylelint-enable unit-no-unknown*/
+    height: 100%;
+    width: 100%;
 
     .menu-tabbed-vertical {
+      grid-column-end: 3;
       height: 100%;
-      position: fixed;
-      top: 135px;
+      justify-self: right;
     }
+  }
+
+  .menu-tabbed-view-container-fixed-scrollWrapper {
+    grid-column-end: 8;
+    grid-column-start: 1;
+    overflow: scroll;
+    width: 100%;
+  }
+
+  .menu-tabbed-view-container-fixed-scrollWrapper-content {
+    height: 100%;
+    max-width: @container-width-screen-jumbo - @menu-tabbed-vertical-width;
   }
 
   .menu-tabbed {
@@ -237,6 +258,10 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
+    .menu-tabbed-view-container-fixed-scrollWrapper {
+      grid-column-start: 3;
+    }
+
     .menu-tabbed {
       margin-bottom: @menu-tabbed-margin-bottom-screen-medium;
 
@@ -269,13 +294,6 @@
       .menu-tabbed-item-label {
         padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-medium;
         padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-medium;
-      }
-    }
-
-    .menu-tabbed-container-fixed {
-
-      .menu-tabbed-view-container {
-        padding-left: @menu-tabbed-vertical-width-screen-medium + @menu-tabbed-vertical-margin-right-screen-medium;
       }
     }
 
@@ -332,13 +350,6 @@
       }
     }
 
-    .menu-tabbed-container-fixed {
-
-      .menu-tabbed-view-container {
-        padding-left: @menu-tabbed-vertical-width-screen-large + @menu-tabbed-vertical-margin-right-screen-large;
-      }
-    }
-
     .menu-tabbed-item {
       margin-right: @menu-tabbed-horizontal-item-margin-right-screen-large;
     }
@@ -389,13 +400,6 @@
       .menu-tabbed-item-label {
         padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-jumbo;
         padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-jumbo;
-      }
-    }
-
-    .menu-tabbed-container-fixed {
-
-      .menu-tabbed-view-container {
-        padding-left: @menu-tabbed-vertical-width-screen-jumbo + @menu-tabbed-vertical-margin-right-screen-jumbo;
       }
     }
 
