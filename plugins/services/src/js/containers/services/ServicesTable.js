@@ -429,7 +429,15 @@ class ServicesTable extends React.Component {
         ? FrameworkUtil.extractBaseTechVersion(rawVersion)
         : "";
 
-    return <Tooltip content={rawVersion}>{displayVersion}</Tooltip>;
+    return (
+      <Tooltip
+        content={rawVersion}
+        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-overflow"
+        wrapText={true}
+      >
+        {displayVersion}
+      </Tooltip>
+    );
   }
 
   renderInstances(prop, service) {
