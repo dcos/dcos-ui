@@ -357,31 +357,35 @@ export default class FrameworkConfigurationForm extends Component {
             items={this.getDropdownNavigationList()}
           />
           <FluidGeminiScrollbar>
-            <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <div className="framework-configuration-form create-service-modal-form container">
+            <div className="create-service-modal-form-container">
+              <div className="framework-configuration-form create-service-modal-form">
                 <Tabs
                   activeTab={activeTab}
                   handleTabChange={this.handleTabChange}
                   vertical={true}
                   className={"menu-tabbed-container-fixed"}
                 >
-                  <TabButtonList>{this.getFormTabList()}</TabButtonList>
-                  <div className="menu-tabbed-view-container">
-                    {errorsAlert}
-                    {defaultConfigWarningMessage}
-                    <SchemaForm
-                      schema={schema}
-                      formData={formData}
-                      onChange={this.handleFormChange}
-                      uiSchema={this.getUiSchema()}
-                      fields={{ SchemaField, TitleField }}
-                      liveValidate={true}
-                      validate={this.validate}
-                      ErrorList={this.jsonSchemaErrorList}
-                      transformErrors={this.transformErrors}
-                    >
-                      <div />
-                    </SchemaForm>
+                  <TabButtonList className="create-service-modal-tabButtonList">
+                    {this.getFormTabList()}
+                  </TabButtonList>
+                  <div className="menu-tabbed-view-container-fixed-scrollWrapper modal-body-padding-surrogate">
+                    <div className="menu-tabbed-view-container-fixed-scrollWrapper-content menu-tabbed-view-container">
+                      {errorsAlert}
+                      {defaultConfigWarningMessage}
+                      <SchemaForm
+                        schema={schema}
+                        formData={formData}
+                        onChange={this.handleFormChange}
+                        uiSchema={this.getUiSchema()}
+                        fields={{ SchemaField, TitleField }}
+                        liveValidate={true}
+                        validate={this.validate}
+                        ErrorList={this.jsonSchemaErrorList}
+                        transformErrors={this.transformErrors}
+                      >
+                        <div />
+                      </SchemaForm>
+                    </div>
                   </div>
                 </Tabs>
               </div>
