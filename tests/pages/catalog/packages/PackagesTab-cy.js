@@ -113,7 +113,7 @@ describe("Packages Tab", function() {
     });
 
     it("should hide certified panels", function() {
-      cy.get("h4").contains("Certified").should(function($certifiedHeading) {
+      cy.get("h1").contains("Certified").should(function($certifiedHeading) {
         expect($certifiedHeading.length).to.equal(0);
       });
     });
@@ -122,6 +122,11 @@ describe("Packages Tab", function() {
       cy.get(".panel").should(function($panels) {
         expect($panels.length).to.equal(1);
       });
+    });
+
+    it("shows message when no matching packages found", function() {
+      cy.get("input").type("notfound");
+      cy.contains("No results were found for your search");
     });
   });
 

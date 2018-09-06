@@ -37,7 +37,7 @@ const PackagesBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="packages" breadcrumbs={crumbs} />;
 };
 
-const METHODS_TO_BIND = ["handleSearchStringChange"];
+const METHODS_TO_BIND = ["handleSearchStringChange", "clearInput"];
 
 const shouldRenderCatalogOption = Hooks.applyFilter(
   "hasCapability",
@@ -104,6 +104,10 @@ class PackagesTab extends mixin(StoreMixin) {
     this.setState({ searchString });
   }
 
+  clearInput() {
+    this.handleSearchStringChange("");
+  }
+
   getErrorScreen() {
     const { errorMessage } = this.state;
 
@@ -139,12 +143,8 @@ class PackagesTab extends mixin(StoreMixin) {
           label={this.getPackageOptionBadge(cosmosPackage)}
           onOptionSelect={this.handleDetailOpen.bind(this, cosmosPackage)}
         >
-          <div className="h6 flush-top short">
-            {cosmosPackage.getName()}
-          </div>
-          <small className="flush">
-            {cosmosPackage.getVersion()}
-          </small>
+          <div className="h6 flush-top short">{cosmosPackage.getName()}</div>
+          <small className="flush">{cosmosPackage.getVersion()}</small>
         </CatalogPackageOption>
       );
     });
@@ -169,27 +169,27 @@ class PackagesTab extends mixin(StoreMixin) {
       <div className="pod flush-top flush-horizontal clearfix">
         <h4 className="short flush-top">Certified</h4>
         <p className="tall flush-top">
-          Certified packages are verified by Mesosphere for interoperability with DC/OS.
+          Certified packages are verified by Mesosphere for interoperability
+          with DC/OS.
         </p>
-        <div className="panel-grid row">
-          {this.getPackageGrid(packages)}
-        </div>
+        <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
   }
 
   getCommunityPackagesGrid(packages) {
-    if (packages.getItems().length === 0) {
+    const isSearchActive = this.state.searchString !== "";
+    if (!isSearchActive && packages.getItems().length === 0) {
       return null;
     }
 
     let subtitle = (
       <p className="tall flush-top">
-        Community packages are unverified and unreviewed content from the community.
+        Community packages are unverified and unreviewed content from the
+        community.
       </p>
     );
     let title = "Community";
-    const isSearchActive = this.state.searchString !== "";
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
       tall: isSearchActive
@@ -197,19 +197,29 @@ class PackagesTab extends mixin(StoreMixin) {
 
     if (isSearchActive) {
       const foundPackagesLength = packages.getItems().length;
-      const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
+      if (foundPackagesLength < 1) {
+        const noResults = `No results were found for your search: "${this.state.searchString}" `;
 
+        return (
+          <div className="clearfix">
+            {noResults}
+            (<a className="clickable" onClick={this.clearInput}>
+              view all
+            </a>)
+          </div>
+        );
+      }
+
+      const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
       subtitle = null;
       title = `${packages.getItems().length} ${packagesWord} found`;
     }
 
     return (
       <div className="clearfix">
-        <h4 className={titleClasses}>{title}</h4>
+        <h1 className={titleClasses}>{title}</h1>
         {subtitle}
-        <div className="panel-grid row">
-          {this.getPackageGrid(packages)}
-        </div>
+        <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
   }
