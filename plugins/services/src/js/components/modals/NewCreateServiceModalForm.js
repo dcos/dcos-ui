@@ -55,6 +55,7 @@ const METHODS_TO_BIND = [
   "handleJSONChange",
   "handleJSONPropertyChange",
   "handleAddItem",
+  "handleJSONErrorStateChange",
   "handleRemoveItem",
   "getNewStateForJSON"
 ];
@@ -234,6 +235,14 @@ class NewCreateServiceModalForm extends Component {
       this.setState({
         editedFieldPaths: editedFieldPaths.concat([pathStr])
       });
+    }
+  }
+
+  handleJSONErrorStateChange(errorMessage) {
+    if (errorMessage !== null) {
+      this.props.onErrorsChange([{ message: errorMessage, path: [] }]);
+    } else {
+      this.props.onErrorsChange([]);
     }
   }
 
@@ -669,6 +678,7 @@ class NewCreateServiceModalForm extends Component {
             errors={errors}
             onChange={this.handleJSONChange}
             onPropertyChange={this.handleJSONPropertyChange}
+            onErrorStateChange={this.handleJSONErrorStateChange}
             showGutter={true}
             showPrintMargin={false}
             theme="monokai"
