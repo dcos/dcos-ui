@@ -1614,6 +1614,72 @@ describe("Service Form Modal", function() {
       });
     });
 
+    context("Networking", function() {
+      beforeEach(function() {
+        cy.get(".menu-tabbed-item-label").contains("Networking").click();
+      });
+
+      context("Service Endpoints", function() {
+        beforeEach(function() {
+          addServiceEndpoint();
+        });
+
+        function addServiceEndpoint() {
+          cy.get(".button.button-primary-link")
+            .contains("Add Service Endpoint")
+            .click();
+        }
+
+        function enableLoadBalancedAddress() {
+          cy.get(".form-group-heading-content")
+            .contains("Enable Load Balanced Service Address")
+            .click();
+        }
+
+        context("Host", function() {
+          beforeEach(function() {
+            cy.get('select[name="networks.0"]').select("Host");
+          });
+
+          context("Load balanced ports", function() {
+            beforeEach(function() {
+              enableLoadBalancedAddress();
+            });
+
+            it("sets vip port", function() {
+              cy.get(
+                '.form-control[name="containers.0.endpoints.0.vipPort"]'
+              ).type(9007);
+
+              cy.contains(".marathon.l4lb.thisdcos.directory:9007");
+            });
+          });
+        });
+
+        context("Virtual Network: dcos-1", function() {
+          beforeEach(function() {
+            cy.get('select[name="networks.0"]').select(
+              "Virtual Network: dcos-1"
+            );
+          });
+
+          context("Load balanced ports", function() {
+            beforeEach(function() {
+              enableLoadBalancedAddress();
+            });
+
+            it("sets vip port", function() {
+              cy.get(
+                '.form-control[name="containers.0.endpoints.0.vipPort"]'
+              ).type(9007);
+
+              cy.contains(".marathon.l4lb.thisdcos.directory:9007");
+            });
+          });
+        });
+      });
+    });
+
     context("Multi-container (pod)", function() {
       beforeEach(function() {
         cy

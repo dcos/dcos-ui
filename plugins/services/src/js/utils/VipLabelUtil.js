@@ -21,6 +21,10 @@ const VipLabelUtil = {
     }
 
     return labels;
+  },
+
+  defaultVip(index) {
+    return `VIP_${index}`;
   }
 };
 
