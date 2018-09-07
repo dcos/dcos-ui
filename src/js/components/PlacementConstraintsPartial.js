@@ -36,7 +36,11 @@ export default class PlacementConstraintsPartial extends Component {
 
   getToolTip(fieldValue, content) {
     return (
-      <Tooltip content={content} wrapperClassName="advanced-constraints">
+      <Tooltip
+        content={content}
+        wrapperClassName="advanced-constraints"
+        wrapText={true}
+      >
         {fieldValue}
       </Tooltip>
     );
