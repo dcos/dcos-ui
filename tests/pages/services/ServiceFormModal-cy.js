@@ -104,6 +104,59 @@ describe("Service Form Modal", function() {
           .first()
           .should("to.have.text", "Networking");
       });
+
+      describe("JSON errors", function() {
+        it("displays an error with invalid JSON", function() {
+          openServiceModal();
+          openServiceForm();
+
+          // Switch to JSON
+          cy
+            .get(".modal-full-screen-actions label")
+            .contains("JSON Editor")
+            .click();
+
+          cy
+            .get(".ace_text-input")
+            .focus()
+            .type("{selectall}{backspace}", { force: true });
+
+          cy
+            .get(".message")
+            .contains("Unexpected end of JSON input")
+            .should("be.visible");
+        });
+
+        it("clears the JSON error once it is fixed", function() {
+          openServiceModal();
+          openServiceForm();
+
+          // Switch to JSON
+          cy
+            .get(".modal-full-screen-actions label")
+            .contains("JSON Editor")
+            .click();
+
+          cy
+            .get(".ace_text-input")
+            .focus()
+            .type("{selectall}{backspace}", { force: true });
+
+          cy
+            .get(".message")
+            .contains("Unexpected end of JSON input")
+            .should("be.visible");
+
+          // The closing } is auto inserted
+          cy
+            .get(".ace_text-input")
+            .focus()
+            .type('{{}\n\t"id": "/foo"\n', { force: true });
+
+          cy.get(".message").should("not.be.visible");
+          cy.get("input[name=id]").should("have.value", "/foo");
+        });
+      });
     });
 
     context("Group level", function() {
