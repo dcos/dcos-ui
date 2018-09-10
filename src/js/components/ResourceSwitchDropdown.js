@@ -29,7 +29,7 @@ export default class ResourceSwitchDropdown extends React.Component {
       if (this.props.selectedResource === resource) {
         html = (
           <span className="selected">
-            <Icon color="black" id="check" size="mini" />
+            <Icon color="purple" id="check" size="mini" />
             {label}
           </span>
         );
@@ -64,7 +64,7 @@ export default class ResourceSwitchDropdown extends React.Component {
         dropdownMenuListClassName="dropdown-menu-list resource-switch-dropdown-menu-list"
         items={this.getMenuItems()}
         onItemSelection={this.handleItemSelection}
-        persistentID="dropdown-trigger"
+        initialID={this.props.selectedResource}
         transition={true}
         trigger={this.getTrigger()}
       />
