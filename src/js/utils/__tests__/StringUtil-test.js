@@ -297,4 +297,41 @@ describe("StringUtil", function() {
       ).toEqual("one, two and three");
     });
   });
+
+  describe("#parseMarkdown", function() {
+    it("adds _blank target to plain links in text", function() {
+      expect(
+        StringUtil.parseMarkdown("Hello this is a link http://somelink.com")
+          .__html
+      ).toEqual(
+        `<p>Hello this is a link <a target="_blank" href="http://somelink.com">http://somelink.com</a></p>\n`
+      );
+    });
+    it("adds _blank target to formatted links in text", function() {
+      expect(
+        StringUtil.parseMarkdown("Hello this is a [link](http://somelink.com)")
+          .__html
+      ).toEqual(
+        `<p>Hello this is a <a target="_blank" href="http://somelink.com">link</a></p>\n`
+      );
+    });
+    it("does not add target _blank to non-uri segments attached to plain links containing '<a'", function() {
+      expect(
+        StringUtil.parseMarkdown(
+          "Hello this is a bad link http://a.com/<a-mean-uri"
+        ).__html
+      ).toEqual(
+        `<p>Hello this is a bad link <a target="_blank" href="http://a.com/">http://a.com/</a>&lt;a-mean-uri</p>\n`
+      );
+    });
+    it("does not add additional target _blank to uri segments in formatted links containing '<a'", function() {
+      expect(
+        StringUtil.parseMarkdown(
+          "Hello this is a bad [link](http://a.com/<a-mean-uri)"
+        ).__html
+      ).toEqual(
+        `<p>Hello this is a bad <a target="_blank" href="http://a.com/&lt;a-mean-uri">link</a></p>\n`
+      );
+    });
+  });
 });
