@@ -3,6 +3,20 @@ import marked from "marked";
 import React from "react";
 /* eslint-enable no-unused-vars */
 
+const markdownRenderer = {
+  rendererReady: false,
+  prepareMarkdownRenderer() {
+    const renderer = new marked.Renderer();
+    renderer.link = function() {
+      const out = marked.Renderer.prototype.link.apply(this, arguments);
+
+      return out.replace(/^<a/, '<a target="_blank"');
+    };
+    marked.setOptions({ renderer });
+    this.rendererReady = true;
+  }
+};
+
 const StringUtil = {
   arrayToJoinedString(array = [], separator = ", ") {
     if (Array.isArray(array)) {
@@ -165,6 +179,10 @@ const StringUtil = {
   parseMarkdown(text) {
     if (!text) {
       return null;
+    }
+
+    if (!markdownRenderer.rendererReady) {
+      markdownRenderer.prepareMarkdownRenderer();
     }
 
     const __html = marked(

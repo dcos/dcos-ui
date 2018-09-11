@@ -4,7 +4,7 @@
     "name": "marathon",
     "version": "0.11.1",
     "maintainer": "help@dcos.io",
-    "description": "A cluster-wide init and control system for services in cgroups or Docker containers.",
+    "description": "A cluster-wide init and control system for services in cgroups or Docker containers. Documentation: https://docs.mesosphere.com/1.11/deploying-services/marathon-api/",
     "tags": [
       "init",
       "long-running"
@@ -12,7 +12,7 @@
     "scm": "https://github.com/mesosphere/marathon.git",
     "website": null,
     "framework": true,
-    "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service.",
+    "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service. More information: https://mesosphere.github.io/marathon/",
     "postInstallNotes": "Marathon DCOS Service has been successfully installed!\n\n\tDocumentation: https://mesosphere.github.io/marathon\n\tIssues: https://github.com/mesosphere/marathon/issues\n",
     "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.\nPlease follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
     "licenses": [
@@ -284,7 +284,7 @@
             },
             "uris": {
               "default": [
-
+                
               ],
               "description": "List of URIs that will be download and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
               "items": {
