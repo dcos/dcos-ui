@@ -500,7 +500,7 @@ To create a nested path, please specify a group.",
               ],
               "type": "object",
             },
-            "description": "A container orchestration platform for Mesos and DCOS.",
+            "description": "A container orchestration platform for Mesos and DCOS. Documentation: https://docs.mesosphere.com/1.11/deploying-services/marathon-api/",
             "framework": true,
             "licenses": Array [
               Object {
@@ -522,7 +522,7 @@ To create a nested path, please specify a group.",
 ",
             "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.
 Please follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
-            "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service.",
+            "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service. More information: https://mesosphere.github.io/marathon/",
             "releaseVersion": 10,
             "resource": Object {
               "assets": Object {
