@@ -55,6 +55,22 @@ const MesosStateUtil = {
   },
 
   /**
+   * @param {Array.<Object>} resourceList - Verbose resource information
+   * @returns {Object} An object of only the resource values
+   */
+  extractExecutorResources(resourceList) {
+    const resources = {};
+
+    resourceList.forEach(resource => {
+      if (resource.type === "SCALAR") {
+        resources[resource.name] = resource.scalar.value;
+      }
+    });
+
+    return resources;
+  },
+
+  /**
    * Returns resource usage of non completed tasks grouped by Host and Framework
    *
    * @param  {Object} state A document of mesos state
@@ -63,27 +79,40 @@ const MesosStateUtil = {
    * @returns {Object} A map of frameworks running on host
    */
   getHostResourcesByFramework(state, filter = []) {
-    return (state.tasks || [])
-      .filter(task => !COMPLETED_TASK_STATES.includes(task.state))
-      .reduce(function(memo, task) {
-        if (memo[task.slave_id] == null) {
-          memo[task.slave_id] = {};
+    const tasks = (state.tasks || []).filter(
+      task => !COMPLETED_TASK_STATES.includes(task.state)
+    );
+    const executors = state.executors || [];
+
+    return tasks
+      .concat(
+        executors.map(executor => {
+          return {
+            slave_id: executor.agent_id.value,
+            framework_id: executor.framework_id,
+            resources: this.extractExecutorResources(executor.resources)
+          };
+        })
+      )
+      .reduce(function(memo, element) {
+        if (memo[element.slave_id] == null) {
+          memo[element.slave_id] = {};
         }
 
-        let frameworkKey = task.framework_id;
+        let frameworkKey = element.framework_id;
         if (filter.includes(frameworkKey)) {
           frameworkKey = "other";
         }
 
-        const resources = task.resources;
-        if (memo[task.slave_id][frameworkKey] == null) {
-          memo[task.slave_id][frameworkKey] = StructUtil.copyRawObject(
+        const resources = element.resources;
+        if (memo[element.slave_id][frameworkKey] == null) {
+          memo[element.slave_id][frameworkKey] = StructUtil.copyRawObject(
             resources
           );
         } else {
           // Aggregates used resources from each executor
           RESOURCE_KEYS.forEach(function(key) {
-            memo[task.slave_id][frameworkKey][key] += resources[key];
+            memo[element.slave_id][frameworkKey][key] += resources[key];
           });
         }
 

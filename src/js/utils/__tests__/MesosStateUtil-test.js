@@ -5,7 +5,7 @@ const MesosStateUtil = require("../MesosStateUtil");
 
 const MESOS_STATE_WITH_HISTORY = require("./fixtures/MesosStateWithHistory");
 
-let thisInstance, thisMesosState;
+let thisInstance, thisMesosState, executorResources;
 
 describe("MesosStateUtil", function() {
   describe("#getFrameworkToServicesMap", function() {
@@ -237,9 +237,80 @@ describe("MesosStateUtil", function() {
     });
   });
 
+  describe("#extractExecutorResources", function() {
+    beforeEach(function() {
+      executorResources = [
+        {
+          name: "cpus",
+          type: "SCALAR",
+          scalar: {
+            value: 0.1
+          }
+        },
+        {
+          name: "mem",
+          type: "SCALAR",
+          scalar: {
+            value: 32
+          }
+        },
+        {
+          name: "disk",
+          type: "SCALAR",
+          scalar: {
+            value: 256
+          }
+        }
+      ];
+    });
+
+    it("extracts resources from executor resource object", function() {
+      expect(
+        MesosStateUtil.extractExecutorResources(executorResources)
+      ).toEqual({
+        cpus: 0.1,
+        mem: 32,
+        disk: 256
+      });
+    });
+  });
+
   describe("#getHostResourcesByFramework", function() {
     beforeEach(function() {
       thisMesosState = {
+        executors: [
+          {
+            agent_id: {
+              value: "slave-uid"
+            },
+            name: "spark",
+            framework_id: "marathon_1",
+            id: "spark__1",
+            resources: [
+              {
+                name: "cpus",
+                type: "SCALAR",
+                scalar: {
+                  value: 0.5
+                }
+              },
+              {
+                name: "mem",
+                type: "SCALAR",
+                scalar: {
+                  value: 256
+                }
+              },
+              {
+                name: "disk",
+                type: "SCALAR",
+                scalar: {
+                  value: 100
+                }
+              }
+            ]
+          }
+        ],
         tasks: [
           {
             name: "spark",
@@ -279,9 +350,9 @@ describe("MesosStateUtil", function() {
       ).toEqual({
         "slave-uid": {
           marathon_1: {
-            cpus: 2,
-            mem: 256,
-            disk: 200
+            cpus: 2.5,
+            mem: 512,
+            disk: 300
           },
           marathon_2: {
             cpus: 0.5,
@@ -307,9 +378,9 @@ describe("MesosStateUtil", function() {
       ).toEqual({
         "slave-uid": {
           marathon_1: {
-            cpus: 2,
-            mem: 256,
-            disk: 200
+            cpus: 2.5,
+            mem: 512,
+            disk: 300
           },
           other: {
             cpus: 1.5,
@@ -334,9 +405,9 @@ describe("MesosStateUtil", function() {
       ).toEqual({
         "slave-uid": {
           marathon_1: {
-            cpus: 2,
-            mem: 256,
-            disk: 200
+            cpus: 2.5,
+            mem: 512,
+            disk: 300
           },
           marathon_2: {
             cpus: 0.5,
