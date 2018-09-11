@@ -43,6 +43,21 @@ describe("Package Detail Tab", function() {
       );
   });
 
+  it("contains _blank target for links in description", function() {
+    cy
+      .contains("Description")
+      .parent()
+      .find("a")
+      .should("have.attr", "target", "_blank");
+  });
+  it("contains _blank target for links in preinstall notes", function() {
+    cy
+      .contains("Pre-Install Notes")
+      .parent()
+      .find("a")
+      .should("have.attr", "target", "_blank");
+  });
+
   it("displays image in the image viewer", function() {
     cy
       .get(".media-object-item-fill-image.image-rounded-corners.clickable")
