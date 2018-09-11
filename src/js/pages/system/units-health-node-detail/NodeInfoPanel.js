@@ -8,8 +8,6 @@ import ConfigurationMapRow from "../../../components/ConfigurationMapRow";
 import ConfigurationMapSection
   from "../../../components/ConfigurationMapSection";
 
-import { documentationURI } from "../../../config/Config";
-
 class NodeInfoPanel extends React.Component {
   constructor() {
     super(...arguments);
@@ -29,9 +27,10 @@ class NodeInfoPanel extends React.Component {
             <p>
               {summary}
             </p>
-            <a href={docsURL} target="_blank">
-              View Documentation
-            </a>
+            {docsURL &&
+              <a href={docsURL} target="_blank">
+                View Documentation
+              </a>}
           </ConfigurationMapSection>
           <ConfigurationMapSection>
             <ConfigurationMapHeading>
@@ -53,10 +52,6 @@ NodeInfoPanel.propTypes = {
   docsURL: React.PropTypes.string,
   output: React.PropTypes.string,
   summary: React.PropTypes.string
-};
-
-NodeInfoPanel.defaultProps = {
-  docsURL: documentationURI
 };
 
 module.exports = NodeInfoPanel;
