@@ -4,6 +4,8 @@ import React from "react";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
+import Application from "#PLUGINS/services/src/js/structs/Application";
+
 import { routerShape } from "react-router";
 import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 import Loader from "#SRC/js/components/Loader";
@@ -95,7 +97,10 @@ class FrameworkConfigurationContainer extends React.Component {
 }
 
 FrameworkConfigurationContainer.propTypes = {
-  service: PropTypes.instanceOf(Framework).isRequired
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(Framework),
+    PropTypes.instanceOf(Application)
+  ]).isRequired
 };
 
 FrameworkConfigurationContainer.contextTypes = {
