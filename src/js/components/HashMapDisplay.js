@@ -97,7 +97,7 @@ class HashMapDisplay extends React.Component {
     }
 
     return (
-      <ConfigurationMapSection key={this.props.key}>
+      <ConfigurationMapSection>
         {this.getHeadline()}
         {this.getItems()}
       </ConfigurationMapSection>
@@ -107,7 +107,6 @@ class HashMapDisplay extends React.Component {
 
 HashMapDisplay.defaultProps = {
   headingLevel: 1,
-  key: "",
   renderKeys: {}
 };
 
@@ -116,7 +115,6 @@ HashMapDisplay.propTypes = {
   headlineClassName: PropTypes.string,
   headline: PropTypes.node,
   hash: PropTypes.object,
-  key: PropTypes.string,
   // Optional object with keys consisting of keys in `props.hash` to be
   // replaced, and with corresponding values of the replacement to be rendered.
   renderKeys: PropTypes.object,
