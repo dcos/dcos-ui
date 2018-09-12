@@ -246,7 +246,6 @@ class ServiceBreadcrumbs extends React.Component {
           <BreadcrumbTextContent>
             <Link
               to={`/services/detail/${aggregateIDs}/tasks/${encodedTaskID}`}
-              index={taskID}
             >
               {taskName}
             </Link>
