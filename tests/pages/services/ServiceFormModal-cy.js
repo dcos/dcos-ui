@@ -174,6 +174,26 @@ describe("Service Form Modal", function() {
     });
   });
 
+  context("Edit Existing app", function() {
+    it("sets vip port even when host does not mach appId", function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy"
+      });
+
+      cy.visitUrl({ url: "/services/detail/%2Fnet" });
+      cy.get(".page-header-actions .dropdown").click();
+      cy.get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
+      cy.get(".menu-tabbed-item-label")
+        .contains("Networking")
+        .click();
+      cy.get(".form-control[name='portDefinitions.0.vipPort']").type(5);
+
+      cy.contains(".marathon.l4lb.thisdcos.directory:12345");
+    });
+  });
+
   context("Edit", function() {
     const SERVICE_SPEC = {
       id: "/sleep",

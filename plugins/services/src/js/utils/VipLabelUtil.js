@@ -10,6 +10,11 @@ const VipLabelUtil = {
         vipValue = `${appId}:${vipPort}`;
       }
 
+      const vipMatch = vipValue.match(/(.+):\d+/);
+      if (vipMatch) {
+        vipValue = `${vipMatch[1]}:${vipPort}`;
+      }
+
       return Object.assign({}, labels, { [vipLabel]: vipValue });
     }
 
