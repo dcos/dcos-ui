@@ -9,7 +9,7 @@ const { type: { MESOS, DOCKER } } = ContainerConstants;
 const mapLocalVolumes = function(volume) {
   if (volume.type === "PERSISTENT") {
     return {
-      persistent: volume.persistent,
+      persistent: volume.persistent || {},
       mode: volume.mode,
       containerPath: volume.containerPath
     };
@@ -151,7 +151,7 @@ function reduceVolumes(state, { type, path, value }) {
           this.localVolumes.push(
             value || {
               containerPath: null,
-              persistent: { size: null },
+              persistent: { size: 0 },
               mode: "RW"
             }
           );
