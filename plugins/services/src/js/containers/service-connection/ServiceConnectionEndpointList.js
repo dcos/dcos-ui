@@ -61,7 +61,9 @@ class ServiceConnectionEndpointList extends React.Component {
 
     if (hostPortValue) {
       return (
-        <EndpointClipboardTrigger command={getDisplayValue(hostPortValue)} />
+        <EndpointClipboardTrigger
+          command={getDisplayValue(hostPortValue.toString())}
+        />
       );
     }
 
@@ -88,7 +90,11 @@ class ServiceConnectionEndpointList extends React.Component {
     const portValue = portDefinition.containerPort;
 
     if (portValue) {
-      return <EndpointClipboardTrigger command={getDisplayValue(portValue)} />;
+      return (
+        <EndpointClipboardTrigger
+          command={getDisplayValue(portValue.toString())}
+        />
+      );
     }
 
     return getDisplayValue(portValue);
@@ -98,7 +104,7 @@ class ServiceConnectionEndpointList extends React.Component {
     if (portDefinition.servicePort) {
       return (
         <EndpointClipboardTrigger
-          command={getDisplayValue(portDefinition.servicePort)}
+          command={getDisplayValue(portDefinition.servicePort.toString())}
         />
       );
     }
