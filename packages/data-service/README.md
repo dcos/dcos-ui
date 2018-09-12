@@ -1,5 +1,9 @@
 This package is to be extracted to dcos-ui/data-service.
 
+# Design Document
+
+There is a [document outlining](https://docs.google.com/document/d/1S5754HMrUu0WCTUPGFdZ7NM_w6otn0clb1bLm75wE_U) the decisions that led to this implementation.
+
 # API v1
 
 ## Mediator Pattern
