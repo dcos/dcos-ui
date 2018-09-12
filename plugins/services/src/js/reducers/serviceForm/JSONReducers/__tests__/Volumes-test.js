@@ -27,7 +27,7 @@ describe("Volumes", function() {
         {
           containerPath: null,
           persistent: {
-            size: null
+            size: 0
           },
           mode: "RW"
         }
@@ -152,7 +152,7 @@ describe("Volumes", function() {
         {
           containerPath: null,
           persistent: {
-            size: null
+            size: 0
           },
           mode: "RW"
         },

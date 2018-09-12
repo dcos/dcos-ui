@@ -1182,7 +1182,7 @@ describe("Container", function() {
           {
             containerPath: null,
             persistent: {
-              size: null
+              size: 0
             },
             mode: "RW"
           }
@@ -1230,7 +1230,7 @@ describe("Container", function() {
           {
             containerPath: null,
             persistent: {
-              size: null
+              size: 0
             },
             mode: "RW"
           },
