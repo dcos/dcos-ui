@@ -45,8 +45,8 @@ class HashMapDisplay extends React.Component {
         value !== null &&
         !React.isValidElement(value)
       ) {
-        // Increase the heading level for each nested description list, making
-        // ensuring we don't surpass heading level 6.
+        // Increase the heading level for each nested description list,
+        // ensuring we don't surpass heading level <h6/>.
         const nextHeadingLevel = Math.min(headingLevel + 1, 6);
 
         return (
