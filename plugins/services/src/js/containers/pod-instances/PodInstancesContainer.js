@@ -99,9 +99,6 @@ class PodInstancesContainer extends React.Component {
     this.setState({ modal: {} });
   }
 
-  fetchData() {
-    // Re-fetch data - this will end up being a single Relay request
-  }
   /**
    * Sets the actionType to pending in state which will in turn be pushed
    * to children components as a prop. Also clears any existing error for
@@ -146,11 +143,6 @@ class PodInstancesContainer extends React.Component {
         false
       )
     });
-
-    // Fetch new data if action was successful
-    if (!error) {
-      this.fetchData();
-    }
   }
 
   clearActionError(actionType) {
