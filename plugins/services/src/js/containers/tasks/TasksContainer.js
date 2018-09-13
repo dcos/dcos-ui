@@ -228,11 +228,6 @@ class TasksContainer extends React.Component {
         false
       )
     });
-
-    // Fetch new data if action was successful
-    if (!error) {
-      this.fetchData();
-    }
   }
 
   clearActionError(actionType) {
