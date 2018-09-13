@@ -105,6 +105,37 @@ describe("Service Form Modal", function() {
           .should("to.have.text", "Networking");
       });
 
+      describe("Form errors", function() {
+        it("displays an error only after Review & Run is clicked", function() {
+          openServiceModal();
+          openServiceForm();
+
+          cy.get('.form-control[name="id"]')
+            .clear()
+            .blur();
+
+          cy.get(".message").should("not.be.visible");
+
+          // Click review and run
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".message")
+            .contains("Service ID must be defined")
+            .should("be.visible");
+
+          cy.get('.form-control[name="id"]')
+            .type("/hello-world")
+            .blur();
+
+          // Now automatic revalidation happens without clicking Review & Run again
+          cy.get(".message")
+            .contains("Service ID must be defined")
+            .should("not.be.visible");
+        });
+      });
+
       describe("JSON errors", function() {
         it("displays an error with invalid JSON", function() {
           openServiceModal();
