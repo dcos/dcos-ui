@@ -1,6 +1,134 @@
 {
   "apps": [
     {
+      "id": "/net",
+      "backoffFactor": 1.15,
+      "backoffSeconds": 1,
+      "container": {
+        "type": "DOCKER",
+        "docker": {
+          "forcePullImage": false,
+          "image": "nginx",
+          "parameters": [],
+          "privileged": false
+        },
+        "volumes": [],
+        "portMappings": [
+          {
+            "containerPort": 10,
+            "labels": {
+              "VIP_0": "notnet:1234"
+            },
+            "name": "ping",
+            "protocol": "tcp",
+            "servicePort": 10000
+          }
+        ]
+      },
+      "cpus": 0.1,
+      "disk": 0,
+      "executor": "",
+      "instances": 1,
+      "labels": {},
+      "maxLaunchDelaySeconds": 3600,
+      "mem": 128,
+      "gpus": 0,
+      "networks": [
+        {
+          "name": "dcos",
+          "mode": "container"
+        }
+      ],
+      "requirePorts": false,
+      "upgradeStrategy": {
+        "maximumOverCapacity": 1,
+        "minimumHealthCapacity": 1
+      },
+      "version": "2018-09-07T11:54:17.842Z",
+      "versionInfo": {
+        "lastScalingAt": "2018-09-07T11:54:17.842Z",
+        "lastConfigChangeAt": "2018-09-07T11:54:17.842Z"
+      },
+      "killSelection": "YOUNGEST_FIRST",
+      "unreachableStrategy": {
+        "inactiveAfterSeconds": 0,
+        "expungeAfterSeconds": 0
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [],
+      "tasks": [
+        {
+          "appId": "/net",
+          "healthCheckResults": [],
+          "host": "10.0.0.206",
+          "id": "net.c0a40ad4-b294-11e8-a6fa-e2d3821ae5ef",
+          "ipAddresses": [
+            {
+              "ipAddress": "9.0.2.130",
+              "protocol": "IPv4"
+            }
+          ],
+          "ports": [],
+          "servicePorts": [],
+          "slaveId": "2fe1bab0-d44b-4665-8ac0-29196e6980c5-S1",
+          "state": "TASK_RUNNING",
+          "stagedAt": "2018-09-07T11:54:19.182Z",
+          "startedAt": "2018-09-07T11:54:20.195Z",
+          "version": "2018-09-07T11:54:17.842Z",
+          "localVolumes": [],
+          "region": "aws/eu-central-1",
+          "zone": "aws/eu-central-1a"
+        }
+      ],
+      "taskStats": {
+        "startedAfterLastScaling": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 3974.008,
+              "medianSeconds": 3974.008
+            }
+          }
+        },
+        "withLatestConfig": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 3974.008,
+              "medianSeconds": 3974.008
+            }
+          }
+        },
+        "totalSummary": {
+          "stats": {
+            "counts": {
+              "staged": 0,
+              "running": 1,
+              "healthy": 0,
+              "unhealthy": 0
+            },
+            "lifeTime": {
+              "averageSeconds": 3974.008,
+              "medianSeconds": 3974.008
+            }
+          }
+        }
+      }
+    },
+    {
       "id": "/sleep",
       "cmd": "sleep 3000",
       "args": null,
