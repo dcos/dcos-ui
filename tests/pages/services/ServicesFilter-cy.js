@@ -116,7 +116,7 @@ describe("Services Filter", function() {
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
-        .should("deep.equal", ["group-with-pods", "podEFGH"]);
+        .should("deep.equal", ["group-with-pods", "net", "podEFGH"]);
     });
   });
 
