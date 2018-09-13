@@ -749,6 +749,81 @@
       ],
       "lastUpdated": "2017-04-21T00:53:27.51Z",
       "lastChanged": "2017-04-20T22:06:33.371Z"
+    },
+    {
+      "id": "/customvip",
+      "spec": {
+        "id": "/customvip",
+        "version": "2018-09-13T05:11:09.298Z",
+        "containers": [
+          {
+            "name": "container-1",
+            "exec": { "command": { "shell": "sleep 100" } },
+            "resources": { "cpus": 0.1, "mem": 128, "disk": 0, "gpus": 0 },
+            "endpoints": [
+              {
+                "name": "foo",
+                "containerPort": 200,
+                "hostPort": 0,
+                "protocol": ["tcp"],
+                "labels": { "VIP_0": "/bar:500" }
+              }
+            ],
+            "image": { "kind": "DOCKER", "id": "nginx" }
+          }
+        ],
+        "networks": [{ "name": "dcos", "mode": "container" }],
+        "scaling": { "kind": "fixed", "instances": 1 },
+        "scheduling": {
+          "backoff": {
+            "backoff": 1,
+            "backoffFactor": 1.15,
+            "maxLaunchDelay": 3600
+          },
+          "upgrade": { "minimumHealthCapacity": 1, "maximumOverCapacity": 1 },
+          "killSelection": "YOUNGEST_FIRST",
+          "unreachableStrategy": {
+            "inactiveAfterSeconds": 0,
+            "expungeAfterSeconds": 0
+          }
+        },
+        "executorResources": { "cpus": 0.1, "mem": 32, "disk": 10 }
+      },
+      "status": "STABLE",
+      "statusSince": "2018-09-13T05:13:23.075Z",
+      "instances": [
+        {
+          "id": "customvip.instance-6d1cdda0-b713-11e8-9616-62da7168ca86",
+          "status": "STABLE",
+          "statusSince": "2018-09-13T05:13:23.075Z",
+          "conditions": [],
+          "agentHostname": "10.0.3.185",
+          "agentId": "56f4d2c0-d31d-40b6-ad4d-ffdd97964448-S1",
+          "resources": { "cpus": 0.2, "mem": 160, "disk": 10, "gpus": 0 },
+          "networks": [{ "name": "dcos", "addresses": ["9.0.2.2"] }],
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2018-09-13T05:13:23.075Z",
+              "conditions": [],
+              "containerId":
+                "customvip.instance-6d1cdda0-b713-11e8-9616-62da7168ca86.container-1",
+              "endpoints": [{ "name": "foo", "allocatedHostPort": 10968 }],
+              "resources": { "cpus": 0.1, "mem": 128, "disk": 0, "gpus": 0 },
+              "lastUpdated": "2018-09-13T05:13:23.075Z",
+              "lastChanged": "2018-09-13T05:13:23.075Z"
+            }
+          ],
+          "specReference": "/v2/pods/customvip::versions/2018-09-13T05:11:09.298Z",
+          "localVolumes": [],
+          "lastUpdated": "2018-09-13T05:13:23.075Z",
+          "lastChanged": "2018-09-13T05:13:23.075Z"
+        }
+      ],
+      "terminationHistory": [],
+      "lastUpdated": "2018-09-13T05:14:59.991Z",
+      "lastChanged": "2018-09-13T05:13:23.075Z"
     }
   ]
 }
