@@ -370,7 +370,17 @@ class CreateServiceModal extends Component {
   }
 
   handleServiceChange(newService) {
-    this.setState({ serviceSpec: newService, hasChangesApplied: true });
+    // If there were previous error messages visible it's better to revalidate
+    // on each change going forward
+    const formErrors = this.state.submitFailed
+      ? this.validateServiceSpec(newService)
+      : [];
+
+    this.setState({
+      serviceSpec: newService,
+      hasChangesApplied: true,
+      formErrors
+    });
   }
 
   handleServiceErrorsChange(errors) {
@@ -451,15 +461,17 @@ class CreateServiceModal extends Component {
   }
 
   handleServiceReview() {
-    const errors = this.getFormErrors();
-    if (errors.filter(error => !error.isPermissive).length === 0) {
+    if (!this.anyCriticalFormErrors()) {
       this.setState({
         apiErrors: [],
+        formErrors: [],
         serviceReviewActive: true
       });
     } else {
       this.setState({
-        showAllErrors: true
+        showAllErrors: true,
+        submitFailed: true,
+        formErrors: this.validateServiceSpec(this.state.serviceSpec)
       });
     }
   }
@@ -482,13 +494,24 @@ class CreateServiceModal extends Component {
   }
 
   /**
-   * This function combines the errors received from marathon and the errors
-   * produced by the form into a unified error array
-   *
+   * Determines whether or not the form can be submitted
+   * @returns {boolean} critical errors are present
+   */
+  anyCriticalFormErrors() {
+    const formErrors = this.validateServiceSpec(this.state.serviceSpec);
+    const criticalFormErrors = formErrors.filter(error => !error.isPermissive);
+
+    return (
+      criticalFormErrors.length > 0 || this.state.serviceFormErrors.length > 0
+    );
+  }
+
+  /**
+   * This function returns errors produced by the form validators
+   * @param {Object} serviceSpec The service spec to validate
    * @returns {Array} - An array of error objects
    */
-  getFormErrors() {
-    const { serviceFormErrors, serviceSpec } = this.state;
+  validateServiceSpec(serviceSpec) {
     let validationErrors = [];
 
     const appValidators = APP_VALIDATORS.concat(
@@ -516,7 +539,7 @@ class CreateServiceModal extends Component {
       );
     }
 
-    return validationErrors.concat(serviceFormErrors);
+    return validationErrors;
   }
 
   /**
@@ -526,7 +549,9 @@ class CreateServiceModal extends Component {
    * @returns {Array} - An array of error objects
    */
   getAllErrors() {
-    return this.state.apiErrors.concat(this.getFormErrors());
+    return this.state.apiErrors
+      .concat(this.state.formErrors)
+      .concat(this.state.serviceFormErrors);
   }
 
   getHeader() {
@@ -817,6 +842,7 @@ class CreateServiceModal extends Component {
     const newState = {
       activeTab: null,
       apiErrors: [],
+      formErrors: [], // Errors detected by form validation
       hasChangesApplied: false,
       isConfirmOpen: false,
       isJSONModeActive: false,
@@ -830,7 +856,8 @@ class CreateServiceModal extends Component {
       servicePickerActive: !isEdit, // Switch directly to form/json if edit
       serviceReviewActive: false,
       serviceFormHasErrors: false,
-      showAllErrors: false
+      showAllErrors: false,
+      submitFailed: false // Tried to submit form and form validation failed
     };
 
     return newState;
