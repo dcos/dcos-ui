@@ -65,7 +65,7 @@ describe("VipLabelUtil", function() {
       });
 
       describe("when vip has been given", function() {
-        it("generates VIP", function() {
+        it("generates VIP with new port value", function() {
           var portDefinition = {
             loadBalanced: true,
             vip: "service-address:9091"
@@ -77,7 +77,7 @@ describe("VipLabelUtil", function() {
             vipPort
           );
 
-          expect(result).toEqual({ VIP_0: "service-address:9091" });
+          expect(result).toEqual({ VIP_0: "service-address:7070" });
         });
       });
     });

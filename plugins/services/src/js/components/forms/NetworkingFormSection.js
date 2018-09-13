@@ -228,24 +228,29 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     let address = vip;
 
-    if (address == null) {
-      let port = "";
-      if (!portsAutoAssign && !ValidatorUtil.isEmpty(hostPort)) {
-        port = hostPort;
-      }
-      if (!ValidatorUtil.isEmpty(containerPort)) {
-        port = containerPort;
-      }
-      if (!ValidatorUtil.isEmpty(vipPort)) {
-        port = vipPort;
-      }
+    let port = "";
+    if (!portsAutoAssign && !ValidatorUtil.isEmpty(hostPort)) {
+      port = hostPort;
+    }
+    if (!ValidatorUtil.isEmpty(containerPort)) {
+      port = containerPort;
+    }
+    if (!ValidatorUtil.isEmpty(vipPort)) {
+      port = vipPort;
+    }
 
+    if (address == null) {
       address = `${id}:${port}`;
+    }
+
+    const vipMatch = address.match(/(.+):\d+/);
+    if (vipMatch) {
+      address = `${vipMatch[1]}:${port}`;
     }
 
     let hostName = null;
     if (!vipPortError) {
-      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address);
+      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address, port);
     }
 
     const helpText = (
