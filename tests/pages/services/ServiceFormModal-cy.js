@@ -1197,6 +1197,20 @@ describe("Service Form Modal", function() {
           });
         });
       });
+
+      context("Edit Service Endpoint", function() {
+        it("sets vip port when host does not match app id", function() {
+          cy.configureCluster({
+            mesos: "1-task-healthy"
+          });
+          cy.visitUrl({ url: "/services/detail/%2Fnet" });
+          cy.get(".page-header-actions .dropdown").click();
+          cy.get(".dropdown-menu-items").contains("Edit").click();
+          cy.get(".menu-tabbed-item-label").contains("Networking").click();
+          cy.get(".form-control[name='portDefinitions.0.vipPort']").type(5);
+          cy.contains(".marathon.l4lb.thisdcos.directory:12345");
+        });
+      });
     });
 
     context("Service: Volumes", function() {
@@ -1598,13 +1612,15 @@ describe("Service Form Modal", function() {
         });
 
         function addServiceEndpoint() {
-          cy.get(".button.button-primary-link")
+          cy
+            .get(".button.button-primary-link")
             .contains("Add Service Endpoint")
             .click();
         }
 
         function enableLoadBalancedAddress() {
-          cy.get(".form-group-heading-content")
+          cy
+            .get(".form-group-heading-content")
             .contains("Enable Load Balanced Service Address")
             .click();
         }
@@ -1620,9 +1636,9 @@ describe("Service Form Modal", function() {
             });
 
             it("sets vip port", function() {
-              cy.get(
-                '.form-control[name="containers.0.endpoints.0.vipPort"]'
-              ).type(9007);
+              cy
+                .get('.form-control[name="containers.0.endpoints.0.vipPort"]')
+                .type(9007);
 
               cy.contains(".marathon.l4lb.thisdcos.directory:9007");
             });
@@ -1631,9 +1647,9 @@ describe("Service Form Modal", function() {
 
         context("Virtual Network: dcos-1", function() {
           beforeEach(function() {
-            cy.get('select[name="networks.0"]').select(
-              "Virtual Network: dcos-1"
-            );
+            cy
+              .get('select[name="networks.0"]')
+              .select("Virtual Network: dcos-1");
           });
 
           context("Load balanced ports", function() {
@@ -1642,9 +1658,9 @@ describe("Service Form Modal", function() {
             });
 
             it("sets vip port", function() {
-              cy.get(
-                '.form-control[name="containers.0.endpoints.0.vipPort"]'
-              ).type(9007);
+              cy
+                .get('.form-control[name="containers.0.endpoints.0.vipPort"]')
+                .type(9007);
 
               cy.contains(".marathon.l4lb.thisdcos.directory:9007");
             });
@@ -1782,6 +1798,20 @@ describe("Service Form Modal", function() {
       // Click edit to view form
       cy.get("a.button.button-link").eq(-1).click({ force: true });
       cy.get(".menu-tabbed-view").contains("Networking");
+    });
+  });
+
+  context("Multi-container - Edit", function() {
+    it("sets vip port when host does not match app id", function() {
+      cy.configureCluster({
+        mesos: "1-pod"
+      });
+      cy.visitUrl({ url: "/services/detail/%2Fcustomvip" });
+      cy.get(".page-header-actions .dropdown").click();
+      cy.get(".dropdown-menu-items").contains("Edit").click();
+      cy.get(".menu-tabbed-item-label").contains("Networking").click();
+      cy.get(".form-control[name='containers.0.endpoints.0.vipPort']").type(5);
+      cy.contains(".marathon.l4lb.thisdcos.directory:5005");
     });
   });
 });
