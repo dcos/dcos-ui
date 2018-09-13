@@ -1,3 +1,4 @@
+import StructUtil from "#SRC/js/utils/StructUtil";
 import ExecutorTypes from "../constants/ExecutorTypes";
 import PodInstanceState
   from "../../../plugins/services/src/js/constants/PodInstanceState";
@@ -72,30 +73,35 @@ const MesosStateUtil = {
    * @returns {Object} A map of frameworks running on host
    */
   getHostResourcesByFramework(state, filter = []) {
-    return state.frameworks.reduce(function(memo, framework) {
-      framework.tasks.forEach(function(task) {
-        if (memo[task.slave_id] == null) {
-          memo[task.slave_id] = {};
+    return state.frameworks
+      .map(framework => framework.tasks.concat(framework.executors))
+      .reduce(function(memo, tasksList) {
+        return memo.concat(tasksList);
+      }, [])
+      .reduce(function(memo, element) {
+        if (memo[element.slave_id] == null) {
+          memo[element.slave_id] = {};
         }
 
-        var frameworkKey = task.framework_id;
-        if (filter.includes(framework.id)) {
+        let frameworkKey = element.framework_id;
+        if (filter.includes(frameworkKey)) {
           frameworkKey = "other";
         }
 
-        const resources = task.resources;
-        if (memo[task.slave_id][frameworkKey] == null) {
-          memo[task.slave_id][frameworkKey] = resources;
+        const resources = element.resources;
+        if (memo[element.slave_id][frameworkKey] == null) {
+          memo[element.slave_id][frameworkKey] = StructUtil.copyRawObject(
+            resources
+          );
         } else {
           // Aggregates used resources from each executor
           RESOURCE_KEYS.forEach(function(key) {
-            memo[task.slave_id][frameworkKey][key] += resources[key];
+            memo[element.slave_id][frameworkKey][key] += resources[key];
           });
         }
-      });
 
-      return memo;
-    }, {});
+        return memo;
+      }, {});
   },
 
   getTasksFromVirtualNetworkName(state = {}, overlayName) {

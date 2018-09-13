@@ -28,7 +28,13 @@
         "mem": 16,
         "ports": "[10000-10000]"
       },
-      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080"
+      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080",
+      "tasks": [
+        
+      ],
+      "executors": [
+        
+      ]
     },
     {
       "TASK_ERROR": 0,
@@ -57,7 +63,13 @@
         "mem": 16,
         "ports": "[10000-10000]"
       },
-      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080"
+      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080",
+      "tasks": [
+        
+      ],
+      "executors": [
+        
+      ]
     },
     {
       "TASK_ERROR": 0,
@@ -86,7 +98,13 @@
         "mem": 16,
         "ports": "[10000-10000]"
       },
-      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080"
+      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080",
+      "tasks": [
+        
+      ],
+      "executors": [
+        
+      ]
     },
     {
       "TASK_ERROR": 0,
@@ -115,7 +133,13 @@
         "mem": 16,
         "ports": "[10000-10000]"
       },
-      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080"
+      "webui_url": "http://$($MESOS_IP_DISCOVERY_COMMAND):8080",
+      "tasks": [
+        
+      ],
+      "executors": [
+        
+      ]
     }
   ],
   "hostname": "172.17.8.101",

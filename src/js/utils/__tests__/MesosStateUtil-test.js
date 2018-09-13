@@ -79,6 +79,97 @@ describe("MesosStateUtil", function() {
     });
   });
 
+  describe("#getHostResourcesByFramework", function() {
+    beforeEach(function() {
+      this.mesosState = {
+        frameworks: [
+          {
+            executors: [
+              {
+                name: "spark",
+                framework_id: "marathon_1",
+                id: "spark__1",
+                slave_id: "slave-uid",
+                resources: { cpus: 0.5, mem: 256, disk: 100 }
+              }
+            ],
+            tasks: [
+              {
+                name: "spark",
+                framework_id: "marathon_1",
+                id: "spark.1",
+                slave_id: "slave-uid",
+                resources: { cpus: 1, mem: 128, disk: 100 }
+              },
+              {
+                name: "spark",
+                framework_id: "marathon_1",
+                id: "spark.2",
+                slave_id: "slave-uid",
+                resources: { cpus: 1, mem: 128, disk: 100 }
+              }
+            ]
+          },
+          {
+            executors: [],
+            tasks: [
+              {
+                name: "alpha",
+                framework_id: "marathon_2",
+                id: "alpha.2",
+                slave_id: "slave-uid",
+                resources: { cpus: 0.5, mem: 256, disk: 150 }
+              }
+            ]
+          },
+          {
+            executors: [],
+            tasks: [
+              {
+                name: "nginx",
+                framework_id: "marathon_3",
+                id: "nginx.1",
+                slave_id: "slave-uid",
+                resources: { cpus: 1, mem: 128, disk: 100 }
+              }
+            ]
+          }
+        ]
+      };
+    });
+
+    it("aggregates resources by framework", function() {
+      expect(
+        MesosStateUtil.getHostResourcesByFramework(this.mesosState)
+      ).toEqual({
+        "slave-uid": {
+          marathon_1: {
+            cpus: 2.5,
+            mem: 512,
+            disk: 300
+          },
+          marathon_2: {
+            cpus: 0.5,
+            mem: 256,
+            disk: 150
+          },
+          marathon_3: {
+            cpus: 1,
+            mem: 128,
+            disk: 100
+          }
+        }
+      });
+    });
+
+    it("does not overwrite the resources of the original object", function() {
+      const previousMesosState = JSON.parse(JSON.stringify(this.mesosState));
+      MesosStateUtil.getHostResourcesByFramework(this.mesosState);
+
+      expect(this.mesosState).toEqual(previousMesosState);
+    });
+  });
+
   describe("#getTasksFromVirtualNetworkName", function() {
     beforeEach(function() {
       this.instance = MesosStateUtil.getTasksFromVirtualNetworkName(
