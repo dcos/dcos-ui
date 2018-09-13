@@ -9,7 +9,7 @@ import Icon from "#SRC/js/components/Icon";
 import EmptyStates from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-const METHODS_TO_BIND = ["getHashMapRenderKeys"];
+const METHODS_TO_BIND = ["getHashMapRenderKeys", "getFrameworkSections"];
 
 class FrameworkConfigurationReviewScreen extends React.Component {
   constructor(props) {
@@ -102,6 +102,24 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     );
   }
 
+  getFrameworkSections() {
+    const { frameworkData } = this.props;
+    const renderKeys = this.getHashMapRenderKeys(frameworkData);
+
+    return Object.keys(renderKeys).map((key, index) => {
+      return (
+        <HashMapDisplay
+          hash={frameworkData[key]}
+          headline={renderKeys[key]}
+          renderKeys={renderKeys}
+          headlineClassName={"text-capitalize"}
+          emptyValue={EmptyStates.CONFIG_VALUE}
+          key={`framework-config-review-section-${index}`}
+        />
+      );
+    });
+  }
+
   render() {
     const { frameworkData, title, onEditClick, frameworkMeta } = this.props;
 
@@ -142,13 +160,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
             </a>
           </div>
         </div>
-        <HashMapDisplay
-          hash={frameworkData}
-          headingLevel={0} // this is invalid usage of HasMapDisplay, related issue: https://jira.mesosphere.com/browse/DCOS-35756
-          renderKeys={this.getHashMapRenderKeys(frameworkData)}
-          headlineClassName={"text-capitalize"}
-          emptyValue={EmptyStates.CONFIG_VALUE}
-        />
+        {this.getFrameworkSections()}
       </div>
     );
   }
