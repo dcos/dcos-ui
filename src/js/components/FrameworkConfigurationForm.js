@@ -7,14 +7,13 @@ import { MountService } from "foundation-ui";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
-import Util, { isObject } from "#SRC/js/utils/Util";
+import Util from "#SRC/js/utils/Util";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import JSONEditor from "#SRC/js/components/JSONEditor";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
-import Alert from "#SRC/js/components/Alert";
 import SchemaField from "#SRC/js/components/SchemaField";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
@@ -43,20 +42,6 @@ const METHODS_TO_BIND = [
   "validate",
   "jsonSchemaErrorList"
 ];
-
-export function isValidFormData(formData, schema) {
-  if (!isObject(formData)) {
-    return true;
-  }
-
-  return Object.entries(formData).every(([key, value]) => {
-    if (!schema.properties[key]) {
-      return false;
-    }
-
-    return isValidFormData(value, schema.properties[key]);
-  });
-}
 
 export default class FrameworkConfigurationForm extends Component {
   constructor(props) {
@@ -163,6 +148,9 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   writeErrors(formData, schema, isRequired, errors) {
+    if (schema == null) {
+      return;
+    }
     if (Util.isObject(formData)) {
       Object.keys(formData).forEach(property => {
         this.writeErrors(
@@ -305,31 +293,6 @@ export default class FrameworkConfigurationForm extends Component {
 
     const schema = packageDetails.getConfig();
 
-    if (!isValidFormData(formData, schema)) {
-      return (
-        <div>
-          <div className="column-6">
-            <Alert>
-              The package has an advanced configuration which we currently do
-              not support in the UI. Please use the JSON editor to change the
-              configuration.
-            </Alert>
-          </div>
-          <div className={jsonEditorClasses}>
-            <JSONEditor
-              errors={this.getErrorsForJSONEditor()}
-              showGutter={true}
-              showPrintMargin={false}
-              onChange={this.handleJSONChange}
-              theme="monokai"
-              height="100%"
-              value={formData}
-              width="100%"
-            />
-          </div>
-        </div>
-      );
-    }
     let errorsAlert = null;
     if (deployErrors) {
       errorsAlert = <CosmosErrorMessage error={deployErrors} />;
