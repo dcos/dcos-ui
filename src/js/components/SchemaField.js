@@ -315,17 +315,16 @@ class SchemaField extends Component {
     const autofocus = uiSchema && uiSchema["ui:autofocus"];
 
     let errorMessage;
+    let showError = false;
     if (errorSchema) {
       errorMessage = errorSchema.__errors.map(error => {
         return <div>{error}</div>;
       });
+      showError = errorMessage.length > 0;
     }
 
     return (
-      <FormGroup
-        showError={errorMessage.length > 0}
-        errorClassName="form-group-danger"
-      >
+      <FormGroup showError={showError} errorClassName="form-group-danger">
         {this.getFieldContent(errorMessage, autofocus)}
       </FormGroup>
     );
