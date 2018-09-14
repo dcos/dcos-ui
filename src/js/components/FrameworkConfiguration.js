@@ -14,9 +14,7 @@ import Util from "#SRC/js/utils/Util";
 import { getFirstTabAndField } from "#SRC/js/utils/FrameworkConfigurationUtil";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
-import FrameworkConfigurationForm, {
-  isValidFormData
-} from "#SRC/js/components/FrameworkConfigurationForm";
+import FrameworkConfigurationForm from "#SRC/js/components/FrameworkConfigurationForm";
 import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 
 const METHODS_TO_BIND = [
@@ -50,15 +48,6 @@ export default class FrameworkConfiguration extends Component {
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { packageDetails, formData } = nextProps;
-    this.setState({
-      jsonEditorActive:
-        !isValidFormData(formData, packageDetails.getConfig()) ||
-        this.state.jsonEditorActive
     });
   }
 
