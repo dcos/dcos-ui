@@ -38,6 +38,7 @@ const METHODS_TO_BIND = [
   "handleDropdownNavigationSelection",
   "handleTabChange",
   "handleFormChange",
+  "handleFormError",
   "handleJSONChange",
   "handleBadgeClick",
   "validate",
@@ -75,7 +76,7 @@ export default class FrameworkConfigurationForm extends Component {
     event.stopPropagation();
 
     const { errorSchema } = this.state;
-    const { formData } = this.props;
+    const { formData, handleFocusFieldChange } = this.props;
 
     const fieldsWithErrors = Object.keys(errorSchema[activeTab]).filter(
       field => {
@@ -91,7 +92,7 @@ export default class FrameworkConfigurationForm extends Component {
       return fieldsWithErrors.includes(field);
     });
 
-    this.props.handleFocusFieldChange(activeTab, fieldToFocus);
+    handleFocusFieldChange(activeTab, fieldToFocus);
   }
 
   getFormTabList() {
@@ -198,16 +199,33 @@ export default class FrameworkConfigurationForm extends Component {
   }
 
   handleFormChange(form) {
-    const { formData, errorSchema } = form;
+    const { formData } = form;
 
-    const formErrors = {};
-    Object.keys(errorSchema).forEach(tab => {
-      formErrors[tab] = this.getTotalErrorsForLevel(errorSchema[tab]);
-    });
-
-    this.props.onFormErrorChange(formErrors);
     this.props.onFormDataChange(formData);
-    this.setState({ errorSchema });
+
+    if (this.props.liveValidate) {
+      // When liveValidate is true, errorSchema is available for each change
+      this.probeErrorsSchemaForm();
+    }
+  }
+
+  handleFormError() {
+    this.probeErrorsSchemaForm();
+  }
+
+  probeErrorsSchemaForm() {
+    const { errorSchema } = this.schemaForm.state;
+
+    if (errorSchema) {
+      const formErrors = {};
+      Object.keys(errorSchema).forEach(tab => {
+        formErrors[tab] = this.getTotalErrorsForLevel(errorSchema[tab]);
+      });
+
+      this.setState({ errorSchema }, () => {
+        this.props.onFormErrorChange(formErrors);
+      });
+    }
   }
 
   validate(formData, errors) {
@@ -268,7 +286,10 @@ export default class FrameworkConfigurationForm extends Component {
       formData,
       activeTab,
       deployErrors,
-      defaultConfigWarning
+      defaultConfigWarning,
+      onFormSubmit,
+      liveValidate,
+      submitRef
     } = this.props;
 
     const TitleField = props => {
@@ -373,14 +394,19 @@ export default class FrameworkConfigurationForm extends Component {
                       schema={schema}
                       formData={formData}
                       onChange={this.handleFormChange}
+                      onSubmit={onFormSubmit}
+                      onError={this.handleFormError}
                       uiSchema={this.getUiSchema()}
                       fields={{ SchemaField, TitleField }}
-                      liveValidate={true}
+                      liveValidate={liveValidate}
                       validate={this.validate}
                       ErrorList={this.jsonSchemaErrorList}
                       transformErrors={this.transformErrors}
+                      ref={form => {
+                        this.schemaForm = form;
+                      }}
                     >
-                      <div />
+                      <button ref={submitRef} className="hidden" />
                     </SchemaForm>
                   </div>
                 </Tabs>
@@ -406,6 +432,12 @@ export default class FrameworkConfigurationForm extends Component {
   }
 }
 
+FrameworkConfigurationForm.defaultProps = {
+  deployErrors: null,
+  submitRef: () => {},
+  liveValidate: false
+};
+
 FrameworkConfigurationForm.propTypes = {
   packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
   jsonEditorActive: PropTypes.bool.isRequired,
@@ -416,7 +448,15 @@ FrameworkConfigurationForm.propTypes = {
   deployErrors: PropTypes.object,
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
   handleActiveTabChange: PropTypes.func.isRequired,
   handleFocusFieldChange: PropTypes.func.isRequired,
-  defaultConfigWarning: PropTypes.string
+  defaultConfigWarning: PropTypes.string,
+
+  // Will be populated with a reference to the form submit button in order
+  // to enable the form to be controlled externally
+  //
+  // See https://github.com/mozilla-services/react-jsonschema-form#tips-and-tricks
+  submitRef: PropTypes.func,
+  liveValidate: PropTypes.bool
 };

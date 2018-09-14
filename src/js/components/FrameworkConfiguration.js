@@ -27,7 +27,8 @@ const METHODS_TO_BIND = [
   "handleActiveTabChange",
   "handleFocusFieldChange",
   "handleCloseConfirmModal",
-  "handleConfirmGoBack"
+  "handleConfirmGoBack",
+  "handleFormSubmit"
 ];
 
 export default class FrameworkConfiguration extends Component {
@@ -43,7 +44,8 @@ export default class FrameworkConfiguration extends Component {
       focusField,
       jsonEditorActive: false,
       isConfirmOpen: false,
-      isOpen: true
+      isOpen: true,
+      liveValidate: false
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -116,7 +118,13 @@ export default class FrameworkConfiguration extends Component {
       return;
     }
 
-    this.setState({ reviewActive: true });
+    // Only live validate once the form is submitted.
+    this.setState({ liveValidate: true }, () => {
+      // This is the prescribed method for submitting a react-jsonschema-form
+      // using an external control.
+      // https://github.com/mozilla-services/react-jsonschema-form#tips-and-tricks
+      this.submitButton.click();
+    });
   }
 
   handleConfirmGoBack() {
@@ -127,6 +135,10 @@ export default class FrameworkConfiguration extends Component {
       // navigate away once the animation is over.
       setTimeout(handleGoBack, 300);
     });
+  }
+
+  handleFormSubmit() {
+    this.setState({ liveValidate: false, reviewActive: true });
   }
 
   getSecondaryActions() {
@@ -318,7 +330,10 @@ export default class FrameworkConfiguration extends Component {
           deployErrors={deployErrors}
           onFormDataChange={onFormDataChange}
           onFormErrorChange={onFormErrorChange}
+          onFormSubmit={this.handleFormSubmit}
           defaultConfigWarning={defaultConfigWarning}
+          submitRef={el => (this.submitButton = el)} // ref forwarding https://reactjs.org/docs/forwarding-refs.html
+          liveValidate={this.state.liveValidate}
         />
       );
     }
