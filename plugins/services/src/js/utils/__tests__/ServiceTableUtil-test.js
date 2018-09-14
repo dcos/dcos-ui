@@ -1,4 +1,5 @@
 const Application = require("../../structs/Application");
+const Framework = require("../../structs/Framework");
 const ServiceTableUtil = require("../ServiceTableUtil");
 const ServiceTree = require("../../structs/ServiceTree");
 
@@ -16,7 +17,8 @@ describe("ServiceTableUtil", function() {
     tasksStaged: 0,
     tasksRunning: 2,
     tasksHealthy: 2,
-    tasksUnhealthy: 0
+    tasksUnhealthy: 0,
+    version: "2018-09-13T21:42:41.611Z"
   });
 
   const unhealthyService = new Application({
@@ -31,6 +33,57 @@ describe("ServiceTableUtil", function() {
     tasksRunning: 1,
     tasksHealthy: 0,
     tasksUnhealthy: 1
+  });
+
+  const higherVersionService = new Framework({
+    id: "/versioned-service",
+    healthChecks: [{ path: "", protocol: "HTTP" }],
+    cpus: 1,
+    gpus: 1,
+    mem: 1024,
+    disk: 0,
+    instances: 2,
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 1,
+    tasksUnhealthy: 0,
+    labels: {
+      DCOS_PACKAGE_VERSION: "2.3.0-3.0.16"
+    }
+  });
+
+  const lowerVersionService = new Framework({
+    id: "/versioned-service-2",
+    healthChecks: [{ path: "", protocol: "HTTP" }],
+    cpus: 1,
+    gpus: 1,
+    mem: 1024,
+    disk: 0,
+    instances: 2,
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 1,
+    tasksUnhealthy: 0,
+    labels: {
+      DCOS_PACKAGE_VERSION: "2.3.0-1.1.0"
+    }
+  });
+
+  const nonSemverVersionService = new Framework({
+    id: "/versioned-service-3",
+    healthChecks: [{ path: "", protocol: "HTTP" }],
+    cpus: 1,
+    gpus: 1,
+    mem: 1024,
+    disk: 0,
+    instances: 2,
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 1,
+    tasksUnhealthy: 0,
+    labels: {
+      DCOS_PACKAGE_VERSION: "not-semver-beta"
+    }
   });
 
   const stoppedService = new Application({
@@ -257,6 +310,74 @@ describe("ServiceTableUtil", function() {
         expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
           -1
         );
+      });
+    });
+
+    describe("compare item version", function() {
+      beforeEach(function() {
+        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
+          "version"
+        );
+      });
+
+      it("returns 0 if a and b are both empty", function() {
+        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
+          0
+        );
+      });
+
+      it("returns -1 if a has lower version than b", function() {
+        expect(
+          thisCompareFunction(lowerVersionService, higherVersionService)
+        ).toEqual(-1);
+      });
+
+      it("returns 1 if a has higher version than b", function() {
+        expect(
+          thisCompareFunction(higherVersionService, lowerVersionService)
+        ).toEqual(1);
+      });
+
+      it("returns -1 if a has no version label", function() {
+        expect(
+          thisCompareFunction(healthyService, lowerVersionService)
+        ).toEqual(-1);
+      });
+
+      it("returns 1 if b has no version label", function() {
+        expect(
+          thisCompareFunction(lowerVersionService, healthyService)
+        ).toEqual(1);
+      });
+
+      it("returns -1 if a is non-semver versioned and b is semver", function() {
+        expect(
+          thisCompareFunction(nonSemverVersionService, lowerVersionService)
+        ).toEqual(-1);
+      });
+
+      it("returns 1 if a is semver versioned and b is not", function() {
+        expect(
+          thisCompareFunction(lowerVersionService, nonSemverVersionService)
+        ).toEqual(1);
+      });
+    });
+  });
+
+  describe("#getFormattedVersion", function() {
+    it("returns correctly formatted rawVersion and displayVersion", function() {
+      expect(ServiceTableUtil.getFormattedVersion(lowerVersionService)).toEqual(
+        {
+          rawVersion: "2.3.0-1.1.0",
+          displayVersion: "1.1.0"
+        }
+      );
+    });
+
+    it("returns empty displayVersion for service with no version label", function() {
+      expect(ServiceTableUtil.getFormattedVersion(healthyService)).toEqual({
+        rawVersion: "2018-09-13T21:42:41.611Z",
+        displayVersion: ""
       });
     });
   });

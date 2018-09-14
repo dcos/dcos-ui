@@ -34,8 +34,6 @@ import ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceTableHeaderLabels from "../../constants/ServiceTableHeaderLabels";
 import ServiceTableUtil from "../../utils/ServiceTableUtil";
-import FrameworkUtil from "../../utils/FrameworkUtil";
-import Framework from "../../structs/Framework";
 import ServiceTree from "../../structs/ServiceTree";
 import ServiceStatusIcon from "../../components/ServiceStatusIcon";
 
@@ -420,22 +418,18 @@ class ServicesTable extends React.Component {
   }
 
   renderVersion(prop, service) {
-    if (!service.getVersion || service.getVersion === "") {
+    const version = ServiceTableUtil.getFormattedVersion(service);
+    if (!version) {
       return null;
     }
-    const rawVersion = service.getVersion();
-    const displayVersion =
-      service && service instanceof Framework
-        ? FrameworkUtil.extractBaseTechVersion(rawVersion)
-        : "";
 
     return (
       <Tooltip
-        content={rawVersion}
+        content={version.rawVersion}
         wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-overflow"
         wrapText={true}
       >
-        {displayVersion}
+        {version.displayVersion}
       </Tooltip>
     );
   }
@@ -516,7 +510,7 @@ class ServicesTable extends React.Component {
         headerClassName: this.getCellClasses,
         prop: "version",
         render: this.renderVersion,
-        sortable: false,
+        sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       },
