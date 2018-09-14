@@ -130,16 +130,24 @@ describe("Service Actions", function() {
     it("shows tab error badge when error in form section", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
-      cy
-        .get(".modal .menu-tabbed-container span[class*='css-']")
-        .should("to.have.length", 1);
+      cy.get(".modal .modal-header button")
+        .contains("Review & Run")
+        .click();
+
+      cy.get(".modal .menu-tabbed-container span[class*='css-']").should(
+        "to.have.length",
+        1
+      );
     });
 
     it("shows anchored error when error in form section", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
-      cy
-        .get(".modal .menu-tabbed-container .form-control-feedback")
+      cy.get(".modal .modal-header button")
+        .contains("Review & Run")
+        .click();
+
+      cy.get(".modal .menu-tabbed-container .form-control-feedback")
         .contains("Expecting a string here")
         .should("to.have.length", 1);
     });
@@ -147,16 +155,24 @@ describe("Service Actions", function() {
     it("shows error message in JSON when form error", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
-      cy
-        .get(".modal .modal-full-screen-side-panel .ace_gutter-cell.ace_error")
-        .should("to.have.length", 1);
+      cy.get(".modal .modal-header button")
+        .contains("Review & Run")
+        .click();
+
+      cy.get(
+        ".modal .modal-full-screen-side-panel .ace_gutter-cell.ace_error"
+      ).should("to.have.length", 1);
     });
 
     it("disables Review & Run button when error", function() {
       cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy
-        .get(".modal .modal-header button[disabled]")
+      cy.get(".modal .modal-header button")
+        .contains("Review & Run")
+        .click();
+
+      cy.get(".modal .modal-header button[disabled]")
         .contains("Review & Run")
         .should("to.have.length", 1);
     });

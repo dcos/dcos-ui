@@ -19,7 +19,8 @@ class SchemaField extends Component {
   shouldComponentUpdate(nextProps) {
     return (
       !isEqual(nextProps.formData, this.props.formData) ||
-      !isEqual(nextProps.uiSchema, this.props.uiSchema)
+      !isEqual(nextProps.uiSchema, this.props.uiSchema) ||
+      !isEqual(nextProps.errorSchema, this.props.errorSchema)
     );
   }
 
