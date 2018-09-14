@@ -66,7 +66,7 @@
     "react-dom": "15.4.1",
     "react-gemini-scrollbar": "2.1.5",
     "react-intl": "2.2.3",
-    "react-jsonschema-form": "0.50.0",
+    "react-jsonschema-form": "1.0.4",
     "react-redux": "4.4.6",
     "react-router": "2.8.1",
     "react-transition-group": "1.2.1",
