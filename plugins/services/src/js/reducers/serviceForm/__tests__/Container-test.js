@@ -962,7 +962,7 @@ describe("Container", function() {
         });
       });
 
-      it("should't create portMappings when container.type is MESOS", function() {
+      it("creates portMappings when container.type is MESOS", function() {
         let batch = new Batch();
         batch = batch.add(new Transaction(["container", "type"], "MESOS", SET));
         batch = batch.add(
@@ -974,7 +974,16 @@ describe("Container", function() {
         );
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
-          portMappings: null,
+          portMappings: [
+            {
+              containerPort: 0,
+              hostPort: 0,
+              labels: null,
+              name: null,
+              protocol: "tcp",
+              servicePort: null
+            }
+          ],
           type: "MESOS",
           volumes: []
         });
