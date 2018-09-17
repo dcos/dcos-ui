@@ -65,7 +65,7 @@
     "prop-types": "15.6.0",
     "query-string": "4.1.0",
     "react": "16.7.0",
-    "react-ace": "3.7.0",
+    "react-ace": "5.10.0",
     "react-bootstrap-typeahead": "3.2.4",
     "react-dom": "16.7.0",
     "react-gemini-scrollbar": "2.3.4",
