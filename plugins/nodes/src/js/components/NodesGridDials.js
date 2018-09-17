@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import { routerShape } from "react-router";
 import { Tooltip } from "reactjs-components";
 import { Trans } from "@lingui/macro";
@@ -14,7 +15,7 @@ var colors = {
   unused: "unused"
 };
 
-var NodesGridDials = React.createClass({
+var NodesGridDials = createReactClass({
   displayName: "NodesGridDials",
 
   propTypes: {

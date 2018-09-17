@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
-var ChartStripes = React.createClass({
+var ChartStripes = createReactClass({
   displayName: "ChartStripes",
 
   propTypes: {

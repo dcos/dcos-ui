@@ -1,8 +1,9 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
-var DialSlice = React.createClass({
+var DialSlice = createReactClass({
   displayName: "DialSlice",
 
   propTypes: {

@@ -1,6 +1,7 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { MountService } from "foundation-ui";
@@ -54,7 +55,7 @@ PageHeader.propTypes = {
   disabledActions: PropTypes.bool
 };
 
-const Page = React.createClass({
+const Page = createReactClass({
   displayName: "Page",
 
   mixins: [InternalStorageMixin, StoreMixin],
