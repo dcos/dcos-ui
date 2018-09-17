@@ -207,7 +207,7 @@ var BarChart = createReactClass({
         .ticks(xTicks)
         .tickFormat(this.formatXAxis)
         .orient("bottom");
-      d3.select(this.refs.xAxis)
+      d3.select(this.xAxisRef)
         .interrupt()
         .attr("class", xAxisClass)
         .call(xAxis);
@@ -223,11 +223,11 @@ var BarChart = createReactClass({
       .ticks(props.ticksY)
       .tickFormat(this.formatYAxis(props.ticksY, props.maxY))
       .orient("left");
-    d3.select(this.refs.yAxis)
+    d3.select(this.yAxisRef)
       .attr("class", yAxisClass)
       .call(yAxis);
 
-    d3.select(this.refs.yGrid)
+    d3.select(this.yGridRef)
       .attr("class", "grid y")
       .call(
         d3.svg
@@ -243,7 +243,7 @@ var BarChart = createReactClass({
     if (props.xGridLines != null) {
       xGridLines = props.xGridLines;
     }
-    d3.select(this.refs.xGrid)
+    d3.select(this.xGridRef)
       .attr("class", "grid x")
       .call(
         d3.svg
@@ -281,7 +281,7 @@ var BarChart = createReactClass({
     // the axis is reset right before we update the bar to the new value/position
     // prevents subsequent animations from animating from 0
     if (data.rectWidth) {
-      d3.select(this.refs.xAxis)
+      d3.select(this.xAxisRef)
         .interrupt()
         .transition()
         .delay(0)
@@ -370,18 +370,17 @@ var BarChart = createReactClass({
         height={props.height + margin.bottom}
         width={props.width}
         className="barchart"
-        ref="barchart"
       >
         <g transform={"translate(" + [margin.left, margin.bottom / 2] + ")"}>
-          <g className="y axis" ref="yAxis" />
+          <g className="y axis" ref={ref => (this.yAxisRef = ref)} />
           <g
             className="x axis"
             transform={"translate(" + [0, props.height] + ")"}
-            ref="xAxis"
+            ref={ref => (this.xAxisRef = ref)}
           />
           <g className={gridClassSet} clipPath={clipPath}>
-            <g ref="yGrid" />
-            <g ref="xGrid" />
+            <g ref={ref => (this.yGridRef = ref)} />
+            <g ref={ref => (this.xGridRef = ref)} />
             {this.getBarList()}
           </g>
         </g>
