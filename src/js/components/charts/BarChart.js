@@ -3,6 +3,7 @@ import d3 from "d3";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
 import Bar from "./Bar";
@@ -10,7 +11,7 @@ import ChartMixin from "../../mixins/ChartMixin";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 import Util from "../../utils/Util";
 
-var BarChart = React.createClass({
+var BarChart = createReactClass({
   displayName: "BarChart",
 
   mixins: [ChartMixin, InternalStorageMixin],
