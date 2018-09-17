@@ -327,7 +327,7 @@ class ServiceActionDisabledModal extends React.Component {
             onTextCopy={this.handleTextCopy.bind(this, command)}
             useTooltip={true}
           >
-            <Icon id="clipboard" size="mini" ref="copyButton" color="grey" />
+            <Icon id="clipboard" size="mini" color="grey" />
           </ClipboardTrigger>
         </div>
         <pre className="prettyprint flush-bottom prettyprinted">{command}</pre>
