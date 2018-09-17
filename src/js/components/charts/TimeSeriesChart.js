@@ -2,6 +2,7 @@ import d3 from "d3";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
 import AnimationCircle from "./AnimationCircle";
@@ -15,7 +16,7 @@ import TimeSeriesMouseOver from "./TimeSeriesMouseOver";
 import ValueTypes from "../../constants/ValueTypes";
 import Util from "../../utils/Util";
 
-var TimeSeriesChart = React.createClass({
+var TimeSeriesChart = createReactClass({
   displayName: "TimeSeriesChart",
 
   propTypes: {

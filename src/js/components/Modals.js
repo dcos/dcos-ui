@@ -2,6 +2,7 @@ import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import { Hooks } from "PluginSDK";
 import { MountService } from "foundation-ui";
 
@@ -16,7 +17,7 @@ import LanguagePreferenceFormModal from "./modals/LanguagePreferenceFormModal";
 
 const getLanguageModalState = () => LanguageModalStore.get("isVisible");
 
-var Modals = React.createClass({
+var Modals = createReactClass({
   displayName: "Modals",
 
   propTypes: {

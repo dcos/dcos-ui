@@ -1,10 +1,11 @@
 import d3 from "d3";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import Maths from "../../utils/Maths";
 
-var TimeSeriesMouseOver = React.createClass({
+var TimeSeriesMouseOver = createReactClass({
   displayName: "TimeSeriesMouseOver",
 
   propTypes: {
