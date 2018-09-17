@@ -562,7 +562,9 @@ describe("Service Form Modal", function() {
         cy.get(".modal-full-screen-side-panel.is-visible").then(function(
           $jsonEditor
         ) {
-          expect($jsonEditor.width()).to.equal(500);
+          expect($jsonEditor.width()).to.equal(
+            $jsonEditor.parents(".modal-full-screen").width() / 2
+          );
 
           expect($jsonEditor.parents(".modal-full-screen").width()).to.be.above(
             $jsonEditor.width()
