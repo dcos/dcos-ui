@@ -1,18 +1,16 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import ReactDOM from "react-dom";
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
-import KeyboardUtil from "#SRC/js/utils/KeyboardUtil";
 
 const METHODS_TO_BIND = [
   "handleSearchStringChange",
   "handleCountChange",
-  "handleKeyDown"
+  "handleEnterPress"
 ];
 
 class SearchLog extends React.Component {
@@ -25,17 +23,11 @@ class SearchLog extends React.Component {
       watching: 0
     };
 
+    this.filterInputRef = React.createRef();
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  componentDidMount() {
-    const filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
-
-    if (filterInput) {
-      filterInput.addEventListener("keydown", this.handleKeyDown);
-    }
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -55,19 +47,8 @@ class SearchLog extends React.Component {
     this.setState(updatedState);
   }
 
-  componentWillUnmount() {
-    const filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
-
-    if (filterInput) {
-      filterInput.removeEventListener("keydown", this.handleKeyDown);
-    }
-  }
-
-  handleKeyDown(event) {
-    const { keyCode } = event;
-    if (keyCode === KeyboardUtil.keyCodes.enter) {
-      this.changeWatching("next");
-    }
+  handleEnterPress() {
+    this.changeWatching("next");
   }
 
   handleSearchStringChange(searchString = "") {
@@ -157,13 +138,14 @@ class SearchLog extends React.Component {
           rightAlignLastNChildren={React.Children.count(actions)}
         >
           <FilterInputText
-            ref="filterInput"
+            ref={this.filterInputRef}
             className="flex-grow flex-box flush-bottom"
             placeholder={i18n._(t`Search`)}
             searchString={this.state.searchString}
             sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
             inputContainerClass={inputContainerClassSet}
+            onEnter={this.handleEnterPress}
           />
           {this.getSearchButtons()}
           {actions}

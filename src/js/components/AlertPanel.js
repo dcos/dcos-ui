@@ -40,7 +40,6 @@ var AlertPanel = createReactClass({
 
     return (
       <Panel
-        ref="panel"
         className={classes}
         contentClass={[
           "panel-cell-borderless panel-cell-wider panel-cell-taller",

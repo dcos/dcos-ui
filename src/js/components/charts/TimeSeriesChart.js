@@ -115,7 +115,7 @@ var TimeSeriesChart = createReactClass({
 
   createClipPath(width, height) {
     var data = this.internalStorage_get();
-    var el = this.refs.movingEls;
+    var el = this.movingElsRef;
 
     // create clip path for areas and x-axis
     d3.select(el)
@@ -295,7 +295,7 @@ var TimeSeriesChart = createReactClass({
       .tickValues(this.getXTickValues(xScale))
       .tickFormat(this.formatXAxis)
       .orient("bottom");
-    d3.select(this.refs.xAxis)
+    d3.select(this.xAxisRef)
       .interrupt()
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
@@ -306,9 +306,9 @@ var TimeSeriesChart = createReactClass({
       .ticks(props.ticksY)
       .tickFormat(this.formatYAxis(props))
       .orient("left");
-    d3.select(this.refs.yAxis).call(yAxis);
+    d3.select(this.yAxisRef).call(yAxis);
 
-    d3.select(this.refs.grid).call(
+    d3.select(this.gridRef).call(
       d3.svg
         .axis()
         .scale(yScale)
@@ -458,9 +458,9 @@ var TimeSeriesChart = createReactClass({
         <svg height={props.height} width={props.width}>
           <g transform={"translate(" + margin.left + "," + margin.top + ")"}>
             <ChartStripes count={4} height={height} width={width} />
-            <g className="bars grid-graph" ref="grid" />
-            <g className="y axis" ref="yAxis" />
-            <g className="x axis" ref="xAxis" />
+            <g className="bars grid-graph" ref={ref => (this.gridRef = ref)} />
+            <g className="y axis" ref={ref => (this.yAxisRef = ref)} />
+            <g className="x axis" ref={ref => (this.xAxisRef = ref)} />
             <TimeSeriesMouseOver
               addMouseHandler={this.addMouseHandler}
               data={props.data}
@@ -479,20 +479,20 @@ var TimeSeriesChart = createReactClass({
         <svg
           height={props.height}
           width={props.width}
-          ref="movingEls"
+          ref={ref => (this.movingElsRef = ref)}
           className="moving-elements"
         >
           <g transform={"translate(" + margin.left + "," + margin.top + ")"}>
             <g className="area path-color-7" clipPath={clipPath}>
               {unsuccessfulBlocks}
             </g>
-            <g ref="masking" mask={`url(#${maskID})`} clipPath={clipPath}>
+            <g mask={`url(#${maskID})`} clipPath={clipPath}>
               {this.getAreaList(props, yScale, xTimeScale)}
             </g>
             {this.getCircleList(props, yScale, width, height)}
           </g>
           <defs>
-            <mask ref="maskDef" id={store.maskID}>
+            <mask id={store.maskID}>
               <rect x="0" y="0" width={width} height={height} fill="white" />
               {unsuccessfulBlocks}
             </mask>
