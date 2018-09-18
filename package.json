@@ -70,7 +70,7 @@
     "react-dom": "16.7.0",
     "react-gemini-scrollbar": "2.3.4",
     "react-jsonschema-form": "1.0.4",
-    "react-redux": "4.4.6",
+    "react-redux": "^5.0.7",
     "react-router": "^3.2.1",
     "react-transition-group": "1.2.1",
     "reactjs-components": "0.21.0",
