@@ -69,7 +69,14 @@ class EnvironmentFormSection extends Component {
               <FieldError>
                 An environment variable needs to contain at least a key.
               </FieldError>
-              <span className="emphasis form-colon">:</span>
+              <span
+                className={
+                  "emphasis form-colon" +
+                  (isValueWithoutKey ? " error" : " no-error")
+                }
+              >
+                :
+              </span>
             </FormGroup>
             <FormGroup
               className="column-6"
@@ -138,7 +145,14 @@ class EnvironmentFormSection extends Component {
               />
             </FieldAutofocus>
             <FieldError>A label needs to contain at least a key.</FieldError>
-            <span className="emphasis form-colon">:</span>
+            <span
+              className={
+                "emphasis form-colon" +
+                (isValueWithoutKey ? " error" : " no-error")
+              }
+            >
+              :
+            </span>
           </FormGroup>
           <FormGroup
             className="column-6"
