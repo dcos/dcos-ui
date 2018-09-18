@@ -111,18 +111,15 @@ describe("Service Form Modal", function() {
           openServiceForm();
 
           // Switch to JSON
-          cy
-            .get(".modal-full-screen-actions label")
+          cy.get(".modal-full-screen-actions label")
             .contains("JSON Editor")
             .click();
 
-          cy
-            .get(".ace_text-input")
+          cy.get(".ace_text-input")
             .focus()
             .type("{selectall}{backspace}", { force: true });
 
-          cy
-            .get(".message")
+          cy.get(".message")
             .contains("Unexpected end of JSON input")
             .should("be.visible");
         });
@@ -132,24 +129,20 @@ describe("Service Form Modal", function() {
           openServiceForm();
 
           // Switch to JSON
-          cy
-            .get(".modal-full-screen-actions label")
+          cy.get(".modal-full-screen-actions label")
             .contains("JSON Editor")
             .click();
 
-          cy
-            .get(".ace_text-input")
+          cy.get(".ace_text-input")
             .focus()
             .type("{selectall}{backspace}", { force: true });
 
-          cy
-            .get(".message")
+          cy.get(".message")
             .contains("Unexpected end of JSON input")
             .should("be.visible");
 
           // The closing } is auto inserted
-          cy
-            .get(".ace_text-input")
+          cy.get(".ace_text-input")
             .focus()
             .type('{{}\n\t"id": "/foo"\n', { force: true });
 
