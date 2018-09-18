@@ -49,7 +49,7 @@ class EnvironmentFormSection extends Component {
             </FieldLabel>
           );
         }
-        const isValueWithoutKey = !env.key && env.value;
+        const isValueWithoutKey = Boolean(!env.key && env.value);
 
         return (
           <FormRow key={key}>
@@ -63,20 +63,13 @@ class EnvironmentFormSection extends Component {
                 <FieldInput
                   name={`env.${key}.key`}
                   type="text"
-                  value={env.key}
+                  value={env.key || ""}
                 />
               </FieldAutofocus>
               <FieldError>
                 An environment variable needs to contain at least a key.
               </FieldError>
-              <span
-                className={
-                  "emphasis form-colon" +
-                  (isValueWithoutKey ? " error" : " no-error")
-                }
-              >
-                :
-              </span>
+              <span className="emphasis form-colon">:</span>
             </FormGroup>
             <FormGroup
               className="column-6"
@@ -87,7 +80,7 @@ class EnvironmentFormSection extends Component {
               <FieldInput
                 name={`env.${key}.value`}
                 type="text"
-                value={env.value}
+                value={env.value || ""}
               />
               <FieldError>{errors[env.key]}</FieldError>
             </FormGroup>
@@ -145,14 +138,7 @@ class EnvironmentFormSection extends Component {
               />
             </FieldAutofocus>
             <FieldError>A label needs to contain at least a key.</FieldError>
-            <span
-              className={
-                "emphasis form-colon" +
-                (isValueWithoutKey ? " error" : " no-error")
-              }
-            >
-              :
-            </span>
+            <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
             className="column-6"
