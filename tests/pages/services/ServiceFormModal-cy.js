@@ -1503,6 +1503,15 @@ describe("Service Form Modal", function() {
 
           cy.get('.form-control[name="labels.0.key"]').should("not.exist");
         });
+
+        it("shows an error if only the value is filled out", function() {
+          cy.get("@tabView")
+            .find('.form-control[name="labels.0.value"]')
+            .type("value");
+          cy.get("@tabView").contains(
+            "A label needs to contain at least a key."
+          );
+        });
       });
     });
 
