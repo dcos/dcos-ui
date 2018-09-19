@@ -162,6 +162,7 @@
     "semantic-release": "15.9.5",
     "semantic-release-jira": "1.2.3",
     "source-map-loader": "0.1.5",
+    "speed-measure-webpack-plugin": "1.2.2",
     "string-replace-webpack-plugin": "0.0.3",
     "style-loader": "0.20.1",
     "stylelint": "7.2.0",
