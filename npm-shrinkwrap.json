@@ -5463,6 +5463,32 @@
         }
       }
     },
+    "@sentry/cli": {
+      "version": "1.35.6",
+      "resolved": "https://registry.npmjs.org/@sentry/cli/-/cli-1.35.6.tgz",
+      "integrity": "sha512-gsMJOlgmM55QDl789Rc/UV8OjHFwBhj4R76F3WakgIzqDdFJn9GsWZhSHLI3Ltp8b6yq8UwDyvbfoz3PgHyabw==",
+      "dev": true,
+      "requires": {
+        "https-proxy-agent": "2.2.1",
+        "node-fetch": "2.2.0",
+        "progress": "2.0.0",
+        "proxy-from-env": "1.0.0"
+      },
+      "dependencies": {
+        "node-fetch": {
+          "version": "2.2.0",
+          "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.2.0.tgz",
+          "integrity": "sha512-OayFWziIxiHY8bCUyLX6sTpDH8Jsbp4FfYd1j1f7vZyfgkcOnAyM4oQR16f8a0s7Gl/viMGRey8eScYk4V4EZA==",
+          "dev": true
+        },
+        "progress": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/progress/-/progress-2.0.0.tgz",
+          "integrity": "sha1-ihvjZr+Pwj2yvSPxDG/pILQ4nR8=",
+          "dev": true
+        }
+      }
+    },
     "@types/blob-util": {
       "version": "1.3.3",
       "resolved": "https://registry.npmjs.org/@types/blob-util/-/blob-util-1.3.3.tgz",
@@ -28149,6 +28175,12 @@
         "forwarded": "0.1.2",
         "ipaddr.js": "1.6.0"
       }
+    },
+    "proxy-from-env": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.0.0.tgz",
+      "integrity": "sha1-M8UDmPcOp+uW0h97gXYwpVeRx+4=",
+      "dev": true
     },
     "prr": {
       "version": "1.0.1",
