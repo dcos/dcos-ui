@@ -392,7 +392,9 @@ module.exports = {
             newState
           );
 
-          newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
+          newState.push(
+            Object.assign({}, DEFAULT_POD_CONTAINER, { name }, value)
+          );
           this.cache.push({});
           this.endpoints.push([]);
           break;
