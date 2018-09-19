@@ -57,7 +57,7 @@ module.exports = {
     }),
     new ExtractTextPlugin({
       filename: "[name].[contenthash].css",
-      disable: process.env.NODE_ENV === "development"
+      disable: process.env.NODE_ENV !== "production"
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
@@ -105,7 +105,7 @@ module.exports = {
           {
             loader: "image-webpack-loader",
             options: {
-              bypassOnDebug: true
+              disable: process.env.NODE_ENV !== "production"
             }
           }
         ]
