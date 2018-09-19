@@ -10,15 +10,10 @@ const SVGCompilerPlugin = require("./plugins/svg-compiler-plugin");
 const packageInfo = require("../package");
 const common = require("./webpack.config.js");
 
-const dependencies = Object.assign({}, packageInfo.dependencies);
-delete dependencies["canvas-ui"];
-delete dependencies["cnvs"];
-
 module.exports = merge(common, {
   mode: "production",
   entry: {
-    index: "./src/js/index.js",
-    vendor: Object.keys(dependencies)
+    index: "./src/js/index.js"
   },
   devtool: "source-map",
   plugins: [
