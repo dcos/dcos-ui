@@ -40,22 +40,15 @@ const StringUtil = {
     );
   },
 
-  filterByString(objects, getter, searchString) {
+  filterByString(objects, property, searchString) {
     const searchItems = this.getSearchTokens(searchString);
 
-    if (typeof getter === "function") {
-      return objects.filter(obj => {
-        return searchItems.some(item => {
-          return this.getSearchTokens(getter(obj)).some(token => {
-            return token.startsWith(item);
-          });
-        });
-      });
-    }
+    const getter =
+      typeof property === "function" ? property : obj => obj[property];
 
     return objects.filter(obj => {
       return searchItems.some(item => {
-        return this.getSearchTokens(obj[getter]).some(token => {
+        return this.getSearchTokens(getter(obj)).some(token => {
           return token.startsWith(item);
         });
       });
