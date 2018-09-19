@@ -239,6 +239,24 @@ describe("Containers", function() {
       });
     });
 
+    describe("container with arbitrary value", function() {
+      it("contains a container with arbitrary field", function() {
+        let batch = new Batch();
+
+        batch = batch.add(
+          new Transaction(["containers"], { someKey: "value" }, ADD_ITEM)
+        );
+
+        expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+          {
+            name: "container-1",
+            resources: { cpus: 0.1, mem: 128 },
+            someKey: "value"
+          }
+        ]);
+      });
+    });
+
     describe("endpoints", function() {
       describe("Host Mode", function() {
         it("has one endpoint", function() {
