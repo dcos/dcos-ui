@@ -1465,6 +1465,18 @@ describe("Service Form Modal", function() {
 
           cy.get('.form-control[name="env.0.key"]').should("not.exist");
         });
+
+        it("shows an error if only the value is filled out", function() {
+          cy
+            .get("@tabView")
+            .find('.form-control[name="env.0.value"]')
+            .type("value");
+          cy
+            .get("@tabView")
+            .contains(
+              "An environment variable needs to contain at least a key."
+            );
+        });
       });
 
       context("Labels", function() {
