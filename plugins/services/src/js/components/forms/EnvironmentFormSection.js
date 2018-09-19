@@ -120,17 +120,20 @@ class EnvironmentFormSection extends Component {
         );
       }
 
+      const isValueWithoutKey = Boolean(!label.key && label.value);
+
       return (
         <FormRow key={key}>
-          <FormGroup className="column-6">
+          <FormGroup className="column-6" showError={isValueWithoutKey}>
             {keyLabel}
             <FieldAutofocus>
               <FieldInput
                 name={`labels.${key}.key`}
                 type="text"
-                value={label.key}
+                value={label.key || ""}
               />
             </FieldAutofocus>
+            <FieldError>A label needs to contain at least a key.</FieldError>
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
@@ -142,7 +145,7 @@ class EnvironmentFormSection extends Component {
             <FieldInput
               name={`labels.${key}.value`}
               type="text"
-              value={label.value}
+              value={label.value || ""}
             />
             <FieldError>{errors[label.key]}</FieldError>
           </FormGroup>
