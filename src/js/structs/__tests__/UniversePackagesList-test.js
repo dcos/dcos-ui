@@ -20,6 +20,25 @@ describe("UniversePackagesList", function() {
       expect(items[0].get("name")).toEqual("bar");
     });
 
+    it("sorts exact matches first", function() {
+      var items = [{ name: "kafka-beta" }, { name: "kafka" }];
+      var list = new UniversePackagesList({ items });
+      items = list.filterItemsByText("kafka").getItems();
+      expect(items.length).toEqual(2);
+      expect(items[0].get("name")).toEqual("kafka");
+    });
+
+    it("sorts certified packages first", function() {
+      var items = [
+        { name: "certified kafka", selected: true }, // without certification, this package would be ordered first.
+        { name: "a kafka", selected: false }
+      ];
+      var list = new UniversePackagesList({ items });
+      items = list.filterItemsByText("kafka").getItems();
+      expect(items.length).toEqual(2);
+      expect(items[0].isCertified()).toBeTruthy();
+    });
+
     it("filters by description", function() {
       var items = [{ description: "foo" }, { description: "bar" }];
       var list = new UniversePackagesList({ items });
