@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm, Tooltip } from "reactjs-components";
+import { Badge } from "@dcos/ui-kit";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
@@ -258,7 +259,14 @@ class GeneralServiceFormSection extends Component {
             type="radio"
             value={runtimeName}
           />
-          {label}
+          <div className="flex flex-align-items-center">
+            {label}
+            {runtimeName === "MESOS" && (
+              <span className="runtimeLabel-badge">
+                <Badge>Recommended</Badge>
+              </span>
+            )}
+          </div>
           <FieldHelp>{helpText}</FieldHelp>
         </FieldLabel>
       );
