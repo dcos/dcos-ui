@@ -31,12 +31,17 @@ describe("UniversePackagesList", function() {
     });
 
     it("filters by tags", function() {
-      var items = [{ tags: ["foo", "bar"] }, { tags: ["foo"] }, { tags: [] }];
+      var items = [
+        { tags: ["word", "foo", "bar"] },
+        { tags: ["foo"] },
+        { tags: [] }
+      ];
+
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("foo").getItems();
       expect(items.length).toEqual(2);
-      expect(items[0].get("tags")).toEqual(["foo", "bar"]);
-      expect(items[1].get("tags")).toEqual(["foo"]);
+      expect(items[0].get("tags")).toEqual(["foo"]);
+      expect(items[1].get("tags")).toEqual(["word", "foo", "bar"]);
     });
 
     it("handles filter by tags with null elements", function() {

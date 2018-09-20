@@ -233,8 +233,8 @@ describe("List", function() {
     it("filters by subItems", function() {
       var filteredItems = thisInstance.filterItemsByText("two").getItems();
       expect(filteredItems.length).toEqual(2);
-      expect(filteredItems[0].subItems).toEqual(["one", "two"]);
-      expect(filteredItems[1].subItems).toEqual(["two", "three"]);
+      expect(filteredItems[0].subItems).toEqual(["two", "three"]);
+      expect(filteredItems[1].subItems).toEqual(["one", "two"]);
     });
 
     it("handles filter by with null elements", function() {

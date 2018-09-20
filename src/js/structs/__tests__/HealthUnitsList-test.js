@@ -19,12 +19,12 @@ describe("HealthUnitsList", function() {
     });
 
     it("filters by title", function() {
-      const items = [{ id: "foo" }, { id: "bar" }, { id: "baz" }];
+      const items = [{ id: "foo" }, { id: "foobar" }, { id: "baz" }];
       const list = new HealthUnitsList({ items });
       const filteredList = list.filter({ title: "ba" }).getItems();
       expect(filteredList.length).toEqual(2);
-      expect(filteredList[0].get("id")).toEqual("bar");
-      expect(filteredList[1].get("id")).toEqual("baz");
+      expect(filteredList[0].get("id")).toEqual("baz");
+      expect(filteredList[1].get("id")).toEqual("foobar");
     });
 
     it("filters by unit health title", function() {
