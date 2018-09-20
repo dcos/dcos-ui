@@ -6,8 +6,8 @@ class UniversePackagesList extends List {
     // Specify filter properties if not specified
     if (!options.filterProperties) {
       options.filterProperties = {
-        description: null, // use default getter
         name: null, // use default getter
+        description: null, // use default getter
         tags(item) {
           const tags = item.get("tags") || [];
 

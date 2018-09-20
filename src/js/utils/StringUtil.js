@@ -17,6 +17,58 @@ const markdownRenderer = {
   }
 };
 
+// Filters and sorts an array according to search terms. Uses a simple relevance
+// algorithm that scores longer tokens near the beginning of a value higher.
+const RelevanceUtil = {
+  /**
+   * Scores objects using a text getter function. Returns the filtered objects
+   * sorted in order of relevance to the given search terms.
+   * @param {array} objects
+   * @param {function} getter
+   * @param {array} searchTerms
+   * @return {array} objects sorted by relevance
+   */
+  filterAndSort(objects, getter, searchTerms) {
+    return objects
+      .map(obj => this.scoredObject(obj, getter, searchTerms)) // Wrap each object in an object that includes a score
+      .filter(obj => obj.score > 0) // Objects with a 0 score are not relevant
+      .sort((a, b) => b.score - a.score) // Sort by score, descending
+      .map(item => item.obj); // Unwrap objects
+  },
+  scoringFunction(value, token) {
+    let score = 0;
+
+    if (!value) {
+      return 0;
+    }
+
+    value = String(value || "").toLowerCase();
+    const pos = value.indexOf(token.toLowerCase());
+    if (pos === -1) {
+      return 0;
+    }
+
+    if (token === value) {
+      // Ding
+      score = 100;
+    } else {
+      // Longer tokens near the beginning of a value score highest.
+      score = token.length / value.length + (1 - pos / value.length);
+    }
+
+    return score;
+  },
+  scoredObject(obj, getter, searchTerms) {
+    const value = getter(obj);
+
+    const score = searchTerms
+      .map(term => this.scoringFunction(value, term))
+      .reduce((a, b) => a + b);
+
+    return { obj, score };
+  }
+};
+
 const StringUtil = {
   arrayToJoinedString(array = [], separator = ", ") {
     if (Array.isArray(array)) {
@@ -35,24 +87,26 @@ const StringUtil = {
       String(searchString)
         .toLowerCase()
         // split on non-word characters and slash
-        .split(/[^\w/]/)
+        .split(/[^\w/-]/)
         .filter(Boolean)
     );
   },
 
+  /**
+   * Filters and sorts an array of objects according to a property/getter func
+   *
+   * @param {array} objects
+   * @param {mixed} property
+   * @param {string} searchString
+   * @return {array} filtered objects
+   */
   filterByString(objects, property, searchString) {
-    const searchItems = this.getSearchTokens(searchString);
+    const searchTerms = this.getSearchTokens(searchString);
 
     const getter =
       typeof property === "function" ? property : obj => obj[property];
 
-    return objects.filter(obj => {
-      return searchItems.some(item => {
-        return this.getSearchTokens(getter(obj)).some(token => {
-          return token.startsWith(item);
-        });
-      });
-    });
+    return RelevanceUtil.filterAndSort(objects, getter, searchTerms);
   },
 
   escapeForRegExp(str) {
