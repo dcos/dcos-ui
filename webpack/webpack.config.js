@@ -77,21 +77,34 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: "ts-loader"
+        use: [
+          {
+            loader: "thread-loader"
+          },
+          {
+            loader: "ts-loader",
+            options: {
+              happyPackMode: true
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: requireAll([
-              "babel-preset-es2015",
-              "babel-preset-stage-3",
-              "babel-preset-react"
-            ])
+        use: [
+          "thread-loader",
+          {
+            loader: "babel-loader",
+            options: {
+              presets: requireAll([
+                "babel-preset-es2015",
+                "babel-preset-stage-3",
+                "babel-preset-react"
+              ])
+            }
           }
-        }
+        ]
       },
       {
         test: /\.(svg|png|jpg|gif|ico|icns)$/,
@@ -121,6 +134,12 @@ module.exports = {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           use: [
+            {
+              loader: "cache-loader",
+              options: {
+                cacheDirectory: "./node_modules/.cache/cache-loader"
+              }
+            },
             {
               loader: "css-loader",
               options: {
