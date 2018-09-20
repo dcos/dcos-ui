@@ -97,6 +97,7 @@ module.exports = {
           {
             loader: "babel-loader",
             options: {
+              cacheDirectory: true,
               presets: requireAll([
                 "babel-preset-es2015",
                 "babel-preset-stage-3",
