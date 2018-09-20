@@ -145,7 +145,11 @@ describe("PodUtil", function() {
           .getItems()[0]
           .getContainers()[1]
           .get()
-      ).toEqual(historicalInstances[0].containers[0]);
+      ).toEqual(
+        Object.assign(historicalInstances[0].containers[0], {
+          activeResources: {}
+        })
+      );
     });
   });
 

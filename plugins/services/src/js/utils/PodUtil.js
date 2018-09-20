@@ -90,14 +90,37 @@ var PodUtil = {
 
       // Filter combined container list to remove potential duplicates
       const containerIds = new Map();
-      combinedContainers = combinedContainers.filter(function({ containerId }) {
-        if (containerId != null && !containerIds.has(containerId)) {
-          containerIds.set(containerId);
+      const nullIdContainers = [];
+      combinedContainers = combinedContainers.filter(function(container) {
+        if (
+          container.containerId != null &&
+          !containerIds.has(container.containerId)
+        ) {
+          containerIds.set(container.containerId);
 
           return true;
         }
 
+        if (container.containerId == null) {
+          nullIdContainers.push(container);
+        }
+
         return false;
+      });
+
+      nullIdContainers.forEach(function(container) {
+        const match = combinedContainers.find(
+          matching => matching.name === container.name
+        );
+        if (match) {
+          match.activeResources = container.resources || {};
+        }
+      });
+
+      combinedContainers.forEach(function(container) {
+        if (!container.activeResources) {
+          container.activeResources = { ...container.resources };
+        }
       });
 
       podInstance.containers = combinedContainers;
@@ -105,6 +128,14 @@ var PodUtil = {
       return memo;
     },
     podInstancesMap);
+
+    if (!historicalInstances.length) {
+      Object.values(combinedInstanceMap).forEach(function(instance) {
+        instance.containers.forEach(function(container) {
+          container.activeResources = { ...container.resources };
+        });
+      });
+    }
 
     // Re-compose PodInstances from plain objects
     const instances = Object.values(combinedInstanceMap).map(function(

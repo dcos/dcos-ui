@@ -335,7 +335,7 @@ describe("PodInstancesTable", function() {
 
       it("renders the cpu column", function() {
         const names = thisInstance
-          .find("td.task-table-column-cpus div > div > span")
+          .find("td.task-table-column-cpus div.tooltip-wrapper > span")
           .map(function(el) {
             return el.text();
           });
@@ -355,7 +355,7 @@ describe("PodInstancesTable", function() {
 
       it("renders the mem column", function() {
         const names = thisInstance
-          .find("td.task-table-column-mem div > div > span")
+          .find("td.task-table-column-mem div.tooltip-wrapper > span")
           .map(function(el) {
             return el.text();
           });
