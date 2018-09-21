@@ -104,6 +104,41 @@ describe("StringUtil", function() {
       );
       expect(_return).toEqual([{ id: 1, foo: "baz" }]);
     });
+
+    it("sorts by relevance, word distance from beginning of string", function() {
+      const _return = StringUtil.filterByString(
+        [
+          { id: 0, foo: "beta-baz" },
+          { id: 1, foo: "community-baz" },
+          { id: 2, foo: "baz" }
+        ],
+        "foo",
+        "baz"
+      );
+
+      expect(_return.length).toEqual(3);
+      expect(_return[0].foo).toEqual("baz");
+      expect(_return[1].foo).toEqual("beta-baz");
+      expect(_return[2].foo).toEqual("community-baz");
+    });
+
+    it("sorts by relevance, combining relevance of multiple search tokens", function() {
+      const _return = StringUtil.filterByString(
+        [
+          { id: 0, foo: "footballs" },
+          { id: 1, foo: "strange bazookas" },
+          { id: 2, foo: "bar" },
+          { id: 3, foo: "foo bar baz" }
+        ],
+        "foo",
+        "foo baz"
+      );
+
+      expect(_return.length).toEqual(3);
+      expect(_return[0].foo).toEqual("foo bar baz");
+      expect(_return[1].foo).toEqual("footballs");
+      expect(_return[2].foo).toEqual("strange bazookas");
+    });
   });
 
   describe("#escapeForRegExp", function() {
