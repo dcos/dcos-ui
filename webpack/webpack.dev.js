@@ -1,4 +1,3 @@
-const { DefinePlugin } = require("webpack");
 const merge = require("webpack-merge");
 
 const packageInfo = require("../package");
@@ -15,18 +14,11 @@ const maybeProfile = process.env.PROFILE_WEBPACK
 
 module.exports = maybeProfile(
   merge(common, {
+    mode: "development",
     entry: {
       index: "./src/js/index.js",
       vendor: Object.keys(dependencies)
     },
-    devtool: "cheap-module-eval-source-map",
-    plugins: [
-      new DefinePlugin({
-        "process.env": {
-          NODE_ENV: JSON.stringify("development"),
-          LATER_COV: false
-        }
-      })
-    ]
+    devtool: "cheap-module-eval-source-map"
   })
 );
