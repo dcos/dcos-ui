@@ -2,7 +2,7 @@ const { DefinePlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const LessColorLighten = require("less-color-lighten");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 function requireAll(array) {
   // https://stackoverflow.com/a/34574630/1559386
@@ -56,8 +56,8 @@ module.exports = {
     new DefinePlugin({
       "process.env.LATER_COV": false
     }),
-    new ExtractTextPlugin({
-      filename: "[name].[contenthash].css",
+    new MiniCssExtractPlugin({
+      filename: "[name].[hash].css",
       disable: process.env.NODE_ENV !== "production"
     }),
     new HtmlWebpackPlugin({
@@ -134,40 +134,37 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "cache-loader",
-              options: {
-                cacheDirectory: "./node_modules/.cache/cache-loader"
-              }
-            },
-            {
-              loader: "css-loader",
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: "postcss-loader",
-              options: {
-                sourceMap: true,
-                config: {
-                  path: path.join(__dirname, "../postcss.config.js")
-                }
-              }
-            },
-            {
-              loader: "less-loader",
-              options: {
-                sourceMap: true,
-                plugins: [LessColorLighten]
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "cache-loader",
+            options: {
+              cacheDirectory: "./node_modules/.cache/cache-loader"
+            }
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+              config: {
+                path: path.join(__dirname, "../postcss.config.js")
               }
             }
-          ],
-          // use style-loader in development
-          fallback: "style-loader"
-        })
+          },
+          {
+            loader: "less-loader",
+            options: {
+              sourceMap: true,
+              plugins: [LessColorLighten]
+            }
+          }
+        ]
       },
       {
         test: /\.jison$/,
