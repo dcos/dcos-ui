@@ -45,44 +45,6 @@ describe("StringUtil", function() {
     });
   });
 
-  describe("#getSearchTokens", function() {
-    it("splits on non-word characters, but not slashes", function() {
-      expect(
-        StringUtil.getSearchTokens(
-          "foo/bar\\.baz.quis,qux quux[quuz]corge grault,garply\twaldo\bfred"
-        )
-      ).toEqual([
-        "foo/bar",
-        "baz",
-        "quis",
-        "qux",
-        "quux",
-        "quuz",
-        "corge",
-        "grault",
-        "garply",
-        "waldo",
-        "fred"
-      ]);
-    });
-
-    it("returns converts input to string if not a string", function() {
-      expect(StringUtil.getSearchTokens(10)).toEqual(["10"]);
-    });
-
-    it("removes empty strings", function() {
-      expect(StringUtil.getSearchTokens("bar\\.baz")).toEqual(["bar", "baz"]);
-    });
-
-    it("lowercases strings", function() {
-      expect(StringUtil.getSearchTokens("QuUx[qUuz]coRge")).toEqual([
-        "quux",
-        "quuz",
-        "corge"
-      ]);
-    });
-  });
-
   describe("#filterByString", function() {
     it("filters using a key as getter", function() {
       var _return = StringUtil.filterByString(
@@ -103,41 +65,6 @@ describe("StringUtil", function() {
         "baz"
       );
       expect(_return).toEqual([{ id: 1, foo: "baz" }]);
-    });
-
-    it("sorts by relevance, word distance from beginning of string", function() {
-      const _return = StringUtil.filterByString(
-        [
-          { id: 0, foo: "beta-baz" },
-          { id: 1, foo: "community-baz" },
-          { id: 2, foo: "baz" }
-        ],
-        "foo",
-        "baz"
-      );
-
-      expect(_return.length).toEqual(3);
-      expect(_return[0].foo).toEqual("baz");
-      expect(_return[1].foo).toEqual("beta-baz");
-      expect(_return[2].foo).toEqual("community-baz");
-    });
-
-    it("sorts by relevance, combining relevance of multiple search tokens", function() {
-      const _return = StringUtil.filterByString(
-        [
-          { id: 0, foo: "footballs" },
-          { id: 1, foo: "strange bazookas" },
-          { id: 2, foo: "bar" },
-          { id: 3, foo: "foo bar baz" }
-        ],
-        "foo",
-        "foo baz"
-      );
-
-      expect(_return.length).toEqual(3);
-      expect(_return[0].foo).toEqual("foo bar baz");
-      expect(_return[1].foo).toEqual("footballs");
-      expect(_return[2].foo).toEqual("strange bazookas");
     });
   });
 
