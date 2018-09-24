@@ -196,6 +196,17 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /agent\/(.*)?\/files\/browse/,
         "fx:1-service-with-executor-task/browse"
       )
+      .route(
+        /agent\/.*\/files\/read.*\/stderr/,
+        "fx:1-service-with-executor-task/files-read"
+      )
+      .route(
+        /agent\/.*\/files\/read.*\/stdout/,
+        {},
+        {
+          status: 404
+        }
+      )
       .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(
         /history\/minute/,
