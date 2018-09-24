@@ -14,7 +14,9 @@ const METHODS_TO_BIND = [
   "handleGoToWorkingDirectory",
   "handleFetchPreviousLog",
   "onMesosLogStoreError",
-  "onMesosLogStoreSuccess"
+  "onMesosLogStoreSuccess",
+  "onMesosLogStoreOffsetError",
+  "onMesosLogStoreOffsetSuccess"
 ];
 
 class MesosLogContainer extends mixin(StoreMixin) {
@@ -26,12 +28,13 @@ class MesosLogContainer extends mixin(StoreMixin) {
       fullLog: null,
       isFetchingPrevious: false,
       isLoading: true,
-      hasLoadingError: 0
+      hasLoadingError: 0,
+      hasOffsetLoadingError: false
     };
 
     this.store_listeners = [
       {
-        events: ["success", "error"],
+        events: ["success", "error", "offsetSuccess", "offsetError"],
         name: "mesosLog",
         suppressUpdate: true
       }
@@ -96,6 +99,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
     const stateToCheck = [
       "direction",
       "hasLoadingError",
+      "hasOffsetLoadingError",
       "isFetchingPrevious",
       "isLoading",
       "fullLog" // Check fullLog at the end, as this could be a long string
@@ -126,6 +130,18 @@ class MesosLogContainer extends mixin(StoreMixin) {
     this.setState({
       hasLoadingError: this.state.hasLoadingError + 1,
       isFetchingPrevious: false
+    });
+  }
+
+  onMesosLogStoreOffsetError() {
+    this.setState({
+      hasOffsetLoadingError: true
+    });
+  }
+
+  onMesosLogStoreOffsetSuccess() {
+    this.setState({
+      hasOffsetLoadingError: false
     });
   }
 
@@ -212,9 +228,9 @@ class MesosLogContainer extends mixin(StoreMixin) {
   }
 
   render() {
-    const { hasLoadingError, isLoading } = this.state;
+    const { hasLoadingError, isLoading, hasOffsetLoadingError } = this.state;
 
-    if (hasLoadingError >= 3) {
+    if (hasLoadingError >= 3 || hasOffsetLoadingError) {
       return this.getErrorScreen();
     }
 
