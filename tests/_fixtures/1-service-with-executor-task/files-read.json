@@ -1,0 +1,5 @@
+{
+  "data":
+    "Preparing rootfs at /var/lib/mesos/slave/provisioner/containers/677d3da3-e4cf-4c56-9013-4247589dd2a1/containers/e01a6998-93cd-4474-b9a9-baa57088f621/backends/overlay/rootfses/88e448d1-3d9d-4f64-9451-e0aec4b043ae\nMarked '/' as rslave\nhello world error log\n",
+  "offset": 0
+}
