@@ -202,6 +202,10 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /agent\/(.*)?\/files\/browse/,
         "fx:1-service-with-executor-task/browse"
       )
+      .route(
+        /agent\/.*\/files\/read/,
+        "fx:1-service-with-executor-task/files-read"
+      )
       .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(
         /history\/minute/,
