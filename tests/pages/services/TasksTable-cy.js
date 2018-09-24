@@ -37,6 +37,31 @@ describe("Tasks Table", function() {
     });
   });
 
+  context("displays logs", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-service-with-executor-task",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({
+        url: "/services/detail/%2Fcassandra/tasks/server-0_10a"
+      });
+      cy.get(".page-header-navigation .menu-tabbed-item")
+        .contains("Logs")
+        .click();
+    });
+
+    it("lets you switch between Error and Output", function() {
+      cy.contains("Error").should("be.visible");
+      cy.contains("Output").should("be.visible");
+    });
+
+    it("shows an error log", function() {
+      cy.contains("hello world error log").should("be.visible");
+    });
+  });
+
   context("For a Service", function() {
     beforeEach(function() {
       cy.configureCluster({
