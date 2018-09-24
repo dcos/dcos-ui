@@ -36,6 +36,15 @@ describe("Tasks Table", function() {
           .contains("jre1.7.0_76");
       });
     });
+
+    it("shows an error for the missing stdout log", function() {
+      cy.contains("Output").click();
+      cy.wait(500);
+
+      cy.contains("cannot retrieve the requested information").should(
+        "be.visible"
+      );
+    });
   });
 
   context("For a Service", function() {
