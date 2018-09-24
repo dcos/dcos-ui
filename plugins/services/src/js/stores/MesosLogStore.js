@@ -37,7 +37,9 @@ class MesosLogStore extends BaseStore {
       storeID: this.storeID,
       events: {
         success: MESOS_LOG_CHANGE,
-        error: MESOS_LOG_REQUEST_ERROR
+        error: MESOS_LOG_REQUEST_ERROR,
+        offsetSuccess: MESOS_INITIALIZE_LOG_CHANGE,
+        offsetError: MESOS_INITIALIZE_LOG_REQUEST_ERROR
       },
       unmountWhen() {
         return true;
