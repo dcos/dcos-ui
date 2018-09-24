@@ -199,12 +199,13 @@ class PodInstancesTable extends React.Component {
 
   getContainersWithResources(podSpec, containers, agentAddress) {
     const children = containers.map(function(container) {
-      let containerResources = container.getResources();
+      const containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
+      let containerSpecResources = containerResources;
       const containerSpec = podSpec.getContainerSpec(container.name);
       if (containerSpec) {
-        containerResources = containerSpec.resources;
+        containerSpecResources = containerSpec.resources;
       }
 
       const addressComponents = container
@@ -231,7 +232,9 @@ class PodInstancesTable extends React.Component {
         cpus: containerResources.cpus,
         mem: containerResources.mem,
         updated: container.getLastUpdated(),
-        version: ""
+        version: "",
+        containerSpecResources,
+        isHistoricalInstance: container.isHistoricalInstance
       };
     });
 
@@ -272,7 +275,8 @@ class PodInstancesTable extends React.Component {
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),
-        children
+        children,
+        podSpec
       };
     });
   }
@@ -416,9 +420,33 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnResource(prop, row, rowOptions = {}) {
+    let tooltipContent;
+    if (rowOptions.hasChildren) {
+      const executorResource = row.podSpec && row.podSpec.executorResources
+        ? row.podSpec.executorResources[prop] || 0
+        : 0;
+      const childResources = row.children
+        .filter(child => !child.isHistoricalInstance)
+        .reduce((sum, current) => sum + (current[prop] || 0), 0);
+      tooltipContent = `Containers: ${Units.formatResource(prop, childResources)}, Executor: ${Units.formatResource(prop, executorResource)}`;
+    } else {
+      const activeResource = row.isHistoricalInstance ? 0 : row[prop] || 0;
+      const totalResource = row.containerSpecResources[prop] || 0;
+      tooltipContent = `Using ${activeResource}/${Units.formatResource(prop, totalResource)}`;
+    }
+
     return this.renderWithClickHandler(
       rowOptions,
-      <span>{Units.formatResource(prop, row[prop])}</span>
+      <Tooltip anchor="center" content={tooltipContent}>
+        <span>
+          {Units.formatResource(
+            prop,
+            row.containerSpecResources
+              ? row.containerSpecResources[prop] || 0
+              : row[prop]
+          )}
+        </span>
+      </Tooltip>
     );
   }
 
