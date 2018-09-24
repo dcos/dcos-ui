@@ -116,7 +116,11 @@ describe("PodUtil", function() {
           .getItems()[0]
           .getContainers()[2]
           .get()
-      ).toEqual(historicalInstances[0].containers[0]);
+      ).toEqual(
+        Object.assign(historicalInstances[0].containers[0], {
+          isHistoricalInstance: true
+        })
+      );
     });
 
     it("does not duplicate containers", function() {
@@ -145,11 +149,7 @@ describe("PodUtil", function() {
           .getItems()[0]
           .getContainers()[1]
           .get()
-      ).toEqual(
-        Object.assign(historicalInstances[0].containers[0], {
-          activeResources: {}
-        })
-      );
+      ).toMatchObject(historicalInstances[0].containers[0]);
     });
   });
 

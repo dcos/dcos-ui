@@ -263,9 +263,9 @@ class PodInstancesTable extends React.Component {
         address: addressComponents,
         cpus: containerResources.cpus,
         mem: containerResources.mem,
-        activeResources: container.activeResources,
         updated: container.getLastUpdated(),
-        version: ""
+        version: "",
+        isHistoricalInstance: container.isHistoricalInstance
       };
     });
 
@@ -437,19 +437,14 @@ class PodInstancesTable extends React.Component {
           ? row.podSpec.executorResources[prop] || 0
           : 0;
       const childResources = row.children
-        .filter(child => child.activeResources)
-        .reduce(
-          (sum, current) => sum + (current.activeResources[prop] || 0),
-          0
-        );
+        .filter(child => !child.isHistoricalInstance)
+        .reduce((sum, current) => sum + (current[prop] || 0), 0);
       tooltipContent = `Containers: ${Units.formatResource(
         prop,
         childResources
       )}, Executor: ${Units.formatResource(prop, executorResource)}`;
     } else {
-      const activeResource = row.activeResources
-        ? row.activeResources[prop] || 0
-        : 0;
+      const activeResource = row.isHistoricalInstance ? 0 : row[prop] || 0;
       const totalResource = row[prop];
       tooltipContent = `Using ${activeResource}/${Units.formatResource(
         prop,
