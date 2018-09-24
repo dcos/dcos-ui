@@ -152,14 +152,7 @@ If you want to add a new npm package to 'node_modules' you will need to `--save-
     npm install [your package] --save-dev --save-exact
     ```
 
-2. Create a synced npm-shrinkwrap.json with devDependencies included by running
-
-    ```
-    npm run build-shrinkwrap
-    ```
-
-We have a fixShrinkwrap script wich runs when you run `npm run build-shrinkwrap`, which takes care of the extra fsevents. You only need to manually remove it if shrinkwrap runs automatically. <br>
-For more info https://github.com/npm/npm/issues/2679
+2. Ensure changes to package-lock.json are added to the commit.
 
 3. Commit to repository
 
