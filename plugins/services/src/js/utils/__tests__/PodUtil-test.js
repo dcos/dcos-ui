@@ -110,7 +110,9 @@ describe("PodUtil", function() {
       expect(instances.getItems().length).toEqual(1);
       expect(instances.getItems()[0].getContainers().length).toEqual(3);
       expect(instances.getItems()[0].getContainers()[2].get()).toEqual(
-        historicalInstances[0].containers[0]
+        Object.assign(historicalInstances[0].containers[0], {
+          isHistoricalInstance: true
+        })
       );
     });
 
