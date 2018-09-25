@@ -1467,9 +1467,7 @@ describe("Service Form Modal", function() {
             .find('.form-control[name="env.0.value"]')
             .type("value");
 
-          cy.get("@tabView").contains(
-            "An environment variable needs to contain at least a key."
-          );
+          cy.get("@tabView").contains("The key cannot be empty.");
         });
       });
 
