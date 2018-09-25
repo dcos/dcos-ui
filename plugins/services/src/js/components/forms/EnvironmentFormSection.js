@@ -66,9 +66,7 @@ class EnvironmentFormSection extends Component {
                   value={env.key || ""}
                 />
               </FieldAutofocus>
-              <FieldError>
-                An environment variable needs to contain at least a key.
-              </FieldError>
+              <FieldError>The key cannot be empty.</FieldError>
               <span className="emphasis form-colon">:</span>
             </FormGroup>
             <FormGroup
