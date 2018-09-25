@@ -135,7 +135,7 @@ class EnvironmentFormSection extends Component {
                 value={label.key || ""}
               />
             </FieldAutofocus>
-            <FieldError>A label needs to contain at least a key.</FieldError>
+            <FieldError>The key cannot be empty.</FieldError>
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup

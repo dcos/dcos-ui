@@ -1506,9 +1506,7 @@ describe("Service Form Modal", function() {
           cy.get("@tabView")
             .find('.form-control[name="labels.0.value"]')
             .type("value");
-          cy.get("@tabView").contains(
-            "A label needs to contain at least a key."
-          );
+          cy.get("@tabView").contains("The key cannot be empty.");
         });
       });
     });
