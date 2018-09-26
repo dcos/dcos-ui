@@ -18,7 +18,8 @@ describe("Tasks Table", function() {
         cy.visitUrl({
           url: "/services/detail/%2Fcassandra/tasks/server-0_10a"
         });
-        cy.get(".page-header-navigation .menu-tabbed-item")
+        cy
+          .get(".page-header-navigation .menu-tabbed-item")
           .contains("Files")
           .click();
       });
@@ -35,15 +36,6 @@ describe("Tasks Table", function() {
           .contains("jre1.7.0_76");
       });
     });
-
-    it("shows an error for the missing stdout log", function() {
-      cy.contains("Output").click();
-      cy.wait(500);
-
-      cy.contains("cannot retrieve the requested information").should(
-        "be.visible"
-      );
-    });
   });
 
   context("displays logs", function() {
@@ -56,7 +48,8 @@ describe("Tasks Table", function() {
       cy.visitUrl({
         url: "/services/detail/%2Fcassandra/tasks/server-0_10a"
       });
-      cy.get(".page-header-navigation .menu-tabbed-item")
+      cy
+        .get(".page-header-navigation .menu-tabbed-item")
         .contains("Logs")
         .click();
     });
@@ -68,6 +61,13 @@ describe("Tasks Table", function() {
 
     it("shows an error log", function() {
       cy.contains("hello world error log").should("be.visible");
+    });
+
+    it("shows an error for the missing stdout log", function() {
+      cy.contains("Output").click();
+      cy.wait(500);
+
+      cy.contains("Cannot Connect With The Server").should("be.visible");
     });
   });
 
@@ -82,7 +82,8 @@ describe("Tasks Table", function() {
 
     context("Running task without healthcheck", function() {
       beforeEach(function() {
-        cy.get("table tr")
+        cy
+          .get("table tr")
           .contains("broker-0__3c7ab984-a9b9-41fb-bb73-0569f88c657e")
           .closest("tr")
           .find("td")
@@ -90,23 +91,19 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows status", function() {
-        cy.get("@tds")
-          .eq(6)
-          .contains("Running");
+        cy.get("@tds").eq(4).contains("Running");
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds")
-          .eq(7)
-          .find(".dot")
-          .trigger("mouseover");
+        cy.get("@tds").eq(5).find(".dot").triggerHover();
         cy.get(".tooltip").contains("No health checks available");
       });
     });
 
     context("Running task with healthcheck", function() {
       beforeEach(function() {
-        cy.get("table tr")
+        cy
+          .get("table tr")
           .contains("confluent-kafka.825e1e2e-d6a6-11e6-a564-8605ecf0a9df")
           .closest("tr")
           .find("td")
@@ -114,16 +111,11 @@ describe("Tasks Table", function() {
       });
 
       it("correctly shows status", function() {
-        cy.get("@tds")
-          .eq(6)
-          .contains("Running");
+        cy.get("@tds").eq(4).contains("Running");
       });
 
       it("correctly shows health", function() {
-        cy.get("@tds")
-          .eq(7)
-          .find(".dot")
-          .trigger("mouseover");
+        cy.get("@tds").eq(5).find(".dot").triggerHover();
         cy.get(".tooltip").contains("Healthy");
       });
     });
@@ -135,9 +127,7 @@ describe("Tasks Table", function() {
         mesos: "1-service-with-executor-task"
       });
       cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
-      cy.get("table tr")
-        .find(".form-element-checkbox")
-        .as("checkboxes");
+      cy.get("table tr").find(".form-element-checkbox").as("checkboxes");
     });
 
     function assertCheckboxLength() {
@@ -145,58 +135,41 @@ describe("Tasks Table", function() {
     }
 
     function assertActionButtons() {
-      cy.get(".filter-bar .button-collection .button-primary-link > span")
+      cy
+        .get(".filter-bar .button-collection .button-link > span")
         .eq(0)
         .contains("Restart");
-      cy.get(".button-collection .button-primary-link > span")
-        .eq(1)
-        .contains("Stop");
+      cy.get(".button-collection .button-link > span").eq(1).contains("Stop");
     }
 
     it("Select all tasks available and confirm action buttons exist", function() {
       assertCheckboxLength();
-      cy.get("@checkboxes")
-        .eq(0)
-        .click();
-      cy.get("@checkboxes")
-        .eq(0)
-        .find("input")
-        .should(function($checkbox) {
-          expect($checkbox[0].name).to.equal("headingCheckbox");
-          expect($checkbox[0].checked).to.equal(true);
-        });
-      cy.get("@checkboxes")
-        .eq(1)
-        .find("input")
-        .should(function($checkbox) {
-          expect($checkbox[0].name).to.equal(
-            "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
-          );
-          expect($checkbox[0].checked).to.equal(true);
-        });
+      cy.get("@checkboxes").eq(0).click();
+      cy.get("@checkboxes").eq(0).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal("headingCheckbox");
+        expect($checkbox[0].checked).to.equal(true);
+      });
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal(
+          "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
+        );
+        expect($checkbox[0].checked).to.equal(true);
+      });
       assertActionButtons();
     });
 
     it("Select first task available and confirm action buttons exist", function() {
       assertCheckboxLength();
-      cy.get("@checkboxes")
-        .eq(1)
-        .find("input")
-        .should(function($checkbox) {
-          expect($checkbox[0].name).to.equal(
-            "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
-          );
-          expect($checkbox[0].checked).to.equal(false);
-        });
-      cy.get("@checkboxes")
-        .eq(1)
-        .click();
-      cy.get("@checkboxes")
-        .eq(1)
-        .find("input")
-        .should(function($checkbox) {
-          expect($checkbox[0].checked).to.equal(true);
-        });
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].name).to.equal(
+          "cassandra.f3c25eea-da3d-11e5-af84-0242fa37187c"
+        );
+        expect($checkbox[0].checked).to.equal(false);
+      });
+      cy.get("@checkboxes").eq(1).click();
+      cy.get("@checkboxes").eq(1).find("input").should(function($checkbox) {
+        expect($checkbox[0].checked).to.equal(true);
+      });
       assertActionButtons();
     });
   });
