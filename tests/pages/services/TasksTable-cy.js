@@ -36,15 +36,6 @@ describe("Tasks Table", function() {
           .contains("jre1.7.0_76");
       });
     });
-
-    it("shows an error for the missing stdout log", function() {
-      cy.contains("Output").click();
-      cy.wait(500);
-
-      cy.contains("cannot retrieve the requested information").should(
-        "be.visible"
-      );
-    });
   });
 
   context("displays logs", function() {
@@ -69,6 +60,15 @@ describe("Tasks Table", function() {
 
     it("shows an error log", function() {
       cy.contains("hello world error log").should("be.visible");
+    });
+
+    it("shows an error for the missing stdout log", function() {
+      cy.contains("Output").click();
+      cy.wait(500);
+
+      cy.contains("Cannot Connect With The Server").should(
+        "be.visible"
+      );
     });
   });
 
