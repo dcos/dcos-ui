@@ -51,6 +51,10 @@ const FrameworkUtil = {
     const images = Object.assign({}, packageImages);
 
     Object.keys(images).forEach(image => {
+      if (typeof images[image] !== "string") {
+        return;
+      }
+
       const queryString = images[image].substring(
         images[image].lastIndexOf("?")
       );
