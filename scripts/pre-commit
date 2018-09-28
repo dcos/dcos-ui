@@ -12,6 +12,7 @@ title "Run pre-commit hook..."
 # Get a list of staged JavaScript and Less files
 staged_javascript_files=$(get_staged_files_with_name '*.js');
 staged_less_files=$(get_staged_files_with_name '*.less');
+staged_typescript_files=$(get_staged_files_with_name '*.ts*');
 
 # Validate staged tests
 if [ -n "${staged_javascript_files}" ]
@@ -46,6 +47,13 @@ then
   header "Lint staged Less files..."
   npm run stylelint --silent -- ${staged_less_files} || exit $?
   info "Staged Less looks good"
+fi
+
+if [ -n "${staged_typescript_files}" ]
+then
+  header "Lint staged TypeScript files..."
+  npm run tslint --silent -- ${staged_typescript_files} || exit $?
+  info "Staged TypeScript looks good"
 fi
 
 # Test staged JavaScript files
