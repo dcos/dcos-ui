@@ -32,6 +32,7 @@ pipeline {
     stage("Build") {
       steps {
         sh "npm --unsafe-perm install"
+        sh "npx cypress install"
         sh "npm run build"
         sh "tar czf release.tar.gz dist"
       }
