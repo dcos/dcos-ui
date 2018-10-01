@@ -12,9 +12,7 @@ fi
 chmod +x .env/bin/dcos
 
 # Symlink cypress in isolation so we don't need to install it every time
-mv "$TMPDIR/cypress" .env/bin/cypress
-
-cypress install
+mv "$TMPDIR/bin/cypress" .env/bin/cypress
 
 # Configure DC/OS CLI
 CONFIG_DIR=~/.dcos
