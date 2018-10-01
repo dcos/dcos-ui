@@ -4,4 +4,6 @@ SCRIPT=`realpath $0`
 SCRIPT_PATH=`dirname $SCRIPT`
 CYPRESS=`realpath "${SCRIPT_PATH}/../../node_modules/cypress/bin/cypress"`
 
-ln -s $CYPRESS "$TMPDIR/cypress"
+cp -R "/root/.cache" "$TMPDIR/../"
+mkdir "$TMPDIR/bin"
+ln -s $CYPRESS "$TMPDIR/bin/cypress"
