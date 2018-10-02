@@ -29,65 +29,76 @@ pipeline {
       }
     }
 
-    stage("Build") {
-      steps {
-        sh "npm --unsafe-perm install"
-        sh "npm run build"
-      }
-    }
+    // stage("Build") {
+    //   steps {
+    //     sh "npm --unsafe-perm install"
+    //     sh "npm run build"
+    //   }
+    // }
 
-    stage("Tests") {
-      parallel {
-        stage("Integration Test") {
-          steps {
-            sh "npm run integration-tests"
-          }
+    // stage("Tests") {
+    //   parallel {
+    //     stage("Integration Test") {
+    //       steps {
+    //         sh "npm run integration-tests"
+    //       }
 
-          post {
-            always {
-              archiveArtifacts "cypress/**/*"
-              junit "cypress/results.xml"
-            }
-          }
-        }
+    //       post {
+    //         always {
+    //           archiveArtifacts "cypress/**/*"
+    //           junit "cypress/results.xml"
+    //         }
+    //       }
+    //     }
 
-        stage("System Test") {
-          steps {
-            withCredentials([
-              [
-                $class: "AmazonWebServicesCredentialsBinding",
-                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-              ]
-            ]) {
-              retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
-              }
-            }
-          }
+    //     stage("System Test") {
+    //       steps {
+    //         withCredentials([
+    //           [
+    //             $class: "AmazonWebServicesCredentialsBinding",
+    //             credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+    //             accessKeyVariable: "AWS_ACCESS_KEY_ID",
+    //             secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+    //           ]
+    //         ]) {
+    //           retry(3) {
+    //             sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+    //           }
+    //         }
+    //       }
 
-          post {
-            always {
-              archiveArtifacts "results/**/*"
-              junit "results/results.xml"
-            }
-          }
-        }
-      }
-    }
+    //       post {
+    //         always {
+    //           archiveArtifacts "results/**/*"
+    //           junit "results/results.xml"
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
-    stage("Semantic Release") {
+    // stage("Semantic Release") {
+    //   steps {
+    //     withCredentials([
+    //       string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN"), // semantic-release
+    //       string(credentialsId: "sentry_io_token", variable: "SENTRY_AUTH_TOKEN"), // upload-build
+    //       string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"), // upload-build
+    //       string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"), // upload-build
+    //       usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER"), // update-dcos-repo
+    //       usernamePassword(credentialsId: "6c147571-7145-410a-bf9c-4eec462fbe02", passwordVariable: "JIRA_PASS", usernameVariable: "JIRA_USER") // semantic-release-jira
+    //     ]) {
+    //       sh "npx semantic-release"
+    //     }
+    //   }
+    // }
+
+    stage("Soak Docker Release") {
       steps {
         withCredentials([
-          string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN"), // semantic-release
-          string(credentialsId: "sentry_io_token", variable: "SENTRY_AUTH_TOKEN"), // upload-build
-          string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"), // upload-build
-          string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"), // upload-build
-          usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER"), // update-dcos-repo
-          usernamePassword(credentialsId: "6c147571-7145-410a-bf9c-4eec462fbe02", passwordVariable: "JIRA_PASS", usernameVariable: "JIRA_USER") // semantic-release-jira
+          string(credentialsId: '7bdd2775-2911-41ba-918f-59c8ae52326d', variable: 'DOCKER_HUB_USERNAME'),
+          string(credentialsId: '42f2e3fb-3f4f-47b2-a128-10ac6d0f6825', variable: 'DOCKER_HUB_PASSWORD')
         ]) {
-          sh "npx semantic-release"
+          sh "cd soak-tests/soak112s && ./deploy.sh"
         }
       }
     }
