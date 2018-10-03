@@ -1,11 +1,31 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { I18nProvider } from "@lingui/react";
+import { mount, shallow } from "enzyme";
 
 const TasksChart = require("../TasksChart");
 
 let thisInstance, thisTasks;
 
 describe("TasksChart", function() {
+  describe("#render", function() {
+    beforeEach(function() {
+      thisInstance = mount(
+        <I18nProvider defaultRender="span">
+          <TasksChart tasks={{}} />
+        </I18nProvider>
+      );
+    });
+
+    it("renders its label", function() {
+      expect(
+        thisInstance
+          .render()
+          .find(".description .unit-label")
+          .text()
+      ).toEqual("Total Tasks");
+    });
+  });
+
   describe("#getTaskInfo", function() {
     beforeEach(function() {
       thisInstance = shallow(<TasksChart tasks={{}} />);
@@ -62,10 +82,6 @@ describe("TasksChart", function() {
 
     it("renders its unit", function() {
       expect(thisInstance.find(".unit").text()).toEqual("100");
-    });
-
-    it("renders its label", function() {
-      expect(thisInstance.find(".unit-label").text()).toEqual("Total Tasks");
     });
   });
 });

@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -114,7 +116,9 @@ var TasksChart = React.createClass({
     return (
       <div className="description">
         <span className="unit unit-primary">{total}</span>
-        <span className="unit-label h3 flush text-muted">Total Tasks</span>
+        <Trans render="span" className="unit-label h3 flush text-muted">
+          Total Tasks
+        </Trans>
       </div>
     );
   },
