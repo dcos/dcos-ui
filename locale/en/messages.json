@@ -191,6 +191,15 @@
       ]
     ]
   },
+  "Install a Package": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CreateServiceModalCatalogPanelOption.js",
+        24
+      ]
+    ]
+  },
   "Log out": {
     "translation": "",
     "origin": [
