@@ -66,6 +66,15 @@
       ]
     ]
   },
+  "Cluster": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        59
+      ]
+    ]
+  },
   "Community packages are unverified and unreviewed content from the community.": {
     "translation": "",
     "origin": [
@@ -119,6 +128,15 @@
       ]
     ]
   },
+  "Documentation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        136
+      ]
+    ]
+  },
   "Download Snapshot": {
     "translation": "",
     "origin": [
@@ -134,6 +152,15 @@
       [
         "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
         28
+      ]
+    ]
+  },
+  "Install CLI": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        143
       ]
     ]
   },
@@ -211,6 +238,10 @@
     "translation": "",
     "origin": [
       [
+        "src/js/components/ClusterHeader.js",
+        114
+      ],
+      [
         "src/js/pages/system/OverviewDetailTab.js",
         43
       ]
@@ -267,6 +298,15 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         25
+      ]
+    ]
+  },
+  "Support": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        131
       ]
     ]
   },
