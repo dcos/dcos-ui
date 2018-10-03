@@ -84,6 +84,15 @@
       ]
     ]
   },
+  "Apply": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/DSLFormDropdownPanel.js",
+        91
+      ]
+    ]
+  },
   "Cluster": {
     "translation": "",
     "origin": [
