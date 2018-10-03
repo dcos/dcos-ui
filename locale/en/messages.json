@@ -1,2 +1,11 @@
 {
+  "Total Tasks": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/charts/TasksChart.js",
+        120
+      ]
+    ]
+  }
 }
