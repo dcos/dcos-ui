@@ -1,5 +1,5 @@
 {
-  "plugins": ["transform-runtime"],
+  "plugins": ["transform-runtime", "macros"],
   "presets": ["es2015", "stage-3", "react"]
 }
 

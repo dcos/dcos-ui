@@ -22,3 +22,5 @@ src/resources/raml
 .chrome/
 .envrc
 .env
+locale/_build/
+locale/*/messages.js

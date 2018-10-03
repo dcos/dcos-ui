@@ -3,10 +3,14 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
+import { I18nProvider } from "@lingui/react";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import { Router, hashHistory } from "react-router";
 import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
+
+import en from "#LOCALE/en/messages.js";
+
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
 // require them in the component.js
@@ -89,9 +93,11 @@ RequestUtil.json = function(options = {}) {
 
         renderAppToDOM(
           <Provider store={PluginSDK.Store}>
-            <IntlProvider locale={navigatorLanguage} messages={enUS}>
-              <Router history={hashHistory} routes={routes} />
-            </IntlProvider>
+            <I18nProvider defaultRender="span" language="en" catalogs={{ en }}>
+              <IntlProvider locale={navigatorLanguage} messages={enUS}>
+                <Router history={hashHistory} routes={routes} />
+              </IntlProvider>
+            </I18nProvider>
           </Provider>
         );
 

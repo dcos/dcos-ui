@@ -1,0 +1,15 @@
+{
+  "compileNamespace": "es",
+  "extractBabelOptions": {},
+  "fallbackLocale": "",
+  "sourceLocale": "",
+  "localeDir": "./locale",
+  "srcPathDirs": [
+      "./src"
+  ],
+  "srcPathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/"
+  ],
+  "format": "lingui",
+}
