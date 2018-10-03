@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 
 import AuthStore from "../stores/AuthStore";
@@ -28,7 +29,7 @@ module.exports = class AccessDeniedPage extends React.Component {
           className="button button-primary"
           onClick={this.handleUserLogout}
         >
-          Log out
+          <Trans>Log out</Trans>
         </button>
       </div>
     );
@@ -40,8 +41,10 @@ module.exports = class AccessDeniedPage extends React.Component {
         <div className="page">
           <div className="page-body-content vertical-center flex-item-grow-1">
             <AlertPanel>
-              <AlertPanelHeader>Access denied</AlertPanelHeader>
-              <p className="tall">
+              <AlertPanelHeader>
+                <Trans>Access denied</Trans>
+              </AlertPanelHeader>
+              <Trans render="p" className="tall">
                 {"You do not have access to this service. Please contact your "}
                 {Config.productName}
                 {" administrator or see "}
@@ -52,7 +55,7 @@ module.exports = class AccessDeniedPage extends React.Component {
                   security documentation
                 </a>{" "}
                 for more information.
-              </p>
+              </Trans>
               {this.getFooter()}
             </AlertPanel>
           </div>

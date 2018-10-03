@@ -1,4 +1,13 @@
 {
+  "Access denied": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/AccessDeniedPage.js",
+        45
+      ]
+    ]
+  },
   "Add Package Repository": {
     "translation": "",
     "origin": [
@@ -161,6 +170,15 @@
       [
         "src/js/components/ClusterHeader.js",
         143
+      ]
+    ]
+  },
+  "Log out": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/AccessDeniedPage.js",
+        32
       ]
     ]
   },
@@ -374,6 +392,15 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         30
+      ]
+    ]
+  },
+  "You do not have access to this service. Please contact your {0} administrator or see <0>security documentation</0> for more information.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/AccessDeniedPage.js",
+        47
       ]
     ]
   },
