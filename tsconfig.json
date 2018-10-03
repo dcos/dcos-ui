@@ -28,6 +28,7 @@
       "@dcos/http-service": ["src/typings/dcos__http-service"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
+      "#LOCALE": ["locale/*"],
       "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
       "#PLUGINS/*": ["plugins/*"]
     }

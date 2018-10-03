@@ -29,6 +29,7 @@ module.exports = {
       ),
       "#PLUGINS": path.resolve(__dirname, "../plugins"),
       "#SRC": path.resolve(__dirname, "../src"),
+      "#LOCALE": path.resolve(__dirname, "../locale"),
       "#TESTS": path.resolve(__dirname, "../tests")
     },
     modules: [

@@ -549,6 +549,7 @@ Add this part to your `jsconfig.json` in the root of this project
     "baseUrl": "./", // all paths are relative to the baseUrl
     "paths": {
       "#SRC/*": ["dcos-ui/src/*"],
+      "#LOCALE/*": ["dcos-ui/locale/*"],
       "#EXTERNAL_PLUGINS/*": ["dcos-ui-plugins-private/*"],
       "#PLUGINS/*": ["dcos-ui/plugins/*"]
     }
