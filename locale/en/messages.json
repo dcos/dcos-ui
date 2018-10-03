@@ -75,6 +75,15 @@
       ]
     ]
   },
+  "An error has occurred.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ComponentList.js",
+        102
+      ]
+    ]
+  },
   "Cluster": {
     "translation": "",
     "origin": [
@@ -134,6 +143,15 @@
       [
         "src/js/components/FrameworkConfiguration.js",
         347
+      ]
+    ]
+  },
+  "Components Not Found": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ComponentList.js",
+        99
       ]
     ]
   },
