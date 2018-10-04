@@ -92,6 +92,15 @@
       ]
     ]
   },
+  "Dashboard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/DashboardPage.js",
+        47
+      ]
+    ]
+  },
   "Download Snapshot": {
     "translation": "",
     "origin": [
