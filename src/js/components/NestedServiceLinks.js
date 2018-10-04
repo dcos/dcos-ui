@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
@@ -107,7 +108,7 @@ class NestedServiceLinks extends React.Component {
             to="/services"
             title="services"
           >
-            Services
+            <Trans render="span">Services</Trans>
           </Link>
         </div>
       </div>
