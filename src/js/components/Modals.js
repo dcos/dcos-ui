@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Hooks } from "PluginSDK";
@@ -96,10 +97,10 @@ var Modals = React.createClass({
     this.setState({
       showErrorModal: true,
       modalErrorMsg: (
-        <p className="text-align-center flush-bottom">
+        <Trans render="p" className="text-align-center flush-bottom">
           We are unable to retrieve the version {Config.productName} versions.
           Please try again.
-        </p>
+        </Trans>
       )
     });
   },
@@ -125,7 +126,7 @@ var Modals = React.createClass({
         <div>
           <div className="text-align-center">
             <button className="button button-primary-link" onClick={onClose}>
-              Close
+              <Trans render="span">Close</Trans>
             </button>
           </div>
         </div>

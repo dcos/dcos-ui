@@ -120,6 +120,15 @@
       ]
     ]
   },
+  "Close": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/Modals.js",
+        129
+      ]
+    ]
+  },
   "Cluster": {
     "translation": "",
     "origin": [
@@ -500,6 +509,15 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         30
+      ]
+    ]
+  },
+  "We are unable to retrieve the version {0} versions. Please try again.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/Modals.js",
+        100
       ]
     ]
   },
