@@ -5,11 +5,20 @@
   "sourceLocale": "",
   "localeDir": "./locale",
   "srcPathDirs": [
-      "./src"
+      "./src",
+      "./plugins"
   ],
   "srcPathIgnorePatterns": [
-      "/node_modules/",
-      "/__tests__/"
+      "node_modules/",
+      "/__tests__/",
+      "/reducers/",
+      "js/config",
+      "js/core",
+      "js/events",
+      "js/routes",
+      "js/stores",
+      "js/utils",
+      "js/vendor"
   ],
   "format": "lingui",
 }
