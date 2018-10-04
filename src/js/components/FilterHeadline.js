@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
@@ -61,11 +62,13 @@ class FilterHeadline extends React.Component {
 
     return (
       <ul className={listClassSet}>
-        <li className={filteredClassSet}>
+        <Trans render="li" className={filteredClassSet}>
           Showing {currentLength} of {totalLength} {name}
-        </li>
+        </Trans>
         <li className={anchorClassSet} onClick={this.handleReset}>
-          <a className="small flush">(Clear)</a>
+          <Trans render="a" className="small flush">
+            (Clear)
+          </Trans>
         </li>
         <li className={unfilteredClassSet}>
           {totalLength} {name}

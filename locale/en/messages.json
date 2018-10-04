@@ -1,4 +1,13 @@
 {
+  "(Clear)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FilterHeadline.js",
+        69
+      ]
+    ]
+  },
   "Access denied": {
     "translation": "",
     "origin": [
@@ -352,6 +361,15 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         25
+      ]
+    ]
+  },
+  "Showing {currentLength} of {totalLength} {name}": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FilterHeadline.js",
+        65
       ]
     ]
   },
