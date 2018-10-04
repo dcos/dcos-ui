@@ -66,12 +66,30 @@
       ]
     ]
   },
+  "Networks": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        27
+      ]
+    ]
+  },
   "No package repositories": {
     "translation": "",
     "origin": [
       [
         "src/js/pages/catalog/PackagesTab.js",
         48
+      ]
+    ]
+  },
+  "No virtual networks detected": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        91
       ]
     ]
   },
@@ -99,6 +117,15 @@
       [
         "src/js/pages/catalog/PackageDetailTab.js",
         397
+      ]
+    ]
+  },
+  "There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        93
       ]
     ]
   },

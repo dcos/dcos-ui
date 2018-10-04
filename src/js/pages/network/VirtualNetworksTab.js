@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -22,7 +23,9 @@ const NetworksBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
-        <Link to="/networking/networks">Networks</Link>
+        <Link to="/networking/networks">
+          <Trans render="span">Networks</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -84,11 +87,13 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   getEmptyScreen() {
     return (
       <AlertPanel>
-        <AlertPanelHeader>No virtual networks detected</AlertPanelHeader>
-        <p className="flush">
+        <AlertPanelHeader>
+          <Trans render="span">No virtual networks detected</Trans>
+        </AlertPanelHeader>
+        <Trans render="p" className="flush">
           There a currently no other virtual networks found on your datacenter.
           Virtual networks are configured during setup of your DC/OS cluster.
-        </p>
+        </Trans>
       </AlertPanel>
     );
   }
