@@ -94,6 +94,10 @@
       [
         "src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js",
         23
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
+        25
       ]
     ]
   },

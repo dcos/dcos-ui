@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
@@ -20,7 +21,9 @@ const NetworksDetailTaskBreadcrumbs = ({
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
-        <Link to="/networking/networks">Networks</Link>
+        <Link to="/networking/networks">
+          <Trans render="span">Networks</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
