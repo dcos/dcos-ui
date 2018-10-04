@@ -84,6 +84,15 @@
       ]
     ]
   },
+  "Active": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfigurationReviewScreen.js",
+        67
+      ]
+    ]
+  },
   "An error has occurred.": {
     "translation": "",
     "origin": [
@@ -99,6 +108,15 @@
       [
         "src/js/components/DSLFormDropdownPanel.js",
         91
+      ]
+    ]
+  },
+  "Are you sure you want to leave this page? Any data you entered will be lost.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        354
       ]
     ]
   },
@@ -173,6 +191,15 @@
       ]
     ]
   },
+  "Discard Changes?": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        342
+      ]
+    ]
+  },
   "Documentation": {
     "translation": "",
     "origin": [
@@ -215,6 +242,15 @@
       [
         "src/js/components/CreateServiceModalCatalogPanelOption.js",
         24
+      ]
+    ]
+  },
+  "JSON Editor": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        169
       ]
     ]
   },
