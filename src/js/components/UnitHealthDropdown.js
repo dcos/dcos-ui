@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+
 import { Dropdown } from "reactjs-components";
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
@@ -7,8 +9,8 @@ import UnitHealthStatus from "../constants/UnitHealthStatus";
 
 const DEFAULT_ITEM = {
   id: "all",
-  html: "All Health Checks",
-  selectedHtml: "All Health Checks"
+  html: <Trans render="span">All Health Checks</Trans>,
+  selectedHtml: <Trans render="span">All Health Checks</Trans>
 };
 
 class UnitHealthDropdown extends React.Component {
@@ -26,8 +28,8 @@ class UnitHealthDropdown extends React.Component {
     const items = keys.map(function(key) {
       return {
         id: key,
-        html: UnitHealthStatus[key].title,
-        selectedHtml: UnitHealthStatus[key].title
+        html: <Trans render="span" id={UnitHealthStatus[key].title} />,
+        selectedHtml: <Trans render="span" id={UnitHealthStatus[key].title} />
       };
     });
 

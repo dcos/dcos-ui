@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+
 import {
   SERVER_HEALTHY,
   SERVER_NA,
@@ -13,28 +15,28 @@ import {
  */
 const UnitHealthStatus = {
   [SERVER_HEALTHY]: {
-    title: "Healthy",
+    title: i18nMark("Healthy"),
     key: "HEALTHY",
     classNames: "text-success",
     sortingValue: 3,
     value: SERVER_HEALTHY
   },
   [SERVER_UNHEALTHY]: {
-    title: "Unhealthy",
+    title: i18nMark("Unhealthy"),
     key: "UNHEALTHY",
     classNames: "text-danger",
     sortingValue: 0,
     value: SERVER_UNHEALTHY
   },
   [SERVER_WARN]: {
-    title: "Warning",
+    title: i18nMark("Warning"),
     key: "WAR",
     classNames: "text-warning",
     sortingValue: 2,
     value: SERVER_WARN
   },
   [SERVER_NA]: {
-    title: "N/A",
+    title: i18nMark("N/A"),
     key: "NA",
     classNames: "text-mute",
     sortingValue: 1,
