@@ -1,3 +1,6 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
+
 import browserInfo from "browser-info";
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
@@ -88,9 +91,9 @@ class CliInstallModal extends React.Component {
 
     return (
       <div>
-        <p className="short-bottom">
+        <Trans render="p" className="short-bottom">
           Copy and paste the code snippet into the terminal:
-        </p>
+        </Trans>
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="prettyprint flush-bottom">
@@ -110,15 +113,14 @@ class CliInstallModal extends React.Component {
     ]
       .filter(instruction => instruction !== undefined)
       .map((instruction, index) => {
-        let helpText = "Enter";
-
-        if (index === 0) {
-          helpText = "In Command Prompt, enter";
-        }
+        const helpText =
+          index === 0
+            ? i18nMark("In Command Prompt, enter")
+            : i18nMark("Enter");
 
         return (
           <li key={index}>
-            <p className="short-bottom">{helpText}</p>
+            <Trans render="p" className="short-bottom" id={helpText} />
             <div className="flush-top snippet-wrapper">
               <ClickToSelect>
                 <pre className="prettyprint flush-bottom prettyprinted">
@@ -132,12 +134,12 @@ class CliInstallModal extends React.Component {
 
     return (
       <ol>
-        <li>
+        <Trans render="li">
           Download and install:{" "}
           <a href={downloadUrl + ".exe"}>
             <Icon id="download" size="mini" /> Download dcos.exe
           </a>.
-        </li>
+        </Trans>
         {steps}
       </ol>
     );
@@ -167,14 +169,13 @@ class CliInstallModal extends React.Component {
   getContent() {
     return (
       <div className="install-cli-modal-content">
-        <p>
-          {
-            "Choose your operating system and follow the instructions. For any issues or questions, please refer to our "
-          }
+        <Trans render="p">
+          Choose your operating system and follow the instructions. For any
+          issues or questions, please refer to our{" "}
           <a href={MetadataStore.buildDocsURI("/cli/install")} target="_blank">
             documentation
           </a>.
-        </p>
+        </Trans>
         <div className="button-group">{this.getOSButtons()}</div>
         {this.getCliInstructions()}
       </div>
