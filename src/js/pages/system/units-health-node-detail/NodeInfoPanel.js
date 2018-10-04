@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
@@ -20,16 +21,20 @@ class NodeInfoPanel extends React.Component {
       <div className="container">
         <ConfigurationMap>
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>Summary</ConfigurationMapHeading>
+            <ConfigurationMapHeading>
+              <Trans render="span">Summary</Trans>
+            </ConfigurationMapHeading>
             <p>{summary}</p>
             {docsURL && (
               <a href={docsURL} target="_blank">
-                View Documentation
+                <Trans render="span">View Documentation</Trans>
               </a>
             )}
           </ConfigurationMapSection>
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>Output</ConfigurationMapHeading>
+            <ConfigurationMapHeading>
+              <Trans render="span">Output</Trans>
+            </ConfigurationMapHeading>
             <ConfigurationMapRow>
               <pre className="flex-item-grow-1 flush-bottom">{output}</pre>
             </ConfigurationMapRow>
