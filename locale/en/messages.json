@@ -72,6 +72,10 @@
       [
         "src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.js",
         23
+      ],
+      [
+        "src/js/pages/system/UnitsHealthDetail.js",
+        26
       ]
     ]
   },
