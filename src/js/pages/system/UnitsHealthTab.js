@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
@@ -25,7 +26,9 @@ const UnitHealthBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Components">
       <BreadcrumbTextContent>
-        <Link to="/components">Components</Link>
+        <Link to="/components">
+          <Trans render="span">Components</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -208,7 +211,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
                 className="button button-primary"
                 target="_blank"
               >
-                Download Snapshot
+                <Trans render="span">Download Snapshot</Trans>
               </a>
             </FilterBar>
           </div>

@@ -76,6 +76,10 @@
       [
         "src/js/pages/system/UnitsHealthDetail.js",
         26
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        30
       ]
     ]
   },
@@ -85,6 +89,15 @@
       [
         "src/js/pages/system/OverviewDetailTab.js",
         172
+      ]
+    ]
+  },
+  "Download Snapshot": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        214
       ]
     ]
   },
