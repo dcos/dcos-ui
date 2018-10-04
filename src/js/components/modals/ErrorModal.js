@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -18,7 +19,11 @@ var ErrorModal = React.createClass({
   },
 
   render() {
-    const header = <ModalHeading>Looks Like Something is Wrong</ModalHeading>;
+    const header = (
+      <ModalHeading>
+        <Trans render="span">Looks Like Something is Wrong</Trans>
+      </ModalHeading>
+    );
 
     return (
       <Modal
