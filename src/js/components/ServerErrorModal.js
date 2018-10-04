@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Modal } from "reactjs-components";
@@ -71,7 +72,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     return (
       <div className="button-collection text-align-center flush-bottom">
         <div className="button" onClick={this.handleModalClose}>
-          Close
+          <Trans render="span">Close</Trans>
         </div>
       </div>
     );
@@ -101,7 +102,11 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   }
 
   render() {
-    const header = <ModalHeading level={5}>An error has occurred</ModalHeading>;
+    const header = (
+      <ModalHeading level={5}>
+        <Trans render="span">An error has occurred</Trans>
+      </ModalHeading>
+    );
 
     return (
       <Modal
