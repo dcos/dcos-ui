@@ -1,3 +1,6 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
+
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
@@ -5,21 +8,15 @@ import React from "react";
 import Config from "../config/Config";
 
 function getDefaultMessage() {
-  const slackLink = (
-    <a href={Config.slackChannel} target="_blank">
-      Slack channel
-    </a>
-  );
-  const supportLink = (
-    <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>
-  );
-
   return (
-    <p className="text-align-center flush-bottom">
-      You can also join us on our {slackLink} or send us an email at{" "}
-      {supportLink}
-      .
-    </p>
+    <Trans render="p" className="text-align-center flush-bottom">
+      You can also join us on our{" "}
+      <a href={Config.slackChannel} target="_blank">
+        Slack channel
+      </a>{" "}
+      or send us an email at{" "}
+      <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>.
+    </Trans>
   );
 }
 
@@ -36,7 +33,11 @@ class RequestErrorMsg extends React.Component {
     return (
       <div className="row">
         <div className={columnClasses}>
-          <h3 className="text-align-center flush-top">{header}</h3>
+          <Trans
+            render="h3"
+            className="text-align-center flush-top"
+            id={header}
+          />
           {message}
         </div>
       </div>
@@ -46,7 +47,9 @@ class RequestErrorMsg extends React.Component {
 
 RequestErrorMsg.defaultProps = {
   columnClasses: {},
-  header: "DC/OS UI cannot retrieve the requested information at this moment.",
+  header: i18nMark(
+    "DC/OS UI cannot retrieve the requested information at this moment."
+  ),
   message: getDefaultMessage()
 };
 

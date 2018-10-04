@@ -209,6 +209,15 @@
       ]
     ]
   },
+  "DC/OS UI cannot retrieve the requested information at this moment.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/RequestErrorMsg.js",
+        53
+      ]
+    ]
+  },
   "Discard Changes?": {
     "translation": "",
     "origin": [
@@ -545,6 +554,15 @@
       [
         "src/js/components/Modals.js",
         100
+      ]
+    ]
+  },
+  "You can also join us on our <0>Slack channel</0> or send us an email at {supportLink}.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/RequestErrorMsg.js",
+        16
       ]
     ]
   },
