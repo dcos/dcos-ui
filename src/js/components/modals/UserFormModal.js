@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 /* eslint-disable no-unused-vars */
@@ -9,9 +10,6 @@ import AuthStore from "../../stores/AuthStore";
 import FormModal from "../FormModal";
 import ModalHeading from "../modals/ModalHeading";
 import UserStore from "../../stores/UserStore";
-
-const TELEMETRY_NOTIFICATION =
-  "Because telemetry is disabled you must manually notify users of ACL changes.";
 
 const METHODS_TO_BIND = ["handleNewUserSubmit", "onUserStoreCreateSuccess"];
 
@@ -111,7 +109,9 @@ class UserFormModal extends mixin(StoreMixin) {
   getHeader() {
     return Hooks.applyFilter(
       "userFormModalHeader",
-      <ModalHeading>Add User to Cluster</ModalHeading>
+      <ModalHeading>
+        <Trans render="span">Add User to Cluster</Trans>
+      </ModalHeading>
     );
   }
 
@@ -121,9 +121,13 @@ class UserFormModal extends mixin(StoreMixin) {
         {Hooks.applyFilter("userAddPolicy", null)}
         {Hooks.applyFilter(
           "userFormModalFooter",
-          <p className="form-group-without-top-label flush-bottom text-align-center">
-            <strong>Important:</strong> {TELEMETRY_NOTIFICATION}
-          </p>
+          <Trans
+            render="p"
+            className="form-group-without-top-label flush-bottom text-align-center"
+          >
+            <strong>Important:</strong> Because telemetry is disabled you must
+            manually notify users of ACL changes.
+          </Trans>
         )}
       </div>
     );
