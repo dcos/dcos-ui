@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -18,7 +19,9 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
-        <Link to="/networking/networks">Networks</Link>
+        <Link to="/networking/networks">
+          <Trans render="span">Networks</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
