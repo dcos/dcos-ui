@@ -132,6 +132,10 @@
     "translation": "",
     "origin": [
       [
+        "src/js/pages/NetworkPage.js",
+        22
+      ],
+      [
         "src/js/pages/network/VirtualNetworksTab.js",
         27
       ],
