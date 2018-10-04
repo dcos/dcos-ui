@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React, { Component } from "react";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 
@@ -220,7 +221,7 @@ export default class PlacementConstraintsPartial extends Component {
                 value: { type: "default" }
               })}
             >
-              Add Placement Constraint
+              <Trans render="span">Add Placement Constraint</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>
