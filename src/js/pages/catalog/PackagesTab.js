@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
@@ -30,7 +31,9 @@ const PackagesBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Catalog">
       <BreadcrumbTextContent>
-        <Link to="/catalog/packages">Catalog</Link>
+        <Link to="/catalog/packages">
+          <Trans render="span">Catalog</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -41,8 +44,10 @@ const PackagesBreadcrumbs = () => {
 const PackagesEmptyState = () => {
   return (
     <AlertPanel>
-      <AlertPanelHeader>No package repositories</AlertPanelHeader>
-      <p className="tall">
+      <AlertPanelHeader>
+        <Trans render="span">No package repositories</Trans>
+      </AlertPanelHeader>
+      <Trans render="p" className="tall">
         You need at least one package repository with some packages to be able
         to install packages. For more{" "}
         <a
@@ -52,10 +57,10 @@ const PackagesEmptyState = () => {
           information on repositories
         </a>
         .
-      </p>
+      </Trans>
       <div className="button-collection flush-bottom">
         <Link to="/settings/repositories" className="button button-primary">
-          Add Package Repository
+          <Trans render="span">Add Package Repository</Trans>
         </Link>
       </div>
     </AlertPanel>
@@ -138,7 +143,9 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <AlertPanel>
-        <AlertPanelHeader>An Error Occurred</AlertPanelHeader>
+        <AlertPanelHeader>
+          <Trans render="span">An Error Occurred</Trans>
+        </AlertPanelHeader>
         <CosmosErrorMessage error={errorMessage} flushBottom={true} />
       </AlertPanel>
     );
@@ -190,11 +197,13 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div className="pod flush-top flush-horizontal clearfix">
-        <h1 className="short flush-top">Certified</h1>
-        <p className="tall flush-top">
+        <Trans render="h1" className="short flush-top">
+          Certified
+        </Trans>
+        <Trans render="p" className="tall flush-top">
           Certified packages are verified by Mesosphere for interoperability
           with DC/OS.
-        </p>
+        </Trans>
         <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
@@ -207,10 +216,10 @@ class PackagesTab extends mixin(StoreMixin) {
     }
 
     let subtitle = (
-      <p className="tall flush-top">
+      <Trans render="p" className="tall flush-top">
         Community packages are unverified and unreviewed content from the
         community.
-      </p>
+      </Trans>
     );
     let title = "Community";
     const titleClasses = classNames("flush-top", {
@@ -226,12 +235,12 @@ class PackagesTab extends mixin(StoreMixin) {
         }" `;
 
         return (
-          <div className="clearfix">
+          <Trans render="div" className="clearfix">
             {noResults}
             (<a className="clickable" onClick={this.clearInput}>
               view all
             </a>)
-          </div>
+          </Trans>
         );
       }
 

@@ -1,4 +1,22 @@
 {
+  "Add Package Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        63
+      ]
+    ]
+  },
+  "An Error Occurred": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        147
+      ]
+    ]
+  },
   "CLI Only Package": {
     "translation": "",
     "origin": [
@@ -14,6 +32,46 @@
       [
         "src/js/pages/catalog/PackageDetailTab.js",
         35
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        35
+      ]
+    ]
+  },
+  "Certified": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        200
+      ]
+    ]
+  },
+  "Certified packages are verified by Mesosphere for interoperability with DC/OS.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        203
+      ]
+    ]
+  },
+  "Community packages are unverified and unreviewed content from the community.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        219
+      ]
+    ]
+  },
+  "No package repositories": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        48
       ]
     ]
   },
@@ -62,12 +120,30 @@
       ]
     ]
   },
+  "You need at least one package repository with some packages to be able to install packages. For more <0>information on repositories</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        50
+      ]
+    ]
+  },
   "{0} is being installed.": {
     "translation": "",
     "origin": [
       [
         "src/js/pages/catalog/PackageDetailTab.js",
         400
+      ]
+    ]
+  },
+  "{noResults} (<0>view all</0>)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        238
       ]
     ]
   }

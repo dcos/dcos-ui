@@ -13,13 +13,16 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
       <h2
         className="flush-top"
       >
-        No package repositories
+        <span
+          className={undefined}
+        >
+          No package repositories
+        </span>
       </h2>
       <p
         className="tall"
       >
-        You need at least one package repository with some packages to be able to install packages. For more
-         
+        You need at least one package repository with some packages to be able to install packages. For more 
         <a
           href="https://docs.mesosphere.com/latest/administering-clusters/repo"
           target="_blank"
@@ -36,7 +39,11 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
           onClick={[Function]}
           style={Object {}}
         >
-          Add Package Repository
+          <span
+            className={undefined}
+          >
+            Add Package Repository
+          </span>
         </a>
       </div>
     </div>
