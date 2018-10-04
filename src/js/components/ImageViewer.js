@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import ImageViewerModal from "./modals/ImageViewerModal";
@@ -67,7 +68,7 @@ class ImageViewer extends React.Component {
 
     return (
       <div className="pod pod-short flush-top flush-right flush-left">
-        <h2>Media</h2>
+        <Trans render="h2">Media</Trans>
         <div className="media-object-spacing-wrapper media-object-offset">
           <div className="media-object media-object-wrap">
             {this.getImages(images)}
