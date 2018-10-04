@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
+import { withI18n } from "@lingui/react";
+import { t } from "@lingui/macro";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
@@ -29,7 +31,7 @@ const METHODS_TO_BIND = [
   "handleFormSubmit"
 ];
 
-export default class FrameworkConfiguration extends Component {
+class FrameworkConfiguration extends Component {
   constructor(props) {
     super(props);
 
@@ -299,7 +301,8 @@ export default class FrameworkConfiguration extends Component {
       formData,
       onFormDataChange,
       onFormErrorChange,
-      defaultConfigWarning
+      defaultConfigWarning,
+      i18n
     } = this.props;
 
     let pageContents;
@@ -339,9 +342,9 @@ export default class FrameworkConfiguration extends Component {
           header={<ModalHeading>Discard Changes?</ModalHeading>}
           open={isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
-          leftButtonText="Cancel"
+          leftButtonText={i18n._(t`Cancel`)}
           leftButtonCallback={this.handleCloseConfirmModal}
-          rightButtonText="Discard"
+          rightButtonText={i18n._(t`Discard`)}
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleConfirmGoBack}
           showHeader={true}
@@ -368,3 +371,5 @@ FrameworkConfiguration.propTypes = {
   deployErrors: PropTypes.object,
   defaultConfigWarning: PropTypes.string
 };
+
+export default withI18n()(FrameworkConfiguration);
