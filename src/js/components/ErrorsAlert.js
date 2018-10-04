@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -45,7 +46,7 @@ const ErrorsAlert = function(props) {
 
   return (
     <Alert>
-      <h4>There is an error with your configuration</h4>
+      <Trans render="h4">There is an error with your configuration</Trans>
       <ul>{errorItems}</ul>
     </Alert>
   );
