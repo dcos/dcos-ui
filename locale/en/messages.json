@@ -66,6 +66,15 @@
       ]
     ]
   },
+  "Components": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.js",
+        23
+      ]
+    ]
+  },
   "IP Subnet": {
     "translation": "",
     "origin": [
