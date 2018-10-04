@@ -250,6 +250,10 @@
       [
         "src/js/pages/system/OrganizationTab.js",
         54
+      ],
+      [
+        "src/js/pages/system/UsersPage.js",
+        26
       ]
     ]
   },
