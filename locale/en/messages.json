@@ -128,6 +128,15 @@
       ]
     ]
   },
+  "Output": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        36
+      ]
+    ]
+  },
   "Review & Run": {
     "translation": "",
     "origin": [
@@ -143,6 +152,15 @@
       [
         "src/js/pages/catalog/PackageDetailTab.js",
         397
+      ]
+    ]
+  },
+  "Summary": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        25
       ]
     ]
   },
@@ -170,6 +188,15 @@
       [
         "src/js/components/charts/TasksChart.js",
         119
+      ]
+    ]
+  },
+  "View Documentation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        30
       ]
     ]
   },
