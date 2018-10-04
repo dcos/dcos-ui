@@ -391,6 +391,15 @@
       ]
     ]
   },
+  "There is an error with your configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ErrorsAlert.js",
+        49
+      ]
+    ]
+  },
   "Total Tasks": {
     "translation": "",
     "origin": [
