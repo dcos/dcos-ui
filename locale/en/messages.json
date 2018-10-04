@@ -8,6 +8,15 @@
       ]
     ]
   },
+  "<0><1/> Download config.json</0>": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ReviewConfig.js",
+        57
+      ]
+    ]
+  },
   "Access denied": {
     "translation": "",
     "origin": [

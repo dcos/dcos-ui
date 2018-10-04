@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import PropTypes from "prop-types";
 import React from "react";
@@ -53,7 +54,7 @@ class ReviewConfig extends React.Component {
               </div>
             </div>
           </div>
-          <div className="column-8 text-align-right">
+          <Trans render="div" className="column-8 text-align-right">
             <a
               className="button button-primary-link"
               onClick={RouterUtil.triggerIEDownload.bind(
@@ -70,7 +71,7 @@ class ReviewConfig extends React.Component {
             >
               <Icon id="download" size="mini" /> Download config.json
             </a>
-          </div>
+          </Trans>
         </div>
       </div>
     );
