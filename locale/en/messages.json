@@ -449,6 +449,15 @@
       ]
     ]
   },
+  "Looks Like Something is Wrong": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/ErrorModal.js",
+        24
+      ]
+    ]
+  },
   "Media": {
     "translation": "",
     "origin": [
