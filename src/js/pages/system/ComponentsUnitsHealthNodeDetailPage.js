@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -18,7 +19,9 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Components">
       <BreadcrumbTextContent>
-        <Link to="/components">Components</Link>
+        <Link to="/components">
+          <Trans render="span">Components</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
