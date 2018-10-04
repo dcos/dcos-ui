@@ -66,6 +66,24 @@
       ]
     ]
   },
+  "IP Subnet": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
+        28
+      ]
+    ]
+  },
+  "Name": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
+        22
+      ]
+    ]
+  },
   "Networks": {
     "translation": "",
     "origin": [
