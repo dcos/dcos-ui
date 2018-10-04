@@ -35,79 +35,21 @@
       ]
     ]
   },
-  "Add Package Repository": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackagesTab.js",
-        63
-      ]
-    ]
-  },
-  "An Error Occurred": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackagesTab.js",
-        147
-      ]
-    ]
-  },
-  "CLI Only Package": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackageDetailTab.js",
-        269
-      ]
-    ]
-  },
-  "Cancel": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/components/FrameworkConfiguration.js",
-        345
-      ]
-    ]
-  },
-  "Catalog": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackageDetailTab.js",
-        35
-      ],
-      [
-        "src/js/pages/catalog/PackagesTab.js",
-        35
-      ]
-    ]
-  },
-  "Certified": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackagesTab.js",
-        200
-      ]
-    ]
-  },
-  "Certified packages are verified by Mesosphere for interoperability with DC/OS.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackagesTab.js",
-        203
-      ]
-    ]
-  },
   "Active": {
     "translation": "",
     "origin": [
       [
         "src/js/components/FrameworkConfigurationReviewScreen.js",
         67
+      ]
+    ]
+  },
+  "Add Package Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        63
       ]
     ]
   },
@@ -139,6 +81,15 @@
       [
         "src/js/components/UnitHealthDropdown.js",
         13
+      ]
+    ]
+  },
+  "An Error Occurred": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        147
       ]
     ]
   },
@@ -174,7 +125,56 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        354
+        357
+      ]
+    ]
+  },
+  "CLI Only Package": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        269
+      ]
+    ]
+  },
+  "Cancel": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        350
+      ]
+    ]
+  },
+  "Catalog": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        35
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        35
+      ]
+    ]
+  },
+  "Certified": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        200
+      ]
+    ]
+  },
+  "Certified packages are verified by Mesosphere for interoperability with DC/OS.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        203
       ]
     ]
   },
@@ -235,33 +235,6 @@
       ]
     ]
   },
-  "Cryptographic Cluster ID": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/system/OverviewDetailTab.js",
-        172
-      ]
-    ]
-  },
-  "Dashboard": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/DashboardPage.js",
-        47
-      ]
-    ]
-  },
-  "Discard": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/components/FrameworkConfiguration.js",
-        347
-      ]
-    ]
-  },
   "Components Not Found": {
     "translation": "",
     "origin": [
@@ -280,6 +253,15 @@
       ]
     ]
   },
+  "Cryptographic Cluster ID": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        172
+      ]
+    ]
+  },
   "DC/OS UI cannot retrieve the requested information at this moment.": {
     "translation": "",
     "origin": [
@@ -289,12 +271,30 @@
       ]
     ]
   },
+  "Dashboard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/DashboardPage.js",
+        47
+      ]
+    ]
+  },
+  "Discard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        352
+      ]
+    ]
+  },
   "Discard Changes?": {
     "translation": "",
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        342
+        345
       ]
     ]
   },
@@ -313,15 +313,6 @@
       [
         "src/js/pages/system/UnitsHealthTab.js",
         214
-      ]
-    ]
-  },
-  "IP Subnet": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
-        28
       ]
     ]
   },
@@ -349,6 +340,15 @@
       [
         "src/js/constants/UnitHealthStatus.js",
         18
+      ]
+    ]
+  },
+  "IP Subnet": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
+        28
       ]
     ]
   },
@@ -384,7 +384,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        169
+        171
       ]
     ]
   },
@@ -394,6 +394,33 @@
       [
         "src/js/components/AccessDeniedPage.js",
         32
+      ]
+    ]
+  },
+  "Looks Like Something is Wrong": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/ErrorModal.js",
+        24
+      ]
+    ]
+  },
+  "Media": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ImageViewer.js",
+        71
+      ]
+    ]
+  },
+  "N/A": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        39
       ]
     ]
   },
@@ -467,33 +494,6 @@
       ]
     ]
   },
-  "Looks Like Something is Wrong": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/components/modals/ErrorModal.js",
-        24
-      ]
-    ]
-  },
-  "Media": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/components/ImageViewer.js",
-        71
-      ]
-    ]
-  },
-  "N/A": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitHealthStatus.js",
-        39
-      ]
-    ]
-  },
   "Overview": {
     "translation": "",
     "origin": [
@@ -543,24 +543,6 @@
       ]
     ]
   },
-  "Success!": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackageDetailTab.js",
-        398
-      ]
-    ]
-  },
-  "Summary": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
-        25
-      ]
-    ]
-  },
   "Services": {
     "translation": "",
     "origin": [
@@ -576,6 +558,24 @@
       [
         "src/js/components/FilterHeadline.js",
         65
+      ]
+    ]
+  },
+  "Success!": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        398
+      ]
+    ]
+  },
+  "Summary": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        25
       ]
     ]
   },
@@ -606,21 +606,21 @@
       ]
     ]
   },
-  "This package can only be installed using the CLI. See the <0>documentation</0>.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackageDetailTab.js",
-        270
-      ]
-    ]
-  },
   "There is an error with your configuration": {
     "translation": "",
     "origin": [
       [
         "src/js/components/ErrorsAlert.js",
         49
+      ]
+    ]
+  },
+  "This package can only be installed using the CLI. See the <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        270
       ]
     ]
   },
@@ -639,6 +639,24 @@
       [
         "src/js/constants/RepositoriesTableHeaderLabels.js",
         6
+      ]
+    ]
+  },
+  "Unable to edit {0}": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsSchemaField.js",
+        31
+      ]
+    ]
+  },
+  "Unhealthy": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        25
       ]
     ]
   },
@@ -661,24 +679,6 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         30
-      ]
-    ]
-  },
-  "Unable to edit {0}": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/components/PlacementConstraintsSchemaField.js",
-        31
-      ]
-    ]
-  },
-  "Unhealthy": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitHealthStatus.js",
-        25
       ]
     ]
   },
@@ -742,6 +742,15 @@
       [
         "src/js/pages/catalog/PackagesTab.js",
         50
+      ]
+    ]
+  },
+  "{0} Info": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/VersionsModal.js",
+        31
       ]
     ]
   },

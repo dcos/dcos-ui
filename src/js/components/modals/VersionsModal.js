@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Modal } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -25,7 +26,11 @@ var VersionsModal = React.createClass({
   },
 
   render() {
-    const header = <ModalHeading>{Config.productName} Info</ModalHeading>;
+    const header = (
+      <ModalHeading>
+        <Trans render="span">{Config.productName} Info</Trans>
+      </ModalHeading>
+    );
 
     return (
       <Modal
