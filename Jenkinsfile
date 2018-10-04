@@ -32,7 +32,6 @@ pipeline {
     stage("Build") {
       steps {
         sh "npm --unsafe-perm install"
-        sh "npx cypress install"
         sh "npm run build"
       }
     }
