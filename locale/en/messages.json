@@ -72,6 +72,10 @@
       [
         "src/js/pages/network/VirtualNetworksTab.js",
         27
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js",
+        23
       ]
     ]
   },
