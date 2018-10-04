@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -42,7 +43,9 @@ const DashboardBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Dashboard">
       <BreadcrumbTextContent>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/dashboard">
+          <Trans render="span">Dashboard</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
