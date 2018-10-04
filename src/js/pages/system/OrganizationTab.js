@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Dropdown, Form, Table } from "reactjs-components";
 import { Hooks } from "PluginSDK";
@@ -49,7 +50,9 @@ const UsersBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Users">
       <BreadcrumbTextContent>
-        <Link to="/organization/users">Users</Link>
+        <Link to="/organization/users">
+          <Trans render="span">Users</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

@@ -200,6 +200,15 @@
       ]
     ]
   },
+  "Users": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OrganizationTab.js",
+        54
+      ]
+    ]
+  },
   "View Documentation": {
     "translation": "",
     "origin": [
