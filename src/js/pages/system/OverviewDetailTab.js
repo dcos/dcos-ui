@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -38,7 +39,9 @@ const SystemOverviewBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Cluster">
       <BreadcrumbTextContent>
-        <Link to="/cluster/overview">Overview</Link>
+        <Link to="/cluster/overview">
+          <Trans render="span">Overview</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -160,18 +163,20 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       <ConfigurationMapSection>
         <ConfigurationMapRow key="version">
           <ConfigurationMapLabel>
-            {Config.productName} Version
+            <Trans render="span">{Config.productName} Version</Trans>
           </ConfigurationMapLabel>
           <ConfigurationMapValue>{productVersion}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="ccid">
           <ConfigurationMapLabel>
-            Cryptographic Cluster ID
+            <Trans render="span">Cryptographic Cluster ID</Trans>
           </ConfigurationMapLabel>
           <ConfigurationMapValue>{ccid}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="publicIP">
-          <ConfigurationMapLabel>Public IP</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans render="span">Public IP</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>{publicIP}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <MountService.Mount
