@@ -75,6 +75,15 @@
       ]
     ]
   },
+  "Cryptographic Cluster ID": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        172
+      ]
+    ]
+  },
   "IP Subnet": {
     "translation": "",
     "origin": [
@@ -143,6 +152,24 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         36
+      ]
+    ]
+  },
+  "Overview": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        43
+      ]
+    ]
+  },
+  "Public IP": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        178
       ]
     ]
   },
@@ -224,6 +251,15 @@
       [
         "src/js/pages/catalog/PackagesTab.js",
         50
+      ]
+    ]
+  },
+  "{0} Version": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        166
       ]
     ]
   },
