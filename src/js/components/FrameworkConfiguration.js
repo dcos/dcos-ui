@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
@@ -167,7 +168,7 @@ class FrameworkConfiguration extends Component {
             onChange={this.handleJSONToggle}
             key="json-editor"
           >
-            JSON Editor
+            <Trans render="span">JSON Editor</Trans>
           </ToggleButton>
         )
       });
@@ -339,7 +340,11 @@ class FrameworkConfiguration extends Component {
         {pageContents}
         <Confirm
           closeByBackdropClick={true}
-          header={<ModalHeading>Discard Changes?</ModalHeading>}
+          header={
+            <ModalHeading>
+              <Trans render="span">Discard Changes?</Trans>
+            </ModalHeading>
+          }
           open={isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
           leftButtonText={i18n._(t`Cancel`)}
@@ -349,10 +354,10 @@ class FrameworkConfiguration extends Component {
           rightButtonCallback={this.handleConfirmGoBack}
           showHeader={true}
         >
-          <p>
+          <Trans render="p">
             Are you sure you want to leave this page? Any data you entered will
             be lost.
-          </p>
+          </Trans>
         </Confirm>
       </FullScreenModal>
     );

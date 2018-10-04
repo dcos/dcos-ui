@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown, Tooltip } from "reactjs-components";
@@ -63,7 +64,9 @@ class FrameworkConfigurationReviewScreen extends React.Component {
             >
               <span className="badge-container">
                 <span className="badge-container-text">{frameworkMeta}</span>
-                <span className="badge">Active</span>
+                <Trans render="span" className="badge">
+                  Active
+                </Trans>
               </span>
             </span>
           </div>
