@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import Batch from "#SRC/js/structs/Batch";
@@ -26,7 +27,9 @@ const JsonField = props => (
   <div>
     <FieldLabel>{props.label}</FieldLabel>
     <pre>{JSON.stringify(props.json, props.replacer, props.space)}</pre>
-    <FieldError>Unable to edit {props.fieldName}</FieldError>
+    <FieldError>
+      <Trans render="span">Unable to edit {props.fieldName}</Trans>
+    </FieldError>
   </div>
 );
 

@@ -15,8 +15,11 @@ exports[`PlacementConstraintsSchemaField with invalid content displays form to e
   <p
     className="form-control-feedback"
   >
-    Unable to edit 
-    placement_constraints
+    <span
+      className={undefined}
+    >
+      Unable to edit {0}
+    </span>
   </p>
 </div>
 `;
@@ -63,7 +66,11 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
               />
             </svg>
             <span>
-              Add Placement Constraint
+              <span
+                className={undefined}
+              >
+                Add Placement Constraint
+              </span>
             </span>
           </a>
         </div>
