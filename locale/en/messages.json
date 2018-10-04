@@ -160,6 +160,15 @@
       ]
     ]
   },
+  "Choose your operating system and follow the instructions. For any issues or questions, please refer to our <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        172
+      ]
+    ]
+  },
   "Close": {
     "translation": "",
     "origin": [
@@ -244,6 +253,15 @@
       ]
     ]
   },
+  "Copy and paste the code snippet into the terminal:": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        94
+      ]
+    ]
+  },
   "DC/OS UI cannot retrieve the requested information at this moment.": {
     "translation": "",
     "origin": [
@@ -289,12 +307,39 @@
       ]
     ]
   },
+  "Download and install: <0><1/> Download dcos.exe</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        137
+      ]
+    ]
+  },
+  "Enter": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        119
+      ]
+    ]
+  },
   "Healthy": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitHealthStatus.js",
         18
+      ]
+    ]
+  },
+  "In Command Prompt, enter": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        118
       ]
     ]
   },
