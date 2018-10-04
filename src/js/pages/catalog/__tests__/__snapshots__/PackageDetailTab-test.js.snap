@@ -608,7 +608,10 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
                 disabled={true}
                 onClick={[Function]}
               >
-                Review & Run
+                <WithI18n
+                  id="Review & Run"
+                  render="span"
+                />
               </button>
             </Tooltip>
           </div>
@@ -646,16 +649,21 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
               size="large"
             />
           </span>
-          <h2
+          <WithI18n
             className="short-top short-bottom"
-          >
-            Success!
-          </h2>
-          <div
+            id="Success!"
+            render="h2"
+          />
+          <WithI18n
             className="install-package-modal-package-notes text-overflow-break-word"
-          >
-            Marathon is being installed.
-          </div>
+            id="{0} is being installed."
+            render="div"
+            values={
+              Object {
+                "0": "Marathon",
+              }
+            }
+          />
         </div>
       </div>
       <div
@@ -668,7 +676,10 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
             className="button button-success button-block"
             href="#/services/detail/undefined"
           >
-            Open Service
+            <WithI18n
+              id="Open Service"
+              render="span"
+            />
           </a>
         </div>
       </div>

@@ -1,10 +1,73 @@
 {
+  "CLI Only Package": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        269
+      ]
+    ]
+  },
+  "Catalog": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        35
+      ]
+    ]
+  },
+  "Open Service": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        416
+      ]
+    ]
+  },
+  "Review & Run": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        322
+      ]
+    ]
+  },
+  "Success!": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        397
+      ]
+    ]
+  },
+  "This package can only be installed using the CLI. See the <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        270
+      ]
+    ]
+  },
   "Total Tasks": {
     "translation": "",
     "origin": [
       [
         "src/js/components/charts/TasksChart.js",
-        120
+        119
+      ]
+    ]
+  },
+  "{0} is being installed.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        400
       ]
     ]
   }
