@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
@@ -64,15 +66,13 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   getConfirmTextBody(selectedItems, selectedItemsLength) {
-    let bodyText;
+    const bodyText =
+      selectedItemsLength === 1
+        ? i18nMark("You are about to stop the job run with id") +
+          ` ${selectedItems[0]}.`
+        : i18nMark("You are about to stop the selected job runs.");
 
-    if (selectedItemsLength === 1) {
-      bodyText = `the job run with id ${selectedItems[0]}`;
-    } else {
-      bodyText = "the selected job runs";
-    }
-
-    return <span key="confirmText">You are about to stop {bodyText}.</span>;
+    return <Trans render="span" id={bodyText} />;
   }
 
   getModalContents() {

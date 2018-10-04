@@ -682,6 +682,24 @@
       ]
     ]
   },
+  "You are about to stop the job run with id": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        71
+      ]
+    ]
+  },
+  "You are about to stop the selected job runs.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        73
+      ]
+    ]
+  },
   "You can also join us on our <0>Slack channel</0> or send us an email at {supportLink}.": {
     "translation": "",
     "origin": [
