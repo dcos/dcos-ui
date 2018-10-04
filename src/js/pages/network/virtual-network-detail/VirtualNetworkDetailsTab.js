@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -17,11 +18,15 @@ class VirtualNetworkDetailsTab extends React.Component {
         <ConfigurationMap>
           <ConfigurationMapSection>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Name</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Name</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>{overlay.getName()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>IP Subnet</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">IP Subnet</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {overlay.getSubnet()}
               </ConfigurationMapValue>
