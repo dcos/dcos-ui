@@ -194,6 +194,15 @@
       ]
     ]
   },
+  "Page not found": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/NotFoundPage.js",
+        28
+      ]
+    ]
+  },
   "Public IP": {
     "translation": "",
     "origin": [
@@ -227,6 +236,15 @@
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
         25
+      ]
+    ]
+  },
+  "The page you requested cannot be found. Check the address you provided, or head back to the <0>Dashboard</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/NotFoundPage.js",
+        30
       ]
     ]
   },
