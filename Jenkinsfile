@@ -62,7 +62,7 @@ pipeline {
               ]
             ]) {
               retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+                sh "dcos-system-test-driver -v ./system-tests/driver-config/jenkins.sh"
               }
             }
           }
