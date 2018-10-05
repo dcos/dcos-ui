@@ -654,16 +654,11 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
             id="Success!"
             render="h2"
           />
-          <WithI18n
+          <div
             className="install-package-modal-package-notes text-overflow-break-word"
-            id="{0} is being installed."
-            render="div"
-            values={
-              Object {
-                "0": "Marathon",
-              }
-            }
-          />
+          >
+            Marathon is being installed.
+          </div>
         </div>
       </div>
       <div
