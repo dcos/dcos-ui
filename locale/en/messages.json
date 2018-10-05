@@ -172,7 +172,7 @@
     "origin": [
       [
         "src/js/pages/catalog/PackageDetailTab.js",
-        416
+        414
       ]
     ]
   },
@@ -226,7 +226,7 @@
     "origin": [
       [
         "src/js/pages/catalog/PackageDetailTab.js",
-        397
+        398
       ]
     ]
   },
@@ -312,15 +312,6 @@
       [
         "src/js/pages/system/OverviewDetailTab.js",
         166
-      ]
-    ]
-  },
-  "{0} is being installed.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackageDetailTab.js",
-        400
       ]
     ]
   },

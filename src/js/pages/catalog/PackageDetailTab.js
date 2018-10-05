@@ -381,6 +381,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getInstalledSuccessModal(name) {
     const { location } = this.props;
+    const installMessage = `${StringUtil.capitalize(name)} is being installed.`;
 
     return (
       <Modal
@@ -397,12 +398,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
               <Trans render="h2" className="short-top short-bottom">
                 Success!
               </Trans>
-              <Trans
-                render="div"
-                className="install-package-modal-package-notes text-overflow-break-word"
-              >
-                {`${StringUtil.capitalize(name)} is being installed.`}
-              </Trans>
+              <div className="install-package-modal-package-notes text-overflow-break-word">
+                {installMessage}
+              </div>
             </div>
           </div>
           <div className="modal-footer">
