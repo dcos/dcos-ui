@@ -175,6 +175,7 @@ describe("Packages Tab", function() {
         .click();
       cy.get(".button.button-primary")
         .contains("Review & Run")
+        .parent()
         .should("be.disabled");
     });
   });
