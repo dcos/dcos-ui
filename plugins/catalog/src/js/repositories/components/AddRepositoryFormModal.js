@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
+import { Trans } from "@lingui/macro";
 
 import FormModal from "#SRC/js/components/FormModal";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
@@ -108,7 +109,11 @@ class AddRepositoryFormModal extends React.Component {
         disabled={props.pendingRequest}
         buttonDefinition={this.getButtonDefinition()}
         modalProps={{
-          header: <ModalHeading>Add Repository</ModalHeading>,
+          header: (
+            <ModalHeading>
+              <Trans render="span">Add Repository</Trans>
+            </ModalHeading>
+          ),
           showHeader: true
         }}
         onSubmit={this.handleAddRepository}
