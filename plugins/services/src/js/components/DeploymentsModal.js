@@ -229,7 +229,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
         href={`#/services/overview/${encodeURIComponent(servicePath)}`}
         onClick={this.props.onClose}
       >
-        {`services${ServicePath}`}
+        {`Services${servicePath}`}
       </a>
     );
   }
