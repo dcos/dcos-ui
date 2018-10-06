@@ -142,6 +142,15 @@
       ]
     ]
   },
+  "Add Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js",
+        114
+      ]
+    ]
+  },
   "Add Secret": {
     "translation": "",
     "origin": [
@@ -1353,6 +1362,15 @@
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         54
+      ]
+    ]
+  },
+  "Package Repositories": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/RepositoriesPage.js",
+        14
       ]
     ]
   },
