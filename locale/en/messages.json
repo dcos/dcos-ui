@@ -26,6 +26,15 @@
       ]
     ]
   },
+  "Cancel": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        345
+      ]
+    ]
+  },
   "Catalog": {
     "translation": "",
     "origin": [
@@ -101,6 +110,15 @@
       ]
     ]
   },
+  "Discard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        347
+      ]
+    ]
+  },
   "Download Snapshot": {
     "translation": "",
     "origin": [
@@ -122,6 +140,10 @@
   "Name": {
     "translation": "",
     "origin": [
+      [
+        "src/js/constants/RepositoriesTableHeaderLabels.js",
+        4
+      ],
       [
         "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
         22
@@ -203,6 +225,15 @@
       ]
     ]
   },
+  "Priority": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/RepositoriesTableHeaderLabels.js",
+        5
+      ]
+    ]
+  },
   "Public IP": {
     "translation": "",
     "origin": [
@@ -272,6 +303,15 @@
       [
         "src/js/components/charts/TasksChart.js",
         119
+      ]
+    ]
+  },
+  "URL": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/RepositoriesTableHeaderLabels.js",
+        6
       ]
     ]
   },
