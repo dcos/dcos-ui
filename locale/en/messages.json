@@ -1369,6 +1369,15 @@
       ]
     ]
   },
+  "N/A": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
+        323
+      ]
+    ]
+  },
   "Name": {
     "translation": "",
     "origin": [
@@ -2010,6 +2019,15 @@
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
         218
+      ]
+    ]
+  },
+  "Stop": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
+        219
       ]
     ]
   },
