@@ -57,6 +57,10 @@
     "translation": "",
     "origin": [
       [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        76
+      ],
+      [
         "src/js/components/FrameworkConfigurationReviewScreen.js",
         67
       ]
@@ -373,6 +377,10 @@
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         32
+      ],
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        141
       ]
     ]
   },
@@ -742,6 +750,15 @@
       ]
     ]
   },
+  "Disk": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        125
+      ]
+    ]
+  },
   "Disk Space (Mib)": {
     "translation": "",
     "origin": [
@@ -1004,6 +1021,10 @@
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         72
+      ],
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        70
       ]
     ]
   },
@@ -1285,12 +1306,30 @@
       ]
     ]
   },
+  "Master Version": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        92
+      ]
+    ]
+  },
   "Media": {
     "translation": "",
     "origin": [
       [
         "src/js/components/ImageViewer.js",
         71
+      ]
+    ]
+  },
+  "Mem": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        133
       ]
     ]
   },
@@ -1674,6 +1713,19 @@
       [
         ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
         84
+      ],
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        100
+      ]
+    ]
+  },
+  "Registered": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        84
       ]
     ]
   },
@@ -1696,6 +1748,15 @@
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         481
+      ]
+    ]
+  },
+  "Resources": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        121
       ]
     ]
   },
@@ -2391,6 +2452,15 @@
       [
         "src/js/pages/catalog/PackagesTab.js",
         50
+      ]
+    ]
+  },
+  "Zone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        111
       ]
     ]
   },
