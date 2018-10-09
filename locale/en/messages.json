@@ -652,6 +652,24 @@
       ]
     ]
   },
+  "Create a Job": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewEmpty.tsx",
+        35
+      ]
+    ]
+  },
+  "Create both one-off or scheduled jobs to perform tasks at a predefined interval.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewEmpty.tsx",
+        29
+      ]
+    ]
+  },
   "Cryptographic Cluster ID": {
     "translation": "",
     "origin": [
@@ -1473,6 +1491,15 @@
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
         87
+      ]
+    ]
+  },
+  "No active jobs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewEmpty.tsx",
+        27
       ]
     ]
   },

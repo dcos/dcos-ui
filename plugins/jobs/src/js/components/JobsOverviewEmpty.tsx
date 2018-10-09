@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import * as React from "react";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
@@ -41,17 +42,19 @@ export default class JobsOverviewEmpty extends React.Component<
     return (
       <JobsPage jobPath={jobPath}>
         <AlertPanel>
-          <AlertPanelHeader>No active jobs</AlertPanelHeader>
-          <p className="tall">
+          <AlertPanelHeader>
+            <Trans>No active jobs</Trans>
+          </AlertPanelHeader>
+          <Trans render="p" className="tall">
             Create both one-off or scheduled jobs to perform tasks at a
             predefined interval.
-          </p>
+          </Trans>
           <div className="button-collection flush-bottom">
             <button
               className="button button-primary"
               onClick={this.handleOpenJobFormModal}
             >
-              Create a Job
+              <Trans>Create a Job</Trans>
             </button>
           </div>
         </AlertPanel>
