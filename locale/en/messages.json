@@ -1365,6 +1365,100 @@
       ]
     ]
   },
+  "CPUs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        32
+      ]
+    ]
+  },
+  "CRON Schedule": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        84
+      ]
+    ]
+  },
+  "Command": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        50
+      ]
+    ]
+  },
+  "Description": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        26
+      ]
+    ]
+  },
+  "Disk Space (Mib)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        44
+      ]
+    ]
+  },
+  "Docker Container": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        106
+      ]
+    ]
+  },
+  "Enabled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        78
+      ]
+    ]
+  },
+  "General": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        16
+      ]
+    ]
+  },
+  "ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        20
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        72
+      ]
+    ]
+  },
+  "Image": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        110
+      ]
+    ]
+  },
   "Jobs": {
     "translation": "",
     "origin": [
@@ -1389,6 +1483,15 @@
       [
         "plugins/jobs/src/js/components/JobsOverviewTable.js",
         249
+      ]
+    ]
+  },
+  "Memory (MiB)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        38
       ]
     ]
   },
@@ -1909,6 +2012,33 @@
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         181
+      ]
+    ]
+  },
+  "Schedule": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        68
+      ]
+    ]
+  },
+  "Starting Deadline": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        96
+      ]
+    ]
+  },
+  "Time Zone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        90
       ]
     ]
   },

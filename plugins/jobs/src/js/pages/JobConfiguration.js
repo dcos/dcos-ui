@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -11,29 +12,43 @@ import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 
 const GeneralSection = ({ id, description, cpus, mem, disk, command }) => (
   <ConfigurationMapSection>
-    <ConfigurationMapHeading>General</ConfigurationMapHeading>
+    <ConfigurationMapHeading>
+      <Trans>General</Trans>
+    </ConfigurationMapHeading>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>ID</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>ID</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{id}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Description</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Description</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{description}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>CPUs</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{cpus}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Memory (MiB)</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Memory (MiB)</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{mem}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Disk Space (Mib)</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Disk Space (Mib)</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{disk}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Command</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Command</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>
         <pre className="flush transparent wrap">{command}</pre>
       </ConfigurationMapValue>
@@ -49,25 +64,37 @@ const ScheduleSection = ({
   startingDeadlineSeconds
 }) => (
   <ConfigurationMapSection>
-    <ConfigurationMapHeading>Schedule</ConfigurationMapHeading>
+    <ConfigurationMapHeading>
+      <Trans>Schedule</Trans>
+    </ConfigurationMapHeading>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>ID</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>ID</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{id}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Enabled</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Enabled</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{enabled}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>CRON Schedule</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>CRON Schedule</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{cron}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Time Zone</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Time Zone</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{timezone}</ConfigurationMapValue>
     </ConfigurationMapRow>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Starting Deadline</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Starting Deadline</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{startingDeadlineSeconds}</ConfigurationMapValue>
     </ConfigurationMapRow>
   </ConfigurationMapSection>
@@ -75,9 +102,13 @@ const ScheduleSection = ({
 
 const DockerContainerSection = ({ image }) => (
   <ConfigurationMapSection>
-    <ConfigurationMapHeading>Docker Container</ConfigurationMapHeading>
+    <ConfigurationMapHeading>
+      <Trans>Docker Container</Trans>
+    </ConfigurationMapHeading>
     <ConfigurationMapRow>
-      <ConfigurationMapLabel>Image</ConfigurationMapLabel>
+      <ConfigurationMapLabel>
+        <Trans>Image</Trans>
+      </ConfigurationMapLabel>
       <ConfigurationMapValue>{image}</ConfigurationMapValue>
     </ConfigurationMapRow>
   </ConfigurationMapSection>
