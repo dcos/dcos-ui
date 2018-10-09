@@ -89,6 +89,9 @@ module.exports = {
             loader: "thread-loader"
           },
           {
+            loader: "babel-loader"
+          },
+          {
             loader: "ts-loader",
             options: {
               happyPackMode: true

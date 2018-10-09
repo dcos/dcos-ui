@@ -91,6 +91,7 @@
     "@sentry/cli": "1.35.6",
     "@types/events": "1.2.0",
     "@types/jest": "22.2.3",
+    "@types/lingui__react": "2.5.0",
     "@types/prop-types": "15.5.3",
     "@types/react": "15.0.39",
     "@types/react-router": "2.0.54",
