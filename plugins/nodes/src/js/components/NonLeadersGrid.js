@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -35,7 +36,9 @@ const NonLeader = ({ master }) => {
 };
 
 const EmptyLeaderList = () => {
-  return <div>There are no more known masters in this cluster.</div>;
+  return (
+    <Trans render="div">There are no more known masters in this cluster.</Trans>
+  );
 };
 
 const NonLeaderList = ({ masters }) => {
@@ -64,7 +67,7 @@ export default function NonLeaderGrid({ masters }) {
     <div className="container">
       <ConfigurationMap>
         <ConfigurationMapHeading className="flush-top">
-          Non-Leaders
+          <Trans render="span">Non-Leaders</Trans>
         </ConfigurationMapHeading>
         {content}
       </ConfigurationMap>

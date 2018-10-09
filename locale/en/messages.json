@@ -1513,6 +1513,15 @@
       ]
     ]
   },
+  "Non-Leaders": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NonLeadersGrid.js",
+        70
+      ]
+    ]
+  },
   "Other": {
     "translation": "",
     "origin": [
@@ -2057,6 +2066,15 @@
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         96
+      ]
+    ]
+  },
+  "There are no more known masters in this cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NonLeadersGrid.js",
+        40
       ]
     ]
   },
