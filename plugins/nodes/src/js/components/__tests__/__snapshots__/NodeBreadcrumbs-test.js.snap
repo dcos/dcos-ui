@@ -41,7 +41,11 @@ exports[`NodeBreadcrumbs renders no node breadcrumbs if node cant be found 1`] =
         onClick={[Function]}
         style={Object {}}
       >
-        Nodes
+        <span
+          className={undefined}
+        >
+          Nodes
+        </span>
       </a>
     </div>
   </div>
@@ -89,7 +93,11 @@ exports[`NodeBreadcrumbs renders no unitID breadcrumbs without nodeID 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        Nodes
+        <span
+          className={undefined}
+        >
+          Nodes
+        </span>
       </a>
     </div>
   </div>
@@ -137,7 +145,11 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        Nodes
+        <span
+          className={undefined}
+        >
+          Nodes
+        </span>
       </a>
     </div>
   </div>
@@ -210,7 +222,11 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        Nodes
+        <span
+          className={undefined}
+        >
+          Nodes
+        </span>
       </a>
     </div>
   </div>
@@ -283,7 +299,11 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        Nodes
+        <span
+          className={undefined}
+        >
+          Nodes
+        </span>
       </a>
     </div>
   </div>
@@ -388,7 +408,11 @@ exports[`NodeBreadcrumbs renders without breadcrumbs 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        Nodes
+        <span
+          className={undefined}
+        >
+          Nodes
+        </span>
       </a>
     </div>
   </div>

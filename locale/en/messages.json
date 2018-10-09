@@ -1504,6 +1504,15 @@
       ]
     ]
   },
+  "Nodes": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NodeBreadcrumbs.js",
+        18
+      ]
+    ]
+  },
   "Package Repositories": {
     "translation": "",
     "origin": [
