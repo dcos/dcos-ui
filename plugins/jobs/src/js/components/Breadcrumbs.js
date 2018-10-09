@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
@@ -10,7 +11,9 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
   let breadcrumbParts = [
     <Breadcrumb key={"Jobs"} title="Jobs">
       <BreadcrumbTextContent>
-        <Link to={"/jobs/overview/"}>{"Jobs"}</Link>
+        <Link to={"/jobs/overview/"}>
+          <Trans render="span">Jobs</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

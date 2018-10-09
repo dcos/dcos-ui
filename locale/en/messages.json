@@ -1365,6 +1365,15 @@
       ]
     ]
   },
+  "Jobs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/Breadcrumbs.js",
+        15
+      ]
+    ]
+  },
   "Package Repositories": {
     "translation": "",
     "origin": [
