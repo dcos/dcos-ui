@@ -367,6 +367,24 @@
       ]
     ]
   },
+  "CPUs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        32
+      ]
+    ]
+  },
+  "CRON Schedule": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        84
+      ]
+    ]
+  },
   "Callback URL": {
     "translation": "",
     "origin": [
@@ -481,6 +499,15 @@
       [
         "src/js/components/ClusterHeader.js",
         59
+      ]
+    ]
+  },
+  "Command": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        50
       ]
     ]
   },
@@ -681,6 +708,19 @@
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
         207
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        26
+      ]
+    ]
+  },
+  "Did not find a node by the id \"{nodeID}\"": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailPage.js",
+        130
       ]
     ]
   },
@@ -699,6 +739,24 @@
       [
         "src/js/components/FrameworkConfiguration.js",
         344
+      ]
+    ]
+  },
+  "Disk Space (Mib)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        44
+      ]
+    ]
+  },
+  "Docker Container": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        106
       ]
     ]
   },
@@ -781,6 +839,15 @@
       ]
     ]
   },
+  "Enabled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        78
+      ]
+    ]
+  },
   "Enter": {
     "translation": "",
     "origin": [
@@ -796,6 +863,15 @@
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
         91
+      ]
+    ]
+  },
+  "Error finding node": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailPage.js",
+        127
       ]
     ]
   },
@@ -856,6 +932,24 @@
       ]
     ]
   },
+  "General": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        16
+      ]
+    ]
+  },
+  "Grid": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        234
+      ]
+    ]
+  },
   "Group Search": {
     "translation": "",
     "origin": [
@@ -896,21 +990,20 @@
       ]
     ]
   },
-  "Grid": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/pages/NodesAgents.js",
-        234
-      ]
-    ]
-  },
   "ID": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
         197
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        20
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        72
       ]
     ]
   },
@@ -987,6 +1080,15 @@
       [
         ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
         83
+      ]
+    ]
+  },
+  "Image": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        110
       ]
     ]
   },
@@ -1071,12 +1173,48 @@
       ]
     ]
   },
+  "Jobs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/Breadcrumbs.js",
+        15
+      ]
+    ]
+  },
   "LDAP Directory": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         38
+      ]
+    ]
+  },
+  "Last Failure:": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewTable.js",
+        260
+      ]
+    ]
+  },
+  "Last Success:": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewTable.js",
+        249
+      ]
+    ]
+  },
+  "Leader": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/LeaderGrid.js",
+        33
       ]
     ]
   },
@@ -1108,6 +1246,15 @@
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
         25
+      ]
+    ]
+  },
+  "List": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        224
       ]
     ]
   },
@@ -1144,6 +1291,15 @@
       [
         "src/js/components/ImageViewer.js",
         71
+      ]
+    ]
+  },
+  "Memory (MiB)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        38
       ]
     ]
   },
@@ -1246,6 +1402,15 @@
       ]
     ]
   },
+  "No nodes detected": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        301
+      ]
+    ]
+  },
   "No package repositories": {
     "translation": "",
     "origin": [
@@ -1279,6 +1444,24 @@
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
         93
+      ]
+    ]
+  },
+  "Nodes": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NodeBreadcrumbs.js",
+        18
+      ]
+    ]
+  },
+  "Non-Leaders": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NonLeadersGrid.js",
+        70
       ]
     ]
   },
@@ -1335,6 +1518,15 @@
       ]
     ]
   },
+  "Other": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NodesGridView.js",
+        94
+      ]
+    ]
+  },
   "Output": {
     "translation": "",
     "origin": [
@@ -1371,190 +1563,6 @@
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         54
-      ]
-    ]
-  },
-  "CPUs": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        32
-      ]
-    ]
-  },
-  "CRON Schedule": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        84
-      ]
-    ]
-  },
-  "Command": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        50
-      ]
-    ]
-  },
-  "Description": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        26
-      ]
-    ]
-  },
-  "Disk Space (Mib)": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        44
-      ]
-    ]
-  },
-  "Docker Container": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        106
-      ]
-    ]
-  },
-  "Enabled": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        78
-      ]
-    ]
-  },
-  "General": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        16
-      ]
-    ]
-  },
-  "ID": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        20
-      ],
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        72
-      ]
-    ]
-  },
-  "Image": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        110
-      ]
-    ]
-  },
-  "Jobs": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/components/Breadcrumbs.js",
-        15
-      ]
-    ]
-  },
-  "Last Failure:": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/components/JobsOverviewTable.js",
-        260
-      ]
-    ]
-  },
-  "Last Success:": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/components/JobsOverviewTable.js",
-        249
-      ]
-    ]
-  },
-  "Leader": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/components/LeaderGrid.js",
-        33
-      ]
-    ]
-  },
-  "List": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/pages/NodesAgents.js",
-        224
-      ]
-    ]
-  },
-  "Memory (MiB)": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        38
-      ]
-    ]
-  },
-  "No nodes detected": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/pages/NodesAgents.js",
-        301
-      ]
-    ]
-  },
-  "Nodes": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/components/NodeBreadcrumbs.js",
-        18
-      ]
-    ]
-  },
-  "Non-Leaders": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/components/NonLeadersGrid.js",
-        70
-      ]
-    ]
-  },
-  "Other": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/components/NodesGridView.js",
-        94
       ]
     ]
   },
@@ -1727,6 +1735,15 @@
       ]
     ]
   },
+  "Schedule": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        68
+      ]
+    ]
+  },
   "Secret": {
     "translation": "",
     "origin": [
@@ -1890,6 +1907,15 @@
       ]
     ]
   },
+  "Starting Deadline": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        96
+      ]
+    ]
+  },
   "Store": {
     "translation": "",
     "origin": [
@@ -2006,12 +2032,30 @@
       ]
     ]
   },
+  "There a currently no other nodes in your datacenter other than your DC/OS master node.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        303
+      ]
+    ]
+  },
   "There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster.": {
     "translation": "",
     "origin": [
       [
         "src/js/pages/network/VirtualNetworksTab.js",
         93
+      ]
+    ]
+  },
+  "There are no more known masters in this cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NonLeadersGrid.js",
+        40
       ]
     ]
   },
@@ -2060,6 +2104,15 @@
       ]
     ]
   },
+  "Time Zone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        90
+      ]
+    ]
+  },
   "To enable this feature please contact support via {slackLink} or send us an email at {supportLink}.": {
     "translation": "",
     "origin": [
@@ -2075,51 +2128,6 @@
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         181
-      ]
-    ]
-  },
-  "Schedule": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        68
-      ]
-    ]
-  },
-  "Starting Deadline": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        96
-      ]
-    ]
-  },
-  "There a currently no other nodes in your datacenter other than your DC/OS master node.": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/pages/NodesAgents.js",
-        303
-      ]
-    ]
-  },
-  "There are no more known masters in this cluster.": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/nodes/src/js/components/NonLeadersGrid.js",
-        40
-      ]
-    ]
-  },
-  "Time Zone": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/pages/JobConfiguration.js",
-        90
       ]
     ]
   },
