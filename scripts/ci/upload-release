@@ -28,13 +28,11 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 # project root for this file
 PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 
-# get correct DC/OS target (=base branch!) from .dcosrc file
-PKG_TARGET=$(python -c "import sys, json; \
-  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
-  sys.stdout.write(str(dcosrc['base']));")
-
 # next release version (passed in by semantic-release)
 PKG_VERSION="${1}"
+
+# get correct DC/OS target (=base branch!) (passed in by semantic-release)
+PKG_TARGET="${2}"
 
 # build release name for branch and file names
 # Examples:
