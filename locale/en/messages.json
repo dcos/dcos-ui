@@ -298,6 +298,15 @@
       ]
     ]
   },
+  "Are you sure you want to stop {headerContent}?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobStopRunModal.js",
+        16
+      ]
+    ]
+  },
   "Are you sure?": {
     "translation": "",
     "origin": [
@@ -362,15 +371,6 @@
       ]
     ]
   },
-  "Are you sure you want to stop {headerContent}?": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/components/JobStopRunModal.js",
-        16
-      ]
-    ]
-  },
   "CLI Only Package": {
     "translation": "",
     "origin": [
@@ -425,6 +425,10 @@
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
         167
+      ],
+      [
+        "plugins/jobs/src/js/components/JobFormModal.tsx",
+        44
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
@@ -1212,6 +1216,15 @@
       ]
     ]
   },
+  "JSON mode": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobFormModal.tsx",
+        61
+      ]
+    ]
+  },
   "Jobs": {
     "translation": "",
     "origin": [
@@ -1364,17 +1377,12 @@
     "translation": "",
     "origin": [
       [
-        "src/js/constants/UnitHealthStatus.js",
-        39
-      ]
-    ]
-  },
-  "N/A": {
-    "translation": "",
-    "origin": [
-      [
         "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
         323
+      ],
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        39
       ]
     ]
   },
@@ -1769,21 +1777,21 @@
       ]
     ]
   },
-  "Resource": {
-    "translation": "",
-    "origin": [
-      [
-        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
-        481
-      ]
-    ]
-  },
   "Repository ({label}) will be {0} from {1}. You will not be able to install any packages belonging to that repository anymore.": {
     "translation": "",
     "origin": [
       [
         "plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js",
         15
+      ]
+    ]
+  },
+  "Resource": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        481
       ]
     ]
   },
@@ -2013,21 +2021,21 @@
       ]
     ]
   },
-  "Store": {
-    "translation": "",
-    "origin": [
-      [
-        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
-        218
-      ]
-    ]
-  },
   "Stop": {
     "translation": "",
     "origin": [
       [
         "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
         219
+      ]
+    ]
+  },
+  "Store": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        218
       ]
     ]
   },
@@ -2437,6 +2445,15 @@
       ]
     ]
   },
+  "You are about to stop {bodyText}.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobStopRunModal.js",
+        34
+      ]
+    ]
+  },
   "You can also join us on our <0>Slack channel</0> or send us an email at <1>{0}</1>.": {
     "translation": "",
     "origin": [
@@ -2488,15 +2505,6 @@
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
         64
-      ]
-    ]
-  },
-  "You are about to stop {bodyText}.": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/components/JobStopRunModal.js",
-        34
       ]
     ]
   },
