@@ -10,9 +10,15 @@ exports[`LeaderGrid renders empty 1`] = `
     <h1
       className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
     >
-      Non-Leaders
+      <span
+        className={undefined}
+      >
+        Non-Leaders
+      </span>
     </h1>
-    <div>
+    <div
+      className={undefined}
+    >
       There are no more known masters in this cluster.
     </div>
   </div>
@@ -29,7 +35,11 @@ exports[`LeaderGrid renders loading 1`] = `
     <h1
       className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
     >
-      Non-Leaders
+      <span
+        className={undefined}
+      >
+        Non-Leaders
+      </span>
     </h1>
     <div
       className="loader horizontal-center"
@@ -62,7 +72,11 @@ exports[`LeaderGrid renders masters 1`] = `
     <h1
       className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
     >
-      Non-Leaders
+      <span
+        className={undefined}
+      >
+        Non-Leaders
+      </span>
     </h1>
     <div
       className="configuration-map-section"
