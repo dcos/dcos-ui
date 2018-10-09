@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
@@ -90,7 +91,7 @@ var NodesGridView = React.createClass({
       items.push(
         <li key="other">
           <span className={classNameOther} />
-          <span>Other</span>
+          <Trans render="span">Other</Trans>
         </li>
       );
     }
