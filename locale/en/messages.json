@@ -1721,6 +1721,15 @@
       ]
     ]
   },
+  "Please contact your system administrator or see the <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/oauth/components/LoginPage.js",
+        118
+      ]
+    ]
+  },
   "Priority": {
     "translation": "",
     "origin": [
@@ -2372,6 +2381,15 @@
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         149
+      ]
+    ]
+  },
+  "Unable to login to your DC/OS cluster. Clusters must be connected to the internet.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/oauth/components/LoginPage.js",
+        113
       ]
     ]
   },
