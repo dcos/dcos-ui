@@ -1513,6 +1513,15 @@
       ]
     ]
   },
+  "Other": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NodesGridView.js",
+        94
+      ]
+    ]
+  },
   "Package Repositories": {
     "translation": "",
     "origin": [
