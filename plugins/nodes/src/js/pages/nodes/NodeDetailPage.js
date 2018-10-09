@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -123,8 +124,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       <Page>
         <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
         <div className="pod text-align-center">
-          <h3 className="flush-top text-align-center">Error finding node</h3>
-          <p className="flush">{`Did not find a node by the id "${nodeID}"`}</p>
+          <Trans render="h3" className="flush-top text-align-center">
+            Error finding node
+          </Trans>
+          <Trans render="p" className="flush">
+            Did not find a node by the id "{nodeID}"
+          </Trans>
         </div>
       </Page>
     );
