@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import { Link } from "react-router";
 
@@ -14,7 +15,7 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
     <Breadcrumb key={-1} title="Nodes">
       <BreadcrumbTextContent>
         <Link to="/nodes" key={-1}>
-          Nodes
+          <Trans render="span">Nodes</Trans>
         </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
