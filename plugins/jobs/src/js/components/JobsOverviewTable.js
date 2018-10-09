@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import prettycron from "prettycron";
@@ -245,7 +246,9 @@ export default class JobsOverviewTable extends React.Component {
     if (lastSuccessAt != null) {
       nodes.push(
         <p className="flush-bottom" key="tooltip-success-at">
-          <span className="text-success">Last Success: </span>
+          <Trans render="span" className="text-success">
+            Last Success:
+          </Trans>
           {new Date(lastSuccessAt).toLocaleString()}
         </p>
       );
@@ -254,7 +257,9 @@ export default class JobsOverviewTable extends React.Component {
     if (lastFailureAt != null) {
       nodes.push(
         <p className="flush-bottom" key="tooltip-failure-at">
-          <span className="text-danger">Last Failure: </span>
+          <Trans render="span" className="text-danger">
+            Last Failure:
+          </Trans>
           {new Date(lastFailureAt).toLocaleString()}
         </p>
       );

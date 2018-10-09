@@ -1374,6 +1374,24 @@
       ]
     ]
   },
+  "Last Failure:": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewTable.js",
+        260
+      ]
+    ]
+  },
+  "Last Success:": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewTable.js",
+        249
+      ]
+    ]
+  },
   "Package Repositories": {
     "translation": "",
     "origin": [
