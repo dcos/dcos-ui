@@ -2554,6 +2554,15 @@
       ]
     ]
   },
+  "{0} Job": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobDeleteModal.js",
+        30
+      ]
+    ]
+  },
   "{0} Version": {
     "translation": "",
     "origin": [

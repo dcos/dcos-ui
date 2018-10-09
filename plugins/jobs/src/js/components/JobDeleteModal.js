@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import * as React from "react";
 import { Confirm } from "reactjs-components";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -26,9 +27,9 @@ const ModalMessage = ({ jobId, stopCurrentJobRuns }) => {
 
   return (
     <div>
-      <h2 className="text-danger text-align-center flush-top">
+      <Trans render="h2" className="text-danger text-align-center flush-top">
         {StringUtil.capitalize(UserActions.DELETE)} Job
-      </h2>
+      </Trans>
       <p>{stopCurrentJobRuns ? stopCurrentRunsMessage : defaultMessage}</p>
     </div>
   );
