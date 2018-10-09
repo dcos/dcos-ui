@@ -362,6 +362,15 @@
       ]
     ]
   },
+  "Are you sure you want to stop {headerContent}?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobStopRunModal.js",
+        16
+      ]
+    ]
+  },
   "CLI Only Package": {
     "translation": "",
     "origin": [
@@ -2461,6 +2470,15 @@
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
         64
+      ]
+    ]
+  },
+  "You are about to stop {bodyText}.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobStopRunModal.js",
+        34
       ]
     ]
   },
