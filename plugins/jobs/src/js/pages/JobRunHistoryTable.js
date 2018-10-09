@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
@@ -215,7 +216,7 @@ class JobRunHistoryTable extends React.Component {
           className="button button-outline button-danger"
           onClick={this.handleStopClick}
         >
-          Stop
+          <Trans>Stop</Trans>
         </div>
       </div>
     );
@@ -319,7 +320,7 @@ class JobRunHistoryTable extends React.Component {
     const time = row[prop];
 
     if (time == null) {
-      return <div>N/A</div>;
+      return <Trans render="div">N/A</Trans>;
     }
     const runTimeFormat = moment.duration(time).humanize();
 
