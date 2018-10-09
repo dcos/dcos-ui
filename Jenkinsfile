@@ -2,7 +2,7 @@
 
 @Library("sec_ci_libs@v2-latest") _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["release/1.12", ] as String[]
 
 pipeline {
   agent {
@@ -14,7 +14,7 @@ pipeline {
   environment {
     JENKINS_VERSION = "yes"
     NODE_PATH = "node_modules"
-    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/1.12/dcos_generate_config.sh"
   }
 
   options {
