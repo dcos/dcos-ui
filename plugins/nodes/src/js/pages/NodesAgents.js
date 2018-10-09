@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import React from "react";
 import { Link, routerShape } from "react-router";
@@ -220,7 +221,9 @@ var NodesAgents = React.createClass({
     return (
       <div className="flush-bottom">
         <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
-          <span className="invisible">List</span>
+          <Trans render="span" className="invisible">
+            List
+          </Trans>
           <Icon family="system" id="list" size="mini" />
         </Link>
         <Link
@@ -228,7 +231,9 @@ var NodesAgents = React.createClass({
           onClick={resetFilter}
           to="/nodes/agents/grid"
         >
-          <span className="invisible">Grid</span>
+          <Trans render="span" className="invisible">
+            Grid
+          </Trans>
           <Icon family="system" id="donut" size="mini" />
         </Link>
       </div>
@@ -292,11 +297,13 @@ var NodesAgents = React.createClass({
     return (
       <Page>
         <AlertPanel>
-          <AlertPanelHeader>No nodes detected</AlertPanelHeader>
-          <p className="flush-bottom">
+          <AlertPanelHeader>
+            <Trans render="span">No nodes detected</Trans>
+          </AlertPanelHeader>
+          <Trans render="p" className="flush-bottom">
             There a currently no other nodes in your datacenter other than your
             DC/OS master node.
-          </p>
+          </Trans>
         </AlertPanel>
       </Page>
     );

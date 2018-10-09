@@ -896,6 +896,15 @@
       ]
     ]
   },
+  "Grid": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        234
+      ]
+    ]
+  },
   "ID": {
     "translation": "",
     "origin": [
@@ -1495,12 +1504,30 @@
       ]
     ]
   },
+  "List": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        224
+      ]
+    ]
+  },
   "Memory (MiB)": {
     "translation": "",
     "origin": [
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         38
+      ]
+    ]
+  },
+  "No nodes detected": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        301
       ]
     ]
   },
@@ -2066,6 +2093,15 @@
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         96
+      ]
+    ]
+  },
+  "There a currently no other nodes in your datacenter other than your DC/OS master node.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        303
       ]
     ]
   },
