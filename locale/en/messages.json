@@ -652,6 +652,24 @@
       ]
     ]
   },
+  "Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        119
+      ]
+    ]
+  },
+  "Container Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        31
+      ]
+    ]
+  },
   "Create a Job": {
     "translation": "",
     "origin": [
@@ -1261,6 +1279,15 @@
       ]
     ]
   },
+  "Labels": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        173
+      ]
+    ]
+  },
   "Last Failure:": {
     "translation": "",
     "origin": [
@@ -1548,6 +1575,15 @@
       ]
     ]
   },
+  "Node": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        96
+      ]
+    ]
+  },
   "Nodes": {
     "translation": "",
     "origin": [
@@ -1788,6 +1824,10 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         100
+      ],
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        142
       ]
     ]
   },
@@ -1873,6 +1913,15 @@
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
         105
+      ]
+    ]
+  },
+  "Sandbox Path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        109
       ]
     ]
   },
@@ -2048,6 +2097,15 @@
       ]
     ]
   },
+  "Service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        83
+      ]
+    ]
+  },
   "Starting Deadline": {
     "translation": "",
     "origin": [
@@ -2161,6 +2219,15 @@
       [
         ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
         19
+      ]
+    ]
+  },
+  "Task ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        123
       ]
     ]
   },
@@ -2568,6 +2635,10 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         111
+      ],
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        134
       ]
     ]
   },

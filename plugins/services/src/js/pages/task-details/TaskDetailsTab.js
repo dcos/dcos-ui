@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -27,7 +28,7 @@ class TaskDetailsTab extends React.Component {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapHeading>
-          Container Configuration
+          <Trans>Container Configuration</Trans>
         </ConfigurationMapHeading>
         <ConfigurationMapRow>
           <pre className="flex-item-grow-1 mute prettyprint flush-bottom">
@@ -78,7 +79,9 @@ class TaskDetailsTab extends React.Component {
     if (service != null) {
       serviceRow = (
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Service</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans>Service</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>
             {service.name} ({service.id})
           </ConfigurationMapValue>
@@ -89,7 +92,9 @@ class TaskDetailsTab extends React.Component {
     if (node != null) {
       nodeRow = (
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Node</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans>Node</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>
             {node.getHostName()} ({node.getID()})
           </ConfigurationMapValue>
@@ -100,7 +105,9 @@ class TaskDetailsTab extends React.Component {
     if (sandBoxPath) {
       sandBoxRow = (
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Sandbox Path</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans>Sandbox Path</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>{sandBoxPath}</ConfigurationMapValue>
         </ConfigurationMapRow>
       );
@@ -108,9 +115,13 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>Configuration</ConfigurationMapHeading>
+        <ConfigurationMapHeading>
+          <Trans>Configuration</Trans>
+        </ConfigurationMapHeading>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Task ID</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans>Task ID</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>{mesosTask.id}</ConfigurationMapValue>
         </ConfigurationMapRow>
         {serviceRow}
@@ -119,13 +130,17 @@ class TaskDetailsTab extends React.Component {
         <TaskIpAddressesRow taskId={mesosTask.id} />
         {resourceRows}
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Zone</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans>Zone</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>
             {TaskUtil.getZoneName(mesosTask)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Region</ConfigurationMapLabel>
+          <ConfigurationMapLabel>
+            <Trans>Region</Trans>
+          </ConfigurationMapLabel>
           <ConfigurationMapValue>
             {TaskUtil.getRegionName(mesosTask)}
           </ConfigurationMapValue>
@@ -154,7 +169,9 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>Labels</ConfigurationMapHeading>
+        <ConfigurationMapHeading>
+          <Trans>Labels</Trans>
+        </ConfigurationMapHeading>
         {labelRows}
       </ConfigurationMapSection>
     );
