@@ -710,6 +710,15 @@
       ]
     ]
   },
+  "Delete Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js",
+        35
+      ]
+    ]
+  },
   "Description": {
     "translation": "",
     "origin": [
@@ -1748,6 +1757,15 @@
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         481
+      ]
+    ]
+  },
+  "Repository ({label}) will be {0} from {1}. You will not be able to install any packages belonging to that repository anymore.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js",
+        15
       ]
     ]
   },

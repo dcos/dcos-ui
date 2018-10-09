@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import Config from "#SRC/js/config/Config";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
@@ -11,11 +12,11 @@ const RepositoriesDeleteConfirmMessage = ({ repository, error }) => {
 
   return (
     <div>
-      <p>
-        {`Repository (${label}) will be ${UserActions.DELETED}
-          from ${Config.productName}. You will not be able to install any
-          packages belonging to that repository anymore.`}
-      </p>
+      <Trans render="p">
+        Repository ({label}) will be {UserActions.DELETED}
+        from {Config.productName}. You will not be able to install any packages
+        belonging to that repository anymore.
+      </Trans>
       {error ? errorMessage : ""}
     </div>
   );
@@ -29,7 +30,11 @@ const RepositoriesDeleteConfirm = ({
   repository,
   deleteError
 }) => {
-  const heading = <ModalHeading>Delete Repository</ModalHeading>;
+  const heading = (
+    <ModalHeading>
+      <Trans render="span">Delete Repository</Trans>
+    </ModalHeading>
+  );
   const rightButtonText = `${StringUtil.capitalize(
     UserActions.DELETE
   )} Repository`;
