@@ -1486,6 +1486,15 @@
       ]
     ]
   },
+  "Leader": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/LeaderGrid.js",
+        33
+      ]
+    ]
+  },
   "Memory (MiB)": {
     "translation": "",
     "origin": [

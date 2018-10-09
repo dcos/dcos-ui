@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { ToggleContent } from "@dcos/ui-kit";
@@ -29,7 +30,7 @@ export default function LeaderGrid({ leader }) {
     <div className="container">
       <ConfigurationMap>
         <ConfigurationMapHeading className="flush-top">
-          Leader
+          <Trans render="span">Leader</Trans>
         </ConfigurationMapHeading>
         <ConfigurationMapSection>
           <ConfigurationRow
