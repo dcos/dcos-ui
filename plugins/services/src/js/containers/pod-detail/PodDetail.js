@@ -23,7 +23,6 @@ import {
   DELETE,
   EDIT,
   OPEN,
-  RESTART,
   RESUME,
   SCALE,
   STOP
@@ -117,9 +116,6 @@ class PodDetail extends mixin(TabsMixin) {
       case OPEN:
         modalHandlers.openServiceUI({ service: pod });
         break;
-      case RESTART:
-        modalHandlers.restartService({ service: pod });
-        break;
       case RESUME:
         modalHandlers.resumeService({ service: pod });
         break;
@@ -164,12 +160,6 @@ class PodDetail extends mixin(TabsMixin) {
       onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
     });
 
-    if (instanceCount > 0) {
-      actions.push({
-        label: "Restart",
-        onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
-      });
-    }
     if (!pod.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
         label: "Scale",
