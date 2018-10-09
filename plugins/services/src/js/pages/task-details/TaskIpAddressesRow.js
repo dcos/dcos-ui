@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -36,7 +37,9 @@ export default class TaskIpAddressesRow extends React.Component {
 
     return (
       <ConfigurationMapRow>
-        <ConfigurationMapLabel>IP Addresses</ConfigurationMapLabel>
+        <ConfigurationMapLabel>
+          <Trans render="span">IP Addresses</Trans>
+        </ConfigurationMapLabel>
         <ConfigurationMapValue>
           {this.getIPAddressesForTask(service, taskId).join(", ")}
         </ConfigurationMapValue>

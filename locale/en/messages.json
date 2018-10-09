@@ -1113,6 +1113,15 @@
       ]
     ]
   },
+  "IP Addresses": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskIpAddressesRow.js",
+        41
+      ]
+    ]
+  },
   "IP Subnet": {
     "translation": "",
     "origin": [

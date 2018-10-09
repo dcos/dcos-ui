@@ -7,7 +7,11 @@ exports[`TaskIpAddressesRow with a Pod renders IP Addresses 1`] = `
   <div
     className="configuration-map-label"
   >
-    IP Addresses
+    <span
+      className={undefined}
+    >
+      IP Addresses
+    </span>
   </div>
   <div
     className="configuration-map-value"
@@ -24,7 +28,11 @@ exports[`TaskIpAddressesRow with an Application renders IP Addresses 1`] = `
   <div
     className="configuration-map-label"
   >
-    IP Addresses
+    <span
+      className={undefined}
+    >
+      IP Addresses
+    </span>
   </div>
   <div
     className="configuration-map-value"
