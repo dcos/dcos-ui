@@ -42,7 +42,10 @@ packages.forEach(function(packageDir) {
 module.exports = {
   roots,
   globals: {
-    __DEV__: true
+    __DEV__: true,
+    "ts-jest": {
+      useBabelrc: true
+    }
   },
   // TODO: split up transforms
   transform: {
