@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -132,13 +133,13 @@ class DeclinedOffersTable extends React.Component {
       const tooltipContent = (
         <div>
           <div>
-            <strong>Requested</strong>
+            <Trans render="strong">Requested</Trans>
             {": "}
             {requestedResource}
             {` ${requestedResourceSuffix}`}
           </div>
           <div>
-            <strong>Received</strong>
+            <Trans render="strong">Received</Trans>
             {": "}
             <span className={receivedResourceClasses}>{receivedResource}</span>
             <span className="text-nowrap">{` ${receivedResourceSuffix}`}</span>
