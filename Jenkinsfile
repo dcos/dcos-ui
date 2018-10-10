@@ -19,7 +19,6 @@ pipeline {
 
   options {
     timeout(time: 3, unit: "HOURS")
-    disableConcurrentBuilds()
   }
 
   stages {
@@ -29,53 +28,120 @@ pipeline {
       }
     }
 
-    stage("Build") {
-      steps {
-        sh "npm --unsafe-perm install"
-        sh "npm run build"
-      }
-    }
-
-    stage("Tests") {
-      parallel {
-        stage("Integration Test") {
-          steps {
-            sh "npm run integration-tests"
-          }
-
-          post {
-            always {
-              archiveArtifacts "cypress/**/*"
-              junit "cypress/results.xml"
-            }
-          }
-        }
-
-        stage("System Test") {
-          steps {
-            withCredentials([
-              [
-                $class: "AmazonWebServicesCredentialsBinding",
-                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-              ]
-            ]) {
-              retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
-              }
-            }
-          }
-
-          post {
-            always {
-              archiveArtifacts "results/**/*"
-              junit "results/results.xml"
-            }
+  stage("Docker in Docker Example") {
+    parallel {
+      stage("mesos") {
+        steps {
+          node('mesos') {
+            sh "docker --help"
+            sh "docker build -t foo ."
           }
         }
       }
+
+      stage("mesos-med") {
+        steps {
+          node('mesos-med') {
+            sh "docker --help"
+            sh "docker build -t foo ."
+          }
+        }
+      }
+
+      stage("mesos-ubuntu") {
+        steps {
+          node('mesos-ubuntu') {
+            sh "docker --help"
+            sh "docker build -t foo ."
+          }
+        }
+      }
+
+      stage("infinity") {
+        steps {
+          node('infinity') {
+            sh "docker --help"
+            sh "docker build -t foo ."
+          }
+        }
+      }
+
+      stage("pytoolbox1") {
+        steps {
+          node('pytoolbox1') {
+            sh "docker --help"
+            sh "docker build -t foo ."
+          }
+        }
+      }
+
+      stage("shakedown") {
+        steps {
+          node('shakedown') {
+            sh "docker --help"
+            sh "docker build -t foo ."
+          }
+        }
+      }
+
+      stage("mesos-sec") {
+        steps {
+          node('mesos-sec') {
+            sh "docker --help"
+            sh "docker build -t foo ."
+          }
+        }
+      }
     }
+  }
+
+    // stage("Build") {
+    //   steps {
+    //     sh "npm --unsafe-perm install"
+    //     sh "npm run build"
+    //   }
+    // }
+
+    // stage("Tests") {
+    //   parallel {
+    //     stage("Integration Test") {
+    //       steps {
+    //         sh "npm run integration-tests"
+    //       }
+
+    //       post {
+    //         always {
+    //           archiveArtifacts "cypress/**/*"
+    //           junit "cypress/results.xml"
+    //         }
+    //       }
+    //     }
+
+    //     stage("System Test") {
+    //       steps {
+    //         withCredentials([
+    //           [
+    //             $class: "AmazonWebServicesCredentialsBinding",
+    //             credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+    //             accessKeyVariable: "AWS_ACCESS_KEY_ID",
+    //             secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+    //           ]
+    //         ]) {
+    //           retry(3) {
+    //             sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+    //           }
+    //         }
+    //       }
+
+    //       post {
+    //         always {
+    //           archiveArtifacts "results/**/*"
+    //           junit "results/results.xml"
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     stage("Semantic Release") {
       steps {
