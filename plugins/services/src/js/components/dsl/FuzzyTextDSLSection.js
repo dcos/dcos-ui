@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -94,7 +95,9 @@ class FuzzyTextDSLSection extends React.Component {
         parts={EXPRESSION_PARTS}
       >
         <FormGroup>
-          <FieldLabel>Has the words</FieldLabel>
+          <FieldLabel>
+            <Trans render="span">Has the words</Trans>
+          </FieldLabel>
           <FieldInput
             disabled={!enabled}
             name="text"
