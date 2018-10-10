@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -30,7 +31,7 @@ class TasksStatusDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-        <label>Status</label>
+        <Trans render="label">Status</Trans>
         <div className="row">
           <div className="column-6">
             <FormGroup>
@@ -41,7 +42,7 @@ class TasksStatusDSLSection extends React.Component {
                   name="is_active"
                   type="checkbox"
                 />
-                Active
+                <Trans render="span">Active</Trans>
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
@@ -50,7 +51,7 @@ class TasksStatusDSLSection extends React.Component {
                   name="is_completed"
                   type="checkbox"
                 />
-                Completed
+                <Trans render="span">Completed</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
