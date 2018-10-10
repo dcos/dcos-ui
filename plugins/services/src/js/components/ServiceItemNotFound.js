@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
@@ -9,14 +10,16 @@ const ServiceItemNotFound = function({ message }) {
   const footer = (
     <div className="button-collection flush-bottom">
       <Link to="/services" className="button button-primary">
-        View Services
+        <Trans render="span">View Services</Trans>
       </Link>
     </div>
   );
 
   return (
     <AlertPanel>
-      <AlertPanelHeader>Service not found</AlertPanelHeader>
+      <AlertPanelHeader>
+        <Trans render="span">Service not found</Trans>
+      </AlertPanelHeader>
       <p className="tall">{message}</p>
       {footer}
     </AlertPanel>
