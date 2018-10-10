@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm, Tooltip } from "reactjs-components";
@@ -89,7 +90,9 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <AdvancedSection initialIsExpanded={initialIsExpanded}>
-        <AdvancedSectionLabel>More Settings</AdvancedSectionLabel>
+        <AdvancedSectionLabel>
+          <Trans render="span">More Settings</Trans>
+        </AdvancedSectionLabel>
         <AdvancedSectionContent>
           {this.getRuntimeSection()}
           <ContainerServiceFormAdvancedSection
@@ -133,12 +136,12 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div className="pod pod-short flush-horizontal flush-bottom">
-        <em>
-          {"Need to run a service with multiple containers? "}
+        <Trans render="em">
+          Need to run a service with multiple containers?{" "}
           <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
             Add another container
           </a>.
-        </em>
+        </Trans>
       </div>
     );
   }
@@ -167,14 +170,16 @@ class GeneralServiceFormSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom">Containers</h2>
+        <Trans render="h2" className="short-bottom">
+          Containers
+        </Trans>
         {containerElements}
         <AddButton
           onClick={this.props.onAddItem.bind(this, {
             path: "containers"
           })}
         >
-          Add Container
+          <Trans render="span">Add Container</Trans>
         </AddButton>
       </div>
     );
@@ -185,10 +190,9 @@ class GeneralServiceFormSection extends Component {
 
     const typeErrors = findNestedPropertyInObject(errors, "container.type");
     const runtimeTooltipContent = (
-      <span>
-        {
-          "You can run Docker containers with both container runtimes. The Universal Container Runtime (UCR) is better supported in DC/OS. "
-        }
+      <Trans render="span">
+        You can run Docker containers with both container runtimes. The{" "}
+        Universal Container Runtime (UCR) is better supported in DC/OS.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/containerizers/"
@@ -197,7 +201,7 @@ class GeneralServiceFormSection extends Component {
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -205,7 +209,7 @@ class GeneralServiceFormSection extends Component {
         <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Container Runtime
+              <Trans render="span">Container Runtime</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -219,10 +223,10 @@ class GeneralServiceFormSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h2>
-        <p>
+        <Trans render="p">
           The container runtime is responsible for running your service. We
           support the Docker Engine and Universal Container Runtime (UCR).
-        </p>
+        </Trans>
         <FormGroup showError={Boolean(typeErrors)}>
           {this.getRuntimeSelections(data)}
           <FieldError>{typeErrors}</FieldError>
@@ -244,8 +248,12 @@ class GeneralServiceFormSection extends Component {
 
     if (!isEmpty(gpus) && parseFloat(gpus) !== 0) {
       isDisabled[DOCKER] = true;
-      disabledTooltipContent =
-        "Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources.";
+      disabledTooltipContent = (
+        <Trans render="span">
+          Docker Engine does not support GPU resources, please select Universal{" "}
+          Container Runtime (UCR) if you want to use GPU resources.
+        </Trans>
+      );
     }
 
     return Object.keys(containerRuntimes).map((runtimeName, index) => {
@@ -263,7 +271,9 @@ class GeneralServiceFormSection extends Component {
             {label}
             {runtimeName === "MESOS" && (
               <span className="runtimeLabel-badge">
-                <Badge>Recommended</Badge>
+                <Badge>
+                  <Trans render="span">Recommended</Trans>
+                </Badge>
               </span>
             )}
           </div>
@@ -316,10 +326,9 @@ class GeneralServiceFormSection extends Component {
     );
 
     const idTooltipContent = (
-      <span>
-        {
-          "Include the path to your service, if applicable. E.g. /dev/tools/my-service. "
-        }
+      <Trans render="span">
+        Include the path to your service, if applicable. E.g.{" "}
+        /dev/tools/my-service{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/creating-services/"
@@ -328,7 +337,7 @@ class GeneralServiceFormSection extends Component {
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     const isEditPage = /\/edit\//g.test(global.location.hash);
@@ -336,14 +345,16 @@ class GeneralServiceFormSection extends Component {
     return (
       <div>
         <h1 className="flush-top short-bottom">{title}</h1>
-        <p>Configure your service below. Start by giving your service an ID.</p>
+        <Trans render="p">
+          Configure your service below. Start by giving your service an ID.
+        </Trans>
 
         <FormRow>
           <FormGroup className="column-9" showError={Boolean(errors.id)}>
             <FieldLabel>
               <FormGroupHeading required={true}>
                 <FormGroupHeadingContent primary={true}>
-                  Service ID
+                  <Trans render="span">Service ID</Trans>
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent>
                   <Tooltip
@@ -366,8 +377,10 @@ class GeneralServiceFormSection extends Component {
               />
             </FieldAutofocus>
             <FieldHelp>
-              Give your service a unique name within the cluster, e.g.
-              my-service.
+              <Trans render="span">
+                Give your service a unique name within the cluster, e.g.{" "}
+                my-service.
+              </Trans>
             </FieldHelp>
             <FieldError>{errors.id}</FieldError>
           </FormGroup>
@@ -376,7 +389,7 @@ class GeneralServiceFormSection extends Component {
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Instances
+                  <Trans render="span">Instances</Trans>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
@@ -397,7 +410,11 @@ class GeneralServiceFormSection extends Component {
 
         <Confirm
           closeByBackdropClick={true}
-          header={<ModalHeading>Switching to a pod service</ModalHeading>}
+          header={
+            <ModalHeading>
+              <Trans render="span">Switching to a pod service</Trans>
+            </ModalHeading>
+          }
           open={this.state.convertToPodModalOpen}
           onClose={this.handleCloseConvertToPodModal}
           leftButtonText="Cancel"
@@ -408,21 +425,21 @@ class GeneralServiceFormSection extends Component {
           rightButtonCallback={this.handleConvertToPod}
           showHeader={true}
         >
-          <p>
-            {
-              "Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. "
-            }
+          <Trans render="p">
+            Adding another container will automatically put multiple containers
+            into a Pod definition. Your containers will be co-located on the
+            same node and scale together.{" "}
             <a
               href={MetadataStore.buildDocsURI("/deploying-services/pods/")}
               target="_blank"
             >
               More information
             </a>.
-          </p>
-          <p>
+          </Trans>
+          <Trans render="p">
             Are you sure you would like to continue and create a Pod? Any data
             you have already entered will be lost.
-          </p>
+          </Trans>
         </Confirm>
       </div>
     );
