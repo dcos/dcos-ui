@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
@@ -12,10 +13,10 @@ export default class PlacementSection extends Component {
   render() {
     const { data, onAddItem, onRemoveItem, errors } = this.props;
     const placementTooltipContent = (
-      <span>
-        {
-          "Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. "
-        }
+      <Trans render="span">
+        Constraints have three parts: a field name, an operator, and an optional{" "}
+        parameter. The field can be the hostname of the agent node or any{" "}
+        attribute of the agent node.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/marathon-constraints/"
@@ -24,7 +25,7 @@ export default class PlacementSection extends Component {
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -32,7 +33,7 @@ export default class PlacementSection extends Component {
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Placement Constraints
+              <Trans render="span">Placement Constraints</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -46,10 +47,10 @@ export default class PlacementSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h1>
-        <p>
+        <Trans render="p">
           Constraints control where apps run to allow optimization for either
           fault tolerance or locality.
-        </p>
+        </Trans>
         <PlacementConstraintsPartial
           data={data}
           onAddItem={onAddItem}
