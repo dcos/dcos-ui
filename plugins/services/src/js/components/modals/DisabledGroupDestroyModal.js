@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Modal } from "reactjs-components";
@@ -7,13 +8,15 @@ const DisabledGroupDestroyModal = props => {
   const modalFooter = (
     <div className="text-align-center">
       <button className="button button-primary-link" onClick={props.onClose}>
-        OK
+        <Trans render="span">OK</Trans>
       </button>
     </div>
   );
 
   const modalHeading = (
-    <ModalHeading className="text-danger">Delete Group</ModalHeading>
+    <ModalHeading className="text-danger">
+      <Trans render="span">Delete Group</Trans>
+    </ModalHeading>
   );
 
   return (
@@ -26,10 +29,10 @@ const DisabledGroupDestroyModal = props => {
       showFooter={true}
       showHeader={true}
     >
-      <div>
+      <Trans render="div">
         This group needs to be empty to delete it. Please delete any services in
         the group first.
-      </div>
+      </Trans>
     </Modal>
   );
 };
