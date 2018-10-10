@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import isEqual from "lodash.isequal";
 import { List } from "reactjs-components";
 import PropTypes from "prop-types";
@@ -90,12 +91,13 @@ const ServiceList = React.createClass({
   getNoServicesMessage() {
     return (
       <div>
-        <h3 className="flush-top text-align-center">No Services Running</h3>
-        <p className="flush text-align-center">
-          {"Click the "}
-          <Link to="/services">Services tab</Link>
-          {" to install services."}
-        </p>
+        <Trans render="h3" className="flush-top text-align-center">
+          No Services Running
+        </Trans>
+        <Trans render="p" className="flush text-align-center">
+          Click the <Link to="/services">Services tab</Link> to install{" "}
+          services.
+        </Trans>
       </div>
     );
   },
