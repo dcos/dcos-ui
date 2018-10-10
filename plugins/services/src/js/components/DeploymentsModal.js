@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Confirm, Dropdown, Modal } from "reactjs-components";
 import { hashHistory } from "react-router";
@@ -357,8 +358,12 @@ class DeploymentsModal extends mixin(StoreMixin) {
   renderEmpty() {
     return (
       <AlertPanel>
-        <AlertPanelHeader>No active deployments</AlertPanelHeader>
-        <p className="flush">Active deployments will be shown here.</p>
+        <AlertPanelHeader>
+          <Trans render="span">No active deployments</Trans>
+        </AlertPanelHeader>
+        <Trans render="p" className="flush">
+          Active deployments will be shown here.
+        </Trans>
       </AlertPanel>
     );
   }
@@ -374,7 +379,11 @@ class DeploymentsModal extends mixin(StoreMixin) {
       deploymentRollbackError
     } = this.state;
 
-    const heading = <ModalHeading>Are you sure?</ModalHeading>;
+    const heading = (
+      <ModalHeading>
+        <Trans render="span">Are you sure?</Trans>
+      </ModalHeading>
+    );
 
     if (deploymentToRollback != null) {
       return (
@@ -499,7 +508,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const footer = (
       <div className="text-align-center">
         <button className="button button-primary-link" onClick={onClose}>
-          Close
+          <Trans render="span">Close</Trans>
         </button>
       </div>
     );
