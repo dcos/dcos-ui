@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import React from "react";
 import { Tooltip } from "reactjs-components";
@@ -157,7 +158,7 @@ function getResourceTooltipContent(resource, data) {
     <span>
       {explanatoryText}{" "}
       <a href={docsURI} target="_blank">
-        Learn more
+        <Trans render="span">Learn more</Trans>
       </a>.
     </span>
   );
