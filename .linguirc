@@ -6,7 +6,8 @@
   "localeDir": "./locale",
   "srcPathDirs": [
       "./src",
-      "./plugins"
+      "./plugins",
+      "./.dcos-ui-plugins-private"
   ],
   "srcPathIgnorePatterns": [
       "node_modules/",
