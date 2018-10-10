@@ -216,7 +216,8 @@
     "validate-build": "scripts/validate-build dist/*.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)",
     "tslint": "tslint -c tslint.json --project tsconfig.json",
-    "release": "standard-version --tag-prefix \"$(python -c \"import sys, json; dcosrc = json.load(open('.dcosrc')); sys.stdout.write(str(dcosrc['base']));\")+v\""
+    "release": "standard-version --tag-prefix \"$(python -c \"import sys, json; dcosrc = json.load(open('.dcosrc')); sys.stdout.write(str(dcosrc['base']));\")+v\"",
+    "lingui-extract-with-plugins": "./scripts/lingui-extract-with-plugins"
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.dev.js"

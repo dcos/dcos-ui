@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+# Import utils
+source "${SCRIPT_PATH}/utils/message"
+
+function sanityCheck {
+  if [ ! -d ../dcos-ui-plugins-private ]; then
+    warning "../dcos-ui-plugins-private directory not found."
+    return 1
+  elif [ ! -f ../dcos-ui-plugins-private/.babelrc ]; then
+    warning "../dcos-ui-plugins-private/.babelrc file not found. Did this script fail previously? Try running with --unpatch to fix"
+    return 1
+  elif [ -f ./.dcos-ui-plugins-private ]; then
+    warning "Temporary symlink already exists. Did this script fail previously? Try running with --unpatch to fix"
+    return 1
+  else
+    return 0
+  fi
+}
+
+# lingui extract cannot extract messages from macros that are outside of the package
+# due to the way packages are resolved from each source file. This script creates a temporary symlink
+# to the conventional dcos-ui-plugins-private directory and also temporarily hides the .babelrc file
+# which is not useful when followed through the symlink
+function patch {
+  info "Symlinking .dcos-ui-plugins-private for lingui extract tooling"
+  ln -s ../dcos-ui-plugins-private ./.dcos-ui-plugins-private
+  mv ../dcos-ui-plugins-private/.babelrc ../dcos-ui-plugins-private/.tmp.babelrc
+}
+
+function unpatch {
+  unlink ./.dcos-ui-plugins-private
+  mv ../dcos-ui-plugins-private/.tmp.babelrc ../dcos-ui-plugins-private/.babelrc
+  info "Unlinked .dcos-ui-plugins-private"
+}
+
+title "Running lingui extract for dcos-ui and dcos-ui-plugins-private"
+
+VERBOSE=""
+if [[ $* == *--verbose* ]]; then
+  VERBOSE="--verbose "
+fi
+
+sanityCheck
+if [[ $? == 0 ]]; then
+  patch
+  info "This may take a minute..."
+  eval "lingui extract $VERBOSE--clean"
+  unpatch
+elif [[ $* == *--unpatch ]]; then
+  unpatch
+fi
