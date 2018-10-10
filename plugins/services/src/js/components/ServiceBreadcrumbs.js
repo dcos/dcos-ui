@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -197,7 +198,9 @@ class ServiceBreadcrumbs extends React.Component {
     let crumbs = [
       <Breadcrumb key={-1} title="Services">
         <BreadcrumbTextContent>
-          <Link to="/services">Services</Link>
+          <Link to="/services">
+            <Trans render="span">Services</Trans>
+          </Link>
         </BreadcrumbTextContent>
       </Breadcrumb>
     ];
