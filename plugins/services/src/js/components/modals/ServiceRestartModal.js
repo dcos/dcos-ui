@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -98,7 +99,11 @@ class ServiceRestartModal extends React.Component {
   getModalHeading() {
     const serviceLabel = this.getServiceLabel();
 
-    return <ModalHeading>Restart {serviceLabel}</ModalHeading>;
+    return (
+      <ModalHeading>
+        <Trans render="span">Restart {serviceLabel}</Trans>
+      </ModalHeading>
+    );
   }
 
   render() {
@@ -121,12 +126,12 @@ class ServiceRestartModal extends React.Component {
         }
         showHeader={true}
       >
-        <p>
-          Restarting the <strong>{serviceName}</strong>{" "}
+        <Trans render="p">
+          Restarting the <strong>{serviceName}</strong>
           {serviceLabel.toLowerCase()} will remove all currently running
           instances of the {serviceLabel.toLowerCase()} and then attempt to
           create new instances identical to those removed.
-        </p>
+        </Trans>
         {this.getErrorMessage()}
       </Confirm>
     );
