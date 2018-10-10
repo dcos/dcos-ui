@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
@@ -47,11 +48,12 @@ class ContainerServiceFormSection extends Component {
   }
 
   getCMDLabel() {
+    const exampleCmd = "/bin/sh -c ${cmd}";
+
     const tooltipContent = (
-      <span>
-        {
-          "The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. "
-        }
+      <Trans render="span">
+        The command value will be wrapped by the underlying Mesos executor via{" "}
+        {exampleCmd}{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/creating-services/"
@@ -60,14 +62,14 @@ class ContainerServiceFormSection extends Component {
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
       <FieldLabel>
         <FormGroupHeading>
           <FormGroupHeadingContent primary={true}>
-            Command
+            <Trans render="span">Command</Trans>
           </FormGroupHeadingContent>
           <FormGroupHeadingContent>
             <Tooltip
@@ -86,28 +88,26 @@ class ContainerServiceFormSection extends Component {
 
   getImageLabel() {
     const tooltipContent = (
-      <span>
-        {"Enter a Docker image or browse "}
+      <Trans render={"span"}>
+        Enter a Docker image or browse{" "}
         <a href="https://hub.docker.com/explore/" target="_blank">
           Docker Hub
-        </a>
-        {
-          " to find more. You can also enter an image from your private registry. "
-        }
+        </a>{" "}
+        to find more. You can also enter an image from your private registry.{" "}
         <a
           href="https://github.com/dcos/examples/tree/master/registry/1.8"
           target="_blank"
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
       <FieldLabel>
         <FormGroupHeading>
           <FormGroupHeadingContent primary={true}>
-            Container Image
+            <Trans render="span">Container Image</Trans>
           </FormGroupHeadingContent>
           <FormGroupHeadingContent>
             <Tooltip
@@ -143,7 +143,9 @@ class ContainerServiceFormSection extends Component {
           className="column-6"
           showError={Boolean(containerNameErrors)}
         >
-          <FieldLabel>Container Name</FieldLabel>
+          <FieldLabel>
+            <Trans render="span">Container Name</Trans>
+          </FieldLabel>
           <FieldInput name={containerNamePath} value={containerName} />
           <FieldError>{containerNameErrors}</FieldError>
         </FormGroup>
@@ -171,7 +173,9 @@ class ContainerServiceFormSection extends Component {
             {this.getImageLabel()}
             <FieldInput name={imagePath} value={image} />
             <FieldHelp>
-              Enter a Docker image you want to run, e.g. nginx.
+              <Trans render="span">
+                Enter a Docker image you want to run, e.g. nginx.
+              </Trans>
             </FieldHelp>
             <FieldError>{imageErrors}</FieldError>
           </FormGroup>
@@ -179,7 +183,9 @@ class ContainerServiceFormSection extends Component {
           <FormGroup className="column-3" showError={Boolean(cpusErrors)}>
             <FieldLabel className="text-no-transform">
               <FormGroupHeading required={true}>
-                <FormGroupHeadingContent>CPUs</FormGroupHeadingContent>
+                <FormGroupHeadingContent>
+                  <Trans render="span">CPUs</Trans>
+                </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput
@@ -196,7 +202,7 @@ class ContainerServiceFormSection extends Component {
             <FieldLabel className="text-no-transform">
               <FormGroupHeading required={true}>
                 <FormGroupHeadingContent primary={true}>
-                  Memory (MiB)
+                  <Trans render="span">Memory (MiB)</Trans>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
@@ -219,7 +225,9 @@ class ContainerServiceFormSection extends Component {
               value={findNestedPropertyInObject(data, cmdPath)}
             />
             <FieldHelp>
-              A shell command for your container to execute.
+              <Trans render="span">
+                A shell command for your container to execute.
+              </Trans>
             </FieldHelp>
             <FieldError>{cmdErrors}</FieldError>
           </FormGroup>
