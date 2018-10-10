@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -31,7 +32,7 @@ class ServiceHealthDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-        <label>Health</label>
+        <Trans render="label">Health</Trans>
         <div className="row">
           <div className="column-6">
             <FormGroup>
@@ -42,7 +43,7 @@ class ServiceHealthDSLSection extends React.Component {
                   name="is_healthy"
                   type="checkbox"
                 />
-                Healthy
+                <Trans render="span">Healthy</Trans>
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
@@ -51,7 +52,7 @@ class ServiceHealthDSLSection extends React.Component {
                   name="no_healthchecks"
                   type="checkbox"
                 />
-                N/A
+                <Trans render="span">N/A</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
@@ -64,7 +65,7 @@ class ServiceHealthDSLSection extends React.Component {
                   name="is_unhealthy"
                   type="checkbox"
                 />
-                Unhealthy
+                <Trans render="span">Unhealthy</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
