@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -98,7 +99,11 @@ class ServiceStopModal extends React.Component {
   getModalHeading() {
     const serviceLabel = this.getServiceLabel();
 
-    return <ModalHeading>Stop {serviceLabel}</ModalHeading>;
+    return (
+      <ModalHeading>
+        <Trans render="span">Stop {serviceLabel}</Trans>
+      </ModalHeading>
+    );
   }
 
   render() {
@@ -119,12 +124,12 @@ class ServiceStopModal extends React.Component {
         rightButtonClassName="button button-danger"
         showHeader={true}
       >
-        <p>
+        <Trans render="p">
           Stopping the <strong>{serviceName}</strong>{" "}
           {serviceLabel.toLowerCase()} will remove all currently running
           instances of the {serviceLabel.toLowerCase()}. The{" "}
           {serviceLabel.toLowerCase()} will not be deleted.
-        </p>
+        </Trans>
         {this.getErrorMessage()}
       </Confirm>
     );
