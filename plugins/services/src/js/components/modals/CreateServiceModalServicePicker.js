@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
@@ -19,7 +20,7 @@ function SingleContainerOption({ columnClasses, onOptionSelect }) {
     >
       <CreateServiceModalServicePickerOptionImage src={defaultServiceImage} />
       <CreateServiceModalServicePickerOptionContent>
-        Single Container
+        <Trans render="span">Single Container</Trans>
       </CreateServiceModalServicePickerOptionContent>
     </CreateServiceModalServicePickerOption>
   );
@@ -33,7 +34,7 @@ function MultiContainerOption({ columnClasses, onOptionSelect }) {
     >
       <CreateServiceModalServicePickerOptionImage src={defaultServiceImage} />
       <CreateServiceModalServicePickerOptionContent>
-        Multi-container (Pod)
+        <Trans render="span">Multi-container (Pod)</Trans>
       </CreateServiceModalServicePickerOptionContent>
     </CreateServiceModalServicePickerOption>
   );
@@ -47,7 +48,7 @@ function JSONOption({ columnClasses, onOptionSelect }) {
     >
       <CreateServiceModalServicePickerOptionImage src={jsonServiceImage} />
       <CreateServiceModalServicePickerOptionContent>
-        JSON Configuration
+        <Trans render="span">JSON Configuration</Trans>
       </CreateServiceModalServicePickerOptionContent>
     </CreateServiceModalServicePickerOption>
   );
