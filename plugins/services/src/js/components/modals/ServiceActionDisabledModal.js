@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { injectIntl } from "react-intl";
@@ -161,13 +162,12 @@ class ServiceActionDisabledModal extends React.Component {
         intl={intl}
         service={service}
       >
-        <div className="center">
-          Editing this service is only available on{" "}
+        <Trans render="div" className="center">
+          Editing this service is only available on
           <a href="https://mesosphere.com/product/" target="_blank">
             Mesosphere Enterprise DC/OS
-          </a>
-          .
-        </div>
+          </a>.
+        </Trans>
       </MountService.Mount>
     );
   }
