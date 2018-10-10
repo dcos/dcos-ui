@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Link } from "react-router";
@@ -26,7 +27,7 @@ const getTooltipContent = (service, content) => {
         href={`#/services/detail/${servicePath}/debug`}
         title="debug information"
       >
-        Debug information
+        <Trans render="span">Debug information</Trans>
       </a>
     </span>
   );
@@ -66,12 +67,18 @@ class ServiceStatusIcon extends Component {
       .getItems().length;
 
     if (appsWithWarningsCount > 0) {
-      return this.getTooltip(
-        `DC/OS is waiting for resources and is unable to complete the deployment of ${appsWithWarningsCount} ${StringUtil.pluralize(
-          "service",
-          appsWithWarningsCount
-        )} in this group.`
+      const serviceText = StringUtil.pluralize(
+        "service",
+        appsWithWarningsCount
       );
+      const tooltipContent = (
+        <Trans render="span">
+          DC/OS is waiting for resources and is unable to complete the
+          deployment of {appsWithWarningsCount} {serviceText} in this group.
+        </Trans>
+      );
+
+      return this.getTooltip(tooltipContent);
     }
 
     return null;
