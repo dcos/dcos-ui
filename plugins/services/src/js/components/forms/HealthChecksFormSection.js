@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
@@ -45,40 +46,40 @@ class HealthChecksFormSection extends Component {
     const errors = errorsLens.at(key, {}).get(this.props.errors);
 
     const gracePeriodHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 300): Health check failures are ignored within this
         number of seconds or until the instance becomes healthy for the first
         time.
-      </span>
+      </Trans>
     );
 
     const intervalHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 60): Number of seconds to wait between health
         checks.
-      </span>
+      </Trans>
     );
 
     const timeoutHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 20): Number of seconds after which a health check is
         considered a failure regardless of the response.
-      </span>
+      </Trans>
     );
 
     const failuresHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 3): Number of consecutive health check failures
         after which the unhealthy instance should be killed. HTTP & TCP health
         checks: If this value is 0, instances will not be killed if they fail
         the health check.
-      </span>
+      </Trans>
     );
 
     return (
       <AdvancedSection>
         <AdvancedSectionLabel>
-          Advanced Health Check Settings
+          <Trans render="span">Advanced Health Check Settings</Trans>
         </AdvancedSectionLabel>
         <AdvancedSectionContent>
           <FormRow>
@@ -89,7 +90,7 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Grace Period (s)
+                    <Trans render="span">Grace Period (s)</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -125,7 +126,7 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Interval (s)
+                    <Trans render="span">Interval (s)</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -159,7 +160,7 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Timeout (s)
+                    <Trans render="span">Timeout (s)</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -193,7 +194,7 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Max Failures
+                    <Trans render="span">Max Failures</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -242,7 +243,7 @@ class HealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Command
+                <Trans render="span">Command</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -291,7 +292,9 @@ class HealthChecksFormSection extends Component {
             type="checkbox"
           />
           {"Make "}
-          <span className="truecase">IPv6</span>
+          <span className="truecase">
+            <Trans render="span">IPv6</Trans>
+          </span>
         </FieldLabel>
         <FieldError>{errors.ipProtocol}</FieldError>
       </FormGroup>
@@ -309,13 +312,15 @@ class HealthChecksFormSection extends Component {
     const errors = errorsLens.at(key, {}).get(this.props.errors);
 
     const endpointHelpText = (
-      <span>Select a service endpoint that you configured in Networking.</span>
+      <Trans render="span">
+        Select a service endpoint that you configured in Networking.
+      </Trans>
     );
     const pathHelpText = (
-      <span>
+      <Trans render="span">
         Enter a path that is reachable in your service and where you expect a
         response code between 200 and 399.
-      </span>
+      </Trans>
     );
 
     return [
@@ -324,7 +329,7 @@ class HealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Service Endpoint
+                <Trans render="span">Service Endpoint</Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -343,7 +348,9 @@ class HealthChecksFormSection extends Component {
             name={`healthChecks.${key}.portIndex`}
             value={String(healthCheck.portIndex)}
           >
-            <option value="">Select Endpoint</option>
+            <Trans render="option" value="">
+              Select Endpoint
+            </Trans>
             {this.getEndpoints()}
           </FieldSelect>
         </FormGroup>
@@ -351,7 +358,7 @@ class HealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Path
+                <Trans render="span">Path</Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -411,15 +418,17 @@ class HealthChecksFormSection extends Component {
               path: "healthChecks"
             })}
           >
-            <FieldLabel>Unable to edit this HealthCheck</FieldLabel>
+            <FieldLabel>
+              <Trans render="span">Unable to edit this HealthCheck</Trans>
+            </FieldLabel>
             <pre>{JSON.stringify(healthCheck, null, 2)}</pre>
           </FormGroupContainer>
         );
       }
 
       const tooltipContent = (
-        <span>
-          {"You have several protocol options. "}
+        <Trans render="span">
+          You have several protocol options.{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/creating-services/health-checks/"
@@ -428,7 +437,7 @@ class HealthChecksFormSection extends Component {
           >
             More Information
           </a>.
-        </span>
+        </Trans>
       );
 
       return (
@@ -447,7 +456,7 @@ class HealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Protocol
+                    <Trans render="span">Protocol</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -473,9 +482,15 @@ class HealthChecksFormSection extends Component {
                   healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)
                 }
               >
-                <option value="">Select Protocol</option>
-                <option value={COMMAND}>Command</option>
-                <option value={MESOS_HTTP}>HTTP</option>
+                <option value="">
+                  <Trans render="span">Select Protocol</Trans>
+                </option>
+                <option value={COMMAND}>
+                  <Trans render="span">Command</Trans>
+                </option>
+                <option value={MESOS_HTTP}>
+                  <Trans render="span">HTTP</Trans>
+                </option>
               </FieldSelect>
               <FieldError>{errors.protocol}</FieldError>
             </FormGroup>
@@ -491,10 +506,10 @@ class HealthChecksFormSection extends Component {
   render() {
     const { data } = this.props;
     const tooltipContent = (
-      <span>
-        {`A health check passes if (1) its HTTP response code is between 200
-        and 399 inclusive, and (2) its response is received within the
-        timeoutSeconds period. `}
+      <Trans render="span">
+        A health check passes if (1) its HTTP response code is between 200 and{" "}
+        399 inclusive, and (2) its response is received within the{" "}
+        timeoutSeconds period.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/creating-services/health-checks/"
@@ -503,7 +518,7 @@ class HealthChecksFormSection extends Component {
         >
           More Information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -511,7 +526,7 @@ class HealthChecksFormSection extends Component {
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Health Checks
+              <Trans render="span">Health Checks</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -526,10 +541,10 @@ class HealthChecksFormSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h1>
-        <p>
+        <Trans render="p">
           Health checks may be specified per application to be run against the
-          application{"'"}s instances.
-        </p>
+          application's instances.
+        </Trans>
         {this.getHealthChecksLines(data.healthChecks)}
         <FormRow>
           <FormGroup className="column-12">
@@ -538,7 +553,7 @@ class HealthChecksFormSection extends Component {
                 path: "healthChecks"
               })}
             >
-              Add Health Check
+              <Trans render="span">Add Health Check</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>
