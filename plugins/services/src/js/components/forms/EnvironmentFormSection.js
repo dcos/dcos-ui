@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
@@ -34,7 +35,7 @@ class EnvironmentFormSection extends Component {
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Key
+                  <Trans render="span">Key</Trans>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
@@ -43,7 +44,7 @@ class EnvironmentFormSection extends Component {
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Value
+                  <Trans render="span">Value</Trans>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
@@ -66,7 +67,9 @@ class EnvironmentFormSection extends Component {
                   value={env.key || ""}
                 />
               </FieldAutofocus>
-              <FieldError>The key cannot be empty.</FieldError>
+              <FieldError>
+                <Trans render="span">The key cannot be empty.</Trans>
+              </FieldError>
               <span className="emphasis form-colon">:</span>
             </FormGroup>
             <FormGroup
@@ -106,7 +109,7 @@ class EnvironmentFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Key
+                <Trans render="span">Key</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -115,7 +118,7 @@ class EnvironmentFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Value
+                <Trans render="span">Value</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -135,7 +138,9 @@ class EnvironmentFormSection extends Component {
                 value={label.key || ""}
               />
             </FieldAutofocus>
-            <FieldError>The key cannot be empty.</FieldError>
+            <FieldError>
+              <Trans render="span">The key cannot be empty.</Trans>
+            </FieldError>
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
@@ -168,10 +173,8 @@ class EnvironmentFormSection extends Component {
     const { data, errors } = this.props;
 
     const envTooltipContent = (
-      <span>
-        {
-          "DC/OS also exposes environment variables for host ports and metdata. "
-        }
+      <Trans render="span">
+        DC/OS also exposes environment variables for host ports and metdata.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/#environment-variables"
@@ -180,20 +183,19 @@ class EnvironmentFormSection extends Component {
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
     const labelsTooltipContent = (
-      <span>
-        {
-          "For example, you could label services “staging” and “production” to mark them by their position in the pipeline. "
-        }
+      <Trans render="span">
+        For example, you could label services “staging” and “production” to mark{" "}
+        them by their position in the pipeline.{" "}
         <a
           href={MetadataStore.buildDocsURI("/tutorials/task-labels/")}
           target="_blank"
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -201,18 +203,18 @@ class EnvironmentFormSection extends Component {
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Environment
+              <Trans render="span">Environment</Trans>
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h1>
-        <p>
-          Configure any environment values to be attached to each instance that
+        <Trans render="p">
+          Configure any environment values to be attached to each instance that{" "}
           is launched.
-        </p>
+        </Trans>
         <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Environment Variables
+              <Trans render="span">Environment Variables</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -226,9 +228,9 @@ class EnvironmentFormSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h2>
-        <p>
+        <Trans render="p">
           Set up environment variables for each instance your service launches.
-        </p>
+        </Trans>
         {this.getEnvironmentLines(data.env)}
         <FormRow>
           <FormGroup className="column-12">
@@ -237,14 +239,14 @@ class EnvironmentFormSection extends Component {
                 path: "env"
               })}
             >
-              Add Environment Variable
+              <Trans render="span">Add Environment Variable</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>
         <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Labels
+              <Trans render="span">Labels</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -258,9 +260,9 @@ class EnvironmentFormSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h2>
-        <p>
+        <Trans render="p">
           Attach metadata to expose additional information to other services.
-        </p>
+        </Trans>
         {this.getLabelsLines(data.labels)}
         <FormRow>
           <FormGroup className="column-12">
@@ -270,7 +272,7 @@ class EnvironmentFormSection extends Component {
                 path: "labels"
               })}
             >
-              Add Label
+              <Trans render="span">Add Label</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>
