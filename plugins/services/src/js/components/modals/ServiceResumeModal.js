@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -112,19 +113,19 @@ class ServiceResumeModal extends React.Component {
 
     if (service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       return (
-        <p>
+        <Trans render="p">
           This service is currently stopped. Do you want to resume this service?
-        </p>
+        </Trans>
       );
     }
 
     return (
       <div>
-        <p>
+        <Trans render="p">
           This service is currently stopped. Do you want to resume this service?
           You can change the number of instances to resume by using the field
           below.
-        </p>
+        </Trans>
         <FormRow>
           <FormGroup className="form-row-element column-12 form-row-input">
             <FieldInput
@@ -146,7 +147,11 @@ class ServiceResumeModal extends React.Component {
   render() {
     const { isPending, onClose, open } = this.props;
 
-    const heading = <ModalHeading>Resume Service</ModalHeading>;
+    const heading = (
+      <ModalHeading>
+        <Trans render="span">Resume Service</Trans>
+      </ModalHeading>
+    );
 
     return (
       <Confirm
