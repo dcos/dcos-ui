@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -564,7 +565,7 @@ class CreateServiceModal extends Component {
             type="secondary"
           />
           <FullScreenModalHeaderTitle>
-            Review & Run Service
+            <Trans render="span">Review & Run Service</Trans>
           </FullScreenModalHeaderTitle>
           <FullScreenModalHeaderActions
             actions={this.getPrimaryActions()}
@@ -792,7 +793,7 @@ class CreateServiceModal extends Component {
               onChange={this.handleJSONToggle}
               key="json-editor"
             >
-              JSON Editor
+              <Trans render="span">JSON Editor</Trans>
             </ToggleButton>
           )
         },
@@ -913,7 +914,11 @@ class CreateServiceModal extends Component {
         {this.getModalContent()}
         <Confirm
           closeByBackdropClick={true}
-          header={<ModalHeading>Discard Changes?</ModalHeading>}
+          header={
+            <ModalHeading>
+              <Trans render="span">Discard Changes?</Trans>
+            </ModalHeading>
+          }
           open={this.state.isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
           leftButtonText="Cancel"
@@ -924,10 +929,10 @@ class CreateServiceModal extends Component {
           rightButtonCallback={this.handleConfirmGoBack}
           showHeader={true}
         >
-          <p>
-            Are you sure you want to leave this page? Any data you entered will
+          <Trans render="p">
+            Are you sure you want to leave this page? Any data you entered will{" "}
             be lost.
-          </p>
+          </Trans>
         </Confirm>
       </FullScreenModal>
     );
