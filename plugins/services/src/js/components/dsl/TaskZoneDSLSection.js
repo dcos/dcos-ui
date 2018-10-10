@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -43,7 +44,7 @@ class TaskZoneDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-        <label>Zones</label>
+        <Trans render="label">Zones</Trans>
         <div className="row">
           <div className="column-12">
             {zones.map(zone => {
