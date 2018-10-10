@@ -1,9 +1,8 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
-import { withI18n } from "@lingui/react";
-import { t } from "@lingui/macro";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
