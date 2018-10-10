@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -89,7 +90,11 @@ class ServiceGroupFormModal extends React.Component {
         buttonDefinition={buttonDefinition}
         disabled={isPending}
         modalProps={{
-          header: <ModalHeading>Create Group</ModalHeading>,
+          header: (
+            <ModalHeading>
+              <Trans render="span">Create Group</Trans>
+            </ModalHeading>
+          ),
           showHeader: true
         }}
         onClose={onClose}
@@ -98,10 +103,9 @@ class ServiceGroupFormModal extends React.Component {
         open={open}
         definition={this.getNewGroupFormDefinition()}
       >
-        <p>
-          {"Enter a name for the new group under "}
-          <strong>{parentGroupId}</strong>
-        </p>
+        <Trans render="p">
+          Enter a name for the new group under <strong>{parentGroupId}</strong>
+        </Trans>
         {this.getErrorMessage()}
       </FormModal>
     );
