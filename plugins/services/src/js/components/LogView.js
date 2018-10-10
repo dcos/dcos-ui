@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { CSSTransitionGroup } from "react-transition-group";
@@ -297,14 +298,18 @@ class LogView extends React.Component {
         onClick={this.handleGoToBottom}
         className="button go-to-bottom-button"
       >
-        Go to bottom
+        <Trans render="span">Go to bottom</Trans>
       </button>
     );
   }
 
   getLogPrepend() {
     if (this.props.hasLoadedTop) {
-      return <div className="text-muted">(AT BEGINNING OF FILE)</div>;
+      return (
+        <Trans render="div" className="text-muted">
+          (AT BEGINNING OF FILE)
+        </Trans>
+      );
     }
 
     // Show loader since we will start a request for more logs
