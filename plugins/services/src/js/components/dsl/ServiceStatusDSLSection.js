@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -33,7 +34,7 @@ class ServiceStatusDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-        <label>Status</label>
+        <Trans render="label">Status</Trans>
         <div className="row">
           <div className="column-6">
             <FormGroup>
@@ -44,7 +45,7 @@ class ServiceStatusDSLSection extends React.Component {
                   name="is_running"
                   type="checkbox"
                 />
-                Running
+                <Trans render="span">Running</Trans>
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
@@ -53,7 +54,7 @@ class ServiceStatusDSLSection extends React.Component {
                   name="is_deploying"
                   type="checkbox"
                 />
-                Deploying
+                <Trans render="span">Deploying</Trans>
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
@@ -62,7 +63,7 @@ class ServiceStatusDSLSection extends React.Component {
                   name="is_recovering"
                   type="checkbox"
                 />
-                Recovering
+                <Trans render="span">Recovering</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
@@ -75,7 +76,7 @@ class ServiceStatusDSLSection extends React.Component {
                   name="is_stopped"
                   type="checkbox"
                 />
-                Stopped
+                <Trans render="span">Stopped</Trans>
               </FieldLabel>
               <FieldLabel>
                 <FieldInput
@@ -84,7 +85,7 @@ class ServiceStatusDSLSection extends React.Component {
                   name="is_deleting"
                   type="checkbox"
                 />
-                Deleting
+                <Trans render="span">Deleting</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
