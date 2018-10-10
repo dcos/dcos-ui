@@ -87,7 +87,6 @@ import Framework from "../structs/Framework";
 import ServiceImages from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
-import FrameworkUtil from "../utils/FrameworkUtil";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 
 let requestInterval = null;
@@ -471,9 +470,9 @@ class MarathonStore extends GetSetBaseStore {
   injectGroupsWithPackageImages(data) {
     data.items.forEach(item => {
       if (ServiceValidatorUtil.isFrameworkResponse(item)) {
-        item["images"] = FrameworkUtil.extractImageUrls(
-          CosmosPackagesStore.getPackageImages()[item.labels.DCOS_PACKAGE_NAME]
-        );
+        item["images"] = CosmosPackagesStore.getPackageImages()[
+          item.labels.DCOS_PACKAGE_NAME
+        ];
       }
     });
   }
