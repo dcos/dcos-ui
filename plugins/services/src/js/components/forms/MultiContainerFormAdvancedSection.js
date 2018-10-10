@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -18,9 +19,11 @@ const getForcePullSection = function(data, path) {
         type="checkbox"
         value={imageForcePull}
       />
-      Force Pull Image On Launch
+      <Trans render="span">Force Pull Image On Launch</Trans>
       <FieldHelp>
-        Force Docker to pull the image before launching each instance.
+        <Trans render="span">
+          Force Docker to pull the image before launching each instance.
+        </Trans>
       </FieldHelp>
     </FieldLabel>
   );
@@ -29,8 +32,10 @@ const getForcePullSection = function(data, path) {
 const MultiContainerFormAdvancedSection = ({ data, path }) => {
   return (
     <div>
-      <h2 className="short-top short-bottom">Advanced Settings</h2>
-      <p>Advanced settings of the container.</p>
+      <Trans render="h2" className="short-top short-bottom">
+        Advanced Settings
+      </Trans>
+      <Trans render="p">Advanced settings of the container.</Trans>
       <p>{getForcePullSection(data, path)}</p>
     </div>
   );
