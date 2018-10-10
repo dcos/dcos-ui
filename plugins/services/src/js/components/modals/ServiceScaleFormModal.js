@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -114,18 +115,24 @@ class ServiceScaleFormModal extends React.Component {
       headerText = "Group";
     }
 
-    return <ModalHeading>Scale {headerText}</ModalHeading>;
+    return (
+      <ModalHeading>
+        <Trans render="span">Scale {headerText}</Trans>
+      </ModalHeading>
+    );
   }
 
   getBodyText() {
-    let bodyText = "How many instances?";
-
     if (this.props.service instanceof ServiceTree) {
-      bodyText =
-        "By which factor would you like to scale all applications within this group?";
+      return (
+        <Trans render="p">
+          By which factor would you like to scale all applications within this{" "}
+          group?
+        </Trans>
+      );
     }
 
-    return <p>{bodyText}</p>;
+    return <Trans render="p">How many instances?</Trans>;
   }
 
   render() {
