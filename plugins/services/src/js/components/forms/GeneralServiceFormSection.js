@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm, Tooltip } from "reactjs-components";
@@ -44,14 +45,16 @@ const METHODS_TO_BIND = [
 
 const containerRuntimes = {
   [DOCKER]: {
-    label: <span>{labelMap[DOCKER]}</span>,
-    helpText:
+    label: <Trans render="span" id={labelMap[DOCKER]} />,
+    helpText: i18nMark(
       "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
+    )
   },
   [MESOS]: {
-    label: <span>{labelMap[MESOS]}</span>,
-    helpText:
+    label: <Trans render="span" id={labelMap[MESOS]} />,
+    helpText: i18nMark(
       "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
+    )
   }
 };
 
@@ -277,7 +280,7 @@ class GeneralServiceFormSection extends Component {
               </span>
             )}
           </div>
-          <FieldHelp>{helpText}</FieldHelp>
+          <Trans render={<FieldHelp />} id={helpText} />
         </FieldLabel>
       );
 
