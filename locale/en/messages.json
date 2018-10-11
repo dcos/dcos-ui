@@ -759,6 +759,15 @@
       ]
     ]
   },
+  "Delete Job": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobDeleteModal.js",
+        30
+      ]
+    ]
+  },
   "Delete Repository": {
     "translation": "",
     "origin": [
@@ -1275,7 +1284,7 @@
     "origin": [
       [
         "plugins/jobs/src/js/components/Breadcrumbs.js",
-        15
+        14
       ]
     ]
   },
@@ -1598,7 +1607,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/components/NodeBreadcrumbs.js",
-        18
+        17
       ]
     ]
   },
@@ -1717,7 +1726,7 @@
     "origin": [
       [
         "plugins/catalog/src/js/repositories/components/RepositoriesPage.js",
-        14
+        13
       ]
     ]
   },
@@ -1862,7 +1871,7 @@
       ]
     ]
   },
-  "Repository ({label}) will be {0} from {1}. You will not be able to install any packages belonging to that repository anymore.": {
+  "Repository ({label}) will be deleted from {0}. You will not be able to install any packages belonging to that repository anymore.": {
     "translation": "",
     "origin": [
       [
@@ -2720,15 +2729,6 @@
       [
         "src/js/components/modals/VersionsModal.js",
         31
-      ]
-    ]
-  },
-  "{0} Job": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/jobs/src/js/components/JobDeleteModal.js",
-        30
       ]
     ]
   },

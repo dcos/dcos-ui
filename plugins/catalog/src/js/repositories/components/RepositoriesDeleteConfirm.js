@@ -13,9 +13,9 @@ const RepositoriesDeleteConfirmMessage = ({ repository, error }) => {
   return (
     <div>
       <Trans render="p">
-        Repository ({label}) will be {UserActions.DELETED}
-        from {Config.productName}. You will not be able to install any packages
-        belonging to that repository anymore.
+        Repository ({label}) will be deleted from {Config.productName}. You will
+        not be able to install any packages belonging to that repository
+        anymore.
       </Trans>
       {error ? errorMessage : ""}
     </div>

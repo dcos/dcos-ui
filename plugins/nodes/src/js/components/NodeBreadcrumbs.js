@@ -14,9 +14,7 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
   const crumbs = [
     <Breadcrumb key={-1} title="Nodes">
       <BreadcrumbTextContent>
-        <Link to="/nodes" key={-1}>
-          <Trans render="span">Nodes</Trans>
-        </Link>
+        <Trans render={<Link to="/nodes" key={-1} />}>Nodes</Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

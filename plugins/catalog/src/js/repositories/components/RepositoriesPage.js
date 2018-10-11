@@ -10,9 +10,9 @@ const RepositoriesBreadcrumbs = addButton => {
   const crumbs = [
     <Breadcrumb key={-1} title="Repositories">
       <BreadcrumbTextContent>
-        <Link to="/settings/repositories">
-          <Trans>Package Repositories</Trans>
-        </Link>
+        <Trans render={<Link to="/settings/repositories" />}>
+          Package Repositories
+        </Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

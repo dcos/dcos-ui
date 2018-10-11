@@ -28,7 +28,7 @@ const ModalMessage = ({ jobId, stopCurrentJobRuns }) => {
   return (
     <div>
       <Trans render="h2" className="text-danger text-align-center flush-top">
-        {StringUtil.capitalize(UserActions.DELETE)} Job
+        Delete Job
       </Trans>
       <p>{stopCurrentJobRuns ? stopCurrentRunsMessage : defaultMessage}</p>
     </div>
