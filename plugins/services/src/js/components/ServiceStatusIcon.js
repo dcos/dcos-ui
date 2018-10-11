@@ -67,18 +67,12 @@ class ServiceStatusIcon extends Component {
       .getItems().length;
 
     if (appsWithWarningsCount > 0) {
-      const serviceText = StringUtil.pluralize(
-        "service",
-        appsWithWarningsCount
+      return this.getTooltip(
+        `DC/OS is waiting for resources and is unable to complete the deployment of ${appsWithWarningsCount} ${StringUtil.pluralize(
+          "service",
+          appsWithWarningsCount
+        )} in this group.`
       );
-      const tooltipContent = (
-        <Trans render="span">
-          DC/OS is waiting for resources and is unable to complete the
-          deployment of {appsWithWarningsCount} {serviceText} in this group.
-        </Trans>
-      );
-
-      return this.getTooltip(tooltipContent);
     }
 
     return null;
