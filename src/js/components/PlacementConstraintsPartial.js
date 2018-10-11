@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import React, { Component } from "react";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 
@@ -20,7 +21,7 @@ import PlacementConstraintsUtil from "#PLUGINS/services/src/js/utils/PlacementCo
 // &nbsp; to space the table rows
 const NBSP = "\u00A0";
 
-export default class PlacementConstraintsPartial extends Component {
+class PlacementConstraintsPartial extends Component {
   getPlacementConstraintLabel(name) {
     return (
       <FieldLabel>
@@ -45,7 +46,7 @@ export default class PlacementConstraintsPartial extends Component {
     );
   }
 
-  getPlacementConstraintsFields(data = []) {
+  getPlacementConstraintsFields(data = [], i18n) {
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
       "constraints"
@@ -81,9 +82,9 @@ export default class PlacementConstraintsPartial extends Component {
       const commonFieldsClassNames = "column-4";
 
       if (isFirstConstraint) {
-        fieldLabel = this.getPlacementConstraintLabel("Field");
-        operatorLabel = this.getPlacementConstraintLabel("Operator");
-        valueLabel = this.getPlacementConstraintLabel("Value");
+        fieldLabel = this.getPlacementConstraintLabel(i18n._(t`Field`));
+        operatorLabel = this.getPlacementConstraintLabel(i18n._(t`Operator`));
+        valueLabel = this.getPlacementConstraintLabel(i18n._(t`Value`));
       }
 
       const fieldValue = (
@@ -116,14 +117,18 @@ export default class PlacementConstraintsPartial extends Component {
                   <SelectOption
                     key={index}
                     value={type}
-                    label={OperatorTypes[type].name}
+                    label={i18n._(t(OperatorTypes[type].name))}
                   >
-                    <span className="dropdown-select-item-title">
-                      {OperatorTypes[type].name}
-                    </span>
-                    <span className="dropdown-select-item-description">
-                      {OperatorTypes[type].description}
-                    </span>
+                    <Trans
+                      render="span"
+                      id={OperatorTypes[type].name}
+                      className="dropdown-select-item-title"
+                    />
+                    <Trans
+                      render="span"
+                      id={OperatorTypes[type].description}
+                      className="dropdown-select-item-description"
+                    />
                   </SelectOption>
                 );
               })}
@@ -192,7 +197,7 @@ export default class PlacementConstraintsPartial extends Component {
   }
 
   render() {
-    const { data = {} } = this.props;
+    const { data = {}, i18n } = this.props;
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
       "constraints"
@@ -211,7 +216,7 @@ export default class PlacementConstraintsPartial extends Component {
 
     return (
       <div>
-        {this.getPlacementConstraintsFields(data.constraints)}
+        {this.getPlacementConstraintsFields(data.constraints, i18n)}
         {errorNode}
         <FormRow>
           <FormGroup className="column-12">
@@ -229,3 +234,5 @@ export default class PlacementConstraintsPartial extends Component {
     );
   }
 }
+
+export default withI18n()(PlacementConstraintsPartial);
