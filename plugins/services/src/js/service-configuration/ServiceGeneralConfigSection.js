@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -90,7 +91,9 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           key: "container.type",
           label: "Container Runtime",
           transformValue(runtime) {
-            return labelMap[runtime] || labelMap[MESOS];
+            const transId = labelMap[runtime] || labelMap[MESOS];
+
+            return <Trans render="span" id={transId} />;
           }
         },
         {
