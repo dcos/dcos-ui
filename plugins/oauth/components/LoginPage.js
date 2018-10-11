@@ -105,7 +105,7 @@ class LoginPage extends mixin(StoreMixin) {
         </div>
         <Modal
           onClose={this.handleModalClose}
-          open={true}
+          open={this.state.showClusterError}
           showCloseButton={true}
           showHeader={false}
           showFooter={false}

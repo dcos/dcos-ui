@@ -148,11 +148,7 @@ exports[`Breadcrumbs has no path 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        <span
-          className={undefined}
-        >
-          Jobs
-        </span>
+        Jobs
       </a>
     </div>
   </div>
@@ -228,11 +224,7 @@ exports[`Breadcrumbs has no props at all 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        <span
-          className={undefined}
-        >
-          Jobs
-        </span>
+        Jobs
       </a>
     </div>
   </div>
@@ -280,11 +272,7 @@ exports[`Breadcrumbs has path but no name 1`] = `
         onClick={[Function]}
         style={Object {}}
       >
-        <span
-          className={undefined}
-        >
-          Jobs
-        </span>
+        Jobs
       </a>
     </div>
   </div>

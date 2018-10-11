@@ -248,7 +248,7 @@ export default class JobsOverviewTable extends React.Component {
         <p className="flush-bottom" key="tooltip-success-at">
           <Trans render="span" className="text-success">
             Last Success:
-          </Trans>
+          </Trans>{" "}
           {new Date(lastSuccessAt).toLocaleString()}
         </p>
       );
@@ -259,7 +259,7 @@ export default class JobsOverviewTable extends React.Component {
         <p className="flush-bottom" key="tooltip-failure-at">
           <Trans render="span" className="text-danger">
             Last Failure:
-          </Trans>
+          </Trans>{" "}
           {new Date(lastFailureAt).toLocaleString()}
         </p>
       );

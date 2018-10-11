@@ -11,9 +11,7 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
   let breadcrumbParts = [
     <Breadcrumb key={"Jobs"} title="Jobs">
       <BreadcrumbTextContent>
-        <Link to={"/jobs/overview/"}>
-          <Trans render="span">Jobs</Trans>
-        </Link>
+        <Trans render={<Link to={"/jobs/overview/"} />}>Jobs</Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
