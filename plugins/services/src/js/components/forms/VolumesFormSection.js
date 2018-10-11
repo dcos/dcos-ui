@@ -63,9 +63,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Container Path</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Container Path
+              </Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -88,9 +88,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">SIZE (MiB)</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                SIZE (MiB)
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -133,9 +133,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(hostPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Host Path</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Host Path
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -149,9 +149,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Container Path</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Container Path
+              </Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -174,9 +174,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(modeError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Mode</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Mode
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldSelect name={`volumes.${key}.mode`} value={volume.mode}>
@@ -249,9 +249,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(nameError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Name</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Name
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -266,9 +266,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Container Path</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Container Path
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldInput
@@ -281,9 +281,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">SIZE (GiB)</Trans>
-              </FormGroupHeadingContent>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                SIZE (GiB)
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           {sizeField}
@@ -344,9 +344,9 @@ class VolumesFormSection extends Component {
             <FormGroup className="column-5" showError={Boolean(typeError)}>
               <FieldLabel>
                 <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
-                    <Trans render="span">Volume Type</Trans>
-                  </FormGroupHeadingContent>
+                  <Trans render={<FormGroupHeadingContent primary={true} />}>
+                    Volume Type
+                  </Trans>
                 </FormGroupHeading>
               </FieldLabel>
               <MountService.Mount
@@ -413,9 +413,9 @@ class VolumesFormSection extends Component {
       <div>
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
-            <FormGroupHeadingContent primary={true}>
-              <Trans render="span">Volumes</Trans>
-            </FormGroupHeadingContent>
+            <Trans render={<FormGroupHeadingContent primary={true} />}>
+              Volumes
+            </Trans>
             <FormGroupHeadingContent>
               <Tooltip
                 content={tooltipContent}
