@@ -9,7 +9,7 @@ function EmptyLogScreen({ logName }) {
   return (
     <div className="flex-grow horizontal-center vertical-center">
       <Trans render="h3" className="text-align-center flush-top">
-        {logName}Log is Currently Empty
+        {logName} Log is Currently Empty
       </Trans>
       <Trans render="p" className="text-align-center flush-bottom">
         Please try again later.

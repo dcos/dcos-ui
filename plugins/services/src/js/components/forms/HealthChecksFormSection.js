@@ -292,9 +292,9 @@ class HealthChecksFormSection extends Component {
             type="checkbox"
           />
           {"Make "}
-          <span className="truecase">
-            <Trans render="span">IPv6</Trans>
-          </span>
+          <Trans render="span" className="truecase">
+            IPv6
+          </Trans>
         </FieldLabel>
         <FieldError>{errors.ipProtocol}</FieldError>
       </FormGroup>
@@ -348,9 +348,7 @@ class HealthChecksFormSection extends Component {
             name={`healthChecks.${key}.portIndex`}
             value={String(healthCheck.portIndex)}
           >
-            <Trans render="option" value="">
-              Select Endpoint
-            </Trans>
+            <Trans render={<option value="" />}>Select Endpoint</Trans>
             {this.getEndpoints()}
           </FieldSelect>
         </FormGroup>
@@ -482,15 +480,9 @@ class HealthChecksFormSection extends Component {
                   healthCheck.protocol.replace(MESOS_HTTPS, MESOS_HTTP)
                 }
               >
-                <option value="">
-                  <Trans render="span">Select Protocol</Trans>
-                </option>
-                <option value={COMMAND}>
-                  <Trans render="span">Command</Trans>
-                </option>
-                <option value={MESOS_HTTP}>
-                  <Trans render="span">HTTP</Trans>
-                </option>
+                <Trans render={<option value="" />}>Select Protocol</Trans>
+                <Trans render={<option value={COMMAND} />}>Command</Trans>
+                <Trans render={<option value={MESOS_HTTP} />}>HTTP</Trans>
               </FieldSelect>
               <FieldError>{errors.protocol}</FieldError>
             </FormGroup>

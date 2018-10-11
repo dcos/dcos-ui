@@ -307,7 +307,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     const helpText = (
       <FieldHelp>
         <Trans render="span">
-          Load balance this service internally at{hostName}
+          Load balance this service internally at {hostName}
         </Trans>
       </FieldHelp>
     );
@@ -554,9 +554,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect name="networks.0" value={network}>
-        <option value={HOST}>
-          <Trans render="span">Host</Trans>
-        </option>
+        <Trans render={<option value={HOST} />}>Host</Trans>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );

@@ -198,9 +198,7 @@ class ServiceBreadcrumbs extends React.Component {
     let crumbs = [
       <Breadcrumb key={-1} title="Services">
         <BreadcrumbTextContent>
-          <Link to="/services">
-            <Trans render="span">Services</Trans>
-          </Link>
+          <Trans render={<Link to="/services" />}>Services</Trans>
         </BreadcrumbTextContent>
       </Breadcrumb>
     ];
