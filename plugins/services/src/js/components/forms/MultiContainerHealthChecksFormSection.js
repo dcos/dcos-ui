@@ -299,9 +299,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             name={`${path}.http.endpoint`}
             value={String(healthCheck.http.endpoint)}
           >
-            <option value="">
-              <Trans render="span">Select Endpoint</Trans>
-            </option>
+            <Trans render={<option value="" />}>Select Endpoint</Trans>
             {this.getEndpoints(container)}
           </FieldSelect>
         </FormGroup>
@@ -366,9 +364,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             name={`${path}.tcp.endpoint`}
             value={String(healthCheck.tcp.endpoint)}
           >
-            <option value="">
-              <Trans render="span">Select Endpoint</Trans>
-            </option>
+            <Trans render={<option value="" />}>Select Endpoint</Trans>
             {this.getEndpoints(container)}
           </FieldSelect>
         </FormGroup>
@@ -432,18 +428,10 @@ class MultiContainerHealthChecksFormSection extends Component {
               </FormGroupHeading>
             </FieldLabel>
             <FieldSelect name={`${path}.protocol`} value={healthCheck.protocol}>
-              <option value="">
-                <Trans render="span">Select Protocol</Trans>
-              </option>
-              <option value={COMMAND}>
-                <Trans render="span">Command</Trans>
-              </option>
-              <option value={HTTP}>
-                <Trans render="span">HTTP</Trans>
-              </option>
-              <option value={TCP}>
-                <Trans render="span">TCP</Trans>
-              </option>
+              <Trans render={<option value="" />}>Select Protocol</Trans>
+              <Trans render={<option value={COMMAND} />}>Command</Trans>
+              <Trans render={<option value={HTTP} />}>HTTP</Trans>
+              <Trans render={<option value={TCP} />}>TCP</Trans>
             </FieldSelect>
           </FormGroup>
         </FormRow>

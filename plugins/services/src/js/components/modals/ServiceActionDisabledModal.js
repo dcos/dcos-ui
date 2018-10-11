@@ -163,7 +163,7 @@ class ServiceActionDisabledModal extends React.Component {
         service={service}
       >
         <Trans render="div" className="center">
-          Editing this service is only available on
+          Editing this service is only available on{" "}
           <a href="https://mesosphere.com/product/" target="_blank">
             Mesosphere Enterprise DC/OS
           </a>.

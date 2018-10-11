@@ -180,12 +180,8 @@ class VolumesFormSection extends Component {
             </FormGroupHeading>
           </FieldLabel>
           <FieldSelect name={`volumes.${key}.mode`} value={volume.mode}>
-            <option value="RW">
-              <Trans render="span">Read and Write</Trans>
-            </option>
-            <option value="RO">
-              <Trans render="span">Read Only</Trans>
-            </option>
+            <Trans render={<option value="RW" />}>Read and Write</Trans>\
+            <Trans render={<option value="RO" />}>Read Only</Trans>
           </FieldSelect>
         </FormGroup>
       </FormRow>
