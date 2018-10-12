@@ -285,7 +285,13 @@ export default class JobsOverviewTable extends React.Component {
       "text-danger": jobState.stateTypes.includes("failure")
     });
 
-    return <span className={statusClasses}>{jobState.displayName}</span>;
+    return (
+      <Trans
+        render="span"
+        className={statusClasses}
+        id={jobState.displayName}
+      />
+    );
   }
 
   render() {

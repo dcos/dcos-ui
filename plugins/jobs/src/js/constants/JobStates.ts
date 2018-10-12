@@ -3,6 +3,8 @@
  * to least important (largest number, bottom of list)
  */
 
+import { i18nMark } from "@lingui/react";
+
 export interface JobStates {
   [state: string]: {
     stateTypes: string[];
@@ -14,42 +16,42 @@ export interface JobStates {
 const states: JobStates = {
   INITIAL: {
     stateTypes: ["active"],
-    displayName: "Starting",
+    displayName: i18nMark("Starting"),
     sortOrder: 3
   },
   STARTING: {
     stateTypes: ["active"],
-    displayName: "Starting",
+    displayName: i18nMark("Starting"),
     sortOrder: 3
   },
   ACTIVE: {
     stateTypes: ["active"],
-    displayName: "Running",
+    displayName: i18nMark("Running"),
     sortOrder: 4
   },
   FAILED: {
     stateTypes: ["completed", "failure"],
-    displayName: "Failed",
+    displayName: i18nMark("Failed"),
     sortOrder: 0
   },
   SUCCESS: {
     stateTypes: ["success"],
-    displayName: "Success",
+    displayName: i18nMark("Success"),
     sortOrder: 6
   },
   COMPLETED: {
     stateTypes: ["success"],
-    displayName: "Completed",
+    displayName: i18nMark("Completed"),
     sortOrder: 5
   },
   SCHEDULED: {
     stateTypes: [],
-    displayName: "Scheduled",
+    displayName: i18nMark("Scheduled"),
     sortOrder: 2
   },
   UNSCHEDULED: {
     stateTypes: [],
-    displayName: "Unscheduled",
+    displayName: i18nMark("Unscheduled"),
     sortOrder: 1
   }
 };
