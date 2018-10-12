@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -398,9 +399,11 @@ class PodInstancesTable extends React.Component {
 
     return this.renderWithClickHandler(
       rowOptions,
-      <span className={`status-text ${status.textClassName}`}>
-        {status.displayName}
-      </span>
+      <Trans
+        id={status.displayName}
+        render="span"
+        className={`status-text ${status.textClassName}`}
+      />
     );
   }
 
