@@ -48,7 +48,7 @@ class NodeInfoPanel extends React.Component {
 NodeInfoPanel.propTypes = {
   docsURL: PropTypes.string,
   output: PropTypes.string,
-  summary: PropTypes.string
+  summary: PropTypes.oneOfType(PropTypes.string, PropTypes.array)
 };
 
 module.exports = NodeInfoPanel;

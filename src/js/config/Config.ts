@@ -1,5 +1,5 @@
 /* eslint no-redeclare: 0 */
-
+import { i18nMark } from "@lingui/react";
 import ConfigDev from "./Config.dev";
 import ConfigTest from "./Config.test";
 
@@ -56,7 +56,7 @@ let Config: IConfiguration = {
   fullProductName: "Mesosphere DC/OS",
   marathonAPIPrefix: "/service/marathon/v2",
   metronomeAPI: "/service/metronome",
-  productName: "Mesosphere DC/OS",
+  productName: i18nMark("Mesosphere DC/OS"),
   productHomepageURI: "https://dcos.io",
   setInactiveAfter: 30000,
   testHistoryInterval: 10000,

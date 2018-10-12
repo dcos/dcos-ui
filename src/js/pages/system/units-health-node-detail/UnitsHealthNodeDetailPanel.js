@@ -27,7 +27,7 @@ UnitsHealthNodeDetailPanel.propTypes = {
   docsURL: PropTypes.string,
   hostIP: PropTypes.string,
   output: PropTypes.string,
-  summary: PropTypes.string
+  summary: PropTypes.oneOfType(PropTypes.string, PropTypes.array)
 };
 
 module.exports = UnitsHealthNodeDetailPanel;
