@@ -117,7 +117,7 @@ class PlacementConstraintsPartial extends Component {
                   <SelectOption
                     key={index}
                     value={type}
-                    label={i18n._(t(OperatorTypes[type].name))}
+                    label={i18n._(OperatorTypes[type].name)}
                   >
                     <Trans
                       render="span"
