@@ -4,18 +4,14 @@ import JobRunList from "./JobRunList";
 export default class Job extends Item {
   getActiveRuns(): JobRunList;
   getCommand(): string;
-  getCpus(): Number;
+  getCpus(): number;
   getDescription(): string;
   getDocker(): string;
-  getDisk(): Number;
+  getDisk(): number;
   getId(): string;
-  getJobRuns(): JobRunList;
   getLabels(): object;
-  getMem(): Number;
-  getLastRunsSummary(): object;
-  getLastRunStatus(): object;
+  getMem(): number;
   getName(): string;
   getSchedules(): string[];
-  getScheduleStatus(): string;
   toJSON(): object;
 }
