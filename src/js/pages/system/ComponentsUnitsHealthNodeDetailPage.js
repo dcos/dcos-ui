@@ -133,6 +133,11 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     const unitSummary = UnitSummaries[unit.get("id")] || {};
     const unitDocsURL =
       unitSummary.getDocumentationURI && unitSummary.getDocumentationURI();
+    const joinedUnitSummary = unitSummary.summary
+      .map((sumPiece, i) => (
+        <Trans key={sumPiece + i} render="span" id={sumPiece} />
+      ))
+      .reduce((prev, curr) => [...prev, " ", curr], []);
 
     return (
       <UnitsHealthNodeDetailPanel
@@ -141,7 +146,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
         docsURL={unitDocsURL}
         hostIP={node.get("host_ip")}
         output={node.getOutput()}
-        summary={unitSummary.summary}
+        summary={joinedUnitSummary}
       />
     );
   }
