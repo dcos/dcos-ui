@@ -190,7 +190,7 @@ describe("ErrorMessageUtil", function() {
         {
           type: "TYPE1",
           path: /.*/,
-          message: "message2 is {{value}}"
+          message: "message2 is ||value||"
         }
       ];
 

@@ -1,4 +1,4 @@
-const MESSAGE_VARIABLE = /\{\{([^{}]+)\}\}/g;
+const MESSAGE_VARIABLE = /\|\|([^|]+)\|\|/g;
 
 const ErrorMessageUtil = {
   /**
