@@ -257,7 +257,9 @@ class ServiceDebugContainer extends React.Component {
       return null;
     }
 
-    const waitingSince = DateUtil.strToMs(queue.since);
+    const lastConfigChangeAt = this.props.service.versionInfo
+      .lastConfigChangeAt;
+    const waitingSince = DateUtil.strToMs(lastConfigChangeAt);
     const timeWaiting = Date.now() - waitingSince;
 
     // If the service has been waiting for less than five minutes, we don't

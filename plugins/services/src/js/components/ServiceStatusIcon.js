@@ -35,9 +35,16 @@ const getTooltipContent = (service, content) => {
 class ServiceStatusIcon extends Component {
   getDeclinedOffersWarning(service) {
     if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
-      const timeWaiting =
-        Date.now() -
-        DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(service.getQueue()));
+      // We are getting the last config change time in a different way for services and pods.
+      let lastChange = service.getQueue().since;
+
+      if (service.versionInfo) {
+        lastChange = service.versionInfo.lastConfigChangeAt;
+      } else if (service.spec) {
+        lastChange = service.spec.version;
+      }
+
+      const timeWaiting = Date.now() - DateUtil.strToMs(lastChange);
 
       return this.getTooltip(
         `DC/OS has been waiting for resources and is unable to complete this deployment for ${DateUtil.getDuration(
@@ -101,9 +108,18 @@ class ServiceStatusIcon extends Component {
 
   getUnableToLaunchWarning(service) {
     if (this.isUnableToLaunch(service)) {
+      // We are getting the last config change time in a different way for services and pods.
+      let lastChange = service.getQueue().since;
+
+      if (service.versionInfo) {
+        lastChange = service.versionInfo.lastConfigChangeAt;
+      } else if (service.spec) {
+        lastChange = service.spec.version;
+      }
+
       return this.getTooltip(
         `DC/OS has been unable to complete this deployment for ${DateUtil.getDuration(
-          Date.now() - DateUtil.strToMs(service.getQueue().since),
+          Date.now() - DateUtil.strToMs(lastChange),
           null
         )}.`
       );
