@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
@@ -373,14 +374,14 @@ class TaskTable extends React.Component {
     const unhealthy = task.health === TaskHealthStates.UNHEALTHY;
     const unknown = task.health === TaskHealthStates.UNKNOWN;
 
-    let tooltipContent = TaskHealthStates.HEALTHY;
+    let tooltipContent = <Trans id={TaskHealthStates.HEALTHY} render="span" />;
 
     if (unhealthy) {
-      tooltipContent = TaskHealthStates.UNHEALTHY;
+      tooltipContent = <Trans id={TaskHealthStates.UNHEALTHY} render="span" />;
     }
 
     if (!activeState || unknown || transitional) {
-      tooltipContent = "No health checks available";
+      tooltipContent = <Trans render="span">No health checks available</Trans>;
     }
 
     const failing = ["TASK_ERROR", "TASK_FAILED"].includes(state);
