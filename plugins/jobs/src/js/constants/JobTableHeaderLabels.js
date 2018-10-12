@@ -1,7 +1,9 @@
+import { i18nMark } from "@lingui/react";
+
 const JobTableHeaderLabels = {
-  name: "Name",
-  status: "Status",
-  lastRun: "Last Run"
+  name: i18nMark("Name"),
+  status: i18nMark("Status"),
+  lastRun: i18nMark("Last Run")
 };
 
 module.exports = JobTableHeaderLabels;
