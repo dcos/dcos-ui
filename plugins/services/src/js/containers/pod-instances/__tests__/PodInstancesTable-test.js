@@ -134,7 +134,7 @@ describe("PodInstancesTable", function() {
 
       it("renders the status column", function() {
         const names = thisInstance
-          .find(".task-table-column-status .status-text")
+          .find(".task-table-column-status span.status-text")
           .map(function(el) {
             return el.text();
           });
@@ -251,10 +251,11 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
+        const instances = pod.getInstanceList().getItems();
         const component = JestUtil.stubRouterContext(
           PodInstancesTable,
           { pod },
-          { instances: pod.getInstanceList().getItems() },
+          { instances },
           { service: pod }
         );
         thisInstance = mount(component);
@@ -316,7 +317,7 @@ describe("PodInstancesTable", function() {
 
       it("renders the status column", function() {
         const names = thisInstance
-          .find(".task-table-column-status .status-text")
+          .find(".task-table-column-status span.status-text")
           .map(function(el) {
             return el.text();
           });

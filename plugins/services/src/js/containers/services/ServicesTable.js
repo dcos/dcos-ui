@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
 import { injectIntl } from "react-intl";
@@ -401,7 +402,11 @@ class ServicesTable extends React.Component {
             tooltipContent={tooltipContent}
           />
           {hasStatusText && (
-            <span className="status-bar-text">{serviceStatusText}</span>
+            <Trans
+              id={serviceStatusText}
+              render="span"
+              className="status-bar-text"
+            />
           )}
         </div>
         <div className="service-status-progressbar-wrapper">
