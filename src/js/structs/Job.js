@@ -1,7 +1,4 @@
-import JobStatus from "#PLUGINS/jobs/src/js/constants/JobStatus";
-
 import { cleanJobJSON } from "../utils/CleanJSONUtil";
-import DateUtil from "../utils/DateUtil";
 import Item from "./Item";
 import JobRunList from "./JobRunList";
 import {
@@ -48,16 +45,6 @@ module.exports = class Job extends Item {
     return this.get("id");
   }
 
-  getJobRuns() {
-    const activeRuns = this.get("activeRuns") || [];
-    const { failedFinishedRuns = [], successfulFinishedRuns = [] } =
-      this.get("history") || {};
-
-    return new JobRunList({
-      items: [].concat(activeRuns, failedFinishedRuns, successfulFinishedRuns)
-    });
-  }
-
   getParameters() {
     return (
       findNestedPropertyInObject(this.get("run"), "docker.parameters") || []
@@ -74,36 +61,6 @@ module.exports = class Job extends Item {
     return mem;
   }
 
-  getLastRunsSummary() {
-    return this.get("historySummary") || {};
-  }
-
-  getLastRunStatus() {
-    let { lastFailureAt, lastSuccessAt } = this.getLastRunsSummary();
-    let status = JobStatus["N/A"].displayName;
-    let time = null;
-
-    if (lastFailureAt !== null) {
-      lastFailureAt = DateUtil.strToMs(lastFailureAt);
-    }
-
-    if (lastSuccessAt !== null) {
-      lastSuccessAt = DateUtil.strToMs(lastSuccessAt);
-    }
-
-    if (lastFailureAt !== null || lastSuccessAt !== null) {
-      if (lastFailureAt > lastSuccessAt) {
-        status = JobStatus["Failed"].displayName;
-        time = lastFailureAt;
-      } else {
-        status = JobStatus["Success"].displayName;
-        time = lastSuccessAt;
-      }
-    }
-
-    return { status, time };
-  }
-
   getName() {
     return this.getId()
       .split(".")
@@ -118,32 +75,6 @@ module.exports = class Job extends Item {
     }
 
     return schedules;
-  }
-
-  getScheduleStatus() {
-    const activeRuns = this.getActiveRuns();
-    const activeRunsLength = activeRuns.getItems().length;
-    const scheduleLength = this.getSchedules().length;
-
-    if (activeRunsLength > 0) {
-      const longestRunningActiveRun = activeRuns.getLongestRunningActiveRun();
-
-      return longestRunningActiveRun.getStatus();
-    }
-
-    if (scheduleLength > 0) {
-      const schedule = this.getSchedules()[0];
-
-      if (schedule != null && schedule.enabled) {
-        return "SCHEDULED";
-      }
-    }
-
-    if (scheduleLength === 0 && activeRunsLength === 0) {
-      return "UNSCHEDULED";
-    }
-
-    return "COMPLETED";
   }
 
   toJSON() {

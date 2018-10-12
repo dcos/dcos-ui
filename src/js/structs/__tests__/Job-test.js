@@ -119,46 +119,6 @@ describe("Job", function() {
     });
   });
 
-  describe("#getJobRuns", function() {
-    it("returns an instance of JobRunList", function() {
-      const job = new Job({ id: "foo", activeRuns: [] });
-
-      expect(job.getJobRuns()).toEqual(jasmine.any(JobRunList));
-    });
-
-    it("includes failed finished runs", function() {
-      const job = new Job({
-        id: "foo",
-        activeRuns: [],
-        history: {
-          failedFinishedRuns: [
-            {
-              id: "bar"
-            }
-          ]
-        }
-      });
-
-      expect(job.getJobRuns().getItems()[0].id).toEqual("bar");
-    });
-
-    it("includes successful finished runs", function() {
-      const job = new Job({
-        id: "foo",
-        activeRuns: [],
-        history: {
-          successfulFinishedRuns: [
-            {
-              id: "bar"
-            }
-          ]
-        }
-      });
-
-      expect(job.getJobRuns().getItems()[0].id).toEqual("bar");
-    });
-  });
-
   describe("#getLabels", function() {
     it("returns the correct labels", function() {
       const job = new Job({
@@ -205,76 +165,6 @@ describe("Job", function() {
     });
   });
 
-  describe("#getLastRunStatus", function() {
-    it("returns an object with the time in ms", function() {
-      const job = new Job({
-        id: "test.job",
-        historySummary: {
-          lastSuccessAt: "1990-04-30T00:00:00Z",
-          lastFailureAt: "1985-04-30T00:00:00Z"
-        }
-      });
-
-      expect(job.getLastRunStatus().time).toEqual(641433600000);
-    });
-
-    it("returns the most recent status", function() {
-      const job = new Job({
-        id: "test.job",
-        historySummary: {
-          lastSuccessAt: "1990-04-30T00:00:00Z",
-          lastFailureAt: "1985-04-30T00:00:00Z"
-        }
-      });
-
-      expect(job.getLastRunStatus().status).toEqual("Success");
-    });
-
-    it("returns the most recent status", function() {
-      const job = new Job({
-        id: "test.job",
-        historySummary: {
-          lastSuccessAt: "1985-04-30T00:00:00Z",
-          lastFailureAt: "1990-04-30T00:00:00Z"
-        }
-      });
-
-      expect(job.getLastRunStatus().status).toEqual("Failed");
-    });
-
-    it("returns N/A status if both are undefiend", function() {
-      const job = new Job({
-        id: "test.job",
-        historySummary: {}
-      });
-
-      expect(job.getLastRunStatus().status).toEqual("N/A");
-      expect(job.getLastRunStatus().time).toEqual(null);
-    });
-
-    it("returns success if lastFailureAt is undefiend", function() {
-      const job = new Job({
-        id: "test.job",
-        historySummary: {
-          lastSuccessAt: "1990-04-30T00:00:00Z"
-        }
-      });
-
-      expect(job.getLastRunStatus().status).toEqual("Success");
-    });
-
-    it("returns success if lastSuccessAt is undefiend", function() {
-      const job = new Job({
-        id: "test.job",
-        historySummary: {
-          lastFailureAt: "1990-04-30T00:00:00Z"
-        }
-      });
-
-      expect(job.getLastRunStatus().status).toEqual("Failed");
-    });
-  });
-
   describe("#getName", function() {
     it("returns correct name", function() {
       const job = new Job({ id: "test.job" });
@@ -294,64 +184,6 @@ describe("Job", function() {
       const job = new Job({ id: "/foo" });
 
       expect(job.getSchedules()).toEqual([]);
-    });
-  });
-
-  describe("#getScheduleStatus", function() {
-    it("returns the longest running job's status", function() {
-      const job = new Job({
-        id: "/foo",
-        activeRuns: [
-          {
-            status: "foo",
-            createdAt: "1985-01-03t00:00:00z-1"
-          },
-          {
-            status: "bar",
-            createdAt: "1990-01-03t00:00:00z-1"
-          }
-        ],
-        schedules: ["bar"]
-      });
-
-      expect(job.getScheduleStatus()).toEqual("foo");
-    });
-
-    it("returns scheduled if there are no active runs and the schedule is enabled", function() {
-      const job = new Job({
-        id: "/foo",
-        activeRuns: [],
-        schedules: [
-          {
-            enabled: true
-          }
-        ]
-      });
-
-      expect(job.getScheduleStatus()).toEqual("SCHEDULED");
-    });
-
-    it("returns unscheduled if there are no active runs and no enabled schedule", function() {
-      const job = new Job({
-        id: "/foo",
-        activeRuns: [],
-        scheduled: [
-          {
-            enabled: false
-          }
-        ]
-      });
-
-      expect(job.getScheduleStatus()).toEqual("UNSCHEDULED");
-    });
-
-    it("returns unscheduled if there are no active runs and no schedule", function() {
-      const job = new Job({
-        id: "/foo",
-        activeRuns: []
-      });
-
-      expect(job.getScheduleStatus()).toEqual("UNSCHEDULED");
     });
   });
 
