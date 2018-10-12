@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+
 const DefaultErrorMessages = [
   //
   // The following rule will match every message path, behaving
@@ -24,8 +26,8 @@ const DefaultErrorMessages = [
   //
   // NOTE: Every time you are about to write a description for the error
   //       message make sure that it sounds natural *both* on it's own
-  //       (ex. 'Must be one of {{value}}') AND when prefixed with the
-  //       expression 'The service' (ex. 'The service must be one of {{value}}')
+  //       (ex. 'Must be one of ||value||') AND when prefixed with the
+  //       expression 'The service' (ex. 'The service must be one of ||value||')
   //
 
   //
@@ -35,127 +37,127 @@ const DefaultErrorMessages = [
   {
     path: /.*/,
     type: "ENUM",
-    message: "Must be one of {{values}}"
+    message: i18nMark("Must be one of ||values||")
   },
   {
     path: /.*/,
     type: "ITEMS_MAX",
-    message: "Must contain at most {{value}} items in the array"
+    message: i18nMark("Must contain at most ||value|| items in the array")
   },
   {
     path: /.*/,
     type: "ITEMS_MIN",
-    message: "Must contain at least {{value}} items in the array"
+    message: i18nMark("Must contain at least ||value|| items in the array")
   },
   {
     path: /.*/,
     type: "ITEMS_UNIQUE",
-    message: "Must contain only unique items"
+    message: i18nMark("Must contain only unique items")
   },
   {
     path: /.*/,
     type: "LENGTH_MAX",
-    message: "Must be at most {{value}} characters long"
+    message: i18nMark("Must be at most ||value|| characters long")
   },
   {
     path: /.*/,
     type: "LENGTH_MIN",
-    message: "Must be at least {{value}} characters long"
+    message: i18nMark("Must be at least ||value|| characters long")
   },
   {
     path: /.*/,
     type: "NUMBER_MAX",
-    message: "Must be smaller than or equal to {{value}}"
+    message: i18nMark("Must be smaller than or equal to ||value||")
   },
   {
     path: /.*/,
     type: "NUMBER_MIN",
-    message: "Must be bigger than or equal to {{value}}"
+    message: i18nMark("Must be bigger than or equal to ||value||")
   },
   {
     path: /.*/,
     type: "NUMBER_MULTIPLEOF",
-    message: "Must be multiple of {{value}}"
+    message: i18nMark("Must be multiple of ||value||")
   },
   {
     path: /.*/,
     type: "NUMBER_TYPE",
-    message: "Must be of type `{{type}}`"
+    message: i18nMark("Must be of type `||type||`")
   },
   {
     path: /.*/,
     type: "PROPS_MAX",
-    message: "Must contain at most {{value}} properties"
+    message: i18nMark("Must contain at most ||value|| properties")
   },
   {
     path: /.*/,
     type: "PROPS_MIN",
-    message: "Must contain at least {{value}} properties"
+    message: i18nMark("Must contain at least ||value|| properties")
   },
   {
     path: /.*/,
     type: "PROP_ADDITIONAL_PROPS",
-    message: "Contains extraneous property `{{name}}`"
+    message: i18nMark("Contains extraneous property `||name||`")
   },
   {
     path: /.*/,
     type: "PROP_IS_MISSING",
-    message: "Must be defined"
+    message: i18nMark("Must be defined")
   },
   {
     path: /.*/,
     type: "PROP_MISSING",
-    message: "Must define property `{{name}}`"
+    message: i18nMark("Must define property `||name||`")
   },
   {
     path: /.*/,
     type: "PROP_MISSING_MATCH",
-    message: "Must contain a property that matches `{{pattern}}`"
+    message: i18nMark("Must contain a property that matches `||pattern||`")
   },
   {
     path: /.*/,
     type: "STRING_PATTERN",
-    message: "Must match the pattern `{{pattern}}`"
+    message: i18nMark("Must match the pattern `||pattern||`")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_ARRAY",
-    message: "Must be an array"
+    message: i18nMark("Must be an array")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_BOOLEAN",
-    message: "Must be a boolean value"
+    message: i18nMark("Must be a boolean value")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_DATETIME",
-    message: "Must be a date/time string"
+    message: i18nMark("Must be a date/time string")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_INTEGER",
-    message: "Must be an integer number"
+    message: i18nMark("Must be an integer number")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_NULL",
-    message: "Must be null"
+    message: i18nMark("Must be null")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_NUMBER",
-    message: "Must be a number"
+    message: i18nMark("Must be a number")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_OBJECT",
-    message: "Must be an object"
+    message: i18nMark("Must be an object")
   },
   {
     path: /.*/,
     type: "TYPE_NOT_STRING",
-    message: "Must be a string"
+    message: i18nMark("Must be a string")
   },
 
   //
@@ -166,7 +168,7 @@ const DefaultErrorMessages = [
   {
     path: /.*/,
     type: "ALREADY_EXISTS",
-    message: "Already Exists"
+    message: i18nMark("Already Exists")
   },
 
   //
@@ -179,7 +181,7 @@ const DefaultErrorMessages = [
   {
     path: /.*/,
     type: "VALUE_SHAPE",
-    message: "Must be a certain shape: {{shape}}"
+    message: i18nMark("Must be a certain shape: ||shape||")
   }
 ];
 
