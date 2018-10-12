@@ -1,7 +1,9 @@
+import { i18nMark } from "@lingui/react";
+
 const TaskHealthStates = {
-  HEALTHY: "Healthy",
-  UNHEALTHY: "Unhealthy",
-  UNKNOWN: "Unknown"
+  HEALTHY: i18nMark("Healthy"),
+  UNHEALTHY: i18nMark("Unhealthy"),
+  UNKNOWN: i18nMark("Unknown")
 };
 
 module.exports = TaskHealthStates;
