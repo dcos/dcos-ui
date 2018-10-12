@@ -124,7 +124,7 @@ class PodInstancesTable extends React.Component {
 
     return (
       <span>
-        {PodTableHeaderLabels[prop]}
+        <Trans render="span" id={PodTableHeaderLabels[prop]} />
         <span className={caretClassNames} />
       </span>
     );
