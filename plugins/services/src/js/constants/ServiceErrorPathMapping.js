@@ -1,23 +1,25 @@
+import { i18nMark } from "@lingui/react";
+
 const ServiceErrorPathMapping = [
   {
     match: /^id$/,
-    name: "Service ID"
+    name: i18nMark("Service ID")
   },
   {
     match: /^instances$/,
-    name: "Instances"
+    name: i18nMark("Instances")
   },
   {
     match: /^cpus$/,
-    name: "CPUs"
+    name: i18nMark("CPUs")
   },
   {
     match: /^mem$/,
-    name: "Memory"
+    name: i18nMark("Memory")
   },
   {
     match: /^env\.\*$/,
-    name: "Environment variables"
+    name: i18nMark("Environment variables")
   },
 
   //
@@ -25,19 +27,19 @@ const ServiceErrorPathMapping = [
   //
   {
     match: /^container\.volumes\.[0-9]+\.containerPath$/,
-    name: "Volume container path"
+    name: i18nMark("Volume container path")
   },
   {
     match: /^container\.volumes\.[0-9]+\..*size$/,
-    name: "Volume size"
+    name: i18nMark("Volume size")
   },
   {
     match: /^container\.volumes\.[0-9]+\.hostPath$/,
-    name: "Volume host path"
+    name: i18nMark("Volume host path")
   },
   {
     match: /^container\.volumes\.[0-9]+\.mode$/,
-    name: "Volume mode"
+    name: i18nMark("Volume mode")
   },
 
   //
@@ -45,15 +47,15 @@ const ServiceErrorPathMapping = [
   //
   {
     match: /^portDefinitions\.[0-9]+\.name$/,
-    name: "Service endpoint names"
+    name: i18nMark("Service endpoint names")
   },
   {
     match: /^portDefinitions\.[0-9]+\.port$/,
-    name: "Service endpoint host ports"
+    name: i18nMark("Service endpoint host ports")
   },
   {
     match: /^portDefinitions\.[0-9]+\.labels\.VIP_/,
-    name: "Service endpoint host ports"
+    name: i18nMark("Service endpoint host ports")
   },
 
   //
@@ -61,15 +63,15 @@ const ServiceErrorPathMapping = [
   //
   {
     match: /^container\.docker\.portMappings\.[0-9]+\.name/,
-    name: "Service endpoint names"
+    name: i18nMark("Service endpoint names")
   },
   {
     match: /^container\.docker\.portMappings\.[0-9]+\.containerPort/,
-    name: "Service endpoint container ports"
+    name: i18nMark("Service endpoint container ports")
   },
   {
     match: /^container\.docker\.portMappings\.[0-9]+\.hostPort/,
-    name: "Service endpoint host ports"
+    name: i18nMark("Service endpoint host ports")
   },
 
   //
@@ -77,19 +79,19 @@ const ServiceErrorPathMapping = [
   //
   {
     match: /^healthChecks\.[0-9]+\.gracePeriodSeconds/,
-    name: "Health check grace periods"
+    name: i18nMark("Health check grace periods")
   },
   {
     match: /^healthChecks\.[0-9]+\.intervalSeconds/,
-    name: "Health check intervals"
+    name: i18nMark("Health check intervals")
   },
   {
     match: /^healthChecks\.[0-9]+\.timeoutSeconds/,
-    name: "Health check timeouts"
+    name: i18nMark("Health check timeouts")
   },
   {
     match: /^healthChecks\.[0-9]+\.maxConsecutiveFailures/,
-    name: "Health check max failures"
+    name: i18nMark("Health check max failures")
   }
 ];
 
