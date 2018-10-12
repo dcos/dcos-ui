@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
@@ -260,7 +261,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
       <DetailViewHeader
         icon={taskIcon}
         iconClassName="icon-app-container  icon-image-container"
-        subTitle={serviceStatus}
+        subTitle={<Trans render="span" id={serviceStatus} />}
         subTitleClassName={serviceStatusClassSet}
         navigationTabs={navigationTabs}
         title={task.getName()}
