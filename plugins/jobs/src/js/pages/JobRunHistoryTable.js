@@ -302,7 +302,13 @@ class JobRunHistoryTable extends React.Component {
         "text-neutral": status.stateTypes.includes("active")
       });
 
-      return <span className={statusClasses}>{status.displayName}</span>;
+      return (
+        <Trans
+          render="span"
+          className={statusClasses}
+          id={status.displayName}
+        />
+      );
     }
 
     const status = TaskStates[row[prop]];
