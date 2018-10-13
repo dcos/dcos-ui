@@ -308,15 +308,28 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
     // Get first Action to set as initially selected option in dropdown.
     initialID = Object.keys(actionPhrases)[0] || null;
+    const dropdownItems = this.getActionsDropdownItems(actionPhrases).map(
+      item => {
+        item.html = (
+          <Trans
+            render={item.html.element || "span"}
+            id={item.html.content}
+            className={item.html.className}
+          />
+        );
 
-    const dropdownItems = this.getActionsDropdownItems(actionPhrases);
+        return item;
+      }
+    );
     if (dropdownItems.length === 1) {
+      const item = dropdownItems[0];
+
       return (
         <button
           className="button"
           onClick={this.handleActionSelection.bind(this, dropdownItems[0])}
         >
-          {dropdownItems[0].html}
+          {item.html}
         </button>
       );
     }
