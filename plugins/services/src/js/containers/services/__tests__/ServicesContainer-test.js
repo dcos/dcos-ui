@@ -1,3 +1,4 @@
+import React from "react";
 import { mount } from "enzyme";
 
 jest.mock("#SRC/js/stores/DCOSStore");
@@ -24,15 +25,16 @@ describe("ServicesContainer", function() {
       },
       push: jasmine.createSpy()
     };
+    const WrappedComponent = JestUtil.stubRouterContext(
+      ServicesContainer,
+      thisRouterStubs
+    );
+
     thisWrapper = mount(
-      JestUtil.stubRouterContext(
-        ServicesContainer,
-        {
-          location: { query: {}, pathname: "/test" },
-          params: {}
-        },
-        thisRouterStubs
-      )
+      <WrappedComponent
+        location={{ query: {}, pathname: "/test" }}
+        params={{}}
+      />
     );
     thisInstance = thisWrapper.find(ServicesContainer);
   });

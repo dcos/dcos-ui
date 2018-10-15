@@ -1,3 +1,4 @@
+import React from "react";
 import { mount } from "enzyme";
 
 jest.mock("#SRC/js/stores/DCOSStore");
@@ -41,8 +42,8 @@ describe("TaskTable", function() {
   });
 
   it("it pass a uniqueProperty to CheckboxTable", function() {
-    const component = JestUtil.stubRouterContext(TaskTable, { params: {} });
-    const table = mount(component).find(CheckboxTable);
+    const WrappedComponent = JestUtil.stubRouterContext(TaskTable);
+    const table = mount(<WrappedComponent params={{}} />).find(CheckboxTable);
 
     expect(table.prop("uniqueProperty")).toEqual("id");
   });
