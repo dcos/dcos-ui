@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -22,9 +23,7 @@ const UnitHealthDetailBreadcrumbs = ({ unit }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Components">
       <BreadcrumbTextContent>
-        <Link to="/components">
-          <Trans render="span">Components</Trans>
-        </Link>
+        <Trans render={<Link to="/components" />}>Components</Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -181,10 +180,13 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
     return (
       <div className="flex-container-col">
+        {/* L10NTODO: Pluralize
+        We should pluralize FilterHeadline name here using lingui macro instead of
+        doing it manually in FilterHeadline */}
         <FilterHeadline
           currentLength={visibleData.length}
           isFiltering={healthFilter !== "all" || searchString !== ""}
-          name="Health Check"
+          name={this.props.i18n._(t`Health Check`)}
           onReset={this.resetFilter}
           totalLength={nodes.getItems().length}
         />
@@ -223,4 +225,4 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 }
 
-module.exports = UnitsHealthDetail;
+module.exports = withI18n()(UnitsHealthDetail);
