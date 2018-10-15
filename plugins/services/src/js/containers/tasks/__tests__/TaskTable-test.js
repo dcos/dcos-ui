@@ -7,7 +7,7 @@ const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const JestUtil = require("#SRC/js/utils/JestUtil");
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
-const TaskTable = require("../TaskTable");
+const { TaskTable } = require("../TaskTable");
 
 let thisTaskTable, thisGetNodeFromID;
 

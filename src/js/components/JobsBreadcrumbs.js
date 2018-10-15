@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import prettycron from "prettycron";
 import PropTypes from "prop-types";
@@ -36,10 +37,13 @@ function getItemStatus(item) {
     return null;
   }
 
+  const longestRunningTaskState =
+    TaskStates[longestRunningTask.getStatus()].displayName;
+
   return (
     <BreadcrumbSupplementalContent>
       <div className="service-page-header-status muted">
-        ({TaskStates[longestRunningTask.getStatus()].displayName})
+        (<Trans id={longestRunningTaskState} render="span" />)
       </div>
     </BreadcrumbSupplementalContent>
   );

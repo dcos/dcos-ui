@@ -8,7 +8,11 @@ exports[`Status renders TASK_FAILED 1`] = `
     className="service-page-header-status muted"
   >
     (
-    Failed
+    <span
+      className={undefined}
+    >
+      Failed
+    </span>
     )
   </div>
 </div>
@@ -22,7 +26,11 @@ exports[`Status renders TASK_RUNNING 1`] = `
     className="service-page-header-status muted"
   >
     (
-    Running
+    <span
+      className={undefined}
+    >
+      Running
+    </span>
     )
   </div>
 </div>
@@ -36,7 +44,11 @@ exports[`Status renders TASK_STARTED 1`] = `
     className="service-page-header-status muted"
   >
     (
-    Started
+    <span
+      className={undefined}
+    >
+      Started
+    </span>
     )
   </div>
 </div>
@@ -50,7 +62,11 @@ exports[`Status renders TASK_STARTING 1`] = `
     className="service-page-header-status muted"
   >
     (
-    Starting
+    <span
+      className={undefined}
+    >
+      Starting
+    </span>
     )
   </div>
 </div>
