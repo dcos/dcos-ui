@@ -1,5 +1,4 @@
 import { Trans } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
@@ -455,7 +454,8 @@ TaskTable.propTypes = {
   className: PropTypes.string,
   onCheckboxChange: PropTypes.func,
   params: PropTypes.object.isRequired,
-  tasks: PropTypes.array.isRequired
+  tasks: PropTypes.array.isRequired,
+  i18n: PropTypes.object
 };
 
 TaskTable.defaultProps = {
@@ -464,5 +464,4 @@ TaskTable.defaultProps = {
   tasks: []
 };
 
-export default withI18n()(TaskTable);
-export { TaskTable };
+module.exports = TaskTable;
