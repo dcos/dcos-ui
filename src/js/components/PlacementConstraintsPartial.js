@@ -46,7 +46,8 @@ class PlacementConstraintsPartial extends Component {
     );
   }
 
-  getPlacementConstraintsFields(data = [], i18n) {
+  getPlacementConstraintsFields(data = []) {
+    const { i18n } = this.props;
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
       "constraints"
@@ -197,7 +198,7 @@ class PlacementConstraintsPartial extends Component {
   }
 
   render() {
-    const { data = {}, i18n } = this.props;
+    const { data = {} } = this.props;
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
       "constraints"
@@ -216,7 +217,7 @@ class PlacementConstraintsPartial extends Component {
 
     return (
       <div>
-        {this.getPlacementConstraintsFields(data.constraints, i18n)}
+        {this.getPlacementConstraintsFields(data.constraints)}
         {errorNode}
         <FormRow>
           <FormGroup className="column-12">
