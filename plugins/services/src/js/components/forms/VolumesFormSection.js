@@ -366,10 +366,18 @@ class VolumesFormSection extends Component {
                         <SelectOption
                           key={index}
                           value={type}
-                          label={VolumeDefinitions[type].name}
+                          label={
+                            <Trans
+                              id={VolumeDefinitions[type].name}
+                              render="span"
+                            />
+                          }
                         >
                           <div className="dropdown-select-item-title">
-                            <span>{VolumeDefinitions[type].name}</span>
+                            <Trans
+                              id={VolumeDefinitions[type].name}
+                              render="span"
+                            />
                             {VolumeDefinitions[type].recommended ? (
                               <Trans
                                 render="span"
@@ -379,9 +387,11 @@ class VolumesFormSection extends Component {
                               </Trans>
                             ) : null}
                           </div>
-                          <span className="dropdown-select-item-description">
-                            {VolumeDefinitions[type].description}
-                          </span>
+                          <Trans
+                            id={VolumeDefinitions[type].description}
+                            render="span"
+                            className="dropdown-select-item-description"
+                          />
                         </SelectOption>
                       );
                     })}
