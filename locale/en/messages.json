@@ -97,6 +97,15 @@
     ],
     "obsolete": true
   },
+  "A REX-Ray backed volume that is mounted on the agent from network attached storage.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        22
+      ]
+    ]
+  },
   "A health check passes if (1) its HTTP response code is between 200 and 399 inclusive, and (2) its response is received within the timeoutSeconds period. <0>More Information</0>.": {
     "translation": "",
     "origin": [
@@ -107,6 +116,33 @@
       [
         "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
         471
+      ]
+    ]
+  },
+  "A host volume is a directory on the the local agent mapped to one in a container.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        29
+      ]
+    ]
+  },
+  "A locally persistent volume based upon the physical disks installed in the agent which has the capabilities of a single disk.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        14
+      ]
+    ]
+  },
+  "A locally persistent volume pre-created by the operator according to a storage profile.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        7
       ]
     ]
   },
@@ -188,7 +224,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        182
+        185
       ]
     ]
   },
@@ -285,7 +321,7 @@
     "origin": [
       [
         "src/js/components/PlacementConstraintsPartial.js",
-        224
+        230
       ]
     ]
   },
@@ -375,11 +411,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        322
+        332
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
-        442
+        452
       ]
     ]
   },
@@ -388,7 +424,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        428
+        431
       ]
     ]
   },
@@ -482,6 +518,15 @@
     ],
     "obsolete": true
   },
+  "Already exists": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        13
+      ]
+    ]
+  },
   "An Error Occurred": {
     "translation": "",
     "origin": [
@@ -565,7 +610,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        439
+        442
       ]
     ]
   },
@@ -611,6 +656,15 @@
       [
         "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
         263
+      ]
+    ]
+  },
+  "Attached": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeStatus.js",
+        4
       ]
     ]
   },
@@ -671,6 +725,23 @@
       ]
     ]
   },
+  "CPU": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        10
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        4
+      ]
+    ]
+  },
   "CPUs": {
     "translation": "",
     "origin": [
@@ -685,6 +756,10 @@
       [
         "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
         187
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        14
       ]
     ]
   },
@@ -726,6 +801,10 @@
       [
         "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
         46
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceOtherLabels.js",
+        4
       ],
       [
         "src/js/pages/catalog/PackageDetailTab.js",
@@ -822,6 +901,10 @@
     "translation": "",
     "origin": [
       [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        21
+      ],
+      [
         "src/js/components/ClusterHeader.js",
         59
       ]
@@ -871,6 +954,14 @@
       [
         "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
         54
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        73
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        37
       ]
     ]
   },
@@ -945,7 +1036,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        348
+        351
       ]
     ]
   },
@@ -1051,7 +1142,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        212
+        215
       ]
     ]
   },
@@ -1060,7 +1151,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        173
+        176
       ],
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
@@ -1140,11 +1231,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        311
+        321
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
-        431
+        441
       ]
     ]
   },
@@ -1171,11 +1262,14 @@
     "translation": "",
     "origin": [
       [
-        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
-        229
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        6
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Cryptographic Cluster ID": {
     "translation": "",
@@ -1195,6 +1289,15 @@
       ]
     ],
     "obsolete": true
+  },
+  "DC/OS Storage Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        5
+      ]
+    ]
   },
   "DC/OS UI cannot retrieve the requested information at this moment.": {
     "translation": "",
@@ -1237,11 +1340,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        258
+        268
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
-        404
+        414
       ]
     ]
   },
@@ -1272,6 +1375,15 @@
       ]
     ],
     "obsolete": true
+  },
+  "Delayed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        8
+      ]
+    ]
   },
   "Delete": {
     "translation": "",
@@ -1343,6 +1455,10 @@
       [
         "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
         88
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        10
       ]
     ]
   },
@@ -1352,6 +1468,10 @@
       [
         "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
         57
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        5
       ]
     ]
   },
@@ -1361,6 +1481,15 @@
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         26
+      ]
+    ]
+  },
+  "Detached": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeStatus.js",
+        5
       ]
     ]
   },
@@ -1401,6 +1530,14 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         125
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        5
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        6
       ]
     ]
   },
@@ -1431,12 +1568,21 @@
       ]
     ]
   },
+  "Docker Engine": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ContainerConstants.js",
+        9
+      ]
+    ]
+  },
   "Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources.": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        252
+        255
       ]
     ]
   },
@@ -1449,12 +1595,30 @@
       ]
     ]
   },
+  "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        49
+      ]
+    ]
+  },
   "Documentation": {
     "translation": "",
     "origin": [
       [
         "src/js/components/ClusterHeader.js",
         136
+      ]
+    ]
+  },
+  "Don't run app tasks on a particular set of attribute IDs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        60
       ]
     ]
   },
@@ -1483,6 +1647,15 @@
       [
         "src/js/components/modals/CliInstallModal.js",
         137
+      ]
+    ]
+  },
+  "Dropped": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        71
       ]
     ]
   },
@@ -1623,6 +1796,37 @@
       ]
     ]
   },
+  "Environment variables": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        22
+      ]
+    ]
+  },
+  "Ephemeral Storage": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        34
+      ]
+    ]
+  },
+  "Error": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        49
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        56
+      ]
+    ]
+  },
   "Error finding node": {
     "translation": "",
     "origin": [
@@ -1651,6 +1855,28 @@
       ]
     ],
     "obsolete": true
+  },
+  "External Persistent Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        20
+      ]
+    ]
+  },
+  "Failed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        55
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        46
+      ]
+    ]
   },
   "Failure %": {
     "translation": "",
@@ -1683,6 +1909,24 @@
       ]
     ],
     "obsolete": true
+  },
+  "Field": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        86
+      ]
+    ]
+  },
+  "Finished": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        36
+      ]
+    ]
   },
   "First success": {
     "translation": "",
@@ -1730,6 +1974,19 @@
       ]
     ]
   },
+  "GPU": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        6
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        5
+      ]
+    ]
+  },
   "GPUs": {
     "translation": "",
     "origin": [
@@ -1753,7 +2010,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        380
+        383
       ]
     ]
   },
@@ -1763,6 +2020,24 @@
       [
         "plugins/services/src/js/components/LogView.js",
         301
+      ]
+    ]
+  },
+  "Gone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        61
+      ]
+    ]
+  },
+  "Gone by operator": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        66
       ]
     ]
   },
@@ -1785,6 +2060,15 @@
       [
         "plugins/nodes/src/js/pages/NodesAgents.js",
         234
+      ]
+    ]
+  },
+  "Group By": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        31
       ]
     ]
   },
@@ -1840,6 +2124,14 @@
       [
         "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
         35
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        9
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        14
       ]
     ]
   },
@@ -1865,6 +2157,42 @@
       ]
     ]
   },
+  "Health check grace periods": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        82
+      ]
+    ]
+  },
+  "Health check intervals": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        86
+      ]
+    ]
+  },
+  "Health check max failures": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        94
+      ]
+    ]
+  },
+  "Health check timeouts": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        90
+      ]
+    ]
+  },
   "Health checks may be specified per application to be run against the application's instances.": {
     "translation": "",
     "origin": [
@@ -1886,6 +2214,10 @@
         46
       ],
       [
+        "plugins/services/src/js/constants/TaskHealthStates.js",
+        4
+      ],
+      [
         "src/js/constants/UnitHealthStatus.js",
         18
       ]
@@ -1905,6 +2237,10 @@
       [
         "plugins/services/src/js/components/forms/NetworkingFormSection.js",
         579
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        7
       ]
     ]
   },
@@ -1923,7 +2259,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        212
+        222
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
@@ -1941,6 +2277,24 @@
       [
         "plugins/services/src/js/components/forms/NetworkingFormSection.js",
         112
+      ]
+    ]
+  },
+  "Host Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        27
+      ]
+    ]
+  },
+  "Host/Port": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        5
       ]
     ]
   },
@@ -1967,6 +2321,10 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         70
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        11
       ]
     ]
   },
@@ -2132,7 +2490,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        329
+        332
       ]
     ]
   },
@@ -2189,7 +2547,15 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        392
+        395
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        10
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        11
       ]
     ]
   },
@@ -2203,6 +2569,15 @@
       [
         "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
         108
+      ]
+    ]
+  },
+  "Is": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        41
       ]
     ]
   },
@@ -2260,6 +2635,36 @@
       [
         "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
         112
+      ]
+    ]
+  },
+  "Killed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        67
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        31
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        41
+      ]
+    ]
+  },
+  "Killing": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        61
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        31
       ]
     ]
   },
@@ -2350,6 +2755,15 @@
     ],
     "obsolete": true
   },
+  "Like": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        51
+      ]
+    ]
+  },
   "Link a cluster to switch between clusters.": {
     "translation": "",
     "origin": [
@@ -2422,6 +2836,15 @@
       ]
     ]
   },
+  "Local Persistent Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        12
+      ]
+    ]
+  },
   "Log out": {
     "translation": "",
     "origin": [
@@ -2447,6 +2870,19 @@
       [
         "src/js/components/modals/ErrorModal.js",
         24
+      ]
+    ]
+  },
+  "Lost": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        79
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        51
       ]
     ]
   },
@@ -2481,6 +2917,37 @@
       ]
     ]
   },
+  "Max Per": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        69
+      ]
+    ]
+  },
+  "May only contain digits (0-9), dashes (-) and lowercase letters (a-z) e.g. web-server": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        32
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        39
+      ]
+    ]
+  },
+  "May only contain digits (0-9), dashes (-), dots (.),lowercase letters (a-z), and slashes (/) e.g. /group/my-service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        18
+      ]
+    ]
+  },
   "Media": {
     "translation": "",
     "origin": [
@@ -2496,6 +2963,27 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         133
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        11
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        10
+      ]
+    ]
+  },
+  "Memory": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        18
       ]
     ]
   },
@@ -2512,6 +3000,15 @@
       ]
     ]
   },
+  "Mesos default for allocating temporary disk space to a service. Enough for many stateless or semi-stateless 12-factor and cloud native applications.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        36
+      ]
+    ]
+  },
   "Mode": {
     "translation": "",
     "origin": [
@@ -2521,12 +3018,21 @@
       ]
     ]
   },
+  "Modified": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        8
+      ]
+    ]
+  },
   "More Settings": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        94
+        97
       ],
       [
         "plugins/services/src/js/components/modals/CreateServiceModalForm.js",
@@ -2556,16 +3062,37 @@
       ]
     ]
   },
+  "Must be defined": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        8
+      ]
+    ]
+  },
   "N/A": {
     "translation": "",
     "origin": [
       [
         "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
-        323
+        325
       ],
       [
         "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
         55
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        85
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        43
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        7
       ],
       [
         "src/js/constants/UnitHealthStatus.js",
@@ -2578,11 +3105,27 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        184
+        194
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
         252
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        8
+      ],
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        12
       ],
       [
         "src/js/constants/RepositoriesTableHeaderLabels.js",
@@ -2608,7 +3151,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        139
+        142
       ]
     ]
   },
@@ -2709,6 +3252,15 @@
       ]
     ],
     "obsolete": true
+  },
+  "No health checks available": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/containers/tasks/TaskTable.js",
+        388
+      ]
+    ]
   },
   "No linked clusters": {
     "translation": "",
@@ -2818,6 +3370,15 @@
     ],
     "obsolete": true
   },
+  "Not Available": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeProfile.js",
+        4
+      ]
+    ]
+  },
   "Number of Agents": {
     "translation": "",
     "origin": [
@@ -2870,6 +3431,15 @@
       ]
     ]
   },
+  "Operator": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        87
+      ]
+    ]
+  },
   "Other": {
     "translation": "",
     "origin": [
@@ -2902,6 +3472,15 @@
       [
         "src/js/pages/system/OverviewDetailTab.js",
         43
+      ]
+    ]
+  },
+  "Owner": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        6
       ]
     ]
   },
@@ -2974,6 +3553,15 @@
     ],
     "obsolete": true
   },
+  "Permissions": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        5
+      ]
+    ]
+  },
   "Placement": {
     "translation": "",
     "origin": [
@@ -3008,7 +3596,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        294
+        304
       ]
     ]
   },
@@ -3045,6 +3633,15 @@
       [
         "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
         55
+      ]
+    ]
+  },
+  "Pods": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceOtherLabels.js",
+        6
       ]
     ]
   },
@@ -3151,15 +3748,15 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        275
+        278
       ],
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        163
+        171
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
-        374
+        382
       ]
     ]
   },
@@ -3169,6 +3766,10 @@
       [
         "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
         66
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        11
       ]
     ]
   },
@@ -3178,6 +3779,18 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         100
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        12
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        9
       ],
       [
         "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
@@ -3299,12 +3912,90 @@
       ]
     ]
   },
+  "Run app tasks evenly distributed across a certain attribute": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        32
+      ]
+    ]
+  },
+  "Run app tasks on a particular set of attribute IDs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        52
+      ]
+    ]
+  },
+  "Run app tasks on nodes having attribute ID with a specific value": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        42
+      ]
+    ]
+  },
+  "Run app tasks on nodes that share a certain attribute ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        22
+      ]
+    ]
+  },
+  "Run each app task on a unique attribute ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        14
+      ]
+    ]
+  },
+  "Run max number of app tasks on each attribute ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        70
+      ]
+    ]
+  },
   "Running": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
         48
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        31
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        43
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        19
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        26
       ]
     ]
   },
@@ -3584,7 +4275,50 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        357
+        360
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        6
+      ]
+    ]
+  },
+  "Service endpoint container ports": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        70
+      ]
+    ]
+  },
+  "Service endpoint host ports": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        54
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        58
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        74
+      ]
+    ]
+  },
+  "Service endpoint names": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        50
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        66
       ]
     ]
   },
@@ -3670,12 +4404,21 @@
       ]
     ]
   },
+  "Size": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        7
+      ]
+    ]
+  },
   "Size (MiB)": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        240
+        250
       ]
     ]
   },
@@ -3688,12 +4431,55 @@
       ]
     ]
   },
+  "Staging": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        13
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        25
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        11
+      ]
+    ]
+  },
+  "Started": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        25
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        21
+      ]
+    ]
+  },
   "Started at": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         87
+      ]
+    ]
+  },
+  "Starting": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        19
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        16
       ]
     ]
   },
@@ -3720,6 +4506,18 @@
       [
         "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
         34
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        8
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        9
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        13
       ]
     ]
   },
@@ -3747,6 +4545,10 @@
       [
         "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
         79
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        6
       ]
     ]
   },
@@ -3839,7 +4641,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        415
+        418
       ]
     ]
   },
@@ -3895,7 +4697,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        226
+        229
       ]
     ]
   },
@@ -3958,6 +4760,24 @@
       ]
     ],
     "obsolete": true
+  },
+  "The service is currently locked by one or more deployments. Press again to force this operation.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        25
+      ]
+    ]
+  },
+  "The unique operator does not accept a value.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        11
+      ]
+    ]
   },
   "There a currently no other nodes in your datacenter other than your DC/OS master node.": {
     "translation": "",
@@ -4215,6 +5035,15 @@
       ]
     ]
   },
+  "Unavailable": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeStatus.js",
+        6
+      ]
+    ]
+  },
   "Unhealthy": {
     "translation": "",
     "origin": [
@@ -4223,8 +5052,91 @@
         68
       ],
       [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        37
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        13
+      ],
+      [
+        "plugins/services/src/js/constants/TaskHealthStates.js",
+        5
+      ],
+      [
         "src/js/constants/UnitHealthStatus.js",
         25
+      ]
+    ]
+  },
+  "Unique": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        13
+      ]
+    ]
+  },
+  "Universal Container Runtime (UCR)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ContainerConstants.js",
+        10
+      ]
+    ]
+  },
+  "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        55
+      ]
+    ]
+  },
+  "Unknown": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskHealthStates.js",
+        6
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        81
+      ]
+    ]
+  },
+  "Unlike": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        59
+      ]
+    ]
+  },
+  "Unreachable": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        76
+      ]
+    ]
+  },
+  "Updated": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        12
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        15
       ]
     ]
   },
@@ -4320,6 +5232,10 @@
       [
         "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
         121
+      ],
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        88
       ]
     ]
   },
@@ -4339,6 +5255,18 @@
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         95
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        13
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        10
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        16
       ]
     ]
   },
@@ -4373,6 +5301,42 @@
       ]
     ]
   },
+  "Volume container path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        30
+      ]
+    ]
+  },
+  "Volume host path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        38
+      ]
+    ]
+  },
+  "Volume mode": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        42
+      ]
+    ]
+  },
+  "Volume size": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        34
+      ]
+    ]
+  },
   "Volumes": {
     "translation": "",
     "origin": [
@@ -4382,11 +5346,24 @@
       ],
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
-        270
+        280
       ],
       [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
-        416
+        426
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceOtherLabels.js",
+        5
+      ]
+    ]
+  },
+  "Waiting": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        9
       ]
     ]
   },
@@ -4405,6 +5382,15 @@
       [
         "src/js/components/Modals.js",
         100
+      ]
+    ]
+  },
+  "When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <0>Learn more</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/DeclinedOffersHelpText.js",
+        12
       ]
     ]
   },
@@ -4459,7 +5445,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
-        193
+        196
       ]
     ]
   },
@@ -4530,6 +5516,14 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         111
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        6
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        8
       ],
       [
         "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
