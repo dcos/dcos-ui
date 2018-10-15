@@ -45,9 +45,8 @@ module.exports = class AccessDeniedPage extends React.Component {
                 <Trans>Access denied</Trans>
               </AlertPanelHeader>
               <Trans render="p" className="tall">
-                {"You do not have access to this service. Please contact your "}
-                {Config.productName}
-                {" administrator or see "}
+                You do not have access to this service. Please contact your{" "}
+                {Config.productName} administrator or see{" "}
                 <a
                   href={MetadataStore.buildDocsURI("/security/ent/iam-api/")}
                   target="_blank"
