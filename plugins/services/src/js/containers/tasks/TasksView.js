@@ -4,6 +4,7 @@ import { Tooltip } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
+import { withI18n } from "@lingui/react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
@@ -97,6 +98,7 @@ class TasksView extends mixin(SaveStateMixin) {
         params={params}
         onCheckboxChange={this.handleItemCheck}
         tasks={tasks}
+        i18n={this.props.i18n}
       />
     );
   }
@@ -292,4 +294,4 @@ TasksView.contextTypes = {
   router: routerShape
 };
 
-module.exports = TasksView;
+module.exports = withI18n()(TasksView);
