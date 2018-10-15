@@ -20,7 +20,12 @@ describe("Packages Tab", function() {
 
     cy.get(".page-body-content .message").should(
       "contain",
-      "The url for Invalid does not have correct syntax. You can go to the Repositories Settings page to change installed repositories."
+      "The url for Invalid does not have correct syntax."
+    );
+
+    cy.get(".page-body-content .message").should(
+      "contain",
+      "You can go to the Repositories Settings page to change installed repositories."
     );
   });
 
@@ -38,7 +43,12 @@ describe("Packages Tab", function() {
 
     cy.get(".page-body-content .message").should(
       "contain",
-      "The index file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories."
+      "The index file is missing in Invalid."
+    );
+
+    cy.get(".page-body-content .message").should(
+      "contain",
+      "You can go to the Repositories Settings page to change installed repositories."
     );
   });
 
@@ -56,7 +66,12 @@ describe("Packages Tab", function() {
 
     cy.get(".page-body-content .message").should(
       "contain",
-      "The package file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories."
+      "The package file is missing in Invalid."
+    );
+
+    cy.get(".page-body-content .message").should(
+      "contain",
+      "You can go to the Repositories Settings page to change installed repositories."
     );
   });
 
@@ -73,7 +88,7 @@ describe("Packages Tab", function() {
 
     cy.get(".page-body-content .message").should(
       "contain",
-      "The package file is missing in a repository. You can go to the Repositories Settings page to change installed repositories."
+      "The package file is missing in a repository."
     );
   });
 
