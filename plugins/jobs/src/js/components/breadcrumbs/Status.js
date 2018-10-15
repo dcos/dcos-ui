@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
@@ -7,7 +8,7 @@ export default function Status({ status }) {
   return (
     <BreadcrumbSupplementalContent>
       <div className="service-page-header-status muted">
-        ({TaskStates[status].displayName})
+        (<Trans render="span" id={TaskStates[status].displayName} />)
       </div>
     </BreadcrumbSupplementalContent>
   );

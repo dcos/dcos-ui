@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
@@ -58,7 +59,7 @@ class TaskTable extends React.Component {
   }
 
   getStatusValue(task) {
-    return TaskStates[task.state].displayName;
+    return this.props.i18n._(TaskStates[task.state].displayName);
   }
 
   getVersionValue(task) {
@@ -354,7 +355,11 @@ class TaskTable extends React.Component {
 
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className={statusLabelClasses}>{this.getStatusValue(task)}</span>
+        <Trans
+          id={this.getStatusValue(task)}
+          render="span"
+          className={statusLabelClasses}
+        />
       </div>
     );
   }
@@ -459,4 +464,5 @@ TaskTable.defaultProps = {
   tasks: []
 };
 
-module.exports = TaskTable;
+export default withI18n()(TaskTable);
+export { TaskTable };

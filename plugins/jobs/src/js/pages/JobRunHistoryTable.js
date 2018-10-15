@@ -319,7 +319,9 @@ class JobRunHistoryTable extends React.Component {
       "text-danger": status.stateTypes.includes("failure")
     });
 
-    return <span className={statusClasses}>{status.displayName}</span>;
+    return (
+      <Trans id={status.displayName} render="span" className={statusClasses} />
+    );
   }
 
   renderRunTimeColumn(prop, row) {

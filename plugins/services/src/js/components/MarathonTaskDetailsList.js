@@ -71,7 +71,7 @@ class MarathonTaskDetailsList extends React.Component {
             <Trans render="span">Status</Trans>
           </ConfigurationMapLabel>
           <ConfigurationMapValue>
-            {this.getTaskStatus(task)}
+            <Trans id={this.getTaskStatus(task)} render="span" />
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
