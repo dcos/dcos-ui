@@ -1,3 +1,4 @@
+import React from "react";
 import { mount } from "enzyme";
 
 const JestUtil = require("#SRC/js/utils/JestUtil");
@@ -67,11 +68,15 @@ describe("PodInstancesContainer", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(PodInstancesContainer, {
-          pod,
-          location: { pathname: "", query: { q: "instance-1" } }
-        });
-        thisInstance = mount(component);
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesContainer)
+        );
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            location={{ pathname: "", query: { q: "instance-1" } }}
+          />
+        );
       });
 
       it("returns matching instances", function() {
@@ -89,15 +94,16 @@ describe("PodInstancesContainer", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesContainer,
-          {
-            pod,
-            location: { pathname: "", query: { q: "container-1 is:active" } }
-          },
-          { service: pod }
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesContainer)
         );
-        thisInstance = mount(component);
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            location={{ pathname: "", query: { q: "container-1 is:active" } }}
+            service={pod}
+          />
+        );
       });
 
       it("returns matching instances and containers", function() {
@@ -136,15 +142,16 @@ describe("PodInstancesContainer", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesContainer,
-          {
-            pod,
-            location: { pathname: "", query: { q: "is%3Aactive%2Ccompleted" } }
-          },
-          { service: pod }
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesContainer)
         );
-        thisInstance = mount(component);
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            location={{ pathname: "", query: { q: "is%3Aactive%2Ccompleted" } }}
+            service={pod}
+          />
+        );
       });
 
       it("shows all instances", function() {
@@ -162,15 +169,16 @@ describe("PodInstancesContainer", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesContainer,
-          {
-            pod,
-            location: { pathname: "", query: { q: "is:completed" } }
-          },
-          { service: pod }
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesContainer)
         );
-        thisInstance = mount(component);
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            location={{ pathname: "", query: { q: "is:completed" } }}
+            service={pod}
+          />
+        );
       });
 
       it("shows no instances", function() {
