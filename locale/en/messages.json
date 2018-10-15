@@ -94,8 +94,7 @@
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         292
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "A REX-Ray backed volume that is mounted on the agent from network attached storage.": {
     "translation": "",
@@ -171,8 +170,7 @@
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         248
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Active": {
     "translation": "",
@@ -216,8 +214,7 @@
         ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
         108
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Container": {
     "translation": "",
@@ -243,8 +240,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         345
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Environment Variable": {
     "translation": "",
@@ -262,8 +258,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         295
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Health Check": {
     "translation": "",
@@ -285,8 +280,7 @@
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
         139
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Label": {
     "translation": "",
@@ -313,8 +307,7 @@
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
         329
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Placement Constraint": {
     "translation": "",
@@ -332,8 +325,7 @@
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
         78
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Repository": {
     "translation": "",
@@ -351,18 +343,16 @@
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         224
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Service": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
-        300
+        296
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Service Endpoint": {
     "translation": "",
@@ -384,8 +374,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js",
         137
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add Service to Load Balancer": {
     "translation": "",
@@ -394,8 +383,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
         220
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Add User to Cluster": {
     "translation": "",
@@ -419,6 +407,15 @@
       ]
     ]
   },
+  "Add a Permission for {0}": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        556
+      ]
+    ]
+  },
   "Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. <0>More information</0>.": {
     "translation": "",
     "origin": [
@@ -439,8 +436,7 @@
         ".dcos-ui-plugins-private/placement/components/ServicePlacementConfigSection.js",
         72
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Advanced Health Check Settings": {
     "translation": "",
@@ -515,8 +511,16 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
         153
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "Already Exists": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        171
+      ]
+    ]
   },
   "Already exists": {
     "translation": "",
@@ -561,8 +565,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         52
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Application Reachability": {
     "translation": "",
@@ -571,8 +574,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
         79
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Apply": {
     "translation": "",
@@ -618,8 +620,44 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js",
+        285
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        385
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        293
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountDetailPage.js",
+        272
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountGroupTable.js",
+        173
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js",
+        267
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js",
+        207
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
+        57
+      ],
+      [
         "plugins/services/src/js/components/DeploymentsModal.js",
         384
+      ],
+      [
+        "src/js/constants/BulkOptions.js",
+        14
       ]
     ]
   },
@@ -675,18 +713,16 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
         42
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Back": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
-        103
+        99
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Bootstrap Config": {
     "translation": "",
@@ -695,8 +731,7 @@
         ".dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js",
         78
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Bridge": {
     "translation": "",
@@ -772,6 +807,15 @@
       ]
     ]
   },
+  "Caches recent cluster history in-memory so that the": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        66
+      ]
+    ]
+  },
   "Callback URL": {
     "translation": "",
     "origin": [
@@ -779,12 +823,23 @@
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
         73
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Cancel": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        88
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
+        114
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
+        167
+      ],
       [
         "plugins/jobs/src/js/components/JobFormModal.tsx",
         44
@@ -823,8 +878,7 @@
         ".dcos-ui-plugins-private/secrets/pages/CertificatesPage.js",
         35
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Certified": {
     "translation": "",
@@ -884,6 +938,18 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        111
+      ],
+      [
+        ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModal.js",
+        22
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        531
+      ],
+      [
         "plugins/services/src/js/components/DeploymentsModal.js",
         511
       ],
@@ -900,6 +966,10 @@
   "Cluster": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/auth/components/AuthenticatedClusterDropdown.js",
+        61
+      ],
       [
         "plugins/services/src/js/constants/OperatorTypes.js",
         21
@@ -951,6 +1021,10 @@
   "Completed": {
     "translation": "",
     "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        34
+      ],
       [
         "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
         54
@@ -1107,6 +1181,14 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        41
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        78
+      ],
+      [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
         52
       ],
@@ -1150,12 +1232,25 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        32
+      ],
+      [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
         176
       ],
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
         43
+      ]
+    ]
+  },
+  "Contains extraneous property `||name||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        100
       ]
     ]
   },
@@ -1166,8 +1261,7 @@
         ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
         90
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Copy and paste the code snippet into the terminal:": {
     "translation": "",
@@ -1185,8 +1279,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         134
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Create Group": {
     "translation": "",
@@ -1204,8 +1297,7 @@
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupFormModal.js",
         84
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Create New User": {
     "translation": "",
@@ -1214,8 +1306,7 @@
         ".dcos-ui-plugins-private/organization/submodules/users/hooks.js",
         134
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Create a Job": {
     "translation": "",
@@ -1246,8 +1337,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         147
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Create both one-off or scheduled jobs to perform tasks at a predefined interval.": {
     "translation": "",
@@ -1261,6 +1351,10 @@
   "Created": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        229
+      ],
       [
         "plugins/services/src/js/constants/PodContainerStatus.js",
         7
@@ -1287,8 +1381,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         162
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "DC/OS Storage Volume": {
     "translation": "",
@@ -1373,8 +1466,7 @@
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         435
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Delayed": {
     "translation": "",
@@ -1390,7 +1482,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
-        186
+        181
       ],
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
@@ -1398,10 +1490,13 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
-        136
+        132
+      ],
+      [
+        "src/js/constants/BulkOptions.js",
+        10
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Delete Action": {
     "translation": "",
@@ -1410,8 +1505,7 @@
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
         236
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Delete Group": {
     "translation": "",
@@ -1478,6 +1572,10 @@
   "Description": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        207
+      ],
       [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         26
@@ -1627,10 +1725,9 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
-        85
+        84
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Download Snapshot": {
     "translation": "",
@@ -1650,6 +1747,15 @@
       ]
     ]
   },
+  "Downloads and extracts the": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        98
+      ]
+    ]
+  },
   "Dropped": {
     "translation": "",
     "origin": [
@@ -1663,6 +1769,26 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        174
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
+        126
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionConstraintsSection.js",
+        17
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/ZoneConstraintsSection.js",
+        17
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceConfigSecretsSectionDisplay.js",
+        87
+      ],
+      [
         "plugins/services/src/js/components/ConfigurationMapTable.js",
         144
       ]
@@ -1675,8 +1801,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
         130
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Edit User": {
     "translation": "",
@@ -1685,8 +1810,7 @@
         ".dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js",
         123
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Editing this service is only available on <0>Mesosphere Enterprise DC/OS</0>.": {
     "translation": "",
@@ -1773,10 +1897,9 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
-        91
+        89
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Environment": {
     "translation": "",
@@ -1843,8 +1966,7 @@
         ".dcos-ui-plugins-private/organization/components/OrganizationTab.js",
         162
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "External LDAP Configuration": {
     "translation": "",
@@ -1853,8 +1975,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         321
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "External Persistent Volume": {
     "translation": "",
@@ -1868,6 +1989,10 @@
   "Failed": {
     "translation": "",
     "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        24
+      ],
       [
         "plugins/services/src/js/constants/PodContainerStatus.js",
         55
@@ -1889,8 +2014,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         51
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Failures": {
     "translation": "",
@@ -1907,8 +2031,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         50
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Field": {
     "translation": "",
@@ -1953,8 +2076,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
         89
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Force Docker to pull the image before launching each instance.": {
     "translation": "",
@@ -2079,8 +2201,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         178
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Groups": {
     "translation": "",
@@ -2093,8 +2214,7 @@
         ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
         39
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "HTTP": {
     "translation": "",
@@ -2251,8 +2371,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
         247
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Host Path": {
     "translation": "",
@@ -2311,6 +2430,10 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
+        197
+      ],
+      [
         "plugins/jobs/src/js/pages/JobConfiguration.js",
         20
       ],
@@ -2335,8 +2458,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
         255
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "IP Addresses": {
     "translation": "",
@@ -2354,8 +2476,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         53
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "IP Reachability": {
     "translation": "",
@@ -2364,8 +2485,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
         80
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "IP Subnet": {
     "translation": "",
@@ -2383,8 +2503,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
         355
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "IPv6": {
     "translation": "",
@@ -2400,14 +2519,13 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js",
-        41
+        40
       ],
       [
         ".dcos-ui-plugins-private/auth-providers/pages/AuthProvidersTab.js",
-        35
+        34
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "If left undefined this will run in your local region.": {
     "translation": "",
@@ -2416,18 +2534,7 @@
         ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
         97
       ]
-    ],
-    "obsolete": true
-  },
-  "If you": {
-    "translation": "",
-    "origin": [
-      [
-        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
-        83
-      ]
-    ],
-    "obsolete": true
+    ]
   },
   "If you are using the Mesos containerizer, this must be a single-level path relative to the container. <0>More information</0>.": {
     "translation": "",
@@ -2463,8 +2570,7 @@
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
         174
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Import LDAP Users": {
     "translation": "",
@@ -2473,8 +2579,7 @@
         ".dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js",
         149
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "In Command Prompt, enter": {
     "translation": "",
@@ -2499,10 +2604,9 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
-        555
+        559
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Install CLI": {
     "translation": "",
@@ -2529,8 +2633,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         175
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Install {dcosLBPackageName} to enable this capability.": {
     "translation": "",
@@ -2539,8 +2642,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         190
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Instances": {
     "translation": "",
@@ -2675,8 +2777,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         38
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Labels": {
     "translation": "",
@@ -2697,6 +2798,15 @@
       [
         "plugins/jobs/src/js/components/JobsOverviewTable.js",
         260
+      ]
+    ]
+  },
+  "Last Run": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobTableHeaderLabels.js",
+        6
       ]
     ]
   },
@@ -2752,8 +2862,7 @@
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
         66
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Like": {
     "translation": "",
@@ -2769,10 +2878,9 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        55
+        56
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Linked Clusters": {
     "translation": "",
@@ -2785,8 +2893,7 @@
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
         25
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "List": {
     "translation": "",
@@ -2861,8 +2968,16 @@
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
         153
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "Logrotate allows for the automatic rotation compression, removal, and mailing of log files.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        76
+      ]
+    ]
   },
   "Looks Like Something is Wrong": {
     "translation": "",
@@ -2886,12 +3001,48 @@
       ]
     ]
   },
+  "Makes vendored": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        86
+      ]
+    ]
+  },
+  "Manages": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        54
+      ]
+    ]
+  },
   "Marathon Task Configuration": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         53
+      ]
+    ]
+  },
+  "Marathon instance starts and monitors": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        10
+      ]
+    ]
+  },
+  "Marathon.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        58
       ]
     ]
   },
@@ -3000,12 +3151,30 @@
       ]
     ]
   },
+  "Mesos DNS provides service discovery within the cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        20
+      ]
+    ]
+  },
   "Mesos default for allocating temporary disk space to a service. Enough for many stateless or semi-stateless 12-factor and cloud native applications.": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/constants/VolumeDefinitions.js",
         36
+      ]
+    ]
+  },
+  "Mesosphere DC/OS": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/config/Config.ts",
+        22
       ]
     ]
   },
@@ -3062,12 +3231,232 @@
       ]
     ]
   },
+  "Must be a boolean value": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        130
+      ]
+    ]
+  },
+  "Must be a certain shape: ||shape||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        184
+      ]
+    ]
+  },
+  "Must be a date/time string": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        135
+      ]
+    ]
+  },
+  "Must be a number": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        150
+      ]
+    ]
+  },
+  "Must be a string": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        160
+      ]
+    ]
+  },
+  "Must be an array": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        125
+      ]
+    ]
+  },
+  "Must be an integer number": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        140
+      ]
+    ]
+  },
+  "Must be an object": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        155
+      ]
+    ]
+  },
+  "Must be at least ||value|| characters long": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        65
+      ]
+    ]
+  },
+  "Must be at most ||value|| characters long": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        60
+      ]
+    ]
+  },
+  "Must be bigger than or equal to ||value||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        75
+      ]
+    ]
+  },
   "Must be defined": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/constants/ServiceErrorMessages.js",
         8
+      ],
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        105
+      ]
+    ]
+  },
+  "Must be multiple of ||value||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        80
+      ]
+    ]
+  },
+  "Must be null": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        145
+      ]
+    ]
+  },
+  "Must be of type `||type||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        85
+      ]
+    ]
+  },
+  "Must be one of ||values||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        40
+      ]
+    ]
+  },
+  "Must be smaller than or equal to ||value||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        70
+      ]
+    ]
+  },
+  "Must contain a property that matches `||pattern||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        115
+      ]
+    ]
+  },
+  "Must contain at least ||value|| items in the array": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        50
+      ]
+    ]
+  },
+  "Must contain at least ||value|| properties": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        95
+      ]
+    ]
+  },
+  "Must contain at most ||value|| items in the array": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        45
+      ]
+    ]
+  },
+  "Must contain at most ||value|| properties": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        90
+      ]
+    ]
+  },
+  "Must contain only unique items": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        55
+      ]
+    ]
+  },
+  "Must define property `||name||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        110
+      ]
+    ]
+  },
+  "Must match the pattern `||pattern||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        120
       ]
     ]
   },
@@ -3076,7 +3465,7 @@
     "origin": [
       [
         "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
-        325
+        331
       ],
       [
         "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
@@ -3103,6 +3492,30 @@
   "Name": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        109
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        337
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        41
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        75
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        48
+      ],
+      [
+        "plugins/jobs/src/js/constants/JobTableHeaderLabels.js",
+        4
+      ],
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
         194
@@ -3213,8 +3626,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         145
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "No Services Running": {
     "translation": "",
@@ -3250,8 +3662,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         335
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "No health checks available": {
     "translation": "",
@@ -3267,10 +3678,9 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        53
+        54
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "No networks detected": {
     "translation": "",
@@ -3279,8 +3689,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
         87
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "No nodes detected": {
     "translation": "",
@@ -3307,8 +3716,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
         230
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "No virtual networks detected": {
     "translation": "",
@@ -3335,8 +3743,7 @@
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
         93
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Nodes": {
     "translation": "",
@@ -3367,8 +3774,7 @@
         ".dcos-ui-plugins-private/placement/components/ServicePlacementConfigSection.js",
         28
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Not Available": {
     "translation": "",
@@ -3386,8 +3792,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
         345
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Number of Zones": {
     "translation": "",
@@ -3400,8 +3805,7 @@
         ".dcos-ui-plugins-private/placement/components/ZoneSelection.js",
         23
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Number of zones to evenly distribute instances across.": {
     "translation": "",
@@ -3410,8 +3814,7 @@
         ".dcos-ui-plugins-private/placement/components/ZoneSelection.js",
         35
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "OK": {
     "translation": "",
@@ -3499,8 +3902,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         54
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Package Repositories": {
     "translation": "",
@@ -3518,8 +3920,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         188
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Page not found": {
     "translation": "",
@@ -3543,6 +3944,15 @@
       ]
     ]
   },
+  "Periodically writes /etc/resolv.conf so that only currently active Mesos masters with working Mesos DNS are in it.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        198
+      ]
+    ]
+  },
   "Permission inherited from the <0>{0}</0> group.": {
     "translation": "",
     "origin": [
@@ -3550,8 +3960,7 @@
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
         218
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Permissions": {
     "translation": "",
@@ -3569,8 +3978,7 @@
         ".dcos-ui-plugins-private/placement/components/PlacementSection.js",
         20
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Placement Constraints": {
     "translation": "",
@@ -3588,8 +3996,7 @@
         ".dcos-ui-plugins-private/placement/components/PlacementSection.js",
         32
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Please <0>add a container</0> before configuring Volumes.": {
     "translation": "",
@@ -3672,6 +4079,15 @@
       ]
     ]
   },
+  "Processes login requests from users, as well as checking if an authorization token is valid.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        126
+      ]
+    ]
+  },
   "Profile Name": {
     "translation": "",
     "origin": [
@@ -3683,8 +4099,7 @@
         ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
         61
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Protocol": {
     "translation": "",
@@ -3747,6 +4162,14 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/dss/components/VolumeMountTypesSelect.js",
+        17
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/VolumeTypeSelect.js",
+        17
+      ],
+      [
         "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
         278
       ],
@@ -3776,6 +4199,14 @@
   "Region": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionConstraintsSection.js",
+        32
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
+        84
+      ],
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         100
@@ -3827,8 +4258,7 @@
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js",
         187
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Repository ({label}) will be deleted from {0}. You will not be able to install any packages belonging to that repository anymore.": {
     "translation": "",
@@ -3855,8 +4285,7 @@
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         481
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Resources": {
     "translation": "",
@@ -3864,6 +4293,15 @@
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
         121
+      ]
+    ]
+  },
+  "Restart the Admin Router Nginx server so that it picks up new DNS resolutions, for example master.mesos, leader.mesos.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        136
       ]
     ]
   },
@@ -3909,6 +4347,15 @@
       [
         "plugins/services/src/js/components/modals/CreateServiceModal.js",
         568
+      ]
+    ]
+  },
+  "Rotates the Mesos master and agent log files to prevent filling the disk.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        108
       ]
     ]
   },
@@ -3970,6 +4417,10 @@
     "translation": "",
     "origin": [
       [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        19
+      ],
+      [
         "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
         48
       ],
@@ -3999,6 +4450,42 @@
       ]
     ]
   },
+  "Runs a Mesos agent on the node.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        167
+      ]
+    ]
+  },
+  "Runs a publicly accessible Mesos agent on the node.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        207
+      ]
+    ]
+  },
+  "Runs keepalived to make a VRRP load balancer that can be used to access the masters.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        174
+      ]
+    ]
+  },
+  "Runs the": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        184
+      ]
+    ]
+  },
   "SIZE (GiB)": {
     "translation": "",
     "origin": [
@@ -4012,6 +4499,10 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        93
+      ],
+      [
         "plugins/services/src/js/components/forms/VolumesFormSection.js",
         91
       ]
@@ -4024,8 +4515,7 @@
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
         81
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "SSL/TLS Setting": {
     "translation": "",
@@ -4034,8 +4524,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         249
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Sandbox Path": {
     "translation": "",
@@ -4053,8 +4542,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
         105
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Schedule": {
     "translation": "",
@@ -4065,6 +4553,15 @@
       ]
     ]
   },
+  "Scheduled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        39
+      ]
+    ]
+  },
   "Secret": {
     "translation": "",
     "origin": [
@@ -4072,8 +4569,7 @@
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         90
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Secret Stores": {
     "translation": "",
@@ -4082,8 +4578,7 @@
         ".dcos-ui-plugins-private/secrets/pages/SecretStorePage.js",
         23
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Secret store sealed": {
     "translation": "",
@@ -4092,8 +4587,7 @@
         ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
         17
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Secrets": {
     "translation": "",
@@ -4110,8 +4604,7 @@
         ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
         55
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Security Mode": {
     "translation": "",
@@ -4120,8 +4613,7 @@
         ".dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js",
         82
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Select Endpoint": {
     "translation": "",
@@ -4160,8 +4652,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js",
         116
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Select a service endpoint that you configured in Networking.": {
     "translation": "",
@@ -4183,12 +4674,24 @@
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalButtonContents.js",
         35
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "Sends a periodic ping back to Mesosphere with high-level cluster information to help improve": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        34
+      ]
+    ]
   },
   "Service": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        263
+      ],
       [
         "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
         83
@@ -4206,8 +4709,7 @@
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js",
         32
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Service Addresses": {
     "translation": "",
@@ -4224,8 +4726,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
         33
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Service Endpoint": {
     "translation": "",
@@ -4280,6 +4781,15 @@
       [
         "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
         6
+      ]
+    ]
+  },
+  "Service can be accessed from outside the cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        190
       ]
     ]
   },
@@ -4348,6 +4858,10 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        46
+      ],
+      [
         "plugins/services/src/js/components/ServiceBreadcrumbs.js",
         201
       ],
@@ -4364,8 +4878,7 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         337
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Set up environment variables for each instance your service launches.": {
     "translation": "",
@@ -4383,8 +4896,34 @@
         ".dcos-ui-plugins-private/secrets/hooks.js",
         363
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "Sets the dcos-adminrouter-reload.service interval at once an hour.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        146
+      ]
+    ]
+  },
+  "Sets the dcos-gen-resolvconf.service to be run once a minute.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        46
+      ]
+    ]
+  },
+  "Sets the dcos-signal.service interval at once an hour.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        118
+      ]
+    ]
   },
   "Showing {currentLength} of {totalLength} {name}": {
     "translation": "",
@@ -4417,8 +4956,21 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        142
+      ],
+      [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
         250
+      ]
+    ]
+  },
+  "Specializes the": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        156
       ]
     ]
   },
@@ -4474,6 +5026,14 @@
     "translation": "",
     "origin": [
       [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        9
+      ],
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        14
+      ],
+      [
         "plugins/services/src/js/constants/PodContainerStatus.js",
         19
       ],
@@ -4495,6 +5055,10 @@
   "Status": {
     "translation": "",
     "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobTableHeaderLabels.js",
+        5
+      ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         71
@@ -4568,8 +5132,16 @@
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
         218
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "Success": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        29
+      ]
+    ]
   },
   "Success!": {
     "translation": "",
@@ -4595,8 +5167,7 @@
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
         49
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Summary": {
     "translation": "",
@@ -4623,8 +5194,7 @@
         ".dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js",
         82
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Switch Cluster": {
     "translation": "",
@@ -4633,8 +5203,7 @@
         ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModalTrigger.js",
         45
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Switching to a pod service": {
     "translation": "",
@@ -4668,10 +5237,9 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
-        142
+        138
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Test External Directory": {
     "translation": "",
@@ -4680,8 +5248,16 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
         152
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "The Mesos master process orchestrates agent tasks.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        27
+      ]
+    ]
   },
   "The command value will be wrapped by the underlying Mesos executor via {exampleCmd} <0>More information</0>.": {
     "translation": "",
@@ -4708,8 +5284,7 @@
         ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
         19
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "The key cannot be empty.": {
     "translation": "",
@@ -4758,8 +5333,7 @@
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         100
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "The service is currently locked by one or more deployments. Press again to force this operation.": {
     "translation": "",
@@ -4813,8 +5387,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
         232
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "There is an error with your configuration": {
     "translation": "",
@@ -4841,8 +5414,7 @@
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.js",
         64
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "This directory does not contain any logs.": {
     "translation": "",
@@ -4860,8 +5432,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         164
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "This group needs to be empty to delete it. Please delete any services in the group first.": {
     "translation": "",
@@ -4955,18 +5526,16 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
         235
       ]
-    ],
-    "obsolete": true
+    ]
   },
-  "To use a secret in an application, a user needs appropriate permissions.<0>More information</0>.": {
+  "To use a secret in an application, a user needs appropriate permissions. <0>More information</0>.": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         181
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Total Tasks": {
     "translation": "",
@@ -5008,6 +5577,10 @@
     "translation": "",
     "origin": [
       [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        74
+      ],
+      [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
         91
       ],
@@ -5020,6 +5593,10 @@
   "Unable to edit {0}": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PlacementSchemaField.js",
+        52
+      ],
       [
         "src/js/components/PlacementConstraintsSchemaField.js",
         31
@@ -5127,6 +5704,15 @@
       ]
     ]
   },
+  "Unscheduled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        44
+      ]
+    ]
+  },
   "Updated": {
     "translation": "",
     "origin": [
@@ -5147,48 +5733,43 @@
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
         75
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Usage Logs": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
-        78
+        73
       ]
-    ],
-    "obsolete": true
+    ]
   },
-  "Use the form below to build your permission. For more information see the <0>documentation</0>. To bulk add permissions, <1>switch to advanced mode</1>.": {
-    "translation": "",
-    "origin": [
-      [
-        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
-        574
-      ]
-    ],
-    "obsolete": true
-  },
-  "Use the form below to manually enter or paste permissions. <0>Switch to permission builder</0> to add a single permission.": {
-    "translation": "",
-    "origin": [
-      [
-        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
-        564
-      ]
-    ],
-    "obsolete": true
-  },
-  "Use the<0>DC/OS Secret Store</0> to secure important values like private keys, API tokens, and database passwords.": {
+  "Use the <0>DC/OS Secret Store</0> to secure important values like private keys, API tokens, and database passwords.": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         207
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "Use the form below to build your permission. For more information see the <0>documentation</0>. To bulk add permissions, <1>switch to advanced mode</1>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        578
+      ]
+    ]
+  },
+  "Use the form below to manually enter or paste permissions. <0>Switch to permission builder</0> to add a single permission.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        568
+      ]
+    ]
   },
   "Use this text area to customize your configuration via JSON.": {
     "translation": "",
@@ -5206,12 +5787,19 @@
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         149
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Users": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountDetailPage.js",
+        162
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js",
+        38
+      ],
       [
         "src/js/pages/system/OrganizationTab.js",
         54
@@ -5225,6 +5813,10 @@
   "Value": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
+        225
+      ],
       [
         "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
         47
@@ -5246,8 +5838,7 @@
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
         26
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "Version": {
     "translation": "",
@@ -5291,6 +5882,14 @@
   "Volume Type": {
     "translation": "",
     "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        95
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        45
+      ],
       [
         "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
         137
@@ -5437,8 +6036,7 @@
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
         44
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "You can run Docker containers with both container runtimes. The Universal Container Runtime (UCR) is better supported in DC/OS. <0>More information</0>.": {
     "translation": "",
@@ -5456,8 +6054,7 @@
         ".dcos-ui-plugins-private/auth/hooks.js",
         181
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "You do not have access to this service. Please contact your {0} administrator or see <0>security documentation</0> for more information.": {
     "translation": "",
@@ -5475,8 +6072,7 @@
         ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
         66
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "You do not have permission to see this secret.<0/>Please contact your super admin to learn more.": {
     "translation": "",
@@ -5485,8 +6081,7 @@
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
         64
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "You have several protocol options. <0>More Information</0>.": {
     "translation": "",
@@ -5540,25 +6135,50 @@
       ]
     ]
   },
-  "any services that are making use of it will no longer be able to do so, and all history will be lost.": {
+  "and provides advance monitoring of cluster issues.": {
     "translation": "",
     "origin": [
       [
-        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
-        74
+        "src/js/constants/UnitSummaries.js",
+        38
       ]
-    ],
-    "obsolete": true
+    ]
   },
-  "any services that are making use of it will no longer be able to do so.": {
+  "applications and services.": {
     "translation": "",
     "origin": [
       [
-        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
-        76
+        "src/js/constants/UnitSummaries.js",
+        12
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "binaries, such as the mesos-master, mesos-slave, available at the command line when SSHing to a host.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        88
+      ]
+    ]
+  },
+  "bootstrap tarball for the particular cluster, as well as its cluster role.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        158
+      ]
+    ]
+  },
+  "bootstrap tarball into /opt/mesosphere on your nodes.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        100
+      ]
+    ]
   },
   "documentation": {
     "translation": "",
@@ -5567,8 +6187,16 @@
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
         40
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "in-cluster Zookeeper, used by Mesos as well as": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        56
+      ]
+    ]
   },
   "or": {
     "translation": "",
@@ -5577,28 +6205,34 @@
         ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
         113
       ]
-    ],
-    "obsolete": true
+    ]
   },
-  "services will be able to access them.": {
+  "web interface can show recent data": {
     "translation": "",
     "origin": [
       [
-        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
-        78
+        "src/js/constants/UnitSummaries.js",
+        68
       ]
-    ],
-    "obsolete": true
+    ]
   },
-  "these secrets": {
+  "web interface, as well as a reverse proxy so that administrative interfaces of": {
     "translation": "",
     "origin": [
       [
-        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
-        70
+        "src/js/constants/UnitSummaries.js",
+        186
       ]
-    ],
-    "obsolete": true
+    ]
+  },
+  "will be deleted": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/BulkOptions.js",
+        15
+      ]
+    ]
   },
   "{0} ({1} available)": {
     "translation": "",
@@ -5607,8 +6241,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
         348
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "{0} Info": {
     "translation": "",
@@ -5635,8 +6268,7 @@
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
         187
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "{content} <0>Learn more</0>.": {
     "translation": "",
@@ -5645,8 +6277,7 @@
         ".dcos-ui-plugins-private/placement/components/LearnMoreTooltip.js",
         10
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "{errorMsg} Go to <0>insert permission string</0> to enter a permission manually.": {
     "translation": "",
@@ -5655,8 +6286,7 @@
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
         506
       ]
-    ],
-    "obsolete": true
+    ]
   },
   "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration.": {
     "translation": "",
