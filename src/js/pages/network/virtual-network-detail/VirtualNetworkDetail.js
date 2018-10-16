@@ -1,5 +1,5 @@
-import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -143,7 +143,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     const tabs = [
       {
-        label: this.props.i18n._(t`Tasks`),
+        label: i18nMark("Tasks"),
         callback: () => {
           this.setState({ currentTab: "/networking/networks/:overlayName" });
           this.context.router.push(
@@ -153,7 +153,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
         isActive: currentTab === "/networking/networks/:overlayName"
       },
       {
-        label: this.props.i18n._(t`Details`),
+        label: i18nMark("Details"),
         callback: () => {
           this.setState({
             currentTab: "/networking/networks/:overlayName/details"
@@ -186,4 +186,4 @@ VirtualNetworkDetail.contextTypes = {
   router: routerShape
 };
 
-module.exports = withI18n()(VirtualNetworkDetail);
+module.exports = VirtualNetworkDetail;
