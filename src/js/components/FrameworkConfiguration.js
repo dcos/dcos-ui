@@ -1,5 +1,5 @@
 import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
@@ -139,7 +139,7 @@ class FrameworkConfiguration extends Component {
       {
         className: "button-primary-link button-flush-horizontal",
         clickHandler: this.handleGoBack,
-        label: reviewActive ? " Back" : "Cancel"
+        label: reviewActive ? i18nMark("Back") : i18nMark("Cancel")
       }
     ];
   }
@@ -152,7 +152,9 @@ class FrameworkConfiguration extends Component {
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleServiceReview,
-        label: reviewActive ? "Run Service" : "Review & Run",
+        label: reviewActive
+          ? i18nMark("Run Service")
+          : i18nMark("Review & Run"),
         disabled: Object.keys(formErrors).some(tab => formErrors[tab] > 0)
       }
     ];

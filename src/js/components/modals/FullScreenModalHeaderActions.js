@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
@@ -19,14 +20,17 @@ class FullScreenModalHeaderActions extends React.Component {
         const classes = classNames("button flush-top", className);
 
         return (
-          <button
-            className={classes}
-            disabled={disabled}
-            key={index}
-            onClick={clickHandler}
-          >
-            {label}
-          </button>
+          <Trans
+            id={label}
+            render={
+              <button
+                className={classes}
+                disabled={disabled}
+                key={index}
+                onClick={clickHandler}
+              />
+            }
+          />
         );
       }
     );

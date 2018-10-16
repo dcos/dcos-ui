@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -800,7 +801,7 @@ class CreateServiceModal extends Component {
         {
           className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
-          label: "Review & Run"
+          label: i18nMark("Review & Run")
         }
       ];
     }
@@ -810,7 +811,7 @@ class CreateServiceModal extends Component {
         {
           className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
-          label: "Review & Run"
+          label: i18nMark("Review & Run")
         }
       ];
     }
@@ -867,13 +868,13 @@ class CreateServiceModal extends Component {
   getSecondaryActions() {
     const { location } = this.props;
     const { servicePickerActive, serviceReviewActive } = this.state;
-    let label = "Back";
+    let label = i18nMark("Back");
 
     if (
       servicePickerActive ||
       (this.isLocationEdit(location) && !serviceReviewActive)
     ) {
-      label = "Cancel";
+      label = i18nMark("Cancel");
     }
 
     return [
