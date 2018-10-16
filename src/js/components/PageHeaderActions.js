@@ -2,6 +2,7 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import { Trans } from "@lingui/macro";
 
 import Icon from "./Icon";
 import PageHeaderActionsMenu from "./PageHeaderActionsMenu";
@@ -16,7 +17,7 @@ const getDropdownAction = (action, index) => {
 
   return (
     <span className={itemClasses} onItemSelect={onItemSelect} key={index}>
-      {label}
+      <Trans id={label} render="span" />
     </span>
   );
 };

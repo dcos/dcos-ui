@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { Link, routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
@@ -41,7 +42,11 @@ class PageHeaderTabs extends React.Component {
       });
 
       const innerLinkSpan = (
-        <span className="menu-tabbed-item-label-text">{label}</span>
+        <Trans
+          id={label}
+          className="menu-tabbed-item-label-text"
+          render="span"
+        />
       );
       let link = (
         <a className={linkClasses} onClick={callback}>
