@@ -106,7 +106,7 @@ TabButton.propTypes = {
   labelClassName: classProps,
   showErrorBadge: PropTypes.bool,
   count: PropTypes.number,
-  description: PropTypes.string,
+  description: PropTypes.node,
   onClickBadge: PropTypes.func
 };
 

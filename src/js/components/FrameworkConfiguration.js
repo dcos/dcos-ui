@@ -179,15 +179,22 @@ class FrameworkConfiguration extends Component {
   }
 
   getTermsAndConditions() {
-    const { packageDetails } = this.props;
+    const { packageDetails, i18n } = this.props;
 
     const termsUrl = packageDetails.isCertified()
       ? "https://mesosphere.com/catalog-terms-conditions/#certified-services"
       : "https://mesosphere.com/catalog-terms-conditions/#community-services";
 
-    return {
-      __html: `By running this service you agree to the <a href=${termsUrl} target='_blank' title='Terms and Conditions'>terms and conditions</a>.`
-    };
+    const termsAndConditions = i18n._(t`Terms and Conditions`);
+
+    return (
+      <Trans render="span">
+        By running this service you agree to the{" "}
+        <a href={termsUrl} target="_blank" title={termsAndConditions}>
+          terms and conditions
+        </a>.
+      </Trans>
+    );
   }
 
   getWarningMessage() {
@@ -195,24 +202,21 @@ class FrameworkConfiguration extends Component {
 
     const preInstallNotes = packageDetails.getPreInstallNotes();
     if (preInstallNotes) {
-      const message = StringUtil.parseMarkdown(preInstallNotes);
-      message.__html = `<strong>Preinstall Notes: </strong>${message.__html} ${
-        this.getTermsAndConditions().__html
-      }`;
+      const notes = StringUtil.parseMarkdown(preInstallNotes);
 
       return (
-        <div
-          dangerouslySetInnerHTML={message}
-          className="pre-install-notes message message-warning"
-        />
+        <div className="pre-install-notes message message-warning">
+          <Trans render="strong">Preinstall Notes: </Trans>
+          <span dangerouslySetInnerHTML={notes} />
+          {this.getTermsAndConditions()}
+        </div>
       );
     }
 
     return (
-      <div
-        dangerouslySetInnerHTML={this.getTermsAndConditions()}
-        className="pre-install-notes message message-warning"
-      />
+      <div className="pre-install-notes message message-warning">
+        {this.getTermsAndConditions()}
+      </div>
     );
   }
 
@@ -231,13 +235,11 @@ class FrameworkConfiguration extends Component {
 
     let defaultConfigWarningMessage = null;
     if (defaultConfigWarning) {
-      const message = {};
-      message.__html = `<strong>Warning: </strong>${defaultConfigWarning}`;
       defaultConfigWarningMessage = (
-        <div
-          dangerouslySetInnerHTML={message}
-          className="message message-warning"
-        />
+        <div className="message message-warning">
+          <Trans render="strong">Warning: </Trans>
+          <Trans id={defaultConfigWarning} render="span" />
+        </div>
       );
     }
 
@@ -264,6 +266,9 @@ class FrameworkConfiguration extends Component {
   getHeader() {
     const { reviewActive } = this.state;
     const { packageDetails } = this.props;
+    const title = reviewActive
+      ? i18nMark("Review Configuration")
+      : i18nMark("Edit Configuration");
 
     return (
       <FullScreenModalHeader>
@@ -272,7 +277,7 @@ class FrameworkConfiguration extends Component {
           type="secondary"
         />
         <FullScreenModalHeaderTitle className="modal-full-screen-header-with-sub-title">
-          {reviewActive ? "Review Configuration" : "Edit Configuration"}
+          <Trans id={title} render="span" />
           <FullScreenModalHeaderSubTitle>
             {StringUtil.capitalize(packageDetails.getName()) +
               " " +
