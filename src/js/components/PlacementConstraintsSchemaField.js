@@ -124,12 +124,12 @@ export default class PlacementConstraintsSchemaField extends Component {
         batch.reduce(combineReducers({ constraints: JSONReducer }))
       )
     );
-    const isRequired = fieldProps.required ? "*" : "";
+    const requiredIndicator = fieldProps.required ? "*" : "";
 
     return (
       <div className="pod flush-left flush-right flush-top">
         <h2>
-          {`Placement Constraints ${isRequired}`}
+          <Trans render="span">Placement Constraints</Trans> {requiredIndicator}
           <Tooltip
             content={fieldProps.schema.description}
             interactive={true}
