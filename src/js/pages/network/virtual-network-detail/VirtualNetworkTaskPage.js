@@ -1,5 +1,5 @@
-import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
@@ -69,17 +69,23 @@ const NetworksDetailTaskBreadcrumbs = ({
 
 class VirtualNetworkTaskPage extends React.Component {
   render() {
-    const { location, params, routes, i18n } = this.props;
+    const { location, params, routes } = this.props;
     const { overlayName, taskID } = params;
 
     const routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
     const tabs = [
       {
-        label: i18n._(t`Details`),
+        label: i18nMark("Details"),
         routePath: routePrefix + "/details"
       },
-      { label: i18n._(t`Files`), routePath: routePrefix + "/files" },
-      { label: i18n._(t`Logs`), routePath: routePrefix + "/logs" }
+      {
+        label: i18nMark("Files"),
+        routePath: routePrefix + "/files"
+      },
+      {
+        label: i18nMark("Logs"),
+        routePath: routePrefix + "/logs"
+      }
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -126,4 +132,4 @@ VirtualNetworkTaskPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = withI18n()(VirtualNetworkTaskPage);
+module.exports = VirtualNetworkTaskPage;
