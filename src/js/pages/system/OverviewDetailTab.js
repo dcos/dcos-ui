@@ -1,5 +1,5 @@
-import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -210,7 +210,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   getPageHeaderActions() {
     return [
       {
-        label: this.props.i18n._(t`View Cluster Configuration`),
+        label: i18nMark("View Cluster Configuration"),
         onItemSelect: this.handleClusterConfigModalOpen
       }
     ];
@@ -366,4 +366,4 @@ OverviewDetailTab.routeConfig = {
   matches: /^\/overview\/details/
 };
 
-module.exports = withI18n()(OverviewDetailTab);
+module.exports = OverviewDetailTab;
