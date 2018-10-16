@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { Hooks } from "PluginSDK";
@@ -120,7 +121,7 @@ var Modals = React.createClass({
 
     return {
       onClose,
-      title: "Install DC/OS CLI",
+      title: i18nMark("Install DC/OS CLI"),
       showFooter: true,
       footer: (
         <div>
