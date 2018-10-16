@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import mixin from "reactjs-mixin";
@@ -53,7 +54,9 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
 
     const defaultConfigWarning = fullPackage.resolvedOptions
       ? null
-      : "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration.";
+      : i18nMark(
+          "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration."
+        );
 
     this.setState({
       cosmosErrors: null,
