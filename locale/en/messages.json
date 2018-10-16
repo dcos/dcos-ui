@@ -2401,7 +2401,7 @@
     "origin": [
       [
         "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
-        81
+        82
       ]
     ]
   },
@@ -3421,7 +3421,7 @@
     "origin": [
       [
         "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
-        82
+        86
       ]
     ]
   },
