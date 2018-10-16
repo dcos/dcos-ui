@@ -1,6 +1,6 @@
 {
   "name": "dcos-ui",
-  "version": "1.24.0",
+  "version": "0.0.0-dev+semantic-release",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
