@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
@@ -184,10 +185,10 @@ class PackagesTab extends mixin(StoreMixin) {
 
   getPackageOptionBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
-    const copy = isCertified ? "Certified" : "Community";
+    const copy = isCertified ? i18nMark("Certified") : i18nMark("Community");
     const appearance = isCertified ? "primary" : "default";
 
-    return <Badge appearance={appearance}>{copy}</Badge>;
+    return <Trans id={copy} render={<Badge appearance={appearance} />} />;
   }
 
   getCertifiedPackagesGrid(packages) {
@@ -221,7 +222,7 @@ class PackagesTab extends mixin(StoreMixin) {
         community.
       </Trans>
     );
-    let title = "Community";
+    let title = <Trans render="span">Community</Trans>;
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
       tall: isSearchActive
@@ -230,23 +231,29 @@ class PackagesTab extends mixin(StoreMixin) {
     if (isSearchActive) {
       const foundPackagesLength = packages.getItems().length;
       if (foundPackagesLength < 1) {
-        const noResults = `No results were found for your search: "${
-          this.state.searchString
-        }" `;
+        const noResults = (
+          <Trans render="span">
+            No results were found for your search: "{this.state.searchString}"
+          </Trans>
+        );
 
         return (
           <Trans render="div" className="clearfix">
-            {noResults}
-            (<a className="clickable" onClick={this.clearInput}>
+            {noResults} (<a className="clickable" onClick={this.clearInput}>
               view all
             </a>)
           </Trans>
         );
       }
 
+      // L10NTODO: Pluralize
       const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
       subtitle = null;
-      title = `${packages.getItems().length} ${packagesWord} found`;
+      title = (
+        <Trans render="span">
+          {packages.getItems().length} {packagesWord} found
+        </Trans>
+      );
     }
 
     return (
