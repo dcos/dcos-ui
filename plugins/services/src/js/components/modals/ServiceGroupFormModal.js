@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -73,12 +74,12 @@ class ServiceGroupFormModal extends React.Component {
 
     const buttonDefinition = [
       {
-        text: "Cancel",
+        text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
         isClose: true
       },
       {
-        text: "Create Group",
+        text: i18nMark("Create Group"),
         className: "button button-primary",
         isSubmit: true
       }

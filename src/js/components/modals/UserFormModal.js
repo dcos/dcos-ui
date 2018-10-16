@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 /* eslint-disable no-unused-vars */
@@ -69,12 +70,12 @@ class UserFormModal extends mixin(StoreMixin) {
   getButtonDefinition() {
     return Hooks.applyFilter("userFormModalButtonDefinition", [
       {
-        text: "Cancel",
+        text: i18nMark("Cancel"),
         className: "button button-primary-link",
         isClose: true
       },
       {
-        text: "Add User",
+        text: i18nMark("Add User"),
         className: "button button-primary",
         isSubmit: true
       }
