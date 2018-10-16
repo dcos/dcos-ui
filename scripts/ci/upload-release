@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-[ -n "${DEBUG}" ] && set -x
+set -x
 
 # This file is intended to run on Jenkins, if you need to run it
 # locally, you need to provide some environment variables:
@@ -10,6 +10,7 @@ set -e
 # BRANCH_NAME: Branch Name to work on
 # GIT_USER: git user for curl command
 # GIT_PASSWORD: git password for curl command
+# SENTRY_AUTH_TOKEN: auth token for sentry.io
 # aws login credentials
 #
 # run these commands from project root:
@@ -25,34 +26,49 @@ set -e
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 # project root for this file
-PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci++)" && pwd )"
+PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 
-# get correct DC/OS target (=base branch!) from .dcosrc file
-PKG_TARGET=$(python -c "import sys, json; \
-  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
-  sys.stdout.write(str(dcosrc['base']));")
+# next release version (passed in by semantic-release)
+PKG_VERSION="${1}"
 
-# release version
-PKG_VERSION="latest+${GIT_COMMIT:0:8}"
+# get correct DC/OS target (=base branch!) passed in from semantic-release
+PKG_TARGET="${2}"
 
 # build release name for branch and file names
+# Examples:
+# - master+dcos-ui-v2.0.1
+# - 1.11+dcos-ui-v1.16.0
 RELEASE_NAME="${PKG_TARGET}+dcos-ui-${PKG_VERSION}"
 
-# dcos branch to work with
-# Examples:
-# - dcos-ui/master/dcos-ui-latest
-# - dcos-ui/1.12/dcos-ui-latest
-# - dcos-ui/1.11/dcos-ui-latest
-DCOS_BRANCH="dcos-ui/${RELEASE_NAME%+${GIT_COMMIT:0:8}}"
+# latest dcos branch to work with
+DCOS_BRANCH="dcos-ui/${PKG_TARGET}+dcos-ui-latest"
 
 ## Create Assets & Generate Upload Data
 #####################################################################
 
+VERSION_PLACEHOLDER="0.0.0-dev+semantic-release"
+
+# first, replace placeholder in dist bundle and verify that it worked
+sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_TARGET}+${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
+if ! grep "${PKG_TARGET}+${PKG_VERSION}" "${PROJECT_ROOT}/dist/index.html"; then
+  echo "Version injection into dist/index.html failed!"
+  exit 1
+fi
+
+# second, create tarball
+tar czf release.tar.gz dist
+
+# third, upload tarball
+# if this fails, there is already a release with this SHA -> stop.
 RELEASE_NAME="${RELEASE_NAME}" \
-  ${SCRIPT_PATH}/utils/upload-build || exit 0
+  "${SCRIPT_PATH}/utils/upload-build" || exit 0
 
+# Upload source maps to sentry.io
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
+  RELEASE_NAME="${RELEASE_NAME}" \
+  "${SCRIPT_PATH}/utils/upload-sourcemaps" || exit 0
 
-## Update DC/OS
+## Update Latest DC/OS PR
 #####################################################################
 
 DCOS_BRANCH=${DCOS_BRANCH} \
@@ -60,4 +76,4 @@ DCOS_BRANCH=${DCOS_BRANCH} \
   DCOS_UPSTREAM="dcos/dcos" \
   PKG_TARGET=${PKG_TARGET} \
   PKG_VERSION=${PKG_VERSION} \
-  ${SCRIPT_PATH}/utils/update-dcos-repo
+  "${SCRIPT_PATH}/utils/update-dcos-repo"

@@ -13,7 +13,7 @@ set -e
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 # project root for this file
-PROJECT_ROOT="$( cd "$( echo ${SCRIPT_PATH} | sed s+/scripts/ci/utils++)" && pwd )"
+PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci/utils++)" && pwd )"
 
 # where to store dcos repo in
 DCOS_FOLDER=${DCOS_FOLDER:-"dcos-repo"}
@@ -39,7 +39,7 @@ fi
 ## Update DC/OS Repo
 #####################################################################
 
-[ -d "${PROJECT_ROOT}/${DCOS_FOLDER}" ] && rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
+[ -d "${PROJECT_ROOT}/${DCOS_FOLDER}" ] && rm -rf "${PROJECT_ROOT:?}/${DCOS_FOLDER}"
 
 git clone "${GITHUB_URL}${DCOS_ORIGIN}" "${PROJECT_ROOT}/${DCOS_FOLDER}"
 
@@ -56,11 +56,11 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   reset --hard "upstream/${PKG_TARGET}"
 
 # this is an intermediate step we need until we actually bumped the new process to DC/OS
-echo -e '#!/bin/bash\n\ncp -r "/pkg/src/dcos-ui" "$PKG_PATH"/usr/' > ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/build
+echo -e '#!/bin/bash\n\ncp -r "/pkg/src/dcos-ui" "$PKG_PATH"/usr/' > "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/build"
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/build"
 
-cp -f ${PROJECT_ROOT}/buildinfo.json ${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json
+cp -f "${PROJECT_ROOT}/buildinfo.json" "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   add "${PROJECT_ROOT}/${DCOS_FOLDER}/packages/dcos-ui/buildinfo.json"
 
@@ -68,6 +68,6 @@ git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
   commit -m "chore(dcos-ui): bump DC/OS UI ${PKG_VERSION}"
 
 git -C "${PROJECT_ROOT}/${DCOS_FOLDER}" \
-  push --force --set-upstream origin $DCOS_BRANCH
+  push --force --set-upstream origin "$DCOS_BRANCH"
 
-rm -rf ${PROJECT_ROOT}/${DCOS_FOLDER}
+rm -rf "${PROJECT_ROOT:?}/${DCOS_FOLDER}"

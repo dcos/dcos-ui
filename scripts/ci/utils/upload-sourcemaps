@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+set -x
+
+# This file is intended to run on Jenkins, if you need to run it
+# locally, you need to provide some environment variables:
+#
+# SENTRY_AUTH_TOKEN
+# RELEASE_NAME
+
+## Configuration
+#####################################################################
+
+SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN:-''}
+RELEASE_NAME=${RELEASE_NAME:-''}
+SENTRY_ORG="mesosphere"
+SENTRY_PROJECT="dcos-ui"
+
+# Create release on Sentry
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
+  npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
+  new "${RELEASE_NAME}"
+
+# Upload sourcemaps
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
+  npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
+  files "${RELEASE_NAME}" upload-sourcemaps ./dist

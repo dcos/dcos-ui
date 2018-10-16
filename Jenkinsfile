@@ -75,35 +75,17 @@ pipeline {
       }
     }
 
-    // Upload the current master as "latest" to s3
-    // and update the corresponding DC/OS branch:
-    // For Example:
-    // - dcos-ui/master/dcos-ui-latest
-    // - dcos-ui/1.12/dcos-ui-latest
-    stage("Release Latest") {
-      when {
-        expression {
-          master_branches.contains(BRANCH_NAME)
-        }
-      }
-
+    stage("Semantic Release") {
       steps {
         withCredentials([
-            string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"),
-            string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"),
-            usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
+          string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN"), // semantic-release
+          string(credentialsId: "sentry_io_token", variable: "SENTRY_AUTH_TOKEN"), // upload-build
+          string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"), // upload-build
+          string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"), // upload-build
+          usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER"), // update-dcos-repo
+          usernamePassword(credentialsId: "6c147571-7145-410a-bf9c-4eec462fbe02", passwordVariable: "JIRA_PASS", usernameVariable: "JIRA_USER") // semantic-release-jira
         ]) {
-          sh "git config --global user.email $GIT_USER@users.noreply.github.com"
-          sh "git config --global user.name 'MesosphereCI Robot'"
-          sh "git config credential.helper 'cache --timeout=300'"
-
-          sh "./scripts/ci/release-latest"
-        }
-      }
-
-      post {
-        always {
-          archiveArtifacts "buildinfo.json"
+          sh "npx semantic-release"
         }
       }
     }
