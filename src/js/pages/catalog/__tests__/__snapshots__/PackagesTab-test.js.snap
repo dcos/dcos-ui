@@ -518,7 +518,11 @@ exports[`PackagesTab with packages on the list displays the catalog with package
       <h1
         className="flush-top short"
       >
-        Community
+        <span
+          className={undefined}
+        >
+          Community
+        </span>
       </h1>
       <p
         className="tall flush-top"
