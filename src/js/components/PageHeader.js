@@ -1,6 +1,7 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import Icon from "#SRC/js/components/Icon";
 
@@ -71,7 +72,7 @@ class PageHeader extends React.Component {
             onClick={action.onItemSelect}
           >
             {editIcon}
-            <span>{action.label}</span>
+            <Trans render="span" id={action.label} />
           </a>
         );
       });
