@@ -111,7 +111,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       <span className="badge-container button-align-content label flush">
         <span className={dotClassSet} />
         <span className="badge-container-text">
-          <span>{StringUtil.capitalize(this.props.i18n._(filterName))}</span>
+          <Trans render="span" id={StringUtil.capitalize(filterName)} />
         </span>
         <Badge appearance={isActive}>{count || 0}</Badge>
       </span>
@@ -177,10 +177,25 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     const data = UnitHealthStore.getUnits();
     const dataItems = data.getItems();
     const { healthFilter, searchString } = this.state;
+    const { i18n } = this.props;
     const visibleData = this.getVisibleData(data, searchString, healthFilter);
     const dataHealth = dataItems.map(function(unit) {
       return unit.getHealth();
     });
+    const filters = [
+      {
+        filter: "all",
+        marked: i18nMark("All")
+      },
+      {
+        filter: "healthy",
+        marked: i18nMark("Healthy")
+      },
+      {
+        filter: "unhealthy",
+        marked: i18nMark("Unhealthy")
+      }
+    ];
 
     return (
       <Page>
@@ -193,7 +208,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             <FilterHeadline
               currentLength={visibleData.length}
               isFiltering={healthFilter !== "all" || searchString !== ""}
-              name={this.props.i18n._(t`Component`)}
+              name={i18n._(t`Component`)}
               onReset={this.resetFilter}
               totalLength={dataItems.length}
             />
@@ -205,11 +220,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               />
               <FilterButtons
                 renderButtonContent={this.getButtonContent}
-                filters={[
-                  i18nMark("all"),
-                  i18nMark("healthy"),
-                  i18nMark("unhealthy")
-                ]}
+                filters={filters.map(f => f.filter)}
                 filterByKey="title"
                 onFilterChange={this.handleHealthFilterChange}
                 itemList={dataHealth}

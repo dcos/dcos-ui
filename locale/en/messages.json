@@ -549,6 +549,15 @@
       ]
     ]
   },
+  "All": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        188
+      ]
+    ]
+  },
   "All Health Checks": {
     "translation": "",
     "origin": [
@@ -1234,7 +1243,7 @@
     "origin": [
       [
         "src/js/pages/system/UnitsHealthTab.js",
-        196
+        211
       ]
     ]
   },
@@ -2052,7 +2061,7 @@
     "origin": [
       [
         "src/js/pages/system/UnitsHealthTab.js",
-        223
+        234
       ]
     ]
   },
@@ -2742,6 +2751,10 @@
       [
         "src/js/constants/UnitHealthStatus.js",
         18
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        192
       ]
     ]
   },
@@ -6313,6 +6326,10 @@
       [
         "src/js/constants/UnitHealthStatus.js",
         25
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        196
       ]
     ]
   },
@@ -6858,15 +6875,6 @@
       ]
     ]
   },
-  "all": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/system/UnitsHealthTab.js",
-        209
-      ]
-    ]
-  },
   "by {mesosBuildUser}": {
     "translation": "",
     "origin": [
@@ -6885,30 +6893,12 @@
       ]
     ]
   },
-  "healthy": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/system/UnitsHealthTab.js",
-        210
-      ]
-    ]
-  },
   "or": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
         113
-      ]
-    ]
-  },
-  "unhealthy": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/system/UnitsHealthTab.js",
-        211
       ]
     ]
   },
