@@ -231,15 +231,12 @@ class PackagesTab extends mixin(StoreMixin) {
     if (isSearchActive) {
       const foundPackagesLength = packages.getItems().length;
       if (foundPackagesLength < 1) {
-        const noResults = (
-          <Trans render="span">
-            No results were found for your search: "{this.state.searchString}"
-          </Trans>
-        );
-
         return (
           <Trans render="div" className="clearfix">
-            {noResults} (<a className="clickable" onClick={this.clearInput}>
+            No results were found for your search: "{this.state.searchString}" (<a
+              className="clickable"
+              onClick={this.clearInput}
+            >
               view all
             </a>)
           </Trans>
