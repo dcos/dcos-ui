@@ -2,15 +2,16 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 
 const BulkOptions = {
   user: {
     delete: {
-      dropdownOption: {
-        content: i18nMark("Delete"),
-        element: "span",
-        className: "text-danger"
-      },
+      dropdownOption: (
+        <Trans render="span" className="text-danger">
+          Delete
+        </Trans>
+      ),
       title: i18nMark("Are you sure?"),
       actionPhrase: i18nMark("will be deleted")
     }
