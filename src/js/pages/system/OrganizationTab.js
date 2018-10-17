@@ -308,6 +308,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
     // Get first Action to set as initially selected option in dropdown.
     initialID = Object.keys(actionPhrases)[0] || null;
+
     const dropdownItems = this.getActionsDropdownItems(actionPhrases);
     if (dropdownItems.length === 1) {
       return (

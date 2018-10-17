@@ -807,12 +807,12 @@
       ]
     ]
   },
-  "Caches recent cluster history in-memory so that the": {
+  "Caches recent cluster history in-memory so that the {0} web interface can show recent data": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        66
+        70
       ]
     ]
   },
@@ -1747,12 +1747,12 @@
       ]
     ]
   },
-  "Downloads and extracts the": {
+  "Downloads and extracts the {0} bootstrap tarball into /opt/mesosphere on your nodes.": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        98
+        103
       ]
     ]
   },
@@ -2975,7 +2975,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        76
+        81
       ]
     ]
   },
@@ -3001,21 +3001,21 @@
       ]
     ]
   },
-  "Makes vendored": {
+  "Makes vendored {0} binaries, such as the mesos-master, mesos-slave, available at the command line when SSHing to a host.": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        86
+        92
       ]
     ]
   },
-  "Manages": {
+  "Manages {0} in-cluster Zookeeper, used by Mesos as well as {1} Marathon.": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        54
+        59
       ]
     ]
   },
@@ -3025,24 +3025,6 @@
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         53
-      ]
-    ]
-  },
-  "Marathon instance starts and monitors": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        10
-      ]
-    ]
-  },
-  "Marathon.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        58
       ]
     ]
   },
@@ -3156,7 +3138,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        20
+        23
       ]
     ]
   },
@@ -3166,15 +3148,6 @@
       [
         "plugins/services/src/js/constants/VolumeDefinitions.js",
         36
-      ]
-    ]
-  },
-  "Mesosphere DC/OS": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/config/Config.ts",
-        22
       ]
     ]
   },
@@ -3949,7 +3922,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        198
+        205
       ]
     ]
   },
@@ -4084,7 +4057,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        126
+        133
       ]
     ]
   },
@@ -4301,7 +4274,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        136
+        144
       ]
     ]
   },
@@ -4355,7 +4328,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        108
+        114
       ]
     ]
   },
@@ -4455,7 +4428,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        167
+        175
       ]
     ]
   },
@@ -4464,7 +4437,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        207
+        215
       ]
     ]
   },
@@ -4473,16 +4446,16 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        174
+        182
       ]
     ]
   },
-  "Runs the": {
+  "Runs the {0} web interface, as well as a reverse proxy so that administrative interfaces of {1} Service can be accessed from outside the cluster.": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        184
+        193
       ]
     ]
   },
@@ -4676,12 +4649,12 @@
       ]
     ]
   },
-  "Sends a periodic ping back to Mesosphere with high-level cluster information to help improve": {
+  "Sends a periodic ping back to Mesosphere with high-level cluster information to help improve {0}, and provides advance monitoring of cluster issues.": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        34
+        37
       ]
     ]
   },
@@ -4781,15 +4754,6 @@
       [
         "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
         6
-      ]
-    ]
-  },
-  "Service can be accessed from outside the cluster.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        190
       ]
     ]
   },
@@ -4903,7 +4867,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        146
+        155
       ]
     ]
   },
@@ -4912,7 +4876,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        46
+        49
       ]
     ]
   },
@@ -4921,7 +4885,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        118
+        125
       ]
     ]
   },
@@ -4965,12 +4929,12 @@
       ]
     ]
   },
-  "Specializes the": {
+  "Specializes the {0} bootstrap tarball for the particular cluster, as well as its cluster role.": {
     "translation": "",
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        156
+        165
       ]
     ]
   },
@@ -5255,7 +5219,7 @@
     "origin": [
       [
         "src/js/constants/UnitSummaries.js",
-        27
+        30
       ]
     ]
   },
@@ -5350,6 +5314,15 @@
       [
         "plugins/services/src/js/constants/OperatorTypes.js",
         11
+      ]
+    ]
+  },
+  "The {0} Marathon instance starts and monitors {1} applications and services.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        12
       ]
     ]
   },
@@ -6135,51 +6108,6 @@
       ]
     ]
   },
-  "and provides advance monitoring of cluster issues.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        38
-      ]
-    ]
-  },
-  "applications and services.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        12
-      ]
-    ]
-  },
-  "binaries, such as the mesos-master, mesos-slave, available at the command line when SSHing to a host.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        88
-      ]
-    ]
-  },
-  "bootstrap tarball for the particular cluster, as well as its cluster role.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        158
-      ]
-    ]
-  },
-  "bootstrap tarball into /opt/mesosphere on your nodes.": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        100
-      ]
-    ]
-  },
   "documentation": {
     "translation": "",
     "origin": [
@@ -6189,39 +6117,12 @@
       ]
     ]
   },
-  "in-cluster Zookeeper, used by Mesos as well as": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        56
-      ]
-    ]
-  },
   "or": {
     "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
         113
-      ]
-    ]
-  },
-  "web interface can show recent data": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        68
-      ]
-    ]
-  },
-  "web interface, as well as a reverse proxy so that administrative interfaces of": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/constants/UnitSummaries.js",
-        186
       ]
     ]
   },

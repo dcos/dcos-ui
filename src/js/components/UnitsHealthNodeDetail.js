@@ -3,7 +3,6 @@ import mixin from "reactjs-mixin";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { Trans } from "@lingui/macro";
 
 import Loader from "./Loader";
 import RequestErrorMsg from "./RequestErrorMsg";
@@ -85,11 +84,6 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     const unitSummary = UnitSummaries[unit.get("id")] || {};
     const unitDocsURL =
       unitSummary.getDocumentationURI && unitSummary.getDocumentationURI();
-    const joinedUnitSummary = unitSummary.summary
-      .map((sumPiece, i) => (
-        <Trans key={sumPiece + i} render="span" id={sumPiece} />
-      ))
-      .reduce((prev, curr) => [...prev, " ", curr], []);
 
     return (
       <UnitsHealthNodeDetailPanel
@@ -98,7 +92,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
         docsURL={unitDocsURL}
         hostIP={node.get("host_ip")}
         output={node.getOutput()}
-        summary={joinedUnitSummary}
+        summary={unitSummary.summary}
       />
     );
   }
