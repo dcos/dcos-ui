@@ -4176,7 +4176,7 @@
       ]
     ]
   },
-  "No results were found for your search: \"{0}\"": {
+  "No results were found for your search: \"{0}\" (<0>view all</0>)": {
     "translation": "",
     "origin": [
       [
@@ -6961,7 +6961,7 @@
     "origin": [
       [
         "src/js/pages/catalog/PackagesTab.js",
-        253
+        250
       ]
     ]
   },
@@ -7007,15 +7007,6 @@
       [
         "plugins/services/src/js/components/EmptyLogScreen.js",
         11
-      ]
-    ]
-  },
-  "{noResults} (<0>view all</0>)": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/pages/catalog/PackagesTab.js",
-        241
       ]
     ]
   }
