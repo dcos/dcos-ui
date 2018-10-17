@@ -1,11 +1,10 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import classNames from "classnames";
 
 import Icon from "../Icon";
-import StringUtil from "../../utils/StringUtil";
-import UserActions from "../../constants/UserActions";
 
 const FormGroupContainer = props => {
   let removeButton = null;
@@ -13,7 +12,7 @@ const FormGroupContainer = props => {
     removeButton = (
       <div className="form-group-container-action-button-group">
         <Tooltip
-          content={StringUtil.capitalize(UserActions.DELETE)}
+          content={<Trans render="span">Delete</Trans>}
           maxWidth={300}
           wrapText={true}
         >
