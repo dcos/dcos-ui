@@ -166,6 +166,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       isLoadingUnit,
       isLoadingNodes
     } = this.state;
+    const { i18n } = this.props;
 
     if (hasError) {
       return this.getErrorNotice();
@@ -186,7 +187,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
         <FilterHeadline
           currentLength={visibleData.length}
           isFiltering={healthFilter !== "all" || searchString !== ""}
-          name={this.props.i18n._(t`Health Check`)}
+          name={i18n._(t`Health Check`)}
           onReset={this.resetFilter}
           totalLength={nodes.getItems().length}
         />
