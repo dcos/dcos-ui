@@ -121,6 +121,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
   getContent() {
     const { errorCount, searchString } = this.state;
+    const { i18n } = this.props;
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
@@ -145,7 +146,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
         doing it manually in FilterHeadline */}
         <FilterHeadline
           onReset={this.resetFilter}
-          name={this.props.i18n._(t`Network`)}
+          name={i18n._(t`Network`)}
           currentLength={filteredOverlayList.getItems().length}
           totalLength={overlayList.getItems().length}
         />
