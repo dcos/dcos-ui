@@ -158,6 +158,7 @@ var DashboardPage = React.createClass({
       servicesCount = null;
     }
 
+    /* L10NTODO: Pluralize */
     return (
       <Trans
         render={<Link to="/services" className="button button-primary-link" />}
