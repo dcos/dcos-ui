@@ -40,7 +40,7 @@ SVGCompilerPlugin.prototype.apply = function(compiler) {
     });
 
     // Insert this list into the Webpack build as a new file asset:
-    compilation.assets["sprite.svg"] = {
+    compilation.assets["assets/sprite.svg"] = {
       source() {
         return content;
       },

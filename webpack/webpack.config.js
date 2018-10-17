@@ -12,7 +12,7 @@ function requireAll(array) {
 module.exports = {
   entry: "./src/js/index.js",
   output: {
-    filename: "[name].js",
+    filename: "assets/[name].js",
     path: path.resolve(__dirname, "../dist")
   },
   resolve: {
@@ -57,11 +57,12 @@ module.exports = {
       "process.env.LATER_COV": false
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css",
+      filename: "assets/[name].[hash].css",
       disable: process.env.NODE_ENV !== "production"
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
+      template: "./src/index.html",
+      filename: path.resolve(__dirname, "../dist/index.html")
     })
   ],
   module: {
@@ -123,7 +124,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "./[hash]-[name].[ext]"
+              name: "assets/[hash]-[name].[ext]"
             }
           },
           {
@@ -138,7 +139,7 @@ module.exports = {
         test: /\.(ttf|woff)$/,
         loader: "file-loader",
         options: {
-          name: "./fonts/source-sans-pro/[name].[ext]"
+          name: "assets/fonts/source-sans-pro/[name].[ext]"
         }
       },
       {
