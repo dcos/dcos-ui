@@ -13,6 +13,7 @@
       "node_modules/",
       "/__tests__/",
       "/reducers/",
+      "js/config",
       "js/core",
       "js/events",
       "js/routes",

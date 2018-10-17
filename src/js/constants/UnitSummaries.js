@@ -1,210 +1,218 @@
-import { i18nMark } from "@lingui/react";
+/* eslint-disable no-unused-vars */
+import React from "react";
+/* eslint-enable no-unused-vars */
+
+import { Trans } from "@lingui/macro";
 import Config from "../config/Config";
 import MetadataStore from "../stores/MetadataStore";
 
 const UnitSummaries = {
   "dcos-marathon.service": {
-    summary: [
-      i18nMark(`The`),
-      Config.productName,
-      i18nMark("Marathon instance starts and monitors"),
-      Config.productName,
-      i18nMark("applications and services.")
-    ],
+    summary: (
+      <Trans>
+        The {Config.productName} Marathon instance starts and monitors{" "}
+        {Config.productName} applications and services.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/overview/architecture/components/");
     }
   },
   "dcos-mesos-dns.service": {
-    summary: [
-      i18nMark("Mesos DNS provides service discovery within the cluster.")
-    ],
+    summary: (
+      <Trans>Mesos DNS provides service discovery within the cluster.</Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/overview/architecture/components/");
     }
   },
   "dcos-mesos-master.service": {
-    summary: i18nMark("The Mesos master process orchestrates agent tasks."),
+    summary: <Trans>The Mesos master process orchestrates agent tasks.</Trans>,
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/installing/ent/");
     }
   },
   "dcos-signal.service": {
-    summary: [
-      i18nMark(
-        "Sends a periodic ping back to Mesosphere with high-level cluster information to help improve"
-      ),
-      Config.productName,
-      i18nMark("and provides advance monitoring of cluster issues.")
-    ],
+    summary: (
+      <Trans>
+        Sends a periodic ping back to Mesosphere with high-level cluster
+        information to help improve {Config.productName}, and provides advance
+        monitoring of cluster issues.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-gen-resolvconf.timer": {
-    summary: [
-      i18nMark("Sets the dcos-gen-resolvconf.service to be run once a minute.")
-    ],
+    summary: (
+      <Trans>
+        Sets the dcos-gen-resolvconf.service to be run once a minute.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/installing/ent/");
     }
   },
   "dcos-exhibitor.service": {
-    summary: [
-      i18nMark("Manages"),
-      Config.productName,
-      i18nMark("in-cluster Zookeeper, used by Mesos as well as"),
-      Config.productName,
-      i18nMark("Marathon.")
-    ],
+    summary: (
+      <Trans>
+        Manages {Config.productName} in-cluster Zookeeper, used by Mesos as well
+        as {Config.productName} Marathon.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/overview/what-is-dcos/");
     }
   },
   "dcos-history-service.service": {
-    summary: [
-      i18nMark("Caches recent cluster history in-memory so that the"),
-      Config.productName,
-      i18nMark("web interface can show recent data")
-    ],
+    summary: (
+      <Trans>
+        Caches recent cluster history in-memory so that the {Config.productName}{" "}
+        web interface can show recent data
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-logrotate.service": {
-    summary: [
-      i18nMark(
-        "Logrotate allows for the automatic rotation compression, removal, and mailing of log files."
-      )
-    ],
+    summary: (
+      <Trans>
+        Logrotate allows for the automatic rotation compression, removal, and
+        mailing of log files.
+      </Trans>
+    ),
     getDocumentationURI() {
       return "https://github.com/logrotate/logrotate/blob/master/README.md";
     }
   },
   "dcos-link-env.service": {
-    summary: [
-      i18nMark("Makes vendored"),
-      Config.productName,
-      i18nMark(
-        "binaries, such as the mesos-master, mesos-slave, available at the command line when SSHing to a host."
-      )
-    ],
+    summary: (
+      <Trans>
+        Makes vendored {Config.productName} binaries, such as the mesos-master,
+        mesos-slave, available at the command line when SSHing to a host.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-download.service": {
-    summary: [
-      i18nMark("Downloads and extracts the"),
-      Config.productName,
-      i18nMark("bootstrap tarball into /opt/mesosphere on your nodes.")
-    ],
+    summary: (
+      <Trans>
+        Downloads and extracts the {Config.productName} bootstrap tarball into
+        /opt/mesosphere on your nodes.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-logrotate.timer": {
-    summary: [
-      i18nMark(
-        "Rotates the Mesos master and agent log files to prevent filling the disk."
-      )
-    ],
+    summary: (
+      <Trans>
+        Rotates the Mesos master and agent log files to prevent filling the
+        disk.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-signal.timer": {
-    summary: [
-      i18nMark("Sets the dcos-signal.service interval at once an hour.")
-    ],
+    summary: (
+      <Trans>Sets the dcos-signal.service interval at once an hour.</Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-gunicorn-bouncer.service": {
-    summary: [
-      i18nMark(
-        "Processes login requests from users, as well as checking if an authorization token is valid."
-      )
-    ],
+    summary: (
+      <Trans>
+        Processes login requests from users, as well as checking if an
+        authorization token is valid.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-adminrouter-reload.service": {
-    summary: [
-      i18nMark(
-        "Restart the Admin Router Nginx server so that it picks up new DNS resolutions, for example master.mesos, leader.mesos."
-      )
-    ],
+    summary: (
+      <Trans>
+        Restart the Admin Router Nginx server so that it picks up new DNS
+        resolutions, for example master.mesos, leader.mesos.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-nginx-reload.timer": {
-    summary: [
-      i18nMark(
-        "Sets the dcos-adminrouter-reload.service interval at once an hour."
-      )
-    ],
+    summary: (
+      <Trans>
+        Sets the dcos-adminrouter-reload.service interval at once an hour.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-setup.service": {
-    summary: [
-      i18nMark("Specializes the"),
-      Config.productName,
-      i18nMark(
-        "bootstrap tarball for the particular cluster, as well as its cluster role."
-      )
-    ],
+    summary: (
+      <Trans>
+        Specializes the {Config.productName} bootstrap tarball for the
+        particular cluster, as well as its cluster role.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-mesos-slave.service": {
-    summary: [i18nMark("Runs a Mesos agent on the node.")],
+    summary: <Trans>Runs a Mesos agent on the node.</Trans>,
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-keepalived.service": {
-    summary: [
-      i18nMark(
-        "Runs keepalived to make a VRRP load balancer that can be used to access the masters."
-      )
-    ],
+    summary: (
+      <Trans>
+        Runs keepalived to make a VRRP load balancer that can be used to access
+        the masters.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-adminrouter-agent.service": {
-    summary: [
-      i18nMark("Runs the"),
-      Config.productName,
-      i18nMark(
-        "web interface, as well as a reverse proxy so that administrative interfaces of"
-      ),
-      Config.productName,
-      i18nMark("Service can be accessed from outside the cluster.")
-    ],
+    summary: (
+      <Trans>
+        Runs the {Config.productName} web interface, as well as a reverse proxy
+        so that administrative interfaces of {Config.productName} Service can be
+        accessed from outside the cluster.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
     }
   },
   "dcos-gen-resolvconf.service": {
-    summary: [
-      i18nMark(
-        "Periodically writes /etc/resolv.conf so that only currently active Mesos masters with working Mesos DNS are in it."
-      )
-    ],
+    summary: (
+      <Trans>
+        Periodically writes /etc/resolv.conf so that only currently active Mesos
+        masters with working Mesos DNS are in it.
+      </Trans>
+    ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/installing/ent/");
     }
   },
   "dcos-mesos-slave-public": {
-    summary: [i18nMark("Runs a publicly accessible Mesos agent on the node.")],
+    summary: <Trans>Runs a publicly accessible Mesos agent on the node.</Trans>,
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/security/");
     }
