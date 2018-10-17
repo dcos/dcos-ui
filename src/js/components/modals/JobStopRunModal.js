@@ -1,5 +1,5 @@
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
@@ -53,16 +53,17 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   getContentHeader(selectedItems, selectedItemsLength) {
-    let headerContent = ` ${selectedItemsLength} Job Runs`;
-    if (selectedItemsLength === 1) {
-      headerContent = "this";
-    }
+    // L10NTODO: Pluralize
+    const headerContent =
+      selectedItemsLength === 1 ? (
+        <Trans render="span">Are you sure you want to stop this?</Trans>
+      ) : (
+        <Trans render="span">
+          Are you sure you want to stop {selectedItemsLength} Job Runs?
+        </Trans>
+      );
 
-    return (
-      <ModalHeading key="confirmHeader">
-        {`Are you sure you want to stop ${headerContent}?`}
-      </ModalHeading>
-    );
+    return <ModalHeading key="confirmHeader">{headerContent}</ModalHeading>;
   }
 
   getConfirmTextBody(selectedItems, selectedItemsLength) {
@@ -87,13 +88,12 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   render() {
-    const { onClose, open, selectedItems } = this.props;
-    let rightButtonText = "Stop Job Run";
-    const selectedItemsLength = selectedItems.length;
+    const { onClose, open, selectedItems, i18n } = this.props;
+    // L10NTODO: Pluralize
+    const rightButtonText =
+      selectedItems.length > 1 ? "Stop Job Runs" : "Stop Job Run";
 
-    if (selectedItems.length > 1) {
-      rightButtonText = "Stop Job Runs";
-    }
+    const selectedItemsLength = selectedItems.length;
 
     return (
       <Confirm
@@ -102,10 +102,10 @@ class JobStopRunModal extends mixin(StoreMixin) {
         header={this.getContentHeader(selectedItems, selectedItemsLength)}
         open={open}
         onClose={onClose}
-        leftButtonText="Cancel"
+        leftButtonText={i18n._(t`Cancel`)}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link"
-        rightButtonText={rightButtonText}
+        rightButtonText={i18n._(rightButtonText)}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}
         showHeader={true}
@@ -128,4 +128,4 @@ JobStopRunModal.propTypes = {
   selectedItems: PropTypes.array.isRequired
 };
 
-export default JobStopRunModal;
+export default withI18n()(JobStopRunModal);
