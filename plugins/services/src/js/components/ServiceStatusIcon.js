@@ -194,7 +194,7 @@ class ServiceStatusIcon extends Component {
 
 ServiceStatusIcon.propTypes = {
   showTooltip: PropTypes.bool,
-  tooltipContent: PropTypes.string,
+  tooltipContent: PropTypes.node,
   service: PropTypes.oneOfType([
     PropTypes.instanceOf(Service),
     PropTypes.instanceOf(ServiceTree),
