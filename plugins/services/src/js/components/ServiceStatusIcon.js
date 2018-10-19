@@ -22,7 +22,7 @@ const getTooltipContent = (service, content) => {
 
   return (
     <span>
-      {`${content} `}
+      {content}{" "}
       <a
         href={`#/services/detail/${servicePath}/debug`}
         title="debug information"
@@ -41,10 +41,10 @@ class ServiceStatusIcon extends Component {
         DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(service.getQueue()));
 
       return this.getTooltip(
-        `DC/OS has been waiting for resources and is unable to complete this deployment for ${DateUtil.getDuration(
-          timeWaiting,
-          null
-        )}.`
+        <Trans render="span">
+          DC/OS has been waiting for resources and is unable to complete this
+          deployment for {DateUtil.getDuration(timeWaiting, null)}.
+        </Trans>
       );
     }
 
@@ -66,12 +66,15 @@ class ServiceStatusIcon extends Component {
       .flattenItems()
       .getItems().length;
 
+    // L10NTODO: Pluralize
     if (appsWithWarningsCount > 0) {
       return this.getTooltip(
-        `DC/OS is waiting for resources and is unable to complete the deployment of ${appsWithWarningsCount} ${StringUtil.pluralize(
-          "service",
-          appsWithWarningsCount
-        )} in this group.`
+        <Trans render="span">
+          DC/OS is waiting for resources and is unable to complete the
+          deployment of {appsWithWarningsCount}{" "}
+          {StringUtil.pluralize("service", appsWithWarningsCount)} in this
+          group.
+        </Trans>
       );
     }
 
@@ -103,10 +106,13 @@ class ServiceStatusIcon extends Component {
   getUnableToLaunchWarning(service) {
     if (this.isUnableToLaunch(service)) {
       return this.getTooltip(
-        `DC/OS has been unable to complete this deployment for ${DateUtil.getDuration(
-          Date.now() - DateUtil.strToMs(service.getQueue().since),
-          null
-        )}.`
+        <Trans render="span">
+          DC/OS has been unable to complete this deployment for{" "}
+          {DateUtil.getDuration(
+            Date.now() - DateUtil.strToMs(service.getQueue().since),
+            null
+          )}.
+        </Trans>
       );
     }
 
