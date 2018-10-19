@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown } from "reactjs-components";
+import { Trans } from "@lingui/macro";
 
 import { Badge } from "@dcos/ui-kit";
 import Framework from "../structs/Framework";
@@ -73,7 +74,7 @@ var FilterByService = React.createClass({
       }
 
       if (serviceId === defaultId) {
-        item.selectedHtml = <span>Filter by Service</span>;
+        item.selectedHtml = <Trans render="span">Filter by Service</Trans>;
       }
 
       return item;
