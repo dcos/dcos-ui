@@ -27,7 +27,7 @@ const ServiceItemNotFound = function({ message }) {
 };
 
 ServiceItemNotFound.defaultProps = {
-  message: "Not Found."
+  message: <Trans render="span">Not Found.</Trans>
 };
 
 ServiceItemNotFound.propTypes = {
