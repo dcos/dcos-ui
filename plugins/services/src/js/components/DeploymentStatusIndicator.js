@@ -1,8 +1,9 @@
-import { FormattedMessage } from "react-intl";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -58,6 +59,10 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
       return null;
     }
 
+    // L10NTODO: Pluralize
+    const deploymentText =
+      deploymentsCount === 1 ? i18nMark("deployment") : i18nMark("deployments");
+
     return (
       <button
         className="button button-primary-link button--deployments"
@@ -65,10 +70,7 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
       >
         <Icon color="grey" id="spinner" size="mini" />
         <div className="button--deployments__copy">
-          <FormattedMessage
-            id="SERVICES.DEPLOYMENT_COUNT"
-            values={{ deploymentsCount }}
-          />
+          {deploymentsCount} <Trans id={deploymentText} render="span" />
         </div>
         <DeploymentsModal
           isOpen={this.state.isOpen}
