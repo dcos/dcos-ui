@@ -1,8 +1,8 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { Confirm, Dropdown, Modal } from "reactjs-components";
 import { hashHistory } from "react-router";
-import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -23,7 +23,6 @@ import ServiceUtil from "#SRC/js/utils/ServiceUtil";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
-import UserActions from "#SRC/js/constants/UserActions";
 
 import defaultServiceImage from "../../img/icon-service-default-small@2x.png";
 import MarathonActions from "../events/MarathonActions";
@@ -35,9 +34,9 @@ const columnClasses = {
   action: "deployments-table-column-actions"
 };
 const columnHeadings = ResourceTableUtil.renderHeading({
-  id: "Affected Services",
-  startTime: "Started",
-  status: "Status",
+  id: i18nMark("Affected Services"),
+  startTime: i18nMark("Started"),
+  status: i18nMark("Status"),
   action: null
 });
 const METHODS_TO_BIND = [
@@ -204,19 +203,43 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
     const serviceCount = serviceNames.length;
 
-    const service = StringUtil.pluralize("service", serviceCount);
-    const its = serviceCount === 1 ? "its" : "their";
-    const version = StringUtil.pluralize("version", serviceCount);
-
+    // L10NTODO: Pluralize
     if (deploymentToRollback.isStarting()) {
-      return `This will stop the current deployment of ${listOfServiceNames} and
-              start a new deployment to ${UserActions.DELETE} the affected
-              ${service}.`;
+      if (serviceCount === 1) {
+        return (
+          <Trans render="p">
+            This will stop the current deployment of {listOfServiceNames} and
+            start a new deployment to delete the affected service.
+          </Trans>
+        );
+      } else {
+        return (
+          <Trans render="p">
+            This will stop the current deployment of {listOfServiceNames} and
+            start a new deployment to delete the affected services.
+          </Trans>
+        );
+      }
     }
 
-    return `This will stop the current deployment of ${listOfServiceNames} and
-            start a new deployment to revert the affected ${service} to ${its}
-            previous ${version}.`;
+    // L10NTODO: Pluralize
+    if (serviceCount === 1) {
+      return (
+        <Trans render="p">
+          This will stop the current deployment of {listOfServiceNames} and
+          start a new deployment to revert the affected service to its previous
+          version.
+        </Trans>
+      );
+    } else {
+      return (
+        <Trans render="p">
+          This will stop the current deployment of {listOfServiceNames} and
+          start a new deployment to revert the affected services to their
+          previous versions.
+        </Trans>
+      );
+    }
   }
 
   getServiceDisplayPath(service) {
@@ -245,6 +268,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
   renderActionsMenu(prop, deployment, rowOptions) {
     const { children = [] } = deployment;
+    const { i18n } = this.props;
 
     const doesDeploymentContainSDKService = children.some(function(service) {
       return ServiceUtil.isSDKService(service);
@@ -255,11 +279,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
       rowOptions.isParent &&
       deployment != null
     ) {
-      let actionText = "Rollback";
+      let actionText = i18nMark("Rollback");
       if (deployment.isStarting()) {
-        actionText = `${actionText} & ${StringUtil.capitalize(
-          UserActions.DELETE
-        )}`;
+        actionText = i18nMark("Rollback & Delete");
       }
 
       const dropdownItems = [
@@ -271,7 +293,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
         },
         {
           id: "rollback",
-          html: <span className="text-danger">{actionText}</span>
+          html: <Trans id={actionText} render="span" className="text-danger" />
         }
       ];
 
@@ -288,7 +310,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           onItemSelection={this.handleActionSelect.bind(this, deployment)}
           scrollContainer=".gm-scroll-view"
           scrollContainerParentSelector=".gm-prevented"
-          title="More actions"
+          title={i18n._(t`More actions`)}
           transition={true}
           transitionName="dropdown-menu"
         />
@@ -378,6 +400,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
       deploymentToRollback,
       deploymentRollbackError
     } = this.state;
+    const { i18n } = this.props;
 
     const heading = (
       <ModalHeading>
@@ -393,15 +416,15 @@ class DeploymentsModal extends mixin(StoreMixin) {
           header={heading}
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}
-          leftButtonText="Cancel"
+          leftButtonText={i18n._(t`Cancel`)}
           leftButtonClassName="button button-primary-link"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
-          rightButtonText="Continue Rollback"
+          rightButtonText={i18n._(t`Continue Rollback`)}
           showHeader={true}
         >
           <div className="text-align-center">
-            <p>{this.getRollbackModalText(deploymentToRollback)}</p>
+            {this.getRollbackModalText(deploymentToRollback)}
             {this.renderRollbackError(deploymentRollbackError)}
           </div>
         </Confirm>
@@ -494,7 +517,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
   render() {
     let content = null;
     const deployments = DCOSStore.deploymentsList.getItems();
-    const { intl, isOpen, onClose } = this.props;
+    const { isOpen, onClose } = this.props;
     const loading = !DCOSStore.serviceDataReceived;
 
     if (loading) {
@@ -512,16 +535,15 @@ class DeploymentsModal extends mixin(StoreMixin) {
         </button>
       </div>
     );
+
+    // L10NTODO: Pluralize
+    const deploymentsCount = deployments.length;
+    const deploymentsText =
+      deploymentsCount === 1 ? i18nMark("Deployment") : i18nMark("Deployments");
     const heading = (
       <ModalHeading>
-        {intl.formatMessage(
-          {
-            id: "SERVICES.DEPLOYMENT_MODAL_HEADING"
-          },
-          {
-            deploymentsCount: deployments.length
-          }
-        )}
+        {deploymentsCount} <Trans render="span">Active</Trans>{" "}
+        <Trans render="span" id={deploymentsText} />
       </ModalHeading>
     );
 
@@ -541,4 +563,4 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 }
 
-module.exports = injectIntl(DeploymentsModal);
+module.exports = withI18n()(DeploymentsModal);
