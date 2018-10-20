@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import isEqual from "lodash.isequal";
@@ -67,7 +68,7 @@ class CreateServiceJsonOnly extends React.Component {
    * @param {Boolean} errorState - True if there are JSON syntax errors
    */
   handleJSONErrorStateChange(errorState) {
-    const { errors, onErrorsChange } = this.props;
+    const { errors, onErrorsChange, i18n } = this.props;
     const hasJsonError = errors.some(function(error) {
       return error.type === SYNTAX_ERROR;
     });
@@ -79,7 +80,7 @@ class CreateServiceJsonOnly extends React.Component {
           path: [],
           type: SYNTAX_ERROR,
           variables: {},
-          message: "The input entered is not a valid JSON string"
+          message: i18n._(t`The input entered is not a valid JSON string`)
         }
       ]);
     }
@@ -138,4 +139,4 @@ CreateServiceJsonOnly.propTypes = {
   service: PropTypes.object
 };
 
-module.exports = CreateServiceJsonOnly;
+module.exports = withI18n()(CreateServiceJsonOnly);
