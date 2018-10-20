@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -24,18 +25,23 @@ const { DOCKER, MESOS } = ContainerConstants.type;
 const containerSettings = {
   privileged: {
     runtimes: [DOCKER],
-    label: "Grant Runtime Privileges",
-    helpText:
-      "By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.",
-    unavailableText:
+    label: i18nMark("Grant Runtime Privileges"),
+    helpText: i18nMark(
+      "By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container."
+    ),
+    unavailableText: i18nMark(
       "Grant runtime privileges option isn't supported by selected runtime."
+    )
   },
   forcePullImage: {
     runtimes: [DOCKER, MESOS],
-    label: "Force Pull Image On Launch",
-    helpText: "Force Docker to pull the image before launching each instance.",
-    unavailableText:
+    label: i18nMark("Force Pull Image On Launch"),
+    helpText: i18nMark(
+      "Force Docker to pull the image before launching each instance."
+    ),
+    unavailableText: i18nMark(
       "Force pull image on launch option isn't supported by selected runtime."
+    )
   }
 };
 
@@ -107,7 +113,13 @@ class ContainerServiceFormAdvancedSection extends Component {
     if (gpusDisabled) {
       inputNode = (
         <Tooltip
-          content="Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources."
+          content={
+            <Trans render="span">
+              Docker Engine does not support GPU resources, please select
+              Universal Container Runtime (UCR) if you want to use GPU
+              resources.
+            </Trans>
+          }
           interactive={true}
           maxWidth={300}
           wrapText={true}
@@ -169,15 +181,17 @@ class ContainerServiceFormAdvancedSection extends Component {
               disabled={isDisabled}
               value={settingName}
             />
-            {label}
-            <FieldHelp>{helpText}</FieldHelp>
+            <Trans render="span" id={label} />
+            <FieldHelp>
+              <Trans render="span" id={helpText} />
+            </FieldHelp>
           </FieldLabel>
         );
 
         if (isDisabled) {
           labelNode = (
             <Tooltip
-              content={unavailableText}
+              content={<Trans render="span" id={unavailableText} />}
               elementTag="label"
               key={`tooltip.${index}`}
               position="top"
