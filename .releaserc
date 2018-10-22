@@ -1,5 +1,5 @@
 {
-  "branch": "1.11",
+  "branch": "release/1.11",
   "tagFormat": "1.11+v${version}",
   "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
   "prepare": [],
