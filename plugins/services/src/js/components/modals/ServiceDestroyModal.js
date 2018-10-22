@@ -1,14 +1,12 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { injectIntl, intlShape } from "react-intl";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
-import StringUtil from "#SRC/js/utils/StringUtil";
-import UserActions from "#SRC/js/constants/UserActions";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 
 import AppLockedMessage from "./AppLockedMessage";
@@ -173,11 +171,9 @@ class ServiceDestroyModal extends React.Component {
   }
 
   getDestroyServiceModal() {
-    const { open } = this.props;
+    const { open, i18n } = this.props;
     const serviceLabel = this.getServiceLabel();
-    const itemText = `${StringUtil.capitalize(
-      UserActions.DELETE
-    )} ${serviceLabel}`;
+    const itemText = i18n._(t`Delete`) + ` ${serviceLabel}`;
 
     return (
       <Confirm
@@ -185,7 +181,7 @@ class ServiceDestroyModal extends React.Component {
         header={this.getModalHeading()}
         open={open}
         onClose={this.handleModalClose}
-        leftButtonText="Cancel"
+        leftButtonText={i18n._(t`Cancel`)}
         leftButtonClassName="button button-primary-link flush-left"
         leftButtonCallback={this.handleModalClose}
         rightButtonText={itemText}
@@ -249,7 +245,6 @@ ServiceDestroyModal.contextTypes = {
 ServiceDestroyModal.propTypes = {
   deleteItem: PropTypes.func.isRequired,
   errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  intl: intlShape.isRequired,
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
@@ -261,4 +256,4 @@ ServiceDestroyModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = injectIntl(ServiceDestroyModal);
+module.exports = withI18n()(ServiceDestroyModal);
