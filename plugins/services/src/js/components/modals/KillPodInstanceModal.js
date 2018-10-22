@@ -2,6 +2,8 @@ import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
+import { Trans, t } from "@lingui/macro";
+import { withI18n, i18nMark } from "@lingui/react";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -10,8 +12,8 @@ import AppLockedMessage from "./AppLockedMessage";
 import Pod from "../../structs/Pod";
 
 const ACTION_DISPLAY_NAMES = {
-  restart: "Restart",
-  stop: "Stop"
+  restart: i18nMark("Restart"),
+  stop: i18nMark("Stop")
 };
 
 class KillPodInstanceModal extends React.Component {
@@ -84,8 +86,10 @@ class KillPodInstanceModal extends React.Component {
   }
 
   getModalContents() {
+    const { i18n } = this.props;
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action];
+    // L10NTODO: Pluralize
     const instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize(
       "Instance",
       selectedItemsLength
@@ -93,10 +97,10 @@ class KillPodInstanceModal extends React.Component {
 
     return (
       <div>
-        <p>
-          You are about to {action.toLowerCase()} {instanceCountContent}. Are
-          you sure you want to continue?
-        </p>
+        <Trans render="p">
+          You are about to {i18n._(action).toLowerCase()} {instanceCountContent}.
+          Are you sure you want to continue?
+        </Trans>
         {this.getErrorMessage()}
       </div>
     );
@@ -110,13 +114,14 @@ class KillPodInstanceModal extends React.Component {
       onClose,
       open,
       pod,
-      selectedItems
+      selectedItems,
+      i18n
     } = this.props;
 
-    let buttonText = ACTION_DISPLAY_NAMES[action];
+    let buttonText = i18n._(ACTION_DISPLAY_NAMES[action]);
 
     if (this.shouldForceUpdate()) {
-      buttonText = `Force ${buttonText}`;
+      buttonText = i18n._(t`Force`) + " " + buttonText;
     }
 
     const killAction = () =>
@@ -128,9 +133,10 @@ class KillPodInstanceModal extends React.Component {
         this.shouldForceUpdate()
       );
 
+    // L10NTODO: Pluralize
     const header = (
       <ModalHeading className="text-danger">
-        {ACTION_DISPLAY_NAMES[action]}{" "}
+        {i18n._(ACTION_DISPLAY_NAMES[action])}{" "}
         {StringUtil.pluralize("Instance", selectedItems.length)}
       </ModalHeading>
     );
@@ -142,7 +148,7 @@ class KillPodInstanceModal extends React.Component {
         header={header}
         open={open}
         onClose={onClose}
-        leftButtonText="Cancel"
+        leftButtonText={i18n._(t`Cancel`)}
         leftButtonClassName="button button-primary-link flush-left"
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
@@ -174,4 +180,4 @@ KillPodInstanceModal.propTypes = {
   selectedItems: PropTypes.array
 };
 
-module.exports = KillPodInstanceModal;
+module.exports = withI18n()(KillPodInstanceModal);
