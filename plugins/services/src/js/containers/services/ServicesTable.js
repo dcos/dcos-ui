@@ -291,14 +291,14 @@ class ServicesTable extends React.Component {
     if (this.hasWebUI(service)) {
       actions.push({
         id: OPEN,
-        html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
+        html: <Trans render="span" id={ServiceActionLabels.open} />
       });
     }
 
     if (!isGroup) {
       actions.push({
         id: EDIT,
-        html: this.props.intl.formatMessage({ id: ServiceActionLabels.edit })
+        html: <Trans render="span" id={ServiceActionLabels.edit} />
       });
     }
 
@@ -307,45 +307,39 @@ class ServicesTable extends React.Component {
     if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
       actions.push({
         id: SCALE,
-        html: this.props.intl.formatMessage({ id: scaleTextID })
+        html: <Trans render="span" id={scaleTextID} />
       });
     }
 
     if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
       actions.push({
         id: RESTART,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[RESTART]
-        })
+        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />
       });
     }
 
     if (instancesCount > 0 && !isSDK) {
       actions.push({
         id: STOP,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[STOP]
-        })
+        html: <Trans render="span" id={ServiceActionLabels[STOP]} />
       });
     }
 
     if (!isGroup && instancesCount === 0 && !isSDK) {
       actions.push({
         id: RESUME,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[RESUME]
-        })
+        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />
       });
     }
 
     actions.push({
       id: DELETE,
       html: (
-        <span className="text-danger">
-          {this.props.intl.formatMessage({
-            id: ServiceActionLabels[DELETE]
-          })}
-        </span>
+        <Trans
+          render="span"
+          className="text-danger"
+          id={ServiceActionLabels[DELETE]}
+        />
       )
     });
 

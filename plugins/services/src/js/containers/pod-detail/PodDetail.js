@@ -149,9 +149,7 @@ class PodDetail extends mixin(TabsMixin) {
       pod.getWebURL() !== ""
     ) {
       actions.push({
-        label: this.props.intl.formatMessage({
-          id: ServiceActionLabels.open
-        }),
+        label: ServiceActionLabels.open,
         onItemSelect: this.onActionsItemSelection.bind(this, OPEN)
       });
     }
