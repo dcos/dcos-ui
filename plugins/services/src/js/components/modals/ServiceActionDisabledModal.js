@@ -1,7 +1,7 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
-import { injectIntl } from "react-intl";
 import { MountService } from "foundation-ui";
 import { Modal } from "reactjs-components";
 
@@ -64,104 +64,101 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getServiceRestartMessage() {
-    const { intl } = this.props;
     const command = this.getRestartCommand();
 
     return (
       <div>
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_RESTART" })}{" "}
+        <Trans render="p">
+          Restart your service from the DC/OS CLI.{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/cli/command-reference/dcos-marathon/dcos-marathon-app-restart/"
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            More information
           </a>
-        </p>
+        </Trans>
         {this.getClipboardTrigger(command)}
       </div>
     );
   }
 
   getServiceStopMessage() {
-    const { intl } = this.props;
     const command = this.getUpdateCommand();
 
     return (
       <div>
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_STOP" })}{" "}
+        <Trans render="p">
+          Stop your service by scaling to 0 instances from the DC/OS CLI using
+          an `options.json` file.{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/config-universe-service/"
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            More information
           </a>
-        </p>
+        </Trans>
         {this.getClipboardTrigger(command)}
       </div>
     );
   }
 
   getServiceResumeMessage() {
-    const { intl } = this.props;
     const command = this.getUpdateCommand();
 
     return (
       <div>
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_RESUME" })}{" "}
+        <Trans render="p">
+          Resume your service by scaling to 1 or more instances from the DC/OS
+          CLI using an `options.json` file.{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/config-universe-service/"
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            More information
           </a>
-        </p>
+        </Trans>
         {this.getClipboardTrigger(command)}
       </div>
     );
   }
 
   getServiceScaleMessage() {
-    const { intl } = this.props;
     const command = this.getUpdateCommand();
 
     return (
       <div>
-        <p>{intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SCALE" })}</p>
-        <p>
-          <span className="emphasis">Note:</span>{" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_SERVICE_SCALE_NOTE" })}{" "}
+        <Trans render="p">
+          Update the number of instances in your service's target configuration
+          using an `options.json` file.
+        </Trans>
+        <Trans render="p">
+          <span className="emphasis">Note:</span> Scaling to fewer instances is
+          not supported.{" "}
           <a
             href={MetadataStore.buildDocsURI(
               "/deploying-services/config-universe-service/"
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            More information
           </a>{" "}
-        </p>
+        </Trans>
         {this.getClipboardTrigger(command)}
       </div>
     );
   }
 
   getServiceEditMessage() {
-    const { intl, service } = this.props;
+    const { service } = this.props;
 
     return (
-      <MountService.Mount
-        type={"ServiceEditMessage:Modal"}
-        intl={intl}
-        service={service}
-      >
+      <MountService.Mount type={"ServiceEditMessage:Modal"} service={service}>
         <Trans render="div" className="center">
           Editing this service is only available on{" "}
           <a href="https://mesosphere.com/product/" target="_blank">
@@ -232,7 +229,7 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getGroupUpdateMessage(updateDescription) {
-    const { actionID, intl } = this.props;
+    const { actionID, i18n } = this.props;
     const { selectedServices, otherServices } = this.getServiceTypes(
       isSDKService
     );
@@ -252,13 +249,8 @@ class ServiceActionDisabledModal extends React.Component {
 
       otherServicesMessage = (
         <div>
-          <p>
-            {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_7" })}{" "}
-            {otherServicesList}
-            :{" "}
-            {intl.formatMessage({
-              id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_8"
-            })}{" "}
+          <Trans render="p">
+            For {otherServicesList}: Copy the JSON below into a file called{" "}
             <code>options.json</code>
             {". "}
             <a
@@ -267,13 +259,13 @@ class ServiceActionDisabledModal extends React.Component {
               )}
               target="_blank"
             >
-              {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+              More information
             </a>
-          </p>
+          </Trans>
           {this.getClipboardTrigger('{"instances": 0}')}
-          <p>
-            {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_9" })}.
-          </p>
+          <Trans render="p">
+            Then, copy the command below into the DC/OS CLI.
+          </Trans>
           {this.getClipboardTrigger(otherCommand)}
         </div>
       );
@@ -281,21 +273,15 @@ class ServiceActionDisabledModal extends React.Component {
 
     return (
       <div>
-        <p>
-          {intl.formatMessage({ id: ServiceActionLabels[actionID] })}{" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_1" })}{" "}
-          {updateDescription}{" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_2" })}.
-        </p>
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_3" })}{" "}
-          {sdkServicesList}
+        <Trans render="p">
+          {i18n._(ServiceActionLabels[actionID])} your group by{" "}
+          {updateDescription} from the DC/OS CLI.
+        </Trans>
+        <Trans render="p">
+          For {sdkServicesList}
           {": "}
-          {intl.formatMessage({
-            id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_4"
-          })}{" "}
-          <code>{"<package-name>-options.json"}</code>{" "}
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_5" })}
+          Create <code>{"<package-name>-options.json"}</code> files for each
+          service. Here is a sample options file
           {". "}
           <a
             href={MetadataStore.buildDocsURI(
@@ -303,13 +289,11 @@ class ServiceActionDisabledModal extends React.Component {
             )}
             target="_blank"
           >
-            {intl.formatMessage({ id: "DOCS.MORE_INFORMATION" })}
+            More information
           </a>
-        </p>
+        </Trans>
         {this.getClipboardTrigger('{"env": {"<PACKAGE_NAME>_COUNT": "0"}}')}
-        <p>
-          {intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_6" })}.
-        </p>
+        <Trans render="p">Then, use this command to update each service.</Trans>
         {this.getClipboardTrigger(sdkCommand)}
         {otherServicesMessage}
       </div>
@@ -317,16 +301,16 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getGroupMessage() {
-    const { actionID, intl } = this.props;
+    const { actionID, i18n } = this.props;
 
     switch (actionID) {
       case STOP:
         return this.getGroupUpdateMessage(
-          intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_STOP" })
+          i18n._(t`scaling each service to 0 instances`)
         );
       case SCALE:
         return this.getGroupUpdateMessage(
-          intl.formatMessage({ id: "SERVICE_ACTIONS.SDK_GROUP_UPDATE_SCALE" })
+          i18n._(t`updating the number of instances of each service`)
         );
       default:
         return <noscript />;
@@ -352,33 +336,43 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getHeading() {
-    const { actionID, intl, service } = this.props;
+    const { actionID, service } = this.props;
 
-    let itemText = "Service";
+    let itemText = <Trans>Service</Trans>;
 
     if (service instanceof Pod) {
-      itemText = "Pod";
+      itemText = <Trans>Pod</Trans>;
     }
 
     if (service instanceof ServiceTree) {
-      itemText = "Group";
+      itemText = <Trans>Group</Trans>;
     }
 
-    const action = actionID
-      ? intl.formatMessage({ id: ServiceActionLabels[actionID] })
-      : actionID;
+    const action = actionID ? (
+      <Trans id={ServiceActionLabels[actionID]} />
+    ) : (
+      actionID
+    );
 
-    return <ModalHeading>{`${action} ${itemText}`}</ModalHeading>;
+    return (
+      <ModalHeading>
+        {action} {itemText}
+      </ModalHeading>
+    );
   }
 
   getFooter() {
-    const { intl, onClose } = this.props;
+    const { onClose } = this.props;
 
     return (
       <div className="flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small flex-justify-items-space-between-screen-small">
-        <button className="button button-primary-link" onClick={onClose}>
-          {intl.formatMessage({ id: "BUTTON.CLOSE" })}
-        </button>
+        <Trans
+          render={
+            <button className="button button-primary-link" onClick={onClose} />
+          }
+        >
+          Close
+        </Trans>
       </div>
     );
   }
@@ -416,4 +410,4 @@ ServiceActionDisabledModal.propTypes = {
   ])
 };
 
-module.exports = injectIntl(ServiceActionDisabledModal);
+module.exports = withI18n()(ServiceActionDisabledModal);
