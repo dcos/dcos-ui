@@ -27,11 +27,12 @@ describe("ServicesTable", function() {
   });
 
   beforeEach(function() {
-    thisInstance = shallow(<ServicesTable.WrappedComponent />);
+    thisInstance = shallow(<ServicesTable />);
   });
 
   describe("#renderStatus", function() {
-    const renderStatus = ServicesTable.WrappedComponent.prototype.renderStatus;
+    thisInstance = shallow(<ServicesTable />);
+    const renderStatus = thisInstance.instance().renderStatus;
     let mockService;
     beforeEach(function() {
       mockService = {
@@ -196,8 +197,7 @@ describe("ServicesTable", function() {
   });
 
   describe("#renderRegions", function() {
-    const renderRegions =
-      ServicesTable.WrappedComponent.prototype.renderRegions;
+    const renderRegions = thisInstance.instance().renderRegions;
     let mockService;
     beforeEach(function() {
       mockService = {
