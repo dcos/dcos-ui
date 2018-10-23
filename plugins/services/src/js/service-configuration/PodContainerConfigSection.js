@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -71,14 +72,14 @@ const PodContainerConfigSection = ({
 
         {/* Container image goes to top */}
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Container Image</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Container Image</Trans>
           <ConfigurationMapValueWithDefault
             value={findNestedPropertyInObject(containerConfig, "image.id")}
           />
           {action}
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Force pull on launch</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Force pull on launch</Trans>
           <ConfigurationMapBooleanValue
             value={findNestedPropertyInObject(
               containerConfig,
@@ -91,28 +92,28 @@ const PodContainerConfigSection = ({
         {/* Resources */}
         {Boolean(fields.resources.cpus) && (
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>CPUs</Trans>
             <ConfigurationMapValue value={fields.resources.cpus} />
             {action}
           </ConfigurationMapRow>
         )}
         {Boolean(fields.resources.mem) && (
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Memory</Trans>
             <ConfigurationMapSizeValue value={fields.resources.mem} />
             {action}
           </ConfigurationMapRow>
         )}
         {Boolean(fields.resources.disk) && (
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Disk</Trans>
             <ConfigurationMapSizeValue value={fields.resources.disk} />
             {action}
           </ConfigurationMapRow>
         )}
         {Boolean(fields.resources.gpus) && (
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>GPUs</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>GPUs</Trans>
             <ConfigurationMapValue value={fields.resources.gpus} />
             {action}
           </ConfigurationMapRow>
@@ -121,14 +122,14 @@ const PodContainerConfigSection = ({
         {/* Global Properties */}
         {Boolean(fields.user) && (
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Run as User</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Run as User</Trans>
             <ConfigurationMapValue value={fields.user} />
             {action}
           </ConfigurationMapRow>
         )}
         {Boolean(fields.command) && (
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Command</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Command</Trans>
             <ConfigurationMapMultilineValue value={fields.command} />
             {action}
           </ConfigurationMapRow>
