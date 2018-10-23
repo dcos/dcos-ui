@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import classNames from "classnames";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
@@ -46,7 +48,7 @@ class PodInstancesView extends React.Component {
           onClick={this.handleKillClick}
         >
           <Icon id="repeat" size="mini" />
-          <span>Restart</span>
+          <Trans render="span">Restart</Trans>
         </div>
       </div>
     );
@@ -108,7 +110,8 @@ class PodInstancesView extends React.Component {
       instances,
       totalInstances,
       handleExpressionChange,
-      filterExpression
+      filterExpression,
+      i18n
     } = this.props;
 
     const { selectedItems } = this.state;
@@ -144,12 +147,15 @@ class PodInstancesView extends React.Component {
 
     const mergedTasks = TaskMergeDataUtil.mergeTaskData(instances);
 
+    // L10NTODO: Pluralize
+    // We should pluralize FilterHeadline name here using lingui macro instead of
+    // doing it manually in FilterHeadline
     return (
       <div className="flex-container-col flex-grow">
         <FilterHeadline
           currentLength={mergedTasks.length}
           inverseStyle={inverseStyle}
-          name={"Instance"}
+          name={i18n._(t`Instance`)}
           totalLength={totalInstances}
           onReset={handleExpressionChange}
         />
@@ -193,4 +199,4 @@ PodInstancesView.propTypes = {
   filters: PropTypes.instanceOf(DSLFilterList)
 };
 
-module.exports = PodInstancesView;
+module.exports = withI18n()(PodInstancesView);
