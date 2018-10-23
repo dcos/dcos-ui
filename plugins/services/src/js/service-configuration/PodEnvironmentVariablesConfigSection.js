@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
@@ -13,15 +14,15 @@ import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 const columns = [
   {
-    heading: "Key",
+    heading: <Trans render="span">Key</Trans>,
     prop: "key"
   },
   {
-    heading: "Value",
+    heading: <Trans render="span">Value</Trans>,
     prop: "value"
   },
   {
-    heading: "Container",
+    heading: <Trans render="span">Container</Trans>,
     prop: "container"
   }
 ];
@@ -67,9 +68,9 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
 
   return (
     <div>
-      <ConfigurationMapHeading level={1}>
+      <Trans render={<ConfigurationMapHeading level={1} />}>
         Environment Variables
-      </ConfigurationMapHeading>
+      </Trans>
       <ConfigurationMapSection key="pod-general-section">
         <MountService.Mount
           type="CreateService:ServiceConfigDisplay:Pod:EnvironmentVariables"
