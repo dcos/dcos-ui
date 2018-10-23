@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 
@@ -8,19 +10,19 @@ import ConfigurationMapBooleanValue from "../components/ConfigurationMapBooleanV
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 const BOOLEAN_OPTIONS = {
-  truthy: "TRUE",
-  falsy: "FALSE"
+  truthy: i18nMark("TRUE"),
+  falsy: i18nMark("FALSE")
 };
 
 class PodContainerArtifactsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: "Artifact URI",
+        heading: <Trans render="span">Artifact URI</Trans>,
         prop: "uri"
       },
       {
-        heading: "Executable",
+        heading: <Trans render="span">Executable</Trans>,
         prop: "executable",
         render(prop, row) {
           return (
@@ -32,7 +34,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
         }
       },
       {
-        heading: "Extract",
+        heading: <Trans render="span">Extract</Trans>,
         prop: "extract",
         render(prop, row) {
           return (
@@ -44,7 +46,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
         }
       },
       {
-        heading: "Cache",
+        heading: <Trans render="span">Cache</Trans>,
         prop: "cache",
         render(prop, row) {
           return (
@@ -56,7 +58,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
         }
       },
       {
-        heading: "Destination Path",
+        heading: <Trans render="span">Destination Path</Trans>,
         prop: "destPath"
       }
     ];
@@ -79,9 +81,9 @@ class PodContainerArtifactsConfigSection extends React.Component {
         artifacts={artifacts}
         onEditClick={onEditClick}
       >
-        <ConfigurationMapHeading level={3}>
+        <Trans render={<ConfigurationMapHeading level={3} />}>
           Container Artifacts
-        </ConfigurationMapHeading>
+        </Trans>
         <ConfigurationMapTable
           columnDefaults={{ hideIfEmpty: true }}
           columns={this.getColumns()}
