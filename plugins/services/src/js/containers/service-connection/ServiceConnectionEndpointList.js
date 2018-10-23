@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -50,7 +51,7 @@ class ServiceConnectionEndpointList extends React.Component {
 
   getHostPortValue(portDefinition, service) {
     if (!service.requirePorts) {
-      return <span>Auto Assigned</span>;
+      return <Trans render="span">Auto Assigned</Trans>;
     }
 
     let hostPortValue = portDefinition.hostPort;
@@ -83,7 +84,7 @@ class ServiceConnectionEndpointList extends React.Component {
       return <EndpointClipboardTrigger command={command} />;
     }
 
-    return <em>Not Enabled</em>;
+    return <Trans render="em">Not Enabled</Trans>;
   }
 
   getContainerPortValue(portDefinition) {
@@ -116,31 +117,33 @@ class ServiceConnectionEndpointList extends React.Component {
     return (
       <div>
         <ConfigurationMapRow key="protocol">
-          <ConfigurationMapLabel>Protocol</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Protocol</Trans>
           <ConfigurationMapValue>
             {this.getProtocolValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="container-port">
-          <ConfigurationMapLabel>Container Port</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Container Port</Trans>
           <ConfigurationMapValue>
             {this.getContainerPortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="host-port">
-          <ConfigurationMapLabel>Host Port</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
           <ConfigurationMapValue>
             {this.getHostPortValue(portDefinition, service)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="service-port">
-          <ConfigurationMapLabel>Service Port</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Service Port</Trans>
           <ConfigurationMapValue>
             {this.getServicePortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="load-balanced-address">
-          <ConfigurationMapLabel>Load Balanced Address</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>
+            Load Balanced Address
+          </Trans>
           <ConfigurationMapValue>
             {this.getLoadBalancedAddressValue(portDefinition)}
           </ConfigurationMapValue>
