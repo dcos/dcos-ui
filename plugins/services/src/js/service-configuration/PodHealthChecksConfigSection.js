@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
@@ -12,32 +13,32 @@ import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValu
 
 const COMMON_COLUMNS = [
   {
-    heading: "Grace Period",
+    heading: <Trans render="span">Grace Period</Trans>,
     prop: "gracePeriod",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
-    heading: "Interval",
+    heading: <Trans render="span">Interval</Trans>,
     prop: "interval",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
-    heading: "Timeout",
+    heading: <Trans render="span">Timeout</Trans>,
     prop: "timeout",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
     }
   },
   {
-    heading: "Max Failures",
+    heading: <Trans render="span">Max Failures</Trans>,
     prop: "maxFailures"
   },
   {
-    heading: "Container",
+    heading: <Trans render="span">Container</Trans>,
     prop: "container"
   }
 ];
@@ -46,7 +47,7 @@ class PodHealthChecksConfigSection extends React.Component {
   getCommandColumns() {
     return [
       {
-        heading: "Command",
+        heading: <Trans render="span">Command</Trans>,
         prop: "command"
       }
     ].concat(COMMON_COLUMNS);
@@ -67,15 +68,15 @@ class PodHealthChecksConfigSection extends React.Component {
   getEndpointsColumns() {
     return [
       {
-        heading: "Service Endpoint",
+        heading: <Trans render="span">Service Endpoint</Trans>,
         prop: "endpoint"
       },
       {
-        heading: "Proto",
+        heading: <Trans render="span">Proto</Trans>,
         prop: "protocol"
       },
       {
-        heading: "Path",
+        heading: <Trans render="span">Path</Trans>,
         prop: "path"
       }
     ].concat(COMMON_COLUMNS);
@@ -133,15 +134,15 @@ class PodHealthChecksConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>
+        <Trans render={<ConfigurationMapHeading level={1} />}>
           Health Checks
-        </ConfigurationMapHeading>
+        </Trans>
 
         {healthChecks.endpoints.length !== 0 && (
           <div>
-            <ConfigurationMapHeading level={2}>
+            <Trans render={<ConfigurationMapHeading level={2} />}>
               Service Endpoint Health Checks
-            </ConfigurationMapHeading>
+            </Trans>
             <ConfigurationMapSection key="pod-general-section">
               <MountService.Mount
                 type="CreateService:ServiceConfigDisplay:Pod:HealthChecks:Endpoint"
@@ -162,9 +163,9 @@ class PodHealthChecksConfigSection extends React.Component {
 
         {healthChecks.command.length !== 0 && (
           <div>
-            <ConfigurationMapHeading level={2}>
+            <Trans render={<ConfigurationMapHeading level={2} />}>
               Command Health Checks
-            </ConfigurationMapHeading>
+            </Trans>
             <ConfigurationMapSection key="pod-general-section">
               <MountService.Mount
                 type="CreateService:ServiceConfigDisplay:Pod:HealthChecks:Command"
