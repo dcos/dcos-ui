@@ -5,6 +5,7 @@ import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { withI18n } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
@@ -168,7 +169,11 @@ class TasksView extends mixin(SaveStateMixin) {
     return (
       <div className="button-collection flush-bottom">
         <Tooltip
-          content="Restarting tasks is not supported while the service is deploying."
+          content={
+            <Trans render="span">
+              Restarting tasks is not supported while the service is deploying.
+            </Trans>
+          }
           suppress={!isDeploying || isSDK}
           width={200}
           wrapperClassName="button-group"
@@ -176,11 +181,15 @@ class TasksView extends mixin(SaveStateMixin) {
         >
           <button className={restartButtonClasses} onClick={handleRestartClick}>
             <Icon id="repeat" size="mini" />
-            <span>Restart</span>
+            <Trans render="span">Restart</Trans>
           </button>
         </Tooltip>
         <Tooltip
-          content="Stopping a scheduler task is not supported."
+          content={
+            <Trans render="span">
+              Stopping a scheduler task is not supported.
+            </Trans>
+          }
           suppress={!hasSchedulerTask}
           width={200}
           wrapText={true}
@@ -188,7 +197,7 @@ class TasksView extends mixin(SaveStateMixin) {
         >
           <button className={stopButtonClasses} onClick={handleStopClick}>
             <Icon id="circle-close" size="mini" />
-            <span>Stop</span>
+            <Trans render="span">Stop</Trans>
           </button>
         </Tooltip>
       </div>
@@ -233,7 +242,8 @@ class TasksView extends mixin(SaveStateMixin) {
       inverseStyle,
       tasks,
       totalTasks,
-      handleExpressionChange
+      handleExpressionChange,
+      i18n
     } = this.props;
 
     const { checkedItems } = this.state;
@@ -247,12 +257,15 @@ class TasksView extends mixin(SaveStateMixin) {
 
     const mergedTasks = TaskMergeDataUtil.mergeTaskData(tasks);
 
+    // L10NTODO: Pluralize
+    // We should pluralize FilterHeadline name here using lingui macro instead of
+    // doing it manually in FilterHeadline
     return (
       <div className="flex-container-col flex-grow">
         <FilterHeadline
           currentLength={mergedTasks.length}
           inverseStyle={inverseStyle}
-          name={"task"}
+          name={i18n._(t`task`)}
           totalLength={totalTasks}
           onReset={() => handleExpressionChange({ value: "" })}
         />
