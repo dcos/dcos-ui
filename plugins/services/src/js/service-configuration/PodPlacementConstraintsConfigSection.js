@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -13,15 +14,15 @@ class PodPlacementConstraintsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: "Operator",
+        heading: <Trans render="span">Operator</Trans>,
         prop: "operator"
       },
       {
-        heading: "Field Name",
+        heading: <Trans render="span">Field Name</Trans>,
         prop: "fieldName"
       },
       {
-        heading: "Value",
+        heading: <Trans render="span">Value</Trans>,
         prop: "value"
       }
     ];
@@ -36,7 +37,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
     return constraints.map(function({ fieldName, operator, value }) {
       if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
-        value = <em>Not Applicable</em>;
+        value = <Trans render="em">Not Applicable</Trans>;
       }
 
       return { fieldName, operator, value };
@@ -54,7 +55,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>Placement</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={1} />}>Placement</Trans>
         <ConfigurationMapSection>
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:Pod:PlacementConstraints"
