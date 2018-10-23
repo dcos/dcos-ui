@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
@@ -10,46 +12,46 @@ import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import VolumeConstants from "../constants/VolumeConstants";
 
 const BOOLEAN_OPTIONS = {
-  truthy: "TRUE",
-  falsy: "FALSE"
+  truthy: i18nMark("TRUE"),
+  falsy: i18nMark("FALSE")
 };
 
 class PodStorageConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: "Volume",
+        heading: <Trans render="span">Volume</Trans>,
         prop: "volume"
       },
       {
-        heading: "Type",
+        heading: <Trans render="span">Type</Trans>,
         prop: "type"
       },
       {
-        heading: "Size (MiB)",
+        heading: <Trans render="span">Size (MiB)</Trans>,
         prop: "size"
       },
       {
-        heading: "Read Only",
+        heading: <Trans render="span">Read Only</Trans>,
         prop: "readOnly",
         render(prop, row) {
           if (row[prop]) {
-            return BOOLEAN_OPTIONS.truthy;
+            return <Trans id={BOOLEAN_OPTIONS.truthy} />;
           }
 
-          return BOOLEAN_OPTIONS.falsy;
+          return <Trans id={BOOLEAN_OPTIONS.falsy} />;
         }
       },
       {
-        heading: "Container Mount Path",
+        heading: <Trans render="span">Container Mount Path</Trans>,
         prop: "mountPath"
       },
       {
-        heading: "Host Path",
+        heading: <Trans render="span">Host Path</Trans>,
         prop: "hostPath"
       },
       {
-        heading: "Container",
+        heading: <Trans render="span">Container</Trans>,
         prop: "container"
       }
     ];
@@ -124,7 +126,7 @@ class PodStorageConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>Volumes</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={1} />}>Volumes</Trans>
         <ConfigurationMapSection key="pod-general-section">
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:Pod:Storage"
