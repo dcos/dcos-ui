@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Trans } from "@lingui/macro";
 
 import { Badge } from "@dcos/ui-kit";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -138,7 +139,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
           itemCaption = (
             <span className="badge-container">
               <span className="badge-container-text">{localeVersion}</span>
-              <Badge>Active</Badge>
+              <Trans render={<Badge />}>Active</Trans>
             </span>
           );
         }
@@ -220,7 +221,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               onClick={this.handleEditButtonClick}
             >
               <Icon id="pencil" size="mini" family="system" />
-              <span>{"Edit Config"}</span>
+              <Trans render="span">Edit Config</Trans>
             </button>
             <a
               className="button button-primary-link flush-right"
@@ -237,7 +238,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               )}
             >
               <Icon id="download" size="mini" family="system" />
-              <span>{"Download Config"}</span>
+              <Trans render="span">Download Config</Trans>
             </a>
           </div>
         </div>
