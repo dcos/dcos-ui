@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import React from "react";
 import { Table } from "reactjs-components";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import DateUtil from "#SRC/js/utils/DateUtil";
 
@@ -11,17 +13,17 @@ const taskStatus = [
   "getStagedTaskCount"
 ];
 const nameMapping = {
-  startedAfterLastScaling: "Started After Last Scaling",
-  withLatestConfig: "With Latest Config",
-  withOutdatedConfig: "With Outdated Config",
-  totalSummary: "Total Summary"
+  startedAfterLastScaling: i18nMark("Started After Last Scaling"),
+  withLatestConfig: i18nMark("With Latest Config"),
+  withOutdatedConfig: i18nMark("With Outdated Config"),
+  totalSummary: i18nMark("Total Summary")
 };
 const headerMapping = {
-  getRunningTaskCount: "RUNNING",
-  getHealthyTaskCount: "HEALTHY",
-  getUnhealthyTaskCount: "UNHEALTHY",
-  getStagedTaskCount: "STAGED",
-  getMedianLifeTime: "MEDIAN LIFETIME"
+  getRunningTaskCount: i18nMark("RUNNING"),
+  getHealthyTaskCount: i18nMark("HEALTHY"),
+  getUnhealthyTaskCount: i18nMark("UNHEALTHY"),
+  getStagedTaskCount: i18nMark("STAGED"),
+  getMedianLifeTime: i18nMark("MEDIAN LIFETIME")
 };
 
 class TaskStatsTable extends React.Component {
@@ -47,7 +49,7 @@ class TaskStatsTable extends React.Component {
         heading,
         prop: "getName",
         render(prop, taskStats) {
-          return nameMapping[taskStats.getName()];
+          return <Trans id={nameMapping[taskStats.getName()]} />;
         },
         sortable: false
       },
@@ -95,7 +97,13 @@ class TaskStatsTable extends React.Component {
   }
 
   renderHeading(prop) {
-    return <span className="table-header-title">{headerMapping[prop]}</span>;
+    return (
+      <Trans
+        render="span"
+        className="table-header-title"
+        id={headerMapping[prop]}
+      />
+    );
   }
 
   getColGroup() {
