@@ -410,14 +410,14 @@ class PodInstancesTable extends React.Component {
   renderColumnHealth(prop, row, rowOptions = {}) {
     const { status } = row;
     const { healthStatus } = status;
-    let tooltipContent = "Healthy";
+    let tooltipContent = <Trans render="span">Healthy</Trans>;
 
     if (healthStatus === "UNHEALTHY") {
-      tooltipContent = "Unhealthy";
+      tooltipContent = <Trans render="span">Unhealthy</Trans>;
     }
 
     if (healthStatus === "NA") {
-      tooltipContent = "No health checks available";
+      tooltipContent = <Trans render="span">No health checks available</Trans>;
     }
 
     return this.renderWithClickHandler(
@@ -442,17 +442,20 @@ class PodInstancesTable extends React.Component {
       const childResources = row.children
         .filter(child => !child.isHistoricalInstance)
         .reduce((sum, current) => sum + (current[prop] || 0), 0);
-      tooltipContent = `Containers: ${Units.formatResource(
-        prop,
-        childResources
-      )}, Executor: ${Units.formatResource(prop, executorResource)}`;
+      tooltipContent = (
+        <Trans render="span">
+          Containers: {Units.formatResource(prop, childResources)}, Executor:{" "}
+          {Units.formatResource(prop, executorResource)}
+        </Trans>
+      );
     } else {
       const activeResource = row.isHistoricalInstance ? 0 : row[prop] || 0;
       const totalResource = row[prop];
-      tooltipContent = `Using ${activeResource}/${Units.formatResource(
-        prop,
-        totalResource
-      )}`;
+      tooltipContent = (
+        <Trans render="span">
+          Using {activeResource}/{Units.formatResource(prop, totalResource)}
+        </Trans>
+      );
     }
 
     return this.renderWithClickHandler(
