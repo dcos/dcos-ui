@@ -53,20 +53,28 @@ class PodHeader extends React.Component {
     ];
 
     const actionButtons = [
-      <button
-        className="button flush-bottom  button-primary"
-        key="action-button-scale"
-        onClick={this.props.onScale}
+      <Trans
+        render={
+          <button
+            className="button flush-bottom  button-primary"
+            key="action-button-scale"
+            onClick={this.props.onScale}
+          />
+        }
       >
         Scale
-      </button>,
-      <button
-        className="button flush-bottom button-outline"
-        key="action-button-edit"
-        onClick={this.props.onEdit}
+      </Trans>,
+      <Trans
+        render={
+          <button
+            className="button flush-bottom button-outline"
+            key="action-button-edit"
+            onClick={this.props.onEdit}
+          />
+        }
       >
         Edit
-      </button>,
+      </Trans>,
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
@@ -105,6 +113,7 @@ class PodHeader extends React.Component {
     const serviceStatusClassSet =
       StatusMapping[serviceStatus.displayName] || "";
     const runningTasksCount = tasksSummary.tasksRunning;
+    // L10NTODO: Pluralize
     const runningTasksSubHeader = StringUtil.pluralize(
       "Instance",
       runningTasksCount
