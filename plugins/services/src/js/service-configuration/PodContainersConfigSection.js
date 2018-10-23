@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import Alert from "#SRC/js/components/Alert";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -25,18 +26,18 @@ const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
-        <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
-        <Alert>
+        <Trans render={<ConfigurationMapHeading level={2} />}>Containers</Trans>
+        <Trans render={<Alert />}>
           No containers specified! Please specify at least one container when
           creating a multi-container definition!
-        </Alert>
+        </Trans>
       </div>
     );
   }
 
   return (
     <div>
-      <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
+      <Trans render={<ConfigurationMapHeading level={2} />}>Containers</Trans>
       {renderContainers(appConfig, onEditClick)}
     </div>
   );
