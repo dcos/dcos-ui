@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Tooltip } from "reactjs-components";
+import { Trans } from "@lingui/macro";
 
 import Chart from "#SRC/js/components/charts/Chart";
 import DialChart from "#SRC/js/components/charts/DialChart";
@@ -128,7 +129,7 @@ var NodesGridDials = React.createClass({
       if (!node.isActive()) {
         description = (
           <Tooltip
-            content="Connection to node lost"
+            content={<Trans render="span">Connection to node lost</Trans>}
             wrapperClassName="tooltip-wrapper text-align-center description"
           >
             {config.description}
