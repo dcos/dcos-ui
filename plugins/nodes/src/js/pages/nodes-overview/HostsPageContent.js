@@ -1,6 +1,8 @@
 import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
+import { withI18n } from "@lingui/react";
+import { t } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
@@ -185,15 +187,19 @@ class HostsPageContent extends React.Component {
       selectedResource,
       services,
       totalNodeCount,
-      viewTypeRadioButtons
+      viewTypeRadioButtons,
+      i18n
     } = this.props;
 
     return (
       <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
+        {/* L10NTODO: Pluralize
+        We should pluralize FilterHeadline name here using lingui macro instead of
+        doing it manually in FilterHeadline */}
         <FilterHeadline
           currentLength={filteredNodeCount}
           isFiltering={isFiltering}
-          name="Node"
+          name={i18n._(t`Node`)}
           onReset={this.onResetFilter}
           totalLength={totalNodeCount}
         />
@@ -240,4 +246,4 @@ HostsPageContent.propTypes = {
   viewTypeRadioButtons: PropTypes.node.isRequired
 };
 
-module.exports = HostsPageContent;
+module.exports = withI18n()(HostsPageContent);

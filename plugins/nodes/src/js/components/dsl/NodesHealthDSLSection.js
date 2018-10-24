@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
@@ -30,7 +31,7 @@ class NodesHealthDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-        <label>Health</label>
+        <Trans render="label">Health</Trans>
         <div className="row">
           <div className="column-12">
             <FormGroup>
@@ -41,7 +42,7 @@ class NodesHealthDSLSection extends React.Component {
                   name="is_healthy"
                   type="checkbox"
                 />
-                Healthy
+                <Trans render="span">Healthy</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
@@ -54,7 +55,7 @@ class NodesHealthDSLSection extends React.Component {
                   name="is_unhealthy"
                   type="checkbox"
                 />
-                Unhealthy
+                <Trans render="span">Unhealthy</Trans>
               </FieldLabel>
             </FormGroup>
           </div>
