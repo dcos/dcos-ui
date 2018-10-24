@@ -31,7 +31,7 @@ PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 # next release version (passed in by semantic-release)
 PKG_VERSION="${1}"
 
-# get correct DC/OS target (=base branch!) (passed in by semantic-release)
+# get correct DC/OS target (=base branch!) passed in from semantic-release
 PKG_TARGET="${2}"
 
 # build release name for branch and file names
