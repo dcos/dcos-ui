@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
@@ -32,9 +33,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     ];
 
     this.tabs_tabs = {
-      "/nodes/:nodeID/tasks": "Tasks",
-      "/nodes/:nodeID/health": "Health",
-      "/nodes/:nodeID/details": "Details"
+      "/nodes/:nodeID/tasks": i18nMark("Tasks"),
+      "/nodes/:nodeID/health": i18nMark("Health"),
+      "/nodes/:nodeID/details": i18nMark("Details")
     };
 
     this.state = {
