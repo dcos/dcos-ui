@@ -1,5 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
@@ -65,12 +67,16 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return (
-              <ConfigurationMapHeading
-                key="service-health-checks-heading"
-                level={1}
+              <Trans
+                render={
+                  <ConfigurationMapHeading
+                    key="service-health-checks-heading"
+                    level={1}
+                  />
+                }
               >
                 Health Checks
-              </ConfigurationMapHeading>
+              </Trans>
             );
           }
         },
@@ -85,7 +91,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
 
             const columns = [
               {
-                heading: getColumnHeadingFn("Protocol"),
+                heading: getColumnHeadingFn(i18nMark("Protocol")),
                 prop: "protocol",
                 render(prop, row) {
                   return (
@@ -98,7 +104,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Path"),
+                heading: getColumnHeadingFn(i18nMark("Path")),
                 prop: "path",
                 className: getColumnClassNameFn(),
                 render(prop, row) {
@@ -111,21 +117,21 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Grace Period"),
+                heading: getColumnHeadingFn(i18nMark("Grace Period")),
                 prop: "gracePeriodSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Interval"),
+                heading: getColumnHeadingFn(i18nMark("Interval")),
                 prop: "intervalSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Timeout"),
+                heading: getColumnHeadingFn(i18nMark("Timeout")),
                 prop: "timeoutSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
@@ -133,7 +139,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
               },
               {
                 className: getColumnClassNameFn(),
-                heading: getColumnHeadingFn("Max Failures"),
+                heading: getColumnHeadingFn(i18nMark("Max Failures")),
                 prop: "maxConsecutiveFailures",
                 render(prop, row) {
                   return (
@@ -159,7 +165,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                       className="button button-link flush table-display-on-row-hover"
                       onClick={onEditClick.bind(null, "healthChecks")}
                     >
-                      Edit
+                      <Trans>Edit</Trans>
                     </a>
                   );
                 }
@@ -171,12 +177,16 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return [
-              <ConfigurationMapHeading
-                key="service-endpoint-health-checks-heading"
-                level={2}
+              <Trans
+                render={
+                  <ConfigurationMapHeading
+                    key="service-endpoint-health-checks-heading"
+                    level={2}
+                  />
+                }
               >
                 Service Endpoint Health Checks
-              </ConfigurationMapHeading>,
+              </Trans>,
               <Table
                 key="service-endpoint-health-checks"
                 className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
@@ -195,7 +205,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
 
             const columns = [
               {
-                heading: getColumnHeadingFn("Command"),
+                heading: getColumnHeadingFn(i18nMark("Command")),
                 prop: "command",
                 render: (prop, row) => {
                   const command = row[prop] || {};
@@ -214,21 +224,21 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Grace Period"),
+                heading: getColumnHeadingFn(i18nMark("Grace Period")),
                 prop: "gracePeriodSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Interval"),
+                heading: getColumnHeadingFn(i18nMark("Interval")),
                 prop: "intervalSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Timeout"),
+                heading: getColumnHeadingFn(i18nMark("Timeout")),
                 prop: "timeoutSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
@@ -236,7 +246,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
               },
               {
                 className: getColumnClassNameFn(),
-                heading: getColumnHeadingFn("Max Failures"),
+                heading: getColumnHeadingFn(i18nMark("Max Failures")),
                 prop: "maxConsecutiveFailures",
                 render(prop, row) {
                   return (
@@ -262,7 +272,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                       className="button button-link flush table-display-on-row-hover"
                       onClick={onEditClick.bind(null, "environment")}
                     >
-                      Edit
+                      <Trans>Edit</Trans>
                     </a>
                   );
                 }
@@ -274,12 +284,16 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return [
-              <ConfigurationMapHeading
-                key="command-health-checks-heading"
-                level={2}
+              <Trans
+                render={
+                  <ConfigurationMapHeading
+                    key="command-health-checks-heading"
+                    level={2}
+                  />
+                }
               >
                 Command Health Checks
-              </ConfigurationMapHeading>,
+              </Trans>,
               <Table
                 key="command-health-checks"
                 className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
