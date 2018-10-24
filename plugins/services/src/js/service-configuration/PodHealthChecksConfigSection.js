@@ -68,15 +68,21 @@ class PodHealthChecksConfigSection extends React.Component {
   getEndpointsColumns() {
     return [
       {
-        heading: <Trans render="span">Service Endpoint</Trans>,
+        heading() {
+          return <Trans render="span">Service Endpoint</Trans>;
+        },
         prop: "endpoint"
       },
       {
-        heading: <Trans render="span">Proto</Trans>,
+        heading() {
+          return <Trans render="span">Proto</Trans>;
+        },
         prop: "protocol"
       },
       {
-        heading: <Trans render="span">Path</Trans>,
+        heading() {
+          return <Trans render="span">Path</Trans>;
+        },
         prop: "path"
       }
     ].concat(COMMON_COLUMNS);

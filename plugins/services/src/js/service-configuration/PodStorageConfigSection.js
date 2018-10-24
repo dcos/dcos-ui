@@ -20,19 +20,27 @@ class PodStorageConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: <Trans render="span">Volume</Trans>,
+        heading() {
+          return <Trans render="span">Volume</Trans>;
+        },
         prop: "volume"
       },
       {
-        heading: <Trans render="span">Type</Trans>,
+        heading() {
+          return <Trans render="span">Type</Trans>;
+        },
         prop: "type"
       },
       {
-        heading: <Trans render="span">Size (MiB)</Trans>,
+        heading() {
+          return <Trans render="span">Size (MiB)</Trans>;
+        },
         prop: "size"
       },
       {
-        heading: <Trans render="span">Read Only</Trans>,
+        heading() {
+          return <Trans render="span">Read Only</Trans>;
+        },
         prop: "readOnly",
         render(prop, row) {
           if (row[prop]) {
@@ -43,15 +51,21 @@ class PodStorageConfigSection extends React.Component {
         }
       },
       {
-        heading: <Trans render="span">Container Mount Path</Trans>,
+        heading() {
+          return <Trans render="span">Container Mount Path</Trans>;
+        },
         prop: "mountPath"
       },
       {
-        heading: <Trans render="span">Host Path</Trans>,
+        heading() {
+          return <Trans render="span">Host Path</Trans>;
+        },
         prop: "hostPath"
       },
       {
-        heading: <Trans render="span">Container</Trans>,
+        heading() {
+          return <Trans render="span">Container</Trans>;
+        },
         prop: "container"
       }
     ];

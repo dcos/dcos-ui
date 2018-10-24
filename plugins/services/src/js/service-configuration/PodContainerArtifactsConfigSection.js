@@ -18,11 +18,15 @@ class PodContainerArtifactsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: <Trans render="span">Artifact URI</Trans>,
+        heading() {
+          return <Trans render="span">Artifact URI</Trans>;
+        },
         prop: "uri"
       },
       {
-        heading: <Trans render="span">Executable</Trans>,
+        heading() {
+          return <Trans render="span">Executable</Trans>;
+        },
         prop: "executable",
         render(prop, row) {
           return (
@@ -34,7 +38,9 @@ class PodContainerArtifactsConfigSection extends React.Component {
         }
       },
       {
-        heading: <Trans render="span">Extract</Trans>,
+        heading() {
+          return <Trans render="span">Extract</Trans>;
+        },
         prop: "extract",
         render(prop, row) {
           return (
@@ -46,7 +52,9 @@ class PodContainerArtifactsConfigSection extends React.Component {
         }
       },
       {
-        heading: <Trans render="span">Cache</Trans>,
+        heading() {
+          return <Trans render="span">Cache</Trans>;
+        },
         prop: "cache",
         render(prop, row) {
           return (
@@ -58,7 +66,9 @@ class PodContainerArtifactsConfigSection extends React.Component {
         }
       },
       {
-        heading: <Trans render="span">Destination Path</Trans>,
+        heading() {
+          return <Trans render="span">Destination Path</Trans>;
+        },
         prop: "destPath"
       }
     ];
