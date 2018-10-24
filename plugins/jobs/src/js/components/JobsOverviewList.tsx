@@ -1,4 +1,6 @@
 import * as React from "react";
+import { withI18n } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -13,12 +15,13 @@ interface JobsOverviewListProps {
   data: JobConnection;
   filter: string;
   handleFilterChange: (filter: string) => void;
+  i18n: any;
 }
 interface JobsOverviewListState {
   isJobFormModalOpen: boolean;
 }
 
-export default class JobsOverviewList extends React.Component<
+class JobsOverviewList extends React.Component<
   JobsOverviewListProps,
   JobsOverviewListState
 > {
@@ -52,11 +55,14 @@ export default class JobsOverviewList extends React.Component<
   }
 
   render() {
-    const { data, filter } = this.props;
+    const { data, filter, i18n } = this.props;
+    // L10NTODO: Pluralize
+    // We should pluralize FilterHeadline name here using lingui macro instead of
+    // doing it manually in FilterHeadline
     const headline = filter ? (
       <FilterHeadline
         onReset={this.resetFilter}
-        name="Jobs"
+        name={i18n._(t`Jobs`)}
         currentLength={data.filteredCount}
         totalLength={data.totalCount}
       />
@@ -65,7 +71,7 @@ export default class JobsOverviewList extends React.Component<
     return (
       <JobsPage
         addButton={{
-          label: "Create a job",
+          label: <Trans render="span">Create a job</Trans>,
           onItemSelect: this.handleOpenJobFormModal
         }}
         jobPath={data.path}
@@ -76,7 +82,7 @@ export default class JobsOverviewList extends React.Component<
             <FilterInputText
               className="flush-bottom"
               handleFilterChange={this.handleFilterChange}
-              placeholder="Search"
+              placeholder={i18n._(t`Search`)}
               searchString={this.props.filter || ""}
             />
           </FilterBar>
@@ -90,3 +96,5 @@ export default class JobsOverviewList extends React.Component<
     );
   }
 }
+
+export default withI18n()(JobsOverviewList);
