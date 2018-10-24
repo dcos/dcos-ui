@@ -1,6 +1,5 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";

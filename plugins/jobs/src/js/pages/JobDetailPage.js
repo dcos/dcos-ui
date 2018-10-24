@@ -5,7 +5,6 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
-import { i18nMark } from "@lingui/react";
 
 import mixin from "reactjs-mixin";
 
