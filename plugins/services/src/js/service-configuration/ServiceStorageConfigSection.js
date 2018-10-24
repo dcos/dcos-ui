@@ -62,7 +62,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
       values: [
         {
           key: "container.volumes",
-          heading: "Volumes",
+          heading: <Trans render="span">Volumes</Trans>,
           headingLevel: 1
         }
       ]
@@ -78,15 +78,15 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           },
           {
             key: `container.volumes.${index}.persistent.profileName`,
-            label: "Profile Name"
+            label: <Trans render="span">Profile Name</Trans>
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: "Container Path"
+            label: <Trans render="span">Container Path</Trans>
           },
           {
             key: `container.volumes.${index}.persistent.size`,
-            label: "Size",
+            label: <Trans render="span">Size</Trans>,
             transformValue: this.getVolumeSizeValue
           }
         ];
@@ -103,11 +103,11 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: "Container Path"
+            label: <Trans render="span">Container Path</Trans>
           },
           {
             key: `container.volumes.${index}.persistent.size`,
-            label: "Size",
+            label: <Trans render="span">Size</Trans>,
             transformValue: this.getVolumeSizeValue
           }
         ];
@@ -118,7 +118,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         const sizeConfig = [
           {
             key: `container.volumes.${index}.external.size`,
-            label: "Size",
+            label: <Trans render="span">Size</Trans>,
             transformValue: value => this.getVolumeSizeValue(value, "EXTERNAL")
           }
         ];
@@ -133,11 +133,11 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           },
           {
             key: `container.volumes.${index}.external.name`,
-            label: "Name"
+            label: <Trans render="span">Name</Trans>
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: "Container Path"
+            label: <Trans render="span">Container Path</Trans>
           }
         ].concat(size);
       }
@@ -150,15 +150,15 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: `container.volumes.${index}.hostPath`,
-          label: "Host Path"
+          label: <Trans render="span">Host Path</Trans>
         },
         {
           key: `container.volumes.${index}.containerPath`,
-          label: "Container Path"
+          label: <Trans render="span">Container Path</Trans>
         },
         {
           key: `container.volumes.${index}.mode`,
-          label: "Mode"
+          label: <Trans render="span">Mode</Trans>
         }
       ];
     });
