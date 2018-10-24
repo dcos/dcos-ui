@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import React from "react";
 import { Table } from "reactjs-components";
 
@@ -76,20 +77,20 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
       tabViewID: "services",
       values: [
         {
-          heading: "Service",
+          heading: <Trans render="span">Service</Trans>,
           headingLevel: 1
         },
         {
           key: "id",
-          label: "Service ID"
+          label: <Trans render="span">Service ID</Trans>
         },
         {
           key: "instances",
-          label: "Instances"
+          label: <Trans render="span">Instances</Trans>
         },
         {
           key: "container.type",
-          label: "Container Runtime",
+          label: <Trans render="span">Container Runtime</Trans>,
           transformValue(runtime) {
             const transId = labelMap[runtime] || labelMap[MESOS];
 
@@ -98,11 +99,11 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "cpus",
-          label: "CPU"
+          label: <Trans render="span">CPU</Trans>
         },
         {
           key: "mem",
-          label: "Memory",
+          label: <Trans render="span">Memory</Trans>,
           transformValue(value) {
             if (value == null) {
               return value;
@@ -113,7 +114,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "disk",
-          label: "Disk",
+          label: <Trans render="span">Disk</Trans>,
           transformValue(value) {
             if (value == null) {
               return value;
@@ -124,31 +125,31 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "gpus",
-          label: "GPU"
+          label: <Trans render="span">GPU</Trans>
         },
         {
           key: "backoffSeconds",
-          label: "Backoff Seconds"
+          label: <Trans render="span">Backoff Seconds</Trans>
         },
         {
           key: "backoffFactor",
-          label: "Backoff Factor"
+          label: <Trans render="span">Backoff Factor</Trans>
         },
         {
           key: "maxLaunchDelaySeconds",
-          label: "Backoff Max Launch Delay"
+          label: <Trans render="span">Backoff Max Launch Delay</Trans>
         },
         {
           key: "minHealthOpacity",
-          label: "Upgrade Min Health Capacity"
+          label: <Trans render="span">Upgrade Min Health Capacity</Trans>
         },
         {
           key: "maxOverCapacity",
-          label: "Upgrade Max Overcapacity"
+          label: <Trans render="span">Upgrade Max Overcapacity</Trans>
         },
         {
           key: "container.docker.image",
-          label: "Container Image",
+          label: <Trans render="span">Container Image</Trans>,
           transformValue(value, appConfig) {
             const runtime = findNestedPropertyInObject(
               appConfig,
@@ -161,7 +162,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "container.docker.privileged",
-          label: "Extended Runtime Priv.",
+          label: <Trans render="span">Extended Runtime Priv.</Trans>,
           transformValue(value, appConfig) {
             const runtime = findNestedPropertyInObject(
               appConfig,
@@ -178,7 +179,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "container.docker.forcePullImage",
-          label: "Force Pull on Launch",
+          label: <Trans render="span">Force Pull on Launch</Trans>,
           transformValue(value, appConfig) {
             const runtime = findNestedPropertyInObject(
               appConfig,
@@ -195,34 +196,34 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "cmd",
-          label: "Command",
+          label: <Trans render="span">Command</Trans>,
           type: "pre"
         },
         {
           key: "acceptedResourceRoles",
-          label: "Resource Roles",
+          label: <Trans render="span">Resource Roles</Trans>,
           transformValue(value = []) {
             return value.join(", ");
           }
         },
         {
           key: "dependencies",
-          label: "Dependencies",
+          label: <Trans render="span">Dependencies</Trans>,
           transformValue(value = []) {
             return value.join(", ");
           }
         },
         {
           key: "executor",
-          label: "Executor"
+          label: <Trans render="span">Executor</Trans>
         },
         {
           key: "user",
-          label: "User"
+          label: <Trans render="span">User</Trans>
         },
         {
           key: "args",
-          label: "Args",
+          label: <Trans render="span">Args</Trans>,
           transformValue(value = []) {
             if (!value.length) {
               return getDisplayValue(null);
@@ -239,11 +240,11 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "version",
-          label: "Version"
+          label: <Trans render="span">Version</Trans>
         },
         {
           key: "fetch",
-          heading: "Container Artifacts",
+          heading: <Trans render="span">Container Artifacts</Trans>,
           headingLevel: 2
         },
         {
@@ -251,7 +252,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           render(data) {
             const columns = [
               {
-                heading: getColumnHeadingFn("Artifact Uri"),
+                heading: getColumnHeadingFn(i18nMark("Artifact Uri")),
                 prop: "uri",
                 render: (prop, row) => {
                   const value = row[prop];
@@ -278,7 +279,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                       className="button button-link flush table-display-on-row-hover"
                       onClick={onEditClick.bind(null, "services")}
                     >
-                      Edit
+                      <Trans>Edit</Trans>
                     </a>
                   );
                 }
