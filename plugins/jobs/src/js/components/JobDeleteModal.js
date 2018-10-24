@@ -1,36 +1,36 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import * as React from "react";
 import { Confirm } from "reactjs-components";
-import StringUtil from "#SRC/js/utils/StringUtil";
-import UserActions from "#SRC/js/constants/UserActions";
 
 function modalLabel(jobId, stopCurrentJobRuns) {
-  const defaultLabel = `${StringUtil.capitalize(UserActions.DELETE)} Job`;
+  const defaultLabel = i18nMark("Delete Job");
 
-  const stopCurrentRunsLabel = `Stop Current Runs and ${StringUtil.capitalize(
-    UserActions.DELETE
-  )} Job`;
+  const stopCurrentRunsLabel = i18nMark("Stop Current Runs and Delete Job");
 
   return stopCurrentJobRuns ? stopCurrentRunsLabel : defaultLabel;
 }
 
 const ModalMessage = ({ jobId, stopCurrentJobRuns }) => {
-  const defaultMessage = `Are you sure you want to ${
-    UserActions.DELETE
-  } ${jobId}? This action is irreversible.`;
+  const defaultMessage = (
+    <Trans render="p">
+      Are you sure you want to delete {jobId}? This action is irreversible.
+    </Trans>
+  );
 
-  const stopCurrentRunsMessage = `Couldn't ${
-    UserActions.DELETE
-  } ${jobId} as there are currently active job runs. Do you want to stop all runs and ${
-    UserActions.DELETE
-  } the job?`;
+  const stopCurrentRunsMessage = (
+    <Trans render="p">
+      Couldn't delete {jobId} as there are currently active job runs. Do you
+      want to stop all runs and delete the job?
+    </Trans>
+  );
 
   return (
     <div>
       <Trans render="h2" className="text-danger text-align-center flush-top">
         Delete Job
       </Trans>
-      <p>{stopCurrentJobRuns ? stopCurrentRunsMessage : defaultMessage}</p>
+      {stopCurrentJobRuns ? stopCurrentRunsMessage : defaultMessage}
     </div>
   );
 };
@@ -41,7 +41,8 @@ const JobDeleteModal = ({
   disabled,
   open,
   jobId,
-  stopCurrentJobRuns
+  stopCurrentJobRuns,
+  i18n
 }) => {
   const label = modalLabel(jobId, stopCurrentJobRuns);
 
@@ -52,13 +53,13 @@ const JobDeleteModal = ({
       children={
         <ModalMessage jobId={jobId} stopCurrentJobRuns={stopCurrentJobRuns} />
       }
-      leftButtonText="Cancel"
+      leftButtonText={i18n._(t`Cancel`)}
       leftButtonClassName="button button-primary-link"
       leftButtonCallback={onClose}
-      rightButtonText={label}
+      rightButtonText={i18n._(label)}
       rightButtonClassName="button button-danger"
       rightButtonCallback={onSuccess}
     />
   );
 };
-export default JobDeleteModal;
+export default withI18n()(JobDeleteModal);
