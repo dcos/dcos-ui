@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
-import { i18nMark } from "@lingui/react";
 
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
