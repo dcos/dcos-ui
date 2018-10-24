@@ -14,15 +14,21 @@ class PodPlacementConstraintsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: <Trans render="span">Operator</Trans>,
+        heading() {
+          return <Trans render="span">Operator</Trans>;
+        },
         prop: "operator"
       },
       {
-        heading: <Trans render="span">Field Name</Trans>,
+        heading() {
+          return <Trans render="span">Field Name</Trans>;
+        },
         prop: "fieldName"
       },
       {
-        heading: <Trans render="span">Value</Trans>,
+        heading() {
+          return <Trans render="span">Value</Trans>;
+        },
         prop: "value"
       }
     ];

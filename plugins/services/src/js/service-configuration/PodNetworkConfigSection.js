@@ -43,24 +43,34 @@ class PodNetworkConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: <Trans render="span">Name</Trans>,
+        heading() {
+          return <Trans render="span">Name</Trans>;
+        },
         prop: "name"
       },
       {
-        heading: <Trans render="span">Protocol</Trans>,
+        heading() {
+          return <Trans render="span">Protocol</Trans>;
+        },
         prop: "protocol"
       },
       {
-        heading: <Trans render="span">Port</Trans>,
+        heading() {
+          return <Trans render="span">Port</Trans>;
+        },
         prop: "port"
       },
       {
-        heading: <Trans render="span">Load Balanced Address</Trans>,
+        heading() {
+          return <Trans render="span">Load Balanced Address</Trans>;
+        },
         prop: "lbAddress",
         placeholder: <Trans render="em">Not Enabled</Trans>
       },
       {
-        heading: <Trans render="span">Container</Trans>,
+        heading() {
+          return <Trans render="span">Container</Trans>;
+        },
         prop: "container"
       }
     ];

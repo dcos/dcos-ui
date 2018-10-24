@@ -14,15 +14,21 @@ import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 const columns = [
   {
-    heading: <Trans render="span">Key</Trans>,
+    heading() {
+      return <Trans render="span">Key</Trans>;
+    },
     prop: "key"
   },
   {
-    heading: <Trans render="span">Value</Trans>,
+    heading() {
+      return <Trans render="span">Value</Trans>;
+    },
     prop: "value"
   },
   {
-    heading: <Trans render="span">Container</Trans>,
+    heading() {
+      return <Trans render="span">Container</Trans>;
+    },
     prop: "container"
   }
 ];
