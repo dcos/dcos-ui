@@ -30,7 +30,7 @@ function getNetworkNames(networks) {
     return null;
   }
 
-  return networks.map(({ name }) => NETWORK_MODE_NAME[name]).join(", ");
+  return networks.map(({ name }) => name).join(", ");
 }
 
 class PodNetworkConfigSection extends React.Component {
