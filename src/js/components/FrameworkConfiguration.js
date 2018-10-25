@@ -3,6 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
+import { InfoBoxInline } from "@dcos/ui-kit";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
@@ -205,17 +206,31 @@ class FrameworkConfiguration extends Component {
       const notes = StringUtil.parseMarkdown(preInstallNotes);
 
       return (
-        <div className="pre-install-notes message message-warning">
-          <Trans render="strong">Preinstall Notes: </Trans>
-          <span dangerouslySetInnerHTML={notes} />
-          {this.getTermsAndConditions()}
+        <div className="infoBoxWrapper">
+          <InfoBoxInline
+            appearance="warning"
+            message={
+              <div className="pre-install-notes">
+                <Trans render="strong">Preinstall Notes: </Trans>
+                <span dangerouslySetInnerHTML={notes} />
+                {this.getTermsAndConditions()}
+              </div>
+            }
+          />
         </div>
       );
     }
 
     return (
-      <div className="pre-install-notes message message-warning">
-        {this.getTermsAndConditions()}
+      <div className="infoBoxWrapper">
+        <InfoBoxInline
+          appearance="warning"
+          message={
+            <div className="pre-install-notes">
+              {this.getTermsAndConditions()}
+            </div>
+          }
+        />
       </div>
     );
   }
@@ -236,10 +251,15 @@ class FrameworkConfiguration extends Component {
     let defaultConfigWarningMessage = null;
     if (defaultConfigWarning) {
       defaultConfigWarningMessage = (
-        <div className="message message-warning">
-          <Trans render="strong">Warning: </Trans>
-          <Trans id={defaultConfigWarning} render="span" />
-        </div>
+        <InfoBoxInline
+          appearance="warning"
+          message={
+            <div>
+              <Trans render="strong">Warning: </Trans>
+              <Trans id={defaultConfigWarning} render="span" />
+            </div>
+          }
+        />
       );
     }
 

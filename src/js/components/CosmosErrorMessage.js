@@ -2,8 +2,9 @@ import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
+import { InfoBoxInline } from "@dcos/ui-kit";
+import Icon from "./Icon";
 
-import Alert from "./Alert";
 import ErrorPaths from "../../../plugins/services/src/js/constants/ErrorPaths";
 
 const REPOSITORY_ERRORS = [
@@ -35,7 +36,7 @@ class CosmosErrorMessage extends React.Component {
     // make "Package is already installed error" better
     if (error.type === "PackageAlreadyInstalled") {
       return (
-        <Trans render="span">
+        <Trans render="span" className="cosmosErrorMsg">
           A service with the same name already exists. Try a different name.
         </Trans>
       );
@@ -110,12 +111,27 @@ class CosmosErrorMessage extends React.Component {
 
   render() {
     return (
-      <Alert flushBottom={this.props.flushBottom}>
-        {this.getMessage()}
-        <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
-          <ul className="short flush-bottom">{this.getDetails()}</ul>
-        </div>
-      </Alert>
+      <div className="infoBoxWrapper">
+        <InfoBoxInline
+          appearance="danger"
+          message={
+            <div>
+              <div className="flex">
+                <div>
+                  <Icon id="yield" size="mini" />
+                </div>
+                <div className="errorsAlert-message">{this.getMessage()}</div>
+              </div>
+
+              {this.getDetails() && (
+                <div className="pod pod-narrower-left pod-shorter-top flush-bottom">
+                  <ul className="short flush-bottom">{this.getDetails()}</ul>
+                </div>
+              )}
+            </div>
+          }
+        />
+      </div>
     );
   }
 }

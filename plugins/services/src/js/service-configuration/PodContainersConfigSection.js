@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Trans } from "@lingui/macro";
+import { InfoBoxInline } from "@dcos/ui-kit";
 
-import Alert from "#SRC/js/components/Alert";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import PodContainerConfigSection from "./PodContainerConfigSection";
 
@@ -26,11 +26,16 @@ const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
   if (!appConfig.containers || !appConfig.containers.length) {
     return (
       <div>
-        <Trans render={<ConfigurationMapHeading level={2} />}>Containers</Trans>
-        <Trans render={<Alert />}>
-          No containers specified! Please specify at least one container when
-          creating a multi-container definition!
-        </Trans>
+        <ConfigurationMapHeading level={2}>Containers</ConfigurationMapHeading>
+        <InfoBoxInline
+          appearance="danger"
+          message={
+            <Trans render="span">
+              No containers specified! Please specify at least one container
+              when creating a multi-container definition!
+            </Trans>
+          }
+        />
       </div>
     );
   }
