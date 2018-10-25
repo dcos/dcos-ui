@@ -34,10 +34,9 @@ describe("Universe", function() {
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy
-      .get(".page-body-content table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
       .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("exist");
   });
@@ -61,8 +60,7 @@ describe("Universe", function() {
     cy.contains("Run Service").click();
 
     // Should give error that package already installed
-    cy
-      .get(".message-danger")
+    cy.get(".cosmosErrorMsg")
       .contains(
         "A service with the same name already exists. Try a different name."
       )
@@ -91,10 +89,9 @@ describe("Universe", function() {
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy
-      .get(".page-body-content table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
       .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("exist");
   });
@@ -116,21 +113,28 @@ describe("Universe", function() {
     cy.contains("Edit Config").click();
 
     // Find name input
-    cy.get(".modal input[name=name]").clear().type(serviceName);
+    cy.get(".modal input[name=name]")
+      .clear()
+      .type(serviceName);
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Review & Run").click();
-    cy.get(".modal").contains("Run Service").click();
-    cy.get(".modal.modal-small").contains("Open Service").click();
+    cy.get(".modal")
+      .contains("Review & Run")
+      .click();
+    cy.get(".modal")
+      .contains("Run Service")
+      .click();
+    cy.get(".modal.modal-small")
+      .contains("Open Service")
+      .click();
 
     // Go to the root services page
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy
-      .get(".page-body-content table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
       .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("exist");
   });
@@ -152,21 +156,28 @@ describe("Universe", function() {
     cy.contains("Edit Config").click();
 
     // Find name input
-    cy.get(".modal input[name=name]").clear().type(serviceName);
+    cy.get(".modal input[name=name]")
+      .clear()
+      .type(serviceName);
 
     // Wait for the new service to deploy
-    cy.get(".modal").contains("Review & Run").click();
-    cy.get(".modal").contains("Run Service").click();
-    cy.get(".modal.modal-small").contains("Open Service").click();
+    cy.get(".modal")
+      .contains("Review & Run")
+      .click();
+    cy.get(".modal")
+      .contains("Run Service")
+      .click();
+    cy.get(".modal.modal-small")
+      .contains("Open Service")
+      .click();
 
     // Go to the root services page
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy
-      .get(".page-body-content table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
       .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("exist");
   });
@@ -178,16 +189,14 @@ describe("Universe", function() {
     cy.visitUrl("services/overview");
 
     // Click on the name of the package to delete
-    cy
-      .get(".page-body-content table")
+    cy.get(".page-body-content table")
       .getTableRowThatContains(serviceName)
       .get("a.table-cell-link-primary")
       .contains(serviceName)
       .click();
 
     // Click delete in the dropdown
-    cy
-      .get(".page-header-actions .dropdown")
+    cy.get(".page-header-actions .dropdown")
       .click()
       .get(".dropdown-menu-items")
       .contains("Delete")
@@ -195,17 +204,15 @@ describe("Universe", function() {
 
     // Confirm the deletion
     cy.get(".modal.modal-small input").type(serviceName);
-    cy
-      .get(".modal.modal-small button.button-danger", {
-        timeout: Timeouts.ANIMATION_TIMEOUT
-      })
+    cy.get(".modal.modal-small button.button-danger", {
+      timeout: Timeouts.ANIMATION_TIMEOUT
+    })
       .contains("Delete Service", { timeout: Timeouts.ANIMATION_TIMEOUT })
       .click();
 
-    cy
-      .get(".page-body-content table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
       .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("not.exist");
   });

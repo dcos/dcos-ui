@@ -130,7 +130,7 @@ describe("Package Detail Tab", function() {
     });
 
     it("shows preinstall notes on review screen", function() {
-      cy.get(".modal .message.message-warning")
+      cy.get(".modal .infoBoxWrapper")
         .contains(
           "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service."
         )
