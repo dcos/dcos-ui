@@ -26,6 +26,7 @@ targets:
 
     env:
       PATH: "/usr/local/bin:$PATH"
+      CLI_VERSION: "${CLI_VERSION}"
 
     scripts:
       auth: ../_scripts/auth-open.py

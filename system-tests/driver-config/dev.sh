@@ -25,6 +25,7 @@ targets:
       url: $CLUSTER_URL
 
     env:
+      CLI_VERSION: "${CLI_VERSION}"
       PROXIED_CLUSTER_URL: http://127.0.0.1:4200
 
     scripts:
