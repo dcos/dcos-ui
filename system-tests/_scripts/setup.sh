@@ -5,9 +5,9 @@ source .env/bin/activate
 
 # Install DC/OS CLI in the sandbox so we can setup and teardown our tests
 if [ `uname -s` == "Darwin" ]; then
-  curl https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-1.11/dcos -o .env/bin/dcos
+  curl https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-1.12/dcos -o .env/bin/dcos
 else
-  curl https://downloads.dcos.io/binaries/cli/linux/x86-64/dcos-1.11/dcos -o .env/bin/dcos
+  curl https://downloads.dcos.io/binaries/cli/linux/x86-64/dcos-1.12/dcos -o .env/bin/dcos
 fi
 chmod +x .env/bin/dcos
 
