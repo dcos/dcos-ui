@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import Batch from "#SRC/js/structs/Batch";
@@ -26,7 +27,9 @@ const JsonField = props => (
   <div>
     <FieldLabel>{props.label}</FieldLabel>
     <pre>{JSON.stringify(props.json, props.replacer, props.space)}</pre>
-    <FieldError>Unable to edit {props.fieldName}</FieldError>
+    <FieldError>
+      <Trans render="span">Unable to edit {props.fieldName}</Trans>
+    </FieldError>
   </div>
 );
 
@@ -121,12 +124,12 @@ export default class PlacementConstraintsSchemaField extends Component {
         batch.reduce(combineReducers({ constraints: JSONReducer }))
       )
     );
-    const isRequired = fieldProps.required ? "*" : "";
+    const requiredIndicator = fieldProps.required ? "*" : "";
 
     return (
       <div className="pod flush-left flush-right flush-top">
         <h2>
-          {`Placement Constraints ${isRequired}`}
+          <Trans render="span">Placement Constraints</Trans> {requiredIndicator}
           <Tooltip
             content={fieldProps.schema.description}
             interactive={true}

@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
 import { routerShape } from "react-router";
 import PureRender from "react-addons-pure-render-mixin";
@@ -153,16 +154,12 @@ class ServiceDestroyModal extends React.Component {
 
     return (
       <div>
-        <p>
+        <Trans render="p">
           This action <strong>CANNOT</strong> be undone. This will permanently
-          delete the <strong>{serviceName}</strong> {serviceLabel.toLowerCase()}
-          .
-        </p>
+          delete the <strong>{serviceName}</strong> {serviceLabel.toLowerCase()}.
+        </Trans>
         <div className="form-group flush-bottom">
-          <label>
-            Type "{serviceName}
-            " to confirm
-          </label>
+          <Trans render="label">Type "{serviceName}" to confirm</Trans>
           <input
             className="form-control filter-input-text"
             onChange={this.handleChangeInputFieldDestroy}
@@ -209,7 +206,7 @@ class ServiceDestroyModal extends React.Component {
 
     return (
       <ModalHeading className="text-danger">
-        {StringUtil.capitalize(UserActions.DELETE)} {serviceLabel}
+        <Trans render="span">Delete {serviceLabel}</Trans>
       </ModalHeading>
     );
   }

@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
@@ -30,7 +32,9 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Catalog">
       <BreadcrumbTextContent>
-        <Link to="/catalog/packages">Catalog</Link>
+        <Link to="/catalog/packages">
+          <Trans render="span">Catalog</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>,
     <Breadcrumb key={1} title={!isLoading && name}>
@@ -249,12 +253,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getPackageBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
-    const badgeCopy = isCertified ? "Certified" : "Community";
+    const badgeCopy = isCertified
+      ? i18nMark("Certified")
+      : i18nMark("Community");
     const appearance = isCertified ? "primary" : "default";
 
     return (
       <span className="column-3">
-        <Badge appearance={appearance}>{badgeCopy}</Badge>
+        <Trans id={badgeCopy} render={<Badge appearance={appearance} />} />
       </span>
     );
   }
@@ -263,8 +269,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
     if (cosmosPackage.isCLIOnly()) {
       return (
         <div>
-          <p>CLI Only Package</p>
-          <p>
+          <Trans render="p">CLI Only Package</Trans>
+          <Trans render="p">
             {"This package can only be installed using the CLI. See the "}
             <a
               href={MetadataStore.buildDocsURI(
@@ -274,7 +280,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
             >
               documentation
             </a>.
-          </p>
+          </Trans>
         </div>
       );
     }
@@ -284,7 +290,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     let installButtonIsDisabled = false;
 
     if (isLoadingSelectedVersion) {
-      tooltipContent = "Loading selected version";
+      tooltipContent = <Trans render="span">Loading selected version</Trans>;
       installButtonIsDisabled = true;
     }
 
@@ -296,9 +302,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
-      tooltipContent = `This version of ${cosmosPackage.getName()} requires DC/OS
-        version ${cosmosPackage.minDcosReleaseVersion} or higher, but you are
-        running DC/OS version ${semver.coerce(MetadataStore.version)}`;
+      tooltipContent = (
+        <Trans render="span">
+          This version of {cosmosPackage.getName()} requires DC/OS version{" "}
+          {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
+          DC/OS version {semver.coerce(MetadataStore.version)}
+        </Trans>
+      );
       installButtonIsDisabled = true;
     }
 
@@ -316,7 +326,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
             className="button button-primary"
             onClick={this.handleReviewAndRunClick}
           >
-            Review & Run
+            <Trans render="span">Review & Run</Trans>
           </button>
         </Tooltip>
       </div>
@@ -391,10 +401,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
               <span className="text-success">
                 <Icon id="circle-check" size="large" color="green" />
               </span>
-              <h2 className="short-top short-bottom">Success!</h2>
-              <div className="install-package-modal-package-notes text-overflow-break-word">
-                {`${StringUtil.capitalize(name)} is being installed.`}
-              </div>
+              <Trans render="h2" className="short-top short-bottom">
+                Success!
+              </Trans>
+              <Trans
+                render="div"
+                className="install-package-modal-package-notes text-overflow-break-word"
+              >
+                {StringUtil.capitalize(name)} is being installed.
+              </Trans>
             </div>
           </div>
           <div className="modal-footer">
@@ -405,7 +420,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   location.query.appId
                 )}`}
               >
-                Open Service
+                <Trans render="span">Open Service</Trans>
               </a>
             </div>
           </div>

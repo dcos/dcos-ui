@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { request } from "@dcos/mesos-client";
@@ -65,29 +66,39 @@ class NodeDetailTab extends PureComponent {
         <ConfigurationMap>
           <ConfigurationMapSection>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>ID</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">ID</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>{node.id}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Active</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Active</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {StringUtil.capitalize(node.active.toString().toLowerCase())}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Registered</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Registered</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {DateUtil.msToDateStr(node.registered_time.toFixed(3) * 1000)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Master Version</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Master Version</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {this.state.version || <Loader size="small" type="ballBeat" />}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Region</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Region</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {node.getRegionName()}
                 {this.state.masterRegion === node.getRegionName()
@@ -96,7 +107,9 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Zone</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Zone</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {node.getZoneName()}
               </ConfigurationMapValue>
@@ -104,21 +117,29 @@ class NodeDetailTab extends PureComponent {
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>Resources</ConfigurationMapHeading>
+            <ConfigurationMapHeading>
+              <Trans render="span">Resources</Trans>
+            </ConfigurationMapHeading>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Disk</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Disk</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {Units.formatResource("disk", resources.disk)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Mem</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">Mem</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {Units.formatResource("mem", resources.mem)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>CPUs</ConfigurationMapLabel>
+              <ConfigurationMapLabel>
+                <Trans render="span">CPUs</Trans>
+              </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {Units.formatResource("cpus", resources.cpus)}
               </ConfigurationMapValue>

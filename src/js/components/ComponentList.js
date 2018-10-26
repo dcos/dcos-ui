@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import { List } from "reactjs-components";
@@ -95,8 +96,12 @@ class ComponentList extends React.Component {
   getErrorMessage() {
     return (
       <div>
-        <h3 className="flush-top text-align-center">Components Not Found</h3>
-        <p className="flush text-align-center">An error has occurred.</p>
+        <Trans render="h3" className="flush-top text-align-center">
+          Components Not Found
+        </Trans>
+        <Trans render="p" className="flush text-align-center">
+          An error has occurred.
+        </Trans>
       </div>
     );
   }

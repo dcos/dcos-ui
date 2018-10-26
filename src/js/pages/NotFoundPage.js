@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import React from "react";
 
@@ -23,12 +24,14 @@ var NotFoundPage = React.createClass({
     return (
       <Page title="Page Not Found">
         <AlertPanel>
-          <AlertPanelHeader>Page not found</AlertPanelHeader>
-          <p>
+          <AlertPanelHeader>
+            <Trans render="span">Page not found</Trans>
+          </AlertPanelHeader>
+          <Trans render="p">
             The page you requested cannot be found. Check the address you
             provided, or head back to the <Link to="/dashboard">Dashboard</Link>
             .
-          </p>
+          </Trans>
         </AlertPanel>
       </Page>
     );

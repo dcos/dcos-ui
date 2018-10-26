@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import mixin from "reactjs-mixin";
@@ -5,6 +6,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { routerShape } from "react-router";
 import isEqual from "lodash.isequal";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
+import Page from "#SRC/js/components/Page";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
 import Loader from "#SRC/js/components/Loader";
@@ -20,7 +22,7 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       deployErrors: null,
       formData: null,
       formErrors: {},
-      hasError: false,
+      cosmosErrors: null,
       defaultConfigWarning: null
     };
 
@@ -52,13 +54,20 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
 
     const defaultConfigWarning = fullPackage.resolvedOptions
       ? null
-      : "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration.";
+      : i18nMark(
+          "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration."
+        );
 
-    this.setState({ packageDetails, formData, defaultConfigWarning });
+    this.setState({
+      cosmosErrors: null,
+      packageDetails,
+      formData,
+      defaultConfigWarning
+    });
   }
 
-  onCosmosPackagesStoreServiceDescriptionError() {
-    this.setState({ hasError: true });
+  onCosmosPackagesStoreServiceDescriptionError(cosmosErrors) {
+    this.setState({ cosmosErrors });
   }
 
   onCosmosPackagesStoreServiceUpdateSuccess() {
@@ -104,16 +113,24 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       deployErrors,
       formData,
       formErrors,
-      hasError,
+      cosmosErrors,
       defaultConfigWarning
     } = this.state;
 
-    if (packageDetails == null) {
-      return <Loader className="vertical-center" />;
+    if (cosmosErrors) {
+      return (
+        <Page>
+          <RequestErrorMsg
+            message={
+              <p className="text-align-center flush-bottom">{cosmosErrors}</p>
+            }
+          />
+        </Page>
+      );
     }
 
-    if (hasError) {
-      return <RequestErrorMsg />;
+    if (packageDetails == null) {
+      return <Loader className="vertical-center" />;
     }
 
     return (

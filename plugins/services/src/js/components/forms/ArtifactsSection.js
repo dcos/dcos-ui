@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
@@ -17,10 +18,9 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 class ArtifactsSection extends Component {
   getArtifactsLabel() {
     const tooltipContent = (
-      <span>
-        {
-          "If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. "
-        }
+      <Trans render="span">
+        If your service requires additional files and/or archives of files,
+        enter their URIs to download and, if necessary, extract these resources.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/creating-services/"
@@ -29,12 +29,12 @@ class ArtifactsSection extends Component {
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
       <FieldLabel>
-        {"Artifact URI "}
+        <Trans render="span">Artifact URI</Trans>
         <Tooltip
           content={tooltipContent}
           interactive={true}
@@ -106,7 +106,7 @@ class ArtifactsSection extends Component {
                 path
               })}
             >
-              Add Artifact
+              <Trans render="span">Add Artifact</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>

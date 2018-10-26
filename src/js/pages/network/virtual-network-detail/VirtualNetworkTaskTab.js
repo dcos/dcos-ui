@@ -1,3 +1,5 @@
+import { i18nMark, withI18n } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
@@ -21,9 +23,9 @@ import VirtualNetworkUtil from "../../../utils/VirtualNetworkUtil";
 import Util from "../../../utils/Util";
 
 const headerMapping = {
-  id: "Task",
-  ip_address: "Container IP",
-  port_mappings: "Port Mappings"
+  id: i18nMark("Task"),
+  ip_address: i18nMark("Container IP"),
+  port_mappings: i18nMark("Port Mappings")
 };
 const METHODS_TO_BIND = [
   "handleSearchStringChange",
@@ -209,7 +211,13 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   renderHeading(prop) {
-    return <span className="table-header-title">{headerMapping[prop]}</span>;
+    return (
+      <Trans
+        id={headerMapping[prop]}
+        render="span"
+        className="table-header-title"
+      />
+    );
   }
 
   renderID(prop, task) {
@@ -277,7 +285,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return this.getErrorScreen();
     }
 
-    const { overlay } = this.props;
+    const { overlay, i18n } = this.props;
     if (!overlay) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
@@ -289,9 +297,12 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
     return (
       <div>
+        {/* L10NTODO: Pluralize
+        We should pluralize FilterHeadline name here using lingui macro instead of
+        doing it manually in FilterHeadline */}
         <FilterHeadline
           onReset={this.resetFilter}
-          name="Task"
+          name={i18n._(t`Task`)}
           currentLength={filteredTasks.length}
           totalLength={tasks.length}
         />
@@ -320,4 +331,4 @@ VirtualNetworkTaskTab.propTypes = {
   overlay: PropTypes.instanceOf(Overlay)
 };
 
-module.exports = VirtualNetworkTaskTab;
+module.exports = withI18n()(VirtualNetworkTaskTab);

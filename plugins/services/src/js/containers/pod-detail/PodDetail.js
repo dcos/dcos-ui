@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
@@ -23,7 +24,6 @@ import {
   DELETE,
   EDIT,
   OPEN,
-  RESTART,
   RESUME,
   SCALE,
   STOP
@@ -39,9 +39,9 @@ class PodDetail extends mixin(TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      "/services/overview/:id/tasks": "Tasks",
-      "/services/overview/:id/configuration": "Configuration",
-      "/services/overview/:id/debug": "Debug"
+      "/services/overview/:id/tasks": i18nMark("Tasks"),
+      "/services/overview/:id/configuration": i18nMark("Configuration"),
+      "/services/overview/:id/debug": i18nMark("Debug")
     };
 
     this.state = {
@@ -117,9 +117,6 @@ class PodDetail extends mixin(TabsMixin) {
       case OPEN:
         modalHandlers.openServiceUI({ service: pod });
         break;
-      case RESTART:
-        modalHandlers.restartService({ service: pod });
-        break;
       case RESUME:
         modalHandlers.resumeService({ service: pod });
         break;
@@ -164,12 +161,6 @@ class PodDetail extends mixin(TabsMixin) {
       onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
     });
 
-    if (instanceCount > 0) {
-      actions.push({
-        label: "Restart",
-        onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
-      });
-    }
     if (!pod.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
         label: "Scale",

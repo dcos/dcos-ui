@@ -1,12 +1,14 @@
+import { i18nMark } from "@lingui/react";
+
 module.exports = {
-  name: "Name",
-  address: "Host/Port",
-  zone: "Zone",
-  region: "Region",
-  status: "Status",
-  health: "Health",
-  cpus: "CPU",
-  mem: "Mem",
-  updated: "Updated",
-  version: "Version"
+  name: i18nMark("Name"),
+  address: i18nMark("Host/Port"),
+  zone: i18nMark("Zone"),
+  region: i18nMark("Region"),
+  status: i18nMark("Status"),
+  health: i18nMark("Health"),
+  cpus: i18nMark("CPU"),
+  mem: i18nMark("Mem"),
+  updated: i18nMark("Updated"),
+  version: i18nMark("Version")
 };

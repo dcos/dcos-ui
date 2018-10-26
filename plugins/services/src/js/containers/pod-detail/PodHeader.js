@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import { Dropdown } from "reactjs-components";
 import PropTypes from "prop-types";
@@ -111,7 +112,7 @@ class PodHeader extends React.Component {
     const subHeaderItems = [
       {
         classes: `media-object-item ${serviceStatusClassSet}`,
-        label: serviceStatus.displayName,
+        label: <Trans id={serviceStatus.displayName} />,
         shouldShow: serviceHealth.key != null
       },
       {

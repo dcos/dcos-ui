@@ -1,3 +1,5 @@
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import classNames from "classnames";
@@ -44,7 +46,7 @@ const METHODS_TO_BIND = [
   "jsonSchemaErrorList"
 ];
 
-export default class FrameworkConfigurationForm extends Component {
+class FrameworkConfigurationForm extends Component {
   constructor(props) {
     super(props);
 
@@ -86,15 +88,19 @@ export default class FrameworkConfigurationForm extends Component {
 
     // the config will have 2-levels, we will render first level as the tabs
     return Object.keys(schema.properties).map(tabName => {
+      const issueCount = formErrors[tabName];
+
       return (
         <TabButton
           label={StringUtil.capitalizeEveryWord(tabName)}
           labelClassName={"padded-right"}
           id={tabName}
           key={tabName}
-          showErrorBadge={formErrors[tabName] > 0}
-          count={formErrors[tabName]}
-          description={`${formErrors[tabName]} issues need addressing`}
+          showErrorBadge={issueCount > 0}
+          count={issueCount}
+          description={
+            <Trans render="span">{issueCount} issues need addressing</Trans>
+          }
           onClickBadge={this.handleBadgeClick.bind(this, tabName)}
         />
       );
@@ -166,11 +172,11 @@ export default class FrameworkConfigurationForm extends Component {
     }
 
     if (isRequired && formData === "") {
-      let message = `Expecting a ${schema.type} here`;
-      if (schema.default) {
-        message = `Expecting a ${schema.type} here, eg: ${schema.default}`;
-      }
-      errors.addError(message);
+      errors.addError(
+        schema.default
+          ? `Expecting a ${schema.type} here, eg: ${schema.default}`
+          : `Expecting a ${schema.type} here`
+      );
     }
   }
 
@@ -277,7 +283,8 @@ export default class FrameworkConfigurationForm extends Component {
       defaultConfigWarning,
       onFormSubmit,
       liveValidate,
-      submitRef
+      submitRef,
+      i18n
     } = this.props;
 
     const TitleField = props => {
@@ -321,13 +328,11 @@ export default class FrameworkConfigurationForm extends Component {
 
     let defaultConfigWarningMessage = null;
     if (defaultConfigWarning) {
-      const message = {};
-      message.__html = `<strong>Warning: </strong>${defaultConfigWarning}`;
       defaultConfigWarningMessage = (
-        <div
-          dangerouslySetInnerHTML={message}
-          className="message message-warning"
-        />
+        <div className="message message-warning">
+          <strong>{i18n._(t`Warning`)}: </strong>
+          <Trans id={defaultConfigWarning} render="span" />
+        </div>
       );
     }
 
@@ -423,3 +428,5 @@ FrameworkConfigurationForm.propTypes = {
   submitRef: PropTypes.func,
   liveValidate: PropTypes.bool
 };
+
+export default withI18n()(FrameworkConfigurationForm);

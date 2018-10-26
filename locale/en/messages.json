@@ -1,10 +1,7012 @@
 {
+  "(AT BEGINNING OF FILE)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/LogView.js",
+        309
+      ]
+    ]
+  },
+  "(Clear)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FilterHeadline.js",
+        69
+      ]
+    ]
+  },
+  "(Optional. Default: 20): Number of seconds after which a health check is considered a failure regardless of the response.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        64
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        45
+      ]
+    ]
+  },
+  "(Optional. Default: 3): Number of consecutive health check failures after which the unhealthy instance should be killed. HTTP & TCP health checks: If this value is 0, instances will not be killed if they fail the health check.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        71
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        52
+      ]
+    ]
+  },
+  "(Optional. Default: 300): Health check failures are ignored within this number of seconds or until the instance becomes healthy for the first time.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        49
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        30
+      ]
+    ]
+  },
+  "(Optional. Default: 60): Number of seconds to wait between health checks.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        57
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        38
+      ]
+    ]
+  },
+  "(Show less)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CollapsibleErrorMessage.js",
+        85
+      ]
+    ]
+  },
+  "(Show more)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CollapsibleErrorMessage.js",
+        86
+      ]
+    ]
+  },
+  "<0><1/> Download config.json</0>": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ReviewConfig.js",
+        57
+      ]
+    ]
+  },
+  "<0>Important:</0> Because telemetry is disabled you must manually notify users of ACL changes.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/UserFormModal.js",
+        125
+      ]
+    ]
+  },
+  "<0>See documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        292
+      ]
+    ]
+  },
+  "A REX-Ray backed volume that is mounted on the agent from network attached storage.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        22
+      ]
+    ]
+  },
+  "A health check passes if (1) its HTTP response code is between 200 and 399 inclusive, and (2) its response is received within the timeoutSeconds period. <0>More Information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        501
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        471
+      ]
+    ]
+  },
+  "A host volume is a directory on the the local agent mapped to one in a container.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        29
+      ]
+    ]
+  },
+  "A locally persistent volume based upon the physical disks installed in the agent which has the capabilities of a single disk.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        14
+      ]
+    ]
+  },
+  "A locally persistent volume pre-created by the operator according to a storage profile.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        7
+      ]
+    ]
+  },
+  "A service with the same name already exists. Try a different name.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CosmosErrorMessage.js",
+        38
+      ]
+    ]
+  },
+  "A shell command for your container to execute.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        228
+      ]
+    ]
+  },
+  "A string, integer or regex value.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        109
+      ]
+    ]
+  },
+  "Access denied": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/AccessDeniedPage.js",
+        45
+      ]
+    ]
+  },
+  "Actions (<0>Allow All</0>)": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        248
+      ]
+    ]
+  },
+  "Active": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        76
+      ],
+      [
+        "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
+        45
+      ],
+      [
+        "src/js/components/FrameworkConfigurationReviewScreen.js",
+        67
+      ]
+    ]
+  },
+  "Active deployments will be shown here.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/DeploymentsModal.js",
+        364
+      ]
+    ]
+  },
+  "Add Artifact": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ArtifactsSection.js",
+        109
+      ]
+    ]
+  },
+  "Add Constraint": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
+        108
+      ]
+    ]
+  },
+  "Add Container": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        185
+      ]
+    ]
+  },
+  "Add Directory": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
+        102
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
+        127
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        345
+      ]
+    ]
+  },
+  "Add Environment Variable": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        242
+      ]
+    ]
+  },
+  "Add External Load Balancer": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        295
+      ]
+    ]
+  },
+  "Add Health Check": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        548
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        386
+      ]
+    ]
+  },
+  "Add Identity Provider": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        139
+      ]
+    ]
+  },
+  "Add Label": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        275
+      ]
+    ]
+  },
+  "Add Package Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        64
+      ]
+    ]
+  },
+  "Add Permission": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
+        329
+      ]
+    ]
+  },
+  "Add Placement Constraint": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        234
+      ]
+    ]
+  },
+  "Add Provider": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        78
+      ]
+    ]
+  },
+  "Add Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js",
+        87
+      ],
+      [
+        "plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js",
+        115
+      ]
+    ]
+  },
+  "Add Secret": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        224
+      ]
+    ]
+  },
+  "Add Service": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        296
+      ]
+    ]
+  },
+  "Add Service Endpoint": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        512
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        638
+      ]
+    ]
+  },
+  "Add Service to External Load Balancer": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js",
+        137
+      ]
+    ]
+  },
+  "Add Service to Load Balancer": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        220
+      ]
+    ]
+  },
+  "Add User": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/UserFormModal.js",
+        78
+      ]
+    ]
+  },
+  "Add User to Cluster": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/UserFormModal.js",
+        114
+      ]
+    ]
+  },
+  "Add Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        332
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        452
+      ]
+    ]
+  },
+  "Add a Permission for {0}": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        556
+      ]
+    ]
+  },
+  "Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        431
+      ]
+    ]
+  },
+  "Advanced Constraints": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PodPlacementConfigSection.js",
+        81
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/ServicePlacementConfigSection.js",
+        72
+      ]
+    ]
+  },
+  "Advanced Health Check Settings": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        82
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        63
+      ]
+    ]
+  },
+  "Advanced Settings": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
+        216
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js",
+        35
+      ]
+    ]
+  },
+  "Advanced settings of the container.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js",
+        38
+      ]
+    ]
+  },
+  "Advanced settings related to the runtime you have selected above.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
+        219
+      ]
+    ]
+  },
+  "Agent Prefix Length": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTable.js",
+        14
+      ]
+    ]
+  },
+  "Alive": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        159
+      ]
+    ]
+  },
+  "All": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        188
+      ]
+    ]
+  },
+  "All Health Checks": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/UnitHealthDropdown.js",
+        12
+      ],
+      [
+        "src/js/components/UnitHealthDropdown.js",
+        13
+      ]
+    ]
+  },
+  "All stats are for the past minute": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
+        153
+      ]
+    ]
+  },
+  "Already Exists": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        171
+      ]
+    ]
+  },
+  "Already exists": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        13
+      ]
+    ]
+  },
+  "An Error Occurred": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        148
+      ]
+    ]
+  },
+  "An error has occurred": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ServerErrorModal.js",
+        107
+      ]
+    ]
+  },
+  "An error has occurred.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ComponentList.js",
+        102
+      ]
+    ]
+  },
+  "An unknown error occurred": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CosmosErrorMessage.js",
+        24
+      ]
+    ]
+  },
+  "App Reach": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        52
+      ]
+    ]
+  },
+  "Application Reachability": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        79
+      ]
+    ]
+  },
+  "Apply": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/DSLFormDropdownPanel.js",
+        91
+      ]
+    ]
+  },
+  "Are you sure you want to leave this page? Any data you entered will be lost.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        933
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        363
+      ]
+    ]
+  },
+  "Are you sure you want to stop this?": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        59
+      ]
+    ]
+  },
+  "Are you sure you want to stop {headerContent}?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobStopRunModal.js",
+        16
+      ]
+    ]
+  },
+  "Are you sure you want to stop {selectedItemsLength} Job Runs?": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        61
+      ]
+    ]
+  },
+  "Are you sure you would like to continue and create a Pod? Any data you have already entered will be lost.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        442
+      ]
+    ]
+  },
+  "Are you sure?": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js",
+        285
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        385
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        293
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountDetailPage.js",
+        272
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountGroupTable.js",
+        173
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js",
+        267
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js",
+        207
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretActionsModal.js",
+        57
+      ],
+      [
+        "plugins/services/src/js/components/DeploymentsModal.js",
+        384
+      ],
+      [
+        "src/js/constants/BulkOptions.js",
+        15
+      ]
+    ]
+  },
+  "Artifact URI": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ArtifactsSection.js",
+        37
+      ]
+    ]
+  },
+  "Assign Automatically": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        673
+      ]
+    ]
+  },
+  "Assign Host Ports Automatically": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        657
+      ]
+    ]
+  },
+  "Attach metadata to expose additional information to other services.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        263
+      ]
+    ]
+  },
+  "Attached": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeStatus.js",
+        4
+      ]
+    ]
+  },
+  "Available Agents": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        42
+      ]
+    ]
+  },
+  "Back": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        99
+      ],
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        871
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        142
+      ]
+    ]
+  },
+  "Bootstrap Config": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js",
+        78
+      ]
+    ]
+  },
+  "Bridge": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        580
+      ]
+    ]
+  },
+  "Built": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        298
+      ]
+    ]
+  },
+  "By running this service you agree to the <0>terms and conditions</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        191
+      ]
+    ]
+  },
+  "By which factor would you like to scale all applications within this group?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
+        126
+      ]
+    ]
+  },
+  "CLI Only Package": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        272
+      ]
+    ]
+  },
+  "CPU": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        10
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        4
+      ]
+    ]
+  },
+  "CPU Allocation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        4
+      ]
+    ]
+  },
+  "CPUs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        32
+      ],
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        141
+      ],
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        187
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        14
+      ]
+    ]
+  },
+  "CRON Schedule": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        84
+      ]
+    ]
+  },
+  "Caches recent cluster history in-memory so that the {0} web interface can show recent data": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        70
+      ]
+    ]
+  },
+  "Callback URL": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
+        73
+      ]
+    ]
+  },
+  "Cancel": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        88
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
+        114
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
+        167
+      ],
+      [
+        "plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js",
+        82
+      ],
+      [
+        "plugins/jobs/src/js/components/JobFormModal.tsx",
+        44
+      ],
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        877
+      ],
+      [
+        "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
+        77
+      ],
+      [
+        "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
+        141
+      ],
+      [
+        "src/js/components/FormModal.js",
+        156
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        142
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        356
+      ],
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        105
+      ],
+      [
+        "src/js/components/modals/UserFormModal.js",
+        73
+      ]
+    ]
+  },
+  "Catalog": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
+        46
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceOtherLabels.js",
+        4
+      ],
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        36
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        36
+      ]
+    ]
+  },
+  "Certificates": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/CertificatesPage.js",
+        35
+      ]
+    ]
+  },
+  "Certified": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        257
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        188
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        201
+      ]
+    ]
+  },
+  "Certified packages are verified by Mesosphere for interoperability with DC/OS.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        204
+      ]
+    ]
+  },
+  "Choose BRIDGE, HOST, or USER networking. Refer to the <0>ports documentation</0> for more information.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        570
+      ]
+    ]
+  },
+  "Choose container/bridge, host, or container networking. Refer to the <0>ports documentation</0> for more information.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        688
+      ]
+    ]
+  },
+  "Choose your operating system and follow the instructions. For any issues or questions, please refer to our <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        172
+      ]
+    ]
+  },
+  "Click the <0>Services tab</0> to install services.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceList.js",
+        97
+      ]
+    ]
+  },
+  "Close": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
+        111
+      ],
+      [
+        ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModal.js",
+        22
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        531
+      ],
+      [
+        "plugins/services/src/js/components/DeploymentsModal.js",
+        511
+      ],
+      [
+        "src/js/components/Modals.js",
+        130
+      ],
+      [
+        "src/js/components/ServerErrorModal.js",
+        75
+      ]
+    ]
+  },
+  "Cluster": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth/components/AuthenticatedClusterDropdown.js",
+        61
+      ],
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        21
+      ],
+      [
+        "src/js/components/ClusterHeader.js",
+        60
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        284
+      ]
+    ]
+  },
+  "Cluster Details": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        343
+      ]
+    ]
+  },
+  "Command": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        50
+      ],
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        72
+      ],
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        246
+      ],
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        484
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        229
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        432
+      ]
+    ]
+  },
+  "Community": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        258
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        188
+      ],
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        225
+      ]
+    ]
+  },
+  "Community packages are unverified and unreviewed content from the community.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        220
+      ]
+    ]
+  },
+  "Completed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        34
+      ],
+      [
+        "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
+        54
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        73
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        37
+      ]
+    ]
+  },
+  "Component": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        211
+      ]
+    ]
+  },
+  "Components": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.js",
+        23
+      ],
+      [
+        "src/js/pages/system/UnitsHealthDetail.js",
+        26
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        30
+      ]
+    ]
+  },
+  "Components Health": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        10
+      ]
+    ]
+  },
+  "Components Not Found": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ComponentList.js",
+        99
+      ]
+    ]
+  },
+  "Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        119
+      ]
+    ]
+  },
+  "Configuration version": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfigurationReviewScreen.js",
+        79
+      ]
+    ]
+  },
+  "Configure any environment values to be attached to each instance that is launched.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        210
+      ]
+    ]
+  },
+  "Configure the networking for your service.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        602
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        730
+      ]
+    ]
+  },
+  "Configure your container below. Enter a container image or command you want to run.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModalForm.js",
+        408
+      ]
+    ]
+  },
+  "Configure your service below. Start by giving your service an ID.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        351
+      ]
+    ]
+  },
+  "Connected Nodes": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/charts/HostTimeSeriesChart.js",
+        82
+      ]
+    ]
+  },
+  "Consecutive failures": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        153
+      ]
+    ]
+  },
+  "Constraints control where apps run to allow optimization for either fault tolerance or locality.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/PlacementSection.js",
+        50
+      ]
+    ]
+  },
+  "Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/PlacementSection.js",
+        16
+      ]
+    ]
+  },
+  "Container": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModalForm.js",
+        405
+      ]
+    ]
+  },
+  "Container Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        31
+      ]
+    ]
+  },
+  "Container IP": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js",
+        27
+      ]
+    ]
+  },
+  "Container Image": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        110
+      ]
+    ]
+  },
+  "Container Name": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        147
+      ]
+    ]
+  },
+  "Container Path": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        41
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        78
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        52
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        66
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        152
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        269
+      ]
+    ]
+  },
+  "Container Port": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        81
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        405
+      ]
+    ]
+  },
+  "Container Runtime": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        215
+      ]
+    ]
+  },
+  "Containers": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        32
+      ],
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        176
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        43
+      ]
+    ]
+  },
+  "Contains extraneous property `||name||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        100
+      ]
+    ]
+  },
+  "Control where your app runs with advanced rules and constraint attributes": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
+        90
+      ]
+    ]
+  },
+  "Copied!": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClipboardTrigger.js",
+        92
+      ],
+      [
+        "src/js/components/ClusterHeader.js",
+        86
+      ]
+    ]
+  },
+  "Copy": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        86
+      ]
+    ]
+  },
+  "Copy and paste the code snippet into the terminal:": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        94
+      ]
+    ]
+  },
+  "Copy to clipboard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClipboardTrigger.js",
+        93
+      ]
+    ]
+  },
+  "Create": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FormModal.js",
+        161
+      ]
+    ]
+  },
+  "Create External Load Balancer": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        134
+      ]
+    ]
+  },
+  "Create Group": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
+        82
+      ],
+      [
+        "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
+        96
+      ]
+    ]
+  },
+  "Create New Group": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupFormModal.js",
+        84
+      ]
+    ]
+  },
+  "Create New User": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/users/hooks.js",
+        134
+      ]
+    ]
+  },
+  "Create a Job": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewEmpty.tsx",
+        35
+      ]
+    ]
+  },
+  "Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        321
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        441
+      ]
+    ]
+  },
+  "Create an external load balancer for your services.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        147
+      ]
+    ]
+  },
+  "Create both one-off or scheduled jobs to perform tasks at a predefined interval.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewEmpty.tsx",
+        29
+      ]
+    ]
+  },
+  "Created": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        229
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        6
+      ]
+    ]
+  },
+  "Cryptographic Cluster ID": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        171
+      ]
+    ]
+  },
+  "Currently Deploying Package": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        162
+      ]
+    ]
+  },
+  "DC/OS Storage Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        5
+      ]
+    ]
+  },
+  "DC/OS UI cannot retrieve the requested information at this moment.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/RequestErrorMsg.js",
+        50
+      ]
+    ]
+  },
+  "DC/OS also exposes environment variables for host ports and metdata. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        176
+      ]
+    ]
+  },
+  "DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        649
+      ]
+    ]
+  },
+  "DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        625
+      ]
+    ]
+  },
+  "DC/OS offers several storage options. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        268
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        414
+      ]
+    ]
+  },
+  "Dashboard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/DashboardPage.js",
+        47
+      ]
+    ]
+  },
+  "Debug information": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceStatusIcon.js",
+        30
+      ]
+    ]
+  },
+  "Define the permission in a string format. If the permission also includes an action, specify the action that should be allowed. Refer to <0>the documentation</0> for more details.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        435
+      ]
+    ]
+  },
+  "Delayed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        8
+      ]
+    ]
+  },
+  "Delete": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        181
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        137
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
+        132
+      ],
+      [
+        "src/js/components/form/DeleteRowButton.js",
+        10
+      ],
+      [
+        "src/js/components/form/FormGroupContainer.js",
+        15
+      ],
+      [
+        "src/js/constants/BulkOptions.js",
+        11
+      ]
+    ]
+  },
+  "Delete Action": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
+        236
+      ]
+    ]
+  },
+  "Delete Group": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/DisabledGroupDestroyModal.js",
+        18
+      ]
+    ]
+  },
+  "Delete Job": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobDeleteModal.js",
+        30
+      ]
+    ]
+  },
+  "Delete Repository": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js",
+        35
+      ]
+    ]
+  },
+  "Delete {serviceLabel}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
+        209
+      ]
+    ]
+  },
+  "Deleting": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
+        88
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        10
+      ]
+    ]
+  },
+  "Deploying": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
+        57
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        5
+      ]
+    ]
+  },
+  "Description": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        207
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        26
+      ]
+    ]
+  },
+  "Detached": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeStatus.js",
+        5
+      ]
+    ]
+  },
+  "Details": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js",
+        156
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
+        78
+      ]
+    ]
+  },
+  "Did not find a node by the id \"{nodeID}\"": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailPage.js",
+        130
+      ]
+    ]
+  },
+  "Discard": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        358
+      ]
+    ]
+  },
+  "Discard Changes?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        920
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        351
+      ]
+    ]
+  },
+  "Disk": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        125
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        5
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        6
+      ]
+    ]
+  },
+  "Disk (MiB)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
+        228
+      ]
+    ]
+  },
+  "Disk Allocation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        7
+      ]
+    ]
+  },
+  "Disk Space (Mib)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        44
+      ]
+    ]
+  },
+  "Docker Container": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        106
+      ]
+    ]
+  },
+  "Docker Engine": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ContainerConstants.js",
+        9
+      ]
+    ]
+  },
+  "Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        255
+      ]
+    ]
+  },
+  "Docker Runtime only supports the default size for implicit volumes, please select Universal Container Runtime (UCR) if you want to modify the size.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        214
+      ]
+    ]
+  },
+  "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        49
+      ]
+    ]
+  },
+  "Documentation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        142
+      ]
+    ]
+  },
+  "Don't run app tasks on a particular set of attribute IDs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        60
+      ]
+    ]
+  },
+  "Download": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
+        84
+      ]
+    ]
+  },
+  "Download Config": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfigurationReviewScreen.js",
+        162
+      ]
+    ]
+  },
+  "Download Snapshot": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        234
+      ]
+    ]
+  },
+  "Download and install: <0><1/> Download dcos.exe</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        137
+      ]
+    ]
+  },
+  "Downloads and extracts the {0} bootstrap tarball into /opt/mesosphere on your nodes.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        103
+      ]
+    ]
+  },
+  "Dropped": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        71
+      ]
+    ]
+  },
+  "E.g hostname.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        106
+      ]
+    ]
+  },
+  "Edit": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        174
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
+        126
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionConstraintsSection.js",
+        17
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/ZoneConstraintsSection.js",
+        17
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceConfigSecretsSectionDisplay.js",
+        87
+      ],
+      [
+        "plugins/services/src/js/components/ConfigurationMapTable.js",
+        144
+      ]
+    ]
+  },
+  "Edit Config": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfigurationReviewScreen.js",
+        145
+      ]
+    ]
+  },
+  "Edit Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        271
+      ]
+    ]
+  },
+  "Edit Directory": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
+        130
+      ]
+    ]
+  },
+  "Edit User": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js",
+        123
+      ]
+    ]
+  },
+  "Editing this service is only available on <0>Mesosphere Enterprise DC/OS</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceActionDisabledModal.js",
+        165
+      ]
+    ]
+  },
+  "Elected": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        308
+      ]
+    ]
+  },
+  "Enable Load Balanced Service Address": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        230
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        185
+      ]
+    ]
+  },
+  "Enabled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        78
+      ]
+    ]
+  },
+  "Enter": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        119
+      ]
+    ]
+  },
+  "Enter a Docker image or browse <0>Docker Hub</0> to find more. You can also enter an image from your private registry. <1>More information</1>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        91
+      ]
+    ]
+  },
+  "Enter a Docker image you want to run, e.g. nginx.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        176
+      ]
+    ]
+  },
+  "Enter a name for the new group under <0>{parentGroupId}</0>": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
+        107
+      ]
+    ]
+  },
+  "Enter a path that is reachable in your service and where you expect a response code between 200 and 399.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        320
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        271
+      ]
+    ]
+  },
+  "EntityID": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
+        89
+      ]
+    ]
+  },
+  "Environment": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        206
+      ]
+    ]
+  },
+  "Environment Variables": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        217
+      ]
+    ]
+  },
+  "Environment variables": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        22
+      ]
+    ]
+  },
+  "Ephemeral Storage": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        34
+      ]
+    ]
+  },
+  "Error": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        49
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        56
+      ]
+    ]
+  },
+  "Error finding node": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailPage.js",
+        127
+      ]
+    ]
+  },
+  "External": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/OrganizationTab.js",
+        162
+      ]
+    ]
+  },
+  "External LDAP Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        321
+      ]
+    ]
+  },
+  "External Persistent Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        20
+      ]
+    ]
+  },
+  "Failed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        24
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        55
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        46
+      ]
+    ]
+  },
+  "Failure %": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        45
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        51
+      ]
+    ]
+  },
+  "Failures": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        44
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        77
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        50
+      ]
+    ]
+  },
+  "Field": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        86
+      ]
+    ]
+  },
+  "Files": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
+        82
+      ]
+    ]
+  },
+  "Filter": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/DSLInputField.js",
+        285
+      ]
+    ]
+  },
+  "Finished": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        36
+      ]
+    ]
+  },
+  "First success": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        129
+      ]
+    ]
+  },
+  "For example, you could label services “staging” and “production” to mark them by their position in the pipeline. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        189
+      ]
+    ]
+  },
+  "For information and instructions on how to create virtual IPs see <0>networking documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
+        89
+      ]
+    ]
+  },
+  "Force Docker to pull the image before launching each instance.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js",
+        24
+      ]
+    ]
+  },
+  "Force Pull Image On Launch": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js",
+        22
+      ]
+    ]
+  },
+  "GPU": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        6
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        5
+      ]
+    ]
+  },
+  "GPU Allocation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        5
+      ]
+    ]
+  },
+  "GPUs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
+        128
+      ]
+    ]
+  },
+  "General": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        16
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        346
+      ]
+    ]
+  },
+  "Give your service a unique name within the cluster, e.g. my-service.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        383
+      ]
+    ]
+  },
+  "Go to bottom": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/LogView.js",
+        301
+      ]
+    ]
+  },
+  "Gone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        61
+      ]
+    ]
+  },
+  "Gone by operator": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        66
+      ]
+    ]
+  },
+  "Grace Period (s)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        93
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        74
+      ]
+    ]
+  },
+  "Grid": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        234
+      ]
+    ]
+  },
+  "Group By": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        31
+      ]
+    ]
+  },
+  "Group Search": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        178
+      ]
+    ]
+  },
+  "Groups": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js",
+        34
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
+        39
+      ]
+    ]
+  },
+  "HTTP": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        485
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        433
+      ]
+    ]
+  },
+  "Has the words": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/FuzzyTextDSLSection.js",
+        99
+      ]
+    ]
+  },
+  "Health": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
+        35
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        9
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        14
+      ],
+      [
+        "src/js/components/UnitHealthNodesTable.js",
+        36
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        149
+      ]
+    ]
+  },
+  "Health Check": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/UnitsHealthDetail.js",
+        190
+      ]
+    ]
+  },
+  "Health Check Result {healthCheckResultNum}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        123
+      ]
+    ]
+  },
+  "Health Checks": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        521
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        488
+      ]
+    ]
+  },
+  "Health check grace periods": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        82
+      ]
+    ]
+  },
+  "Health check intervals": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        86
+      ]
+    ]
+  },
+  "Health check max failures": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        94
+      ]
+    ]
+  },
+  "Health check timeouts": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        90
+      ]
+    ]
+  },
+  "Health checks may be specified per application to be run against the application's instances.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        536
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        525
+      ]
+    ]
+  },
+  "Healthy": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
+        46
+      ],
+      [
+        "plugins/services/src/js/constants/TaskHealthStates.js",
+        4
+      ],
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        18
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        192
+      ]
+    ]
+  },
+  "Host": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        57
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        557
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        579
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        7
+      ]
+    ]
+  },
+  "Host Name": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        247
+      ]
+    ]
+  },
+  "Host Path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        222
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        136
+      ]
+    ]
+  },
+  "Host Port": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        141
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        112
+      ]
+    ]
+  },
+  "Host Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        27
+      ]
+    ]
+  },
+  "Host/Port": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        5
+      ]
+    ]
+  },
+  "How many instances?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
+        133
+      ]
+    ]
+  },
+  "ID": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
+        197
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        20
+      ],
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        72
+      ],
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        70
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        11
+      ]
+    ]
+  },
+  "IP": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        255
+      ]
+    ]
+  },
+  "IP Addresses": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskIpAddressesRow.js",
+        41
+      ]
+    ]
+  },
+  "IP Reach": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        53
+      ]
+    ]
+  },
+  "IP Reachability": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        80
+      ]
+    ]
+  },
+  "IP Subnet": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTable.js",
+        13
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
+        28
+      ]
+    ]
+  },
+  "IPs": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        355
+      ]
+    ]
+  },
+  "IPv6": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        295
+      ]
+    ]
+  },
+  "Identity Providers": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js",
+        40
+      ],
+      [
+        ".dcos-ui-plugins-private/auth-providers/pages/AuthProvidersTab.js",
+        34
+      ]
+    ]
+  },
+  "If left undefined this will run in your local region.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
+        97
+      ]
+    ]
+  },
+  "If you are using the Mesos containerizer, this must be a single-level path relative to the container. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        119
+      ]
+    ]
+  },
+  "If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ArtifactsSection.js",
+        21
+      ]
+    ]
+  },
+  "Image": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        110
+      ]
+    ]
+  },
+  "Import LDAP Groups": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
+        174
+      ]
+    ]
+  },
+  "Import LDAP Users": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js",
+        149
+      ]
+    ]
+  },
+  "In Command Prompt, enter": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/CliInstallModal.js",
+        118
+      ]
+    ]
+  },
+  "Include the path to your service, if applicable. E.g. /dev/tools/my-service <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        332
+      ]
+    ]
+  },
+  "Insert Permission String": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        559
+      ]
+    ]
+  },
+  "Install CLI": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        149
+      ]
+    ]
+  },
+  "Install DC/OS CLI": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/Modals.js",
+        124
+      ]
+    ]
+  },
+  "Install a Package": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CreateServiceModalCatalogPanelOption.js",
+        24
+      ]
+    ]
+  },
+  "Install {dcosLBPackageName}": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        175
+      ]
+    ]
+  },
+  "Install {dcosLBPackageName} to enable this capability.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        190
+      ]
+    ]
+  },
+  "Instances": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        395
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        10
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        11
+      ]
+    ]
+  },
+  "Interval (s)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        129
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        108
+      ]
+    ]
+  },
+  "Invalid base64 encoding detected.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/YamlEditorSchemaField.js",
+        22
+      ]
+    ]
+  },
+  "Is": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        41
+      ]
+    ]
+  },
+  "JSON Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceJsonOnly.js",
+        101
+      ],
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModalServicePicker.js",
+        51
+      ]
+    ]
+  },
+  "JSON Editor": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        797
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        172
+      ]
+    ]
+  },
+  "JSON mode": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobFormModal.tsx",
+        61
+      ]
+    ]
+  },
+  "Jobs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/Breadcrumbs.js",
+        14
+      ]
+    ]
+  },
+  "Key": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        38
+      ],
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        112
+      ]
+    ]
+  },
+  "Killed": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        67
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        31
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        41
+      ]
+    ]
+  },
+  "Killing": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        61
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        31
+      ]
+    ]
+  },
+  "LDAP Directory": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        38
+      ]
+    ]
+  },
+  "Labels": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        249
+      ],
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        173
+      ]
+    ]
+  },
+  "Last Failure:": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewTable.js",
+        260
+      ]
+    ]
+  },
+  "Last Run": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobTableHeaderLabels.js",
+        6
+      ]
+    ]
+  },
+  "Last Success:": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewTable.js",
+        249
+      ]
+    ]
+  },
+  "Last failure": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        145
+      ]
+    ]
+  },
+  "Last success": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        137
+      ]
+    ]
+  },
+  "Leader": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/LeaderGrid.js",
+        33
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        288
+      ]
+    ]
+  },
+  "Learn more": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/RecentOffersSummary.js",
+        161
+      ]
+    ]
+  },
+  "License Expiration": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
+        66
+      ]
+    ]
+  },
+  "Like": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        51
+      ]
+    ]
+  },
+  "Link a cluster to switch between clusters.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
+        56
+      ]
+    ]
+  },
+  "Linked Clusters": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModal.js",
+        12
+      ],
+      [
+        ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
+        25
+      ]
+    ]
+  },
+  "List": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        224
+      ]
+    ]
+  },
+  "Load Balanced Port": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        321
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        276
+      ]
+    ]
+  },
+  "Load balance the service internally (layer 4), and create a service address. For external (layer 7) load balancing, create an external load balancer and attach this service. <0>More Information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        209
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        161
+      ]
+    ]
+  },
+  "Load balance this service internally at {hostName}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        309
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        264
+      ]
+    ]
+  },
+  "Loading selected version": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        293
+      ]
+    ]
+  },
+  "Local Persistent Volume": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        12
+      ]
+    ]
+  },
+  "Log out": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/AccessDeniedPage.js",
+        32
+      ]
+    ]
+  },
+  "Login to your account": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth/components/LoginModal.js",
+        153
+      ]
+    ]
+  },
+  "Logrotate allows for the automatic rotation compression, removal, and mailing of log files.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        81
+      ]
+    ]
+  },
+  "Logs": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
+        86
+      ]
+    ]
+  },
+  "Looks Like Something is Wrong": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/ErrorModal.js",
+        24
+      ]
+    ]
+  },
+  "Lost": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        79
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        51
+      ]
+    ]
+  },
+  "Makes vendored {0} binaries, such as the mesos-master, mesos-slave, available at the command line when SSHing to a host.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        92
+      ]
+    ]
+  },
+  "Manages {0} in-cluster Zookeeper, used by Mesos as well as {1} Marathon.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        59
+      ]
+    ]
+  },
+  "Marathon Task Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        53
+      ]
+    ]
+  },
+  "Master Version": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        92
+      ]
+    ]
+  },
+  "Max Failures": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        197
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        176
+      ]
+    ]
+  },
+  "Max Per": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        69
+      ]
+    ]
+  },
+  "May only contain digits (0-9), dashes (-) and lowercase letters (a-z) e.g. web-server": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        32
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        39
+      ]
+    ]
+  },
+  "May only contain digits (0-9), dashes (-), dots (.),lowercase letters (a-z), and slashes (/) e.g. /group/my-service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        18
+      ]
+    ]
+  },
+  "Media": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ImageViewer.js",
+        71
+      ]
+    ]
+  },
+  "Mem": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        133
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        11
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        10
+      ]
+    ]
+  },
+  "Memory": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        18
+      ]
+    ]
+  },
+  "Memory (MiB)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        38
+      ],
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        205
+      ]
+    ]
+  },
+  "Memory Allocation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        6
+      ]
+    ]
+  },
+  "Mesos DNS provides service discovery within the cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        23
+      ]
+    ]
+  },
+  "Mesos Details": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        350
+      ]
+    ]
+  },
+  "Mesos default for allocating temporary disk space to a service. Enough for many stateless or semi-stateless 12-factor and cloud native applications.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeDefinitions.js",
+        36
+      ]
+    ]
+  },
+  "Mode": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        177
+      ]
+    ]
+  },
+  "Modified": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        8
+      ]
+    ]
+  },
+  "More Settings": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        97
+      ],
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModalForm.js",
+        423
+      ]
+    ]
+  },
+  "Most services will use TCP. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        371
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        328
+      ]
+    ]
+  },
+  "Multi-container (Pod)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModalServicePicker.js",
+        37
+      ]
+    ]
+  },
+  "Must be a boolean value": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        130
+      ]
+    ]
+  },
+  "Must be a certain shape: ||shape||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        184
+      ]
+    ]
+  },
+  "Must be a date/time string": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        135
+      ]
+    ]
+  },
+  "Must be a number": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        150
+      ]
+    ]
+  },
+  "Must be a string": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        160
+      ]
+    ]
+  },
+  "Must be an array": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        125
+      ]
+    ]
+  },
+  "Must be an integer number": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        140
+      ]
+    ]
+  },
+  "Must be an object": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        155
+      ]
+    ]
+  },
+  "Must be at least ||value|| characters long": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        65
+      ]
+    ]
+  },
+  "Must be at most ||value|| characters long": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        60
+      ]
+    ]
+  },
+  "Must be bigger than or equal to ||value||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        75
+      ]
+    ]
+  },
+  "Must be defined": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        8
+      ],
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        105
+      ]
+    ]
+  },
+  "Must be multiple of ||value||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        80
+      ]
+    ]
+  },
+  "Must be null": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        145
+      ]
+    ]
+  },
+  "Must be of type `||type||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        85
+      ]
+    ]
+  },
+  "Must be one of ||values||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        40
+      ]
+    ]
+  },
+  "Must be smaller than or equal to ||value||": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        70
+      ]
+    ]
+  },
+  "Must contain a property that matches `||pattern||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        115
+      ]
+    ]
+  },
+  "Must contain at least ||value|| items in the array": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        50
+      ]
+    ]
+  },
+  "Must contain at least ||value|| properties": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        95
+      ]
+    ]
+  },
+  "Must contain at most ||value|| items in the array": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        45
+      ]
+    ]
+  },
+  "Must contain at most ||value|| properties": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        90
+      ]
+    ]
+  },
+  "Must contain only unique items": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        55
+      ]
+    ]
+  },
+  "Must define property `||name||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        110
+      ]
+    ]
+  },
+  "Must match the pattern `||pattern||`": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DefaultErrorMessages.js",
+        120
+      ]
+    ]
+  },
+  "N/A": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
+        331
+      ],
+      [
+        "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
+        55
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        85
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        43
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        7
+      ],
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        39
+      ]
+    ]
+  },
+  "Name": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        109
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        337
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        41
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        75
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        48
+      ],
+      [
+        "plugins/jobs/src/js/constants/JobTableHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        194
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        252
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        8
+      ],
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        12
+      ],
+      [
+        "src/js/constants/RepositoriesTableHeaderLabels.js",
+        4
+      ],
+      [
+        "src/js/pages/network/VirtualNetworksTable.js",
+        12
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js",
+        22
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        139
+      ]
+    ]
+  },
+  "Name your endpoint to search for it by a meaningful name, rather than the port number.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        468
+      ]
+    ]
+  },
+  "Need to run a service with multiple containers? <0>Add another container</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        142
+      ]
+    ]
+  },
+  "Network": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        149
+      ]
+    ]
+  },
+  "Network Type": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        608
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        736
+      ]
+    ]
+  },
+  "Networking": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        600
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        712
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        727
+      ]
+    ]
+  },
+  "Networks": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/NetworkPage.js",
+        22
+      ],
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        27
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js",
+        23
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js",
+        25
+      ]
+    ]
+  },
+  "No External Load Balancers": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        145
+      ]
+    ]
+  },
+  "No Services Running": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceList.js",
+        94
+      ]
+    ]
+  },
+  "No active deployments": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/DeploymentsModal.js",
+        362
+      ]
+    ]
+  },
+  "No active jobs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobsOverviewEmpty.tsx",
+        27
+      ]
+    ]
+  },
+  "No directory configured": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        335
+      ]
+    ]
+  },
+  "No health checks available": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/containers/tasks/TaskTable.js",
+        388
+      ]
+    ]
+  },
+  "No linked clusters": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
+        54
+      ]
+    ]
+  },
+  "No networks detected": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
+        87
+      ]
+    ]
+  },
+  "No nodes detected": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        301
+      ]
+    ]
+  },
+  "No package repositories": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        49
+      ]
+    ]
+  },
+  "No results were found for your search: \"{0}\" (<0>view all</0>)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        235
+      ]
+    ]
+  },
+  "No services found": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        230
+      ]
+    ]
+  },
+  "No virtual networks detected": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        90
+      ]
+    ]
+  },
+  "Node": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        96
+      ],
+      [
+        "src/js/components/UnitHealthNodesTable.js",
+        37
+      ]
+    ]
+  },
+  "Node Capacity": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
+        93
+      ]
+    ]
+  },
+  "Nodes": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NodeBreadcrumbs.js",
+        17
+      ],
+      [
+        "src/js/constants/DashboardHeadings.js",
+        11
+      ]
+    ]
+  },
+  "Non-Leaders": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NonLeadersGrid.js",
+        70
+      ]
+    ]
+  },
+  "Not Applicable": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PodPlacementConfigSection.js",
+        51
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/ServicePlacementConfigSection.js",
+        28
+      ]
+    ]
+  },
+  "Not Available": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeProfile.js",
+        4
+      ]
+    ]
+  },
+  "Number of Agents": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        345
+      ]
+    ]
+  },
+  "Number of Zones": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/ZoneConstraintsSection.js",
+        32
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/ZoneSelection.js",
+        23
+      ]
+    ]
+  },
+  "Number of zones to evenly distribute instances across.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/ZoneSelection.js",
+        35
+      ]
+    ]
+  },
+  "OK": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/DisabledGroupDestroyModal.js",
+        11
+      ]
+    ]
+  },
+  "Open Service": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        423
+      ]
+    ]
+  },
+  "Operator": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        87
+      ]
+    ]
+  },
+  "Other": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NodesGridView.js",
+        94
+      ],
+      [
+        "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
+        35
+      ]
+    ]
+  },
+  "Output": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        36
+      ]
+    ]
+  },
+  "Overview": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        120
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        43
+      ]
+    ]
+  },
+  "Owner": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        6
+      ]
+    ]
+  },
+  "P99 Latency": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        47
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        78
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        54
+      ]
+    ]
+  },
+  "Package Repositories": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/RepositoriesPage.js",
+        13
+      ]
+    ]
+  },
+  "Package not installed": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        188
+      ]
+    ]
+  },
+  "Page not found": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/NotFoundPage.js",
+        28
+      ]
+    ]
+  },
+  "Path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        359
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        310
+      ]
+    ]
+  },
+  "Periodically writes /etc/resolv.conf so that only currently active Mesos masters with working Mesos DNS are in it.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        205
+      ]
+    ]
+  },
+  "Permission inherited from the <0>{0}</0> group.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
+        218
+      ]
+    ]
+  },
+  "Permissions": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        5
+      ]
+    ]
+  },
+  "Placement": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PlacementSection.js",
+        20
+      ]
+    ]
+  },
+  "Placement Constraints": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/PlacementSection.js",
+        36
+      ],
+      [
+        "src/js/components/PlacementConstraintsSchemaField.js",
+        132
+      ]
+    ]
+  },
+  "Placement constraints control where apps run to allow optimization for either fault tolerance or locality.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PlacementSection.js",
+        32
+      ]
+    ]
+  },
+  "Please <0>add a container</0> before configuring Volumes.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        304
+      ]
+    ]
+  },
+  "Please <0>add a container</0> before configuring health checks.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        508
+      ]
+    ]
+  },
+  "Please contact your system administrator or see the <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/oauth/components/LoginPage.js",
+        118
+      ]
+    ]
+  },
+  "Please try again later.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/EmptyLogScreen.js",
+        14
+      ]
+    ]
+  },
+  "Please try again.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CosmosErrorMessage.js",
+        124
+      ]
+    ]
+  },
+  "Pod": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
+        55
+      ]
+    ]
+  },
+  "Pods": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceOtherLabels.js",
+        6
+      ]
+    ]
+  },
+  "Port Mapping": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        440
+      ]
+    ]
+  },
+  "Port Mappings": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js",
+        28
+      ]
+    ]
+  },
+  "Ports": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        63
+      ]
+    ]
+  },
+  "Preinstall Notes:": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        209
+      ]
+    ]
+  },
+  "Priority": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/RepositoriesTableHeaderLabels.js",
+        5
+      ]
+    ]
+  },
+  "Processes login requests from users, as well as checking if an authorization token is valid.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        133
+      ]
+    ]
+  },
+  "Profile Name": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        126
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        61
+      ]
+    ]
+  },
+  "Protocol": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        457
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        415
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        389
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        346
+      ]
+    ]
+  },
+  "Public IP": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        177
+      ]
+    ]
+  },
+  "Read Only": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        184
+      ]
+    ]
+  },
+  "Read and Write": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        183
+      ]
+    ]
+  },
+  "Received": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/DeclinedOffersTable.js",
+        142
+      ]
+    ]
+  },
+  "Recommended": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/VolumeMountTypesSelect.js",
+        17
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/VolumeTypeSelect.js",
+        17
+      ],
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        278
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        171
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        382
+      ]
+    ]
+  },
+  "Recovering": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
+        66
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        11
+      ]
+    ]
+  },
+  "Region": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionConstraintsSection.js",
+        32
+      ],
+      [
+        ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
+        84
+      ],
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        100
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        12
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        9
+      ],
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        142
+      ]
+    ]
+  },
+  "Regions": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/TaskRegionDSLSection.js",
+        47
+      ]
+    ]
+  },
+  "Registered": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        84
+      ]
+    ]
+  },
+  "Remove": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountGroupTable.js",
+        159
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js",
+        187
+      ]
+    ]
+  },
+  "Repository ({label}) will be deleted from {0}. You will not be able to install any packages belonging to that repository anymore.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js",
+        15
+      ]
+    ]
+  },
+  "Requested": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/DeclinedOffersTable.js",
+        136
+      ]
+    ]
+  },
+  "Resource": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        481
+      ]
+    ]
+  },
+  "Resources": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        121
+      ]
+    ]
+  },
+  "Restart the Admin Router Nginx server so that it picks up new DNS resolutions, for example master.mesos, leader.mesos.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        144
+      ]
+    ]
+  },
+  "Restart {serviceLabel}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceRestartModal.js",
+        104
+      ]
+    ]
+  },
+  "Restarting the <0>{serviceName}</0>{0} will remove all currently running instances of the {1} and then attempt to create new instances identical to those removed.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceRestartModal.js",
+        129
+      ]
+    ]
+  },
+  "Resume Service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceResumeModal.js",
+        152
+      ]
+    ]
+  },
+  "Review & Run": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        804
+      ],
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        814
+      ],
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        157
+      ],
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        329
+      ]
+    ]
+  },
+  "Review & Run Service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModal.js",
+        569
+      ]
+    ]
+  },
+  "Review Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        270
+      ]
+    ]
+  },
+  "Role": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/UnitHealthNodesTable.js",
+        38
+      ]
+    ]
+  },
+  "Rotates the Mesos master and agent log files to prevent filling the disk.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        114
+      ]
+    ]
+  },
+  "Run Service": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        156
+      ]
+    ]
+  },
+  "Run app tasks evenly distributed across a certain attribute": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        32
+      ]
+    ]
+  },
+  "Run app tasks on a particular set of attribute IDs": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        52
+      ]
+    ]
+  },
+  "Run app tasks on nodes having attribute ID with a specific value": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        42
+      ]
+    ]
+  },
+  "Run app tasks on nodes that share a certain attribute ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        22
+      ]
+    ]
+  },
+  "Run each app task on a unique attribute ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        14
+      ]
+    ]
+  },
+  "Run max number of app tasks on each attribute ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        70
+      ]
+    ]
+  },
+  "Running": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        19
+      ],
+      [
+        "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
+        48
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        31
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        43
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        7
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        19
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        4
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        26
+      ]
+    ]
+  },
+  "Runs a Mesos agent on the node.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        175
+      ]
+    ]
+  },
+  "Runs a publicly accessible Mesos agent on the node.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        215
+      ]
+    ]
+  },
+  "Runs keepalived to make a VRRP load balancer that can be used to access the masters.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        182
+      ]
+    ]
+  },
+  "Runs the {0} web interface, as well as a reverse proxy so that administrative interfaces of {1} Service can be accessed from outside the cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        193
+      ]
+    ]
+  },
+  "SIZE (GiB)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        284
+      ]
+    ]
+  },
+  "SIZE (MiB)": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        93
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        91
+      ]
+    ]
+  },
+  "SP Metadata": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
+        81
+      ]
+    ]
+  },
+  "SSL/TLS Setting": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        249
+      ]
+    ]
+  },
+  "Sandbox Path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        109
+      ]
+    ]
+  },
+  "Save Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
+        105
+      ]
+    ]
+  },
+  "Scale Service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
+        146
+      ]
+    ]
+  },
+  "Schedule": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        68
+      ]
+    ]
+  },
+  "Scheduled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        39
+      ]
+    ]
+  },
+  "Secret": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        90
+      ]
+    ]
+  },
+  "Secret Stores": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretStorePage.js",
+        23
+      ]
+    ]
+  },
+  "Secret store sealed": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
+        17
+      ]
+    ]
+  },
+  "Secrets": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        197
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        34
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
+        55
+      ]
+    ]
+  },
+  "Security Mode": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js",
+        82
+      ]
+    ]
+  },
+  "Select ...": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        102
+      ]
+    ]
+  },
+  "Select Endpoint": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        351
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        302
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        367
+      ]
+    ]
+  },
+  "Select Protocol": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        483
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        431
+      ]
+    ]
+  },
+  "Select a number of agents to allocate": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js",
+        116
+      ]
+    ]
+  },
+  "Select a service endpoint that you configured in Networking.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        315
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        266
+      ]
+    ]
+  },
+  "Select an identity provider to easily allow access to users.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalButtonContents.js",
+        35
+      ]
+    ]
+  },
+  "Sends a periodic ping back to Mesosphere with high-level cluster information to help improve {0}, and provides advance monitoring of cluster issues.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        37
+      ]
+    ]
+  },
+  "Service": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        263
+      ],
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        83
+      ]
+    ]
+  },
+  "Service Accounts": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountDetailPage.js",
+        116
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js",
+        32
+      ]
+    ]
+  },
+  "Service Addresses": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
+        41
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
+        32
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
+        33
+      ]
+    ]
+  },
+  "Service Endpoint": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        332
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        283
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        359
+      ]
+    ]
+  },
+  "Service Endpoint Name": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        467
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        507
+      ]
+    ]
+  },
+  "Service Endpoints": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        634
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        604
+      ]
+    ]
+  },
+  "Service ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        360
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        6
+      ]
+    ]
+  },
+  "Service endpoint container ports": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        70
+      ]
+    ]
+  },
+  "Service endpoint host ports": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        54
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        58
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        74
+      ]
+    ]
+  },
+  "Service endpoint names": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        50
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        66
+      ]
+    ]
+  },
+  "Service endpoints map traffic from a single VIP to multiple IP addresses and ports. <0>More Information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        588
+      ],
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        593
+      ]
+    ]
+  },
+  "Service not found": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceItemNotFound.js",
+        21
+      ]
+    ]
+  },
+  "Services": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        46
+      ],
+      [
+        "plugins/services/src/js/components/ServiceBreadcrumbs.js",
+        201
+      ],
+      [
+        "src/js/components/NestedServiceLinks.js",
+        111
+      ]
+    ]
+  },
+  "Services Status": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        8
+      ]
+    ]
+  },
+  "Set up an LDAP connection to avoid having to recreate your user accounts within DC/OS.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        337
+      ]
+    ]
+  },
+  "Set up environment variables for each instance your service launches.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        231
+      ]
+    ]
+  },
+  "Set variables for each task your service launches. You can also use variables to expose Secrets. <0>Manage secrets here</0>. <1>Learn more about variables</1>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/hooks.js",
+        363
+      ]
+    ]
+  },
+  "Sets the dcos-adminrouter-reload.service interval at once an hour.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        155
+      ]
+    ]
+  },
+  "Sets the dcos-gen-resolvconf.service to be run once a minute.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        49
+      ]
+    ]
+  },
+  "Sets the dcos-signal.service interval at once an hour.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        125
+      ]
+    ]
+  },
+  "Showing {currentLength} of {totalLength} {name}": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FilterHeadline.js",
+        65
+      ]
+    ]
+  },
+  "Single Container": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceModalServicePicker.js",
+        23
+      ]
+    ]
+  },
+  "Size": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js",
+        7
+      ]
+    ]
+  },
+  "Size (MiB)": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        142
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        250
+      ]
+    ]
+  },
+  "Specializes the {0} bootstrap tarball for the particular cluster, as well as its cluster role.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        165
+      ]
+    ]
+  },
+  "Specify where your app will run.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        104
+      ]
+    ]
+  },
+  "Staged at": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        79
+      ]
+    ]
+  },
+  "Staging": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        13
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        25
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        11
+      ]
+    ]
+  },
+  "Started": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        25
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        21
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        304
+      ]
+    ]
+  },
+  "Started at": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        87
+      ]
+    ]
+  },
+  "Starting": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        9
+      ],
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        14
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        19
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        16
+      ]
+    ]
+  },
+  "Starting Deadline": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        96
+      ]
+    ]
+  },
+  "Status": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobTableHeaderLabels.js",
+        5
+      ],
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        71
+      ],
+      [
+        "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
+        37
+      ],
+      [
+        "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
+        34
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        8
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        9
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        13
+      ]
+    ]
+  },
+  "Stop": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
+        219
+      ]
+    ]
+  },
+  "Stop {serviceLabel}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceStopModal.js",
+        104
+      ]
+    ]
+  },
+  "Stopped": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js",
+        79
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        6
+      ]
+    ]
+  },
+  "Stopping the <0>{serviceName}</0> {0} will remove all currently running instances of the {1}. The {2} will not be deleted.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceStopModal.js",
+        127
+      ]
+    ]
+  },
+  "Store": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        218
+      ]
+    ]
+  },
+  "Success": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        29
+      ]
+    ]
+  },
+  "Success!": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        404
+      ]
+    ]
+  },
+  "Successes": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
+        43
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
+        76
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
+        49
+      ]
+    ]
+  },
+  "Summary": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        25
+      ]
+    ]
+  },
+  "Support": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ClusterHeader.js",
+        137
+      ]
+    ]
+  },
+  "Switch": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js",
+        82
+      ]
+    ]
+  },
+  "Switch Cluster": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModalTrigger.js",
+        45
+      ]
+    ]
+  },
+  "Switching to a pod service": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        418
+      ]
+    ]
+  },
+  "TCP": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        434
+      ]
+    ]
+  },
+  "Task": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js",
+        26
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js",
+        305
+      ]
+    ]
+  },
+  "Task ID": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        123
+      ]
+    ]
+  },
+  "Tasks": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/DashboardHeadings.js",
+        9
+      ],
+      [
+        "src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js",
+        146
+      ]
+    ]
+  },
+  "Tasks running": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/charts/TasksChart.js",
+        14
+      ]
+    ]
+  },
+  "Tasks staging": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/charts/TasksChart.js",
+        15
+      ]
+    ]
+  },
+  "Terms and Conditions": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        188
+      ]
+    ]
+  },
+  "Test Connection": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
+        138
+      ]
+    ]
+  },
+  "Test External Directory": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
+        152
+      ]
+    ]
+  },
+  "The Mesos master process orchestrates agent tasks.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        30
+      ]
+    ]
+  },
+  "The command value will be wrapped by the underlying Mesos executor via {exampleCmd} <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
+        54
+      ]
+    ]
+  },
+  "The container runtime is responsible for running your service. We support the Docker Engine and Universal Container Runtime (UCR).": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        229
+      ]
+    ]
+  },
+  "The contents of this secret store cannot be accessed until it is unsealed. See <0>instructions</0> on how to access sealed secret stores.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
+        19
+      ]
+    ]
+  },
+  "The key cannot be empty.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        71
+      ],
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        142
+      ]
+    ]
+  },
+  "The network type will be shared across all your containers.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        624
+      ]
+    ]
+  },
+  "The page you requested cannot be found. Check the address you provided, or head back to the <0>Dashboard</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/NotFoundPage.js",
+        30
+      ]
+    ]
+  },
+  "The path where your application will read and write data. This must be a single-level path relative to the container. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        49
+      ]
+    ]
+  },
+  "The secret cannot be empty.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        100
+      ]
+    ]
+  },
+  "The service is currently locked by one or more deployments. Press again to force this operation.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorMessages.js",
+        25
+      ]
+    ]
+  },
+  "The unique operator does not accept a value.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        11
+      ]
+    ]
+  },
+  "The {0} Marathon instance starts and monitors {1} applications and services.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/UnitSummaries.js",
+        12
+      ]
+    ]
+  },
+  "There a currently no other nodes in your datacenter other than your DC/OS master node.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        303
+      ]
+    ]
+  },
+  "There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        92
+      ]
+    ]
+  },
+  "There are no more known masters in this cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/NonLeadersGrid.js",
+        40
+      ]
+    ]
+  },
+  "There are no services associated with this load balancer.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        232
+      ]
+    ]
+  },
+  "There is an error with your configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/ErrorsAlert.js",
+        49
+      ]
+    ]
+  },
+  "This action <0>CANNOT</0> be undone. This will permanently delete the <1>{serviceName}</1> {0}.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
+        157
+      ]
+    ]
+  },
+  "This action is irreversible and may break your cluster.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.js",
+        64
+      ]
+    ]
+  },
+  "This directory does not contain any logs.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MesosLogContainer.js",
+        225
+      ]
+    ]
+  },
+  "This feature will be available once {dcosLBPackageName} finishes deploying.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        164
+      ]
+    ]
+  },
+  "This field is optional.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        185
+      ]
+    ]
+  },
+  "This group needs to be empty to delete it. Please delete any services in the group first.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/DisabledGroupDestroyModal.js",
+        32
+      ]
+    ]
+  },
+  "This host port will be accessible as an environment variable called '$PORT{index}'. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        89
+      ]
+    ]
+  },
+  "This host port will be accessible as an environment variable called {environmentVariableName}. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js",
+        118
+      ]
+    ]
+  },
+  "This package can only be installed using the CLI. See the <0>documentation</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        273
+      ]
+    ]
+  },
+  "This service has advanced networking configuration, which we don't currently support in the UI. Please use the JSON editor to make changes.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/NetworkingFormSection.js",
+        715
+      ]
+    ]
+  },
+  "This service is currently stopped. Do you want to resume this service?": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceResumeModal.js",
+        116
+      ]
+    ]
+  },
+  "This service is currently stopped. Do you want to resume this service? You can change the number of instances to resume by using the field below.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceResumeModal.js",
+        124
+      ]
+    ]
+  },
+  "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/pages/EditFrameworkConfiguration.js",
+        57
+      ]
+    ]
+  },
+  "This version of {0} requires DC/OS version {1} or higher, but you are running DC/OS version {2}": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        306
+      ]
+    ]
+  },
+  "Time Zone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/pages/JobConfiguration.js",
+        90
+      ]
+    ]
+  },
+  "Timeout (s)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        163
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        142
+      ]
+    ]
+  },
+  "To enable this feature please contact support via {slackLink} or send us an email at {supportLink}.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
+        235
+      ]
+    ]
+  },
+  "To use a secret in an application, a user needs appropriate permissions. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        181
+      ]
+    ]
+  },
   "Total Tasks": {
     "translation": "",
     "origin": [
       [
         "src/js/components/charts/TasksChart.js",
-        120
+        124
+      ]
+    ]
+  },
+  "Type \"{serviceName}\" to confirm": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
+        162
+      ]
+    ]
+  },
+  "URL": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/RepositoriesTableHeaderLabels.js",
+        6
+      ]
+    ]
+  },
+  "USERNAME": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OrganizationTab.js",
+        297
+      ]
+    ]
+  },
+  "Unable to edit this HealthCheck": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        420
+      ]
+    ]
+  },
+  "Unable to edit this Volume": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        74
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        91
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        305
+      ]
+    ]
+  },
+  "Unable to edit {0}": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/PlacementSchemaField.js",
+        52
+      ],
+      [
+        "src/js/components/PlacementConstraintsSchemaField.js",
+        31
+      ]
+    ]
+  },
+  "Unable to login to your DC/OS cluster. Clusters must be connected to the internet.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/oauth/components/LoginPage.js",
+        113
+      ]
+    ]
+  },
+  "Unavailable": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/VolumeStatus.js",
+        6
+      ]
+    ]
+  },
+  "Unhealthy": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js",
+        68
+      ],
+      [
+        "plugins/services/src/js/constants/PodContainerStatus.js",
+        37
+      ],
+      [
+        "plugins/services/src/js/constants/PodInstanceStatus.js",
+        13
+      ],
+      [
+        "plugins/services/src/js/constants/TaskHealthStates.js",
+        5
+      ],
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        25
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        196
+      ]
+    ]
+  },
+  "Unique": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        13
+      ]
+    ]
+  },
+  "Universal Container Runtime (UCR)": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ContainerConstants.js",
+        10
+      ]
+    ]
+  },
+  "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        55
+      ]
+    ]
+  },
+  "Unknown": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskHealthStates.js",
+        6
+      ],
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        81
+      ]
+    ]
+  },
+  "Unlike": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/OperatorTypes.js",
+        59
+      ]
+    ]
+  },
+  "Unreachable": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/TaskStates.js",
+        76
+      ]
+    ]
+  },
+  "Unscheduled": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/constants/JobStates.ts",
+        44
+      ]
+    ]
+  },
+  "Updated": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        12
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        15
+      ]
+    ]
+  },
+  "Upgrade": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
+        75
+      ]
+    ]
+  },
+  "Usage Logs": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
+        73
+      ]
+    ]
+  },
+  "Use the <0>DC/OS Secret Store</0> to secure important values like private keys, API tokens, and database passwords.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        207
+      ]
+    ]
+  },
+  "Use the form below to build your permission. For more information see the <0>documentation</0>. To bulk add permissions, <1>switch to advanced mode</1>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        578
+      ]
+    ]
+  },
+  "Use the form below to manually enter or paste permissions. <0>Switch to permission builder</0> to add a single permission.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        568
+      ]
+    ]
+  },
+  "Use this text area to customize your configuration via JSON.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/CreateServiceJsonOnly.js",
+        104
+      ]
+    ]
+  },
+  "User Search": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        149
+      ]
+    ]
+  },
+  "Users": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/AccountDetailPage.js",
+        162
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js",
+        38
+      ],
+      [
+        "src/js/pages/system/OrganizationTab.js",
+        55
+      ],
+      [
+        "src/js/pages/system/UsersPage.js",
+        26
+      ]
+    ]
+  },
+  "Value": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
+        225
+      ],
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        47
+      ],
+      [
+        "plugins/services/src/js/components/forms/EnvironmentFormSection.js",
+        121
+      ],
+      [
+        "src/js/components/PlacementConstraintsPartial.js",
+        88
+      ]
+    ]
+  },
+  "Variable name": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
+        26
+      ]
+    ]
+  },
+  "Version": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/MarathonTaskDetailsList.js",
+        95
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        13
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceTableHeaderLabels.js",
+        10
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        16
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        294
+      ]
+    ]
+  },
+  "View Cluster Configuration": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        213
+      ]
+    ]
+  },
+  "View Documentation": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
+        30
+      ]
+    ]
+  },
+  "View Services": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceItemNotFound.js",
+        13
+      ]
+    ]
+  },
+  "View all {componentCount} {componentCountWord}": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/DashboardPage.js",
+        141
+      ]
+    ]
+  },
+  "View all {servicesCount} Services": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/DashboardPage.js",
+        163
+      ]
+    ]
+  },
+  "Volume Type": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSInput.js",
+        95
+      ],
+      [
+        ".dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js",
+        45
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        137
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        347
+      ]
+    ]
+  },
+  "Volume container path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        30
+      ]
+    ]
+  },
+  "Volume host path": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        38
+      ]
+    ]
+  },
+  "Volume mode": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        42
+      ]
+    ]
+  },
+  "Volume size": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceErrorPathMapping.js",
+        34
+      ]
+    ]
+  },
+  "Volumes": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
+        68
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js",
+        280
+      ],
+      [
+        "plugins/services/src/js/components/forms/VolumesFormSection.js",
+        426
+      ],
+      [
+        "plugins/services/src/js/constants/ServiceOtherLabels.js",
+        5
+      ]
+    ]
+  },
+  "Waiting": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/ServiceStatusLabels.js",
+        9
+      ]
+    ]
+  },
+  "Warning": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfigurationForm.js",
+        333
+      ],
+      [
+        "src/js/constants/UnitHealthStatus.js",
+        32
+      ]
+    ]
+  },
+  "Warning:": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfiguration.js",
+        240
+      ]
+    ]
+  },
+  "We are unable to retrieve the version {0} versions. Please try again.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/Modals.js",
+        101
+      ]
+    ]
+  },
+  "When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <0>Learn more</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/constants/DeclinedOffersHelpText.js",
+        12
+      ]
+    ]
+  },
+  "You are about to stop the job run with id": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        72
+      ]
+    ]
+  },
+  "You are about to stop the selected job runs.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/JobStopRunModal.js",
+        74
+      ]
+    ]
+  },
+  "You are about to stop {bodyText}.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/jobs/src/js/components/JobStopRunModal.js",
+        34
+      ]
+    ]
+  },
+  "You can also join us on our <0>Slack channel</0> or send us an email at <1>{0}</1>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/RequestErrorMsg.js",
+        12
+      ]
+    ]
+  },
+  "You can go to the <0>Repositories Settings</0> page to change installed repositories.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/CosmosErrorMessage.js",
+        102
+      ]
+    ]
+  },
+  "You can link a cluster via the DC/OS CLI. See {documentation} for complete instructions.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
+        44
+      ]
+    ]
+  },
+  "You can run Docker containers with both container runtimes. The Universal Container Runtime (UCR) is better supported in DC/OS. <0>More information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/GeneralServiceFormSection.js",
+        196
+      ]
+    ]
+  },
+  "You do not have access to this resource. Please contact your {0} administrator or see <0>security documentation</0> for more information.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth/hooks.js",
+        181
+      ]
+    ]
+  },
+  "You do not have access to this service. Please contact your {0} administrator or see <0>security documentation</0> for more information.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/AccessDeniedPage.js",
+        47
+      ]
+    ]
+  },
+  "You do not have permission to list this cluster's secrets.<0/>Please contact your super admin to learn more.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
+        66
+      ]
+    ]
+  },
+  "You do not have permission to see this secret.<0/>Please contact your super admin to learn more.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
+        64
+      ]
+    ]
+  },
+  "You have several protocol options. <0>More Information</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/forms/HealthChecksFormSection.js",
+        428
+      ],
+      [
+        "plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js",
+        393
+      ]
+    ]
+  },
+  "You need at least one package repository with some packages to be able to install packages. For more <0>information on repositories</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        51
+      ]
+    ]
+  },
+  "Zone": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        111
+      ],
+      [
+        "plugins/services/src/js/constants/PodTableHeaderLabels.js",
+        6
+      ],
+      [
+        "plugins/services/src/js/constants/TaskTableHeaderLabels.js",
+        8
+      ],
+      [
+        "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
+        134
+      ]
+    ]
+  },
+  "Zones": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/dsl/TaskZoneDSLSection.js",
+        47
+      ]
+    ]
+  },
+  "by {mesosBuildUser}": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        245
+      ]
+    ]
+  },
+  "documentation": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
+        40
+      ]
+    ]
+  },
+  "or": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
+        113
+      ]
+    ]
+  },
+  "will be deleted": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/constants/BulkOptions.js",
+        16
+      ]
+    ]
+  },
+  "{0} ({1} available)": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
+        348
+      ]
+    ]
+  },
+  "{0} Info": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/modals/VersionsModal.js",
+        31
+      ]
+    ]
+  },
+  "{0} Version": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        165
+      ]
+    ]
+  },
+  "{0} is being installed.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackageDetailTab.js",
+        407
+      ]
+    ]
+  },
+  "{0} will be deleted.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
+        187
+      ]
+    ]
+  },
+  "{0} {packagesWord} found": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/catalog/PackagesTab.js",
+        250
+      ]
+    ]
+  },
+  "{content} <0>Learn more</0>.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/placement/components/LearnMoreTooltip.js",
+        10
+      ]
+    ]
+  },
+  "{errorMsg} Go to <0>insert permission string</0> to enter a permission manually.": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
+        506
+      ]
+    ]
+  },
+  "{issueCount} issues need addressing": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/components/FrameworkConfigurationForm.js",
+        102
+      ]
+    ]
+  },
+  "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration.": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/modals/AppLockedMessage.js",
+        22
+      ]
+    ]
+  },
+  "{logName} Log is Currently Empty": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/EmptyLogScreen.js",
+        11
       ]
     ]
   }

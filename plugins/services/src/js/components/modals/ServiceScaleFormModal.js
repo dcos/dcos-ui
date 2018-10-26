@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -104,28 +106,31 @@ class ServiceScaleFormModal extends React.Component {
   }
 
   getHeader() {
-    let headerText = "Service";
+    let serviceType = "Service";
 
     if (this.props.service instanceof Pod) {
-      headerText = "Pod";
+      serviceType = "Pod";
     }
 
     if (this.props.service instanceof ServiceTree) {
-      headerText = "Group";
+      serviceType = "Group";
     }
+    const headerText = `Scale ${serviceType}`;
 
-    return <ModalHeading>Scale {headerText}</ModalHeading>;
+    return <ModalHeading>{headerText}</ModalHeading>;
   }
 
   getBodyText() {
-    let bodyText = "How many instances?";
-
     if (this.props.service instanceof ServiceTree) {
-      bodyText =
-        "By which factor would you like to scale all applications within this group?";
+      return (
+        <Trans render="p">
+          By which factor would you like to scale all applications within this{" "}
+          group?
+        </Trans>
+      );
     }
 
-    return <p>{bodyText}</p>;
+    return <Trans render="p">How many instances?</Trans>;
   }
 
   render() {
@@ -133,12 +138,12 @@ class ServiceScaleFormModal extends React.Component {
 
     const buttonDefinition = [
       {
-        text: "Cancel",
+        text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
         isClose: true
       },
       {
-        text: "Scale Service",
+        text: i18nMark("Scale Service"),
         className: "button button-primary",
         isSubmit: true
       }

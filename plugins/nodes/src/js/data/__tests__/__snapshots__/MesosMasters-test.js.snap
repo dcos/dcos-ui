@@ -11,7 +11,11 @@ exports[`LeaderGrid renders with running status 1`] = `
       <h1
         className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
       >
-        Leader
+        <span
+          className={undefined}
+        >
+          Leader
+        </span>
       </h1>
       <div
         className="configuration-map-section"
@@ -120,7 +124,11 @@ exports[`LeaderGrid renders with running status 1`] = `
       <h1
         className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
       >
-        Non-Leaders
+        <span
+          className={undefined}
+        >
+          Non-Leaders
+        </span>
       </h1>
       <div
         className="configuration-map-section"

@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -39,7 +40,7 @@ class MultiContainerVolumesFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Containers
+                <Trans render="span">Containers</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -48,7 +49,7 @@ class MultiContainerVolumesFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Container Path
+                <Trans render="span">Container Path</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -86,7 +87,9 @@ class MultiContainerVolumesFormSection extends Component {
         data={this.props.data}
         errors={this.props.errors}
       >
-        <FieldLabel>Unable to edit this Volume</FieldLabel>
+        <FieldLabel>
+          <Trans render="span">Unable to edit this Volume</Trans>
+        </FieldLabel>
         <pre>{JSON.stringify(omit(volumes, ["type"]), null, 2)}</pre>
       </MountService.Mount>
     );
@@ -131,7 +134,7 @@ class MultiContainerVolumesFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Volume Type
+                    <Trans render="span">Volume Type</Trans>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
@@ -152,19 +155,32 @@ class MultiContainerVolumesFormSection extends Component {
                         <SelectOption
                           key={index}
                           value={type}
-                          label={VolumeDefinitions[type].name}
+                          label={
+                            <Trans
+                              id={VolumeDefinitions[type].name}
+                              render="span"
+                            />
+                          }
                         >
                           <div className="dropdown-select-item-title">
-                            <span>{VolumeDefinitions[type].name}</span>
+                            <Trans
+                              id={VolumeDefinitions[type].name}
+                              render="span"
+                            />
                             {VolumeDefinitions[type].recommended ? (
-                              <span className="dropdown-select-item-title__badge badge">
+                              <Trans
+                                render="span"
+                                className="dropdown-select-item-title__badge badge"
+                              >
                                 Recommended
-                              </span>
+                              </Trans>
                             ) : null}
                           </div>
-                          <span className="dropdown-select-item-description">
-                            {VolumeDefinitions[type].description}
-                          </span>
+                          <Trans
+                            id={VolumeDefinitions[type].description}
+                            render="span"
+                            className="dropdown-select-item-description"
+                          />
                         </SelectOption>
                       );
                     })}
@@ -175,7 +191,7 @@ class MultiContainerVolumesFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Name
+                    <Trans render="span">Name</Trans>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
@@ -203,7 +219,7 @@ class MultiContainerVolumesFormSection extends Component {
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Host Path
+                  <Trans render="span">Host Path</Trans>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
@@ -231,7 +247,7 @@ class MultiContainerVolumesFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Size (MiB)
+                <Trans render="span">Size (MiB)</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -249,19 +265,19 @@ class MultiContainerVolumesFormSection extends Component {
 
   getHeadline() {
     const tooltipContent = (
-      <span>
-        {"DC/OS offers several storage options. "}
+      <Trans render="span">
+        DC/OS offers several storage options.{" "}
         <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
       <h1 className="flush-top short-bottom">
         <FormGroupHeading>
           <FormGroupHeadingContent primary={true}>
-            Volumes
+            <Trans render="span">Volumes</Trans>
           </FormGroupHeadingContent>
           <FormGroupHeadingContent>
             <Tooltip
@@ -285,16 +301,16 @@ class MultiContainerVolumesFormSection extends Component {
       return (
         <div>
           {this.getHeadline()}
-          <p>
-            {"Please "}
+          <Trans render="p">
+            Please{" "}
             <a
               onClick={handleTabChange.bind(null, "services")}
               className="clickable"
             >
               add a container
-            </a>
-            {" before configuring Volumes."}
-          </p>
+            </a>{" "}
+            before configuring Volumes.
+          </Trans>
         </div>
       );
     }
@@ -302,10 +318,10 @@ class MultiContainerVolumesFormSection extends Component {
     return (
       <div>
         {this.getHeadline()}
-        <p>
+        <Trans render="p">
           Create a stateful service by configuring a persistent volume.
           Persistent volumes enable instances to be restarted without data loss.
-        </p>
+        </Trans>
         {this.getVolumesMountLines(data.volumeMounts, data.volumeMounts)}
         <div>
           <AddButton
@@ -313,7 +329,7 @@ class MultiContainerVolumesFormSection extends Component {
               path: "volumeMounts"
             })}
           >
-            Add Volume
+            <Trans render="span">Add Volume</Trans>
           </AddButton>
         </div>
       </div>

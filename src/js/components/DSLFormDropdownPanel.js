@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -87,7 +88,7 @@ class DSLFormDropdownPanel extends React.Component {
             className="button button-small button-primary-link flush-right"
             onClick={this.handleApply}
           >
-            Apply
+            <Trans render="span">Apply</Trans>
           </a>
         </div>
       </div>

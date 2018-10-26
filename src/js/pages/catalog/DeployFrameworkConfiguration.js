@@ -9,6 +9,7 @@ import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import Page from "#SRC/js/components/Page";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 const METHODS_TO_BIND = [
@@ -120,7 +121,11 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     } = this.state;
 
     if (packageDetails == null) {
-      return <Loader className="vertical-center" />;
+      return (
+        <Page>
+          <Loader className="vertical-center" />
+        </Page>
+      );
     }
 
     if (hasError) {

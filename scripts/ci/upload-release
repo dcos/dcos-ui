@@ -28,13 +28,11 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 # project root for this file
 PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 
-# get correct DC/OS target (=base branch!) from .dcosrc file
-PKG_TARGET=$(python -c "import sys, json; \
-  dcosrc = json.load(open('$PROJECT_ROOT/.dcosrc')); \
-  sys.stdout.write(str(dcosrc['base']));")
-
 # next release version (passed in by semantic-release)
 PKG_VERSION="${1}"
+
+# get correct DC/OS target (=base branch!) passed in from semantic-release
+PKG_TARGET="${2}"
 
 # build release name for branch and file names
 # Examples:
@@ -67,7 +65,7 @@ RELEASE_NAME="${RELEASE_NAME}" \
 
 # Upload source maps to sentry.io
 SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
-  RELEASE_NAME="${RELEASE_NAME}" \
+  RELEASE_NAME="${PKG_TARGET}+${PKG_VERSION}" \
   "${SCRIPT_PATH}/utils/upload-sourcemaps" || exit 0
 
 ## Update Latest DC/OS PR

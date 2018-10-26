@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import isEqual from "lodash.isequal";
@@ -96,9 +97,13 @@ class CreateServiceJsonOnly extends React.Component {
     return (
       <div className="create-service-modal-json-only">
         <div className="create-service-modal-json-only-introduction">
-          <FieldLabel>JSON Configuration</FieldLabel>
+          <FieldLabel>
+            <Trans render="span">JSON Configuration</Trans>
+          </FieldLabel>
           <FieldHelp>
-            Use this text area to customize your configuration via JSON.
+            <Trans render="span">
+              Use this text area to customize your configuration via JSON.
+            </Trans>
           </FieldHelp>
         </div>
         <div className="create-service-modal-json-only-editor-container">

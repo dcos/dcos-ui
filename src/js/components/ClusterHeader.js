@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import * as React from "react";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -55,7 +57,7 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     const states = MesosSummaryStore.get("states");
     const clusterName = states.getClusterName();
 
-    return clusterName || "Cluster";
+    return clusterName || <Trans render="span">Cluster</Trans>;
   }
 
   getPublicIP() {
@@ -80,9 +82,12 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     this.setState({ isTextCopied: false });
   }
 
+  getCopyStatusText() {
+    return this.state.isTextCopied ? i18nMark("Copied!") : i18nMark("Copy");
+  }
+
   getMenuItems() {
     const clusterName = this.getClusterName();
-    const copyText = this.state.isTextCopied ? "Copied" : "Copy";
     const publicIP = this.getPublicIP();
 
     return [
@@ -101,16 +106,18 @@ export default class ClusterHeader extends mixin(StoreMixin) {
             onTextCopy={this.handleTextCopy}
           >
             {publicIP}
-            <span className="user-account-dropdown-menu-copy-text">
-              {copyText}
-            </span>
+            <Trans
+              id={this.getCopyStatusText()}
+              render="span"
+              className="user-account-dropdown-menu-copy-text"
+            />
           </ClipboardTrigger>
         ),
         id: "public-ip",
         onClick: this.handleItemSelect
       },
       {
-        html: "Overview",
+        html: <Trans render="span">Overview</Trans>,
         id: "overview",
         onClick: () => {
           this.context.router.push("/cluster/overview");
@@ -127,19 +134,19 @@ export default class ClusterHeader extends mixin(StoreMixin) {
       },
       {
         className: "dropdown-menu-section-header",
-        html: <label>Support</label>,
+        html: <Trans render="label">Support</Trans>,
         id: "header-support",
         selectable: false
       },
       {
-        html: "Documentation",
+        html: <Trans render="span">Documentation</Trans>,
         id: "documentation",
         onClick() {
           global.open(MetadataStore.buildDocsURI("/"), "_blank");
         }
       },
       {
-        html: "Install CLI",
+        html: <Trans render="span">Install CLI</Trans>,
         id: "install-cli",
         onClick() {
           SidebarActions.openCliInstructions();

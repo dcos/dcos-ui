@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
@@ -10,8 +11,8 @@ import DialChart from "./DialChart";
 
 const TASKS_PER_ROW = 3;
 const TASK_INFO = {
-  TASK_RUNNING: { label: "Tasks running", colorIndex: 4 },
-  TASK_STAGING: { label: "Tasks staging", colorIndex: 1 }
+  TASK_RUNNING: { label: i18nMark("Tasks running"), colorIndex: 4 },
+  TASK_STAGING: { label: i18nMark("Tasks staging"), colorIndex: 1 }
 };
 const DISPLAYED_TASK_KEYS = Object.keys(TASK_INFO);
 
@@ -70,13 +71,17 @@ var TasksChart = React.createClass({
       return (
         <div key={key} className={classSet}>
           <p className="h1 unit flush-top">{task.value}</p>
-          <p
-            className={
-              "unit-label short-top flush-bottom path-color-" + info.colorIndex
+          <Trans
+            render={
+              <p
+                className={
+                  "unit-label short-top flush-bottom path-color-" +
+                  info.colorIndex
+                }
+              />
             }
-          >
-            {info.label}
-          </p>
+            id={info.label}
+          />
         </div>
       );
     });

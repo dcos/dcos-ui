@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -123,7 +124,9 @@ class ContainerServiceFormAdvancedSection extends Component {
         showError={Boolean(!gpusDisabled && gpusErrors)}
       >
         <FieldLabel className="text-no-transform">
-          <FormGroupHeadingContent primary={true}>GPUs</FormGroupHeadingContent>
+          <FormGroupHeadingContent primary={true}>
+            <Trans render="span">GPUs</Trans>
+          </FormGroupHeadingContent>
         </FieldLabel>
         {inputNode}
         <FieldError>{gpusErrors}</FieldError>
@@ -210,15 +213,19 @@ class ContainerServiceFormAdvancedSection extends Component {
 
     return (
       <div>
-        <h2 className="short-bottom">Advanced Settings</h2>
-        <p>Advanced settings related to the runtime you have selected above.</p>
+        <Trans render="h2" className="short-bottom">
+          Advanced Settings
+        </Trans>
+        <Trans render="p">
+          Advanced settings related to the runtime you have selected above.
+        </Trans>
         {this.getContainerSettings()}
         <FormRow>
           {this.getGPUSField()}
           <FormGroup className="column-4" showError={Boolean(diskErrors)}>
             <FieldLabel className="text-no-transform">
               <FormGroupHeadingContent primary={true}>
-                Disk (MiB)
+                <Trans render="span">Disk (MiB)</Trans>
               </FormGroupHeadingContent>
             </FieldLabel>
             <FieldInput

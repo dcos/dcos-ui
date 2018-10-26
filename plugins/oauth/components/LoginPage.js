@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import { routerShape } from "react-router";
 import mixin from "reactjs-mixin";
@@ -109,18 +110,20 @@ class LoginPage extends mixin(StoreMixin) {
           showHeader={false}
           showFooter={false}
         >
-          <p className="text-align-center">
+          <Trans render="p" className="text-align-center">
             Unable to login to your DC/OS cluster. Clusters must be connected to
             the internet.
-          </p>
+          </Trans>
           <p className="flush-bottom text-align-center">
-            {"Please contact your system administrator or see the "}
-            <a
-              href={MetadataStore.buildDocsURI("/installing/")}
-              target="_blank"
-            >
-              documentation
-            </a>.
+            <Trans>
+              Please contact your system administrator or see the{" "}
+              <a
+                href={MetadataStore.buildDocsURI("/installing/")}
+                target="_blank"
+              >
+                documentation
+              </a>.
+            </Trans>
           </p>
         </Modal>
       </div>

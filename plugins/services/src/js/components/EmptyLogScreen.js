@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -7,10 +8,12 @@ function EmptyLogScreen({ logName }) {
 
   return (
     <div className="flex-grow horizontal-center vertical-center">
-      <h3 className="text-align-center flush-top">
-        {`${logName} Log is Currently Empty`}
-      </h3>
-      <p className="text-align-center flush-bottom">Please try again later.</p>
+      <Trans render="h3" className="text-align-center flush-top">
+        {logName} Log is Currently Empty
+      </Trans>
+      <Trans render="p" className="text-align-center flush-bottom">
+        Please try again later.
+      </Trans>
     </div>
   );
 }

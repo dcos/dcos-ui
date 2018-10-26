@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -20,7 +21,7 @@ class CreateServicePickerCatalogOption extends React.Component {
       >
         <CreateServiceModalServicePickerOptionImage src={packageServiceImage} />
         <CreateServiceModalServicePickerOptionContent>
-          Install a Package
+          <Trans render="span">Install a Package</Trans>
         </CreateServiceModalServicePickerOptionContent>
       </CreateServiceModalServicePickerOption>
     );

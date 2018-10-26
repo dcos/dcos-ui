@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
@@ -85,8 +86,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const tooltipContent = (
-      <span>
-        {`This host port will be accessible as an environment variable called '$PORT${index}'. `}
+      <Trans render="span">
+        This host port will be accessible as an environment variable called{" "}
+        '$PORT{index}'.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -94,8 +96,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>
-      </span>
+        </a>.
+      </Trans>
     );
 
     return [
@@ -107,7 +109,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Host Port
+              <Trans render="span">Host Port</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -156,14 +158,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       "/deploying-services/service-endpoints/"
     );
     const loadBalancerTooltipContent = (
-      <span>
-        {`Load balance the service internally (layer 4), and create a service
-        address. For external (layer 7) load balancing, create an external
-        load balancer and attach this service. `}
+      <Trans render="span">
+        Load balance the service internally (layer 4), and create a service{" "}
+        address. For external (layer 7) load balancing, create an external load{" "}
+        balancer and attach this service.{" "}
         <a href={loadBalancerDocsURI} target="_blank">
           More Information
-        </a>
-      </span>
+        </a>.
+      </Trans>
     );
 
     return [
@@ -180,7 +182,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             />
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Enable Load Balanced Service Address
+                <Trans render="span">
+                  Enable Load Balanced Service Address
+                </Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -256,7 +260,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const helpText = (
-      <FieldHelp>Load balance this service internally at {hostName}</FieldHelp>
+      <FieldHelp>
+        <Trans render="span">
+          Load balance this service internally at {hostName}
+        </Trans>
+      </FieldHelp>
     );
 
     return (
@@ -265,7 +273,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Load Balanced Port
+                <Trans render="span">Load Balanced Port</Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -317,8 +325,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       );
 
     const assignHelpText = (
-      <span>
-        {"Most services will use TCP. "}
+      <Trans render="span">
+        Most services will use TCP.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -326,9 +334,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>
-        .
-      </span>
+        </a>.
+      </Trans>
     );
 
     return (
@@ -336,7 +343,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Protocol
+              <Trans render="span">Protocol</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -394,7 +401,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FormGroup className="column-3" showError={Boolean(containerPortError)}>
-        <FieldLabel>Container Port</FieldLabel>
+        <FieldLabel>
+          <Trans render="span">Container Port</Trans>
+        </FieldLabel>
         <FieldAutofocus>
           <FieldInput
             min="0"
@@ -428,7 +437,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Port Mapping
+              <Trans render="span">Port Mapping</Trans>
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </FieldLabel>
@@ -454,6 +463,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const endpoints = this.isHostNetwork()
       ? this.props.data.portDefinitions
       : this.props.data.portMappings;
+
+    const endpointHelpTooltip = (
+      <Trans render="span">
+        Name your endpoint to search for it by a meaningful name, rather than{" "}
+        the port number.
+      </Trans>
+    );
 
     return endpoints.map((endpoint, index) => {
       let portMappingFields = null;
@@ -488,11 +504,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Service Endpoint Name
+                    <Trans render="span">Service Endpoint Name</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
-                      content="Name your endpoint to search for it by a meaningful name, rather than the port number."
+                      content={endpointHelpTooltip}
                       interactive={true}
                       maxWidth={300}
                       wrapperClassName="tooltip-wrapper text-align-center"
@@ -560,8 +576,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     const selections = (
       <FieldSelect name="networks.0.network" value={selectedValue}>
-        <option value={HOST}>Host</option>
-        <option value={BRIDGE}>Bridge</option>
+        <Trans render={<option value={HOST} />}>Host</Trans>
+        <Trans render={<option value={BRIDGE} />}>Bridge</Trans>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
@@ -574,19 +590,18 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       "/deploying-services/service-endpoints/"
     );
     const serviceEndpointsTooltipContent = (
-      <span>
-        {
-          "Service endpoints map traffic from a single VIP to multiple IP addresses and ports. "
-        }
+      <Trans render="span">
+        Service endpoints map traffic from a single VIP to multiple IP addresses{" "}
+        and ports.{" "}
         <a href={serviceEndpointsDocsURI} target="_blank">
           More Information
-        </a>
-      </span>
+        </a>.
+      </Trans>
     );
     const heading = (
       <FormGroupHeading>
         <FormGroupHeadingContent primary={true}>
-          Service Endpoints
+          <Trans render="span">Service Endpoints</Trans>
         </FormGroupHeadingContent>
         <FormGroupHeadingContent>
           <Tooltip
@@ -607,10 +622,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <h2 className="short-bottom" key="service-endpoints-header">
           {heading}
         </h2>
-        <p key="service-endpoints-description">
+        <Trans render="p" key="service-endpoints-description">
           DC/OS can automatically generate a Service Address to connect to each
           of your load balanced endpoints.
-        </p>
+        </Trans>
         {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
@@ -620,7 +635,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 path: "portDefinitions"
               })}
             >
-              Add Service Endpoint
+              <Trans render="span">Add Service Endpoint</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>
@@ -639,7 +654,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             name="portsAutoAssign"
             type="checkbox"
           />
-          Assign Host Ports Automatically
+          <Trans render="span">Assign Host Ports Automatically</Trans>
         </FieldLabel>
       </div>
     );
@@ -655,7 +670,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             name={`portDefinitions.${index}.automaticPort`}
             type="checkbox"
           />
-          Assign Automatically
+          <Trans render="span">Assign Automatically</Trans>
         </FieldLabel>
       </FormGroup>
     );
@@ -670,10 +685,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     let { networks } = this.props.data;
 
     const tooltipContent = (
-      <span>
-        {
-          "Choose container/bridge, host, or container networking. Refer to the "
-        }
+      <Trans>
+        Choose container/bridge, host, or container networking. Refer to the{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -683,7 +696,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           ports documentation
         </a>{" "}
         for more information.
-      </span>
+      </Trans>
     );
 
     if (networks != null && networks.length > 1) {
@@ -696,12 +709,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
       return (
         <div>
-          <h2 className="flush-top short-bottom">Networking</h2>
-          <p>
-            {"This service has advanced networking configuration, which we" +
-              " don't currently support in the UI. Please use the JSON editor" +
-              " to make changes."}
-          </p>
+          <Trans render="h2" className="flush-top short-bottom">
+            Networking
+          </Trans>
+          <Trans render="p">
+            This service has advanced networking configuration, which we don't
+            currently support in the UI. Please use the JSON editor to make
+            changes.
+          </Trans>
           <pre>{JSON.stringify(networks, null, 2)}</pre>
         </div>
       );
@@ -709,14 +724,16 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h1 className="flush-top short-bottom">Networking</h1>
-        <p>Configure the networking for your service.</p>
+        <Trans render="h1" className="flush-top short-bottom">
+          Networking
+        </Trans>
+        <Trans render="p">Configure the networking for your service.</Trans>
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Network Type
+                  <Trans render="span">Network Type</Trans>
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent>
                   <Tooltip

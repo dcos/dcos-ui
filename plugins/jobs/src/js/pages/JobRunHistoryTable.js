@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
@@ -215,7 +216,7 @@ class JobRunHistoryTable extends React.Component {
           className="button button-outline button-danger"
           onClick={this.handleStopClick}
         >
-          Stop
+          <Trans>Stop</Trans>
         </div>
       </div>
     );
@@ -301,7 +302,13 @@ class JobRunHistoryTable extends React.Component {
         "text-neutral": status.stateTypes.includes("active")
       });
 
-      return <span className={statusClasses}>{status.displayName}</span>;
+      return (
+        <Trans
+          render="span"
+          className={statusClasses}
+          id={status.displayName}
+        />
+      );
     }
 
     const status = TaskStates[row[prop]];
@@ -312,14 +319,16 @@ class JobRunHistoryTable extends React.Component {
       "text-danger": status.stateTypes.includes("failure")
     });
 
-    return <span className={statusClasses}>{status.displayName}</span>;
+    return (
+      <Trans id={status.displayName} render="span" className={statusClasses} />
+    );
   }
 
   renderRunTimeColumn(prop, row) {
     const time = row[prop];
 
     if (time == null) {
-      return <div>N/A</div>;
+      return <Trans render="div">N/A</Trans>;
     }
     const runTimeFormat = moment.duration(time).humanize();
 

@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import React from "react";
 import { formatResource } from "#SRC/js/utils/Units";
 import Util from "#SRC/js/utils/Util";
 import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
@@ -71,7 +73,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         // DSS
         return [
           {
-            heading: VolumeDefinitions.DSS.name,
+            heading: <Trans id={VolumeDefinitions.DSS.name} render="span" />,
             headingLevel: 2
           },
           {
@@ -94,7 +96,9 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         // Local Persistent
         return [
           {
-            heading: VolumeDefinitions.PERSISTENT.name,
+            heading: (
+              <Trans id={VolumeDefinitions.PERSISTENT.name} render="span" />
+            ),
             headingLevel: 2
           },
           {
@@ -122,7 +126,9 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
 
         return [
           {
-            heading: VolumeDefinitions.EXTERNAL.name,
+            heading: (
+              <Trans id={VolumeDefinitions.EXTERNAL.name} render="span" />
+            ),
             headingLevel: 2
           },
           {
@@ -139,7 +145,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
       // Host
       return [
         {
-          heading: VolumeDefinitions.HOST.name,
+          heading: <Trans id={VolumeDefinitions.HOST.name} render="span" />,
           headingLevel: 2
         },
         {

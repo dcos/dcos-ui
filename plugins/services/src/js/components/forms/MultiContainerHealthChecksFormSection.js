@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
@@ -26,40 +27,40 @@ class MultiContainerHealthChecksFormSection extends Component {
     const errors = errorsLens.get(this.props.errors);
 
     const gracePeriodHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 300): Health check failures are ignored within this
         number of seconds or until the instance becomes healthy for the first
         time.
-      </span>
+      </Trans>
     );
 
     const intervalHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 60): Number of seconds to wait between health
         checks.
-      </span>
+      </Trans>
     );
 
     const timeoutHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 20): Number of seconds after which a health check is
         considered a failure regardless of the response.
-      </span>
+      </Trans>
     );
 
     const failuresHelpText = (
-      <span>
+      <Trans render="span">
         (Optional. Default: 3): Number of consecutive health check failures
         after which the unhealthy instance should be killed. HTTP & TCP health
         checks: If this value is 0, instances will not be killed if they fail
         the health check.
-      </span>
+      </Trans>
     );
 
     return (
       <AdvancedSection>
         <AdvancedSectionLabel>
-          Advanced Health Check Settings
+          <Trans render="span">Advanced Health Check Settings</Trans>
         </AdvancedSectionLabel>
         <AdvancedSectionContent>
           <FormRow>
@@ -70,7 +71,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Grace Period (s)
+                    <Trans render="span">Grace Period (s)</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -104,7 +105,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Interval (s)
+                    <Trans render="span">Interval (s)</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -138,7 +139,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Timeout (s)
+                    <Trans render="span">Timeout (s)</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -172,7 +173,7 @@ class MultiContainerHealthChecksFormSection extends Component {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Max Failures
+                    <Trans render="span">Max Failures</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent>
                     <Tooltip
@@ -225,7 +226,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Command
+                <Trans render="span">Command</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -262,13 +263,15 @@ class MultiContainerHealthChecksFormSection extends Component {
     const errors = errorsLens.at("http", {}).get(this.props.errors);
 
     const endpointHelpText = (
-      <span>Select a service endpoint that you configured in Networking.</span>
+      <Trans render="span">
+        Select a service endpoint that you configured in Networking.
+      </Trans>
     );
     const pathHelpText = (
-      <span>
+      <Trans render="span">
         Enter a path that is reachable in your service and where you expect a
         response code between 200 and 399.
-      </span>
+      </Trans>
     );
 
     return [
@@ -277,7 +280,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Service Endpoint
+                <Trans render="span">Service Endpoint</Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -296,7 +299,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             name={`${path}.http.endpoint`}
             value={String(healthCheck.http.endpoint)}
           >
-            <option value="">Select Endpoint</option>
+            <Trans render={<option value="" />}>Select Endpoint</Trans>
             {this.getEndpoints(container)}
           </FieldSelect>
         </FormGroup>
@@ -304,7 +307,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Path
+                <Trans render="span">Path</Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -353,7 +356,7 @@ class MultiContainerHealthChecksFormSection extends Component {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Service Endpoint
+                <Trans render="span">Service Endpoint</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
@@ -361,7 +364,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             name={`${path}.tcp.endpoint`}
             value={String(healthCheck.tcp.endpoint)}
           >
-            <option value="">Select Endpoint</option>
+            <Trans render={<option value="" />}>Select Endpoint</Trans>
             {this.getEndpoints(container)}
           </FieldSelect>
         </FormGroup>
@@ -380,15 +383,15 @@ class MultiContainerHealthChecksFormSection extends Component {
       return (
         <div>
           <AddButton onClick={this.props.onAddItem.bind(this, { path })}>
-            Add Health Check
+            <Trans render="span">Add Health Check</Trans>
           </AddButton>
         </div>
       );
     }
 
     const tooltipContent = (
-      <span>
-        {"You have several protocol options. "}
+      <Trans render="span">
+        You have several protocol options.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/creating-services/health-checks/"
@@ -397,7 +400,7 @@ class MultiContainerHealthChecksFormSection extends Component {
         >
           More Information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -409,7 +412,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Protocol
+                  <Trans render="span">Protocol</Trans>
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent>
                   <Tooltip
@@ -425,10 +428,10 @@ class MultiContainerHealthChecksFormSection extends Component {
               </FormGroupHeading>
             </FieldLabel>
             <FieldSelect name={`${path}.protocol`} value={healthCheck.protocol}>
-              <option value="">Select Protocol</option>
-              <option value={COMMAND}>Command</option>
-              <option value={HTTP}>HTTP</option>
-              <option value={TCP}>TCP</option>
+              <Trans render={<option value="" />}>Select Protocol</Trans>
+              <Trans render={<option value={COMMAND} />}>Command</Trans>
+              <Trans render={<option value={HTTP} />}>HTTP</Trans>
+              <Trans render={<option value={TCP} />}>TCP</Trans>
             </FieldSelect>
           </FormGroup>
         </FormRow>
@@ -465,10 +468,10 @@ class MultiContainerHealthChecksFormSection extends Component {
   render() {
     const { data, handleTabChange } = this.props;
     const tooltipContent = (
-      <span>
-        {`A health check passes if (1) its HTTP response code is between 200
-        and 399 inclusive, and (2) its response is received within the
-        timeoutSeconds period. `}
+      <Trans render="span">
+        A health check passes if (1) its HTTP response code is between 200 and{" "}
+        399 inclusive, and (2) its response is received within the{" "}
+        timeoutSeconds period.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/creating-services/health-checks/"
@@ -477,12 +480,12 @@ class MultiContainerHealthChecksFormSection extends Component {
         >
           More Information
         </a>.
-      </span>
+      </Trans>
     );
     const heading = (
       <FormGroupHeading>
         <FormGroupHeadingContent primary={true}>
-          Health Checks
+          <Trans render="span">Health Checks</Trans>
         </FormGroupHeadingContent>
         <FormGroupHeadingContent>
           <Tooltip
@@ -502,16 +505,16 @@ class MultiContainerHealthChecksFormSection extends Component {
       return (
         <div>
           <h1 className="flush-top short-bottom">{heading}</h1>
-          <p>
-            {"Please "}
+          <Trans render="p">
+            Please{" "}
             <a
               onClick={handleTabChange.bind(null, "services")}
               className="clickable"
             >
               add a container
-            </a>
-            {" before configuring health checks."}
-          </p>
+            </a>{" "}
+            before configuring health checks.
+          </Trans>
         </div>
       );
     }
@@ -519,10 +522,10 @@ class MultiContainerHealthChecksFormSection extends Component {
     return (
       <div className="form flush-bottom">
         <h1 className="form-header flush-top short-bottom">{heading}</h1>
-        <p>
+        <Trans render="p">
           Health checks may be specified per application to be run against the
           application{"'"}s instances.
-        </p>
+        </Trans>
         {this.getContainerHealthChecks(data.containers)}
       </div>
     );

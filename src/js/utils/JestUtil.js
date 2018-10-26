@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { I18nProvider } from "@lingui/react";
+
+import en from "#LOCALE/en/messages.js";
 
 // Private router stub
 const RouterStub = {
@@ -105,7 +108,6 @@ const JestUtil = {
    * Helper to stub router context, based on
    * https://github.com/reactjs/react-router/blob/0.13.x/docs/guides/testing.md
    * @param {React.Component} Component
-   * @param {object} [props]
    * @param {object} [routerStubs]
    * @param {object} [contextTypes]
    * @param {object} [context]
@@ -113,13 +115,12 @@ const JestUtil = {
    */
   stubRouterContext(
     Component,
-    props = {},
     routerStubs = {},
     contextTypes = {},
     context = {}
   ) {
     // Create wrapper component
-    class WrappedComponent extends React.Component {
+    return class WrappedComponent extends React.Component {
       static get childContextTypes() {
         return Object.assign(
           {
@@ -141,11 +142,22 @@ const JestUtil = {
       }
 
       render() {
-        return <Component {...props} />;
+        return <Component {...this.props} />;
       }
-    }
+    };
+  },
 
-    return React.createElement(WrappedComponent);
+  withI18nProvider(Component, catalogs = { en }) {
+    // eslint-disable-next-line react/no-multi-comp
+    return class WrappedComponent extends React.Component {
+      render() {
+        return (
+          <I18nProvider defaultRender="span" language="en" catalogs={catalogs}>
+            <Component {...this.props} />
+          </I18nProvider>
+        );
+      }
+    };
   },
 
   /**

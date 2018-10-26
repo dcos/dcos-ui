@@ -1,3 +1,6 @@
+import { withI18n } from "@lingui/react";
+import { t } from "@lingui/macro";
+
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -68,14 +71,15 @@ var HostTimeSeriesChart = React.createClass({
   },
 
   render() {
-    var props = this.props;
+    const props = this.props;
+    const i18n = props.i18n;
 
     return (
       <div className="chart">
         <TimeSeriesLabel
           colorIndex={props.colorIndex}
           currentValue={props.currentValue}
-          subHeading={"Connected Nodes"}
+          subHeading={i18n._(t`Connected Nodes`)}
           y="slavesCount"
         />
         {this.getChart(props)}
@@ -84,4 +88,4 @@ var HostTimeSeriesChart = React.createClass({
   }
 });
 
-module.exports = HostTimeSeriesChart;
+module.exports = withI18n()(HostTimeSeriesChart);

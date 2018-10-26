@@ -1,14 +1,13 @@
+import { Trans } from "@lingui/macro";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 
 import Icon from "../Icon";
-import StringUtil from "../../utils/StringUtil";
-import UserActions from "../../constants/UserActions";
 
 const DeleteRowButton = ({ onClick }) => {
   return (
     <Tooltip
-      content={StringUtil.capitalize(UserActions.DELETE)}
+      content={<Trans render="span">Delete</Trans>}
       interactive={false}
       maxWidth={300}
       wrapText={true}

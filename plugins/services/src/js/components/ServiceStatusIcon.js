@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Link } from "react-router";
@@ -26,7 +27,7 @@ const getTooltipContent = (service, content) => {
         href={`#/services/detail/${servicePath}/debug`}
         title="debug information"
       >
-        Debug information
+        <Trans render="span">Debug information</Trans>
       </a>
     </span>
   );

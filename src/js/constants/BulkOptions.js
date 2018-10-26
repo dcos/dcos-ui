@@ -1,20 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-
-import StringUtil from "../utils/StringUtil";
-import UserActions from "./UserActions";
+import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 
 const BulkOptions = {
   user: {
     delete: {
       dropdownOption: (
-        <span className="text-danger">
-          {StringUtil.capitalize(UserActions.DELETE)}
-        </span>
+        <Trans render="span" className="text-danger">
+          Delete
+        </Trans>
       ),
-      title: "Are you sure?",
-      actionPhrase: `will be ${UserActions.DELETED}`
+      title: i18nMark("Are you sure?"),
+      actionPhrase: i18nMark("will be deleted")
     }
   }
 };

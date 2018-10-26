@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -9,7 +11,8 @@ const ErrorsAlert = function(props) {
     errors,
     hideTopLevelErrors,
     hidePermissiveErrors,
-    pathMapping
+    pathMapping,
+    i18n
   } = props;
   let showErrors = [].concat.apply([], errors);
 
@@ -29,7 +32,7 @@ const ErrorsAlert = function(props) {
 
   // De-duplicate error messages that have exactly the same translated output
   const errorMessages = showErrors.reduce(function(messages, error) {
-    const message = getUnanchoredErrorMessage(error, pathMapping);
+    const message = getUnanchoredErrorMessage(error, pathMapping, i18n);
     if (messages.indexOf(message) !== -1) {
       return messages;
     }
@@ -45,7 +48,7 @@ const ErrorsAlert = function(props) {
 
   return (
     <Alert>
-      <h4>There is an error with your configuration</h4>
+      <Trans render="h4">There is an error with your configuration</Trans>
       <ul>{errorItems}</ul>
     </Alert>
   );
@@ -65,4 +68,4 @@ ErrorsAlert.propTypes = {
   pathMapping: PropTypes.array
 };
 
-module.exports = ErrorsAlert;
+module.exports = withI18n()(ErrorsAlert);

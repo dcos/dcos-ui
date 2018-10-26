@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown, Tooltip } from "reactjs-components";
@@ -63,7 +64,9 @@ class FrameworkConfigurationReviewScreen extends React.Component {
             >
               <span className="badge-container">
                 <span className="badge-container-text">{frameworkMeta}</span>
-                <span className="badge">Active</span>
+                <Trans render="span" className="badge">
+                  Active
+                </Trans>
               </span>
             </span>
           </div>
@@ -73,7 +76,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
 
     return (
       <Tooltip
-        content="Configuration version"
+        content={<Trans render="span">Configuration version</Trans>}
         wrapperClassName="button button-transparent button-flush"
       >
         <Dropdown
@@ -139,7 +142,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               onClick={onEditClick}
             >
               <Icon id="pencil" size="mini" family="system" />
-              <span>{"Edit Config"}</span>
+              <Trans render="span">Edit Config</Trans>
             </button>
             <a
               className="button button-primary-link flush-right"
@@ -156,7 +159,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               )}
             >
               <Icon id="download" size="mini" family="system" />
-              <span>{"Download Config"}</span>
+              <Trans render="span">Download Config</Trans>
             </a>
           </div>
         </div>

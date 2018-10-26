@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
@@ -77,7 +78,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Container Port
+              <Trans render="span">Container Port</Trans>
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </FieldLabel>
@@ -114,8 +115,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const tooltipContent = (
-      <span>
-        {`This host port will be accessible as an environment variable called ${environmentVariableName}'. `}
+      <Trans render="span">
+        This host port will be accessible as an environment variable called{" "}
+        {environmentVariableName}.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -123,8 +125,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>
-      </span>
+        </a>.
+      </Trans>
     );
 
     return [
@@ -136,7 +138,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Host Port
+              <Trans render="span">Host Port</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -204,14 +206,14 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       "/deploying-services/service-endpoints/"
     );
     const loadBalancerTooltipContent = (
-      <span>
-        {`Load balance the service internally (layer 4), and create a service
-        address. For external (layer 7) load balancing, create an external
-        load balancer and attach this service. `}
+      <Trans render="span">
+        Load balance the service internally (layer 4), and create a service{" "}
+        address. For external (layer 7) load balancing, create an external load{" "}
+        balancer and attach this service.{" "}
         <a href={loadBalancerDocsURI} target="_blank">
           More Information
-        </a>
-      </span>
+        </a>.
+      </Trans>
     );
 
     return [
@@ -225,7 +227,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             />
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Enable Load Balanced Service Address
+                <Trans render="span">
+                  Enable Load Balanced Service Address
+                </Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -301,7 +305,11 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     }
 
     const helpText = (
-      <FieldHelp>Load balance this service internally at {hostName}</FieldHelp>
+      <FieldHelp>
+        <Trans render="span">
+          Load balance this service internally at {hostName}
+        </Trans>
+      </FieldHelp>
     );
 
     return (
@@ -310,7 +318,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                Load Balanced Port
+                <Trans render="span">Load Balanced Port</Trans>
               </FormGroupHeadingContent>
               <FormGroupHeadingContent>
                 <Tooltip
@@ -360,8 +368,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     const assignTooltip = (
-      <span>
-        {"Most services will use TCP. "}
+      <Trans render="span">
+        Most services will use TCP.{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -369,9 +377,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>
-        .
-      </span>
+        </a>.
+      </Trans>
     );
 
     return (
@@ -379,7 +386,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <FieldLabel>
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Protocol
+              <Trans render="span">Protocol</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -457,7 +464,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent primary={true}>
-                    Service Endpoint Name
+                    <Trans render="span">Service Endpoint Name</Trans>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
@@ -502,7 +509,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 path: `containers.${index}.endpoints`
               })}
             >
-              Add Service Endpoint
+              <Trans render="span">Add Service Endpoint</Trans>
             </AddButton>
           </div>
         </div>
@@ -547,7 +554,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect name="networks.0" value={network}>
-        <option value={HOST}>Host</option>
+        <Trans render={<option value={HOST} />}>Host</Trans>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
@@ -560,8 +567,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     const networkTypeTooltipContent = (
-      <span>
-        {"Choose BRIDGE, HOST, or USER networking. Refer to the "}
+      <Trans render="span">
+        Choose BRIDGE, HOST, or USER networking. Refer to the{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -571,33 +578,34 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           ports documentation
         </a>{" "}
         for more information.
-      </span>
+      </Trans>
     );
 
     const serviceEndpointsDocsURI = MetadataStore.buildDocsURI(
       "/deploying-services/service-endpoints/"
     );
     const serviceEndpointsTooltipContent = (
-      <span>
-        {
-          "Service endpoints map traffic from a single VIP to multiple IP addresses and ports. "
-        }
+      <Trans render="span">
+        Service endpoints map traffic from a single VIP to multiple IP addresses{" "}
+        and ports.{" "}
         <a href={serviceEndpointsDocsURI} target="_blank">
           More Information
-        </a>
-      </span>
+        </a>.
+      </Trans>
     );
 
     return (
       <div className="form flush-bottom">
-        <h1 className="flush-top short-bottom">Networking</h1>
-        <p>Configure the networking for your service.</p>
+        <h1 className="flush-top short-bottom">
+          <Trans render="span">Networking</Trans>
+        </h1>
+        <Trans render="p">Configure the networking for your service.</Trans>
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
               <FormGroupHeading>
                 <FormGroupHeadingContent primary={true}>
-                  Network Type
+                  <Trans render="span">Network Type</Trans>
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent>
                   <Tooltip
@@ -613,7 +621,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             </FieldLabel>
             {this.getTypeSelections()}
             <FieldHelp>
-              The network type will be shared across all your containers.
+              <Trans render="span">
+                The network type will be shared across all your containers.
+              </Trans>
             </FieldHelp>
             <FieldError>{networkError}</FieldError>
           </FormGroup>
@@ -621,7 +631,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <h2 className="short-bottom">
           <FormGroupHeading>
             <FormGroupHeadingContent primary={true}>
-              Service Endpoints
+              <Trans render="span">Service Endpoints</Trans>
             </FormGroupHeadingContent>
             <FormGroupHeadingContent>
               <Tooltip
@@ -636,10 +646,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h2>
-        <p>
-          DC/OS can automatically generate a Service Address to connect to each
+        <Trans render="p">
+          DC/OS can automatically generate a Service Address to connect to each{" "}
           of your load balanced endpoints
-        </p>
+        </Trans>
         {this.getServiceEndpoints()}
       </div>
     );

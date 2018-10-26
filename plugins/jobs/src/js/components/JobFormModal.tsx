@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import Ace from "react-ace";
 import * as React from "react";
 import { Modal } from "reactjs-components";
@@ -82,7 +83,7 @@ const ModalFooter = ({
         className="button button-primary-link flush-left"
         onClick={handleCancel}
       >
-        Cancel
+        <Trans>Cancel</Trans>
       </button>
       <button className="button button-primary" onClick={handleSubmit}>
         {submitLabel}
@@ -112,7 +113,7 @@ const ModalTitle = ({
             checked={isJsonMode}
             onChange={handleInputModeToggle}
           >
-            JSON mode
+            <Trans>JSON mode</Trans>
           </ToggleButton>
         </div>
       </div>

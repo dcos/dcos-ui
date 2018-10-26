@@ -1,7 +1,7 @@
+import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { FormattedMessage } from "react-intl";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
@@ -23,6 +23,7 @@ import StringUtil from "../utils/StringUtil";
 import TasksChart from "../components/charts/TasksChart";
 import SidebarActions from "../events/SidebarActions";
 import UnitHealthStore from "../stores/UnitHealthStore";
+import DashboardHeadings from "../constants/DashboardHeadings";
 
 function getMesosState() {
   const states = MesosSummaryStore.get("states");
@@ -42,7 +43,9 @@ const DashboardBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Dashboard">
       <BreadcrumbTextContent>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/dashboard">
+          <Trans render="span">Dashboard</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -131,12 +134,17 @@ var DashboardPage = React.createClass({
       return null;
     }
 
+    /* L10NTODO: Pluralize */
     var componentCountWord = StringUtil.pluralize("Component", componentCount);
 
     return (
-      <Link to="/components" className="button button-primary-link">
-        {`View all ${componentCount} ${componentCountWord}`}
-      </Link>
+      <Trans
+        render={
+          <Link to="/components" className="button button-primary-link" />
+        }
+      >
+        View all {componentCount} {componentCountWord}
+      </Trans>
     );
   },
 
@@ -150,23 +158,23 @@ var DashboardPage = React.createClass({
       servicesCount = null;
     }
 
+    /* L10NTODO: Pluralize */
     return (
-      <Link to="/services" className="button button-primary-link">
-        <FormattedMessage
-          id="DASHBOARD.VIEW_ALL"
-          values={{
-            servicesCount
-          }}
-        />
-      </Link>
+      <Trans
+        render={<Link to="/services" className="button button-primary-link" />}
+      >
+        View all {servicesCount} Services
+      </Trans>
     );
   },
 
   getHeading(translationId) {
     return (
-      <h3 className="flush text-align-center">
-        <FormattedMessage id={translationId} />
-      </h3>
+      <Trans
+        id={translationId}
+        render="h3"
+        className="flush text-align-center"
+      />
     );
   },
 
@@ -182,7 +190,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.CPU")}
+              heading={this.getHeading(DashboardHeadings.CPU)}
             >
               <ResourceTimeSeriesChart
                 colorIndex={resourceColors["cpus"]}
@@ -197,7 +205,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.MEMORY")}
+              heading={this.getHeading(DashboardHeadings.MEMORY)}
             >
               <ResourceTimeSeriesChart
                 colorIndex={resourceColors["mem"]}
@@ -212,7 +220,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.DISK")}
+              heading={this.getHeading(DashboardHeadings.DISK)}
             >
               <ResourceTimeSeriesChart
                 colorIndex={resourceColors["disk"]}
@@ -227,7 +235,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.GPU")}
+              heading={this.getHeading(DashboardHeadings.GPU)}
             >
               <ResourceTimeSeriesChart
                 colorIndex={resourceColors["gpus"]}
@@ -242,7 +250,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.NODES")}
+              heading={this.getHeading(DashboardHeadings.NODES)}
             >
               <HostTimeSeriesChart
                 data={data.activeNodes}
@@ -255,9 +263,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow panel"
-              heading={this.getHeading(
-                "DASHBOARD.PANEL_HEADING.SERVICES_STATUS"
-              )}
+              heading={this.getHeading(DashboardHeadings.SERVICES_STATUS)}
               footer={this.getViewAllServicesBtn()}
               footerClass="text-align-center"
             >
@@ -267,7 +273,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-chart panel"
-              heading={this.getHeading("DASHBOARD.PANEL_HEADING.TASKS")}
+              heading={this.getHeading(DashboardHeadings.TASKS)}
             >
               <TasksChart tasks={data.tasks} />
             </Panel>
@@ -275,9 +281,7 @@ var DashboardPage = React.createClass({
           <div className={columnClasses}>
             <Panel
               className="dashboard-panel dashboard-panel-list dashboard-panel-list-component-health panel"
-              heading={this.getHeading(
-                "DASHBOARD.PANEL_HEADING.COMPONENT_HEALTH"
-              )}
+              heading={this.getHeading(DashboardHeadings.COMPONENT_HEALTH)}
               footer={this.getViewAllComponentsButton()}
               footerClass="text-align-center"
             >

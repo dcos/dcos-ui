@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import React from "react";
 
@@ -9,7 +10,9 @@ const RepositoriesBreadcrumbs = addButton => {
   const crumbs = [
     <Breadcrumb key={-1} title="Repositories">
       <BreadcrumbTextContent>
-        <Link to="/settings/repositories">Package Repositories</Link>
+        <Trans render={<Link to="/settings/repositories" />}>
+          Package Repositories
+        </Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

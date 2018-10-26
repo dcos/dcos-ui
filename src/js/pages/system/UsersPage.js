@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Hooks } from "PluginSDK";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
@@ -21,7 +22,9 @@ const UsersBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Users">
       <BreadcrumbTextContent>
-        <Link to="/organization/users">Users</Link>
+        <Link to="/organization/users">
+          <Trans render="span">Users</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];

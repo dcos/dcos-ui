@@ -1,3 +1,5 @@
+import { Trans, t } from "@lingui/macro";
+import { withI18n, i18nMark } from "@lingui/react";
 import React, { Component } from "react";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 
@@ -19,13 +21,13 @@ import PlacementConstraintsUtil from "#PLUGINS/services/src/js/utils/PlacementCo
 // &nbsp; to space the table rows
 const NBSP = "\u00A0";
 
-export default class PlacementConstraintsPartial extends Component {
+class PlacementConstraintsPartial extends Component {
   getPlacementConstraintLabel(name) {
     return (
       <FieldLabel>
         <FormGroupHeading>
           <FormGroupHeadingContent primary={true}>
-            {name}
+            <Trans id={name} render="span" />
           </FormGroupHeadingContent>
         </FormGroupHeading>
       </FieldLabel>
@@ -45,6 +47,7 @@ export default class PlacementConstraintsPartial extends Component {
   }
 
   getPlacementConstraintsFields(data = []) {
+    const { i18n } = this.props;
     const constraintsErrors = findNestedPropertyInObject(
       this.props.errors,
       "constraints"
@@ -80,9 +83,9 @@ export default class PlacementConstraintsPartial extends Component {
       const commonFieldsClassNames = "column-4";
 
       if (isFirstConstraint) {
-        fieldLabel = this.getPlacementConstraintLabel("Field");
-        operatorLabel = this.getPlacementConstraintLabel("Operator");
-        valueLabel = this.getPlacementConstraintLabel("Value");
+        fieldLabel = this.getPlacementConstraintLabel(i18nMark("Field"));
+        operatorLabel = this.getPlacementConstraintLabel(i18nMark("Operator"));
+        valueLabel = this.getPlacementConstraintLabel(i18nMark("Value"));
       }
 
       const fieldValue = (
@@ -96,6 +99,15 @@ export default class PlacementConstraintsPartial extends Component {
 
       const isLastField = index === data.length - 1;
       const typeSettings = OperatorTypes[constraint.operator];
+      const selectPlaceholder = i18n._(t`Select ...`);
+      const operatorHelpText = isLastField
+        ? i18n._(t`Specify where your app will run.`)
+        : NBSP;
+      const fieldNameHelpText = isLastField ? i18n._(t`E.g hostname.`) : NBSP;
+
+      const valueHelpText = isLastField
+        ? i18n._(t`A string, integer or regex value. `)
+        : NBSP;
 
       return (
         <FormRow key={index}>
@@ -108,32 +120,32 @@ export default class PlacementConstraintsPartial extends Component {
             <Select
               name={`constraints.${index}.operator`}
               value={String(constraint.operator)}
-              placeholder="Select ..."
+              placeholder={selectPlaceholder}
             >
               {Object.keys(OperatorTypes).map((type, index) => {
                 return (
                   <SelectOption
                     key={index}
                     value={type}
-                    label={OperatorTypes[type].name}
+                    label={i18n._(OperatorTypes[type].name)}
                   >
-                    <span className="dropdown-select-item-title">
-                      {OperatorTypes[type].name}
-                    </span>
-                    <span className="dropdown-select-item-description">
-                      {OperatorTypes[type].description}
-                    </span>
+                    <Trans
+                      render="span"
+                      id={OperatorTypes[type].name}
+                      className="dropdown-select-item-title"
+                    />
+                    <Trans
+                      render="span"
+                      id={OperatorTypes[type].description}
+                      className="dropdown-select-item-description"
+                    />
                   </SelectOption>
                 );
               })}
             </Select>
 
             {operatorError && <FieldError>{operatorError}</FieldError>}
-            {!operatorError && (
-              <FieldHelp>
-                {isLastField ? "Specify where your app will run." : NBSP}
-              </FieldHelp>
-            )}
+            {!operatorError && <FieldHelp>{operatorHelpText}</FieldHelp>}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -148,9 +160,7 @@ export default class PlacementConstraintsPartial extends Component {
               value={constraint.fieldName}
             />
             {fieldNameError && <FieldError>{fieldNameError}</FieldError>}
-            {!fieldNameError && (
-              <FieldHelp>{isLastField ? "E.g hostname." : NBSP}</FieldHelp>
-            )}
+            {!fieldNameError && <FieldHelp>{fieldNameHelpText}</FieldHelp>}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -168,11 +178,12 @@ export default class PlacementConstraintsPartial extends Component {
             )}
             {!valueError && (
               <FieldHelp>
-                {isLastField ? "A string, integer or regex value. " : NBSP}
+                {valueHelpText}
                 {typeSettings &&
                   !typeSettings.requiresValue &&
-                  !typeSettings.requiresEmptyValue &&
-                  "This field is optional."}
+                  !typeSettings.requiresEmptyValue && (
+                    <Trans render="span">This field is optional.</Trans>
+                  )}
               </FieldHelp>
             )}
           </FormGroup>
@@ -220,7 +231,7 @@ export default class PlacementConstraintsPartial extends Component {
                 value: { type: "default" }
               })}
             >
-              Add Placement Constraint
+              <Trans render="span">Add Placement Constraint</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>
@@ -228,3 +239,5 @@ export default class PlacementConstraintsPartial extends Component {
     );
   }
 }
+
+export default withI18n()(PlacementConstraintsPartial);

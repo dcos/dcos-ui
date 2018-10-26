@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import { Dropdown, Form, Table } from "reactjs-components";
 import { Hooks } from "PluginSDK";
@@ -49,7 +51,9 @@ const UsersBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Users">
       <BreadcrumbTextContent>
-        <Link to="/organization/users">Users</Link>
+        <Link to="/organization/users">
+          <Trans render="span">Users</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -290,7 +294,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
         ) {
           return item.get(prop);
         }),
-        heading: ResourceTableUtil.renderHeading({ uid: "USERNAME" })
+        heading: ResourceTableUtil.renderHeading({ uid: i18nMark("USERNAME") })
       }
     ];
   }

@@ -15,8 +15,11 @@ exports[`PlacementConstraintsSchemaField with invalid content displays form to e
   <p
     className="form-control-feedback"
   >
-    Unable to edit 
-    placement_constraints
+    <span
+      className={undefined}
+    >
+      Unable to edit {0}
+    </span>
   </p>
 </div>
 `;
@@ -26,7 +29,13 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
   className="pod flush-left flush-right flush-top"
 >
   <h2>
-    Placement Constraints 
+    <span
+      className={undefined}
+    >
+      Placement Constraints
+    </span>
+     
+    
     <div
       className="tooltip-wrapper text-align-center"
       onMouseEnter={[Function]}
@@ -63,7 +72,11 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
               />
             </svg>
             <span>
-              Add Placement Constraint
+              <span
+                className={undefined}
+              >
+                Add Placement Constraint
+              </span>
             </span>
           </a>
         </div>

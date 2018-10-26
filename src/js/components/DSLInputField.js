@@ -1,3 +1,4 @@
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
@@ -196,7 +197,7 @@ class DSLInputField extends React.Component {
    */
   getInputField() {
     const { expression } = this.state;
-    const { inverseStyle, placeholder } = this.props;
+    const { inverseStyle, placeholder, i18n } = this.props;
 
     const inputClasses = classNames({
       "form-control filter-input-text": true,
@@ -206,7 +207,7 @@ class DSLInputField extends React.Component {
     return (
       <input
         className={inputClasses}
-        placeholder={placeholder}
+        placeholder={i18n._(placeholder)}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         ref={ref => (this.inputField = ref)}
@@ -281,7 +282,7 @@ DSLInputField.defaultProps = {
   onBlur() {},
   onDropdownClick() {},
   onFocus() {},
-  placeholder: "Filter"
+  placeholder: i18nMark("Filter")
 };
 
 DSLInputField.propTypes = {
@@ -297,4 +298,4 @@ DSLInputField.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = DSLInputField;
+export default withI18n()(DSLInputField);

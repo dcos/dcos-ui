@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -45,17 +46,16 @@ class VolumesFormSection extends Component {
     const containerPathError = errorsLens.at(key, {}).get(this.props.errors)
       .containerPath;
     const tooltipContent = (
-      <span>
-        {
-          "The path where your application will read and write data. This must be a single-level path relative to the container. "
-        }
+      <Trans render="span">
+        The path where your application will read and write data. This must be a{" "}
+        single-level path relative to the container.{" "}
         <a
           href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
           target="_blank"
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -63,9 +63,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 Container Path
-              </FormGroupHeadingContent>
+              </Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -88,9 +88,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 SIZE (MiB)
-              </FormGroupHeadingContent>
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -116,17 +116,16 @@ class VolumesFormSection extends Component {
     const containerPathError = errors.containerPath;
     const modeError = errors.mode;
     const tooltipContent = (
-      <span>
-        {
-          "If you are using the Mesos containerizer, this must be a single-level path relative to the container. "
-        }
+      <Trans render="span">
+        If you are using the Mesos containerizer, this must be a single-level{" "}
+        path relative to the container.{" "}
         <a
           href={MetadataStore.buildDocsURI("/storage/external-storage/")}
           target="_blank"
         >
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
@@ -134,9 +133,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(hostPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 Host Path
-              </FormGroupHeadingContent>
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -150,9 +149,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 Container Path
-              </FormGroupHeadingContent>
+              </Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -175,14 +174,14 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(modeError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 Mode
-              </FormGroupHeadingContent>
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldSelect name={`volumes.${key}.mode`} value={volume.mode}>
-            <option value="RW">Read and Write</option>
-            <option value="RO">Read Only</option>
+            <Trans render={<option value="RW" />}>Read and Write</Trans>\
+            <Trans render={<option value="RO" />}>Read Only</Trans>
           </FieldSelect>
         </FormGroup>
       </FormRow>
@@ -211,10 +210,17 @@ class VolumesFormSection extends Component {
       this.props.data,
       "container.type"
     );
+    const tooltipContent = (
+      <Trans render="span">
+        Docker Runtime only supports the default size for implicit volumes,{" "}
+        please select Universal Container Runtime (UCR) if you want to modify{" "}
+        the size.
+      </Trans>
+    );
 
     let sizeField = (
       <Tooltip
-        content="Docker Runtime only supports the default size for implicit volumes, please select Universal Container Runtime (UCR) if you want to modify the size."
+        content={tooltipContent}
         width={300}
         wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
         wrapText={true}
@@ -243,9 +249,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(nameError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 Name
-              </FormGroupHeadingContent>
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -260,9 +266,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 Container Path
-              </FormGroupHeadingContent>
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldInput
@@ -275,9 +281,9 @@ class VolumesFormSection extends Component {
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
                 SIZE (GiB)
-              </FormGroupHeadingContent>
+              </Trans>
             </FormGroupHeading>
           </FieldLabel>
           {sizeField}
@@ -295,7 +301,9 @@ class VolumesFormSection extends Component {
         index={key}
         errors={this.props.errors}
       >
-        <FieldLabel>Unable to edit this Volume </FieldLabel>
+        <FieldLabel>
+          <Trans render="span">Unable to edit this Volume</Trans>
+        </FieldLabel>
         <pre>
           {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
         </pre>
@@ -336,9 +344,9 @@ class VolumesFormSection extends Component {
             <FormGroup className="column-5" showError={Boolean(typeError)}>
               <FieldLabel>
                 <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
+                  <Trans render={<FormGroupHeadingContent primary={true} />}>
                     Volume Type
-                  </FormGroupHeadingContent>
+                  </Trans>
                 </FormGroupHeading>
               </FieldLabel>
               <MountService.Mount
@@ -358,19 +366,32 @@ class VolumesFormSection extends Component {
                         <SelectOption
                           key={index}
                           value={type}
-                          label={VolumeDefinitions[type].name}
+                          label={
+                            <Trans
+                              id={VolumeDefinitions[type].name}
+                              render="span"
+                            />
+                          }
                         >
                           <div className="dropdown-select-item-title">
-                            <span>{VolumeDefinitions[type].name}</span>
+                            <Trans
+                              id={VolumeDefinitions[type].name}
+                              render="span"
+                            />
                             {VolumeDefinitions[type].recommended ? (
-                              <span className="dropdown-select-item-title__badge badge">
+                              <Trans
+                                render="span"
+                                className="dropdown-select-item-title__badge badge"
+                              >
                                 Recommended
-                              </span>
+                              </Trans>
                             ) : null}
                           </div>
-                          <span className="dropdown-select-item-description">
-                            {VolumeDefinitions[type].description}
-                          </span>
+                          <Trans
+                            id={VolumeDefinitions[type].description}
+                            render="span"
+                            className="dropdown-select-item-description"
+                          />
                         </SelectOption>
                       );
                     })}
@@ -390,21 +411,21 @@ class VolumesFormSection extends Component {
     const { data } = this.props;
 
     const tooltipContent = (
-      <span>
-        {"DC/OS offers several storage options. "}
+      <Trans>
+        DC/OS offers several storage options.{" "}
         <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
           More information
         </a>.
-      </span>
+      </Trans>
     );
 
     return (
       <div>
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
-            <FormGroupHeadingContent primary={true}>
+            <Trans render={<FormGroupHeadingContent primary={true} />}>
               Volumes
-            </FormGroupHeadingContent>
+            </Trans>
             <FormGroupHeadingContent>
               <Tooltip
                 content={tooltipContent}
@@ -417,10 +438,10 @@ class VolumesFormSection extends Component {
             </FormGroupHeadingContent>
           </FormGroupHeading>
         </h1>
-        <p>
+        <Trans render="p">
           Create a stateful service by configuring a persistent volume.
           Persistent volumes enable instances to be restarted without data loss.
-        </p>
+        </Trans>
         {this.getVolumesLines(data.volumes)}
         <div>
           <AddButton
@@ -428,7 +449,7 @@ class VolumesFormSection extends Component {
               path: "volumes"
             })}
           >
-            Add Volume
+            <Trans render="span">Add Volume</Trans>
           </AddButton>
         </div>
       </div>

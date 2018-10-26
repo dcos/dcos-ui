@@ -39,7 +39,7 @@ class SchemaField extends Component {
       <FieldLabel>
         <FieldInput
           id={name}
-          type={"checkbox"}
+          type="checkbox"
           name={name}
           checked={formData}
           onChange={event => onChange(event.target.checked)}
@@ -57,7 +57,7 @@ class SchemaField extends Component {
       return (
         <FieldLabel key={option}>
           <FieldInput
-            type={"radio"}
+            type="radio"
             value={option}
             name={name}
             checked={option === formData}
@@ -101,7 +101,7 @@ class SchemaField extends Component {
       <FieldSelect
         id={name}
         autoFocus={autofocus}
-        className={"field-select-narrow"}
+        className="field-select-narrow"
         name={name}
         type="text"
         value={formData}
@@ -151,8 +151,8 @@ class SchemaField extends Component {
     let field = (
       <FieldInput
         id={name}
-        type={"text"}
-        className={"field-input-text-narrow"}
+        type="text"
+        className="field-input-text-narrow"
         autoFocus={autofocus}
         name={name}
         value={formData}
@@ -202,8 +202,8 @@ class SchemaField extends Component {
     let field = (
       <FieldInput
         id={name}
-        type={"number"}
-        className={"field-input-number-narrow"}
+        type="number"
+        className="field-input-number-narrow"
         autoFocus={autofocus}
         name={name}
         value={formData}

@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -72,12 +74,12 @@ class ServiceGroupFormModal extends React.Component {
 
     const buttonDefinition = [
       {
-        text: "Cancel",
+        text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
         isClose: true
       },
       {
-        text: "Create Group",
+        text: i18nMark("Create Group"),
         className: "button button-primary",
         isSubmit: true
       }
@@ -89,7 +91,11 @@ class ServiceGroupFormModal extends React.Component {
         buttonDefinition={buttonDefinition}
         disabled={isPending}
         modalProps={{
-          header: <ModalHeading>Create Group</ModalHeading>,
+          header: (
+            <ModalHeading>
+              <Trans render="span">Create Group</Trans>
+            </ModalHeading>
+          ),
           showHeader: true
         }}
         onClose={onClose}
@@ -98,10 +104,9 @@ class ServiceGroupFormModal extends React.Component {
         open={open}
         definition={this.getNewGroupFormDefinition()}
       >
-        <p>
-          {"Enter a name for the new group under "}
-          <strong>{parentGroupId}</strong>
-        </p>
+        <Trans render="p">
+          Enter a name for the new group under <strong>{parentGroupId}</strong>
+        </Trans>
         {this.getErrorMessage()}
       </FormModal>
     );

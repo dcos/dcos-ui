@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
@@ -221,9 +222,9 @@ class MesosLogContainer extends mixin(StoreMixin) {
   getEmptyDirectoryScreen() {
     return (
       <div className="flex-grow vertical-center">
-        <h3 className="text-align-center flush-top">
+        <Trans render="h3" className="text-align-center flush-top">
           This directory does not contain any logs.
-        </h3>
+        </Trans>
       </div>
     );
   }

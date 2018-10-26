@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
@@ -30,7 +32,9 @@ const PackagesBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Catalog">
       <BreadcrumbTextContent>
-        <Link to="/catalog/packages">Catalog</Link>
+        <Link to="/catalog/packages">
+          <Trans render="span">Catalog</Trans>
+        </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -41,8 +45,10 @@ const PackagesBreadcrumbs = () => {
 const PackagesEmptyState = () => {
   return (
     <AlertPanel>
-      <AlertPanelHeader>No package repositories</AlertPanelHeader>
-      <p className="tall">
+      <AlertPanelHeader>
+        <Trans render="span">No package repositories</Trans>
+      </AlertPanelHeader>
+      <Trans render="p" className="tall">
         You need at least one package repository with some packages to be able
         to install packages. For more{" "}
         <a
@@ -52,10 +58,10 @@ const PackagesEmptyState = () => {
           information on repositories
         </a>
         .
-      </p>
+      </Trans>
       <div className="button-collection flush-bottom">
         <Link to="/settings/repositories" className="button button-primary">
-          Add Package Repository
+          <Trans render="span">Add Package Repository</Trans>
         </Link>
       </div>
     </AlertPanel>
@@ -138,7 +144,9 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <AlertPanel>
-        <AlertPanelHeader>An Error Occurred</AlertPanelHeader>
+        <AlertPanelHeader>
+          <Trans render="span">An Error Occurred</Trans>
+        </AlertPanelHeader>
         <CosmosErrorMessage error={errorMessage} flushBottom={true} />
       </AlertPanel>
     );
@@ -177,10 +185,10 @@ class PackagesTab extends mixin(StoreMixin) {
 
   getPackageOptionBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
-    const copy = isCertified ? "Certified" : "Community";
+    const copy = isCertified ? i18nMark("Certified") : i18nMark("Community");
     const appearance = isCertified ? "primary" : "default";
 
-    return <Badge appearance={appearance}>{copy}</Badge>;
+    return <Trans id={copy} render={<Badge appearance={appearance} />} />;
   }
 
   getCertifiedPackagesGrid(packages) {
@@ -190,11 +198,13 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div className="pod flush-top flush-horizontal clearfix">
-        <h1 className="short flush-top">Certified</h1>
-        <p className="tall flush-top">
+        <Trans render="h1" className="short flush-top">
+          Certified
+        </Trans>
+        <Trans render="p" className="tall flush-top">
           Certified packages are verified by Mesosphere for interoperability
           with DC/OS.
-        </p>
+        </Trans>
         <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
@@ -207,12 +217,12 @@ class PackagesTab extends mixin(StoreMixin) {
     }
 
     let subtitle = (
-      <p className="tall flush-top">
+      <Trans render="p" className="tall flush-top">
         Community packages are unverified and unreviewed content from the
         community.
-      </p>
+      </Trans>
     );
-    let title = "Community";
+    let title = <Trans render="span">Community</Trans>;
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
       tall: isSearchActive
@@ -221,23 +231,26 @@ class PackagesTab extends mixin(StoreMixin) {
     if (isSearchActive) {
       const foundPackagesLength = packages.getItems().length;
       if (foundPackagesLength < 1) {
-        const noResults = `No results were found for your search: "${
-          this.state.searchString
-        }" `;
-
         return (
-          <div className="clearfix">
-            {noResults}
-            (<a className="clickable" onClick={this.clearInput}>
+          <Trans render="div" className="clearfix">
+            No results were found for your search: "{this.state.searchString}" (<a
+              className="clickable"
+              onClick={this.clearInput}
+            >
               view all
             </a>)
-          </div>
+          </Trans>
         );
       }
 
+      // L10NTODO: Pluralize
       const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
       subtitle = null;
-      title = `${packages.getItems().length} ${packagesWord} found`;
+      title = (
+        <Trans render="span">
+          {packages.getItems().length} {packagesWord} found
+        </Trans>
+      );
     }
 
     return (

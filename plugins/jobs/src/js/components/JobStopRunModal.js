@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -12,7 +13,9 @@ class JobStopRunModal extends React.Component {
 
     return (
       <ModalHeading key="confirmHeader">
-        {`Are you sure you want to stop ${headerContent}?`}
+        <Trans render="span">
+          Are you sure you want to stop {headerContent}?
+        </Trans>
       </ModalHeading>
     );
   }
@@ -26,7 +29,11 @@ class JobStopRunModal extends React.Component {
       bodyText = "the selected job runs";
     }
 
-    return <span key="confirmText">You are about to stop {bodyText}.</span>;
+    return (
+      <span key="confirmText">
+        <Trans render="span">You are about to stop {bodyText}.</Trans>
+      </span>
+    );
   }
 
   render() {

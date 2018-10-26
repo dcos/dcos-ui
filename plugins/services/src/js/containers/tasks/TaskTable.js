@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
@@ -57,7 +58,7 @@ class TaskTable extends React.Component {
   }
 
   getStatusValue(task) {
-    return TaskStates[task.state].displayName;
+    return this.props.i18n._(TaskStates[task.state].displayName);
   }
 
   getVersionValue(task) {
@@ -353,7 +354,11 @@ class TaskTable extends React.Component {
 
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className={statusLabelClasses}>{this.getStatusValue(task)}</span>
+        <Trans
+          id={this.getStatusValue(task)}
+          render="span"
+          className={statusLabelClasses}
+        />
       </div>
     );
   }
@@ -373,14 +378,14 @@ class TaskTable extends React.Component {
     const unhealthy = task.health === TaskHealthStates.UNHEALTHY;
     const unknown = task.health === TaskHealthStates.UNKNOWN;
 
-    let tooltipContent = TaskHealthStates.HEALTHY;
+    let tooltipContent = <Trans id={TaskHealthStates.HEALTHY} render="span" />;
 
     if (unhealthy) {
-      tooltipContent = TaskHealthStates.UNHEALTHY;
+      tooltipContent = <Trans id={TaskHealthStates.UNHEALTHY} render="span" />;
     }
 
     if (!activeState || unknown || transitional) {
-      tooltipContent = "No health checks available";
+      tooltipContent = <Trans render="span">No health checks available</Trans>;
     }
 
     const failing = ["TASK_ERROR", "TASK_FAILED"].includes(state);
@@ -449,7 +454,8 @@ TaskTable.propTypes = {
   className: PropTypes.string,
   onCheckboxChange: PropTypes.func,
   params: PropTypes.object.isRequired,
-  tasks: PropTypes.array.isRequired
+  tasks: PropTypes.array.isRequired,
+  i18n: PropTypes.object
 };
 
 TaskTable.defaultProps = {

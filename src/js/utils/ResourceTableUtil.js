@@ -3,6 +3,7 @@ import classNames from "classnames";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { Tooltip } from "reactjs-components";
+import { Trans } from "@lingui/macro";
 
 import Icon from "../components/Icon";
 import TimeAgo from "../components/TimeAgo";
@@ -75,7 +76,7 @@ const ResourceTableUtil = {
       return (
         <span>
           {caret.before}
-          <span className="table-header-title">{title}</span>
+          <Trans render="span" id={title} className="table-header-title" />
           {helpIcon}
           {caret.after}
         </span>

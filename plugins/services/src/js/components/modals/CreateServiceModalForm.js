@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import { MountService } from "foundation-ui";
@@ -360,7 +362,8 @@ class CreateServiceModalForm extends Component {
   getErrors() {
     return ErrorMessageUtil.translateErrorMessages(
       this.props.errors,
-      ServiceErrorMessages
+      ServiceErrorMessages,
+      this.props.i18n
     );
   }
 
@@ -401,11 +404,13 @@ class CreateServiceModalForm extends Component {
             pathMapping={ServiceErrorPathMapping}
             hideTopLevelErrors={!showAllErrors}
           />
-          <h1 className="flush-top short-bottom">Container</h1>
-          <p>
+          <Trans render="h1" className="flush-top short-bottom">
+            Container
+          </Trans>
+          <Trans render="p">
             Configure your container below. Enter a container image or command
             you want to run.
-          </p>
+          </Trans>
           <ContainerServiceFormSection
             data={data}
             errors={errors}
@@ -416,7 +421,9 @@ class CreateServiceModalForm extends Component {
           />
 
           <AdvancedSection>
-            <AdvancedSectionLabel>More Settings</AdvancedSectionLabel>
+            <AdvancedSectionLabel>
+              <Trans render="span">More Settings</Trans>
+            </AdvancedSectionLabel>
             <AdvancedSectionContent>
               <MultiContainerFormAdvancedSection
                 data={data}
@@ -830,4 +837,4 @@ CreateServiceModalForm.propTypes = {
   showAllErrors: PropTypes.bool
 };
 
-module.exports = CreateServiceModalForm;
+module.exports = withI18n()(CreateServiceModalForm);

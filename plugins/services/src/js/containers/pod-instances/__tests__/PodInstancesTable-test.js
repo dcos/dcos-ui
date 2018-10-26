@@ -134,7 +134,7 @@ describe("PodInstancesTable", function() {
 
       it("renders the status column", function() {
         const names = thisInstance
-          .find(".task-table-column-status .status-text")
+          .find(".task-table-column-status span.status-text")
           .map(function(el) {
             return el.text();
           });
@@ -191,13 +191,14 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesTable,
-          { pod },
-          { instances: pod.getInstanceList().getItems() },
-          { service: pod }
+        const WrappedComponent = JestUtil.stubRouterContext(PodInstancesTable);
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            instances={pod.getInstanceList().getItems()}
+            service={pod}
+          />
         );
-        thisInstance = mount(component);
 
         // 1 click on the header (ascending)
         thisInstance
@@ -221,13 +222,14 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesTable,
-          { pod },
-          { instances: pod.getInstanceList().getItems() },
-          { service: pod }
+        const WrappedComponent = JestUtil.stubRouterContext(PodInstancesTable);
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            instances={pod.getInstanceList().getItems()}
+            service={pod}
+          />
         );
-        thisInstance = mount(component);
 
         // 2 clicks on the header (descending)
         const columnHeader = thisInstance
@@ -251,13 +253,14 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const component = JestUtil.stubRouterContext(
-          PodInstancesTable,
-          { pod },
-          { instances: pod.getInstanceList().getItems() },
-          { service: pod }
+        const WrappedComponent = JestUtil.stubRouterContext(PodInstancesTable);
+        thisInstance = mount(
+          <WrappedComponent
+            pod={pod}
+            instances={pod.getInstanceList().getItems()}
+            service={pod}
+          />
         );
-        thisInstance = mount(component);
 
         // Expand all table rows by clicking on each one of them
         thisInstance
@@ -316,7 +319,7 @@ describe("PodInstancesTable", function() {
 
       it("renders the status column", function() {
         const names = thisInstance
-          .find(".task-table-column-status .status-text")
+          .find(".task-table-column-status span.status-text")
           .map(function(el) {
             return el.text();
           });

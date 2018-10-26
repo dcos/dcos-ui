@@ -1,3 +1,6 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
+
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
@@ -78,20 +81,21 @@ class CollapsibleErrorMessage extends React.Component {
       return null;
     }
 
-    // Get text
-    let moreLess = "more";
-    if (this.state.expanded) {
-      moreLess = "less";
-    }
+    const labelText = this.state.expanded
+      ? i18nMark("(Show less)")
+      : i18nMark("(Show more)");
 
     // Render
     return (
-      <span
-        className="collapsible-toggle-label clickable"
-        onClick={this.toggleExpanded}
-      >
-        (Show {moreLess})
-      </span>
+      <Trans
+        id={labelText}
+        render={
+          <span
+            className="collapsible-toggle-label clickable"
+            onClick={this.toggleExpanded}
+          />
+        }
+      />
     );
   }
 

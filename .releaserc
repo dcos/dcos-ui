@@ -6,7 +6,7 @@
   "publish": [
     {
       "path": "@semantic-release/exec",
-      "cmd": "./scripts/ci/upload-release v${nextRelease.version}",
+      "cmd": "./scripts/ci/upload-release v${nextRelease.version} master",
       "shell": "/bin/bash"
     },
     "@semantic-release/github"

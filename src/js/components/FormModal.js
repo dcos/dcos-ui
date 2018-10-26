@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames/dedupe";
 import { Form, Modal } from "reactjs-components";
 import PropTypes from "prop-types";
@@ -81,14 +83,17 @@ class FormModal extends React.Component {
       }
 
       return (
-        <button
-          className={buttonClassSet}
-          disabled={this.props.disabled}
-          key={i}
-          onClick={handleOnClick}
-        >
-          {buttonDefinition.text}
-        </button>
+        <Trans
+          id={buttonDefinition.text}
+          render={
+            <button
+              className={buttonClassSet}
+              disabled={this.props.disabled}
+              key={i}
+              onClick={handleOnClick}
+            />
+          }
+        />
       );
     });
   }
@@ -148,12 +153,12 @@ class FormModal extends React.Component {
 FormModal.defaultProps = {
   buttonDefinition: [
     {
-      text: "Cancel",
+      text: i18nMark("Cancel"),
       className: "button button-primary-link flush-left",
       isClose: true
     },
     {
-      text: "Create",
+      text: i18nMark("Create"),
       className: "button button-primary",
       isSubmit: true
     }
