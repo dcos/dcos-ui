@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
@@ -61,8 +62,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     // Virtual Network Detail Tabs
     this.tabs_tabs = {
-      "/networking/networks/:overlayName": "Tasks",
-      "/networking/networks/:overlayName/details": "Details"
+      "/networking/networks/:overlayName": i18nMark("Tasks"),
+      "/networking/networks/:overlayName/details": i18nMark("Details")
     };
 
     this.store_listeners = [

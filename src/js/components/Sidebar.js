@@ -4,6 +4,7 @@ import { Link, routerShape } from "react-router";
 import React from "react";
 import PluginSDK from "PluginSDK";
 import { navigation } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import { keyCodes } from "../utils/KeyboardUtil";
 import EventTypes from "../constants/EventTypes";
@@ -274,7 +275,9 @@ class Sidebar extends React.Component {
 
         let linkElement = currentChild.link;
         if (typeof linkElement === "string") {
-          linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
+          linkElement = (
+            <Trans render={<Link to={currentChild.path} />} id={linkElement} />
+          );
         }
 
         children.push(

@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import { Link, formatPattern } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -74,9 +75,11 @@ const TabsMixin = {
         onClick={this.tabs_handleTabClick.bind(this, tab)}
         {...attributes}
       >
-        <span className="menu-tabbed-item-label-text">
-          {this.tabs_tabs[tab]}
-        </span>
+        <Trans
+          render="span"
+          className="menu-tabbed-item-label-text"
+          id={this.tabs_tabs[tab]}
+        />
       </span>
     );
   },
