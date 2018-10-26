@@ -496,7 +496,7 @@ You will need a fully functional cluster to run your system tests.
 
 ## i18n
 
-DCOS UI uses [React-Intl](https://github.com/yahoo/react-intl) to enable i18n, please look at the documentation. Currently this project is only supporting `en-us` but planning to support more languages/locales in the future.
+DCOS UI uses [lingui](https://github.com/lingui/js-lingui) to enable i18n, please look at the documentation. Currently this project is only supporting `en-us` but planning to support more languages/locales in the future.
 
 ### translations ids
 
@@ -524,10 +524,9 @@ A good example of translations:
 
 ### Translations strings
 
-When formatting a string containing multiple pieces of logic and/or translation IDs you can follow the [documentation here](https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components) where you can also work with plural strings
-but if you are looking to compose a normal string with a plural string you can use the component [formattedPlural](https://github.com/yahoo/react-intl/wiki/Components#formattedplural).
+When formatting a string containing multiple pieces of logic and/or translation IDs you can follow the [documentation here](https://lingui.js.org/tutorials/react.html#formatting). Iff you are looking to format a plural string you can use the [Plural](https://lingui.js.org/tutorials/react.html#plurals) macro.
 
-Keep in mind that React-intl follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
+Keep in mind that lingui follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
 
 ### New translation files
 
