@@ -142,7 +142,7 @@ class PodNetworkConfigSection extends React.Component {
               {action}
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Network Name</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Network Name</Trans>
               <ConfigurationMapValueWithDefault
                 value={getNetworkNames(appConfig.networks)}
               />
