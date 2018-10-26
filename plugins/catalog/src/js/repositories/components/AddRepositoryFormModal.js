@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -78,12 +79,12 @@ class AddRepositoryFormModal extends React.Component {
   getButtonDefinition() {
     return [
       {
-        text: "Cancel",
+        text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
         isClose: true
       },
       {
-        text: "Add Repository",
+        text: i18nMark("Add Repository"),
         className: "button button-primary",
         isSubmit: true
       }

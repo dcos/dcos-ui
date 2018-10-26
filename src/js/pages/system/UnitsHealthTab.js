@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
@@ -26,9 +27,7 @@ const UnitHealthBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Components">
       <BreadcrumbTextContent>
-        <Link to="/components">
-          <Trans render="span">Components</Trans>
-        </Link>
+        <Trans render={<Link to="/components" />}>Components</Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -41,7 +40,8 @@ const METHODS_TO_BIND = [
   "handleSearchStringChange",
   "renderUnit",
   "renderHealth",
-  "resetFilter"
+  "resetFilter",
+  "getButtonContent"
 ];
 
 class UnitsHealthTab extends mixin(StoreMixin) {
@@ -111,7 +111,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       <span className="badge-container button-align-content label flush">
         <span className={dotClassSet} />
         <span className="badge-container-text">
-          <span>{StringUtil.capitalize(filterName)}</span>
+          <Trans render="span" id={StringUtil.capitalize(filterName)} />
         </span>
         <Badge appearance={isActive}>{count || 0}</Badge>
       </span>
@@ -136,7 +136,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         className: classNameFn,
         headerClassName: classNameFn,
-        heading: ResourceTableUtil.renderHeading({ name: "Name" }),
+        heading: ResourceTableUtil.renderHeading({ name: i18nMark("Name") }),
         prop: "name",
         render: this.renderUnit,
         sortable: true,
@@ -145,7 +145,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         className: classNameFn,
         headerClassName: classNameFn,
-        heading: ResourceTableUtil.renderHeading({ health: "Health" }),
+        heading: ResourceTableUtil.renderHeading({
+          health: i18nMark("Health")
+        }),
         prop: "health",
         render: this.renderHealth,
         sortable: true,
@@ -175,20 +177,38 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     const data = UnitHealthStore.getUnits();
     const dataItems = data.getItems();
     const { healthFilter, searchString } = this.state;
+    const { i18n } = this.props;
     const visibleData = this.getVisibleData(data, searchString, healthFilter);
     const dataHealth = dataItems.map(function(unit) {
       return unit.getHealth();
     });
+    const filters = [
+      {
+        filter: "all",
+        marked: i18nMark("All")
+      },
+      {
+        filter: "healthy",
+        marked: i18nMark("Healthy")
+      },
+      {
+        filter: "unhealthy",
+        marked: i18nMark("Unhealthy")
+      }
+    ];
 
     return (
       <Page>
         <Page.Header breadcrumbs={<UnitHealthBreadcrumbs />} />
         <div className="flex-container-col">
           <div className="units-health-table-header">
+            {/* L10NTODO: Pluralize
+            We should pluralize FilterHeadline name here using lingui macro instead of
+            doing it manually in FilterHeadline */}
             <FilterHeadline
               currentLength={visibleData.length}
               isFiltering={healthFilter !== "all" || searchString !== ""}
-              name="Component"
+              name={i18n._(t`Component`)}
               onReset={this.resetFilter}
               totalLength={dataItems.length}
             />
@@ -200,7 +220,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               />
               <FilterButtons
                 renderButtonContent={this.getButtonContent}
-                filters={["all", "healthy", "unhealthy"]}
+                filters={filters.map(f => f.filter)}
                 filterByKey="title"
                 onFilterChange={this.handleHealthFilterChange}
                 itemList={dataHealth}
@@ -238,4 +258,4 @@ UnitsHealthTab.routeConfig = {
   matches: /^\/components\/overview/
 };
 
-module.exports = UnitsHealthTab;
+module.exports = withI18n()(UnitsHealthTab);

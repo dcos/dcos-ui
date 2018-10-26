@@ -1,5 +1,5 @@
 import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { withI18n, i18nMark } from "@lingui/react";
 import React, { Component } from "react";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 
@@ -27,7 +27,7 @@ class PlacementConstraintsPartial extends Component {
       <FieldLabel>
         <FormGroupHeading>
           <FormGroupHeadingContent primary={true}>
-            {name}
+            <Trans id={name} render="span" />
           </FormGroupHeadingContent>
         </FormGroupHeading>
       </FieldLabel>
@@ -83,9 +83,9 @@ class PlacementConstraintsPartial extends Component {
       const commonFieldsClassNames = "column-4";
 
       if (isFirstConstraint) {
-        fieldLabel = this.getPlacementConstraintLabel(i18n._(t`Field`));
-        operatorLabel = this.getPlacementConstraintLabel(i18n._(t`Operator`));
-        valueLabel = this.getPlacementConstraintLabel(i18n._(t`Value`));
+        fieldLabel = this.getPlacementConstraintLabel(i18nMark("Field"));
+        operatorLabel = this.getPlacementConstraintLabel(i18nMark("Operator"));
+        valueLabel = this.getPlacementConstraintLabel(i18nMark("Value"));
       }
 
       const fieldValue = (
@@ -99,6 +99,15 @@ class PlacementConstraintsPartial extends Component {
 
       const isLastField = index === data.length - 1;
       const typeSettings = OperatorTypes[constraint.operator];
+      const selectPlaceholder = i18n._(t`Select ...`);
+      const operatorHelpText = isLastField
+        ? i18n._(t`Specify where your app will run.`)
+        : NBSP;
+      const fieldNameHelpText = isLastField ? i18n._(t`E.g hostname.`) : NBSP;
+
+      const valueHelpText = isLastField
+        ? i18n._(t`A string, integer or regex value. `)
+        : NBSP;
 
       return (
         <FormRow key={index}>
@@ -111,7 +120,7 @@ class PlacementConstraintsPartial extends Component {
             <Select
               name={`constraints.${index}.operator`}
               value={String(constraint.operator)}
-              placeholder="Select ..."
+              placeholder={selectPlaceholder}
             >
               {Object.keys(OperatorTypes).map((type, index) => {
                 return (
@@ -136,11 +145,7 @@ class PlacementConstraintsPartial extends Component {
             </Select>
 
             {operatorError && <FieldError>{operatorError}</FieldError>}
-            {!operatorError && (
-              <FieldHelp>
-                {isLastField ? "Specify where your app will run." : NBSP}
-              </FieldHelp>
-            )}
+            {!operatorError && <FieldHelp>{operatorHelpText}</FieldHelp>}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -155,9 +160,7 @@ class PlacementConstraintsPartial extends Component {
               value={constraint.fieldName}
             />
             {fieldNameError && <FieldError>{fieldNameError}</FieldError>}
-            {!fieldNameError && (
-              <FieldHelp>{isLastField ? "E.g hostname." : NBSP}</FieldHelp>
-            )}
+            {!fieldNameError && <FieldHelp>{fieldNameHelpText}</FieldHelp>}
           </FormGroup>
           <FormGroup
             className={commonFieldsClassNames}
@@ -175,11 +178,12 @@ class PlacementConstraintsPartial extends Component {
             )}
             {!valueError && (
               <FieldHelp>
-                {isLastField ? "A string, integer or regex value. " : NBSP}
+                {valueHelpText}
                 {typeSettings &&
                   !typeSettings.requiresValue &&
-                  !typeSettings.requiresEmptyValue &&
-                  "This field is optional."}
+                  !typeSettings.requiresEmptyValue && (
+                    <Trans render="span">This field is optional.</Trans>
+                  )}
               </FieldHelp>
             )}
           </FormGroup>

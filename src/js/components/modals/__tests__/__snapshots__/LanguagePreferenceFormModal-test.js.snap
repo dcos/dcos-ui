@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguagePreferenceFormModalComponent renders with default language 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LanguagePreferenceFormModalComponent />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "buttonDefinition": Array [
+        Object {
+          "className": "button button-primary-link flush-left",
+          "isClose": true,
+          "text": "Cancel",
+        },
+        Object {
+          "className": "button button-primary",
+          "isSubmit": true,
+          "text": "Save",
+        },
+      ],
+      "definition": Array [
+        Object {
+          "fieldType": "select",
+          "formElementClass": "languageDropdown-wrapper",
+          "label": "Select your language",
+          "name": "language",
+          "options": Array [
+            Object {
+              "html": "English",
+              "id": "en",
+            },
+            Object {
+              "html": "中文",
+              "id": "zh",
+            },
+          ],
+          "showLabel": true,
+          "value": "en",
+        },
+      ],
+      "disabled": false,
+      "extraFooterContent": null,
+      "modalProps": Object {
+        "header": <ModalHeading
+          flush={true}
+          level={2}
+        >
+          <WithI18n
+            id="Language Preference"
+            render="span"
+          />
+        </ModalHeading>,
+        "showHeader": true,
+      },
+      "onChange": [Function],
+      "onClose": [Function],
+      "onSubmit": [Function],
+      "open": false,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "buttonDefinition": Array [
+          Object {
+            "className": "button button-primary-link flush-left",
+            "isClose": true,
+            "text": "Cancel",
+          },
+          Object {
+            "className": "button button-primary",
+            "isSubmit": true,
+            "text": "Save",
+          },
+        ],
+        "definition": Array [
+          Object {
+            "fieldType": "select",
+            "formElementClass": "languageDropdown-wrapper",
+            "label": "Select your language",
+            "name": "language",
+            "options": Array [
+              Object {
+                "html": "English",
+                "id": "en",
+              },
+              Object {
+                "html": "中文",
+                "id": "zh",
+              },
+            ],
+            "showLabel": true,
+            "value": "en",
+          },
+        ],
+        "disabled": false,
+        "extraFooterContent": null,
+        "modalProps": Object {
+          "header": <ModalHeading
+            flush={true}
+            level={2}
+          >
+            <WithI18n
+              id="Language Preference"
+              render="span"
+            />
+          </ModalHeading>,
+          "showHeader": true,
+        },
+        "onChange": [Function],
+        "onClose": [Function],
+        "onSubmit": [Function],
+        "open": false,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactFifteenFourAdapter {
+      "options": Object {
+        "supportPrevContextArgumentOfComponentDidUpdate": true,
+      },
+    },
+  },
+}
+`;

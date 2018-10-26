@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -6,7 +7,6 @@ import { MountService } from "foundation-ui";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { FormattedMessage } from "react-intl";
 import moment from "moment";
 import { request } from "@dcos/mesos-client";
 
@@ -162,21 +162,19 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapRow key="version">
-          <ConfigurationMapLabel>
-            <Trans render="span">{Config.productName} Version</Trans>
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>
+            {Config.productName} Version
+          </Trans>
           <ConfigurationMapValue>{productVersion}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="ccid">
-          <ConfigurationMapLabel>
-            <Trans render="span">Cryptographic Cluster ID</Trans>
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>
+            Cryptographic Cluster ID
+          </Trans>
           <ConfigurationMapValue>{ccid}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="publicIP">
-          <ConfigurationMapLabel>
-            <Trans render="span">Public IP</Trans>
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Public IP</Trans>
           <ConfigurationMapValue>{publicIP}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <MountService.Mount
@@ -212,7 +210,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   getPageHeaderActions() {
     return [
       {
-        label: "View Cluster Configuration",
+        label: i18nMark("View Cluster Configuration"),
         onItemSelect: this.handleClusterConfigModalOpen
       }
     ];
@@ -244,14 +242,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     if (isEmpty(mesosBuildUser)) {
       return null;
     } else {
-      return (
-        <FormattedMessage
-          id="COMMON.BY_NAME"
-          values={{
-            name: mesosBuildUser
-          }}
-        />
-      );
+      return <Trans render="span">by {mesosBuildUser}</Trans>;
     }
   }
 
@@ -290,43 +281,31 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapRow key="cluster">
-          <ConfigurationMapLabel>
-            <FormattedMessage id="COMMON.CLUSTER" />
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Cluster</Trans>
           <ConfigurationMapValue>{mesosCluster}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="leader">
-          <ConfigurationMapLabel>
-            <FormattedMessage id="COMMON.LEADER" />
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Leader</Trans>
           <ConfigurationMapValue>
             {mesosMasterInfo.hostname}:{mesosMasterInfo.port}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="version">
-          <ConfigurationMapLabel>
-            <FormattedMessage id="COMMON.VERSION" />
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Version</Trans>
           <ConfigurationMapValue>{mesosVersion}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="built">
-          <ConfigurationMapLabel>
-            <FormattedMessage id="COMMON.BUILT" />
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Built</Trans>
           <ConfigurationMapValue>
             {mesosBuilt} {this.getMesosBuildUser(mesosBuildUser)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="started">
-          <ConfigurationMapLabel>
-            <FormattedMessage id="COMMON.STARTED" />
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Started</Trans>
           <ConfigurationMapValue>{mesosStarted}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="elected">
-          <ConfigurationMapLabel>
-            <FormattedMessage id="COMMON.ELECTED" />
-          </ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Elected</Trans>
           <ConfigurationMapValue>{mesosElected}</ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
@@ -361,16 +340,16 @@ class OverviewDetailTab extends mixin(StoreMixin) {
         />
         <div className="container">
           <ConfigurationMap>
-            <ConfigurationMapHeading className="flush-top">
-              Cluster <FormattedMessage id="COMMON.DETAILS" />
-            </ConfigurationMapHeading>
-            <ConfigurationMapHeading level={2}>
-              <FormattedMessage id="COMMON.GENERAL" />
-            </ConfigurationMapHeading>
+            <Trans render={<ConfigurationMapHeading className="flush-top" />}>
+              Cluster Details
+            </Trans>
+            <Trans render={<ConfigurationMapHeading level={2} />}>
+              General
+            </Trans>
             {this.getClusterDetails()}
-            <ConfigurationMapHeading level={2}>
-              Mesos <FormattedMessage id="COMMON.DETAILS" />
-            </ConfigurationMapHeading>
+            <Trans render={<ConfigurationMapHeading level={2} />}>
+              Mesos Details
+            </Trans>
             {this.getMesosDetails()}
             {marathonDetails}
             <MountService.Mount type="OverviewDetailTab:AdditionalClusterDetails" />

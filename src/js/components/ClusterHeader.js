@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import * as React from "react";
 import mixin from "reactjs-mixin";
@@ -81,9 +82,12 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     this.setState({ isTextCopied: false });
   }
 
+  getCopyStatusText() {
+    return this.state.isTextCopied ? i18nMark("Copied!") : i18nMark("Copy");
+  }
+
   getMenuItems() {
     const clusterName = this.getClusterName();
-    const copyText = this.state.isTextCopied ? "Copied" : "Copy";
     const publicIP = this.getPublicIP();
 
     return [
@@ -102,9 +106,11 @@ export default class ClusterHeader extends mixin(StoreMixin) {
             onTextCopy={this.handleTextCopy}
           >
             {publicIP}
-            <span className="user-account-dropdown-menu-copy-text">
-              {copyText}
-            </span>
+            <Trans
+              id={this.getCopyStatusText()}
+              render="span"
+              className="user-account-dropdown-menu-copy-text"
+            />
           </ClipboardTrigger>
         ),
         id: "public-ip",

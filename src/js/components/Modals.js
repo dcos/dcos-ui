@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { Hooks } from "PluginSDK";
@@ -9,7 +10,11 @@ import Config from "../config/Config";
 import ErrorModal from "./modals/ErrorModal";
 import EventTypes from "../constants/EventTypes";
 import SidebarStore from "../stores/SidebarStore";
+import LanguageModalStore from "../stores/LanguageModalStore";
 import VersionsModal from "./modals/VersionsModal";
+import LanguagePreferenceFormModal from "./modals/LanguagePreferenceFormModal";
+
+const getLanguageModalState = () => LanguageModalStore.get("isVisible");
 
 var Modals = React.createClass({
   displayName: "Modals",
@@ -34,7 +39,8 @@ var Modals = React.createClass({
       showingCliModal: false,
       showingClusterLinkingModal: false,
       showingVersionsModal: false,
-      showErrorModal: props.showErrorModal
+      showErrorModal: props.showErrorModal,
+      showLanguagePrefModal: false
     };
   },
 
@@ -65,6 +71,11 @@ var Modals = React.createClass({
       EventTypes.SHOW_VERSIONS_ERROR,
       this.handleShowVersionsError
     );
+
+    LanguageModalStore.addChangeListener(
+      EventTypes.LANGUAGE_MODAL_CHANGE,
+      this.handleLanguageModalToggle
+    );
   },
 
   componentWillUnmount() {
@@ -86,6 +97,11 @@ var Modals = React.createClass({
     SidebarStore.removeChangeListener(
       EventTypes.SHOW_VERSIONS_ERROR,
       this.handleShowVersionsError
+    );
+
+    LanguageModalStore.removeChangeListener(
+      EventTypes.LANGUAGE_MODAL_CHANGE,
+      this.handleLanguageModalToggle
     );
   },
 
@@ -113,6 +129,10 @@ var Modals = React.createClass({
     this.setState({ showingCliModal: true });
   },
 
+  handleLanguageModalToggle() {
+    this.setState({ showLanguagePrefModal: getLanguageModalState() });
+  },
+
   getCliModalOptions() {
     var onClose = function() {
       this.setState({ showingCliModal: false });
@@ -120,7 +140,7 @@ var Modals = React.createClass({
 
     return {
       onClose,
-      title: "Install DC/OS CLI",
+      title: i18nMark("Install DC/OS CLI"),
       showFooter: true,
       footer: (
         <div>
@@ -198,12 +218,17 @@ var Modals = React.createClass({
     return <ErrorModal onClose={onClose} errorMsg={errorMsg} open={show} />;
   },
 
+  getLanguagePrefModal(showModal) {
+    return <LanguagePreferenceFormModal isOpen={showModal} />;
+  },
+
   render() {
     var {
       showingCliModal,
       showingClusterLinkingModal,
       showingVersionsModal,
-      showErrorModal
+      showErrorModal,
+      showLanguagePrefModal
     } = this.state;
 
     return (
@@ -212,6 +237,7 @@ var Modals = React.createClass({
         {this.getCliInstallModal(showingCliModal)}
         {this.getVersionsModal(showingVersionsModal)}
         {this.getErrorModal(showErrorModal)}
+        {this.getLanguagePrefModal(showLanguagePrefModal)}
       </div>
     );
   }

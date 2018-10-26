@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -28,8 +30,8 @@ class JobDetailPage extends mixin(TabsMixin) {
     this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
 
     this.tabs_tabs = {
-      runHistory: "Run History",
-      configuration: "Configuration"
+      runHistory: i18nMark("Run History"),
+      configuration: i18nMark("Configuration")
     };
 
     this.state = {

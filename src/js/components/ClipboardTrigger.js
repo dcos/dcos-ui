@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import Clipboard from "clipboard";
 import PropTypes from "prop-types";
 import React from "react";
@@ -82,14 +84,19 @@ class ClipboardTrigger extends React.Component {
   }
 
   render() {
-    const { copiedText, tooltipContent, useTooltip } = this.props;
+    const { useTooltip } = this.props;
     const { hasCopiedToClipboard } = this.state;
 
     if (useTooltip) {
-      const text = hasCopiedToClipboard ? copiedText : tooltipContent;
+      const tooltipContent = hasCopiedToClipboard
+        ? i18nMark("Copied!")
+        : i18nMark("Copy to clipboard");
 
       return (
-        <Tooltip position="bottom" content={text}>
+        <Tooltip
+          position="bottom"
+          content={<Trans id={tooltipContent} render="span" />}
+        >
           {this.getTriggerContent()}
         </Tooltip>
       );
@@ -99,18 +106,11 @@ class ClipboardTrigger extends React.Component {
   }
 }
 
-ClipboardTrigger.defaultProps = {
-  copiedText: "Copied!",
-  tooltipContent: "Copy to clipboard"
-};
-
 ClipboardTrigger.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  copiedText: PropTypes.node,
-  copyText: PropTypes.node,
+  copyText: PropTypes.string,
   onTextCopy: PropTypes.func,
-  tooltipContent: PropTypes.node,
   useTooltip: PropTypes.bool
 };
 

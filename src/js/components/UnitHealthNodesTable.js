@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
@@ -32,9 +33,9 @@ class UnitHealthNodesTable extends React.Component {
   getColumns() {
     const classNameFn = ResourceTableUtil.getClassName;
     const headings = ResourceTableUtil.renderHeading({
-      health: "Health",
-      host_ip: "Node",
-      role: "Role"
+      health: i18nMark("Health"),
+      host_ip: i18nMark("Node"),
+      role: i18nMark("Role")
     });
 
     const sortFunction = TableUtil.getSortFunction("host_ip", function(

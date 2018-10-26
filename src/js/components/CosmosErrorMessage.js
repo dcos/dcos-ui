@@ -1,3 +1,5 @@
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -19,7 +21,7 @@ class CosmosErrorMessage extends React.Component {
   getMessage() {
     const { error } = this.props;
     if (!error) {
-      return "An unknown error occurred";
+      return <Trans render="span">An unknown error occurred</Trans>;
     }
 
     // Append reference to repository page, since repository related errors
@@ -32,10 +34,14 @@ class CosmosErrorMessage extends React.Component {
 
     // make "Package is already installed error" better
     if (error.type === "PackageAlreadyInstalled") {
-      return "A service with the same name already exists. Try a different name.";
+      return (
+        <Trans render="span">
+          A service with the same name already exists. Try a different name.
+        </Trans>
+      );
     }
 
-    return message;
+    return <Trans id={message} render="span" />;
   }
 
   getDetails() {
@@ -91,11 +97,13 @@ class CosmosErrorMessage extends React.Component {
   appendRepositoryLink(message) {
     return (
       <span>
-        <strong>{`${message}. `}</strong>
+        <Trans id={message} render="strong" />.
         <br />
-        {"You can go to the "}
-        <a href="/#/settings/repositories/">Repositories Settings</a>
-        {" page to change installed repositories."}
+        <Trans render="span">
+          You can go to the{" "}
+          <a href="/#/settings/repositories/">Repositories Settings</a> page to
+          change installed repositories.
+        </Trans>
       </span>
     );
   }
@@ -113,7 +121,7 @@ class CosmosErrorMessage extends React.Component {
 }
 
 CosmosErrorMessage.defaultProps = {
-  error: { message: "Please try again." },
+  error: { message: i18nMark("Please try again.") },
   flushBottom: false
 };
 

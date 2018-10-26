@@ -184,7 +184,11 @@ class CliInstallModal extends React.Component {
 
   render() {
     const { footer, open, showFooter, title } = this.props;
-    const header = <ModalHeading>{title}</ModalHeading>;
+    const header = (
+      <ModalHeading>
+        <Trans id={title} render="span" />
+      </ModalHeading>
+    );
 
     return (
       <Modal

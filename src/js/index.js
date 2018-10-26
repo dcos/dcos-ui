@@ -16,10 +16,12 @@ import en from "#LOCALE/en/messages.js";
 // require them in the component.js
 import "../styles/index.less";
 import "./utils/MomentJSConfig";
-import { CONFIG_ERROR } from "./constants/EventTypes";
+import { CONFIG_ERROR, LANGUAGE_MODAL_CLOSE } from "./constants/EventTypes";
 import ApplicationUtil from "./utils/ApplicationUtil";
 import appRoutes from "./routes/index";
 import ConfigStore from "./stores/ConfigStore";
+import UserLanguageStore from "./stores/UserLanguageStore";
+import LanguageModalStore from "./stores/LanguageModalStore";
 import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
 import RouterUtil from "./utils/RouterUtil";
@@ -29,6 +31,7 @@ import enUS from "./translations/en-US.json";
 
 const domElement = global.document.getElementById("application");
 const navigatorLanguage = "en-US";
+const initialLanguage = UserLanguageStore.get();
 
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javascript files are parsed because it
@@ -93,7 +96,11 @@ RequestUtil.json = function(options = {}) {
 
         renderAppToDOM(
           <Provider store={PluginSDK.Store}>
-            <I18nProvider defaultRender="span" language="en" catalogs={{ en }}>
+            <I18nProvider
+              defaultRender="span"
+              language={UserLanguageStore.get()}
+              catalogs={{ en }}
+            >
               <IntlProvider locale={navigatorLanguage} messages={enUS}>
                 <Router history={hashHistory} routes={routes} />
               </IntlProvider>
@@ -131,10 +138,22 @@ RequestUtil.json = function(options = {}) {
     );
   }
 
+  function handleLanguageChange() {
+    if (initialLanguage !== UserLanguageStore.get()) {
+      global.location.reload();
+    }
+  }
+
   function startApplication() {
     // Plugins events
     PluginSDK.Hooks.addAction("pluginsConfigured", onPluginsLoaded);
     ConfigStore.addChangeListener(CONFIG_ERROR, onConfigurationError);
+
+    // Language change
+    LanguageModalStore.addChangeListener(
+      LANGUAGE_MODAL_CLOSE,
+      handleLanguageChange
+    );
 
     // Load configuration
     ConfigStore.fetchConfig();

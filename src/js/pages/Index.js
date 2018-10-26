@@ -17,6 +17,7 @@ import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
+import UserLanguageStore from "../stores/UserLanguageStore";
 import { hasViewportChanged, getCurrentViewport } from "../utils/ViewportUtil";
 import * as viewport from "../constants/Viewports";
 
@@ -48,6 +49,8 @@ var Index = React.createClass({
       EventTypes.MESOS_STATE_CHANGE,
       this.onMesosStoreChange
     );
+    const savedLanguage = UserLanguageStore.get();
+    UserLanguageStore.set(savedLanguage);
 
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.

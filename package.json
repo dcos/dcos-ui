@@ -135,7 +135,7 @@
     "gulp-connect": "3.2.2",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
-    "http-server": "github:johntron/http-server#proxy-secure-flag",
+    "http-server": "github:dcos-labs/http-server#e268ac3fc1f01acdd2d9ec037f7dcb5ec76f7c61",
     "image-webpack-loader": "4.3.1",
     "jasmine-reporters": "2.1.1",
     "jest-cli": "22.4.0",

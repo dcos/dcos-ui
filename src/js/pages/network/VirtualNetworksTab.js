@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -23,9 +24,7 @@ const NetworksBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
-        <Link to="/networking/networks">
-          <Trans render="span">Networks</Trans>
-        </Link>
+        <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -122,6 +121,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
   getContent() {
     const { errorCount, searchString } = this.state;
+    const { i18n } = this.props;
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
@@ -141,9 +141,12 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
     return (
       <div>
+        {/* L10NTODO: Pluralize
+        We should pluralize FilterHeadline name here using lingui macro instead of
+        doing it manually in FilterHeadline */}
         <FilterHeadline
           onReset={this.resetFilter}
-          name="Network"
+          name={i18n._(t`Network`)}
           currentLength={filteredOverlayList.getItems().length}
           totalLength={overlayList.getItems().length}
         />
@@ -174,4 +177,4 @@ VirtualNetworksTabContent.routeConfig = {
   matches: /^\/networking\/networks/
 };
 
-module.exports = VirtualNetworksTabContent;
+module.exports = withI18n()(VirtualNetworksTabContent);

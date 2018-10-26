@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
@@ -19,9 +20,7 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
-        <Link to="/networking/networks">
-          <Trans render="span">Networks</Trans>
-        </Link>
+        <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
@@ -62,8 +61,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     // Virtual Network Detail Tabs
     this.tabs_tabs = {
-      "/networking/networks/:overlayName": "Tasks",
-      "/networking/networks/:overlayName/details": "Details"
+      "/networking/networks/:overlayName": i18nMark("Tasks"),
+      "/networking/networks/:overlayName/details": i18nMark("Details")
     };
 
     this.store_listeners = [
@@ -144,7 +143,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     const tabs = [
       {
-        label: "Tasks",
+        label: i18nMark("Tasks"),
         callback: () => {
           this.setState({ currentTab: "/networking/networks/:overlayName" });
           this.context.router.push(
@@ -154,7 +153,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
         isActive: currentTab === "/networking/networks/:overlayName"
       },
       {
-        label: "Details",
+        label: i18nMark("Details"),
         callback: () => {
           this.setState({
             currentTab: "/networking/networks/:overlayName/details"

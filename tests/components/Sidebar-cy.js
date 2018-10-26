@@ -33,7 +33,7 @@ describe("Sidebar", function() {
       cy.get("@settingsMenuItem").should(function($anchorTag) {
         const $parentMenuItem = $anchorTag.closest("li.sidebar-menu-item");
         expect($parentMenuItem.hasClass("open")).to.equal(true);
-        expect($parentMenuItem.find("ul li").length).to.equal(1);
+        expect($parentMenuItem.find("ul li").length).to.equal(2);
       });
     });
 
