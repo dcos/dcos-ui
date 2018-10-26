@@ -25,6 +25,14 @@ function getNetworkTypes(networks) {
   return networks.map(({ mode }) => NETWORK_MODE_NAME[mode]).join(", ");
 }
 
+function getNetworkNames(networks) {
+  if (!networks || !networks.length) {
+    return null;
+  }
+
+  return networks.map(({ name }) => name).join(", ");
+}
+
 class PodNetworkConfigSection extends React.Component {
   getColumns() {
     return [
@@ -114,6 +122,13 @@ class PodNetworkConfigSection extends React.Component {
               <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
               <ConfigurationMapValueWithDefault
                 value={getNetworkTypes(appConfig.networks)}
+              />
+              {action}
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>Network Name</ConfigurationMapLabel>
+              <ConfigurationMapValueWithDefault
+                value={getNetworkNames(appConfig.networks)}
               />
               {action}
             </ConfigurationMapRow>
