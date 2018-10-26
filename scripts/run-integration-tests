@@ -156,7 +156,7 @@ function setup {
     exit 1
   fi
   echo "==> Starting http-server, serving files from ./dist…"
-  http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist"&
+  npx http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist"&
   PROXY_PID=$!
   echo "===> done (PID: ${PROXY_PID})."
 
