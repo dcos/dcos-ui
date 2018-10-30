@@ -15,17 +15,20 @@ import { graphqlObservable } from "../graphqlObservable";
 const typeDefs = `
   type Shuttle {
     name: String!
+    uppercasedName: String!
   }
-  
+
   type Query {
     launched(name: String): [Shuttle!]!
   }
-  
+
   type Mutation {
     createShuttle(name: String): Shuttle!
     createShuttleList(name: String): [Shuttle!]!
-  }  
+  }
 `;
+
+const mockUpercasedNameFieldResolver = jest.fn(obj => obj.name.toUpperCase());
 
 const mockResolvers = {
   Query: {
@@ -60,6 +63,9 @@ const mockResolvers = {
         { name: args.name }
       ]);
     }
+  },
+  Shuttle: {
+    uppercasedName: mockUpercasedNameFieldResolver
   }
 };
 
@@ -189,6 +195,34 @@ describe("graphqlObservable", function() {
       const result = graphqlObservable(query, schema, {
         query: dataSource
       });
+
+      m.expect(result.take(1)).toBeObservable(expected);
+    });
+
+    itMarbles("supports field resolvers", function(m) {
+      const query = gql`
+        query {
+          launched {
+            name
+            uppercasedName
+          }
+        }
+      `;
+
+      const expectedData = [{ name: "challenger", firstFlight: 1984 }];
+      const dataSource = Observable.of(expectedData);
+      const expected = m.cold("(a|)", {
+        a: {
+          data: {
+            launched: [{ name: "challenger", uppercasedName: "CHALLENGER" }]
+          }
+        }
+      });
+
+      const result = graphqlObservable(query, schema, {
+        query: dataSource
+      });
+      expect(mockUpercasedNameFieldResolver).toHaveBeenCalled();
 
       m.expect(result.take(1)).toBeObservable(expected);
     });
