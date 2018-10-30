@@ -1,7 +1,7 @@
 {
   "assets": {
     "uris": {
-      "dcos-ui-bundle": "{{artifact-dir}}/release.tar.gz"
+      "dcos-ui-bundle": "{{artifact-dir}}/release-{{package-version}}.tar.gz"
     }
   }
 }

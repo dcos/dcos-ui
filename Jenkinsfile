@@ -92,24 +92,6 @@ pipeline {
       }
     }
 
-    stage("Publish Universe") {
-      when {
-        expression {
-          master_branches.contains(BRANCH_NAME)
-        }
-      }
-      steps {
-        withCredentials([
-          string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID"),
-          string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY"),
-        ]) {
-          sh "git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons"
-          sh "tar czf oss-build.tar.gz dist"
-          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
-        }
-      }
-    }
-
     stage("Run Enterprise Pipeline") {
       when {
         expression {
