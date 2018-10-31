@@ -27,69 +27,9 @@ pipeline {
     }
 
   stage("Docker in Docker Example") {
-    parallel {
-      stage("mesos") {
-        steps {
-          node('mesos') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
-
-      stage("mesos-med") {
-        steps {
-          node('mesos-med') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
-
-      stage("mesos-ubuntu") {
-        steps {
-          node('mesos-ubuntu') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
-
-      stage("infinity") {
-        steps {
-          node('infinity') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
-
-      stage("pytoolbox1") {
-        steps {
-          node('pytoolbox1') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
-
-      stage("shakedown") {
-        steps {
-          node('shakedown') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
-
-      stage("mesos-sec") {
-        steps {
-          node('mesos-sec') {
-            sh "docker --help"
-            sh "docker build -t foo ."
-          }
-        }
-      }
+    steps {
+      sh "docker --help"
+      sh "docker build -t foo ."
     }
   }
 
