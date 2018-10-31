@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
@@ -42,9 +43,9 @@ class ServiceDetail extends mixin(TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      "/services/overview/:id/tasks": "Tasks",
-      "/services/overview/:id/configuration": "Configuration",
-      "/services/overview/:id/debug": "Debug"
+      "/services/overview/:id/tasks": i18nMark("Tasks"),
+      "/services/overview/:id/configuration": i18nMark("Configuration"),
+      "/services/overview/:id/debug": i18nMark("Debug")
     };
 
     this.state = {

@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
@@ -7,9 +9,9 @@ import { Table } from "reactjs-components";
 import OverlayList from "../../structs/OverlayList";
 
 const headerMapping = {
-  name: "Name",
-  subnet: "IP Subnet",
-  prefix: "Agent Prefix Length"
+  name: i18nMark("Name"),
+  subnet: i18nMark("IP Subnet"),
+  prefix: i18nMark("Agent Prefix Length")
 };
 
 class VirtualNetworksTable extends React.Component {
@@ -77,7 +79,13 @@ class VirtualNetworksTable extends React.Component {
   }
 
   renderHeading(prop) {
-    return <span className="table-header-title">{headerMapping[prop]}</span>;
+    return (
+      <Trans
+        id={headerMapping[prop]}
+        render="span"
+        className="table-header-title"
+      />
+    );
   }
 
   renderName(prop, overlay) {

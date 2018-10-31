@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
@@ -252,12 +253,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getPackageBadge(cosmosPackage) {
     const isCertified = cosmosPackage.isCertified();
-    const badgeCopy = isCertified ? "Certified" : "Community";
+    const badgeCopy = isCertified
+      ? i18nMark("Certified")
+      : i18nMark("Community");
     const appearance = isCertified ? "primary" : "default";
 
     return (
       <span className="column-3">
-        <Badge appearance={appearance}>{badgeCopy}</Badge>
+        <Trans id={badgeCopy} render={<Badge appearance={appearance} />} />
       </span>
     );
   }
@@ -287,7 +290,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     let installButtonIsDisabled = false;
 
     if (isLoadingSelectedVersion) {
-      tooltipContent = "Loading selected version";
+      tooltipContent = <Trans render="span">Loading selected version</Trans>;
       installButtonIsDisabled = true;
     }
 
@@ -299,9 +302,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
-      tooltipContent = `This version of ${cosmosPackage.getName()} requires DC/OS
-        version ${cosmosPackage.minDcosReleaseVersion} or higher, but you are
-        running DC/OS version ${semver.coerce(MetadataStore.version)}`;
+      tooltipContent = (
+        <Trans render="span">
+          This version of {cosmosPackage.getName()} requires DC/OS version{" "}
+          {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
+          DC/OS version {semver.coerce(MetadataStore.version)}
+        </Trans>
+      );
       installButtonIsDisabled = true;
     }
 
@@ -381,7 +388,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getInstalledSuccessModal(name) {
     const { location } = this.props;
-    const installMessage = `${StringUtil.capitalize(name)} is being installed.`;
 
     return (
       <Modal
@@ -398,9 +404,12 @@ class PackageDetailTab extends mixin(StoreMixin) {
               <Trans render="h2" className="short-top short-bottom">
                 Success!
               </Trans>
-              <div className="install-package-modal-package-notes text-overflow-break-word">
-                {installMessage}
-              </div>
+              <Trans
+                render="div"
+                className="install-package-modal-package-notes text-overflow-break-word"
+              >
+                {StringUtil.capitalize(name)} is being installed.
+              </Trans>
             </div>
           </div>
           <div className="modal-footer">

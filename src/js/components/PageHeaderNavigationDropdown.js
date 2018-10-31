@@ -1,6 +1,7 @@
 import { Dropdown } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import Icon from "./Icon";
 
@@ -25,12 +26,14 @@ class PageHeaderNavigationDropdown extends React.Component {
       const { label } = item;
 
       return Object.assign({}, item, {
-        html: label,
+        html: <Trans render="span" id={label} />,
         selectedHtml: (
           <div className="page-header-navigation-dropdown-active-item">
-            <span className="page-header-navigation-dropdown-label">
-              {label}
-            </span>
+            <Trans
+              id={label}
+              render="span"
+              className="page-header-navigation-dropdown-label"
+            />
             <span className="page-header-navigation-dropdown-caret">
               <Icon
                 id="caret-down"

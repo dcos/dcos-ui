@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -36,7 +37,7 @@ var ServicesPage = React.createClass({
       { name: "notification", events: ["change"], suppressUpdate: false }
     ];
     this.tabs_tabs = {
-      "/services/overview": "Services"
+      "/services/overview": i18nMark("Services")
     };
     this.updateCurrentTab();
   },
