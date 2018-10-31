@@ -9,6 +9,7 @@ pipeline {
     dockerfile {
       args  "--shm-size=1g"
     }
+    label "mesos-sec"
   }
 
   environment {
