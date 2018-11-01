@@ -127,7 +127,7 @@ class ServiceRestartModal extends React.Component {
         showHeader={true}
       >
         <Trans render="p">
-          Restarting the <strong>{serviceName}</strong>
+          Restarting the <strong>{serviceName}</strong>{" "}
           {serviceLabel.toLowerCase()} will remove all currently running
           instances of the {serviceLabel.toLowerCase()} and then attempt to
           create new instances identical to those removed.
