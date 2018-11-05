@@ -1648,6 +1648,10 @@
         4
       ],
       [
+        "src/js/pages/CatalogPage.js",
+        13
+      ],
+      [
         "src/js/pages/catalog/PackageDetailTab.js",
         36
       ],
@@ -1879,6 +1883,10 @@
         60
       ],
       [
+        "src/js/pages/SystemOverviewPage.js",
+        13
+      ],
+      [
         "src/js/pages/system/OverviewDetailTab.js",
         284
       ]
@@ -2029,6 +2037,10 @@
     "translation": "",
     "origin": [
       [
+        "src/js/pages/ComponentsPage.js",
+        13
+      ],
+      [
         "src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.js",
         23
       ],
@@ -2039,6 +2051,10 @@
       [
         "src/js/pages/system/UnitsHealthTab.js",
         30
+      ],
+      [
+        "src/js/pages/system/UnitsHealthTab.js",
+        257
       ]
     ]
   },
@@ -2931,7 +2947,11 @@
     "origin": [
       [
         "src/js/pages/DashboardPage.js",
-        47
+        48
+      ],
+      [
+        "src/js/pages/DashboardPage.js",
+        64
       ]
     ]
   },
@@ -5557,6 +5577,10 @@
       [
         "plugins/jobs/src/js/components/JobsOverviewList.tsx",
         38
+      ],
+      [
+        "src/js/pages/JobsPage.js",
+        19
       ]
     ]
   },
@@ -6924,6 +6948,10 @@
       [
         "plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js",
         51
+      ],
+      [
+        "src/js/pages/NetworkPage.js",
+        75
       ]
     ]
   },
@@ -6932,11 +6960,15 @@
     "origin": [
       [
         "src/js/pages/NetworkPage.js",
-        22
+        23
       ],
       [
         "src/js/pages/network/VirtualNetworksTab.js",
         27
+      ],
+      [
+        "src/js/pages/network/VirtualNetworksTab.js",
+        176
       ],
       [
         "src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js",
@@ -7215,6 +7247,14 @@
         17
       ],
       [
+        "plugins/nodes/src/js/pages/NodesAgents.js",
+        69
+      ],
+      [
+        "plugins/nodes/src/js/pages/NodesPage.js",
+        13
+      ],
+      [
         "src/js/constants/DashboardHeadings.js",
         11
       ]
@@ -7423,6 +7463,15 @@
       ]
     ]
   },
+  "Organization": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/OrganizationPage.js",
+        13
+      ]
+    ]
+  },
   "Other": {
     "translation": "",
     "origin": [
@@ -7455,6 +7504,10 @@
       [
         "src/js/pages/system/OverviewDetailTab.js",
         43
+      ],
+      [
+        "src/js/pages/system/OverviewDetailTab.js",
+        365
       ]
     ]
   },
@@ -7518,6 +7571,10 @@
   "Package Repositories": {
     "translation": "",
     "origin": [
+      [
+        "plugins/catalog/src/js/repositories/RepositoriesList.js",
+        89
+      ],
       [
         "plugins/catalog/src/js/repositories/components/RepositoriesPage.js",
         13
@@ -9483,6 +9540,14 @@
         204
       ],
       [
+        "plugins/services/src/js/containers/services/ServicesContainer.js",
+        653
+      ],
+      [
+        "plugins/services/src/js/pages/ServicesPage.js",
+        23
+      ],
+      [
         "plugins/services/src/js/pages/ServicesPage.js",
         40
       ],
@@ -9552,6 +9617,15 @@
       [
         "src/js/constants/UnitSummaries.js",
         125
+      ]
+    ]
+  },
+  "Settings": {
+    "translation": "",
+    "origin": [
+      [
+        "src/js/pages/SettingsPage.js",
+        13
       ]
     ]
   },
@@ -10503,7 +10577,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/services/ServicesContainer.js",
-        487
+        488
       ]
     ]
   },
@@ -11408,7 +11482,11 @@
       ],
       [
         "src/js/pages/system/UsersPage.js",
-        26
+        27
+      ],
+      [
+        "src/js/pages/system/UsersPage.js",
+        125
       ]
     ]
   },
@@ -11570,7 +11648,7 @@
     "origin": [
       [
         "src/js/pages/DashboardPage.js",
-        141
+        142
       ]
     ]
   },
@@ -11579,7 +11657,7 @@
     "origin": [
       [
         "src/js/pages/DashboardPage.js",
-        163
+        164
       ]
     ]
   },
@@ -12292,6 +12370,10 @@
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
         251
+      ],
+      [
+        "src/js/components/Sidebar.js",
+        167
       ]
     ]
   },

@@ -66,7 +66,7 @@ var NodesAgents = React.createClass({
 
   statics: {
     routeConfig: {
-      label: "Nodes",
+      label: i18nMark("Nodes"),
       icon: <Icon family="product" id="servers-inverse" />,
       matches: /^\/nodes/
     },

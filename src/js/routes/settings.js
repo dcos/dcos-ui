@@ -1,4 +1,5 @@
 import { Route, Redirect } from "react-router";
+import { i18nMark } from "@lingui/react";
 
 import RepositoriesList from "#PLUGINS/catalog/src/js/repositories/RepositoriesList";
 import SettingsPage from "#SRC/js/pages/SettingsPage";
@@ -14,7 +15,7 @@ const settingsRoutes = [
     type: Route,
     path: "settings",
     component: SettingsPage,
-    category: "system",
+    category: i18nMark("system"),
     isInSidebar: true,
     children: [
       {

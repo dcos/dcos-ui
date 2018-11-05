@@ -2,6 +2,7 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { Route, IndexRoute } from "react-router";
+import { i18nMark } from "@lingui/react";
 
 import ComponentsPage from "../pages/ComponentsPage";
 import UnitsHealthDetail from "../pages/system/UnitsHealthDetail";
@@ -12,7 +13,7 @@ const componentsRoutes = {
   type: Route,
   path: "components",
   component: ComponentsPage,
-  category: "system",
+  category: i18nMark("system"),
   isInSidebar: true,
   children: [
     {

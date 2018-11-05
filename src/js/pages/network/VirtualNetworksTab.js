@@ -1,5 +1,5 @@
 import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { withI18n, i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 /* eslint-disable no-unused-vars */
@@ -173,7 +173,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 }
 
 VirtualNetworksTabContent.routeConfig = {
-  label: "Networks",
+  label: i18nMark("Networks"),
   matches: /^\/networking\/networks/
 };
 
