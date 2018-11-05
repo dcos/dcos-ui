@@ -201,25 +201,21 @@ class Sidebar extends React.Component {
         );
       }
 
-      let linkElement = element.link;
-      if (typeof linkElement === "string") {
-        linkElement = (
-          <PrimarySidebarLink
-            hasChildren={hasChildren}
-            isChildActive={isChildActive}
-            isExpanded={isExpanded}
-            to={element.path}
-            icon={element.options.icon}
-            onClick={this.handlePrimarySidebarLinkClick.bind(
-              this,
-              element,
-              isChildActive
-            )}
-          >
-            {linkElement}
-          </PrimarySidebarLink>
-        );
-      }
+      const linkElement = (
+        <PrimarySidebarLink
+          hasChildren={hasChildren}
+          label={element.label}
+          isChildActive={isChildActive}
+          isExpanded={isExpanded}
+          to={element.path}
+          icon={element.options.icon}
+          onClick={this.handlePrimarySidebarLinkClick.bind(
+            this,
+            element,
+            isChildActive
+          )}
+        />
+      );
 
       const itemClassSet = classNames("sidebar-menu-item", {
         selected: isParentActive && !isChildActive,
@@ -273,12 +269,12 @@ class Sidebar extends React.Component {
           isChildActive = true;
         }
 
-        let linkElement = currentChild.link;
-        if (typeof linkElement === "string") {
-          linkElement = (
-            <Trans render={<Link to={currentChild.path} />} id={linkElement} />
-          );
-        }
+        const linkElement = (
+          <Trans
+            render={<Link to={currentChild.path} />}
+            id={currentChild.label}
+          />
+        );
 
         children.push(
           <li
