@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "semanticCommits": true,
+  "rebaseStalePrs": true,
+  "labels": ["renovate"],
+  "packageRules": [
+    {
+      "packageNames": [
+        "@dcos/http-service",
+        "@dcos/mesos-client",
+        "@dcos/tslint-config",
+        "@dcos/ui-kit"
+      ],
+      "rangeStrategy": "pin",
+      "updateTypes": ["major", "minor", "patch", "pin"]
+    }
+  ]
+}
