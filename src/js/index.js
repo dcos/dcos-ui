@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
 
 import en from "#LOCALE/en/messages.js";
+import zh from "#LOCALE/zh/messages.js";
 
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
@@ -99,7 +100,7 @@ RequestUtil.json = function(options = {}) {
             <I18nProvider
               defaultRender="span"
               language={UserLanguageStore.get()}
-              catalogs={{ en }}
+              catalogs={{ en, zh }}
             >
               <IntlProvider locale={navigatorLanguage} messages={enUS}>
                 <Router history={hashHistory} routes={routes} />
