@@ -31,13 +31,19 @@ pipeline {
 
     stage("Build") {
       steps {
-        sh "npm --unsafe-perm install"
-        sh "npm run build"
+        sh "npm --unsafe-perm ci"
+        sh "npm run build-assets"
       }
     }
 
     stage("Tests") {
       parallel {
+        stage("Unit") {
+          steps {
+            sh "npm test"
+          }
+        }
+
         stage("Integration Test") {
           steps {
             sh "npm run integration-tests"
