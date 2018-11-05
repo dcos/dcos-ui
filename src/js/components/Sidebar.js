@@ -163,7 +163,13 @@ class Sidebar extends React.Component {
       }
 
       if (group.category !== "root") {
-        heading = <h3 className="sidebar-section-header">{group.category}</h3>;
+        heading = (
+          <Trans
+            render="h3"
+            className="sidebar-section-header"
+            id={group.category}
+          />
+        );
       }
 
       return (

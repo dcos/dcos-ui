@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import React from "react";
 import { routerShape } from "react-router";
 
@@ -15,7 +16,7 @@ JobsPage.contextTypes = {
 };
 
 JobsPage.routeConfig = {
-  label: "Jobs",
+  label: i18nMark("Jobs"),
   icon: <Icon id="jobs-inverse" size="small" family="product" />,
   matches: /^\/jobs/
 };

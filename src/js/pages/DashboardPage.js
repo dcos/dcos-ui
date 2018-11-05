@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React from "react";
@@ -60,7 +61,7 @@ var DashboardPage = React.createClass({
 
   statics: {
     routeConfig: {
-      label: "Dashboard",
+      label: i18nMark("Dashboard"),
       icon: <Icon id="dashboard-inverse" size="small" family="product" />,
       matches: /^\/dashboard/
     },
