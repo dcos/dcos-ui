@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
+import { i18nMark } from "@lingui/react";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
@@ -21,9 +22,9 @@ class JobTaskDetailPage extends React.Component {
       id
     )}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
-      { label: "Details", routePath: routePrefix + "/details" },
-      { label: "Files", routePath: routePrefix + "/files" },
-      { label: "Logs", routePath: routePrefix + "/logs" }
+      { label: i18nMark("Details"), routePath: routePrefix + "/details" },
+      { label: i18nMark("Files"), routePath: routePrefix + "/files" },
+      { label: i18nMark("Logs"), routePath: routePrefix + "/logs" }
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);

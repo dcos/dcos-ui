@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -82,7 +83,7 @@ class FuzzyTextDSLSection extends React.Component {
 
   render() {
     const { data } = this.state;
-    const { expression, onApply, onChange } = this.props;
+    const { expression, onApply, onChange, i18n } = this.props;
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
 
     return (
@@ -102,7 +103,7 @@ class FuzzyTextDSLSection extends React.Component {
             disabled={!enabled}
             name="text"
             onChange={this.handleTextChange}
-            placeholder="Enter words found in name"
+            placeholder={i18n._(t`Enter words found in name`)}
             value={data.text || ""}
           />
         </FormGroup>
@@ -117,4 +118,4 @@ FuzzyTextDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = FuzzyTextDSLSection;
+module.exports = withI18n()(FuzzyTextDSLSection);

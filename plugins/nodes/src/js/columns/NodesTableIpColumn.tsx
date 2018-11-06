@@ -1,5 +1,6 @@
 import * as React from "react";
 import sort from "array-sort";
+import { Trans } from "@lingui/macro";
 import Node from "#SRC/js/structs/Node";
 import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
@@ -18,7 +19,10 @@ export function ipRenderer(data: Node): React.ReactNode {
       <TextCell>
         <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
           <span title={headline}>
-            <Tooltip anchor="start" content="Connection to node lost">
+            <Tooltip
+              anchor="start"
+              content={<Trans render="span">Connection to node lost</Trans>}
+            >
               <Icon
                 className="icon-alert icon-margin-right"
                 color="neutral"

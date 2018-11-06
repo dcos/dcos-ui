@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -83,17 +84,17 @@ class ServiceStopModal extends React.Component {
   }
 
   getServiceLabel() {
-    const { service } = this.props;
+    const { service, i18n } = this.props;
 
     if (service instanceof Pod) {
-      return "Pod";
+      return i18n._(t`Pod`);
     }
 
     if (service instanceof ServiceTree) {
-      return "Group";
+      return i18n._(t`Group`);
     }
 
-    return "Service";
+    return i18n._(t`Service`);
   }
 
   getModalHeading() {
@@ -107,7 +108,7 @@ class ServiceStopModal extends React.Component {
   }
 
   render() {
-    const { isPending, onClose, open, service, stopItem } = this.props;
+    const { isPending, onClose, open, service, stopItem, i18n } = this.props;
     const serviceLabel = this.getServiceLabel();
     const serviceName = service.getName();
 
@@ -119,7 +120,7 @@ class ServiceStopModal extends React.Component {
         onClose={onClose}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link flush-left"
-        rightButtonText={`Stop ${serviceLabel}`}
+        rightButtonText={i18n._(t`Stop`) + ` ${serviceLabel}`}
         rightButtonCallback={() => stopItem(this.shouldForceUpdate())}
         rightButtonClassName="button button-danger"
         showHeader={true}
@@ -148,4 +149,4 @@ ServiceStopModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceStopModal;
+module.exports = withI18n()(ServiceStopModal);

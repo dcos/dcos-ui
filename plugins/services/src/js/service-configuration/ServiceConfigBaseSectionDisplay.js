@@ -1,5 +1,6 @@
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -67,12 +68,16 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
         let action;
         if (onEditClick) {
           action = (
-            <a
-              className="button button-link flush table-display-on-row-hover"
-              onClick={onEditClick.bind(null, { tabViewID })}
+            <Trans
+              render={
+                <a
+                  className="button button-link flush table-display-on-row-hover"
+                  onClick={onEditClick.bind(null, { tabViewID })}
+                />
+              }
             >
               Edit
-            </a>
+            </Trans>
           );
         }
 

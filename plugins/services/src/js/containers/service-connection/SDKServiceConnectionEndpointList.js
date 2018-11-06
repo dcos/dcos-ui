@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import Loader from "#SRC/js/components/Loader";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -67,19 +68,19 @@ class SDKServiceConnectionEndpointList extends React.Component {
       <ConfigurationMapSection key={key}>
         <ConfigurationMapHeading>{endpoint.getName()}</ConfigurationMapHeading>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Address</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Address</Trans>
           <ConfigurationMapValue>
             <span>{this.getClipboardTrigger(endpoint.getAddress())}</span>
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>DNS</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>DNS</Trans>
           <ConfigurationMapValue>
             {this.getClipboardTrigger(endpoint.getDns())}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>VIP</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>VIP</Trans>
           <ConfigurationMapValue>
             {this.getClipboardTrigger(endpoint.getVip())}
           </ConfigurationMapValue>
@@ -102,14 +103,14 @@ class SDKServiceConnectionEndpointList extends React.Component {
               endpoint.getData()
             )}
           >
-            <span>
+            <Trans render="span">
               <Icon
                 id="download"
                 className="endpoint-download-icon"
                 size="mini"
               />{" "}
               Download
-            </span>
+            </Trans>
           </a>
         </ConfigurationMapValue>
       </ConfigurationMapRow>
@@ -145,7 +146,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>Files</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading />}>Files</Trans>
         {fileEndpoints.map((endpoint, index) => {
           return this.getFileEndpoint(endpoint, index);
         })}
@@ -155,10 +156,10 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
   getAlertPanelSDKDeploying() {
     return (
-      <div className="endpoint-sdk-deploying">
+      <Trans render="div" className="endpoint-sdk-deploying">
         Endpoints for {this.props.service.getId()} will appear here once it is
         fully deployed and running.
-      </div>
+      </Trans>
     );
   }
 

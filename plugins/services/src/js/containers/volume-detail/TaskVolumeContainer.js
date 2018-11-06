@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -59,7 +60,11 @@ class TaskVolumeContainer extends React.Component {
     if (!service) {
       return (
         <ServiceItemNotFound
-          message={`The service with the ID of "${taskID}" could not be found.`}
+          message={
+            <Trans render="span">
+              The service with the ID of "{taskID}" could not be found.
+            </Trans>
+          }
         />
       );
     }
@@ -70,7 +75,11 @@ class TaskVolumeContainer extends React.Component {
 
     if (!volume) {
       return (
-        <ServiceItemNotFound message={`Volume '${volumeId}' was not found.`} />
+        <ServiceItemNotFound
+          message={
+            <Trans render="span">Volume '{volumeId}' was not found.</Trans>
+          }
+        />
       );
     }
 

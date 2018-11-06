@@ -1,7 +1,5 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { IntlProvider } from "react-intl";
-import enUS from "#SRC/js/translations/en-US.json";
 
 import NonLeadersGrid from "../NonLeadersGrid";
 
@@ -32,30 +30,22 @@ const masters = [
   }
 ];
 
-const TestableNonLeadersGrid = ({ masters }) => {
-  return (
-    <IntlProvider locale="en" messages={enUS}>
-      <NonLeadersGrid masters={masters} />
-    </IntlProvider>
-  );
-};
-
 describe("LeaderGrid", function() {
   it("renders loading", function() {
     expect(
-      renderer.create(<TestableNonLeadersGrid masters={undefined} />).toJSON()
+      renderer.create(<NonLeadersGrid masters={undefined} />).toJSON()
     ).toMatchSnapshot();
   });
 
   it("renders empty", function() {
     expect(
-      renderer.create(<TestableNonLeadersGrid masters={[]} />).toJSON()
+      renderer.create(<NonLeadersGrid masters={[]} />).toJSON()
     ).toMatchSnapshot();
   });
 
   it("renders masters", function() {
     expect(
-      renderer.create(<TestableNonLeadersGrid masters={masters} />).toJSON()
+      renderer.create(<NonLeadersGrid masters={masters} />).toJSON()
     ).toMatchSnapshot();
   });
 });

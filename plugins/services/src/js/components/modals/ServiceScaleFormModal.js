@@ -106,18 +106,17 @@ class ServiceScaleFormModal extends React.Component {
   }
 
   getHeader() {
-    let serviceType = "Service";
+    let headerText = i18nMark("Scale Service");
 
     if (this.props.service instanceof Pod) {
-      serviceType = "Pod";
+      headerText = i18nMark("Scale Pod");
     }
 
     if (this.props.service instanceof ServiceTree) {
-      serviceType = "Group";
+      headerText = i18nMark("Scale Group");
     }
-    const headerText = `Scale ${serviceType}`;
 
-    return <ModalHeading>{headerText}</ModalHeading>;
+    return <Trans id={headerText} render={<ModalHeading />} />;
   }
 
   getBodyText() {

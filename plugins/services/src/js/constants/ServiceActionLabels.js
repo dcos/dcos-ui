@@ -1,12 +1,14 @@
+import { i18nMark } from "@lingui/react";
+
 const ServiceActionLabels = {
-  edit: "SERVICE_ACTIONS.EDIT",
-  delete: "SERVICE_ACTIONS.DELETE",
-  restart: "SERVICE_ACTIONS.RESTART",
-  resume: "SERVICE_ACTIONS.RESUME",
-  open: "SERVICE_ACTIONS.OPEN_SERVICE",
-  scale: "SERVICE_ACTIONS.SCALE",
-  scale_by: "SERVICE_ACTIONS.SCALE_BY",
-  stop: "SERVICE_ACTIONS.STOP"
+  edit: i18nMark("Edit"),
+  delete: i18nMark("Delete"),
+  restart: i18nMark("Restart"),
+  resume: i18nMark("Resume"),
+  open: i18nMark("Open Service"),
+  scale: i18nMark("Scale"),
+  scale_by: i18nMark("Scale By"),
+  stop: i18nMark("Stop")
 };
 
 module.exports = ServiceActionLabels;

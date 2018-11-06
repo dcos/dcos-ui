@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -145,7 +146,7 @@ class ServiceResumeModal extends React.Component {
   }
 
   render() {
-    const { isPending, onClose, open } = this.props;
+    const { isPending, onClose, open, i18n } = this.props;
 
     const heading = (
       <ModalHeading>
@@ -161,7 +162,7 @@ class ServiceResumeModal extends React.Component {
         onClose={onClose}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link flush-left"
-        rightButtonText="Resume Service"
+        rightButtonText={i18n._(t`Resume Service`)}
         rightButtonClassName="button button-primary"
         rightButtonCallback={this.handleConfirmation}
         showHeader={true}
@@ -185,4 +186,4 @@ ServiceResumeModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceResumeModal;
+module.exports = withI18n()(ServiceResumeModal);

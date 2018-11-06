@@ -1,16 +1,13 @@
-import { i18nMark } from "@lingui/react";
-import { injectIntl } from "react-intl";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
+import { i18nMark } from "@lingui/react";
 
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
-import StringUtil from "#SRC/js/utils/StringUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
-import UserActions from "#SRC/js/constants/UserActions";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
 import ActionKeys from "../../constants/ActionKeys";
@@ -183,48 +180,46 @@ class ServiceDetail extends mixin(TabsMixin) {
       service.getWebURL() !== ""
     ) {
       actions.push({
-        label: this.props.intl.formatMessage({
-          id: ServiceActionLabels.open
-        }),
+        label: ServiceActionLabels.open,
         onItemSelect: this.onActionsItemSelection.bind(this, OPEN)
       });
     }
 
     actions.push({
-      label: "Edit",
+      label: i18nMark("Edit"),
       onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
     });
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
-        label: "Restart",
+        label: i18nMark("Restart"),
         onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
       });
     }
     if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
-        label: "Scale",
+        label: i18nMark("Scale"),
         onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
       });
     }
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
-        label: "Stop",
+        label: i18nMark("Stop"),
         onItemSelect: this.onActionsItemSelection.bind(this, STOP)
       });
     }
 
     if (instanceCount === 0 && !isSDK) {
       actions.push({
-        label: "Resume",
+        label: i18nMark("Resume"),
         onItemSelect: this.onActionsItemSelection.bind(this, RESUME)
       });
     }
 
     actions.push({
       className: "text-danger",
-      label: StringUtil.capitalize(UserActions.DELETE),
+      label: i18nMark("Delete"),
       onItemSelect: this.onActionsItemSelection.bind(this, DELETE)
     });
 
@@ -238,15 +233,18 @@ class ServiceDetail extends mixin(TabsMixin) {
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [
-      { label: "Tasks", routePath: `${routePrefix}/tasks` },
-      { label: "Configuration", routePath: `${routePrefix}/configuration` },
-      { label: "Debug", routePath: `${routePrefix}/debug` },
-      { label: "Endpoints", routePath: `${routePrefix}/endpoints` }
+      { label: i18nMark("Tasks"), routePath: `${routePrefix}/tasks` },
+      {
+        label: i18nMark("Configuration"),
+        routePath: `${routePrefix}/configuration`
+      },
+      { label: i18nMark("Debug"), routePath: `${routePrefix}/debug` },
+      { label: i18nMark("Endpoints"), routePath: `${routePrefix}/endpoints` }
     ];
 
     if (this.hasVolumes()) {
       tabs.push({
-        label: "Volumes",
+        label: i18nMark("Volumes"),
         routePath: `${routePrefix}/volumes`
       });
     }
@@ -324,4 +322,4 @@ ServiceDetail.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = injectIntl(ServiceDetail);
+module.exports = ServiceDetail;

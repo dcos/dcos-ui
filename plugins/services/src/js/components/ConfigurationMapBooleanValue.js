@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
@@ -25,15 +27,15 @@ class ConfigurationMapBooleanValue extends React.Component {
       value = options.falsy;
     }
 
-    return <ConfigurationMapValue>{value}</ConfigurationMapValue>;
+    return <Trans render={<ConfigurationMapValue />} id={value} />;
   }
 }
 
 ConfigurationMapBooleanValue.defaultProps = {
   defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   options: {
-    truthy: "Enabled",
-    falsy: "Disabled"
+    truthy: i18nMark("Enabled"),
+    falsy: i18nMark("Disabled")
   },
   value: null
 };
