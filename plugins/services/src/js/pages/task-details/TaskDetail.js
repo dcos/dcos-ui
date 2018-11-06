@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
@@ -279,10 +280,12 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   getNotFound(item, itemID) {
     return (
       <div className="pod flush-right flush-left text-align-center">
-        <h3 className="flush-top text-align-center">
-          {`Error finding ${item}`}
-        </h3>
-        <p className="flush">{`Did not find a ${item} with id "${itemID}"`}</p>
+        <Trans render="h3" className="flush-top text-align-center">
+          Error finding {item}
+        </Trans>
+        <Trans render="p" className="flush">
+          Did not find a {item} with id "{itemID}"
+        </Trans>
       </div>
     );
   }
@@ -300,7 +303,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
       // First breadcrumb is always 'Working Directory'.
       if (index === 0) {
-        textValue = "Working Directory";
+        textValue = i18nMark("Working Directory");
       } else {
         onClickPath += `/${directoryItem}`;
       }

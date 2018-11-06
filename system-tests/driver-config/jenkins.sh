@@ -24,7 +24,7 @@ targets:
 
     scripts:
       create: ../_scripts/launch-cluster.sh
-      proxy: http-server --proxy-secure=false -sp 4201 -P \$CLUSTER_URL ../../dist
+      proxy: npx http-server --proxy-secure=false -sp 4201 -P \$CLUSTER_URL ../../dist
       auth: ../_scripts/auth-open.py
       teardown: ../_scripts/delete-cluster.sh
 EOF

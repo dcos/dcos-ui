@@ -2,7 +2,6 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
-import { IntlProvider } from "react-intl";
 import { I18nProvider } from "@lingui/react";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import { Router, hashHistory } from "react-router";
@@ -26,11 +25,7 @@ import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
 import RouterUtil from "./utils/RouterUtil";
 
-// Translations
-import enUS from "./translations/en-US.json";
-
 const domElement = global.document.getElementById("application");
-const navigatorLanguage = "en-US";
 const initialLanguage = UserLanguageStore.get();
 
 // TODO: Implement loader that can concat many sprites into a single one
@@ -101,9 +96,7 @@ RequestUtil.json = function(options = {}) {
               language={UserLanguageStore.get()}
               catalogs={{ en }}
             >
-              <IntlProvider locale={navigatorLanguage} messages={enUS}>
-                <Router history={hashHistory} routes={routes} />
-              </IntlProvider>
+              <Router history={hashHistory} routes={routes} />
             </I18nProvider>
           </Provider>
         );

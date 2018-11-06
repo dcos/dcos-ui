@@ -2,6 +2,8 @@ import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
+import { Trans, t } from "@lingui/macro";
+import { withI18n, i18nMark } from "@lingui/react";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -9,8 +11,8 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import AppLockedMessage from "./AppLockedMessage";
 
 const ACTION_DISPLAY_NAMES = {
-  restart: "Restart",
-  stop: "Stop"
+  restart: i18nMark("Restart"),
+  stop: i18nMark("Stop")
 };
 
 class KillTaskModal extends React.Component {
@@ -83,8 +85,10 @@ class KillTaskModal extends React.Component {
   }
 
   getModalContents() {
+    const { i18n } = this.props;
     const selectedItemsLength = this.props.selectedItems.length;
     const action = ACTION_DISPLAY_NAMES[this.props.action] || "";
+    // L10NTODO: Pluralize
     const taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize(
       "task",
       selectedItemsLength
@@ -92,10 +96,10 @@ class KillTaskModal extends React.Component {
 
     return (
       <div>
-        <p>
-          You are about to {action.toLowerCase()} {taskCountContent}. Are you
-          sure you want to continue?
-        </p>
+        <Trans render="p">
+          You are about to {i18n._(action).toLowerCase()} {taskCountContent}.
+          Are you sure you want to continue?
+        </Trans>
         {this.getErrorMessage()}
       </div>
     );
@@ -108,24 +112,26 @@ class KillTaskModal extends React.Component {
       killTasks,
       onClose,
       open,
-      selectedItems
+      selectedItems,
+      i18n
     } = this.props;
 
-    let buttonText = `${ACTION_DISPLAY_NAMES[action]} ${StringUtil.pluralize(
-      "Task",
-      selectedItems.length
-    )}`;
+    // L10NTODO: Pluralize
+    let buttonText = `${i18n._(
+      ACTION_DISPLAY_NAMES[action]
+    )} ${StringUtil.pluralize("Task", selectedItems.length)}`;
 
     if (this.shouldForceUpdate()) {
-      buttonText = "Force " + buttonText;
+      buttonText = i18n._(t`Force`) + " " + buttonText;
     }
 
     const killTasksAction = () =>
       killTasks(selectedItems, action === "stop", this.shouldForceUpdate());
 
+    // L10NTODO: Pluralize
     const header = (
       <ModalHeading className="text-danger">
-        {ACTION_DISPLAY_NAMES[action]}{" "}
+        {i18n._(ACTION_DISPLAY_NAMES[action])}{" "}
         {StringUtil.pluralize("Task", selectedItems.length)}
       </ModalHeading>
     );
@@ -137,7 +143,7 @@ class KillTaskModal extends React.Component {
         header={header}
         open={open}
         onClose={onClose}
-        leftButtonText="Cancel"
+        leftButtonText={i18n._(t`Cancel`)}
         leftButtonClassName="button button-primary-link flush-left"
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
@@ -167,4 +173,4 @@ KillTaskModal.propTypes = {
   selectedItems: PropTypes.array
 };
 
-module.exports = KillTaskModal;
+module.exports = withI18n()(KillTaskModal);

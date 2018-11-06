@@ -1,12 +1,13 @@
 import React from "react";
+import { i18nMark } from "@lingui/react";
 import Page from "#SRC/js/components/Page";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 import MesosMasters from "../data/MesosMasters";
 
 const NodesMastersPage = ({ children }) => {
   const tabs = [
-    { label: "Agents", routePath: "/nodes/agents" },
-    { label: "Masters", routePath: "/nodes/masters" }
+    { label: i18nMark("Agents"), routePath: "/nodes/agents" },
+    { label: i18nMark("Masters"), routePath: "/nodes/masters" }
   ];
 
   return (

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { IndexRoute, Route, Redirect } from "react-router";
+import { i18nMark } from "@lingui/react";
 
 import { Hooks } from "PluginSDK";
 import NetworkPage from "../../pages/NetworkPage";
@@ -127,7 +128,7 @@ const RouteFactory = {
         type: Route,
         path: "networking",
         component: NetworkPage,
-        category: "resources",
+        category: i18nMark("resources"),
         isInSidebar: true,
         children: routes
       }

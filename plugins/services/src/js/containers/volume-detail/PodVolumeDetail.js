@@ -2,6 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -18,10 +19,10 @@ import VolumeStatus from "../../constants/VolumeStatus";
 class PodVolumeDetail extends React.Component {
   getSizeLabel() {
     if (this.props.volume.type === "External") {
-      return "Size (GiB)";
+      return <Trans render="span">Size (GiB)</Trans>;
     }
 
-    return "Size (MiB)";
+    return <Trans render="span">Size (MiB)</Trans>;
   }
 
   renderSubHeader() {
@@ -70,9 +71,9 @@ class PodVolumeDetail extends React.Component {
           <ConfigurationMapSection>
             {volume.getMounts().map(({ containerName, mountPath }) => (
               <ConfigurationMapRow>
-                <ConfigurationMapLabel>
+                <Trans render={<ConfigurationMapLabel />}>
                   {containerName} Path
-                </ConfigurationMapLabel>
+                </Trans>
                 <ConfigurationMapValue>{mountPath}</ConfigurationMapValue>
               </ConfigurationMapRow>
             ))}
@@ -83,23 +84,23 @@ class PodVolumeDetail extends React.Component {
               <ConfigurationMapValue>{volume.getSize()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Application</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Application</Trans>
               <ConfigurationMapValue>{serviceID}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Profile Name</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Profile Name</Trans>
               <ConfigurationMapValue>
                 {volume.getProfile()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Task ID</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Task ID</Trans>
               <ConfigurationMapValue>
                 {volume.getTaskID()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Host</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Host</Trans>
               <ConfigurationMapValue>{volume.getHost()}</ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>

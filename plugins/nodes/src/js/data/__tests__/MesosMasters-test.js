@@ -1,8 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { IntlProvider } from "react-intl";
 import { Observable } from "rxjs/Observable";
-import enUS from "#SRC/js/translations/en-US.json";
 
 import { connectMasterComponent, combineMasterData } from "../MesosMasters";
 
@@ -79,14 +77,6 @@ function mastersInitialState() {
   };
 }
 
-const TestableMasterComponent = ({ component }) => {
-  return (
-    <IntlProvider locale="en" messages={enUS}>
-      {component}
-    </IntlProvider>
-  );
-};
-
 describe("LeaderGrid", function() {
   beforeEach(function() {
     Date.now = jest.fn(() => 1542340694);
@@ -104,10 +94,6 @@ describe("LeaderGrid", function() {
     const combinedData = combineMasterData(leaderData, healthData);
     const MasterNodesTab = connectMasterComponent(initialState, combinedData);
 
-    expect(
-      renderer
-        .create(<TestableMasterComponent component={<MasterNodesTab />} />)
-        .toJSON()
-    ).toMatchSnapshot();
+    expect(renderer.create(<MasterNodesTab />).toJSON()).toMatchSnapshot();
   });
 });

@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import React from "react";
 
 import Icon from "../components/Icon";
@@ -9,7 +10,7 @@ class SettingsPage extends React.Component {
 }
 
 SettingsPage.routeConfig = {
-  label: "Settings",
+  label: i18nMark("Settings"),
   icon: <Icon id="settings-inverse" size="small" family="product" />,
   matches: /^\/settings/
 };

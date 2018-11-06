@@ -1,7 +1,6 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
-import { injectIntl } from "react-intl";
 import { Link, routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
@@ -291,14 +290,14 @@ class ServicesTable extends React.Component {
     if (this.hasWebUI(service)) {
       actions.push({
         id: OPEN,
-        html: this.props.intl.formatMessage({ id: ServiceActionLabels.open })
+        html: <Trans render="span" id={ServiceActionLabels.open} />
       });
     }
 
     if (!isGroup) {
       actions.push({
         id: EDIT,
-        html: this.props.intl.formatMessage({ id: ServiceActionLabels.edit })
+        html: <Trans render="span" id={ServiceActionLabels.edit} />
       });
     }
 
@@ -307,45 +306,39 @@ class ServicesTable extends React.Component {
     if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
       actions.push({
         id: SCALE,
-        html: this.props.intl.formatMessage({ id: scaleTextID })
+        html: <Trans render="span" id={scaleTextID} />
       });
     }
 
     if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
       actions.push({
         id: RESTART,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[RESTART]
-        })
+        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />
       });
     }
 
     if (instancesCount > 0 && !isSDK) {
       actions.push({
         id: STOP,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[STOP]
-        })
+        html: <Trans render="span" id={ServiceActionLabels[STOP]} />
       });
     }
 
     if (!isGroup && instancesCount === 0 && !isSDK) {
       actions.push({
         id: RESUME,
-        html: this.props.intl.formatMessage({
-          id: ServiceActionLabels[RESUME]
-        })
+        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />
       });
     }
 
     actions.push({
       id: DELETE,
       html: (
-        <span className="text-danger">
-          {this.props.intl.formatMessage({
-            id: ServiceActionLabels[DELETE]
-          })}
-        </span>
+        <Trans
+          render="span"
+          className="text-danger"
+          id={ServiceActionLabels[DELETE]}
+        />
       )
     });
 
@@ -354,7 +347,7 @@ class ServicesTable extends React.Component {
     }
 
     return (
-      <Tooltip content="More actions">
+      <Tooltip content={<Trans render="span">More actions</Trans>}>
         {this.renderServiceActionsDropdown(service, actions)}
       </Tooltip>
     );
@@ -387,10 +380,14 @@ class ServicesTable extends React.Component {
     const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
-    const tooltipContent = `${runningInstances} ${StringUtil.pluralize(
-      "instance",
-      runningInstances
-    )} running out of ${instancesCount}`;
+
+    // L10NTODO: Pluralize
+    const tooltipContent = (
+      <Trans render="span">
+        {runningInstances} {StringUtil.pluralize("instance", runningInstances)}{" "}
+        running out of {instancesCount}
+      </Trans>
+    );
     const hasStatusText = serviceStatusText !== ServiceStatus.NA.displayName;
 
     return (
@@ -450,13 +447,13 @@ class ServicesTable extends React.Component {
     const content = !Number.isInteger(instancesCount)
       ? EmptyStates.CONFIG_VALUE
       : overview;
+
+    // L10NTODO: Pluralize
     const tooltipContent = (
-      <span>
-        {`${runningInstances} ${StringUtil.pluralize(
-          "instance",
-          runningInstances
-        )} running out of ${instancesCount}`}
-      </span>
+      <Trans render="span">
+        {runningInstances} {StringUtil.pluralize("instance", runningInstances)}{" "}
+        running out of {instancesCount}
+      </Trans>
     );
 
     return (
@@ -493,8 +490,8 @@ class ServicesTable extends React.Component {
         headerClassName: this.getCellClasses,
         prop: "status",
         helpText: (
-          <span>
-            {"At-a-glance overview of the global application or group state. "}
+          <Trans render="span">
+            At-a-glance overview of the global application or group state.{" "}
             <a
               href={MetadataStore.buildDocsURI(
                 "/deploying-services/task-handling"
@@ -503,7 +500,7 @@ class ServicesTable extends React.Component {
             >
               Read more
             </a>.
-          </span>
+          </Trans>
         ),
         render: this.renderStatus,
         sortable: true,
@@ -650,4 +647,4 @@ ServicesTable.propTypes = {
   services: PropTypes.array
 };
 
-module.exports = injectIntl(ServicesTable);
+module.exports = ServicesTable;

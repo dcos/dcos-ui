@@ -2,6 +2,8 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
@@ -107,9 +109,9 @@ class SearchLog extends React.Component {
     }
 
     return (
-      <span className="search-count small flush text-muted">
-        {`${watching} out of ${totalFound}`}
-      </span>
+      <Trans render="span" className="search-count small flush text-muted">
+        {watching} out of {totalFound}
+      </Trans>
     );
   }
 
@@ -133,7 +135,7 @@ class SearchLog extends React.Component {
   }
 
   render() {
-    const { actions, children } = this.props;
+    const { actions, children, i18n } = this.props;
     const { searchString, watching } = this.state;
     const clonedChildren =
       children &&
@@ -157,7 +159,7 @@ class SearchLog extends React.Component {
           <FilterInputText
             ref="filterInput"
             className="flex-grow flex-box flush-bottom"
-            placeholder="Search"
+            placeholder={i18n._(t`Search`)}
             searchString={this.state.searchString}
             sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
@@ -182,4 +184,4 @@ SearchLog.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = SearchLog;
+module.exports = withI18n()(SearchLog);

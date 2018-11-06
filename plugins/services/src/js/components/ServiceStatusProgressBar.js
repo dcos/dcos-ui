@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import { Plural } from "@lingui/macro";
 
-import StringUtil from "#SRC/js/utils/StringUtil";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
@@ -17,12 +17,12 @@ class ServiceStatusProgressBar extends React.Component {
 
     return (
       <div className="tooltip-line-item">
-        <span>
-          {`${runningInstances} ${StringUtil.pluralize(
-            "instance",
-            runningInstances
-          )} running out of ${instancesTotal}`}
-        </span>
+        <Plural
+          render="span"
+          value={runningInstances}
+          one={`# instance running out of ${instancesTotal}`}
+          other={`# instances running out of ${instancesTotal}`}
+        />
       </div>
     );
   }

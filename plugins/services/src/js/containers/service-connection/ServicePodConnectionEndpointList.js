@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -49,7 +50,7 @@ class ServicePodConnectionEndpointList extends React.Component {
 
   getHostPortValue(portDefinition) {
     if (portDefinition.hostPort === 0) {
-      return <span>Auto Assigned</span>;
+      return <Trans render="span">Auto Assigned</Trans>;
     }
 
     const hostPortValue = portDefinition.hostPort;
@@ -71,19 +72,19 @@ class ServicePodConnectionEndpointList extends React.Component {
             {portDefinition.name}
           </ConfigurationMapHeading>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Protocol</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Protocol</Trans>
             <ConfigurationMapValue>
               <span>{this.getProtocolValue(portDefinition)}</span>
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Host Port</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
             <ConfigurationMapValue>
               {this.getHostPortValue(portDefinition)}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Container</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Container</Trans>
             <ConfigurationMapValue>
               <span>{portDefinition.containerName}</span>
             </ConfigurationMapValue>

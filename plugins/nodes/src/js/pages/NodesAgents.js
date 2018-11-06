@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import React from "react";
 import { Link, routerShape } from "react-router";
@@ -65,7 +66,7 @@ var NodesAgents = React.createClass({
 
   statics: {
     routeConfig: {
-      label: "Nodes",
+      label: i18nMark("Nodes"),
       icon: <Icon family="product" id="servers-inverse" />,
       matches: /^\/nodes/
     },
@@ -262,8 +263,8 @@ var NodesAgents = React.createClass({
         <Page.Header
           breadcrumbs={<NodeBreadcrumbs />}
           tabs={[
-            { label: "Agents", routePath: "/nodes/agents" },
-            { label: "Masters", routePath: "/nodes/masters" }
+            { label: i18nMark("Agents"), routePath: "/nodes/agents" },
+            { label: i18nMark("Masters"), routePath: "/nodes/masters" }
           ]}
         />
         <HostsPageContent

@@ -25,7 +25,7 @@ interface ErrorDetail {
   errors: string[];
 }
 export type ErrorMessage = null | {
-  message: string;
+  message: string | React.ReactNode;
   details?: ErrorDetail[];
 };
 
@@ -61,13 +61,13 @@ const responseAttributePathToFieldIdMap: ResponseMapping = {
 };
 
 interface ModalTitleProps {
-  heading: string;
+  heading: string | React.ReactNode;
   errorMessage: React.ReactNode;
   handleInputModeToggle: () => void;
   isJsonMode: boolean;
 }
 interface ModalFooterProps {
-  submitLabel: string;
+  submitLabel: string | React.ReactNode;
   handleSubmit: () => void;
   handleCancel: () => void;
 }
@@ -263,7 +263,7 @@ export default class JobFormModal extends React.Component<
       jobDefinition = JSON.parse(jobJsonString);
     } catch (e) {
       this.props.handleErrorMessageChange({
-        message: "Invalid JSON syntax",
+        message: <Trans render="span">Invalid JSON syntax</Trans>,
         details: [{ path: "/", errors: [e.toString()] }]
       });
 
@@ -307,7 +307,11 @@ export default class JobFormModal extends React.Component<
       // If we have errors, display them
       if (errorDetails.length) {
         this.props.handleErrorMessageChange({
-          message: "There are errors in your JSON definition",
+          message: (
+            <Trans render="span">
+              There are errors in your JSON definition
+            </Trans>
+          ),
           details: errorDetails
         });
 
@@ -333,7 +337,7 @@ export default class JobFormModal extends React.Component<
 
     if (!isValidated) {
       this.props.handleErrorMessageChange({
-        message: "Please fix all the errors first"
+        message: <Trans render="span">Please fix all the errors first</Trans>
       });
       if (!keepValidationErrors) {
         return null;
@@ -412,14 +416,26 @@ export default class JobFormModal extends React.Component<
         showHeader={true}
         footer={
           <ModalFooter
-            submitLabel={isEdit ? "Save Job" : "Create Job"}
+            submitLabel={
+              isEdit ? (
+                <Trans render="span">Save Job</Trans>
+              ) : (
+                <Trans render="span">Create Job</Trans>
+              )
+            }
             handleSubmit={this.handleSubmit}
             handleCancel={handleCancel}
           />
         }
         header={
           <ModalTitle
-            heading={isEdit ? `Edit Job (${job.getName()})` : " New Job"}
+            heading={
+              isEdit ? (
+                <Trans render="span">Edit Job ({job.getName()})</Trans>
+              ) : (
+                <Trans render="span"> New Job</Trans>
+              )
+            }
             errorMessage={this.getErrorMessage()}
             handleInputModeToggle={this.handleInputModeToggle}
             isJsonMode={isJsonMode}

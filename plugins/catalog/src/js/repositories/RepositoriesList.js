@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import React from "react";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
@@ -85,7 +86,7 @@ const RepositoriesList = componentFromStream(() => components$);
 // the reason we don`t `export componentFromStream()` is so you can add those
 // router specific things
 RepositoriesList.routeConfig = {
-  label: "Package Repositories",
+  label: i18nMark("Package Repositories"),
   matches: /^\/settings\/repositories/
 };
 

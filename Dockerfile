@@ -31,9 +31,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/* \
   # Post-install java certificates
   /var/lib/dpkg/info/ca-certificates-java.postinst configure \
-  # Install npm dependencies (System Tests!)
-  && cd /dcos-ui \
-  && npm install -g git://github.com/dcos-labs/http-server.git#proxy-secure-flag \
+  # Install System Tests dependencies
   # Install dcos-launch
   && pip install git+git://github.com/dcos/dcos-test-utils@5361c8623cd0751f9312cf79b66dde6f09da1e74\
   && pip install git+git://github.com/dcos/dcos-launch.git@4a2515f4819f0a7efc051eb5ad2c5ceb34da5975 \

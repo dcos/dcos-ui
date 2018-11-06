@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import React from "react";
 
 import Icon from "../components/Icon";
@@ -9,7 +10,7 @@ class SystemOverviewPage extends React.Component {
 }
 
 SystemOverviewPage.routeConfig = {
-  label: "Cluster",
+  label: i18nMark("Cluster"),
   icon: <Icon id="cluster-inverse" size="small" family="product" />,
   matches: /^\/cluster/
 };
