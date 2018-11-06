@@ -31,7 +31,7 @@ describe("NavigationService", function() {
           children: [
             {
               path: "/test",
-              link: "Test",
+              label: "Test",
               options: { category: "root" },
               children: []
             }
@@ -52,11 +52,11 @@ describe("NavigationService", function() {
           children: [
             {
               path: "/test",
-              link: "Test",
+              label: "Test",
               options: {},
               children: [
                 {
-                  link: "Test Path",
+                  label: "Test Path",
                   path: "/test/path",
                   children: [],
                   options: {}
@@ -84,11 +84,11 @@ describe("NavigationService", function() {
           children: [
             {
               path: "/test",
-              link: "Test",
+              label: "Test",
               options: { category: "test" },
               children: [
                 {
-                  link: "Test Path",
+                  label: "Test Path",
                   path: "/test/path",
                   children: [],
                   options: { category: "test" }
