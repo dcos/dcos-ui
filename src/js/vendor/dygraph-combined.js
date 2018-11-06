@@ -6743,7 +6743,7 @@ var Dygraph = (function() {
  * Implementation of binary search over an array.
  * Currently does not work when val is outside the range of arry's values.
  * @param {number} val the value to search for
- * @param {Array.<number>} arry is the value over which to search
+ * @param {Array.<number>} array is the value over which to search
  * @param {number} abs If abs > 0, find the lowest entry greater than val
  *     If abs < 0, find the highest entry less than val.
  *     If abs == 0, find the entry that equals val.
