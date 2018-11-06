@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { Hooks } from "PluginSDK";
 import mixin from "reactjs-mixin";
@@ -121,7 +122,7 @@ UsersPage.propTypes = {
 };
 
 UsersPage.routeConfig = {
-  label: "Users",
+  label: i18nMark("Users"),
   matches: /^\/organization\/users/
 };
 

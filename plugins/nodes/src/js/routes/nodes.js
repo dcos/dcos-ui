@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { IndexRoute, Route, Redirect } from "react-router";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -37,7 +38,7 @@ const nodesRoutes = [
     type: Route,
     path: "nodes",
     component: NodesPage,
-    category: "resources",
+    category: i18nMark("resources"),
     isInSidebar: true,
     children: [
       {
