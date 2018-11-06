@@ -1,5 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import Networking from "#SRC/js/constants/Networking";
@@ -46,16 +48,16 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
       tabViewID: "networking",
       values: [
         {
-          heading: "Networking",
+          heading: <Trans render="span">Networking</Trans>,
           headingLevel: 1
         },
         {
           key: "networks.0.mode",
-          label: "Network Mode"
+          label: <Trans render="span">Network Mode</Trans>
         },
         {
           key: "networks.0.name",
-          label: "Network Name"
+          label: <Trans render="span">Network Name</Trans>
         },
         {
           key: "portDefinitions",
@@ -93,7 +95,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
 
             const columns = [
               {
-                heading: getColumnHeadingFn("Name"),
+                heading: getColumnHeadingFn(i18nMark("Name")),
                 prop: keys.name,
                 render(prop, row) {
                   return getDisplayValue(row[prop]);
@@ -102,7 +104,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Protocol"),
+                heading: getColumnHeadingFn(i18nMark("Protocol")),
                 prop: keys.protocol,
                 className: getColumnClassNameFn(),
                 render(prop, row) {
@@ -114,7 +116,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Host Port"),
+                heading: getColumnHeadingFn(i18nMark("Host Port")),
                 prop: keys.port,
                 className: getColumnClassNameFn(),
                 render(prop, row) {
@@ -125,7 +127,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: getColumnHeadingFn("Load Balanced Address"),
+                heading: getColumnHeadingFn(i18nMark("Load Balanced Address")),
                 prop: "",
                 className: getColumnClassNameFn("wrap-content"),
                 render(prop, row) {
@@ -139,7 +141,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                     );
                   }
 
-                  return <em>Not Enabled</em>;
+                  return <Trans render="em">Not Enabled</Trans>;
                 },
                 sortable: true
               }
@@ -153,7 +155,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               });
 
               columns.splice(hostPortIndex, 0, {
-                heading: getColumnHeadingFn("Container Port"),
+                heading: getColumnHeadingFn(i18nMark("Container Port")),
                 prop: "containerPort",
                 className: getColumnClassNameFn(),
                 render(prop, row) {
@@ -179,7 +181,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               const servicePortsPosition = hostPortIndex + 1;
 
               columns.splice(servicePortsPosition, 0, {
-                heading: getColumnHeadingFn("Service Port"),
+                heading: getColumnHeadingFn(i18nMark("Service Port")),
                 prop: keys.service,
                 className: getColumnClassNameFn(),
                 render(prop, row) {
@@ -202,7 +204,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                       className="button button-link flush table-display-on-row-hover"
                       onClick={onEditClick.bind(null, "networking")}
                     >
-                      Edit
+                      <Trans>Edit</Trans>
                     </a>
                   );
                 }
@@ -214,12 +216,16 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return [
-              <ConfigurationMapHeading
-                key="service-endpoints-heading"
-                level={2}
+              <Trans
+                render={
+                  <ConfigurationMapHeading
+                    key="service-endpoints-heading"
+                    level={2}
+                  />
+                }
               >
                 Service Endpoints
-              </ConfigurationMapHeading>,
+              </Trans>,
               <Table
                 key="service-endpoints"
                 className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"

@@ -9,13 +9,13 @@ import Units from "#SRC/js/utils/Units";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 const displayedResourceValues = {
-  roles: "Role",
-  constraints: "Constraints",
-  cpus: "CPU",
-  gpus: "GPU",
-  mem: "Memory",
-  disk: "Disk",
-  ports: "Ports"
+  roles: <Trans>Role</Trans>,
+  constraints: <Trans>Constraints</Trans>,
+  cpus: <Trans>CPU</Trans>,
+  gpus: <Trans>GPU</Trans>,
+  mem: <Trans>Memory</Trans>,
+  disk: <Trans>Disk</Trans>,
+  ports: <Trans>Ports</Trans>
 };
 
 const MAX_BAR_HEIGHT = 200;
@@ -108,49 +108,96 @@ function getResourceTooltipContent(resource, data) {
   let explanatoryText = null;
 
   if (matched === 0) {
-    explanatoryText = "did not match";
+    explanatoryText = <Trans render="span">did not match</Trans>;
   } else if (matched >= offers) {
-    explanatoryText = "matched";
+    explanatoryText = <Trans render="span">matched</Trans>;
   } else {
-    explanatoryText = "partially matched";
+    explanatoryText = <Trans render="span">partially matched</Trans>;
   }
 
   if (resource === "roles") {
     docsURI = `${Config.mesosDocsURI}roles/`;
-    explanatoryText = `The resource offer ${explanatoryText} your service's role (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The resource offer</Trans> {explanatoryText}{" "}
+        <Trans render="span">your service's role ({requestedValue}).</Trans>
+      </span>
+    );
   }
 
   if (resource === "constraints") {
     docsURI = MetadataStore.buildDocsURI(
       "/deploying-services/marathon-constraints"
     );
-    explanatoryText = `The resource offer ${explanatoryText} your service's requirements (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The resource offer</Trans> {explanatoryText}{" "}
+        <Trans render="span">
+          your service's requirements ({requestedValue}).
+        </Trans>
+      </span>
+    );
   }
 
   if (resource === "cpus") {
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-    explanatoryText = `The CPUs offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The CPUs offered</Trans> {explanatoryText}{" "}
+        <Trans render="span">
+          your service's requirements ({requestedValue}).
+        </Trans>
+      </span>
+    );
   }
 
   if (resource === "gpus") {
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-    explanatoryText = `The GPUs offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The GPUs offered</Trans> {explanatoryText}{" "}
+        <Trans render="span">
+          your service's requirements ({requestedValue}).
+        </Trans>
+      </span>
+    );
   }
 
   if (resource === "mem") {
     requestedValue = Units.formatResource(resource, requestedValue);
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
-    explanatoryText = `The memory offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The memory offered</Trans> {explanatoryText}{" "}
+        <Trans render="span">
+          your service's requirements ({requestedValue}).
+        </Trans>
+      </span>
+    );
   }
 
   if (resource === "disk") {
     requestedValue = Units.formatResource(resource, requestedValue);
-    explanatoryText = `The disk space offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The disk space offered</Trans> {explanatoryText}{" "}
+        <Trans render="span">
+          your service's requirements ({requestedValue}).
+        </Trans>
+      </span>
+    );
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
   }
 
   if (resource === "ports") {
-    explanatoryText = `The port offered ${explanatoryText} your service's requirements (${requestedValue}).`;
+    explanatoryText = (
+      <span>
+        <Trans render="span">The port offered</Trans> {explanatoryText}{" "}
+        <Trans render="span">
+          your service's requirements ({requestedValue}).
+        </Trans>
+      </span>
+    );
     docsURI = `${Config.mesosDocsURI}attributes-resources/`;
   }
 
@@ -196,11 +243,11 @@ function RecentOffersSummary({ data }) {
       <div className="funnel-graph-key">
         <div className="funnel-graph-key-item">
           <span className="funnel-graph-key-dot funnel-graph-key-dot-matched dot" />
-          Matched
+          <Trans render="span">Matched</Trans>
         </div>
         <div className="funnel-graph-key-item">
           <span className="funnel-graph-key-dot funnel-graph-key-dot-declined dot" />
-          Declined
+          <Trans render="span">Declined</Trans>
         </div>
       </div>
     </div>

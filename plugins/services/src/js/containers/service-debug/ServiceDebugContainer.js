@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import Alert from "#SRC/js/components/Alert";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -49,7 +50,7 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={2}>Details</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={2} />}>Details</Trans>
         <DeclinedOffersTable
           offers={queue.declinedOffers.offers}
           service={service}
@@ -62,7 +63,7 @@ class ServiceDebugContainer extends React.Component {
   getLastTaskFailureInfo() {
     const lastTaskFailure = this.props.service.getLastTaskFailure();
     if (lastTaskFailure == null) {
-      return <p>This app does not have failed tasks</p>;
+      return <Trans render="p">This app does not have failed tasks</Trans>;
     }
 
     const {
@@ -77,37 +78,37 @@ class ServiceDebugContainer extends React.Component {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Task ID</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Task ID</Trans>
           <ConfigurationMapValue>
             {this.getValueText(taskId)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>State</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>State</Trans>
           <ConfigurationMapValue>
             {this.getValueText(state)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Message</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Message</Trans>
           <ConfigurationMapValue>
             {this.getValueText(message)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Host</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Host</Trans>
           <ConfigurationMapValue>
             {this.getValueText(host)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Timestamp</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Timestamp</Trans>
           <ConfigurationMapValue>
             {timestamp} (<TimeAgo time={new Date(timestamp)} />)
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Version</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Version</Trans>
           <ConfigurationMapValue>
             {version} (<TimeAgo time={new Date(version)} />)
           </ConfigurationMapValue>
@@ -119,7 +120,11 @@ class ServiceDebugContainer extends React.Component {
   getLastVersionChange() {
     const versionInfo = this.props.service.getVersionInfo();
     if (versionInfo == null) {
-      return <p>This app does not have version change information</p>;
+      return (
+        <Trans render="p">
+          This app does not have version change information
+        </Trans>
+      );
     }
 
     const { lastScalingAt, lastConfigChangeAt } = versionInfo;
@@ -135,11 +140,11 @@ class ServiceDebugContainer extends React.Component {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Scale or Restart</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Scale or Restart</Trans>
           <ConfigurationMapValue>{lastScaling}</ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Configuration</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Configuration</Trans>
           <ConfigurationMapValue>
             {`${lastConfigChangeAt} `}
             (<TimeAgo time={new Date(lastConfigChangeAt)} />)
@@ -158,7 +163,7 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={2}>Summary</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={2} />}>Summary</Trans>
         <RecentOffersSummary data={service.getQueue().declinedOffers.summary} />
       </div>
     );
@@ -184,10 +189,18 @@ class ServiceDebugContainer extends React.Component {
 
   getRecentOfferSummaryDisabledText(frameworkName) {
     if (frameworkName != null) {
-      return `Rejected offer analysis is not currently supported for ${frameworkName}.`;
+      return (
+        <Trans render="span">
+          Rejected offer analysis is not currently supported for {frameworkName}.
+        </Trans>
+      );
     }
 
-    return "Rejected offer analysis is not currently supported.";
+    return (
+      <Trans render="span">
+        Rejected offer analysis is not currently supported.
+      </Trans>
+    );
   }
 
   getRecentOfferSummaryIntroText() {
@@ -203,7 +216,12 @@ class ServiceDebugContainer extends React.Component {
       return DeclinedOffersHelpText.summaryIntro;
     }
 
-    return "Offers will appear here when your service is deploying or waiting for resources.";
+    return (
+      <Trans render="span">
+        Offers will appear here when your service is deploying or waiting for
+        resources.
+      </Trans>
+    );
   }
 
   getRecentOfferSummary() {
@@ -217,9 +235,9 @@ class ServiceDebugContainer extends React.Component {
           this.offerSummaryRef = ref;
         }}
       >
-        <ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading />}>
           Recent Resource Offers{offerCount}
-        </ConfigurationMapHeading>
+        </Trans>
         <p>{introText}</p>
         {mainContent}
       </div>
@@ -230,7 +248,7 @@ class ServiceDebugContainer extends React.Component {
     const taskStats = this.props.service.getTaskStats();
 
     if (taskStats.getList().getItems().length === 0) {
-      return <p>This app does not have task statistics</p>;
+      return <Trans render="p">This app does not have task statistics</Trans>;
     }
 
     return <TaskStatsTable taskStats={taskStats} />;
@@ -238,7 +256,7 @@ class ServiceDebugContainer extends React.Component {
 
   getValueText(value) {
     if (value == null || value === "") {
-      return <p>Unspecified</p>;
+      return <Trans render="p">Unspecified</Trans>;
     }
 
     return <span>{value}</span>;
@@ -268,14 +286,22 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <Alert showIcon={false} type="warning">
-        {
-          "DC/OS has been waiting for resources and is unable to complete this deployment for "
-        }
+        <Trans render="span">
+          DC/OS has been waiting for resources and is unable to complete this
+          deployment for
+        </Trans>{" "}
         {DateUtil.getDuration(timeWaiting, null)}
         {". "}
-        <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>
+        <Trans
+          render={
+            <a
+              className="clickable"
+              onClick={this.handleJumpToRecentOffersClick}
+            />
+          }
+        >
           See recent resource offers
-        </a>.
+        </Trans>.
       </Alert>
     );
   }
@@ -317,15 +343,17 @@ class ServiceDebugContainer extends React.Component {
         {this.getWaitingForResourcesNotice()}
         <ConfigurationMap>
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>Last Changes</ConfigurationMapHeading>
+            <Trans render={<ConfigurationMapHeading />}>Last Changes</Trans>
             {this.getLastVersionChange()}
           </ConfigurationMapSection>
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>Last Task Failure</ConfigurationMapHeading>
+            <Trans render={<ConfigurationMapHeading />}>
+              Last Task Failure
+            </Trans>
             {this.getLastTaskFailureInfo()}
           </ConfigurationMapSection>
           <ConfigurationMapSection>
-            <ConfigurationMapHeading>Task Statistics</ConfigurationMapHeading>
+            <Trans render={<ConfigurationMapHeading />}>Task Statistics</Trans>
             {this.getTaskStats()}
           </ConfigurationMapSection>
           {this.getRecentOfferSummary()}

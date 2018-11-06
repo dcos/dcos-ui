@@ -1,5 +1,6 @@
 import { graphqlObservable } from "data-service";
 import gql from "graphql-tag";
+import { i18nMark } from "@lingui/react";
 
 import defaultSchema from "./data/JobModel";
 
@@ -15,7 +16,9 @@ export default function jobsToggleSchedule(job) {
   const [schedule] = job.schedules.nodes;
   const isEnabled = schedule ? schedule.enabled : false;
 
-  const label = isEnabled ? "Disable Schedule" : "Enable Schedule";
+  const label = isEnabled
+    ? i18nMark("Disable Schedule")
+    : i18nMark("Enable Schedule");
 
   const data = Object.assign({}, schedule, { enabled: !isEnabled });
 

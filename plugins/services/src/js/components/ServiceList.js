@@ -1,11 +1,10 @@
-import { Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 import isEqual from "lodash.isequal";
 import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link, routerShape } from "react-router";
 
-import StringUtil from "#SRC/js/utils/StringUtil";
 import ServiceStatusIcon from "./ServiceStatusIcon";
 
 const ServiceList = React.createClass({
@@ -50,10 +49,15 @@ const ServiceList = React.createClass({
     return services.map(service => {
       const instancesCount = service.getInstancesCount();
       const runningInstances = service.getRunningInstancesCount();
-      const tooltipContent = `${runningInstances} ${StringUtil.pluralize(
-        "instance",
-        runningInstances
-      )} running out of ${instancesCount}`;
+
+      const tooltipContent = (
+        <Plural
+          render="span"
+          value={runningInstances}
+          one={`# instance running out of ${instancesCount}`}
+          other={`# instances running out of ${instancesCount}`}
+        />
+      );
 
       return {
         content: [
