@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
@@ -43,7 +44,7 @@ class NodeRegionDSLSection extends React.Component {
         onChange={onChange}
         parts={EXPRESSION_PARTS}
       >
-        <label>Regions</label>
+        <Trans render="label">Regions</Trans>
         <div className="row">
           <div className="column-12">
             {regions.map(region => {

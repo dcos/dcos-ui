@@ -171,21 +171,21 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     const { currentTab } = this.state;
     const tabs = [
       {
-        label: "Tasks",
+        label: i18nMark("Tasks"),
         callback: () => {
           this.context.router.push(`/nodes/${nodeID}/tasks`);
         },
         isActive: currentTab === "/nodes/:nodeID/tasks"
       },
       {
-        label: "Health",
+        label: i18nMark("Health"),
         callback: () => {
           this.context.router.push(`/nodes/${nodeID}/health`);
         },
         isActive: currentTab === "/nodes/:nodeID/health"
       },
       {
-        label: "Details",
+        label: i18nMark("Details"),
         callback: () => {
           this.context.router.push(`/nodes/${nodeID}/details`);
         },

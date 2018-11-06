@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { hashHistory } from "react-router";
 import { Table } from "reactjs-components";
+import { withI18n, i18nMark } from "@lingui/react";
+import { t } from "@lingui/macro";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -55,9 +57,9 @@ class HealthTab extends React.Component {
   getColumns() {
     const classNameFn = ResourceTableUtil.getClassName;
     const headings = ResourceTableUtil.renderHeading({
-      health: "Health",
-      id: "Health Check",
-      role: "Role"
+      health: i18nMark("Health"),
+      id: i18nMark("Health Check"),
+      role: i18nMark("Role")
     });
     const sortFunction = UnitHealthUtil.getHealthSortFunction;
     const getHealthSorting = TableUtil.getHealthSortingOrder;
@@ -128,15 +130,19 @@ class HealthTab extends React.Component {
 
   render() {
     const { healthFilter, searchString } = this.state;
+    const { i18n } = this.props;
     const units = this.props.units;
     const visibleData = this.getVisibleData(units, searchString, healthFilter);
 
     return (
       <div>
+        {/* L10NTODO: Pluralize
+        We should pluralize FilterHeadline name here using lingui macro instead of
+        doing it manually in FilterHeadline */}
         <FilterHeadline
           currentLength={visibleData.length}
           isFiltering={healthFilter !== "all" || searchString !== ""}
-          name={"Health Check"}
+          name={i18n._(t`Health Check`)}
           onReset={this.resetFilter}
           totalLength={units.getItems().length}
         />
@@ -175,4 +181,4 @@ HealthTab.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = HealthTab;
+module.exports = withI18n()(HealthTab);

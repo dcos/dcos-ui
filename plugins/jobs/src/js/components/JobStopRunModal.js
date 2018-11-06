@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -6,16 +7,14 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
 class JobStopRunModal extends React.Component {
   getContentHeader(selectedItems, selectedItemsLength) {
-    let headerContent = ` ${selectedItemsLength} Job Runs`;
+    let headerContent = `Are you sure you want to stop ${selectedItemsLength} Job Runs?`;
     if (selectedItemsLength === 1) {
-      headerContent = "this";
+      headerContent = "Are you sure you want to stop this?";
     }
 
     return (
       <ModalHeading key="confirmHeader">
-        <Trans render="span">
-          Are you sure you want to stop {headerContent}?
-        </Trans>
+        <Trans render="span" id={headerContent} />
       </ModalHeading>
     );
   }
@@ -24,25 +23,35 @@ class JobStopRunModal extends React.Component {
     let bodyText;
 
     if (selectedItemsLength === 1) {
-      bodyText = `the job run with id ${selectedItems[0]}`;
+      bodyText = `You are about to stop the job run with id ${
+        selectedItems[0]
+      }.`;
     } else {
-      bodyText = "the selected job runs";
+      bodyText = "You are about to stop the selected job runs.";
     }
 
     return (
       <span key="confirmText">
-        <Trans render="span">You are about to stop {bodyText}.</Trans>
+        <Trans render="span" id={bodyText} />
       </span>
     );
   }
 
   render() {
-    const { onClose, onSuccess, open, selectedItems, disabled } = this.props;
+    const {
+      onClose,
+      onSuccess,
+      open,
+      selectedItems,
+      disabled,
+      i18n
+    } = this.props;
     const selectedItemsLength = selectedItems.length;
-    let rightButtonText = "Stop Job Run";
+    let rightButtonText = i18n._(t`Stop Job Run`);
 
+    // L10NTODO: Pluralize
     if (selectedItemsLength > 1) {
-      rightButtonText = "Stop Job Runs";
+      rightButtonText = i18n._(t`Stop Job Runs`);
     }
 
     return (
@@ -52,7 +61,7 @@ class JobStopRunModal extends React.Component {
         header={this.getContentHeader(selectedItems, selectedItemsLength)}
         open={open}
         onClose={onClose}
-        leftButtonText="Cancel"
+        leftButtonText={i18n._(t`Cancel`)}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link"
         rightButtonText={rightButtonText}
@@ -81,4 +90,4 @@ JobStopRunModal.propTypes = {
   selectedItems: PropTypes.array.isRequired
 };
 
-export default JobStopRunModal;
+export default withI18n()(JobStopRunModal);

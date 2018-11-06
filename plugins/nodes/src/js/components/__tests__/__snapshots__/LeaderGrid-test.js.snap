@@ -25,7 +25,11 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          IP and Port
+          <span
+            className={undefined}
+          >
+            IP and Port
+          </span>
         </div>
         <div
           className="configuration-map-value"
@@ -39,7 +43,11 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          Region
+          <span
+            className={undefined}
+          >
+            Region
+          </span>
         </div>
         <div
           className="configuration-map-value"
@@ -53,7 +61,9 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span>
+          <span
+            className={undefined}
+          >
             Version
           </span>
         </div>
@@ -69,7 +79,9 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span>
+          <span
+            className={undefined}
+          >
             Started
           </span>
         </div>
@@ -93,7 +105,9 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span>
+          <span
+            className={undefined}
+          >
             Elected
           </span>
         </div>

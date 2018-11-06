@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { i18nMark } from "@lingui/react";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
@@ -34,9 +35,9 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
       nodeID
     )}/tasks/${encodeURIComponent(taskID)}`;
     const tabs = [
-      { label: "Details", routePath: routePrefix + "/details" },
-      { label: "Files", routePath: routePrefix + "/files" },
-      { label: "Logs", routePath: routePrefix + "/logs" }
+      { label: i18nMark("Details"), routePath: routePrefix + "/details" },
+      { label: i18nMark("Files"), routePath: routePrefix + "/files" },
+      { label: i18nMark("Logs"), routePath: routePrefix + "/logs" }
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);

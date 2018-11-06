@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -14,7 +15,7 @@ class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
     const { ports } = task;
     if (!ports || !ports.length) {
-      return "None";
+      return <Trans render="span">None</Trans>;
     }
 
     return ports.join(", ");
@@ -22,14 +23,14 @@ class MarathonTaskDetailsList extends React.Component {
 
   getTaskStatus(task) {
     if (task == null || task.state == null) {
-      return "Unknown";
+      return i18nMark("Unknown");
     }
 
     return TaskStates[task.state].displayName;
   }
 
   getTimeField(time) {
-    let timeString = "Never";
+    let timeString = <Trans render="span">Never</Trans>;
 
     if (time != null) {
       timeString = new Date(time).toLocaleString();
@@ -110,11 +111,11 @@ class MarathonTaskDetailsList extends React.Component {
       let alive = "Yes";
       const healthCheckResultNum = i + 1;
       if (consecutiveFailures == null) {
-        consecutiveFailures = "None";
+        consecutiveFailures = <Trans render="span">None</Trans>;
       }
 
       if (!result.alive) {
-        alive = "No";
+        alive = <Trans render="span">No</Trans>;
       }
 
       return (

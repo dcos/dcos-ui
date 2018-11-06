@@ -1,5 +1,5 @@
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import PureRender from "react-addons-pure-render-mixin";
@@ -51,20 +51,20 @@ class ServiceGroupFormModal extends React.Component {
   }
 
   getNewGroupFormDefinition() {
+    const { i18n } = this.props;
+
     return [
       {
         fieldType: "text",
         name: "id",
-        placeholder: "Group name",
+        placeholder: i18n._(t`Group name`),
         required: true,
         showLabel: false,
         writeType: "input",
         validation: ServiceValidatorUtil.isValidServiceID,
-        validationErrorText:
-          "Group name must be at least 1 character and " +
-          "may only contain digits (0-9), dashes (-), dots (.), " +
-          "and lowercase letters (a-z). The name may not begin or end " +
-          "with a dash."
+        validationErrorText: i18n._(
+          t`Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash.`
+        )
       }
     ];
   }
@@ -122,4 +122,4 @@ ServiceGroupFormModal.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-module.exports = ServiceGroupFormModal;
+module.exports = withI18n()(ServiceGroupFormModal);

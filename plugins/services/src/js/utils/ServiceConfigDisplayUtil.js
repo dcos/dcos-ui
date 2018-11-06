@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import { isObject } from "#SRC/js/utils/Util";
 import Icon from "#SRC/js/components/Icon";
@@ -23,7 +24,7 @@ const ServiceConfigDisplayUtil = {
 
       return (
         <span>
-          {defaultHeading || prop}
+          {defaultHeading ? <Trans render="span" id={defaultHeading} /> : prop}
           <span className={caretClassNames} />
         </span>
       );

@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
@@ -15,15 +16,21 @@ class PodLabelsConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: "Key",
+        heading() {
+          return <Trans render="span">Key</Trans>;
+        },
         prop: "key"
       },
       {
-        heading: "Value",
+        heading() {
+          return <Trans render="span">Value</Trans>;
+        },
         prop: "value"
       },
       {
-        heading: "Container",
+        heading() {
+          return <Trans render="span">Container</Trans>;
+        },
         prop: "container"
       }
     ];
@@ -71,7 +78,7 @@ class PodLabelsConfigSection extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>Labels</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={1} />}>Labels</Trans>
         <ConfigurationMapSection key="pod-general-section">
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:Pod:Labels"

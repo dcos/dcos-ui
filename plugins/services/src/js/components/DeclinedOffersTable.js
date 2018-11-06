@@ -1,4 +1,5 @@
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
@@ -38,22 +39,31 @@ class DeclinedOffersTable extends React.Component {
         "caret--visible": sortBy.prop === prop
       });
 
-      let columnHeading = defaultHeading || prop;
+      const columnHeading = defaultHeading || prop;
 
       if (abbreviation != null) {
-        columnHeading = [
-          <span className="hidden-medium-down" key="full-text">
-            {columnHeading}
-          </span>,
-          <span className="hidden-large-up" key="abbreviation">
-            {abbreviation}
+        return (
+          <span>
+            <Trans
+              id={columnHeading}
+              render="span"
+              key="full-text"
+              className="hidden-medium-down"
+            />
+            <Trans
+              id={abbreviation}
+              render="span"
+              key="abbreviation"
+              className="hidden-large-up"
+            />
+            <span className={caretClassNames} />
           </span>
-        ];
+        );
       }
 
       return (
         <span>
-          {columnHeading}
+          <Trans render="span" id={columnHeading} />
           <span className={caretClassNames} />
         </span>
       );
@@ -102,8 +112,14 @@ class DeclinedOffersTable extends React.Component {
           unmatchedResource.includes(DeclinedOffersReasons.UNFULFILLED_ROLE) &&
           this.areResourcesUnmatched(requestedResource, receivedResource)
         ) {
-          requestedResourceSuffix = `(Role: ${summary.roles.requested})`;
-          receivedResourceSuffix = `(Role: ${row.offered.roles})`;
+          requestedResourceSuffix = (
+            <Trans render="span">(Role: {summary.roles.requested})</Trans>
+          );
+          receivedResourceSuffix = (
+            <Trans className="text-nowrap" render="span">
+              (Role: {row.offered.roles})
+            </Trans>
+          );
         }
       } else {
         icon = <Icon color="green" id="check" size="mini" />;
@@ -135,14 +151,15 @@ class DeclinedOffersTable extends React.Component {
           <div>
             <Trans render="strong">Requested</Trans>
             {": "}
-            {requestedResource}
-            {` ${requestedResourceSuffix}`}
+            {requestedResource} {requestedResourceSuffix}
           </div>
           <div>
             <Trans render="strong">Received</Trans>
             {": "}
-            <span className={receivedResourceClasses}>{receivedResource}</span>
-            <span className="text-nowrap">{` ${receivedResourceSuffix}`}</span>
+            <span className={receivedResourceClasses}>
+              {receivedResource}
+            </span>{" "}
+            {receivedResourceSuffix}
           </div>
         </div>
       );
@@ -174,7 +191,7 @@ class DeclinedOffersTable extends React.Component {
   getColumns() {
     return [
       {
-        heading: this.getColumnHeadingFn("Host"),
+        heading: this.getColumnHeadingFn(i18nMark("Host")),
         prop: "hostname",
         className: this.getColumnClassNameFn(),
         render: (prop, row) => {
@@ -190,7 +207,7 @@ class DeclinedOffersTable extends React.Component {
         sortable: true
       },
       {
-        heading: this.getColumnHeadingFn("Role", "RLE"),
+        heading: this.getColumnHeadingFn(i18nMark("Role"), i18nMark("RLE")),
         prop: "roles",
         className: this.getColumnClassNameFn("text-align-center"),
         render: this.getMatchedOfferRenderFn(
@@ -203,7 +220,10 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("Constraint", "CSTR"),
+        heading: this.getColumnHeadingFn(
+          i18nMark("Constraint"),
+          i18nMark("CSTR")
+        ),
         prop: "constraints",
         className: this.getColumnClassNameFn("text-align-center"),
         render: this.getMatchedOfferRenderFn(
@@ -218,7 +238,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("CPU/MEM/DSK"),
+        heading: this.getColumnHeadingFn(i18nMark("CPU/MEM/DSK")),
         prop: "cpus",
         className: this.getColumnClassNameFn(
           "text-align-center hidden-large-up"
@@ -245,7 +265,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("CPU"),
+        heading: this.getColumnHeadingFn(i18nMark("CPU")),
         prop: "cpus",
         className: this.getColumnClassNameFn(
           "text-align-center hidden-medium-down"
@@ -260,7 +280,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("Mem"),
+        heading: this.getColumnHeadingFn(i18nMark("Mem")),
         prop: "mem",
         className: this.getColumnClassNameFn(
           "text-align-center hidden-medium-down"
@@ -275,7 +295,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("Disk", "DSK"),
+        heading: this.getColumnHeadingFn(i18nMark("Disk"), i18nMark("DSK")),
         prop: "disk",
         className: this.getColumnClassNameFn(
           "text-align-center hidden-medium-down"
@@ -292,7 +312,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("GPU"),
+        heading: this.getColumnHeadingFn(i18nMark("GPU")),
         prop: "gpus",
         className: this.getColumnClassNameFn("text-align-center"),
         render: this.getMatchedOfferRenderFn(
@@ -305,7 +325,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("Port", "PRT"),
+        heading: this.getColumnHeadingFn(i18nMark("Port"), i18nMark("PRT")),
         prop: "ports",
         className: this.getColumnClassNameFn("text-align-center"),
         render: this.getMatchedOfferRenderFn(
@@ -320,7 +340,7 @@ class DeclinedOffersTable extends React.Component {
         )
       },
       {
-        heading: this.getColumnHeadingFn("Received"),
+        heading: this.getColumnHeadingFn(i18nMark("Received")),
         prop: "timestamp",
         className: this.getColumnClassNameFn(
           "text-align-right hidden-small-down"

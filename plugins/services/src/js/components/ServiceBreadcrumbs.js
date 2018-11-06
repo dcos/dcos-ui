@@ -1,10 +1,9 @@
-import { Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import StringUtil from "#SRC/js/utils/StringUtil";
 import Util from "#SRC/js/utils/Util";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -141,10 +140,14 @@ class ServiceBreadcrumbs extends React.Component {
     let iconDisplay = null;
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
-    const tooltipContent = `${runningInstances} ${StringUtil.pluralize(
-      "instance",
-      runningInstances
-    )} running out of ${instancesCount}`;
+
+    const tooltipContent = (
+      <Plural
+        value={runningInstances}
+        one={`# instance running out of ${instancesCount}`}
+        other={`# instances running out of ${instancesCount}`}
+      />
+    );
 
     if (this.props.taskID == null && this.props.params != null) {
       progressBar = (

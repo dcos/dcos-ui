@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
@@ -13,16 +15,20 @@ import ServiceConfigUtil from "../utils/ServiceConfigUtil";
 import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValueWithDefault";
 
 const NETWORK_MODE_NAME = {
-  container: "Container",
-  host: "Host"
+  container: i18nMark("Container"),
+  host: i18nMark("Host")
 };
 
-function getNetworkTypes(networks) {
+function getNetworkTypes(networks, i18n) {
   if (!networks || !networks.length) {
     return null;
   }
 
-  return networks.map(({ mode }) => NETWORK_MODE_NAME[mode]).join(", ");
+  return networks
+    .map(({ mode }) => {
+      return i18n ? i18n._(NETWORK_MODE_NAME[mode]) : NETWORK_MODE_NAME[mode];
+    })
+    .join(", ");
 }
 
 function getNetworkNames(networks) {
@@ -37,31 +43,41 @@ class PodNetworkConfigSection extends React.Component {
   getColumns() {
     return [
       {
-        heading: "Name",
+        heading() {
+          return <Trans render="span">Name</Trans>;
+        },
         prop: "name"
       },
       {
-        heading: "Protocol",
+        heading() {
+          return <Trans render="span">Protocol</Trans>;
+        },
         prop: "protocol"
       },
       {
-        heading: "Port",
+        heading() {
+          return <Trans render="span">Port</Trans>;
+        },
         prop: "port"
       },
       {
-        heading: "Load Balanced Address",
+        heading() {
+          return <Trans render="span">Load Balanced Address</Trans>;
+        },
         prop: "lbAddress",
-        placeholder: <em>Not Enabled</em>
+        placeholder: <Trans render="em">Not Enabled</Trans>
       },
       {
-        heading: "Container",
+        heading() {
+          return <Trans render="span">Container</Trans>;
+        },
         prop: "container"
       }
     ];
   }
 
   render() {
-    const { onEditClick } = this.props;
+    const { onEditClick, i18n } = this.props;
     const appConfig = this.props.appConfig;
     const { containers = [] } = appConfig;
     const endpoints = containers.reduce((memo, container) => {
@@ -103,14 +119,14 @@ class PodNetworkConfigSection extends React.Component {
           className="button button-link flush table-display-on-row-hover"
           onClick={onEditClick.bind(null, "networking")}
         >
-          Edit
+          <Trans>Edit</Trans>
         </a>
       );
     }
 
     return (
       <div>
-        <ConfigurationMapHeading level={1}>Networking</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={1} />}>Networking</Trans>
         <ConfigurationMapSection key="pod-general-section">
           <MountService.Mount
             type="CreateService:ServiceConfigDisplay:Pod:Network"
@@ -119,14 +135,14 @@ class PodNetworkConfigSection extends React.Component {
           >
             {/* General section */}
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Network Type</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Network Type</Trans>
               <ConfigurationMapValueWithDefault
-                value={getNetworkTypes(appConfig.networks)}
+                value={getNetworkTypes(appConfig.networks, i18n)}
               />
               {action}
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Network Name</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Network Name</Trans>
               <ConfigurationMapValueWithDefault
                 value={getNetworkNames(appConfig.networks)}
               />
@@ -139,9 +155,9 @@ class PodNetworkConfigSection extends React.Component {
             onEditClick={onEditClick}
           >
             {/* Service endpoints */}
-            <ConfigurationMapHeading level={3}>
+            <Trans render={<ConfigurationMapHeading level={3} />}>
               Service Endpoints
-            </ConfigurationMapHeading>
+            </Trans>
             <ConfigurationMapTable
               columnDefaults={{ hideIfEmpty: true }}
               columns={this.getColumns()}
@@ -165,4 +181,4 @@ PodNetworkConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodNetworkConfigSection;
+module.exports = withI18n()(PodNetworkConfigSection);

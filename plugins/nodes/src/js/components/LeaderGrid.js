@@ -1,6 +1,5 @@
 import { Trans } from "@lingui/macro";
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import { ToggleContent } from "@dcos/ui-kit";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -35,25 +34,25 @@ export default function LeaderGrid({ leader }) {
         <ConfigurationMapSection>
           <ConfigurationRow
             keyValue="leader"
-            title="IP and Port"
+            title={<Trans render="span">IP and Port</Trans>}
             value={leader.hostPort}
           />
 
           <ConfigurationRow
             keyValue="region"
-            title="Region"
+            title={<Trans render="span">Region</Trans>}
             value={leader.region}
           />
 
           <ConfigurationRow
             keyValue="version"
-            title={<FormattedMessage id="COMMON.VERSION" />}
+            title={<Trans render="span">Version</Trans>}
             value={leader.version}
           />
 
           <ConfigurationRow
             keyValue="started"
-            title={<FormattedMessage id="COMMON.STARTED" />}
+            title={<Trans render="span">Started</Trans>}
             value={
               <ToggleContent
                 contentOn={msToRelativeTime(leader.startTime * 1000)}
@@ -64,7 +63,7 @@ export default function LeaderGrid({ leader }) {
 
           <ConfigurationRow
             keyValue="elected"
-            title={<FormattedMessage id="COMMON.ELECTED" />}
+            title={<Trans render="span">Elected</Trans>}
             value={
               <ToggleContent
                 contentOn={msToRelativeTime(leader.electedTime * 1000)}

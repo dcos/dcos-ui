@@ -1,17 +1,18 @@
 import * as React from "react";
 import sort from "array-sort";
+import { Trans } from "@lingui/macro";
 import Node from "#SRC/js/structs/Node";
 import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
 
 export function typeRenderer(data: Node): React.ReactNode {
-  const type = data.isPublic() ? "Public" : "Private";
-  return (
-    <TextCell>
-      <span>{type}</span>
-    </TextCell>
+  const type = data.isPublic() ? (
+    <Trans render="span">Public</Trans>
+  ) : (
+    <Trans render="span">Private</Trans>
   );
+  return <TextCell>{type}</TextCell>;
 }
 
 function compareNodesByType(a: Node, b: Node): number {
