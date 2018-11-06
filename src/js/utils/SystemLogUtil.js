@@ -28,7 +28,7 @@ const SystemLogUtil = {
    * @param {Number} [options.skip_prev] how many entries backwards to look
    * @param {Number} [options.skip_next] how many entries to look ahead
    * @param {Boolean} [isStream = true] whether to use stream or range base
-   * @param {String} [endpoint = ''] add aditional endpoint to the url
+   * @param {String} [endpoint = ''] add additional endpoint to the url
    * @returns {String} URL for system logs request
    */
   getUrl(nodeID, options, isStream = true, endpoint = "") {
@@ -77,7 +77,7 @@ const SystemLogUtil = {
 
   /**
    * A throttle function that will make sure callback is not called more than
-   * once per `wait` miliseconds. It will accumulate arguments and pass it to
+   * once per `wait` milliseconds. It will accumulate arguments and pass it to
    * the callback as an array (Arguments[]).
    * @param  {Function} callback to be throttled
    * @param  {Number} wait miliseconds to wait before attemting next execution
