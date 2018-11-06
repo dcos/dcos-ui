@@ -1,4 +1,5 @@
 import { Route, Redirect } from "react-router";
+import { i18nMark } from "@lingui/react";
 
 import SystemOverviewPage from "../pages/SystemOverviewPage";
 import OverviewDetailTab from "../pages/system/OverviewDetailTab";
@@ -14,7 +15,7 @@ const systemOverviewRoutes = [
     id: "cluster",
     path: "cluster",
     component: SystemOverviewPage,
-    category: "system",
+    category: i18nMark("system"),
     isInSidebar: true,
     children: [
       {

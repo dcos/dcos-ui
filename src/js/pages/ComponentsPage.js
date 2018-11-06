@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import React from "react";
 
 import Icon from "../components/Icon";
@@ -9,7 +10,7 @@ class ComponentsPage extends React.Component {
 }
 
 ComponentsPage.routeConfig = {
-  label: "Components",
+  label: i18nMark("Components"),
   icon: <Icon id="components-inverse" size="small" family="product" />,
   matches: /^\/components/
 };

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
@@ -649,7 +650,7 @@ ServicesContainer.contextTypes = {
 };
 
 ServicesContainer.routeConfig = {
-  label: "Services",
+  label: i18nMark("Services"),
   icon: <Icon id="services" size="small" family="product" />,
   matches: /^\/services\/(detail|overview)/
 };
