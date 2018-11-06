@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import Pod from "../../structs/Pod";
 import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
@@ -12,7 +13,9 @@ class PodConfigurationTabView extends React.Component {
     // TODO (DCOS_OSS-1037): Implement ability to edit a Pod
     return (
       <div className="container">
-        <h3 className="flush-top">Current Version ({localeVersion})</h3>
+        <Trans render="h3" className="flush-top">
+          Current Version ({localeVersion})
+        </Trans>
         <ServiceConfigDisplay appConfig={spec} />
       </div>
     );

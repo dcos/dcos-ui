@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
+import { Trans } from "@lingui/macro";
 
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
 import Volume from "../structs/Volume";
@@ -61,13 +62,13 @@ class VolumeTable extends React.Component {
     });
 
     const headingStrings = {
-      id: "ID",
-      host: "Host",
-      type: "Volume Type",
-      profile: "Volume Profile",
-      path: "Path",
-      size: "Size",
-      status: "Status"
+      id: <Trans render="span">ID</Trans>,
+      host: <Trans render="span">Host</Trans>,
+      type: <Trans render="span">Volume Type</Trans>,
+      profile: <Trans render="span">Volume Profile</Trans>,
+      path: <Trans render="span">Path</Trans>,
+      size: <Trans render="span">Size</Trans>,
+      status: <Trans render="span">Status</Trans>
     };
 
     return (

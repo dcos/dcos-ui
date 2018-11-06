@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { MountService } from "foundation-ui";
+import { Trans } from "@lingui/macro";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
@@ -106,7 +107,7 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
 
   return (
     <div>
-      <ConfigurationMapHeading level={1}>Service</ConfigurationMapHeading>
+      <Trans render={<ConfigurationMapHeading level={1} />}>Service</Trans>
       <ConfigurationMapSection key="pod-general-section">
         <MountService.Mount
           type="CreateService:ServiceConfigDisplay:Pod:General"
@@ -114,24 +115,24 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
           onEditClick={onEditClick}
         >
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Service ID</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Service ID</Trans>
             <ConfigurationMapValue value={appConfig.id} />
             {action}
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Instances</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Instances</Trans>
             <ConfigurationMapValueWithDefault value={fields.instances} />
             {action}
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>CPU</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>CPU</Trans>
             <ConfigurationMapValue>
               {getContainerResourceSummary("cpus", appConfig)}
             </ConfigurationMapValue>
             {action}
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>Memory</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>Memory</Trans>
             <ConfigurationMapValue>
               {getContainerResourceSummary("mem", appConfig)}
             </ConfigurationMapValue>
@@ -145,7 +146,7 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
             {action}
           </ConfigurationMapRow>
           <ConfigurationMapRow>
-            <ConfigurationMapLabel>GPU</ConfigurationMapLabel>
+            <Trans render={<ConfigurationMapLabel />}>GPU</Trans>
             <ConfigurationMapValue>
               {getContainerResourceSummary("gpu", appConfig)}
             </ConfigurationMapValue>
@@ -153,41 +154,41 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
           </ConfigurationMapRow>
           {Boolean(fields.backoff) && (
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Backoff</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Backoff</Trans>
               <DurationValue units="sec" value={fields.backoff} />
               {action}
             </ConfigurationMapRow>
           )}
           {Boolean(fields.backoffFactor) && (
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Backoff Factor</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Backoff Factor</Trans>
               <ConfigurationMapValue value={fields.backoffFactor} />
               {action}
             </ConfigurationMapRow>
           )}
           {Boolean(fields.maxLaunchDelay) && (
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>
                 Backoff Max Launch Delay
-              </ConfigurationMapLabel>
+              </Trans>
               <DurationValue units="sec" value={fields.maxLaunchDelay} />
               {action}
             </ConfigurationMapRow>
           )}
           {Boolean(fields.minimumHealthCapacity) && (
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>
                 Upgrade Min Health Capacity
-              </ConfigurationMapLabel>
+              </Trans>
               <ConfigurationMapValue value={fields.minimumHealthCapacity} />
               {action}
             </ConfigurationMapRow>
           )}
           {Boolean(fields.maximumOverCapacity) && (
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>
                 Upgrade Max Overcapacity
-              </ConfigurationMapLabel>
+              </Trans>
               <ConfigurationMapValue value={fields.maximumOverCapacity} />
               {action}
             </ConfigurationMapRow>

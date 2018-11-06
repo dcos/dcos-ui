@@ -79,9 +79,16 @@ describe("ServiceStatusProgressBar", function() {
     });
 
     it("get #getTooltipContent", function() {
-      const childrenContent = thisInstance.instance().getTooltipContent().props
-        .children.props.children;
-      expect(childrenContent).toEqual("0 instances running out of 1");
+      const childrenContent = shallow(
+        thisInstance.instance().getTooltipContent()
+      )
+        .find("WithI18n")
+        .props().values;
+
+      expect(childrenContent).toMatchObject({
+        instancesTotal: 1,
+        runningInstances: 0
+      });
     });
   });
 });

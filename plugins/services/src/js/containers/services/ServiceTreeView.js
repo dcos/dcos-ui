@@ -2,6 +2,8 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
@@ -50,7 +52,11 @@ class ServiceTreeView extends React.Component {
   getSearchHeader() {
     const { filterExpression } = this.props;
     if (filterExpression.defined) {
-      return <h5 className="muted">Search Results</h5>;
+      return (
+        <Trans render="h5" className="muted">
+          Search Results
+        </Trans>
+      );
     }
 
     return null;
@@ -96,9 +102,15 @@ class ServiceTreeView extends React.Component {
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
           actions={[
-            { onItemSelect: modalHandlers.createGroup, label: "Create Group" }
+            {
+              onItemSelect: modalHandlers.createGroup,
+              label: i18nMark("Create Group")
+            }
           ]}
-          addButton={{ onItemSelect: createService, label: "Run a Service" }}
+          addButton={{
+            onItemSelect: createService,
+            label: i18nMark("Run a Service")
+          }}
           supplementalContent={<DeploymentStatusIndicator />}
         />
         <div>

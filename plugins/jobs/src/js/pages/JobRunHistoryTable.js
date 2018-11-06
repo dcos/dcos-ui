@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
@@ -98,16 +99,16 @@ class JobRunHistoryTable extends React.Component {
     });
 
     const headingStrings = {
-      jobID: "Job ID",
-      status: "Status",
-      startedAt: "Started",
-      finishedAt: "Finished",
-      runTime: "Run Time"
+      jobID: i18nMark("Job ID"),
+      status: i18nMark("Status"),
+      startedAt: i18nMark("Started"),
+      finishedAt: i18nMark("Finished"),
+      runTime: i18nMark("Run Time")
     };
 
     return (
       <span>
-        {headingStrings[prop]}
+        <Trans render="span" id={headingStrings[prop]} />
         <span className={caretClassNames} />
       </span>
     );
@@ -340,7 +341,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   render() {
-    const { job } = this.props;
+    const { job, i18n } = this.props;
     let { checkedItems } = this.state;
     const disabledItems = this.getDisabledItemsMap(job);
     const totalRunCount = job.jobRuns.nodes.length;
@@ -370,7 +371,7 @@ class JobRunHistoryTable extends React.Component {
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterHeadline
             currentLength={totalRunCount}
-            name="Run"
+            name={i18n._(t`Run`)}
             onReset={function() {}}
             totalLength={totalRunCount}
           />
@@ -402,4 +403,4 @@ JobRunHistoryTable.propTypes = {
   params: PropTypes.object
 };
 
-module.exports = JobRunHistoryTable;
+module.exports = withI18n()(JobRunHistoryTable);

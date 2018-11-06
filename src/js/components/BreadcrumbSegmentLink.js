@@ -1,6 +1,7 @@
 import { Link, formatPattern } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 class BreadcrumbSegmentLink extends React.Component {
   render() {
@@ -16,13 +17,13 @@ class BreadcrumbSegmentLink extends React.Component {
           to={formatPattern(to, params)}
           title={content}
         >
-          {content}
+          <Trans render="span" id={content} />
         </Link>
       );
     } else if (props.onClick) {
       return (
         <a className={props.className} onClick={props.onClick} title={content}>
-          {content}
+          <Trans render="span" id={content} />
         </a>
       );
     } else {

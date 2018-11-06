@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { Trans } from "@lingui/macro";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
@@ -8,15 +9,17 @@ const ServiceNoEndpointPanel = props => {
 
   return (
     <AlertPanel>
-      <AlertPanelHeader>No Endpoints</AlertPanelHeader>
-      <p className="tall">
+      <Trans render={<AlertPanelHeader />}>No Endpoints</Trans>
+      <Trans render="p" className="tall">
         There are no endpoints currently configured for {serviceId}. You can
         edit the configuration to add service endpoints.
-      </p>
+      </Trans>
       <div className="button-collection flush-bottom">
-        <button className="button-primary-link" onClick={onClick}>
+        <Trans
+          render={<button className="button-primary-link" onClick={onClick} />}
+        >
           Edit Configuration
-        </button>
+        </Trans>
       </div>
     </AlertPanel>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Trans } from "@lingui/macro";
 
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
@@ -19,7 +20,10 @@ const getErrorMessage = (response = {}) => {
     return response;
   }
 
-  return response.description || response.message || "An error has occurred.";
+  return (
+    response.description ||
+    response.message || <Trans render="span">An error has occurred.</Trans>
+  );
 };
 
 const removePackageRepository = gql`

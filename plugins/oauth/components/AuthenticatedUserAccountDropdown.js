@@ -37,7 +37,7 @@ export default class AuthenticatedUserAccountDropdown extends UserAccountDropdow
         onClick: LanguageModalActions.open
       },
       {
-        html: "Sign Out",
+        html: <Trans render="span">Sign Out</Trans>,
         id: "sign-out",
         onClick: AuthStore.logout
       }

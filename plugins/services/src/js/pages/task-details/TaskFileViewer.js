@@ -3,6 +3,7 @@ import { Dropdown, Tooltip } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape, formatPattern } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import Icon from "#SRC/js/components/Icon";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -186,7 +187,11 @@ export default class TaskFileViewer extends React.Component {
 
     return [
       this.getSelectionComponent(selectedLogFile),
-      <Tooltip key="tooltip" anchor="end" content={"Download log file"}>
+      <Tooltip
+        key="tooltip"
+        anchor="end"
+        content={<Trans render="span">Download log file</Trans>}
+      >
         <a
           className="button button-primary-link"
           disabled={!filePath}
