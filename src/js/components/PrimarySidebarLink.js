@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import React from "react";
 import { Link } from "react-router";
@@ -7,7 +8,7 @@ import NotificationStore from "../stores/NotificationStore";
 
 const PrimarySidebarLink = ({
   to,
-  children,
+  label,
   hasChildren,
   icon,
   isChildActive,
@@ -16,14 +17,18 @@ const PrimarySidebarLink = ({
 }) => {
   const notificationCount = NotificationStore.getNotificationCount(to);
 
-  let sidebarText = <span className="sidebar-menu-item-label">{children}</span>;
+  let sidebarText = (
+    <Trans render="span" className="sidebar-menu-item-label" id={label} />
+  );
 
   if (notificationCount > 0) {
     sidebarText = (
       <span className="sidebar-menu-item-label badge-container">
-        <span className="sidebar-menu-item-label-text badge-container-text">
-          {children}
-        </span>
+        <Trans
+          render="span"
+          className="sidebar-menu-item-label-text badge-container-text"
+          id={label}
+        />
         <Badge>{notificationCount}</Badge>
       </span>
     );

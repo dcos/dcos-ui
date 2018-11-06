@@ -72,11 +72,11 @@ class NavigationService extends EventEmitter {
    *
    * @this {NavigationService~Context}
    * @param  {String} path - an absolute path
-   * @param  {String|React.Component} link - link label or a custom component
+   * @param  {String} label - link label
    * @param  {Object} options - additional data
    * @return {undefined}
    */
-  registerPrimary(path, link, options = {}) {
+  registerPrimary(path, label, options = {}) {
     const { category = "root" } = options;
     const categoryElement = this.definition.find(
       element => element.category === category
@@ -100,7 +100,7 @@ class NavigationService extends EventEmitter {
 
     categoryElement.children.push({
       path,
-      link,
+      label,
       options,
       children: []
     });
@@ -114,11 +114,11 @@ class NavigationService extends EventEmitter {
    * @this {NavigationService~Context}
    * @param  {String} parentPath - an absolute path of a parent element
    * @param  {String} path - an absolute path of the secondary element
-   * @param  {String|React.Component} link - a string label or a custom link component
+   * @param  {String} label - a string label
    * @param  {Object} options - additional options
    * @return {undefined}
    */
-  registerSecondary(parentPath, path, link, options = {}) {
+  registerSecondary(parentPath, path, label, options = {}) {
     // flatten categories
     const primaryElements = this.definition.reduce((result, category) => {
       return result.concat(category.children);
@@ -149,7 +149,7 @@ class NavigationService extends EventEmitter {
     }
 
     parentElement.children.push({
-      link,
+      label,
       options,
       path: `${parentPath}/${path}`,
       children: []

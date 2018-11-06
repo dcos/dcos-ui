@@ -254,7 +254,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
 }
 
 UnitsHealthTab.routeConfig = {
-  label: "Components",
+  label: i18nMark("Components"),
   matches: /^\/components\/overview/
 };
 
