@@ -11,7 +11,7 @@
     },
     {
       "path": "@semantic-release/exec",
-      "cmd": "./scripts/ci/upload-universe v${nextRelease.version}",
+      "cmd": "node ./scripts/ci/upload-universe.js v${nextRelease.version} master",
       "shell": "/bin/bash"
     },
     "@semantic-release/github"

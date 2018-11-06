@@ -1,8 +1,0 @@
-#!/bin/bash#
-set -ex
-
-VERSION="$1"
-
-git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons
-cp ./release.tar.gz "./release-$VERSION.tar.gz"
-S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a "./release-$VERSION.tar.gz" aws $VERSION
