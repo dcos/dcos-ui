@@ -1,4 +1,6 @@
 import React from "react";
+import { withI18n, i18nMark } from "@lingui/react";
+import { t } from "@lingui/macro";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
@@ -9,7 +11,7 @@ import RepositoriesAdd from "../RepositoriesAdd";
 
 const METHODS_TO_BIND = ["handleCloseAddRepository", "handleOpenAddRepository"];
 
-export default class RepositoriesTabUI extends React.Component {
+class RepositoriesTabUI extends React.Component {
   constructor() {
     super();
 
@@ -33,14 +35,14 @@ export default class RepositoriesTabUI extends React.Component {
   getContent() {
     const { addRepositoryModalOpen } = this.state;
 
-    const { repositories, searchTerm, onSearch } = this.props;
+    const { repositories, searchTerm, onSearch, i18n } = this.props;
 
     return (
       <div>
         <FilterBar>
           <FilterInputText
             className="flush-bottom"
-            placeholder="Search"
+            placeholder={i18n._(t`Search`)}
             searchString={searchTerm}
             handleFilterChange={onSearch}
           />
@@ -60,7 +62,7 @@ export default class RepositoriesTabUI extends React.Component {
       <RepositoriesPage
         addButton={{
           onItemSelect: this.handleOpenAddRepository,
-          label: "Add Repository"
+          label: i18nMark("Add Repository")
         }}
       >
         {this.getContent()}
@@ -68,3 +70,5 @@ export default class RepositoriesTabUI extends React.Component {
     );
   }
 }
+
+export default withI18n()(RepositoriesTabUI);

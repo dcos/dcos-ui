@@ -1,3 +1,4 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
@@ -71,7 +72,7 @@ NetworkPage.contextTypes = {
 };
 
 NetworkPage.routeConfig = {
-  label: "Networking",
+  label: i18nMark("Networking"),
   icon: <Icon id="networking-inverse" size="small" family="product" />,
   matches: /^\/networking/
 };

@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import { MountService } from "foundation-ui";
@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import { pluralize } from "#SRC/js/utils/StringUtil";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
 import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
@@ -465,10 +464,11 @@ class CreateServiceModalForm extends Component {
   }
 
   getFormNavigationItems(appConfig, data) {
-    const serviceLabel = pluralize(
-      "Service",
-      findNestedPropertyInObject(appConfig, "containers.length") || 1
-    );
+    // L10NTODO: Pluralize
+    const serviceLabel =
+      (findNestedPropertyInObject(appConfig, "containers.length") || 1) === 1
+        ? "Service"
+        : "Services";
 
     const tabList = [
       {
@@ -480,23 +480,39 @@ class CreateServiceModalForm extends Component {
 
     if (this.state.isPod) {
       tabList.push(
-        { id: "placement", key: "placement", label: "Placement" },
-        { id: "networking", key: "multinetworking", label: "Networking" },
-        { id: "volumes", key: "multivolumes", label: "Volumes" },
+        { id: "placement", key: "placement", label: i18nMark("Placement") },
+        {
+          id: "networking",
+          key: "multinetworking",
+          label: i18nMark("Networking")
+        },
+        { id: "volumes", key: "multivolumes", label: i18nMark("Volumes") },
         {
           id: "healthChecks",
           key: "multihealthChecks",
-          label: "Health Checks"
+          label: i18nMark("Health Checks")
         },
-        { id: "environment", key: "multienvironment", label: "Environment" }
+        {
+          id: "environment",
+          key: "multienvironment",
+          label: i18nMark("Environment")
+        }
       );
     } else {
       tabList.push(
-        { id: "placement", key: "placement", label: "Placement" },
-        { id: "networking", key: "networking", label: "Networking" },
-        { id: "volumes", key: "volumes", label: "Volumes" },
-        { id: "healthChecks", key: "healthChecks", label: "Health Checks" },
-        { id: "environment", key: "environment", label: "Environment" }
+        { id: "placement", key: "placement", label: i18nMark("Placement") },
+        { id: "networking", key: "networking", label: i18nMark("Networking") },
+        { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
+        {
+          id: "healthChecks",
+          key: "healthChecks",
+          label: i18nMark("Health Checks")
+        },
+        {
+          id: "environment",
+          key: "environment",
+          label: i18nMark("Environment")
+        }
       );
     }
 
@@ -513,7 +529,13 @@ class CreateServiceModalForm extends Component {
         <TabButton
           className={item.className}
           id={item.id}
-          label={item.label}
+          label={
+            typeof item.label === "string" ? (
+              <Trans render="span" id={item.label} />
+            ) : (
+              item.label
+            )
+          }
           key={item.key || item.id}
         >
           {this.getFormTabList(item.children)}

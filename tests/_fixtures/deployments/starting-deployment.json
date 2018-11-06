@@ -1,0 +1,37 @@
+[
+  {
+    "id": "b4f69082-6f96-4c92-a778-37bf61c59686",
+    "version": "2016-07-05T17:54:37.134Z",
+    "affectedApps": [
+      "/kafka"
+    ],
+    "steps": [
+      {
+        "actions": [
+          {
+            "action": "StartApplication",
+            "type": "StartApplication",
+            "app": "/kafka"
+          }
+        ]
+      },
+      {
+        "actions": [
+          {
+            "action": "ScaleApplication",
+            "app": "/kafka"
+          }
+        ]
+      }
+    ],
+    "currentActions": [
+      {
+        "action": "StartApplication",
+        "app": "/kafka",
+        "readinessCheckResults": []
+      }
+    ],
+    "currentStep": 1,
+    "totalSteps": 2
+  }
+]

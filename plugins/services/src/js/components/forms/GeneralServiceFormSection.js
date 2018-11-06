@@ -1,5 +1,5 @@
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm, Tooltip } from "reactjs-components";
@@ -322,7 +322,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   render() {
-    const { data, errors } = this.props;
+    const { data, errors, i18n } = this.props;
     const title = pluralize(
       "Service",
       findNestedPropertyInObject(data, "containers.length") || 1
@@ -420,10 +420,10 @@ class GeneralServiceFormSection extends Component {
           }
           open={this.state.convertToPodModalOpen}
           onClose={this.handleCloseConvertToPodModal}
-          leftButtonText="Cancel"
+          leftButtonText={i18n._(t`Cancel`)}
           leftButtonClassName="button button-primary-link"
           leftButtonCallback={this.handleCloseConvertToPodModal}
-          rightButtonText="Switch to Pod"
+          rightButtonText={i18n._(t`Switch to Pod`)}
           rightButtonClassName="button button-primary"
           rightButtonCallback={this.handleConvertToPod}
           showHeader={true}
@@ -466,4 +466,4 @@ GeneralServiceFormSection.propTypes = {
 
 GeneralServiceFormSection.configReducers = General;
 
-module.exports = GeneralServiceFormSection;
+module.exports = withI18n()(GeneralServiceFormSection);

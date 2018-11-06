@@ -1,9 +1,9 @@
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
 
 import FormModal from "#SRC/js/components/FormModal";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
@@ -25,13 +25,13 @@ class AddRepositoryFormModal extends React.Component {
   }
 
   getAddRepositoryFormDefinition() {
-    const { numberOfRepositories } = this.props;
+    const { numberOfRepositories, i18n } = this.props;
 
     return [
       {
         fieldType: "text",
         name: "name",
-        placeholder: "Repository Name",
+        placeholder: i18n._(t`Repository Name`),
         required: true,
         showError: false,
         showLabel: false,
@@ -44,7 +44,7 @@ class AddRepositoryFormModal extends React.Component {
       {
         fieldType: "text",
         name: "uri",
-        placeholder: "URL",
+        placeholder: i18n._(t`URL`),
         required: true,
         showError: false,
         showLabel: false,
@@ -57,12 +57,14 @@ class AddRepositoryFormModal extends React.Component {
       {
         fieldType: "number",
         name: "priority",
-        placeholder: "Priority",
+        placeholder: i18n._(t`Priority`),
         required: false,
         min: "0",
         max: `${numberOfRepositories}`,
         step: "1",
-        validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
+        validationErrorText: i18n._(
+          t`Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`
+        ),
         showLabel: false,
         writeType: "input",
         validation(value) {
@@ -133,4 +135,4 @@ AddRepositoryFormModal.propTypes = {
   addRepository: PropTypes.func.isRequired
 };
 
-module.exports = AddRepositoryFormModal;
+module.exports = withI18n()(AddRepositoryFormModal);

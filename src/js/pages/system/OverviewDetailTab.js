@@ -362,7 +362,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 }
 
 OverviewDetailTab.routeConfig = {
-  label: "Overview",
+  label: i18nMark("Overview"),
   matches: /^\/overview\/details/
 };
 

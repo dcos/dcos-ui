@@ -1,5 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
@@ -32,7 +34,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
       values: [
         {
           key: "labels",
-          heading: "Labels",
+          heading: <Trans render="span">Labels</Trans>,
           headingLevel: 1
         },
         {
@@ -40,7 +42,9 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
           render(labelsDataMap) {
             const columns = [
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Key"),
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn(
+                  i18nMark("Key")
+                ),
                 prop: "key",
                 render: (prop, row) => {
                   return <code>{row[prop]}</code>;
@@ -51,7 +55,9 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 sortable: true
               },
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Value"),
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn(
+                  i18nMark("Value")
+                ),
                 prop: "value",
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-value"
@@ -73,7 +79,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                       className="button button-link flush table-display-on-row-hover"
                       onClick={onEditClick.bind(null, "environment")}
                     >
-                      Edit
+                      <Trans>Edit</Trans>
                     </a>
                   );
                 }

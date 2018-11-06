@@ -120,7 +120,7 @@ const LabelsSection = ({ labels }) => (
       (memo, { key, value }) => ({ ...memo, [key]: value }),
       {}
     )}
-    headline="Labels"
+    headline={<Trans render="span">Labels</Trans>}
   />
 );
 

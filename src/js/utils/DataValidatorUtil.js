@@ -4,7 +4,7 @@ import Objektiv from "objektiv";
  * Convert an object path to a lens
  *
  * @param {Array} path - The array of the path components
- * @param {function} [strategy] - The trategy to chose for missing elements
+ * @param {function} [strategy] - The strategy to chose for missing elements
  * @return {Objectiv.lens} Returns the lens to address the path
  */
 function path2lens(path, strategy = Objektiv.resolve.tryhard) {

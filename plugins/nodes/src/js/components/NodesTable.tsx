@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Table, Column, SortableHeaderCell } from "@dcos/ui-kit/dist/packages";
+import { Trans } from "@lingui/macro";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
@@ -187,7 +188,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Host"
+                columnContent={<Trans render="span">Host</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "host")}
                 sortDirection={sortColumn === "host" ? sortDirection : null}
               />
@@ -199,7 +200,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Health"
+                columnContent={<Trans render="span">Health</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "health")}
                 sortDirection={sortColumn === "health" ? sortDirection : null}
               />
@@ -211,7 +212,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Type"
+                columnContent={<Trans render="span">Type</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "type")}
                 sortDirection={sortColumn === "type" ? sortDirection : null}
               />
@@ -223,7 +224,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Region"
+                columnContent={<Trans render="span">Region</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "region")}
                 sortDirection={sortColumn === "region" ? sortDirection : null}
               />
@@ -235,7 +236,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Zone"
+                columnContent={<Trans render="span">Zone</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "zone")}
                 sortDirection={sortColumn === "zone" ? sortDirection : null}
               />
@@ -247,7 +248,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Tasks"
+                columnContent={<Trans render="span">Tasks</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "tasks")}
                 sortDirection={sortColumn === "tasks" ? sortDirection : null}
                 textAlign="right"
@@ -260,7 +261,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="CPU"
+                columnContent={<Trans render="span">CPU</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "cpu")}
                 sortDirection={sortColumn === "cpu" ? sortDirection : null}
               />
@@ -272,7 +273,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Mem"
+                columnContent={<Trans render="span">Mem</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "mem")}
                 sortDirection={sortColumn === "mem" ? sortDirection : null}
               />
@@ -284,7 +285,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="Disk"
+                columnContent={<Trans render="span">Disk</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "disk")}
                 sortDirection={sortColumn === "disk" ? sortDirection : null}
               />
@@ -296,7 +297,7 @@ export default class NodesTable extends React.Component<
           <Column
             header={
               <SortableHeaderCell
-                columnContent="GPU"
+                columnContent={<Trans render="span">GPU</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "gpu")}
                 sortDirection={sortColumn === "gpu" ? sortDirection : null}
               />

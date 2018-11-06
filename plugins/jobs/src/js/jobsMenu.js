@@ -1,12 +1,11 @@
-import StringUtil from "#SRC/js/utils/StringUtil";
-import UserActions from "#SRC/js/constants/UserActions";
+import { i18nMark } from "@lingui/react";
 
 import jobsRunNow from "./jobsRunNow";
 import jobsToggleSchedule from "./jobsToggleSchedule";
 
 function jobsEdit(editAction) {
   return {
-    label: "Edit",
+    label: i18nMark("Edit"),
     onItemSelect: editAction
   };
 }
@@ -14,7 +13,7 @@ function jobsEdit(editAction) {
 function jobsDelete(deleteHandler) {
   return {
     className: "text-danger",
-    label: StringUtil.capitalize(UserActions.DELETE),
+    label: i18nMark("Delete"),
     onItemSelect: deleteHandler
   };
 }

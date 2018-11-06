@@ -12,5 +12,8 @@
     "@types/events": "1.2.0",
     "@types/jest": "22.2.3",
     "jest-cli": "22.4.0"
+  },
+  "jest-webpack-alias": {
+    "configFile": "../../webpack/webpack.config.js"
   }
 }

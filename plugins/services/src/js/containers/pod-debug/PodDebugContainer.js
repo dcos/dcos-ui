@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
+import { Trans } from "@lingui/macro";
 
 import Alert from "#SRC/js/components/Alert";
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -48,7 +49,7 @@ class PodDebugTabView extends React.Component {
 
     return (
       <div>
-        <ConfigurationMapHeading level={2}>Details</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading level={2} />}>Details</Trans>
         <DeclinedOffersTable
           offers={queue.declinedOffers.offers}
           service={pod}
@@ -63,8 +64,8 @@ class PodDebugTabView extends React.Component {
     if (!history.length) {
       return (
         <ConfigurationMapSection>
-          <ConfigurationMapHeading>Last Terminations</ConfigurationMapHeading>
-          <p>(No data)</p>
+          <Trans render={<ConfigurationMapHeading />}>Last Terminations</Trans>
+          <Trans render="p">(No data)</Trans>
         </ConfigurationMapSection>
       );
     }
@@ -76,17 +77,17 @@ class PodDebugTabView extends React.Component {
 
       if (index === 0) {
         headline = (
-          <ConfigurationMapHeading level={2}>
+          <Trans render={<ConfigurationMapHeading level={2} />}>
             Last Termination (<TimeAgo time={terminatedAt} />)
-          </ConfigurationMapHeading>
+          </Trans>
         );
       } else {
         headline = (
-          <ConfigurationMapHeading level={2}>
+          <Trans render={<ConfigurationMapHeading level={2} />}>
             Terminated at {terminatedAt.toString()} (
             <TimeAgo time={terminatedAt} />
             )
-          </ConfigurationMapHeading>
+          </Trans>
         );
       }
 
@@ -95,15 +96,15 @@ class PodDebugTabView extends React.Component {
           {headline}
           <ConfigurationMapSection>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Instance ID</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Instance ID</Trans>
               <ConfigurationMapValue>{item.getId()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Message</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Message</Trans>
               <ConfigurationMapValue>{item.getMessage()}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
-              <ConfigurationMapLabel>Started At</ConfigurationMapLabel>
+              <Trans render={<ConfigurationMapLabel />}>Started At</Trans>
               <ConfigurationMapValue>
                 {startedAt.toString()} (<TimeAgo time={startedAt} />)
               </ConfigurationMapValue>
@@ -111,9 +112,9 @@ class PodDebugTabView extends React.Component {
           </ConfigurationMapSection>
         </ConfigurationMapSection>,
         <ConfigurationMapSection key={`container-${index}`}>
-          <ConfigurationMapHeading level={3}>
+          <Trans render={<ConfigurationMapHeading level={3} />}>
             Containers
-          </ConfigurationMapHeading>
+          </Trans>
           <PodContainerTerminationTable containers={item.getContainers()} />
         </ConfigurationMapSection>
       );
@@ -133,9 +134,9 @@ class PodDebugTabView extends React.Component {
 
     return (
       <ConfigurationMapSection>
-        <ConfigurationMapHeading>Last Changes</ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading />}>Last Changes</Trans>
         <ConfigurationMapRow>
-          <ConfigurationMapLabel>Configuration</ConfigurationMapLabel>
+          <Trans render={<ConfigurationMapLabel />}>Configuration</Trans>
           <ConfigurationMapValue>
             {lastUpdated.toString()} (<TimeAgo time={lastUpdated} />)
           </ConfigurationMapValue>
@@ -147,8 +148,12 @@ class PodDebugTabView extends React.Component {
   getRecentOfferSummary() {
     const { pod } = this.props;
     const queue = pod.getQueue();
-    let introText =
-      "Offers will appear here when your service is deploying or waiting for resources.";
+    let introText = (
+      <Trans render="span">
+        Offers will appear here when your service is deploying or waiting for
+        resources.
+      </Trans>
+    );
     let mainContent = null;
     let offerCount = null;
 
@@ -164,7 +169,7 @@ class PodDebugTabView extends React.Component {
 
       mainContent = (
         <div>
-          <ConfigurationMapHeading level={2}>Summary</ConfigurationMapHeading>
+          <Trans render={<ConfigurationMapHeading level={2} />}>Summary</Trans>
           <RecentOffersSummary data={summary} />
         </div>
       );
@@ -178,9 +183,9 @@ class PodDebugTabView extends React.Component {
           this.offerSummaryRef = ref;
         }}
       >
-        <ConfigurationMapHeading>
+        <Trans render={<ConfigurationMapHeading />}>
           Recent Resource Offers{offerCount}
-        </ConfigurationMapHeading>
+        </Trans>
         <p>{introText}</p>
         {mainContent}
       </div>
@@ -205,14 +210,21 @@ class PodDebugTabView extends React.Component {
 
     return (
       <Alert showIcon={false} type="warning">
-        {
-          "DC/OS has been waiting for resources and is unable to complete this deployment for "
-        }
-        {DateUtil.getDuration(timeWaiting, null)}
-        {". "}
-        <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>
+        <Trans render="span">
+          DC/OS has been waiting for resources and is unable to complete this
+          deployment for {DateUtil.getDuration(timeWaiting, null)}
+          {". "}
+        </Trans>
+        <Trans
+          render={
+            <a
+              className="clickable"
+              onClick={this.handleJumpToRecentOffersClick}
+            />
+          }
+        >
           See recent resource offers
-        </a>.
+        </Trans>.
       </Alert>
     );
   }

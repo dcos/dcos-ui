@@ -4,6 +4,7 @@ import React from "react";
 
 import { componentFromStream, graphqlObservable } from "data-service";
 import gql from "graphql-tag";
+import { Trans } from "@lingui/macro";
 
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/combineLatest";
@@ -19,7 +20,10 @@ const getErrorMessage = (response = {}) => {
     return response;
   }
 
-  return response.description || response.message || "An error has occurred.";
+  return (
+    response.description ||
+    response.message || <Trans render="span">An error has occurred.</Trans>
+  );
 };
 
 const addPackageRepositoryMutation = gql`

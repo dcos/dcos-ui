@@ -72,7 +72,9 @@ describe("EditServiceModal", function() {
 
     const wrapper = shallow(
       <EditServiceModal params={{ id: "/my-new-service" }} />
-    );
+    )
+      .dive()
+      .dive();
     expect(wrapper.type().name).toBe("CreateServiceModal");
   });
 });

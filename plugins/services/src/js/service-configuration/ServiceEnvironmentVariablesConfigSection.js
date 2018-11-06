@@ -1,5 +1,7 @@
 import React from "react";
 import { Table } from "reactjs-components";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
@@ -38,7 +40,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
       values: [
         {
           key: "env",
-          heading: "Environment Variables",
+          heading: <Trans render="span">Environment Variables</Trans>,
           headingLevel: 1
         },
         {
@@ -46,7 +48,9 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
           render(envData) {
             const columns = [
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Key"),
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn(
+                  i18nMark("Key")
+                ),
                 prop: "key",
                 render: (prop, row) => {
                   return <code>{row[prop]}</code>;
@@ -57,7 +61,9 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                 sortable: true
               },
               {
-                heading: ServiceConfigDisplayUtil.getColumnHeadingFn("Value"),
+                heading: ServiceConfigDisplayUtil.getColumnHeadingFn(
+                  i18nMark("Value")
+                ),
                 prop: "value",
                 render: (prop, row) => {
                   const value = row[prop];
@@ -84,7 +90,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                       className="button button-link flush table-display-on-row-hover"
                       onClick={onEditClick.bind(null, "environment")}
                     >
-                      Edit
+                      <Trans>Edit</Trans>
                     </a>
                   );
                 }

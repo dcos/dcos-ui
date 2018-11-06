@@ -1,5 +1,5 @@
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -576,13 +576,16 @@ class CreateServiceModal extends Component {
       );
     }
 
-    let title = "Run a Service";
+    let title = <Trans render="span">Run a Service</Trans>;
     const { location } = this.props;
     const { service } = this.state;
-    const serviceName = service ? `"${service.getName()}"` : "Service";
 
     if (this.isLocationEdit(location)) {
-      title = `Edit ${serviceName}`;
+      title = service ? (
+        <Trans render="span">Edit {service.getName()}</Trans>
+      ) : (
+        <Trans render="span">Edit Service</Trans>
+      );
     }
 
     return (
@@ -762,7 +765,9 @@ class CreateServiceModal extends Component {
     } = this.state;
 
     const force = this.shouldForceSubmit();
-    const runButtonLabel = force ? "Force Run Service" : "Run Service";
+    const runButtonLabel = force
+      ? i18nMark("Force Run Service")
+      : i18nMark("Run Service");
     const runButtonClassNames = classNames("flush-vertical", {
       "button-primary": !force,
       "button-danger": force
@@ -922,10 +927,10 @@ class CreateServiceModal extends Component {
           }
           open={this.state.isConfirmOpen}
           onClose={this.handleCloseConfirmModal}
-          leftButtonText="Cancel"
+          leftButtonText={props.i18n._(t`Cancel`)}
           leftButtonClassName="button button-primary-link flush-left"
           leftButtonCallback={this.handleCloseConfirmModal}
-          rightButtonText="Discard"
+          rightButtonText={props.i18n._(t`Discard`)}
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleConfirmGoBack}
           showHeader={true}
@@ -949,4 +954,4 @@ CreateServiceModal.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-module.exports = CreateServiceModal;
+module.exports = withI18n()(CreateServiceModal);

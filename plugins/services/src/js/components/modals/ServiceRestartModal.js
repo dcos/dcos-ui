@@ -1,4 +1,5 @@
-import { Trans } from "@lingui/macro";
+import { Trans, t } from "@lingui/macro";
+import { withI18n, i18nMark } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -86,30 +87,38 @@ class ServiceRestartModal extends React.Component {
     const { service } = this.props;
 
     if (service instanceof Pod) {
-      return "Pod";
+      return i18nMark("Pod");
     }
 
     if (service instanceof ServiceTree) {
-      return "Group";
+      return i18nMark("Group");
     }
 
-    return "Service";
+    return i18nMark("Service");
   }
 
   getModalHeading() {
+    const { i18n } = this.props;
     const serviceLabel = this.getServiceLabel();
 
     return (
       <ModalHeading>
-        <Trans render="span">Restart {serviceLabel}</Trans>
+        <Trans render="span">Restart {i18n._(serviceLabel)}</Trans>
       </ModalHeading>
     );
   }
 
   render() {
-    const { isPending, onClose, open, service, restartService } = this.props;
+    const {
+      isPending,
+      onClose,
+      open,
+      service,
+      restartService,
+      i18n
+    } = this.props;
     const serviceName = service.getName();
-    const serviceLabel = this.getServiceLabel();
+    const serviceLabel = i18n._(this.getServiceLabel());
 
     return (
       <Confirm
@@ -119,7 +128,7 @@ class ServiceRestartModal extends React.Component {
         onClose={onClose}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link flush-left"
-        rightButtonText={`Restart ${serviceLabel}`}
+        rightButtonText={i18n._(t`Restart`) + ` ${serviceLabel}`}
         rightButtonClassName="button button-danger"
         rightButtonCallback={() =>
           restartService(service, this.shouldForceUpdate())
@@ -127,7 +136,7 @@ class ServiceRestartModal extends React.Component {
         showHeader={true}
       >
         <Trans render="p">
-          Restarting the <strong>{serviceName}</strong>
+          Restarting the <strong>{serviceName}</strong>{" "}
           {serviceLabel.toLowerCase()} will remove all currently running
           instances of the {serviceLabel.toLowerCase()} and then attempt to
           create new instances identical to those removed.
@@ -150,4 +159,4 @@ ServiceRestartModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceRestartModal;
+module.exports = withI18n()(ServiceRestartModal);
