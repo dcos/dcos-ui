@@ -100,7 +100,7 @@ class TaskDirectoryTable extends React.Component {
 
   getClassName(prop, sortBy, row) {
     const isHeader = row == null;
-    const propsToRight = ["uid", "size", "mtime"];
+    const propsToRight = ["size", "mtime"];
 
     return classNames({
       "text-align-right": propsToRight.includes(prop),
