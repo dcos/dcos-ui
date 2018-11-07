@@ -105,7 +105,7 @@ pipeline {
         ]) {
           sh "git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons"
           sh "tar czf oss-build.tar.gz dist"
-          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./oss-build.tar.gz aws"
+          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
         }
       }
     }
