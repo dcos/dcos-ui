@@ -375,7 +375,7 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        353
+        354
       ]
     ]
   },
@@ -1359,7 +1359,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        233
+        234
       ]
     ]
   },
@@ -1666,7 +1666,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/CertificatesPage.js",
-        35
+        36
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/pages/CertificatesPage.js",
+        193
       ]
     ]
   },
@@ -1803,7 +1807,7 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        221
+        222
       ]
     ]
   },
@@ -4103,7 +4107,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        328
+        329
       ]
     ]
   },
@@ -4675,7 +4679,7 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        186
+        187
       ]
     ]
   },
@@ -4746,6 +4750,10 @@
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
         40
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
+        202
       ]
     ]
   },
@@ -5253,7 +5261,11 @@
       ],
       [
         ".dcos-ui-plugins-private/auth-providers/pages/AuthProvidersTab.js",
-        34
+        35
+      ],
+      [
+        ".dcos-ui-plugins-private/auth-providers/pages/AuthProvidersTab.js",
+        181
       ]
     ]
   },
@@ -5648,7 +5660,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        38
+        39
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
+        382
       ]
     ]
   },
@@ -5874,7 +5890,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        57
+        58
       ]
     ]
   },
@@ -5887,7 +5903,11 @@
       ],
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        25
+        26
+      ],
+      [
+        ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
+        128
       ]
     ]
   },
@@ -6347,6 +6367,15 @@
       [
         "src/js/pages/system/OverviewDetailTab.js",
         350
+      ]
+    ]
+  },
+  "Mesos Version": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/LeaderGrid.js",
+        49
       ]
     ]
   },
@@ -7106,7 +7135,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        342
+        343
       ]
     ]
   },
@@ -7137,7 +7166,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        55
+        56
       ]
     ]
   },
@@ -8861,7 +8890,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        257
+        258
       ]
     ]
   },
@@ -9068,7 +9097,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretStorePage.js",
-        23
+        24
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretStorePage.js",
+        101
       ]
     ]
   },
@@ -9095,6 +9128,14 @@
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
         56
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
+        363
+      ],
+      [
+        ".dcos-ui-plugins-private/secrets/pages/SecurityPage.js",
+        13
       ]
     ]
   },
@@ -9328,6 +9369,10 @@
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js",
         33
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js",
+        147
       ]
     ]
   },
@@ -9337,6 +9382,10 @@
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
         41
+      ],
+      [
+        ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingPage.js",
+        11
       ],
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
@@ -9571,7 +9620,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        344
+        345
       ]
     ]
   },
@@ -9589,7 +9638,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/hooks.js",
-        363
+        364
       ]
     ]
   },
@@ -11396,7 +11445,7 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        151
+        152
       ]
     ]
   },
@@ -11471,6 +11520,10 @@
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js",
         275
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/users/components/UserDetailPage.js",
+        142
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js",
@@ -11573,10 +11626,6 @@
   "Version": {
     "translation": "",
     "origin": [
-      [
-        "plugins/nodes/src/js/components/LeaderGrid.js",
-        49
-      ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         96
@@ -11976,7 +12025,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        44
+        45
       ]
     ]
   },
@@ -12189,7 +12238,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
-        40
+        41
       ]
     ]
   },
@@ -12247,6 +12296,15 @@
       ]
     ]
   },
+  "resources": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/secrets/hooks.js",
+        436
+      ]
+    ]
+  },
   "scaling each service to 0 instances": {
     "translation": "",
     "origin": [
@@ -12262,6 +12320,19 @@
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
         50
+      ]
+    ]
+  },
+  "system": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/auth-providers/hooks.js",
+        42
+      ],
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/hooks.js",
+        32
       ]
     ]
   },
@@ -12365,15 +12436,11 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        245
+        246
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
-        251
-      ],
-      [
-        "src/js/components/Sidebar.js",
-        167
+        252
       ]
     ]
   },
