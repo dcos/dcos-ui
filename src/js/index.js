@@ -34,7 +34,7 @@ const initialLanguage = UserLanguageStore.get();
 // don't block the JS execution.
 setTimeout(function() {
   var ajax = new XMLHttpRequest();
-  ajax.open("GET", "sprite.svg", true);
+  ajax.open("GET", "/assets/sprite.svg", true);
   ajax.send();
   ajax.onload = function() {
     var div = global.document.createElement("div");
