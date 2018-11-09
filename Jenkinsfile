@@ -8,6 +8,7 @@ pipeline {
   agent {
     dockerfile {
       args  "--shm-size=1g"
+      label "mesos-ec2-ubuntu-16.04"
     }
   }
 
@@ -31,6 +32,7 @@ pipeline {
 
     stage("Build") {
       steps {
+        sh "npm config set cache .npm-cache"
         sh "npm --unsafe-perm install"
         sh "npm run build"
       }
