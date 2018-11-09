@@ -46,7 +46,7 @@ export default function LeaderGrid({ leader }) {
 
           <ConfigurationRow
             keyValue="version"
-            title={<Trans render="span">Version</Trans>}
+            title={<Trans render="span">Mesos Version</Trans>}
             value={leader.version}
           />
 

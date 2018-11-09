@@ -64,7 +64,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <span
             className={undefined}
           >
-            Version
+            Mesos Version
           </span>
         </div>
         <div

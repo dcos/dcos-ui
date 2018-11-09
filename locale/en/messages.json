@@ -6370,6 +6370,15 @@
       ]
     ]
   },
+  "Mesos Version": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/LeaderGrid.js",
+        49
+      ]
+    ]
+  },
   "Mesos default for allocating temporary disk space to a service. Enough for many stateless or semi-stateless 12-factor and cloud native applications.": {
     "translation": "",
     "origin": [
@@ -11617,10 +11626,6 @@
   "Version": {
     "translation": "",
     "origin": [
-      [
-        "plugins/nodes/src/js/components/LeaderGrid.js",
-        49
-      ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         96
