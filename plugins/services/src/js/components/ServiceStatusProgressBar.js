@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
-import { Plural } from "@lingui/macro";
+/* eslint-disable no-unused-vars */
+import { Trans, Plural } from "@lingui/macro";
+/* eslint-enable no-unused-vars */
 
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import Pod from "../structs/Pod";

@@ -12623,6 +12623,15 @@
       ]
     ]
   },
+  "{runningInstances, plural, one {# instance running out of {instancesTotal}} other {# instances running out of {instancesTotal}}}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceStatusProgressBar.js",
+        22
+      ]
+    ]
+  },
   "{runningInstances} {0} running out of {instancesCount}": {
     "translation": "",
     "origin": [
