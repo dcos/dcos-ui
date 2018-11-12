@@ -524,9 +524,11 @@ A good example of translations:
 
 ### Translations strings
 
-When formatting a string containing multiple pieces of logic and/or translation IDs you can follow the [documentation here](https://lingui.js.org/tutorials/react.html#formatting). Iff you are looking to format a plural string you can use the [Plural](https://lingui.js.org/tutorials/react.html#plurals) macro.
+When formatting a string containing multiple pieces of logic and/or translation IDs you can follow the [documentation here](https://lingui.js.org/tutorials/react.html#formatting). If you are looking to format a plural string you can use the [Plural](https://lingui.js.org/tutorials/react.html#plurals) macro. Note that the `Trans` macro must be imported in any file that uses the `Plural` macro, even if `Trans` is not used.
 
 Keep in mind that lingui follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
+
+Ensure that `npm run lingui-extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.json` are committed.
 
 ### New translation files
 
