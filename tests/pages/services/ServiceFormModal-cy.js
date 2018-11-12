@@ -114,14 +114,14 @@ describe("Service Form Modal", function() {
             .clear()
             .blur();
 
-          cy.get(".message").should("not.be.visible");
+          cy.get(".infoBoxWrapper").should("not.be.visible");
 
           // Click review and run
           cy.get(".modal-full-screen-actions")
             .contains("button", "Review & Run")
             .click();
 
-          cy.get(".message")
+          cy.get(".infoBoxWrapper")
             .contains("Service ID must be defined")
             .should("be.visible");
 
@@ -130,7 +130,7 @@ describe("Service Form Modal", function() {
             .blur();
 
           // Now automatic revalidation happens without clicking Review & Run again
-          cy.get(".message")
+          cy.get(".infoBoxWrapper")
             .contains("Service ID must be defined")
             .should("not.be.visible");
         });
@@ -150,7 +150,7 @@ describe("Service Form Modal", function() {
             .focus()
             .type("{selectall}{backspace}", { force: true });
 
-          cy.get(".message")
+          cy.get(".infoBoxWrapper")
             .contains("Unexpected end of JSON input")
             .should("be.visible");
         });
@@ -168,7 +168,7 @@ describe("Service Form Modal", function() {
             .focus()
             .type("{selectall}{backspace}", { force: true });
 
-          cy.get(".message")
+          cy.get(".infoBoxWrapper")
             .contains("Unexpected end of JSON input")
             .should("be.visible");
 
@@ -177,7 +177,7 @@ describe("Service Form Modal", function() {
             .focus()
             .type('{{}\n\t"id": "/foo"\n', { force: true });
 
-          cy.get(".message").should("not.be.visible");
+          cy.get(".infoBoxWrapper").should("not.be.visible");
           cy.get("input[name=id]").should("have.value", "/foo");
         });
       });

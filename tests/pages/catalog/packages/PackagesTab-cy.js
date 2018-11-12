@@ -18,12 +18,12 @@ describe("Packages Tab", function() {
       }
     }).visitUrl({ url: "/catalog/packages", logIn: true });
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "The url for Invalid does not have correct syntax."
     );
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "You can go to the Repositories Settings page to change installed repositories."
     );
@@ -41,12 +41,12 @@ describe("Packages Tab", function() {
       }
     }).visitUrl({ url: "/catalog", logIn: true });
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "The index file is missing in Invalid."
     );
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "You can go to the Repositories Settings page to change installed repositories."
     );
@@ -64,12 +64,12 @@ describe("Packages Tab", function() {
       }
     }).visitUrl({ url: "/catalog", logIn: true });
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "The package file is missing in Invalid."
     );
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "You can go to the Repositories Settings page to change installed repositories."
     );
@@ -86,7 +86,7 @@ describe("Packages Tab", function() {
       }
     }).visitUrl({ url: "/catalog", logIn: true });
 
-    cy.get(".page-body-content .message").should(
+    cy.get(".page-body-content .infoBoxWrapper").should(
       "contain",
       "The package file is missing in a repository."
     );

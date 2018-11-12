@@ -2,9 +2,10 @@ import { Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
+import { InfoBoxInline } from "@dcos/ui-kit";
 
-import Alert from "./Alert";
 import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
+import Icon from "./Icon";
 
 const ErrorsAlert = function(props) {
   const {
@@ -43,14 +44,32 @@ const ErrorsAlert = function(props) {
   }, []);
 
   const errorItems = errorMessages.map((message, index) => {
-    return <li key={index}>{message}</li>;
+    return (
+      <li key={index} className="errorsAlert-listItem">
+        {message}
+      </li>
+    );
   });
 
   return (
-    <Alert>
-      <Trans render="h4">There is an error with your configuration</Trans>
-      <ul>{errorItems}</ul>
-    </Alert>
+    <div className="infoBoxWrapper">
+      <InfoBoxInline
+        appearance="danger"
+        message={
+          <div className="flex">
+            <div>
+              <Icon id="yield" size="mini" />
+            </div>
+            <div className="errorsAlert-message">
+              <Trans render="h4">
+                There is an error with your configuration
+              </Trans>
+              <ul className="errorsAlert-list">{errorItems}</ul>
+            </div>
+          </div>
+        }
+      />
+    </div>
   );
 };
 
