@@ -215,7 +215,7 @@ class PodDebugTabView extends React.Component {
           message={
             <Trans render="span">
               DC/OS has been waiting for resources and is unable to complete
-              this deployment for {DateUtil.getDuration(timeWaiting, null)}.}
+              this deployment for {DateUtil.getDuration(timeWaiting, null)}.
             </Trans>
           }
           primaryAction={
