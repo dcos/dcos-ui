@@ -2,7 +2,7 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import Docker from "./job-schema/Docker";
+import Container from "./job-schema/Container";
 import General from "./job-schema/General";
 import Labels from "./job-schema/Labels";
 import Schedule from "./job-schema/Schedule";
@@ -13,7 +13,7 @@ const JobSchema = {
   properties: {
     general: General,
     schedule: Schedule,
-    docker: Docker,
+    container: Container,
     docker_parameters: Parameters,
     labels: Labels
   },

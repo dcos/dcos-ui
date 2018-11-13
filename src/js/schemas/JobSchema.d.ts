@@ -1,4 +1,4 @@
-import { Docker } from "./job-schema/Docker";
+import { Container } from "./job-schema/Container";
 import { General } from "./job-schema/General";
 import { Labels } from "./job-schema/Labels";
 import { Schedule } from "./job-schema/Schedule";
@@ -8,7 +8,7 @@ interface JobSchema {
   properties: {
     general: General;
     schedule: Schedule;
-    docker: Docker;
+    container: Container;
     labels: Labels;
   };
   required: string[];

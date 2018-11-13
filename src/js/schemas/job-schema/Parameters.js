@@ -1,7 +1,9 @@
 const Parameters = {
   type: "object",
   title: "Docker Parameters",
-  description: "Add runtime parameters to a docker job run.",
+  description:
+    "Add runtime parameters to a docker job run. Note that these parameters " +
+    "are ignored when using the UCR runtime",
   properties: {
     items: {
       type: "array",

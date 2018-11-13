@@ -46,7 +46,7 @@ const JobUtil = {
         id: null
       },
       labels = {},
-      docker,
+      container,
       docker_parameters,
       schedule
     } = formModel;
@@ -75,12 +75,26 @@ const JobUtil = {
       disk: general.disk
     });
 
-    if (docker && docker.image) {
-      Object.assign(spec.run, { docker });
-      if (docker_parameters != null && docker_parameters.items != null) {
-        spec.run.docker.parameters = docker_parameters.items;
+    if (container && container.image) {
+      if (container.ucr) {
+        Object.assign(spec.run, {
+          ucr: {
+            image: {
+              id: container.image,
+              type: "docker"
+            },
+            privileged: container.privileged
+          }
+        });
       } else {
-        spec.run.docker.parameters = [];
+        const { ucr, ...rest } = container; // eslint-disable-line no-unused-vars
+        Object.assign(spec.run, { docker: rest });
+
+        if (docker_parameters != null && docker_parameters.items != null) {
+          spec.run.docker.parameters = docker_parameters.items;
+        } else {
+          spec.run.docker.parameters = [];
+        }
       }
     }
 
@@ -123,7 +137,9 @@ const JobUtil = {
   },
 
   createFormModelFromSchema(schema, job = new Job()) {
-    return getMatchingProperties(job, schema.properties);
+    const props = getMatchingProperties(job, schema.properties);
+
+    return props;
   },
 
   createJobSpecFromJob(job) {
@@ -144,13 +160,23 @@ const JobUtil = {
       spec.labels = labels;
     }
 
-    const docker = job.getDocker();
+    const container = job.getContainer();
 
-    if (docker.image) {
-      Object.assign(spec.run, { docker });
+    if (container.image) {
+      if (job.isUsingUCR()) {
+        if (spec.run.docker != null) {
+          delete spec.run.docker;
+        }
+        Object.assign(spec.run, { ucr: container });
+      } else {
+        if (spec.run.docker != null) {
+          delete spec.run.ucr;
+        }
+        Object.assign(spec.run, { docker: container });
 
-      const parameters = job.getParameters();
-      spec.run.docker.parameters = parameters;
+        const parameters = job.getParameters();
+        spec.run.docker.parameters = parameters;
+      }
     }
 
     const [schedule] = job.getSchedules();

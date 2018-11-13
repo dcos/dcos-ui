@@ -32,10 +32,41 @@ module.exports = class Job extends Item {
     return this.get("description");
   }
 
-  getDocker() {
-    const { docker = {} } = this.get("run") || {};
+  isUsingUCR() {
+    const runSpec = this.get("run") || {};
 
-    return docker;
+    return runSpec.ucr != null;
+  }
+
+  getContainer() {
+    const runSpec = this.get("run") || {};
+
+    if (runSpec.ucr != null) {
+      return runSpec.ucr;
+    }
+    if (runSpec.docker != null) {
+      return runSpec.docker;
+    }
+
+    return {};
+  }
+
+  getContainerImage() {
+    const runSpec = this.get("run") || {};
+
+    if (runSpec.ucr != null) {
+      // When using UCR, the `image` is an object in the following format:
+      // {
+      //    "type": "docker",
+      //    "id": "<image name>"
+      // }
+      return (runSpec.ucr.image || {}).id;
+    }
+    if (runSpec.docker != null) {
+      return runSpec.docker.image;
+    }
+
+    return "";
   }
 
   getDisk() {

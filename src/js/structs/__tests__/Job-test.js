@@ -65,23 +65,55 @@ describe("Job", function() {
     });
   });
 
-  describe("#getDocker", function() {
+  describe("#getContainer", function() {
     it("returns the docker configuration", function() {
       const job = new Job({ id: "foo", run: { docker: { image: "busybox" } } });
 
-      expect(job.getDocker()).toEqual({ image: "busybox" });
+      expect(job.getContainer()).toEqual({ image: "busybox" });
+    });
+
+    it("returns the ucr configuration", function() {
+      const job = new Job({
+        id: "foo",
+        run: { ucr: { image: { id: "busybox" } } }
+      });
+
+      expect(job.getContainer()).toEqual({ image: { id: "busybox" } });
     });
 
     it("defaults to an empty object if property is undefined", function() {
       const job = new Job({ run: {} });
 
-      expect(job.getDocker()).toEqual({});
+      expect(job.getContainer()).toEqual({});
     });
 
     it("defaults to an empty object  if run configuration is undefined", function() {
       const job = new Job({ run: {} });
 
-      expect(job.getDocker()).toEqual({});
+      expect(job.getContainer()).toEqual({});
+    });
+  });
+
+  describe("#getContainerImage", function() {
+    it("returns the docker image", function() {
+      const job = new Job({ id: "foo", run: { docker: { image: "busybox" } } });
+
+      expect(job.getContainerImage()).toEqual("busybox");
+    });
+
+    it("returns the ucr image", function() {
+      const job = new Job({
+        id: "foo",
+        run: { ucr: { image: { id: "busybox" } } }
+      });
+
+      expect(job.getContainerImage()).toEqual("busybox");
+    });
+
+    it("defaults to an empty string if run configuration is undefined", function() {
+      const job = new Job({ run: {} });
+
+      expect(job.getContainerImage()).toEqual("");
     });
   });
 
