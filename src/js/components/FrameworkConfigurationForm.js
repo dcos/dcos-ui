@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import SchemaForm from "react-jsonschema-form";
 import { MountService } from "foundation-ui";
+import { InfoBoxInline } from "@dcos/ui-kit";
 
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
@@ -329,9 +330,16 @@ class FrameworkConfigurationForm extends Component {
     let defaultConfigWarningMessage = null;
     if (defaultConfigWarning) {
       defaultConfigWarningMessage = (
-        <div className="message message-warning">
-          <strong>{i18n._(t`Warning`)}: </strong>
-          <Trans id={defaultConfigWarning} render="span" />
+        <div className="infoBoxWrapper">
+          <InfoBoxInline
+            appearance="warning"
+            message={
+              <div>
+                <strong>{i18n._(t`Warning`)}: </strong>
+                <Trans id={defaultConfigWarning} render="span" />
+              </div>
+            }
+          />
         </div>
       );
     }

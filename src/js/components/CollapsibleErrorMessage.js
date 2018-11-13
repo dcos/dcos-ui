@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
+import { InfoBoxBanner } from "@dcos/ui-kit";
 
-import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -110,7 +110,11 @@ class CollapsibleErrorMessage extends React.Component {
     return details.map(function(message, i) {
       const msg = message.toString();
 
-      return <li key={i}>{msg}</li>;
+      return (
+        <li key={i} className="errorsAlert-listItem">
+          {msg}
+        </li>
+      );
     });
   }
 
@@ -130,14 +134,8 @@ class CollapsibleErrorMessage extends React.Component {
     // Render the fixed part of the message
     return (
       <div className="collapsible-fixed">
-        <Icon
-          className="icon-alert icon-margin-right"
-          color="red"
-          id="yield"
-          size="mini"
-        />
+        <Icon className="icon-alert icon-margin-right" id="yield" size="mini" />
         {message}
-        {this.getShowDetailsLink()}
       </div>
     );
   }
@@ -180,19 +178,18 @@ class CollapsibleErrorMessage extends React.Component {
       return null;
     }
 
-    // Compile classes
-    const className = classNames(
-      "collapsible-error-message",
-      { expanded: this.state.expanded },
-      this.props.className
-    );
-
     // Render message component
     return (
-      <div className={className}>
-        {this.getFixedMessagePart()}
-        {this.getCollapsibleMessagePart()}
-      </div>
+      <InfoBoxBanner
+        appearance="danger"
+        message={
+          <div>
+            {this.getFixedMessagePart()}
+            {this.getCollapsibleMessagePart()}
+          </div>
+        }
+        primaryAction={this.getShowDetailsLink()}
+      />
     );
   }
 }
