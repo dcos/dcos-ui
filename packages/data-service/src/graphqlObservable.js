@@ -5,6 +5,7 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/concatMap";
+import { getNamedType } from "graphql";
 
 // TODO: add types with typescript
 
@@ -61,7 +62,7 @@ function resolveOperation(types, definition, context) {
     translateOperation[definition.operation]
   ].getFields();
 
-  return resolveResult(null, nextTypeMap, definition, context);
+  return resolveResult(null, { ...nextTypeMap, ...types }, definition, context);
 }
 
 function resolveNode(types, definition, context, parent) {
@@ -101,7 +102,13 @@ function resolveNode(types, definition, context, parent) {
 }
 
 function resolveLeaf(types, definition, context, parent) {
-  return Observable.of(parent[definition.name.value]);
+  const args = buildResolveArgs(definition, context);
+  const name = definition.name.value;
+  const type = types[name];
+
+  return type && type.resolve
+    ? type.resolve(parent, args, context)
+    : Observable.of(parent[name]);
 }
 
 function resolveResult(parent, types, definition, context, resolver) {
@@ -129,18 +136,22 @@ function resolveArrayResults(parents, types, definition, context, resolver) {
 }
 
 function buildResolveArgs(definition, context) {
-  return definition.arguments
-    .map(arg => {
-      return arg.value.kind === "Variable"
-        ? { [arg.name.value]: context[arg.value.name.value] }
-        : { [arg.name.value]: arg.value.value };
-    })
-    .reduce(Object.assign, {});
+  return definition.arguments.reduce(
+    (carry, arg) =>
+      Object.assign(
+        {},
+        carry,
+        arg.value.kind === "Variable"
+          ? { [arg.name.value]: context[arg.value.name.value] }
+          : { [arg.name.value]: arg.value.value }
+      ),
+    {}
+  );
 }
 
 function refineTypes(resolver, parent, types) {
-  return resolver && resolver.type.resolveType
-    ? resolver.type.resolveType(parent).getFields()
+  return resolver && resolver.type
+    ? { ...getNamedType(resolver.type).getFields(), types }
     : types;
 }
 

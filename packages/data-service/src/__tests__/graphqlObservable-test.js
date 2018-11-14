@@ -89,9 +89,19 @@ const fieldResolverSchema = makeExecutableSchema({
       giveMeTheContextFieldResolver: ObjectValue!
     }
 
+    type Nested {
+      firstFieldResolver: Nesting!
+    }
+
+    type Nesting {
+      noFieldResolverValue: String!
+      secondFieldResolver: String!
+    }
+
     type Query {
       plain: Plain!
       item: Item!
+      nested: Nested!
     }
   `,
   resolvers: {
@@ -123,6 +133,20 @@ const fieldResolverSchema = makeExecutableSchema({
         return Observable.of({ value: context.newValue });
       }
     },
+    Nested: {
+      firstFieldResolver(_parent, _args, ctx) {
+        ctx.contextValue = " resolvers are great";
+
+        return Observable.of({ noFieldResolverValue: "nested" });
+      }
+    },
+    Nesting: {
+      secondFieldResolver({ noFieldResolverValue }, _, { contextValue }) {
+        return Observable.of(
+          noFieldResolverValue.toLocaleUpperCase() + contextValue
+        );
+      }
+    },
     Query: {
       plain(_parent, _args, ctx) {
         ctx.newValue = "ContextValue";
@@ -135,6 +159,10 @@ const fieldResolverSchema = makeExecutableSchema({
         ctx.newValue = "NodeContextValue";
 
         return Observable.of({ thisIsANodeFieldResolver: "Yes" });
+      },
+
+      nested() {
+        return Observable.of({});
       }
     }
   }
@@ -143,6 +171,17 @@ const fieldResolverSchema = makeExecutableSchema({
 // jest helper who binds the marbles for you
 const itMarbles = (title, test) => {
   return it(
+    title,
+    marbles(m => {
+      m.bind();
+      test(m);
+    })
+  );
+};
+
+itMarbles.only = (title, test) => {
+  // eslint-disable-next-line
+  return it.only(
     title,
     marbles(m => {
       m.bind();
@@ -363,9 +402,6 @@ describe("graphqlObservable", function() {
           const result = graphqlObservable(query, fieldResolverSchema, {});
           m.expect(result.take(1)).toBeObservable(expected);
         });
-
-        it("the field resolvers context is shared between executions");
-        it("the field resolvers 4th argument is info");
       });
 
       describe("Nodes", function() {
@@ -468,9 +504,35 @@ describe("graphqlObservable", function() {
           const result = graphqlObservable(query, fieldResolverSchema, {});
           m.expect(result.take(1)).toBeObservable(expected);
         });
+      });
 
-        it("the field resolvers context is shared between executions");
-        it("the field resolvers 4th argument is info");
+      itMarbles("nested resolvers pass down the context and parent", function(
+        m
+      ) {
+        const query = gql`
+          query {
+            nested {
+              firstFieldResolver {
+                noFieldResolverValue
+                secondFieldResolver
+              }
+            }
+          }
+        `;
+        const expected = m.cold("(a|)", {
+          a: {
+            data: {
+              nested: {
+                firstFieldResolver: {
+                  noFieldResolverValue: "nested",
+                  secondFieldResolver: "NESTED resolvers are great"
+                }
+              }
+            }
+          }
+        });
+        const result = graphqlObservable(query, fieldResolverSchema, {});
+        m.expect(result.take(1)).toBeObservable(expected);
       });
     });
   });
