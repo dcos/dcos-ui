@@ -244,7 +244,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        38
+        39
       ]
     ]
   },
@@ -888,7 +888,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        24
+        25
       ]
     ]
   },
@@ -986,7 +986,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        363
+        383
       ]
     ]
   },
@@ -1222,7 +1222,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        142
+        143
       ]
     ]
   },
@@ -1341,7 +1341,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        191
+        192
       ]
     ]
   },
@@ -1616,11 +1616,11 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        142
+        143
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        356
+        376
       ],
       [
         "src/js/components/modals/JobStopRunModal.js",
@@ -2515,11 +2515,7 @@
       ],
       [
         "plugins/services/src/js/service-configuration/PodContainersConfigSection.js",
-        29
-      ],
-      [
-        "plugins/services/src/js/service-configuration/PodContainersConfigSection.js",
-        40
+        45
       ]
     ]
   },
@@ -2870,30 +2866,20 @@
       ]
     ]
   },
-  "DC/OS has been waiting for resources and is unable to complete this deployment for": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        289
-      ]
-    ]
-  },
-  "DC/OS has been waiting for resources and is unable to complete this deployment for {0} .": {
-    "translation": "",
-    "origin": [
-      [
-        "plugins/services/src/js/containers/pod-debug/PodDebugContainer.js",
-        213
-      ]
-    ]
-  },
   "DC/OS has been waiting for resources and is unable to complete this deployment for {0}.": {
     "translation": "",
     "origin": [
       [
         "plugins/services/src/js/components/ServiceStatusIcon.js",
         44
+      ],
+      [
+        "plugins/services/src/js/containers/pod-debug/PodDebugContainer.js",
+        216
+      ],
+      [
+        "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
+        292
       ]
     ]
   },
@@ -3394,7 +3380,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        358
+        378
       ]
     ]
   },
@@ -3407,7 +3393,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        351
+        371
       ]
     ]
   },
@@ -3725,7 +3711,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        271
+        291
       ]
     ]
   },
@@ -5557,7 +5543,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        172
+        173
       ]
     ]
   },
@@ -5738,7 +5724,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        346
+        353
       ]
     ]
   },
@@ -5783,7 +5769,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        350
+        357
       ]
     ]
   },
@@ -7126,7 +7112,7 @@
     "origin": [
       [
         "plugins/services/src/js/service-configuration/PodContainersConfigSection.js",
-        30
+        33
       ]
     ]
   },
@@ -7846,7 +7832,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        124
+        140
       ]
     ]
   },
@@ -7941,7 +7927,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        209
+        214
       ]
     ]
   },
@@ -8547,7 +8533,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        157
+        158
       ],
       [
         "src/js/pages/catalog/PackageDetailTab.js",
@@ -8569,7 +8555,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        270
+        290
       ]
     ]
   },
@@ -8661,7 +8647,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        156
+        157
       ]
     ]
   },
@@ -9153,11 +9139,11 @@
     "origin": [
       [
         "plugins/services/src/js/containers/pod-debug/PodDebugContainer.js",
-        218
+        222
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        295
+        298
       ]
     ]
   },
@@ -10304,7 +10290,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        356
+        363
       ]
     ]
   },
@@ -10385,7 +10371,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        188
+        189
       ]
     ]
   },
@@ -10707,7 +10693,7 @@
     "origin": [
       [
         "src/js/components/ErrorsAlert.js",
-        51
+        64
       ]
     ]
   },
@@ -11895,7 +11881,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfigurationForm.js",
-        333
+        338
       ],
       [
         "src/js/constants/UnitHealthStatus.js",
@@ -11908,7 +11894,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        240
+        258
       ]
     ]
   },
@@ -12016,7 +12002,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        102
+        103
       ]
     ]
   },
@@ -12570,7 +12556,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfigurationForm.js",
-        102
+        103
       ]
     ]
   },
