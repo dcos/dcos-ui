@@ -176,6 +176,33 @@ module.exports = {
         ]
       },
       {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "cache-loader",
+            options: {
+              cacheDirectory: "./node_modules/.cache/cache-loader"
+            }
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+              config: {
+                path: path.join(__dirname, "../postcss.config.js")
+              }
+            }
+          }
+        ]
+      },
+      {
         test: /\.jison$/,
         loader: "jison-loader"
       },

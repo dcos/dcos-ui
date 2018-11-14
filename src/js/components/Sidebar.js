@@ -30,7 +30,8 @@ const defaultMenuItems = [
   "/cluster",
   "/components",
   "/settings",
-  "/organization"
+  "/organization",
+  "/development"
 ];
 
 const { Hooks } = PluginSDK;
@@ -153,6 +154,7 @@ class Sidebar extends React.Component {
 
   getNavigationSections() {
     const definition = NavigationService.getDefinition();
+    console.log("def", definition);
 
     return definition.map((group, index) => {
       let heading = null;
@@ -182,10 +184,17 @@ class Sidebar extends React.Component {
   }
 
   getNavigationGroup(group) {
+    console.log("DMI", defaultMenuItems);
+    console.log(
+      "hook(DMI)",
+      Hooks.applyFilter("sidebarNavigation", defaultMenuItems)
+    );
     const menuItems = Hooks.applyFilter(
       "sidebarNavigation",
       defaultMenuItems
     ).reduce((routesMap, path) => routesMap.set(path, true), new Map());
+
+    console.log("MI", menuItems);
 
     const filteredItems = group.children.filter(route =>
       menuItems.has(route.path)
@@ -316,6 +325,9 @@ class Sidebar extends React.Component {
   }
 
   render() {
+    console.log("rendering sidebar");
+
+    console.log("BAR");
     return (
       <div
         className="sidebar-wrapper"

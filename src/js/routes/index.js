@@ -12,6 +12,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Organization from "./factories/organization";
 import services from "../../../plugins/services/src/js/routes/services";
 import settings from "./settings";
+import development from "./development";
 import systemOverview from "./system-overview";
 import catalog from "./catalog";
 
@@ -33,7 +34,8 @@ function getApplicationRoutes() {
     catalog,
     systemOverview,
     components,
-    settings
+    settings,
+    development
     // Plugins routes will be appended to this array
   );
 

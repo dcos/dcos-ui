@@ -88,6 +88,7 @@ RequestUtil.json = function(options = {}) {
       function renderApplicationToDOM() {
         const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
         NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
+        console.log("approutes", routes);
 
         renderAppToDOM(
           <Provider store={PluginSDK.Store}>
