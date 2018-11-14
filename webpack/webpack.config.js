@@ -12,9 +12,8 @@ function requireAll(array) {
 module.exports = {
   entry: "./src/js/index.js",
   output: {
-    filename: "[name].[hash].js",
-    path: path.resolve(__dirname, "../dist/assets"),
-    publicPath: "/assets/"
+    filename: "[name].js",
+    path: path.resolve(__dirname, "../dist")
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
@@ -46,6 +45,8 @@ module.exports = {
     fs: "empty" // Jison loader fails otherwise
   },
   devServer: {
+    // TODO: https://webpack.js.org/configuration/dev-server/#devserver-hot
+    contentBase: path.join(__dirname, "../dist"),
     open: false,
     overlay: true,
     port: 4200,
@@ -60,8 +61,7 @@ module.exports = {
       disable: process.env.NODE_ENV !== "production"
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "../index.html"
+      template: "./src/index.html"
     })
   ],
   module: {
