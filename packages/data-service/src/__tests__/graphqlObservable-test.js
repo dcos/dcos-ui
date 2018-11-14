@@ -78,8 +78,20 @@ const fieldResolverSchema = makeExecutableSchema({
       giveMeTheContextFieldResolver: String!
     }
 
+    type ObjectValue {
+      value: String!
+    }
+
+    type Item {
+      nodeFieldResolver: ObjectValue!
+      giveMeTheParentFieldResolver: ObjectValue!
+      giveMeTheArgsFieldResolver(arg: String!): ObjectValue!
+      giveMeTheContextFieldResolver: ObjectValue!
+    }
+
     type Query {
       plain: Plain!
+      item: Item!
     }
   `,
   resolvers: {
@@ -97,6 +109,20 @@ const fieldResolverSchema = makeExecutableSchema({
         return Observable.of(context.newValue);
       }
     },
+    Item: {
+      nodeFieldResolver() {
+        return Observable.of({ value: "I am a node field resolver" });
+      },
+      giveMeTheParentFieldResolver(parent) {
+        return Observable.of({ value: JSON.stringify(parent) });
+      },
+      giveMeTheArgsFieldResolver(_parent, args) {
+        return Observable.of({ value: JSON.stringify(args) });
+      },
+      giveMeTheContextFieldResolver(_parent, _args, context) {
+        return Observable.of({ value: context.newValue });
+      }
+    },
     Query: {
       plain(_parent, _args, ctx) {
         ctx.newValue = "ContextValue";
@@ -104,6 +130,11 @@ const fieldResolverSchema = makeExecutableSchema({
         return Observable.of({
           noFieldResolver: "Yes"
         });
+      },
+      item(_parent, _args, ctx) {
+        ctx.newValue = "NodeContextValue";
+
+        return Observable.of({ thisIsANodeFieldResolver: "Yes" });
       }
     }
   }
@@ -325,6 +356,111 @@ describe("graphqlObservable", function() {
               data: {
                 plain: {
                   giveMeTheContextFieldResolver: "ContextValue"
+                }
+              }
+            }
+          });
+          const result = graphqlObservable(query, fieldResolverSchema, {});
+          m.expect(result.take(1)).toBeObservable(expected);
+        });
+
+        it("the field resolvers context is shared between executions");
+        it("the field resolvers 4th argument is info");
+      });
+
+      describe("Nodes", function() {
+        itMarbles("if defined it executes the field resolver", function(m) {
+          const query = gql`
+            query {
+              item {
+                nodeFieldResolver {
+                  value
+                }
+              }
+            }
+          `;
+          const expected = m.cold("(a|)", {
+            a: {
+              data: {
+                item: {
+                  nodeFieldResolver: { value: "I am a node field resolver" }
+                }
+              }
+            }
+          });
+          const result = graphqlObservable(query, fieldResolverSchema, {});
+          m.expect(result.take(1)).toBeObservable(expected);
+        });
+
+        itMarbles("the field resolvers 1st argument is parent", function(m) {
+          const query = gql`
+            query {
+              item {
+                giveMeTheParentFieldResolver {
+                  value
+                }
+              }
+            }
+          `;
+          const expected = m.cold("(a|)", {
+            a: {
+              data: {
+                item: {
+                  giveMeTheParentFieldResolver: {
+                    value: JSON.stringify({
+                      thisIsANodeFieldResolver: "Yes"
+                    })
+                  }
+                }
+              }
+            }
+          });
+          const result = graphqlObservable(query, fieldResolverSchema, {});
+          m.expect(result.take(1)).toBeObservable(expected);
+        });
+
+        itMarbles("the field resolvers 2nd argument is arguments", function(m) {
+          const query = gql`
+            query {
+              item {
+                giveMeTheArgsFieldResolver(arg: "My passed arg") {
+                  value
+                }
+              }
+            }
+          `;
+          const expected = m.cold("(a|)", {
+            a: {
+              data: {
+                item: {
+                  giveMeTheArgsFieldResolver: {
+                    value: JSON.stringify({
+                      arg: "My passed arg"
+                    })
+                  }
+                }
+              }
+            }
+          });
+          const result = graphqlObservable(query, fieldResolverSchema, {});
+          m.expect(result.take(1)).toBeObservable(expected);
+        });
+
+        itMarbles("the field resolvers 3rd argument is context", function(m) {
+          const query = gql`
+            query {
+              item {
+                giveMeTheContextFieldResolver {
+                  value
+                }
+              }
+            }
+          `;
+          const expected = m.cold("(a|)", {
+            a: {
+              data: {
+                item: {
+                  giveMeTheContextFieldResolver: { value: "NodeContextValue" }
                 }
               }
             }
