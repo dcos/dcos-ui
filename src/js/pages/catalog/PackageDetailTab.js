@@ -21,7 +21,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import { Badge } from "@dcos/ui-kit";
+import { Badge, InfoBoxInline } from "@dcos/ui-kit";
 
 const semver = require("semver");
 
@@ -464,9 +464,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
       {
         label: " ",
         value: preInstallNotes && (
-          <div
-            className="pre-install-notes flush-bottom message message-warning"
-            dangerouslySetInnerHTML={preInstallNotesParsed}
+          <InfoBoxInline
+            appearance="warning"
+            message={
+              <div
+                className="pre-install-notes"
+                dangerouslySetInnerHTML={preInstallNotesParsed}
+              />
+            }
           />
         )
       },

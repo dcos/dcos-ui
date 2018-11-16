@@ -126,6 +126,14 @@
       &-label {
         width: @configuration-map-label-width;
       }
+
+      &-value {
+        // This is a hack to prevent the "label" table cell
+        // from collapsing because of the `min-width: 0px`
+        // rule on table cells we require for maintaining 
+        // the desired column width behavior in the tasks table
+        width: 0;
+      }
     }
   }
 }
