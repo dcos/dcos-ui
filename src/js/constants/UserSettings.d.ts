@@ -1,1 +1,1 @@
-export var SAVED_STATE_KEY: "savedStates";
+export const SAVED_STATE_KEY: "savedStates";
