@@ -1,5 +1,6 @@
 const merge = require("webpack-merge");
-
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const common = require("./webpack.config.js");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
@@ -13,6 +14,14 @@ module.exports = maybeProfile(
     entry: {
       index: "./src/js/index.js"
     },
-    devtool: "cheap-module-eval-source-map"
+    output: {
+      path: path.resolve(__dirname, "../dist/assets")
+    },
+    devtool: "cheap-module-eval-source-map",
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "./src/index.html"
+      })
+    ]
   })
 );

@@ -29,13 +29,15 @@ import RouterUtil from "./utils/RouterUtil";
 const domElement = global.document.getElementById("application");
 const initialLanguage = UserLanguageStore.get();
 
+const assetPath = process.env.NODE_ENV === "production" ? "/assets/" : "";
+
 // TODO: Implement loader that can concat many sprites into a single one
 // We opt to load the sprite after the Javscript files are parsed because it
 // is quite expensive for the browser to parse a sprite file. This way we
 // don't block the JS execution.
 setTimeout(function() {
   var ajax = new XMLHttpRequest();
-  ajax.open("GET", "/assets/sprite.svg", true);
+  ajax.open("GET", assetPath + "sprite.svg", true);
   ajax.send();
   ajax.onload = function() {
     var div = global.document.createElement("div");
