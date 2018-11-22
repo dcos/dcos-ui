@@ -157,15 +157,16 @@ class DeclinedOffersTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
+        <col style={{ width: "135px" }} />
+        <col style={{ width: "9%" }} />
+        <col style={{ width: "15%" }} />
         <col />
-        <col style={{ width: "10%" }} />
-        <col style={{ width: "10%" }} />
-        <col className="hidden-large-up" style={{ width: "30%" }} />
-        <col className="hidden-medium-down" style={{ width: "10%" }} />
-        <col className="hidden-medium-down" style={{ width: "10%" }} />
-        <col className="hidden-medium-down" style={{ width: "10%" }} />
-        <col style={{ width: "10%" }} />
-        <col className="hidden-small-down" />
+        <col className="hidden-large-up" style={{ width: "9%" }} />
+        <col className="hidden-medium-down" style={{ width: "9%" }} />
+        <col className="hidden-medium-down" style={{ width: "9%" }} />
+        <col className="hidden-medium-down" style={{ width: "9%" }} />
+        <col />
+        <col className="hidden-small-down" style={{ width: "15%" }} />
       </colgroup>
     );
   }
@@ -181,9 +182,14 @@ class DeclinedOffersTable extends React.Component {
           const node = MesosStateStore.getNodeFromHostname(hostname);
 
           return (
-            <Link className="table-cell-link-primary" to={`/nodes/${node.id}`}>
-              {hostname}
-            </Link>
+            <Tooltip content={hostname} maxWidth={400} wrapText={true}>
+              <Link
+                className="table-cell-link-primary"
+                to={`/nodes/${node.id}`}
+              >
+                {hostname}
+              </Link>
+            </Tooltip>
           );
         },
         sortable: true
