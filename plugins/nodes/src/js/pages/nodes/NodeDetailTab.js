@@ -144,6 +144,14 @@ class NodeDetailTab extends PureComponent {
                 {Units.formatResource("cpus", resources.cpus)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                <Trans render="span">GPUs</Trans>
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {Units.formatResource("gpus", resources.gpus)}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
           </ConfigurationMapSection>
         </ConfigurationMap>
       </div>
