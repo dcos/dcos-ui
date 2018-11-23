@@ -1,10 +1,12 @@
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/throw";
 import "rxjs/add/observable/of";
+import "rxjs/add/observable/fromPromise";
 import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/concatMap";
+
 import {
   DefinitionNode,
   DocumentNode,
@@ -15,7 +17,8 @@ import {
   GraphQLType,
   SelectionNode,
   FieldNode,
-  GraphQLField
+  GraphQLField,
+  GraphQLFieldResolver
 } from "graphql";
 
 // WARNING: This is NOT a spec complete graphql implementation
@@ -61,6 +64,16 @@ function isDefinitionNode(node: SchemaNode): node is DefinitionNode {
   );
 }
 
+interface FieldWithResolver extends GraphQLField<any, any> {
+  resolve: GraphQLFieldResolver<any, any, any>;
+}
+
+function isFieldWithResolver(
+  field: GraphQLField<any, any>
+): field is FieldWithResolver {
+  return field.resolve instanceof Function;
+}
+
 export function graphqlObservable<T = object>(
   doc: DocumentNode,
   schema: Schema,
@@ -94,31 +107,17 @@ export function graphqlObservable<T = object>(
       // Something unexpcected was passed into getField
       if (field === null) {
         // TODO: find better worded error message
-        return throwObservable("field was not of the right type");
-      }
-
-      let resolvedObservable;
-      // If there is a resolver for this field use it
-      if (field.resolve instanceof Function) {
-        const args = buildResolveArgs(definition, context);
-        resolvedObservable = field.resolve(
-          parent,
-          args,
-          context,
-          // @ts-ignore
-          null // that would be the info
+        return throwObservable(
+          `field was not of the right type. Given type: ${type}`
         );
-      } else {
-        resolvedObservable = Observable.of(parent[field.name]);
       }
 
-      if (!resolvedObservable) {
-        return throwObservable("resolver returns empty value");
-      }
-
-      if (!(resolvedObservable instanceof Observable)) {
-        return throwObservable("resolver does not return an observable");
-      }
+      const resolvedObservable = resolveField(
+        field,
+        definition,
+        context,
+        parent
+      );
 
       // Directly return the leaf nodes
       if (definition.selectionSet === undefined) {
@@ -281,3 +280,34 @@ const objectAppendWithKey = (key: string) => {
 const listAppend = <T = any>(destination: T[], source: T) => {
   return destination.concat(source);
 };
+
+function resolveField(
+  field: GraphQLField<any, any, { [argName: string]: any }>,
+  definition: FieldNode,
+  context: object,
+  parent: any
+): Observable<any> {
+  if (!isFieldWithResolver(field)) {
+    return Observable.of(parent[field.name]);
+  }
+
+  const args = buildResolveArgs(definition, context);
+  const resolvedValue = field.resolve(
+    parent,
+    args,
+    context,
+    // @ts-ignore
+    null // that would be the info
+  );
+
+  if (resolvedValue instanceof Observable) {
+    return resolvedValue;
+  }
+
+  if (resolvedValue instanceof Promise) {
+    return Observable.fromPromise(resolvedValue);
+  }
+
+  // It seems like a plain value
+  return Observable.of(resolvedValue);
+}
