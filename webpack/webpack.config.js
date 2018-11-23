@@ -1,5 +1,4 @@
 const { DefinePlugin } = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const LessColorLighten = require("less-color-lighten");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -12,8 +11,7 @@ function requireAll(array) {
 module.exports = {
   entry: "./src/js/index.js",
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "../dist")
+    filename: "[name].[hash].js"
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
@@ -45,8 +43,6 @@ module.exports = {
     fs: "empty" // Jison loader fails otherwise
   },
   devServer: {
-    // TODO: https://webpack.js.org/configuration/dev-server/#devserver-hot
-    contentBase: path.join(__dirname, "../dist"),
     open: false,
     overlay: true,
     port: 4200,
@@ -59,9 +55,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
       disable: process.env.NODE_ENV !== "production"
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html"
     })
   ],
   module: {

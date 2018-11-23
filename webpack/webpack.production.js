@@ -4,7 +4,9 @@ const {
 } = require("webpack");
 
 const CompressionPlugin = require("compression-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const merge = require("webpack-merge");
+const path = require("path");
 const SVGCompilerPlugin = require("./plugins/svg-compiler-plugin");
 
 const packageInfo = require("../package");
@@ -14,6 +16,10 @@ module.exports = merge(common, {
   mode: "production",
   entry: {
     index: "./src/js/index.js"
+  },
+  output: {
+    path: path.resolve(__dirname, "../dist/assets"),
+    publicPath: "/assets/"
   },
   devtool: "source-map",
   plugins: [
@@ -28,6 +34,10 @@ module.exports = merge(common, {
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
       minRatio: 0.8
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "../index.html"
     })
   ]
 });
