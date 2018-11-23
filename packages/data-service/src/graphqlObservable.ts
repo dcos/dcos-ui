@@ -18,7 +18,10 @@ import {
   SelectionNode,
   FieldNode,
   GraphQLField,
-  GraphQLFieldResolver
+  GraphQLFieldResolver,
+  isTypeSystemDefinitionNode,
+  isTypeSystemExtensionNode,
+  Kind
 } from "graphql";
 
 // WARNING: This is NOT a spec complete graphql implementation
@@ -39,28 +42,18 @@ interface OperationNode {
 type SchemaNode = SelectionNode | DefinitionNode;
 
 function isOperationDefinition(node: any): node is OperationNode {
-  return node.kind === "OperationDefinition";
+  return node.kind === Kind.OPERATION_DEFINITION;
 }
 function isFieldNode(node: SchemaNode): node is FieldNode {
-  return node.kind === "Field";
+  return node.kind === Kind.FIELD;
 }
 
+// We don't treat OperationDefinitions as Definitions but as entry points for our execution
 function isDefinitionNode(node: SchemaNode): node is DefinitionNode {
   return (
-    node.kind === "SchemaDefinition" ||
-    node.kind === "ScalarTypeDefinition" ||
-    node.kind === "ObjectTypeDefinition" ||
-    node.kind === "InterfaceTypeDefinition" ||
-    node.kind === "UnionTypeDefinition" ||
-    node.kind === "EnumTypeDefinition" ||
-    node.kind === "InputObjectTypeDefinition" ||
-    node.kind === "ScalarTypeExtension" ||
-    node.kind === "ObjectTypeExtension" ||
-    node.kind === "InterfaceTypeExtension" ||
-    node.kind === "UnionTypeExtension" ||
-    node.kind === "EnumTypeExtension" ||
-    node.kind === "InputObjectTypeExtension" ||
-    node.kind === "DirectiveDefinition"
+    node.kind === Kind.FRAGMENT_DEFINITION ||
+    isTypeSystemDefinitionNode(node) ||
+    isTypeSystemExtensionNode(node)
   );
 }
 
@@ -154,7 +147,7 @@ export function graphqlObservable<T = object>(
       return throwObservable("Definition types should not be present here");
     }
 
-    if (definition.kind === "FragmentSpread") {
+    if (definition.kind === Kind.FRAGMENT_SPREAD) {
       return throwObservable("Unsupported use of fragments");
     }
 
@@ -163,7 +156,10 @@ export function graphqlObservable<T = object>(
     }
 
     return definition.selectionSet.selections.reduce((acc, sel) => {
-      if (sel.kind === "FragmentSpread" || sel.kind === "InlineFragment") {
+      if (
+        sel.kind === Kind.FRAGMENT_SPREAD ||
+        sel.kind === Kind.INLINE_FRAGMENT
+      ) {
         return throwObservable("Unsupported use of fragments in selection set");
       }
 
@@ -261,7 +257,7 @@ function buildResolveArgs(definition: FieldNode, context: object) {
   return (definition.arguments || []).reduce(
     (carry, arg) => ({
       ...carry,
-      ...(arg.value.kind === "Variable"
+      ...(arg.value.kind === Kind.VARIABLE
         ? // @ts-ignore
           { [arg.name.value]: context[arg.value.name.value] }
         : { [arg.name.value]: arg.value.value })
