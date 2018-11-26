@@ -1,4 +1,3 @@
-import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 import { hashHistory } from "react-router";
@@ -22,11 +21,10 @@ const METHODS_TO_BIND = [
   "resetFilter"
 ];
 
-class HealthTab extends React.Component {
+class HealthTab extends React.PureComponent {
   constructor() {
     super(...arguments);
 
-    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
     this.state = {
       healthFilter: "all",
       searchString: ""

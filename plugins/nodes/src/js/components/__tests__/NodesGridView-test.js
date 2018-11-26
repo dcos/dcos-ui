@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 const React = require("react");
-/* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-var NodesGridView = require("../NodesGridView");
-var MesosStateStore = require("#SRC/js/stores/MesosStateStore");
-var NodesList = require("#SRC/js/structs/NodesList");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const NodesList = require("#SRC/js/structs/NodesList");
+
+const NodesGridView = require("../NodesGridView").default;
 const ServicesList = require("../../../../../services/src/js/structs/ServicesList");
 
 let thisStoreChangeListener,
@@ -68,7 +67,7 @@ describe("NodesGridView", function() {
     });
 
     it("returns a list of unique framework_ids", function() {
-      var list = thisInstance.getActiveServiceIds(thisHosts.getItems());
+      const list = thisInstance.getActiveServiceIds(thisHosts.getItems());
 
       expect(list).toEqual(["a", "b", "c", "d", "e", "f", "g", "z"]);
     });
