@@ -1,49 +1,43 @@
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
-import PureRender from "react-addons-pure-render-mixin";
-import PropTypes from "prop-types";
-import React from "react";
 
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
-import NodesList from "#SRC/js/structs/NodesList";
 
 import NodesGridDials from "./NodesGridDials";
 
-var MAX_SERVICES_TO_SHOW = 32;
-var OTHER_SERVICES_COLOR = 32;
+const MAX_SERVICES_TO_SHOW = 32;
+const OTHER_SERVICES_COLOR = 32;
 
-var NodesGridView = React.createClass({
-  displayName: "NodesGridView",
+interface NodesGridViewProps {
+  hasLoadingError?: boolean;
+  hiddenServices?: string[];
+  hosts: Node[];
+  receivedEmptyMesosState?: boolean;
+  receivedNodeHealthResponse?: boolean;
+  resourcesByFramework: ResourcesByFramework;
+  selectedResource: string;
+  serviceColors: ServiceColors;
+  services: object[]; // TODO TS: Framework[] `plugins/services/src/js/structs/Framework.js`
+}
 
-  mixins: [PureRender],
-
-  propTypes: {
-    hasLoadingError: PropTypes.bool,
-    hiddenServices: PropTypes.array,
-    hosts: PropTypes.instanceOf(NodesList).isRequired,
-    receivedEmptyMesosState: PropTypes.bool,
-    receivedNodeHealthResponse: PropTypes.bool,
-    resourcesByFramework: PropTypes.object.isRequired,
-    selectedResource: PropTypes.string.isRequired,
-    serviceColors: PropTypes.object.isRequired,
-    services: PropTypes.array.isRequired
-  },
-
-  defaultProps: {
+export default class NodesGridView extends React.PureComponent<
+  NodesGridViewProps,
+  {}
+> {
+  public static defaultProps: Partial<NodesGridViewProps> = {
     hasLoadingError: false,
     hiddenServices: [],
+    receivedEmptyMesosState: false,
     receivedNodeHealthResponse: false
-  },
+  };
 
   getLoadingScreen() {
-    var { hasLoadingError } = this.props;
-    var errorMsg = null;
-    if (hasLoadingError) {
-      errorMsg = <RequestErrorMsg />;
-    }
+    const { hasLoadingError } = this.props;
+    const errorMsg = hasLoadingError ? <RequestErrorMsg /> : null;
 
-    var loadingClassSet = classNames({
+    const loadingClassSet = classNames({
       hidden: hasLoadingError
     });
 
@@ -53,29 +47,27 @@ var NodesGridView = React.createClass({
         {errorMsg}
       </div>
     );
-  },
+  }
 
   getActiveServiceIds() {
-    return this.props.services.map(function(service) {
-      return service.getId();
-    });
-  },
+    return this.props.services.map(service => service.getId());
+  }
 
-  getServicesList(props) {
+  getServicesList() {
+    const { services, serviceColors } = this.props;
+
     // Return a list of unique service IDs from the selected hosts.
-    var activeServiceIds = this.getActiveServiceIds();
+    const activeServiceIds = this.getActiveServiceIds();
 
     // Filter out inactive services
-    var items = props.services
-      .filter(function(service) {
-        return activeServiceIds.includes(service.id);
-      })
+    const items = services
+      .filter(service => activeServiceIds.includes(service.id))
       // Limit to max amount
       .slice(0, MAX_SERVICES_TO_SHOW)
       // Return view definition
-      .map(function(service) {
-        var color = props.serviceColors[service.id];
-        var className = `dot service-color-${color}`;
+      .map(service => {
+        const color = serviceColors[service.id];
+        const className = `dot service-color-${color}`;
 
         return (
           <li key={service.id}>
@@ -87,7 +79,7 @@ var NodesGridView = React.createClass({
 
     // Add 'Others' node to the list
     if (activeServiceIds.length > MAX_SERVICES_TO_SHOW) {
-      var classNameOther = `dot service-color-${OTHER_SERVICES_COLOR}`;
+      const classNameOther = `dot service-color-${OTHER_SERVICES_COLOR}`;
       items.push(
         <li key="other">
           <span className={classNameOther} />
@@ -99,28 +91,33 @@ var NodesGridView = React.createClass({
     return (
       <ul className="list list-unstyled nodes-grid-service-list">{items}</ul>
     );
-  },
+  }
 
   getNodesGrid() {
-    var { props } = this;
+    const {
+      hosts,
+      resourcesByFramework,
+      selectedResource,
+      serviceColors
+    } = this.props;
 
-    var classSet = classNames({
+    const classSet = classNames({
       "side-list nodes-grid-legend": true
     });
 
     return (
       <div className="nodes-grid">
-        <div className={classSet}>{this.getServicesList(props)}</div>
+        <div className={classSet}>{this.getServicesList()}</div>
 
         <NodesGridDials
-          hosts={props.hosts.getItems()}
-          resourcesByFramework={props.resourcesByFramework}
-          selectedResource={props.selectedResource}
-          serviceColors={props.serviceColors}
+          hosts={hosts.getItems()}
+          resourcesByFramework={resourcesByFramework}
+          selectedResource={selectedResource}
+          serviceColors={serviceColors}
         />
       </div>
     );
-  },
+  }
 
   shouldRenderLoadingScreen() {
     const {
@@ -132,7 +129,7 @@ var NodesGridView = React.createClass({
     return (
       hasLoadingError || receivedEmptyMesosState || !receivedNodeHealthResponse
     );
-  },
+  }
 
   render() {
     if (this.shouldRenderLoadingScreen()) {
@@ -141,6 +138,4 @@ var NodesGridView = React.createClass({
       return this.getNodesGrid();
     }
   }
-});
-
-module.exports = NodesGridView;
+}

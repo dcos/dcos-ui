@@ -1,7 +1,6 @@
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
-import PureRender from "react-addons-pure-render-mixin";
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
 
@@ -15,15 +14,13 @@ const ACTION_DISPLAY_NAMES = {
   stop: i18nMark("Stop")
 };
 
-class KillTaskModal extends React.Component {
+class KillTaskModal extends React.PureComponent {
   constructor() {
     super(...arguments);
 
     this.state = {
       errorMsg: null
     };
-
-    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
   componentWillUpdate(nextProps) {
