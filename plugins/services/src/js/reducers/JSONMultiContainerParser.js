@@ -1,4 +1,6 @@
 import { simpleParser } from "#SRC/js/utils/ParserUtil";
+import Transaction from "#SRC/js/structs/Transaction";
+import Util from "#SRC/js/utils/Util";
 
 import { JSONParser as constraints } from "./serviceForm/MultiContainerConstraints";
 import { JSONParser as fetch } from "./serviceForm/JSONReducers/Artifacts";
@@ -23,6 +25,13 @@ module.exports = [
   simpleParser(["disk"]),
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
+  function scheduling(state) {
+    if (state == null || state.scheduling == null) {
+      return [];
+    }
+
+    return new Transaction(["scheduling"], Util.deepCopy(state.scheduling));
+  },
   constraints,
   containers,
   environmentVariables,
