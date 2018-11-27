@@ -367,11 +367,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        103
+        111
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        131
+        139
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -892,6 +892,15 @@
       ]
     ]
   },
+  "Anonymous Bind": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
+        75
+      ]
+    ]
+  },
   "App Reach": {
     "translation": "",
     "origin": [
@@ -1165,7 +1174,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        511
+        599
       ]
     ]
   },
@@ -1174,7 +1183,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
-        72
+        81
       ]
     ]
   },
@@ -1297,6 +1306,15 @@
       [
         ".dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js",
         104
+      ]
+    ]
+  },
+  "Bind Type": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
+        72
       ]
     ]
   },
@@ -1536,7 +1554,7 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        115
+        123
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
@@ -1759,7 +1777,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        172
+        170
       ]
     ]
   },
@@ -2184,7 +2202,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        506
+        594
       ]
     ]
   },
@@ -2591,7 +2609,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        94
+        92
       ]
     ]
   },
@@ -3564,7 +3582,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        137
+        135
       ]
     ]
   },
@@ -3720,7 +3738,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        129
+        137
       ]
     ]
   },
@@ -3880,7 +3898,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        119
+        117
       ]
     ]
   },
@@ -4475,6 +4493,10 @@
     "translation": "",
     "origin": [
       [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        149
+      ],
+      [
         "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
         140
       ],
@@ -4630,7 +4652,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        516
+        604
       ]
     ]
   },
@@ -5341,7 +5363,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        118
+        116
       ]
     ]
   },
@@ -5638,6 +5660,15 @@
       [
         "plugins/services/src/js/constants/TaskStates.js",
         31
+      ]
+    ]
+  },
+  "LDAP Credentials": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
+        78
       ]
     ]
   },
@@ -6435,7 +6466,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        110
+        119
       ]
     ]
   },
@@ -7470,11 +7501,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        178
+        204
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        441
+        529
       ]
     ]
   },
@@ -8933,7 +8964,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        106
+        114
       ]
     ]
   },
@@ -9065,7 +9096,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
-        78
+        87
       ]
     ]
   },
@@ -9691,7 +9722,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
-        75
+        84
       ]
     ]
   },
@@ -12074,7 +12105,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        79
+        78
       ]
     ]
   },
@@ -12083,7 +12114,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        55
+        54
       ]
     ]
   },
@@ -12092,7 +12123,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        60
+        59
       ]
     ]
   },
@@ -12161,7 +12192,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        85
+        84
       ]
     ]
   },
@@ -12233,7 +12264,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        69
+        68
       ]
     ]
   },
@@ -12242,7 +12273,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        71
+        70
       ]
     ]
   },
