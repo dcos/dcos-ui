@@ -1,4 +1,5 @@
 import { simpleReducer } from "#SRC/js/utils/ReducerUtil";
+import Util from "#SRC/js/utils/Util";
 
 import { JSONReducer as constraints } from "./serviceForm/MultiContainerConstraints";
 import { JSONReducer as containers } from "./serviceForm/JSONReducers/Containers";
@@ -16,13 +17,24 @@ module.exports = {
   environment,
   scaling,
   labels,
-  scheduling(state = { placement: { constraints: [] } }, transaction) {
+  scheduling(state, transaction) {
+    if (state == null) {
+      return {};
+    }
+
+    const { path, value } = transaction;
+    const joinedPath = path.join(".");
+
+    const scheduling =
+      joinedPath === "scheduling" ? Util.deepCopy(value) : state;
+
     const constraintsState =
       state != null && state.placement != null
         ? state.placement.constraints
         : [];
 
     return {
+      ...scheduling,
       residency: residency.bind(this)(state.residency, transaction),
       placement: {
         constraints: constraints.bind(this)(constraintsState, transaction)
