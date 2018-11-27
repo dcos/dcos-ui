@@ -77,6 +77,20 @@ describe("JSONMultiContainer", function() {
         scheduling: {
           placement: {
             constraints: [{ fieldName: "hostname", operator: "UNIQUE" }]
+          },
+          backoff: {
+            backoff: 1,
+            backoffFactor: 1.15,
+            maxLaunchDelay: 30
+          },
+          upgrade: {
+            minimumHealthCapacity: 1,
+            maximumOverCapacity: 1
+          },
+          killSelection: "YOUNGEST_FIRST",
+          unreachableStrategy: {
+            inactiveAfterSeconds: 0,
+            expungeAfterSeconds: 0
           }
         }
       };
