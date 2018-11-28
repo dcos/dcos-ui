@@ -244,7 +244,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        38
+        39
       ]
     ]
   },
@@ -367,11 +367,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        103
+        111
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        131
+        139
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -888,7 +888,16 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        24
+        25
+      ]
+    ]
+  },
+  "Anonymous Bind": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
+        75
       ]
     ]
   },
@@ -986,7 +995,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        363
+        383
       ]
     ]
   },
@@ -1165,7 +1174,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        511
+        599
       ]
     ]
   },
@@ -1174,7 +1183,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
-        72
+        81
       ]
     ]
   },
@@ -1222,7 +1231,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        142
+        143
       ]
     ]
   },
@@ -1300,6 +1309,15 @@
       ]
     ]
   },
+  "Bind Type": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
+        72
+      ]
+    ]
+  },
   "Bootstrap Config": {
     "translation": "Bootstrap 配置",
     "origin": [
@@ -1341,7 +1359,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        191
+        192
       ]
     ]
   },
@@ -1536,7 +1554,7 @@
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        115
+        123
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
@@ -1616,11 +1634,11 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        142
+        143
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        356
+        376
       ],
       [
         "src/js/components/modals/JobStopRunModal.js",
@@ -1759,7 +1777,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        172
+        170
       ]
     ]
   },
@@ -2184,7 +2202,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        506
+        594
       ]
     ]
   },
@@ -2515,11 +2533,7 @@
       ],
       [
         "plugins/services/src/js/service-configuration/PodContainersConfigSection.js",
-        29
-      ],
-      [
-        "plugins/services/src/js/service-configuration/PodContainersConfigSection.js",
-        40
+        45
       ]
     ]
   },
@@ -2595,7 +2609,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        94
+        92
       ]
     ]
   },
@@ -2870,30 +2884,20 @@
       ]
     ]
   },
-  "DC/OS has been waiting for resources and is unable to complete this deployment for": {
-    "translation": "DC/OS 一直在等待资源，无法完成 的该部署",
-    "origin": [
-      [
-        "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        289
-      ]
-    ]
-  },
-  "DC/OS has been waiting for resources and is unable to complete this deployment for {0} .": {
-    "translation": "DC/OS 一直在等待资源，无法完成 {0} 的该部署。",
-    "origin": [
-      [
-        "plugins/services/src/js/containers/pod-debug/PodDebugContainer.js",
-        213
-      ]
-    ]
-  },
   "DC/OS has been waiting for resources and is unable to complete this deployment for {0}.": {
     "translation": "DC/OS 一直在等待资源，无法完成 {0} 的该部署。",
     "origin": [
       [
         "plugins/services/src/js/components/ServiceStatusIcon.js",
         44
+      ],
+      [
+        "plugins/services/src/js/containers/pod-debug/PodDebugContainer.js",
+        216
+      ],
+      [
+        "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
+        292
       ]
     ]
   },
@@ -3394,7 +3398,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        358
+        378
       ]
     ]
   },
@@ -3407,7 +3411,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        351
+        371
       ]
     ]
   },
@@ -3578,7 +3582,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        137
+        135
       ]
     ]
   },
@@ -3725,7 +3729,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        271
+        291
       ]
     ]
   },
@@ -3734,7 +3738,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        129
+        137
       ]
     ]
   },
@@ -3894,7 +3898,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        119
+        117
       ]
     ]
   },
@@ -4489,6 +4493,10 @@
     "translation": "GPU",
     "origin": [
       [
+        "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
+        149
+      ],
+      [
         "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
         140
       ],
@@ -4644,7 +4652,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        516
+        604
       ]
     ]
   },
@@ -5355,7 +5363,7 @@
     "origin": [
       [
         "src/js/components/modals/CliInstallModal.js",
-        118
+        116
       ]
     ]
   },
@@ -5557,7 +5565,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        172
+        173
       ]
     ]
   },
@@ -5655,6 +5663,15 @@
       ]
     ]
   },
+  "LDAP Credentials": {
+    "translation": "",
+    "origin": [
+      [
+        ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
+        78
+      ]
+    ]
+  },
   "LDAP Directory": {
     "translation": "LDAP 目录",
     "origin": [
@@ -5738,7 +5755,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        346
+        353
       ]
     ]
   },
@@ -5783,7 +5800,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        350
+        357
       ]
     ]
   },
@@ -6370,6 +6387,15 @@
       ]
     ]
   },
+  "Mesos Version": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/nodes/src/js/components/LeaderGrid.js",
+        49
+      ]
+    ]
+  },
   "Mesos default for allocating temporary disk space to a service. Enough for many stateless or semi-stateless 12-factor and cloud native applications.": {
     "translation": "为服务分配临时磁盘空间的 Mesos 默认值。对于许多无状态或半无状态的 12-因数和云本地应用来说，这已足够。",
     "origin": [
@@ -6440,7 +6466,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        110
+        119
       ]
     ]
   },
@@ -7117,7 +7143,7 @@
     "origin": [
       [
         "plugins/services/src/js/service-configuration/PodContainersConfigSection.js",
-        30
+        33
       ]
     ]
   },
@@ -7475,11 +7501,11 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        178
+        204
       ],
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        441
+        529
       ]
     ]
   },
@@ -7837,7 +7863,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        124
+        140
       ]
     ]
   },
@@ -7932,7 +7958,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        209
+        214
       ]
     ]
   },
@@ -8538,7 +8564,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        157
+        158
       ],
       [
         "src/js/pages/catalog/PackageDetailTab.js",
@@ -8560,7 +8586,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        270
+        290
       ]
     ]
   },
@@ -8652,7 +8678,7 @@
       ],
       [
         "src/js/components/FrameworkConfiguration.js",
-        156
+        157
       ]
     ]
   },
@@ -8938,7 +8964,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
-        106
+        114
       ]
     ]
   },
@@ -9070,7 +9096,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
-        78
+        87
       ]
     ]
   },
@@ -9144,11 +9170,11 @@
     "origin": [
       [
         "plugins/services/src/js/containers/pod-debug/PodDebugContainer.js",
-        218
+        222
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        295
+        298
       ]
     ]
   },
@@ -9696,7 +9722,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
-        75
+        84
       ]
     ]
   },
@@ -10295,7 +10321,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        356
+        363
       ]
     ]
   },
@@ -10376,7 +10402,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        188
+        189
       ]
     ]
   },
@@ -10698,7 +10724,7 @@
     "origin": [
       [
         "src/js/components/ErrorsAlert.js",
-        51
+        64
       ]
     ]
   },
@@ -11618,10 +11644,6 @@
     "translation": "版本",
     "origin": [
       [
-        "plugins/nodes/src/js/components/LeaderGrid.js",
-        49
-      ],
-      [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
         96
       ],
@@ -11890,7 +11912,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfigurationForm.js",
-        333
+        338
       ],
       [
         "src/js/constants/UnitHealthStatus.js",
@@ -11903,7 +11925,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfiguration.js",
-        240
+        258
       ]
     ]
   },
@@ -12011,7 +12033,7 @@
     "origin": [
       [
         "src/js/components/CosmosErrorMessage.js",
-        102
+        103
       ]
     ]
   },
@@ -12083,7 +12105,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        79
+        78
       ]
     ]
   },
@@ -12092,7 +12114,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        55
+        54
       ]
     ]
   },
@@ -12101,7 +12123,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        60
+        59
       ]
     ]
   },
@@ -12170,7 +12192,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        85
+        84
       ]
     ]
   },
@@ -12242,7 +12264,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        69
+        68
       ]
     ]
   },
@@ -12251,7 +12273,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
-        71
+        70
       ]
     ]
   },
@@ -12565,7 +12587,7 @@
     "origin": [
       [
         "src/js/components/FrameworkConfigurationForm.js",
-        102
+        103
       ]
     ]
   },
@@ -12615,6 +12637,15 @@
       [
         "plugins/services/src/js/components/ServiceList.js",
         54
+      ]
+    ]
+  },
+  "{runningInstances, plural, one {# instance running out of {instancesTotal}} other {# instances running out of {instancesTotal}}}": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/components/ServiceStatusProgressBar.js",
+        22
       ]
     ]
   },
