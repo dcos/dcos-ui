@@ -26,11 +26,7 @@ module.exports = [
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
   function scheduling(state) {
-    if (state == null) {
-      return [];
-    }
-
-    if (state.scheduling == null) {
+    if (state == null || state.scheduling == null) {
       return [];
     }
 
