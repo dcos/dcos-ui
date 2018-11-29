@@ -1408,7 +1408,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        268
+        274
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -1450,7 +1450,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        241
+        247
       ]
     ]
   },
@@ -1493,7 +1493,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        225
+        231
       ]
     ]
   },
@@ -2277,7 +2277,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        224
+        230
       ]
     ]
   },
@@ -2946,7 +2946,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        298
+        304
       ]
     ]
   },
@@ -3428,7 +3428,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        298
+        304
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -4456,7 +4456,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        315
+        321
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -4995,7 +4995,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        194
+        195
       ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
@@ -6306,7 +6306,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        283
+        289
       ],
       [
         "plugins/services/src/js/constants/PodTableHeaderLabels.js",
@@ -7610,7 +7610,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        328
+        334
       ]
     ]
   },
@@ -7914,7 +7914,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        328
+        334
       ],
       [
         "plugins/services/src/js/service-configuration/PodNetworkConfigSection.js",
@@ -8117,7 +8117,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        210
+        216
       ]
     ]
   },
@@ -8161,7 +8161,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        343
+        349
       ]
     ]
   },
@@ -8599,7 +8599,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        210
+        216
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
