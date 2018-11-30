@@ -21,6 +21,7 @@ const RouterStub = {
 // Default prototype functions when mocking timezone
 const defaultGetTimezoneOffset = Date.prototype.getTimezoneOffset;
 const defaultToLocaleString = Date.prototype.toLocaleString;
+const defaultDateTimeFormat = Intl.DateTimeFormat;
 
 const JestUtil = {
   /**
@@ -80,7 +81,7 @@ const JestUtil = {
    * Mock a different timezone by overriding relevant Date primitive
    * prototype functions.
    *
-   * This function will mock Date.getTimezoneOffset and Date.toLocaleString
+   * This function will mock Date.getTimezoneOffset, Date.toLocaleString and Intl.DateTimeFormat
    *
    * @param {String} timezone - The IANA timezone string (ex. Europe/Athens) or 'UTC'
    */
@@ -100,6 +101,11 @@ const JestUtil = {
       options.timeZone = options.timeZone || timezone;
 
       return defaultToLocaleString.call(this, locale, options);
+    };
+    Intl.DateTimeFormat = function(locales, options) {
+      options.timeZone = options.timeZone || timezone;
+
+      return defaultDateTimeFormat.call(this, locales, options);
     };
     /* eslint-enable no-extend-native */
   },
@@ -203,6 +209,7 @@ const JestUtil = {
     /* eslint-disable no-extend-native */
     Date.prototype.getTimezoneOffset = defaultGetTimezoneOffset;
     Date.prototype.toLocaleString = defaultToLocaleString;
+    Intl.DateTimeFormat = defaultDateTimeFormat;
     /* eslint-enable no-extend-native */
   }
 };
