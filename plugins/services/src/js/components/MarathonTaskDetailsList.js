@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import DateUtil from "#SRC/js/utils/DateUtil";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
@@ -37,17 +38,7 @@ class MarathonTaskDetailsList extends React.Component {
     const timeString = new Date(time);
 
     return (
-      <DateFormat
-        value={timeString}
-        format={{
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric"
-        }}
-      />
+      <DateFormat value={timeString} format={DateUtil.getFormatOptions()} />
     );
   }
 

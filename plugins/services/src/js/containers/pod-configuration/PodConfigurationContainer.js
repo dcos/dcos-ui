@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Trans, DateFormat } from "@lingui/macro";
 
+import DateUtil from "#SRC/js/utils/DateUtil";
 import Pod from "../../structs/Pod";
 import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
 
@@ -11,14 +12,7 @@ class PodConfigurationTabView extends React.Component {
     const localeVersion = (
       <DateFormat
         value={new Date(spec.getVersion())}
-        format={{
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric"
-        }}
+        format={DateUtil.getFormatOptions()}
       />
     );
 
