@@ -99,7 +99,6 @@ export function graphqlObservable<T = object>(
 
       // Something unexpcected was passed into getField
       if (field === null) {
-        // TODO: find better worded error message
         return throwObservable(
           `field was not of the right type. Given type: ${type}`
         );
@@ -132,8 +131,9 @@ export function graphqlObservable<T = object>(
     }
 
     // It is no operationDefinitionand no fieldNode, so it seems like an error
-    // TODO: throw better error here
-    return throwObservable("Input was strange");
+    return throwObservable(
+      "Input does not look like OperationDefinition nor FieldNode"
+    );
   }
 
   // Goes one level deeper into the query nesting
