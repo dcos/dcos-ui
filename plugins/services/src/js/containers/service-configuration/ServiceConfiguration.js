@@ -12,6 +12,7 @@ import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import ApplicationSpec from "../../structs/ApplicationSpec";
 import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
@@ -141,15 +142,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               <span className="badge-container-text">
                 <DateFormat
                   value={localeVersion}
-                  render="span"
-                  format={{
-                    year: "numeric",
-                    month: "numeric",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    second: "numeric"
-                  }}
+                  format={DateUtil.getFormatOptions()}
                 />
               </span>
               <Trans render={<Badge />}>Active</Trans>

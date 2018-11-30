@@ -1,5 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 const JestUtil = require("#SRC/js/utils/JestUtil");
 
@@ -180,23 +181,14 @@ describe("PodInstancesTable", function() {
             return el.text();
           });
 
-        const options = {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric"
-        };
-
         expect(names).toEqual([
-          Intl.DateTimeFormat("en", options).format(
+          Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
           ),
-          Intl.DateTimeFormat("en", options).format(
+          Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
           ),
-          Intl.DateTimeFormat("en", options).format(
+          Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
           )
         ]);
@@ -425,23 +417,14 @@ describe("PodInstancesTable", function() {
             return el.text().trim();
           });
 
-        const options = {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric"
-        };
-
         expect(names).toEqual([
-          Intl.DateTimeFormat("en", options).format(
+          Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
           ),
-          Intl.DateTimeFormat("en", options).format(
+          Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
           ),
-          Intl.DateTimeFormat("en", options).format(
+          Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
           )
         ]);

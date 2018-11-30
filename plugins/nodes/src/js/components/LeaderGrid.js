@@ -9,7 +9,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Loader from "#SRC/js/components/Loader";
-import { msToRelativeTime } from "#SRC/js/utils/DateUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 const Loading = () => <Loader size="small" type="ballBeat" />;
 
@@ -56,17 +56,11 @@ export default function LeaderGrid({ leader }) {
             title={<Trans render="span">Started</Trans>}
             value={
               <ToggleContent
-                contentOn={msToRelativeTime(leader.startTime * 1000)}
+                contentOn={DateUtil.msToRelativeTime(leader.startTime * 1000)}
                 contentOff={
                   <DateFormat
                     value={new Date(leader.startTime * 1000)}
-                    format={{
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric"
-                    }}
+                    format={DateUtil.getFormatOptions("longMonthDateTime")}
                   />
                 }
               />
@@ -79,17 +73,11 @@ export default function LeaderGrid({ leader }) {
             title={<Trans render="span">Elected</Trans>}
             value={
               <ToggleContent
-                contentOn={msToRelativeTime(leader.electedTime * 1000)}
+                contentOn={DateUtil.msToRelativeTime(leader.electedTime * 1000)}
                 contentOff={
                   <DateFormat
                     value={new Date(leader.electedTime * 1000)}
-                    format={{
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric"
-                    }}
+                    format={DateUtil.getFormatOptions("longMonthDateTime")}
                   />
                 }
               />

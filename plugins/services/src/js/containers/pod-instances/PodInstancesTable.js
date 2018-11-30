@@ -13,6 +13,7 @@ import Icon from "#SRC/js/components/Icon";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import Units from "#SRC/js/utils/Units";
 import TableUtil from "#SRC/js/utils/TableUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import Pod from "../../structs/Pod";
 import PodUtil from "../../utils/PodUtil";
@@ -481,14 +482,7 @@ class PodInstancesTable extends React.Component {
     const localeVersion = (
       <DateFormat
         value={new Date(row.version)}
-        format={{
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric"
-        }}
+        format={DateUtil.getFormatOptions()}
       />
     );
 

@@ -15,6 +15,7 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 import Units from "#SRC/js/utils/Units";
 import Loader from "#SRC/js/components/Loader";
 
@@ -85,13 +86,7 @@ class NodeDetailTab extends PureComponent {
               <ConfigurationMapValue>
                 <DateFormat
                   value={new Date(node.registered_time.toFixed(3) * 1000)}
-                  format={{
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "numeric"
-                  }}
+                  format={DateUtil.getFormatOptions("longMonthDateTime")}
                 />
               </ConfigurationMapValue>
             </ConfigurationMapRow>

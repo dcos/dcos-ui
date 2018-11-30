@@ -9,6 +9,7 @@ import { Table, Tooltip } from "reactjs-components";
 import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
@@ -251,14 +252,7 @@ export default class JobsOverviewTable extends React.Component {
           </Trans>{" "}
           <DateFormat
             value={new Date(lastSuccessAt)}
-            format={{
-              year: "numeric",
-              month: "numeric",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric"
-            }}
+            format={DateUtil.getFormatOptions()}
           />
         </p>
       );
@@ -272,14 +266,7 @@ export default class JobsOverviewTable extends React.Component {
           </Trans>{" "}
           <DateFormat
             value={new Date(lastFailureAt)}
-            format={{
-              year: "numeric",
-              month: "numeric",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric"
-            }}
+            format={DateUtil.getFormatOptions()}
           />
         </p>
       );
