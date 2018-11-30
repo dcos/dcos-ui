@@ -40,7 +40,7 @@ pipeline {
     stage("Lint Commits") {
       steps {
         sh 'git fetch --all'
-        sh 'npm run commitlint -- --from "\$CHANGE_TARGET"'
+        sh 'npm run commitlint -- --from "' + env.CHANGE_BRANCH + '"'
       }
     }
 
