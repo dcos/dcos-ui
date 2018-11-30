@@ -40,7 +40,7 @@ pipeline {
     stage("Lint Commits") {
       steps {
         sh 'git fetch --all'
-        sh 'npm run commitlint -- --from "\$(git ls-remote https://github.com/dcos/dcos-ui \"\$CHANGE_TARGET\" | head -1 | cut -f1)"'
+        sh 'npm run commitlint -- --from "\$CHANGE_TARGET"'
       }
     }
 
