@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { request } from "@dcos/mesos-client";
@@ -12,7 +12,6 @@ import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import DateUtil from "#SRC/js/utils/DateUtil";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -84,7 +83,16 @@ class NodeDetailTab extends PureComponent {
                 <Trans render="span">Registered</Trans>
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {DateUtil.msToDateStr(node.registered_time.toFixed(3) * 1000)}
+                <DateFormat
+                  value={new Date(node.registered_time.toFixed(3) * 1000)}
+                  format={{
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric"
+                  }}
+                />
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
