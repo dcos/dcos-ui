@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 
 import { Badge } from "@dcos/ui-kit";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -138,7 +138,20 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         if (version === service.getVersion()) {
           itemCaption = (
             <span className="badge-container">
-              <span className="badge-container-text">{localeVersion}</span>
+              <span className="badge-container-text">
+                <DateFormat
+                  value={localeVersion}
+                  render="span"
+                  format={{
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric"
+                  }}
+                />
+              </span>
               <Trans render={<Badge />}>Active</Trans>
             </span>
           );
