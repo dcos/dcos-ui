@@ -82,8 +82,9 @@ describe("PodInstancesTable", function() {
 
     describe("collapsed table", function() {
       beforeEach(function() {
+        const WrappedComponent = JestUtil.withI18nProvider(PodInstancesTable);
         thisInstance = mount(
-          <PodInstancesTable
+          <WrappedComponent
             pod={pod}
             instances={pod.getInstanceList().getItems()}
           />
@@ -179,10 +180,25 @@ describe("PodInstancesTable", function() {
             return el.text();
           });
 
+        const options = {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric"
+        };
+
         expect(names).toEqual([
-          new Date(PodFixture.spec.version).toLocaleString(),
-          new Date(PodFixture.spec.version).toLocaleString(),
-          new Date(PodFixture.spec.version).toLocaleString()
+          Intl.DateTimeFormat("en", options).format(
+            new Date(PodFixture.spec.version)
+          ),
+          Intl.DateTimeFormat("en", options).format(
+            new Date(PodFixture.spec.version)
+          ),
+          Intl.DateTimeFormat("en", options).format(
+            new Date(PodFixture.spec.version)
+          )
         ]);
       });
     });
@@ -191,7 +207,9 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const WrappedComponent = JestUtil.stubRouterContext(PodInstancesTable);
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesTable)
+        );
         thisInstance = mount(
           <WrappedComponent
             pod={pod}
@@ -222,7 +240,9 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const WrappedComponent = JestUtil.stubRouterContext(PodInstancesTable);
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesTable)
+        );
         thisInstance = mount(
           <WrappedComponent
             pod={pod}
@@ -253,7 +273,9 @@ describe("PodInstancesTable", function() {
       beforeEach(function() {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        const WrappedComponent = JestUtil.stubRouterContext(PodInstancesTable);
+        const WrappedComponent = JestUtil.withI18nProvider(
+          JestUtil.stubRouterContext(PodInstancesTable)
+        );
         thisInstance = mount(
           <WrappedComponent
             pod={pod}
@@ -403,10 +425,25 @@ describe("PodInstancesTable", function() {
             return el.text().trim();
           });
 
+        const options = {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric"
+        };
+
         expect(names).toEqual([
-          new Date(PodFixture.spec.version).toLocaleString(),
-          new Date(PodFixture.spec.version).toLocaleString(),
-          new Date(PodFixture.spec.version).toLocaleString()
+          Intl.DateTimeFormat("en", options).format(
+            new Date(PodFixture.spec.version)
+          ),
+          Intl.DateTimeFormat("en", options).format(
+            new Date(PodFixture.spec.version)
+          ),
+          Intl.DateTimeFormat("en", options).format(
+            new Date(PodFixture.spec.version)
+          )
         ]);
       });
     });
