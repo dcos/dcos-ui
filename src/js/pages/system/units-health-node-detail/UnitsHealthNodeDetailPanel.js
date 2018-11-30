@@ -1,15 +1,9 @@
-import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 
 import NodeInfoPanel from "./NodeInfoPanel";
 
-class UnitsHealthNodeDetailPanel extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
-  }
-
+class UnitsHealthNodeDetailPanel extends React.PureComponent {
   render() {
     const { summary, docsURL, output } = this.props;
 

@@ -1,4 +1,3 @@
-import PureRender from "react-addons-pure-render-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -10,10 +9,9 @@ import ConfigurationMapValue from "./ConfigurationMapValue";
 
 const METHODS_TO_BIND = ["formatValue", "isHashMap"];
 
-class HashMapDisplay extends React.Component {
+class HashMapDisplay extends React.PureComponent {
   constructor() {
     super(...arguments);
-    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
