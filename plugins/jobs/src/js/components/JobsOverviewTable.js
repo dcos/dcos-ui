@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import prettycron from "prettycron";
@@ -249,7 +249,17 @@ export default class JobsOverviewTable extends React.Component {
           <Trans render="span" className="text-success">
             Last Success:
           </Trans>{" "}
-          {new Date(lastSuccessAt).toLocaleString()}
+          <DateFormat
+            value={new Date(lastSuccessAt)}
+            format={{
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              second: "numeric"
+            }}
+          />
         </p>
       );
     }
@@ -260,7 +270,17 @@ export default class JobsOverviewTable extends React.Component {
           <Trans render="span" className="text-danger">
             Last Failure:
           </Trans>{" "}
-          {new Date(lastFailureAt).toLocaleString()}
+          <DateFormat
+            value={new Date(lastFailureAt)}
+            format={{
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              second: "numeric"
+            }}
+          />
         </p>
       );
     }
