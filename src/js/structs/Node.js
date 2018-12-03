@@ -1,7 +1,7 @@
 import Item from "./Item";
 import TaskStates from "../../../plugins/services/src/js/constants/TaskStates";
-import UnitHealthUtil from "../utils/UnitHealthUtil";
 import { findNestedPropertyInObject } from "../utils/Util";
+import UnitHealthUtil from "../utils/UnitHealthUtil";
 
 class Node extends Item {
   getID() {
