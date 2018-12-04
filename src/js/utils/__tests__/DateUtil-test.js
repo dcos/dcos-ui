@@ -1,4 +1,4 @@
-const DateUtil = require("../DateUtil");
+import DateUtil from "../DateUtil";
 
 describe("DateUtil", function() {
   describe("#msToMultiplicants", function() {
@@ -54,36 +54,6 @@ describe("DateUtil", function() {
       var result = DateUtil.msToMultiplicants(1080000000);
 
       expect(result).toEqual(["12 d", "12 h"]);
-    });
-  });
-
-  describe("#msToDateStr", function() {
-    it("returns the correct string for AM", function() {
-      // December is 11 due to months being 0-based index.
-      var christmas = new Date(2015, 11, 25, 8, 13);
-      var christmasValue = christmas.valueOf();
-
-      var result = DateUtil.msToDateStr(christmasValue);
-
-      expect(result).toEqual("December 25th, 2015 8:13 am");
-    });
-
-    it("returns the correct string for PM", function() {
-      var halloween = new Date(2015, 9, 31, 20, 30);
-      var halloweenValue = halloween.valueOf();
-
-      var result = DateUtil.msToDateStr(halloweenValue);
-
-      expect(result).toEqual("October 31st, 2015 8:30 pm");
-    });
-
-    it("can handle older dates", function() {
-      var specialDay = new Date(1993, 9, 19, 11, 29);
-      var specialDayValue = specialDay.valueOf();
-
-      var result = DateUtil.msToDateStr(specialDayValue);
-
-      expect(result).toEqual("October 19th, 1993 11:29 am");
     });
   });
 

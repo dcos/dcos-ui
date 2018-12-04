@@ -1,5 +1,6 @@
+import DateUtil from "../../utils/DateUtil";
+
 const JobTaskList = require("../JobTaskList");
-const DateUtil = require("../../utils/DateUtil");
 
 describe("JobTaskList", function() {
   describe("#getLongestRunningTask", function() {
