@@ -3,8 +3,8 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 
 import { Trans } from "@lingui/macro";
-import Config from "../config/Config";
 import MetadataStore from "../stores/MetadataStore";
+import Config from "../config/Config";
 
 const UnitSummaries = {
   "dcos-marathon.service": {
