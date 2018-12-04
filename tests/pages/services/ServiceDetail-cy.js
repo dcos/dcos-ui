@@ -185,13 +185,45 @@ describe("Service Detail Page", function() {
         nodeHealth: true,
         universePackages: true
       });
+    });
 
-      cy.visitUrl({
-        url: "/services/detail/%2Fcassandra-healthy/configuration"
+    context("Configuration Tab", function() {
+      it("shows configuration of a service", function() {
+        cy.visitUrl({
+          url: "/services/detail/%2Fcassandra-healthy/configuration"
+        });
+        cy.get("h1").contains("Service");
+        cy.get("h1").contains("Elasticsearch");
+        cy.get("h1").contains("Master Nodes");
+        cy.get("h1").contains("Data Nodes");
+        cy.get("h1").contains("Ingest Nodes");
+        cy.get("h1").contains("Coordinator Nodes");
+      });
+
+      it("handles network errors", function() {
+        cy.visitUrl({
+          url: "/services/detail/%2Fcassandra-healthy/configuration"
+        });
+        cy.route({
+          method: "POST",
+          url: /cosmos\/service\/describe(\?_timestamp=[0-9]+)?$/,
+          status: 400,
+          response: {
+            message: "Version doesn't exists"
+          }
+        }).as("cosmosDescribe");
+
+        cy.wait("@cosmosDescribe");
+
+        cy.get(".page-body").contains("Version doesn't exists");
       });
     });
 
     it("edit config button opens the edit flow", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fcassandra-healthy/configuration"
+      });
+
       cy.get(".container")
         .contains("Edit Config")
         .click();
@@ -202,6 +234,10 @@ describe("Service Detail Page", function() {
     });
 
     it("download button exists", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fcassandra-healthy/configuration"
+      });
+
       cy.get(".container").contains("Download Config");
     });
   });
