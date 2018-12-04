@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 import React from "react";
 import { ToggleContent } from "@dcos/ui-kit";
 
@@ -9,7 +9,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Loader from "#SRC/js/components/Loader";
-import { msToRelativeTime, msToDateStr } from "#SRC/js/utils/DateUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 const Loading = () => <Loader size="small" type="ballBeat" />;
 
@@ -50,24 +50,36 @@ export default function LeaderGrid({ leader }) {
             value={leader.version}
           />
 
+          {/* L10NTODO: Relative time */}
           <ConfigurationRow
             keyValue="started"
             title={<Trans render="span">Started</Trans>}
             value={
               <ToggleContent
-                contentOn={msToRelativeTime(leader.startTime * 1000)}
-                contentOff={msToDateStr(leader.startTime * 1000)}
+                contentOn={DateUtil.msToRelativeTime(leader.startTime * 1000)}
+                contentOff={
+                  <DateFormat
+                    value={new Date(leader.startTime * 1000)}
+                    format={DateUtil.getFormatOptions("longMonthDateTime")}
+                  />
+                }
               />
             }
           />
 
+          {/* L10NTODO: Relative time */}
           <ConfigurationRow
             keyValue="elected"
             title={<Trans render="span">Elected</Trans>}
             value={
               <ToggleContent
-                contentOn={msToRelativeTime(leader.electedTime * 1000)}
-                contentOff={msToDateStr(leader.electedTime * 1000)}
+                contentOn={DateUtil.msToRelativeTime(leader.electedTime * 1000)}
+                contentOff={
+                  <DateFormat
+                    value={new Date(leader.electedTime * 1000)}
+                    format={DateUtil.getFormatOptions("longMonthDateTime")}
+                  />
+                }
               />
             }
           />

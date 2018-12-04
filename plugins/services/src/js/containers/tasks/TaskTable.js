@@ -30,8 +30,7 @@ const tableColumnClasses = {
   cpus: "task-table-column-cpus",
   mem: "task-table-column-mem",
   gpus: "task-table-column-gpus",
-  updated: "task-table-column-updated",
-  version: "task-table-column-version"
+  updated: "task-table-column-updated"
 };
 
 const METHODS_TO_BIND = [
@@ -40,8 +39,7 @@ const METHODS_TO_BIND = [
   "renderHost",
   "renderLog",
   "renderStatus",
-  "renderStats",
-  "renderVersion"
+  "renderStats"
 ];
 
 class TaskTable extends React.Component {
@@ -59,10 +57,6 @@ class TaskTable extends React.Component {
 
   getStatusValue(task) {
     return this.props.i18n._(TaskStates[task.state].displayName);
-  }
-
-  getVersionValue(task) {
-    return task.version || null;
   }
 
   getClassName(prop, sortBy, row) {
@@ -409,18 +403,6 @@ class TaskTable extends React.Component {
         </div>
       </div>
     );
-  }
-
-  renderVersion(prop, task) {
-    const version = this.getVersionValue(task);
-
-    if (version == null) {
-      return null;
-    }
-
-    const localeVersion = new Date(version).toLocaleString();
-
-    return <span>{localeVersion}</span>;
   }
 
   render() {

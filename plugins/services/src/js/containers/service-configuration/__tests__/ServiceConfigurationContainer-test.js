@@ -1,5 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
+import JestUtil from "#SRC/js/utils/JestUtil";
 
 const Application = require("../../../structs/Application");
 const ServiceConfigurationContainer = require("../ServiceConfigurationContainer");
@@ -49,11 +50,11 @@ describe("ServiceConfigurationContainer", function() {
   });
 
   beforeEach(function() {
+    const WrappedComponent = JestUtil.withI18nProvider(
+      ServiceConfigurationContainer
+    );
     thisInstance = mount(
-      <ServiceConfigurationContainer
-        onEditClick={function() {}}
-        service={service}
-      />
+      <WrappedComponent onEditClick={function() {}} service={service} />
     );
   });
 

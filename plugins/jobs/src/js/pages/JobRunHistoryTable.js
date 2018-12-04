@@ -331,12 +331,14 @@ class JobRunHistoryTable extends React.Component {
     if (time == null) {
       return <Trans render="div">N/A</Trans>;
     }
+    // L10NTODO: Relative time
     const runTimeFormat = moment.duration(time).humanize();
 
     return <div>{runTimeFormat}</div>;
   }
 
   renderTimeColumn(prop, row) {
+    // L10NTODO: Relative time
     return <TimeAgo time={row[prop]} autoUpdate={false} />;
   }
 
