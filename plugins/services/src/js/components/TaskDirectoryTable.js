@@ -95,6 +95,7 @@ class TaskDirectoryTable extends React.Component {
   renderDate(prop, directoryItem) {
     const ms = directoryItem.get(prop) * 1000;
 
+    // L10NTODO: Relative time
     return <TimeAgo time={ms} autoUpdate={false} />;
   }
 

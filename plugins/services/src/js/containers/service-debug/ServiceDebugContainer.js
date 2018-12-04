@@ -104,12 +104,14 @@ class ServiceDebugContainer extends React.Component {
         <ConfigurationMapRow>
           <Trans render={<ConfigurationMapLabel />}>Timestamp</Trans>
           <ConfigurationMapValue>
+            {/* L10NTODO: Relative time */}
             {timestamp} (<TimeAgo time={new Date(timestamp)} />)
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow>
           <Trans render={<ConfigurationMapLabel />}>Version</Trans>
           <ConfigurationMapValue>
+            {/* L10NTODO: Relative time */}
             {version} (<TimeAgo time={new Date(version)} />)
           </ConfigurationMapValue>
         </ConfigurationMapRow>
@@ -130,6 +132,7 @@ class ServiceDebugContainer extends React.Component {
     const { lastScalingAt, lastConfigChangeAt } = versionInfo;
     let lastScaling = "No operation since last config change";
     if (lastScalingAt !== lastConfigChangeAt) {
+      // L10NTODO: Relative time
       lastScaling = (
         <span>
           {lastScalingAt} (<TimeAgo time={new Date(lastScalingAt)} />)
@@ -147,6 +150,7 @@ class ServiceDebugContainer extends React.Component {
           <Trans render={<ConfigurationMapLabel />}>Configuration</Trans>
           <ConfigurationMapValue>
             {`${lastConfigChangeAt} `}
+            {/* L10NTODO: Relative time */}
             (<TimeAgo time={new Date(lastConfigChangeAt)} />)
           </ConfigurationMapValue>
         </ConfigurationMapRow>
@@ -286,6 +290,7 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <div className="infoBoxWrapper">
+        {/* L10NTODO: Relative time */}
         <InfoBoxInline
           appearance="warning"
           message={

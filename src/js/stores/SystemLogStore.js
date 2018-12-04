@@ -22,7 +22,9 @@ import SystemLogActions from "../events/SystemLogActions";
 import { APPEND, PREPEND } from "../constants/SystemLogTypes";
 import { findNestedPropertyInObject } from "../utils/Util";
 import { MESSAGE } from "../constants/LogFields";
-import { msToLogTime } from "../utils/DateUtil";
+import DateUtil from "../utils/DateUtil";
+
+const { msToLogTime } = DateUtil;
 
 class SystemLogStore extends BaseStore {
   constructor() {

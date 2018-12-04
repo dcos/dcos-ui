@@ -1,9 +1,10 @@
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import DateUtil from "#SRC/js/utils/DateUtil";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
@@ -30,16 +31,14 @@ class MarathonTaskDetailsList extends React.Component {
   }
 
   getTimeField(time) {
-    let timeString = <Trans render="span">Never</Trans>;
-
-    if (time != null) {
-      timeString = new Date(time).toLocaleString();
+    if (time == null) {
+      return <Trans render="span">Never</Trans>;
     }
 
+    const timeString = new Date(time);
+
     return (
-      <time dateTime={time} title={time}>
-        {timeString}
-      </time>
+      <DateFormat value={timeString} format={DateUtil.getFormatOptions()} />
     );
   }
 
