@@ -1,7 +1,6 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
-
 import { omit } from "../../utils/Util";
 
 const FieldInput = props => {
