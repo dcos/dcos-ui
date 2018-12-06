@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
@@ -13,6 +13,7 @@ import Icon from "#SRC/js/components/Icon";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import Units from "#SRC/js/utils/Units";
 import TableUtil from "#SRC/js/utils/TableUtil";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import Pod from "../../structs/Pod";
 import PodUtil from "../../utils/PodUtil";
@@ -478,7 +479,12 @@ class PodInstancesTable extends React.Component {
       return null;
     }
 
-    const localeVersion = new Date(row.version).toLocaleString();
+    const localeVersion = (
+      <DateFormat
+        value={new Date(row.version)}
+        format={DateUtil.getFormatOptions()}
+      />
+    );
 
     return this.renderWithClickHandler(
       rowOptions,

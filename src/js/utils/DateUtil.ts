@@ -8,6 +8,28 @@ const DEFAULT_MULTIPLICANTS = {
   d: 86400000
 };
 
+interface Multiplicants {
+  [key: string]: number;
+}
+
+const fullDateTime = "fullDateTime";
+const longMonthDateTime = "longMonthDateTime";
+
+type FormatOptionType = typeof fullDateTime | typeof longMonthDateTime;
+interface FormatOptions {
+  timeZone?: string;
+  hour12?: boolean;
+  weekday?: "narrow" | "short" | "long";
+  era?: "narrow" | "short" | "long";
+  year?: "numeric" | "2-digit";
+  month?: "numeric" | "2-digit" | "narrow" | "short" | "long";
+  day?: "numeric" | "2-digit";
+  hour?: "numeric" | "2-digit";
+  minute?: "numeric" | "2-digit";
+  second?: "numeric" | "2-digit";
+  timeZoneName?: "short" | "long";
+}
+
 const DateUtil = {
   /*
    * Composes a string expression by de-composing the given time in milliseconds
@@ -15,7 +37,10 @@ const DateUtil = {
    *
    * 11002 = 11002 ms (11 sec, 2 ms)
    */
-  msToMultiplicants(ms, multiplicants = DEFAULT_MULTIPLICANTS) {
+  msToMultiplicants(
+    ms: number,
+    multiplicants: Multiplicants = DEFAULT_MULTIPLICANTS
+  ): string[] {
     const expressionComponents = [];
     const multiplicantKeys = Object.keys(multiplicants);
 
@@ -35,20 +60,11 @@ const DateUtil = {
   },
 
   /**
-   * Creates a time string from time provided
-   * @param  {Date|Number} ms number to convert to time string
-   * @return {String} time string with the format 'MM-DD-YYYY [at] h:mma'
-   */
-  msToDateStr(ms) {
-    return moment(ms).format("MMMM Do, YYYY h:mm a");
-  },
-
-  /**
    * Creates a UTC time string from time provided
    * @param  {Date|Number} ms number to convert to UTC time string
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
-  msToUTCDate(ms) {
+  msToUTCDate(ms: Date | number): string {
     return moment(ms)
       .utc()
       .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
@@ -59,24 +75,55 @@ const DateUtil = {
    * @param  {Date|Number} ms number to convert to ANSI C time string
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
-  msToLogTime(ms) {
+  msToLogTime(ms: Date | number): string {
     return moment(ms)
       .utc()
       .format("YYYY-MM-DD hh:mm:ss");
   },
 
   /**
+   * Returns format object for Intl.DateTimeFormat (and DateFormat translation macro)
+   */
+  getFormatOptions(formatType?: FormatOptionType): FormatOptions {
+    const longMonthDateTimeFormat: FormatOptions = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric"
+    };
+    const fullDateTimeFormat: FormatOptions = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric"
+    };
+    if (formatType === fullDateTime) {
+      return fullDateTimeFormat;
+    } else if (formatType === longMonthDateTime) {
+      return longMonthDateTimeFormat;
+    } else {
+      // default to full numeric date time format
+      return fullDateTimeFormat;
+    }
+  },
+
   /**
    * Creates relative time based on now and the time provided
    * @param  {Date|Number} ms number to convert to relative time string
    * @param  {Boolean} suppressRelativeTime whether to remove 'ago' from string
    * @return {String} time string relative from now
    */
-  msToRelativeTime(ms, suppressRelativeTime = false) {
+  msToRelativeTime(
+    ms: Date | number,
+    suppressRelativeTime: boolean = false
+  ): string {
     return moment(ms).fromNow(suppressRelativeTime);
   },
 
-  strToMs(str) {
+  strToMs(str: string | null): number | null {
     if (str == null) {
       return null;
     }
@@ -86,9 +133,12 @@ const DateUtil = {
     );
   },
 
-  getDuration(time, formatKey = "seconds") {
+  getDuration(
+    time: number,
+    formatKey: moment.DurationInputArg2 = "seconds"
+  ): string {
     return moment.duration(time, formatKey).humanize();
   }
 };
 
-module.exports = DateUtil;
+export default DateUtil;
