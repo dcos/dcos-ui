@@ -215,7 +215,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     }
 
     const fileName = "config.json";
-    const configString = JSON.stringify(config, null, 2);
+    const configString = JSON.stringify(config, null, 2) + "\n";
 
     return (
       <div className="container">

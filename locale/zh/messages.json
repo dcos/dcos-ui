@@ -154,15 +154,6 @@
       ]
     ]
   },
-  "<0><1/> Download config.json</0>": {
-    "translation": "<0><1/> 下载 config.json</0>",
-    "origin": [
-      [
-        "src/js/components/ReviewConfig.js",
-        57
-      ]
-    ]
-  },
   "<0>Important:</0> Because telemetry is disabled you must manually notify users of ACL changes.": {
     "translation": "<0>重要信息：</0> 因为遥测被禁用，您必须手动通知用户 ACL 的更改。",
     "origin": [

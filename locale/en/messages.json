@@ -154,15 +154,6 @@
       ]
     ]
   },
-  "<0><1/> Download config.json</0>": {
-    "translation": "",
-    "origin": [
-      [
-        "src/js/components/ReviewConfig.js",
-        57
-      ]
-    ]
-  },
   "<0>Important:</0> Because telemetry is disabled you must manually notify users of ACL changes.": {
     "translation": "",
     "origin": [
