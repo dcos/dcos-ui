@@ -4,7 +4,6 @@ import classNames from "classnames";
 import React from "react";
 import { Link, routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CompositeState from "#SRC/js/structs/CompositeState";
