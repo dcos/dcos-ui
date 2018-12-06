@@ -9,7 +9,8 @@
         "@dcos/http-service",
         "@dcos/mesos-client",
         "@dcos/tslint-config",
-        "@dcos/ui-kit"
+        "@dcos/ui-kit",
+        "@dcos/data-service"
       ],
       "rangeStrategy": "pin",
       "updateTypes": ["major", "minor", "patch", "pin"]

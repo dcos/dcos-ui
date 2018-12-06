@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
