@@ -289,7 +289,7 @@ describe("Service Table", function() {
         .should("to.have.length", 1);
 
       cy.get(".modal-body").contains(
-        "This group needs to be empty to delete it. Please delete any services in the group first."
+        "This group needs to be empty to delete it. Please delete any services or groups in the group first."
       );
       cy.get(".modal .filter-input-text").should("not.exist");
 
