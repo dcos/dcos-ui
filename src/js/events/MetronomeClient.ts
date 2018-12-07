@@ -158,8 +158,7 @@ export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
   return request(
     `${
       Config.metronomeAPI
-    }/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`,
-    { headers: defaultHeaders }
+    }/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`
   );
 }
 
@@ -169,8 +168,7 @@ export function fetchJobDetail(
   return request(
     `${
       Config.metronomeAPI
-    }/v1/jobs/${jobID}?embed=activeRuns&embed=history&embed=schedules`,
-    { headers: defaultHeaders }
+    }/v1/jobs/${jobID}?embed=activeRuns&embed=history&embed=schedules`
   );
 }
 
