@@ -39,7 +39,7 @@ describe("Nodes Page", function() {
 
     it("shows only nodes with service", function() {
       cy.get("@filterBar")
-        .contains("Filter by Service")
+        .contains("Filter by Framework")
         .click();
       cy.get(".dropdown-menu")
         .contains("cassandra-healthy")
@@ -99,7 +99,7 @@ describe("Nodes Page", function() {
 
         it("shows only cassandra-healthy nodes", function() {
           cy.get("@filterBar")
-            .contains("Filter by Service")
+            .contains("Filter by Framework")
             .click();
           cy.get(".dropdown-menu")
             .contains("cassandra-healthy")
@@ -113,7 +113,7 @@ describe("Nodes Page", function() {
 
         it("doesn't display any nodes", function() {
           cy.get("@filterBar")
-            .contains("Filter by Service")
+            .contains("Filter by Framework")
             .click();
           cy.get(".dropdown-menu")
             .contains("cassandra-na")
@@ -127,7 +127,7 @@ describe("Nodes Page", function() {
 
         it("shows only unhealthy node", function() {
           cy.get("@filterBar")
-            .contains("Filter by Service")
+            .contains("Filter by Framework")
             .click();
           cy.get(".dropdown-menu")
             .contains("cassandra-unhealthy")
