@@ -1,6 +1,7 @@
 import { graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { i18nMark } from "@lingui/react";
+import { take } from "rxjs/operators";
 
 import defaultSchema from "./data/JobModel";
 
@@ -31,7 +32,7 @@ export default function jobsToggleSchedule(job) {
         jobId: job.id,
         data
       })
-        .take(1)
+        .pipe(take(1))
         .subscribe();
     }
   };
