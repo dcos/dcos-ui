@@ -1,7 +1,7 @@
-jest.mock("@dcos/http-service");
+import { of, throwError } from "rxjs";
 
+jest.mock("@dcos/http-service");
 const httpService = require("@dcos/http-service");
-const Rx = require("rxjs");
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
 const AppDispatcher = require("../AppDispatcher");
@@ -849,7 +849,7 @@ describe("CosmosPackagesActions", function() {
   describe("#fetchRepositories", function() {
     it("dispatches the correct action when successful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.of({ repositories: [{ bar: "baz" }] })
+        of({ repositories: [{ bar: "baz" }] })
       );
 
       var id = AppDispatcher.register(function(payload) {
@@ -866,7 +866,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches with the correct data when successful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.of({ repositories: [{ bar: "baz" }] })
+        of({ repositories: [{ bar: "baz" }] })
       );
 
       var id = AppDispatcher.register(function(payload) {
@@ -881,7 +881,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches the correct action when unsuccessful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.throw({ responseJSON: { description: "bar" } })
+        throwError({ responseJSON: { description: "bar" } })
       );
 
       var id = AppDispatcher.register(function(payload) {
@@ -898,7 +898,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches with the correct data when unsuccessful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.throw({ response: { description: "bar" } })
+        throwError({ response: { description: "bar" } })
       );
 
       var id = AppDispatcher.register(function(payload) {
@@ -914,7 +914,7 @@ describe("CosmosPackagesActions", function() {
 
   describe("#addRepository", function() {
     it.skip("dispatches the correct action when successful", function(done) {
-      httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
+      httpService.request.mockReturnValueOnce(of({ bar: "baz" }));
 
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
@@ -929,7 +929,7 @@ describe("CosmosPackagesActions", function() {
     });
 
     it.skip("dispatches with the correct data when successful", function(done) {
-      httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
+      httpService.request.mockReturnValueOnce(of({ bar: "baz" }));
 
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
@@ -945,7 +945,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches the correct action when unsuccessful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.throw({ responseJSON: { description: "bar" } })
+        throwError({ responseJSON: { description: "bar" } })
       );
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
@@ -961,7 +961,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches with the correct data when unsuccessful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.throw({ response: { description: "bar" } })
+        throwError({ response: { description: "bar" } })
       );
 
       var id = AppDispatcher.register(function(payload) {
@@ -977,7 +977,7 @@ describe("CosmosPackagesActions", function() {
 
   describe("#deleteRepository", function() {
     it.skip("dispatches the correct action when successful", function(done) {
-      httpService.request.mockReturnValueOnce(Rx.Observable.of([""]));
+      httpService.request.mockReturnValueOnce(of([""]));
 
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
@@ -992,7 +992,7 @@ describe("CosmosPackagesActions", function() {
     });
 
     it.skip("dispatches with the correct data when successful", function(done) {
-      httpService.request.mockReturnValueOnce(Rx.Observable.of({ bar: "baz" }));
+      httpService.request.mockReturnValueOnce(of({ bar: "baz" }));
 
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
@@ -1008,7 +1008,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches the correct action when unsuccessful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.throw({ response: { description: "bar" } })
+        throwError({ response: { description: "bar" } })
       );
 
       var id = AppDispatcher.register(function(payload) {
@@ -1025,7 +1025,7 @@ describe("CosmosPackagesActions", function() {
 
     it("dispatches with the correct data when unsuccessful", function(done) {
       httpService.request.mockReturnValueOnce(
-        Rx.Observable.throw({ response: { description: "bar" } })
+        throwError({ response: { description: "bar" } })
       );
       var id = AppDispatcher.register(function(payload) {
         var action = payload.action;
