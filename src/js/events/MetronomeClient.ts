@@ -1,7 +1,7 @@
 import { request, RequestResponse } from "@dcos/http-service";
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
 // tslint:disable-next-line:no-submodule-imports
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import Config from "../config/Config";
 
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
