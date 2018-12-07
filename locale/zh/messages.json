@@ -13,7 +13,7 @@
     "origin": [
       [
         "src/js/components/FilterHeadline.js",
-        69
+        67
       ]
     ]
   },
@@ -301,7 +301,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-configuration/ServiceConfiguration.js",
-        142
+        148
       ],
       [
         "src/js/components/FrameworkConfigurationReviewScreen.js",
@@ -782,7 +782,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        160
+        159
       ]
     ]
   },
@@ -800,11 +800,11 @@
     "origin": [
       [
         "src/js/components/UnitHealthDropdown.js",
-        12
+        11
       ],
       [
         "src/js/components/UnitHealthDropdown.js",
-        13
+        12
       ]
     ]
   },
@@ -1368,7 +1368,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        125
+        122
       ]
     ]
   },
@@ -1408,7 +1408,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        268
+        274
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -1450,7 +1450,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        241
+        247
       ]
     ]
   },
@@ -1463,7 +1463,7 @@
       ],
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        141
+        144
       ],
       [
         "plugins/services/src/js/components/forms/ContainerServiceFormSection.js",
@@ -1493,7 +1493,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        225
+        231
       ]
     ]
   },
@@ -1610,23 +1610,23 @@
       ],
       [
         "plugins/services/src/js/components/modals/KillPodInstanceModal.js",
-        151
+        148
       ],
       [
         "plugins/services/src/js/components/modals/KillTaskModal.js",
-        146
+        143
       ],
       [
         "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
-        184
+        181
       ],
       [
         "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
-        77
+        74
       ],
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        140
+        137
       ],
       [
         "src/js/components/FormModal.js",
@@ -2123,7 +2123,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        147
+        150
       ],
       [
         "plugins/services/src/js/containers/service-detail/ServiceDetail.js",
@@ -2268,7 +2268,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        154
+        153
       ]
     ]
   },
@@ -2277,7 +2277,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        224
+        230
       ]
     ]
   },
@@ -2542,7 +2542,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/pod-instances/PodInstancesTable.js",
-        446
+        447
       ]
     ]
   },
@@ -2671,11 +2671,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
-        82
+        79
       ],
       [
         "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
-        96
+        93
       ],
       [
         "plugins/services/src/js/containers/services/ServiceTreeView.js",
@@ -2817,7 +2817,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/pod-configuration/PodConfigurationContainer.js",
-        16
+        22
       ]
     ]
   },
@@ -2897,7 +2897,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        292
+        297
       ]
     ]
   },
@@ -2946,7 +2946,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        298
+        304
       ]
     ]
   },
@@ -3069,7 +3069,7 @@
       ],
       [
         "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
-        176
+        173
       ],
       [
         "plugins/services/src/js/constants/ServiceActionLabels.js",
@@ -3168,7 +3168,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
-        205
+        202
       ]
     ]
   },
@@ -3424,11 +3424,11 @@
       ],
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        125
+        128
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        298
+        304
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -3560,7 +3560,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-configuration/ServiceConfiguration.js",
-        241
+        247
       ],
       [
         "src/js/components/FrameworkConfigurationReviewScreen.js",
@@ -3712,7 +3712,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-configuration/ServiceConfiguration.js",
-        224
+        230
       ],
       [
         "src/js/components/FrameworkConfigurationReviewScreen.js",
@@ -3819,7 +3819,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/components/LeaderGrid.js",
-        66
+        73
       ],
       [
         "src/js/pages/system/OverviewDetailTab.js",
@@ -3925,7 +3925,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
-        107
+        104
       ]
     ]
   },
@@ -4219,8 +4219,8 @@
       ]
     ]
   },
-  "Failure %": {
-    "translation": "失败 %",
+  "Failure %": {
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js",
@@ -4319,7 +4319,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        130
+        129
       ]
     ]
   },
@@ -4364,11 +4364,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/KillPodInstanceModal.js",
-        124
+        121
       ],
       [
         "plugins/services/src/js/components/modals/KillTaskModal.js",
-        125
+        122
       ]
     ]
   },
@@ -4456,7 +4456,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        315
+        321
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -4494,7 +4494,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        149
+        152
       ],
       [
         "plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js",
@@ -4621,11 +4621,11 @@
       ],
       [
         "plugins/services/src/js/components/modals/ServiceRestartModal.js",
-        94
+        91
       ],
       [
         "plugins/services/src/js/components/modals/ServiceStopModal.js",
-        94
+        91
       ]
     ]
   },
@@ -4726,7 +4726,7 @@
       ],
       [
         "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
-        60
+        57
       ]
     ]
   },
@@ -4735,7 +4735,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceGroupFormModal.js",
-        66
+        63
       ]
     ]
   },
@@ -4801,7 +4801,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/components/HealthTab.js",
-        60
+        58
       ],
       [
         "plugins/nodes/src/js/components/NodesTable.tsx",
@@ -4846,11 +4846,11 @@
     "origin": [
       [
         "plugins/nodes/src/js/components/HealthTab.js",
-        61
+        59
       ],
       [
         "plugins/nodes/src/js/components/HealthTab.js",
-        145
+        143
       ],
       [
         "src/js/pages/system/UnitsHealthDetail.js",
@@ -4863,7 +4863,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        124
+        123
       ]
     ]
   },
@@ -4962,7 +4962,7 @@
       ],
       [
         "plugins/services/src/js/containers/pod-instances/PodInstancesTable.js",
-        413
+        414
       ],
       [
         "src/js/constants/UnitHealthStatus.js",
@@ -4995,11 +4995,11 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        194
+        195
       ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        58
+        57
       ],
       [
         "plugins/services/src/js/components/PodVolumeTable.js",
@@ -5117,7 +5117,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        132
+        129
       ]
     ]
   },
@@ -5755,7 +5755,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        353
+        358
       ]
     ]
   },
@@ -5764,7 +5764,7 @@
     "origin": [
       [
         "plugins/jobs/src/js/components/JobsOverviewTable.js",
-        260
+        264
       ]
     ]
   },
@@ -5791,7 +5791,7 @@
     "origin": [
       [
         "plugins/jobs/src/js/components/JobsOverviewTable.js",
-        249
+        250
       ]
     ]
   },
@@ -5800,7 +5800,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        357
+        362
       ]
     ]
   },
@@ -5827,7 +5827,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        146
+        145
       ]
     ]
   },
@@ -5836,7 +5836,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        138
+        137
       ]
     ]
   },
@@ -5889,7 +5889,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
-        69
+        75
       ]
     ]
   },
@@ -6193,7 +6193,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        54
+        53
       ]
     ]
   },
@@ -6202,7 +6202,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        92
+        95
       ]
     ]
   },
@@ -6302,11 +6302,11 @@
       ],
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        133
+        136
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        283
+        289
       ],
       [
         "plugins/services/src/js/constants/PodTableHeaderLabels.js",
@@ -7031,7 +7031,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        33
+        35
       ]
     ]
   },
@@ -7089,7 +7089,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        118
+        117
       ]
     ]
   },
@@ -7170,11 +7170,11 @@
     "origin": [
       [
         "plugins/services/src/js/containers/pod-instances/PodInstancesTable.js",
-        420
+        421
       ],
       [
         "plugins/services/src/js/containers/tasks/TaskTable.js",
-        388
+        382
       ]
     ]
   },
@@ -7264,7 +7264,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.js",
-        202
+        200
       ],
       [
         "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
@@ -7320,11 +7320,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        18
+        19
       ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        114
+        113
       ]
     ]
   },
@@ -7441,7 +7441,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        220
+        224
       ]
     ]
   },
@@ -7522,8 +7522,8 @@
     "translation": "其他",
     "origin": [
       [
-        "plugins/nodes/src/js/components/NodesGridView.js",
-        94
+        "plugins/nodes/src/js/components/NodesGridView.tsx",
+        47
       ],
       [
         "plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js",
@@ -7536,7 +7536,7 @@
     "origin": [
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
-        36
+        30
       ]
     ]
   },
@@ -7596,8 +7596,8 @@
       ]
     ]
   },
-  "P99 Latency": {
-    "translation": "P99 延迟",
+  "P99 Latency": {
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js",
@@ -7610,7 +7610,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        328
+        334
       ]
     ]
   },
@@ -7880,11 +7880,11 @@
       ],
       [
         "plugins/services/src/js/components/modals/ServiceRestartModal.js",
-        90
+        87
       ],
       [
         "plugins/services/src/js/components/modals/ServiceStopModal.js",
-        90
+        87
       ]
     ]
   },
@@ -7914,7 +7914,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        328
+        334
       ],
       [
         "plugins/services/src/js/service-configuration/PodNetworkConfigSection.js",
@@ -7945,7 +7945,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        64
+        63
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -8117,7 +8117,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        210
+        216
       ]
     ]
   },
@@ -8161,7 +8161,7 @@
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        343
+        349
       ]
     ]
   },
@@ -8174,7 +8174,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        238
+        242
       ]
     ]
   },
@@ -8237,7 +8237,7 @@
       ],
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        100
+        103
       ],
       [
         "plugins/services/src/js/constants/PodTableHeaderLabels.js",
@@ -8284,7 +8284,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        193
+        197
       ]
     ]
   },
@@ -8293,7 +8293,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        200
+        204
       ]
     ]
   },
@@ -8430,7 +8430,7 @@
     "origin": [
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        121
+        124
       ]
     ]
   },
@@ -8439,15 +8439,15 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/KillPodInstanceModal.js",
-        15
-      ],
-      [
-        "plugins/services/src/js/components/modals/KillTaskModal.js",
         14
       ],
       [
+        "plugins/services/src/js/components/modals/KillTaskModal.js",
+        13
+      ],
+      [
         "plugins/services/src/js/components/modals/ServiceRestartModal.js",
-        131
+        128
       ],
       [
         "plugins/services/src/js/constants/ServiceActionLabels.js",
@@ -8490,7 +8490,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceRestartModal.js",
-        106
+        103
       ]
     ]
   },
@@ -8508,7 +8508,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceRestartModal.js",
-        138
+        135
       ]
     ]
   },
@@ -8534,11 +8534,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceResumeModal.js",
-        153
+        150
       ],
       [
         "plugins/services/src/js/components/modals/ServiceResumeModal.js",
-        165
+        162
       ]
     ]
   },
@@ -8595,11 +8595,11 @@
     "origin": [
       [
         "plugins/nodes/src/js/components/HealthTab.js",
-        62
+        60
       ],
       [
         "plugins/services/src/js/components/DeclinedOffersTable.js",
-        210
+        216
       ],
       [
         "plugins/services/src/js/components/RecentOffersSummary.js",
@@ -8643,7 +8643,7 @@
     "origin": [
       [
         "plugins/jobs/src/js/pages/JobRunHistoryTable.js",
-        374
+        376
       ]
     ]
   },
@@ -9012,7 +9012,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        116
+        113
       ]
     ]
   },
@@ -9021,7 +9021,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        112
+        109
       ]
     ]
   },
@@ -9030,11 +9030,11 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        109
+        106
       ],
       [
         "plugins/services/src/js/components/modals/ServiceScaleFormModal.js",
-        145
+        142
       ]
     ]
   },
@@ -9043,7 +9043,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        143
+        146
       ]
     ]
   },
@@ -9174,7 +9174,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        298
+        303
       ]
     ]
   },
@@ -9348,11 +9348,11 @@
       ],
       [
         "plugins/services/src/js/components/modals/ServiceRestartModal.js",
-        97
+        94
       ],
       [
         "plugins/services/src/js/components/modals/ServiceStopModal.js",
-        97
+        94
       ],
       [
         "plugins/services/src/js/pages/task-details/TaskDetailsTab.js",
@@ -9700,7 +9700,7 @@
     "origin": [
       [
         "src/js/components/FilterHeadline.js",
-        65
+        63
       ]
     ]
   },
@@ -9829,7 +9829,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        80
+        79
       ]
     ]
   },
@@ -9859,7 +9859,7 @@
       ],
       [
         "plugins/nodes/src/js/components/LeaderGrid.js",
-        55
+        56
       ],
       [
         "plugins/services/src/js/components/DeploymentsModal.js",
@@ -9902,7 +9902,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        88
+        87
       ]
     ]
   },
@@ -9966,7 +9966,7 @@
       ],
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        72
+        71
       ],
       [
         "plugins/services/src/js/components/PodVolumeTable.js",
@@ -10007,15 +10007,15 @@
       ],
       [
         "plugins/services/src/js/components/modals/KillPodInstanceModal.js",
-        16
-      ],
-      [
-        "plugins/services/src/js/components/modals/KillTaskModal.js",
         15
       ],
       [
+        "plugins/services/src/js/components/modals/KillTaskModal.js",
+        14
+      ],
+      [
         "plugins/services/src/js/components/modals/ServiceStopModal.js",
-        123
+        120
       ],
       [
         "plugins/services/src/js/constants/ServiceActionLabels.js",
@@ -10076,7 +10076,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceStopModal.js",
-        105
+        102
       ]
     ]
   },
@@ -10107,7 +10107,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceStopModal.js",
-        128
+        125
       ]
     ]
   },
@@ -10198,11 +10198,11 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        166
+        170
       ],
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
-        25
+        19
       ]
     ]
   },
@@ -10321,7 +10321,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        363
+        368
       ]
     ]
   },
@@ -10733,7 +10733,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
-        155
+        152
       ]
     ]
   },
@@ -10760,7 +10760,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        251
+        255
       ]
     ]
   },
@@ -10769,7 +10769,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        124
+        126
       ]
     ]
   },
@@ -10881,7 +10881,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceResumeModal.js",
-        117
+        114
       ]
     ]
   },
@@ -10890,7 +10890,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceResumeModal.js",
-        125
+        122
       ]
     ]
   },
@@ -11063,7 +11063,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/ServiceDestroyModal.js",
-        160
+        157
       ]
     ]
   },
@@ -11206,7 +11206,7 @@
       ],
       [
         "plugins/services/src/js/containers/pod-instances/PodInstancesTable.js",
-        416
+        417
       ],
       [
         "src/js/constants/UnitHealthStatus.js",
@@ -11250,7 +11250,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        26
+        27
       ],
       [
         "plugins/services/src/js/constants/TaskHealthStates.js",
@@ -11294,7 +11294,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        259
+        263
       ]
     ]
   },
@@ -11325,7 +11325,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
-        77
+        83
       ]
     ]
   },
@@ -11565,7 +11565,7 @@
     "origin": [
       [
         "plugins/services/src/js/containers/pod-instances/PodInstancesTable.js",
-        455
+        456
       ]
     ]
   },
@@ -11645,7 +11645,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/MarathonTaskDetailsList.js",
-        96
+        95
       ],
       [
         "plugins/services/src/js/constants/PodTableHeaderLabels.js",
@@ -11661,7 +11661,7 @@
       ],
       [
         "plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js",
-        111
+        112
       ],
       [
         "plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js",
@@ -11696,7 +11696,7 @@
     "origin": [
       [
         "src/js/pages/system/units-health-node-detail/NodeInfoPanel.js",
-        30
+        24
       ]
     ]
   },
@@ -11997,7 +11997,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/KillPodInstanceModal.js",
-        100
+        97
       ]
     ]
   },
@@ -12006,7 +12006,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/modals/KillTaskModal.js",
-        99
+        96
       ]
     ]
   },
@@ -12158,7 +12158,7 @@
       ],
       [
         "plugins/nodes/src/js/pages/nodes/NodeDetailTab.js",
-        111
+        114
       ],
       [
         "plugins/services/src/js/constants/PodTableHeaderLabels.js",
@@ -12210,7 +12210,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
-        59
+        60
       ]
     ]
   },
@@ -12219,7 +12219,7 @@
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
-        56
+        57
       ]
     ]
   },
@@ -12295,6 +12295,15 @@
       ]
     ]
   },
+  "minutes": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/containers/service-debug/TaskStatsTable.js",
+        132
+      ]
+    ]
+  },
   "or": {
     "translation": "或",
     "origin": [
@@ -12328,6 +12337,15 @@
       [
         "plugins/services/src/js/components/modals/ServiceActionDisabledModal.js",
         309
+      ]
+    ]
+  },
+  "seconds": {
+    "translation": "",
+    "origin": [
+      [
+        "plugins/services/src/js/containers/service-debug/TaskStatsTable.js",
+        127
       ]
     ]
   },
