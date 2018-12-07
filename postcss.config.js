@@ -4,7 +4,7 @@ module.exports = ({ env }) => {
   return {
     parser: false,
     plugins: {
-      autoprefixer: shouldOptimize,
+      autoprefixer: true,
       "postcss-merge-rules": shouldOptimize,
       "postcss-discard-duplicates": shouldOptimize,
       "postcss-merge-longhand": shouldOptimize,
