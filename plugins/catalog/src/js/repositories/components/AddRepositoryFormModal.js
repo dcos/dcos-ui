@@ -26,6 +26,7 @@ class AddRepositoryFormModal extends React.Component {
 
   getAddRepositoryFormDefinition() {
     const { numberOfRepositories, i18n } = this.props;
+    const noRepositories = numberOfRepositories === 0;
 
     return [
       {
@@ -34,7 +35,7 @@ class AddRepositoryFormModal extends React.Component {
         placeholder: i18n._(t`Repository Name`),
         required: true,
         showError: false,
-        showLabel: false,
+        showLabel: i18n._(t`Repository Name`),
         writeType: "input",
         validation() {
           return true;
@@ -47,7 +48,7 @@ class AddRepositoryFormModal extends React.Component {
         placeholder: i18n._(t`URL`),
         required: true,
         showError: false,
-        showLabel: false,
+        showLabel: i18n._(t`URL`),
         writeType: "input",
         validation() {
           return true;
@@ -62,18 +63,18 @@ class AddRepositoryFormModal extends React.Component {
         min: "0",
         max: `${numberOfRepositories}`,
         step: "1",
+        disabled: noRepositories,
         validationErrorText: i18n._(
-          t`Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`
+          t`Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and an empty field denotes the lowest priority.`
         ),
-        showLabel: false,
+        showLabel: i18n._(t`Priority`),
         writeType: "input",
         validation(value) {
-          return (
-            ValidatorUtil.isDefined(value) &&
-            ValidatorUtil.isNumberInRange(value, { max: numberOfRepositories })
-          );
+          return value !== null
+            ? ValidatorUtil.isInteger(value) && value >= 0
+            : true;
         },
-        value: ""
+        value: noRepositories ? "0" : ""
       }
     ];
   }
