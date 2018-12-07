@@ -159,7 +159,7 @@ class FrameworkConfigurationForm extends Component {
     if (schema == null) {
       return;
     }
-    if (Util.isObject(formData)) {
+    if (Util.isObject(formData) && schema.properties) {
       Object.keys(formData).forEach(property => {
         this.writeErrors(
           formData[property],
