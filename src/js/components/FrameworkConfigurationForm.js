@@ -365,6 +365,7 @@ export default class FrameworkConfigurationForm extends Component {
                       validate={this.validate}
                       ErrorList={this.jsonSchemaErrorList}
                       transformErrors={this.transformErrors}
+                      noHtml5Validate={true}
                       ref={form => {
                         this.schemaForm = form;
                       }}
