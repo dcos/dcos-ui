@@ -152,7 +152,7 @@ describe("MetronomeClient", () => {
     });
 
     it(
-      "emits the sucessful request result",
+      "emits the successful request result",
       marbles(m => {
         m.bind();
 
@@ -227,7 +227,7 @@ describe("MetronomeClient", () => {
     });
 
     it(
-      "emits the sucessful request result",
+      "emits the successful request result",
       marbles(m => {
         m.bind();
 
@@ -270,7 +270,7 @@ describe("MetronomeClient", () => {
     });
 
     it(
-      "emits the sucessful request result",
+      "emits the successful request result",
       marbles(m => {
         m.bind();
 
@@ -312,7 +312,7 @@ describe("MetronomeClient", () => {
     });
 
     it(
-      "emits the sucessful request result",
+      "emits the successful request result",
       marbles(m => {
         m.bind();
 
@@ -354,7 +354,7 @@ describe("MetronomeClient", () => {
     });
 
     it(
-      "emits the sucessful request result",
+      "emits the successful request result",
       marbles(m => {
         m.bind();
 
@@ -394,7 +394,7 @@ describe("MetronomeClient", () => {
     });
 
     it(
-      "emits the sucessful request result",
+      "emits the successful request result",
       marbles(m => {
         m.bind();
 
