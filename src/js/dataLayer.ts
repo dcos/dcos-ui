@@ -11,23 +11,16 @@ export const DataLayerExtension = Symbol("DataLayerExtension");
 export interface DataLayerExtensionInterface {
   id: symbol;
   getTypeDefinitions(enabledSchemas: symbol[]): string;
-
-  // This might not be necessary if we can use extend to extend the query type
-  getQueryTypeDefinitions(enabledSchemas: symbol[]): string;
-  getMutationTypeDefinitions(enabledSchemas: symbol[]): string;
   getResolvers(enabledSchemas: symbol[]): IResolvers;
 }
 
-const getQueryAndMutationTypeDefs = (
-  queryFields: string[] = [],
-  mutationFields: string[] = []
-) => `
+const baseQuery = `
 type Query {
-  ${queryFields.join("\n")}
+  isPresent: Boolean
 }
 
 type Mutation {
-  ${mutationFields.join("\n")}
+  noOpMutation(input: String): Boolean
 }
 `;
 
@@ -49,16 +42,9 @@ export default class DataLayer {
   getExecutableSchema(): GraphQLSchema {
     const extensions = this._extensionProvider.getAllExtensions();
     const enabledIds = extensions.map(extension => extension.id);
-
-    const queryTypeDefs = extensions.map(extension =>
-      extension.getQueryTypeDefinitions(enabledIds)
-    );
-    const mutationTypeDefs = extensions.map(extension =>
-      extension.getMutationTypeDefinitions(enabledIds)
-    );
     const typeDefs = [
-      ...extensions.map(extension => extension.getTypeDefinitions(enabledIds)),
-      getQueryAndMutationTypeDefs(queryTypeDefs, mutationTypeDefs)
+      baseQuery,
+      ...extensions.map(extension => extension.getTypeDefinitions(enabledIds))
     ];
 
     const resolvers = deepmerge.all(
