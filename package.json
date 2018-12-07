@@ -49,6 +49,7 @@
     "create-react-class": "15.6.3",
     "d3": "3.5.16",
     "dygraphs": "2.1.0",
+    "deepmerge": "3.0.0",
     "flux": "2.1.1",
     "graphql": "14.0.2",
     "graphql-tag": "2.8.0",
