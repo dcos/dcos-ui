@@ -1,6 +1,4 @@
-import "rxjs/add/operator/combineLatest";
-import "rxjs/add/operator/map";
-
+import { map } from "rxjs/operators";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 import { makeExecutableSchema } from "graphql-tools/dist/index";
 
@@ -46,17 +44,19 @@ export function resolvers({
         const { filter } = args;
 
         // Filter Logic Backwards compatible with the previous struct/RepositoryList
-        return liveFetchRepositories().map(getRepositoryList(filter));
+        return liveFetchRepositories().pipe(map(getRepositoryList(filter)));
       }
     },
     Mutation: {
       addPackageRepository: (parent, args) => {
-        return addRepository(args.name, args.uri, args.index).map(
-          getRepositoryList("")
+        return addRepository(args.name, args.uri, args.index).pipe(
+          map(getRepositoryList(""))
         );
       },
       removePackageRepository: (parent, args) => {
-        return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
+        return deleteRepository(args.name, args.uri).pipe(
+          map(getRepositoryList(""))
+        );
       }
     }
   };
