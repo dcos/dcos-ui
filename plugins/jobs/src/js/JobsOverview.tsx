@@ -4,16 +4,21 @@ import Router, {
   LocationDescriptor,
   withRouter
 } from "react-router";
-
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable, Subscribable } from "rxjs/Observable";
-import { combineLatest } from "rxjs/observable/combineLatest";
-import "rxjs/add/observable/empty";
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/startWith";
-import "rxjs/add/operator/sampleTime";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/map";
+import {
+  BehaviorSubject,
+  Observable,
+  Subscribable as RxSubscribable,
+  combineLatest,
+  of
+} from "rxjs";
+import {
+  map,
+  sampleTime,
+  switchMap,
+  startWith,
+  catchError
+} from "rxjs/operators";
+import { Subscribable } from "recompose";
 
 import { graphqlObservable, componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
@@ -58,28 +63,33 @@ const JobsOverview = withRouter(
       const path$ = new BehaviorSubject<string[]>([]);
 
       (props$ as Observable<JobsOverviewProps>)
-        .map(props => [
-          props.params && props.params.path ? props.params.path.split(".") : [],
-          props.location.query ? props.location.query.searchString : ""
-        ])
+        .pipe(
+          map(props => [
+            props.params && props.params.path
+              ? props.params.path.split(".")
+              : [],
+            props.location.query ? props.location.query.searchString : ""
+          ])
+        )
         .subscribe(([path, filter]) => {
           path$.next(path);
 
           filter$.next(filter);
         });
 
-      const jobs$ = combineLatest(path$, filter$)
-        .sampleTime(250)
-        .switchMap(([path, filter]) => {
+      const jobs$ = combineLatest(path$, filter$).pipe(
+        sampleTime(250),
+        switchMap(([path, filter]) => {
           return graphqlObservable(jobsOverviewQuery, JobModel, {
             path,
             filter
           }) as Observable<{ data: { jobs: JobConnection } }>;
-        })
-        .map(data => data.data.jobs);
+        }),
+        map(data => data.data.jobs)
+      );
 
-      return combineLatest(filter$, jobs$, props$)
-        .map(([filter, jobs, props]) => {
+      return combineLatest(filter$, jobs$, props$ as RxSubscribable<any>).pipe(
+        map(([filter, jobs, props]) => {
           function handleFilterChange(filter: string) {
             const query = filter === "" ? {} : { searchString: filter };
             props.router.push({ pathname: props.location.pathname, query });
@@ -100,13 +110,14 @@ const JobsOverview = withRouter(
           return (
             <JobsOverviewEmpty key={"JobsOverviewEmpty"} jobPath={jobs.path} />
           );
-        })
-        .startWith(<JobsOverviewLoading />)
-        .catch(e => {
+        }),
+        startWith(<JobsOverviewLoading />),
+        catchError(e => {
           // tslint:disable-next-line:no-console
           console.error(e);
-          return Observable.of(<JobsOverviewError />);
-        });
+          return of(<JobsOverviewError />);
+        })
+      );
     }
   )
 );
