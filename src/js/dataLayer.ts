@@ -11,6 +11,8 @@ export const DataLayerExtension = Symbol("DataLayerExtension");
 export interface DataLayerExtensionInterface {
   id: symbol;
   getTypeDefinitions(enabledSchemas: symbol[]): string;
+
+  // This might not be necessary if we can use extend to extend the query type
   getQueryTypeDefinitions(enabledSchemas: symbol[]): string;
   getMutationTypeDefinitions(enabledSchemas: symbol[]): string;
   getResolvers(enabledSchemas: symbol[]): IResolvers;
