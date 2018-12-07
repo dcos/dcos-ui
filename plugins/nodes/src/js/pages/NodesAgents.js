@@ -294,8 +294,8 @@ var NodesAgents = React.createClass({
         <AlertPanel>
           <AlertPanelHeader>No nodes detected</AlertPanelHeader>
           <p className="flush-bottom">
-            There a currently no other nodes in your datacenter other than your
-            DC/OS master node.
+            There are currently no other nodes in this DC/OS cluster other than
+            your DC/OS master node.
           </p>
         </AlertPanel>
       </Page>
