@@ -1,7 +1,5 @@
 import { Container as InversifyContainer, interfaces } from "inversify";
-import { Observable } from "rxjs";
-// tslint:disable-next-line:no-submodule-imports
-import { Observer } from "rxjs/Observer";
+import { Observable, Observer } from "rxjs";
 import { EventEmitter } from "events";
 
 import ServiceIdentifier = interfaces.ServiceIdentifier;
