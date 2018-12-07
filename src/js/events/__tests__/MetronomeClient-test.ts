@@ -185,8 +185,7 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(
         `${
           Config.metronomeAPI
-        }/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`,
-        { headers: expect.anything() }
+        }/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`
       );
     });
 
@@ -221,8 +220,7 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(
         `${
           Config.metronomeAPI
-        }/v1/jobs/${jobId}?embed=activeRuns&embed=history&embed=schedules`,
-        { headers: expect.anything() }
+        }/v1/jobs/${jobId}?embed=activeRuns&embed=history&embed=schedules`
       );
     });
 
