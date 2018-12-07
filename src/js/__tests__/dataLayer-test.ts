@@ -12,13 +12,6 @@ const JobsSymbol = Symbol("Jobs");
 class JobsExtension implements DataLayerExtensionInterface {
   id = JobsSymbol;
 
-  getMutationTypeDefinitions() {
-    return `deleteJob(id: String): Boolean`;
-  }
-  getQueryTypeDefinitions() {
-    return `jobs: Job`;
-  }
-
   getResolvers(activeExtensions: symbol[]) {
     const hasJobs = activeExtensions.includes(TasksSymbol);
 
@@ -37,6 +30,14 @@ class JobsExtension implements DataLayerExtensionInterface {
     const hasJobs = activeExtensions.includes(TasksSymbol);
 
     return `
+    extend type Mutation {
+      deleteJob(id: String): Boolean
+    }
+
+    extend type Query {
+      jobs: Job
+    }
+
     type Job {
       id: String!
       docker: String!
@@ -51,17 +52,6 @@ const TasksSymbol = Symbol("Tasks");
 @injectable()
 class TasksExtension implements DataLayerExtensionInterface {
   id = TasksSymbol;
-
-  getMutationTypeDefinitions() {
-    return `
-    deleteTask(id: String): Boolean
-    `;
-  }
-  getQueryTypeDefinitions() {
-    return `
-    task(id: String): Task
-    `;
-  }
 
   getResolvers() {
     return {
@@ -90,16 +80,30 @@ class TasksExtension implements DataLayerExtensionInterface {
     };
   }
 
-  getTypeDefinitions() {
+  getTypeDefinitions(activeExtensions: symbol[]) {
+    const hasJobs = activeExtensions.includes(TasksSymbol);
+
+    const jobTypeExtension = `
+    extend type Job {
+      task: Task
+    }
+    `;
+
     return `
+    extend type Query {
+      task(id: String): Task
+    }
+
+    extend type Mutation {
+      deleteTask(id: String): Boolean
+    }
+
     type Task {
       id: String!
       log: String!
     }
 
-    extend type Job {
-      task: Task
-    }
+    ${hasJobs ? jobTypeExtension : ""}
     `;
   }
 }
