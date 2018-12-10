@@ -438,3 +438,6 @@ FrameworkConfigurationForm.propTypes = {
 };
 
 export default withI18n()(FrameworkConfigurationForm);
+export function unwrapped() {
+  return FrameworkConfigurationForm;
+}
