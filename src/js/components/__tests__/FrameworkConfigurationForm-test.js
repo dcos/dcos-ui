@@ -1,22 +1,22 @@
 const React = require("react");
 const { shallow } = require("enzyme");
-
-const {
-  default: FrameworkConfigurationForm
-} = require("../FrameworkConfigurationForm");
+const { unwrapped } = require("../FrameworkConfigurationForm");
 const UniversePackage = require("../../structs/UniversePackage");
 
-function createWrapper(formData, formErrors, packageDetails) {
+const FrameworkConfigurationForm = unwrapped();
+
+function createWrapper(formData, packageDetails) {
   return shallow(
     <FrameworkConfigurationForm
       packageDetails={packageDetails}
       jsonEditorActive={false}
       formData={formData}
-      formErrors={formErrors}
+      formErrors={{}}
       focusField={""}
-      activeTab={""}
+      activeTab={"foo"}
       onFormDataChange={jest.fn()}
       onFormErrorChange={jest.fn()}
+      onFormSubmit={jest.fn()}
       handleActiveTabChange={jest.fn()}
       handleFocusFieldChange={jest.fn()}
     />
@@ -25,7 +25,7 @@ function createWrapper(formData, formErrors, packageDetails) {
 
 describe("FrameworkConfigurationForm", function() {
   describe("validate", function() {
-    it("should add error is required key is empty", function() {
+    it("add error is required key is empty", function() {
       const addError = jest.fn();
       const formData = {
         foo: "",
@@ -55,18 +55,15 @@ describe("FrameworkConfigurationForm", function() {
         }
       });
 
-      const instance = createWrapper(
-        formData,
-        formErrors,
-        testPackage
-      ).instance();
+      const wrapper = createWrapper(formData, testPackage);
+      const instance = wrapper.instance();
 
       instance.validate(formData, formErrors);
 
       expect(addError).toHaveBeenCalledWith("Expecting a string here, eg: foo");
     });
 
-    it("should handle an array value", function() {
+    it("handle an array value", function() {
       const addError = jest.fn();
       const formData = {
         foo: "",
@@ -101,11 +98,7 @@ describe("FrameworkConfigurationForm", function() {
         }
       });
 
-      const instance = createWrapper(
-        formData,
-        formErrors,
-        testPackage
-      ).instance();
+      const instance = createWrapper(formData, testPackage).instance();
 
       instance.validate(formData, formErrors);
 
