@@ -1,0 +1,90 @@
+#!/usr/bin/env groovy
+
+@Library("sec_ci_libs@v2-latest") _
+
+def master_branches = ["master", ] as String[]
+
+pipeline {
+  agent {
+    dockerfile {
+      args  "--shm-size=1g"
+    }
+  }
+
+  parameters {
+    booleanParam(defaultValue: false, description: 'Should this job be executed?', name: 'shouldRun')
+  }
+
+  environment {
+    JENKINS_VERSION = "yes"
+    NODE_PATH = "node_modules"
+    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+  }
+
+  options {
+    timeout(time: 8, unit: "HOURS")
+    disableConcurrentBuilds()
+  }
+
+  stages {
+    stage("Authorization") {
+      steps {
+        user_is_authorized(master_branches, "8b793652-f26a-422f-a9ba-0d1e47eb9d89", "#frontend-dev")
+      }
+    }
+
+    stage("Build") {
+      when {
+        expression {
+          return params.shouldRun
+        }
+      }
+
+      steps {
+        sh "npm --unsafe-perm install"
+        sh "npm run build-assets"
+      }
+    }
+
+    stage("Tests") {
+      when {
+        expression {
+          return params.shouldRun
+        }
+      }
+
+      steps {
+        sh "echo 'TODO: run integration tests here'" // DCOS-44820
+      }
+    }
+  }
+
+  post {
+    failure {
+      withCredentials([
+        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+      ]) {
+        slackSend (
+          channel: "#frontend-ci-status",
+          color: "danger",
+          message: "FAILED\nBranch: ${env.CHANGE_BRANCH}\nJob: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>",
+          teamDomain: "mesosphere",
+          token: "${env.SLACK_TOKEN}",
+        )
+      }
+    }
+    unstable {
+      withCredentials([
+        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+      ]) {
+        slackSend (
+          channel: "#frontend-ci-status",
+          color: "warning",
+          message: "UNSTABLE\nBranch: ${env.CHANGE_BRANCH}\nJob: <${env.RUN_DISPLAY_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>",
+          teamDomain: "mesosphere",
+          token: "${env.SLACK_TOKEN}",
+        )
+      }
+    }
+  }
+}
