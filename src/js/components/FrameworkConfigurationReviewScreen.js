@@ -44,25 +44,27 @@ class FrameworkConfigurationReviewScreen extends React.Component {
       {
         id: frameworkMeta,
         html: (
-          <div className="button-split-content-wrapper">
+          <div className="service-version-dropdown-wrapper button-split-content-wrapper flex">
             <Icon
-              className="services-version-select-icon services-version-select-icon-selected button-split-content-item"
+              className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0"
               id="check"
               size="mini"
               color="neutral"
             />
             <Icon
-              className="services-version-select-icon button-split-content-item"
+              className="services-version-select-icon button-split-content-item flex-item-shrink-0"
               id="commit"
               size="mini"
               color="neutral"
             />
             <span
-              className="button-split-content-item text-overflow"
+              className="button-split-content-item flex-item-grow-1 text-overflow"
               title={frameworkMeta}
             >
-              <span className="badge-container">
-                <span className="badge-container-text">{frameworkMeta}</span>
+              <span className="badge-container flex">
+                <span className="badge-container-text services-version-text text-overflow">
+                  {frameworkMeta}
+                </span>
                 <span className="badge">Active</span>
               </span>
             </span>
