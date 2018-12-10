@@ -138,8 +138,8 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         let itemCaption = localeVersion;
         if (version === service.getVersion()) {
           itemCaption = (
-            <span className="badge-container">
-              <span className="badge-container-text">
+            <span className="badge-container flex">
+              <span className="badge-container-text services-version-text text-overflow">
                 <DateFormat
                   value={localeVersion}
                   format={DateUtil.getFormatOptions()}
@@ -153,21 +153,21 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         return {
           id: version,
           html: (
-            <div className="button-split-content-wrapper">
+            <div className="service-version-dropdown-wrapper button-split-content-wrapper flex">
               <Icon
-                className="services-version-select-icon services-version-select-icon-selected button-split-content-item"
+                className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0"
                 id="check"
                 size="mini"
                 color="neutral"
               />
               <Icon
-                className="services-version-select-icon button-split-content-item"
+                className="services-version-select-icon button-split-content-item flex-item-shrink-0"
                 id="commit"
                 size="mini"
                 color="neutral"
               />
               <span
-                className="button-split-content-item text-overflow"
+                className="button-split-content-item flex-item-grow-1 text-overflow"
                 title={version}
               >
                 {itemCaption}
