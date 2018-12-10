@@ -1,10 +1,9 @@
 const React = require("react");
 const { shallow } = require("enzyme");
-
-const {
-  default: FrameworkConfigurationForm
-} = require("../FrameworkConfigurationForm");
+const { unwrapped } = require("../FrameworkConfigurationForm");
 const UniversePackage = require("../../structs/UniversePackage");
+
+const FrameworkConfigurationForm = unwrapped();
 
 function createWrapper(formData, packageDetails) {
   return shallow(
@@ -17,6 +16,7 @@ function createWrapper(formData, packageDetails) {
       activeTab={""}
       onFormDataChange={jest.fn()}
       onFormErrorChange={jest.fn()}
+      onFormSubmit={jest.fn()}
       handleActiveTabChange={jest.fn()}
       handleFocusFieldChange={jest.fn()}
     />
