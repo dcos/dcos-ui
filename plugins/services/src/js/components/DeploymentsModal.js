@@ -446,10 +446,11 @@ class DeploymentsModal extends mixin(StoreMixin) {
       }, {});
     }
 
-    let statusText = item.getStatus();
+    let statusText = !item.isStale ? item.getStatus() : null;
+    const itemId = item.isStale ? item.serviceID : item.id;
 
-    if (currentActions[item.id] != null) {
-      statusText = currentActions[item.id];
+    if (currentActions[itemId] != null) {
+      statusText = currentActions[itemId];
     }
 
     return statusText;
