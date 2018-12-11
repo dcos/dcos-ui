@@ -1,5 +1,5 @@
 import React from "react";
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 import { getContext } from "recompose";
 import { routerShape } from "react-router";
 import { Observable, BehaviorSubject } from "rxjs";

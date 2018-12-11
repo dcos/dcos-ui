@@ -1,10 +1,10 @@
 import { Observable } from "rxjs";
 import "rxjs/add/observable/of";
 
-import { graphqlObservable } from "data-service";
+import { graphqlObservable } from "@dcos/data-service";
 import jobsToggleSchedule from "../jobsToggleSchedule";
 
-jest.mock("data-service", () => ({
+jest.mock("@dcos/data-service", () => ({
   graphqlObservable: jest.fn()
 }));
 

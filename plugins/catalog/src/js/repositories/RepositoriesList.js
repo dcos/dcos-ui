@@ -6,7 +6,7 @@ import "rxjs/add/operator/switchMap";
 
 // graphqlObservable is our in house implementation of the graphql (not spec compliant yet)
 // componentFromStream transforms a stream of data into a React Component
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 
 // tools to make easier to create schemas and queries
 // import { makeExecutableSchema } from "graphql-tools";

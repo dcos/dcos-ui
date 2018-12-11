@@ -2,7 +2,7 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { Trans } from "@lingui/macro";
 
