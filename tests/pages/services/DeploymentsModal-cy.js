@@ -1,6 +1,6 @@
 describe("Deployments Modal", function() {
-  function openDeploymentsModal() {
-    cy.get(".button").contains("1 deployment").click();
+  function openDeploymentsModal(numDeployments = 1) {
+    cy.get(".button").contains(numDeployments + " deployment").click();
   }
 
   beforeEach(function() {
@@ -125,6 +125,23 @@ describe("Deployments Modal", function() {
           expect(document.querySelectorAll(".modal").length).to.equal(0);
         });
       });
+    });
+  });
+
+  context("Stale Deployments", function() {
+    beforeEach(function() {
+      cy.route(
+        /marathon\/v2\/deployments/,
+        "fx:deployments/two-deployments-one-stale"
+      );
+      cy.visitUrl({ url: "/services/overview/" });
+      openDeploymentsModal(2);
+    });
+    it("shows stale deployment in modal", function() {
+      cy.get(".deployments-table-column-id").contains("spark-history-stale");
+    });
+    it("shows status of stale deployment", function() {
+      cy.get(".deployments-table-column-status").contains("StopApplication");
     });
   });
 });
