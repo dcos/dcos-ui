@@ -18,7 +18,7 @@ pipeline {
   }
 
   options {
-    timeout(time: 3, unit: "HOURS")
+    timeout(time: 4, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -36,44 +36,40 @@ pipeline {
       }
     }
 
-    stage("Tests") {
-      parallel {
-        stage("Integration Test") {
-          steps {
-            sh "npm run integration-tests"
-          }
+    stage("Integration Test") {
+      steps {
+        sh "npm run integration-tests"
+      }
 
-          post {
-            always {
-              archiveArtifacts "cypress/**/*"
-              // We currently want flaky test runs be marked as success
-              // junit "cypress/results.xml"
-            }
+      post {
+        always {
+          archiveArtifacts "cypress/**/*"
+          // We currently want flaky test runs to be marked as success
+          // junit "cypress/results.xml"
+        }
+      }
+    }
+
+    stage("System Test") {
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ]
+        ]) {
+          retry(3) {
+            sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
           }
         }
+      }
 
-        stage("System Test") {
-          steps {
-            withCredentials([
-              [
-                $class: "AmazonWebServicesCredentialsBinding",
-                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-              ]
-            ]) {
-              retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
-              }
-            }
-          }
-
-          post {
-            always {
-              archiveArtifacts "results/**/*"
-              junit "results/results.xml"
-            }
-          }
+      post {
+        always {
+          archiveArtifacts "results/**/*"
+          junit "results/results.xml"
         }
       }
     }
