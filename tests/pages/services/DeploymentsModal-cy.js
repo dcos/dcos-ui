@@ -1,6 +1,8 @@
 describe("Deployments Modal", function() {
-  function openDeploymentsModal() {
-    cy.get(".button").contains("1 deployment").click();
+  function openDeploymentsModal(numDeployments = 1) {
+    cy.get(".button")
+      .contains(numDeployments + " deployment")
+      .click();
   }
 
   beforeEach(function() {
@@ -15,7 +17,9 @@ describe("Deployments Modal", function() {
 
   context("Modal Trigger", function() {
     it("has a deployments button", function() {
-      cy.get(".button").contains("1 deployment").should("to.have.length", 1);
+      cy.get(".button")
+        .contains("1 deployment")
+        .should("to.have.length", 1);
     });
 
     it("opens the modal when clicking the deployments button", function() {
@@ -36,7 +40,9 @@ describe("Deployments Modal", function() {
       cy.get(".modal").then(function($modal) {
         expect($modal.get().length).to.equal(1);
       });
-      cy.get(".modal-footer button").contains("Close").click();
+      cy.get(".modal-footer button")
+        .contains("Close")
+        .click();
       cy.wait(700).then(function() {
         expect(document.querySelectorAll(".modal").length).to.equal(0);
       });
@@ -69,7 +75,10 @@ describe("Deployments Modal", function() {
       cy.get(".modal tbody tr:visible td").then(function($tableCells) {
         cy.getAPIResponse("marathon/v2/deployments", function(response) {
           expect(
-            $tableCells.get(1).querySelector("time").getAttribute("datetime")
+            $tableCells
+              .get(1)
+              .querySelector("time")
+              .getAttribute("datetime")
           ).to.equal(response[0].version);
         });
       });
@@ -84,22 +93,22 @@ describe("Deployments Modal", function() {
     });
 
     it("is auto-expanded to show services", function() {
-      cy
-        .get(
-          ".modal tbody tr:visible td .expanding-table-child .table-cell-value"
-        )
-        .then(function($expandedChildText) {
-          cy.getAPIResponse("marathon/v2/deployments", function(response) {
-            expect($expandedChildText.get(0).textContent).to.equal(
-              response[0].affectedApps[0].replace(/^\//, "")
-            );
-          });
+      cy.get(
+        ".modal tbody tr:visible td .expanding-table-child .table-cell-value"
+      ).then(function($expandedChildText) {
+        cy.getAPIResponse("marathon/v2/deployments", function(response) {
+          expect($expandedChildText.get(0).textContent).to.equal(
+            response[0].affectedApps[0].replace(/^\//, "")
+          );
         });
+      });
     });
 
     it("displays the rollback modal when clicked", function() {
       cy.get(".modal tbody tr:visible td .dropdown").click();
-      cy.get(".dropdown-menu-items").contains("Rollback").click();
+      cy.get(".dropdown-menu-items")
+        .contains("Rollback")
+        .click();
       cy.get(".modal").then(function($modals) {
         expect($modals.get().length).to.equal(2);
       });
@@ -118,13 +127,37 @@ describe("Deployments Modal", function() {
         });
 
         cy.get(".modal tbody tr:visible td .dropdown").click();
-        cy.get(".dropdown-menu-items").contains("Rollback").click();
-        cy.get(".modal button").contains("Continue Rollback").click();
+        cy.get(".dropdown-menu-items")
+          .contains("Rollback")
+          .click();
+        cy.get(".modal button")
+          .contains("Continue Rollback")
+          .click();
 
         cy.wait(700).then(function() {
           expect(document.querySelectorAll(".modal").length).to.equal(0);
         });
       });
+    });
+  });
+
+  context("Stale Deployments", function() {
+    beforeEach(function() {
+      cy.route(
+        /marathon\/v2\/deployments/,
+        "fx:deployments/two-deployments-one-stale"
+      );
+
+      cy.visitUrl({ url: "/services/overview/" });
+      openDeploymentsModal(2);
+    });
+
+    it("shows stale deployment in modal", function() {
+      cy.get(".deployments-table-column-id").contains("spark-history-stale");
+    });
+
+    it("shows status of stale deployment", function() {
+      cy.get(".deployments-table-column-status").contains("StopApplication");
     });
   });
 });
