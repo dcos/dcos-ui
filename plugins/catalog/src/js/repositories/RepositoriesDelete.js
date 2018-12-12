@@ -8,7 +8,7 @@ import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
 
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
