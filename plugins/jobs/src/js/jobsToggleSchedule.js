@@ -1,4 +1,4 @@
-import { graphqlObservable } from "data-service";
+import { graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { i18nMark } from "@lingui/react";
 

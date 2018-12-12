@@ -15,7 +15,7 @@ import "rxjs/add/operator/sampleTime";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/map";
 
-import { graphqlObservable, componentFromStream } from "data-service";
+import { graphqlObservable, componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
 
 import JobsOverviewLoading from "./components/JobsOverviewLoading";

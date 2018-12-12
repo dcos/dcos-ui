@@ -29,6 +29,7 @@
     "externalplugins": ""
   },
   "dependencies": {
+    "@dcos/data-service": "1.0.2",
     "@dcos/http-service": "1.0.0",
     "@dcos/mesos-client": "0.2.5",
     "@dcos/tslint-config": "0.1.0",
