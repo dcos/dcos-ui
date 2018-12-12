@@ -1,0 +1,5019 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2018-12-12 10:09+0200\n"
+"Mime-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+
+#: plugins/services/src/js/components/LogView.js:309
+msgid "(AT BEGINNING OF FILE)"
+msgstr ""
+
+#: src/js/components/FilterHeadline.js:67
+msgid "(Clear)"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:68
+msgid "(No data)"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:64
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:45
+msgid "(Optional. Default: 20): Number of seconds after which a health check is considered a failure regardless of the response."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:71
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:52
+msgid "(Optional. Default: 3): Number of consecutive health check failures after which the unhealthy instance should be killed. HTTP & TCP health checks: If this value is 0, instances will not be killed if they fail the health check."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:49
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:30
+msgid "(Optional. Default: 300): Health check failures are ignored within this number of seconds or until the instance becomes healthy for the first time."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:57
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:38
+msgid "(Optional. Default: 60): Number of seconds to wait between health checks."
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:116
+#: plugins/services/src/js/components/DeclinedOffersTable.js:119
+msgid "(Role: {0})"
+msgstr ""
+
+#: src/js/components/CollapsibleErrorMessage.js:85
+msgid "(Show less)"
+msgstr ""
+
+#: src/js/components/CollapsibleErrorMessage.js:86
+msgid "(Show more)"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:174
+msgid "1 Backend"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js:105
+msgid "1 Client"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:154
+msgid "1 Total Backend"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:159
+msgid "1 Total Client"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.js:106
+msgid "<0/> Download"
+msgstr ""
+
+#: src/js/components/ReviewConfig.js:57
+msgid "<0><1/> Download config.json</0>"
+msgstr ""
+
+#: src/js/components/modals/UserFormModal.js:125
+msgid "<0>Important:</0> Because telemetry is disabled you must manually notify users of ACL changes."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:140
+msgid "<0>Note:</0> Scaling to fewer instances is not supported. <1>More information</1>"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:297
+msgid "<0>See documentation</0>."
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:22
+msgid "A REX-Ray backed volume that is mounted on the agent from network attached storage."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:501
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:471
+msgid "A health check passes if (1) its HTTP response code is between 200 and 399 inclusive, and (2) its response is received within the timeoutSeconds period. <0>More Information</0>."
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:29
+msgid "A host volume is a directory on the the local agent mapped to one in a container."
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:14
+msgid "A locally persistent volume based upon the physical disks installed in the agent which has the capabilities of a single disk."
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:7
+msgid "A locally persistent volume pre-created by the operator according to a storage profile."
+msgstr ""
+
+#: src/js/components/CosmosErrorMessage.js:39
+msgid "A service with the same name already exists. Try a different name."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:228
+msgid "A shell command for your container to execute."
+msgstr ""
+
+#: src/js/components/PlacementConstraintsPartial.js:109
+msgid "A string, integer or regex value."
+msgstr ""
+
+#: src/js/components/AccessDeniedPage.js:45
+msgid "Access denied"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:252
+msgid "Actions (<0>Allow All</0>)"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:76
+#: plugins/services/src/js/components/DeploymentsModal.js:545
+#: plugins/services/src/js/components/dsl/TaskStatusDSLSection.js:45
+#: plugins/services/src/js/containers/service-configuration/ServiceConfiguration.js:148
+#: src/js/components/FrameworkConfigurationReviewScreen.js:67
+msgid "Active"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:386
+msgid "Active deployments will be shown here."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js:86
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js:133
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js:110
+msgid "Add"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ArtifactsSection.js:109
+msgid "Add Artifact"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementFormPartial.js:116
+msgid "Add Constraint"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:185
+msgid "Add Container"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:111
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:139
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:354
+msgid "Add Directory"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:242
+msgid "Add Environment Variable"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:300
+msgid "Add External Load Balancer"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountGroupMembershipTab.js:148
+msgid "Add Group"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:548
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:386
+msgid "Add Health Check"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js:151
+msgid "Add Identity Provider"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:275
+msgid "Add Label"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js:145
+msgid "Add Local Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js:127
+msgid "Add Local User"
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:64
+msgid "Add Package Repository"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js:320
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:537
+msgid "Add Permission"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:536
+msgid "Add Permissions"
+msgstr ""
+
+#: src/js/components/PlacementConstraintsPartial.js:234
+msgid "Add Placement Constraint"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js:77
+msgid "Add Provider"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:89
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:117
+#: plugins/catalog/src/js/repositories/components/RepositoriesTabUI.js:65
+msgid "Add Repository"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:233
+msgid "Add Secret"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:297
+msgid "Add Service"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:515
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:641
+msgid "Add Service Endpoint"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js:138
+msgid "Add Service to External Load Balancer"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:225
+msgid "Add Service to Load Balancer"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:33
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:55
+msgid "Add To Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupAccountMembershipTab.js:182
+#: src/js/components/modals/UserFormModal.js:78
+msgid "Add User"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:10
+msgid "Add User To Group"
+msgstr ""
+
+#: src/js/components/modals/UserFormModal.js:114
+msgid "Add User to Cluster"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:56
+msgid "Add User to Group"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:332
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:452
+msgid "Add Volume"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:572
+msgid "Add a Permission for {0}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:9
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:32
+msgid "Add to Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js:196
+msgid "Add {title} Identity Provider"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:431
+msgid "Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.js:71
+msgid "Address"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementFormPartial.js:83
+#: .dcos-ui-plugins-private/placement/components/PodPlacementConfigSection.js:81
+#: .dcos-ui-plugins-private/placement/components/ServicePlacementConfigSection.js:72
+msgid "Advanced Constraints"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:82
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:63
+msgid "Advanced Health Check Settings"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:230
+#: plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js:35
+msgid "Advanced Settings"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js:38
+msgid "Advanced settings of the container."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:233
+msgid "Advanced settings related to the runtime you have selected above."
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:37
+msgid "Affected Services"
+msgstr ""
+
+#: src/js/pages/network/VirtualNetworksTable.js:14
+msgid "Agent Prefix Length"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/NodesAgents.js:266
+#: plugins/nodes/src/js/pages/NodesMasters.js:9
+msgid "Agents"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:159
+msgid "Alive"
+msgstr ""
+
+#: src/js/pages/system/UnitsHealthTab.js:188
+msgid "All"
+msgstr ""
+
+#: src/js/components/UnitHealthDropdown.js:11
+#: src/js/components/UnitHealthDropdown.js:12
+msgid "All Health Checks"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js:154
+msgid "All stats are for the past minute"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:141
+msgid "Alphanumerical, dashes, underscores and slashes are allowed."
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:171
+msgid "Already Exists"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorMessages.js:13
+msgid "Already exists"
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:148
+msgid "An Error Occurred"
+msgstr ""
+
+#: src/js/components/ServerErrorModal.js:107
+msgid "An error has occurred"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:122
+#: plugins/catalog/src/js/repositories/RepositoriesAdd.js:25
+#: plugins/catalog/src/js/repositories/RepositoriesDelete.js:25
+#: src/js/components/ComponentList.js:102
+msgid "An error has occurred."
+msgstr ""
+
+#: src/js/components/CosmosErrorMessage.js:25
+msgid "An unknown error occurred"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:75
+msgid "Anonymous Bind"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:52
+msgid "App Reach"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:116
+msgid "App Reachability"
+msgstr ""
+
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:87
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:87
+msgid "Application"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:130
+msgid "Application Availability and Reachability"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js:11
+msgid "Application Availability and Reachability for all connections to this virtual address in the last hour."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:133
+msgid "Application Availability and Reachability per Minute"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:79
+msgid "Application Reachability"
+msgstr ""
+
+#: src/js/components/DSLFormDropdownPanel.js:91
+msgid "Apply"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobDeleteModal.js:16
+msgid "Are you sure you want to delete {jobId}? This action is irreversible."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:938
+#: src/js/components/FrameworkConfiguration.js:383
+msgid "Are you sure you want to leave this page? Any data you entered will be lost."
+msgstr ""
+
+#: src/js/components/modals/JobStopRunModal.js:59
+msgid "Are you sure you want to stop this?"
+msgstr ""
+
+#: src/js/components/modals/JobStopRunModal.js:61
+msgid "Are you sure you want to stop {selectedItemsLength} Job Runs?"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:442
+msgid "Are you sure you would like to continue and create a Pod? Any data you have already entered will be lost."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js:281
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:387
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:286
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:265
+#: .dcos-ui-plugins-private/organization/components/AccountGroupTable.js:172
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:261
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js:206
+#: .dcos-ui-plugins-private/secrets/components/SecretActionsModal.js:57
+#: plugins/services/src/js/components/DeploymentsModal.js:407
+#: src/js/constants/BulkOptions.js:15
+msgid "Are you sure?"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:226
+msgid "Args"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ArtifactsSection.js:37
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:22
+msgid "Artifact URI"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:255
+msgid "Artifact Uri"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:676
+msgid "Assign Automatically"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:660
+msgid "Assign Host Ports Automatically"
+msgstr ""
+
+#: plugins/services/src/js/containers/services/ServicesTable.js:493
+msgid "At-a-glance overview of the global application or group state. <0>Read more</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:263
+msgid "Attach metadata to expose additional information to other services."
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeStatus.js:4
+msgid "Attached"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:30
+msgid "Attempt StartTLS, abort if it fails"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:33
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:34
+msgid "Attempt StartTLS, proceed unencrypted if it fails"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:599
+msgid "Authentication"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:81
+msgid "Authentication Method"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:54
+#: plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.js:53
+msgid "Auto Assigned"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:42
+msgid "Available Agents"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js:40
+msgid "BACKEND"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js:102
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:876
+#: src/js/components/FrameworkConfiguration.js:143
+msgid "Back"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:45
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:64
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:246
+msgid "Backends"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:157
+msgid "Backoff"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:164
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:136
+msgid "Backoff Factor"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:171
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:140
+msgid "Backoff Max Launch Delay"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:132
+msgid "Backoff Seconds"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:94
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:104
+msgid "Base URI"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:72
+msgid "Bind Type"
+msgstr ""
+
+#: .dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js:77
+msgid "Bootstrap Config"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:583
+msgid "Bridge"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:298
+msgid "Built"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:29
+msgid "By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container."
+msgstr ""
+
+#: src/js/components/FrameworkConfiguration.js:192
+msgid "By running this service you agree to the <0>terms and conditions</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:122
+msgid "By which factor would you like to scale all applications within this group?"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:234
+msgid "CA Certificate"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:40
+msgid "CA certificate chain"
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:272
+msgid "CLI Only Package"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesTable.tsx:94
+#: plugins/services/src/js/components/DeclinedOffersTable.js:274
+#: plugins/services/src/js/components/RecentOffersSummary.js:14
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:10
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:4
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:4
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:128
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:102
+msgid "CPU"
+msgstr ""
+
+#: src/js/constants/DashboardHeadings.js:4
+msgid "CPU Allocation"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:247
+msgid "CPU/MEM/DSK"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:32
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:144
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:187
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:14
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:95
+msgid "CPUs"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:84
+msgid "CRON Schedule"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:231
+msgid "CSTR"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:56
+msgid "Cache"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:70
+msgid "Caches recent cluster history in-memory so that the {0} web interface can show recent data"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js:69
+msgid "Callback URL"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:198
+msgid "Can only contain alphanumeric and [-] characters."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js:87
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js:81
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:149
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:16
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:123
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js:168
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:125
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js:140
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js:78
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:178
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:84
+#: plugins/jobs/src/js/components/JobDeleteModal.js:56
+#: plugins/jobs/src/js/components/JobFormModal.tsx:44
+#: plugins/jobs/src/js/components/JobStopRunModal.js:64
+#: plugins/services/src/js/components/DeploymentsModal.js:419
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:423
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:882
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:930
+#: plugins/services/src/js/components/modals/KillPodInstanceModal.js:148
+#: plugins/services/src/js/components/modals/KillTaskModal.js:143
+#: plugins/services/src/js/components/modals/ServiceDestroyModal.js:181
+#: plugins/services/src/js/components/modals/ServiceGroupFormModal.js:74
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:137
+#: src/js/components/FormModal.js:156
+#: src/js/components/FrameworkConfiguration.js:143
+#: src/js/components/FrameworkConfiguration.js:376
+#: src/js/components/modals/JobStopRunModal.js:105
+#: src/js/components/modals/LanguagePreferenceFormModal.js:63
+#: src/js/components/modals/UserFormModal.js:73
+msgid "Cancel"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js:46
+#: plugins/services/src/js/constants/ServiceOtherLabels.js:4
+#: src/js/pages/CatalogPage.js:13
+#: src/js/pages/catalog/PackageDetailTab.js:36
+#: src/js/pages/catalog/PackagesTab.js:36
+msgid "Catalog"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/CertificatesPage.js:36
+#: .dcos-ui-plugins-private/secrets/pages/CertificatesPage.js:193
+msgid "Certificates"
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:257
+#: src/js/pages/catalog/PackagesTab.js:188
+#: src/js/pages/catalog/PackagesTab.js:201
+msgid "Certified"
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:204
+msgid "Certified packages are verified by Mesosphere for interoperability with DC/OS."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/AuthenticatedUserAccountDropdown.js:45
+msgid "Change"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js:172
+msgid "Changing the settings may lead to errors. Please check with your identity provider before making changes. All fields are required."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:573
+msgid "Choose BRIDGE, HOST, or USER networking. Refer to the <0>ports documentation</0> for more information."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountActionsModal.js:106
+msgid "Choose a group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/modals/GroupsActionsModal.js:115
+msgid "Choose a user"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:691
+msgid "Choose container/bridge, host, or container networking. Refer to the <0>ports documentation</0> for more information."
+msgstr ""
+
+#: src/js/components/modals/CliInstallModal.js:170
+msgid "Choose your operating system and follow the instructions. For any issues or questions, please refer to our <0>documentation</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceList.js:101
+msgid "Click the <0>Services tab</0> to install services."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js:54
+msgid "Client"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:104
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:105
+msgid "Client ID"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:114
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:106
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:222
+msgid "Client Secret"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js:113
+msgid "Client Secret {0}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:46
+msgid "Client certificate and private key"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:85
+msgid "Clients"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js:118
+#: .dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModal.js:23
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:541
+#: plugins/services/src/js/components/DeploymentsModal.js:534
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:369
+#: src/js/components/Modals.js:149
+#: src/js/components/ServerErrorModal.js:75
+msgid "Close"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/AuthenticatedClusterDropdown.js:61
+#: plugins/services/src/js/constants/OperatorTypes.js:21
+#: src/js/components/ClusterHeader.js:60
+#: src/js/pages/SystemOverviewPage.js:13
+#: src/js/pages/system/OverviewDetailTab.js:284
+msgid "Cluster"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:343
+msgid "Cluster Details"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js:61
+msgid "Cluster URL or Public IP"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.js:49
+msgid "Code"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:50
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:72
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:246
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:484
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:229
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:432
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:132
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:50
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:199
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:208
+msgid "Command"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:172
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:287
+msgid "Command Health Checks"
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:258
+#: src/js/pages/catalog/PackagesTab.js:188
+#: src/js/pages/catalog/PackagesTab.js:225
+msgid "Community"
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:220
+msgid "Community packages are unverified and unreviewed content from the community."
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:34
+#: plugins/services/src/js/components/dsl/TaskStatusDSLSection.js:54
+#: plugins/services/src/js/constants/PodContainerStatus.js:73
+#: plugins/services/src/js/constants/PodInstanceStatus.js:37
+msgid "Completed"
+msgstr ""
+
+#: src/js/pages/system/UnitsHealthTab.js:211
+msgid "Component"
+msgstr ""
+
+#: src/js/pages/ComponentsPage.js:13
+#: src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.js:23
+#: src/js/pages/system/UnitsHealthDetail.js:26
+#: src/js/pages/system/UnitsHealthTab.js:30
+#: src/js/pages/system/UnitsHealthTab.js:257
+msgid "Components"
+msgstr ""
+
+#: src/js/constants/DashboardHeadings.js:10
+msgid "Components Health"
+msgstr ""
+
+#: src/js/components/ComponentList.js:99
+msgid "Components Not Found"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobDetailPage.js:34
+#: plugins/jobs/src/js/pages/JobDetailPage.js:98
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:139
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:41
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:205
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:150
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:44
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:238
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:119
+msgid "Configuration"
+msgstr ""
+
+#: src/js/components/FrameworkConfigurationReviewScreen.js:79
+msgid "Configuration version"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:210
+msgid "Configure any environment values to be attached to each instance that is launched."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:605
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:733
+msgid "Configure the networking for your service."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:409
+msgid "Configure your container below. Enter a container image or command you want to run."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:351
+msgid "Configure your service below. Start by giving your service an ID."
+msgstr ""
+
+#: src/js/components/charts/HostTimeSeriesChart.js:82
+msgid "Connected Nodes"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:594
+msgid "Connection"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:146
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:121
+msgid "Connection Latency"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:120
+msgid "Connection Latency <em>(in ms)</em>"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:148
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:123
+msgid "Connection Latency per Minute"
+msgstr ""
+
+#: plugins/nodes/src/js/columns/NodesTableIpColumn.tsx:16
+#: plugins/nodes/src/js/components/NodesGridDials.js:132
+msgid "Connection to node lost"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:64
+msgid "Connection with LDAP server was successful!"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:153
+msgid "Consecutive failures"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:230
+msgid "Constraint"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:13
+msgid "Constraints"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/PlacementSection.js:50
+msgid "Constraints control where apps run to allow optimization for either fault tolerance or locality."
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementFormPartial.js:86
+msgid "Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/PlacementSection.js:16
+msgid "Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:406
+#: plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.js:87
+#: plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.js:30
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:41
+#: plugins/services/src/js/service-configuration/PodLabelsConfigSection.js:32
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:18
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:72
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:67
+msgid "Container"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:94
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:247
+msgid "Container Artifacts"
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:31
+msgid "Container Configuration"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.js:35
+msgid "Container ID"
+msgstr ""
+
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js:27
+msgid "Container IP"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:110
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:75
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:152
+msgid "Container Image"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:55
+msgid "Container Mount Path"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:147
+msgid "Container Name"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:40
+#: .dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js:77
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:52
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:66
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:152
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:269
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:71
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:85
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:106
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:140
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:157
+msgid "Container Path"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:81
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:408
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:126
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:158
+msgid "Container Port"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:215
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:93
+msgid "Container Runtime"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:31
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:176
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:43
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:115
+#: plugins/services/src/js/service-configuration/PodContainersConfigSection.js:45
+msgid "Containers"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-instances/PodInstancesTable.js:447
+msgid "Containers: {0}, Executor: {1}"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:100
+msgid "Contains extraneous property `||name||`"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:423
+msgid "Continue Rollback"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementFormPartial.js:97
+msgid "Control where your app runs with advanced rules and constraint attributes"
+msgstr ""
+
+#: src/js/components/ClipboardTrigger.js:92
+#: src/js/components/ClusterHeader.js:86
+msgid "Copied!"
+msgstr ""
+
+#: src/js/components/ClusterHeader.js:86
+msgid "Copy"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:47
+msgid "Copy and paste client certificate here."
+msgstr ""
+
+#: src/js/components/modals/CliInstallModal.js:92
+msgid "Copy and paste the code snippet into the terminal:"
+msgstr ""
+
+#: src/js/components/ClipboardTrigger.js:93
+msgid "Copy to clipboard"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobDeleteModal.js:22
+msgid "Couldn't delete {jobId} as there are currently active job runs. Do you want to stop all runs and delete the job?"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:145
+#: src/js/components/FormModal.js:161
+msgid "Create"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:117
+msgid "Create Account"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:232
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:134
+msgid "Create External Load Balancer"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceGroupFormModal.js:79
+#: plugins/services/src/js/components/modals/ServiceGroupFormModal.js:93
+#: plugins/services/src/js/containers/services/ServiceTreeView.js:107
+msgid "Create Group"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:254
+msgid "Create Job"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupFormModal.js:88
+msgid "Create New Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:193
+msgid "Create New Secret"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/hooks.js:134
+msgid "Create New User"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:206
+msgid "Create Service Account"
+msgstr ""
+
+#: plugins/services/src/js/containers/services/EmptyServiceTree.js:11
+msgid "Create a Group"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobsOverviewEmpty.tsx:35
+msgid "Create a Job"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobsOverviewList.tsx:40
+msgid "Create a job"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:321
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:441
+msgid "Create a stateful service by configuring a persistent volume. Persistent volumes enable instances to be restarted without data loss."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:147
+msgid "Create an external load balancer for your services."
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobsOverviewEmpty.tsx:29
+msgid "Create both one-off or scheduled jobs to perform tasks at a predefined interval."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/SecretDetail.js:233
+#: plugins/services/src/js/constants/PodContainerStatus.js:7
+#: plugins/services/src/js/constants/TaskStates.js:6
+msgid "Created"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:171
+msgid "Cryptographic Cluster ID"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-configuration/PodConfigurationContainer.js:22
+msgid "Current Version ({localeVersion})"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:164
+msgid "Currently Deploying Package"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:5
+msgid "DC/OS Storage Volume"
+msgstr ""
+
+#: src/js/components/RequestErrorMsg.js:50
+msgid "DC/OS UI cannot retrieve the requested information at this moment."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:176
+msgid "DC/OS also exposes environment variables for host ports and metdata. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:652
+msgid "DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:628
+msgid "DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints."
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceStatusIcon.js:109
+msgid "DC/OS has been unable to complete this deployment for {0}."
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceStatusIcon.js:44
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:216
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:297
+msgid "DC/OS has been waiting for resources and is unable to complete this deployment for {0}."
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceStatusWarningWithDebugInstruction.js:11
+msgid "DC/OS has been waiting for resources and is unable to complete this deployment for {0}. See more information in the debug tab."
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceStatusIcon.js:72
+msgid "DC/OS is waiting for resources and is unable to complete the deployment of {appsWithWarningsCount} {0} in this group."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:268
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:414
+msgid "DC/OS offers several storage options. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.js:77
+msgid "DNS"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:304
+msgid "DSK"
+msgstr ""
+
+#: src/js/pages/DashboardPage.js:48
+#: src/js/pages/DashboardPage.js:64
+msgid "Dashboard"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:42
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:208
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:45
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:241
+msgid "Debug"
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceStatusIcon.js:30
+msgid "Debug information"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:250
+msgid "Declined"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:439
+msgid "Define the permission in a string format. If the permission also includes an action, specify the action that should be allowed. Refer to <0>the documentation</0> for more details."
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:8
+msgid "Delayed"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:186
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:138
+#: .dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js:185
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:22
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:45
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:68
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:143
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:296
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:315
+#: .dcos-ui-plugins-private/secrets/components/SecretsTable.js:47
+#: plugins/jobs/src/js/jobsMenu.js:16
+#: plugins/services/src/js/components/modals/ServiceDestroyModal.js:173
+#: plugins/services/src/js/constants/ServiceActionLabels.js:5
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:183
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:222
+#: src/js/components/form/DeleteRowButton.js:10
+#: src/js/components/form/FormGroupContainer.js:15
+#: src/js/constants/BulkOptions.js:11
+msgid "Delete"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js:230
+msgid "Delete Action"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:26
+#: plugins/services/src/js/components/modals/DisabledGroupDestroyModal.js:18
+msgid "Delete Group"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobDeleteModal.js:7
+#: plugins/jobs/src/js/components/JobDeleteModal.js:30
+msgid "Delete Job"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js:37
+#: plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js:40
+msgid "Delete Repository"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:49
+msgid "Delete Service Account"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:72
+msgid "Delete User"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceDestroyModal.js:202
+msgid "Delete {serviceLabel}"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js:88
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:10
+msgid "Deleting"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:211
+msgid "Dependencies"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js:57
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:5
+msgid "Deploying"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:542
+msgid "Deployment"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:542
+msgid "Deployments"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:26
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:73
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:102
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:113
+#: .dcos-ui-plugins-private/organization/components/OrganizationTab.js:350
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:151
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:164
+#: .dcos-ui-plugins-private/secrets/pages/SecretDetail.js:211
+#: plugins/jobs/src/js/pages/JobConfiguration.js:26
+msgid "Description"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:70
+msgid "Destination Path"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeStatus.js:5
+msgid "Detached"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:59
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:46
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:255
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:258
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:49
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:286
+#: plugins/jobs/src/js/pages/JobTaskDetailPage.js:25
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:38
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:188
+#: plugins/nodes/src/js/pages/nodes/NodesTaskDetailPage.js:38
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:52
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:53
+#: plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.js:22
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js:65
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js:156
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js:78
+msgid "Details"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:131
+msgid "Did not find a node by the id \"{nodeID}\""
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskDetail.js:286
+msgid "Did not find a {item} with id \"{itemID}\""
+msgstr ""
+
+#: plugins/jobs/src/js/jobsToggleSchedule.js:20
+msgid "Disable Schedule"
+msgstr ""
+
+#: plugins/services/src/js/components/ConfigurationMapBooleanValue.js:38
+msgid "Disabled"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:933
+#: src/js/components/FrameworkConfiguration.js:378
+msgid "Discard"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:925
+#: src/js/components/FrameworkConfiguration.js:371
+msgid "Discard Changes?"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesTable.tsx:98
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:128
+#: plugins/services/src/js/components/DeclinedOffersTable.js:304
+#: plugins/services/src/js/components/RecentOffersSummary.js:17
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:5
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:6
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:109
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:117
+msgid "Disk"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:242
+msgid "Disk (MiB)"
+msgstr ""
+
+#: src/js/constants/DashboardHeadings.js:7
+msgid "Disk Allocation"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:44
+msgid "Disk Space (Mib)"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:106
+msgid "Docker Container"
+msgstr ""
+
+#: plugins/services/src/js/constants/ContainerConstants.js:9
+msgid "Docker Engine"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:117
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:255
+msgid "Docker Engine does not support GPU resources, please select Universal Container Runtime (UCR) if you want to use GPU resources."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:214
+msgid "Docker Runtime only supports the default size for implicit volumes, please select Universal Container Runtime (UCR) if you want to modify the size."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:49
+msgid "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
+msgstr ""
+
+#: src/js/components/ClusterHeader.js:142
+msgid "Documentation"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:60
+msgid "Don't run app tasks on a particular set of attribute IDs"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js:80
+msgid "Download"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-configuration/ServiceConfiguration.js:247
+#: src/js/components/FrameworkConfigurationReviewScreen.js:162
+msgid "Download Config"
+msgstr ""
+
+#: src/js/pages/system/UnitsHealthTab.js:234
+msgid "Download Snapshot"
+msgstr ""
+
+#: src/js/components/modals/CliInstallModal.js:135
+msgid "Download and install: <0><1/> Download dcos.exe</0>."
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskFileViewer.js:193
+msgid "Download log file"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:103
+msgid "Downloads and extracts the {0} bootstrap tarball into /opt/mesosphere on your nodes."
+msgstr ""
+
+#: plugins/services/src/js/constants/TaskStates.js:71
+msgid "Dropped"
+msgstr ""
+
+#: src/js/components/PlacementConstraintsPartial.js:106
+msgid "E.g hostname."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:175
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:133
+#: .dcos-ui-plugins-private/placement/components/RegionConstraintsSection.js:14
+#: .dcos-ui-plugins-private/placement/components/ZoneConstraintsSection.js:14
+#: .dcos-ui-plugins-private/secrets/components/ServiceConfigSecretsSectionDisplay.js:86
+#: plugins/jobs/src/js/jobsMenu.js:8
+#: plugins/services/src/js/components/ConfigurationMapTable.js:144
+#: plugins/services/src/js/constants/ServiceActionLabels.js:4
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:156
+#: plugins/services/src/js/containers/pod-detail/PodHeader.js:67
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:189
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:122
+#: plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.js:71
+#: plugins/services/src/js/service-configuration/ServiceEnvironmentVariablesConfigSection.js:93
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:282
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:168
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:275
+#: plugins/services/src/js/service-configuration/ServiceLabelsConfigSection.js:82
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:207
+#: src/js/pages/settings/UISettingsPage.js:72
+msgid "Edit"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-configuration/ServiceConfiguration.js:230
+#: src/js/components/FrameworkConfigurationReviewScreen.js:145
+msgid "Edit Config"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceNoEndpointsPanel.js:18
+#: src/js/components/FrameworkConfiguration.js:291
+msgid "Edit Configuration"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:137
+msgid "Edit Directory"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:231
+msgid "Edit External Load Balancer"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:254
+msgid "Edit Job ({0})"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:192
+msgid "Edit Secret"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:587
+msgid "Edit Service"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:204
+msgid "Edit Service Account"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js:127
+msgid "Edit User"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:585
+msgid "Edit {0}"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:162
+msgid "Editing this service is only available on <0>Mesosphere Enterprise DC/OS</0>."
+msgstr ""
+
+#: plugins/nodes/src/js/components/LeaderGrid.js:73
+#: src/js/pages/system/OverviewDetailTab.js:308
+msgid "Elected"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:230
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:185
+msgid "Enable Load Balanced Service Address"
+msgstr ""
+
+#: plugins/jobs/src/js/jobsToggleSchedule.js:21
+msgid "Enable Schedule"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:78
+#: plugins/services/src/js/components/ConfigurationMapBooleanValue.js:37
+msgid "Enabled"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:209
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:242
+msgid "Endpoints"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.js:159
+msgid "Endpoints for {0} will appear here once it is fully deployed and running."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:29
+msgid "Enforce StartTLS for all connections"
+msgstr ""
+
+#: src/js/components/modals/CliInstallModal.js:117
+msgid "Enter"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:91
+msgid "Enter a Docker image or browse <0>Docker Hub</0> to find more. You can also enter an image from your private registry. <1>More information</1>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:176
+msgid "Enter a Docker image you want to run, e.g. nginx."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceGroupFormModal.js:104
+msgid "Enter a name for the new group under <0>{parentGroupId}</0>"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:320
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:271
+msgid "Enter a path that is reachable in your service and where you expect a response code between 200 and 399."
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/FuzzyTextDSLSection.js:106
+msgid "Enter words found in name"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js:89
+msgid "EntityID"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:206
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:498
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:514
+msgid "Environment"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:217
+#: plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.js:77
+#: plugins/services/src/js/service-configuration/ServiceEnvironmentVariablesConfigSection.js:43
+msgid "Environment Variables"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:22
+msgid "Environment variables"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:34
+msgid "Ephemeral Storage"
+msgstr ""
+
+#: plugins/services/src/js/constants/PodContainerStatus.js:49
+#: plugins/services/src/js/constants/TaskStates.js:56
+msgid "Error"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:128
+msgid "Error finding node"
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskDetail.js:283
+msgid "Error finding {item}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js:61
+msgid "Exceeded licensed node count on ${numberBreaches} occasions."
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js:57
+msgid "Exceeded licensed node count on one occasion."
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:28
+msgid "Executable"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:218
+msgid "Executor"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/CertificatesTable.js:55
+msgid "Expires"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:165
+msgid "Extended Runtime Priv."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/OrganizationTab.js:163
+msgid "External"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:329
+msgid "External LDAP Configuration"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:20
+msgid "External Persistent Volume"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:42
+msgid "Extract"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js:44
+msgid "FAILURE %"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js:43
+msgid "FAILURES"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:14
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:16
+msgid "FALSE"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:24
+#: plugins/services/src/js/constants/PodContainerStatus.js:55
+#: plugins/services/src/js/constants/TaskStates.js:46
+msgid "Failed"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:45
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:51
+msgid "Failure %"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:44
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js:43
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:77
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:98
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:50
+msgid "Failures"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js:44
+msgid "Failure %"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementConstraintsFields.js:86
+#: src/js/components/PlacementConstraintsPartial.js:86
+msgid "Field"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/AdvancedConstraintsSection.js:17
+#: plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.js:24
+#: plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.js:23
+msgid "Field Name"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobTaskDetailPage.js:26
+#: plugins/nodes/src/js/pages/nodes/NodesTaskDetailPage.js:39
+#: plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.js:149
+#: plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.js:23
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js:82
+msgid "Files"
+msgstr ""
+
+#: src/js/components/DSLInputField.js:285
+msgid "Filter"
+msgstr ""
+
+#: plugins/services/src/js/components/FilterByService.js:77
+msgid "Filter by Service"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:105
+#: plugins/services/src/js/constants/TaskStates.js:36
+msgid "Finished"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:129
+msgid "First success"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:189
+msgid "For example, you could label services “staging” and “production” to mark them by their position in the pipeline. <0>More information</0>."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js:89
+msgid "For information and instructions on how to create virtual IPs see <0>networking documentation</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:252
+msgid "For {otherServicesList}: Copy the JSON below into a file called <0>options.json</0>. <1>More information</1>"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:280
+msgid "For {sdkServicesList} : Create <0><package-name>-options.json</0> files for each service. Here is a sample options file . <1>More information</1>"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/KillPodInstanceModal.js:121
+#: plugins/services/src/js/components/modals/KillTaskModal.js:122
+msgid "Force"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:39
+#: plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js:24
+msgid "Force Docker to pull the image before launching each instance."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:38
+#: plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.js:22
+msgid "Force Pull Image On Launch"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:182
+msgid "Force Pull on Launch"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:769
+msgid "Force Run Service"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:42
+msgid "Force pull image on launch option isn't supported by selected runtime."
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:82
+msgid "Force pull on launch"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/OrganizationTab.js:349
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js:98
+msgid "Full Name"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesTable.tsx:100
+#: plugins/services/src/js/components/DeclinedOffersTable.js:321
+#: plugins/services/src/js/components/RecentOffersSummary.js:15
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:6
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:5
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:149
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:128
+msgid "GPU"
+msgstr ""
+
+#: src/js/constants/DashboardHeadings.js:5
+msgid "GPU Allocation"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:152
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:140
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:116
+msgid "GPUs"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:16
+#: src/js/pages/system/OverviewDetailTab.js:346
+msgid "General"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:383
+msgid "Give your service a unique name within the cluster, e.g. my-service."
+msgstr ""
+
+#: plugins/services/src/js/components/LogView.js:301
+msgid "Go to bottom"
+msgstr ""
+
+#: plugins/services/src/js/constants/TaskStates.js:61
+msgid "Gone"
+msgstr ""
+
+#: plugins/services/src/js/constants/TaskStates.js:66
+msgid "Gone by operator"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:16
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:120
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:227
+msgid "Grace Period"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:93
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:74
+msgid "Grace Period (s)"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:28
+msgid "Grant Runtime Privileges"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.js:32
+msgid "Grant runtime privileges option isn't supported by selected runtime."
+msgstr ""
+
+#: plugins/nodes/src/js/pages/NodesAgents.js:235
+msgid "Grid"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:348
+#: plugins/services/src/js/components/modals/ServiceRestartModal.js:91
+#: plugins/services/src/js/components/modals/ServiceStopModal.js:91
+msgid "Group"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:31
+msgid "Group By"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountGroupTable.js:87
+msgid "Group ID"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:604
+msgid "Group Import (Optional)"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:48
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:279
+msgid "Group Membership"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js:118
+msgid "Group Name"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:61
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:187
+msgid "Group Search"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:64
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:65
+msgid "Group Search Base"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:68
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:69
+msgid "Group Search Filter Template"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupFormModal.js:65
+#: plugins/services/src/js/components/modals/ServiceGroupFormModal.js:57
+msgid "Group name"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceGroupFormModal.js:63
+msgid "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js:153
+msgid "Group {successMsg} added."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:34
+#: .dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js:40
+#: .dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js:202
+msgid "Groups"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:23
+msgid "HEALTHY"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:485
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:433
+msgid "HTTP"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/FuzzyTextDSLSection.js:100
+msgid "Has the words"
+msgstr ""
+
+#: plugins/nodes/src/js/components/HealthTab.js:58
+#: plugins/nodes/src/js/components/NodesTable.tsx:84
+#: plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.js:34
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:37
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:181
+#: plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js:35
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:9
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:14
+#: src/js/components/UnitHealthNodesTable.js:36
+#: src/js/pages/system/UnitsHealthTab.js:149
+msgid "Health"
+msgstr ""
+
+#: plugins/nodes/src/js/components/HealthTab.js:59
+#: plugins/nodes/src/js/components/HealthTab.js:143
+#: src/js/pages/system/UnitsHealthDetail.js:190
+msgid "Health Check"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:123
+msgid "Health Check Result {healthCheckResultNum}"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:521
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:488
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:493
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:509
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:143
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:70
+msgid "Health Checks"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:82
+msgid "Health check grace periods"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:86
+msgid "Health check intervals"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:94
+msgid "Health check max failures"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:90
+msgid "Health check timeouts"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:536
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:525
+msgid "Health checks may be specified per application to be run against the application's instances."
+msgstr ""
+
+#: plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.js:45
+#: plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js:46
+#: plugins/services/src/js/constants/TaskHealthStates.js:4
+#: plugins/services/src/js/containers/pod-instances/PodInstancesTable.js:414
+#: src/js/constants/UnitHealthStatus.js:18
+#: src/js/pages/system/UnitsHealthTab.js:192
+msgid "Healthy"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js:40
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:5
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:6
+#: plugins/nodes/src/js/components/NodesTable.tsx:82
+#: plugins/services/src/js/components/DeclinedOffersTable.js:195
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:57
+#: plugins/services/src/js/components/PodVolumeTable.js:67
+#: plugins/services/src/js/components/VolumeTable.js:66
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:560
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:582
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:7
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:99
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:103
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:97
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:19
+msgid "Host"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:242
+msgid "Host Name"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:222
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:136
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:61
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:153
+msgid "Host Path"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:141
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:112
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:132
+#: plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.js:81
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:119
+msgid "Host Port"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:27
+msgid "Host Volume"
+msgstr ""
+
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:5
+msgid "Host/Port"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:129
+msgid "How many instances?"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:174
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:210
+#: plugins/jobs/src/js/pages/JobConfiguration.js:20
+#: plugins/jobs/src/js/pages/JobConfiguration.js:72
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:70
+#: plugins/services/src/js/components/PodVolumeTable.js:66
+#: plugins/services/src/js/components/VolumeTable.js:65
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:11
+msgid "ID"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:248
+msgid "IP"
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskIpAddressesRow.js:41
+msgid "IP Addresses"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:53
+msgid "IP Reach"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:80
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:118
+msgid "IP Reachability"
+msgstr ""
+
+#: src/js/pages/network/VirtualNetworksTable.js:13
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js:28
+msgid "IP Subnet"
+msgstr ""
+
+#: plugins/nodes/src/js/components/LeaderGrid.js:37
+msgid "IP and Port"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:359
+msgid "IPs"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:295
+msgid "IPv6"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:38
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:115
+msgid "IdP Metadata"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js:191
+msgid "Identity Provider Settings"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js:41
+#: .dcos-ui-plugins-private/auth-providers/pages/AuthProvidersTab.js:35
+#: .dcos-ui-plugins-private/auth-providers/pages/AuthProvidersTab.js:181
+msgid "Identity Providers"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:41
+msgid "If a client certificate is added, a CA certificate chain is required."
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/RegionSelection.js:101
+msgid "If left undefined this will run in your local region."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:119
+msgid "If you are using the Mesos containerizer, this must be a single-level path relative to the container. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ArtifactsSection.js:21
+msgid "If your service requires additional files and/or archives of files, enter their URIs to download and, if necessary, extract these resources. <0>More information</0>."
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:110
+msgid "Image"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js:149
+msgid "Import LDAP Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js:182
+msgid "Import LDAP Groups"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js:131
+msgid "Import LDAP User"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js:154
+msgid "Import LDAP Users"
+msgstr ""
+
+#: src/js/components/modals/CliInstallModal.js:116
+msgid "In Command Prompt, enter"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:332
+msgid "Include the path to your service, if applicable. E.g. /dev/tools/my-service <0>More information</0>."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:577
+msgid "Insert Permission String"
+msgstr ""
+
+#: src/js/components/ClusterHeader.js:149
+msgid "Install CLI"
+msgstr ""
+
+#: src/js/components/Modals.js:143
+msgid "Install DC/OS CLI"
+msgstr ""
+
+#: src/js/components/CreateServiceModalCatalogPanelOption.js:24
+msgid "Install a Package"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:178
+msgid "Install {dcosLBPackageName}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:197
+msgid "Install {dcosLBPackageName} to enable this capability."
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-instances/PodInstancesView.js:158
+msgid "Instance"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:99
+msgid "Instance ID"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:395
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:10
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:11
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:123
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:89
+msgid "Instances"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:23
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:127
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:234
+msgid "Interval"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:129
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:108
+msgid "Interval (s)"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:149
+msgid "Invalid JSON syntax"
+msgstr ""
+
+#: src/js/components/YamlEditorSchemaField.js:22
+msgid "Invalid base64 encoding detected."
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:41
+msgid "Is"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:83
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:103
+msgid "Issuer"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceJsonOnly.js:102
+#: plugins/services/src/js/components/modals/CreateServiceModalServicePicker.js:51
+msgid "JSON Configuration"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:802
+#: src/js/components/FrameworkConfiguration.js:173
+msgid "JSON Editor"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:61
+msgid "JSON mode"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:102
+msgid "Job ID"
+msgstr ""
+
+#: plugins/jobs/src/js/components/Breadcrumbs.js:14
+#: plugins/jobs/src/js/components/JobsOverviewList.tsx:38
+#: src/js/pages/JobsPage.js:19
+msgid "Jobs"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:38
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:112
+#: plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.js:18
+#: plugins/services/src/js/service-configuration/PodLabelsConfigSection.js:20
+#: plugins/services/src/js/service-configuration/ServiceEnvironmentVariablesConfigSection.js:52
+#: plugins/services/src/js/service-configuration/ServiceLabelsConfigSection.js:46
+msgid "Key"
+msgstr ""
+
+#: plugins/services/src/js/constants/PodContainerStatus.js:67
+#: plugins/services/src/js/constants/PodInstanceStatus.js:31
+#: plugins/services/src/js/constants/TaskStates.js:41
+msgid "Killed"
+msgstr ""
+
+#: plugins/services/src/js/constants/PodContainerStatus.js:61
+#: plugins/services/src/js/constants/TaskStates.js:31
+msgid "Killing"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:78
+msgid "LDAP Credentials"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:39
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:382
+msgid "LDAP Directory"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:115
+msgid "LDAP Password"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:103
+msgid "LDAP Username"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:123
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:249
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:173
+#: plugins/services/src/js/service-configuration/PodLabelsConfigSection.js:81
+#: plugins/services/src/js/service-configuration/ServiceLabelsConfigSection.js:37
+msgid "Labels"
+msgstr ""
+
+#: src/js/pages/settings/UISettingsPage.js:65
+msgid "Language"
+msgstr ""
+
+#: src/js/components/modals/LanguagePreferenceFormModal.js:78
+msgid "Language Preference"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:137
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:358
+msgid "Last Changes"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobsOverviewTable.js:264
+msgid "Last Failure:"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobTableHeaderLabels.js:6
+msgid "Last Run"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.js:42
+msgid "Last State"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobsOverviewTable.js:250
+msgid "Last Success:"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:362
+msgid "Last Task Failure"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:80
+msgid "Last Termination (<0/>)"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:67
+msgid "Last Terminations"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:145
+msgid "Last failure"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:137
+msgid "Last success"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js:8
+msgid "Latency distribution (in milliseconds) for all connections to this virtual address in the last hour."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js:22
+msgid "Latency distribution (in milliseconds) for all connections to virtual addresses redirected to this backend in the last hour."
+msgstr ""
+
+#: plugins/nodes/src/js/components/LeaderGrid.js:32
+#: src/js/pages/system/OverviewDetailTab.js:288
+msgid "Leader"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/LearnMoreTooltip.js:12
+#: plugins/services/src/js/components/RecentOffersSummary.js:208
+msgid "Learn more"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js:75
+msgid "License Expiration"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:51
+msgid "Like"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js:58
+msgid "Link a cluster to switch between clusters."
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModal.js:12
+#: .dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js:26
+#: .dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js:128
+msgid "Linked Clusters"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/NodesAgents.js:225
+msgid "List"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:144
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:65
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:130
+msgid "Load Balanced Address"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:324
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:279
+msgid "Load Balanced Port"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:209
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:161
+msgid "Load balance the service internally (layer 4), and create a service address. For external (layer 7) load balancing, create an external load balancer and attach this service. <0>More Information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:312
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:267
+msgid "Load balance this service internally at {hostName}"
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:293
+msgid "Loading selected version"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:12
+msgid "Local Persistent Volume"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/LoginModal.js:114
+msgid "Log In"
+msgstr ""
+
+#: src/js/components/AccessDeniedPage.js:32
+msgid "Log out"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/LoginModal.js:116
+msgid "Logging In..."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/LoginModal.js:162
+msgid "Login to your account"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js:57
+msgid "Login with"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:81
+msgid "Logrotate allows for the automatic rotation compression, removal, and mailing of log files."
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobTaskDetailPage.js:27
+#: plugins/nodes/src/js/pages/nodes/NodesTaskDetailPage.js:40
+#: plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.js:24
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js:86
+msgid "Logs"
+msgstr ""
+
+#: src/js/components/modals/ErrorModal.js:24
+msgid "Looks Like Something is Wrong"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:17
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:18
+msgid "Lookup DN"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:21
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:22
+msgid "Lookup Password"
+msgstr ""
+
+#: plugins/services/src/js/constants/PodContainerStatus.js:79
+#: plugins/services/src/js/constants/TaskStates.js:51
+msgid "Lost"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:26
+msgid "MEDIAN LIFETIME"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:140
+msgid "Machine Availability and Reachability"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js:14
+msgid "Machine Availability and Reachability for all connections to this virtual address in the last hour."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:143
+msgid "Machine Availability and Reachability per Minute"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:92
+msgid "Makes vendored {0} binaries, such as the mesos-master, mesos-slave, available at the command line when SSHing to a host."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:59
+msgid "Manages {0} in-cluster Zookeeper, used by Mesos as well as {1} Marathon."
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:53
+msgid "Marathon Task Configuration"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:95
+msgid "Master Version"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/NodesAgents.js:267
+#: plugins/nodes/src/js/pages/NodesMasters.js:10
+msgid "Masters"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:246
+msgid "Matched"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:197
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:176
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:37
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:142
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:249
+msgid "Max Failures"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:69
+msgid "Max Per"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorMessages.js:32
+#: plugins/services/src/js/constants/ServiceErrorMessages.js:39
+msgid "May only contain digits (0-9), dashes (-) and lowercase letters (a-z) e.g. web-server"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorMessages.js:18
+msgid "May only contain digits (0-9), dashes (-), dots (.),lowercase letters (a-z), and slashes (/) e.g. /group/my-service"
+msgstr ""
+
+#: src/js/components/ImageViewer.js:71
+msgid "Media"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesTable.tsx:96
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:136
+#: plugins/services/src/js/components/DeclinedOffersTable.js:289
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:11
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:7
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:10
+msgid "Mem"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:16
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:18
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:102
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:135
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:106
+msgid "Memory"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:38
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:205
+msgid "Memory (MiB)"
+msgstr ""
+
+#: src/js/constants/DashboardHeadings.js:6
+msgid "Memory Allocation"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:23
+msgid "Mesos DNS provides service discovery within the cluster."
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:350
+msgid "Mesos Details"
+msgstr ""
+
+#: plugins/nodes/src/js/components/LeaderGrid.js:49
+msgid "Mesos Version"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeDefinitions.js:36
+msgid "Mesos default for allocating temporary disk space to a service. Enough for many stateless or semi-stateless 12-factor and cloud native applications."
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.js:56
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:103
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:93
+msgid "Message"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:96
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:105
+msgid "Minutes ago"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:177
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:77
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:161
+msgid "Mode"
+msgstr ""
+
+#: plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js:8
+msgid "Modified"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:119
+msgid "More Information"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:97
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:424
+msgid "More Settings"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js:101
+#: plugins/services/src/js/components/DeploymentsModal.js:313
+#: plugins/services/src/js/containers/services/ServicesTable.js:350
+msgid "More actions"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:374
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:331
+msgid "Most services will use TCP. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModalServicePicker.js:37
+msgid "Multi-container (Pod)"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:130
+msgid "Must be a boolean value"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:184
+msgid "Must be a certain shape: ||shape||"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:135
+msgid "Must be a date/time string"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:150
+msgid "Must be a number"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:66
+msgid "Must be a positive integer between 0 and {numberOfRepositories} representing its priority. 0 is the highest and {numberOfRepositories} denotes the lowest priority."
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:160
+msgid "Must be a string"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:125
+msgid "Must be an array"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:140
+msgid "Must be an integer number"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:155
+msgid "Must be an object"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:65
+msgid "Must be at least ||value|| characters long"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:60
+msgid "Must be at most ||value|| characters long"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:75
+msgid "Must be bigger than or equal to ||value||"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/validators/SecretsValidators.js:21
+#: plugins/services/src/js/constants/ServiceErrorMessages.js:8
+#: src/js/constants/DefaultErrorMessages.js:105
+msgid "Must be defined"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:80
+msgid "Must be multiple of ||value||"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:145
+msgid "Must be null"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:85
+msgid "Must be of type `||type||`"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:40
+msgid "Must be one of ||values||"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:70
+msgid "Must be smaller than or equal to ||value||"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:115
+msgid "Must contain a property that matches `||pattern||`"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:50
+msgid "Must contain at least ||value|| items in the array"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:95
+msgid "Must contain at least ||value|| properties"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:45
+msgid "Must contain at most ||value|| items in the array"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:90
+msgid "Must contain at most ||value|| properties"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:55
+msgid "Must contain only unique items"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:110
+msgid "Must define property `||name||`"
+msgstr ""
+
+#: src/js/constants/DefaultErrorMessages.js:120
+msgid "Must match the pattern `||pattern||`"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:251
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:332
+#: plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js:55
+#: plugins/services/src/js/constants/PodContainerStatus.js:85
+#: plugins/services/src/js/constants/PodInstanceStatus.js:43
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:7
+#: src/js/constants/UnitHealthStatus.js:39
+msgid "N/A"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersTable.js:35
+#: .dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js:60
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:106
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:342
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:195
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:41
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:75
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:48
+#: .dcos-ui-plugins-private/secrets/components/CertificatesTable.js:53
+#: .dcos-ui-plugins-private/secrets/components/SecretStoresTable.js:79
+#: plugins/jobs/src/js/constants/JobTableHeaderLabels.js:4
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:194
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:252
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:4
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:8
+#: plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js:4
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:12
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:47
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:98
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:136
+#: src/js/constants/RepositoriesTableHeaderLabels.js:4
+#: src/js/pages/network/VirtualNetworksTable.js:12
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetailsTab.js:22
+#: src/js/pages/system/UnitsHealthTab.js:139
+msgid "Name"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:471
+msgid "Name your endpoint to search for it by a meaningful name, rather than the port number."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:142
+msgid "Need to run a service with multiple containers? <0>Add another container</0>."
+msgstr ""
+
+#: src/js/pages/network/VirtualNetworksTab.js:149
+msgid "Network"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:56
+msgid "Network Mode"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:145
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:60
+msgid "Network Name"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:611
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:739
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:138
+msgid "Network Type"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:603
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:715
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:730
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:487
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:504
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:129
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:51
+#: src/js/pages/NetworkPage.js:75
+msgid "Networking"
+msgstr ""
+
+#: src/js/pages/NetworkPage.js:23
+#: src/js/pages/network/VirtualNetworksTab.js:27
+#: src/js/pages/network/VirtualNetworksTab.js:176
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js:23
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.js:25
+msgid "Networks"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:35
+msgid "Never"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js:138
+msgid "New Group"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:254
+msgid "New Job"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretsError.js:26
+#: .dcos-ui-plugins-private/secrets/pages/SecretsPage.js:314
+msgid "New Secret"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js:128
+msgid "New Service Account"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js:120
+msgid "New User"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:117
+msgid "No"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceNoEndpointsPanel.js:12
+msgid "No Endpoints"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:145
+msgid "No External Load Balancers"
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceList.js:98
+msgid "No Services Running"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:384
+msgid "No active deployments"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobsOverviewEmpty.tsx:27
+msgid "No active jobs"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainersConfigSection.js:33
+msgid "No containers specified! Please specify at least one container when creating a multi-container definition!"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:343
+msgid "No directory configured"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountGroupMembershipTab.js:143
+msgid "No groups to add"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-instances/PodInstancesTable.js:421
+#: plugins/services/src/js/containers/tasks/TaskTable.js:382
+msgid "No health checks available"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js:56
+msgid "No linked clusters"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js:87
+msgid "No networks detected"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/NodesAgents.js:302
+msgid "No nodes detected"
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:49
+msgid "No package repositories"
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:235
+msgid "No results were found for your search: \"{0}\" (<0>view all</0>)"
+msgstr ""
+
+#: plugins/services/src/js/containers/services/EmptyServiceTree.js:33
+msgid "No running services"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:235
+msgid "No services found"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupAccountMembershipTab.js:177
+msgid "No users to add"
+msgstr ""
+
+#: src/js/pages/network/VirtualNetworksTab.js:90
+msgid "No virtual networks detected"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.js:200
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:96
+#: src/js/components/UnitHealthNodesTable.js:37
+msgid "Node"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js:103
+msgid "Node Capacity"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodeBreadcrumbs.js:17
+#: plugins/nodes/src/js/pages/NodesAgents.js:69
+#: plugins/nodes/src/js/pages/NodesPage.js:13
+#: src/js/constants/DashboardHeadings.js:11
+msgid "Nodes"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NonLeadersGrid.js:70
+msgid "Non-Leaders"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:19
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:113
+msgid "None"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PodPlacementConfigSection.js:51
+#: .dcos-ui-plugins-private/placement/components/ServicePlacementConfigSection.js:28
+#: plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.js:46
+#: plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.js:41
+msgid "Not Applicable"
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeProfile.js:4
+msgid "Not Available"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:87
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:68
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:144
+msgid "Not Enabled"
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceItemNotFound.js:30
+msgid "Not Found."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:348
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:180
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:219
+msgid "Number of Agents"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/ZoneConstraintsSection.js:37
+#: .dcos-ui-plugins-private/placement/components/ZoneSelection.js:24
+msgid "Number of Zones"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/ZoneSelection.js:36
+msgid "Number of zones to evenly distribute instances across."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/DisabledGroupDestroyModal.js:11
+msgid "OK"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:152
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:224
+msgid "Offers will appear here when your service is deploying or waiting for resources."
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceActionLabels.js:8
+#: src/js/pages/catalog/PackageDetailTab.js:423
+msgid "Open Service"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js:7
+#: .dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js:9
+msgid "OpenID Connect"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/AdvancedConstraintsSection.js:13
+#: .dcos-ui-plugins-private/placement/components/PlacementConstraintsFields.js:87
+#: plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.js:18
+#: plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.js:17
+#: src/js/components/PlacementConstraintsPartial.js:87
+msgid "Operator"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:204
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:529
+msgid "Optional"
+msgstr ""
+
+#: src/js/pages/OrganizationPage.js:13
+msgid "Organization"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesGridView.tsx:47
+#: plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js:35
+msgid "Other"
+msgstr ""
+
+#: src/js/pages/system/units-health-node-detail/NodeInfoPanel.js:30
+msgid "Output"
+msgstr ""
+
+#: src/js/components/ClusterHeader.js:120
+#: src/js/pages/system/OverviewDetailTab.js:43
+#: src/js/pages/system/OverviewDetailTab.js:365
+msgid "Overview"
+msgstr ""
+
+#: plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js:6
+msgid "Owner"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js:45
+msgid "P99 LATENCY"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:47
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:78
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js:55
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:54
+msgid "P99 Latency"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js:45
+msgid "P99 Latency"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:334
+msgid "PRT"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/RepositoriesList.js:89
+#: plugins/catalog/src/js/repositories/components/RepositoriesPage.js:13
+msgid "Package Repositories"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:195
+msgid "Package not installed"
+msgstr ""
+
+#: src/js/pages/NotFoundPage.js:28
+msgid "Page not found"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/LoginModal.js:100
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js:111
+msgid "Password"
+msgstr ""
+
+#: plugins/services/src/js/components/VolumeTable.js:69
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:359
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:310
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:84
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:107
+msgid "Path"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:205
+msgid "Periodically writes /etc/resolv.conf so that only currently active Mesos masters with working Mesos DNS are in it."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/SecretDetail.js:63
+msgid "Permission denied"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js:212
+msgid "Permission inherited from the <0>{0}</0> group."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:47
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:272
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:52
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:268
+#: plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js:5
+msgid "Permissions"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:456
+msgid "Permissions Strings"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementSchemaField.js:146
+#: .dcos-ui-plugins-private/placement/components/PlacementSection.js:20
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:483
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:503
+#: plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.js:64
+#: plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.js:60
+msgid "Placement"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/PlacementSection.js:36
+#: src/js/components/PlacementConstraintsSchemaField.js:132
+msgid "Placement Constraints"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementSection.js:38
+msgid "Placement constraints control where apps run to allow optimization for either fault tolerance or locality."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:304
+msgid "Please <0>add a container</0> before configuring Volumes."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:508
+msgid "Please <0>add a container</0> before configuring health checks."
+msgstr ""
+
+#: plugins/oauth/components/LoginPage.js:118
+msgid "Please contact your system administrator or see the <0>documentation</0>."
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:205
+msgid "Please fix all the errors first"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js:180
+msgid "Please make sure you have the required information from your provider. All fields are required."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:279
+msgid "Please select at least one option."
+msgstr ""
+
+#: plugins/services/src/js/components/EmptyLogScreen.js:14
+msgid "Please try again later."
+msgstr ""
+
+#: src/js/components/CosmosErrorMessage.js:140
+msgid "Please try again."
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js:55
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:344
+#: plugins/services/src/js/components/modals/ServiceRestartModal.js:87
+#: plugins/services/src/js/components/modals/ServiceStopModal.js:87
+msgid "Pod"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceOtherLabels.js:6
+msgid "Pods"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:207
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:9
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:10
+#: plugins/services/src/js/components/DeclinedOffersTable.js:334
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:59
+msgid "Port"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:443
+msgid "Port Mapping"
+msgstr ""
+
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js:28
+msgid "Port Mappings"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:63
+#: plugins/services/src/js/components/RecentOffersSummary.js:18
+msgid "Ports"
+msgstr ""
+
+#: src/js/components/FrameworkConfiguration.js:214
+msgid "Preinstall Notes:"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:60
+#: src/js/constants/RepositoriesTableHeaderLabels.js:5
+msgid "Priority"
+msgstr ""
+
+#: plugins/nodes/src/js/columns/NodesTableTypeColumn.tsx:6
+msgid "Private"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:133
+msgid "Processes login requests from users, as well as checking if an authorization token is valid."
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:123
+#: .dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js:60
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:91
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:81
+msgid "Profile Name"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:78
+msgid "Proto"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:457
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:415
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:392
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:349
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:120
+#: plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.js:75
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:53
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:94
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:107
+msgid "Protocol"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:15
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:62
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:101
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:112
+msgid "Provider ID"
+msgstr ""
+
+#: plugins/nodes/src/js/columns/NodesTableTypeColumn.tsx:6
+msgid "Public"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:177
+msgid "Public IP"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:184
+msgid "Public Key"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:216
+msgid "RLE"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:22
+msgid "RUNNING"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:184
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:42
+msgid "Read Only"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:183
+msgid "Read and Write"
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:157
+#: plugins/services/src/js/components/DeclinedOffersTable.js:349
+msgid "Received"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:186
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:242
+msgid "Recent Resource Offers{offerCount}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/VolumeMountTypesSelect.js:18
+#: .dcos-ui-plugins-private/dss/components/VolumeTypeSelect.js:17
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:278
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:171
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:382
+msgid "Recommended"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js:66
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:11
+msgid "Recovering"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/RegionConstraintsSection.js:37
+#: .dcos-ui-plugins-private/placement/components/RegionSelection.js:88
+#: plugins/nodes/src/js/components/LeaderGrid.js:43
+#: plugins/nodes/src/js/components/NodesTable.tsx:88
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:103
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:7
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:12
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:9
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:142
+msgid "Region"
+msgstr ""
+
+#: plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.js:47
+#: plugins/services/src/js/components/dsl/TaskRegionDSLSection.js:47
+msgid "Regions"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:84
+msgid "Registered"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:197
+msgid "Rejected offer analysis is not currently supported for {frameworkName}."
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:204
+msgid "Rejected offer analysis is not currently supported."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountGroupTable.js:158
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js:186
+msgid "Remove"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:39
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:61
+msgid "Remove From Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:16
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:62
+msgid "Remove User From Group"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:15
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:38
+msgid "Remove from Group"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js:16
+msgid "Repository ({label}) will be deleted from {0}. You will not be able to install any packages belonging to that repository anymore."
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:34
+msgid "Repository Name"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js:5
+msgid "Request successes and failures for all connections to this virtual address in the last hour."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js:19
+msgid "Request successes and failures for all connections to virtual addresses redirected to this backend in the last hour."
+msgstr ""
+
+#: plugins/services/src/js/components/DeclinedOffersTable.js:152
+msgid "Requested"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:114
+msgid "Requests"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js:263
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:486
+msgid "Resource"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:204
+msgid "Resource Roles"
+msgstr ""
+
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:124
+msgid "Resources"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/KillPodInstanceModal.js:14
+#: plugins/services/src/js/components/modals/KillTaskModal.js:13
+#: plugins/services/src/js/components/modals/ServiceRestartModal.js:128
+#: plugins/services/src/js/constants/ServiceActionLabels.js:6
+#: plugins/services/src/js/containers/pod-instances/PodInstancesView.js:51
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:195
+#: plugins/services/src/js/containers/tasks/TasksView.js:184
+msgid "Restart"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:144
+msgid "Restart the Admin Router Nginx server so that it picks up new DNS resolutions, for example master.mesos, leader.mesos."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:71
+msgid "Restart your service from the DC/OS CLI. <0>More information</0>"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceRestartModal.js:103
+msgid "Restart {0}"
+msgstr ""
+
+#: plugins/services/src/js/containers/tasks/TasksView.js:173
+msgid "Restarting tasks is not supported while the service is deploying."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceRestartModal.js:135
+msgid "Restarting the <0>{serviceName}</0> {0} will remove all currently running instances of the {1} and then attempt to create new instances identical to those removed."
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceActionLabels.js:7
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:176
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:215
+msgid "Resume"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceResumeModal.js:150
+#: plugins/services/src/js/components/modals/ServiceResumeModal.js:162
+msgid "Resume Service"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:114
+msgid "Resume your service by scaling to 1 or more instances from the DC/OS CLI using an `options.json` file. <0>More information</0>"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:809
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:819
+#: src/js/components/FrameworkConfiguration.js:158
+#: src/js/pages/catalog/PackageDetailTab.js:329
+msgid "Review & Run"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:569
+msgid "Review & Run Service"
+msgstr ""
+
+#: src/js/components/FrameworkConfiguration.js:290
+msgid "Review Configuration"
+msgstr ""
+
+#: plugins/nodes/src/js/components/HealthTab.js:60
+#: plugins/services/src/js/components/DeclinedOffersTable.js:216
+#: plugins/services/src/js/components/RecentOffersSummary.js:12
+#: src/js/components/UnitHealthNodesTable.js:38
+msgid "Role"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:282
+msgid "Rollback"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:284
+msgid "Rollback & Delete"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:114
+msgid "Rotates the Mesos master and agent log files to prevent filling the disk."
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:376
+msgid "Run"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobDetailPage.js:33
+#: plugins/jobs/src/js/pages/JobDetailPage.js:91
+msgid "Run History"
+msgstr ""
+
+#: plugins/jobs/src/js/jobsRunNow.js:19
+msgid "Run Now"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:770
+#: src/js/components/FrameworkConfiguration.js:157
+msgid "Run Service"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:106
+msgid "Run Time"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModal.js:579
+#: plugins/services/src/js/containers/services/EmptyServiceTree.js:21
+#: plugins/services/src/js/containers/services/ServiceTreeView.js:112
+msgid "Run a Service"
+msgstr ""
+
+#: plugins/services/src/js/containers/services/EmptyServiceTree.js:34
+msgid "Run a new service or create a new group to help organize your services."
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:32
+msgid "Run app tasks evenly distributed across a certain attribute"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:52
+msgid "Run app tasks on a particular set of attribute IDs"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:42
+msgid "Run app tasks on nodes having attribute ID with a specific value"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:22
+msgid "Run app tasks on nodes that share a certain attribute ID"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerConfigSection.js:125
+msgid "Run as User"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:14
+msgid "Run each app task on a unique attribute ID"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:70
+msgid "Run max number of app tasks on each attribute ID"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:19
+#: plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js:48
+#: plugins/services/src/js/constants/PodContainerStatus.js:31
+#: plugins/services/src/js/constants/PodContainerStatus.js:43
+#: plugins/services/src/js/constants/PodInstanceStatus.js:7
+#: plugins/services/src/js/constants/PodInstanceStatus.js:19
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:4
+#: plugins/services/src/js/constants/TaskStates.js:26
+msgid "Running"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:175
+msgid "Runs a Mesos agent on the node."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:215
+msgid "Runs a publicly accessible Mesos agent on the node."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:182
+msgid "Runs keepalived to make a VRRP load balancer that can be used to access the masters."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:193
+msgid "Runs the {0} web interface, as well as a reverse proxy so that administrative interfaces of {1} Service can be accessed from outside the cluster."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js:14
+msgid "SAML"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js:12
+msgid "SAML 2.0"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:284
+msgid "SIZE (GiB)"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js:92
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:91
+msgid "SIZE (MiB)"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js:77
+msgid "SP Metadata"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:258
+msgid "SSL/TLS Setting"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:25
+msgid "STAGED"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js:42
+msgid "SUCCESSES"
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:109
+msgid "Sandbox Path"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:145
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js:120
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js:83
+#: src/js/components/modals/LanguagePreferenceFormModal.js:68
+msgid "Save"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js:114
+msgid "Save Configuration"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:254
+msgid "Save Job"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceActionLabels.js:9
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:162
+#: plugins/services/src/js/containers/pod-detail/PodHeader.js:56
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:201
+msgid "Scale"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceActionLabels.js:10
+msgid "Scale By"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:113
+msgid "Scale Group"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:109
+msgid "Scale Pod"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:106
+#: plugins/services/src/js/components/modals/ServiceScaleFormModal.js:142
+msgid "Scale Service"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:146
+msgid "Scale or Restart"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:68
+msgid "Schedule"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:39
+msgid "Scheduled"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/RepositoriesTabUI.js:45
+#: plugins/jobs/src/js/components/JobsOverviewList.tsx:46
+#: plugins/services/src/js/components/SearchLog.js:162
+msgid "Search"
+msgstr ""
+
+#: plugins/services/src/js/containers/services/ServiceTreeView.js:56
+msgid "Search Results"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:87
+msgid "Search/bind"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:98
+msgid "Secret"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/SecretStorePage.js:24
+#: .dcos-ui-plugins-private/secrets/pages/SecretStorePage.js:101
+msgid "Secret Stores"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js:17
+msgid "Secret store sealed"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:204
+#: .dcos-ui-plugins-private/secrets/pages/SecretDetail.js:35
+#: .dcos-ui-plugins-private/secrets/pages/SecretsPage.js:56
+#: .dcos-ui-plugins-private/secrets/pages/SecretsPage.js:363
+#: .dcos-ui-plugins-private/secrets/pages/SecurityPage.js:13
+msgid "Secrets"
+msgstr ""
+
+#: .dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js:79
+msgid "Security Mode"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:222
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:303
+msgid "See recent resource offers"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/VolumeMountTypesSelect.js:40
+#: .dcos-ui-plugins-private/dss/components/VolumeTypeSelect.js:39
+#: src/js/components/PlacementConstraintsPartial.js:102
+msgid "Select ..."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:351
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:302
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:367
+msgid "Select Endpoint"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:483
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:431
+msgid "Select Protocol"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:37
+msgid "Select SSL/TLS setting"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js:117
+msgid "Select a number of agents to allocate"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:315
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:266
+msgid "Select a service endpoint that you configured in Networking."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalButtonContents.js:37
+msgid "Select an identity provider to easily allow access to users."
+msgstr ""
+
+#: src/js/components/modals/LanguagePreferenceFormModal.js:49
+msgid "Select your language"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/RegionSelection.js:95
+msgid "Select..."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:11
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:17
+msgid "Selected Group is"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:34
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:40
+msgid "Selected Service is"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:57
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:63
+msgid "Selected User is"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:37
+msgid "Sends a periodic ping back to Mesosphere with high-level cluster information to help improve {0}, and provides advance monitoring of cluster issues."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:256
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js:41
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:341
+#: plugins/services/src/js/components/modals/ServiceRestartModal.js:94
+#: plugins/services/src/js/components/modals/ServiceStopModal.js:94
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:83
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:110
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:80
+msgid "Service"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:54
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:282
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountDetailPage.js:116
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js:33
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js:147
+msgid "Service Accounts"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:41
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingPage.js:11
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js:32
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:33
+msgid "Service Addresses"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:332
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:283
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:359
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:72
+msgid "Service Endpoint"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:149
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:180
+msgid "Service Endpoint Health Checks"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:470
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:510
+msgid "Service Endpoint Name"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:637
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:607
+#: plugins/services/src/js/service-configuration/PodNetworkConfigSection.js:158
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:219
+msgid "Service Endpoints"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:360
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:6
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:118
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:85
+msgid "Service ID"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.js:138
+#: plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.js:184
+msgid "Service Port"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js:49
+#: .dcos-ui-plugins-private/auth-providers/structs/AuthProvider.js:114
+msgid "Service Provider Base URL"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:70
+msgid "Service endpoint container ports"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:54
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:58
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:74
+msgid "Service endpoint host ports"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:50
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:66
+msgid "Service endpoint names"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:591
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:596
+msgid "Service endpoints map traffic from a single VIP to multiple IP addresses and ports. <0>More Information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceItemNotFound.js:21
+msgid "Service not found"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:58
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:46
+#: plugins/services/src/js/components/ServiceBreadcrumbs.js:204
+#: plugins/services/src/js/containers/services/ServicesContainer.js:653
+#: plugins/services/src/js/pages/ServicesPage.js:23
+#: plugins/services/src/js/pages/ServicesPage.js:40
+#: src/js/components/NestedServiceLinks.js:111
+msgid "Services"
+msgstr ""
+
+#: src/js/constants/DashboardHeadings.js:8
+msgid "Services Status"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:345
+msgid "Set up an LDAP connection to avoid having to recreate your user accounts within DC/OS."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:231
+msgid "Set up environment variables for each instance your service launches."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/hooks.js:364
+msgid "Set variables for each task your service launches. You can also use variables to expose Secrets. <0>Manage secrets here</0>. <1>Learn more about variables</1>."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:155
+msgid "Sets the dcos-adminrouter-reload.service interval at once an hour."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:49
+msgid "Sets the dcos-gen-resolvconf.service to be run once a minute."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:125
+msgid "Sets the dcos-signal.service interval at once an hour."
+msgstr ""
+
+#: src/js/pages/SettingsPage.js:13
+msgid "Settings"
+msgstr ""
+
+#: src/js/components/FilterHeadline.js:63
+msgid "Showing {currentLength} of {totalLength} {name}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/AuthenticatedUserAccountDropdown.js:50
+#: plugins/oauth/components/AuthenticatedUserAccountDropdown.js:40
+msgid "Sign Out"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:84
+msgid "Simple bind"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceModalServicePicker.js:23
+msgid "Single Container"
+msgstr ""
+
+#: plugins/services/src/js/components/PodVolumeTable.js:71
+#: plugins/services/src/js/components/VolumeTable.js:70
+#: plugins/services/src/js/constants/TaskDirectoryHeaderLabels.js:7
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:89
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:110
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:121
+msgid "Size"
+msgstr ""
+
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:22
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:22
+msgid "Size (GiB)"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:139
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:250
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:25
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:25
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:36
+msgid "Size (MiB)"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:165
+msgid "Specializes the {0} bootstrap tarball for the particular cluster, as well as its cluster role."
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementConstraintsFields.js:142
+#: src/js/components/PlacementConstraintsPartial.js:104
+msgid "Specify where your app will run."
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:79
+msgid "Staged at"
+msgstr ""
+
+#: plugins/services/src/js/constants/PodContainerStatus.js:13
+#: plugins/services/src/js/constants/PodInstanceStatus.js:25
+#: plugins/services/src/js/constants/TaskStates.js:11
+msgid "Staging"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:104
+#: plugins/nodes/src/js/components/LeaderGrid.js:56
+#: plugins/services/src/js/components/DeploymentsModal.js:38
+#: plugins/services/src/js/constants/PodContainerStatus.js:25
+#: plugins/services/src/js/constants/TaskStates.js:21
+#: src/js/pages/system/OverviewDetailTab.js:304
+msgid "Started"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:16
+msgid "Started After Last Scaling"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:107
+msgid "Started At"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:87
+msgid "Started at"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:9
+#: plugins/jobs/src/js/constants/JobStates.ts:14
+#: plugins/services/src/js/constants/PodContainerStatus.js:19
+#: plugins/services/src/js/constants/TaskStates.js:16
+msgid "Starting"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:96
+msgid "Starting Deadline"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:87
+msgid "State"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/CertificatesTable.js:54
+#: plugins/jobs/src/js/constants/JobTableHeaderLabels.js:5
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:103
+#: plugins/services/src/js/components/DeploymentsModal.js:39
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:71
+#: plugins/services/src/js/components/PodVolumeTable.js:72
+#: plugins/services/src/js/components/VolumeTable.js:71
+#: plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js:37
+#: plugins/services/src/js/components/dsl/TaskStatusDSLSection.js:34
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:8
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:9
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:13
+msgid "Status"
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobRunHistoryTable.js:220
+#: plugins/services/src/js/components/modals/KillPodInstanceModal.js:15
+#: plugins/services/src/js/components/modals/KillTaskModal.js:14
+#: plugins/services/src/js/components/modals/ServiceStopModal.js:120
+#: plugins/services/src/js/constants/ServiceActionLabels.js:11
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:169
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:208
+#: plugins/services/src/js/containers/tasks/TasksView.js:200
+msgid "Stop"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobDeleteModal.js:9
+msgid "Stop Current Runs and Delete Job"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobStopRunModal.js:50
+msgid "Stop Job Run"
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobStopRunModal.js:54
+msgid "Stop Job Runs"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:92
+msgid "Stop your service by scaling to 0 instances from the DC/OS CLI using an `options.json` file. <0>More information</0>"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceStopModal.js:102
+msgid "Stop {serviceLabel}"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceStatusDSLSection.js:79
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:6
+msgid "Stopped"
+msgstr ""
+
+#: plugins/services/src/js/containers/tasks/TasksView.js:189
+msgid "Stopping a scheduler task is not supported."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceStopModal.js:125
+msgid "Stopping the <0>{serviceName}</0> {0} will remove all currently running instances of the {1}. The {2} will not be deleted."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/SecretDetail.js:222
+msgid "Store"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:29
+msgid "Success"
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:404
+msgid "Success!"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:43
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostsTable.js:42
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:76
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js:97
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js:49
+msgid "Successes"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:138
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:113
+msgid "Successes and Failures"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:140
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:115
+msgid "Successes and Failures per Minute"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:172
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:170
+#: src/js/pages/system/units-health-node-detail/NodeInfoPanel.js:19
+msgid "Summary"
+msgstr ""
+
+#: src/js/components/ClusterHeader.js:137
+msgid "Support"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js:86
+msgid "Switch"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModalTrigger.js:44
+msgid "Switch Cluster"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:426
+msgid "Switch to Pod"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:418
+msgid "Switching to a pod service"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js:41
+msgid "TASK"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:434
+msgid "TCP"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.js:13
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:15
+msgid "TRUE"
+msgstr ""
+
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js:26
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.js:305
+msgid "Task"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:81
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:97
+#: plugins/services/src/js/containers/volume-detail/VolumeDetail.js:91
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:123
+msgid "Task ID"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:368
+msgid "Task Statistics"
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesTable.tsx:92
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:36
+#: plugins/nodes/src/js/pages/nodes/NodeDetailPage.js:174
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:40
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:203
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:43
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:236
+#: src/js/constants/DashboardHeadings.js:9
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js:64
+#: src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.js:146
+msgid "Tasks"
+msgstr ""
+
+#: src/js/components/charts/TasksChart.js:14
+msgid "Tasks running"
+msgstr ""
+
+#: src/js/components/charts/TasksChart.js:15
+msgid "Tasks staging"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-debug/PodDebugContainer.js:86
+msgid "Terminated at {0} (<0/>)"
+msgstr ""
+
+#: src/js/components/FrameworkConfiguration.js:189
+msgid "Terms and Conditions"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:21
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:153
+msgid "Test Connection"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:172
+msgid "Test External Directory"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:146
+msgid "The CPUs offered"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:158
+msgid "The GPUs offered"
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:30
+msgid "The Mesos master process orchestrates agent tasks."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/ContainerServiceFormSection.js:54
+msgid "The command value will be wrapped by the underlying Mesos executor via {exampleCmd} <0>More information</0>."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js:62
+msgid "The connection to the LDAP server was successful, but credentials were invalid."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:229
+msgid "The container runtime is responsible for running your service. We support the Docker Engine and Universal Container Runtime (UCR)."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js:19
+msgid "The contents of this secret store cannot be accessed until it is unsealed. See <0>instructions</0> on how to access sealed secret stores."
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:183
+msgid "The disk space offered"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceJsonOnly.js:83
+msgid "The input entered is not a valid JSON string"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:71
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:142
+msgid "The key cannot be empty."
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:171
+msgid "The memory offered"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:627
+msgid "The network type will be shared across all your containers."
+msgstr ""
+
+#: src/js/pages/NotFoundPage.js:30
+msgid "The page you requested cannot be found. Check the address you provided, or head back to the <0>Dashboard</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:49
+msgid "The path where your application will read and write data. This must be a single-level path relative to the container. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:195
+msgid "The port offered"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:122
+#: plugins/services/src/js/components/RecentOffersSummary.js:134
+msgid "The resource offer"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:109
+msgid "The secret cannot be empty."
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorMessages.js:25
+msgid "The service is currently locked by one or more deployments. Press again to force this operation."
+msgstr ""
+
+#: plugins/services/src/js/containers/volume-detail/PodVolumeContainer.js:63
+#: plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.js:63
+msgid "The service with the ID of \"{id}\" could not be found."
+msgstr ""
+
+#: plugins/services/src/js/containers/volume-detail/TaskVolumeContainer.js:64
+msgid "The service with the ID of \"{taskID}\" could not be found."
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:11
+msgid "The unique operator does not accept a value."
+msgstr ""
+
+#: src/js/constants/UnitSummaries.js:12
+msgid "The {0} Marathon instance starts and monitors {1} applications and services."
+msgstr ""
+
+#: plugins/services/src/js/containers/services/ServicesContainer.js:488
+msgid "The {itemType} with the ID of \"{itemId}\" could not be found."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:266
+msgid "Then, copy the command below into the DC/OS CLI."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:296
+msgid "Then, use this command to update each service."
+msgstr ""
+
+#: plugins/nodes/src/js/pages/NodesAgents.js:304
+msgid "There a currently no other nodes in your datacenter other than your DC/OS master node."
+msgstr ""
+
+#: src/js/pages/network/VirtualNetworksTab.js:92
+msgid "There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster."
+msgstr ""
+
+#: plugins/jobs/src/js/components/JobFormModal.tsx:183
+msgid "There are errors in your JSON definition"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/ServiceNoEndpointsPanel.js:13
+msgid "There are no endpoints currently configured for {serviceId}. You can edit the configuration to add service endpoints."
+msgstr ""
+
+#: plugins/nodes/src/js/components/NonLeadersGrid.js:40
+msgid "There are no more known masters in this cluster."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:237
+msgid "There are no services associated with this load balancer."
+msgstr ""
+
+#: src/js/components/ErrorsAlert.js:64
+msgid "There is an error with your configuration"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceDestroyModal.js:152
+msgid "This action <0>CANNOT</0> be undone. This will permanently delete the <1>{serviceName}</1> {0}."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.js:63
+msgid "This action is irreversible and may break your cluster."
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:66
+msgid "This app does not have failed tasks"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:255
+msgid "This app does not have task statistics"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:126
+msgid "This app does not have version change information"
+msgstr ""
+
+#: plugins/services/src/js/components/MesosLogContainer.js:225
+msgid "This directory does not contain any logs."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:166
+msgid "This feature will be available once {dcosLBPackageName} finishes deploying."
+msgstr ""
+
+#: src/js/components/PlacementConstraintsPartial.js:185
+msgid "This field is optional."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:136
+msgid "This field is required."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/DisabledGroupDestroyModal.js:32
+msgid "This group needs to be empty to delete it. Please delete any services in the group first."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:89
+msgid "This host port will be accessible as an environment variable called '$PORT{index}'. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:118
+msgid "This host port will be accessible as an environment variable called {environmentVariableName}. <0>More information</0>."
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:273
+msgid "This package can only be installed using the CLI. See the <0>documentation</0>."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:274
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:229
+msgid "This port will be used to load balance this service address internally"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.js:11
+msgid "This repository"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:718
+msgid "This service has advanced networking configuration, which we don't currently support in the UI. Please use the JSON editor to make changes."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceResumeModal.js:114
+msgid "This service is currently stopped. Do you want to resume this service?"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceResumeModal.js:122
+msgid "This service is currently stopped. Do you want to resume this service? You can change the number of instances to resume by using the field below."
+msgstr ""
+
+#: plugins/services/src/js/pages/EditFrameworkConfiguration.js:57
+msgid "This service was initially deployed to a previous version of DC/OS that did not store service configuration settings. The default package values were used to populate the configuration in this form. Carefully verify the default settings are correct, prior to deploying the new configuration."
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:306
+msgid "This version of {0} requires DC/OS version {1} or higher, but you are running DC/OS version {2}"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:210
+msgid "This will stop the current deployment of {listOfServiceNames} and start a new deployment to delete the affected service."
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:217
+msgid "This will stop the current deployment of {listOfServiceNames} and start a new deployment to delete the affected services."
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:228
+msgid "This will stop the current deployment of {listOfServiceNames} and start a new deployment to revert the affected service to its previous version."
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentsModal.js:236
+msgid "This will stop the current deployment of {listOfServiceNames} and start a new deployment to revert the affected services to their previous versions."
+msgstr ""
+
+#: plugins/jobs/src/js/pages/JobConfiguration.js:90
+msgid "Time Zone"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.js:30
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:134
+#: plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.js:241
+msgid "Timeout"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:163
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:142
+msgid "Timeout (s)"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:105
+msgid "Timestamp"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js:240
+msgid "To enable this feature please contact support via {slackLink} or send us an email at {supportLink}."
+msgstr ""
+
+#: .dcos-ui-plugins-private/sdk-services/components/SDKServiceEdit.js:16
+msgid "To update this service's configuration, please update <0>options.json</0>. Run the following CLI command:"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:189
+msgid "To use a secret in an application, a user needs appropriate permissions. <0>More information</0>."
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:19
+msgid "Total Summary"
+msgstr ""
+
+#: src/js/components/charts/TasksChart.js:124
+msgid "Total Tasks"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretStoresTable.js:80
+#: plugins/nodes/src/js/components/NodesTable.tsx:86
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:30
+msgid "Type"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceDestroyModal.js:157
+msgid "Type \"{serviceName}\" to confirm"
+msgstr ""
+
+#: src/js/pages/settings/UISettingsPage.js:24
+#: src/js/pages/settings/UISettingsPage.js:26
+#: src/js/pages/settings/UISettingsPage.js:85
+msgid "UI Settings"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:24
+msgid "UNHEALTHY"
+msgstr ""
+
+#: plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.js:47
+#: src/js/constants/RepositoriesTableHeaderLabels.js:6
+msgid "URL"
+msgstr ""
+
+#: src/js/pages/system/OrganizationTab.js:297
+msgid "USERNAME"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:420
+msgid "Unable to edit this HealthCheck"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:73
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:91
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:305
+msgid "Unable to edit this Volume"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementSchemaField.js:47
+#: src/js/components/PlacementConstraintsSchemaField.js:31
+msgid "Unable to edit {0}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:71
+msgid "Unable to fetch permission schema."
+msgstr ""
+
+#: plugins/oauth/components/LoginPage.js:113
+msgid "Unable to login to your DC/OS cluster. Clusters must be connected to the internet."
+msgstr ""
+
+#: plugins/services/src/js/constants/VolumeStatus.js:6
+msgid "Unavailable"
+msgstr ""
+
+#: plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.js:58
+#: plugins/services/src/js/components/dsl/ServiceHealthDSLSection.js:68
+#: plugins/services/src/js/constants/PodContainerStatus.js:37
+#: plugins/services/src/js/constants/PodInstanceStatus.js:13
+#: plugins/services/src/js/constants/TaskHealthStates.js:5
+#: plugins/services/src/js/containers/pod-instances/PodInstancesTable.js:417
+#: src/js/constants/UnitHealthStatus.js:25
+#: src/js/pages/system/UnitsHealthTab.js:196
+msgid "Unhealthy"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:13
+msgid "Unique"
+msgstr ""
+
+#: plugins/services/src/js/constants/ContainerConstants.js:10
+msgid "Universal Container Runtime (UCR)"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:55
+msgid "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:27
+#: plugins/services/src/js/constants/TaskHealthStates.js:6
+#: plugins/services/src/js/constants/TaskStates.js:81
+msgid "Unknown"
+msgstr ""
+
+#: plugins/services/src/js/constants/OperatorTypes.js:59
+msgid "Unlike"
+msgstr ""
+
+#: plugins/services/src/js/constants/TaskStates.js:76
+msgid "Unreachable"
+msgstr ""
+
+#: plugins/jobs/src/js/constants/JobStates.ts:44
+msgid "Unscheduled"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:263
+msgid "Unspecified"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:136
+msgid "Update the number of instances in your service's target configuration using an `options.json` file."
+msgstr ""
+
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:12
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:15
+msgid "Updated"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js:83
+msgid "Upgrade"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:189
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:148
+msgid "Upgrade Max Overcapacity"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodGeneralConfigSection.js:180
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:144
+msgid "Upgrade Min Health Capacity"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js:80
+msgid "Usage Logs"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:25
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:26
+msgid "Use SSL/TLS for all connections"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:214
+msgid "Use the <0>DC/OS Secret Store</0> to secure important values like private keys, API tokens, and database passwords."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:597
+msgid "Use the form below to build your permission. For more information see the <0>documentation</0>. To bulk add permissions, <1>switch to advanced mode</1>."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:586
+msgid "Use the form below to manually enter or paste permissions. <0>Switch to permission builder</0> to add a single permission."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/CreateServiceJsonOnly.js:105
+msgid "Use this text area to customize your configuration via JSON."
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:222
+msgid "User"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:13
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:14
+msgid "User DN Template"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js:95
+msgid "User Name"
+msgstr ""
+
+#: src/js/pages/settings/UISettingsPage.js:60
+msgid "User Preferences"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:50
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:152
+msgid "User Search"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:53
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:54
+msgid "User Search Base"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:57
+#: .dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js:58
+msgid "User Search Filter Template"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js:128
+msgid "User {successMsg} added."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/LoginModal.js:84
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js:105
+msgid "Username"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/components/LoginModal.js:48
+msgid "Username and password do not match."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:162
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:53
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js:275
+#: .dcos-ui-plugins-private/organization/submodules/users/components/UserDetailPage.js:142
+#: .dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js:39
+#: src/js/pages/system/OrganizationTab.js:55
+#: src/js/pages/system/UsersPage.js:27
+#: src/js/pages/system/UsersPage.js:125
+msgid "Users"
+msgstr ""
+
+#: plugins/services/src/js/containers/pod-instances/PodInstancesTable.js:456
+msgid "Using {activeResource}/{0}"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.js:83
+msgid "VIP"
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/AdvancedConstraintsSection.js:21
+#: .dcos-ui-plugins-private/placement/components/PlacementConstraintsFields.js:88
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:238
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:47
+#: plugins/services/src/js/components/forms/EnvironmentFormSection.js:121
+#: plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.js:24
+#: plugins/services/src/js/service-configuration/PodLabelsConfigSection.js:26
+#: plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.js:30
+#: plugins/services/src/js/service-configuration/ServiceEnvironmentVariablesConfigSection.js:65
+#: plugins/services/src/js/service-configuration/ServiceLabelsConfigSection.js:59
+#: plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.js:29
+#: src/js/components/PlacementConstraintsPartial.js:88
+msgid "Value"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/ServiceCreate.js:27
+msgid "Variable name"
+msgstr ""
+
+#: plugins/services/src/js/components/MarathonTaskDetailsList.js:95
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:13
+#: plugins/services/src/js/constants/ServiceTableHeaderLabels.js:10
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:16
+#: plugins/services/src/js/containers/service-debug/ServiceDebugContainer.js:112
+#: plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.js:243
+#: src/js/pages/system/OverviewDetailTab.js:294
+msgid "Version"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js:96
+msgid "View All ({authProviderCount})"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:213
+msgid "View Cluster Configuration"
+msgstr ""
+
+#: src/js/pages/system/units-health-node-detail/NodeInfoPanel.js:24
+msgid "View Documentation"
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceItemNotFound.js:13
+msgid "View Services"
+msgstr ""
+
+#: src/js/pages/DashboardPage.js:142
+msgid "View all {componentCount} {componentCountWord}"
+msgstr ""
+
+#: src/js/pages/DashboardPage.js:164
+msgid "View all {servicesCount} Services"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.js:536
+#: plugins/services/src/js/components/forms/NetworkingFormSection.js:560
+msgid "Virtual Network: {0}"
+msgstr ""
+
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:24
+msgid "Volume"
+msgstr ""
+
+#: plugins/services/src/js/containers/volume-detail/PodVolumeContainer.js:79
+#: plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.js:79
+#: plugins/services/src/js/containers/volume-detail/TaskVolumeContainer.js:80
+msgid "Volume '{volumeId}' was not found."
+msgstr ""
+
+#: plugins/services/src/js/components/PodVolumeTable.js:70
+msgid "Volume Name"
+msgstr ""
+
+#: plugins/services/src/js/components/PodVolumeTable.js:69
+#: plugins/services/src/js/components/VolumeTable.js:68
+msgid "Volume Profile"
+msgstr ""
+
+#: .dcos-ui-plugins-private/dss/components/DSSInput.js:92
+#: .dcos-ui-plugins-private/dss/components/DSSVolumeConfig.js:44
+#: plugins/services/src/js/components/PodVolumeTable.js:68
+#: plugins/services/src/js/components/VolumeTable.js:67
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:137
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:347
+msgid "Volume Type"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:30
+msgid "Volume container path"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:38
+msgid "Volume host path"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:42
+msgid "Volume mode"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceErrorPathMapping.js:34
+msgid "Volume size"
+msgstr ""
+
+#: plugins/services/src/js/components/dsl/ServiceOtherDSLSection.js:68
+#: plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.js:280
+#: plugins/services/src/js/components/forms/VolumesFormSection.js:426
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:489
+#: plugins/services/src/js/components/modals/CreateServiceModalForm.js:505
+#: plugins/services/src/js/constants/ServiceOtherLabels.js:5
+#: plugins/services/src/js/containers/pod-detail/PodDetail.js:214
+#: plugins/services/src/js/containers/service-detail/ServiceDetail.js:247
+#: plugins/services/src/js/service-configuration/PodStorageConfigSection.js:143
+#: plugins/services/src/js/service-configuration/ServiceStorageConfigSection.js:65
+msgid "Volumes"
+msgstr ""
+
+#: plugins/services/src/js/constants/ServiceStatusLabels.js:9
+msgid "Waiting"
+msgstr ""
+
+#: src/js/components/FrameworkConfigurationForm.js:338
+#: src/js/constants/UnitHealthStatus.js:32
+msgid "Warning"
+msgstr ""
+
+#: src/js/components/FrameworkConfiguration.js:258
+msgid "Warning:"
+msgstr ""
+
+#: src/js/components/Modals.js:116
+msgid "We are unable to retrieve the version {0} versions. Please try again."
+msgstr ""
+
+#: plugins/services/src/js/constants/DeclinedOffersHelpText.js:12
+msgid "When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <0>Learn more</0>."
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:17
+msgid "With Latest Config"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:18
+msgid "With Outdated Config"
+msgstr ""
+
+#: plugins/services/src/js/pages/task-details/TaskDetail.js:306
+msgid "Working Directory"
+msgstr ""
+
+#: src/js/components/modals/JobStopRunModal.js:72
+msgid "You are about to stop the job run with id"
+msgstr ""
+
+#: src/js/components/modals/JobStopRunModal.js:74
+msgid "You are about to stop the selected job runs."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/KillPodInstanceModal.js:97
+msgid "You are about to {0} {instanceCountContent}. Are you sure you want to continue?"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/KillTaskModal.js:96
+msgid "You are about to {0} {taskCountContent}. Are you sure you want to continue?"
+msgstr ""
+
+#: src/js/components/RequestErrorMsg.js:12
+msgid "You can also join us on our <0>Slack channel</0> or send us an email at <1>{0}</1>."
+msgstr ""
+
+#: .dcos-ui-plugins-private/placement/components/PlacementSection.js:25
+msgid "You can configure the placement of agent nodes in regions and zones for high availability or to expand capacity to new regions when necessary"
+msgstr ""
+
+#: src/js/components/CosmosErrorMessage.js:103
+msgid "You can go to the <0>Repositories Settings</0> page to change installed repositories."
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js:45
+msgid "You can link a cluster via the DC/OS CLI. See {documentation} for complete instructions."
+msgstr ""
+
+#: plugins/services/src/js/components/forms/GeneralServiceFormSection.js:196
+msgid "You can run Docker containers with both container runtimes. The Universal Container Runtime (UCR) is better supported in DC/OS. <0>More information</0>."
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth/hooks.js:181
+msgid "You do not have access to this resource. Please contact your {0} administrator or see <0>security documentation</0> for more information."
+msgstr ""
+
+#: src/js/components/AccessDeniedPage.js:47
+msgid "You do not have access to this service. Please contact your {0} administrator or see <0>security documentation</0> for more information."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:112
+msgid "You do not have permission to"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/SecretsPage.js:67
+msgid "You do not have permission to list this cluster's secrets.<0/>Please contact your super admin to learn more."
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/pages/SecretDetail.js:66
+msgid "You do not have permission to see this secret.<0/>Please contact your super admin to learn more."
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:78
+msgid "You have"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:54
+msgid "You have exceeded your {capacity} node licensed count. You have exceeded on 1 occasion"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:59
+msgid "You have exceeded your {capacity} node licensed count. You have exceeded on {numberBreaches} occasions"
+msgstr ""
+
+#: plugins/services/src/js/components/forms/HealthChecksFormSection.js:428
+#: plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.js:393
+msgid "You have several protocol options. <0>More Information</0>."
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:51
+msgid "You need at least one package repository with some packages to be able to install packages. For more <0>information on repositories</0>."
+msgstr ""
+
+#: plugins/nodes/src/js/components/NodesTable.tsx:90
+#: plugins/nodes/src/js/pages/nodes/NodeDetailTab.js:114
+#: plugins/services/src/js/constants/PodTableHeaderLabels.js:6
+#: plugins/services/src/js/constants/TaskTableHeaderLabels.js:8
+#: plugins/services/src/js/pages/task-details/TaskDetailsTab.js:134
+msgid "Zone"
+msgstr ""
+
+#: plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.js:47
+#: plugins/services/src/js/components/dsl/TaskZoneDSLSection.js:47
+msgid "Zones"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:84
+msgid "and"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:245
+msgid "by {mesosBuildUser}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js:60
+msgid "days left"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js:57
+msgid "days overdue"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentStatusIndicator.js:64
+msgid "deployment"
+msgstr ""
+
+#: plugins/services/src/js/components/DeploymentStatusIndicator.js:64
+msgid "deployments"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:111
+msgid "did not match"
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js:41
+msgid "documentation"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:68
+msgid "exceeded license expiration by one day"
+msgstr ""
+
+#: .dcos-ui-plugins-private/licensing/components/LicensingBanner.js:70
+msgid "exceeded license expiration by {daysExceeded} days"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:27
+msgid "group will be deleted"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:113
+msgid "matched"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:132
+msgid "minutes"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js:123
+msgid "or"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:115
+msgid "partially matched"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/hooks.js:436
+msgid "resources"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:309
+msgid "scaling each service to 0 instances"
+msgstr ""
+
+#: plugins/services/src/js/containers/service-debug/TaskStatsTable.js:127
+msgid "seconds"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:50
+msgid "service account will be deleted"
+msgstr ""
+
+#: .dcos-ui-plugins-private/auth-providers/hooks.js:42
+#: .dcos-ui-plugins-private/organization/submodules/directories/hooks.js:32
+msgid "system"
+msgstr ""
+
+#: plugins/services/src/js/containers/tasks/TasksView.js:268
+msgid "task"
+msgstr ""
+
+#: .dcos-ui-plugins-private/secrets/components/SecretFormModal.js:116
+msgid "this secret. Please contact your super admin to learn more."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:313
+msgid "updating the number of instances of each service"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/constants/BulkOptions.js:73
+msgid "user will be deleted"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountDetailPage.js:191
+#: src/js/constants/BulkOptions.js:16
+msgid "will be deleted"
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:135
+#: plugins/services/src/js/components/RecentOffersSummary.js:147
+#: plugins/services/src/js/components/RecentOffersSummary.js:159
+#: plugins/services/src/js/components/RecentOffersSummary.js:172
+#: plugins/services/src/js/components/RecentOffersSummary.js:184
+#: plugins/services/src/js/components/RecentOffersSummary.js:196
+msgid "your service's requirements ({requestedValue})."
+msgstr ""
+
+#: plugins/services/src/js/components/RecentOffersSummary.js:123
+msgid "your service's role ({requestedValue})."
+msgstr ""
+
+#: .dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js:66
+#: .dcos-ui-plugins-private/dss/components/VolumeMountTypesSelect.js:26
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:246
+#: .dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js:252
+msgid "{0}"
+msgstr ""
+
+#: plugins/oauth/components/AuthenticatedUserAccountDropdown.js:32
+msgid "{0} (Change)"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:351
+msgid "{0} ({1} available)"
+msgstr ""
+
+#: src/js/components/modals/VersionsModal.js:31
+msgid "{0} Info"
+msgstr ""
+
+#: src/js/pages/system/OverviewDetailTab.js:165
+msgid "{0} Version"
+msgstr ""
+
+#: src/js/pages/catalog/PackageDetailTab.js:407
+msgid "{0} is being installed."
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js:212
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js:184
+msgid "{0} will be deleted."
+msgstr ""
+
+#: plugins/services/src/js/components/modals/ServiceActionDisabledModal.js:276
+msgid "{0} your group by {updateDescription} from the DC/OS CLI."
+msgstr ""
+
+#: src/js/pages/catalog/PackagesTab.js:250
+msgid "{0} {packagesWord} found"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js:160
+msgid "{agentsAvailable} of {agentsTotal}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js:158
+msgid "{backendCount} Total Backends"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js:163
+msgid "{clientCount} Total Clients"
+msgstr ""
+
+#: plugins/services/src/js/containers/volume-detail/PodVolumeDetail.js:74
+msgid "{containerName} Path"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js:511
+msgid "{errorMsg} Go to <0>insert permission string</0> to enter a permission manually."
+msgstr ""
+
+#: src/js/components/FrameworkConfigurationForm.js:103
+msgid "{issueCount} issues need addressing"
+msgstr ""
+
+#: plugins/services/src/js/components/modals/AppLockedMessage.js:22
+msgid "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration."
+msgstr ""
+
+#: plugins/services/src/js/components/EmptyLogScreen.js:11
+msgid "{logName} Log is Currently Empty"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js:178
+msgid "{numBackends} Backends"
+msgstr ""
+
+#: .dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js:109
+msgid "{numClients} Clients"
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceBreadcrumbs.js:145
+#: plugins/services/src/js/components/ServiceList.js:54
+msgid "{runningInstances, plural, one {# instance running out of {instancesCount}} other {# instances running out of {instancesCount}}}"
+msgstr ""
+
+#: plugins/services/src/js/components/ServiceStatusProgressBar.js:22
+msgid "{runningInstances, plural, one {# instance running out of {instancesTotal}} other {# instances running out of {instancesTotal}}}"
+msgstr ""
+
+#: plugins/services/src/js/containers/services/ServicesTable.js:386
+#: plugins/services/src/js/containers/services/ServicesTable.js:453
+msgid "{runningInstances} {0} running out of {instancesCount}"
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js:149
+msgid "{userLabel} will be removed from the {groupLabel} group."
+msgstr ""
+
+#: .dcos-ui-plugins-private/organization/components/AccountGroupTable.js:131
+msgid "{userName} will be removed from {groupLabel}."
+msgstr ""
+
+#: plugins/services/src/js/components/SearchLog.js:112
+msgid "{watching} out of {totalFound}"
+msgstr ""

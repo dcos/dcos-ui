@@ -21,5 +21,5 @@
       "js/utils",
       "js/vendor"
   ],
-  "format": "lingui",
+  "format": "po",
 }

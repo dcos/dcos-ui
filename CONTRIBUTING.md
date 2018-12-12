@@ -528,7 +528,7 @@ When formatting a string containing multiple pieces of logic and/or translation 
 
 Keep in mind that lingui follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
 
-Ensure that `npm run lingui-extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.json` are committed.
+Ensure that `npm run lingui-extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.po` are committed.
 
 ### New translation files
 
