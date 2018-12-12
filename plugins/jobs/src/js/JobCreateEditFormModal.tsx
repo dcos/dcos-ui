@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { combineLatest } from "rxjs/observable/combineLatest";
 
 import gql from "graphql-tag";
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 
 import { JobData } from "#SRC/js/events/MetronomeClient";
 import Job from "#SRC/js/structs/Job";

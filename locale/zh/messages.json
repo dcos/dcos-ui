@@ -110,7 +110,7 @@
     ]
   },
   "1 Backend": {
-    "translation": "1 后端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
@@ -119,7 +119,7 @@
     ]
   },
   "1 Client": {
-    "translation": "1 客户端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js",
@@ -128,7 +128,7 @@
     ]
   },
   "1 Total Backend": {
-    "translation": "1 总后端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
@@ -137,7 +137,7 @@
     ]
   },
   "1 Total Client": {
-    "translation": "1 总客户端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -182,7 +182,7 @@
     ]
   },
   "<0>See documentation</0>.": {
-    "translation": "<0>查看文档</0>.",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -276,7 +276,7 @@
     ]
   },
   "Actions (<0>Allow All</0>)": {
-    "translation": "操作（<0>允许全部</0>)",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -319,7 +319,7 @@
     ]
   },
   "Add": {
-    "translation": "添加",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js",
@@ -345,7 +345,7 @@
     ]
   },
   "Add Constraint": {
-    "translation": "添加约束",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
@@ -363,7 +363,7 @@
     ]
   },
   "Add Directory": {
-    "translation": "添加目录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -389,7 +389,7 @@
     ]
   },
   "Add External Load Balancer": {
-    "translation": "添加外部负载均衡器",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -398,7 +398,7 @@
     ]
   },
   "Add Group": {
-    "translation": "添加组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountGroupMembershipTab.js",
@@ -420,7 +420,7 @@
     ]
   },
   "Add Identity Provider": {
-    "translation": "添加身份提供商",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
@@ -438,7 +438,7 @@
     ]
   },
   "Add Local Group": {
-    "translation": "添加本地组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
@@ -447,7 +447,7 @@
     ]
   },
   "Add Local User": {
-    "translation": "添加本地用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js",
@@ -465,7 +465,7 @@
     ]
   },
   "Add Permission": {
-    "translation": "添加权限",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
@@ -478,7 +478,7 @@
     ]
   },
   "Add Permissions": {
-    "translation": "添加权限",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -496,7 +496,7 @@
     ]
   },
   "Add Provider": {
-    "translation": "添加提供商",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModal.js",
@@ -522,7 +522,7 @@
     ]
   },
   "Add Secret": {
-    "translation": "添加密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -531,7 +531,7 @@
     ]
   },
   "Add Service": {
-    "translation": "添加服务",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -553,7 +553,7 @@
     ]
   },
   "Add Service to External Load Balancer": {
-    "translation": "向外部负载均衡器添加服务",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerAddServiceFormModal.js",
@@ -562,7 +562,7 @@
     ]
   },
   "Add Service to Load Balancer": {
-    "translation": "向负载均衡器添加服务",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -571,7 +571,7 @@
     ]
   },
   "Add To Group": {
-    "translation": "添加到组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -597,7 +597,7 @@
     ]
   },
   "Add User To Group": {
-    "translation": "将用户添加到组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -615,7 +615,7 @@
     ]
   },
   "Add User to Group": {
-    "translation": "将用户添加到组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -637,7 +637,7 @@
     ]
   },
   "Add a Permission for {0}": {
-    "translation": "为 {0} 添加权限",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -646,7 +646,7 @@
     ]
   },
   "Add to Group": {
-    "translation": "添加到组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -659,7 +659,7 @@
     ]
   },
   "Add {title} Identity Provider": {
-    "translation": "添加 {title} 身份提供商",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js",
@@ -686,7 +686,7 @@
     ]
   },
   "Advanced Constraints": {
-    "translation": "高级约束",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
@@ -809,7 +809,7 @@
     ]
   },
   "All stats are for the past minute": {
-    "translation": "过去分钟内的所有统计信息",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
@@ -818,7 +818,7 @@
     ]
   },
   "Alphanumerical, dashes, underscores and slashes are allowed.": {
-    "translation": "允许字母数字、破折号、下划线和斜杠。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
@@ -902,7 +902,7 @@
     ]
   },
   "App Reach": {
-    "translation": "应用程序覆盖范围",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
@@ -911,7 +911,7 @@
     ]
   },
   "App Reachability": {
-    "translation": "应用程序可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js",
@@ -933,7 +933,7 @@
     ]
   },
   "Application Availability and Reachability": {
-    "translation": "应用程序可用性和可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
@@ -942,7 +942,7 @@
     ]
   },
   "Application Availability and Reachability for all connections to this virtual address in the last hour.": {
-    "translation": "在过去一小时内，此虚拟地址所有连接的应用程序可用性和可达性。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js",
@@ -951,7 +951,7 @@
     ]
   },
   "Application Availability and Reachability per Minute": {
-    "translation": "每分钟的应用程序可用性和可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
@@ -960,7 +960,7 @@
     ]
   },
   "Application Reachability": {
-    "translation": "应用程序可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
@@ -1148,7 +1148,7 @@
     ]
   },
   "Attempt StartTLS, abort if it fails": {
-    "translation": "尝试 StartTLS，如果失败，则中止",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1157,7 +1157,7 @@
     ]
   },
   "Attempt StartTLS, proceed unencrypted if it fails": {
-    "translation": "尝试 StartTLS，如果失败，则进行非加密",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1170,7 +1170,7 @@
     ]
   },
   "Authentication": {
-    "translation": "身份验证",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -1179,7 +1179,7 @@
     ]
   },
   "Authentication Method": {
-    "translation": "身份验证方法",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1201,7 +1201,7 @@
     ]
   },
   "Available Agents": {
-    "translation": "可用代理",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
@@ -1210,7 +1210,7 @@
     ]
   },
   "BACKEND": {
-    "translation": "后端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js",
@@ -1236,7 +1236,7 @@
     ]
   },
   "Backends": {
-    "translation": "后端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
@@ -1297,7 +1297,7 @@
     ]
   },
   "Base URI": {
-    "translation": "基准 URI",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -1319,7 +1319,7 @@
     ]
   },
   "Bootstrap Config": {
-    "translation": "Bootstrap 配置",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js",
@@ -1373,7 +1373,7 @@
     ]
   },
   "CA Certificate": {
-    "translation": "CA 证书",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -1382,7 +1382,7 @@
     ]
   },
   "CA certificate chain": {
-    "translation": "CA 证书链",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1516,7 +1516,7 @@
     ]
   },
   "Callback URL": {
-    "translation": "回调 URL",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
@@ -1525,7 +1525,7 @@
     ]
   },
   "Can only contain alphanumeric and [-] characters.": {
-    "translation": "只能包含字母数字和 [-] 字符。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js",
@@ -1680,7 +1680,7 @@
     ]
   },
   "Certificates": {
-    "translation": "证书",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/CertificatesPage.js",
@@ -1719,7 +1719,7 @@
     ]
   },
   "Change": {
-    "translation": "更改",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/AuthenticatedUserAccountDropdown.js",
@@ -1728,7 +1728,7 @@
     ]
   },
   "Changing the settings may lead to errors. Please check with your identity provider before making changes. All fields are required.": {
-    "translation": "更改设置可能会导致错误。请在进行更改前与您的身份提供商核实。所有字段均为必填字段。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js",
@@ -1746,7 +1746,7 @@
     ]
   },
   "Choose a group": {
-    "translation": "选择组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountActionsModal.js",
@@ -1755,7 +1755,7 @@
     ]
   },
   "Choose a user": {
-    "translation": "选择用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/GroupsActionsModal.js",
@@ -1791,7 +1791,7 @@
     ]
   },
   "Client": {
-    "translation": "客户端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js",
@@ -1800,7 +1800,7 @@
     ]
   },
   "Client ID": {
-    "translation": "客户端 ID",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -1813,7 +1813,7 @@
     ]
   },
   "Client Secret": {
-    "translation": "客户端密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -1830,7 +1830,7 @@
     ]
   },
   "Client Secret {0}": {
-    "translation": "客户端密钥 {0} ",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
@@ -1839,7 +1839,7 @@
     ]
   },
   "Client certificate and private key": {
-    "translation": "客户端证书和私钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1848,7 +1848,7 @@
     ]
   },
   "Clients": {
-    "translation": "客户端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -1924,7 +1924,7 @@
     ]
   },
   "Cluster URL or Public IP": {
-    "translation": "集群 URL 或公用 IP",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js",
@@ -2198,7 +2198,7 @@
     ]
   },
   "Connection": {
-    "translation": "连接",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -2207,7 +2207,7 @@
     ]
   },
   "Connection Latency": {
-    "translation": "连接延迟",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -2220,7 +2220,7 @@
     ]
   },
   "Connection Latency <em>(in ms)</em>": {
-    "translation": "连接延迟 <em>（毫秒）</em>",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js",
@@ -2229,7 +2229,7 @@
     ]
   },
   "Connection Latency per Minute": {
-    "translation": "每分钟连接延迟",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -2255,7 +2255,7 @@
     ]
   },
   "Connection with LDAP server was successful!": {
-    "translation": "与 LDAP 服务器的连接已成功！",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
@@ -2300,7 +2300,7 @@
     ]
   },
   "Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node.": {
-    "translation": "约束有三个部分：字段名称、运算符和可选参数。该字段可以是代理节点的主机名或代理节点的任何属性。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
@@ -2565,7 +2565,7 @@
     ]
   },
   "Control where your app runs with advanced rules and constraint attributes": {
-    "translation": "当应用程序使用高级规则和约束属性运行时，则进行控制",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/PlacementFormPartial.js",
@@ -2596,7 +2596,7 @@
     ]
   },
   "Copy and paste client certificate here.": {
-    "translation": "在此复制并粘贴客户端证书。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -2645,7 +2645,7 @@
     ]
   },
   "Create Account": {
-    "translation": "创建账户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js",
@@ -2654,7 +2654,7 @@
     ]
   },
   "Create External Load Balancer": {
-    "translation": "创建外部负载均衡器",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js",
@@ -2693,7 +2693,7 @@
     ]
   },
   "Create New Group": {
-    "translation": "创建新组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupFormModal.js",
@@ -2702,7 +2702,7 @@
     ]
   },
   "Create New Secret": {
-    "translation": "创建新密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
@@ -2711,7 +2711,7 @@
     ]
   },
   "Create New User": {
-    "translation": "创建新用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/hooks.js",
@@ -2720,7 +2720,7 @@
     ]
   },
   "Create Service Account": {
-    "translation": "创建服务帐户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js",
@@ -2769,7 +2769,7 @@
     ]
   },
   "Create an external load balancer for your services.": {
-    "translation": "为您的服务创建外部负载均衡器。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -2822,7 +2822,7 @@
     ]
   },
   "Currently Deploying Package": {
-    "translation": "当前部署包",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -3003,7 +3003,7 @@
     ]
   },
   "Define the permission in a string format. If the permission also includes an action, specify the action that should be allowed. Refer to <0>the documentation</0> for more details.": {
-    "translation": "以字符串格式定义权限。如果权限还包括操作，则指定应允许的操作。请参阅 <0>文档，</0> 以了解更多详情。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -3098,7 +3098,7 @@
     ]
   },
   "Delete Action": {
-    "translation": "删除操作",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
@@ -3146,7 +3146,7 @@
     ]
   },
   "Delete Service Account": {
-    "translation": "删除服务帐户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -3155,7 +3155,7 @@
     ]
   },
   "Delete User": {
-    "translation": "删除用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -3547,7 +3547,7 @@
     ]
   },
   "Download": {
-    "translation": "下载",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
@@ -3734,7 +3734,7 @@
     ]
   },
   "Edit Directory": {
-    "translation": "编辑目录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -3743,7 +3743,7 @@
     ]
   },
   "Edit External Load Balancer": {
-    "translation": "编辑外部负载均衡器",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js",
@@ -3761,7 +3761,7 @@
     ]
   },
   "Edit Secret": {
-    "translation": "编辑密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
@@ -3779,7 +3779,7 @@
     ]
   },
   "Edit Service Account": {
-    "translation": "编辑服务帐户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js",
@@ -3788,7 +3788,7 @@
     ]
   },
   "Edit User": {
-    "translation": "编辑用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/components/modals/UserEditFormModal.js",
@@ -3885,7 +3885,7 @@
     ]
   },
   "Enforce StartTLS for all connections": {
-    "translation": "为所有连接执行 StartTLS",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -3952,7 +3952,7 @@
     ]
   },
   "EntityID": {
-    "translation": "EntityID",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
@@ -4044,7 +4044,7 @@
     ]
   },
   "Exceeded licensed node count on ${numberBreaches} occasions.": {
-    "translation": "超过许可节点数 ${numberBreaches} 次。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
@@ -4053,7 +4053,7 @@
     ]
   },
   "Exceeded licensed node count on one occasion.": {
-    "translation": "超过许可节点数 1 次。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
@@ -4080,7 +4080,7 @@
     ]
   },
   "Expires": {
-    "translation": "到期",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/CertificatesTable.js",
@@ -4098,7 +4098,7 @@
     ]
   },
   "External": {
-    "translation": "外部",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/OrganizationTab.js",
@@ -4107,7 +4107,7 @@
     ]
   },
   "External LDAP Configuration": {
-    "translation": "外部 LDAP 配置",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -4134,7 +4134,7 @@
     ]
   },
   "FAILURE %": {
-    "translation": "失败 %",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js",
@@ -4143,7 +4143,7 @@
     ]
   },
   "FAILURES": {
-    "translation": "失败",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js",
@@ -4182,7 +4182,7 @@
     ]
   },
   "Failure %": {
-    "translation": "失败 %",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
@@ -4195,7 +4195,7 @@
     ]
   },
   "Failures": {
-    "translation": "失败",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
@@ -4333,7 +4333,7 @@
     ]
   },
   "For information and instructions on how to create virtual IPs see <0>networking documentation</0>.": {
-    "translation": "有关如何创建虚拟 IP 的信息和说明，请参阅 <0>网络文档</0>.",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
@@ -4435,7 +4435,7 @@
     ]
   },
   "Full Name": {
-    "translation": "全名",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/OrganizationTab.js",
@@ -4639,7 +4639,7 @@
     ]
   },
   "Group ID": {
-    "translation": "组 ID",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountGroupTable.js",
@@ -4648,7 +4648,7 @@
     ]
   },
   "Group Import (Optional)": {
-    "translation": "组导入（可选）",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -4657,7 +4657,7 @@
     ]
   },
   "Group Membership": {
-    "translation": "组成员",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountDetailPage.js",
@@ -4670,7 +4670,7 @@
     ]
   },
   "Group Name": {
-    "translation": "组名称",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
@@ -4679,7 +4679,7 @@
     ]
   },
   "Group Search": {
-    "translation": "组搜索",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -4692,7 +4692,7 @@
     ]
   },
   "Group Search Base": {
-    "translation": "组搜索基准",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -4705,7 +4705,7 @@
     ]
   },
   "Group Search Filter Template": {
-    "translation": "组搜索筛选模板",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -4740,7 +4740,7 @@
     ]
   },
   "Group {successMsg} added.": {
-    "translation": "组 {successMsg} 已添加。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
@@ -4749,7 +4749,7 @@
     ]
   },
   "Groups": {
-    "translation": "组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js",
@@ -5040,7 +5040,7 @@
     ]
   },
   "Host Name": {
-    "translation": "主机名",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
@@ -5159,7 +5159,7 @@
     ]
   },
   "IP": {
-    "translation": "IP",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/VHostDetail.js",
@@ -5177,7 +5177,7 @@
     ]
   },
   "IP Reach": {
-    "translation": "IP 覆盖范围",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPsTable.js",
@@ -5186,7 +5186,7 @@
     ]
   },
   "IP Reachability": {
-    "translation": "IP 可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
@@ -5221,7 +5221,7 @@
     ]
   },
   "IPs": {
-    "translation": "IP",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -5239,7 +5239,7 @@
     ]
   },
   "IdP Metadata": {
-    "translation": "IdP 元数据",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -5252,7 +5252,7 @@
     ]
   },
   "Identity Provider Settings": {
-    "translation": "身份提供商设置",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js",
@@ -5261,7 +5261,7 @@
     ]
   },
   "Identity Providers": {
-    "translation": "身份提供商",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/pages/AuthProviderDetailPage.js",
@@ -5278,7 +5278,7 @@
     ]
   },
   "If a client certificate is added, a CA certificate chain is required.": {
-    "translation": "如果添加了客户端证书，则需要 CA 证书链。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -5287,7 +5287,7 @@
     ]
   },
   "If left undefined this will run in your local region.": {
-    "translation": "如果未定义，则会在本地区域运行。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
@@ -5323,7 +5323,7 @@
     ]
   },
   "Import LDAP Group": {
-    "translation": "导入 LDAP 组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
@@ -5332,7 +5332,7 @@
     ]
   },
   "Import LDAP Groups": {
-    "translation": "导入 LDAP 组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/modals/LDAPGroupFormModal.js",
@@ -5341,7 +5341,7 @@
     ]
   },
   "Import LDAP User": {
-    "translation": "导入 LDAP 用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js",
@@ -5350,7 +5350,7 @@
     ]
   },
   "Import LDAP Users": {
-    "translation": "导入 LDAP 用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js",
@@ -5377,7 +5377,7 @@
     ]
   },
   "Insert Permission String": {
-    "translation": "插入权限字符串",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -5413,7 +5413,7 @@
     ]
   },
   "Install {dcosLBPackageName}": {
-    "translation": "安装 {dcosLBPackageName}",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -5422,7 +5422,7 @@
     ]
   },
   "Install {dcosLBPackageName} to enable this capability.": {
-    "translation": "安装 {dcosLBPackageName} ，以启用此功能。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -5531,7 +5531,7 @@
     ]
   },
   "Issuer": {
-    "translation": "Issuer",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -5673,7 +5673,7 @@
     ]
   },
   "LDAP Directory": {
-    "translation": "LDAP 目录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -5686,7 +5686,7 @@
     ]
   },
   "LDAP Password": {
-    "translation": "LDAP 密码",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
@@ -5695,7 +5695,7 @@
     ]
   },
   "LDAP Username": {
-    "translation": "LDAP 用户名",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
@@ -5841,7 +5841,7 @@
     ]
   },
   "Latency distribution (in milliseconds) for all connections to this virtual address in the last hour.": {
-    "translation": "上一个小时内，此虚拟地址所有连接的延迟分布（以毫秒为单位）。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js",
@@ -5850,7 +5850,7 @@
     ]
   },
   "Latency distribution (in milliseconds) for all connections to virtual addresses redirected to this backend in the last hour.": {
-    "translation": "上一个小时内，重定向至此后端的虚拟地址所有连接的延迟分布（以毫秒为单位）。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js",
@@ -5885,7 +5885,7 @@
     ]
   },
   "License Expiration": {
-    "translation": "许可证过期",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
@@ -5903,7 +5903,7 @@
     ]
   },
   "Link a cluster to switch between clusters.": {
-    "translation": "链接集群，以在集群之间切换。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
@@ -5912,7 +5912,7 @@
     ]
   },
   "Linked Clusters": {
-    "translation": "链接集群",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModal.js",
@@ -6012,7 +6012,7 @@
     ]
   },
   "Log In": {
-    "translation": "登录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
@@ -6030,7 +6030,7 @@
     ]
   },
   "Logging In...": {
-    "translation": "正在登录……",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
@@ -6039,7 +6039,7 @@
     ]
   },
   "Login to your account": {
-    "translation": "登录您的帐户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
@@ -6048,7 +6048,7 @@
     ]
   },
   "Login with": {
-    "translation": "使用 登录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
@@ -6096,7 +6096,7 @@
     ]
   },
   "Lookup DN": {
-    "translation": "查找 DN",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -6109,7 +6109,7 @@
     ]
   },
   "Lookup Password": {
-    "translation": "查找密码",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -6144,7 +6144,7 @@
     ]
   },
   "Machine Availability and Reachability": {
-    "translation": "机器可用性和可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
@@ -6153,7 +6153,7 @@
     ]
   },
   "Machine Availability and Reachability for all connections to this virtual address in the last hour.": {
-    "translation": "在过去一小时内，此虚拟地址所有连接的机器可用性和可达性。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js",
@@ -6162,7 +6162,7 @@
     ]
   },
   "Machine Availability and Reachability per Minute": {
-    "translation": "每分钟的机器可用性和可达性",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
@@ -6423,7 +6423,7 @@
     ]
   },
   "Minutes ago": {
-    "translation": "分钟前",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js",
@@ -6462,7 +6462,7 @@
     ]
   },
   "More Information": {
-    "translation": "更多信息",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -7036,7 +7036,7 @@
     ]
   },
   "New Group": {
-    "translation": "新组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/pages/GroupsPage.js",
@@ -7054,7 +7054,7 @@
     ]
   },
   "New Secret": {
-    "translation": "新密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretsError.js",
@@ -7067,7 +7067,7 @@
     ]
   },
   "New Service Account": {
-    "translation": "新服务帐户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/pages/ServiceAccountsPage.js",
@@ -7076,7 +7076,7 @@
     ]
   },
   "New User": {
-    "translation": "新用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/pages/UsersPage.js",
@@ -7103,7 +7103,7 @@
     ]
   },
   "No External Load Balancers": {
-    "translation": "无外部负载均衡器",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -7148,7 +7148,7 @@
     ]
   },
   "No directory configured": {
-    "translation": "未配置目录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -7157,7 +7157,7 @@
     ]
   },
   "No groups to add": {
-    "translation": "没有要添加的组",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountGroupMembershipTab.js",
@@ -7179,7 +7179,7 @@
     ]
   },
   "No linked clusters": {
-    "translation": "无链接集群",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
@@ -7188,7 +7188,7 @@
     ]
   },
   "No networks detected": {
-    "translation": "未检测到网络",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/LoadBalancingTabContent.js",
@@ -7233,7 +7233,7 @@
     ]
   },
   "No services found": {
-    "translation": "未找到服务",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -7242,7 +7242,7 @@
     ]
   },
   "No users to add": {
-    "translation": "没有要添加的用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupAccountMembershipTab.js",
@@ -7277,7 +7277,7 @@
     ]
   },
   "Node Capacity": {
-    "translation": "节点容量",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
@@ -7385,7 +7385,7 @@
     ]
   },
   "Number of Agents": {
-    "translation": "代理数量",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -7402,7 +7402,7 @@
     ]
   },
   "Number of Zones": {
-    "translation": "区数量",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/ZoneConstraintsSection.js",
@@ -7415,7 +7415,7 @@
     ]
   },
   "Number of zones to evenly distribute instances across.": {
-    "translation": "将实例均匀分配的区数量。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/ZoneSelection.js",
@@ -7459,7 +7459,7 @@
     ]
   },
   "OpenID Connect": {
-    "translation": "OpenID Connect",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js",
@@ -7497,7 +7497,7 @@
     ]
   },
   "Optional": {
-    "translation": "可选",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -7567,7 +7567,7 @@
     ]
   },
   "P99 LATENCY": {
-    "translation": "P99 延迟",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js",
@@ -7576,7 +7576,7 @@
     ]
   },
   "P99 Latency": {
-    "translation": "P99 延迟",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
@@ -7628,7 +7628,7 @@
     ]
   },
   "Package not installed": {
-    "translation": "未安装包",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -7646,7 +7646,7 @@
     ]
   },
   "Password": {
-    "translation": "密码",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
@@ -7693,7 +7693,7 @@
     ]
   },
   "Permission denied": {
-    "translation": "权限被拒绝",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
@@ -7702,7 +7702,7 @@
     ]
   },
   "Permission inherited from the <0>{0}</0> group.": {
-    "translation": "权限继承自 <0>{0}</0> 组。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
@@ -7736,7 +7736,7 @@
     ]
   },
   "Permissions Strings": {
-    "translation": "权限字符串",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -7787,7 +7787,7 @@
     ]
   },
   "Placement constraints control where apps run to allow optimization for either fault tolerance or locality.": {
-    "translation": "当应用程序运行以允许容错或局部性的优化时，布局约束则进行控制。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/PlacementSection.js",
@@ -7832,7 +7832,7 @@
     ]
   },
   "Please make sure you have the required information from your provider. All fields are required.": {
-    "translation": "请确保已从您的提供商获取了所需信息。所有字段均为必填字段。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalForm.js",
@@ -7841,7 +7841,7 @@
     ]
   },
   "Please select at least one option.": {
-    "translation": "请至少选择一个选项。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -8065,7 +8065,7 @@
     ]
   },
   "Provider ID": {
-    "translation": "提供商 ID",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -8104,7 +8104,7 @@
     ]
   },
   "Public Key": {
-    "translation": "公钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsFormModal.js",
@@ -8298,7 +8298,7 @@
     ]
   },
   "Remove": {
-    "translation": "移除",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountGroupTable.js",
@@ -8311,7 +8311,7 @@
     ]
   },
   "Remove From Group": {
-    "translation": "从组中移除",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -8324,7 +8324,7 @@
     ]
   },
   "Remove User From Group": {
-    "translation": "从组中移除用户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -8337,7 +8337,7 @@
     ]
   },
   "Remove from Group": {
-    "translation": "从组中移除",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -8368,7 +8368,7 @@
     ]
   },
   "Request successes and failures for all connections to this virtual address in the last hour.": {
-    "translation": "请求在过去一小时内与此虚拟地址所有连接的成功次数和失败次数。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js",
@@ -8377,7 +8377,7 @@
     ]
   },
   "Request successes and failures for all connections to virtual addresses redirected to this backend in the last hour.": {
-    "translation": "请求在过去一小时内重定向到此后端的虚拟地址所有连接的成功次数和失败次数。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/constants/NetworkingTooltipContent.js",
@@ -8395,7 +8395,7 @@
     ]
   },
   "Requests": {
-    "translation": "请求",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/NetworkItemChart.js",
@@ -8404,7 +8404,7 @@
     ]
   },
   "Resource": {
-    "translation": "资源",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AdvancedACLsTab.js",
@@ -8854,7 +8854,7 @@
     ]
   },
   "SAML": {
-    "translation": "SAML",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js",
@@ -8863,7 +8863,7 @@
     ]
   },
   "SAML 2.0": {
-    "translation": "SAML 2.0",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/ProviderTypes.js",
@@ -8894,7 +8894,7 @@
     ]
   },
   "SP Metadata": {
-    "translation": "SP 元数据",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProviderDetailTab.js",
@@ -8903,7 +8903,7 @@
     ]
   },
   "SSL/TLS Setting": {
-    "translation": "SSL/TLS 设置",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -8921,7 +8921,7 @@
     ]
   },
   "SUCCESSES": {
-    "translation": "成功次数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js",
@@ -8960,7 +8960,7 @@
     ]
   },
   "Save Configuration": {
-    "translation": "保存配置",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryFormModal.js",
@@ -9092,7 +9092,7 @@
     ]
   },
   "Search/bind": {
-    "translation": "搜索/绑定",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -9101,7 +9101,7 @@
     ]
   },
   "Secret": {
-    "translation": "密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -9110,7 +9110,7 @@
     ]
   },
   "Secret Stores": {
-    "translation": "密钥存储库",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretStorePage.js",
@@ -9123,7 +9123,7 @@
     ]
   },
   "Secret store sealed": {
-    "translation": "密钥存储库已密封",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
@@ -9132,7 +9132,7 @@
     ]
   },
   "Secrets": {
-    "translation": "密钥",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -9157,7 +9157,7 @@
     ]
   },
   "Security Mode": {
-    "translation": "安全模式",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/bootstrap-config/components/BootstrapConfigHashMap.js",
@@ -9226,7 +9226,7 @@
     ]
   },
   "Select SSL/TLS setting": {
-    "translation": "选择 SSL/TLS 设置",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -9235,7 +9235,7 @@
     ]
   },
   "Select a number of agents to allocate": {
-    "translation": "选择要分配的代理数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerFormModal.js",
@@ -9257,7 +9257,7 @@
     ]
   },
   "Select an identity provider to easily allow access to users.": {
-    "translation": "选择身份提供商，以便于允许访问用户。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/AuthProvidersModalButtonContents.js",
@@ -9275,7 +9275,7 @@
     ]
   },
   "Select...": {
-    "translation": "选择……",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/RegionSelection.js",
@@ -9284,7 +9284,7 @@
     ]
   },
   "Selected Group is": {
-    "translation": "所选组为",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -9297,7 +9297,7 @@
     ]
   },
   "Selected Service is": {
-    "translation": "所选服务是",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -9310,7 +9310,7 @@
     ]
   },
   "Selected User is": {
-    "translation": "选定用户是",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -9369,7 +9369,7 @@
     ]
   },
   "Service Accounts": {
-    "translation": "服务账户",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupDetailPage.js",
@@ -9394,7 +9394,7 @@
     ]
   },
   "Service Addresses": {
-    "translation": "服务地址",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -9517,7 +9517,7 @@
     ]
   },
   "Service Provider Base URL": {
-    "translation": "服务提供商基准 URL",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/constants/AuthProvidersFormDefinitions.js",
@@ -9633,7 +9633,7 @@
     ]
   },
   "Set up an LDAP connection to avoid having to recreate your user accounts within DC/OS.": {
-    "translation": "设置 LDAP 连接，以避免在 DC/OS 内重新创建用户帐户。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/pages/DirectoriesPage.js",
@@ -9651,7 +9651,7 @@
     ]
   },
   "Set variables for each task your service launches. You can also use variables to expose Secrets. <0>Manage secrets here</0>. <1>Learn more about variables</1>.": {
-    "translation": "为服务启动的每项任务设置变量。您也可以使用变量来暴露密钥。<0>在此处管理密钥</0>. <1>了解有关变量的更多信息</1>.",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/hooks.js",
@@ -9718,7 +9718,7 @@
     ]
   },
   "Simple bind": {
-    "translation": "简单绑定",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -10112,7 +10112,7 @@
     ]
   },
   "Store": {
-    "translation": "存储",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
@@ -10139,7 +10139,7 @@
     ]
   },
   "Successes": {
-    "translation": "成功次数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
@@ -10164,7 +10164,7 @@
     ]
   },
   "Successes and Failures": {
-    "translation": "成功次数和失败次数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -10177,7 +10177,7 @@
     ]
   },
   "Successes and Failures per Minute": {
-    "translation": "每分钟的成功次数和失败次数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -10216,7 +10216,7 @@
     ]
   },
   "Switch": {
-    "translation": "切换",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js",
@@ -10225,7 +10225,7 @@
     ]
   },
   "Switch Cluster": {
-    "translation": "切换集群",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/components/ClusterLinkingModalTrigger.js",
@@ -10252,7 +10252,7 @@
     ]
   },
   "TASK": {
-    "translation": "任务",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/BackendsTable.js",
@@ -10407,7 +10407,7 @@
     ]
   },
   "Test Connection": {
-    "translation": "测试连接",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
@@ -10420,7 +10420,7 @@
     ]
   },
   "Test External Directory": {
-    "translation": "测试外部目录",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
@@ -10465,7 +10465,7 @@
     ]
   },
   "The connection to the LDAP server was successful, but credentials were invalid.": {
-    "translation": "与 LDAP 服务器的连接成功，但凭据无效。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/components/DirectoryActionButtons.js",
@@ -10483,7 +10483,7 @@
     ]
   },
   "The contents of this secret store cannot be accessed until it is unsealed. See <0>instructions</0> on how to access sealed secret stores.": {
-    "translation": "无法访问该密钥存储库的内容，直到解封为止。参见 <0>有关</0> 如何访问密封密钥存储库的说明。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SealedStoreAlert.js",
@@ -10581,7 +10581,7 @@
     ]
   },
   "The secret cannot be empty.": {
-    "translation": "密钥不能为空。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -10711,7 +10711,7 @@
     ]
   },
   "There are no services associated with this load balancer.": {
-    "translation": "此负载均衡器没有相关服务。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -10738,7 +10738,7 @@
     ]
   },
   "This action is irreversible and may break your cluster.": {
-    "translation": "此操作不可逆，可能会破坏您的集群。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.js",
@@ -10783,7 +10783,7 @@
     ]
   },
   "This feature will be available once {dcosLBPackageName} finishes deploying.": {
-    "translation": "当 {dcosLBPackageName} 完成部署后，此功能就可用。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -10801,7 +10801,7 @@
     ]
   },
   "This field is required.": {
-    "translation": "此字段为必填。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
@@ -10997,7 +10997,7 @@
     ]
   },
   "To enable this feature please contact support via {slackLink} or send us an email at {supportLink}.": {
-    "translation": "要启用此功能，请通过 {slackLink} 联系支持人员或发送电子邮件至 {supportLink}。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancersTab.js",
@@ -11006,7 +11006,7 @@
     ]
   },
   "To update this service's configuration, please update <0>options.json</0>. Run the following CLI command:": {
-    "translation": "要更新此服务的配置，请更新 <0>options.json</0>。运行以下 CLI 命令：",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/sdk-services/components/SDKServiceEdit.js",
@@ -11015,7 +11015,7 @@
     ]
   },
   "To use a secret in an application, a user needs appropriate permissions. <0>More information</0>.": {
-    "translation": "要在应用程序中使用密钥，用户需要适当的权限。<0>更多信息</0>.",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -11155,7 +11155,7 @@
     ]
   },
   "Unable to fetch permission schema.": {
-    "translation": "无法获取权限框架。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -11321,7 +11321,7 @@
     ]
   },
   "Upgrade": {
-    "translation": "已升级",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
@@ -11356,7 +11356,7 @@
     ]
   },
   "Usage Logs": {
-    "translation": "使用日志",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingNodeCapacityRow.js",
@@ -11365,7 +11365,7 @@
     ]
   },
   "Use SSL/TLS for all connections": {
-    "translation": "对所有连接使用 SSL/TLS",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -11378,7 +11378,7 @@
     ]
   },
   "Use the <0>DC/OS Secret Store</0> to secure important values like private keys, API tokens, and database passwords.": {
-    "translation": "使用 <0>DC/OS 密钥存储库，</0> 以保护诸如私钥、API 令牌和数据库密码等重要值。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -11387,7 +11387,7 @@
     ]
   },
   "Use the form below to build your permission. For more information see the <0>documentation</0>. To bulk add permissions, <1>switch to advanced mode</1>.": {
-    "translation": "使用下表构建您的权限。有关详细信息，请参阅 <0>文档</0>。要批量添加权限，<1>请切换至高级模式</1>.",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -11396,7 +11396,7 @@
     ]
   },
   "Use the form below to manually enter or paste permissions. <0>Switch to permission builder</0> to add a single permission.": {
-    "translation": "使用下表手动输入或粘贴权限。<0>切换到权限构建器，</0> 以添加单个权限。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -11423,7 +11423,7 @@
     ]
   },
   "User DN Template": {
-    "translation": "用户 DN 模板",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -11436,7 +11436,7 @@
     ]
   },
   "User Name": {
-    "translation": "用户名",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js",
@@ -11454,7 +11454,7 @@
     ]
   },
   "User Search": {
-    "translation": "用户搜索",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -11467,7 +11467,7 @@
     ]
   },
   "User Search Base": {
-    "translation": "用户搜索基准",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -11480,7 +11480,7 @@
     ]
   },
   "User Search Filter Template": {
-    "translation": "用户搜索筛选模板",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -11493,7 +11493,7 @@
     ]
   },
   "User {successMsg} added.": {
-    "translation": "已添加用户 {successMsg}。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/users/components/modals/LDAPUserFormModal.js",
@@ -11502,7 +11502,7 @@
     ]
   },
   "Username": {
-    "translation": "用户名",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
@@ -11515,7 +11515,7 @@
     ]
   },
   "Username and password do not match.": {
-    "translation": "用户名和密码不匹配。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/components/LoginModal.js",
@@ -11632,7 +11632,7 @@
     ]
   },
   "Variable name": {
-    "translation": "变量名称",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/ServiceCreate.js",
@@ -11674,7 +11674,7 @@
     ]
   },
   "View All ({authProviderCount})": {
-    "translation": "查看全部 ({authProviderCount})",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
@@ -12020,7 +12020,7 @@
     ]
   },
   "You can configure the placement of agent nodes in regions and zones for high availability or to expand capacity to new regions when necessary": {
-    "translation": "您可以配置区域和区中代理节点的放置以实现高可用性，或在必要时将容量扩展到新区域",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/placement/components/PlacementSection.js",
@@ -12038,7 +12038,7 @@
     ]
   },
   "You can link a cluster via the DC/OS CLI. See {documentation} for complete instructions.": {
-    "translation": "您可以通过 DC/OS CLI 链接集群。参见 {documentation}，以获取完整说明。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
@@ -12056,7 +12056,7 @@
     ]
   },
   "You do not have access to this resource. Please contact your {0} administrator or see <0>security documentation</0> for more information.": {
-    "translation": "您无权访问此资源。请联系您的 {0} 管理员或查看 <0>安全文档，</0> 以获取更多信息。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth/hooks.js",
@@ -12074,7 +12074,7 @@
     ]
   },
   "You do not have permission to": {
-    "translation": "您没有权限来",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
@@ -12083,7 +12083,7 @@
     ]
   },
   "You do not have permission to list this cluster's secrets.<0/>Please contact your super admin to learn more.": {
-    "translation": "您没有列出此集群密钥的权限。<0/>请联系您的超级管理员，以了解更多信息。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretsPage.js",
@@ -12092,7 +12092,7 @@
     ]
   },
   "You do not have permission to see this secret.<0/>Please contact your super admin to learn more.": {
-    "translation": "您没有查看此密钥的权限。<0/>请联系您的超级管理员，以了解更多信息。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/pages/SecretDetail.js",
@@ -12101,7 +12101,7 @@
     ]
   },
   "You have": {
-    "translation": "您已",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -12110,7 +12110,7 @@
     ]
   },
   "You have exceeded your {capacity} node licensed count. You have exceeded on 1 occasion": {
-    "translation": "您已超过 {capacity} 节点许可计数。您已超过 1 次",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -12119,7 +12119,7 @@
     ]
   },
   "You have exceeded your {capacity} node licensed count. You have exceeded on {numberBreaches} occasions": {
-    "translation": "您已超过 {capacity} 节点许可计数。您已超过{numberBreaches} 次",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -12188,7 +12188,7 @@
     ]
   },
   "and": {
-    "translation": "和",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -12206,7 +12206,7 @@
     ]
   },
   "days left": {
-    "translation": "剩余天数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
@@ -12215,7 +12215,7 @@
     ]
   },
   "days overdue": {
-    "translation": "逾期天数",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingExpirationRow.js",
@@ -12251,7 +12251,7 @@
     ]
   },
   "documentation": {
-    "translation": "文档",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/pages/LinkedClustersPage.js",
@@ -12260,7 +12260,7 @@
     ]
   },
   "exceeded license expiration by one day": {
-    "translation": "超过许可证到期日 1 天",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -12269,7 +12269,7 @@
     ]
   },
   "exceeded license expiration by {daysExceeded} days": {
-    "translation": "超过许可证到期日{daysExceeded} 天",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/licensing/components/LicensingBanner.js",
@@ -12278,7 +12278,7 @@
     ]
   },
   "group will be deleted": {
-    "translation": "组将被删除",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -12305,7 +12305,7 @@
     ]
   },
   "or": {
-    "translation": "或",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/components/LoginModalProviders.js",
@@ -12323,7 +12323,7 @@
     ]
   },
   "resources": {
-    "translation": "资源",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/hooks.js",
@@ -12350,7 +12350,7 @@
     ]
   },
   "service account will be deleted": {
-    "translation": "服务帐户将被删除",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -12359,7 +12359,7 @@
     ]
   },
   "system": {
-    "translation": "系统",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/auth-providers/hooks.js",
@@ -12381,7 +12381,7 @@
     ]
   },
   "this secret. Please contact your super admin to learn more.": {
-    "translation": "该密钥。请联系您的超级管理员，以了解更多信息。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/secrets/components/SecretFormModal.js",
@@ -12399,7 +12399,7 @@
     ]
   },
   "user will be deleted": {
-    "translation": "用户将被删除",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/constants/BulkOptions.js",
@@ -12459,7 +12459,7 @@
     ]
   },
   "{0}": {
-    "translation": "{0}",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/cluster-linking/components/LinkedClustersTable.js",
@@ -12489,7 +12489,7 @@
     ]
   },
   "{0} ({1} available)": {
-    "translation": "{0}（{1} 可用）",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -12525,7 +12525,7 @@
     ]
   },
   "{0} will be deleted.": {
-    "translation": "{0} 将被删除。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/ExternalLoadBalancerDetail.js",
@@ -12556,7 +12556,7 @@
     ]
   },
   "{agentsAvailable} of {agentsTotal}": {
-    "translation": "{agentsAvailable} 的 {agentsTotal}",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/external-load-balancing/components/LoadBalancersTable.js",
@@ -12565,7 +12565,7 @@
     ]
   },
   "{backendCount} Total Backends": {
-    "translation": "{backendCount} 总后端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/VIPDetailPage.js",
@@ -12574,7 +12574,7 @@
     ]
   },
   "{clientCount} Total Clients": {
-    "translation": "{clientCount} 总客户端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendDetailPage.js",
@@ -12592,7 +12592,7 @@
     ]
   },
   "{errorMsg} Go to <0>insert permission string</0> to enter a permission manually.": {
-    "translation": "{errorMsg} 转至 <0>插入权限字符串</0> 以手动输入权限。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/PermissionBuilderModal.js",
@@ -12628,7 +12628,7 @@
     ]
   },
   "{numBackends} Backends": {
-    "translation": "{numBackends} 后端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/BackendsTable.js",
@@ -12637,7 +12637,7 @@
     ]
   },
   "{numClients} Clients": {
-    "translation": "{numClients} 客户端",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/networking/submodules/internal-load-balancing/components/ClientsTable.js",
@@ -12681,7 +12681,7 @@
     ]
   },
   "{userLabel} will be removed from the {groupLabel} group.": {
-    "translation": "{userLabel} 将从 {groupLabel} 组移除。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/groups/components/GroupMemberTable.js",
@@ -12690,7 +12690,7 @@
     ]
   },
   "{userName} will be removed from {groupLabel}.": {
-    "translation": "{userName} 将从 {groupLabel} 移除。",
+    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/components/AccountGroupTable.js",

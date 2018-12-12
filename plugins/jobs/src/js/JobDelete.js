@@ -1,5 +1,5 @@
 import * as React from "react";
-import { componentFromStream, graphqlObservable } from "data-service";
+import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 import PropTypes from "prop-types";
 import { Subject } from "rxjs/Subject";
 import "rxjs/add/operator/map";
