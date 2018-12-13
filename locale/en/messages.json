@@ -893,7 +893,6 @@
     ]
   },
   "Anonymous Bind": {
-    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1310,7 +1309,6 @@
     ]
   },
   "Bind Type": {
-    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -5664,7 +5662,6 @@
     ]
   },
   "LDAP Credentials": {
-    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
