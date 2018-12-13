@@ -1,5 +1,5 @@
 {
-  "defaultCommandTimeout": 6000,
+  "defaultCommandTimeout": 60000,
   "env": {
     "CLUSTER_URL": "http://localhost:4200",
     "FULL_INTEGRATION_TEST": false
