@@ -129,7 +129,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     const { frameworkData, title, onEditClick, frameworkMeta } = this.props;
 
     const fileName = "config.json";
-    const configString = JSON.stringify(frameworkData, null, 2);
+    const configString = JSON.stringify(frameworkData, null, 2) + "\n";
 
     return (
       <div className="container">
