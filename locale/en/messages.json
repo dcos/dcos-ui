@@ -293,7 +293,7 @@
       ],
       [
         "plugins/services/src/js/components/DeploymentsModal.js",
-        545
+        546
       ],
       [
         "plugins/services/src/js/components/dsl/TaskStatusDSLSection.js",
@@ -893,7 +893,6 @@
     ]
   },
   "Anonymous Bind": {
-    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1310,7 +1309,6 @@
     ]
   },
   "Bind Type": {
-    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
@@ -1873,7 +1871,7 @@
       ],
       [
         "plugins/services/src/js/components/DeploymentsModal.js",
-        534
+        535
       ],
       [
         "plugins/services/src/js/components/modals/ServiceActionDisabledModal.js",
@@ -3212,7 +3210,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeploymentsModal.js",
-        542
+        543
       ]
     ]
   },
@@ -3221,7 +3219,7 @@
     "origin": [
       [
         "plugins/services/src/js/components/DeploymentsModal.js",
-        542
+        543
       ]
     ]
   },
@@ -5664,7 +5662,6 @@
     ]
   },
   "LDAP Credentials": {
-    "translation": "",
     "origin": [
       [
         ".dcos-ui-plugins-private/organization/submodules/directories/constants/FieldDefinitions.js",
