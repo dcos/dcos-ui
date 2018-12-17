@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
+import { i18nMark, withI18n } from "@lingui/react";
 import JobValidatorUtil from "../../utils/JobValidatorUtil";
 import ValidatorUtil from "../../utils/ValidatorUtil";
 import MesosConstants from "../../../../plugins/services/src/js/constants/MesosConstants";
 import JobResources from "../../constants/JobResources";
 
 const General = {
-  title: "General",
-  description: "Configure your job settings",
+  title: i18nMark("General"),
+  description: i18nMark("Configure your job settings"),
   type: "object",
   properties: {
     id: {
       focused: true,
-      title: "ID",
-      description: "The job ID",
+      title: i18nMark("ID"),
+      description: i18nMark("The job ID"),
       type: "string",
       getter(job) {
         return job.getId();
       },
       externalValidator({ general }, definition) {
         if (!JobValidatorUtil.isValidJobID(general.id)) {
-          definition.showError =
-            "ID must not be empty, must not contain " +
-            "whitespace, and should not contain any other characters than " +
-            'lowercase letters, digits, hyphens, ".", and ".."';
+          definition.showError = i18nMark(`ID must not be empty, must not contain 
+            whitespace, and should not contain any other characters than 
+            lowercase letters, digits, hyphens, ".", and ".."`);
 
           return false;
         }
@@ -33,8 +33,8 @@ const General = {
       }
     },
     description: {
-      title: "Description",
-      description: "Job description",
+      title: i18nMark("Description"),
+      description: i18nMark("Job description"),
       type: "string",
       getter(job) {
         return job.getDescription();
@@ -44,9 +44,9 @@ const General = {
       type: "group",
       properties: {
         cpus: {
-          title: "CPUs",
+          title: i18nMark("CPUs"),
           default: JobResources.DEFAULT_CPUS,
-          description: "The amount of CPUs the job requires",
+          description: i18nMark("The amount of CPUs the job requires"),
           type: "number",
           getter(job) {
             return `${job.getCpus()}`;
@@ -57,9 +57,10 @@ const General = {
                 min: MesosConstants.MIN_CPUS
               })
             ) {
-              definition.showError =
+              definition.showError = i18nMark(
                 "CPUs must be a number at least equal to " +
-                MesosConstants.MIN_CPUS;
+                  MesosConstants.MIN_CPUS
+              );
 
               return false;
             }
@@ -68,7 +69,7 @@ const General = {
           }
         },
         mem: {
-          title: "Mem (MiB)",
+          title: i18nMark("Mem (MiB)"),
           default: JobResources.DEFAULT_MEM,
           type: "number",
           getter(job) {
@@ -81,7 +82,7 @@ const General = {
               })
             ) {
               definition.showError =
-                "Mem must be a number and at least " +
+                i18nMark("Mem must be a number and at least ") +
                 MesosConstants.MIN_MEM +
                 " MiB";
 
@@ -92,7 +93,7 @@ const General = {
           }
         },
         disk: {
-          title: "Disk (MiB)",
+          title: i18nMark("Disk (MiB)"),
           default: JobResources.DEFAULT_DISK,
           type: "number",
           getter(job) {
@@ -103,7 +104,7 @@ const General = {
               ValidatorUtil.isDefined(general.disk) &&
               !ValidatorUtil.isNumberInRange(general.disk)
             ) {
-              definition.showError = "Disk must be a positive number";
+              definition.showError = i18nMark("Disk must be a positive number");
 
               return false;
             }
@@ -114,8 +115,8 @@ const General = {
       }
     },
     cmd: {
-      title: "Command",
-      description: "The command executed by the service",
+      title: i18nMark("Command"),
+      description: i18nMark("The command executed by the service"),
       type: "string",
       multiLine: true,
       getter(job) {
@@ -126,4 +127,4 @@ const General = {
   required: ["id"]
 };
 
-module.exports = General;
+module.exports = withI18n()(General);
