@@ -1,11 +1,13 @@
+import { i18nMark } from "@lingui/react";
+
 const General = {
-  title: "Docker Container",
-  description: "Configure your job settings",
+  title: i18nMark("Docker Container"),
+  description: i18nMark("Configure your job settings"),
   type: "object",
   properties: {
     image: {
-      title: "Image",
-      description: "Name of your Docker image",
+      title: i18nMark("Image"),
+      description: i18nMark("Name of your Docker image"),
       type: "string",
       getter(job) {
         return job.getDocker().image;
@@ -13,7 +15,7 @@ const General = {
     },
     privileged: {
       type: "boolean",
-      description: "Run this docker image in privileged mode",
+      description: i18nMark("Run this docker image in privileged mode"),
       getter(job) {
         return job.getDocker().privileged;
       }

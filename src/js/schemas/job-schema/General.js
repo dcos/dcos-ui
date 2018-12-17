@@ -22,9 +22,9 @@ const General = {
       },
       externalValidator({ general }, definition) {
         if (!JobValidatorUtil.isValidJobID(general.id)) {
-          definition.showError = i18nMark(`ID must not be empty, must not contain 
-            whitespace, and should not contain any other characters than 
-            lowercase letters, digits, hyphens, ".", and ".."`);
+          definition.showError = i18nMark(
+            'ID must not be empty, must not contain whitespace, and should not contain any other characters than lowercase letters, digits, hyphens, ".", and ".."'
+          );
 
           return false;
         }
@@ -57,10 +57,9 @@ const General = {
                 min: MesosConstants.MIN_CPUS
               })
             ) {
-              definition.showError = i18nMark(
-                "CPUs must be a number at least equal to " +
-                  MesosConstants.MIN_CPUS
-              );
+              definition.showError =
+                i18nMark("CPUs must be a number at least equal to ") +
+                MesosConstants.MIN_CPUS;
 
               return false;
             }
@@ -84,7 +83,8 @@ const General = {
               definition.showError =
                 i18nMark("Mem must be a number and at least ") +
                 MesosConstants.MIN_MEM +
-                " MiB";
+                " " +
+                i18nMark("MiB");
 
               return false;
             }

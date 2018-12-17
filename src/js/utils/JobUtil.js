@@ -1,4 +1,39 @@
+import React from "react";
+import { Trans } from "@lingui/macro";
 import Job from "../structs/Job";
+
+function addTrans(object) {
+  if (object === null) {
+    return;
+  }
+
+  if (
+    object.title &&
+    typeof object.title === "string" &&
+    object.title !== "ID" &&
+    object.title !== "CRON Schedule"
+  ) {
+    object.title = <Trans render="span" id={object.title} />;
+  }
+
+  if (object.description && typeof object.description === "string") {
+    object.description = <Trans render="span" id={object.description} />;
+  }
+
+  if (object.label && typeof object.label === "string") {
+    object.label = <Trans render="span" id={object.label} />;
+  }
+
+  if (object.addLabel && typeof object.addLabel === "string") {
+    object.addLabel = <Trans render="span" id={object.addLabel} />;
+  }
+
+  for (let i = 0; i < Object.keys(object).length; i++) {
+    if (typeof object[Object.keys(object)[i]] == "object") {
+      addTrans(object[Object.keys(object)[i]]);
+    }
+  }
+}
 
 // TODO: DCOS-7747 Move this method as well as `createFormModelFromSchema` into
 // the SchemaUtil and refactor it accordingly.
@@ -123,7 +158,12 @@ const JobUtil = {
   },
 
   createFormModelFromSchema(schema, job = new Job()) {
-    return getMatchingProperties(job, schema.properties);
+    let newSchemaProperties = {};
+    newSchemaProperties = schema.properties;
+    console.log(newSchemaProperties);
+    addTrans(newSchemaProperties);
+
+    return getMatchingProperties(job, newSchemaProperties);
   },
 
   createJobSpecFromJob(job) {

@@ -1,13 +1,16 @@
+import { i18nMark } from "@lingui/react";
+
 const Labels = {
   type: "object",
-  title: "Labels",
-  description:
-    "Attach metadata to jobs to expose additional information to other jobs.",
+  title: i18nMark("Labels"),
+  description: i18nMark(
+    "Attach metadata to jobs to expose additional information to other jobs."
+  ),
   properties: {
     items: {
       type: "array",
       duplicable: true,
-      addLabel: "Add Label",
+      addLabel: i18nMark("Add Label"),
       getter(job) {
         const labels = job.getLabels() || {};
 
@@ -21,11 +24,11 @@ const Labels = {
       itemShape: {
         properties: {
           key: {
-            title: "Label Name",
+            title: i18nMark("Label Name"),
             type: "string"
           },
           value: {
-            title: "Label Value",
+            title: i18nMark("Label Value"),
             type: "string"
           }
         }

@@ -1,23 +1,25 @@
+import { i18nMark } from "@lingui/react";
+
 const Parameters = {
   type: "object",
-  title: "Docker Parameters",
-  description: "Add runtime parameters to a docker job run.",
+  title: i18nMark("Docker Parameters"),
+  description: i18nMark("Add runtime parameters to a docker job run."),
   properties: {
     items: {
       type: "array",
       duplicable: true,
-      addLabel: "Add Parameter",
+      addLabel: i18nMark("Add Parameter"),
       getter(job) {
         return job.getParameters() || [];
       },
       itemShape: {
         properties: {
           key: {
-            title: "Parameter Name",
+            title: i18nMark("Parameter Name"),
             type: "string"
           },
           value: {
-            title: "Parameter Value",
+            title: i18nMark("Parameter Value"),
             type: "string"
           }
         }
