@@ -1684,7 +1684,7 @@
     ]
   },
   "Certified": {
-    "translation": "已认证",
+    "translation": "Certified (已认证)",
     "origin": [
       [
         "src/js/pages/catalog/PackageDetailTab.js",
