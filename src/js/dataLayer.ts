@@ -4,7 +4,6 @@ import { Observable } from "rxjs/Observable";
 import { injectable, inject, named } from "inversify";
 import { ExtensionProvider } from "extension-kid";
 import { GraphQLSchema } from "graphql";
-import deepmerge from "deepmerge";
 
 export const DataLayerExtension = Symbol("DataLayerExtension");
 
@@ -47,9 +46,9 @@ export default class DataLayer {
       ...extensions.map(extension => extension.getTypeDefinitions(enabledIds))
     ];
 
-    const resolvers = deepmerge.all(
-      extensions.map(extension => extension.getResolvers(enabledIds))
-    ) as IResolvers;
+    const resolvers = extensions.map(extension =>
+      extension.getResolvers(enabledIds)
+    );
 
     return makeExecutableSchema({ typeDefs, resolvers });
   }
