@@ -192,7 +192,6 @@
   "scripts": {
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist locale/_build",
-    "build-shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
     "preinstall": "./scripts/pre-install",
     "postinstall": "npm run scaffold",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
