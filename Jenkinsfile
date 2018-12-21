@@ -31,8 +31,21 @@ pipeline {
 
     stage("Build") {
       steps {
+        withCredentials([
+          usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
+        ]) {
+          // Clone the repository again with a full git clone
+          sh "rm -rf {.*,*} || ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git . && git fetch && git checkout ${CHANGE_BRANCH} && git merge ${CHANGE_TARGET}"
+        }
         sh "npm --unsafe-perm install"
         sh "npm run build"
+      }
+    }
+
+
+    stage("Lint Commits") {
+      steps {
+        sh 'npm run commitlint -- --from "${CHANGE_TARGET}"'
       }
     }
 
