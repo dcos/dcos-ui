@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@dcos/data-service": "1.0.2",
-    "@dcos/http-service": "1.1.0",
-    "@dcos/mesos-client": "0.2.6",
+    "@dcos/http-service": "2.0.0",
+    "@dcos/mesos-client": "1.0.0",
     "@dcos/tslint-config": "0.1.1",
     "@dcos/ui-kit": "1.26.0",
     "@lingui/react": "2.7.2",
