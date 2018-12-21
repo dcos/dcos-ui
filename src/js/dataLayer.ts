@@ -58,6 +58,11 @@ export default class DataLayer {
   }
 
   query(doc: any, context?: any): Observable<any> {
-    return graphqlObservable(doc, this._schema, context);
+    return graphqlObservable(doc, this._schema, context).catch(() =>
+      Observable.of({
+        data: {},
+        errors: [{ message: "There was a GraphQL error" }]
+      })
+    );
   }
 }

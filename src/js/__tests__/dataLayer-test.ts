@@ -287,11 +287,10 @@ describe("DataLayer", () => {
       }
     `;
 
-    await expect(dl.query(query).toPromise()).rejects.toEqual(
-      new Error(
-        "graphqlObservable error: field was not of the right type. Given type: Job"
-      )
-    );
+    await expect(dl.query(query).toPromise()).resolves.toEqual({
+      data: {},
+      errors: [{ message: "There was a GraphQL error" }]
+    });
 
     await container.bindAsync(DataLayerExtension, bts => {
       bts.to(TasksExtension).inSingletonScope();
