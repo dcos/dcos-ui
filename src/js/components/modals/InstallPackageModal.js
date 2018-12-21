@@ -511,6 +511,7 @@ class InstallPackageModal
             schema={schema}
             onChange={this.handleAdvancedFormChange}
             getTriggerSubmit={this.getAdvancedSubmit}
+            noValidate={true}
           />
         </div>
         {this.tabs_getTabView()}

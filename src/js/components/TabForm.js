@@ -188,6 +188,7 @@ class TabForm extends mixin(InternalStorageMixin) {
             onError={this.handleFormError}
             onSubmit={this.handleFormSubmit.bind(this, formKey)}
             useExternalErrors={true}
+            noValidate={this.props.noValidate}
           />
         </div>
       );

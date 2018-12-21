@@ -419,6 +419,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           getTriggerSubmit={this.getTriggerTabFormSubmit}
           onChange={this.handleFormChange}
           onTabClick={this.handleTabClick}
+          noValidate={this.props.noValidate}
         />
       </div>
     );
