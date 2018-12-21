@@ -2,7 +2,6 @@ import PluginSDK from "PluginSDK";
 
 import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
-import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import GetSetBaseStore from "#SRC/js/stores/GetSetBaseStore";
@@ -515,8 +514,6 @@ class MarathonStore extends GetSetBaseStore {
 
     this.set({ apps });
     this.set({ groups });
-
-    CompositeState.addMarathonApps(apps);
 
     this.emit(MARATHON_APPS_CHANGE, apps);
     this.emit(MARATHON_GROUPS_CHANGE, groups);
