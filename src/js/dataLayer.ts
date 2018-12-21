@@ -34,7 +34,7 @@ export default class DataLayer {
     extensionProvider: ExtensionProvider<DataLayerExtensionInterface>
   ) {
     this._extensionProvider = extensionProvider;
-    this._extensionProvider.subscribe(this.updateSchema.bind(this));
+    this._extensionProvider.subscribe({ next: this.updateSchema.bind(this) });
     this._schema = this.getExecutableSchema();
   }
 
@@ -57,7 +57,7 @@ export default class DataLayer {
     this._schema = this.getExecutableSchema();
   }
 
-  query(doc: any, context: any): Observable<any> {
+  query(doc: any, context?: any): Observable<any> {
     return graphqlObservable(doc, this._schema, context);
   }
 }
