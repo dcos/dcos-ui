@@ -287,18 +287,76 @@ describe("DataLayer", () => {
       }
     `;
 
-    await expect(dl.query(query).toPromise()).resolves.toEqual({
+    await expect(
+      dl
+        .query(query)
+        .take(1)
+        .toPromise()
+    ).resolves.toEqual({
       data: {},
-      errors: [{ message: "There was a GraphQL error" }]
+      errors: [
+        {
+          message:
+            "There was a GraphQL error: Error: graphqlObservable error: field was not of the right type. Given type: Job"
+        }
+      ]
     });
 
     await container.bindAsync(DataLayerExtension, bts => {
       bts.to(TasksExtension).inSingletonScope();
     });
 
-    await expect(dl.query(query).toPromise()).resolves.toEqual({
+    await expect(
+      dl
+        .query(query)
+        .take(1)
+        .toPromise()
+    ).resolves.toEqual({
       data: { jobs: [{ task: { id: "footask" } }] }
     });
   });
-  it("extends a schema while a query is running");
+
+  it("extends a schema while a query is running", async () => {
+    jest.useRealTimers();
+    await container.bindAsync(DataLayerExtension, bts => {
+      bts.to(JobsExtension).inSingletonScope();
+    });
+    const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+
+    const query = gql`
+      query {
+        jobs {
+          task {
+            id
+          }
+        }
+      }
+    `;
+
+    const obs = dl.query(query).take(2);
+    const mockNext = jest.fn();
+    const subscriptionDone = new Promise(resolve =>
+      obs.subscribe({ next: mockNext, complete: resolve })
+    );
+    await Promise.all([
+      subscriptionDone,
+      container.bindAsync(DataLayerExtension, bts => {
+        bts.to(TasksExtension).inSingletonScope();
+      })
+    ]);
+
+    expect(mockNext).toHaveBeenCalledTimes(2);
+    expect(mockNext).toHaveBeenCalledWith({
+      data: {},
+      errors: [
+        {
+          message:
+            "There was a GraphQL error: Error: graphqlObservable error: field was not of the right type. Given type: Job"
+        }
+      ]
+    });
+    expect(mockNext).toHaveBeenCalledWith({
+      data: { jobs: [{ task: { id: "footask" } }] }
+    });
+  });
 });
