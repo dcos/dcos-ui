@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-import { i18nMark, withI18n } from "@lingui/react";
+import { i18nMark } from "@lingui/react";
 import JobValidatorUtil from "../../utils/JobValidatorUtil";
 import ValidatorUtil from "../../utils/ValidatorUtil";
 import MesosConstants from "../../../../plugins/services/src/js/constants/MesosConstants";
@@ -127,4 +127,4 @@ const General = {
   required: ["id"]
 };
 
-module.exports = withI18n()(General);
+module.exports = General;
