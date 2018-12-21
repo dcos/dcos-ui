@@ -72,6 +72,20 @@ export default class Container extends InversifyContainer {
     return bindingToSyntax;
   }
 
+  public bindAsync<T>(
+    serviceIdentifier: ServiceIdentifier<T>,
+    callback: (bts: any) => void
+  ) {
+    return Promise.resolve()
+      .then(() => {
+        const bindingToSyntax = super.bind(serviceIdentifier);
+        callback(bindingToSyntax);
+      })
+      .then(() => {
+        this.eventEmitter.emit(BOUND, serviceIdentifier);
+      });
+  }
+
   public rebind<T>(serviceIdentifier: ServiceIdentifier<T>) {
     const bindingToSyntax = super.rebind(serviceIdentifier);
     this.eventEmitter.emit(REBOUND, serviceIdentifier);
