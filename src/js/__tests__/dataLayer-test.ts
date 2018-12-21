@@ -111,7 +111,7 @@ class TasksExtension implements DataLayerExtensionInterface {
 const DataLayerSymbol = Symbol("DataLayer");
 describe("DataLayer", () => {
   let container: Container;
-  beforeEach(() => {
+  beforeEach(async () => {
     container = new Container();
     const dataLayerModule = new ContainerModule(bind => {
       bindExtensionProvider(bind, DataLayerExtension);
@@ -119,10 +119,9 @@ describe("DataLayer", () => {
 
     container.load(dataLayerModule);
 
-    container
-      .bind(DataLayerSymbol)
-      .to(DataLayer)
-      .inSingletonScope();
+    await container.bindAsync(DataLayerSymbol, bts => {
+      bts.to(DataLayer).inSingletonScope();
+    });
   });
 
   // is this possible?
@@ -137,6 +136,7 @@ describe("DataLayer", () => {
         .bind(DataLayerExtension)
         .to(JobsExtension)
         .inSingletonScope();
+
       container
         .bind(DataLayerExtension)
         .to(TasksExtension)
@@ -269,58 +269,37 @@ describe("DataLayer", () => {
     })
   );
 
-  it.skip(
-    "allows to conditionally extend the schema based on active extensions",
-    marbles(m => {
-      m.bind();
-      const query = gql`
-        query {
-          jobs {
+  it("allows to conditionally extend the schema based on active extensions", async () => {
+    jest.useRealTimers();
+    await container.bindAsync(DataLayerExtension, bts => {
+      bts.to(JobsExtension).inSingletonScope();
+    });
+
+    const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+
+    const query = gql`
+      query {
+        jobs {
+          task {
             id
-            docker
-            taskId
-          }
-          task(id: "foo") {
-            id
-            log
           }
         }
-      `;
+      }
+    `;
 
-      container
-        .bind(DataLayerExtension)
-        .to(JobsExtension)
-        .inSingletonScope();
-      const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
-      const expectedBeforeBind$ = m.cold(
-        "#",
-        {},
-        new Error(
-          "graphqlObservable error: field was not of the right type. Given type: Job"
-        )
-      );
-      m.expect(dl.query(query, null).take(1)).toBeObservable(
-        expectedBeforeBind$
-      );
+    await expect(dl.query(query).toPromise()).rejects.toEqual(
+      new Error(
+        "graphqlObservable error: field was not of the right type. Given type: Job"
+      )
+    );
 
-      container
-        .bind(DataLayerExtension)
-        .to(TasksExtension)
-        .inSingletonScope();
+    await container.bindAsync(DataLayerExtension, bts => {
+      bts.to(TasksExtension).inSingletonScope();
+    });
 
-      const expectedAfterBind$ = m.cold("(a|)", {
-        a: {
-          data: {
-            jobs: [{ id: "foo", docker: "nginx", taskId: "foo-task" }],
-            task: { id: "foo", log: "foolog" }
-          }
-        }
-      });
-
-      m.expect(dl.query(query, null).take(1)).toBeObservable(
-        expectedAfterBind$
-      );
-    })
-  );
+    await expect(dl.query(query).toPromise()).resolves.toEqual({
+      data: { jobs: [{ task: { id: "footask" } }] }
+    });
+  });
   it("extends a schema while a query is running");
 });
