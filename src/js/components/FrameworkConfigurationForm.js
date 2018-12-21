@@ -315,6 +315,10 @@ export default class FrameworkConfigurationForm extends Component {
                       validate={this.validate}
                       showErrorList={false}
                       transformErrors={this.transformErrors}
+                      noHtml5Validate={true}
+                      ref={form => {
+                        this.schemaForm = form;
+                      }}
                     >
                       <div />
                     </SchemaForm>

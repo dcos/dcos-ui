@@ -223,6 +223,7 @@ class SchemaField extends Component {
         onChange={handleChange}
         onBlur={onBlur && (event => onBlur(name, event.target.value))}
         onFocus={onFocus && (event => onFocus(name, event.target.value))}
+        lang={navigator.language}
       />
     );
     if (autofocus) {
