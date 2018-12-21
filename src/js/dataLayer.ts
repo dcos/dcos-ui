@@ -1,6 +1,7 @@
 import { graphqlObservable } from "data-service";
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { injectable, inject, named } from "inversify";
 import { ExtensionProvider } from "extension-kid";
 import { GraphQLSchema } from "graphql";
@@ -26,7 +27,7 @@ type Mutation {
 @injectable()
 export default class DataLayer {
   _extensionProvider: ExtensionProvider<DataLayerExtensionInterface>;
-  _schema: GraphQLSchema;
+  _schema$: BehaviorSubject<GraphQLSchema>;
 
   constructor(
     @inject(ExtensionProvider)
@@ -34,8 +35,11 @@ export default class DataLayer {
     extensionProvider: ExtensionProvider<DataLayerExtensionInterface>
   ) {
     this._extensionProvider = extensionProvider;
-    this._extensionProvider.subscribe({ next: this.updateSchema.bind(this) });
-    this._schema = this.getExecutableSchema();
+    this._schema$ = new BehaviorSubject(this.getExecutableSchema());
+
+    this._extensionProvider.subscribe({
+      next: () => this._schema$.next(this.getExecutableSchema())
+    });
   }
 
   getExecutableSchema(): GraphQLSchema {
@@ -53,16 +57,14 @@ export default class DataLayer {
     return makeExecutableSchema({ typeDefs, resolvers });
   }
 
-  updateSchema() {
-    this._schema = this.getExecutableSchema();
-  }
-
   query(doc: any, context?: any): Observable<any> {
-    return graphqlObservable(doc, this._schema, context).catch(() =>
-      Observable.of({
-        data: {},
-        errors: [{ message: "There was a GraphQL error" }]
-      })
+    return this._schema$.switchMap(schema =>
+      graphqlObservable(doc, schema, context).catch(err =>
+        Observable.of({
+          data: {},
+          errors: [{ message: "There was a GraphQL error: " + err }]
+        })
+      )
     );
   }
 }
