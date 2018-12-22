@@ -1,12 +1,13 @@
+import { i18nMark } from "@lingui/react";
 import CompositeState from "../structs/CompositeState";
 import Node from "../structs/Node";
 import StringUtil from "./StringUtil";
 
 const DefaultResourceTypes = {
-  cpus: { label: "CPU", colorID: 0 },
-  mem: { label: "Mem", colorID: 6 },
-  disk: { label: "Disk", colorID: 3 },
-  gpus: { label: "GPU", colorID: 8 }
+  cpus: { label: i18nMark("CPU"), colorID: 0 },
+  mem: { label: i18nMark("Mem"), colorID: 6 },
+  disk: { label: i18nMark("Disk"), colorID: 3 },
+  gpus: { label: i18nMark("GPU"), colorID: 8 }
 };
 
 // Let's create an instance of a Node with our default resources
