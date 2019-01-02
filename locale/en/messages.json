@@ -724,8 +724,6 @@
   "Runs the {0} web interface, as well as a reverse proxy so that administrative interfaces of {1} Service can be accessed from outside the cluster.": "",
   "SAML": "",
   "SAML 2.0": "",
-  "SIZE (GiB)": "",
-  "SIZE (MiB)": "",
   "SP Metadata": "",
   "SSL/TLS Setting": "",
   "STAGED": "",
