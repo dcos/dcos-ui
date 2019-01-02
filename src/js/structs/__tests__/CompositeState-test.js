@@ -27,86 +27,6 @@ describe("CompositeState", function() {
     });
   });
 
-  describe("#addMarathonApps", function() {
-    it("adds marathon metadata to an existing framework, matching by id", function() {
-      CompositeState.addState({
-        frameworks: [
-          {
-            id: "foo-id",
-            name: "foo",
-            bar: "baz"
-          }
-        ]
-      });
-
-      CompositeState.addMarathonApps({
-        foo: {
-          qux: "quux",
-          corge: "grault"
-        }
-      });
-
-      expect(CompositeState.data.frameworks[0]._meta).toEqual({
-        marathon: {
-          qux: "quux",
-          corge: "grault"
-        }
-      });
-    });
-
-    it("replaced old marathon data with new marathon data", function() {
-      CompositeState.addState({
-        frameworks: [
-          {
-            id: "foo-id",
-            name: "foo",
-            bar: "baz"
-          }
-        ]
-      });
-
-      CompositeState.addMarathonApps({
-        foo: {
-          qux: "quux",
-          corge: "grault"
-        }
-      });
-
-      CompositeState.addMarathonApps({
-        foo: {
-          grault: "garply"
-        }
-      });
-
-      expect(CompositeState.data.frameworks[0]._meta).toEqual({
-        marathon: {
-          grault: "garply"
-        }
-      });
-    });
-
-    it("does not add marathon data if it doesn't find a matching id", function() {
-      CompositeState.addState({
-        frameworks: [
-          {
-            id: "foo-id",
-            name: "foo",
-            bar: "baz"
-          }
-        ]
-      });
-
-      CompositeState.addMarathonApps({
-        bar: {
-          qux: "quux",
-          corge: "grault"
-        }
-      });
-
-      expect(CompositeState.data.frameworks[0]._meta).toBeUndefined();
-    });
-  });
-
   describe("#addNodeHealth", function() {
     beforeEach(function() {
       CompositeState.addState({
@@ -311,24 +231,11 @@ describe("CompositeState", function() {
         ]
       });
 
-      CompositeState.addMarathonApps({
-        foo: {
-          qux: "quux",
-          corge: "grault"
-        }
-      });
-
       var expectedResult = [
         {
           id: "foo-id",
           name: "foo",
-          bar: "baz",
-          _meta: {
-            marathon: {
-              qux: "quux",
-              corge: "grault"
-            }
-          }
+          bar: "baz"
         },
         {
           id: "quux-id",
