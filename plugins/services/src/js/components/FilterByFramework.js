@@ -2,26 +2,27 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown } from "reactjs-components";
 import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 
 import { Badge } from "@dcos/ui-kit";
 import Framework from "../structs/Framework";
 
 var defaultId = "default";
 
-var FilterByService = React.createClass({
-  displayName: "FilterByService",
+var FilterByFramework = React.createClass({
+  displayName: "FilterByFramework",
 
   propTypes: {
-    byServiceFilter: PropTypes.string,
-    services: PropTypes.array.isRequired,
+    byFrameworkFilter: PropTypes.string,
+    frameworks: PropTypes.array.isRequired,
     totalHostsCount: PropTypes.number.isRequired,
     handleFilterChange: PropTypes.func
   },
 
   getDefaultProps() {
     return {
-      byServiceFilter: defaultId,
-      services: [],
+      byFrameworkFilter: defaultId,
+      frameworks: [],
       totalHostsCount: 0,
       handleFilterChange() {}
     };
@@ -35,46 +36,46 @@ var FilterByService = React.createClass({
     }
   },
 
-  getItemHtml(service, isSelected = false) {
+  getItemHtml(framework, isSelected = false) {
     const appearance = isSelected ? "outline" : "default";
 
     return (
       <span className="badge-container">
-        <span className="badge-container-text">{service.get("name")}</span>
-        <Badge appearance={appearance}>{service.getNodeIDs().length}</Badge>
+        <span className="badge-container-text">{framework.get("name")}</span>
+        <Badge appearance={appearance}>{framework.getNodeIDs().length}</Badge>
       </span>
     );
   },
 
   getDropdownItems() {
     // TODO (mlunoe, orlandohohmeier): Refactor after introducing new unified
-    // service struct featuring frameworks and apps.
+    // framework struct featuring frameworks and apps.
     const defaultItem = new Framework({
       id: defaultId,
-      name: "All Services",
+      name: i18nMark("All Frameworks"),
       // This is literally the worst way of doing this.
       slave_ids: new Array(this.props.totalHostsCount)
     });
-    const items = [defaultItem].concat(this.props.services);
+    const items = [defaultItem].concat(this.props.frameworks);
 
-    return items.map(service => {
-      const serviceId = service.get("id");
-      const selectedHtml = this.getItemHtml(service);
+    return items.map(framework => {
+      const frameworkId = framework.get("id");
+      const selectedHtml = this.getItemHtml(framework);
       const dropdownHtml = <a>{selectedHtml}</a>;
 
       var item = {
-        id: service.get("id"),
-        name: service.get("name"),
+        id: framework.get("id"),
+        name: framework.get("name"),
         html: dropdownHtml,
         selectedHtml
       };
 
-      if (serviceId === this.props.byServiceFilter) {
-        item.selectedHtml = this.getItemHtml(service, true);
+      if (frameworkId === this.props.byFrameworkFilter) {
+        item.selectedHtml = this.getItemHtml(framework, true);
       }
 
-      if (serviceId === defaultId) {
-        item.selectedHtml = <Trans render="span">Filter by Service</Trans>;
+      if (frameworkId === defaultId) {
+        item.selectedHtml = <Trans render="span">Filter by Framework</Trans>;
       }
 
       return item;
@@ -104,7 +105,7 @@ var FilterByService = React.createClass({
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
-        initialID={this.getSelectedId(this.props.byServiceFilter)}
+        initialID={this.getSelectedId(this.props.byFrameworkFilter)}
         onItemSelection={this.handleItemSelection}
         ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
@@ -116,4 +117,4 @@ var FilterByService = React.createClass({
   }
 });
 
-module.exports = FilterByService;
+module.exports = FilterByFramework;

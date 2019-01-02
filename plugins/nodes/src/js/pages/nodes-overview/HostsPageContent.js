@@ -12,7 +12,7 @@ import NodesList from "#SRC/js/structs/NodesList";
 
 import ResourceSwitchDropdown from "#SRC/js/components/ResourceSwitchDropdown";
 
-import FilterByService from "../../../../../services/src/js/components/FilterByService";
+import FilterByFramework from "../../../../../services/src/js/components/FilterByFramework";
 
 import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
 import NodesRegionDSLFilter from "../../components/dsl/NodesRegionDSLFilter";
@@ -205,11 +205,11 @@ class HostsPageContent extends React.PureComponent {
           {filterInputText}
           {this.getFilterBar()}
           <div className="form-group flush-bottom">
-            <FilterByService
-              byServiceFilter={byServiceFilter}
+            <FilterByFramework
+              byFrameworkFilter={byServiceFilter}
               handleFilterChange={handleFilterChange}
               ref={ref => (this.serviceFilter = ref)}
-              services={services}
+              frameworks={services}
               totalHostsCount={totalNodeCount}
             />
           </div>
