@@ -3,30 +3,30 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-const FilterByService = require("../FilterByService");
+const FilterByFramework = require("../FilterByFramework");
 const MockFrameworks = require("./fixtures/MockFrameworks.json");
-const ServicesList = require("../../structs/ServicesList");
+const FrameworksList = require("../../structs/ServicesList");
 const Framework = require("../../structs/Framework");
 
-let thisHandleByServiceFilterChange,
-  thisByServiceFilter,
+let thisHandleByFrameworkFilterChange,
+  thisByFrameworkFilter,
   thisContainer,
   thisInstance;
 
-describe("FilterByService", function() {
+describe("FilterByFramework", function() {
   beforeEach(function() {
-    thisHandleByServiceFilterChange = function(id) {
-      thisByServiceFilter = id;
+    thisHandleByFrameworkFilterChange = function(id) {
+      thisByFrameworkFilter = id;
     };
 
-    const services = new ServicesList({ items: MockFrameworks.frameworks });
+    const frameworks = new FrameworksList({ items: MockFrameworks.frameworks });
     thisContainer = global.document.createElement("div");
     thisInstance = ReactDOM.render(
-      <FilterByService
-        byServiceFilter={thisByServiceFilter}
-        services={services.getItems()}
+      <FilterByFramework
+        byFrameworkFilter={thisByFrameworkFilter}
+        frameworks={frameworks.getItems()}
         totalHostsCount={10}
-        handleFilterChange={thisHandleByServiceFilterChange}
+        handleFilterChange={thisHandleByFrameworkFilterChange}
       />,
       thisContainer
     );
@@ -39,7 +39,7 @@ describe("FilterByService", function() {
     var node = ReactDOM.findDOMNode(thisInstance);
     var buttonNode = node.querySelector(".dropdown-toggle");
 
-    expect(buttonNode.textContent).toEqual("Filter by Service");
+    expect(buttonNode.textContent).toEqual("Filter by Framework");
   });
 
   describe("#getItemHtml", function() {
@@ -60,7 +60,7 @@ describe("FilterByService", function() {
   });
 
   describe("#getDropdownItems", function() {
-    it("returns all services and the all services item", function() {
+    it("returns all frameworks and the all frameworks item", function() {
       var items = thisInstance.getDropdownItems(MockFrameworks.frameworks);
       expect(items.length).toEqual(MockFrameworks.frameworks.length + 1);
     });
