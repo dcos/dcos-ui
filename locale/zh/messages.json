@@ -739,8 +739,6 @@
   "Runs the {0} web interface, as well as a reverse proxy so that administrative interfaces of {1} Service can be accessed from outside the cluster.": "运行 {0} 网络界面以及反向代理，以便从集群外部访问 {1} 服务的管理界面。",
   "SAML": "SAML",
   "SAML 2.0": "SAML 2.0",
-  "SIZE (GiB)": "大小 (GiB)",
-  "SIZE (MiB)": "大小 (MiB)",
   "SP Metadata": "SP 元数据",
   "SSL/TLS Setting": "SSL/TLS 设置",
   "STAGED": "已暂存",

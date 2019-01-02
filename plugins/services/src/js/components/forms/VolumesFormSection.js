@@ -89,7 +89,7 @@ class VolumesFormSection extends Component {
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
               <Trans render={<FormGroupHeadingContent primary={true} />}>
-                SIZE (MiB)
+                Size (MiB)
               </Trans>
             </FormGroupHeading>
           </FieldLabel>
@@ -282,7 +282,7 @@ class VolumesFormSection extends Component {
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
               <Trans render={<FormGroupHeadingContent primary={true} />}>
-                SIZE (GiB)
+                Size (GiB)
               </Trans>
             </FormGroupHeading>
           </FieldLabel>
