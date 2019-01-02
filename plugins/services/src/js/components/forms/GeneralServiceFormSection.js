@@ -321,6 +321,14 @@ class GeneralServiceFormSection extends Component {
     );
   }
 
+  moveCaretAtEnd(e) {
+    if (e.target.value !== "/") {
+      return;
+    }
+    const length = e.target.value.length;
+    e.target.setSelectionRange(length, length);
+  }
+
   render() {
     const { data, errors, i18n } = this.props;
     const title = pluralize(
@@ -377,6 +385,7 @@ class GeneralServiceFormSection extends Component {
                 type="text"
                 value={data.id}
                 disabled={isEditPage}
+                onFocus={this.moveCaretAtEnd}
               />
             </FieldAutofocus>
             <FieldHelp>
