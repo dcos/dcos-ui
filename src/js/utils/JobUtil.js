@@ -160,7 +160,6 @@ const JobUtil = {
   createFormModelFromSchema(schema, job = new Job()) {
     let newSchemaProperties = {};
     newSchemaProperties = schema.properties;
-    console.log(newSchemaProperties);
     addTrans(newSchemaProperties);
 
     return getMatchingProperties(job, newSchemaProperties);
