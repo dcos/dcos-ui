@@ -6,8 +6,8 @@ import { injectable, inject, named } from "inversify";
 import { ExtensionProvider } from "extension-kid";
 import { GraphQLSchema } from "graphql";
 
-export const DataLayerExtension = Symbol("DataLayerExtension");
-
+export const DataLayerExtensionSymbol = Symbol("DataLayerExtension");
+export const DataLayerSymbol = Symbol("DataLayer");
 export interface DataLayerExtensionInterface {
   id: symbol;
   getTypeDefinitions(enabledSchemas: symbol[]): string;
@@ -31,7 +31,7 @@ export default class DataLayer {
 
   constructor(
     @inject(ExtensionProvider)
-    @named(DataLayerExtension)
+    @named(DataLayerExtensionSymbol)
     extensionProvider: ExtensionProvider<DataLayerExtensionInterface>
   ) {
     this._extensionProvider = extensionProvider;
