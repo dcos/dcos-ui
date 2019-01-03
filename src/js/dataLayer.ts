@@ -1,4 +1,4 @@
-import { graphqlObservable } from "data-service";
+import { graphqlObservable } from "@dcos/data-service";
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
@@ -59,7 +59,7 @@ export default class DataLayer {
 
   query(doc: any, context?: any): Observable<any> {
     return this._schema$.switchMap(schema =>
-      graphqlObservable(doc, schema, context).catch(err =>
+      graphqlObservable(doc, schema, context).catch((err: string) =>
         Observable.of({
           data: {},
           errors: [{ message: "There was a GraphQL error: " + err }]
