@@ -302,8 +302,8 @@ var NodesAgents = React.createClass({
             <Trans render="span">No nodes detected</Trans>
           </AlertPanelHeader>
           <Trans render="p" className="flush-bottom">
-            There a currently no other nodes in your datacenter other than your
-            DC/OS master node.
+            There are currently no other nodes in this DC/OS cluster other than
+            your DC/OS master node.
           </Trans>
         </AlertPanel>
       </Page>
