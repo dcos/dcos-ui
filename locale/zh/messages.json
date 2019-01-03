@@ -133,7 +133,7 @@
   "CLI Only Package": "CLI Only Package（只 CLI 包）",
   "CPU": "CPU 分配",
   "CPU Allocation": "CPU 分配",
-  "CPU/MEM/DSK": "CPU 分配/记忆/磁盘",
+  "CPU/MEM/DSK": "CPU 分配/记忆/DSK",
   "CPUs": "CPU 分配",
   "CRON Schedule": "CRON 计划",
   "CSTR": "CSTR",
