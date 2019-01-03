@@ -1,30 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 import Chart from "./Chart";
 import TimeSeriesChart from "./TimeSeriesChart";
 import TimeSeriesLabel from "./TimeSeriesLabel";
 import Units from "../../utils/Units";
 
-var ResourceTimeSeriesChart = createReactClass({
-  displayName: "ResourceTimeSeriesChart",
-
-  propTypes: {
-    colorIndex: PropTypes.number.isRequired,
-    usedResources: PropTypes.object.isRequired,
-    totalResources: PropTypes.object.isRequired,
-    usedResourcesStates: PropTypes.object.isRequired,
-    mode: PropTypes.string,
-    refreshRate: PropTypes.number.isRequired
-  },
-
-  getDefaultProps() {
-    return {
-      colorIndex: 0
-    };
-  },
-
+class ResourceTimeSeriesChart extends React.Component {
   getData() {
     const { colorIndex, usedResourcesStates, mode } = this.props;
 
@@ -35,7 +17,7 @@ var ResourceTimeSeriesChart = createReactClass({
         values: usedResourcesStates[mode]
       }
     ];
-  },
+  }
 
   getHeadline(usedValue, totalValue) {
     const { mode } = this.props;
@@ -48,7 +30,7 @@ var ResourceTimeSeriesChart = createReactClass({
         Units.filesize(totalValue * 1024 * 1024, 0)
       );
     }
-  },
+  }
 
   getChart() {
     const { refreshRate } = this.props;
@@ -63,7 +45,7 @@ var ResourceTimeSeriesChart = createReactClass({
         />
       </Chart>
     );
-  },
+  }
 
   render() {
     const { colorIndex, mode, usedResources, totalResources } = this.props;
@@ -82,6 +64,21 @@ var ResourceTimeSeriesChart = createReactClass({
       </div>
     );
   }
-});
+}
+
+ResourceTimeSeriesChart.displayName = "ResourceTimeSeriesChart";
+
+ResourceTimeSeriesChart.propTypes = {
+  colorIndex: PropTypes.number.isRequired,
+  usedResources: PropTypes.object.isRequired,
+  totalResources: PropTypes.object.isRequired,
+  usedResourcesStates: PropTypes.object.isRequired,
+  mode: PropTypes.string,
+  refreshRate: PropTypes.number.isRequired
+};
+
+ResourceTimeSeriesChart.defaultProps = {
+  colorIndex: 0
+};
 
 module.exports = ResourceTimeSeriesChart;

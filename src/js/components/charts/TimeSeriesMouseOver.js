@@ -1,33 +1,27 @@
 import d3 from "d3";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 import Maths from "../../utils/Maths";
 
-var TimeSeriesMouseOver = createReactClass({
-  displayName: "TimeSeriesMouseOver",
+const METHODS_TO_BIND = ["handleMouseMove", "handleMouseOut"];
 
-  propTypes: {
-    addMouseHandler: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired,
-    getBoundingBox: PropTypes.func.isRequired,
-    height: PropTypes.number.isRequired,
-    removeMouseHandler: PropTypes.func.isRequired,
-    width: PropTypes.number.isRequired,
-    xScale: PropTypes.func.isRequired,
-    y: PropTypes.string.isRequired,
-    yScale: PropTypes.func.isRequired,
-    yCaption: PropTypes.string.isRequired
-  },
+class TimeSeriesMouseOver extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   componentDidMount() {
     this.props.addMouseHandler(this.handleMouseMove, this.handleMouseOut);
-  },
+  }
 
   componentWillUnmount() {
     this.props.removeMouseHandler(this.handleMouseMove, this.handleMouseOut);
-  },
+  }
 
   calculateMousePositionInGraph(e) {
     var boundingBox = this.props.getBoundingBox();
@@ -49,7 +43,7 @@ var TimeSeriesMouseOver = createReactClass({
     mouse.y -= boundingBox.top;
 
     return mouse;
-  },
+  }
 
   handleMouseMove(e) {
     var mouse = this.calculateMousePositionInGraph(e);
@@ -119,7 +113,7 @@ var TimeSeriesMouseOver = createReactClass({
       .attr("x", xPosition)
       // Default to 0 if state is unsuccessful.
       .text(value || 0);
-  },
+  }
 
   handleMouseOut() {
     d3.select(this.yMousePositionRef)
@@ -128,9 +122,15 @@ var TimeSeriesMouseOver = createReactClass({
     d3.select(this.xMousePositionRef)
       .interrupt()
       .style("opacity", 0);
+<<<<<<< HEAD
     d3.select(this.xAxisCurrentRef).text("");
     d3.select(this.yAxisCurrentRef).text("");
   },
+=======
+    d3.select(this.refs.xAxisCurrent).text("");
+    d3.select(this.refs.yAxisCurrent).text("");
+  }
+>>>>>>> chore: Migrate from React.createClass to ES6 classes
 
   render() {
     var height = this.props.height;
@@ -174,6 +174,21 @@ var TimeSeriesMouseOver = createReactClass({
       </g>
     );
   }
-});
+}
+
+TimeSeriesMouseOver.displayName = "TimeSeriesMouseOver";
+
+TimeSeriesMouseOver.propTypes = {
+  addMouseHandler: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+  getBoundingBox: PropTypes.func.isRequired,
+  height: PropTypes.number.isRequired,
+  removeMouseHandler: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired,
+  xScale: PropTypes.func.isRequired,
+  y: PropTypes.string.isRequired,
+  yScale: PropTypes.func.isRequired,
+  yCaption: PropTypes.string.isRequired
+};
 
 module.exports = TimeSeriesMouseOver;

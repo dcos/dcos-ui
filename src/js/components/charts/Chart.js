@@ -1,27 +1,21 @@
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
+import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DOMUtils from "../../utils/DOMUtils";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 
-var Chart = createReactClass({
-  displayName: "Chart",
+const METHODS_TO_BIND = ["getChildren", "updateWidth"];
 
-  mixins: [InternalStorageMixin, StoreMixin],
+class Chart extends mixin(InternalStorageMixin, StoreMixin) {
+  constructor() {
+    super(...arguments);
 
-  propTypes: {
-    calcHeight: PropTypes.func,
-    delayRender: PropTypes.bool
-  },
-
-  getDefaultProps() {
-    return {
-      calcHeight: null,
-      delayRender: false
-    };
-  },
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   componentWillMount() {
     this.store_listeners = [
@@ -33,9 +27,10 @@ var Chart = createReactClass({
     ];
 
     this.internalStorage_set({ width: null });
-  },
+  }
 
   componentDidMount() {
+    this._mounted = true;
     if (this.props.delayRender) {
       // As of right now this is used on the Side Panels
       // because they animate in we need to wait on calling
@@ -47,15 +42,12 @@ var Chart = createReactClass({
       this.updateWidth();
     }
     global.addEventListener("resize", this.updateWidth);
-  },
+  }
 
   componentWillUnmount() {
+    this._mounted = false;
     global.removeEventListener("resize", this.updateWidth);
-  },
-
-  onSidebarStoreWidthChange() {
-    this.updateWidth();
-  },
+  }
 
   updateWidth() {
     if (!this.chartRef) {
@@ -68,7 +60,7 @@ var Chart = createReactClass({
       this.internalStorage_set(dimensions);
       this.forceUpdate();
     }
-  },
+  }
 
   getChildren() {
     var data = this.internalStorage_get();
@@ -92,7 +84,7 @@ var Chart = createReactClass({
         return React.cloneElement(children, { width, height });
       }
     }
-  },
+  }
 
   render() {
     // at the moment, 'chart' is used to inject the chart color palette.
@@ -103,6 +95,18 @@ var Chart = createReactClass({
       </div>
     );
   }
-});
+}
+
+Chart.displayName = "Chart";
+
+Chart.propTypes = {
+  calcHeight: PropTypes.func,
+  delayRender: PropTypes.bool
+};
+
+Chart.defaultProps = {
+  calcHeight: null,
+  delayRender: false
+};
 
 module.exports = Chart;

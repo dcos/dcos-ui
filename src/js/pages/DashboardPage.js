@@ -2,11 +2,10 @@ import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React, { Suspense, lazy } from "react";
-import createReactClass from "create-react-class";
+import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
-import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
@@ -68,44 +67,15 @@ const DashboardBreadcrumbs = () => {
   );
 };
 
-var DashboardPage = createReactClass({
-  displayName: "DashboardPage",
+export default class DashboardPage extends mixin(InternalStorageMixin, StoreMixin) {
+  constructor() {
+    super(...arguments);
 
-  mixins: [InternalStorageMixin, StoreMixin],
-
-  statics: {
-    routeConfig: {
-      label: i18nMark("Dashboard"),
-      icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
-      matches: /^\/dashboard/
-    },
-
-    // Static life cycle method from react router, that will be called
-    // 'when a handler is about to render', i.e. on route change:
-    // https://github.com/rackt/react-router/
-    // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo() {
-      SidebarActions.close();
-    }
-  },
-
-  contextTypes: {
-    router: routerShape
-  },
-
-  getDefaultProps() {
-    return {
-      componentsListLength: 5,
-      servicesListLength: 5
-    };
-  },
-
-  getInitialState() {
-    return {
+    this.state = {
       dcosServices: [],
       unitHealthUnits: new HealthUnitsList({ items: [] })
     };
-  },
+  }
 
   componentWillMount() {
     this.store_listeners = [
@@ -123,15 +93,15 @@ var DashboardPage = createReactClass({
       openTaskPanel: false
     });
     this.internalStorage_update(getMesosState());
-  },
+  }
 
   onSummaryStoreError() {
     this.internalStorage_update(getMesosState());
-  },
+  }
 
   onSummaryStoreSuccess() {
     this.internalStorage_update(getMesosState());
-  },
+  }
 
   onDcosStoreChange() {
     this.setState({
@@ -162,11 +132,11 @@ var DashboardPage = createReactClass({
     });
 
     return sortedServices.slice(0, this.props.servicesListLength);
-  },
+  }
 
   getUnits() {
     return this.state.unitHealthUnits;
-  },
+  }
 
   getViewAllComponentsButton() {
     var componentCount = this.getUnits().getItems().length;
@@ -186,7 +156,7 @@ var DashboardPage = createReactClass({
         View all {componentCount} {componentCountWord}
       </Trans>
     );
-  },
+  }
 
   getViewAllServicesBtn() {
     let servicesCount = this.state.dcosServices.length;
@@ -206,7 +176,7 @@ var DashboardPage = createReactClass({
         View all {servicesCount} Services
       </Trans>
     );
-  },
+  }
 
   getHeading(translationId) {
     return (
@@ -216,7 +186,7 @@ var DashboardPage = createReactClass({
         className="flush text-align-center"
       />
     );
-  },
+  }
 
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
@@ -347,6 +317,29 @@ var DashboardPage = createReactClass({
       </Page>
     );
   }
-});
+}
 
-module.exports = DashboardPage;
+DashboardPage.displayName = "DashboardPage";
+
+DashboardPage.routeConfig = {
+  label: i18nMark("Dashboard"),
+  icon: <Icon id="dashboard-inverse" size="small" family="product" />,
+  matches: /^\/dashboard/
+};
+
+// Static life cycle method from react router, that will be called
+// 'when a handler is about to render', i.e. on route change:
+// https://github.com/rackt/react-router/
+// blob/master/docs/api/components/RouteHandler.md
+DashboardPage.willTransitionTo = () => {
+  SidebarActions.close();
+};
+
+DashboardPage.contextTypes = {
+  router: routerShape
+};
+
+DashboardPage.defaultProps = {
+  componentsListLength: 5,
+  servicesListLength: 5
+};

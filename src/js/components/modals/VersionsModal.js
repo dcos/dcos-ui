@@ -2,29 +2,31 @@ import { Trans } from "@lingui/macro";
 import { Modal } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 import ClickToSelect from "../ClickToSelect";
 import Config from "../../config/Config";
 import ModalHeading from "../modals/ModalHeading";
 
-var VersionsModal = createReactClass({
-  displayName: "VersionsModal",
+const METHODS_TO_BIND = ["onClose"];
 
-  propTypes: {
-    onClose: PropTypes.func.isRequired,
-    versionDump: PropTypes.object.isRequired
-  },
+class VersionsModal extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   onClose() {
     this.props.onClose();
-  },
+  }
 
   getContent() {
     var string = JSON.stringify(this.props.versionDump, null, 2);
 
     return <pre className="flush-bottom">{string}</pre>;
-  },
+  }
 
   render() {
     const header = (
@@ -45,6 +47,13 @@ var VersionsModal = createReactClass({
       </Modal>
     );
   }
-});
+}
+
+VersionsModal.displayName = "VersionsModal";
+
+VersionsModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  versionDump: PropTypes.object.isRequired
+};
 
 module.exports = VersionsModal;

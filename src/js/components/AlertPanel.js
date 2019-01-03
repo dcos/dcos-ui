@@ -1,22 +1,10 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 import Panel from "./Panel";
 
-var AlertPanel = createReactClass({
-  displayName: "AlertPanel",
-
-  defaultProps: {
-    icon: null
-  },
-
-  propTypes: {
-    icon: PropTypes.node,
-    iconClassName: PropTypes.string
-  },
-
+class AlertPanel extends React.Component {
   // TODO: Use iconIDs instead of icon classes.
   getIcon() {
     const { icon, iconClassName } = this.props;
@@ -30,7 +18,7 @@ var AlertPanel = createReactClass({
     }
 
     return <i className={iconClassName} key="icon" />;
-  },
+  }
 
   render() {
     const classes = classNames(
@@ -70,6 +58,17 @@ var AlertPanel = createReactClass({
       </Panel>
     );
   }
-});
+}
+
+AlertPanel.displayName = "AlertPanel";
+
+AlertPanel.defaultProps = {
+  icon: null
+};
+
+AlertPanel.propTypes = {
+  icon: PropTypes.node,
+  iconClassName: PropTypes.string
+};
 
 module.exports = AlertPanel;

@@ -2,8 +2,8 @@ import d3 from "d3";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
+import mixin from "reactjs-mixin";
 
 import AnimationCircle from "./AnimationCircle";
 import ChartMixin from "../../mixins/ChartMixin";
@@ -15,55 +15,28 @@ import TimeSeriesMouseOver from "./TimeSeriesMouseOver";
 import ValueTypes from "../../constants/ValueTypes";
 import Util from "../../utils/Util";
 
-const TimeSeriesChart = createReactClass({
-  displayName: "TimeSeriesChart",
+const METHODS_TO_BIND = [
+  "addMouseHandler",
+  "removeMouseHandler",
+  "getBoundingBox",
+  "formatXAxis" // from ChartMixin
+];
 
-  propTypes: {
-    axisConfiguration: PropTypes.object,
-    // [{name: 'Area Name', values: [{date: some time, y: 0}]}]
-    data: PropTypes.array.isRequired,
-    // `height` and `width` are required if this
-    // module isn't used as a child of the `Chart` component
-    // Otherwise Chart will automatically calculate this.
-    height: PropTypes.number,
-    margin: PropTypes.object.isRequired,
-    maxY: PropTypes.number,
-    refreshRate: PropTypes.number.isRequired,
-    ticksY: PropTypes.number,
-    y: PropTypes.string,
-    yFormat: PropTypes.string,
-    width: PropTypes.number
-  },
+export default class TimeSeriesChart extends mixin(ChartMixin, InternalStorageMixin) {
+  constructor() {
+    super(...arguments);
 
-  mixins: [ChartMixin, InternalStorageMixin],
-
-  getDefaultProps() {
-    return {
-      axisConfiguration: {
-        x: {
-          showZeroTick: true
-        }
-      },
-      margin: {
-        top: 10,
-        left: 45,
-        bottom: 25,
-        right: 5
-      },
-      maxY: 10,
-      refreshRate: 0,
-      ticksY: 3,
-      y: "y",
-      yFormat: ValueTypes.PERCENTAGE
-    };
-  },
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   componentWillMount() {
     this.internalStorage_set({
       clipPathID: `clip-${Util.uniqueID()}`,
       maskID: `mask-${Util.uniqueID()}`
     });
-  },
+  }
 
   componentDidMount() {
     const props = this.props;
@@ -72,7 +45,7 @@ const TimeSeriesChart = createReactClass({
 
     this.renderAxis(props, width, height);
     this.createClipPath(width, height);
-  },
+  }
 
   shouldComponentUpdate(nextProps) {
     const props = this.props;
@@ -102,7 +75,7 @@ const TimeSeriesChart = createReactClass({
     });
 
     return !isEqual(prevY, nextY);
-  },
+  }
 
   componentDidUpdate() {
     const props = this.props;
@@ -110,7 +83,7 @@ const TimeSeriesChart = createReactClass({
     const width = this.getWidth(props);
 
     this.updateClipPath(width, height);
-  },
+  }
 
   createClipPath(width, height) {
     const data = this.internalStorage_get();
@@ -124,7 +97,7 @@ const TimeSeriesChart = createReactClass({
       .append("rect");
 
     this.updateClipPath(width, height);
-  },
+  }
 
   updateClipPath(width, height) {
     const data = this.internalStorage_get();
@@ -133,7 +106,7 @@ const TimeSeriesChart = createReactClass({
       width,
       height
     });
-  },
+  }
 
   getArea(y, xTimeScale, yScale, firstSuccessful) {
     // We need firstSuccessful because if the current value is null,
@@ -154,7 +127,7 @@ const TimeSeriesChart = createReactClass({
         return successfulValue;
       })
       .interpolate("monotone");
-  },
+  }
 
   getValueLine(xTimeScale, yScale, firstSuccessful) {
     // We need firstSuccessful because if the current value is null,
@@ -197,14 +170,14 @@ const TimeSeriesChart = createReactClass({
         return successfulValue;
       })
       .interpolate("monotone");
-  },
+  }
 
   getXTickValues(xScale) {
     const domain = xScale.domain();
     const mean = Maths.mean(domain);
 
     return [domain[0], mean, domain[domain.length - 1]];
-  },
+  }
 
   getXTimeScale(data, width) {
     let date = Date.now();
@@ -225,7 +198,7 @@ const TimeSeriesChart = createReactClass({
       .scale()
       .range([0, width])
       .domain([date, dateDelta]);
-  },
+  }
 
   getYScale(height, maxY) {
     return (
@@ -235,7 +208,7 @@ const TimeSeriesChart = createReactClass({
         .range([height, 0])
         .domain([0, maxY])
     );
-  },
+  }
 
   getYCaption(yFormat) {
     if (yFormat === ValueTypes.PERCENTAGE) {
@@ -243,7 +216,7 @@ const TimeSeriesChart = createReactClass({
     }
 
     return "";
-  },
+  }
 
   formatYAxis(props) {
     const maxY = props.maxY;
@@ -271,7 +244,7 @@ const TimeSeriesChart = createReactClass({
 
       return d;
     };
-  },
+  }
 
   renderAxis(props, width, height) {
     const xScale = this.getXScale(props.data, width, props.refreshRate);
@@ -305,7 +278,7 @@ const TimeSeriesChart = createReactClass({
         .tickSize(-width, 0, 0)
         .tickFormat("")
     );
-  },
+  }
 
   getTransitionTime(data) {
     // look at the difference between the last and the third last point
@@ -313,7 +286,7 @@ const TimeSeriesChart = createReactClass({
     const l = data.length - 1;
 
     return (data[l].date - data[l - 1].date) / 1;
-  },
+  }
 
   /*
    * Returns the x position of the data point that we are about to animate in
@@ -328,7 +301,7 @@ const TimeSeriesChart = createReactClass({
 
     // add transition time since we are moving towards new pos
     return xTimeScale(date + transitionTime);
-  },
+  }
 
   /*
    * Returns the y position of the data point that we are about to animate in
@@ -338,7 +311,7 @@ const TimeSeriesChart = createReactClass({
 
     // most recent y - height of chart
     return yScale(latestDataPoint[y]) - height;
-  },
+  }
 
   getAreaList(props, yScale, xTimeScale) {
     const firstSuccess =
@@ -376,7 +349,7 @@ const TimeSeriesChart = createReactClass({
         />
       );
     });
-  },
+  }
 
   getCircleList(props, yScale, width, height) {
     return props.data.map((obj, i) => {
@@ -400,7 +373,7 @@ const TimeSeriesChart = createReactClass({
         />
       );
     });
-  },
+  }
 
   getBoundingBox(props) {
     const margin = props.margin;
@@ -416,19 +389,19 @@ const TimeSeriesChart = createReactClass({
         left: elPosition.left + margin.left
       };
     }.bind(this);
-  },
+  }
 
   addMouseHandler(handleMouseMove, handleMouseOut) {
     const el = ReactDOM.findDOMNode(this);
     el.addEventListener("mousemove", handleMouseMove);
     el.addEventListener("mouseout", handleMouseOut);
-  },
+  }
 
   removeMouseHandler(handleMouseMove, handleMouseOut) {
     const el = ReactDOM.findDOMNode(this);
     el.removeEventListener("mousemove", handleMouseMove);
     el.removeEventListener("mouseout", handleMouseOut);
-  },
+  }
 
   render() {
     const {
@@ -489,6 +462,42 @@ const TimeSeriesChart = createReactClass({
       </div>
     );
   }
-});
+}
 
-module.exports = TimeSeriesChart;
+TimeSeriesChart.displayName = "TimeSeriesChart";
+
+TimeSeriesChart.propTypes = {
+  axisConfiguration: PropTypes.object,
+  // [{name: 'Area Name', values: [{date: some time, y: 0}]}]
+  data: PropTypes.array.isRequired,
+  // `height` and `width` are required if this
+  // module isn't used as a child of the `Chart` component
+  // Otherwise Chart will automatically calculate this.
+  height: PropTypes.number,
+  margin: PropTypes.object.isRequired,
+  maxY: PropTypes.number,
+  refreshRate: PropTypes.number.isRequired,
+  ticksY: PropTypes.number,
+  y: PropTypes.string,
+  yFormat: PropTypes.string,
+  width: PropTypes.number
+};
+
+TimeSeriesChart.defaultProps = {
+  axisConfiguration: {
+    x: {
+      showZeroTick: true
+    }
+  },
+  margin: {
+    top: 10,
+    left: 45,
+    bottom: 25,
+    right: 5
+  },
+  maxY: 10,
+  refreshRate: 0,
+  ticksY: 3,
+  y: "y",
+  yFormat: ValueTypes.PERCENTAGE
+};

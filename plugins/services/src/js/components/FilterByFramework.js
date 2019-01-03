@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 import { Dropdown } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
@@ -8,34 +7,25 @@ import { i18nMark } from "@lingui/react";
 import { Badge } from "@dcos/ui-kit";
 import Framework from "../structs/Framework";
 
-const defaultId = "default";
+const DEFAULT_ID = "default";
+const METHODS_TO_BIND = ["handleItemSelection", "getDropdownItems"];
 
-const FilterByService = createReactClass({
-  displayName: "FilterByService",
+class FilterByFramework extends React.Component {
+  constructor() {
+    super(...arguments);
 
-  propTypes: {
-    byFrameworkFilter: PropTypes.string,
-    frameworks: PropTypes.array.isRequired,
-    totalHostsCount: PropTypes.number.isRequired,
-    handleFilterChange: PropTypes.func
-  },
-
-  getDefaultProps() {
-    return {
-      byFrameworkFilter: defaultId,
-      frameworks: [],
-      totalHostsCount: 0,
-      handleFilterChange() {}
-    };
-  },
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   handleItemSelection(obj) {
-    if (obj.id === defaultId) {
+    if (obj.id === DEFAULT_ID) {
       this.props.handleFilterChange(null);
     } else {
       this.props.handleFilterChange(obj.id);
     }
-  },
+  }
 
   getItemHtml(framework, isSelected = false) {
     const appearance = isSelected ? "outline" : "default";
@@ -46,13 +36,13 @@ const FilterByService = createReactClass({
         <Badge appearance={appearance}>{framework.getNodeIDs().length}</Badge>
       </span>
     );
-  },
+  }
 
   getDropdownItems() {
     // TODO (mlunoe, orlandohohmeier): Refactor after introducing new unified
     // framework struct featuring frameworks and apps.
     const defaultItem = new Framework({
-      id: defaultId,
+      id: DEFAULT_ID,
       name: i18nMark("All Frameworks"),
       // This is literally the worst way of doing this.
       slave_ids: new Array(this.props.totalHostsCount)
@@ -75,27 +65,27 @@ const FilterByService = createReactClass({
         item.selectedHtml = this.getItemHtml(framework, true);
       }
 
-      if (frameworkId === defaultId) {
+      if (frameworkId === DEFAULT_ID) {
         item.selectedHtml = <Trans render="span">Filter by Framework</Trans>;
       }
 
       return item;
     });
-  },
+  }
 
   getSelectedId(id) {
     if (id == null) {
-      return defaultId;
+      return DEFAULT_ID;
     }
 
     return id;
-  },
+  }
 
   setDropdownValue(id) {
     this.dropdown.setState({
       selectedID: id
     });
-  },
+  }
 
   render() {
     return (
@@ -116,6 +106,22 @@ const FilterByService = createReactClass({
       />
     );
   }
-});
+}
+
+FilterByFramework.displayName = "FilterByFramework";
+
+FilterByFramework.propTypes = {
+  byFrameworkFilter: PropTypes.string,
+  frameworks: PropTypes.array.isRequired,
+  totalHostsCount: PropTypes.number.isRequired,
+  handleFilterChange: PropTypes.func
+};
+
+FilterByFramework.defaultProps = {
+  byFrameworkFilter: DEFAULT_ID,
+  frameworks: [],
+  totalHostsCount: 0,
+  handleFilterChange() {}
+};
 
 module.exports = FilterByService;

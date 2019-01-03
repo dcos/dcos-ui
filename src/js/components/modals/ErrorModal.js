@@ -1,23 +1,25 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 import { Modal } from "reactjs-components";
 
 import ModalHeading from "../modals/ModalHeading";
 
-var ErrorModal = createReactClass({
-  displayName: "ErrorModal",
+const METHODS_TO_BIND = ["onClose"];
 
-  propTypes: {
-    onClose: PropTypes.func.isRequired,
-    errorMsg: PropTypes.element
-  },
+class ErrorModal extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
 
   onClose() {
     this.props.onClose();
-  },
+  }
 
   render() {
     const header = (
@@ -38,6 +40,13 @@ var ErrorModal = createReactClass({
       </Modal>
     );
   }
-});
+}
+
+ErrorModal.displayName = "ErrorModal";
+
+ErrorModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  errorMsg: PropTypes.element
+};
 
 module.exports = ErrorModal;

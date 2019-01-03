@@ -5,7 +5,6 @@ import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 import Chart from "./Chart";
 import DialChart from "./DialChart";
@@ -27,21 +26,14 @@ function getEmptyTaskData() {
   });
 }
 
-var TasksChart = createReactClass({
-  displayName: "TasksChart",
-
-  propTypes: {
-    // {TASK_RUNNING: 0, TASK_STAGING: 4}
-    tasks: PropTypes.object.isRequired
-  },
-
+class TasksChart extends React.Component {
   shouldComponentUpdate(nextProps) {
     var previousTasks = this.getTasks(this.props.tasks);
     var newTasks = this.getTasks(nextProps.tasks);
 
     // If equal, do not update
     return !isEqual(previousTasks, newTasks);
-  },
+  }
 
   getTaskInfo(tasks) {
     if (tasks.length === 0) {
@@ -86,13 +78,13 @@ var TasksChart = createReactClass({
         </div>
       );
     });
-  },
+  }
 
   getTotal(tasks) {
     return tasks.reduce(function(acc, task) {
       return acc + task.value;
     }, 0);
-  },
+  }
 
   getTasks(tasks = {}) {
     return DISPLAYED_TASK_KEYS.map(function(key) {
@@ -102,7 +94,7 @@ var TasksChart = createReactClass({
         value: tasks[key]
       };
     });
-  },
+  }
 
   getDialChart(tasks) {
     var total = this.getTotal(tasks);
@@ -116,7 +108,7 @@ var TasksChart = createReactClass({
         {this.getDialChartChildren(total)}
       </DialChart>
     );
-  },
+  }
 
   getDialChartChildren(total) {
     return (
@@ -127,7 +119,7 @@ var TasksChart = createReactClass({
         </Trans>
       </div>
     );
-  },
+  }
 
   render() {
     var tasks = this.getTasks(this.props.tasks);
@@ -139,6 +131,13 @@ var TasksChart = createReactClass({
       </div>
     );
   }
-});
+}
+
+TasksChart.displayName = "TasksChart";
+
+TasksChart.propTypes = {
+  // {TASK_RUNNING: 0, TASK_STAGING: 4}
+  tasks: PropTypes.object.isRequired
+};
 
 module.exports = TasksChart;

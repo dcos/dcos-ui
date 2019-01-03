@@ -1,7 +1,6 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 
 const defaultClasses = {
   panel: "panel",
@@ -13,32 +12,7 @@ const defaultClasses = {
     "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter"
 };
 
-var Panel = createReactClass({
-  displayName: "Panel",
-
-  propTypes: {
-    heading: PropTypes.node,
-    footer: PropTypes.node,
-
-    // classes
-    contentClass: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.string
-    ]),
-    headingClass: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.string
-    ]),
-    footerClass: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.string
-    ]),
-    onClick: PropTypes.func
-  },
-
+class Panel extends React.Component {
   getNode(nodeName) {
     const { props } = this;
     const node = props[nodeName];
@@ -53,7 +27,7 @@ var Panel = createReactClass({
     );
 
     return <div className={classes}>{node}</div>;
-  },
+  }
 
   render() {
     const { props } = this;
@@ -71,6 +45,31 @@ var Panel = createReactClass({
       </div>
     );
   }
-});
+}
+
+Panel.displayName = "Panel";
+
+Panel.propTypes = {
+  heading: PropTypes.node,
+  footer: PropTypes.node,
+
+  // classes
+  contentClass: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  headingClass: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  footerClass: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  onClick: PropTypes.func
+};
 
 module.exports = Panel;

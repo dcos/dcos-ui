@@ -1,21 +1,9 @@
 import d3 from "d3";
 import PropTypes from "prop-types";
 import React from "react";
-import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
-var TimeSeriesArea = createReactClass({
-  displayName: "TimeSeriesArea",
-
-  propTypes: {
-    className: PropTypes.string,
-    line: PropTypes.string.isRequired,
-    unavailableLine: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-    position: PropTypes.array.isRequired,
-    transitionTime: PropTypes.number.isRequired
-  },
-
+export default class TimeSeriesArea extends React.Component {
   componentDidMount() {
     var props = this.props;
 
@@ -24,7 +12,7 @@ var TimeSeriesArea = createReactClass({
       .duration(props.transitionTime)
       .ease("linear")
       .attr("transform", "translate(" + props.position + ")");
-  },
+  }
 
   componentWillReceiveProps(props) {
     d3.select(ReactDOM.findDOMNode(this))
@@ -34,10 +22,10 @@ var TimeSeriesArea = createReactClass({
       .duration(props.transitionTime)
       .ease("linear")
       .attr("transform", "translate(" + props.position + ")");
-  },
+  }
 
   render() {
-    var className = this.props.className;
+    const { className } = this.props;
 
     return (
       <g>
@@ -56,6 +44,15 @@ var TimeSeriesArea = createReactClass({
       </g>
     );
   }
-});
+}
 
-module.exports = TimeSeriesArea;
+TimeSeriesArea.displayName = "TimeSeriesArea";
+
+TimeSeriesArea.propTypes = {
+  className: PropTypes.string,
+  line: PropTypes.string.isRequired,
+  unavailableLine: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  position: PropTypes.array.isRequired,
+  transitionTime: PropTypes.number.isRequired
+};
