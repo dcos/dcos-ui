@@ -1,4 +1,4 @@
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import CompositeState from "../structs/CompositeState";
 import Node from "../structs/Node";
 import StringUtil from "./StringUtil";
@@ -144,4 +144,4 @@ const ResourcesUtil = {
   }
 };
 
-module.exports = ResourcesUtil;
+module.exports = withI18n()(ResourcesUtil);
