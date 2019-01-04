@@ -934,7 +934,7 @@ describe("Service Form Modal", function() {
       }
 
       context("Network Type", function() {
-        it('has all available types when "Docker Engine" selected', function() {
+        it('has all available enabled types when "Docker Engine" selected', function() {
           setRuntime("Docker Engine");
           clickNetworkingTab();
 
@@ -965,9 +965,20 @@ describe("Service Form Modal", function() {
             .children("option:eq(3)")
             .should("have.value", "CONTAINER.dcos-2")
             .should("not.have.attr", "disabled");
+
+          // dcos-3
+          cy.get("@containerDockerNetwork")
+            .children("option:eq(4)")
+            .should("have.value", "CONTAINER.dcos-3")
+            .should("not.have.attr", "disabled");
+
+          // dcos-4
+          cy.get("@containerDockerNetwork")
+            .children("option:eq(5)")
+            .should("not.have.value", "CONTAINER.dcos-4");
         });
 
-        it('has all available types when "Universal Container Runtime (UCR)" selected', function() {
+        it('has all available enabled types without subnet6 when "Universal Container Runtime (UCR)" selected', function() {
           setRuntime("Universal Container Runtime (UCR)");
           clickNetworkingTab();
 
@@ -998,6 +1009,16 @@ describe("Service Form Modal", function() {
             .children("option:eq(3)")
             .should("have.value", "CONTAINER.dcos-2")
             .should("not.have.attr", "disabled");
+
+          // dcos-3
+          cy.get("@containerDockerNetwork")
+            .children("option:eq(4)")
+            .should("not.have.value", "CONTAINER.dcos-3");
+
+          // dcos-4
+          cy.get("@containerDockerNetwork")
+            .children("option:eq(4)")
+            .should("not.have.value", "CONTAINER.dcos-4");
         });
       });
 
