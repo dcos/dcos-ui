@@ -1,8 +1,8 @@
 import { Container, bindExtensionProvider } from "extension-kid";
 import DataLayer, {
-  DataLayerExtensionSymbol,
+  DataLayerExtensionType,
   DataLayerExtensionInterface,
-  DataLayerSymbol
+  DataLayerType
 } from "../dataLayer";
 import { injectable, ContainerModule } from "inversify";
 import gql from "graphql-tag";
@@ -114,12 +114,12 @@ describe("DataLayer", () => {
   beforeEach(async () => {
     container = new Container();
     const dataLayerModule = new ContainerModule(bind => {
-      bindExtensionProvider(bind, DataLayerExtensionSymbol);
+      bindExtensionProvider(bind, DataLayerExtensionType);
     });
 
     container.load(dataLayerModule);
 
-    await container.bindAsync(DataLayerSymbol, bts => {
+    await container.bindAsync(DataLayerType, bts => {
       bts.to(DataLayer).inSingletonScope();
     });
   });
@@ -133,15 +133,15 @@ describe("DataLayer", () => {
       m.bind();
 
       container
-        .bind(DataLayerExtensionSymbol)
+        .bind(DataLayerExtensionType)
         .to(JobsExtension)
         .inSingletonScope();
 
       container
-        .bind(DataLayerExtensionSymbol)
+        .bind(DataLayerExtensionType)
         .to(TasksExtension)
         .inSingletonScope();
-      const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
       const query = gql`
         query {
           jobs {
@@ -190,14 +190,14 @@ describe("DataLayer", () => {
       `;
 
       container
-        .bind(DataLayerExtensionSymbol)
+        .bind(DataLayerExtensionType)
         .to(JobsExtension)
         .inSingletonScope();
       container
-        .bind(DataLayerExtensionSymbol)
+        .bind(DataLayerExtensionType)
         .to(TasksExtension)
         .inSingletonScope();
-      const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
       const expected$ = m.cold("(a|)", {
         a: {
@@ -240,15 +240,15 @@ describe("DataLayer", () => {
       `;
 
       container
-        .bind(DataLayerExtensionSymbol)
+        .bind(DataLayerExtensionType)
         .to(TasksExtension)
         .inSingletonScope();
       container
-        .bind(DataLayerExtensionSymbol)
+        .bind(DataLayerExtensionType)
         .to(JobsExtension)
         .inSingletonScope();
 
-      const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
       const expected$ = m.cold("(a|)", {
         a: {
@@ -271,11 +271,11 @@ describe("DataLayer", () => {
 
   it("allows to conditionally extend the schema based on active extensions", async () => {
     jest.useRealTimers();
-    await container.bindAsync(DataLayerExtensionSymbol, bts => {
+    await container.bindAsync(DataLayerExtensionType, bts => {
       bts.to(JobsExtension).inSingletonScope();
     });
 
-    const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+    const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
     const query = gql`
       query {
@@ -302,7 +302,7 @@ describe("DataLayer", () => {
       ]
     });
 
-    await container.bindAsync(DataLayerExtensionSymbol, bts => {
+    await container.bindAsync(DataLayerExtensionType, bts => {
       bts.to(TasksExtension).inSingletonScope();
     });
 
@@ -318,10 +318,10 @@ describe("DataLayer", () => {
 
   it("extends a schema while a query is running", async () => {
     jest.useRealTimers();
-    await container.bindAsync(DataLayerExtensionSymbol, bts => {
+    await container.bindAsync(DataLayerExtensionType, bts => {
       bts.to(JobsExtension).inSingletonScope();
     });
-    const dl: DataLayer = container.get<DataLayer>(DataLayerSymbol);
+    const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
     const query = gql`
       query {
@@ -340,7 +340,7 @@ describe("DataLayer", () => {
     );
     await Promise.all([
       subscriptionDone,
-      container.bindAsync(DataLayerExtensionSymbol, bts => {
+      container.bindAsync(DataLayerExtensionType, bts => {
         bts.to(TasksExtension).inSingletonScope();
       })
     ]);
