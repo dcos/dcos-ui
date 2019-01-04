@@ -2,13 +2,10 @@ import "reflect-metadata"; // Needed for inversify
 import { Container, bindExtensionProvider } from "@extension-kid/core";
 import notificationServiceFactory from "@extension-kid/notification-service";
 import toastsExtensionFactory from "@extension-kid/toast-notifications";
+import { ContainerModule } from "inversify";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
-import { ContainerModule } from "inversify";
-import DataLayer, {
-  DataLayerExtensionSymbol,
-  DataLayerSymbol
-} from "./dataLayer";
+import DataLayer, { DataLayerExtensionType, DataLayerType } from "./dataLayer";
 
 const container = new Container();
 
@@ -24,12 +21,12 @@ if (toastsExtension) {
 }
 
 const dataLayerModule = new ContainerModule(bind => {
-  bindExtensionProvider(bind, DataLayerExtensionSymbol);
+  bindExtensionProvider(bind, DataLayerExtensionType);
 });
 
 container.load(dataLayerModule);
 
-container.bindAsync(DataLayerSymbol, bts => {
+container.bindAsync(DataLayerType, bts => {
   bts.to(DataLayer).inSingletonScope();
 });
 
