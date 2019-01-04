@@ -34,6 +34,13 @@ import {
   JobSchema
 } from "#PLUGINS/jobs/src/js/types/Job";
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
+// TODO: how can we do this without static linking? Can we?
+import container from "#SRC/js/container";
+import DataLayer, {
+  DataLayerExtensionInterface,
+  DataLayerType
+} from "#SRC/js/dataLayer";
+import { injectable } from "inversify";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -90,7 +97,7 @@ export const typeDefs = `
     ASC
     DESC
   }
-  type Query {
+  extend type Query {
     jobs(
       filter: String
       path: String
@@ -102,7 +109,7 @@ export const typeDefs = `
     ): Job
   }
 
-  type Mutation {
+  extend type Mutation {
     runJob(id: String!): JobLink!
     createJob(data: Job!): JobLink!
     updateJob(id: String!, data: Job!): JobLink!
@@ -289,17 +296,96 @@ export const resolvers = ({
   };
 };
 
+const boundResolvers = resolvers({
+  fetchJobs,
+  fetchJobDetail,
+  pollingInterval: Config.getRefreshRate(),
+  runJob,
+  createJob,
+  updateJob,
+  updateSchedule,
+  deleteJob,
+  stopJobRun
+});
+
+// TODO: think about where this code should ideally live
+const JobType = Symbol("Job");
+// tslint:disable-next-line
+@injectable()
+class JobExtension implements DataLayerExtensionInterface {
+  id = JobType;
+
+  getResolvers() {
+    return boundResolvers;
+  }
+
+  getTypeDefinitions() {
+    return typeDefs;
+  }
+}
+
+// TODO: We should have a standard mechanism for this somehow
+let isBound = false;
+async function initAsSingleton() {
+  if (isBound) {
+    return;
+  }
+  isBound = true;
+
+  // TODO: can we reference this somehow else?
+  // const DataLayerType = Symbol.for("DataLayer");
+  const dataLayer = container.get<DataLayer>(DataLayerType);
+  const DataLayerExtensionType = dataLayer.extensionType;
+
+  await container.bindAsync(DataLayerExtensionType, bts => {
+    bts.to(JobExtension).inSingletonScope();
+  });
+}
+
+export async function getDataLayer(): Promise<DataLayer> {
+  await initAsSingleton();
+  // TODO: can we reference this somehow else?
+  // const DataLayerType = Symbol.for("DataLayer");
+  return container.get(DataLayerType);
+}
+
+// TODO: remove once we move over
 export default makeExecutableSchema({
-  typeDefs,
-  resolvers: resolvers({
-    fetchJobs,
-    fetchJobDetail,
-    pollingInterval: Config.getRefreshRate(),
-    runJob,
-    createJob,
-    updateJob,
-    updateSchedule,
-    deleteJob,
-    stopJobRun
-  })
+  // copy because of extend
+  typeDefs: `
+  ${JobSchema}
+  ${JobLinkSchema}
+  ${JobConnectionSchema}
+
+  enum SortOption {
+    ID
+    STATUS
+    LAST_RUN
+  }
+  enum SortDirection {
+    ASC
+    DESC
+  }
+  type Query {
+    jobs(
+      filter: String
+      path: String
+      sortBy: SortOption
+      sortDirection: SortDirection
+    ): JobConnection!
+    job(
+      id: ID!
+    ): Job
+  }
+
+  type Mutation {
+    runJob(id: String!): JobLink!
+    createJob(data: Job!): JobLink!
+    updateJob(id: String!, data: Job!): JobLink!
+    updateSchedule(id: String!, data: Job!): JobLink!
+    deleteJob(id: String!, stopCurrentJobRuns: Boolean!): JobLink!
+    stopJobRun(id: String!, jobRunid: String!): JobLink!
+  }
+  `,
+  resolvers: boundResolvers
 });

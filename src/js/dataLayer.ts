@@ -26,6 +26,8 @@ type Mutation {
 
 @injectable()
 export default class DataLayer {
+  extensionType = DataLayerExtensionType;
+
   _extensionProvider: ExtensionProvider<DataLayerExtensionInterface>;
   _schema$: BehaviorSubject<GraphQLSchema>;
 
