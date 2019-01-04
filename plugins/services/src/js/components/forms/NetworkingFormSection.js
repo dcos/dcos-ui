@@ -545,15 +545,28 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getVirtualNetworks() {
+    const mesosContainer =
+      findNestedPropertyInObject(this.props.data, `container.type`) === "MESOS";
+    // Networks with subnet6 should be disabled when "UCR" container type is selected.
+    const virtualNetworkIsAvailable = (mesosContainer, subnet6) =>
+      !mesosContainer || !subnet6;
+
     return VirtualNetworksStore.getOverlays()
       .mapItems(overlay => {
         const name = overlay.getName();
 
         return {
+          enabled: overlay.info.enabled,
+          subnet6: overlay.getSubnet6(),
           text: name,
           value: `${CONTAINER}.${name}`
         };
       })
+      .filterItems(
+        virtualNetwork =>
+          virtualNetwork.enabled &&
+          virtualNetworkIsAvailable(mesosContainer, virtualNetwork.subnet6)
+      )
       .getItems()
       .map((virtualNetwork, index) => {
         return (
