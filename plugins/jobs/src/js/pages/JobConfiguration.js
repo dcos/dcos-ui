@@ -41,7 +41,7 @@ const GeneralSection = ({ id, description, cpus, mem, disk, command }) => (
     </ConfigurationMapRow>
     <ConfigurationMapRow>
       <ConfigurationMapLabel>
-        <Trans>Disk Space (Mib)</Trans>
+        <Trans>Disk Space (MiB)</Trans>
       </ConfigurationMapLabel>
       <ConfigurationMapValue>{disk}</ConfigurationMapValue>
     </ConfigurationMapRow>
