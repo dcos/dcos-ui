@@ -215,6 +215,7 @@
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "integration-tests": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/run-integration-tests",
+    "rerun:integration-tests": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/ci/rerun-integration-tests.sh",
     "validate-build": "scripts/validate-build dist/assets/*.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)",
     "tslint": "tslint -c tslint.json --project tsconfig.json",

@@ -472,6 +472,20 @@ Alternatively you can run cypress from the command line.
   npm run cypress
 ```
 
+### Debugging flaky integration tests
+
+We have tooling to check if a test case (or the implementation) is flaky.
+
+1.  Open up a PR with your changes
+2.  Add a `.only` on the test case you want to check
+3.  Click on the `continuous-integration/jenkins/pr-head` and navigate to the old view (square symbol with arrow on the top right corner)
+4.  Navigate to the PR in Jenkins by clicking the PR name on the breadcrumbs
+5.  Click "Build with Parameters" on the left sidebar to and run the job with "shouldRun" checked
+6.  Wait for the `100` runs to finish
+7.  Check the result on the PR notification. If there is still a flake `continuous-integration/jenkins/pr-head` should be red.
+
+If you want to test more runs you can change the number in `Jenkinsfile.reruns`.
+
 ## System Testing
 
 At the System Test level, you want to guarantee that your project works on the
