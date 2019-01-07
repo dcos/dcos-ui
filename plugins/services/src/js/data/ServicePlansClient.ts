@@ -13,8 +13,8 @@ export type ServicePlanStatus =
 
 export interface ServicePlanStepResponse {
   id: string;
-  status: ServicePlanStatus;
   name: string;
+  status: ServicePlanStatus;
   message: string;
 }
 
