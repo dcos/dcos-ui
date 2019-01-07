@@ -158,7 +158,10 @@ describe("MesosStateStore", function() {
       var tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
-          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" }
+          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" },
+          findTaskById: () => {
+            return true;
+          }
         })
       );
       expect(tasks).toEqual([
@@ -176,7 +179,12 @@ describe("MesosStateStore", function() {
 
     it("returns matching application tasks", function() {
       var tasks = MesosStateStore.getTasksByService(
-        new Application({ id: "/alpha" })
+        new Application({
+          id: "/alpha",
+          findTaskById: () => {
+            return true;
+          }
+        })
       );
       expect(tasks).toEqual([
         {
@@ -233,6 +241,9 @@ describe("MesosStateStore", function() {
           labels: {
             DCOS_COMMONS_API_VERSION: 1,
             DCOS_PACKAGE_FRAMEWORK_NAME: "spark"
+          },
+          findTaskById: () => {
+            return true;
           }
         })
       );

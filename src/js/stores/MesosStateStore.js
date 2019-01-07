@@ -255,8 +255,16 @@ class MesosStateStore extends GetSetBaseStore {
       }
     }
 
+    // Check which tasks belong to this service
     return tasks
-      .filter(task => task.isStartedByMarathon && task.name === mesosTaskName)
+      .filter(
+        task =>
+          task.isStartedByMarathon &&
+          task.name === mesosTaskName &&
+          (service.get("tasks") && service.findTaskById
+            ? service.findTaskById(task.id)
+            : true)
+      )
       .concat(serviceTasks)
       .map(task => MesosStateUtil.flagSDKTask(task, service));
   }
