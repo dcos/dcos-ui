@@ -883,7 +883,7 @@
   "This feature will be available once {dcosLBPackageName} finishes deploying.": "",
   "This field is optional.": "",
   "This field is required.": "",
-  "This group needs to be empty to delete it. Please delete any services in the group first.": "",
+  "This group needs to be empty to delete it. Please delete any services or groups in the group first.": "",
   "This host port will be accessible as an environment variable called '$PORT{index}'. <0>More information</0>.": "",
   "This host port will be accessible as an environment variable called {environmentVariableName}. <0>More information</0>.": "",
   "This package can only be installed using the CLI. See the <0>documentation</0>.": "",
