@@ -16,3 +16,12 @@ find_debug_directives(){
 
  echo -e "${matches}"
 }
+
+find_files_with_debug_directives(){
+  if [[ -z $* ]]
+  then
+   exit 0
+  fi
+
+  grep -E -l --recursive ${DEBUG_DIRECTIVE_PATTERN} "$@"
+}
