@@ -242,6 +242,13 @@ class ServiceDetail extends mixin(TabsMixin) {
       { label: i18nMark("Endpoints"), routePath: `${routePrefix}/endpoints` }
     ];
 
+    if (isSDKService(this.props.service)) {
+      tabs.push({
+        label: i18nMark("Plans"),
+        routePath: `${routePrefix}/plans`
+      });
+    }
+
     if (this.hasVolumes()) {
       tabs.push({
         label: i18nMark("Volumes"),
