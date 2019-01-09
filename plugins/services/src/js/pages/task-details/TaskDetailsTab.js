@@ -66,7 +66,7 @@ class TaskDetailsTab extends React.Component {
         return (
           <ConfigurationMapRow key={index}>
             <ConfigurationMapLabel>
-              <Trans id={resourceLabels[resource]} />
+              {resourceLabels[resource]}
             </ConfigurationMapLabel>
             <ConfigurationMapValue>
               {Units.formatResource(resource, mesosTask.resources[resource])}
