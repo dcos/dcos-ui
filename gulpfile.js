@@ -3,7 +3,6 @@ var connect = require("gulp-connect");
 var fs = require("fs");
 var gulp = require("gulp");
 var packageJSON = require("./package.json");
-var shrinkwrap = require("./npm-shrinkwrap.json");
 
 gulp.task("ensureConfig", function() {
   // Make sure we have a Config.dev so we don't error on Config loading
@@ -99,17 +98,4 @@ gulp.task("serve", function() {
     port: 4200,
     root: "./dist"
   });
-});
-
-// remove 'fsevents' from shrinkwrap, since it causes errors on non-Mac hosts
-// see https://github.com/npm/npm/issues/2679
-gulp.task("fixShrinkwrap", function(done) {
-  try {
-    delete shrinkwrap.dependencies.fsevents;
-    delete shrinkwrap
-      .dependencies["babel-cli"].dependencies.chokidar.dependencies.fsevents;
-  } catch (e) {}
-
-  var shrinkwrapString = JSON.stringify(shrinkwrap, null, "  ") + "\n";
-  fs.writeFile("./npm-shrinkwrap.json", shrinkwrapString, done);
 });
