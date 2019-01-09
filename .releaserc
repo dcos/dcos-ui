@@ -16,7 +16,8 @@
     {
       "path": "semantic-release-jira",
       "apiURL": "https://jira.mesosphere.com/rest/api/2/issue/${issueKey}",
-      "apiJSON": '{ "update": { "labels": [ { "add": "released-repo:dcos-ui" }, { "add": "released-tag:master+v${version}" } ] } }'
+      "apiJSON":
+        "{ \"update\": { \"labels\": [ { \"add\": \"released-repo:dcos-ui\" }, { \"add\": \"released-tag:master+v${version}\" } ] } }"
     }
   ]
 }
