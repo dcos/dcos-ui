@@ -15,7 +15,7 @@ describe("Job Details", function() {
   });
 
   context("Run History Tab", function() {
-    it("shows the correct number of jobs in the filter header", function() {
+    it.only("shows the correct number of jobs in the filter header", function() {
       cy
         .get(".page-body-content .list-inline.list-unstyled")
         .should("contain", "13 Runs");

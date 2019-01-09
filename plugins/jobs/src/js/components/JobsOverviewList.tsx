@@ -5,7 +5,6 @@ import { Trans, t } from "@lingui/macro";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import FilterInputText from "#SRC/js/components/FilterInputText";
-
 import JobsOverviewTable from "./JobsOverviewTable";
 import JobsPage from "./JobsPage";
 import JobCreateEditFormModal from "../JobCreateEditFormModal";

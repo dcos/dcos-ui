@@ -54,7 +54,7 @@ pipeline {
       }
 
       steps {
-        sh "RERUN=100 npm run rerun:integration-tests"
+        sh "RERUN=10 npm run rerun:integration-tests"
       }
 
       post {

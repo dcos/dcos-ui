@@ -16,7 +16,7 @@ describe("Nodes Task Detail Page", function() {
       cy.get("h1.configuration-map-heading").contains("Configuration");
     });
 
-    it("loads page with data after hard reload", function() {
+    it.only("loads page with data after hard reload", function() {
       cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
       cy.get("a.table-cell-link-primary").eq(0).click({ force: true });
       cy.get("a.table-cell-link-secondary").eq(0).click();
