@@ -143,7 +143,7 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("displays a revert message for a non-starting deployment", function() {
+    it.only("displays a revert message for a non-starting deployment", function() {
       openDeploymentsModal();
       cy.get(".modal tbody tr:visible td .dropdown").click();
       cy.get(".dropdown-menu-items")
