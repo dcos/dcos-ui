@@ -1,5 +1,4 @@
 import { ServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
-import { ServicePlanStepResponse } from "#PLUGINS/services/src/js/data/ServicePlansClient";
 
 export interface ServicePlanStep {
   id: string;
@@ -16,14 +15,3 @@ type ServicePlanStep {
   message: String!
 }
 `;
-
-export function ServicePlanStepsResolver(
-  steps: ServicePlanStepResponse[]
-): ServicePlanStep[] {
-  return steps.map(step => ({
-    id: step.id,
-    name: step.name,
-    status: step.status as ServicePlanStatus,
-    message: step.message
-  }));
-}

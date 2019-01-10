@@ -27,7 +27,6 @@ export interface ServicePlanPhaseResponse {
 }
 
 export interface ServicePlanResponse {
-  name: string;
   phases: ServicePlanPhaseResponse[];
   status: ServicePlanStatus;
   errors: string[];
@@ -37,12 +36,42 @@ export interface ServicePlanResponse {
 export function fetchPlans(
   serviceName: string
 ): Observable<RequestResponse<string[]>> {
-  return request(`/service/${serviceName}/v1/plans`);
+  return request(`/service/${serviceName}/v1/plans`).map(
+    (reqResp: RequestResponse<any>) => {
+      if (reqResp.code !== 200) {
+        const respMessage =
+          reqResp.response && typeof reqResp.response === "object"
+            ? JSON.stringify(reqResp.response)
+            : reqResp.response;
+        throw new Error(
+          `Service Plans API request failed: ${reqResp.code} ${
+            reqResp.message
+          }:${respMessage}`
+        );
+      }
+      return reqResp;
+    }
+  );
 }
 
 export function fetchPlanDetails(
   serviceName: string,
   planName: string
 ): Observable<RequestResponse<ServicePlanResponse>> {
-  return request(`/service/${serviceName}/v1/plans/${planName}`);
+  return request(`/service/${serviceName}/v1/plans/${planName}`).map(
+    (reqResp: RequestResponse<any>) => {
+      if (reqResp.code !== 200) {
+        const respMessage =
+          reqResp.response && typeof reqResp.response === "object"
+            ? JSON.stringify(reqResp.response)
+            : reqResp.response;
+        throw new Error(
+          `Service Plan Detail API request failed: ${reqResp.code} ${
+            reqResp.message
+          }:${respMessage}`
+        );
+      }
+      return reqResp;
+    }
+  );
 }

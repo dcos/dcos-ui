@@ -3,7 +3,7 @@ import { ServicePlanStatusSchema } from "#PLUGINS/services/src/js/types/ServiceP
 import { ServicePlanStepSchema } from "#PLUGINS/services/src/js/types/ServicePlanStep";
 import { ServicePlanPhaseSchema } from "#PLUGINS/services/src/js/types/ServicePlanPhase";
 import {
-  ServicePlanDetailResolver,
+  ServicePlan,
   ServicePlanSchema
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 import { Service, ServiceSchema } from "#PLUGINS/services/src/js/types/Service";
@@ -47,20 +47,6 @@ function isPlansQueryArgs(args: GeneralArgs): args is PlansQueryArgs {
   return (args as PlansQueryArgs).name !== undefined;
 }
 
-function handleAPIError(reqResp: RequestResponse<any>, message: string = "") {
-  if (reqResp.code !== 200) {
-    const respMessage =
-      reqResp.response && typeof reqResp.response === "object"
-        ? JSON.stringify(reqResp.response)
-        : reqResp.response;
-    throw new Error(
-      `${message}${message.length > 0 ? " " : ""}API request failed: ${
-        reqResp.code
-      } ${reqResp.message}:${respMessage}`
-    );
-  }
-}
-
 export const resolvers = ({
   fetchServicePlans,
   fetchServicePlanDetail,
@@ -80,12 +66,9 @@ export const resolvers = ({
         const plan$ = pollingInterval$
           .switchMap(() => fetchServicePlanDetail(parent.name, args.name))
           .map(
-            (
-              reqResp: RequestResponse<ServicePlanResponse>
-            ): ServicePlanResponse[] => {
-              handleAPIError(reqResp, "Service plan detail");
-              return [ServicePlanDetailResolver(reqResp.response)];
-            }
+            (reqResp: RequestResponse<ServicePlanResponse>): ServicePlan[] => [
+              { name: args.name, ...reqResp.response }
+            ]
           );
 
         return plan$;
@@ -95,26 +78,18 @@ export const resolvers = ({
         const plans$ = pollingInterval$
           .switchMap(() =>
             fetchServicePlans(parent.name)
-              .map(
-                (reqResp: RequestResponse<string[]>): string[] => {
-                  handleAPIError(reqResp, "Service plans");
-                  return reqResp.response;
-                }
-              )
+              .map(({ response }) => response)
               .map((plans: string[]) => {
                 return plans.map(name => ({ name }));
               })
           )
           .switchMap(plans => {
-            const planDetials = plans.map(plan => {
+            const planDetails = plans.map(plan => {
               return fetchServicePlanDetail(parent.name, plan.name).map(
-                (reqResp: RequestResponse<ServicePlanResponse>) => {
-                  handleAPIError(reqResp, "Service plan detail");
-                  return ServicePlanDetailResolver(reqResp.response);
-                }
+                ({ response }) => ({ name: plan.name, ...response })
               );
             });
-            return Observable.combineLatest(...planDetials);
+            return Observable.combineLatest(...planDetails);
           });
 
         return plans$;
