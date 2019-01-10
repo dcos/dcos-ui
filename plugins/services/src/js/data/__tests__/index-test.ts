@@ -16,9 +16,8 @@ import {
   ServicePlanResponse
 } from "#PLUGINS/services/src/js/data/ServicePlansClient";
 
-function makeFakePlanResponse(name: string): ServicePlanResponse {
+function makeFakePlanResponse(): ServicePlanResponse {
   return {
-    name,
     strategy: "serial",
     status: "IN_PROGRESS",
     errors: [],
@@ -50,12 +49,12 @@ function makeResolverConfig(
       m.cold("(j|)", {
         j: { code: 200, message: "ok", response: plansResponse }
       }),
-    fetchServicePlanDetail: (_serviceName: string, planName: string) =>
+    fetchServicePlanDetail: (_serviceName: string, _planName: string) =>
       m.cold("(j|)", {
         j: {
           code: 200,
           message: "ok",
-          response: makeFakePlanResponse(planName)
+          response: makeFakePlanResponse()
         }
       }),
     pollingInterval: m.time("--|")
@@ -140,12 +139,12 @@ describe("Service data-layer", () => {
               response: ["plan-01"]
             }
           });
-        const fetchServicePlanDetail = (_service: string, planName: string) =>
+        const fetchServicePlanDetail = (_service: string, _planName: string) =>
           m.cold("--j|", {
             j: {
               code: 200,
               message: "ok",
-              response: makeFakePlanResponse(planName)
+              response: makeFakePlanResponse()
             }
           });
         const serviceSchema = makeExecutableSchema({
@@ -240,11 +239,16 @@ describe("Service data-layer", () => {
       marbles(m => {
         m.bind();
 
-        const resolversConfig = makeResolverConfig(m);
-        resolversConfig.fetchServicePlans = (_serviceName: string) =>
-          m.cold("(j|)", {
-            j: { code: 500, message: "Internal Server Error", response: {} }
-          });
+        const plansResult$ = m.cold("(j|)", {
+          j: { code: 500, message: "Internal Server Error", response: {} }
+        });
+        mockRequest.mockReturnValueOnce(plansResult$);
+
+        const resolversConfig = {
+          fetchServicePlans: fetchPlans,
+          fetchServicePlanDetail: fetchPlanDetails,
+          pollingInterval: m.time("--|")
+        };
 
         const serviceSchema = makeExecutableSchema({
           typeDefs: schemas,
@@ -266,7 +270,7 @@ describe("Service data-layer", () => {
 
         const expected$ = m.cold("#", undefined, {
           message:
-            "Service plans API request failed: 500 Internal Server Error:{}",
+            "Service Plans API request failed: 500 Internal Server Error:{}",
           name: "Error"
         });
 
@@ -279,14 +283,20 @@ describe("Service data-layer", () => {
       marbles(m => {
         m.bind();
 
-        const resolversConfig = makeResolverConfig(m);
-        resolversConfig.fetchServicePlanDetail = (
-          _serviceName: string,
-          _planName: string
-        ) =>
-          m.cold("(j|)", {
-            j: { code: 500, message: "Internal Server Error", response: {} }
-          });
+        const plansResult$ = m.cold("(j|)", {
+          j: { code: 200, message: "ok", response: ["plan-01"] }
+        });
+        const planDetailResult$ = m.cold("(j|)", {
+          j: { code: 500, message: "Internal Server Error", response: {} }
+        });
+        const results = [plansResult$, planDetailResult$];
+        mockRequest.mockImplementation(() => results.shift());
+
+        const resolversConfig = {
+          fetchServicePlans: fetchPlans,
+          fetchServicePlanDetail: fetchPlanDetails,
+          pollingInterval: m.time("--|")
+        };
 
         const serviceSchema = makeExecutableSchema({
           typeDefs: schemas,
@@ -308,7 +318,7 @@ describe("Service data-layer", () => {
 
         const expected$ = m.cold("#", undefined, {
           message:
-            "Service plan detail API request failed: 500 Internal Server Error:{}",
+            "Service Plan Detail API request failed: 500 Internal Server Error:{}",
           name: "Error"
         });
 
@@ -328,7 +338,7 @@ describe("Service data-layer", () => {
           j: {
             code: 200,
             message: "ok",
-            response: makeFakePlanResponse("client-plan")
+            response: makeFakePlanResponse()
           }
         });
         const results = [plansResult$, planDetailResult$];
@@ -488,13 +498,13 @@ describe("Service data-layer", () => {
 
         resolversConfig.fetchServicePlanDetail = (
           _service: string,
-          planName: string
+          _planName: string
         ) =>
           m.cold("-j|", {
             j: {
               code: 200,
               message: "ok",
-              response: makeFakePlanResponse(planName)
+              response: makeFakePlanResponse()
             }
           });
         const serviceSchema = makeExecutableSchema({
@@ -590,14 +600,16 @@ describe("Service data-layer", () => {
       marbles(m => {
         m.bind();
 
-        const resolversConfig = makeResolverConfig(m);
-        resolversConfig.fetchServicePlanDetail = (
-          _serviceName: string,
-          _planName: string
-        ) =>
-          m.cold("(j|)", {
-            j: { code: 500, message: "Internal Server Error", response: {} }
-          });
+        const planDetailResult$ = m.cold("(j|)", {
+          j: { code: 500, message: "Internal Server Error", response: {} }
+        });
+        mockRequest.mockReturnValueOnce(planDetailResult$);
+
+        const resolversConfig = {
+          fetchServicePlans: fetchPlans,
+          fetchServicePlanDetail: fetchPlanDetails,
+          pollingInterval: m.time("--|")
+        };
 
         const serviceSchema = makeExecutableSchema({
           typeDefs: schemas,
@@ -616,12 +628,13 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test"
+          serviceName: "test",
+          planName: "plan-01"
         }).take(1);
 
         const expected$ = m.cold("#", undefined, {
           message:
-            "Service plan detail API request failed: 500 Internal Server Error:{}",
+            "Service Plan Detail API request failed: 500 Internal Server Error:{}",
           name: "Error"
         });
 
