@@ -1,6 +1,7 @@
 # Contributing
 
 ## Index
+
 - [Commits](#commits)
   - [Commit Message](#commit-message)
   - [Subject](#subjet)
@@ -62,16 +63,16 @@ Don't capitalize the first letter, and don't end it with a dot.
 
 The following commit types are allowed:
 
-* **feat** -
+- **feat** -
   use this type for commits that introduce a new features or capabilities
-* **fix** - use this one for bug fixes
-* **perf** - use this type for performance improvements
-* **docs** - use this one to indicate documentation adjustments and improvements
-* **chore** - use this type for _maintainance_ commits e.g. removing old files
-* **style** - use this one for commits that fix formatting and linting errors
-* **refactor** -
+- **fix** - use this one for bug fixes
+- **perf** - use this type for performance improvements
+- **docs** - use this one to indicate documentation adjustments and improvements
+- **chore** - use this type for _maintainance_ commits e.g. removing old files
+- **style** - use this one for commits that fix formatting and linting errors
+- **refactor** -
   use this type for adjustments to improve maintainability or performance
-* **test** - use this one for commits that add new tests
+- **test** - use this one for commits that add new tests
 
 #### Scope
 
@@ -139,20 +140,21 @@ VideoPlayer.prototype.pause()
 
 If you want to add a new npm package to 'node_modules' you will need to `--save-exact`:
 
-1. Install the new package
-  * The command below will install and save dependencies in `package.json`
+1.  Install the new package
 
-    ```
-    npm install [your package] --save --save-exact
-    ```
+- The command below will install and save dependencies in `package.json`
 
-  * Then, (if needed) add the package to devDependencies
+  ```
+  npm install [your package] --save --save-exact
+  ```
 
-    ```
-    npm install [your package] --save-dev --save-exact
-    ```
+- Then, (if needed) add the package to devDependencies
 
-2. Create a synced npm-shrinkwrap.json with devDependencies included by running
+  ```
+  npm install [your package] --save-dev --save-exact
+  ```
+
+2.  Create a synced npm-shrinkwrap.json with devDependencies included by running
 
     ```
     npm run build-shrinkwrap
@@ -161,60 +163,58 @@ If you want to add a new npm package to 'node_modules' you will need to `--save-
 We have a fixShrinkwrap script wich runs when you run `npm run build-shrinkwrap`, which takes care of the extra fsevents. You only need to manually remove it if shrinkwrap runs automatically. <br>
 For more info https://github.com/npm/npm/issues/2679
 
-3. Commit to repository
+3.  Commit to repository
 
 ## ReactJS Components
 
 To develop ReactJS Components and see the implications immediately in DC/OS UI,
 it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
 
-1. Run `npm run dist-src` in your `reactjs-components` directory.
-2. Run `npm link` in your `reactjs-components` directory.
-3. Run `npm link reactjs-components` in your `dcos-ui` directory.
-4. Run `export REACTJS_COMPONENTS_LOCAL=true; npm start` to start the Webpack dev server with the proper configuration variable.
-5. After any changes are made to `reactjs-components`, run `npm run dist-src` in the `reactjs-components` directory.
+1.  Run `npm run dist-src` in your `reactjs-components` directory.
+2.  Run `npm link` in your `reactjs-components` directory.
+3.  Run `npm link reactjs-components` in your `dcos-ui` directory.
+4.  Run `export REACTJS_COMPONENTS_LOCAL=true; npm start` to start the Webpack dev server with the proper configuration variable.
+5.  After any changes are made to `reactjs-components`, run `npm run dist-src` in the `reactjs-components` directory.
 
 ## Development Setup (Sublime Text Only)
 
-1. Add the following to your Sublime Text User Settings:
+1.  Add the following to your Sublime Text User Settings:
+
+```json
+{
+  ...
+  "rulers": [80], // lines no longer than 80 chars
+  "tab_size": 2, // use two spaces for indentation
+  "translate_tabs_to_spaces": true, // use spaces for indentation
+  "ensure_newline_at_eof_on_save": true, // add newline on save
+  "trim_trailing_white_space_on_save": true, // trim trailing white space on save
+  "default_line_ending": "unix"
+}
+```
+
+2.  Add Sublime-linter with jshint & jsxhint:
+
+- Installing SublimeLinter is straightforward using Sublime Package Manager, see [instructions](http://sublimelinter.readthedocs.org/en/latest/installation.html#installing-via-pc)
+- SublimeLinter-eslint needs a global eslint in your system, see [instructions](https://github.com/roadhump/SublimeLinter-eslint#sublimelinter-eslint)
+
+3.  Syntax Highlighting for files containing JSX
+
+- Install Babel using Sublime Package Manager, see [instructions](https://github.com/babel/babel-sublime). From here you can decide to use Babel for all .js files. See their docs for that. If you don't want to do that, continue reading.
+- Installing ApplySyntax using Sublime Package Manager, see [instructions](https://github.com/facelessuser/ApplySyntax)
+- Open up the user configuration file for ApplySyntax: `Sublime Text` -> `Preferences` -> `Package Settings` -> `ApplySyntax` -> `Settings - User`
+- Replace the contents with this:
 
   ```json
   {
-    ...
-    "rulers": [80], // lines no longer than 80 chars
-    "tab_size": 2, // use two spaces for indentation
-    "translate_tabs_to_spaces": true, // use spaces for indentation
-    "ensure_newline_at_eof_on_save": true, // add newline on save
-    "trim_trailing_white_space_on_save": true, // trim trailing white space on save
-    "default_line_ending": "unix"
+    // Put your custom syntax rules here:
+    "syntaxes": [
+      {
+        "name": "Babel/JavaScript (Babel)",
+        "rules": [{ "first_line": "^\\/\\*\\*\\s@jsx\\sReact\\.DOM\\s\\*\\/" }]
+      }
+    ]
   }
   ```
-
-2. Add Sublime-linter with jshint & jsxhint:
-
-  * Installing SublimeLinter is straightforward using Sublime Package Manager, see [instructions](http://sublimelinter.readthedocs.org/en/latest/installation.html#installing-via-pc)
-  * SublimeLinter-eslint needs a global eslint in your system, see [instructions](https://github.com/roadhump/SublimeLinter-eslint#sublimelinter-eslint)
-
-3. Syntax Highlighting for files containing JSX
-
-  * Install Babel using Sublime Package Manager, see [instructions](https://github.com/babel/babel-sublime). From here you can decide to use Babel for all .js files. See their docs for that. If you don't want to do that, continue reading.
-  * Installing ApplySyntax using Sublime Package Manager, see [instructions](https://github.com/facelessuser/ApplySyntax)
-  * Open up the user configuration file for ApplySyntax: `Sublime Text` -> `Preferences` -> `Package Settings` -> `ApplySyntax` -> `Settings - User`
-  * Replace the contents with this:
-
-    ```json
-    {
-      // Put your custom syntax rules here:
-      "syntaxes": [
-        {
-          "name": "Babel/JavaScript (Babel)",
-          "rules": [
-            {"first_line": "^\\/\\*\\*\\s@jsx\\sReact\\.DOM\\s\\*\\/"}
-          ]
-        }
-      ]
-    }
-    ```
 
 ## Testing
 
@@ -265,7 +265,7 @@ results with different inputs we write Unit Tests.
 
 Think of a `sum` function. When called as `sum(1)` we may expect a return value
 of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when
- called with no arguments, we may expect the result to fail with an error.
+called with no arguments, we may expect the result to fail with an error.
 
 ### Running Unit Tests
 
@@ -299,19 +299,19 @@ This test verifies that unit `decomposePodTaskId` when given the input string
 `instanceID` and `taskName respectively`.
 
 ```js
-  describe("#decomposePodTaskId", function() {
-    it("de-composes task ids", function() {
-      expect(
-        MesosStateUtil.decomposePodTaskId(
-          "podname.instance-instancename.taskname"
-        )
-      ).toEqual({
-        podID: "podname",
-        instanceID: "instancename",
-        taskName: "taskname"
-      });
+describe("#decomposePodTaskId", function() {
+  it("de-composes task ids", function() {
+    expect(
+      MesosStateUtil.decomposePodTaskId(
+        "podname.instance-instancename.taskname"
+      )
+    ).toEqual({
+      podID: "podname",
+      instanceID: "instancename",
+      taskName: "taskname"
     });
   });
+});
 ```
 
 ### Writing Unit Tests
@@ -321,7 +321,7 @@ A recommended reading is [Better Specs](http://www.betterspecs.org/), we put
 follow these guidelines. Some of the most common ones to follow:
 
 - Single Expectation test: Every unit test should verify one behavior (and one behavior only).
-- Keep your descriptions concise (bellow 40 chars ideally): One easy way to achieve this one is avoiding using "should" (e.g. "it does not use should"  instead of "it should not be written with should").
+- Keep your descriptions concise (bellow 40 chars ideally): One easy way to achieve this one is avoiding using "should" (e.g. "it does not use should" instead of "it should not be written with should").
 - Create only the data you need: Especially if you have a more complicated scenario, just generate the data that is relevant to that particular case.
 
 For more on this topic, and examples we recommend
@@ -337,9 +337,12 @@ The most important thing you should do is wrapping your usual test case function
 ```js
 import { marbles } from "rxjs-marbles/jest";
 
-it("tests marbles", marble(function(m) {
-  // My test case
-}));
+it(
+  "tests marbles",
+  marble(function(m) {
+    // My test case
+  })
+);
 ```
 
 it will inject the Context conventionally named `m` that exposes the helpers API.
@@ -377,9 +380,9 @@ describe("linearBackoff", function() {
 ## Integration Testing
 
 At the integration level, we are interested in verifying that the composition of
- components works, more than the components independently. Integration tests
- do not go into the details of the business logic, since those are covered by
- unit testing.
+components works, more than the components independently. Integration tests
+do not go into the details of the business logic, since those are covered by
+unit testing.
 
 Following the example of the `sum` function, imagine you are building a
 graphical tool to display charts with data from a JSON API. An integration test
@@ -396,44 +399,43 @@ it will run, the user browser.
 
 To setup cypress you need to follow the following steps:
 
-1. Install Cypress CLI.
+1.  Install Cypress CLI.
 
 Cypress is a dev dependency, if you have not installed those yet, run:
 
-  ```sh
-    npm install --only=dev
-  ```
+```sh
+  npm install --only=dev
+```
 
-2. Open Cypress.
+2.  Open Cypress.
 
-  ```sh
-  ./node_modules/.bin/cypress open
-  ```
+```sh
+./node_modules/.bin/cypress open
+```
 
-3. The following window should open. Login via GitHub.
+3.  The following window should open. Login via GitHub.
 
-  ![img](docs/images/cypress-login.png?raw=true)
+![img](docs/images/cypress-login.png?raw=true)
 
-4. Add project to Cypress.
+4.  Add project to Cypress.
 
-Once you've logged in click on the Add Project +  button and add the `dcos-ui`
+Once you've logged in click on the Add Project + button and add the `dcos-ui`
 folder.
 
-  ![img](docs/images/cypress-no-projects.png?raw=true)
+![img](docs/images/cypress-no-projects.png?raw=true)
 
 ### Running Integration Tests
 
-1. Run DC/OS UI in testing mode (you have to close npm start).
+1.  Run DC/OS UI in testing mode (you have to close npm start).
 
-  ```sh
-  npm run testing
-  ```
+```sh
+npm run testing
+```
 
-2. Open the project and click on "Run All Tests" or in one of the test files,
-e.g. (PackageTab-cy.js).
+2.  Open the project and click on "Run All Tests" or in one of the test files,
+    e.g. (PackageTab-cy.js).
 
 ![img](docs/images/cypress-run-tests.png?raw=true)
-
 
 You should see a browser open and your tests running.
 
@@ -462,22 +464,37 @@ that, among other things, include:
 
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
 
-
-3. Run cypress on the command line
+#### Run cypress on the command line
 
 Alternatively you can run cypress from the command line.
-  ```sh
-    npm run cypress
-  ```
+
+```sh
+  npm run cypress
+```
+
+### Debugging flaky integration tests
+
+We have tooling to check if a test case (or the implementation) is flaky.
+
+1.  Open up a PR with your changes
+2.  Add a `.only` on the test case you want to check
+3.  Click on the `continuous-integration/jenkins/pr-head` and navigate to the old view (square symbol with arrow on the top right corner)
+4.  Navigate to the PR in Jenkins by clicking the PR name on the breadcrumbs
+5.  Click "Build with Parameters" on the left sidebar to and run the job with "shouldRun" checked
+6.  Wait for the `100` runs to finish
+7.  Check the result on the PR notification. If there is still a flake `continuous-integration/jenkins/pr-head` should be red.
+
+If you want to test more runs you can change the number in `Jenkinsfile.reruns`.
+
 ## System Testing
 
 At the System Test level, you want to guarantee that your project works on the
 context of the whole system, in the case of DC/OS UI, that it works within DC/OS
- as a product. To do this, we want our tests to run against a DC/OS cluster.
- For example we want to test that when an slave fails in a cluster, the UI
- visually shows this slave failure. A different example is validating that
- when a new service is installed on a cluster, it will show up in the services
- page.
+as a product. To do this, we want our tests to run against a DC/OS cluster.
+For example we want to test that when an slave fails in a cluster, the UI
+visually shows this slave failure. A different example is validating that
+when a new service is installed on a cluster, it will show up in the services
+page.
 
 ### System Tests setup
 
@@ -490,7 +507,7 @@ The system-test-driver-utility is currently **not available** for public use.
 For contributing members of this repository. Comprehensive documentation on how
 to run, write, debug and troubleshoot system tests are available in the
 **System Tests in DC/OS UI** google document currently only available internally
- at Mesosphere.
+at Mesosphere.
 
 You will need a fully functional cluster to run your system tests.
 
@@ -514,6 +531,7 @@ When creating a new **translation ID** please follow the convention/pattern bell
 In theory you can add any string as value but avoid using markup at any cost.
 
 A good example of translations:
+
 ```javascript
 {
   "COMMON.SUMMARY": "Summary":
