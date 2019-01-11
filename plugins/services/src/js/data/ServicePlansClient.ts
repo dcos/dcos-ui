@@ -38,7 +38,7 @@ export function fetchPlans(
 ): Observable<RequestResponse<string[]>> {
   return request(`/service/${serviceName}/v1/plans`).map(
     (reqResp: RequestResponse<any>) => {
-      if (reqResp.code !== 200) {
+      if (reqResp.code >= 300) {
         const respMessage =
           reqResp.response && typeof reqResp.response === "object"
             ? JSON.stringify(reqResp.response)
@@ -60,7 +60,7 @@ export function fetchPlanDetails(
 ): Observable<RequestResponse<ServicePlanResponse>> {
   return request(`/service/${serviceName}/v1/plans/${planName}`).map(
     (reqResp: RequestResponse<any>) => {
-      if (reqResp.code !== 200) {
+      if (reqResp.code >= 300) {
         const respMessage =
           reqResp.response && typeof reqResp.response === "object"
             ? JSON.stringify(reqResp.response)
