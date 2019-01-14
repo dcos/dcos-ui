@@ -40,7 +40,7 @@
     "babel-polyfill": "6.23.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
-    "clipboard": "1.5.10",
+    "clipboard": "1.7.1",
     "cnvs": "1.1.14",
     "compare-versions": "3.4.0",
     "cookie": "0.2.3",
