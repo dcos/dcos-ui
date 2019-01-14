@@ -75,10 +75,10 @@ function runTestFile {
     EXIT_CODE=$?
 
     if [ $EXIT_CODE -eq 0 ]; then
-      report "$(basename ${RELATIVE_PATH})" "success"
+      report "$RELATIVE_PATH" "success"
       echo "====> Successfully finished tests for ${RELATIVE_PATH}"
     else
-      report "$(basename ${RELATIVE_PATH})" "failure"
+      report "$RELATIVE_PATH" "failure"
       echo "====> Failures in tests for ${RELATIVE_PATH}"
       [ $SUPPRESS_OUTPUT -eq 0 ] && echo "${CYOUT}"
     fi
@@ -186,12 +186,14 @@ function teardown {
 }
 
 # reports to data dog if flag is set
-# $1 should be the file name
+# $1 should be the file path
 # $2 should be "success" or "failure"
 function report {
   if [ "$REPORT" = true ]; then
-    # TODO: make tags configurable from the outside
-    dogapi metric send "dcos_ui.$1.$2" --type 'count' --tags "distribution:oss,branch:master"
+    file=$(basename $1)
+    filename=${file%-cy.js}
+
+    dogapi metric send "dcos_ui.$2" 1 --type 'count' --tags "distribution:$DISTRIBUTION,branch:$BRANCH,testfile:$filename"
   fi
 }
 

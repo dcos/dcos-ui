@@ -61,6 +61,9 @@ pipeline {
     stage("Tests") {
       parallel {
         stage("Integration Test") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
           steps {
             withCredentials([
               string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
