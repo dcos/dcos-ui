@@ -37,7 +37,7 @@
     "@lingui/react": "2.7.2",
     "@types/classnames": "2.2.6",
     "array-sort": "1.0.0",
-    "babel-polyfill": "6.23.0",
+    "babel-polyfill": "6.26.0",
     "browser-info": "0.4.0",
     "classnames": "2.2.3",
     "clipboard": "1.5.10",
