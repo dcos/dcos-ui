@@ -108,7 +108,7 @@
     "babel-preset-react": "6.5.0",
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-3": "6.24.1",
-    "babel-register": "6.24.1",
+    "babel-register": "6.26.0",
     "babel-runtime": "6.23.0",
     "cache-loader": "1.2.2",
     "colors": "1.1.2",
