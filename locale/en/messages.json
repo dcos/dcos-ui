@@ -631,6 +631,7 @@
   "Placement": "",
   "Placement Constraints": "",
   "Placement constraints control where apps run to allow optimization for either fault tolerance or locality.": "",
+  "Plans": "",
   "Please <0>add a container</0> before configuring Volumes.": "",
   "Please <0>add a container</0> before configuring health checks.": "",
   "Please contact your system administrator or see the <0>documentation</0>.": "",
