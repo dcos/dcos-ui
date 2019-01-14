@@ -5,6 +5,8 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 source "$SCRIPT_PATH/utils/integration-tests"
 
+REPORT=${REPORT_TO_DATADOG:-true}
+
 setup
 trap teardown EXIT
 run_tests
