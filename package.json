@@ -111,7 +111,7 @@
     "babel-register": "6.24.1",
     "babel-runtime": "6.23.0",
     "cache-loader": "1.2.2",
-    "colors": "1.1.2",
+    "colors": "1.3.3",
     "compression-webpack-plugin": "1.1.6",
     "console": "0.7.0",
     "conventional-changelog-lint": "1.1.9",
