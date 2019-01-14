@@ -45,7 +45,7 @@ RUN set -x \
   && pip install 'six==1.10.0' \
   && pip install 'python-dateutil==2.6.0' \
   && pip install 'PyYAML==3.12' \
-  && npm install dogapi
+  && npm install -g dogapi
 
 # Define entrypoint
 ENTRYPOINT [ "/bin/bash", "/usr/local/bin/dcos-ui-docker-entrypoint" ]
