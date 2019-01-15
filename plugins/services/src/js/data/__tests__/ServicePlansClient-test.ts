@@ -51,7 +51,7 @@ describe("ServicePlansClient", () => {
     );
 
     it(
-      "emits an error if non-200 API response",
+      "emits an error if non-2XX API response",
       marbles(m => {
         m.bind();
 
@@ -117,7 +117,7 @@ describe("ServicePlansClient", () => {
     );
 
     it(
-      "emits an error if non-200 API response",
+      "emits an error if non-2XX API response",
       marbles(m => {
         m.bind();
 

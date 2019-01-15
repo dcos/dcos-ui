@@ -235,7 +235,7 @@ describe("Service data-layer", () => {
     );
 
     it(
-      "throws an error if plan detail API returns non-200",
+      "throws an error if plan detail API returns non-2XX",
       marbles(m => {
         m.bind();
 
@@ -279,7 +279,7 @@ describe("Service data-layer", () => {
     );
 
     it(
-      "throws an error if plans API returns non-200",
+      "throws an error if plans API returns non-2XX",
       marbles(m => {
         m.bind();
 
@@ -596,7 +596,7 @@ describe("Service data-layer", () => {
     );
 
     it(
-      "throws an error if API returns non-200",
+      "throws an error if API returns non-2XX",
       marbles(m => {
         m.bind();
 
