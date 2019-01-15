@@ -7,6 +7,15 @@ export interface ServicePlanStep {
   message: string;
 }
 
+export function compare(a: ServicePlanStep, b: ServicePlanStep): boolean {
+  return !(
+    a.id !== b.id ||
+    a.name !== b.name ||
+    a.status !== b.status ||
+    a.message !== b.message
+  );
+}
+
 export const ServicePlanStepSchema = `
 type ServicePlanStep {
   id: String!

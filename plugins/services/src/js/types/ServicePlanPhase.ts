@@ -1,5 +1,8 @@
 import { ServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
-import { ServicePlanStep } from "#PLUGINS/services/src/js/types/ServicePlanStep";
+import {
+  ServicePlanStep,
+  compare as compareSteps
+} from "#PLUGINS/services/src/js/types/ServicePlanStep";
 
 export interface ServicePlanPhase {
   id: string;
@@ -7,6 +10,24 @@ export interface ServicePlanPhase {
   steps: ServicePlanStep[];
   strategy: string;
   status: ServicePlanStatus;
+}
+
+export function compare(a: ServicePlanPhase, b: ServicePlanPhase): boolean {
+  if (
+    a.id !== b.id ||
+    a.name !== b.name ||
+    a.status !== b.status ||
+    a.steps.length !== b.steps.length
+  ) {
+    return false;
+  }
+  for (let i = 0; i < a.steps.length; i++) {
+    if (!compareSteps(a.steps[i], b.steps[i])) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 export const ServicePlanPhaseSchema = `
