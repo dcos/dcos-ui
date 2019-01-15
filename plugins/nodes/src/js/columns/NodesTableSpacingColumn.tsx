@@ -1,7 +1,7 @@
 import * as React from "react";
-import Node from "#SRC/js/structs/Node";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
-import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
+import Node from "#SRC/js/structs/Node";
 
 export function spacingRenderer(_data: Node): React.ReactNode {
   return null;
