@@ -1,12 +1,13 @@
-import React from "react";
+import * as React from "react";
 
 import { componentFromStream, graphqlObservable } from "@dcos/data-service";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import gql from "graphql-tag";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
-import { Service } from "../types/Service";
+import { Service, compare as ServiceCompare } from "../types/Service";
 import { default as schema } from "../data";
+import SDKPlansScreen from "#PLUGINS/services/src/js/components/SDKPlansScreen";
 
 const getGraphQL = (
   serviceName: string
@@ -31,12 +32,17 @@ const getGraphQL = (
   );
 };
 
+const ErrorScreen = () => {
+  return <RequestErrorMsg />;
+};
+
 const LoadingScreen = () => {
   return <Loader />;
 };
 
-const ErrorScreen = () => {
-  return <RequestErrorMsg />;
+const selectedPlan$ = new BehaviorSubject<string>("");
+const handleSelectPlan = (name: string) => {
+  selectedPlan$.next(name);
 };
 
 const SDKPlans = componentFromStream(props$ => {
@@ -44,15 +50,24 @@ const SDKPlans = componentFromStream(props$ => {
     .map((props: { service: { getId: () => string } }) => props.service.getId())
     .distinctUntilChanged();
 
-  const plans$ = name$.concatMap((serviceName: string) =>
-    getGraphQL(serviceName).map(
-      (response: { data: { service: Service } }) => response.data.service
+  const plans$ = name$
+    .concatMap((serviceName: string) =>
+      getGraphQL(serviceName).map(
+        (response: { data: { service: Service } }) => response.data.service
+      )
     )
-  );
+    .distinctUntilChanged(ServiceCompare);
 
-  return plans$
-    .map((service: Service, index: number) => {
-      return <pre key={index}>{JSON.stringify(service.plans, null, 2)}</pre>;
+  return Observable.combineLatest([plans$, selectedPlan$])
+    .map(([service, selectedPlan], index: number) => {
+      return (
+        <SDKPlansScreen
+          key={index}
+          service={service}
+          plan={selectedPlan}
+          handleSelectPlan={handleSelectPlan}
+        />
+      );
     })
     .retryWhen(errors =>
       errors
