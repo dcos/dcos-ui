@@ -38,7 +38,7 @@ pipeline {
           sh "rm -rf {.*,*} || ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
         }
         sh "git fetch"
-        sh "git checkout \"\$([ -z \"\$CHANGE_TARGET\" ] && echo \$BRANCH_NAME || echo \$CHANGE_TARGET )\""
+        sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
 
         sh "npm --unsafe-perm install"
         sh "npm run build"
