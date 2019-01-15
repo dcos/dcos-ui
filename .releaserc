@@ -2,6 +2,24 @@
   "branch": "master",
   "tagFormat": "master+v${version}",
   "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
+  "analyzeCommits": [
+    {
+      "path": "@semantic-release/commit-analyzer",
+      "preset": "angular",
+      "releaseRules": [
+        { "breaking": true, "release": "major" },
+        { "revert": true, "release": "patch" },
+        { "type": "feat", "release": "minor" },
+        { "type": "fix", "release": "patch" },
+        { "type": "perf", "release": "patch" },
+        { "type": "chore", "release": "patch" },
+        { "type": "refactor", "release": "patch" }
+      ],
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+      }
+    }
+  ],
   "prepare": [],
   "publish": [
     {
@@ -16,7 +34,8 @@
     {
       "path": "semantic-release-jira",
       "apiURL": "https://jira.mesosphere.com/rest/api/2/issue/${issueKey}",
-      "apiJSON": '{ "update": { "labels": [ { "add": "released-repo:dcos-ui" }, { "add": "released-tag:master+v${version}" } ] } }'
+      "apiJSON":
+        "{ \"update\": { \"labels\": [ { \"add\": \"released-repo:dcos-ui\" }, { \"add\": \"released-tag:master+v${version}\" } ] } }"
     }
   ]
 }
