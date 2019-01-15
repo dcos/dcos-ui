@@ -1,4 +1,6 @@
+import { Observable } from "rxjs";
 import { makeExecutableSchema } from "graphql-tools";
+
 import { ServicePlanStatusSchema } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 import { ServicePlanStepSchema } from "#PLUGINS/services/src/js/types/ServicePlanStep";
 import { ServicePlanPhaseSchema } from "#PLUGINS/services/src/js/types/ServicePlanPhase";
@@ -7,7 +9,6 @@ import {
   ServicePlanSchema
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 import { Service, ServiceSchema } from "#PLUGINS/services/src/js/types/Service";
-import { Observable } from "rxjs";
 import { RequestResponse } from "@dcos/http-service";
 import {
   fetchPlanDetails as fetchServicePlanDetail,
@@ -64,7 +65,9 @@ export const resolvers = ({
       if (isPlansQueryArgs(args)) {
         // If we're given a plan name, then only query that plan
         const plan$ = pollingInterval$
-          .switchMap(() => fetchServicePlanDetail(parent.name, args.name))
+          .switchMap(() =>
+            fetchServicePlanDetail(parent.name, args.name).retry(2)
+          )
           .map(
             (reqResp: RequestResponse<ServicePlanResponse>): ServicePlan[] => [
               { name: args.name, ...reqResp.response }
@@ -78,6 +81,7 @@ export const resolvers = ({
         const plans$ = pollingInterval$
           .switchMap(() =>
             fetchServicePlans(parent.name)
+              .retry(2)
               .map(({ response }) => response)
               .map((plans: string[]) => {
                 return plans.map(name => ({ name }));
@@ -85,9 +89,9 @@ export const resolvers = ({
           )
           .switchMap(plans => {
             const planDetails = plans.map(plan => {
-              return fetchServicePlanDetail(parent.name, plan.name).map(
-                ({ response }) => ({ name: plan.name, ...response })
-              );
+              return fetchServicePlanDetail(parent.name, plan.name)
+                .retry(2)
+                .map(({ response }) => ({ name: plan.name, ...response }));
             });
             return Observable.combineLatest(...planDetails);
           });
