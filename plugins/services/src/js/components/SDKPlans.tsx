@@ -54,6 +54,12 @@ const SDKPlans = componentFromStream(props$ => {
     .map((service: Service, index: number) => {
       return <pre key={index}>{JSON.stringify(service.plans, null, 2)}</pre>;
     })
+    .retryWhen(errors =>
+      errors
+        .delay(1000)
+        .take(10)
+        .concat(Observable.throw(errors))
+    )
     .catch(() => Observable.of(<ErrorScreen />))
     .startWith(<LoadingScreen />);
 });
