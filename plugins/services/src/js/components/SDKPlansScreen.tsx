@@ -4,6 +4,7 @@ import { Service } from "#PLUGINS/services/src/js/types/Service";
 import SDKPlanTable from "#PLUGINS/services/src/js/components/SDKPlanTable";
 import { formatServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 import { ServicePlan } from "#PLUGINS/services/src/js/types/ServicePlan";
+import FieldSelect from "#SRC/js/components/form/FieldSelect";
 
 export interface SDKPlansScreenProps {
   service: Service;
@@ -25,21 +26,22 @@ class SDKPlansScreen extends React.PureComponent<SDKPlansScreenProps, {}> {
 
   renderPlanSelect(plans: ServicePlan[]): React.ReactNode {
     return (
-      <select
-        style={{ marginBottom: "20px" }}
-        name="plan"
-        onChange={this.planSelectChange}
-        value={this.props.plan}
-      >
-        {plans.map((plan: ServicePlan, index: number) => {
-          const { name, strategy, status } = plan;
-          return (
-            <option key={`plan.option.${index}`} value={name}>
-              {name} ({strategy}) - {formatServicePlanStatus(status)}
-            </option>
-          );
-        })}
-      </select>
+      <div className="pod flush-horizontal flush-top">
+        <FieldSelect
+          name="plan"
+          onChange={this.planSelectChange}
+          value={this.props.plan}
+        >
+          {plans.map((plan: ServicePlan, index: number) => {
+            const { name, strategy, status } = plan;
+            return (
+              <option key={`plan.option.${index}`} value={name}>
+                {name} ({strategy}) - {formatServicePlanStatus(status)}
+              </option>
+            );
+          })}
+        </FieldSelect>
+      </div>
     );
   }
 
