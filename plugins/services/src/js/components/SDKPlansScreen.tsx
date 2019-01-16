@@ -5,6 +5,8 @@ import SDKPlanTable from "#PLUGINS/services/src/js/components/SDKPlanTable";
 import { formatServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 import { ServicePlan } from "#PLUGINS/services/src/js/types/ServicePlan";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
+import AlertPanel from "#SRC/js/components/AlertPanel";
+import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
 export interface SDKPlansScreenProps {
   service: Service;
@@ -48,7 +50,15 @@ class SDKPlansScreen extends React.PureComponent<SDKPlansScreenProps, {}> {
   render() {
     const { service, plan: planName } = this.props;
     if (service.plans.length === 0) {
-      return <div>No Plans</div>;
+      const { name: serviceId } = service;
+      return (
+        <AlertPanel>
+          <Trans render={<AlertPanelHeader />}>No Plans</Trans>
+          <Trans render="p" className="tall">
+            There are no plans currently available for {serviceId}.
+          </Trans>
+        </AlertPanel>
+      );
     }
     let selectedPlan = service.plans.find(plan => plan.name === planName);
     if (selectedPlan === undefined) {

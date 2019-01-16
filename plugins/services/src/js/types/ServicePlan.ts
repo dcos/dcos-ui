@@ -14,7 +14,7 @@ export interface ServicePlan {
 }
 
 export interface ServicePlanElement {
-  type: "phase" | "step";
+  type: "phase" | "step" | "nodata";
   id: string;
   name: string;
   status: ServicePlanStatus;
