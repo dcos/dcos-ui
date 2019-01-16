@@ -47,15 +47,15 @@ const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
     case "STARTING":
       return (
         <Trans render="span">
-          Execution has performed Operations and is waiting to determine the
-          success of those Operations.
+          Execution has performed and is waiting to determine the success of
+          those operations.
         </Trans>
       );
     case "STARTED":
       return (
         <Trans render="span">
-          Execution has performed Operations and has received feedback, but not
-          all success requirements (e.g. readiness checks) have been satisfied.
+          Execution has performed and has received feedback, but not all success
+          requirements (e.g. readiness checks) have been satisfied.
         </Trans>
       );
     case "IN_PROGRESS":
@@ -75,7 +75,7 @@ const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
         );
         return (
           <Trans render="span">
-            {completedSteps} of {totalSteps} steps completed.
+            {completedSteps} out of {totalSteps} steps completed.
           </Trans>
         );
       }
@@ -97,7 +97,7 @@ const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
     case "PENDING":
       return <Icon id="yield" family="system" size="mini" color="yellow" />;
     case "PREPARED":
-      return <Icon id="clock" family="system" size="mini" />;
+      return <Icon id="spinner" family="system" size="mini" />;
     case "STARTING":
       return <Icon id="spinner" family="system" size="mini" />;
     case "STARTED":
@@ -114,23 +114,37 @@ const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
 };
 
 const phaseColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
-  if (data.type === "phase") {
-    return (
-      <TextCell>
-        <strong>
-          {data.name} ({data.strategy})
-        </strong>
-      </TextCell>
-    );
+  switch (data.type) {
+    case "phase":
+      return (
+        <TextCell>
+          <strong>
+            {data.name} ({data.strategy})
+          </strong>
+        </TextCell>
+      );
+    case "step":
+      return (
+        <TextCell>
+          <span className="pod flush-right flush-vertical">{data.name}</span>
+        </TextCell>
+      );
+    case "nodata":
+      return (
+        <TextCell>
+          <Trans render="span">
+            There are no phases available for this plan.
+          </Trans>
+        </TextCell>
+      );
   }
-  return (
-    <TextCell>
-      <span className="pod flush-right flush-vertical">{data.name}</span>
-    </TextCell>
-  );
 };
 
 const statusColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
+  if (data.type === "nodata") {
+    return <TextCell />;
+  }
+
   const icon = getStatusIcon(data.status);
   const tooltipContent = getStatusTooltip(data);
 
@@ -170,9 +184,20 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
   }
 
   render() {
+    const tableData = this.getData(this.props.plan);
+
+    if (tableData.length === 0) {
+      tableData.push({
+        type: "nodata",
+        id: "",
+        name: "",
+        status: "ERROR"
+      });
+    }
+
     return (
       <div className="table-wrapper">
-        <Table data={this.getData(this.props.plan)}>
+        <Table data={tableData}>
           <Column
             header={
               <HeaderCell>
