@@ -284,9 +284,10 @@ class ServiceDetail extends mixin(TabsMixin) {
 
       return React.cloneElement(child, clonedProps);
     });
+    const isPlansTab = routes[routes.length - 1].path === "plans";
 
     return (
-      <Page>
+      <Page dontScroll={isPlansTab} flushBottom={isPlansTab}>
         <Page.Header
           actions={this.getActions()}
           tabs={this.getTabs()}
