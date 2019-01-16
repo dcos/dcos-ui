@@ -59,11 +59,9 @@ describe("Universe", function() {
       })
       .click();
 
-    cy.get(".page-body-content pre")
-      .contains('"broker"', {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.get(".page-body-content .table-wrapper", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    }).should("exist");
   });
 
   it("fails to install a package with the same name", function() {
