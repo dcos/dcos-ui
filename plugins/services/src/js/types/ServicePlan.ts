@@ -52,6 +52,7 @@ export function compare(a: ServicePlan, b: ServicePlan): boolean {
   if (
     a.name !== b.name ||
     a.status !== b.status ||
+    a.strategy !== b.strategy ||
     a.phases.length !== b.phases.length
   ) {
     return false;
