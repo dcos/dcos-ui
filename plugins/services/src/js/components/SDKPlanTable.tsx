@@ -130,7 +130,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
 
   render() {
     return (
-      <div className="table-wrapper" style={{ height: "1000px" }}>
+      <div className="table-wrapper">
         <Table data={this.getData(this.props.plan)}>
           <Column
             header={

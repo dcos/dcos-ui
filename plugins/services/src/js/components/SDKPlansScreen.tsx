@@ -56,7 +56,7 @@ class SDKPlansScreen extends React.PureComponent<SDKPlansScreenProps, {}> {
     }
 
     return (
-      <div>
+      <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
         {this.renderPlanSelect(service.plans)}
         <SDKPlanTable plan={selectedPlan} />
       </div>
