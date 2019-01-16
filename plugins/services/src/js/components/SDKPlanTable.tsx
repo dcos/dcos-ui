@@ -5,9 +5,10 @@ import { Table, Column, TextCell, HeaderCell } from "@dcos/ui-kit";
 import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import {
-  flattenServicePlan,
+  flattenServicePlanPhases,
   ServicePlan,
-  ServicePlanElement
+  ServicePlanElement,
+  NO_DATA_SERVICE_PLAN_ELEMENT
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 import {
   formatServicePlanStatus,
@@ -142,7 +143,7 @@ const phaseColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
 
 const statusColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
   if (data.type === "nodata") {
-    return <TextCell />;
+    return <TextCell>{""}</TextCell>;
   }
 
   const icon = getStatusIcon(data.status);
@@ -179,20 +180,11 @@ export interface SDKPlanTableProps {
 }
 
 class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
-  getData(plan: ServicePlan) {
-    return flattenServicePlan(plan);
-  }
-
   render() {
-    const tableData = this.getData(this.props.plan);
+    const tableData = flattenServicePlanPhases(this.props.plan);
 
     if (tableData.length === 0) {
-      tableData.push({
-        type: "nodata",
-        id: "",
-        name: "",
-        status: "ERROR"
-      });
+      tableData.push(NO_DATA_SERVICE_PLAN_ELEMENT);
     }
 
     return (

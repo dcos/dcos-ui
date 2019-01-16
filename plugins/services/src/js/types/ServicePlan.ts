@@ -24,7 +24,16 @@ export interface ServicePlanElement {
   steps?: ServicePlanElement[];
 }
 
-export function flattenServicePlan(plan: ServicePlan): ServicePlanElement[] {
+export const NO_DATA_SERVICE_PLAN_ELEMENT: ServicePlanElement = {
+  type: "nodata",
+  id: "",
+  name: "",
+  status: "ERROR"
+};
+
+export function flattenServicePlanPhases(
+  plan: ServicePlan
+): ServicePlanElement[] {
   return plan.phases.reduce(
     (acc: ServicePlanElement[], phase: ServicePlanPhase) => {
       const stepElements = phase.steps.map(
@@ -53,13 +62,19 @@ export function compare(a: ServicePlan, b: ServicePlan): boolean {
     a.name !== b.name ||
     a.status !== b.status ||
     a.strategy !== b.strategy ||
-    a.phases.length !== b.phases.length
+    a.phases.length !== b.phases.length ||
+    a.errors.length !== b.errors.length
   ) {
     return false;
   }
 
   for (let i = 0; i < a.phases.length; i++) {
     if (!comparePhases(a.phases[i], b.phases[i])) {
+      return false;
+    }
+  }
+  for (let i = 0; i < a.errors.length; i++) {
+    if (a.errors[i] !== b.errors[i]) {
       return false;
     }
   }
