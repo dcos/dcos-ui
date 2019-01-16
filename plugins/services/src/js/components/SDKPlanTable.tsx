@@ -84,7 +84,7 @@ const phaseColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
   }
   return (
     <TextCell>
-      <span style={{ marginLeft: "20px" }}>{data.name}</span>
+      <span className="pod flush-right flush-vertical">{data.name}</span>
     </TextCell>
   );
 };
