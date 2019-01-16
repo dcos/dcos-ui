@@ -32,7 +32,7 @@
     "@dcos/data-service": "1.0.2",
     "@dcos/http-service": "1.1.0",
     "@dcos/mesos-client": "0.2.6",
-    "@dcos/tslint-config": "0.1.0",
+    "@dcos/tslint-config": "0.1.1",
     "@dcos/ui-kit": "1.17.1",
     "@lingui/react": "2.7.2",
     "@types/classnames": "2.2.6",
