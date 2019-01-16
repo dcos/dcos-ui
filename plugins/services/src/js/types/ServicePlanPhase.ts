@@ -17,6 +17,7 @@ export function compare(a: ServicePlanPhase, b: ServicePlanPhase): boolean {
     a.id !== b.id ||
     a.name !== b.name ||
     a.status !== b.status ||
+    a.strategy !== b.strategy ||
     a.steps.length !== b.steps.length
   ) {
     return false;
