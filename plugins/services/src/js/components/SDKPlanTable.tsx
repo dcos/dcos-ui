@@ -1,4 +1,3 @@
-import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
 import * as React from "react";
@@ -18,32 +17,74 @@ import {
 import Icon from "#SRC/js/components/Icon";
 import { Tooltip } from "reactjs-components";
 
-const getStatusTooltip = (data: ServicePlanElement): string => {
+const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
   const { status } = data;
 
   switch (status) {
     case "ERROR":
-      return i18nMark("Execution has been interrupted.");
+      return <Trans render="span">Execution experienced an error.</Trans>;
     case "WAITING":
-      return i18nMark("Execution is waiting for suitable offers.");
+      return <Trans render="span">Execution has been interrupted.</Trans>;
     case "PENDING":
-      return i18nMark("Execution is waiting for suitable offers.");
+      return (
+        <Trans render="span">Execution is waiting for suitable offers.</Trans>
+      );
     case "PREPARED":
-      return "";
+      if (data.type === "step") {
+        return (
+          <Trans render="span">
+            The step has been evaluated, and any Tasks relevant to it have been
+            killed if necessary.
+          </Trans>
+        );
+      }
+      return (
+        <Trans render="span">
+          The phase has been evaluated, and any Tasks relevant to it have been
+          killed if necessary.
+        </Trans>
+      );
     case "STARTING":
-      return i18nMark(
-        "Execution has performed and has received feedback, but not all success requirements (e.g. readiness checks) have been satisfied."
+      return (
+        <Trans render="span">
+          Execution has performed Operations and is waiting to determine the
+          success of those Operations.
+        </Trans>
       );
     case "STARTED":
-      return i18nMark("Execution has completed.");
+      return (
+        <Trans render="span">
+          Execution has performed Operations and has received feedback, but not
+          all success requirements (e.g. readiness checks) have been satisfied.
+        </Trans>
+      );
     case "IN_PROGRESS":
-      //TODO: Build in-progress tooltip text (This requires the phase and all it's steps), it will also
-      // require translating the text inline or returning a <Trans> element to translate with template variables
-      return "";
+      if (data.type === "phase" && data.steps) {
+        const { totalSteps, completedSteps } = data.steps.reduce(
+          (result, step) => {
+            result.totalSteps++;
+            if (step.status === "COMPLETE") {
+              result.completedSteps++;
+            }
+            return result;
+          },
+          {
+            totalSteps: 0,
+            completedSteps: 0
+          }
+        );
+        return (
+          <Trans render="span">
+            {completedSteps} of {totalSteps} steps completed.
+          </Trans>
+        );
+      }
+      // Steps should never return "IN_PROGRESS" status, only plan & status
+      return null;
     case "COMPLETE":
-      return "";
+      return <Trans render="span">Execution has completed.</Trans>;
     default:
-      return "";
+      return null;
   }
 };
 
@@ -91,9 +132,9 @@ const phaseColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
 
 const statusColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
   const icon = getStatusIcon(data.status);
-  const tooltipText = getStatusTooltip(data);
+  const tooltipContent = getStatusTooltip(data);
 
-  if (tooltipText === "") {
+  if (tooltipContent === null) {
     return (
       <TextCell>
         <span>
@@ -106,7 +147,7 @@ const statusColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
   return (
     <TextCell>
       <span>
-        <Tooltip content={<Trans id={tooltipText} render="span" />}>
+        <Tooltip content={tooltipContent} wrapText={true}>
           {icon}{" "}
           <Trans id={formatServicePlanStatus(data.status)} render="span" />
         </Tooltip>
