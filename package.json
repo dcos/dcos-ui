@@ -209,7 +209,7 @@
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
     "prestart": "npm run check-env",
-    "start": "lingui compile && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.js --hot --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
+    "start": "lingui compile && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.js --hot --progress --colors --content-base ./dist --host 0.0.0.0 --port $npm_package_config_port",
     "test": "lingui compile && NODE_PATH=node_modules jest --config=jest.config.js --no-cache",
     "test:watch": "npm test -- --watch",
     "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
