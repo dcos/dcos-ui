@@ -89,7 +89,7 @@ const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
   }
 };
 
-const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
+export const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
   switch (status) {
     case "ERROR":
       return <Icon id="circle-close" family="system" size="mini" color="red" />;
