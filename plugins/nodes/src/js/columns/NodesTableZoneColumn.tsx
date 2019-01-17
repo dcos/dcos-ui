@@ -1,9 +1,9 @@
 import * as React from "react";
 import sort from "array-sort";
-import Node from "#SRC/js/structs/Node";
-import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { TextCell } from "@dcos/ui-kit";
+
+import Node from "#SRC/js/structs/Node";
+import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 export function zoneRenderer(data: Node): React.ReactNode {
   return (
@@ -32,8 +32,4 @@ const comparators = [compareNodesByZone, compareNodesByHostname];
 export function zoneSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
-}
-
-export function zoneSizer(_args: WidthArgs): number {
-  return 200;
 }
