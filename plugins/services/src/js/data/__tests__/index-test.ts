@@ -3,7 +3,8 @@ jest.mock("@dcos/http-service", () => ({
   request: mockRequest
 }));
 
-import { Observable } from "rxjs";
+import { concat } from "rxjs";
+import { take } from "rxjs/operators";
 import { marbles } from "rxjs-marbles/jest";
 import { makeExecutableSchema } from "graphql-tools";
 import { graphqlObservable } from "@dcos/data-service";
@@ -70,8 +71,6 @@ describe("Service data-layer", () => {
     it(
       "handles a graphql query",
       marbles(m => {
-        m.bind();
-
         const serviceSchema = makeExecutableSchema({
           typeDefs: schemas,
           resolvers: resolvers(makeResolverConfig(m))
@@ -93,7 +92,7 @@ describe("Service data-layer", () => {
         const queryResult$ = graphqlObservable(query, serviceSchema, {
           serviceId: "test"
         });
-        const result$ = queryResult$.take(1);
+        const result$ = queryResult$.pipe(take(1));
 
         const expected$ = m.cold("(j|)", {
           j: {
@@ -129,8 +128,6 @@ describe("Service data-layer", () => {
     it(
       "polls the endpoints",
       marbles(m => {
-        m.bind();
-
         const fetchServicePlans = (_service: string) =>
           m.cold("j|", {
             j: {
@@ -186,15 +183,13 @@ describe("Service data-layer", () => {
           }
         });
 
-        m.expect(queryResult$.take(3)).toBeObservable(expected$);
+        m.expect(queryResult$.pipe(take(3))).toBeObservable(expected$);
       })
     );
 
     it(
       "shares the subscription",
       marbles(m => {
-        m.bind();
-
         const resolverConfig = makeResolverConfig(m);
         resolverConfig.fetchServicePlans = jest.fn(
           resolverConfig.fetchServicePlans
@@ -216,18 +211,18 @@ describe("Service data-layer", () => {
           }
         `;
 
-        Observable.concat(
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1)
+        concat(
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1))
         ).subscribe(jest.fn(), jest.fn(), () => {
           expect(resolverConfig.fetchServicePlans).toHaveBeenCalledTimes(1);
         });
@@ -237,8 +232,6 @@ describe("Service data-layer", () => {
     it(
       "throws an error if plan detail API returns non-2XX",
       marbles(m => {
-        m.bind();
-
         const plansResult$ = m.cold("(j|)", {
           j: { code: 500, message: "Internal Server Error", response: {} }
         });
@@ -266,7 +259,7 @@ describe("Service data-layer", () => {
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
           serviceId: "test"
-        }).take(1);
+        }).pipe(take(1));
 
         const expected$ = m.cold("#", undefined, {
           message:
@@ -281,8 +274,6 @@ describe("Service data-layer", () => {
     it(
       "throws an error if plans API returns non-2XX",
       marbles(m => {
-        m.bind();
-
         const plansResult$ = m.cold("(j|)", {
           j: { code: 200, message: "ok", response: ["plan-01"] }
         });
@@ -314,7 +305,7 @@ describe("Service data-layer", () => {
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
           serviceId: "test"
-        }).take(1);
+        }).pipe(take(1));
 
         const expected$ = m.cold("#", undefined, {
           message:
@@ -329,8 +320,6 @@ describe("Service data-layer", () => {
     it(
       "works with ServicePlansClient",
       marbles(m => {
-        m.bind();
-
         const plansResult$ = m.cold("(j|)", {
           j: { code: 200, message: "ok", response: ["client-plan"] }
         });
@@ -371,7 +360,7 @@ describe("Service data-layer", () => {
         const queryResult$ = graphqlObservable(query, serviceSchema, {
           serviceId: "test"
         });
-        const result$ = queryResult$.take(1);
+        const result$ = queryResult$.pipe(take(1));
 
         const expected$ = m.cold("(j|)", {
           j: {
@@ -399,8 +388,6 @@ describe("Service data-layer", () => {
     it(
       "handles a graphql query",
       marbles(m => {
-        m.bind();
-
         const serviceSchema = makeExecutableSchema({
           typeDefs: schemas,
           resolvers: resolvers(makeResolverConfig(m))
@@ -423,7 +410,7 @@ describe("Service data-layer", () => {
           serviceId: "test",
           planName: "plan-01"
         });
-        const result$ = queryResult$.take(1);
+        const result$ = queryResult$.pipe(take(1));
 
         const expected$ = m.cold("(j|)", {
           j: {
@@ -449,7 +436,6 @@ describe("Service data-layer", () => {
     it(
       "queries only one plan if name given",
       marbles(m => {
-        m.bind();
         const resolversConfig = makeResolverConfig(m);
         resolversConfig.fetchServicePlans = jest.fn(
           resolversConfig.fetchServicePlans
@@ -479,7 +465,7 @@ describe("Service data-layer", () => {
           serviceId: "test",
           planName: "plan-01"
         })
-          .take(1)
+          .pipe(take(1))
           .subscribe(jest.fn(), jest.fn(), () => {
             expect(resolversConfig.fetchServicePlans).toHaveBeenCalledTimes(0);
             expect(
@@ -492,8 +478,6 @@ describe("Service data-layer", () => {
     it(
       "polls the endpoint",
       marbles(m => {
-        m.bind();
-
         const resolversConfig = makeResolverConfig(m);
 
         resolversConfig.fetchServicePlanDetail = (
@@ -545,15 +529,13 @@ describe("Service data-layer", () => {
           }
         });
 
-        m.expect(queryResult$.take(3)).toBeObservable(expected$);
+        m.expect(queryResult$.pipe(take(3))).toBeObservable(expected$);
       })
     );
 
     it(
       "shares the subscription",
       marbles(m => {
-        m.bind();
-
         const resolverConfig = makeResolverConfig(m);
         resolverConfig.fetchServicePlanDetail = jest.fn(
           resolverConfig.fetchServicePlanDetail
@@ -575,18 +557,18 @@ describe("Service data-layer", () => {
           }
         `;
 
-        Observable.concat(
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1),
-          graphqlObservable(query, serviceSchema, {}).take(1)
+        concat(
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
+          graphqlObservable(query, serviceSchema, {}).pipe(take(1))
         ).subscribe(jest.fn(), jest.fn(), () => {
           expect(resolverConfig.fetchServicePlanDetail).toHaveBeenCalledTimes(
             1
@@ -598,8 +580,6 @@ describe("Service data-layer", () => {
     it(
       "throws an error if API returns non-2XX",
       marbles(m => {
-        m.bind();
-
         const planDetailResult$ = m.cold("(j|)", {
           j: { code: 500, message: "Internal Server Error", response: {} }
         });
@@ -630,7 +610,7 @@ describe("Service data-layer", () => {
         const queryResult$ = graphqlObservable(query, serviceSchema, {
           serviceId: "test",
           planName: "plan-01"
-        }).take(1);
+        }).pipe(take(1));
 
         const expected$ = m.cold("#", undefined, {
           message:
