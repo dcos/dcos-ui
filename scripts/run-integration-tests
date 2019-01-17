@@ -5,6 +5,11 @@ SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
 source "$SCRIPT_PATH/utils/integration-tests"
 
+# Used for datadog reporting
+REPORT=${REPORT_TO_DATADOG:-true}
+DISTRIBUTION=${REPORT_DISTRIBUTION:-oss}
+BRANCH=${REPORT_BRANCH:-$BRANCH_NAME}
+
 setup
 trap teardown EXIT
 run_tests
