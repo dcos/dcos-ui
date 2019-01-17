@@ -56,10 +56,6 @@ class CliInstallModal extends React.Component {
   }
 
   getCliInstructions() {
-    // TODO (DCOS-8495): Binary cli links have hardcoded version, these should
-    // be updated to a /latest endpoint, when that becomes available.
-    // Binary cli links are also all pointing to the open version, which is
-    // intentional.
     const hostname = global.location.hostname;
     const protocol = global.location.protocol.replace(/[^\w]/g, "");
     let port = "";
