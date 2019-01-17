@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import * as React from "react";
 
 import { Service } from "#PLUGINS/services/src/js/types/Service";
@@ -50,12 +51,11 @@ class SDKPlansScreen extends React.PureComponent<SDKPlansScreenProps, {}> {
   render() {
     const { service, plan: planName } = this.props;
     if (service.plans.length === 0) {
-      const { name: serviceId } = service;
       return (
         <AlertPanel>
           <Trans render={<AlertPanelHeader />}>No Plans</Trans>
           <Trans render="p" className="tall">
-            There are no plans currently available for {serviceId}.
+            There are no plans currently available.
           </Trans>
         </AlertPanel>
       );
