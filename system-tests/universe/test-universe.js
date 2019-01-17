@@ -41,29 +41,6 @@ describe("Universe", function() {
       .should("exist");
   });
 
-  it("sdk package has a plans tab", function() {
-    const packageName = "confluent-kafka";
-    // Go to the root services page
-    cy.visitUrl("services/overview");
-
-    // Check that it appears in the service list
-    cy.get(".page-body-content table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-      .click();
-
-    cy.get(".menu-tabbed-item")
-      .contains("Plans", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .click();
-
-    cy.get(".page-body-content .table-wrapper", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    }).should("exist");
-  });
-
   it("fails to install a package with the same name", function() {
     const packageName = "confluent-kafka";
 
@@ -238,5 +215,43 @@ describe("Universe", function() {
     })
       .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
       .should("not.exist");
+  });
+
+  describe("SDK Package Plans tab", function() {
+    const packageName = "confluent-kafka";
+    const phaseSelector =
+      ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer strong";
+
+    it("has the service", () => {
+      cy.visitUrl("services/overview");
+
+      cy.get(".page-body-content table", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+        .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+        .should("exist");
+    });
+
+    it("has a plans tab", () => {
+      cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
+
+      cy.get(".menu-tabbed-item")
+        .contains("Plans", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
+    });
+
+    it("plan is displayed", () => {
+      cy.visitUrl(`services/detail/%2F${packageName}/plans`);
+
+      cy.get(phaseSelector, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+        .contains("broker", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        })
+        .should("exist");
+    });
   });
 });
