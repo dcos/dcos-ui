@@ -5,8 +5,13 @@ import { BehaviorSubject, Observable } from "rxjs";
 import gql from "graphql-tag";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
-import { Service, compare as ServiceCompare } from "../types/Service";
-import { default as schema } from "../data";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+
+import {
+  Service,
+  compare as ServiceCompare
+} from "#PLUGINS/services/src/js/types/Service";
+import { default as schema } from "#PLUGINS/services/src/js/data";
 import SDKPlansScreen from "#PLUGINS/services/src/js/components/SDKPlansScreen";
 
 const getGraphQL = (
@@ -58,8 +63,24 @@ const SDKPlans = componentFromStream(props$ => {
     )
     .distinctUntilChanged(ServiceCompare);
 
-  return Observable.combineLatest([plans$, selectedPlan$])
-    .map(([service, selectedPlan], index: number) => {
+  const schedulerTaskId$ = (props$ as Observable<{
+    service: { getName: () => string };
+  }>)
+    .map((props: { service: { getName: () => string } }) => {
+      const tasks = MesosStateStore.getTasksByService(props.service);
+      const serviceName = props.service.getName();
+      const schedulerTask = tasks.find(
+        (task: { name: string }) => task.name === serviceName
+      );
+      if (schedulerTask) {
+        return schedulerTask.id;
+      }
+      return undefined;
+    })
+    .distinctUntilChanged();
+
+  return Observable.combineLatest([plans$, selectedPlan$, schedulerTaskId$])
+    .map(([service, selectedPlan, schedulerTaskId], index: number) => {
       return (
         <SDKPlansScreen
           key={index}
@@ -67,6 +88,7 @@ const SDKPlans = componentFromStream(props$ => {
           service={service}
           plan={selectedPlan}
           handleSelectPlan={handleSelectPlan}
+          schedulerTaskId={schedulerTaskId}
         />
       );
     })
