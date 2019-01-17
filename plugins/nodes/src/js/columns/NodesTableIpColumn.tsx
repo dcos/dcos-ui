@@ -1,13 +1,13 @@
 import * as React from "react";
 import sort from "array-sort";
-import Node from "#SRC/js/structs/Node";
-import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
-import Icon from "#SRC/js/components/Icon";
 import { TextCell } from "@dcos/ui-kit";
 import ipToInt from "ip-to-int";
+
+import Node from "#SRC/js/structs/Node";
+import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import Icon from "#SRC/js/components/Icon";
 
 export function ipRenderer(data: Node): React.ReactNode {
   const nodeID = data.get("id");
@@ -61,8 +61,4 @@ const comparators = [compareNodesByIp];
 export function ipSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
-}
-
-export function ipSizer(args: WidthArgs): number {
-  return Math.max(150, args.width / args.totalColumns);
 }

@@ -3,55 +3,26 @@ import { Table, Column, SortableHeaderCell } from "@dcos/ui-kit/dist/packages";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
+import Loader from "#SRC/js/components/Loader";
 
 import { SortDirection } from "../types/SortDirection";
 
-import { ipSorter, ipRenderer, ipSizer } from "../columns/NodesTableIpColumn";
-import {
-  typeSorter,
-  typeRenderer,
-  typeSizer
-} from "../columns/NodesTableTypeColumn";
+import { ipSorter, ipRenderer } from "../columns/NodesTableIpColumn";
+import { typeSorter, typeRenderer } from "../columns/NodesTableTypeColumn";
 import {
   regionSorter,
-  regionRenderer,
-  regionSizer
+  regionRenderer
 } from "../columns/NodesTableRegionColumn";
-import {
-  zoneSorter,
-  zoneRenderer,
-  zoneSizer
-} from "../columns/NodesTableZoneColumn";
+import { zoneSorter, zoneRenderer } from "../columns/NodesTableZoneColumn";
 import {
   healthSorter,
-  healthRenderer,
-  healthSizer
+  healthRenderer
 } from "../columns/NodesTableHealthColumn";
-import {
-  tasksSorter,
-  tasksRenderer,
-  tasksSizer
-} from "../columns/NodesTableTasksColumn";
-import {
-  cpuSorter,
-  cpuRenderer,
-  cpuSizer
-} from "../columns/NodesTableCPUColumn";
-import {
-  memSorter,
-  memRenderer,
-  memSizer
-} from "../columns/NodesTableMemColumn";
-import {
-  diskSorter,
-  diskRenderer,
-  diskSizer
-} from "../columns/NodesTableDiskColumn";
-import {
-  gpuSorter,
-  gpuRenderer,
-  gpuSizer
-} from "../columns/NodesTableGPUColumn";
+import { tasksSorter, tasksRenderer } from "../columns/NodesTableTasksColumn";
+import { cpuSorter, cpuRenderer } from "../columns/NodesTableCPUColumn";
+import { memSorter, memRenderer } from "../columns/NodesTableMemColumn";
+import { diskSorter, diskRenderer } from "../columns/NodesTableDiskColumn";
+import { gpuSorter, gpuRenderer } from "../columns/NodesTableGPUColumn";
 import {
   spacingSizer,
   spacingRenderer
@@ -181,6 +152,10 @@ export default class NodesTable extends React.Component<
   render() {
     const { data, sortColumn, sortDirection } = this.state;
 
+    if (data.length === 0) {
+      return <Loader />;
+    }
+
     return (
       <div className="table-wrapper">
         <Table data={data.slice()}>
@@ -193,7 +168,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={ipRenderer}
-            width={ipSizer}
           />
 
           <Column
@@ -205,7 +179,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={healthRenderer}
-            width={healthSizer}
           />
 
           <Column
@@ -217,7 +190,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={typeRenderer}
-            width={typeSizer}
           />
 
           <Column
@@ -229,7 +201,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={this.regionRenderer}
-            width={regionSizer}
           />
 
           <Column
@@ -241,7 +212,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={zoneRenderer}
-            width={zoneSizer}
           />
 
           <Column
@@ -254,7 +224,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={tasksRenderer}
-            width={tasksSizer}
           />
 
           <Column
@@ -266,7 +235,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={cpuRenderer}
-            width={cpuSizer}
           />
 
           <Column
@@ -278,7 +246,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={memRenderer}
-            width={memSizer}
           />
 
           <Column
@@ -290,7 +257,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={diskRenderer}
-            width={diskSizer}
           />
 
           <Column
@@ -302,7 +268,6 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={gpuRenderer}
-            width={gpuSizer}
           />
 
           <Column
