@@ -56,6 +56,10 @@ class CliInstallModal extends React.Component {
   }
 
   getCliInstructions() {
+    // TODO (DCOS-8495): Binary cli links have hardcoded version, these should
+    // be updated to a /latest endpoint, when that becomes available.
+    // Binary cli links are also all pointing to the open version, which is
+    // intentional.
     const hostname = global.location.hostname;
     const protocol = global.location.protocol.replace(/[^\w]/g, "");
     let port = "";
@@ -64,16 +68,14 @@ class CliInstallModal extends React.Component {
     }
     const clusterUrl = `${protocol}://${hostname}${port}`;
     const { selectedOS } = this.state;
-
-    const downloadUrl =
-      MetadataStore.version && !MetadataStore.version.includes("-dev")
-        ? `https://downloads.dcos.io/cli/releases/binaries/dcos/${
-            osTypes[selectedOS]
-          }/x86-64/latest/dcos`
-        : `https://downloads.dcos.io/cli/testing/binaries/dcos/${
-            osTypes[selectedOS]
-          }/x86-64/master/dcos`;
-
+    let version = MetadataStore.parsedVersion;
+    // Prepend 'dcos-' to any version other than latest
+    if (version !== "latest") {
+      version = `dcos-${version}`;
+    }
+    const downloadUrl = `https://downloads.dcos.io/binaries/cli/${
+      osTypes[selectedOS]
+    }/x86-64/${version}/dcos`;
     if (selectedOS === "Windows") {
       return this.getWindowsInstallInstruction(clusterUrl, downloadUrl);
     }
