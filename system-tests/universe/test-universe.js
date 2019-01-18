@@ -243,7 +243,18 @@ describe("Universe", function() {
     });
 
     it("plan is displayed", () => {
-      cy.visitUrl(`services/detail/%2F${packageName}/plans`);
+      cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
+
+      // plans tab is there before scheduler is fully deployed - wait for it to be running before actually going to plans tab
+      cy.contains("#application table", packageName)
+        .parent("tr")
+        .contains("Running", {
+          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+        });
+
+      cy.get(".menu-tabbed-item")
+        .contains("Plans")
+        .click();
 
       cy.get(phaseSelector, {
         timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
