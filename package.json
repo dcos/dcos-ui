@@ -84,7 +84,8 @@
     "semver": "5.5.0",
     "svg-inline-loader": "0.8.0",
     "symbol-observable": "1.2.0",
-    "tv4": "1.2.7"
+    "tv4": "1.2.7",
+    "xterm": "3.10.1"
   },
   "devDependencies": {
     "@commitlint/cli": "8.1.0",
