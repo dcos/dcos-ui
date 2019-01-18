@@ -27,26 +27,23 @@ const METHODS_TO_BIND = [
 
 // TODO remove
 const HIDE_BREADCRUMBS = [
-  "/jobs/detail/:id/tasks/:taskID/details",
-  "/jobs/detail/:id/tasks/:taskID/logs",
-  "/jobs/detail/:id/tasks/:taskID/logs/:filePath",
-  "/jobs/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-
-  "/networking/networks/:overlayName/tasks/:taskID/details",
-  "/networking/networks/:overlayName/tasks/:taskID/logs",
-  "/networking/networks/:overlayName/tasks/:taskID/logs/:filePath",
-  "/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-
-  "/nodes/:nodeID/tasks/:taskID/details",
-  "/nodes/:nodeID/tasks/:taskID/logs",
-  "/nodes/:nodeID/tasks/:taskID/logs/:filePath",
-  "/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-
-  "/services/detail/:id/tasks/:taskID/details",
-  "/services/detail/:id/tasks/:taskID/logs",
-  "/services/detail/:id/tasks/:taskID/logs/:filePath",
-  "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))"
-];
+  "/jobs/detail/:id",
+  "/networking/networks/:overlayName",
+  "/nodes/:nodeID",
+  "/services/detail/:id"
+].reduce(
+  (acc, prefix) =>
+    acc.concat(
+      [
+        "tasks/:taskID/console",
+        "tasks/:taskID/details",
+        "tasks/:taskID/logs",
+        "tasks/:taskID/logs/:filePath",
+        "tasks/:taskID/files/view(/:filePath(/:innerPath))"
+      ].map(suffix => `${prefix}/${suffix}`)
+    ),
+  []
+);
 
 class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   constructor() {
