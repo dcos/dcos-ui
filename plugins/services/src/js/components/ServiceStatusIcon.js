@@ -96,7 +96,7 @@ class ServiceStatusIcon extends Component {
   getUnableToLaunchWarning(service) {
     if (this.isUnableToLaunch(service)) {
       return this.getTooltip(
-        `DC/OS has been unable to complete this deployment for ${DateUtil.getDuration(Date.now() - DateUtil.strToMs(service.getQueue().since), null)}.`
+        `There are tasks in this queue that DC/OS has failed to deploy for ${DateUtil.getDuration(Date.now() - DateUtil.strToMs(service.getQueue().since), null)}.`
       );
     }
 
