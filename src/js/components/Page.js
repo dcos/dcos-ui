@@ -54,7 +54,7 @@ PageHeader.propTypes = {
   disabledActions: PropTypes.bool
 };
 
-var Page = React.createClass({
+const Page = React.createClass({
   displayName: "Page",
 
   mixins: [InternalStorageMixin, StoreMixin],
@@ -172,4 +172,5 @@ var Page = React.createClass({
 
 TemplateUtil.defineChildren(Page, { Header: PageHeader });
 
-module.exports = Page;
+export default Page;
+export const Header = PageHeader;

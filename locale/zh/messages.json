@@ -631,6 +631,7 @@
   "Placement": "布局",
   "Placement Constraints": "布局约束",
   "Placement constraints control where apps run to allow optimization for either fault tolerance or locality.": "当应用程序运行以允许容错或局部性的优化时，布局约束则进行控制。",
+  "Plans": "",
   "Please <0>add a container</0> before configuring Volumes.": "在配置运行状况检查 <0>之前，请</0> 添加容器。",
   "Please <0>add a container</0> before configuring health checks.": "在配置运行状况检查 <0>之前，请</0> 添加容器。",
   "Please contact your system administrator or see the <0>documentation</0>.": "请联系您的系统管理员或查看 <0>文档</0>.",

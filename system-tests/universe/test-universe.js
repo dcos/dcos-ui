@@ -41,6 +41,31 @@ describe("Universe", function() {
       .should("exist");
   });
 
+  it("sdk package has a plans tab", function() {
+    const packageName = "confluent-kafka";
+    // Go to the root services page
+    cy.visitUrl("services/overview");
+
+    // Check that it appears in the service list
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .click();
+
+    cy.get(".menu-tabbed-item")
+      .contains("Plans", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .click();
+
+    cy.get(".page-body-content pre")
+      .contains('"broker"', {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .should("exist");
+  });
+
   it("fails to install a package with the same name", function() {
     const packageName = "confluent-kafka";
 
