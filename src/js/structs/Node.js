@@ -73,7 +73,10 @@ class Node extends Item {
     let sum = 0;
 
     Object.keys(TaskStates).forEach(function(taskType) {
-      if (TaskStates[taskType].stateTypes.indexOf(state) !== -1) {
+      if (
+        TaskStates[taskType] &&
+        TaskStates[taskType].stateTypes.indexOf(state) !== -1
+      ) {
         // Make sure there's a value
         if (this[taskType]) {
           sum += this[taskType];
