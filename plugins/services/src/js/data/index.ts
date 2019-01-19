@@ -19,10 +19,10 @@ import Config from "#SRC/js/config/Config";
 
 export interface ResolverArgs {
   fetchServicePlans: (
-    serviceName: string
+    serviceId: string
   ) => Observable<RequestResponse<string[]>>;
   fetchServicePlanDetail: (
-    serviceName: string,
+    serviceId: string,
     planName: string
   ) => Observable<RequestResponse<ServicePlanResponse>>;
   pollingInterval: number;
@@ -33,11 +33,11 @@ export interface GeneralArgs {
 }
 
 export interface ServiceQueryArgs {
-  name: string;
+  id: string;
 }
 
 function isServiceQueryArgs(args: GeneralArgs): args is ServiceQueryArgs {
-  return (args as ServiceQueryArgs).name !== undefined;
+  return (args as ServiceQueryArgs).id !== undefined;
 }
 
 export interface PlansQueryArgs {
@@ -55,9 +55,9 @@ export const resolvers = ({
 }: ResolverArgs) => ({
   Service: {
     plans(parent: any, args: GeneralArgs = {}) {
-      if (!parent.name) {
+      if (!parent.id) {
         return Observable.throw(
-          "Service name must be available to resolve plans"
+          "Service ID must be available to resolve plans"
         );
       }
 
@@ -66,7 +66,7 @@ export const resolvers = ({
         // If we're given a plan name, then only query that plan
         const plan$ = pollingInterval$
           .switchMap(() =>
-            fetchServicePlanDetail(parent.name, args.name).retry(2)
+            fetchServicePlanDetail(parent.id, args.name).retry(2)
           )
           .map(
             (reqResp: RequestResponse<ServicePlanResponse>): ServicePlan[] => [
@@ -80,7 +80,7 @@ export const resolvers = ({
         // plan. Finally combine all of the detail's query observables.
         const plans$ = pollingInterval$
           .switchMap(() =>
-            fetchServicePlans(parent.name)
+            fetchServicePlans(parent.id)
               .retry(2)
               .map(({ response }) => response)
               .map((plans: string[]) => {
@@ -89,7 +89,7 @@ export const resolvers = ({
           )
           .switchMap(plans => {
             const planDetails = plans.map(plan => {
-              return fetchServicePlanDetail(parent.name, plan.name)
+              return fetchServicePlanDetail(parent.id, plan.name)
                 .retry(2)
                 .map(({ response }) => ({ name: plan.name, ...response }));
             });
@@ -108,14 +108,14 @@ export const resolvers = ({
         );
       }
 
-      return Observable.of({ name: args.name });
+      return Observable.of({ id: args.id });
     }
   }
 });
 
 const baseSchema = `
 type Query {
-  service(name: String!): Service
+  service(id: String!): Service
 }
 `;
 
