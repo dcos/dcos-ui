@@ -4,19 +4,19 @@ import {
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 
 export interface Service {
-  name: string;
+  id: string;
   plans: ServicePlan[];
 }
 
 export const ServiceSchema = `
 type Service {
-  name: String!
+  id: String!
   plans(name: String = ""): [ServicePlan]!
 }
 `;
 
 export function compare(a: Service, b: Service): boolean {
-  if (a.name !== b.name) {
+  if (a.id !== b.id) {
     return false;
   }
 
