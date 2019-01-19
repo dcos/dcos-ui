@@ -15,13 +15,13 @@ import { default as schema } from "#PLUGINS/services/src/js/data";
 import SDKPlansTab from "#PLUGINS/services/src/js/components/SDKPlansTab";
 
 const getGraphQL = (
-  serviceName: string
+  serviceId: string
 ): Observable<{ data: { service: Service } }> => {
   return graphqlObservable(
     gql`
       query {
-        service(name: $serviceName) {
-          name
+        service(id: $serviceId) {
+          id
           plans {
             name
             errors
@@ -33,7 +33,7 @@ const getGraphQL = (
       }
     `,
     schema,
-    { serviceName }
+    { serviceId }
   );
 };
 
@@ -51,13 +51,15 @@ const handleSelectPlan = (name: string) => {
 };
 
 const SDKPlans = componentFromStream(props$ => {
-  const name$ = (props$ as Observable<{ service: { getId: () => string } }>)
+  const serviceId$ = (props$ as Observable<{
+    service: { getId: () => string };
+  }>)
     .map((props: { service: { getId: () => string } }) => props.service.getId())
     .distinctUntilChanged();
 
-  const plans$ = name$
-    .concatMap((serviceName: string) =>
-      getGraphQL(serviceName).map(
+  const plans$ = serviceId$
+    .concatMap((serviceId: string) =>
+      getGraphQL(serviceId).map(
         (response: { data: { service: Service } }) => response.data.service
       )
     )
