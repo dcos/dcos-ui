@@ -46,7 +46,7 @@ pipeline {
     }
 
 
-    stage("Lint Commits") {
+    stage("Verify Commits") {
       when {
         expression {
           !master_branches.contains(BRANCH_NAME)
@@ -55,6 +55,8 @@ pipeline {
 
       steps {
         sh 'npm run commitlint -- --from "${CHANGE_TARGET}"'
+        sh "source ./scripts/utils/test && find_debug_directives \$(find . -name '*.js') && exit 1"
+        sh "source ./scripts/utils/test && find_debug_directives \$(find . -name '*.ts') && exit 1"
       }
     }
 
