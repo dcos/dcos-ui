@@ -12,15 +12,15 @@ import { ServicePlan } from "#PLUGINS/services/src/js/types/ServicePlan";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
-export interface SDKPlansScreenProps {
+export interface SDKPlansTabProps {
   service: Service;
   plan: string;
   schedulerTaskId: string | undefined;
   handleSelectPlan: (name: string) => void;
 }
 
-class SDKPlansScreen extends React.PureComponent<SDKPlansScreenProps, {}> {
-  constructor(props: SDKPlansScreenProps) {
+class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
+  constructor(props: SDKPlansTabProps) {
     super(props);
 
     this.renderPlanSelect = this.renderPlanSelect.bind(this);
@@ -123,4 +123,4 @@ class SDKPlansScreen extends React.PureComponent<SDKPlansScreenProps, {}> {
   }
 }
 
-export default SDKPlansScreen;
+export default SDKPlansTab;
