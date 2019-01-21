@@ -2,6 +2,7 @@ import { Trans } from "@lingui/macro";
 
 import * as React from "react";
 import { Table, Column, TextCell, HeaderCell } from "@dcos/ui-kit";
+import { Tooltip } from "reactjs-components";
 import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import {
@@ -16,7 +17,6 @@ import {
 } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 
 import Icon from "#SRC/js/components/Icon";
-import { Tooltip } from "reactjs-components";
 
 const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
   const { status } = data;
