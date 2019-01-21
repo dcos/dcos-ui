@@ -12,7 +12,7 @@ import {
   compare as ServiceCompare
 } from "#PLUGINS/services/src/js/types/Service";
 import { default as schema } from "#PLUGINS/services/src/js/data";
-import SDKPlansScreen from "#PLUGINS/services/src/js/components/SDKPlansScreen";
+import SDKPlansTab from "#PLUGINS/services/src/js/components/SDKPlansTab";
 
 const getGraphQL = (
   serviceName: string
@@ -82,7 +82,7 @@ const SDKPlans = componentFromStream(props$ => {
   return Observable.combineLatest([plans$, selectedPlan$, schedulerTaskId$])
     .map(([service, selectedPlan, schedulerTaskId], index: number) => {
       return (
-        <SDKPlansScreen
+        <SDKPlansTab
           key={index}
           service={service}
           plan={selectedPlan}
