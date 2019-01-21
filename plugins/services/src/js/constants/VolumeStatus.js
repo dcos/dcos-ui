@@ -1,7 +1,7 @@
 var VolumeStatus = {
   ATTACHED: "Attached",
   DETACHED: "Detached",
-  UNAVAILABLE: "Unavailable"
+  UNAVAILABLE: "N/A"
 };
 
 module.exports = VolumeStatus;
