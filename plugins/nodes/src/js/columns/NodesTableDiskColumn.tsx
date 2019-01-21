@@ -1,10 +1,10 @@
 import * as React from "react";
 import sort from "array-sort";
+import { Cell } from "@dcos/ui-kit";
+
 import Node from "#SRC/js/structs/Node";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
-import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
-import { Cell } from "@dcos/ui-kit";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 
 function getDiskUsage(data: Node) {
@@ -14,17 +14,21 @@ function getDiskUsage(data: Node) {
 export function diskRenderer(data: Node): React.ReactNode {
   return (
     <Cell>
-      <ProgressBar
-        data={[
-          {
-            value: data.getUsageStats("disk").percentage,
-            className: `color-${ResourcesUtil.getResourceColor("disk")}`
-          }
-        ]}
-        total={100}
-      />
+      <div>
+        <ProgressBar
+          data={[
+            {
+              value: data.getUsageStats("disk").percentage,
+              className: `color-${ResourcesUtil.getResourceColor("disk")}`
+            }
+          ]}
+          total={100}
+        />
 
-      <span className="table-content-spacing-left">{getDiskUsage(data)}%</span>
+        <span className="table-content-spacing-left">
+          {getDiskUsage(data)}%
+        </span>
+      </div>
     </Cell>
   );
 }
@@ -44,7 +48,4 @@ const comparators = [compareNodesByDiskUsage, compareNodesByHostname];
 export function diskSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
-}
-export function diskSizer(_args: WidthArgs): number {
-  return 110;
 }
