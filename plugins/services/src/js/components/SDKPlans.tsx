@@ -84,7 +84,6 @@ const SDKPlans = componentFromStream(props$ => {
       return (
         <SDKPlansScreen
           key={index}
-          //@ts-ignore
           service={service}
           plan={selectedPlan}
           handleSelectPlan={handleSelectPlan}
