@@ -114,7 +114,7 @@ export const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
   }
 };
 
-const phaseColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
+const phaseCellRenderer = (data: ServicePlanElement): React.ReactNode => {
   switch (data.type) {
     case "phase":
       return (
@@ -141,7 +141,7 @@ const phaseColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
   }
 };
 
-const statusColumnRenderer = (data: ServicePlanElement): React.ReactNode => {
+const statusCellRenderer = (data: ServicePlanElement): React.ReactNode => {
   if (data.type === "nodata") {
     return <TextCell>{""}</TextCell>;
   }
@@ -196,7 +196,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
                 <Trans render="strong">Phases</Trans>
               </HeaderCell>
             }
-            cellRenderer={phaseColumnRenderer}
+            cellRenderer={phaseCellRenderer}
             width={columnSizer}
           />
           <Column
@@ -205,7 +205,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
                 <Trans render="strong">Status</Trans>
               </HeaderCell>
             }
-            cellRenderer={statusColumnRenderer}
+            cellRenderer={statusCellRenderer}
             width={columnSizer}
           />
         </Table>
