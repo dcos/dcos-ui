@@ -10,7 +10,7 @@ describe("Nodes Page", function() {
       cy.get(".filter-bar").as("filterBar");
     });
 
-    it("shows all nodes", function() {
+    it.only("shows all nodes", function() {
       cy.get("@hostnames")
         .should("contain", "dcos-01")
         .should("contain", "167.114.218.155")
