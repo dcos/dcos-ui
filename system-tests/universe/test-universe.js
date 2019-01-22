@@ -67,53 +67,52 @@ describe("Universe", function() {
       .should("exist");
   });
 
-  describe("SDK Package Plans tab", function() {
+  it("has the service", () => {
+    const packageName = "confluent-kafka";
+    cy.visitUrl("services/overview");
+
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .should("exist");
+  });
+
+  it("has a plans tab", () => {
+    const packageName = "confluent-kafka";
+    cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
+
+    cy.get(".menu-tabbed-item")
+      .contains("Plans", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .should("exist");
+  });
+
+  it("plan is displayed", () => {
     const packageName = "confluent-kafka";
     const phaseSelector =
       ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer strong";
+    cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
 
-    it("has the service", () => {
-      cy.visitUrl("services/overview");
+    // plans tab is there before scheduler is fully deployed - wait for it to be running before actually going to plans tab
+    cy.contains("#application table", packageName)
+      .parent("tr")
+      .contains("Running", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      });
 
-      cy.get(".page-body-content table", {
+    cy.get(".menu-tabbed-item")
+      .contains("Plans")
+      .click();
+
+    cy.get(phaseSelector, {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains("broker", {
         timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
       })
-        .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
-    });
-
-    it("has a plans tab", () => {
-      cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
-
-      cy.get(".menu-tabbed-item")
-        .contains("Plans", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
-    });
-
-    it("plan is displayed", () => {
-      cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
-
-      // plans tab is there before scheduler is fully deployed - wait for it to be running before actually going to plans tab
-      cy.contains("#application table", packageName)
-        .parent("tr")
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        });
-
-      cy.get(".menu-tabbed-item")
-        .contains("Plans")
-        .click();
-
-      cy.get(phaseSelector, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-        .contains("broker", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
-    });
+      .should("exist");
   });
 
   it("installs a community package", function() {
