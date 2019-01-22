@@ -206,13 +206,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /agent\/.*\/files\/read.*\/stderr/,
         "fx:1-service-with-executor-task/files-read"
       )
-      .route(
-        /agent\/.*\/files\/read.*\/stdout/,
-        {},
-        {
-          status: 404
-        }
-      )
+      .route(/agent\/.*\/files\/read.*\/stdout/, {}, { status: 404 })
       .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(
         /history\/minute/,
@@ -389,7 +383,15 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
-      .route(/state-summary/, "fx:marathon-1-task/summary");
+      .route(/state-summary/, "fx:marathon-1-task/summary")
+      .route({
+        method: "POST",
+        url: /package\/search(\?_timestamp=[0-9]+)?$/,
+        response: require("../_fixtures/marathon-1-task/package-search"),
+        headers: {
+          "Content-Type": "application/vnd.dcos.package.search-request+json"
+        }
+      });
   }
 
   if (configuration.mesos === "1-suspended-sdk-service") {
