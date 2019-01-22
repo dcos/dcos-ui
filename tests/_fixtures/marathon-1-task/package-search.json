@@ -1,0 +1,14 @@
+{
+  "packages": [
+    {
+      "name": "sdk-sleep",
+      "framework": true,
+      "images": {
+        "icon-small": "foo.png",
+        "icon-medium": "bar.png",
+        "icon-large": "baz.png"
+      },
+      "selected": true
+    }
+  ]
+}
