@@ -141,8 +141,7 @@ const Page = React.createClass({
         autoshow={true}
         className="page-body flex flex-direction-top-to-bottom
           flex-direction-left-to-right-screen-large flex-item-grow-1
-          flex-item-shrink-1 gm-scrollbar-container-flex
-          gm-scrollbar-container-flex-view"
+          flex-item-shrink-1 gm-scrollbar-container-flex"
         ref="gemini"
       >
         {content}
