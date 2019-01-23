@@ -81,7 +81,7 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
       <div className="flex-item-shrink-1">
         <Link
           to={`/services/detail/${encodeURIComponent(
-            service.name
+            service.id
           )}/tasks/${encodeURIComponent(schedulerTaskId)}/logs`}
         >
           View Scheduler Logs
