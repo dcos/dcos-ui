@@ -197,7 +197,7 @@
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies",
     "build-assets": "npm run clean && lingui compile && NODE_ENV=production webpack --colors --config ./webpack/webpack.production.js",
     "postbuild-assets": "find ./dist -name 'index.*.css' -exec node ./scripts/inline-bootstrap-css.js ./dist/index.html {} \\;",
-    "prebuild": "./scripts/validate-tests",
+    "prebuild": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/validate-tests",
     "build": "npm run lint && ([ -z \"${npm_config_externalplugins}\" ] || npm run lint-plugins) && npm test && npm run build-assets && npm run validate-build",
     "lint": "npm run stylelint && npm run eslint && npm run tslint",
     "eslint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/js,plugins,packages}/**/*.js\"; fi ; eslint --quiet ${opts}' 0",
