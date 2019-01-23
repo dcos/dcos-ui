@@ -55,7 +55,7 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     return (
       <div className="flex-item-grow-1">
         <Dropdown
-          buttonClassName="dropdown-toggle button button-transparent"
+          buttonClassName="dropdown-toggle button button-transparent flush-left"
           dropdownMenuClassName="dropdown-menu"
           dropdownMenuListClassName="dropdown-menu-list"
           dropdownMenuListItemClassName="clickable"

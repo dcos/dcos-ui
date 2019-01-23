@@ -193,7 +193,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
           <Column
             header={
               <HeaderCell>
-                <Trans render="strong">Phases</Trans>
+                <Trans>Phases</Trans>
               </HeaderCell>
             }
             cellRenderer={phaseCellRenderer}
@@ -202,7 +202,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
           <Column
             header={
               <HeaderCell>
-                <Trans render="strong">Status</Trans>
+                <Trans>Status</Trans>
               </HeaderCell>
             }
             cellRenderer={statusCellRenderer}
