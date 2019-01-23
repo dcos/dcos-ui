@@ -93,9 +93,17 @@ describe("Universe", function() {
     const packageName = "confluent-kafka";
     const phaseSelector =
       ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer strong";
-    cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
 
-    // plans tab is there before scheduler is fully deployed - wait for it to be running before actually going to plans tab
+    // Go to the root services page
+    cy.visitUrl("services/overview");
+
+    // Check that it appears in the service list
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .click();
+
     cy.contains("#application table", packageName)
       .parent("tr")
       .contains("Running", {
@@ -103,7 +111,9 @@ describe("Universe", function() {
       });
 
     cy.get(".menu-tabbed-item")
-      .contains("Plans")
+      .contains("Plans", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .click();
 
     cy.get(phaseSelector, {
