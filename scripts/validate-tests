@@ -9,19 +9,17 @@ source "${SCRIPT_PATH}/utils/test"
 title "Validating tests..."
 
 debug_directives=$(
- find_debug_directives ./src ./plugins ./packages ./tests ./system-tests
+	find_debug_directives ./src ./plugins ./packages ./tests ./system-tests "$PLUGINS_PATH"
 )
 
+if [ -n "${debug_directives}" ]; then
+	warning "Debug directives found"
 
-if [ -n "${debug_directives}" ]
-then
-  warning "Debug directives found"
+	echo -e "Please remove all found debug directives" \
+		"to ensure that all test run properly. \n"
+	"${debug_directives}"
 
-  echo -e "Please remove all found debug directives" \
-   "to ensure that all test run properly. \n"
-   "${debug_directives}"
-
-  exit 1
+	exit 1
 fi
 
 info "Tests look good."
