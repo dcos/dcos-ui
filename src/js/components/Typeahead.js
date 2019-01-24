@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import InnerTypeahead from "mesosphere-react-typeahead";
+import { Typeahead as InnerTypeahead } from "react-bootstrap-typeahead";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -52,8 +52,6 @@ class Typeahead extends FilterInputText {
             }
           }}
           selected={selected}
-          typeaheadMenuClassName="dropdown-menu-list"
-          typeaheadMenuWrapperClassName="dropdown-menu"
         />
       </div>
     );

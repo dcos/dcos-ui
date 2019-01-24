@@ -1,9 +1,9 @@
 import * as React from "react";
 import sort from "array-sort";
-import Node from "#SRC/js/structs/Node";
-import { IWidthArgs as WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 import { NumberCell } from "@dcos/ui-kit";
+
+import Node from "#SRC/js/structs/Node";
+import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 export function tasksRenderer(data: Node): React.ReactNode {
   return (
@@ -31,8 +31,4 @@ export function tasksSorter(
 ): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
-}
-
-export function tasksSizer(_args: WidthArgs): number {
-  return 80;
 }
