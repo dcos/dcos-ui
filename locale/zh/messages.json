@@ -912,7 +912,6 @@
   "Unable to edit {0}": "无法编辑 {0}",
   "Unable to fetch permission schema.": "无法获取权限框架。",
   "Unable to login to your DC/OS cluster. Clusters must be connected to the internet.": "无法登录到 DC/OS 集群。集群必须连接到互联网。",
-  "Unavailable": "不可用",
   "Unhealthy": "不健康",
   "Unique": "唯一",
   "Universal Container Runtime (UCR)": "通用容器运行时 (UCR)",
