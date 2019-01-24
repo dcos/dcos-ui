@@ -14,6 +14,8 @@ set -e
 # Search string passed to `find`
 # Values: String
 SEARCH=${1:-'*'}
+HEADED=${2:-''}
+NO_EXIT=${3:-''}
 
 # Maximum number of retries
 # Values: n ∈ ℕ
@@ -51,6 +53,8 @@ PLUGINS_PATH=${PLUGINS_PATH:-''}
 # OUTPUT_PATH: Directory where results are saved (e.g. "some/path/to/Testfile-cy.js-1")
 function executeCypress {
   npm run --silent cypress -- \
+    ${HEADED:+--headed} \
+    ${NO_EXIT:+--no-exit} \
     --spec "${FILE}" \
     --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO:-'true'},videosFolder=${OUTPUT_PATH}/videos" \
     --reporter junit \
