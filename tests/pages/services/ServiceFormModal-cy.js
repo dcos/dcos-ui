@@ -42,11 +42,10 @@ describe("Service Form Modal", function() {
         cy.get(".modal-full-screen").should("to.have.length", 1);
       });
 
-      // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
-      it.skip("Should Autofocus on the Service ID input field", function() {
+      it("Should Autofocus on the Service ID input field", function() {
         openServiceModal();
         openServiceForm();
-        cy.get("input[name=id]:focus");
+        cy.focused().should("have.attr.name", "id");
       });
 
       it("contains the right group id in the form modal", function() {
@@ -759,9 +758,8 @@ describe("Service Form Modal", function() {
             .should("exist");
         });
 
-        // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
-        it.skip("Should Autofocus on the first input element of the Artifact", function() {
-          cy.get('[name="fetch.0.uri"]:focus');
+        it("Should Autofocus on the first input element of the Artifact", function() {
+          cy.focused().should("have.attr.name", "fetch.0.uri");
         });
 
         it("Should remove row when remove button clicked", function() {
@@ -1036,8 +1034,8 @@ describe("Service Form Modal", function() {
           cy.get(".menu-tabbed-view").as("tabView");
         });
 
-        it.skip("Should Autofocus on the service endpoint name", function() {
-          cy.get('[name="portDefinitions.0.name"]:focus');
+        it("Should Autofocus on the service endpoint name", function() {
+          cy.focused().should("have.attr.name", "portDefinitions.0.name");
         });
 
         it('Should add new set of form fields when "Add Service Endpoint" link clicked', function() {

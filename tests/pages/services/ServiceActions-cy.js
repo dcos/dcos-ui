@@ -1,6 +1,6 @@
 import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
-describe("Service Actions", function() {
+describe.skip("Service Actions", function() {
   function clickHeaderAction(actionText) {
     cy.get(".page-header-actions .dropdown").click();
 

@@ -13,7 +13,15 @@ set -e
 
 # Search string passed to `find`
 # Values: String
-SEARCH=${1:-'*'}
+SEARCH='*'
+
+# Run headed Chrome instead of headless
+# Values: anything :)
+CYPRESS_HEADED=
+
+# Don't close headed Chrome after spec finishes
+# Values: anything :)
+CYPRESS_NO_EXIT=
 
 # Maximum number of retries
 # Values: n ∈ ℕ
@@ -39,7 +47,14 @@ TESTS_FOLDER="tests"
 
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
-
+while getopts 's:hnr:' flag; do
+  case "${flag}" in
+    s) SEARCH=${OPTARG:-'*'} ;;
+    h) CYPRESS_HEADED="true" ;;
+    n) CYPRESS_NO_EXIT="true" ;;
+    r) RETRIES=${OPTARG} ;;
+  esac
+done
 
 ## Functions
 #####################################################################
@@ -50,9 +65,13 @@ PLUGINS_PATH=${PLUGINS_PATH:-''}
 # FILE: file to test
 # OUTPUT_PATH: Directory where results are saved (e.g. "some/path/to/Testfile-cy.js-1")
 function executeCypress {
+  RECORD_VIDEO=${RECORD_VIDEO:-'true'}
+
   npm run --silent cypress -- \
+    ${CYPRESS_HEADED:+"--headed"} \
+    ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
-    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,videosFolder=${OUTPUT_PATH}/videos" \
+    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO},videosFolder=${OUTPUT_PATH}/videos" \
     --reporter junit \
     --reporter-options "mochaFile=${OUTPUT_PATH}/result.xml"
 }
@@ -69,9 +88,11 @@ function runTestFile {
   while [ $EXIT_CODE -ne 0 ] && [ $RUN -lt $RETRIES ]; do
     RUN=$((RUN+1))
     local OUTPUT_PATH="${PROJECT_ROOT}/${CYPRESS_FOLDER}/${RELATIVE_PATH}-${RUN}"
+    # Record video only on the 3rd run, videos are heavy
+    local RECORD_VIDEO=$([ "$RUN" == 3 ] && echo "true" || echo "false")
 
     echo "===> Executing Cypress (${RUN}/${RETRIES})"
-    CYOUT="$(FILE="${PROJECT_ROOT}/tests/${RELATIVE_PATH}" RUN=${RUN} OUTPUT_PATH=${OUTPUT_PATH} executeCypress)"
+    CYOUT="$(FILE="${PROJECT_ROOT}/tests/${RELATIVE_PATH}" RUN=${RUN} OUTPUT_PATH=${OUTPUT_PATH} RECORD_VIDEO=${RECORD_VIDEO} executeCypress)"
     EXIT_CODE=$?
 
     if [ $EXIT_CODE -eq 0 ]; then
@@ -199,6 +220,18 @@ function report {
 
 # finds the files and runs the tests
 function run_tests {
+  run_tests_one_by_one
+}
+
+function run_all_tests {
+  echo ""
+  echo "=> Running All Tests"
+  FILE="$PROJECT_ROOT/${TESTS_FOLDER}/**/*-cy.js" \
+  OUTPUT_PATH="${PROJECT_ROOT}/${CYPRESS_FOLDER}/all" \
+  executeCypress || exit 1
+}
+
+function run_tests_one_by_one {
   echo ""
   echo "=> Running Tests"
   find "$PROJECT_ROOT/${TESTS_FOLDER}" -type f -name "${SEARCH}-cy.js" -print | \
