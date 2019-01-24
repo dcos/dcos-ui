@@ -201,6 +201,18 @@ function report {
 
 # finds the files and runs the tests
 function run_tests {
+  run_tests_one_by_one
+}
+
+function run_all_tests {
+  echo ""
+  echo "=> Running All Tests"
+  FILE="$PROJECT_ROOT/${TESTS_FOLDER}/**/*-cy.js" \
+  OUTPUT_PATH="${PROJECT_ROOT}/${CYPRESS_FOLDER}/all" \
+  executeCypress || exit 1
+}
+
+function run_tests_one_by_one {
   echo ""
   echo "=> Running Tests"
   find "$PROJECT_ROOT/${TESTS_FOLDER}" -type f -name "${SEARCH}-cy.js" -print | \
