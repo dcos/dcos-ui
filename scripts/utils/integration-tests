@@ -52,7 +52,7 @@ PLUGINS_PATH=${PLUGINS_PATH:-''}
 function executeCypress {
   npm run --silent cypress -- \
     --spec "${FILE}" \
-    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,videosFolder=${OUTPUT_PATH}/videos" \
+    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO:-'true'},videosFolder=${OUTPUT_PATH}/videos" \
     --reporter junit \
     --reporter-options "mochaFile=${OUTPUT_PATH}/result.xml"
 }
@@ -69,9 +69,11 @@ function runTestFile {
   while [ $EXIT_CODE -ne 0 ] && [ $RUN -lt $RETRIES ]; do
     RUN=$((RUN+1))
     local OUTPUT_PATH="${PROJECT_ROOT}/${CYPRESS_FOLDER}/${RELATIVE_PATH}-${RUN}"
+    # Record video only on the 3rd run, videos are heavy
+    local RECORD_VIDEO=$([ "$RUN" == 3 ] && echo "true" || echo "false")
 
     echo "===> Executing Cypress (${RUN}/${RETRIES})"
-    CYOUT="$(FILE="${PROJECT_ROOT}/tests/${RELATIVE_PATH}" RUN=${RUN} OUTPUT_PATH=${OUTPUT_PATH} executeCypress)"
+    CYOUT="$(FILE="${PROJECT_ROOT}/tests/${RELATIVE_PATH}" RUN=${RUN} OUTPUT_PATH=${OUTPUT_PATH} RECORD_VIDEO=${RECORD_VIDEO} executeCypress)"
     EXIT_CODE=$?
 
     if [ $EXIT_CODE -eq 0 ]; then
