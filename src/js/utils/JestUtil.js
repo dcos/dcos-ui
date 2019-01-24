@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { I18nProvider } from "@lingui/react";
 
 import en from "#LOCALE/en/messages.js";
@@ -130,7 +129,9 @@ const JestUtil = {
       static get childContextTypes() {
         return Object.assign(
           {
-            router: routerShape,
+            router: PropTypes.shape({
+              push: PropTypes.func.isRequired
+            }).isRequired,
             routeDepth: PropTypes.number
           },
           contextTypes

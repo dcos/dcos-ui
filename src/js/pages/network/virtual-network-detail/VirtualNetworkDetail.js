@@ -1,7 +1,8 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
+import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
@@ -183,7 +184,9 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 }
 
 VirtualNetworkDetail.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = VirtualNetworkDetail;

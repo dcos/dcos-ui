@@ -1,6 +1,6 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
-import { routerShape, Link } from "react-router";
+import { Link } from "react-router";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -66,10 +66,6 @@ class NetworkPage extends mixin(TabsMixin) {
     return this.props.children;
   }
 }
-
-NetworkPage.contextTypes = {
-  router: routerShape
-};
 
 NetworkPage.routeConfig = {
   label: i18nMark("Networking"),

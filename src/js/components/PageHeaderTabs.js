@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Trans } from "@lingui/macro";
@@ -115,7 +115,9 @@ class PageHeaderTabs extends React.Component {
 }
 
 PageHeaderTabs.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 PageHeaderTabs.defaultProps = {

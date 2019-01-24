@@ -3,7 +3,6 @@ import { i18nMark } from "@lingui/react";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 
 import mixin from "reactjs-mixin";
@@ -141,10 +140,6 @@ class JobDetailPage extends mixin(TabsMixin) {
     );
   }
 }
-
-JobDetailPage.contextTypes = {
-  router: routerShape
-};
 
 JobDetailPage.propTypes = {
   children: PropTypes.any,

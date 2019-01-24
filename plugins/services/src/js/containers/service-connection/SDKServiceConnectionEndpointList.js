@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 
 import Loader from "#SRC/js/components/Loader";
@@ -207,7 +206,9 @@ class SDKServiceConnectionEndpointList extends React.Component {
 }
 
 SDKServiceConnectionEndpointList.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 SDKServiceConnectionEndpointList.propTypes = {

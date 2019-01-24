@@ -1,7 +1,7 @@
 import { i18nMark, withI18n } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import classNames from "classnames";
-import { routerShape, Link } from "react-router";
+import { Link } from "react-router";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
@@ -322,10 +322,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     );
   }
 }
-
-VirtualNetworkTaskTab.contextTypes = {
-  router: routerShape
-};
 
 VirtualNetworkTaskTab.propTypes = {
   overlay: PropTypes.instanceOf(Overlay)

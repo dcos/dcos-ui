@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 
 import Node from "#SRC/js/structs/Node";
 import NodeHealthStore from "../../stores/NodeHealthStore";
@@ -14,10 +13,6 @@ class NodeDetailHealthTab extends React.Component {
     return <HealthTab node={node} units={units} params={this.props.params} />;
   }
 }
-
-NodeDetailHealthTab.contextTypes = {
-  router: routerShape
-};
 
 NodeDetailHealthTab.propTypes = {
   node: PropTypes.instanceOf(Node).isRequired

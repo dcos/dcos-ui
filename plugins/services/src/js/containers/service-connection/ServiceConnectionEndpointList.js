@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -211,7 +210,9 @@ ServiceConnectionEndpointList.propTypes = {
 };
 
 ServiceConnectionEndpointList.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = ServiceConnectionEndpointList;

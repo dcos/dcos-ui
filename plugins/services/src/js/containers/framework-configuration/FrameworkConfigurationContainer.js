@@ -8,7 +8,6 @@ import Application from "#PLUGINS/services/src/js/structs/Application";
 
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 
-import { routerShape } from "react-router";
 import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 import Loader from "#SRC/js/components/Loader";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
@@ -131,7 +130,9 @@ FrameworkConfigurationContainer.propTypes = {
 };
 
 FrameworkConfigurationContainer.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = FrameworkConfigurationContainer;

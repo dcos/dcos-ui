@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { routerShape } from "react-router";
 import isEqual from "lodash.isequal";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import Page from "#SRC/js/components/Page";
@@ -150,7 +149,9 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
 }
 
 EditFrameworkConfiguration.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    goBack: PropTypes.func.isRequired
+  }).isRequired
 };
 
 EditFrameworkConfiguration.propTypes = {

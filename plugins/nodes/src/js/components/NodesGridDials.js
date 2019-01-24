@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import createReactClass from "create-react-class";
-import { routerShape } from "react-router";
 import { Tooltip } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 
@@ -26,7 +25,9 @@ var NodesGridDials = createReactClass({
   },
 
   contextTypes: {
-    router: routerShape
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   },
 
   handleDialClick(nodeID) {

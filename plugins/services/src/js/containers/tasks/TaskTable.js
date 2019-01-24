@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
-import { routerShape, Link } from "react-router";
+import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
@@ -426,10 +426,6 @@ class TaskTable extends React.Component {
     );
   }
 }
-
-TaskTable.contextTypes = {
-  router: routerShape.isRequired
-};
 
 TaskTable.propTypes = {
   checkedItemsMap: PropTypes.object,

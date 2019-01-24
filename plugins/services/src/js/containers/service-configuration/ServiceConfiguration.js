@@ -2,7 +2,6 @@ import { Dropdown, Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Trans, DateFormat } from "@lingui/macro";
 
@@ -255,7 +254,9 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 }
 
 ServiceConfiguration.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 ServiceConfiguration.defaultProps = {

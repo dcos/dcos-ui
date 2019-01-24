@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
-import { routerShape, Link } from "react-router";
+import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
@@ -123,10 +123,6 @@ class VirtualNetworksTable extends React.Component {
     );
   }
 }
-
-VirtualNetworksTable.contextTypes = {
-  router: routerShape
-};
 
 VirtualNetworksTable.propTypes = {
   overlays: PropTypes.instanceOf(OverlayList)

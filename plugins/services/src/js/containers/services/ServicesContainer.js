@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 
@@ -646,7 +645,9 @@ ServicesContainer.propTypes = {
 };
 
 ServicesContainer.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 ServicesContainer.routeConfig = {

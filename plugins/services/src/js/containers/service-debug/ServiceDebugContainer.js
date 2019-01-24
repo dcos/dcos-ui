@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 import { InfoBoxInline } from "@dcos/ui-kit";
 
@@ -375,10 +374,6 @@ class ServiceDebugContainer extends React.Component {
     );
   }
 }
-
-ServiceDebugContainer.contextTypes = {
-  router: routerShape
-};
 
 ServiceDebugContainer.propTypes = {
   service: PropTypes.instanceOf(Service)

@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
 import { Hooks } from "PluginSDK";
-import { routerShape } from "react-router";
 
 import { combineParsers } from "#SRC/js/utils/ParserUtil";
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
@@ -946,7 +945,11 @@ class CreateServiceModal extends Component {
 }
 
 CreateServiceModal.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
+    setRouteLeaveHook: PropTypes.func.isRequired
+  }).isRequired
 };
 
 CreateServiceModal.propTypes = {

@@ -1,4 +1,3 @@
-import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -357,7 +356,9 @@ PodInstancesContainer.childContextTypes = {
 };
 
 PodInstancesContainer.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 PodInstancesContainer.propTypes = {

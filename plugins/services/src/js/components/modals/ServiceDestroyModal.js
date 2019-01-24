@@ -1,7 +1,6 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
-import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -236,7 +235,9 @@ class ServiceDestroyModal extends React.PureComponent {
 }
 
 ServiceDestroyModal.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 ServiceDestroyModal.propTypes = {

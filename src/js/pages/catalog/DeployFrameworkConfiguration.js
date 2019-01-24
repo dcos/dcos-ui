@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import qs from "query-string";
 import isEqual from "lodash.isequal";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { routerShape } from "react-router";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
 import Loader from "#SRC/js/components/Loader";
@@ -149,7 +148,10 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 }
 
 DeployFrameworkConfiguration.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired
+  }).isRequired
 };
 
 DeployFrameworkConfiguration.propTypes = {

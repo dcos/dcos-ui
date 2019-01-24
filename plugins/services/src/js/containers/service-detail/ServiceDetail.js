@@ -1,7 +1,6 @@
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
 import { i18nMark } from "@lingui/react";
 
@@ -317,7 +316,9 @@ ServiceDetail.contextTypes = {
     deleteService: PropTypes.func,
     openService: PropTypes.func
   }).isRequired,
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 ServiceDetail.propTypes = {

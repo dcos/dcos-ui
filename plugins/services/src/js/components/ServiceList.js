@@ -4,7 +4,7 @@ import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 import createReactClass from "create-react-class";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
 
 import ServiceStatusIcon from "./ServiceStatusIcon";
 
@@ -16,7 +16,9 @@ const ServiceList = createReactClass({
   },
 
   contextTypes: {
-    router: routerShape
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   },
 
   getDefaultProps() {

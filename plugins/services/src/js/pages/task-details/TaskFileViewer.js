@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Dropdown, Tooltip } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape, formatPattern } from "react-router";
+import { formatPattern } from "react-router";
 import { Trans } from "@lingui/macro";
 
 import Icon from "#SRC/js/components/Icon";
@@ -224,7 +224,9 @@ export default class TaskFileViewer extends React.Component {
 }
 
 TaskFileViewer.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 TaskFileViewer.defaultProps = {

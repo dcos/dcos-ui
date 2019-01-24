@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -140,7 +139,9 @@ ServicePodConnectionEndpointList.propTypes = {
 };
 
 ServicePodConnectionEndpointList.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = ServicePodConnectionEndpointList;

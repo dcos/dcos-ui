@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { Dropdown, Table, Tooltip } from "reactjs-components";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Hooks } from "PluginSDK";
@@ -634,7 +634,9 @@ ServicesTable.contextTypes = {
     stopService: PropTypes.func,
     deleteService: PropTypes.func
   }).isRequired,
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 ServicesTable.defaultProps = {

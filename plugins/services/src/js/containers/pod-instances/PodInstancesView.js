@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import classNames from "classnames";
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
@@ -179,8 +178,7 @@ class PodInstancesView extends React.Component {
 PodInstancesView.contextTypes = {
   modalHandlers: PropTypes.shape({
     killPodInstances: PropTypes.func.isRequired
-  }).isRequired,
-  router: routerShape
+  }).isRequired
 };
 
 PodInstancesView.defaultProps = {

@@ -3,7 +3,7 @@ import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import React from "react";
 import createReactClass from "create-react-class";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
@@ -78,10 +78,6 @@ var NodesAgents = createReactClass({
     willTransitionTo() {
       SidebarActions.close();
     }
-  },
-
-  contextTypes: {
-    router: routerShape.isRequired
   },
 
   getInitialState() {

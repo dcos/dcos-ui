@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import GeminiScrollbar from "react-gemini-scrollbar";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
 import React from "react";
 import PluginSDK from "PluginSDK";
 import { navigation } from "foundation-ui";
@@ -340,9 +340,5 @@ class Sidebar extends React.Component {
     );
   }
 }
-
-Sidebar.contextTypes = {
-  router: routerShape
-};
 
 module.exports = Sidebar;

@@ -4,7 +4,7 @@ import * as React from "react";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { MountService } from "foundation-ui";
-import { routerShape } from "react-router";
+import PropTypes from "prop-types";
 
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
@@ -169,5 +169,7 @@ export default class ClusterHeader extends mixin(StoreMixin) {
 }
 
 ClusterHeader.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };

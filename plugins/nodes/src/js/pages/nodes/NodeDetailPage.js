@@ -4,7 +4,7 @@ import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
 import React from "react";
 /* eslint-enable no-unused-vars */
-import { routerShape } from "react-router";
+import PropTypes from "prop-types";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -206,7 +206,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 }
 
 NodeDetailPage.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = NodeDetailPage;

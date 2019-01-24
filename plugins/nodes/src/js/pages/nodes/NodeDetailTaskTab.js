@@ -1,5 +1,4 @@
 import React from "react";
-import { routerShape } from "react-router";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -55,9 +54,5 @@ class NodeDetailTaskTab extends React.Component {
     return <TasksContainer location={location} params={params} tasks={tasks} />;
   }
 }
-
-NodeDetailTaskTab.contextTypes = {
-  router: routerShape
-};
 
 module.exports = NodeDetailTaskTab;

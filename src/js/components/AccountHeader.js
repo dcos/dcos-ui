@@ -1,6 +1,5 @@
 import { MountService } from "foundation-ui";
 import React from "react";
-import { routerShape } from "react-router";
 
 export default function AccountHeader(props) {
   return (
@@ -11,7 +10,3 @@ export default function AccountHeader(props) {
     />
   );
 }
-
-AccountHeader.contextTypes = {
-  router: routerShape
-};

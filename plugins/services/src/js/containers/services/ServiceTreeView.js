@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
@@ -132,7 +131,9 @@ ServiceTreeView.contextTypes = {
   modalHandlers: PropTypes.shape({
     createGroup: PropTypes.func
   }).isRequired,
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 ServiceTreeView.defaultProps = {

@@ -4,7 +4,7 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { routerShape, formatPattern } from "react-router";
+import { formatPattern } from "react-router";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -361,7 +361,9 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 }
 
 TaskDetail.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 TaskDetail.propTypes = {

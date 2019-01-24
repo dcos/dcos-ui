@@ -1,6 +1,6 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
-import { routerShape, Link } from "react-router";
+import { Link } from "react-router";
 import React from "react";
 import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -74,10 +74,6 @@ var DashboardPage = createReactClass({
     willTransitionTo() {
       SidebarActions.close();
     }
-  },
-
-  contextTypes: {
-    router: routerShape
   },
 
   getDefaultProps() {

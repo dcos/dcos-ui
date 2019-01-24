@@ -3,7 +3,8 @@ import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
-import { Link, routerShape } from "react-router";
+import { Link } from "react-router";
+import PropTypes from "prop-types";
 import { MountService } from "foundation-ui";
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -314,7 +315,9 @@ class PackagesTab extends mixin(StoreMixin) {
 }
 
 PackagesTab.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = PackagesTab;

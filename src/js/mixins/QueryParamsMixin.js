@@ -1,4 +1,4 @@
-import { routerShape } from "react-router";
+import PropTypes from "prop-types";
 
 function encodeValuesToURIComponents(values) {
   if (!Array.isArray(values)) {
@@ -13,7 +13,9 @@ function encodeValuesToURIComponents(values) {
 
 var QueryParamsMixin = {
   contextTypes: {
-    router: routerShape
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
   },
 
   getCurrentPathname() {

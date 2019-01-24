@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import React from "react";
-import { routerShape } from "react-router";
+import PropTypes from "prop-types";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Modal } from "reactjs-components";
@@ -132,7 +132,10 @@ class LoginPage extends mixin(StoreMixin) {
 }
 
 LoginPage.contextTypes = {
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired
+  }).isRequired
 };
 
 module.exports = LoginPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import { componentFromStream, graphqlObservable } from "@dcos/data-service";
 import { getContext } from "recompose";
-import { routerShape } from "react-router";
+import PropTypes from "prop-types";
 import { Observable, BehaviorSubject } from "rxjs";
 import gql from "graphql-tag";
 import { default as schema } from "#PLUGINS/jobs/src/js/data/JobModel";
@@ -79,7 +79,9 @@ const getGraphQL = id =>
   );
 
 export default getContext({
-  router: routerShape
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 })(
   componentFromStream(props$ => {
     const id$ = props$.map(props => props.params.id).distinctUntilChanged();
