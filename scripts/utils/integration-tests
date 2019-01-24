@@ -13,9 +13,15 @@ set -e
 
 # Search string passed to `find`
 # Values: String
-SEARCH=${1:-'*'}
-HEADED=${2:-''}
-NO_EXIT=${3:-''}
+SEARCH='*'
+
+# Run headed Chrome instead of headless
+# Values: anything :)
+CYPRESS_HEADED=
+
+# Don't close headed Chrome after spec finishes
+# Values: anything :)
+CYPRESS_NO_EXIT=
 
 # Maximum number of retries
 # Values: n ∈ ℕ
@@ -41,7 +47,14 @@ TESTS_FOLDER="tests"
 
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
-
+while getopts 's:hnr:' flag; do
+  case "${flag}" in
+    s) SEARCH=${OPTARG:-'*'} ;;
+    h) CYPRESS_HEADED="true" ;;
+    n) CYPRESS_NO_EXIT="true" ;;
+    r) RETRIES=${OPTARG} ;;
+  esac
+done
 
 ## Functions
 #####################################################################
@@ -53,8 +66,8 @@ PLUGINS_PATH=${PLUGINS_PATH:-''}
 # OUTPUT_PATH: Directory where results are saved (e.g. "some/path/to/Testfile-cy.js-1")
 function executeCypress {
   npm run --silent cypress -- \
-    ${HEADED:+--headed} \
-    ${NO_EXIT:+--no-exit} \
+    ${CYPRESS_HEADED:+"--headed"} \
+    ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
     --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO:-'true'},videosFolder=${OUTPUT_PATH}/videos" \
     --reporter junit \
