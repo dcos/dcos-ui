@@ -65,11 +65,13 @@ done
 # FILE: file to test
 # OUTPUT_PATH: Directory where results are saved (e.g. "some/path/to/Testfile-cy.js-1")
 function executeCypress {
+  RECORD_VIDEO=${RECORD_VIDEO:-'true'}
+
   npm run --silent cypress -- \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
-    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO:-'true'},videosFolder=${OUTPUT_PATH}/videos" \
+    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO},videosFolder=${OUTPUT_PATH}/videos" \
     --reporter junit \
     --reporter-options "mochaFile=${OUTPUT_PATH}/result.xml"
 }
