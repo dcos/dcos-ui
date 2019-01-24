@@ -83,7 +83,7 @@ describe("MarathonUtil", function() {
         options: { "volume/driver": "value" },
         provider: "volume-provide",
         size: 2048,
-        status: "Unavailable",
+        status: "N/A",
         type: "External"
       });
     });

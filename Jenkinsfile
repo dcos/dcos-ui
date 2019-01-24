@@ -38,7 +38,7 @@ pipeline {
           sh "rm -rf {.*,*} || ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
         }
         sh "git fetch"
-        sh "git checkout \"\$([ -z \"\$CHANGE_TARGET\" ] && echo \$BRANCH_NAME || echo \$CHANGE_TARGET )\""
+        sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
 
         sh "npm --unsafe-perm install"
         sh "npm run build"
@@ -61,7 +61,16 @@ pipeline {
     stage("Tests") {
       parallel {
         stage("Integration Test") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
           steps {
+            withCredentials([
+              string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
+              string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
+            ]) {
+              sh "./scripts/ci/createDatadogConfig.sh"
+            }
             sh "npm run integration-tests"
           }
 

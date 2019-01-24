@@ -30,8 +30,8 @@ const DisabledGroupDestroyModal = props => {
       showHeader={true}
     >
       <Trans render="div">
-        This group needs to be empty to delete it. Please delete any services in
-        the group first.
+        This group needs to be empty to delete it. Please delete any services or
+        groups in the group first.
       </Trans>
     </Modal>
   );
