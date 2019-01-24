@@ -11,7 +11,7 @@ describe("Networks", function() {
 
     it("displays all of the networks in the table", function() {
       cy.get("tbody tr").should(function($tableRows) {
-        expect(getVisibleTableRows($tableRows).length).to.equal(2);
+        expect(getVisibleTableRows($tableRows).length).to.equal(4);
       });
     });
 
@@ -23,9 +23,13 @@ describe("Networks", function() {
             const tableCells = tableRow.querySelectorAll("td");
 
             expect(tableCells[0].textContent).to.equal(overlayData.name);
-            expect(tableCells[1].textContent).to.equal(overlayData.subnet);
+            expect(tableCells[1].textContent).to.equal(
+              overlayData.subnet || overlayData.subnet6
+            );
             expect(tableCells[2].textContent).to.equal(
-              overlayData.prefix.toString()
+              overlayData.prefix
+                ? overlayData.prefix.toString()
+                : overlayData.prefix6.toString()
             );
           });
         });
@@ -72,9 +76,10 @@ describe("Networks", function() {
     });
 
     it("allows users to filter the table", function() {
-      cy
-        .get(".filter-bar-item .filter-input-text")
-        .type("sleep.7084272b-6b76-11e5-a953-08002719334a", { force: true });
+      cy.get(".filter-bar-item .filter-input-text").type(
+        "sleep.7084272b-6b76-11e5-a953-08002719334a",
+        { force: true }
+      );
       cy.get("tbody tr").should(function($tableRows) {
         expect(getVisibleTableRows($tableRows).length).to.equal(1);
       });
