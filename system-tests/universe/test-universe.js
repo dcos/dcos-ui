@@ -173,7 +173,8 @@ describe("Universe", function() {
 
     // Find name input
     cy.get(".modal input[name=name]")
-      .clear()
+      .type("{selectall}{backspace}")
+      .type("{selectall}{backspace}")
       .type(serviceName);
 
     // Wait for the new service to deploy
@@ -216,7 +217,8 @@ describe("Universe", function() {
 
     // Find name input
     cy.get(".modal input[name=name]")
-      .clear()
+      .type("{selectall}{backspace}")
+      .type("{selectall}{backspace}")
       .type(serviceName);
 
     // Wait for the new service to deploy
