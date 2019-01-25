@@ -216,26 +216,34 @@ describe("Tasks Table", function() {
     });
 
     it("Filters tasks that name contains 'server-'", function() {
-      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text")
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
       cy.get(".form-control.filter-input-text").type("server-");
       cy.get("table tr td.task-table-column-name").should("to.have.length", 3);
     });
 
     it("Filters tasks that are in active state", function() {
-      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text")
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
       cy.get(".form-control.filter-input-text").type("is:active");
       cy.get("table tr td.task-table-column-name").should("to.have.length", 4);
     });
 
     it("Filters tasks by region", function() {
-      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text")
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
       cy.get(".form-control.filter-input-text").type("region:eu-central-1");
       cy.get("table tr td.task-table-column-name").should("to.have.length", 1);
       cy.get("td.task-table-column-region-address").contains("eu-central-1");
     });
 
     it("Filters tasks by zone", function() {
-      cy.get(".form-control.filter-input-text").clear();
+      cy.get(".form-control.filter-input-text")
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
       cy.get(".form-control.filter-input-text").type("zone:eu-central-1b");
       cy.get("table tr td.task-table-column-name").should("to.have.length", 1);
       cy.get("td.task-table-column-zone-address").contains("eu-central-1b");

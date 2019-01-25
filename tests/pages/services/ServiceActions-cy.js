@@ -155,7 +155,9 @@ describe("Service Actions", function() {
     });
 
     it("shows tab error badge when error in form section", function() {
-      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+      cy.get('.modal .menu-tabbed-container input[name="name"]')
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
@@ -168,7 +170,9 @@ describe("Service Actions", function() {
     });
 
     it("shows anchored error when error in form section", function() {
-      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+      cy.get('.modal .menu-tabbed-container input[name="name"]')
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
@@ -180,7 +184,9 @@ describe("Service Actions", function() {
     });
 
     it("shows error message in JSON when form error", function() {
-      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+      cy.get('.modal .menu-tabbed-container input[name="name"]')
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
@@ -192,7 +198,9 @@ describe("Service Actions", function() {
     });
 
     it("disables Review & Run button when error", function() {
-      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
+      cy.get('.modal .menu-tabbed-container input[name="name"]')
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
