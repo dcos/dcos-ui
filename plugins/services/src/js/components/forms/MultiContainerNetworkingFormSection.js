@@ -518,10 +518,15 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         const name = overlay.getName();
 
         return {
+          enabled: overlay.info.enabled,
+          subnet6: overlay.getSubnet6(),
           text: `Virtual Network: ${name}`,
           value: `${CONTAINER}.${name}`
         };
       })
+      .filterItems(
+        virtualNetwork => virtualNetwork.enabled && !virtualNetwork.subnet6
+      )
       .getItems()
       .map((virtualNetwork, index) => {
         return (
