@@ -469,7 +469,9 @@ class MarathonStore extends GetSetBaseStore {
 
   injectGroupsWithPackageImages(data) {
     data.items.forEach(item => {
-      if (ServiceValidatorUtil.isFrameworkResponse(item)) {
+      if (item.items && Array.isArray(item.items)) {
+        this.injectGroupsWithPackageImages(item);
+      } else if (ServiceValidatorUtil.isFrameworkResponse(item)) {
         item["images"] = CosmosPackagesStore.getPackageImages()[
           item.labels.DCOS_PACKAGE_NAME
         ];
