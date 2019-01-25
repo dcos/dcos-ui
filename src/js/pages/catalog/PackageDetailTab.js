@@ -201,7 +201,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
             {"This package can only be installed using the CLI. See the "}
             <a
               href={MetadataStore.buildDocsURI(
-                "/cli/enterprise-cli/#ent-cli-install"
+                "/cli/command-reference/dcos-package/dcos-package-install/"
               )}
               target="_blank"
             >
