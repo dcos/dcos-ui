@@ -1,0 +1,32 @@
+{
+  "phases" : [ {
+    "id" : "9d6bfeab-bf0b-4465-b0c8-f438c10fb6ec",
+    "name" : "node-deploy",
+    "steps" : [ {
+      "id" : "e2fe078f-2d0e-4879-bfee-aad43865778f",
+      "status" : "COMPLETE",
+      "name" : "node-0:[server]",
+      "message" : "com.mesosphere.sdk.scheduler.plan.DeploymentStep: node-0:[server] [e2fe078f-2d0e-4879-bfee-aad43865778f] with status: COMPLETE"
+    }, {
+      "id" : "10333e55-317b-424f-ae69-757bf951befa",
+      "status" : "COMPLETE",
+      "name" : "node-0:[init_system_keyspaces]",
+      "message" : "com.mesosphere.sdk.scheduler.plan.DeploymentStep: node-0:[init_system_keyspaces] [10333e55-317b-424f-ae69-757bf951befa] with status: COMPLETE"
+    }, {
+      "id" : "5071bc65-453e-46d2-b0a5-982a292a6456",
+      "status" : "PREPARED",
+      "name" : "node-1:[server]",
+      "message" : "com.mesosphere.sdk.scheduler.plan.DeploymentStep: node-1:[server] [5071bc65-453e-46d2-b0a5-982a292a6456] with status: PREPARED"
+    }, {
+      "id" : "54911c5c-618b-47b3-a87c-35dd60af2e39",
+      "status" : "PENDING",
+      "name" : "node-2:[server]",
+      "message" : "com.mesosphere.sdk.scheduler.plan.DeploymentStep: node-2:[server] [54911c5c-618b-47b3-a87c-35dd60af2e39] with status: PENDING"
+    } ],
+    "strategy" : "serial",
+    "status" : "IN_PROGRESS"
+  } ],
+  "strategy" : "serial",
+  "errors" : [ ],
+  "status" : "IN_PROGRESS"
+}

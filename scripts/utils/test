@@ -4,14 +4,24 @@ DEBUG_DIRECTIVE_PATTERN="(f(it|describe)|(it|describe|test|context)\.only)\("
 
 # Example: find_debug_directives ./test src/js/components/__tests__/Component-test.js
 find_debug_directives(){
-  if [[ ! -n $* ]]
+  if [[ -z $* ]]
   then
    exit 0
   fi
 
- local matches=$(
+ local matches
+ matches=$(
     grep -E -R -s --color=always ${DEBUG_DIRECTIVE_PATTERN} $*
   )
 
  echo -e "${matches}"
+}
+
+find_files_with_debug_directives(){
+  if [[ -z $* ]]
+  then
+   exit 0
+  fi
+
+  grep -E -l --recursive ${DEBUG_DIRECTIVE_PATTERN} "$@"
 }

@@ -20,6 +20,7 @@ import TaskVolumeContainer from "../containers/volume-detail/TaskVolumeContainer
 import VolumeTable from "../components/VolumeTable";
 import PodVolumeTable from "../components/PodVolumeTable";
 import HighOrderServiceConfiguration from "../components/HighOrderServiceConfiguration";
+import SDKPlans from "../components/SDKPlans";
 import HighOrderServiceDebug from "../components/HighOrderServiceDebug";
 import HighOrderServiceInstances from "../components/HighOrderServiceInstances";
 import ServiceConnectionContainer from "../components/ServiceConnectionContainer";
@@ -110,6 +111,12 @@ const serviceRoutes = [
             path: "configuration",
             title: "Configuration",
             component: HighOrderServiceConfiguration
+          },
+          {
+            type: Route,
+            path: "plans",
+            title: "Plans",
+            component: SDKPlans
           },
           {
             type: Route,

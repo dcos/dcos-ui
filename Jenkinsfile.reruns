@@ -54,7 +54,14 @@ pipeline {
       }
 
       steps {
-        sh "echo 'TODO: run integration tests here'" // DCOS-44820
+        sh "REPORT=false RERUN=100 npm run rerun:integration-tests"
+      }
+
+      post {
+        always {
+          archiveArtifacts "cypress/**/*"
+          junit "cypress/results.xml"
+        }
       }
     }
   }

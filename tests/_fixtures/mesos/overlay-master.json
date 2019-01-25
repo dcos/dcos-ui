@@ -277,12 +277,26 @@
       {
         "name": "dcos-1",
         "prefix": 24,
-        "subnet": "192.168.0.0\/17"
+        "subnet": "192.168.0.0\/17",
+        "enabled": true
       },
       {
         "name": "dcos-2",
         "prefix": 24,
-        "subnet": "192.168.128.0\/17"
+        "subnet": "192.168.128.0\/17",
+        "enabled": true
+      },
+      {
+        "name": "dcos-3",
+        "prefix6": 80,
+        "subnet6": "fd01:b::/64",
+        "enabled": true
+      },
+      {
+        "name": "dcos-4",
+        "prefix": 24,
+        "subnet": "192.168.128.0\/17",
+        "enabled": false
       }
     ],
     "vtep_mac_oui": "70:B3:D5:00:00:00",

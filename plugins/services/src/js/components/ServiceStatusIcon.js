@@ -107,7 +107,7 @@ class ServiceStatusIcon extends Component {
     if (this.isUnableToLaunch(service)) {
       return this.getTooltip(
         <Trans render="span">
-          DC/OS has been unable to complete this deployment for{" "}
+          There are tasks in this queue that DC/OS has failed to deploy for{" "}
           {DateUtil.getDuration(
             Date.now() - DateUtil.strToMs(service.getQueue().since),
             null
