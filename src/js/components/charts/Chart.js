@@ -59,9 +59,6 @@ var Chart = createReactClass({
   },
 
   updateWidth() {
-    if (!this.isMounted()) {
-      return;
-    }
     var node = ReactDOM.findDOMNode(this);
     var dimensions = DOMUtils.getComputedDimensions(node);
     var data = this.internalStorage_get();
