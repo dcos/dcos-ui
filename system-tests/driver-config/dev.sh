@@ -29,10 +29,10 @@ targets:
 
     scripts:
       auth: ../_scripts/auth-open.py
-      proxy: (cd ../..; npm run testing)
+      proxy: (cd ../..; npm start)
       setup: >
         mv ../../webpack/proxy.dev.js ../../webpack/proxy.dev.js.bak;
-        echo "module.exports = {'*': '$CLUSTER_URL'};" > ../../webpack/proxy.dev.js
+        echo "module.exports = { '*': { target: '$CLUSTER_URL', secure: false } };" > ../../webpack/proxy.dev.js
       teardown: >
         mv ../../webpack/proxy.dev.js.bak ../../webpack/proxy.dev.js
 EOF
