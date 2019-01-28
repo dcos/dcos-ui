@@ -34,9 +34,9 @@ export interface ServicePlanResponse {
 }
 
 export function fetchPlans(
-  serviceName: string
+  serviceId: string
 ): Observable<RequestResponse<string[]>> {
-  return request(`/service/${serviceName}/v1/plans`).map(
+  return request(`/service/${serviceId}/v1/plans`).map(
     (reqResp: RequestResponse<any>) => {
       if (reqResp.code >= 300) {
         const respMessage =
@@ -55,10 +55,10 @@ export function fetchPlans(
 }
 
 export function fetchPlanDetails(
-  serviceName: string,
+  serviceId: string,
   planName: string
 ): Observable<RequestResponse<ServicePlanResponse>> {
-  return request(`/service/${serviceName}/v1/plans/${planName}`).map(
+  return request(`/service/${serviceId}/v1/plans/${planName}`).map(
     (reqResp: RequestResponse<any>) => {
       if (reqResp.code >= 300) {
         const respMessage =
