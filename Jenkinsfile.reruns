@@ -41,7 +41,7 @@ pipeline {
       }
 
       steps {
-        sh "npm --unsafe-perm install"
+        sh "npm --unsafe-perm ci"
         sh "npm run build-assets"
       }
     }

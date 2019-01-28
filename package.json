@@ -22,7 +22,7 @@
   ],
   "engines": {
     "node": "8.9.x",
-    "npm": "5.6.x"
+    "npm": "5.7.x"
   },
   "config": {
     "port": 4200,
@@ -152,7 +152,7 @@
     "mini-css-extract-plugin": "0.4.3",
     "mockdate": "2.0.2",
     "node": "8.9.4",
-    "npm": "5.6.0",
+    "npm": "5.7.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss": "6.0.19",
     "postcss-loader": "2.1.1",
