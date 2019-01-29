@@ -157,7 +157,6 @@ describe("Deployments Modal", function() {
         /marathon\/v2\/deployments/,
         "fx:deployments/starting-deployment"
       );
-      cy.visitUrl({ url: "/services/overview/" });
       openDeploymentsModal();
       cy.get(".modal tbody tr:visible td .dropdown").click();
       cy.get(".dropdown-menu-items")
@@ -173,9 +172,9 @@ describe("Deployments Modal", function() {
         /marathon\/v2\/deployments/,
         "fx:deployments/two-deployments-one-stale"
       );
-      cy.visitUrl({ url: "/services/overview/" });
-      openDeploymentsModal(2);
+      openDeploymentsModal();
     });
+
     it("shows stale deployment in modal", function() {
       cy.get(".deployments-table-column-id").contains("spark-history-stale");
     });
