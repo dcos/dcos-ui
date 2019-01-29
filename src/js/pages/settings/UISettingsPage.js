@@ -57,6 +57,16 @@ class UISettingsPage extends React.Component {
         <div className="container">
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
+              <Trans>DC/OS UI Details</Trans>
+            </ConfigurationMapHeading>
+            <ConfigurationMapSection>
+              <ConfigurationRow
+                keyValue="installedVersion"
+                title={<Trans>Installed Version</Trans>}
+                value={window.DCOS_UI_VERSION}
+              />
+            </ConfigurationMapSection>
+            <ConfigurationMapHeading className="flush-top">
               <Trans>User Preferences</Trans>
             </ConfigurationMapHeading>
             <ConfigurationMapSection>

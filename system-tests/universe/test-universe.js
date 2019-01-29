@@ -41,31 +41,6 @@ describe("Universe", function() {
       .should("exist");
   });
 
-  it("sdk package has a plans tab", function() {
-    const packageName = "confluent-kafka";
-    // Go to the root services page
-    cy.visitUrl("services/overview");
-
-    // Check that it appears in the service list
-    cy.get(".page-body-content table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-      .click();
-
-    cy.get(".menu-tabbed-item")
-      .contains("Plans", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .click();
-
-    cy.get(".page-body-content pre")
-      .contains('"broker"', {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
-  });
-
   it("fails to install a package with the same name", function() {
     const packageName = "confluent-kafka";
 
@@ -89,6 +64,65 @@ describe("Universe", function() {
       .contains(
         "A service with the same name already exists. Try a different name."
       )
+      .should("exist");
+  });
+
+  it("has the service", () => {
+    const packageName = "confluent-kafka";
+    cy.visitUrl("services/overview");
+
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .should("exist");
+  });
+
+  it("has a plans tab", () => {
+    const packageName = "confluent-kafka";
+    cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
+
+    cy.get(".menu-tabbed-item")
+      .contains("Plans", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .should("exist");
+  });
+
+  it("plan is displayed", () => {
+    const packageName = "confluent-kafka";
+    const phaseSelector =
+      ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer strong";
+
+    // Go to the root services page
+    cy.visitUrl("services/overview");
+
+    // Check that it appears in the service list
+    cy.get(".page-body-content table", {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .click();
+
+    // TODO: Check scheduler is running after Mesos Stream is fixed
+    // cy.contains("#application table", packageName)
+    //   .parent("tr")
+    //   .contains("Running", {
+    //     timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    //   });
+
+    cy.get(".menu-tabbed-item")
+      .contains("Plans", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
+      .click();
+
+    cy.get(phaseSelector, {
+      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+    })
+      .contains("broker", {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("exist");
   });
 

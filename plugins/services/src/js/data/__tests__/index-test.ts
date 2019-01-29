@@ -45,11 +45,11 @@ function makeResolverConfig(
   plansResponse: string[] = ["plan-01", "plan-02", "plan-03"]
 ) {
   return {
-    fetchServicePlans: (_serviceName: string) =>
+    fetchServicePlans: (_serviceId: string) =>
       m.cold("(j|)", {
         j: { code: 200, message: "ok", response: plansResponse }
       }),
-    fetchServicePlanDetail: (_serviceName: string, _planName: string) =>
+    fetchServicePlanDetail: (_serviceId: string, _planName: string) =>
       m.cold("(j|)", {
         j: {
           code: 200,
@@ -79,8 +79,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans {
                 name
                 status
@@ -91,7 +91,7 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test"
+          serviceId: "test"
         });
         const result$ = queryResult$.take(1);
 
@@ -99,7 +99,7 @@ describe("Service data-layer", () => {
           j: {
             data: {
               service: {
-                name: "test",
+                id: "test",
                 plans: [
                   {
                     name: "plan-01",
@@ -158,8 +158,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans {
                 name
               }
@@ -168,14 +168,14 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test"
+          serviceId: "test"
         });
 
         const expected$ = m.cold("--x-x-(x|)", {
           x: {
             data: {
               service: {
-                name: "test",
+                id: "test",
                 plans: [
                   {
                     name: "plan-01"
@@ -235,7 +235,7 @@ describe("Service data-layer", () => {
     );
 
     it(
-      "throws an error if plan detail API returns non-200",
+      "throws an error if plan detail API returns non-2XX",
       marbles(m => {
         m.bind();
 
@@ -257,15 +257,15 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans
             }
           }
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test"
+          serviceId: "test"
         }).take(1);
 
         const expected$ = m.cold("#", undefined, {
@@ -279,7 +279,7 @@ describe("Service data-layer", () => {
     );
 
     it(
-      "throws an error if plans API returns non-200",
+      "throws an error if plans API returns non-2XX",
       marbles(m => {
         m.bind();
 
@@ -305,15 +305,15 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans
             }
           }
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test"
+          serviceId: "test"
         }).take(1);
 
         const expected$ = m.cold("#", undefined, {
@@ -357,8 +357,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans {
                 name
                 status
@@ -369,7 +369,7 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test"
+          serviceId: "test"
         });
         const result$ = queryResult$.take(1);
 
@@ -377,7 +377,7 @@ describe("Service data-layer", () => {
           j: {
             data: {
               service: {
-                name: "test",
+                id: "test",
                 plans: [
                   {
                     name: "client-plan",
@@ -408,8 +408,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans(name: $planName) {
                 name
                 status
@@ -420,7 +420,7 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test",
+          serviceId: "test",
           planName: "plan-01"
         });
         const result$ = queryResult$.take(1);
@@ -429,7 +429,7 @@ describe("Service data-layer", () => {
           j: {
             data: {
               service: {
-                name: "test",
+                id: "test",
                 plans: [
                   {
                     name: "plan-01",
@@ -464,8 +464,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans(name: $planName) {
                 name
                 status
@@ -476,7 +476,7 @@ describe("Service data-layer", () => {
         `;
 
         graphqlObservable(query, serviceSchema, {
-          serviceName: "test",
+          serviceId: "test",
           planName: "plan-01"
         })
           .take(1)
@@ -514,8 +514,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans(name: $planName) {
                 name
                 status
@@ -525,7 +525,7 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test",
+          serviceId: "test",
           planName: "plan-02"
         });
 
@@ -533,7 +533,7 @@ describe("Service data-layer", () => {
           x: {
             data: {
               service: {
-                name: "test",
+                id: "test",
                 plans: [
                   {
                     name: "plan-02",
@@ -596,7 +596,7 @@ describe("Service data-layer", () => {
     );
 
     it(
-      "throws an error if API returns non-200",
+      "throws an error if API returns non-2XX",
       marbles(m => {
         m.bind();
 
@@ -618,8 +618,8 @@ describe("Service data-layer", () => {
 
         const query = gql`
           query {
-            service(name: $serviceName) {
-              name
+            service(id: $serviceId) {
+              id
               plans(name: $planName) {
                 name
               }
@@ -628,7 +628,7 @@ describe("Service data-layer", () => {
         `;
 
         const queryResult$ = graphqlObservable(query, serviceSchema, {
-          serviceName: "test",
+          serviceId: "test",
           planName: "plan-01"
         }).take(1);
 
