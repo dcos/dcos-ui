@@ -56,7 +56,7 @@ export default class JobsOverviewList extends React.Component<
     const headline = filter ? (
       <FilterHeadline
         onReset={this.resetFilter}
-        name="Jobs"
+        name="Job"
         currentLength={data.filteredCount}
         totalLength={data.totalCount}
       />
