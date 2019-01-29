@@ -130,7 +130,7 @@ class JobsTab extends mixin(StoreMixin) {
       return (
         <FilterHeadline
           onReset={this.resetFilter}
-          name="Jobs"
+          name="Job"
           currentLength={filteredJobs.length}
           totalLength={jobs.length}
         />
