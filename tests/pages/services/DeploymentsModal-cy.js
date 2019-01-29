@@ -1,4 +1,4 @@
-describe.skip("Deployments Modal", function() {
+describe("Deployments Modal", function() {
   function openDeploymentsModal(numDeployments = 1) {
     cy.get(".button")
       .contains(numDeployments + " deployment")
