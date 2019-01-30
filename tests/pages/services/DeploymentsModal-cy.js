@@ -1,7 +1,7 @@
 describe("Deployments Modal", function() {
-  function openDeploymentsModal(numDeployments = 1) {
+  function openDeploymentsModal() {
     cy.get(".button")
-      .contains(numDeployments + " deployment")
+      .contains("deployment")
       .click();
   }
 
@@ -168,7 +168,7 @@ describe("Deployments Modal", function() {
 
   context("Stale Deployments", function() {
     beforeEach(function() {
-      cy.route(
+      cy.server().route(
         /marathon\/v2\/deployments/,
         "fx:deployments/two-deployments-one-stale"
       );
