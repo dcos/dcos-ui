@@ -2,6 +2,7 @@ import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React from "react";
+import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -54,7 +55,7 @@ const DashboardBreadcrumbs = () => {
   return <Page.Header.Breadcrumbs iconID="dashboard" breadcrumbs={crumbs} />;
 };
 
-var DashboardPage = React.createClass({
+var DashboardPage = createReactClass({
   displayName: "DashboardPage",
 
   mixins: [InternalStorageMixin, StoreMixin],

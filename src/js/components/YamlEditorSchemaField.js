@@ -54,7 +54,7 @@ YamlEditorSchemaField.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
-  autofocus: PropTypes.boolean,
+  autofocus: PropTypes.bool,
   onChange: PropTypes.func
 };
 

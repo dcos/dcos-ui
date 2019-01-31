@@ -4,16 +4,18 @@ import React from "react";
 class ClickToSelect extends React.Component {
   constructor() {
     super();
+    this.nodeRef = React.createRef();
+
     this.selectAll = this.selectAll.bind(this);
   }
 
   selectAll() {
-    global.document.getSelection().selectAllChildren(this.refs.node);
+    global.document.getSelection().selectAllChildren(this.nodeRef);
   }
 
   render() {
     return (
-      <span onClick={this.selectAll} ref="node">
+      <span onClick={this.selectAll} ref={this.nodeRef}>
         {this.props.children}
       </span>
     );

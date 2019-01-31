@@ -1,10 +1,11 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import Panel from "./Panel";
 
-var AlertPanel = React.createClass({
+var AlertPanel = createReactClass({
   displayName: "AlertPanel",
 
   defaultProps: {
@@ -39,7 +40,6 @@ var AlertPanel = React.createClass({
 
     return (
       <Panel
-        ref="panel"
         className={classes}
         contentClass={[
           "panel-cell-borderless panel-cell-wider panel-cell-taller",

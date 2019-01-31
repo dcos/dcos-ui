@@ -62,7 +62,7 @@ class JobsOverviewList extends React.Component<
     const headline = filter ? (
       <FilterHeadline
         onReset={this.resetFilter}
-        name={i18n._(t`Jobs`)}
+        name={i18n._(t`Job`)}
         currentLength={data.filteredCount}
         totalLength={data.totalCount}
       />

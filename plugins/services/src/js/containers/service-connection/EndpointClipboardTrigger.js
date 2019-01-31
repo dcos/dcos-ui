@@ -15,12 +15,7 @@ class EndpointClipboardTrigger extends React.Component {
             copyText={command}
             useTooltip={true}
           >
-            <Icon
-              id="clipboard"
-              size="mini"
-              ref="copyButton"
-              color="light-grey"
-            />
+            <Icon id="clipboard" size="mini" color="light-grey" />
           </ClipboardTrigger>
         </div>
         {command}

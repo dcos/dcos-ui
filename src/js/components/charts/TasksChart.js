@@ -5,6 +5,7 @@ import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import Chart from "./Chart";
 import DialChart from "./DialChart";
@@ -26,7 +27,7 @@ function getEmptyTaskData() {
   });
 }
 
-var TasksChart = React.createClass({
+var TasksChart = createReactClass({
   displayName: "TasksChart",
 
   propTypes: {

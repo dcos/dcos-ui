@@ -20,7 +20,7 @@ ModalHeading.defaultProps = {
 };
 
 ModalHeading.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   level: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 

@@ -110,7 +110,8 @@ describe("Service Form Modal", function() {
           openServiceForm();
 
           cy.get('.form-control[name="id"]')
-            .clear()
+            .type("{selectall}{backspace}")
+            .type("{selectall}{backspace}")
             .blur();
 
           cy.get(".infoBoxWrapper").should("not.be.visible");
@@ -497,7 +498,8 @@ describe("Service Form Modal", function() {
         cy.contains(".form-group", "Service ID").within(function() {
           cy.get("input.form-control")
             .focus()
-            .clear()
+            .type("{selectall}{backspace}")
+            .type("{selectall}{backspace}")
             .type("/test-back-button-prompt");
         });
       });
@@ -597,7 +599,8 @@ describe("Service Form Modal", function() {
         // Edit form
         cy.contains(".form-group", "Service ID").within(function() {
           cy.get("input.form-control")
-            .clear()
+            .type("{selectall}{backspace}")
+            .type("{selectall}{backspace}")
             .type("/test-json-update");
         });
 
@@ -1534,12 +1537,14 @@ describe("Service Form Modal", function() {
       beforeEach(function() {
         // Fill in SERVICE ID
         cy.get('.form-control[name="id"]')
-          .clear()
+          .type("{selectall}{backspace}")
+          .type("{selectall}{backspace}")
           .type("/test-review-and-run");
 
         // Fill in CONTAINER IMAGE
         cy.get('.form-control[name="container.docker.image"]')
-          .clear()
+          .type("{selectall}{backspace}")
+          .type("{selectall}{backspace}")
           .type("nginx");
 
         // Click review and run
@@ -1789,7 +1794,8 @@ describe("Service Form Modal", function() {
 
       // Fill in SERVICE ID
       cy.get('.form-control[name="id"]')
-        .clear()
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}")
         .type("/test-review-and-run");
     });
 

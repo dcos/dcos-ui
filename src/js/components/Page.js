@@ -1,6 +1,7 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { MountService } from "foundation-ui";
@@ -54,7 +55,7 @@ PageHeader.propTypes = {
   disabledActions: PropTypes.bool
 };
 
-const Page = React.createClass({
+const Page = createReactClass({
   displayName: "Page",
 
   mixins: [InternalStorageMixin, StoreMixin],
@@ -88,7 +89,7 @@ const Page = React.createClass({
   },
 
   onSidebarStoreWidthChange() {
-    ScrollbarUtil.updateWithRef(this.refs.gemini);
+    ScrollbarUtil.updateWithRef(this.geminiRef);
   },
 
   getChildren() {
@@ -142,7 +143,7 @@ const Page = React.createClass({
         className="page-body flex flex-direction-top-to-bottom
           flex-direction-left-to-right-screen-large flex-item-grow-1
           flex-item-shrink-1 gm-scrollbar-container-flex"
-        ref="gemini"
+        ref={ref => (this.geminiRef = ref)}
       >
         {content}
       </FluidGeminiScrollbar>
