@@ -1,60 +1,63 @@
-xdescribe("Tracking Plugin Enabled [02w]", function() {
+describe("Tracking Plugin Enabled [02w]", function() {
   beforeEach(function() {
-    cy
-      .configureCluster({
-        mesos: "1-task-healthy",
-        acl: true,
-        plugins: "tracking-enabled"
-      })
-      .visitUrl({ url: "/", identify: true });
+    cy.configureCluster({
+      mesos: "1-task-healthy",
+      acl: true,
+      plugins: "tracking-enabled"
+    }).visitUrl({ url: "/", identify: true });
   });
 
   context("Sidebar [02x]", function() {
     it("doesn't disable cli in instructions [0df]", function() {
-      cy.get(".sidebar-footer").find(".button").last().click();
+      cy.get(".sidebar-footer")
+        .find(".button")
+        .last()
+        .click();
 
-      cy
-        .get(".install-cli-modal-content pre")
-        .should(
-          "not.contain",
-          "https://downloads.dcos.io/dcos-cli/install-optout.sh"
-        );
-      cy
-        .get(".install-cli-modal-content pre")
-        .should("not.contain", "./install-optout.sh");
+      cy.get(".install-cli-modal-content pre").should(
+        "not.contain",
+        "https://downloads.dcos.io/dcos-cli/install-optout.sh"
+      );
+      cy.get(".install-cli-modal-content pre").should(
+        "not.contain",
+        "./install-optout.sh"
+      );
     });
   });
 });
 
-xdescribe("Tracking Plugin Disabled [03d]", function() {
+describe("Tracking Plugin Disabled [03d]", function() {
   beforeEach(function() {
-    cy
-      .configureCluster({
-        mesos: "1-task-healthy",
-        acl: true,
-        plugins: "tracking-disabled"
-      })
+    cy.configureCluster({
+      mesos: "1-task-healthy",
+      acl: true,
+      plugins: "tracking-disabled"
+    })
       .clearLocalStorage()
       .visitUrl({ url: "/" });
   });
 
   context("Sidebar [03c]", function() {
     it("has no sidebar icons [03e]", function() {
-      cy.get(".sidebar-footer").find(".button").should("to.have.length", 2);
+      cy.get(".sidebar-footer")
+        .find(".button")
+        .should("to.have.length", 2);
     });
 
     it("disables cli in instructions [0de]", function() {
-      cy.get(".sidebar-footer").find(".button").last().click();
+      cy.get(".sidebar-footer")
+        .find(".button")
+        .last()
+        .click();
 
-      cy
-        .get(".install-cli-modal-content pre")
-        .should(
-          "contain",
-          "https://downloads.dcos.io/dcos-cli/install-optout.sh"
-        );
-      cy
-        .get(".install-cli-modal-content pre")
-        .should("contain", "./install-optout.sh");
+      cy.get(".install-cli-modal-content pre").should(
+        "contain",
+        "https://downloads.dcos.io/dcos-cli/install-optout.sh"
+      );
+      cy.get(".install-cli-modal-content pre").should(
+        "contain",
+        "./install-optout.sh"
+      );
     });
   });
 
