@@ -85,8 +85,6 @@ describe("Service Table", function() {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/overview" });
-
       openDropdown("sleep");
       clickDropdownAction("Resume");
 

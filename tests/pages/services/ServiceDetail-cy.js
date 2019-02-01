@@ -171,7 +171,8 @@ describe("Service Detail Page", function() {
       it("can filter by typing a filter", function() {
         cy.get(".filter-input-text")
           .focus()
-          .clear()
+          .type("{selectall}{backspace}")
+          .type("{selectall}{backspace}")
           .type("region:ap-northeast-1");
         cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
       });

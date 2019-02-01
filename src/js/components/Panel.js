@@ -1,6 +1,7 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 const defaultClasses = {
   panel: "panel",
@@ -12,7 +13,7 @@ const defaultClasses = {
     "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter"
 };
 
-var Panel = React.createClass({
+var Panel = createReactClass({
   displayName: "Panel",
 
   propTypes: {

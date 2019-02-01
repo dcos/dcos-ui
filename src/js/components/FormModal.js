@@ -16,6 +16,8 @@ class FormModal extends React.Component {
     super();
     this.triggerSubmit = function() {};
 
+    this.formWrapperRef = React.createRef();
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
@@ -51,9 +53,8 @@ class FormModal extends React.Component {
   focusOnField() {
     // Gotta account for animation
     setTimeout(() => {
-      const el = this.refs["form-wrapper"];
-      if (el) {
-        const input = el.querySelector("form input");
+      if (this.formWrapperRef && this.formWrapperRef.current) {
+        const input = this.formWrapperRef.current.querySelector("form input");
         if (input) {
           input.focus();
         }
@@ -117,7 +118,10 @@ class FormModal extends React.Component {
 
   getContent() {
     return (
-      <div ref="form-wrapper" className={classNames(this.props.contentClasses)}>
+      <div
+        ref={this.formWrapperRef}
+        className={classNames(this.props.contentClasses)}
+      >
         {this.props.children}
         <Form
           className={this.getClassName(!!this.props.contentFooter)}

@@ -1,6 +1,7 @@
 import d3 from "d3";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
 import DialSlice from "./DialSlice";
@@ -11,7 +12,7 @@ function getEmptyState() {
   return [{ colorIndex: 7, value: 1 }];
 }
 
-var DialChart = React.createClass({
+var DialChart = createReactClass({
   displayName: "DialChart",
 
   mixins: [InternalStorageMixin],
