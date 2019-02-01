@@ -1097,7 +1097,7 @@
   "You are about to stop the selected job runs.": "您即将停止所选作业运行。",
   "You are about to {0} {instanceCountContent}. Are you sure you want to continue?": "您即将 {0} {instanceCountContent}。确定要继续吗？",
   "You are about to {0} {taskCountContent}. Are you sure you want to continue?": "您即将 {0} {taskCountContent}。确定要继续吗？",
-  "You can also join us on our <0>Slack channel</0> or send us an email at <1>{0}</1>.": "您也可以通过 <0>Slack channel</0> 加入我们或发送电子邮件至 <1>{0}</1>.",
+  "You can also join us on our <0>Slack channel</0> or send us an email at": "您也可以通过 <0>Slack channel</0> 加入我们或发送电子邮件至",
   "You can configure the placement of agent nodes in regions and zones for high availability or to expand capacity to new regions when necessary": "您可以配置区域和区中代理节点的放置以实现高可用性，或在必要时将容量扩展到新区域",
   "You can go to the <0>Repositories Settings</0> page to change installed repositories.": "您可以转到 <0>存储库设置</0> 页面，来更改已安装的存储库。",
   "You can link a cluster via the DC/OS CLI. See {documentation} for complete instructions.": "您可以通过 DC/OS CLI 链接集群。参见 {documentation}，以获取完整说明。",
