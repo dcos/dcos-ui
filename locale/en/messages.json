@@ -888,7 +888,7 @@
   "You are about to stop the selected job runs.": "",
   "You are about to {0} {instanceCountContent}. Are you sure you want to continue?": "",
   "You are about to {0} {taskCountContent}. Are you sure you want to continue?": "",
-  "You can also join us on our <0>Slack channel</0> or send us an email at <1>{0}</1>.": "",
+  "You can also join us on our <0>Slack channel</0> or send us an email at": "",
   "You can go to the <0>Repositories Settings</0> page to change installed repositories.": "",
   "You can run Docker containers with both container runtimes. The Universal Container Runtime (UCR) is better supported in DC/OS. <0>More information</0>.": "",
   "You do not have access to this service. Please contact your {0} administrator or see <0>security documentation</0> for more information.": "",
