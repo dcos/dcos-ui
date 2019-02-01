@@ -1,14 +1,10 @@
 & when (@login-modal-enabled) {
 
   .modal-backdrop.login-modal-backdrop {
-    background-image: url('@{login-background-src}');
-    background-size: cover;
-    content: '';
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
+    background:
+      radial-gradient(circle at 0% 90%, rgba(125, 88, 255, 0.5), transparent 50%),
+      radial-gradient(circle at 100% 10%, rgba(255, 0, 125, 0.3) 0%, transparent 60%),
+      #251a4c;
   }
 
   .modal {
@@ -180,10 +176,6 @@
   @media only screen and (min-resolution: 2dppx) {
 
     & when (@login-modal-enabled) {
-
-      .modal-backdrop.login-modal-backdrop {
-        background-image: url('@{login-background-src2x}');
-      }
 
       .modal {
 
