@@ -2,6 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
+import KeyboardUtil from "#SRC/js/utils/KeyboardUtil";
 import Icon from "./Icon";
 import ServiceFilterTypes from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
@@ -9,7 +10,10 @@ const METHODS_TO_BIND = [
   "handleBlur",
   "handleFocus",
   "handleChange",
-  "handleInputClear"
+  "handleInputClear",
+  "componentDidMount",
+  "handleKeyDown",
+  "componentWillUnmount"
 ];
 
 class FilterInputText extends React.Component {
@@ -23,6 +27,28 @@ class FilterInputText extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentDidMount() {
+    if (this.inputField) {
+      this.inputField.addEventListener("keydown", this.handleKeyDown);
+    }
+  }
+
+  handleKeyDown(event) {
+    const { keyCode } = event;
+    if (
+      keyCode === KeyboardUtil.keyCodes.enter &&
+      this.props.onEnter instanceof Function
+    ) {
+      this.props.onEnter();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.inputField) {
+      this.inputField.removeEventListener("keydown", this.handleKeyDown);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -167,7 +193,8 @@ FilterInputText.propTypes = {
   inverseStyle: PropTypes.bool,
   placeholder: PropTypes.string,
   searchString: PropTypes.string,
-  sideText: PropTypes.node
+  sideText: PropTypes.node,
+  onEnter: PropTypes.func
 };
 
 module.exports = FilterInputText;

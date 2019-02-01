@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import Chart from "./Chart";
 import TimeSeriesChart from "./TimeSeriesChart";
 import TimeSeriesLabel from "./TimeSeriesLabel";
 import Units from "../../utils/Units";
 
-var ResourceTimeSeriesChart = React.createClass({
+var ResourceTimeSeriesChart = createReactClass({
   displayName: "ResourceTimeSeriesChart",
 
   propTypes: {

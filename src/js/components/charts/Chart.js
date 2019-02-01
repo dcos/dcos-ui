@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DOMUtils from "../../utils/DOMUtils";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 
-var Chart = React.createClass({
+var Chart = createReactClass({
   displayName: "Chart",
 
   mixins: [InternalStorageMixin, StoreMixin],
@@ -58,9 +59,6 @@ var Chart = React.createClass({
   },
 
   updateWidth() {
-    if (!this.isMounted()) {
-      return;
-    }
     var node = ReactDOM.findDOMNode(this);
     var dimensions = DOMUtils.getComputedDimensions(node);
     var data = this.internalStorage_get();

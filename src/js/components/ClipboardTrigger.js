@@ -3,7 +3,6 @@ import { Trans } from "@lingui/macro";
 import Clipboard from "clipboard";
 import PropTypes from "prop-types";
 import React from "react";
-import ReactDOM from "react-dom";
 import { Tooltip } from "reactjs-components";
 
 import Icon from "./Icon";
@@ -18,21 +17,20 @@ class ClipboardTrigger extends React.Component {
       hasCopiedToClipboard: false
     };
 
+    this.copyButtonRef = React.createRef();
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
-    if (this.refs.copyButton) {
-      this.clipboard = new Clipboard(
-        ReactDOM.findDOMNode(this.refs.copyButton),
-        {
-          text: () => {
-            return this.props.copyText;
-          }
+    if (this.copyButtonRef) {
+      this.clipboard = new Clipboard(this.copyButtonRef.current, {
+        text: () => {
+          return this.props.copyText;
         }
-      );
+      });
 
       this.clipboard.on("success", this.handleCopy);
     }
@@ -52,7 +50,7 @@ class ClipboardTrigger extends React.Component {
         <span
           className={className}
           onMouseEnter={this.handleCopyIconMouseEnter}
-          ref="copyButton"
+          ref={this.copyButtonRef}
         >
           {children}
         </span>
@@ -66,7 +64,7 @@ class ClipboardTrigger extends React.Component {
         className={`clickable icon-clipboard ${className}`}
         color="purple"
         onMouseEnter={this.handleCopyIconMouseEnter}
-        ref="copyButton"
+        ref={this.copyButtonRef}
       />
     );
   }

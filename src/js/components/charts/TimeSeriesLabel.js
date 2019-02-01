@@ -2,10 +2,11 @@ import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import ValueTypes from "../../constants/ValueTypes";
 
-var TimeSeriesLabel = React.createClass({
+var TimeSeriesLabel = createReactClass({
   displayName: "TimeSeriesLabel",
 
   propTypes: {

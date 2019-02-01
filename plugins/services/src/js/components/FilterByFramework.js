@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import { Dropdown } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
@@ -7,10 +8,10 @@ import { i18nMark } from "@lingui/react";
 import { Badge } from "@dcos/ui-kit";
 import Framework from "../structs/Framework";
 
-var defaultId = "default";
+const defaultId = "default";
 
-var FilterByFramework = React.createClass({
-  displayName: "FilterByFramework",
+const FilterByService = createReactClass({
+  displayName: "FilterByService",
 
   propTypes: {
     byFrameworkFilter: PropTypes.string,
@@ -117,4 +118,4 @@ var FilterByFramework = React.createClass({
   }
 });
 
-module.exports = FilterByFramework;
+module.exports = FilterByService;

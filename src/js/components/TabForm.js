@@ -23,6 +23,8 @@ class TabForm extends mixin(InternalStorageMixin) {
 
     this.state = { currentTab: "", renderGemini: false };
 
+    this.geminiRef = React.createRef();
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
@@ -50,7 +52,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   componentDidUpdate() {
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
-      ScrollbarUtil.updateWithRef(this.refs.geminiForms);
+      ScrollbarUtil.updateWithRef(this.geminiRef);
     });
   }
 
@@ -202,7 +204,7 @@ class TabForm extends mixin(InternalStorageMixin) {
       <GeminiScrollbar
         autoshow={true}
         className={multipleDefinitionClasses}
-        ref="geminiForms"
+        ref={this.geminiRef}
       >
         {panels}
       </GeminiScrollbar>
