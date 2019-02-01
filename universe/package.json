@@ -1,7 +1,7 @@
 {
   "packagingVersion": "4.0",
   "name": "dcos-ui",
-  "version": "2.24.4",
+  "version": "nightly",
   "tags": ["dcos-ui", "dcos", "ui"],
   "maintainer": "frontend-dev@mesosphere.io",
   "description": "DC/OS UI",

@@ -1,5 +1,6 @@
 import { i18nMark } from "@lingui/react";
 import React from "react";
+import createReactClass from "create-react-class";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -9,7 +10,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 
-var ServicesPage = React.createClass({
+var ServicesPage = createReactClass({
   contextTypes: {
     router: routerShape
   },

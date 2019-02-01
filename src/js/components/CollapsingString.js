@@ -17,6 +17,8 @@ class CollapsingString extends React.Component {
       stringWidth: null
     };
 
+    this.fullStringRef = React.createRef();
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
@@ -72,8 +74,8 @@ class CollapsingString extends React.Component {
   }
 
   getStringWidth() {
-    if (this.refs.fullString) {
-      return DOMUtils.getComputedWidth(this.refs.fullString);
+    if (this.fullStringRef) {
+      return DOMUtils.getComputedWidth(this.fullStringRef.current);
     }
 
     return null;
@@ -112,7 +114,7 @@ class CollapsingString extends React.Component {
 
     let stringWidth = null;
 
-    if (this.refs.fullString != null) {
+    if (this.fullStringRef != null) {
       stringWidth = this.getStringWidth();
     }
 
@@ -142,7 +144,10 @@ class CollapsingString extends React.Component {
 
     return (
       <div className={this.props.wrapperClassName} title={fullString}>
-        <span className={this.props.fullStringClassName} ref="fullString">
+        <span
+          className={this.props.fullStringClassName}
+          ref={this.fullStringRef}
+        >
           {fullString}
         </span>
         <div className={this.props.truncatedWrapperClassName}>

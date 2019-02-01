@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import React from "react";
+import createReactClass from "create-react-class";
 import { CSSTransitionGroup } from "react-transition-group";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
@@ -27,7 +28,7 @@ function getSidebarState() {
   };
 }
 
-var Index = React.createClass({
+var Index = createReactClass({
   displayName: "Index",
 
   mixins: [StoreMixin],

@@ -3,11 +3,12 @@ import isEqual from "lodash.isequal";
 import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 
 import ServiceStatusIcon from "./ServiceStatusIcon";
 
-const ServiceList = React.createClass({
+const ServiceList = createReactClass({
   displayName: "ServiceList",
 
   propTypes: {

@@ -1,9 +1,10 @@
 import d3 from "d3";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
-var TimeSeriesArea = React.createClass({
+var TimeSeriesArea = createReactClass({
   displayName: "TimeSeriesArea",
 
   propTypes: {

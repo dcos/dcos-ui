@@ -3,13 +3,14 @@ import { t } from "@lingui/macro";
 
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import Chart from "./Chart";
 import TimeSeriesChart from "./TimeSeriesChart";
 import TimeSeriesLabel from "./TimeSeriesLabel";
 import ValueTypes from "../../constants/ValueTypes";
 
-var HostTimeSeriesChart = React.createClass({
+var HostTimeSeriesChart = createReactClass({
   displayName: "HostTimeSeriesChart",
 
   propTypes: {

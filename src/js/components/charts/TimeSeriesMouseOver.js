@@ -1,10 +1,11 @@
 import d3 from "d3";
 import PropTypes from "prop-types";
 import React from "react";
+import createReactClass from "create-react-class";
 
 import Maths from "../../utils/Maths";
 
-var TimeSeriesMouseOver = React.createClass({
+var TimeSeriesMouseOver = createReactClass({
   displayName: "TimeSeriesMouseOver",
 
   propTypes: {
@@ -70,21 +71,21 @@ var TimeSeriesMouseOver = React.createClass({
       props.width;
     index = Math.round(index + hiddenDataPoints);
 
-    d3.select(this.refs.xMousePosition)
+    d3.select(this.xMousePositionRef)
       .style("opacity", 1)
       .transition()
       .duration(50)
       .attr("x1", mouse.x)
       .attr("x2", mouse.x);
 
-    d3.select(this.refs.yMousePosition)
+    d3.select(this.yMousePositionRef)
       .style("opacity", 1)
       .transition()
       .duration(50)
       .attr("y1", props.yScale(firstDataSet.values[index][props.y]))
       .attr("y2", props.yScale(firstDataSet.values[index][props.y]));
 
-    d3.select(this.refs.yAxisCurrent)
+    d3.select(this.yAxisCurrentRef)
       .transition()
       .duration(50)
       .attr("y", props.yScale(firstDataSet.values[index][props.y]))
@@ -112,7 +113,7 @@ var TimeSeriesMouseOver = React.createClass({
     } else {
       value = "-" + value + "s";
     }
-    d3.select(this.refs.xAxisCurrent)
+    d3.select(this.xAxisCurrentRef)
       .transition()
       .duration(50)
       .attr("x", xPosition)
@@ -121,14 +122,14 @@ var TimeSeriesMouseOver = React.createClass({
   },
 
   handleMouseOut() {
-    d3.select(this.refs.yMousePosition)
+    d3.select(this.yMousePositionRef)
       .interrupt()
       .style("opacity", 0);
-    d3.select(this.refs.xMousePosition)
+    d3.select(this.xMousePositionRef)
       .interrupt()
       .style("opacity", 0);
-    d3.select(this.refs.xAxisCurrent).text("");
-    d3.select(this.refs.yAxisCurrent).text("");
+    d3.select(this.xAxisCurrentRef).text("");
+    d3.select(this.yAxisCurrentRef).text("");
   },
 
   render() {
@@ -141,7 +142,7 @@ var TimeSeriesMouseOver = React.createClass({
         <g className="x axis">
           <text
             className="current-value shadow"
-            ref="xAxisCurrent"
+            ref={ref => (this.xAxisCurrentRef = ref)}
             dy=".71em"
             y="9"
             transform={"translate(0," + height + ")"}
@@ -150,7 +151,7 @@ var TimeSeriesMouseOver = React.createClass({
         <g className="y axis">
           <text
             className="current-value shadow"
-            ref="yAxisCurrent"
+            ref={ref => (this.yAxisCurrentRef = ref)}
             style={{ textAnchor: "end" }}
             dy=".32em"
             x="-9"
@@ -158,14 +159,14 @@ var TimeSeriesMouseOver = React.createClass({
         </g>
         <line
           className="chart-cursor-position-marker"
-          ref="xMousePosition"
+          ref={ref => (this.xMousePositionRef = ref)}
           style={{ opacity: 0 }}
           y1={0}
           y2={height}
         />
         <line
           className="chart-cursor-position-marker"
-          ref="yMousePosition"
+          ref={ref => (this.yMousePositionRef = ref)}
           style={{ opacity: 0 }}
           x1={0}
           x2={this.props.width}
