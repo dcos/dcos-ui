@@ -1,9 +1,8 @@
 import { injectable, interfaces } from "inversify";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, PartialObserver } from "rxjs";
+import { publish, refCount } from "rxjs/operators";
 
 import Container, { observe } from "./Container";
-// tslint:disable-next-line:no-submodule-imports
-import { PartialObserver } from "rxjs/Observer";
 
 @injectable()
 export class ExtensionProvider<T> {
@@ -17,9 +16,10 @@ export class ExtensionProvider<T> {
   ) {
     this.serviceIdentifier = serviceIdentifier;
     this.container = container;
-    this.updates$ = observe<T>(container, serviceIdentifier)
-      .publish()
-      .refCount();
+    this.updates$ = observe<T>(container, serviceIdentifier).pipe(
+      publish(),
+      refCount()
+    );
   }
 
   public subscribe(observer: PartialObserver<T>): Subscription {

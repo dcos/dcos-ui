@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { combineLatest } from "rxjs/observable/combineLatest";
+import { BehaviorSubject, combineLatest, Subscribable, Observable } from "rxjs";
+import { take, map } from "rxjs/operators";
 
 import gql from "graphql-tag";
 import { componentFromStream, graphqlObservable } from "@dcos/data-service";
@@ -51,16 +51,19 @@ const JobCreateEditFormModal = componentFromStream<JobCreateEditFormModalProps>(
     ) {
       const mutation = isEdit ? updateJobMutation : createJobMutation;
 
-      combineLatest(props$, graphqlObservable(mutation, defaultSchema, data))
-        .take(1) // unsubscribe after the first one to break ∞ react update loop
+      combineLatest(
+        props$ as Subscribable<any>,
+        graphqlObservable(mutation, defaultSchema, data) as Observable<any>
+      )
+        .pipe(take(1)) // unsubscribe after the first one to break ∞ react update loop
         .subscribe({
           next: ([props]) => props.onClose(),
           error: ({ response }) => handleErrorMessageChange(response)
         });
     }
 
-    return combineLatest<JobFormModalInput>([props$, errorMessage$]).map(
-      ([props, errorMessage]) => (
+    return combineLatest<JobFormModalInput>([props$, errorMessage$]).pipe(
+      map(([props, errorMessage]) => (
         <JobFormModal
           handleCancel={props.onClose}
           handleSubmit={handleSubmit}
@@ -70,7 +73,7 @@ const JobCreateEditFormModal = componentFromStream<JobCreateEditFormModalProps>(
           job={props.job || new Job()}
           errorMessage={errorMessage}
         />
-      )
+      ))
     );
   }
 );

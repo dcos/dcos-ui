@@ -1,4 +1,4 @@
-import "rxjs/add/operator/take";
+import { take } from "rxjs/operators";
 
 import { graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
@@ -21,7 +21,7 @@ export default function jobsRunNow(jobId) {
       // take(1) makes sure the observable is going to complete after finishing
       // the request, so we don't have to care about unsubscribing.
       graphqlObservable(runNowJobMutation, defaultSchema, { jobId })
-        .take(1)
+        .pipe(take(1))
         .subscribe();
     }
   };

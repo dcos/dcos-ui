@@ -1,5 +1,6 @@
 import { request, RequestResponse } from "@dcos/http-service";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 export type ServicePlanStatus =
   | "ERROR"
@@ -36,8 +37,8 @@ export interface ServicePlanResponse {
 export function fetchPlans(
   serviceId: string
 ): Observable<RequestResponse<string[]>> {
-  return request(`/service/${serviceId}/v1/plans`).map(
-    (reqResp: RequestResponse<any>) => {
+  return request(`/service/${serviceId}/v1/plans`).pipe(
+    map((reqResp: RequestResponse<any>) => {
       if (reqResp.code >= 300) {
         const respMessage =
           reqResp.response && typeof reqResp.response === "object"
@@ -50,7 +51,7 @@ export function fetchPlans(
         );
       }
       return reqResp;
-    }
+    })
   );
 }
 
@@ -58,8 +59,8 @@ export function fetchPlanDetails(
   serviceId: string,
   planName: string
 ): Observable<RequestResponse<ServicePlanResponse>> {
-  return request(`/service/${serviceId}/v1/plans/${planName}`).map(
-    (reqResp: RequestResponse<any>) => {
+  return request(`/service/${serviceId}/v1/plans/${planName}`).pipe(
+    map((reqResp: RequestResponse<any>) => {
       if (reqResp.code >= 300) {
         const respMessage =
           reqResp.response && typeof reqResp.response === "object"
@@ -72,6 +73,6 @@ export function fetchPlanDetails(
         );
       }
       return reqResp;
-    }
+    })
   );
 }

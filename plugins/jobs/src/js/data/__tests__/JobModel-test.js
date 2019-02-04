@@ -1,4 +1,5 @@
-import { Observable } from "rxjs";
+import { concat, of } from "rxjs";
+import { take, map } from "rxjs/operators";
 import { marbles } from "rxjs-marbles/jest";
 import { resolvers } from "../JobModel";
 
@@ -152,15 +153,13 @@ describe("JobModel Resolver", () => {
         pollingInterval: m.time("--|")
       }).Query.jobs({}, { sortBy, sortDirection, filter, path: [] });
 
-      return resolverResult$.take(1);
+      return resolverResult$.pipe(take(1));
     };
 
     describe("nodes", () => {
       it(
         "returns a list of jobs",
         marbles(m => {
-          m.bind();
-
           const fetchJobs = () =>
             m.cold("(j|)", { j: { response: [defaultJobDetailData] } });
           const fetchJobDetail = _id =>
@@ -175,9 +174,10 @@ describe("JobModel Resolver", () => {
             j: true
           });
 
-          const result$ = resolverResult$
-            .take(1)
-            .map(jobsConnection => Array.isArray(jobsConnection.nodes));
+          const result$ = resolverResult$.pipe(
+            take(1),
+            map(jobsConnection => Array.isArray(jobsConnection.nodes))
+          );
 
           m.expect(result$).toBeObservable(expected$);
         })
@@ -186,7 +186,6 @@ describe("JobModel Resolver", () => {
       it(
         "polls the endpoint",
         marbles(m => {
-          m.bind();
           const fetchJobs = () =>
             m.cold("(j|)", { j: { response: [defaultJobDetailData] } });
           const fetchJobDetail = _id =>
@@ -201,9 +200,10 @@ describe("JobModel Resolver", () => {
             j: ["testid"]
           });
 
-          const result$ = resolverResult$
-            .take(1)
-            .map(({ nodes }) => nodes.map(job => job.id));
+          const result$ = resolverResult$.pipe(
+            take(1),
+            map(({ nodes }) => nodes.map(job => job.id))
+          );
           m.expect(result$).toBeObservable(expected$);
         })
       );
@@ -211,7 +211,6 @@ describe("JobModel Resolver", () => {
       it(
         "shares the subscription",
         marbles(m => {
-          m.bind();
           const fetchJobs = jest.fn(() =>
             m.cold("(j|)", { j: { response: [defaultJobDetailData] } })
           );
@@ -223,18 +222,18 @@ describe("JobModel Resolver", () => {
             pollingInterval: m.time("--|")
           }).Query.jobs;
 
-          Observable.concat(
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1),
-            jobsQuery({}, { path: [] }).take(1)
+          concat(
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1)),
+            jobsQuery({}, { path: [] }).pipe(take(1))
           ).subscribe(jest.fn(), jest.fn(), () => {
             expect(fetchJobs).toHaveBeenCalledTimes(1);
           });
@@ -245,12 +244,10 @@ describe("JobModel Resolver", () => {
         it(
           "orders by ID",
           marbles(m => {
-            m.bind();
-
-            const result$ = oneJobsResponse(m, undefined, "ID", "ASC")
-              .map(({ nodes }) => nodes.map(job => job.id))
-
-              .map(jobs => jobs);
+            const result$ = oneJobsResponse(m, undefined, "ID", "ASC").pipe(
+              map(({ nodes }) => nodes.map(job => job.id)),
+              map(jobs => jobs)
+            );
 
             const expected$ = m.cold("(j|)", {
               j: ["a", "b", "c"]
@@ -263,10 +260,8 @@ describe("JobModel Resolver", () => {
         it(
           "orders by ID DESC",
           marbles(m => {
-            m.bind();
-
-            const result$ = oneJobsResponse(m, undefined, "ID", "DESC").map(
-              ({ nodes }) => nodes.map(job => job.id)
+            const result$ = oneJobsResponse(m, undefined, "ID", "DESC").pipe(
+              map(({ nodes }) => nodes.map(job => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
@@ -280,10 +275,8 @@ describe("JobModel Resolver", () => {
         it(
           "orders by STATUS",
           marbles(m => {
-            m.bind();
-
-            const result$ = oneJobsResponse(m, undefined, "STATUS", "ASC").map(
-              ({ nodes }) => nodes.map(job => job.scheduleStatus)
+            const result$ = oneJobsResponse(m, undefined, "STATUS", "ASC").pipe(
+              map(({ nodes }) => nodes.map(job => job.scheduleStatus))
             );
 
             const expected$ = m.cold("(j|)", {
@@ -297,14 +290,14 @@ describe("JobModel Resolver", () => {
         it(
           "orders by LAST_RUN",
           marbles(m => {
-            m.bind();
-
             const result$ = oneJobsResponse(
               m,
               undefined,
               "LAST_RUN",
               "ASC"
-            ).map(({ nodes }) => nodes.map(job => job.lastRunStatus.status));
+            ).pipe(
+              map(({ nodes }) => nodes.map(job => job.lastRunStatus.status))
+            );
 
             const expected$ = m.cold("(j|)", {
               j: ["Failed", "N/A", "Success"]
@@ -319,10 +312,8 @@ describe("JobModel Resolver", () => {
         it(
           "filters by ID",
           marbles(m => {
-            m.bind();
-
-            const result$ = oneJobsResponse(m, "b").map(({ nodes }) =>
-              nodes.map(job => job.id)
+            const result$ = oneJobsResponse(m, "b").pipe(
+              map(({ nodes }) => nodes.map(job => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
@@ -335,10 +326,8 @@ describe("JobModel Resolver", () => {
         it(
           "filters by empty string",
           marbles(m => {
-            m.bind();
-
-            const result$ = oneJobsResponse(m, "").map(({ nodes }) =>
-              nodes.map(job => job.id)
+            const result$ = oneJobsResponse(m, "").pipe(
+              map(({ nodes }) => nodes.map(job => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
@@ -351,10 +340,8 @@ describe("JobModel Resolver", () => {
         it(
           "filters by undefined",
           marbles(m => {
-            m.bind();
-
-            const result$ = oneJobsResponse(m).map(({ nodes }) =>
-              nodes.map(job => job.id)
+            const result$ = oneJobsResponse(m).pipe(
+              map(({ nodes }) => nodes.map(job => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
@@ -382,14 +369,12 @@ describe("JobModel Resolver", () => {
             pollingInterval: m.time("--|")
           }).Query.jobs({}, { path, filter });
 
-          return resolverResult$.take(1);
+          return resolverResult$.pipe(take(1));
         };
 
         it(
           "only shows jobs within the path",
           marbles(m => {
-            m.bind();
-
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -400,7 +385,7 @@ describe("JobModel Resolver", () => {
                 "bar.cocktails"
               ],
               ["foo"]
-            ).map(({ nodes }) => nodes.map(job => job.id));
+            ).pipe(map(({ nodes }) => nodes.map(job => job.id)));
 
             const expected$ = m.cold("(j|)", {
               j: ["foo.bar.baz", "foo.bar.clock", "foo.bar.other"]
@@ -413,8 +398,6 @@ describe("JobModel Resolver", () => {
         it(
           "handles nested path",
           marbles(m => {
-            m.bind();
-
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -425,7 +408,7 @@ describe("JobModel Resolver", () => {
                 "bar.cocktails"
               ],
               ["foo", "bar"]
-            ).map(({ nodes }) => nodes.map(job => job.id));
+            ).pipe(map(({ nodes }) => nodes.map(job => job.id)));
 
             const expected$ = m.cold("(j|)", {
               j: ["foo.bar.baz"]
@@ -438,8 +421,6 @@ describe("JobModel Resolver", () => {
         it(
           "filters by ID within the path",
           marbles(m => {
-            m.bind();
-
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -451,7 +432,7 @@ describe("JobModel Resolver", () => {
               ],
               ["foo"],
               "ba"
-            ).map(({ nodes }) => nodes.map(job => job.id));
+            ).pipe(map(({ nodes }) => nodes.map(job => job.id)));
 
             const expected$ = m.cold("(j|)", {
               j: ["foo.bar.baz", "foo.baz.clock"]
@@ -464,8 +445,6 @@ describe("JobModel Resolver", () => {
         it(
           "calculates the filteredCount from pathd jobs",
           marbles(m => {
-            m.bind();
-
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -477,7 +456,7 @@ describe("JobModel Resolver", () => {
               ],
               ["foo"],
               "ba"
-            ).map(({ filteredCount }) => filteredCount);
+            ).pipe(map(({ filteredCount }) => filteredCount));
 
             const expected$ = m.cold("(j|)", {
               j: 2
@@ -490,8 +469,6 @@ describe("JobModel Resolver", () => {
         it(
           "calculates the totalCount from pathd jobs",
           marbles(m => {
-            m.bind();
-
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -503,7 +480,7 @@ describe("JobModel Resolver", () => {
               ],
               ["foo"],
               "ba"
-            ).map(({ totalCount }) => totalCount);
+            ).pipe(map(({ totalCount }) => totalCount));
 
             const expected$ = m.cold("(j|)", {
               j: 3
@@ -519,10 +496,8 @@ describe("JobModel Resolver", () => {
       it(
         "returns number of jobs after filtering",
         marbles(m => {
-          m.bind();
-
-          const result$ = oneJobsResponse(m, "b").map(
-            jobsConnection => jobsConnection.filteredCount
+          const result$ = oneJobsResponse(m, "b").pipe(
+            map(jobsConnection => jobsConnection.filteredCount)
           );
 
           const expected$ = m.cold("(j|)", {
@@ -538,10 +513,8 @@ describe("JobModel Resolver", () => {
       it(
         "returns number of jobs after filtering",
         marbles(m => {
-          m.bind();
-
-          const result$ = oneJobsResponse(m, "b").map(
-            jobsConnection => jobsConnection.totalCount
+          const result$ = oneJobsResponse(m, "b").pipe(
+            map(jobsConnection => jobsConnection.totalCount)
           );
 
           const expected$ = m.cold("(j|)", {
@@ -558,7 +531,6 @@ describe("JobModel Resolver", () => {
     it(
       "polls the endpoint",
       marbles(m => {
-        m.bind();
         const fetchJobDetail = id =>
           m.cold("--x|", { x: { response: { ...defaultJobDetailData, id } } });
         const result$ = resolvers({
@@ -570,24 +542,27 @@ describe("JobModel Resolver", () => {
           x: "foo"
         });
 
-        m.expect(result$.take(3).map(x => x.id)).toBeObservable(expected$);
+        m.expect(
+          result$.pipe(
+            take(3),
+            map(x => x.id)
+          )
+        ).toBeObservable(expected$);
       })
     );
 
     it(
       "returns plain job data (id, disk, description, cpus, command, mem)",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
-          fetchJobDetail: () =>
-            Observable.of({ response: defaultJobDetailData }),
+          fetchJobDetail: () => of({ response: defaultJobDetailData }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
         m.expect(
-          result$
-            .take(1)
-            .map(({ id, disk, description, cpus, command, mem }) => ({
+          result$.pipe(
+            take(1),
+            map(({ id, disk, description, cpus, command, mem }) => ({
               id,
               disk,
               description,
@@ -595,6 +570,7 @@ describe("JobModel Resolver", () => {
               command,
               mem
             }))
+          )
         ).toBeObservable(
           m.cold("(x|)", {
             x: {
@@ -613,16 +589,20 @@ describe("JobModel Resolver", () => {
     it(
       "returns the name",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({
+            of({
               response: { ...defaultJobDetailData, id: "foo.bar.baz" }
             }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
-        m.expect(result$.take(1).map(({ name }) => name)).toBeObservable(
+        m.expect(
+          result$.pipe(
+            take(1),
+            map(({ name }) => name)
+          )
+        ).toBeObservable(
           m.cold("(x|)", {
             x: "baz"
           })
@@ -633,16 +613,20 @@ describe("JobModel Resolver", () => {
     it(
       "returns path when job has one",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({
+            of({
               response: { ...defaultJobDetailData, id: "foo.bar.baz" }
             }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
-        m.expect(result$.take(1).map(({ path }) => path)).toBeObservable(
+        m.expect(
+          result$.pipe(
+            take(1),
+            map(({ path }) => path)
+          )
+        ).toBeObservable(
           m.cold("(x|)", {
             x: ["foo", "bar"]
           })
@@ -653,14 +637,18 @@ describe("JobModel Resolver", () => {
     it(
       "returns empty array when job has no path",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({ response: { ...defaultJobDetailData, id: "foo" } }),
+            of({ response: { ...defaultJobDetailData, id: "foo" } }),
           pollingInterval: m.time("-|")
         }).Query.job({}, { id: "foo" });
 
-        m.expect(result$.take(1).map(({ path }) => path)).toBeObservable(
+        m.expect(
+          result$.pipe(
+            take(1),
+            map(({ path }) => path)
+          )
+        ).toBeObservable(
           m.cold("(x|)", {
             x: []
           })
@@ -672,10 +660,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns the longest running job's status",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   activeRuns: [
@@ -698,7 +685,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ scheduleStatus }) => scheduleStatus)
+            result$.pipe(
+              take(1),
+              map(({ scheduleStatus }) => scheduleStatus)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "foo"
@@ -710,10 +700,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns scheduled if there are no active runs and the schedule is enabled",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   id: "/foo",
@@ -729,7 +718,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ scheduleStatus }) => scheduleStatus)
+            result$.pipe(
+              take(1),
+              map(({ scheduleStatus }) => scheduleStatus)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "SCHEDULED"
@@ -741,10 +733,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns unscheduled if there are no active runs and the schedule is enabled",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   id: "/foo",
@@ -760,7 +751,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ scheduleStatus }) => scheduleStatus)
+            result$.pipe(
+              take(1),
+              map(({ scheduleStatus }) => scheduleStatus)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "UNSCHEDULED"
@@ -772,10 +766,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns unscheduled if there are no active runs and no schedule",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   id: "/foo",
@@ -786,7 +779,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ scheduleStatus }) => scheduleStatus)
+            result$.pipe(
+              take(1),
+              map(({ scheduleStatus }) => scheduleStatus)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "UNSCHEDULED"
@@ -801,10 +797,9 @@ describe("JobModel Resolver", () => {
         it(
           "returns null if no runs are there",
           marbles(m => {
-            m.bind();
             const result$ = resolvers({
               fetchJobDetail: () =>
-                Observable.of({
+                of({
                   response: {
                     ...defaultJobDetailData,
                     id: "/foo",
@@ -815,12 +810,13 @@ describe("JobModel Resolver", () => {
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
-              result$
-                .take(1)
-                .map(
+              result$.pipe(
+                take(1),
+                map(
                   ({ activeRuns: { longestRunningActiveRun } }) =>
                     longestRunningActiveRun
                 )
+              )
             ).toBeObservable(
               m.cold("(x|)", {
                 x: null
@@ -832,10 +828,9 @@ describe("JobModel Resolver", () => {
         it(
           "returns the longest running active run",
           marbles(m => {
-            m.bind();
             const result$ = resolvers({
               fetchJobDetail: () =>
-                Observable.of({
+                of({
                   response: {
                     ...defaultJobDetailData,
                     id: "/foo",
@@ -865,12 +860,13 @@ describe("JobModel Resolver", () => {
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
-              result$
-                .take(1)
-                .map(
+              result$.pipe(
+                take(1),
+                map(
                   ({ activeRuns: { longestRunningActiveRun } }) =>
                     longestRunningActiveRun.jobID
                 )
+              )
             ).toBeObservable(
               m.cold("(x|)", {
                 x: "2"
@@ -882,10 +878,9 @@ describe("JobModel Resolver", () => {
         it(
           "ignores runs without a createdAt field",
           marbles(m => {
-            m.bind();
             const result$ = resolvers({
               fetchJobDetail: () =>
-                Observable.of({
+                of({
                   response: {
                     ...defaultJobDetailData,
                     id: "/foo",
@@ -910,12 +905,13 @@ describe("JobModel Resolver", () => {
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
-              result$
-                .take(1)
-                .map(
+              result$.pipe(
+                take(1),
+                map(
                   ({ activeRuns: { longestRunningActiveRun } }) =>
                     longestRunningActiveRun.jobID
                 )
+              )
             ).toBeObservable(
               m.cold("(x|)", {
                 x: "1"
@@ -929,10 +925,9 @@ describe("JobModel Resolver", () => {
         it(
           "returns all active runs",
           marbles(m => {
-            m.bind();
             const result$ = resolvers({
               fetchJobDetail: () =>
-                Observable.of({
+                of({
                   response: {
                     ...defaultJobDetailData,
                     id: "/foo",
@@ -955,7 +950,10 @@ describe("JobModel Resolver", () => {
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
-              result$.take(1).map(({ activeRuns: { nodes } }) => nodes.length)
+              result$.pipe(
+                take(1),
+                map(({ activeRuns: { nodes } }) => nodes.length)
+              )
             ).toBeObservable(
               m.cold("(x|)", {
                 x: 3
@@ -968,10 +966,9 @@ describe("JobModel Resolver", () => {
           it(
             "contains dates as integers",
             marbles(m => {
-              m.bind();
               const result$ = resolvers({
                 fetchJobDetail: () =>
-                  Observable.of({
+                  of({
                     response: {
                       ...defaultJobDetailData,
                       id: "/foo",
@@ -991,10 +988,13 @@ describe("JobModel Resolver", () => {
               }).Query.job({}, { id: "xyz" });
 
               m.expect(
-                result$.take(1).map(({ activeRuns: { nodes } }) => ({
-                  dateCreated: nodes[0].dateCreated,
-                  dateFinished: nodes[0].dateFinished
-                }))
+                result$.pipe(
+                  take(1),
+                  map(({ activeRuns: { nodes } }) => ({
+                    dateCreated: nodes[0].dateCreated,
+                    dateFinished: nodes[0].dateFinished
+                  }))
+                )
               ).toBeObservable(
                 m.cold("(x|)", {
                   x: {
@@ -1009,10 +1009,9 @@ describe("JobModel Resolver", () => {
           it(
             "contains a status",
             marbles(m => {
-              m.bind();
               const result$ = resolvers({
                 fetchJobDetail: () =>
-                  Observable.of({
+                  of({
                     response: {
                       ...defaultJobDetailData,
                       id: "/foo",
@@ -1032,9 +1031,10 @@ describe("JobModel Resolver", () => {
               }).Query.job({}, { id: "xyz" });
 
               m.expect(
-                result$
-                  .take(1)
-                  .map(({ activeRuns: { nodes } }) => nodes[0].status)
+                result$.pipe(
+                  take(1),
+                  map(({ activeRuns: { nodes } }) => nodes[0].status)
+                )
               ).toBeObservable(
                 m.cold("(x|)", {
                   x: "ACTIVE"
@@ -1047,10 +1047,9 @@ describe("JobModel Resolver", () => {
             it(
               "nodes contains all tasks",
               marbles(m => {
-                m.bind();
                 const result$ = resolvers({
                   fetchJobDetail: () =>
-                    Observable.of({
+                    of({
                       response: {
                         ...defaultJobDetailData,
                         id: "/foo",
@@ -1095,11 +1094,12 @@ describe("JobModel Resolver", () => {
                 }).Query.job({}, { id: "xyz" });
 
                 m.expect(
-                  result$
-                    .take(1)
-                    .map(
+                  result$.pipe(
+                    take(1),
+                    map(
                       ({ activeRuns: { nodes } }) => nodes[0].tasks.nodes.length
                     )
+                  )
                 ).toBeObservable(
                   m.cold("(x|)", {
                     x: 4
@@ -1112,10 +1112,9 @@ describe("JobModel Resolver", () => {
               it(
                 "contains the dates as numbers",
                 marbles(m => {
-                  m.bind();
                   const result$ = resolvers({
                     fetchJobDetail: () =>
-                      Observable.of({
+                      of({
                         response: {
                           ...defaultJobDetailData,
                           id: "/foo",
@@ -1161,10 +1160,13 @@ describe("JobModel Resolver", () => {
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
-                    result$.take(1).map(({ activeRuns: { nodes } }) => ({
-                      dateCompleted: nodes[0].tasks.nodes[3].dateCompleted,
-                      dateStarted: nodes[0].tasks.nodes[3].dateStarted
-                    }))
+                    result$.pipe(
+                      take(1),
+                      map(({ activeRuns: { nodes } }) => ({
+                        dateCompleted: nodes[0].tasks.nodes[3].dateCompleted,
+                        dateStarted: nodes[0].tasks.nodes[3].dateStarted
+                      }))
+                    )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x: {
@@ -1179,10 +1181,9 @@ describe("JobModel Resolver", () => {
               it(
                 "contains the taskId",
                 marbles(m => {
-                  m.bind();
                   const result$ = resolvers({
                     fetchJobDetail: () =>
-                      Observable.of({
+                      of({
                         response: {
                           ...defaultJobDetailData,
                           id: "/foo",
@@ -1228,12 +1229,13 @@ describe("JobModel Resolver", () => {
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
-                    result$
-                      .take(1)
-                      .map(
+                    result$.pipe(
+                      take(1),
+                      map(
                         ({ activeRuns: { nodes } }) =>
                           nodes[0].tasks.nodes[0].taskId
                       )
+                    )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x:
@@ -1246,10 +1248,9 @@ describe("JobModel Resolver", () => {
               it(
                 "contains the status",
                 marbles(m => {
-                  m.bind();
                   const result$ = resolvers({
                     fetchJobDetail: () =>
-                      Observable.of({
+                      of({
                         response: {
                           ...defaultJobDetailData,
                           id: "/foo",
@@ -1295,12 +1296,13 @@ describe("JobModel Resolver", () => {
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
-                    result$
-                      .take(1)
-                      .map(
+                    result$.pipe(
+                      take(1),
+                      map(
                         ({ activeRuns: { nodes } }) =>
                           nodes[0].tasks.nodes[0].status
                       )
+                    )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x: "TASK_RUNNING"
@@ -1314,10 +1316,9 @@ describe("JobModel Resolver", () => {
               it(
                 "returns longest running",
                 marbles(m => {
-                  m.bind();
                   const result$ = resolvers({
                     fetchJobDetail: () =>
-                      Observable.of({
+                      of({
                         response: {
                           ...defaultJobDetailData,
                           id: "/foo",
@@ -1353,12 +1354,13 @@ describe("JobModel Resolver", () => {
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
-                    result$
-                      .take(1)
-                      .map(
+                    result$.pipe(
+                      take(1),
+                      map(
                         ({ activeRuns: { nodes } }) =>
                           nodes[0].tasks.longestRunningTask.taskId
                       )
+                    )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x: "longest-running"
@@ -1370,10 +1372,9 @@ describe("JobModel Resolver", () => {
               it(
                 "ignores createdAt",
                 marbles(m => {
-                  m.bind();
                   const result$ = resolvers({
                     fetchJobDetail: () =>
-                      Observable.of({
+                      of({
                         response: {
                           ...defaultJobDetailData,
                           id: "/foo",
@@ -1408,12 +1409,13 @@ describe("JobModel Resolver", () => {
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
-                    result$
-                      .take(1)
-                      .map(
+                    result$.pipe(
+                      take(1),
+                      map(
                         ({ activeRuns: { nodes } }) =>
                           nodes[0].tasks.longestRunningTask.taskId
                       )
+                    )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x: "longest-running"
@@ -1425,10 +1427,9 @@ describe("JobModel Resolver", () => {
               it(
                 "returns null if there are no tasks",
                 marbles(m => {
-                  m.bind();
                   const result$ = resolvers({
                     fetchJobDetail: () =>
-                      Observable.of({
+                      of({
                         response: {
                           ...defaultJobDetailData,
                           id: "/foo",
@@ -1448,12 +1449,13 @@ describe("JobModel Resolver", () => {
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
-                    result$
-                      .take(1)
-                      .map(
+                    result$.pipe(
+                      take(1),
+                      map(
                         ({ activeRuns: { nodes } }) =>
                           nodes[0].tasks.longestRunningTask
                       )
+                    )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x: null
@@ -1471,10 +1473,9 @@ describe("JobModel Resolver", () => {
       it(
         "contains all types of job runs",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   id: "/foo",
@@ -1510,9 +1511,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$
-              .take(1)
-              .map(({ jobRuns: { nodes } }) => nodes.map(node => node.jobID))
+            result$.pipe(
+              take(1),
+              map(({ jobRuns: { nodes } }) => nodes.map(node => node.jobID))
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: ["1", "2", "3"]
@@ -1524,10 +1526,9 @@ describe("JobModel Resolver", () => {
       it(
         "contains same information for each type",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   id: "/foo",
@@ -1568,9 +1569,10 @@ describe("JobModel Resolver", () => {
           };
 
           m.expect(
-            result$
-              .take(1)
-              .map(({ jobRuns: { nodes } }) => nodes.map(node => node))
+            result$.pipe(
+              take(1),
+              map(({ jobRuns: { nodes } }) => nodes.map(node => node))
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: [
@@ -1606,10 +1608,9 @@ describe("JobModel Resolver", () => {
       it(
         "contains default if job wasnt run yet",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   history: {
@@ -1626,7 +1627,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => response.lastRunsSummary)
+            result$.pipe(
+              take(1),
+              map(response => response.lastRunsSummary)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: {
@@ -1645,10 +1649,9 @@ describe("JobModel Resolver", () => {
       it(
         "is null if no docker information is provided",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   run: {
@@ -1661,7 +1664,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => response.docker)
+            result$.pipe(
+              take(1),
+              map(response => response.docker)
+            )
           ).toBeObservable(m.cold("(x|)", { x: null }));
         })
       );
@@ -1669,10 +1675,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns forcePullImage",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   run: {
@@ -1688,7 +1693,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => response.docker.forcePullImage)
+            result$.pipe(
+              take(1),
+              map(response => response.docker.forcePullImage)
+            )
           ).toBeObservable(m.cold("(x|)", { x: true }));
         })
       );
@@ -1696,10 +1704,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns image",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   run: {
@@ -1715,7 +1722,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => response.docker.image)
+            result$.pipe(
+              take(1),
+              map(response => response.docker.image)
+            )
           ).toBeObservable(m.cold("(x|)", { x: "node:10" }));
         })
       );
@@ -1725,10 +1735,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns json representation",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   id: "json-id"
@@ -1738,7 +1747,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => JSON.parse(response.json).id)
+            result$.pipe(
+              take(1),
+              map(response => JSON.parse(response.json).id)
+            )
           ).toBeObservable(m.cold("(x|)", { x: "json-id" }));
         })
       );
@@ -1746,10 +1758,9 @@ describe("JobModel Resolver", () => {
       it(
         "removes blacklisted keys from JSON",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData
                 }
@@ -1758,7 +1769,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(response => JSON.parse(response.json).history)
+            result$.pipe(
+              take(1),
+              map(response => JSON.parse(response.json).history)
+            )
           ).toBeObservable(m.cold("(x|)", { x: undefined }));
         })
       );
@@ -1767,10 +1781,9 @@ describe("JobModel Resolver", () => {
     it(
       "returns labels as array of key and value",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           fetchJobDetail: () =>
-            Observable.of({
+            of({
               response: {
                 ...defaultJobDetailData,
                 labels: {
@@ -1783,7 +1796,10 @@ describe("JobModel Resolver", () => {
         }).Query.job({}, { id: "xyz" });
 
         m.expect(
-          result$.take(1).map(response => response.labels)
+          result$.pipe(
+            take(1),
+            map(response => response.labels)
+          )
         ).toBeObservable(
           m.cold("(x|)", {
             x: [{ key: "foo", value: "bar" }, { key: "baz", value: "nice" }]
@@ -1796,10 +1812,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns status of last run",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData
                 }
@@ -1808,7 +1823,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ lastRunStatus }) => lastRunStatus.status)
+            result$.pipe(
+              take(1),
+              map(({ lastRunStatus }) => lastRunStatus.status)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "Success"
@@ -1819,10 +1837,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns time of last run",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData
                 }
@@ -1831,7 +1848,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ lastRunStatus }) => lastRunStatus.time)
+            result$.pipe(
+              take(1),
+              map(({ lastRunStatus }) => lastRunStatus.time)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: 1528282184471
@@ -1843,10 +1863,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns status N/A for new Job",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   history: {
@@ -1863,7 +1882,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ lastRunStatus }) => lastRunStatus.status)
+            result$.pipe(
+              take(1),
+              map(({ lastRunStatus }) => lastRunStatus.status)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "N/A"
@@ -1875,10 +1897,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns time null for new Job",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   history: {
@@ -1895,7 +1916,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ lastRunStatus }) => lastRunStatus.time)
+            result$.pipe(
+              take(1),
+              map(({ lastRunStatus }) => lastRunStatus.time)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: null
@@ -1907,10 +1931,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns failed for job with only failed",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   history: {
@@ -1933,7 +1956,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ lastRunStatus }) => lastRunStatus.status)
+            result$.pipe(
+              take(1),
+              map(({ lastRunStatus }) => lastRunStatus.status)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: "Failed"
@@ -1945,10 +1971,9 @@ describe("JobModel Resolver", () => {
       it(
         "returns Success for first failed then successful Job",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData
                 }
@@ -1957,7 +1982,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ lastRunStatus }) => lastRunStatus)
+            result$.pipe(
+              take(1),
+              map(({ lastRunStatus }) => lastRunStatus)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: { status: "Success", time: 1528282184471 }
@@ -1971,10 +1999,9 @@ describe("JobModel Resolver", () => {
       it(
         "contains empty array for schedules if response did",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData
                 }
@@ -1983,7 +2010,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ schedules }) => schedules)
+            result$.pipe(
+              take(1),
+              map(({ schedules }) => schedules)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: { nodes: [] }
@@ -1995,10 +2025,9 @@ describe("JobModel Resolver", () => {
       it(
         "contains schedule if response did",
         marbles(m => {
-          m.bind();
           const result$ = resolvers({
             fetchJobDetail: () =>
-              Observable.of({
+              of({
                 response: {
                   ...defaultJobDetailData,
                   schedules: [
@@ -2018,7 +2047,10 @@ describe("JobModel Resolver", () => {
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
-            result$.take(1).map(({ schedules }) => schedules)
+            result$.pipe(
+              take(1),
+              map(({ schedules }) => schedules)
+            )
           ).toBeObservable(
             m.cold("(x|)", {
               x: {
@@ -2043,10 +2075,9 @@ describe("JobModel Resolver", () => {
     it(
       "returns a JobLink shaped object",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           runJob: () =>
-            Observable.of({
+            of({
               response: {
                 jobId: "bestJobEver",
                 somethingElse: true
@@ -2054,7 +2085,7 @@ describe("JobModel Resolver", () => {
             })
         }).Mutation.runJob({}, { id: "bestJobEver" });
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
               jobId: "bestJobEver"
@@ -2067,12 +2098,11 @@ describe("JobModel Resolver", () => {
     it(
       "throws when arguments are missing",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           runjob: () => {}
         }).Mutation.runJob({}, {});
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold(
             "#",
             {},
@@ -2091,10 +2121,9 @@ describe("JobModel Resolver", () => {
     it(
       "returns a JobLink shaped object",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           deleteJob: () =>
-            Observable.of({
+            of({
               response: {
                 jobId: "bestJobEver",
                 somethingElse: true
@@ -2105,7 +2134,7 @@ describe("JobModel Resolver", () => {
           { id: "bestJobEver", stopCurrentJobRuns: false }
         );
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
               jobId: "bestJobEver"
@@ -2118,12 +2147,11 @@ describe("JobModel Resolver", () => {
     it(
       "throws when arguments are missing",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           deleteJob: () => {}
         }).Mutation.deleteJob({}, {});
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold(
             "#",
             {},
@@ -2143,10 +2171,9 @@ describe("JobModel Resolver", () => {
     it(
       "returns a JobLink shaped object",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           stopJobRun: () =>
-            Observable.of({
+            of({
               response: {
                 jobId: "bestJobEver",
                 somethingElse: true
@@ -2157,7 +2184,7 @@ describe("JobModel Resolver", () => {
           { id: "bestJobEver", jobRunId: "theBestRun" }
         );
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
               jobId: "bestJobEver"
@@ -2170,12 +2197,11 @@ describe("JobModel Resolver", () => {
     it(
       "throws when arguments are missing",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           stopJobRun: () => {}
         }).Mutation.stopJobRun({}, {});
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold(
             "#",
             {},
@@ -2195,10 +2221,9 @@ describe("JobModel Resolver", () => {
     it(
       "returns a JobLink shaped object",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           updateSchedule: () =>
-            Observable.of({
+            of({
               response: {
                 jobId: "bestJobEver",
                 somethingElse: true
@@ -2206,7 +2231,7 @@ describe("JobModel Resolver", () => {
             })
         }).Mutation.updateSchedule({}, { id: "bestJobEver", data: {} });
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
               jobId: "bestJobEver"
@@ -2219,12 +2244,11 @@ describe("JobModel Resolver", () => {
     it(
       "throws when arguments are missing",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           updateSchedule: () => {}
         }).Mutation.updateSchedule({}, {});
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold(
             "#",
             {},
@@ -2248,12 +2272,11 @@ describe("JobModel Resolver", () => {
     it(
       "returns a JobDetailResponse shaped object",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
-          updateJob: (_id, data) => Observable.of({ response: data })
+          updateJob: (_id, data) => of({ response: data })
         }).Mutation.updateJob({}, { id: "bestJobEver", data: jobData });
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: jobData
           })
@@ -2264,12 +2287,11 @@ describe("JobModel Resolver", () => {
     it(
       "throws when arguments are missing",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           update: () => {}
         }).Mutation.updateJob({}, {});
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold(
             "#",
             {},
@@ -2293,12 +2315,11 @@ describe("JobModel Resolver", () => {
     it(
       "returns a JobDetailResponse shaped object",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
-          createJob: data => Observable.of({ response: data })
+          createJob: data => of({ response: data })
         }).Mutation.createJob({}, { data: jobData });
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: jobData
           })
@@ -2309,12 +2330,11 @@ describe("JobModel Resolver", () => {
     it(
       "throws when arguments are missing",
       marbles(m => {
-        m.bind();
         const result$ = resolvers({
           createJob: () => {}
         }).Mutation.createJob({}, {});
 
-        m.expect(result$.take(1)).toBeObservable(
+        m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold(
             "#",
             {},
