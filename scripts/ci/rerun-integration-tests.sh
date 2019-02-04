@@ -1,6 +1,6 @@
 #!/bin/bash
-
 set -e
+
 # configurable by environment variable
 RERUNS=${RERUNS:-100}
 
@@ -13,9 +13,13 @@ PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 source "$SCRIPT_PATH/../utils/test"
 source "$SCRIPT_PATH/../utils/integration-tests"
 
+# This aborts if no files are found
+if [ -z $(find_files_with_debug_directives "$PROJECT_ROOT/$TESTS_FOLDER") ]; then
+  echo "No files found to run, aborting"
+  exit 0
+fi
 
 # Get all files with .only in it
-# This aborts if no files are found
 FILES_TO_RUN="$(find_files_with_debug_directives "$PROJECT_ROOT/$TESTS_FOLDER")"
 
 setup
