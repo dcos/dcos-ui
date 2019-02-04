@@ -1,4 +1,4 @@
-# DC/OS UI [![Velocity](http://jenkins.mesosphere.com/buildStatus/icon?job=public-dcos-ui-master)](http://jenkins.mesosphere.com/view/DCOS%20UI/job/public-dcos-ui-master/)
+# DC/OS UI [![Build Status](https://jenkins.mesosphere.com/service/jenkins/buildStatus/icon?job=frontend/dcos-ui-oss-pipeline/master)](https://jenkins.mesosphere.com/service/jenkins/job/frontend/job/dcos-ui-oss-pipeline/job/master/)
 
 The User Interface for The Datacenter Operating System.
 

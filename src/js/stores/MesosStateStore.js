@@ -1,6 +1,17 @@
 import PluginSDK from "PluginSDK";
 import { request } from "@dcos/mesos-client";
-import { Observable } from "rxjs/Observable";
+import { interval } from "rxjs";
+import {
+  merge,
+  distinctUntilChanged,
+  map,
+  tap,
+  zip,
+  take,
+  concat,
+  sampleTime,
+  retryWhen
+} from "rxjs/operators";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import Task from "#PLUGINS/services/src/js/structs/Task";
@@ -79,34 +90,38 @@ class MesosStateStore extends GetSetBaseStore {
     const getMasterRequest = request(
       { type: "GET_MASTER" },
       "/mesos/api/v1?get_master"
-    )
-      .retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES))
-      .do(response => {
+    ).pipe(
+      retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES)),
+      tap(response => {
         const master = mesosStreamParsers.getMaster(
           this.getMaster(),
           JSON.parse(response)
         );
         this.setMaster(master);
-      });
+      })
+    );
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
-    const dataStream = mesosStream
-      .merge(getMasterRequest)
-      .distinctUntilChanged()
-      .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
-      .do(state => {
+    const dataStream = mesosStream.pipe(
+      merge(getMasterRequest),
+      distinctUntilChanged(),
+      map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
+      tap(state => {
         CompositeState.addState(state);
         this.setState(state);
-      });
+      })
+    );
 
-    const waitStream = getMasterRequest.zip(mesosStream.take(1));
-    const eventTriggerStream = dataStream.merge(
-      // A lot of DCOS UI rely on the MesosStateStore emitting
-      // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
-      // event. To avoid a deeper refactor, we introduced this fake emitter.
-      //
-      // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-      Observable.interval(Config.getRefreshRate())
+    const waitStream = getMasterRequest.pipe(zip(mesosStream.pipe(take(1))));
+    const eventTriggerStream = dataStream.pipe(
+      merge(
+        // A lot of DCOS UI rely on the MesosStateStore emitting
+        // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
+        // event. To avoid a deeper refactor, we introduced this fake emitter.
+        //
+        // TODO: https://jira.mesosphere.com/browse/DCOS-18277
+        interval(Config.getRefreshRate())
+      )
     );
 
     // Since we introduced the fake event above, we have to guarantee certain
@@ -118,9 +133,11 @@ class MesosStateStore extends GetSetBaseStore {
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
     this.stream = waitStream
-      .concat(eventTriggerStream)
-      .sampleTime(Config.getRefreshRate() * 0.5)
-      .retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
+      .pipe(
+        concat(eventTriggerStream),
+        sampleTime(Config.getRefreshRate() * 0.5),
+        retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
+      )
       .subscribe(
         () => Promise.resolve().then(this.onStreamData),
         this.onStreamError

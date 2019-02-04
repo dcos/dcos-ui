@@ -6,7 +6,7 @@
   "scripts": {},
   "peerDependencies": {
     "inversify": "4.13.0",
-    "rxjs": "5.4.3"
+    "rxjs": "6.3.3"
   },
   "devDependencies": {
     "@types/events": "1.2.0",

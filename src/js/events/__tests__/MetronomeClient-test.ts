@@ -6,9 +6,7 @@ jest.mock("@dcos/http-service", () => ({
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
 // tslint:disable:no-submodule-imports
 import { marbles } from "rxjs-marbles/jest";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/take";
+import { of } from "rxjs";
 // tslint:enable
 import {
   fetchJobDetail,
@@ -154,8 +152,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: {
             response: jobDetailData,
@@ -174,13 +170,13 @@ describe("MetronomeClient", () => {
 
   describe("#fetchJobs", () => {
     it("makes a request", () => {
-      mockRequest.mockReturnValueOnce(Observable.of({}));
+      mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      mockRequest.mockReturnValueOnce(Observable.of({}));
+      mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalledWith(
         `${
@@ -192,7 +188,6 @@ describe("MetronomeClient", () => {
     it(
       "emits an event if the data is received",
       marbles(m => {
-        m.bind();
         const expectedResult = [jobData, jobData] as JobResponse[];
         const expected$ = m.cold("--j|", {
           j: {
@@ -227,8 +222,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: {
             response: jobDetailData as JobDetailResponse,
@@ -270,8 +263,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
@@ -312,8 +303,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: jobDetailData, code: 200, message: "ok" }
         });
@@ -354,8 +343,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
@@ -394,8 +381,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
@@ -434,8 +419,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
