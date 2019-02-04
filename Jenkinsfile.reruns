@@ -11,10 +11,6 @@ pipeline {
     }
   }
 
-  parameters {
-    booleanParam(defaultValue: false, description: 'Should this job be executed?', name: 'shouldRun')
-  }
-
   environment {
     JENKINS_VERSION = "yes"
     NODE_PATH = "node_modules"
@@ -34,12 +30,6 @@ pipeline {
     }
 
     stage("Build") {
-      when {
-        expression {
-          return params.shouldRun
-        }
-      }
-
       steps {
         sh "npm --unsafe-perm ci"
         sh "npm run build-assets"
@@ -47,20 +37,14 @@ pipeline {
     }
 
     stage("Tests") {
-      when {
-        expression {
-          return params.shouldRun
-        }
-      }
-
       steps {
         sh "REPORT=false RERUN=100 npm run rerun:integration-tests"
       }
 
       post {
         always {
-          archiveArtifacts "cypress/**/*"
-          junit "cypress/results.xml"
+          archiveArtifacts artifacts: "cypress/**/*", allowEmptyArchive: true
+          junit testResults: "cypress/results.xml", allowEmptyResults: true
         }
       }
     }
