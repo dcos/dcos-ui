@@ -102,7 +102,7 @@ module.exports = {
             options: {
               cacheDirectory: true,
               presets: requireAll([
-                "babel-preset-es2015",
+                "babel-preset-env",
                 "babel-preset-stage-3",
                 "babel-preset-react"
               ])
