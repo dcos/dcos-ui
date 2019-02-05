@@ -7,30 +7,26 @@ import { marbles } from "rxjs-marbles/jest";
 import { from } from "rxjs";
 import { take } from "rxjs/operators";
 
-import * as CosmosClient from "../CosmosClient";
-
-const listVersionsResponse: CosmosClient.PackageVersionsResponse = {
-  results: {
-    "1.0.0": "0",
-    "1.1.0": "1"
-  }
-};
+import { CosmosClient } from "../CosmosClient";
 
 describe("CosmosClient", () => {
+  let client: CosmosClient;
   beforeEach(() => {
     jest.clearAllMocks();
+
+    client = new CosmosClient("/", "package");
   });
 
-  describe("#fetchPackageDetails", () => {
+  describe("listPackageVersions", () => {
     it("makes a request", () => {
       mockRequest.mockReturnValueOnce(from([{}]));
-      CosmosClient.fetchPackageVersions("dcos-ui");
+      client.listPackageVersions("dcos-ui");
       expect(mockRequest).toHaveBeenCalled();
     });
 
-    it("makes a request to the correct URL", () => {
+    it("makes a request to the expected URL with expected Headers", () => {
       mockRequest.mockReturnValueOnce(from([{}]));
-      CosmosClient.fetchPackageVersions("dcos-ui");
+      client.listPackageVersions("dcos-ui");
       expect(mockRequest).toHaveBeenCalledWith("/package/list-versions", {
         method: "POST",
         body: {
@@ -38,9 +34,9 @@ describe("CosmosClient", () => {
           packageName: "dcos-ui"
         },
         headers: {
-          accept:
+          Accept:
             "application/vnd.dcos.package.list-versions-response+json;charset=utf-8;version=v1",
-          "content-type":
+          "Content-type":
             "application/vnd.dcos.package.list-versions-request+json;charset=utf-8;version=v1"
         }
       });
@@ -51,16 +47,19 @@ describe("CosmosClient", () => {
       marbles(m => {
         const expected$ = m.cold("--(j|)", {
           j: {
-            response: listVersionsResponse,
+            response: {
+              results: {
+                "1.0.0": "0",
+                "1.1.0": "1"
+              }
+            },
             code: 200,
             message: "OK"
           }
         });
         mockRequest.mockReturnValueOnce(expected$);
 
-        const result$ = CosmosClient.fetchPackageVersions("dcos-ui").pipe(
-          take(1)
-        );
+        const result$ = client.listPackageVersions("dcos-ui").pipe(take(1));
         m.expect(result$).toBeObservable(expected$);
       })
     );
