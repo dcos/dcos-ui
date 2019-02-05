@@ -1,21 +1,15 @@
-import { Observable, of, throwError, timer } from "rxjs";
-import { RequestResponse } from "@dcos/http-service";
+import { of, throwError } from "rxjs";
+import { map, retry } from "rxjs/operators";
 import { makeExecutableSchema } from "graphql-tools";
+import { RequestResponse } from "@dcos/http-service";
+import { CosmosClient, PackageVersionsResponse } from "cosmos-client";
 
-import {
-  fetchPackageVersions,
-  PackageVersionsResponse
-} from "#SRC/js/data/CosmosClient";
 import Config from "#SRC/js/config/Config";
-import { filter, map, retry, switchMap } from "rxjs/operators";
 import { Package, PackageSchema } from "#SRC/js/types/Package";
 import { PackageVersionSchema } from "#SRC/js/types/PackageVersion";
 
 export interface ResolverArgs {
-  fetchPackageVersions: (
-    packageName: string
-  ) => Observable<RequestResponse<PackageVersionsResponse>>;
-  pollingInterval: number;
+  cosmosClient: CosmosClient;
 }
 
 export interface GeneralArgs {
@@ -30,33 +24,30 @@ function isPackageQueryArgs(args: GeneralArgs): args is PackageQueryArgs {
   return (args as PackageQueryArgs).name !== undefined;
 }
 
-export const resolvers = ({
-  fetchPackageVersions,
-  pollingInterval
-}: ResolverArgs) => ({
+export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
   Package: {
-    versions(parent: { name: string }, _args: GeneralArgs) {
+    versions(parent: { name: string }) {
       if (!parent.name) {
         return throwError("Package name must be available to resolve versions");
       }
 
-      const versions$ = timer(0, pollingInterval).pipe(
-        switchMap(() => fetchPackageVersions(parent.name).pipe(retry(2))),
-        filter(
-          ({ code }: RequestResponse<PackageVersionsResponse>) => code < 300
-        ),
-        map(
-          ({
-            response: { results }
-          }: RequestResponse<PackageVersionsResponse>) =>
-            Object.keys(results).map(version => ({
+      return cosmosClient.listPackageVersions(parent.name).pipe(
+        map((resp: RequestResponse<PackageVersionsResponse>) => {
+          const { code, message, response } = resp;
+          if (code < 300) {
+            return Object.keys(response.results).map(version => ({
               version,
-              revision: results[version]
-            }))
-        )
+              revision: response.results[version]
+            }));
+          }
+          throw new Error(
+            `Unable to get package ${
+              parent.name
+            }'s versions from cosmos. Error (${code}): ${message}`
+          );
+        }),
+        retry(2)
       );
-
-      return versions$;
     }
   },
   Query: {
@@ -90,7 +81,6 @@ export interface Query {
 export default makeExecutableSchema({
   typeDefs: schemas,
   resolvers: resolvers({
-    fetchPackageVersions,
-    pollingInterval: Config.getRefreshRate()
+    cosmosClient: new CosmosClient(Config.rootUrl, Config.cosmosAPIPrefix)
   })
 });
