@@ -3,8 +3,9 @@ jest.mock("@dcos/http-service", () => ({
   request: mockRequest
 }));
 
-import { marbles } from "rxjs-marbles/jest";
-import { take } from "rxjs/operators";
+import { marbles, observe } from "rxjs-marbles/jest";
+import { of } from "rxjs";
+import { catchError, take } from "rxjs/operators";
 import gql from "graphql-tag";
 import { graphqlObservable } from "@dcos/data-service";
 
@@ -104,15 +105,13 @@ describe("Cosmos data-layer", () => {
 
     it(
       "retries twice on errors",
-      marbles(m => {
-        const badVersionsResult$ = m.cold("--j|", {
-          j: {
-            code: 500,
-            message: "Internal Server Error",
-            response: {}
-          }
-        });
-        mockRequest.mockImplementation(() => badVersionsResult$);
+      observe(() => {
+        const badVersionsResult = {
+          code: 500,
+          message: "Internal Server Error",
+          response: {}
+        };
+        mockRequest.mockImplementation(() => of(badVersionsResult));
 
         const query = gql`
           query {
@@ -123,13 +122,15 @@ describe("Cosmos data-layer", () => {
           }
         `;
 
-        const queryResult$ = graphqlObservable(query, schema, {
+        return graphqlObservable(query, schema, {
           packageName: "dcos-ui"
-        });
-
-        queryResult$.pipe(take(1)).subscribe(jest.fn(), jest.fn(), () => {
-          expect(mockRequest).toHaveBeenCalledTimes(3);
-        });
+        }).pipe(
+          take(1),
+          catchError(() => {
+            expect(mockRequest.mock.calls.length).toEqual(3);
+            return of({});
+          })
+        );
       })
     );
   });
