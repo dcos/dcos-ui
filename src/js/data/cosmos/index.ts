@@ -1,5 +1,5 @@
 import { of, throwError } from "rxjs";
-import { map, retry } from "rxjs/operators";
+import { map, retry, switchMap } from "rxjs/operators";
 import { makeExecutableSchema } from "graphql-tools";
 import { RequestResponse } from "@dcos/http-service";
 import { CosmosClient, PackageVersionsResponse } from "cosmos-client";
@@ -31,7 +31,8 @@ export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
         return throwError("Package name must be available to resolve versions");
       }
 
-      return cosmosClient.listPackageVersions(parent.name).pipe(
+      return of({}).pipe(
+        switchMap(() => cosmosClient.listPackageVersions(parent.name)),
         retry(2),
         map(({ response }: RequestResponse<PackageVersionsResponse>) =>
           Object.keys(response.results).map(version => ({
