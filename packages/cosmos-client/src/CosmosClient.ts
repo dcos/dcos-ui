@@ -1,6 +1,8 @@
-import { request, RequestResponse } from "@dcos/http-service";
 import { Observable } from "rxjs";
-import { buildRequestHeader } from "./utils";
+import { map } from "rxjs/operators";
+import { request, RequestResponse } from "@dcos/http-service";
+
+import { buildRequestHeader, getErrorMessage } from "./utils";
 
 export interface ListVersionsResults {
   [key: string]: string;
@@ -12,17 +14,15 @@ export interface PackageVersionsResponse {
 
 export class CosmosClient {
   readonly rootUrl: string;
-  readonly apiPrefix: string;
 
-  constructor(rootUrl: string, cosmosAPIPrefix: string) {
+  constructor(rootUrl: string) {
     this.rootUrl = rootUrl;
-    this.apiPrefix = cosmosAPIPrefix;
   }
 
   listPackageVersions(
     packageName: string
   ): Observable<RequestResponse<PackageVersionsResponse>> {
-    return request(`${this.rootUrl}${this.apiPrefix}/list-versions`, {
+    return request(`${this.rootUrl}package/list-versions`, {
       method: "POST",
       body: {
         includePackageVersions: true,
@@ -42,6 +42,13 @@ export class CosmosClient {
           "v1"
         )
       }
-    });
+    }).pipe(
+      map((reqResp: RequestResponse<any>) => {
+        if (reqResp.code < 300) {
+          return reqResp;
+        }
+        throw new Error(getErrorMessage(reqResp));
+      })
+    );
   }
 }

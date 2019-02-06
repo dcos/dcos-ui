@@ -14,7 +14,7 @@ describe("CosmosClient", () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    client = new CosmosClient("/", "package");
+    client = new CosmosClient("/");
   });
 
   describe("listPackageVersions", () => {
@@ -61,6 +61,28 @@ describe("CosmosClient", () => {
 
         const result$ = client.listPackageVersions("dcos-ui").pipe(take(1));
         m.expect(result$).toBeObservable(expected$);
+      })
+    );
+
+    it(
+      "emits an error for non-2XX responses",
+      marbles(m => {
+        const expected$ = m.cold("--(j|)", {
+          j: {
+            response: {},
+            code: 500,
+            message: "Internal Server Error"
+          }
+        });
+        mockRequest.mockReturnValueOnce(expected$);
+
+        const result$ = client.listPackageVersions("dcos-ui").pipe(take(1));
+        m.expect(result$).toBeObservable(
+          m.cold("--#", undefined, {
+            message: "Internal Server Error",
+            name: "Error"
+          })
+        );
       })
     );
   });

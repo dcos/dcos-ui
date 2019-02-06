@@ -32,21 +32,13 @@ export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
       }
 
       return cosmosClient.listPackageVersions(parent.name).pipe(
-        map((resp: RequestResponse<PackageVersionsResponse>) => {
-          const { code, message, response } = resp;
-          if (code < 300) {
-            return Object.keys(response.results).map(version => ({
-              version,
-              revision: response.results[version]
-            }));
-          }
-          throw new Error(
-            `Unable to get package ${
-              parent.name
-            }'s versions from cosmos. Error (${code}): ${message}`
-          );
-        }),
-        retry(2)
+        retry(2),
+        map(({ response }: RequestResponse<PackageVersionsResponse>) =>
+          Object.keys(response.results).map(version => ({
+            version,
+            revision: response.results[version]
+          }))
+        )
       );
     }
   },
@@ -81,6 +73,6 @@ export interface Query {
 export default makeExecutableSchema({
   typeDefs: schemas,
   resolvers: resolvers({
-    cosmosClient: new CosmosClient(Config.rootUrl, Config.cosmosAPIPrefix)
+    cosmosClient: new CosmosClient(Config.rootUrl)
   })
 });

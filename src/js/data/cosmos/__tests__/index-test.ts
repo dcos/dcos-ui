@@ -94,8 +94,7 @@ describe("Cosmos data-layer", () => {
 
         const result$ = queryResult$.pipe(take(1));
         const expected$ = m.cold("------#", undefined, {
-          message:
-            "Unable to get package dcos-ui's versions from cosmos. Error (500): Internal Server Error",
+          message: "Internal Server Error",
           name: "Error"
         });
 
