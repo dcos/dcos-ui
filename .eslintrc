@@ -24,6 +24,7 @@
   "plugins": [
     "jsx-max-len",
     "react",
+    "react-hooks",
     "compat",
     "destructuring"
   ],
@@ -163,6 +164,7 @@
     "react/react-in-jsx-scope": "error",
     "react/require-extension": "off",
     "react/self-closing-comp": "off",
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "react-hooks/rules-of-hooks": "error"
   }
 }
