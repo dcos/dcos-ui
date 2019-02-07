@@ -2,7 +2,9 @@
   "enabled": true,
   "semanticCommits": true,
   "rebaseStalePrs": true,
-  "labels": ["renovate"],
+  "labels": [
+    "renovate"
+  ],
   "packageRules": [
     {
       "packageNames": [
@@ -11,10 +13,16 @@
         "@dcos/tslint-config",
         "@dcos/ui-kit",
         "@dcos/data-service",
-        "typescript"
+        "typescript",
+        "@extension-kid/core"
       ],
       "rangeStrategy": "pin",
-      "updateTypes": ["major", "minor", "patch", "pin"]
+      "updateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin"
+      ]
     }
   ]
 }
