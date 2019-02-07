@@ -7,6 +7,14 @@ import DataLayer, {
 import { injectable, ContainerModule } from "inversify";
 import gql from "graphql-tag";
 import { marbles } from "rxjs-marbles/jest";
+import { Observable } from "rxjs";
+import { take } from "rxjs/operators";
+
+function toPromise(observable: Observable<any>) {
+  return new Promise((resolve, reject) =>
+    observable.subscribe({ next: resolve, complete: resolve, error: reject })
+  );
+}
 
 const JobsSymbol = Symbol("Jobs");
 @injectable()
@@ -59,6 +67,7 @@ class TasksExtension implements DataLayerExtensionInterface {
       Query: {
         task(_: any, args: { id?: string }) {
           const id = args.id || "unknown";
+
           return {
             id,
             log: id + "log"
@@ -130,8 +139,6 @@ describe("DataLayer", () => {
   it(
     "provides an extended schema",
     marbles(m => {
-      m.bind();
-
       container
         .bind(DataLayerExtensionType)
         .to(JobsExtension)
@@ -164,14 +171,13 @@ describe("DataLayer", () => {
         }
       });
 
-      m.expect(dl.query(query, null).take(1)).toBeObservable(expected$);
+      m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
     })
   );
 
   it(
     "provides an extended schema with nested types",
     marbles(m => {
-      m.bind();
       const query = gql`
         query {
           jobs {
@@ -214,14 +220,13 @@ describe("DataLayer", () => {
         }
       });
 
-      m.expect(dl.query(query, null).take(1)).toBeObservable(expected$);
+      m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
     })
   );
 
   it(
     "provides an extended schema with nested types independent of import order",
     marbles(m => {
-      m.bind();
       const query = gql`
         query {
           jobs {
@@ -265,7 +270,7 @@ describe("DataLayer", () => {
         }
       });
 
-      m.expect(dl.query(query, null).take(1)).toBeObservable(expected$);
+      m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
     })
   );
 
@@ -287,17 +292,12 @@ describe("DataLayer", () => {
       }
     `;
 
-    await expect(
-      dl
-        .query(query)
-        .take(1)
-        .toPromise()
-    ).resolves.toEqual({
+    await expect(toPromise(dl.query(query).pipe(take(1)))).resolves.toEqual({
       data: {},
       errors: [
         {
           message:
-            "There was a GraphQL error: Error: graphqlObservable error: field was not of the right type. Given type: Job"
+            "There was a GraphQL error: Error: reactive-graphql: field 'task' was not found on type 'Job'. The only fields found in this Object are: id,docker."
         }
       ]
     });
@@ -306,12 +306,7 @@ describe("DataLayer", () => {
       bts.to(TasksExtension).inSingletonScope();
     });
 
-    await expect(
-      dl
-        .query(query)
-        .take(1)
-        .toPromise()
-    ).resolves.toEqual({
+    await expect(toPromise(dl.query(query).pipe(take(1)))).resolves.toEqual({
       data: { jobs: [{ task: { id: "footask" } }] }
     });
   });
@@ -333,7 +328,7 @@ describe("DataLayer", () => {
       }
     `;
 
-    const obs = dl.query(query).take(2);
+    const obs = dl.query(query).pipe(take(2));
     const mockNext = jest.fn();
     const subscriptionDone = new Promise(resolve =>
       obs.subscribe({ next: mockNext, complete: resolve })
@@ -351,7 +346,7 @@ describe("DataLayer", () => {
       errors: [
         {
           message:
-            "There was a GraphQL error: Error: graphqlObservable error: field was not of the right type. Given type: Job"
+            "There was a GraphQL error: Error: reactive-graphql: field 'task' was not found on type 'Job'. The only fields found in this Object are: id,docker."
         }
       ]
     });
