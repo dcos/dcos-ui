@@ -1,7 +1,7 @@
 import { graphqlObservable } from "@dcos/data-service";
 import { makeExecutableSchema, IResolvers } from "graphql-tools";
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { of, Observable, BehaviorSubject } from "rxjs";
+import { switchMap, catchError } from "rxjs/operators";
 import { injectable, inject, named } from "inversify";
 import { ExtensionProvider } from "extension-kid";
 import { GraphQLSchema } from "graphql";
@@ -60,12 +60,16 @@ export default class DataLayer {
   }
 
   query(doc: any, context?: any): Observable<any> {
-    return this._schema$.switchMap(schema =>
-      graphqlObservable(doc, schema, context).catch((err: string) =>
-        Observable.of({
-          data: {},
-          errors: [{ message: "There was a GraphQL error: " + err }]
-        })
+    return this._schema$.pipe(
+      switchMap(schema =>
+        graphqlObservable(doc, schema, context).pipe(
+          catchError((err: string) =>
+            of({
+              data: {},
+              errors: [{ message: "There was a GraphQL error: " + err }]
+            })
+          )
+        )
       )
     );
   }
