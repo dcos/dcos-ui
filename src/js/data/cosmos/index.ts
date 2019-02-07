@@ -5,8 +5,8 @@ import { RequestResponse } from "@dcos/http-service";
 import { CosmosClient, PackageVersionsResponse } from "cosmos-client";
 
 import Config from "#SRC/js/config/Config";
-import { Package, PackageSchema } from "#SRC/js/types/Package";
-import { PackageVersionSchema } from "#SRC/js/types/PackageVersion";
+import { Package, PackageSchema } from "#SRC/js/data/cosmos/Package";
+import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
 
 export interface ResolverArgs {
   cosmosClient: CosmosClient;

@@ -1,4 +1,4 @@
-import { PackageVersion } from "#SRC/js/types/PackageVersion";
+import { PackageVersion } from "src/js/data/cosmos/PackageVersion";
 
 export interface Package {
   name: string;
