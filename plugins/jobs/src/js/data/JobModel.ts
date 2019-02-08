@@ -21,6 +21,7 @@ import {
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
 import { RequestResponse } from "@dcos/http-service";
+import { DataLayerExtensionInterface } from "@extension-kid/data-layer";
 
 import Config from "#SRC/js/config/Config";
 import {
@@ -38,11 +39,6 @@ import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
 import { JobOutput } from "../components/form/helpers/JobFormData";
 import { JobSchedule } from "../types/JobSchedule";
 // TODO: how can we do this without static linking? Can we?
-import container from "#SRC/js/container";
-import DataLayer, {
-  DataLayerExtensionInterface,
-  DataLayerType
-} from "#SRC/js/dataLayer";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -324,7 +320,7 @@ const boundResolvers = resolvers({
 const JobType = Symbol("Job");
 // tslint:disable-next-line
 @injectable()
-class JobExtension implements DataLayerExtensionInterface {
+export class JobExtension implements DataLayerExtensionInterface {
   id = JobType;
 
   getResolvers() {
@@ -334,31 +330,6 @@ class JobExtension implements DataLayerExtensionInterface {
   getTypeDefinitions() {
     return typeDefs;
   }
-}
-
-// TODO: We should have a standard mechanism for this somehow
-let isBound = false;
-async function initAsSingleton() {
-  if (isBound) {
-    return;
-  }
-  isBound = true;
-
-  // TODO: can we reference this somehow else?
-  // const DataLayerType = Symbol.for("DataLayer");
-  const dataLayer = container.get<DataLayer>(DataLayerType);
-  const DataLayerExtensionType = dataLayer.extensionType;
-
-  await container.bindAsync(DataLayerExtensionType, bts => {
-    bts.to(JobExtension).inSingletonScope();
-  });
-}
-
-export async function getDataLayer(): Promise<DataLayer> {
-  await initAsSingleton();
-  // TODO: can we reference this somehow else?
-  // const DataLayerType = Symbol.for("DataLayer");
-  return container.get(DataLayerType);
 }
 
 // TODO: remove once we move over

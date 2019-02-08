@@ -1,11 +1,13 @@
 import "reflect-metadata"; // Needed for inversify
-import { Container, bindExtensionProvider } from "@extension-kid/core";
+import { Container } from "@extension-kid/core";
 import notificationServiceFactory from "@extension-kid/notification-service";
 import toastsExtensionFactory from "@extension-kid/toast-notifications";
-import { ContainerModule } from "inversify";
+
+
+import dataLayerExtensionFactory from "@extension-kid/data-layer";
+import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
-import DataLayer, { DataLayerExtensionType, DataLayerType } from "./dataLayer";
 
 const container = new Container();
 
@@ -20,14 +22,7 @@ if (toastsExtension) {
   console.error("Could not load toasts extension, please check export");
 }
 
-const dataLayerModule = new ContainerModule(bind => {
-  bindExtensionProvider(bind, DataLayerExtensionType);
-});
-
-container.load(dataLayerModule);
-
-container.bindAsync(DataLayerType, bts => {
-  bts.to(DataLayer).inSingletonScope();
-});
+container.load(dataLayerExtensionFactory());
+container.load(jobsExtensionFactory());
 
 export default container;
