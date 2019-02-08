@@ -4,13 +4,7 @@ import { request, RequestResponse } from "@dcos/http-service";
 
 import { buildRequestHeader, getErrorMessage } from "./utils";
 
-export interface ListVersionsResults {
-  [key: string]: string;
-}
-
-export interface PackageVersionsResponse {
-  results: ListVersionsResults;
-}
+import { PackageVersionsResponse } from "../";
 
 export class CosmosClient {
   readonly rootUrl: string;
@@ -22,12 +16,12 @@ export class CosmosClient {
   listPackageVersions(
     packageName: string
   ): Observable<RequestResponse<PackageVersionsResponse>> {
-    return request(`${this.rootUrl}package/list-versions`, {
+    return request(`${this.rootUrl || "/"}package/list-versions`, {
       method: "POST",
-      body: {
+      body: JSON.stringify({
         includePackageVersions: true,
         packageName
-      },
+      }),
       headers: {
         Accept: buildRequestHeader(
           "list-versions",
