@@ -29,10 +29,10 @@ describe("CosmosClient", () => {
       client.listPackageVersions("dcos-ui");
       expect(mockRequest).toHaveBeenCalledWith("/package/list-versions", {
         method: "POST",
-        body: {
+        body: JSON.stringify({
           includePackageVersions: true,
           packageName: "dcos-ui"
-        },
+        }),
         headers: {
           Accept:
             "application/vnd.dcos.package.list-versions-response+json;charset=utf-8;version=v1",
