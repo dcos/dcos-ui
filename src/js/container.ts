@@ -2,8 +2,6 @@ import "reflect-metadata"; // Needed for inversify
 import { Container } from "@extension-kid/core";
 import notificationServiceFactory from "@extension-kid/notification-service";
 import toastsExtensionFactory from "@extension-kid/toast-notifications";
-
-
 import dataLayerExtensionFactory from "@extension-kid/data-layer";
 import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
 
