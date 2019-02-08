@@ -1,5 +1,5 @@
 import "reflect-metadata"; // Needed for inversify
-import { Container } from "extension-kid";
+import { Container } from "@extension-kid/core";
 
 import dataLayerExtensionFactory from "@extension-kid/data-layer";
 import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
