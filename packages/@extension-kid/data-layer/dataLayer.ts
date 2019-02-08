@@ -3,7 +3,7 @@ import { makeExecutableSchema, IResolvers } from "graphql-tools";
 import { of, Observable, BehaviorSubject } from "rxjs";
 import { switchMap, catchError } from "rxjs/operators";
 import { injectable, inject, named } from "inversify";
-import { ExtensionProvider } from "extension-kid";
+import { ExtensionProvider } from "@extension-kid/core";
 import { GraphQLSchema } from "graphql";
 
 export const DataLayerExtensionType = Symbol("DataLayerExtension");

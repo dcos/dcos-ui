@@ -1,5 +1,5 @@
 import { ContainerModule } from "inversify";
-import { bindExtensionProvider } from "extension-kid";
+import { bindExtensionProvider } from "@extension-kid/core";
 
 import DataLayer, {
   DataLayerExtensionType,
