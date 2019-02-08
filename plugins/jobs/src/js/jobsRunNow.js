@@ -2,14 +2,15 @@ import { take } from "rxjs/operators";
 
 import gql from "graphql-tag";
 import { i18nMark } from "@lingui/react";
-
-import { getDataLayer } from "./data/JobModel";
+import { DataLayerType } from "@extension-kid/data-layer";
+import container from "#SRC/js/container";
 
 export default function jobsRunNow(jobId) {
+  const dataLayer = container.get(DataLayerType);
+
   return {
     label: i18nMark("Run Now"),
     async onItemSelect() {
-      const dataLayer = await getDataLayer();
       dataLayer
         .query(
           gql`

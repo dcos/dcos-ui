@@ -1,10 +1,11 @@
-import { Container, bindExtensionProvider } from "extension-kid";
-import DataLayer, {
+import { Container } from "@extension-kid/core";
+import dataLayerContainerModuleFactory, {
   DataLayerExtensionType,
   DataLayerExtensionInterface,
-  DataLayerType
-} from "../dataLayer";
-import { injectable, ContainerModule } from "inversify";
+  DataLayerType,
+  DataLayer
+} from "@extension-kid/data-layer";
+import { injectable } from "inversify";
 import gql from "graphql-tag";
 import { marbles } from "rxjs-marbles/jest";
 import { Observable } from "rxjs";
@@ -122,15 +123,10 @@ describe("DataLayer", () => {
   let container: Container;
   beforeEach(async () => {
     container = new Container();
-    const dataLayerModule = new ContainerModule(bind => {
-      bindExtensionProvider(bind, DataLayerExtensionType);
-    });
 
-    container.load(dataLayerModule);
+    const dataLayerContainerModule = dataLayerContainerModuleFactory();
 
-    await container.bindAsync(DataLayerType, bts => {
-      bts.to(DataLayer).inSingletonScope();
-    });
+    container.load(dataLayerContainerModule);
   });
 
   // is this possible?

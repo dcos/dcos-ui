@@ -26,6 +26,7 @@
     "baseUrl": "./",
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
+      "@extension-kid/data-layer": ["packages/@extension-kid/data-layer"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
       "#LOCALE": ["locale/*"],

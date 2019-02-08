@@ -35,11 +35,7 @@ import {
 } from "#PLUGINS/jobs/src/js/types/Job";
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
 // TODO: how can we do this without static linking? Can we?
-import container from "#SRC/js/container";
-import DataLayer, {
-  DataLayerExtensionInterface,
-  DataLayerType
-} from "#SRC/js/dataLayer";
+import { DataLayerExtensionInterface } from "@extension-kid/data-layer";
 import { injectable } from "inversify";
 
 export interface Query {
@@ -312,7 +308,7 @@ const boundResolvers = resolvers({
 const JobType = Symbol("Job");
 // tslint:disable-next-line
 @injectable()
-class JobExtension implements DataLayerExtensionInterface {
+export class JobExtension implements DataLayerExtensionInterface {
   id = JobType;
 
   getResolvers() {
@@ -322,31 +318,6 @@ class JobExtension implements DataLayerExtensionInterface {
   getTypeDefinitions() {
     return typeDefs;
   }
-}
-
-// TODO: We should have a standard mechanism for this somehow
-let isBound = false;
-async function initAsSingleton() {
-  if (isBound) {
-    return;
-  }
-  isBound = true;
-
-  // TODO: can we reference this somehow else?
-  // const DataLayerType = Symbol.for("DataLayer");
-  const dataLayer = container.get<DataLayer>(DataLayerType);
-  const DataLayerExtensionType = dataLayer.extensionType;
-
-  await container.bindAsync(DataLayerExtensionType, bts => {
-    bts.to(JobExtension).inSingletonScope();
-  });
-}
-
-export async function getDataLayer(): Promise<DataLayer> {
-  await initAsSingleton();
-  // TODO: can we reference this somehow else?
-  // const DataLayerType = Symbol.for("DataLayer");
-  return container.get(DataLayerType);
 }
 
 // TODO: remove once we move over

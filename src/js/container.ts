@@ -1,20 +1,15 @@
 import "reflect-metadata"; // Needed for inversify
-import { ContainerModule } from "inversify";
-import { Container, bindExtensionProvider } from "extension-kid";
+import { Container } from "extension-kid";
+
+import dataLayerExtensionFactory from "@extension-kid/data-layer";
+import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
-import DataLayer, { DataLayerExtensionType, DataLayerType } from "./dataLayer";
 
 const container = new Container();
 
 container.bind(MesosStreamType).toConstantValue(mesosStream);
-const dataLayerModule = new ContainerModule(bind => {
-  bindExtensionProvider(bind, DataLayerExtensionType);
-});
+container.load(dataLayerExtensionFactory());
+container.load(jobsExtensionFactory());
 
-container.load(dataLayerModule);
-
-container.bindAsync(DataLayerType, bts => {
-  bts.to(DataLayer).inSingletonScope();
-});
 export default container;

@@ -58,6 +58,7 @@ module.exports = {
   moduleFileExtensions: ["js", "json", "es6", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
+    "@extension-kid/data-layer": "<rootDir>/packages/@extension-kid/data-layer",
     "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
     "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
     "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"
