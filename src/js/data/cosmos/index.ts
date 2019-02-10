@@ -4,13 +4,8 @@ import { makeExecutableSchema } from "graphql-tools";
 import { RequestResponse } from "@dcos/http-service";
 import { CosmosClient, PackageVersionsResponse } from "cosmos-client";
 
-import Config from "#SRC/js/config/Config";
 import { Package, PackageSchema } from "#SRC/js/data/cosmos/Package";
 import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
-
-export interface ResolverArgs {
-  cosmosClient: CosmosClient;
-}
 
 export type GeneralArgs = Partial<PackageQueryArgs>;
 
@@ -22,7 +17,7 @@ function isPackageQueryArgs(args: GeneralArgs): args is PackageQueryArgs {
   return args.name !== undefined;
 }
 
-export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
+export const resolvers = {
   Package: {
     versions(parent: { name: string }) {
       if (!parent.name) {
@@ -30,7 +25,7 @@ export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
       }
 
       return of({}).pipe(
-        switchMap(() => cosmosClient.listPackageVersions(parent.name)),
+        switchMap(() => CosmosClient.listPackageVersions(parent.name)),
         retry(2),
         map(({ response }: RequestResponse<PackageVersionsResponse>) =>
           Object.keys(response.results).map(version => ({
@@ -52,7 +47,7 @@ export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
       return of({ name: args.name });
     }
   }
-});
+};
 
 const baseSchema = `
 type Query {
@@ -71,7 +66,5 @@ export interface Query {
 
 export default makeExecutableSchema({
   typeDefs: schemas,
-  resolvers: resolvers({
-    cosmosClient: new CosmosClient(Config.rootUrl)
-  })
+  resolvers
 });
