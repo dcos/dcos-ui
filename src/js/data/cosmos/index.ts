@@ -12,16 +12,14 @@ export interface ResolverArgs {
   cosmosClient: CosmosClient;
 }
 
-export interface GeneralArgs {
-  [key: string]: any;
-}
+export type GeneralArgs = Partial<PackageQueryArgs>;
 
 export interface PackageQueryArgs {
   name: string;
 }
 
 function isPackageQueryArgs(args: GeneralArgs): args is PackageQueryArgs {
-  return (args as PackageQueryArgs).name !== undefined;
+  return args.name !== undefined;
 }
 
 export const resolvers = ({ cosmosClient }: ResolverArgs) => ({
