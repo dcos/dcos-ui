@@ -37,7 +37,7 @@ export class CosmosClient {
         )
       }
     }).pipe(
-      map((reqResp: RequestResponse<any>) => {
+      map((reqResp: RequestResponse<PackageVersionsResponse>) => {
         if (reqResp.code < 300) {
           return reqResp;
         }
