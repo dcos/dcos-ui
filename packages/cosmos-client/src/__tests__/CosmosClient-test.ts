@@ -10,23 +10,20 @@ import { take } from "rxjs/operators";
 import { CosmosClient } from "../CosmosClient";
 
 describe("CosmosClient", () => {
-  let client: CosmosClient;
   beforeEach(() => {
     jest.clearAllMocks();
-
-    client = new CosmosClient("/");
   });
 
   describe("listPackageVersions", () => {
     it("makes a request", () => {
       mockRequest.mockReturnValueOnce(from([{}]));
-      client.listPackageVersions("dcos-ui");
+      CosmosClient.listPackageVersions("dcos-ui");
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("makes a request to the expected URL with expected Headers", () => {
       mockRequest.mockReturnValueOnce(from([{}]));
-      client.listPackageVersions("dcos-ui");
+      CosmosClient.listPackageVersions("dcos-ui");
       expect(mockRequest).toHaveBeenCalledWith("/package/list-versions", {
         method: "POST",
         body: JSON.stringify({
@@ -59,7 +56,10 @@ describe("CosmosClient", () => {
         });
         mockRequest.mockReturnValueOnce(expected$);
 
-        const result$ = client.listPackageVersions("dcos-ui").pipe(take(1));
+        const result$ = CosmosClient.listPackageVersions("dcos-ui").pipe(
+          take(1)
+        );
+
         m.expect(result$).toBeObservable(expected$);
       })
     );
@@ -76,7 +76,9 @@ describe("CosmosClient", () => {
         });
         mockRequest.mockReturnValueOnce(expected$);
 
-        const result$ = client.listPackageVersions("dcos-ui").pipe(take(1));
+        const result$ = CosmosClient.listPackageVersions("dcos-ui").pipe(
+          take(1)
+        );
         m.expect(result$).toBeObservable(
           m.cold("--#", undefined, {
             message: "Internal Server Error",
