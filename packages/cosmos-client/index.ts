@@ -1,4 +1,4 @@
-import { CosmosClient } from "./src/CosmosClient";
+export { CosmosClient } from "./src/CosmosClient";
 
 export interface ListVersionsResults {
   [key: string]: string;
@@ -7,7 +7,3 @@ export interface ListVersionsResults {
 export interface PackageVersionsResponse {
   results: ListVersionsResults;
 }
-
-module.exports = {
-  CosmosClient
-};
