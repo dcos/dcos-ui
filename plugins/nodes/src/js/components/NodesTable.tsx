@@ -1,5 +1,10 @@
 import * as React from "react";
-import { Table, Column, SortableHeaderCell } from "@dcos/ui-kit/dist/packages";
+import {
+  Table,
+  Column,
+  SortableHeaderCell,
+  HeaderCell
+} from "@dcos/ui-kit/dist/packages";
 import { Trans } from "@lingui/macro";
 
 import NodesList from "#SRC/js/structs/NodesList";
@@ -29,6 +34,10 @@ import {
   spacingRenderer
 } from "../columns/NodesTableSpacingColumn";
 
+import {
+  default as PublicIPColumn,
+  publicIPCellWidth
+} from "../columns/NodesTablePublicIPColumn";
 interface NodesTableProps {
   hosts: NodesList;
   nodeHealthResponse: boolean;
@@ -180,6 +189,16 @@ export default class NodesTable extends React.Component<
               />
             }
             cellRenderer={healthRenderer}
+          />
+
+          <Column
+            header={
+              <HeaderCell>
+                <Trans>Public IP</Trans>
+              </HeaderCell>
+            }
+            width={publicIPCellWidth}
+            cellRenderer={PublicIPColumn}
           />
 
           <Column
