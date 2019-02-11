@@ -39,17 +39,33 @@ Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](ht
   ```sh
   npm run scaffold
   ```
-  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration. Edit `webpack/proxy.dev.js` to point to the cluster address.
+  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration.
 
-4. Start the development server:
+  Edit `webpack/proxy.dev.js` to point to the cluster address.
+
+4. (optional) Using External Plugins:
+
+  DC/OS UI comes bundled with some internal plugins within the `/plugins` directory. You can also load more plugins from another directory and they will be loaded into DC/OS UI along with the internal plugins. To set a directory for external plugins run:
+
+  ```sh
+  # for dcos-ui-plugins-private
+  npm config set externalplugins ../dcos-ui-plugins-private
+
+  # for your own plugins
+  npm config set externalplugins ../path/to/plugins
+  ```
+
+  Note that `dcos-ui-plugins-private` currently *must* be set up at `../dcos-ui-plugins-private`. You also might want to copy its `Config.template.js` to `src/js/config/Config.dev.ts` to enable the enterprise edition.
+
+5. Start the development server:
 
   ```sh
   npm start
   ```
 
-5. Navigate to [http://localhost:4200](http://localhost:4200)
+6. Navigate to [http://localhost:4200](http://localhost:4200)
 
-*6. (optional, not suggested) Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.*
+*7. (optional, not suggested) Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.*
 
 ### Development with Docker
 
@@ -59,13 +75,6 @@ To start a development server run
 docker-compose up -d
 docker-compose exec toolchain /bin/bash # This opens bash inside of the docker container
 npm start
-```
-
-### Using External Plugins
-
-DC/OS UI comes bundled with some internal plugins within the `/plugins` directory. You can also load more plugins from another directory and they will be loaded into DC/OS UI along with the internal plugins. To set a directory for external plugins run:
-```sh
-npm config set externalplugins ../relative/path/to/plugins/directory
 ```
 
 ## Installing the nightly version on your cluster
