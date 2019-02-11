@@ -1,7 +1,7 @@
-import Config from "#SRC/js/config/Config";
 import { map } from "rxjs/operators";
 import { request, RequestResponse } from "@dcos/http-service";
 
+import Config from "#SRC/js/config/Config";
 import { buildRequestHeader, getErrorMessage } from "./utils";
 
 import { PackageVersionsResponse } from "../";
