@@ -495,6 +495,7 @@
   "Load Balanced Port": "",
   "Load balance the service internally (layer 4), and create a service address. For external (layer 7) load balancing, create an external load balancer and attach this service. <0>More Information</0>.": "",
   "Load balance this service internally at {hostName}": "",
+  "Loading": "",
   "Loading selected version": "",
   "Local Persistent Volume": "",
   "Log In": "",
