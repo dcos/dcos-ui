@@ -497,6 +497,7 @@
   "Load Balanced Port": "负载均衡器端口",
   "Load balance the service internally (layer 4), and create a service address. For external (layer 7) load balancing, create an external load balancer and attach this service. <0>More Information</0>.": "内部负载均衡服务（层 4），并创建服务地址。对于外部（层 7）负载均衡，创建外部负载均衡器并连接此服务。<0>更多信息</0>.",
   "Load balance this service internally at {hostName}": "在 {hostName} 内部负载均衡此服务",
+  "Loading": "",
   "Loading selected version": "正在加载所选版本",
   "Local Persistent Volume": "本地持久卷",
   "Log In": "登录",

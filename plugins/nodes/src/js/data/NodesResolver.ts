@@ -75,7 +75,7 @@ export const resolvers = ({
       node(_parent = {}, args: GeneralArgs) {
         if (!isNodeQueryArgs(args)) {
           return throwError(
-            "Nodes resolver arguments aren't valid for type nodesQueryArgs"
+            "Node resolver arguments aren't valid for type nodeQueryArgs"
           );
         }
         return of({ hostname: args.privateIP, privateIP: args.privateIP });
