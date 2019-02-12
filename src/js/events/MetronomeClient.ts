@@ -3,7 +3,8 @@ import { request, RequestResponse } from "@dcos/http-service";
 // tslint:disable-next-line:no-submodule-imports
 import { Observable } from "rxjs";
 import Config from "../config/Config";
-
+import { JobFormUIData } from "plugins/jobs/src/js/validators/JobFormData";
+import { switchMap } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 
 export interface GenericJobResponse {
@@ -145,13 +146,21 @@ const defaultHeaders = {
 };
 
 export function createJob(
-  data: JobDetailResponse
+  data: JobFormUIData
 ): Observable<RequestResponse<JobDetailResponse>> {
-  return request(`${Config.metronomeAPI}/v0/scheduled-jobs`, {
+  return request(`${Config.metronomeAPI}/v1/jobs`, {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify(data.job),
     headers: defaultHeaders
-  });
+  }).pipe(
+    switchMap(() =>
+      request(`${Config.metronomeAPI}/v1/jobs/${data.job.id}/schedules`, {
+        method: "POST",
+        body: JSON.stringify(data.schedule),
+        headers: defaultHeaders
+      })
+    )
+  );
 }
 
 export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
