@@ -1,5 +1,5 @@
 export { CosmosClient } from "./src/CosmosClient";
 
-export interface PackageVersionsResponse {
+export type PackageVersionsResponse = {
   results: Record<string, string>;
-}
+};
