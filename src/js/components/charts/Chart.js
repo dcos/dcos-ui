@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import createReactClass from "create-react-class";
-import ReactDOM from "react-dom";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DOMUtils from "../../utils/DOMUtils";
@@ -59,8 +58,10 @@ var Chart = createReactClass({
   },
 
   updateWidth() {
-    var node = ReactDOM.findDOMNode(this);
-    var dimensions = DOMUtils.getComputedDimensions(node);
+    if (!this.chartRef) {
+      return;
+    }
+    var dimensions = DOMUtils.getComputedDimensions(this.chartRef);
     var data = this.internalStorage_get();
 
     if (data.width !== dimensions.width || data.height !== dimensions.height) {
@@ -96,7 +97,11 @@ var Chart = createReactClass({
   render() {
     // at the moment, 'chart' is used to inject the chart color palette.
     // we should reclaim it as the rightful className of <Chart />
-    return <div className="chart-chart">{this.getChildren()}</div>;
+    return (
+      <div ref={el => (this.chartRef = el)} className="chart-chart">
+        {this.getChildren()}
+      </div>
+    );
   }
 });
 
