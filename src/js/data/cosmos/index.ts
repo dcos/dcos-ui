@@ -14,14 +14,14 @@ type PackageQueryArgs = {
   name: string;
 };
 
-function isPackageQueryArgs(args: GeneralArgs): args is PackageQueryArgs {
-  return args.name !== undefined;
+function isPackageQueryArgs(args: PossibleQueryArgs): args is PackageQueryArgs {
+  return typeof args.name === "string";
 }
 
 const resolvers = {
   Package: {
     versions(parent: { name: string }) {
-      if (!parent.name) {
+      if (typeof parent.name !== "string" || parent.name.length === 0) {
         return throwError("Package name must be available to resolve versions");
       }
 
