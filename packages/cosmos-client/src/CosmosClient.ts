@@ -1,5 +1,5 @@
 import { map } from "rxjs/operators";
-import { request, RequestResponse } from "@dcos/http-service";
+import { request } from "@dcos/http-service";
 
 import Config from "#SRC/js/config/Config";
 import { buildRequestHeader, getErrorMessage } from "./utils";
@@ -32,11 +32,10 @@ export const CosmosClient = {
         }
       }
     ).pipe(
-      map((reqResp: RequestResponse<PackageVersionsResponse>) => {
-        if (reqResp.code < 300) {
-          return reqResp;
-        }
-        throw new Error(getErrorMessage(reqResp));
+      map(requestResponse => {
+        if (requestResponse.code < 300) return requestResponse;
+
+        throw new Error(getErrorMessage(requestResponse));
       })
     )
 };

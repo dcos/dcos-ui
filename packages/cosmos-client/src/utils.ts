@@ -9,8 +9,10 @@ export function buildRequestHeader(
   return `application/vnd.dcos.${entity}.${action}-${actionType}+json;charset=utf-8;version=${version}`;
 }
 
-export function getErrorMessage(reqResp: RequestResponse<any>): string {
-  const { response, message } = reqResp;
+export function getErrorMessage({
+  response,
+  message
+}: RequestResponse<any>): string {
   if (typeof response === "string") {
     return response;
   } else if (typeof response === "object") {
