@@ -23,7 +23,6 @@ export const CosmosClient = {
             "package",
             "v1"
           ),
-
           "Content-type": buildRequestHeader(
             "list-versions",
             "request",
