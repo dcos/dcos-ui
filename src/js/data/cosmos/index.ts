@@ -1,23 +1,24 @@
 import { of, throwError } from "rxjs";
 import { map, retry, switchMap } from "rxjs/operators";
 import { makeExecutableSchema } from "graphql-tools";
-import { RequestResponse } from "@dcos/http-service";
-import { CosmosClient, PackageVersionsResponse } from "cosmos-client";
+import { CosmosClient } from "cosmos-client";
 
-import { Package, PackageSchema } from "#SRC/js/data/cosmos/Package";
+import { PackageSchema } from "#SRC/js/data/cosmos/Package";
 import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
 
-export type GeneralArgs = Partial<PackageQueryArgs>;
+export { schema as default, PackageQueryArgs };
 
-export interface PackageQueryArgs {
+type PossibleQueryArgs = Partial<PackageQueryArgs>;
+
+type PackageQueryArgs = {
   name: string;
-}
+};
 
 function isPackageQueryArgs(args: GeneralArgs): args is PackageQueryArgs {
   return args.name !== undefined;
 }
 
-export const resolvers = {
+const resolvers = {
   Package: {
     versions(parent: { name: string }) {
       if (!parent.name) {
@@ -37,7 +38,7 @@ export const resolvers = {
     }
   },
   Query: {
-    package(_parent: {}, args: GeneralArgs = {}) {
+    package(_parent: {}, args: PossibleQueryArgs = {}) {
       if (!isPackageQueryArgs(args)) {
         return throwError(
           "Package resolver arguments aren't valid for type PackageQueryArgs"
@@ -54,17 +55,8 @@ type Query {
   package(name: String!): Package
 }
 `;
-export const schemas: string[] = [
-  PackageVersionSchema,
-  PackageSchema,
-  baseSchema
-];
 
-export interface Query {
-  package: Package | null;
-}
-
-export default makeExecutableSchema({
-  typeDefs: schemas,
+const schema = makeExecutableSchema({
+  typeDefs: [PackageVersionSchema, PackageSchema, baseSchema],
   resolvers
 });
