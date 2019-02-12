@@ -8,7 +8,7 @@ import FilterInputText from "#SRC/js/components/FilterInputText";
 
 import JobsOverviewTable from "./JobsOverviewTable";
 import JobsPage from "./JobsPage";
-import JobCreateEditFormModal from "../JobCreateEditFormModal";
+import JobFormModal from "./NewJobsFormModal";
 import { JobConnection } from "../types/JobConnection";
 
 interface JobsOverviewListProps {
@@ -88,9 +88,9 @@ class JobsOverviewList extends React.Component<
           </FilterBar>
           <JobsOverviewTable data={data} />
         </div>
-        <JobCreateEditFormModal
-          open={this.state.isJobFormModalOpen}
-          onClose={this.handleCloseJobFormModal}
+        <JobFormModal
+          isOpen={this.state.isJobFormModalOpen}
+          closeModal={this.handleCloseJobFormModal}
         />
       </JobsPage>
     );
