@@ -3,7 +3,7 @@ jest.mock("@dcos/http-service", () => ({
   request: mockRequest
 }));
 
-import { concat, of } from "rxjs";
+import { of } from "rxjs";
 import { take } from "rxjs/operators";
 import { marbles, fakeSchedulers } from "rxjs-marbles/jest";
 import { makeExecutableSchema } from "graphql-tools";
@@ -200,53 +200,6 @@ describe("Service data-layer", () => {
         });
 
         m.expect(queryResult$.pipe(take(3))).toBeObservable(expected$);
-      })
-    );
-
-    it.skip(
-      "shares the subscription",
-      fakeSchedulers(advance => {
-        jest.useFakeTimers();
-        const resolverConfig = makeResolverConfigNoMarble();
-        resolverConfig.fetchServicePlans = jest.fn(
-          resolverConfig.fetchServicePlans
-        );
-
-        const serviceSchema = makeExecutableSchema({
-          typeDefs: schemas,
-          resolvers: resolvers(resolverConfig)
-        });
-
-        const query = gql`
-          query {
-            service(id: $serviceId) {
-              id
-              plans {
-                name
-              }
-            }
-          }
-        `;
-        const args = {
-          serviceId: "test"
-        };
-
-        concat(
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, args).pipe(take(1))
-        ).subscribe();
-
-        advance(20);
-        expect(resolverConfig.fetchServicePlans).toHaveBeenCalledTimes(1);
       })
     );
 
@@ -551,50 +504,6 @@ describe("Service data-layer", () => {
         });
 
         m.expect(queryResult$.pipe(take(3))).toBeObservable(expected$);
-      })
-    );
-
-    it.skip(
-      "shares the subscription",
-      fakeSchedulers(advance => {
-        jest.useFakeTimers();
-        const resolverConfig = makeResolverConfigNoMarble();
-        resolverConfig.fetchServicePlanDetail = jest.fn(
-          resolverConfig.fetchServicePlanDetail
-        );
-
-        const serviceSchema = makeExecutableSchema({
-          typeDefs: schemas,
-          resolvers: resolvers(resolverConfig)
-        });
-
-        const query = gql`
-          query {
-            service(id: "test") {
-              id
-              plans(name: "test-plan") {
-                name
-              }
-            }
-          }
-        `;
-
-        concat(
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1)),
-          graphqlObservable(query, serviceSchema, {}).pipe(take(1))
-        ).subscribe();
-
-        advance(20);
-        expect(resolverConfig.fetchServicePlanDetail).toHaveBeenCalledTimes(1);
       })
     );
 
