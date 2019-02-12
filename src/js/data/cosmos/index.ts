@@ -28,10 +28,10 @@ const resolvers = {
       return of({}).pipe(
         switchMap(() => CosmosClient.listPackageVersions(parent.name)),
         retry(2),
-        map(({ response }: RequestResponse<PackageVersionsResponse>) =>
-          Object.keys(response.results).map(version => ({
+        map(({ response }) =>
+          Object.entries(response.results).map(([version, revision]) => ({
             version,
-            revision: response.results[version]
+            revision
           }))
         )
       );
