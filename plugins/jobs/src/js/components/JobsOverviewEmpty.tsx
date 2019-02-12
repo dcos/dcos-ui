@@ -5,7 +5,7 @@ import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
 import JobsPage from "./JobsPage";
-import JobCreateEditFormModal from "../JobCreateEditFormModal";
+import JobFormModal from "./NewJobsFormModal";
 
 interface JobsOverviewEmptyProps {
   jobPath?: string[];
@@ -58,9 +58,9 @@ export default class JobsOverviewEmpty extends React.Component<
             </button>
           </div>
         </AlertPanel>
-        <JobCreateEditFormModal
-          open={this.state.isJobFormModalOpen}
-          onClose={this.handleCloseJobFormModal}
+        <JobFormModal
+          isOpen={this.state.isJobFormModalOpen}
+          closeModal={this.handleCloseJobFormModal}
         />
       </JobsPage>
     );
