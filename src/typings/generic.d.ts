@@ -1,0 +1,18 @@
+/*
+  This is a workaround for dcos-ui modules that do not have type definitions.
+  Accurate defitions should be provided individually for these modules.
+*/
+
+declare module '#SRC/js/components/TabViewList';
+declare module '#SRC/js/components/TabView';
+declare module '#SRC/js/components/Tabs';
+declare module '#SRC/js/components/TabButtonList';
+declare module '#SRC/js/components/TabButton';
+declare module '#SRC/js/components/JSONEditor';
+declare module '#SRC/js/components/FluidGeminiScrollbar';
+declare module '#SRC/js/components/ErrorsAlert';
+declare module '#SRC/js/components/modals/FullScreenModal';
+declare module '#SRC/js/components/modals/FullScreenModalHeader';
+declare module '#SRC/js/components/modals/FullScreenModalHeaderActions';
+declare module '#SRC/js/components/modals/FullScreenModalHeaderTitle';
+declare module '#SRC/js/utils/DataValidatorUtil';
