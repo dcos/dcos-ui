@@ -33,7 +33,7 @@ describe("cosmos-client utils", () => {
       expect(getErrorMessage(reqResp)).toEqual("I'm a response.message");
     });
 
-    it("returns message if it response doesn't have expected keys", () => {
+    it("returns message if the response doesn't have the expected keys", () => {
       const reqResp = {
         code: 400,
         message: "Bad Request",
