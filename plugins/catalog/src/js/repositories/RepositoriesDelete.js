@@ -11,12 +11,16 @@ import {
   tap
 } from "rxjs/operators";
 
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { DataLayerType } from "@extension-kid/data-layer";
+import { componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
+
+import container from "#SRC/js/container";
 
 import RepositoriesDeleteConfirm from "./components/RepositoriesDeleteConfirm";
 import RepositoriesError from "./components/RepositoriesError";
-import { schema } from "./data/repositoriesModel";
+
+const dataLayer = container.get(DataLayerType);
 
 const getErrorMessage = (response = {}) => {
   if (typeof response === "string") {
@@ -37,12 +41,11 @@ const removePackageRepository = gql`
   }
 `;
 
-const removePackageRepositoryGraphql = (name, uri) => {
-  return graphqlObservable(removePackageRepository, schema, {
+const removePackageRepositoryGraphql = (name, uri) =>
+  dataLayer.get(removePackageRepository, {
     name,
     uri
   });
-};
 
 const deleteEvent$ = new Subject();
 const deleteRepository$ = deleteEvent$.pipe(

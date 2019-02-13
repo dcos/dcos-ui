@@ -2,7 +2,8 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
+import { DataLayerType } from "@extension-kid/data-layer";
 import gql from "graphql-tag";
 import { Trans } from "@lingui/macro";
 
@@ -15,8 +16,10 @@ import {
   combineLatest
 } from "rxjs/operators";
 
-import { schema } from "./data/repositoriesModel";
+import container from "#SRC/js/container";
 import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
+
+const dataLayer = container.get(DataLayerType);
 
 // Imported from the Cosmos Store
 const getErrorMessage = (response = {}) => {
@@ -38,13 +41,12 @@ const addPackageRepositoryMutation = gql`
   }
 `;
 
-const addRepositoryGraphql = (name, uri, index) => {
-  return graphqlObservable(addPackageRepositoryMutation, schema, {
+const addRepositoryGraphql = (name, uri, index) =>
+  dataLayer.query(addPackageRepositoryMutation, {
     name,
     uri,
     index
   });
-};
 
 const addRepositoryEvent$ = new Subject();
 const addRepository$ = addRepositoryEvent$.pipe(
