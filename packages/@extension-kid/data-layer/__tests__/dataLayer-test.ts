@@ -130,8 +130,28 @@ describe("DataLayer", () => {
     container.load(dataLayerContainerModule);
   });
 
-  // is this possible?
-  it("does not error without an extension");
+  it(
+    "does not error without an extension",
+    marbles(m => {
+      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
+
+      const query = gql`
+        query {
+          isPresent
+        }
+      `;
+
+      const expected$ = m.cold("(a|)", {
+        a: {
+          data: {
+            isPresent: true
+          }
+        }
+      });
+
+      m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
+    })
+  );
 
   it(
     "provides an extended schema",
