@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { tap } from "rxjs/operators";
 import { request } from "@dcos/http-service";
 
 import Config from "#SRC/js/config/Config";
@@ -34,12 +34,10 @@ const CosmosClient = {
         }
       }
     ).pipe(
-      map(requestResponse => {
+      tap(requestResponse => {
         if (requestResponse.code >= 300) {
           throw new Error(getErrorMessage(requestResponse));
         }
-
-        return requestResponse;
       })
     )
 };
