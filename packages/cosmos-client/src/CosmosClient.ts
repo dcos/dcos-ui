@@ -5,9 +5,7 @@ import { buildRequestHeader, getErrorMessage } from "./utils";
 
 import { PackageVersionsResponse } from "../";
 
-export { CosmosClient };
-
-const CosmosClient = (rootUrl: string) => ({
+export const CosmosClient = (rootUrl: string) => ({
   listPackageVersions: (packageName: string) =>
     request<PackageVersionsResponse>(`${rootUrl || "/"}package/list-versions`, {
       method: "POST",
