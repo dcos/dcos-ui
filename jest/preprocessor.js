@@ -38,7 +38,7 @@ module.exports = {
           filename,
           presets: [jestPreset].concat(
             [
-              "babel-preset-es2015",
+              "babel-preset-env",
               "babel-preset-stage-3",
               "babel-preset-react"
             ].map(require.resolve)
