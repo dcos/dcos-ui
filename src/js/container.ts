@@ -4,6 +4,7 @@ import notificationServiceFactory from "@extension-kid/notification-service";
 import toastsExtensionFactory from "@extension-kid/toast-notifications";
 import dataLayerExtensionFactory from "@extension-kid/data-layer";
 import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
+import repositoriesExtensionFactory from "#PLUGINS/catalog/src/js";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
 
@@ -22,5 +23,6 @@ if (toastsExtension) {
 
 container.load(dataLayerExtensionFactory());
 container.load(jobsExtensionFactory());
+container.load(repositoriesExtensionFactory());
 
 export default container;

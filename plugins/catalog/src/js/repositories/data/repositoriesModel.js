@@ -1,6 +1,7 @@
 import { map } from "rxjs/operators";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
 import { makeExecutableSchema } from "graphql-tools/dist/index";
+import { injectable, decorate } from "inversify";
 
 // Streams we get our data from
 import {
@@ -63,11 +64,36 @@ export function resolvers({
   };
 }
 
+const boundResolvers = resolvers({
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
+});
+
+// TODO: remove once moce to DL is done
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: resolvers({
-    liveFetchRepositories,
-    addRepository,
-    deleteRepository
-  })
+  resolvers: boundResolvers
 });
+
+const RepositoryType = Symbol("Repository");
+// tslint:disable-next-line
+
+class RepositoryExtension {
+  constructor() {
+    this.id = RepositoryType;
+  }
+
+  getResolvers() {
+    return boundResolvers;
+  }
+
+  getTypeDefinitions() {
+    return typeDefs;
+  }
+}
+
+export const InjectableRepositoryExtension = decorate(
+  injectable(),
+  RepositoryExtension
+);

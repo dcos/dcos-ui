@@ -10,32 +10,20 @@ import {
   startWith
 } from "rxjs/operators";
 
-// graphqlObservable is our in house implementation of the graphql (not spec compliant yet)
-// componentFromStream transforms a stream of data into a React Component
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { DataLayerType } from "@extension-kid/data-layer";
+import { componentFromStream } from "@dcos/data-service";
 
-// tools to make easier to create schemas and queries
-// import { makeExecutableSchema } from "graphql-tools";
 import gql from "graphql-tag";
 
 import RepositoryList from "#SRC/js/structs/RepositoryList";
+import container from "#SRC/js/container";
 
-// UI components
 import RepositoriesTabUI from "./components/RepositoriesTabUI";
 import RepositoriesLoading from "./components/RepositoriesLoading";
 import RepositoriesError from "./components/RepositoriesError";
 
-// Using the data layer
+const dataLayer = container.get(DataLayerType);
 
-// 1. We first make a schema out of the resolvers and typeDefinitions
-// You could as well just import (or inject) the default schema
-// const schema = makeExecutableSchema({
-//   typeDefs,
-//   resolvers
-// });
-import { schema } from "./data/repositoriesModel";
-
-// 2. We declare which data our component needs in graphql (data down)
 const packageRepositoryQuery = filter => gql`
   query {
     packageRepository(filter: "${filter}") {
@@ -45,12 +33,7 @@ const packageRepositoryQuery = filter => gql`
   }
 `;
 
-// 3. We create an event handler as a stream to deal with search (events up)
 const searchTerm$ = new BehaviorSubject("");
-
-// 4. We compose the result with the query, and massage it down the pipe until
-// we get the props for our component.
-// The idea is from an Observable of data and events, compose a stream o React.Components
 
 const keypressDebounceTime = 250;
 const searchResults$ = searchTerm$.pipe(
@@ -58,7 +41,7 @@ const searchResults$ = searchTerm$.pipe(
   switchMap(searchTerm => {
     const query = packageRepositoryQuery(searchTerm);
 
-    return graphqlObservable(query, schema).pipe(
+    return dataLayer.query(query).pipe(
       map(result => {
         // Backwards compatible with the previous struct/RepositoryList for packages
         return new RepositoryList({
