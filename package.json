@@ -74,7 +74,7 @@
     "react-redux": "6.0.0",
     "react-router": "3.0.5",
     "react-transition-group": "1.2.1",
-    "reactjs-components": "0.23.2",
+    "reactjs-components": "4.0.0",
     "reactjs-mixin": "0.0.2",
     "recompose": "0.30.0",
     "redux": "3.3.1",
