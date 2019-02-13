@@ -7,12 +7,10 @@ import Config from "#SRC/js/config/Config";
 import { PackageSchema } from "#SRC/js/data/cosmos/Package";
 import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
 
-export { schema as default, PackageQueryArgs };
-
 const client = CosmosClient(Config.rootUrl);
 type PossibleQueryArgs = Partial<PackageQueryArgs>;
 
-interface PackageQueryArgs {
+export interface PackageQueryArgs {
   name: string;
 }
 
@@ -58,7 +56,9 @@ type Query {
 }
 `;
 
-const schema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs: [PackageVersionSchema, PackageSchema, baseSchema],
   resolvers
 });
+
+export default schema;
