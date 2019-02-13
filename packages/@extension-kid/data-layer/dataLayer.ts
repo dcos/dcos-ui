@@ -24,6 +24,19 @@ type Mutation {
 }
 `;
 
+const baseResolver = {
+  Query: {
+    isPresent() {
+      return true;
+    }
+  },
+  Mutation: {
+    noOpMutation() {
+      return true;
+    }
+  }
+};
+
 @injectable()
 export default class DataLayer {
   extensionType = DataLayerExtensionType;
@@ -52,9 +65,10 @@ export default class DataLayer {
       ...extensions.map(extension => extension.getTypeDefinitions(enabledIds))
     ];
 
-    const resolvers = extensions.map(extension =>
-      extension.getResolvers(enabledIds)
-    );
+    const resolvers = [
+      baseResolver,
+      ...extensions.map(extension => extension.getResolvers(enabledIds))
+    ];
 
     return makeExecutableSchema({ typeDefs, resolvers });
   }
