@@ -1,0 +1,9 @@
+{
+  "uiConfiguration": {
+    "plugins": {
+      "ui-update": {
+        "enabled": true
+      }
+    }
+  }
+}
