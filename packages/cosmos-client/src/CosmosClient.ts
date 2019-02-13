@@ -35,9 +35,11 @@ const CosmosClient = {
       }
     ).pipe(
       map(requestResponse => {
-        if (requestResponse.code < 300) return requestResponse;
+        if (requestResponse.code >= 300) {
+          throw new Error(getErrorMessage(requestResponse));
+        }
 
-        throw new Error(getErrorMessage(requestResponse));
+        return requestResponse;
       })
     )
 };
