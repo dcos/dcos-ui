@@ -2,6 +2,7 @@ import React from "react";
 import { Trans, t } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
 import { Link } from "react-router";
+import { MountService } from "foundation-ui";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -59,13 +60,7 @@ class UISettingsPage extends React.Component {
             <ConfigurationMapHeading className="flush-top">
               <Trans>DC/OS UI Details</Trans>
             </ConfigurationMapHeading>
-            <ConfigurationMapSection>
-              <ConfigurationRow
-                keyValue="installedVersion"
-                title={<Trans>Installed Version</Trans>}
-                value={window.DCOS_UI_VERSION}
-              />
-            </ConfigurationMapSection>
+            <MountService.Mount type="UISettings:UIDetails:Content" />
             <ConfigurationMapHeading className="flush-top">
               <Trans>User Preferences</Trans>
             </ConfigurationMapHeading>
