@@ -1,5 +1,5 @@
 import * as React from "react";
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
 import PropTypes from "prop-types";
 import { Subject } from "rxjs";
 import {
@@ -13,10 +13,12 @@ import {
 } from "rxjs/operators";
 
 import gql from "graphql-tag";
+import { DataLayerType } from "@extension-kid/data-layer";
+import container from "#SRC/js/container";
 
 import JobDeleteModal from "./components/JobDeleteModal";
-import defaultSchema from "./data/JobModel";
 
+const dataLayer = container.get(DataLayerType);
 const deleteJobMutation = gql`
   mutation {
     deleteJob(id: $jobId, stopCurrentJobRuns: $stopCurrentJobRuns) {
@@ -31,14 +33,16 @@ function executeDeleteMutation({
   onSuccess,
   errorMessage
 }) {
-  return graphqlObservable(deleteJobMutation, defaultSchema, {
-    jobId,
-    stopCurrentJobRuns
-  }).pipe(
-    mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
-    tap(_ => onSuccess()),
-    startWith({ done: false, stopCurrentJobRuns, errorMessage })
-  );
+  return dataLayer
+    .query(deleteJobMutation, {
+      jobId,
+      stopCurrentJobRuns
+    })
+    .pipe(
+      mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
+      tap(_ => onSuccess()),
+      startWith({ done: false, stopCurrentJobRuns, errorMessage })
+    );
 }
 
 function deleteEventHandler() {
