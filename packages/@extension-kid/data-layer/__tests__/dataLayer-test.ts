@@ -1,5 +1,6 @@
 import { Container } from "@extension-kid/core";
 import dataLayerContainerModuleFactory, {
+  getExtensionModule,
   DataLayerExtensionType,
   DataLayerExtensionInterface,
   DataLayerType,
@@ -135,15 +136,9 @@ describe("DataLayer", () => {
   it(
     "provides an extended schema",
     marbles(m => {
-      container
-        .bind(DataLayerExtensionType)
-        .to(JobsExtension)
-        .inSingletonScope();
+      container.load(getExtensionModule(JobsExtension));
+      container.load(getExtensionModule(TasksExtension));
 
-      container
-        .bind(DataLayerExtensionType)
-        .to(TasksExtension)
-        .inSingletonScope();
       const dl: DataLayer = container.get<DataLayer>(DataLayerType);
       const query = gql`
         query {
@@ -191,14 +186,9 @@ describe("DataLayer", () => {
         }
       `;
 
-      container
-        .bind(DataLayerExtensionType)
-        .to(JobsExtension)
-        .inSingletonScope();
-      container
-        .bind(DataLayerExtensionType)
-        .to(TasksExtension)
-        .inSingletonScope();
+      container.load(getExtensionModule(JobsExtension));
+      container.load(getExtensionModule(TasksExtension));
+
       const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
       const expected$ = m.cold("(a|)", {
@@ -240,14 +230,8 @@ describe("DataLayer", () => {
         }
       `;
 
-      container
-        .bind(DataLayerExtensionType)
-        .to(TasksExtension)
-        .inSingletonScope();
-      container
-        .bind(DataLayerExtensionType)
-        .to(JobsExtension)
-        .inSingletonScope();
+      container.load(getExtensionModule(TasksExtension));
+      container.load(getExtensionModule(JobsExtension));
 
       const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
