@@ -3,11 +3,13 @@ import { map, retry, switchMap } from "rxjs/operators";
 import { makeExecutableSchema } from "graphql-tools";
 import { CosmosClient } from "cosmos-client";
 
+import Config from "#SRC/js/config/Config";
 import { PackageSchema } from "#SRC/js/data/cosmos/Package";
 import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
 
 export { schema as default, PackageQueryArgs };
 
+const client = CosmosClient(Config.rootUrl);
 type PossibleQueryArgs = Partial<PackageQueryArgs>;
 
 interface PackageQueryArgs {
@@ -26,7 +28,7 @@ const resolvers = {
       }
 
       return of({}).pipe(
-        switchMap(() => CosmosClient.listPackageVersions(parent.name)),
+        switchMap(() => client.listPackageVersions(parent.name)),
         retry(2),
         map(({ response }) =>
           Object.entries(response.results).map(([version, revision]) => ({
