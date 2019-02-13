@@ -10,9 +10,9 @@ export { schema as default, PackageQueryArgs };
 
 type PossibleQueryArgs = Partial<PackageQueryArgs>;
 
-type PackageQueryArgs = {
+interface PackageQueryArgs {
   name: string;
-};
+}
 
 function isPackageQueryArgs(args: PossibleQueryArgs): args is PackageQueryArgs {
   return typeof args.name === "string";
