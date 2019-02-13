@@ -4,13 +4,16 @@ import { BehaviorSubject, combineLatest, Subscribable, Observable } from "rxjs";
 import { take, map } from "rxjs/operators";
 
 import gql from "graphql-tag";
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
+import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 
 import { JobData } from "#SRC/js/events/MetronomeClient";
 import Job from "#SRC/js/structs/Job";
+import container from "#SRC/js/container";
 
 import JobFormModal, { ErrorMessage } from "./components/JobFormModal";
-import defaultSchema from "./data/JobModel";
+
+const dataLayer: DataLayer = container.get<DataLayer>(DataLayerType);
 
 const createJobMutation = gql`
   mutation {
@@ -53,7 +56,7 @@ const JobCreateEditFormModal = componentFromStream<JobCreateEditFormModalProps>(
 
       combineLatest(
         props$ as Subscribable<any>,
-        graphqlObservable(mutation, defaultSchema, data) as Observable<any>
+        dataLayer.query(mutation, data) as Observable<any>
       )
         .pipe(take(1)) // unsubscribe after the first one to break ∞ react update loop
         .subscribe({

@@ -6,7 +6,7 @@ import {
   map,
   switchMap
 } from "rxjs/operators";
-import { makeExecutableSchema, IResolvers } from "graphql-tools";
+import { IResolvers } from "graphql-tools";
 import {
   createJob,
   fetchJobs,
@@ -34,7 +34,6 @@ import {
   JobSchema
 } from "#PLUGINS/jobs/src/js/types/Job";
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
-// TODO: how can we do this without static linking? Can we?
 import { DataLayerExtensionInterface } from "@extension-kid/data-layer";
 import { injectable } from "inversify";
 
@@ -304,7 +303,6 @@ const boundResolvers = resolvers({
   stopJobRun
 });
 
-// TODO: think about where this code should ideally live
 const JobType = Symbol("Job");
 // tslint:disable-next-line
 @injectable()
@@ -319,44 +317,3 @@ export class JobExtension implements DataLayerExtensionInterface {
     return typeDefs;
   }
 }
-
-// TODO: remove once we move over
-export default makeExecutableSchema({
-  // copy because of extend
-  typeDefs: `
-  ${JobSchema}
-  ${JobLinkSchema}
-  ${JobConnectionSchema}
-
-  enum SortOption {
-    ID
-    STATUS
-    LAST_RUN
-  }
-  enum SortDirection {
-    ASC
-    DESC
-  }
-  type Query {
-    jobs(
-      filter: String
-      path: String
-      sortBy: SortOption
-      sortDirection: SortDirection
-    ): JobConnection!
-    job(
-      id: ID!
-    ): Job
-  }
-
-  type Mutation {
-    runJob(id: String!): JobLink!
-    createJob(data: Job!): JobLink!
-    updateJob(id: String!, data: Job!): JobLink!
-    updateSchedule(id: String!, data: Job!): JobLink!
-    deleteJob(id: String!, stopCurrentJobRuns: Boolean!): JobLink!
-    stopJobRun(id: String!, jobRunid: String!): JobLink!
-  }
-  `,
-  resolvers: boundResolvers
-});
