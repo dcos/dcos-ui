@@ -89,7 +89,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           className="configuration-map-value"
         >
           <span
-            className="css-10kci5c"
+            className="css-1gtbe9d"
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
@@ -115,7 +115,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           className="configuration-map-value"
         >
           <span
-            className="css-10kci5c"
+            className="css-1gtbe9d"
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"

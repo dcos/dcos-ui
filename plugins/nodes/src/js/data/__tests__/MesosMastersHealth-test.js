@@ -1,7 +1,6 @@
 import { marbles } from "rxjs-marbles/jest";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/take";
-import "rxjs/add/observable/of";
+import { of } from "rxjs";
+import { take } from "rxjs/operators";
 
 import { mesosMastersHealthQuery } from "../MesosMastersHealth";
 
@@ -68,17 +67,15 @@ describe("MesosMastersHealth", function() {
     it(
       "emits correct master",
       marbles(function(m) {
-        m.bind();
-
         const master$ = mesosMastersHealthQuery(
-          () => Observable.of(nonLeaders),
+          () => of(nonLeaders),
           m.time("--|")
         );
         const expected$ = m.cold("a-(a|)", {
           a: nonLeadersWithHealth
         });
 
-        m.expect(master$.take(2)).toBeObservable(expected$);
+        m.expect(master$.pipe(take(2))).toBeObservable(expected$);
       })
     );
   });
