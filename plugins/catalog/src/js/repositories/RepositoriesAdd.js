@@ -32,8 +32,10 @@ const getErrorMessage = (response = {}) => {
 
 const addPackageRepositoryMutation = gql`
   mutation {
-    addPackageRepository(name: $name, uri: $uri, priority: $index) {
+    addPackageRepository(name: $name, uri: $uri, index: $index) {
       name
+      uri
+      index
     }
   }
 `;
