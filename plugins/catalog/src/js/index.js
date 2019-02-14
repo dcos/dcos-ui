@@ -1,5 +1,4 @@
 import { getExtensionModule } from "@extension-kid/data-layer";
-import { InjectableRepositoryExtension } from "./repositories/data/repositoriesModel";
+import { RepositoryExtension } from "./repositories/data/repositoriesModel";
 
-export default (_context = {}) =>
-  getExtensionModule(InjectableRepositoryExtension);
+export default (_context = {}) => getExtensionModule(RepositoryExtension);

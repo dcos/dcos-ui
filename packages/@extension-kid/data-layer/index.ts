@@ -16,6 +16,10 @@ export {
 };
 
 function getExtensionModule<T>(extension: { new (...args: any[]): T }) {
+  if (!extension) {
+    return null;
+  }
+
   return new ContainerModule(bind => {
     bind(DataLayerExtensionType)
       .to(extension)
