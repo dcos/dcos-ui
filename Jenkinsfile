@@ -32,8 +32,12 @@ pipeline {
         sh "git fetch"
         sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
 
+        // This is entered to update node + npm as part of a test
+        // TODO: update main image
+        sh " && curl -o- https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \"
+        sh "npm install -g npm@5.7.1"
         sh "npm run validate-tests"
-        //sh "npm --unsafe-perm ci"
+        sh "npm --unsafe-perm ci"
         sh "npm run build"
       }
     }
