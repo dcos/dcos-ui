@@ -6,9 +6,7 @@ def master_branches = ["master", ] as String[]
 
 pipeline {
   agent {
-    label {
-      'dcos-ui'
-    }
+    label 'dcos-ui' 
   }
 
   environment {
