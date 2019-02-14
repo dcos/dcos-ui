@@ -1,6 +1,6 @@
 import { concat, of } from "rxjs";
 import { take, map } from "rxjs/operators";
-import { marbles } from "rxjs-marbles/jest";
+import { marbles, fakeSchedulers } from "rxjs-marbles/jest";
 import { resolvers } from "../JobModel";
 
 const defaultJobDetailData = {
@@ -210,16 +210,16 @@ describe("JobModel Resolver", () => {
 
       it(
         "shares the subscription",
-        marbles(m => {
+        fakeSchedulers(advance => {
+          jest.useFakeTimers();
           const fetchJobs = jest.fn(() =>
-            m.cold("(j|)", { j: { response: [defaultJobDetailData] } })
+            of({ response: [defaultJobDetailData] })
           );
-          const fetchJobDetail = _id =>
-            m.cold("(j|)", { j: { response: defaultJobDetailData } });
+          const fetchJobDetail = _id => of({ response: defaultJobDetailData });
           const jobsQuery = resolvers({
             fetchJobs,
             fetchJobDetail,
-            pollingInterval: m.time("--|")
+            pollingInterval: 20
           }).Query.jobs;
 
           concat(
@@ -234,9 +234,9 @@ describe("JobModel Resolver", () => {
             jobsQuery({}, { path: [] }).pipe(take(1)),
             jobsQuery({}, { path: [] }).pipe(take(1)),
             jobsQuery({}, { path: [] }).pipe(take(1))
-          ).subscribe(jest.fn(), jest.fn(), () => {
-            expect(fetchJobs).toHaveBeenCalledTimes(1);
-          });
+          ).subscribe();
+          advance(20);
+          expect(fetchJobs).toHaveBeenCalledTimes(1);
         })
       );
 
