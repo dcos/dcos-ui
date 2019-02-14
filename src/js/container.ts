@@ -9,7 +9,6 @@ import repositoriesExtensionFactory from "#PLUGINS/catalog/src/js";
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
 
 const container = new Container();
-
 container.bind(MesosStreamType).toConstantValue(mesosStream);
 container.load(notificationServiceFactory());
 
@@ -22,7 +21,23 @@ if (toastsExtension) {
 }
 
 container.load(dataLayerExtensionFactory());
-container.load(jobsExtensionFactory());
-container.load(repositoriesExtensionFactory());
+
+const jobsExtension = jobsExtensionFactory();
+if (jobsExtension) {
+  container.load(jobsExtension);
+} else {
+  // tslint:disable-next-line
+  console.error("Could not load jobs extension, please check the export");
+}
+
+const repositoriesExtension = repositoriesExtensionFactory();
+if (repositoriesExtension) {
+  container.load(repositoriesExtension);
+} else {
+  // tslint:disable-next-line
+  console.error(
+    "Could not load repositories extension, please check the export"
+  );
+}
 
 export default container;
