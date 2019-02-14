@@ -79,7 +79,7 @@ pipeline {
             withCredentials([
               [
                 $class: "AmazonWebServicesCredentialsBinding",
-                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                credentialsId: "a20fbd60-2528-4e00-9175-ebe2287906cf",
                 accessKeyVariable: "AWS_ACCESS_KEY_ID",
                 secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
               ]
