@@ -21,12 +21,6 @@ pipeline {
   }
 
   stages {
-    stage("Authorization") {
-      steps {
-        user_is_authorized(master_branches, "8b793652-f26a-422f-a9ba-0d1e47eb9d89", "#frontend-dev")
-      }
-    }
-
     stage("Build") {
       steps {
         withCredentials([
