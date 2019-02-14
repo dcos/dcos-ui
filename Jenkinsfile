@@ -40,6 +40,7 @@ pipeline {
         sh "git fetch"
         sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
 
+        sh "npm run validate-tests"
         sh "npm --unsafe-perm ci"
         sh "npm run build"
       }
