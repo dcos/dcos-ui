@@ -231,11 +231,11 @@ describe("Service Form Modal", function() {
         getFormValue("instances").should("to.have.value", "1");
       });
 
-      it("uses Docker by default", function() {
+      it("uses UCR by default", function() {
         openServiceModal();
         openServiceJSON();
         cy.get(".ace_content").should(function(nodeList) {
-          expect(nodeList[0].textContent).to.contain('"type": "DOCKER"');
+          expect(nodeList[0].textContent).to.contain('"type": "MESOS"');
         });
       });
 
