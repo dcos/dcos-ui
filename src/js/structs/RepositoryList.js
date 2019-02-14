@@ -6,7 +6,7 @@ class RepositoryList extends List {
     // Specify filter properties if not specified
     if (!options.filterProperties) {
       // Use default getters
-      options.filterProperties = { name: null, uri: null };
+      options.filterProperties = { name: null, uri: null, index: null };
     }
 
     // Pass in overloaded options and the rest of the arguments
