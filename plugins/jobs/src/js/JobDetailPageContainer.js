@@ -1,5 +1,5 @@
 import React from "react";
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
 import { getContext } from "recompose";
 import { routerShape } from "react-router";
 import { of, combineLatest, BehaviorSubject } from "rxjs";
@@ -11,11 +11,15 @@ import {
   catchError,
   startWith
 } from "rxjs/operators";
-import { default as schema } from "#PLUGINS/jobs/src/js/data/JobModel";
+import { DataLayerType } from "@extension-kid/data-layer";
+
+import container from "#SRC/js/container";
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import JobDetailPage from "./pages/JobDetailPage";
+
+const dataLayer = container.get(DataLayerType);
 
 export const DIALOGS = {
   EDIT: "edit",
@@ -61,7 +65,7 @@ const closeDialog = () => {
 };
 
 const getGraphQL = id =>
-  graphqlObservable(
+  dataLayer.query(
     gql`
       query {
         job(id: $id) {
@@ -81,7 +85,6 @@ const getGraphQL = id =>
         }
       }
     `,
-    schema,
     { id }
   );
 
