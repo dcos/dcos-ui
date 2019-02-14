@@ -44,16 +44,16 @@ const METHODS_TO_BIND = [
 ];
 
 const containerRuntimes = {
-  [DOCKER]: {
-    label: <Trans render="span" id={labelMap[DOCKER]} />,
-    helpText: i18nMark(
-      "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
-    )
-  },
   [MESOS]: {
     label: <Trans render="span" id={labelMap[MESOS]} />,
     helpText: i18nMark(
       "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
+    )
+  },
+  [DOCKER]: {
+    label: <Trans render="span" id={labelMap[DOCKER]} />,
+    helpText: i18nMark(
+      "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
     )
   }
 };
@@ -316,8 +316,7 @@ class GeneralServiceFormSection extends Component {
       !isEmpty(data.constraints) ||
       !isEmpty(findNestedPropertyInObject(docker, "forcePullImage")) ||
       !isEmpty(findNestedPropertyInObject(docker, "image")) ||
-      !isEmpty(findNestedPropertyInObject(docker, "privileged")) ||
-      findNestedPropertyInObject(container, "type") !== DOCKER
+      !isEmpty(findNestedPropertyInObject(docker, "privileged"))
     );
   }
 
