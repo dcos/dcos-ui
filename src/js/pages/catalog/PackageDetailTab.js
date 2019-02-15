@@ -356,7 +356,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <Dropdown
-        buttonClassName="button button-link dropdown-toggle"
+        buttonClassName="button button-primary-link dropdown-toggle flush-left flush-right"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         onItemSelection={this.handlePackageVersionChange}
@@ -517,8 +517,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               {!state.isLoadingSelectedVersion && (
                 <div className="media-object-item media-object-item-grow ">
-                  <div className="flex flex-direction-left-to-right">
-                    <h1 className="short flush-top">{name}</h1>
+                  <h1 className="short flush-top flush-bottom">{name}</h1>
+                  <div className="flex flex-align-items-center">
+                    <span className="package-version-label">
+                      <Trans>Version</Trans>:
+                    </span>
                     {this.getPackageVersionsDropdown()}
                   </div>
                   <div className="row">
