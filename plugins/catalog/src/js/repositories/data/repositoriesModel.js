@@ -16,6 +16,7 @@ export const typeDefs = `
     id: ID!
     name: String!
     uri: String!
+    index: Int!
   }
 
   type Query {
@@ -24,7 +25,7 @@ export const typeDefs = `
 
   type Mutation {
     addPackageRepository(name: String!, uri: String!, index: Int! ): [PackageRepository!]!
-    removePackageRepository(name: String!, uri: String!): [PackageRepository!]!
+    removePackageRepository(name: String!, uri: String!, index: Int!): [PackageRepository!]!
   }
 `;
 
