@@ -6,9 +6,7 @@ def master_branches = ["master", ] as String[]
 
 pipeline {
   agent {
-    dockerfile {
-      args  "--shm-size=1g"
-    }
+    label 'dcos-ui'
   }
 
   environment {
@@ -26,6 +24,15 @@ pipeline {
     stage("Authorization") {
       steps {
         user_is_authorized(master_branches, "8b793652-f26a-422f-a9ba-0d1e47eb9d89", "#frontend-dev")
+      }
+    }
+    
+    stage("Update node and npm") {
+      steps {
+        // This is entered to update node + npm as part of a test
+        // TODO: update main image
+        sh "curl -o- https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx"
+        sh "npm install -g npm@5.7.1"
       }
     }
 
@@ -47,7 +54,6 @@ pipeline {
         sh "npm run build"
       }
     }
-
 
     stage("Lint Commits") {
       when {
