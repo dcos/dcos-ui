@@ -1,0 +1,21 @@
+{
+  "name": "cosmos-client",
+  "main": "index.ts",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {},
+  "peerDependencies": {
+    "rxjs": "^6.3.3"
+  },
+  "dependencies": {
+    "@dcos/http-service": "2.0.0"
+  },
+  "devDependencies": {
+    "@types/events": "1.2.0",
+    "@types/jest": "22.2.3",
+    "jest-cli": "22.4.0"
+  },
+  "jest-webpack-alias": {
+    "configFile": "../../webpack/webpack.config.js"
+  }
+}
