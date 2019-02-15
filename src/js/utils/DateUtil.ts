@@ -145,6 +145,15 @@ const DateUtil = {
 
   getDuration(time: number): string {
     return distanceInWordsStrict(0, time);
+  },
+
+  isValidDate(dateString: string) {
+    if (dateString === null) {
+      return false;
+    }
+
+    const date: Date = new Date(dateString);
+    return date instanceof Date && !isNaN(date.getTime());
   }
 };
 
