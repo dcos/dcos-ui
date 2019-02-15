@@ -84,7 +84,7 @@ pipeline {
                 secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
               ]
             ]) {
-              retry(3) {
+              retry(1) {
                 sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
               }
             }
