@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
 
+import DateUtil from "#SRC/js/utils/DateUtil";
 import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
@@ -238,7 +239,10 @@ export default class JobsOverviewTable extends React.Component {
     const nodes = [];
     const statusNode = <span className={statusClasses}>{status}</span>;
 
-    if (lastFailureAt == null && lastSuccessAt == null) {
+    if (
+      !DateUtil.isValidDate(lastFailureAt) ||
+      !DateUtil.isValidDate(lastSuccessAt)
+    ) {
       return statusNode;
     }
 
