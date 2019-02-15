@@ -13,7 +13,8 @@
         "@dcos/data-service",
         "typescript",
         "react",
-        "react-dom"
+        "react-dom",
+        "react-test-renderer"
       ],
       "rangeStrategy": "pin",
       "updateTypes": ["major", "minor", "patch", "pin"]
