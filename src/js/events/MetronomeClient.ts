@@ -27,9 +27,19 @@ export interface GenericJobResponse {
       policy: string;
     };
     docker?: JobDocker;
+    ucr?: JobUCR;
     secrets: object;
   };
   schedules: Schedule[];
+}
+
+export interface JobUCR {
+  image: {
+    id: string;
+    kind?: string;
+    forcePull?: boolean;
+  };
+  privileged?: boolean;
 }
 
 export interface JobResponse extends GenericJobResponse {
@@ -148,19 +158,22 @@ const defaultHeaders = {
 export function createJob(
   data: JobFormUIData
 ): Observable<RequestResponse<JobDetailResponse>> {
-  return request(`${Config.metronomeAPI}/v1/jobs`, {
+  const jobRequest = request(`${Config.metronomeAPI}/v1/jobs`, {
     method: "POST",
     body: JSON.stringify(data.job),
     headers: defaultHeaders
-  }).pipe(
-    switchMap(() =>
-      request(`${Config.metronomeAPI}/v1/jobs/${data.job.id}/schedules`, {
-        method: "POST",
-        body: JSON.stringify(data.schedule),
-        headers: defaultHeaders
-      })
-    )
-  );
+  });
+  return data.schedule
+    ? jobRequest.pipe(
+        switchMap(() =>
+          request(`${Config.metronomeAPI}/v1/jobs/${data.job.id}/schedules`, {
+            method: "POST",
+            body: JSON.stringify(data.schedule),
+            headers: defaultHeaders
+          })
+        )
+      )
+    : (jobRequest as Observable<RequestResponse<JobDetailResponse>>);
 }
 
 export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
