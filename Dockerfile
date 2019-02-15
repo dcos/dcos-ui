@@ -15,6 +15,8 @@ WORKDIR /dcos-ui
 # such as creating the scaffold in the user's repository
 COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 
+RUN echo 'abbazabba' > /etc/abbazabba.dat
+
 # Install required components & prepare environment
 RUN set -x \
   # Install aws-cli
