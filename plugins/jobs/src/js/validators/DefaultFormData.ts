@@ -1,6 +1,6 @@
 import { JobFormUIData, UcrContainer, JobFormData } from "./JobFormData";
 
-export const DefaultJob: JobFormData = {
+export const getDefaultJob = (): JobFormData => ({
   id: "",
   description: "",
   run: {
@@ -9,16 +9,16 @@ export const DefaultJob: JobFormData = {
     disk: 0,
     mem: 128
   }
-};
+});
 
-export const DefaultJobFormData: JobFormUIData = {
-  job: DefaultJob,
+export const getDefaultJobFormData = (): JobFormUIData => ({
+  job: getDefaultJob(),
   cmdOnly: true
-};
+});
 
-export const DefaultContainer: UcrContainer = {
+export const getDefaultContainer = (): UcrContainer => ({
   image: {
     id: "",
     kind: "docker"
   }
-};
+});
