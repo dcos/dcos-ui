@@ -11,7 +11,7 @@ import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModa
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import ToggleButton from "#SRC/js/components/ToggleButton";
 
-import { DefaultJobFormData } from "../validators/DefaultFormData";
+import { getDefaultJobFormData } from "../validators/DefaultFormData";
 import { JobFormUIData, FormError } from "../validators/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
@@ -21,6 +21,7 @@ import { MetronomeSpecValidators } from "../validators/MetronomeJobValidators";
 
 interface JobFormModalProps {
   job?: JobResponse;
+  isEdit: boolean;
   isOpen: boolean;
   closeModal: () => void;
 }
@@ -67,7 +68,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     const { job } = this.props;
     const initialFormData = job
       ? this.getFormDataFromJob(job)
-      : DefaultJobFormData;
+      : getDefaultJobFormData();
     const initialState = {
       formData: initialFormData,
       validationErrors: [],
@@ -143,6 +144,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
         processing: true,
         submitFailed: false
       });
+      // TODO: use different mutation if isEdit
       graphqlObservable(createJobMutation, defaultSchema, { data: formData })
         .pipe(take(1))
         .subscribe({
@@ -196,7 +198,13 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
 
   getHeader() {
     // TODO: This should say edit if the component is given a job to edit
-    let title = <Trans render="span">Create a Job</Trans>;
+    const { isEdit } = this.props;
+
+    let title = isEdit ? (
+      <Trans render="span">Edit Job</Trans>
+    ) : (
+      <Trans render="span">Create a Job</Trans>
+    );
 
     return (
       <FullScreenModalHeader>
@@ -255,7 +263,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleJobRun,
-        label: i18nMark("Add Job"),
+        label: i18nMark("Submit"),
         disabled: processing
       }
     ];
