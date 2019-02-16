@@ -12,9 +12,16 @@ import Tabs from "#SRC/js/components/Tabs";
 import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 
-import { JobFormUIData, FormError } from "../validators/JobFormData";
+import {
+  JobFormUIData,
+  FormError,
+  JobFormData,
+  JobSchedule
+} from "../validators/JobFormData";
+import { JobFormHistory } from "../validators/JobFormHistory";
 import GeneralFormSection from "./GeneralFormSection";
 import JobJSONParser from "../validators/JobJSONParser";
+import ArgsFormSection from "./ArgsFormSection";
 
 const ServiceErrorPathMapping: any[] = [];
 
@@ -29,9 +36,30 @@ interface JobFormProps {
   showAllErrors: boolean;
 }
 
-class JobModalForm extends Component<JobFormProps, object> {
-  constructor() {
-    super(...arguments);
+interface JobFormState {
+  history: JobFormHistory;
+}
+
+interface JSONEditorData {
+  job: JobFormData;
+  schedule: JobSchedule;
+}
+
+interface NavigationItem {
+  id: string;
+  key: string;
+  label: string;
+  className?: string;
+  children?: NavigationItem[];
+}
+
+class JobModalForm extends Component<JobFormProps, JobFormState> {
+  constructor(props: JobFormProps) {
+    super(props);
+
+    this.state = {
+      history: new JobFormHistory(props.formData)
+    };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.handleFormDataChange = this.handleFormDataChange.bind(this);
@@ -46,42 +74,42 @@ class JobModalForm extends Component<JobFormProps, object> {
   }
 
   handleSimpleValueChange(
-    path: string,
+    dotSeparatedPath: string,
     value: any,
-    formData: JobFormUIData,
-    jobOrSched: "job" | "schedule" = "job"
+    formData: JobFormUIData
   ) {
-    const splitPath = path.split(".");
-    const assignProp = splitPath.pop();
+    const arrayPath = dotSeparatedPath.split(".");
+    const assignProp = arrayPath.pop();
     if (assignProp) {
-      splitPath.reduce((acc: string | object, current: string) => {
+      arrayPath.reduce((acc: string | object, current: string) => {
         return acc[current];
-      }, formData[jobOrSched])[assignProp] = value;
+      }, formData)[assignProp] = value;
     }
   }
 
-  handleFormDataChange(
-    path: string,
-    value: any,
-    jobOrSched?: "job" | "schedule"
-  ) {
+  handleFormDataChange(dotSeparatedPath: string, value: any) {
     const { onChange, formData } = this.props;
+    const { history } = this.state;
     const newFormData = { ...formData };
-    const pathNesting = path.split(".");
-    const prop = pathNesting[pathNesting.length - 1];
+    const arrayPath = dotSeparatedPath.split(".");
+
+    // Property that is changing
+    const prop = arrayPath[arrayPath.length - 1];
+
     if (JobJSONParser[prop]) {
-      JobJSONParser[prop](value, newFormData);
+      // Check if changed property has complex change rules
+      JobJSONParser[prop](value, newFormData, history);
     } else {
-      this.handleSimpleValueChange(path, value, formData, jobOrSched);
+      // Default for properties that can be changed simply
+      this.handleSimpleValueChange(dotSeparatedPath, value, formData);
     }
     onChange(newFormData);
   }
 
-  onInputChange(inputName: string, jobOrSched?: "job" | "schedule") {
-    return (event: any) => {
-      const newValue = event.target.value;
-      this.handleFormDataChange(inputName, newValue, jobOrSched);
-    };
+  onInputChange(event: any) {
+    const newValue = event.target.value;
+    const inputName = event.target.name;
+    this.handleFormDataChange(inputName, newValue);
   }
 
   addArg() {
@@ -144,7 +172,7 @@ class JobModalForm extends Component<JobFormProps, object> {
     }
   }
 
-  handleJSONChange(jsonEditorData: any) {
+  handleJSONChange(jsonEditorData: JSONEditorData) {
     const { formData, onChange } = this.props;
     const newFormData = {
       ...formData,
@@ -175,7 +203,7 @@ class JobModalForm extends Component<JobFormProps, object> {
     return tabList;
   }
 
-  getFormTabList(navigationItems: any[]) {
+  getFormTabList(navigationItems?: NavigationItem[]) {
     if (navigationItems == null) {
       return null;
     }
@@ -227,7 +255,10 @@ class JobModalForm extends Component<JobFormProps, object> {
         <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
-              <form className="create-service-modal-form container">
+              <form
+                className="create-service-modal-form container"
+                onChange={this.onInputChange}
+              >
                 <Tabs
                   activeTab={activeTab}
                   handleTabChange={handleTabChange}
@@ -243,7 +274,6 @@ class JobModalForm extends Component<JobFormProps, object> {
                         />
                       )}
                       <GeneralFormSection
-                        onInputChange={this.onInputChange}
                         formData={formData}
                         errors={errors}
                         showErrors={showAllErrors}
