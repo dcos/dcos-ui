@@ -15,4 +15,5 @@ export default class Node extends Item {
   getResources: () => any;
   isPublic: () => boolean;
   getIp: () => string;
+  getPublicIps: () => string[];
 }

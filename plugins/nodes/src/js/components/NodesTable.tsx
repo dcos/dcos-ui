@@ -34,10 +34,9 @@ import {
   spacingRenderer
 } from "../columns/NodesTableSpacingColumn";
 
-import {
-  default as PublicIPColumn,
-  publicIPCellWidth
-} from "../columns/NodesTablePublicIPColumn";
+import { default as PublicIPColumn } from "../columns/NodesTablePublicIPColumn";
+import NodesTableWrapper from "./NodesTableWrapper";
+
 interface NodesTableProps {
   hosts: NodesList;
   nodeHealthResponse: boolean;
@@ -166,136 +165,139 @@ export default class NodesTable extends React.Component<
       return <Loader />;
     }
 
+    const dataCopy = data.slice();
+
     return (
       <div className="table-wrapper">
-        <Table data={data.slice()}>
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Host</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "host")}
-                sortDirection={sortColumn === "host" ? sortDirection : null}
-              />
-            }
-            cellRenderer={ipRenderer}
-          />
+        <NodesTableWrapper data={dataCopy}>
+          <Table data={dataCopy}>
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Host</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "host")}
+                  sortDirection={sortColumn === "host" ? sortDirection : null}
+                />
+              }
+              cellRenderer={ipRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Health</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "health")}
-                sortDirection={sortColumn === "health" ? sortDirection : null}
-              />
-            }
-            cellRenderer={healthRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Health</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "health")}
+                  sortDirection={sortColumn === "health" ? sortDirection : null}
+                />
+              }
+              cellRenderer={healthRenderer}
+            />
 
-          <Column
-            header={
-              <HeaderCell>
-                <Trans>Public IP</Trans>
-              </HeaderCell>
-            }
-            width={publicIPCellWidth}
-            cellRenderer={PublicIPColumn}
-          />
+            <Column
+              header={
+                <HeaderCell>
+                  <Trans>Public IP</Trans>
+                </HeaderCell>
+              }
+              cellRenderer={PublicIPColumn}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Type</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "type")}
-                sortDirection={sortColumn === "type" ? sortDirection : null}
-              />
-            }
-            cellRenderer={typeRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Type</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "type")}
+                  sortDirection={sortColumn === "type" ? sortDirection : null}
+                />
+              }
+              cellRenderer={typeRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Region</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "region")}
-                sortDirection={sortColumn === "region" ? sortDirection : null}
-              />
-            }
-            cellRenderer={this.regionRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Region</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "region")}
+                  sortDirection={sortColumn === "region" ? sortDirection : null}
+                />
+              }
+              cellRenderer={this.regionRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Zone</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "zone")}
-                sortDirection={sortColumn === "zone" ? sortDirection : null}
-              />
-            }
-            cellRenderer={zoneRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Zone</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "zone")}
+                  sortDirection={sortColumn === "zone" ? sortDirection : null}
+                />
+              }
+              cellRenderer={zoneRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Tasks</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "tasks")}
-                sortDirection={sortColumn === "tasks" ? sortDirection : null}
-                textAlign="right"
-              />
-            }
-            cellRenderer={tasksRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Tasks</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "tasks")}
+                  sortDirection={sortColumn === "tasks" ? sortDirection : null}
+                  textAlign="right"
+                />
+              }
+              cellRenderer={tasksRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">CPU</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "cpu")}
-                sortDirection={sortColumn === "cpu" ? sortDirection : null}
-              />
-            }
-            cellRenderer={cpuRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">CPU</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "cpu")}
+                  sortDirection={sortColumn === "cpu" ? sortDirection : null}
+                />
+              }
+              cellRenderer={cpuRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Mem</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "mem")}
-                sortDirection={sortColumn === "mem" ? sortDirection : null}
-              />
-            }
-            cellRenderer={memRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Mem</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "mem")}
+                  sortDirection={sortColumn === "mem" ? sortDirection : null}
+                />
+              }
+              cellRenderer={memRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Disk</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "disk")}
-                sortDirection={sortColumn === "disk" ? sortDirection : null}
-              />
-            }
-            cellRenderer={diskRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">Disk</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "disk")}
+                  sortDirection={sortColumn === "disk" ? sortDirection : null}
+                />
+              }
+              cellRenderer={diskRenderer}
+            />
 
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">GPU</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "gpu")}
-                sortDirection={sortColumn === "gpu" ? sortDirection : null}
-              />
-            }
-            cellRenderer={gpuRenderer}
-          />
+            <Column
+              header={
+                <SortableHeaderCell
+                  columnContent={<Trans render="span">GPU</Trans>}
+                  sortHandler={this.handleSortClick.bind(null, "gpu")}
+                  sortDirection={sortColumn === "gpu" ? sortDirection : null}
+                />
+              }
+              cellRenderer={gpuRenderer}
+            />
 
-          <Column
-            header={<span title="Spacing" />}
-            cellRenderer={spacingRenderer}
-            width={spacingSizer}
-          />
-        </Table>
+            <Column
+              header={<span title="Spacing" />}
+              cellRenderer={spacingRenderer}
+              width={spacingSizer}
+            />
+          </Table>
+        </NodesTableWrapper>
       </div>
     );
   }
