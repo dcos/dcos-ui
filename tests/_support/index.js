@@ -77,6 +77,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app")
+      .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(
         /service\/marathon\/v2\/apps\/\/sleep\/versions/,
         "fx:marathon-1-task/versions"
@@ -149,6 +150,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:1-app-for-each-health/app")
+      .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(/service\/marathon\/v2\/groups/, "fx:1-app-for-each-health/groups")
       .route(
         /service\/marathon\/v2\/deployments/,
@@ -184,6 +186,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /service\/marathon\/v2\/apps/,
         "fx:1-service-with-executor-task/app"
       )
+      .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:1-service-with-executor-task/app"
