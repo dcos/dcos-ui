@@ -107,6 +107,14 @@ class Node extends Item {
   getIp() {
     return this.get("host_ip") || this.getHostName();
   }
+
+  getPublicIps() {
+    if (!this.get("network")) {
+      return [];
+    }
+
+    return this.get("network").public_ips;
+  }
 }
 
 module.exports = Node;
