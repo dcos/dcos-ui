@@ -3,7 +3,7 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-const FilterByFramework = require("../FilterByFramework");
+const FilterByFramework = require("../FilterByFramework").default;
 const MockFrameworks = require("./fixtures/MockFrameworks.json");
 const FrameworksList = require("../../structs/ServicesList");
 const Framework = require("../../structs/Framework");

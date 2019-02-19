@@ -122,15 +122,9 @@ class TimeSeriesMouseOver extends React.Component {
     d3.select(this.xMousePositionRef)
       .interrupt()
       .style("opacity", 0);
-<<<<<<< HEAD
     d3.select(this.xAxisCurrentRef).text("");
     d3.select(this.yAxisCurrentRef).text("");
-  },
-=======
-    d3.select(this.refs.xAxisCurrent).text("");
-    d3.select(this.refs.yAxisCurrent).text("");
   }
->>>>>>> chore: Migrate from React.createClass to ES6 classes
 
   render() {
     var height = this.props.height;

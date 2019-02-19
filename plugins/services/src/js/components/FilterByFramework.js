@@ -10,7 +10,7 @@ import Framework from "../structs/Framework";
 const DEFAULT_ID = "default";
 const METHODS_TO_BIND = ["handleItemSelection", "getDropdownItems"];
 
-class FilterByFramework extends React.Component {
+export default class FilterByFramework extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -123,5 +123,3 @@ FilterByFramework.defaultProps = {
   totalHostsCount: 0,
   handleFilterChange() {}
 };
-
-module.exports = FilterByService;
