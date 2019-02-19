@@ -13,7 +13,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
 import Util from "#SRC/js/utils/Util";
 
-import JobCreateEditFormModal from "../JobCreateEditFormModal";
+import JobFormModal from "../components/NewJobsFormModal";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
@@ -125,11 +125,11 @@ class JobDetailPage extends mixin(TabsMixin) {
           tabs={this.getTabs()}
         />
         {this.tabs_getTabView(job)}
-        <JobCreateEditFormModal
+        <JobFormModal
           isEdit={true}
           job={new Job(JSON.parse(job.json))}
-          open={this.props.jobActionDialog === DIALOGS.EDIT}
-          onClose={this.props.closeDialog}
+          isOpen={this.props.jobActionDialog === DIALOGS.EDIT}
+          closeModal={this.props.closeDialog}
         />
         <JobDelete
           jobId={params.id}
