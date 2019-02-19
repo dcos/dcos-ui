@@ -22,7 +22,7 @@ import {
   JobDetailResponse
 } from "../MetronomeClient";
 import Config from "../../config/Config";
-import { RestartPolicyOptions } from "plugins/jobs/src/js/validators/JobFormData";
+import { RestartPolicyOptions } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 
 describe("MetronomeClient", () => {
   const jobId = "my/awesome/job/id";
