@@ -48,6 +48,14 @@ const createJobMutation = gql`
   }
 `;
 
+const editJobMutation = gql`
+  mutation {
+    updateJob(id: $jobId, data: $data) {
+      jobId
+    }
+  }
+`;
+
 class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   constructor() {
     super(...arguments);
@@ -62,6 +70,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.handleGoBack = this.handleGoBack.bind(this);
     this.handleFormErrorsChange = this.handleFormErrorsChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.getSubmitAction = this.getSubmitAction.bind(this);
   }
 
   getInitialState() {
@@ -92,7 +101,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       : job.run.ucr
         ? "ucr"
         : null) as "docker" | "ucr" | null;
-    const { schedules, ...jobOnly } = job;
+    const { schedules, _itemData, ...jobOnly } = job;
     const formData = {
       cmdOnly,
       container,
@@ -128,6 +137,23 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
+  getSubmitAction() {
+    const { isEdit } = this.props;
+    const { formData } = this.state;
+    if (isEdit) {
+      const editContext = {
+        jobId: formData.job.id,
+        data: formData
+      };
+      return graphqlObservable(editJobMutation, defaultSchema, editContext);
+    } else {
+      const createContext = {
+        data: formData
+      };
+      return graphqlObservable(createJobMutation, defaultSchema, createContext);
+    }
+  }
+
   handleJobRun() {
     const { formData } = this.state;
     const { closeModal } = this.props;
@@ -144,8 +170,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
         processing: true,
         submitFailed: false
       });
-      // TODO: use different mutation if isEdit
-      graphqlObservable(createJobMutation, defaultSchema, { data: formData })
+      this.getSubmitAction()
         .pipe(take(1))
         .subscribe({
           next: () => closeModal(),

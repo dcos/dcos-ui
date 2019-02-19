@@ -5,13 +5,15 @@ export interface JobFormData {
   run: JobRun;
 }
 
+export type ConcurrentPolicyOptions = "ALLOW" | "FORBID";
+
 export interface JobSchedule {
   id: string;
   cron: string;
-  timezone: string;
-  startingDeadlineSeconds: number;
-  concurrentPolicy: "ALLOW" | "FORBID";
-  enabled: boolean;
+  timezone?: string;
+  startingDeadlineSeconds?: number;
+  concurrentPolicy?: ConcurrentPolicyOptions;
+  enabled?: boolean;
 }
 
 export interface JobFormUIData {
@@ -95,8 +97,10 @@ export interface PlacementConstraint {
   value?: string;
 }
 
+export type RestartPolicyOptions = "NEVER" | "ON_FAILURE";
+
 export interface JobRestart {
-  policy: "NEVER" | "ON_FAILURE";
+  policy: RestartPolicyOptions;
   activeDeadlineSeconds?: number;
 }
 
