@@ -6,7 +6,7 @@ import Config from "../config/Config";
 import {
   JobSchedule,
   JobFormData
-} from "plugins/jobs/src/js/validators/JobFormData";
+} from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 import { switchMap } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 
@@ -47,7 +47,7 @@ export interface JobUCR {
 
 export interface JobResponse extends GenericJobResponse {
   historySummary: JobHistorySummary;
-  _itemData: any;
+  _itemData?: any;
 }
 
 export interface JobDetailResponse extends GenericJobResponse {
