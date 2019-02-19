@@ -1,4 +1,4 @@
-import { JobFormUIData } from "./JobFormData";
+import { JobFormUIData, UcrContainer } from "./JobFormData";
 import { getDefaultContainer } from "./DefaultFormData";
 import { JobFormHistory } from "./JobFormHistory";
 
@@ -6,9 +6,9 @@ interface JobsJSONParser {
   [key: string]: ParserFunction | ParserFunctionWithHistory;
 }
 
-type ParserFunction = (value: any, formData: JobFormUIData) => void;
+export type ParserFunction = (value: any, formData: JobFormUIData) => void;
 
-type ParserFunctionWithHistory = (
+export type ParserFunctionWithHistory = (
   value: any,
   formData: JobFormUIData,
   history: JobFormHistory
@@ -57,9 +57,9 @@ const Parser: JobsJSONParser = {
       // as the container.
       const ucrFromHistory = history.get("ucr");
       formData.job.run.ucr = Object.keys(ucrFromHistory).length
-        ? ucrFromHistory
+        ? (ucrFromHistory as UcrContainer)
         : getDefaultContainer();
-      formData.job.run.gpus = history.get("gpus");
+      formData.job.run.gpus = history.get("gpus") as number;
     }
   }
 };

@@ -12,7 +12,7 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldError from "#SRC/js/components/form/FieldError";
-import { JobFormUIData, FormError } from "../validators/JobFormData";
+import { JobFormUIData, FormError } from "./helpers/JobFormData";
 
 interface GeneralProps {
   formData: JobFormUIData;
@@ -31,7 +31,7 @@ function getFieldError(path: string, errors: FormError[]) {
 }
 
 class GeneralFormSection extends Component<GeneralProps, object> {
-  constructor(props) {
+  constructor(props: GeneralProps) {
     super(props);
   }
 
