@@ -11,13 +11,13 @@ import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModa
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import ToggleButton from "#SRC/js/components/ToggleButton";
 
-import { getDefaultJobFormData } from "../validators/DefaultFormData";
-import { JobFormUIData, FormError } from "../validators/JobFormData";
+import { getDefaultJobFormData } from "./form/helpers/DefaultFormData";
+import { JobFormUIData, FormError } from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
 import defaultSchema from "../data/JobModel";
 import { take } from "rxjs/operators";
-import { MetronomeSpecValidators } from "../validators/MetronomeJobValidators";
+import { MetronomeSpecValidators } from "./form/helpers/MetronomeJobValidators";
 
 interface JobFormModalProps {
   job?: JobResponse;
@@ -108,7 +108,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       job: jobOnly,
       schedule: schedules[0]
     };
-    return formData;
+    return formData as JobFormUIData;
   }
 
   onChange(formData: JobFormUIData) {

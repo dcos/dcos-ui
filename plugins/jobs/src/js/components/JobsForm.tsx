@@ -17,11 +17,10 @@ import {
   FormError,
   JobFormData,
   JobSchedule
-} from "../validators/JobFormData";
-import { JobFormHistory } from "../validators/JobFormHistory";
-import GeneralFormSection from "./GeneralFormSection";
-import JobJSONParser from "../validators/JobJSONParser";
-import ArgsFormSection from "./ArgsFormSection";
+} from "./form/helpers/JobFormData";
+import { JobFormHistory } from "./form/helpers/JobFormHistory";
+import GeneralFormSection from "./form/GeneralFormSection";
+import JobJSONParser from "./form/helpers/JobJSONParser";
 
 const ServiceErrorPathMapping: any[] = [];
 
@@ -81,7 +80,7 @@ class JobModalForm extends Component<JobFormProps, JobFormState> {
     const arrayPath = dotSeparatedPath.split(".");
     const assignProp = arrayPath.pop();
     if (assignProp) {
-      arrayPath.reduce((acc: string | object, current: string) => {
+      arrayPath.reduce((acc: any, current: string) => {
         return acc[current];
       }, formData)[assignProp] = value;
     }
@@ -98,7 +97,8 @@ class JobModalForm extends Component<JobFormProps, JobFormState> {
 
     if (JobJSONParser[prop]) {
       // Check if changed property has complex change rules
-      JobJSONParser[prop](value, newFormData, history);
+      const updateFunc = JobJSONParser[prop];
+      updateFunc(value, newFormData, history);
     } else {
       // Default for properties that can be changed simply
       this.handleSimpleValueChange(dotSeparatedPath, value, formData);
