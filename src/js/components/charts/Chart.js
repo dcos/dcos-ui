@@ -29,6 +29,10 @@ class Chart extends mixin(InternalStorageMixin, StoreMixin) {
     this.internalStorage_set({ width: null });
   }
 
+  onSidebarStoreWidthChange() {
+    this.updateWidth();
+  }
+
   componentDidMount() {
     this._mounted = true;
     if (this.props.delayRender) {
