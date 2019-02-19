@@ -3,7 +3,10 @@ import { request, RequestResponse } from "@dcos/http-service";
 // tslint:disable-next-line:no-submodule-imports
 import { Observable } from "rxjs";
 import Config from "../config/Config";
-import { JobFormUIData } from "plugins/jobs/src/js/validators/JobFormData";
+import {
+  JobSchedule,
+  JobFormData
+} from "plugins/jobs/src/js/validators/JobFormData";
 import { switchMap } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 
@@ -44,6 +47,7 @@ export interface JobUCR {
 
 export interface JobResponse extends GenericJobResponse {
   historySummary: JobHistorySummary;
+  _itemData: any;
 }
 
 export interface JobDetailResponse extends GenericJobResponse {
@@ -145,6 +149,11 @@ export interface ScheduleData {
   id: string;
 }
 
+export interface CreateUpdateJobData {
+  job: JobFormData;
+  schedule?: JobSchedule;
+}
+
 export function isDetailResponse(
   response: GenericJobResponse
 ): response is JobDetailResponse {
@@ -156,24 +165,28 @@ const defaultHeaders = {
 };
 
 export function createJob(
-  data: JobFormUIData
+  data: CreateUpdateJobData
 ): Observable<RequestResponse<JobDetailResponse>> {
-  const jobRequest = request(`${Config.metronomeAPI}/v1/jobs`, {
-    method: "POST",
-    body: JSON.stringify(data.job),
-    headers: defaultHeaders
-  });
+  const jobRequest = (): Observable<RequestResponse<JobDetailResponse>> =>
+    request(`${Config.metronomeAPI}/v1/jobs`, {
+      method: "POST",
+      body: JSON.stringify(data.job),
+      headers: defaultHeaders
+    });
   return data.schedule
-    ? jobRequest.pipe(
-        switchMap(() =>
-          request(`${Config.metronomeAPI}/v1/jobs/${data.job.id}/schedules`, {
-            method: "POST",
-            body: JSON.stringify(data.schedule),
-            headers: defaultHeaders
-          })
-        )
+    ? jobRequest().pipe(
+        switchMap(() => {
+          return request(
+            `${Config.metronomeAPI}/v1/jobs/${data.job.id}/schedules`,
+            {
+              method: "POST",
+              body: JSON.stringify(data.schedule),
+              headers: defaultHeaders
+            }
+          );
+        })
       )
-    : (jobRequest as Observable<RequestResponse<JobDetailResponse>>);
+    : jobRequest();
 }
 
 export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
@@ -208,18 +221,30 @@ export function deleteJob(
 
 export function updateJob(
   jobID: string,
-  data: JobDetailResponse
+  data: CreateUpdateJobData
 ): Observable<RequestResponse<JobDetailResponse>> {
-  return request(
-    `${
-      Config.metronomeAPI
-    }/v0/scheduled-jobs/${jobID}?embed=activeRuns&embed=history&embed=schedules`,
-    {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: defaultHeaders
-    }
-  );
+  const updateJobRequest = request(`${Config.metronomeAPI}/v1/jobs/${jobID}`, {
+    method: "PUT",
+    body: JSON.stringify(data.job),
+    headers: defaultHeaders
+  });
+  const updateScheduleRequest = (
+    schedule: JobSchedule
+  ): Observable<RequestResponse<JobDetailResponse>> =>
+    request(
+      `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${schedule.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(schedule),
+        headers: defaultHeaders
+      }
+    );
+
+  return data.schedule
+    ? updateJobRequest.pipe(
+        switchMap(() => updateScheduleRequest(data.schedule as JobSchedule))
+      )
+    : (updateJobRequest as Observable<RequestResponse<JobDetailResponse>>);
 }
 
 export function runJob(jobID: string): Observable<RequestResponse<any>> {
