@@ -40,6 +40,8 @@ packages.forEach(function(packageDir) {
 });
 
 module.exports = {
+  verbose: true,
+  testURL: "http://localhost/",
   roots,
   globals: {
     __DEV__: true,
