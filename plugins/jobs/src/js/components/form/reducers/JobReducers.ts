@@ -4,7 +4,8 @@ import {
   JobSpec,
   Action,
   JobOutput,
-  JobFormActionType
+  JobFormActionType,
+  Container
 } from "../helpers/JobFormData";
 
 const jsonReducers = {
@@ -12,7 +13,11 @@ const jsonReducers = {
     const stateCopy = deepCopy(state);
     const valueCopy = deepCopy(value);
     const cmdOnly = !(valueCopy.job.run.docker || valueCopy.job.run.ucr);
-    const container = valueCopy.job.run.docker ? "docker" : "ucr";
+    const container = valueCopy.job.run.docker
+      ? Container.Docker
+      : valueCopy.job.run.ucr
+        ? Container.UCR
+        : stateCopy.container || Container.UCR;
     const newState = {
       ...stateCopy,
       ...valueCopy,
@@ -68,7 +73,14 @@ const cmdOnlyReducers = {
   }
 };
 
-const defaultReducer = {
+type DefaultReducerFunction = (
+  value: any,
+  state: JobSpec,
+  path: string[]
+) => JobSpec;
+type DefaultReducer = { [P in JobFormActionType]?: DefaultReducerFunction };
+
+const defaultReducer: DefaultReducer = {
   [JobFormActionType.Set]: (value: any, state: JobSpec, path: string[]) => {
     const stateCopy = deepCopy(state);
     const assignProp = path.pop();
@@ -82,7 +94,12 @@ const defaultReducer = {
   }
 };
 
-const combinedReducers = {
+type ReducerFunction = (value: any, state: JobSpec, path?: string[]) => JobSpec;
+interface CombinedReducers {
+  [key: string]: { [P in JobFormActionType]?: ReducerFunction };
+}
+
+const combinedReducers: CombinedReducers = {
   json: jsonReducers,
   containerImage: containerImageReducers,
   cmdOnly: cmdOnlyReducers
@@ -107,11 +124,9 @@ export function jobFormOutputToSpecReducer(
 
   if (reducerSet) {
     updateFunction = reducerSet[action.type];
-    return (
-      updateFunction &&
-      isFunction(updateFunction) &&
-      updateFunction(action.value, state)
-    );
+    if (updateFunction && isFunction(updateFunction)) {
+      return updateFunction(action.value, state);
+    }
   }
   updateFunction = defaultSet[action.type];
   if (updateFunction && isFunction(updateFunction)) {

@@ -51,7 +51,7 @@ interface NavigationItem {
 }
 
 class JobModalForm extends Component<JobFormProps, {}> {
-  constructor(props: JobFormProps) {
+  constructor(props) {
     super(props);
 
     this.onInputChange = this.onInputChange.bind(this);

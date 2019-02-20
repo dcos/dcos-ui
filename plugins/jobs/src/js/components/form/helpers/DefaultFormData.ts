@@ -2,7 +2,9 @@ import {
   UcrContainer,
   JobFormData,
   DockerContainer,
-  JobSpec
+  JobSpec,
+  Container,
+  UcrImageKind
 } from "./JobFormData";
 
 export const getDefaultJob = (): JobFormData => ({
@@ -22,13 +24,13 @@ export const getDefaultJob = (): JobFormData => ({
 export const getDefaultJobSpec = (): JobSpec => ({
   job: getDefaultJob(),
   cmdOnly: true,
-  container: "ucr"
+  container: Container.UCR
 });
 
 export const getDefaultContainer = (): UcrContainer => ({
   image: {
     id: "",
-    kind: "docker"
+    kind: UcrImageKind.Docker
   }
 });
 

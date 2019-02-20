@@ -45,13 +45,15 @@ export const MetronomeUiValidators = {
   }
 };
 
-export const MetronomeSpecValidators: Array<
-  (formData: JobOutput) => FormError[]
-> = [
+interface MetronomeValidators {
+  [key: string]: (formData: JobOutput) => FormError[];
+}
+
+export const MetronomeSpecValidators: MetronomeValidators = {
   /**
    * Ensure ID contains only allowed characters.
    */
-  function jobIdIsValid(formData: JobOutput): FormError[] {
+  jobIdIsValid(formData: JobOutput): FormError[] {
     const jobId = formData.job.id;
     const jobIdRegex = /^[a-z0-9][-a-z0-9]*[a-z0-9]$/;
     const message =
@@ -63,7 +65,7 @@ export const MetronomeSpecValidators: Array<
    * Ensure that the user has provided either one of `cmd` or `args`, or a container image field.
    * Ensure that the user has not provided both `cmd` and `args`.
    */
-  function containsCmdArgsOrContainer(formData: JobOutput): FormError[] {
+  containsCmdArgsOrContainer(formData: JobOutput): FormError[] {
     const { job } = formData;
     const hasCmd = job.run.cmd;
     const hasArgs = job.run.args && job.run.args.length;
@@ -124,7 +126,7 @@ export const MetronomeSpecValidators: Array<
   /**
    * Ensure there is a container image if a container is specified
    */
-  function mustContainImageOnDockerOrUCR(formData: JobOutput) {
+  mustContainImageOnDockerOrUCR(formData: JobOutput) {
     const { job } = formData;
     if (job.run.docker && !job.run.docker.image) {
       return [
@@ -150,9 +152,9 @@ export const MetronomeSpecValidators: Array<
   /**
    * Ensure GPUs are used only with UCR
    */
-  function gpusOnlyWithUCR(formData: JobOutput) {
+  gpusOnlyWithUCR(formData: JobOutput) {
     const { job } = formData;
-    if (job.run.gpus && !job.run.ucr) {
+    if ((job.run.gpus || job.run.gpus === 0) && !job.run.ucr) {
       return [
         {
           path: ["run", "gpus"],
@@ -167,7 +169,7 @@ export const MetronomeSpecValidators: Array<
   /**
    * Ensure job contains the minimum required fields (ID, CPUs, Mem, Disk)
    */
-  function hasMinimumRequiredFields(formData: JobOutput) {
+  hasMinimumRequiredFields(formData: JobOutput) {
     const {
       job: {
         id,
@@ -207,7 +209,7 @@ export const MetronomeSpecValidators: Array<
     return errors;
   },
 
-  function valuesAreWithinRange(formData: JobOutput) {
+  valuesAreWithinRange(formData: JobOutput) {
     const {
       job: {
         run: { cpus, mem, disk }
@@ -238,4 +240,4 @@ export const MetronomeSpecValidators: Array<
 
     return errors;
   }
-];
+};
