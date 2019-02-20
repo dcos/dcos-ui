@@ -1,10 +1,10 @@
-import { JobFormUIData, FormError } from "./JobFormData";
+import { JobOutput, FormOutput, FormError } from "./JobFormData";
 
 export const MetronomeUiValidators = {
   /**
    * Returns whether a field is required based on current state of form data.
    */
-  fieldIsRequired(fieldName: string, formData: JobFormUIData): boolean {
+  fieldIsRequired(fieldName: string, formData: FormOutput): boolean {
     switch (fieldName) {
       case "cmd":
         return formData.cmdOnly;
@@ -18,15 +18,10 @@ export const MetronomeUiValidators = {
   /**
    * Returns whether a field is disabled based on current state of form data.
    */
-  fieldIsDisabled(fieldName: string, formData: JobFormUIData): boolean {
-    const { job } = formData;
+  fieldIsDisabled(fieldName: string, formData: FormOutput): boolean {
     switch (fieldName) {
       case "gpus":
-        return formData.cmdOnly || !job.run.ucr;
-      case "cmd":
-        return !!job.run.args;
-      case "args":
-        return !!job.run.cmd;
+        return formData.cmdOnly || !(formData.container === "ucr");
       case "ucr":
       case "docker":
         return formData.cmdOnly;
@@ -38,7 +33,7 @@ export const MetronomeUiValidators = {
   /**
    * Returns whether a field is shown based on current state of form data.
    */
-  fieldIsShown(fieldName: string, formData: JobFormUIData): boolean {
+  fieldIsShown(fieldName: string, formData: FormOutput): boolean {
     switch (fieldName) {
       case "ucr":
         return !(formData.container === "docker");
@@ -51,13 +46,24 @@ export const MetronomeUiValidators = {
 };
 
 export const MetronomeSpecValidators: Array<
-  (formData: JobFormUIData) => FormError[]
+  (formData: JobOutput) => FormError[]
 > = [
+  /**
+   * Ensure ID contains only allowed characters.
+   */
+  function jobIdIsValid(formData: JobOutput): FormError[] {
+    const jobId = formData.job.id;
+    const jobIdRegex = /^[a-z0-9][-a-z0-9]*[a-z0-9]$/;
+    const message =
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash.";
+    return jobId && jobIdRegex.test(jobId) ? [] : [{ path: ["id"], message }];
+  },
+
   /**
    * Ensure that the user has provided either one of `cmd` or `args`, or a container image field.
    * Ensure that the user has not provided both `cmd` and `args`.
    */
-  function containsCmdArgsOrContainer(formData: JobFormUIData): FormError[] {
+  function containsCmdArgsOrContainer(formData: JobOutput): FormError[] {
     const { job } = formData;
     const hasCmd = job.run.cmd;
     const hasArgs = job.run.args && job.run.args.length;
@@ -118,7 +124,7 @@ export const MetronomeSpecValidators: Array<
   /**
    * Ensure there is a container image if a container is specified
    */
-  function mustContainImageOnDockerOrUCR(formData: JobFormUIData) {
+  function mustContainImageOnDockerOrUCR(formData: JobOutput) {
     const { job } = formData;
     if (job.run.docker && !job.run.docker.image) {
       return [
@@ -144,7 +150,7 @@ export const MetronomeSpecValidators: Array<
   /**
    * Ensure GPUs are used only with UCR
    */
-  function gpusOnlyWithUCR(formData: JobFormUIData) {
+  function gpusOnlyWithUCR(formData: JobOutput) {
     const { job } = formData;
     if (job.run.gpus && !job.run.ucr) {
       return [
@@ -161,7 +167,7 @@ export const MetronomeSpecValidators: Array<
   /**
    * Ensure job contains the minimum required fields (ID, CPUs, Mem, Disk)
    */
-  function hasMinimumRequiredFields(formData: JobFormUIData) {
+  function hasMinimumRequiredFields(formData: JobOutput) {
     const {
       job: {
         id,
@@ -201,7 +207,7 @@ export const MetronomeSpecValidators: Array<
     return errors;
   },
 
-  function valuesAreWithinRange(formData: JobFormUIData) {
+  function valuesAreWithinRange(formData: JobOutput) {
     const {
       job: {
         run: { cpus, mem, disk }
@@ -211,21 +217,21 @@ export const MetronomeSpecValidators: Array<
 
     if (cpus < 0.1) {
       errors.push({
-        path: ["run.cpus"],
+        path: ["run", "cpus"],
         message: "Minimum value is 0.1."
       });
     }
 
     if (mem < 32) {
       errors.push({
-        path: ["run.mem"],
+        path: ["run", "mem"],
         message: "Minimum value is 32."
       });
     }
 
     if (disk < 0) {
       errors.push({
-        path: ["run.disk"],
+        path: ["run", "disk"],
         message: "Minimum value is 0."
       });
     }
