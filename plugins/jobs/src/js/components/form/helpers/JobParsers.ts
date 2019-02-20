@@ -1,6 +1,6 @@
 import { deepCopy } from "#SRC/js/utils/Util";
 
-import { JobOutput, JobSpec, FormOutput } from "./JobFormData";
+import { JobOutput, JobSpec, FormOutput, Container } from "./JobFormData";
 
 export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   const jobSpecCopy = deepCopy(jobSpec);
@@ -13,7 +13,7 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
     delete jobSpecCopy.job.run.docker;
     delete jobSpecCopy.job.run.ucr;
     jobSpecCopy.job.run[jobSpecCopy.container] = container;
-    if (jobSpecCopy.container !== "ucr") {
+    if (jobSpecCopy.container !== Container.UCR) {
       delete jobSpecCopy.job.run.gpus;
     }
   }
@@ -28,9 +28,11 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
 export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   const container = jobSpec.container;
   const containerImage =
-    container === "ucr"
-      ? jobSpec.job.run.ucr.image.id
-      : jobSpec.job.run.docker.image;
+    container === Container.UCR
+      ? jobSpec.job.run.ucr &&
+        jobSpec.job.run.ucr.image &&
+        jobSpec.job.run.ucr.image.id
+      : jobSpec.job.run.docker && jobSpec.job.run.docker.image;
   return {
     jobId: jobSpec.job.id,
     description: jobSpec.job.description,
