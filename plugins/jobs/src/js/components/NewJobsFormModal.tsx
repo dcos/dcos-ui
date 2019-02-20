@@ -3,6 +3,7 @@ import { i18nMark } from "@lingui/react";
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphqlObservable } from "@dcos/data-service";
+import { take } from "rxjs/operators";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
@@ -10,14 +11,25 @@ import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenMo
 import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import ToggleButton from "#SRC/js/components/ToggleButton";
+import { deepCopy } from "#SRC/js/utils/Util";
 
-import { getDefaultJobFormData } from "./form/helpers/DefaultFormData";
-import { JobFormUIData, FormError } from "./form/helpers/JobFormData";
+import {
+  getDefaultJobSpec,
+  getDefaultContainer,
+  getDefaultDocker
+} from "./form/helpers/DefaultFormData";
+import {
+  FormError,
+  JobSpec,
+  JobOutput,
+  Action
+} from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
 import defaultSchema from "../data/JobModel";
-import { take } from "rxjs/operators";
 import { MetronomeSpecValidators } from "./form/helpers/MetronomeJobValidators";
+import { jobSpecToOutputParser } from "./form/helpers/JobParsers";
+import { jobFormOutputToSpecReducer } from "./form/reducers/JobReducers";
 
 interface JobFormModalProps {
   job?: JobResponse;
@@ -27,7 +39,8 @@ interface JobFormModalProps {
 }
 
 interface JobFormModalState {
-  formData: JobFormUIData;
+  jobOutput: JobOutput;
+  jobSpec: JobSpec;
   validationErrors: FormError[];
   formJSONErrors: FormError[];
   serverErrors: FormError[];
@@ -75,11 +88,13 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
 
   getInitialState() {
     const { job } = this.props;
-    const initialFormData = job
-      ? this.getFormDataFromJob(job)
-      : getDefaultJobFormData();
+    const jobSpec = job
+      ? this.getJobSpecFromResponse(job)
+      : getDefaultJobSpec();
+    const jobOutput = jobSpecToOutputParser(jobSpec);
     const initialState = {
-      formData: initialFormData,
+      jobSpec,
+      jobOutput,
       validationErrors: [],
       formJSONErrors: [],
       serverErrors: [],
@@ -94,28 +109,45 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     return initialState;
   }
 
-  getFormDataFromJob(job: JobResponse): JobFormUIData {
-    const cmdOnly = !(job.run.docker || job.run.ucr);
-    const container = (job.run.docker
-      ? "docker"
-      : job.run.ucr
-        ? "ucr"
-        : null) as "docker" | "ucr" | null;
-    const { schedules, _itemData, ...jobOnly } = job;
-    const formData = {
+  getJobSpecFromResponse(job: JobResponse): JobSpec {
+    const jobCopy = deepCopy(job);
+    const cmdOnly = !(jobCopy.run.docker || jobCopy.run.ucr);
+    const container = (jobCopy.run.docker ? "docker" : "ucr") as
+      | "docker"
+      | "ucr";
+
+    if (jobCopy.run.ucr) {
+      jobCopy.run.docker = getDefaultDocker();
+      jobCopy.run.docker.image =
+        jobCopy.run.ucr.image && jobCopy.run.ucr.image.id;
+      jobCopy.run.docker.forcePullImage =
+        jobCopy.run.ucr.image && jobCopy.run.ucr.image.forcePull;
+    } else if (jobCopy.run.docker) {
+      jobCopy.run.ucr = getDefaultContainer();
+      jobCopy.run.ucr.image.id = jobCopy.run.docker.image;
+      jobCopy.run.ucr.image.forcePull = jobCopy.run.docker.forcePullImage;
+    } else {
+      jobCopy.run.docker = getDefaultDocker();
+      jobCopy.run.ucr = getDefaultContainer();
+    }
+
+    const { schedules, _itemData, ...jobOnly } = jobCopy;
+    const jobSpec = {
       cmdOnly,
       container,
       job: jobOnly,
       schedule: schedules[0]
     };
-    return formData as JobFormUIData;
+    return jobSpec;
   }
 
-  onChange(formData: JobFormUIData) {
-    // TODO: validate formData to get errors, set error state
-    const { submitFailed } = this.state;
-    const validationErrors = submitFailed ? this.validateJobSpec(formData) : [];
-    this.setState({ formData, validationErrors });
+  onChange(action: Action) {
+    const { submitFailed, jobSpec } = this.state;
+    const newJobSpec = jobFormOutputToSpecReducer(action, jobSpec);
+    const validationErrors = submitFailed
+      ? this.validateJobSpec(jobSpecToOutputParser(newJobSpec))
+      : [];
+    this.setState({ jobSpec: newJobSpec, validationErrors });
   }
 
   handleGoBack() {
@@ -137,27 +169,27 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
-  getSubmitAction() {
+  getSubmitAction(jobOutput: JobOutput) {
     const { isEdit } = this.props;
-    const { formData } = this.state;
     if (isEdit) {
       const editContext = {
-        jobId: formData.job.id,
-        data: formData
+        jobId: jobOutput.job.id,
+        data: jobOutput
       };
       return graphqlObservable(editJobMutation, defaultSchema, editContext);
     } else {
       const createContext = {
-        data: formData
+        data: jobOutput
       };
       return graphqlObservable(createJobMutation, defaultSchema, createContext);
     }
   }
 
   handleJobRun() {
-    const { formData } = this.state;
+    const { jobSpec } = this.state;
     const { closeModal } = this.props;
-    const validationErrors = this.validateJobSpec(formData);
+    const jobOutput = jobSpecToOutputParser(jobSpec);
+    const validationErrors = this.validateJobSpec(jobOutput);
     if (validationErrors.length) {
       this.setState({
         validationErrors,
@@ -168,9 +200,10 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       this.setState({
         validationErrors,
         processing: true,
-        submitFailed: false
+        submitFailed: false,
+        jobOutput
       });
-      this.getSubmitAction()
+      this.getSubmitAction(jobOutput)
         .pipe(take(1))
         .subscribe({
           next: () => closeModal(),
@@ -202,10 +235,9 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   /**
    * This function returns errors produced by the form validators
    */
-  validateJobSpec(formData: JobFormUIData) {
-    // TODO
+  validateJobSpec(jobOutput: JobOutput) {
     const validationErrors = DataValidatorUtil.validate(
-      formData,
+      jobOutput,
       MetronomeSpecValidators
     );
 
@@ -249,7 +281,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   getModalContent() {
     const {
       isJSONModeActive,
-      formData,
+      jobSpec,
       showValidationErrors,
       activeTab
     } = this.state;
@@ -261,7 +293,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
         handleTabChange={this.handleTabChange}
         isJSONModeActive={isJSONModeActive}
         onChange={this.onChange}
-        formData={formData}
+        jobSpec={jobSpec}
         showAllErrors={showValidationErrors}
         onErrorsChange={this.handleFormErrorsChange}
       />

@@ -12,36 +12,34 @@ import Tabs from "#SRC/js/components/Tabs";
 import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 
+import "brace/mode/json";
+import "brace/theme/monokai";
+import "brace/ext/language_tools";
+
 import {
-  JobFormUIData,
   FormError,
-  JobFormData,
-  JobSchedule
+  JobFormActionType,
+  Action,
+  JobSpec,
+  JobOutput
 } from "./form/helpers/JobFormData";
-import { JobFormHistory } from "./form/helpers/JobFormHistory";
 import GeneralFormSection from "./form/GeneralFormSection";
-import JobJSONParser from "./form/helpers/JobJSONParser";
+import {
+  jobSpecToOutputParser,
+  jobSpecToFormOutputParser
+} from "./form/helpers/JobParsers";
 
 const ServiceErrorPathMapping: any[] = [];
 
 interface JobFormProps {
-  onChange: (formData: JobFormUIData) => void;
-  formData: JobFormUIData;
+  onChange: (action: Action) => void;
+  jobSpec: JobSpec;
   activeTab: string;
   handleTabChange: (tab: string) => void;
   errors: any[];
   isJSONModeActive: boolean;
   onErrorsChange: (errors: FormError[]) => void;
   showAllErrors: boolean;
-}
-
-interface JobFormState {
-  history: JobFormHistory;
-}
-
-interface JSONEditorData {
-  job: JobFormData;
-  schedule: JobSchedule;
 }
 
 interface NavigationItem {
@@ -52,133 +50,37 @@ interface NavigationItem {
   children?: NavigationItem[];
 }
 
-class JobModalForm extends Component<JobFormProps, JobFormState> {
+class JobModalForm extends Component<JobFormProps, {}> {
   constructor(props: JobFormProps) {
     super(props);
 
-    this.state = {
-      history: new JobFormHistory(props.formData)
-    };
-
     this.onInputChange = this.onInputChange.bind(this);
-    this.handleFormDataChange = this.handleFormDataChange.bind(this);
     this.handleJSONChange = this.handleJSONChange.bind(this);
     this.handleJSONErrorStateChange = this.handleJSONErrorStateChange.bind(
       this
     );
-    this.handleSimpleValueChange = this.handleSimpleValueChange.bind(this);
-    this.onChangeArrayItem = this.onChangeArrayItem.bind(this);
-    this.onAddItem = this.onAddItem.bind(this);
-    this.onRemoveItem = this.onRemoveItem.bind(this);
-  }
-
-  handleSimpleValueChange(
-    dotSeparatedPath: string,
-    value: any,
-    formData: JobFormUIData
-  ) {
-    const arrayPath = dotSeparatedPath.split(".");
-    const assignProp = arrayPath.pop();
-    if (assignProp) {
-      arrayPath.reduce((acc: any, current: string) => {
-        return acc[current];
-      }, formData)[assignProp] = value;
-    }
-  }
-
-  handleFormDataChange(dotSeparatedPath: string, value: any) {
-    const { onChange, formData } = this.props;
-    const { history } = this.state;
-    const newFormData = { ...formData };
-    const arrayPath = dotSeparatedPath.split(".");
-
-    // Property that is changing
-    const prop = arrayPath[arrayPath.length - 1];
-
-    if (JobJSONParser[prop]) {
-      // Check if changed property has complex change rules
-      const updateFunc = JobJSONParser[prop];
-      updateFunc(value, newFormData, history);
-    } else {
-      // Default for properties that can be changed simply
-      this.handleSimpleValueChange(dotSeparatedPath, value, formData);
-    }
-    onChange(newFormData);
   }
 
   onInputChange(event: any) {
+    const { onChange } = this.props;
     const newValue = event.target.value;
     const inputName = event.target.name;
-    this.handleFormDataChange(inputName, newValue);
-  }
-
-  addArg() {
-    const { onChange, formData } = this.props;
-    const newFormData = { ...formData };
-    if (!newFormData.job.run.args) {
-      newFormData.job.run.args = [];
-    }
-    newFormData.job.run.args.push("");
-    onChange(newFormData);
-  }
-
-  removeArg(index: number) {
-    const { onChange, formData } = this.props;
-    const newFormData = { ...formData };
-    if (
-      !newFormData.job.run.args ||
-      newFormData.job.run.args.length - 1 < index
-    ) {
-      return;
-    }
-    newFormData.job.run.args.splice(index, 1);
-    onChange(newFormData);
-  }
-
-  editArg(value: any, index: number) {
-    const { onChange, formData } = this.props;
-    const newFormData = { ...formData };
-    if (
-      !newFormData.job.run.args ||
-      newFormData.job.run.args.length - 1 < index
-    ) {
-      return;
-    }
-    newFormData.job.run.args[index] = value;
-    onChange(newFormData);
-  }
-
-  onAddItem(addItem: { type: string }) {
-    switch (addItem.type) {
-      case "args":
-        this.addArg();
-        break;
-    }
-  }
-
-  onChangeArrayItem(value: any, type: string, index: number) {
-    switch (type) {
-      case "args":
-        this.editArg(value, index);
-        break;
-    }
-  }
-
-  onRemoveItem(removeItem: { type: string; value: number }) {
-    switch (removeItem.type) {
-      case "args":
-        this.removeArg(removeItem.value);
-        break;
-    }
-  }
-
-  handleJSONChange(jsonEditorData: JSONEditorData) {
-    const { formData, onChange } = this.props;
-    const newFormData = {
-      ...formData,
-      ...jsonEditorData
+    const action = {
+      type: JobFormActionType.Set,
+      value: newValue,
+      path: inputName
     };
-    onChange(newFormData);
+    onChange(action);
+  }
+
+  handleJSONChange(jobJSON: JobOutput) {
+    const { onChange } = this.props;
+    const updateJSONAction: Action = {
+      path: "json",
+      type: JobFormActionType.Override,
+      value: jobJSON
+    };
+    onChange(updateJSONAction);
   }
 
   handleJSONErrorStateChange(errorMessage: string) {
@@ -233,11 +135,12 @@ class JobModalForm extends Component<JobFormProps, JobFormState> {
       activeTab,
       handleTabChange,
       isJSONModeActive,
-      formData,
+      jobSpec,
       errors,
       showAllErrors
     } = this.props;
-    const { job, schedule } = formData;
+    const jobJSON = jobSpecToOutputParser(jobSpec);
+    const formOutput = jobSpecToFormOutputParser(jobSpec);
 
     const jsonEditorPlaceholderClasses = classNames(
       "modal-full-screen-side-panel-placeholder",
@@ -274,7 +177,7 @@ class JobModalForm extends Component<JobFormProps, JobFormState> {
                         />
                       )}
                       <GeneralFormSection
-                        formData={formData}
+                        formData={formOutput}
                         errors={errors}
                         showErrors={showAllErrors}
                       />
@@ -295,7 +198,7 @@ class JobModalForm extends Component<JobFormProps, JobFormState> {
             showPrintMargin={false}
             theme="monokai"
             height="100%"
-            value={{ job, schedule }}
+            value={jobJSON}
             width="100%"
           />
         </div>
