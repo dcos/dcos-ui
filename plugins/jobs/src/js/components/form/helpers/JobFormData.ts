@@ -5,20 +5,28 @@ export interface JobFormData {
   run: JobRun;
 }
 
-export type ConcurrentPolicyOptions = "ALLOW" | "FORBID";
+export enum ConcurrentPolicy {
+  Allow = "ALLOW",
+  Forbid = "FORBID"
+}
 
 export interface JobSchedule {
   id: string;
   cron: string;
   timezone?: string;
   startingDeadlineSeconds?: number;
-  concurrentPolicy?: ConcurrentPolicyOptions;
+  concurrentPolicy?: ConcurrentPolicy;
   enabled?: boolean;
+}
+
+export enum Container {
+  Docker = "docker",
+  UCR = "ucr"
 }
 
 export interface JobSpec {
   cmdOnly: boolean;
-  container?: "ucr" | "docker" | null;
+  container?: Container | null;
   job: JobFormData;
   schedule?: JobSchedule;
 }
@@ -28,10 +36,10 @@ export interface FormOutput {
   description?: string;
   cmdOnly: boolean;
   cmd?: string;
-  container?: string | null;
+  container?: Container | null;
   containerImage?: string;
   cpus: number;
-  gpus: number;
+  gpus?: number;
   mem: number;
   disk: number;
 }
@@ -79,9 +87,14 @@ export interface UcrContainer {
   privileged?: boolean;
 }
 
+export enum UcrImageKind {
+  Docker = "docker",
+  Appc = "appc"
+}
+
 export interface UcrImage {
   id: string;
-  kind?: "docker" | "appc";
+  kind?: UcrImageKind;
   forcePull?: boolean;
 }
 
@@ -109,23 +122,36 @@ export interface JobPlacement {
   constraints: PlacementConstraint[];
 }
 
+export enum ConstraintOperator {
+  Eq = "EQ",
+  Like = "LIKE",
+  Unlike = "UNLIKE"
+}
 export interface PlacementConstraint {
   attribute: string;
-  operator: "EQ" | "LIKE" | "UNLIKE";
+  operator: ConstraintOperator;
   value?: string;
 }
 
-export type RestartPolicyOptions = "NEVER" | "ON_FAILURE";
+export enum RestartPolicy {
+  Never = "NEVER",
+  OnFailure = "ON_FAILURE"
+}
 
 export interface JobRestart {
-  policy: RestartPolicyOptions;
+  policy: RestartPolicy;
   activeDeadlineSeconds?: number;
+}
+
+export enum VolumeMode {
+  RO = "RO",
+  RW = "RW"
 }
 
 export interface JobVolume {
   containerPath: string;
   hostPath: string;
-  mode?: "RO" | "RW";
+  mode?: VolumeMode;
 }
 
 export interface SecretVolume {
