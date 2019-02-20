@@ -22,7 +22,8 @@ import {
   FormError,
   JobSpec,
   JobOutput,
-  Action
+  Action,
+  Container
 } from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
@@ -112,9 +113,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   getJobSpecFromResponse(job: JobResponse): JobSpec {
     const jobCopy = deepCopy(job);
     const cmdOnly = !(jobCopy.run.docker || jobCopy.run.ucr);
-    const container = (jobCopy.run.docker ? "docker" : "ucr") as
-      | "docker"
-      | "ucr";
+    const container = jobCopy.run.docker ? Container.Docker : Container.UCR;
 
     if (jobCopy.run.ucr) {
       jobCopy.run.docker = getDefaultDocker();
@@ -238,7 +237,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   validateJobSpec(jobOutput: JobOutput) {
     const validationErrors = DataValidatorUtil.validate(
       jobOutput,
-      MetronomeSpecValidators
+      Object.values(MetronomeSpecValidators)
     );
 
     return validationErrors;
