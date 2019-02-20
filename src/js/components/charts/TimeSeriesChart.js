@@ -10,7 +10,6 @@ import ChartMixin from "../../mixins/ChartMixin";
 import ChartStripes from "./ChartStripes";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 import Maths from "../../utils/Maths";
-import Rect from "./Rect";
 import TimeSeriesArea from "./TimeSeriesArea";
 import TimeSeriesMouseOver from "./TimeSeriesMouseOver";
 import ValueTypes from "../../constants/ValueTypes";
@@ -125,31 +124,6 @@ const TimeSeriesChart = createReactClass({
       .append("rect");
 
     this.updateClipPath(width, height);
-  },
-
-  createUnsuccessfulBlocks(data, xTimeScale) {
-    const transitionTime = this.getTransitionTime(data);
-    const nextY = this.getNextXPosition(data, xTimeScale, transitionTime);
-    const props = this.props;
-    const width = props.width / data.length;
-
-    return data.filter(obj => obj[props.y] == null).map(obj => {
-      const x = xTimeScale(obj.date - props.refreshRate);
-      const uniqueMaskID = Util.uniqueID("singleMask");
-
-      return (
-        <Rect
-          width={width}
-          height={props.height}
-          x={x}
-          y={0}
-          className="unsuccessful-block"
-          transitionDuration={props.refreshRate}
-          transform={`translate(${-nextY}, 0)`}
-          key={`${uniqueMaskID}${x}`}
-        />
-      );
-    });
   },
 
   updateClipPath(width, height) {
@@ -352,9 +326,9 @@ const TimeSeriesChart = createReactClass({
 
   getAreaList(props, yScale, xTimeScale) {
     const firstSuccess =
-      props.data[0].values.find(function(stateResource) {
-        return stateResource[props.y] != null;
-      }) || {};
+      props.data[0].values.find(
+        stateResource => stateResource[props.y] != null
+      ) || {};
     // We need firstSuccess because if the current value is null,
     // we want to make it equal to the most recent successful value in order to
     // have a straight line on the graph.
@@ -453,10 +427,6 @@ const TimeSeriesChart = createReactClass({
     const yScale = this.getYScale(stripeHeight, maxY);
     const clipPath = "url(#" + store.clipPathID + ")";
     const maskID = this.internalStorage_get().maskID;
-    const unsuccessfulBlocks = this.createUnsuccessfulBlocks(
-      this.props.data[0].values,
-      xTimeScale
-    );
 
     return (
       <div className="timeseries-chart">
@@ -488,26 +458,11 @@ const TimeSeriesChart = createReactClass({
           className="moving-elements"
         >
           <g transform={"translate(" + margin.left + "," + margin.top + ")"}>
-            <g className="area path-color-7" clipPath={clipPath}>
-              {unsuccessfulBlocks}
-            </g>
             <g mask={`url(#${maskID})`} clipPath={clipPath}>
               {this.getAreaList(this.props, yScale, xTimeScale)}
             </g>
             {this.getCircleList(this.props, yScale, stripeWidth, stripeHeight)}
           </g>
-          <defs>
-            <mask id={store.maskID}>
-              <rect
-                x="0"
-                y="0"
-                width={stripeWidth}
-                height={stripeHeight}
-                fill="white"
-              />
-              {unsuccessfulBlocks}
-            </mask>
-          </defs>
         </svg>
       </div>
     );
