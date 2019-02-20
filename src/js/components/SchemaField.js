@@ -59,7 +59,6 @@ class SchemaField extends Component {
           <FieldInput
             type={"radio"}
             value={option}
-            name={name}
             checked={option === formData}
             onChange={() => onChange(option)}
           />
