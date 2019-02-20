@@ -16,7 +16,7 @@ import TimeSeriesMouseOver from "./TimeSeriesMouseOver";
 import ValueTypes from "../../constants/ValueTypes";
 import Util from "../../utils/Util";
 
-var TimeSeriesChart = createReactClass({
+const TimeSeriesChart = createReactClass({
   displayName: "TimeSeriesChart",
 
   propTypes: {
@@ -67,24 +67,24 @@ var TimeSeriesChart = createReactClass({
   },
 
   componentDidMount() {
-    var props = this.props;
-    var height = this.getHeight(props);
-    var width = this.getWidth(props);
+    const props = this.props;
+    const height = this.getHeight(props);
+    const width = this.getWidth(props);
 
     this.renderAxis(props, width, height);
     this.createClipPath(width, height);
   },
 
   shouldComponentUpdate(nextProps) {
-    var props = this.props;
+    const props = this.props;
 
     // The d3 axis helper requires a <g> element passed into do its work. This
     // happens after mount and ends up keeping the axis code outside of react
     // unfortunately.
     // If non `data` props change then we need to update the whole graph
     if (!isEqual(Util.omit(props, "data"), Util.omit(nextProps, "data"))) {
-      var height = this.getHeight(nextProps);
-      var width = this.getWidth(nextProps);
+      const height = this.getHeight(nextProps);
+      const width = this.getWidth(nextProps);
 
       this.renderAxis(nextProps, width, height);
 
@@ -92,13 +92,13 @@ var TimeSeriesChart = createReactClass({
     }
 
     // This won't be scalable if we decide to stack graphs
-    var prevVal = props.data[0].values;
-    var nextVal = nextProps.data[0].values;
+    const prevVal = props.data[0].values;
+    const nextVal = nextProps.data[0].values;
 
-    var prevY = prevVal.map(function(value) {
+    const prevY = prevVal.map(function(value) {
       return value[props.y];
     });
-    var nextY = nextVal.map(function(value) {
+    const nextY = nextVal.map(function(value) {
       return value[props.y];
     });
 
@@ -106,16 +106,16 @@ var TimeSeriesChart = createReactClass({
   },
 
   componentDidUpdate() {
-    var props = this.props;
-    var height = this.getHeight(props);
-    var width = this.getWidth(props);
+    const props = this.props;
+    const height = this.getHeight(props);
+    const width = this.getWidth(props);
 
     this.updateClipPath(width, height);
   },
 
   createClipPath(width, height) {
-    var data = this.internalStorage_get();
-    var el = this.movingElsRef;
+    const data = this.internalStorage_get();
+    const el = this.movingElsRef;
 
     // create clip path for areas and x-axis
     d3.select(el)
@@ -133,29 +133,27 @@ var TimeSeriesChart = createReactClass({
     const props = this.props;
     const width = props.width / data.length;
 
-    return data.map(function(obj) {
-      if (obj[props.y] == null) {
-        const x = xTimeScale(obj.date - props.refreshRate);
-        const uniqueMaskID = Util.uniqueID("singleMask");
+    return data.filter(obj => obj[props.y] == null).map(obj => {
+      const x = xTimeScale(obj.date - props.refreshRate);
+      const uniqueMaskID = Util.uniqueID("singleMask");
 
-        return (
-          <Rect
-            width={width}
-            height={props.height}
-            x={x}
-            y={0}
-            className="unsuccessful-block"
-            transitionDuration={props.refreshRate}
-            transform={`translate(${-nextY}, 0)`}
-            key={`${uniqueMaskID}${x}`}
-          />
-        );
-      }
+      return (
+        <Rect
+          width={width}
+          height={props.height}
+          x={x}
+          y={0}
+          className="unsuccessful-block"
+          transitionDuration={props.refreshRate}
+          transform={`translate(${-nextY}, 0)`}
+          key={`${uniqueMaskID}${x}`}
+        />
+      );
     });
   },
 
   updateClipPath(width, height) {
-    var data = this.internalStorage_get();
+    const data = this.internalStorage_get();
 
     d3.select("#" + data.clipPathID + " rect").attr({
       width,
@@ -167,8 +165,8 @@ var TimeSeriesChart = createReactClass({
     // We need firstSuccessful because if the current value is null,
     // we want to make it equal to the most recent successful value in order to
     // have a straight line on the graph.
-    var value = firstSuccessful[y] || 0;
-    var successfulValue = yScale(value);
+    const value = firstSuccessful[y] || 0;
+    let successfulValue = yScale(value);
 
     return d3.svg
       .area()
@@ -192,9 +190,9 @@ var TimeSeriesChart = createReactClass({
     // We need firstSuccessful because if the current value is null,
     // we want to make it equal to the most recent successful value in order to
     // have a straight line on the graph.
-    var y = this.props.y;
-    var value = firstSuccessful[y] || 0.1;
-    var successfulValue = yScale(value);
+    const y = this.props.y;
+    const value = firstSuccessful[y] || 0.1;
+    let successfulValue = yScale(value);
 
     return d3.svg
       .line()
@@ -212,20 +210,20 @@ var TimeSeriesChart = createReactClass({
   },
 
   getXTickValues(xScale) {
-    var domain = xScale.domain();
-    var mean = Maths.mean(domain);
+    const domain = xScale.domain();
+    const mean = Maths.mean(domain);
 
     return [domain[0], mean, domain[domain.length - 1]];
   },
 
   getXTimeScale(data, width) {
-    var date = Date.now();
-    var dateDelta = Date.now();
+    let date = Date.now();
+    let dateDelta = Date.now();
 
-    var firstDataSet = data[0];
+    const firstDataSet = data[0];
     if (firstDataSet != null) {
-      var hiddenValuesCount = 1;
-      var values = firstDataSet.values;
+      const hiddenValuesCount = 1;
+      const values = firstDataSet.values;
       // [first date, last date - 1]
       // Restrict x domain to have one extra point outside of graph area,
       // since we are animating the graph in from right
@@ -258,12 +256,12 @@ var TimeSeriesChart = createReactClass({
   },
 
   formatYAxis(props) {
-    var maxY = props.maxY;
-    var ticksY = props.ticksY;
-    var yFormat = props.yFormat;
+    const maxY = props.maxY;
+    const ticksY = props.ticksY;
+    const yFormat = props.yFormat;
 
     if (yFormat === ValueTypes.PERCENTAGE) {
-      var formatPercent = d3.scale
+      const formatPercent = d3.scale
         .linear()
         .tickFormat(ticksY, ".0" + this.getYCaption(yFormat));
 
@@ -286,10 +284,10 @@ var TimeSeriesChart = createReactClass({
   },
 
   renderAxis(props, width, height) {
-    var xScale = this.getXScale(props.data, width, props.refreshRate);
-    var yScale = this.getYScale(height, props.maxY);
+    const xScale = this.getXScale(props.data, width, props.refreshRate);
+    const yScale = this.getYScale(height, props.maxY);
 
-    var xAxis = d3.svg
+    const xAxis = d3.svg
       .axis()
       .scale(xScale)
       .tickValues(this.getXTickValues(xScale))
@@ -300,7 +298,7 @@ var TimeSeriesChart = createReactClass({
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
-    var yAxis = d3.svg
+    const yAxis = d3.svg
       .axis()
       .scale(yScale)
       .ticks(props.ticksY)
@@ -322,7 +320,7 @@ var TimeSeriesChart = createReactClass({
   getTransitionTime(data) {
     // look at the difference between the last and the third last point
     // to calculate transition time
-    var l = data.length - 1;
+    const l = data.length - 1;
 
     return (data[l].date - data[l - 1].date) / 1;
   },
@@ -331,8 +329,8 @@ var TimeSeriesChart = createReactClass({
    * Returns the x position of the data point that we are about to animate in
    */
   getNextXPosition(values, xTimeScale, transitionTime) {
-    var firstDataSet = values[0];
-    var date = Date.now();
+    const firstDataSet = values[0];
+    let date = Date.now();
 
     if (firstDataSet != null) {
       date = firstDataSet.date;
@@ -346,26 +344,26 @@ var TimeSeriesChart = createReactClass({
    * Returns the y position of the data point that we are about to animate in
    */
   getNextYPosition(obj, y, yScale, height) {
-    var latestDataPoint = Util.last(obj.values);
+    const latestDataPoint = Util.last(obj.values);
 
     // most recent y - height of chart
     return yScale(latestDataPoint[y]) - height;
   },
 
   getAreaList(props, yScale, xTimeScale) {
-    var firstSuccess =
+    const firstSuccess =
       props.data[0].values.find(function(stateResource) {
         return stateResource[props.y] != null;
       }) || {};
     // We need firstSuccess because if the current value is null,
     // we want to make it equal to the most recent successful value in order to
     // have a straight line on the graph.
-    var area = this.getArea(props.y, xTimeScale, yScale, firstSuccess);
-    var valueLine = this.getValueLine(xTimeScale, yScale, firstSuccess);
+    const area = this.getArea(props.y, xTimeScale, yScale, firstSuccess);
+    const valueLine = this.getValueLine(xTimeScale, yScale, firstSuccess);
 
     return props.data.map((stateResource, i) => {
-      var transitionTime = this.getTransitionTime(stateResource.values);
-      var nextY = this.getNextXPosition(
+      const transitionTime = this.getTransitionTime(stateResource.values);
+      const nextY = this.getNextXPosition(
         stateResource.values,
         xTimeScale,
         transitionTime
@@ -386,14 +384,14 @@ var TimeSeriesChart = createReactClass({
 
   getCircleList(props, yScale, width, height) {
     return props.data.map((obj, i) => {
-      var transitionTime = this.getTransitionTime(obj.values);
-      var lastObj = Util.last(obj.values);
+      const transitionTime = this.getTransitionTime(obj.values);
+      const lastObj = Util.last(obj.values);
 
       if (lastObj[props.y] == null) {
         return null;
       }
 
-      var nextX = this.getNextYPosition(obj, props.y, yScale, height);
+      const nextX = this.getNextYPosition(obj, props.y, yScale, height);
 
       return (
         <AnimationCircle
@@ -409,11 +407,11 @@ var TimeSeriesChart = createReactClass({
   },
 
   getBoundingBox(props) {
-    var margin = props.margin;
+    const margin = props.margin;
 
     return function() {
-      var el = ReactDOM.findDOMNode(this);
-      var elPosition = el.getBoundingClientRect();
+      const el = ReactDOM.findDOMNode(this);
+      const elPosition = el.getBoundingClientRect();
 
       return {
         top: elPosition.top + margin.top,
@@ -425,60 +423,67 @@ var TimeSeriesChart = createReactClass({
   },
 
   addMouseHandler(handleMouseMove, handleMouseOut) {
-    var el = ReactDOM.findDOMNode(this);
+    const el = ReactDOM.findDOMNode(this);
     el.addEventListener("mousemove", handleMouseMove);
     el.addEventListener("mouseout", handleMouseOut);
   },
 
   removeMouseHandler(handleMouseMove, handleMouseOut) {
-    var el = ReactDOM.findDOMNode(this);
+    const el = ReactDOM.findDOMNode(this);
     el.removeEventListener("mousemove", handleMouseMove);
     el.removeEventListener("mouseout", handleMouseOut);
   },
 
   render() {
-    var store = this.internalStorage_get();
-    var props = this.props;
-
-    var margin = props.margin;
-    var height = this.getHeight(props);
-    var width = this.getWidth(props);
-    var xScale = this.getXScale(props.data, width, props.refreshRate);
-    var xTimeScale = this.getXTimeScale(props.data, width);
-    var yScale = this.getYScale(height, props.maxY);
-    var clipPath = "url(#" + store.clipPathID + ")";
-    var maskID = this.internalStorage_get().maskID;
-    var unsuccessfulBlocks = this.createUnsuccessfulBlocks(
-      props.data[0].values,
+    const {
+      data,
+      height,
+      margin,
+      maxY,
+      refreshRate,
+      width,
+      yFormat,
+      y
+    } = this.props;
+    const store = this.internalStorage_get();
+    const stripeHeight = this.getHeight(this.props);
+    const stripeWidth = this.getWidth(this.props);
+    const xScale = this.getXScale(data, stripeWidth, refreshRate);
+    const xTimeScale = this.getXTimeScale(data, stripeWidth);
+    const yScale = this.getYScale(stripeHeight, maxY);
+    const clipPath = "url(#" + store.clipPathID + ")";
+    const maskID = this.internalStorage_get().maskID;
+    const unsuccessfulBlocks = this.createUnsuccessfulBlocks(
+      this.props.data[0].values,
       xTimeScale
     );
 
     return (
       <div className="timeseries-chart">
-        <svg height={props.height} width={props.width}>
+        <svg height={height} width={width}>
           <g transform={"translate(" + margin.left + "," + margin.top + ")"}>
-            <ChartStripes count={4} height={height} width={width} />
+            <ChartStripes count={4} height={stripeHeight} width={stripeWidth} />
             <g className="bars grid-graph" ref={ref => (this.gridRef = ref)} />
             <g className="y axis" ref={ref => (this.yAxisRef = ref)} />
             <g className="x axis" ref={ref => (this.xAxisRef = ref)} />
             <TimeSeriesMouseOver
               addMouseHandler={this.addMouseHandler}
-              data={props.data}
-              getBoundingBox={this.getBoundingBox(props)}
-              height={height}
+              data={this.props.data}
+              getBoundingBox={this.getBoundingBox(this.props)}
+              height={stripeHeight}
               removeMouseHandler={this.removeMouseHandler}
-              width={width}
+              width={stripeWidth}
               xScale={xScale}
-              y={props.y}
-              yCaption={this.getYCaption(props.yFormat)}
+              y={y}
+              yCaption={this.getYCaption(yFormat)}
               yScale={yScale}
             />
           </g>
         </svg>
 
         <svg
-          height={props.height}
-          width={props.width}
+          height={height}
+          width={width}
           ref={ref => (this.movingElsRef = ref)}
           className="moving-elements"
         >
@@ -487,13 +492,19 @@ var TimeSeriesChart = createReactClass({
               {unsuccessfulBlocks}
             </g>
             <g mask={`url(#${maskID})`} clipPath={clipPath}>
-              {this.getAreaList(props, yScale, xTimeScale)}
+              {this.getAreaList(this.props, yScale, xTimeScale)}
             </g>
-            {this.getCircleList(props, yScale, width, height)}
+            {this.getCircleList(this.props, yScale, stripeWidth, stripeHeight)}
           </g>
           <defs>
             <mask id={store.maskID}>
-              <rect x="0" y="0" width={width} height={height} fill="white" />
+              <rect
+                x="0"
+                y="0"
+                width={stripeWidth}
+                height={stripeHeight}
+                fill="white"
+              />
               {unsuccessfulBlocks}
             </mask>
           </defs>
