@@ -1,25 +1,43 @@
-import { Observable, merge } from "rxjs";
 import { request, RequestResponse } from "@dcos/http-service";
+import { merge, Observable } from "rxjs";
 import { partition, tap } from "rxjs/operators";
 
 export interface NodeNetwork {
-  updated: string;
+  updated: string | Date;
   public_ips: string[];
   private_ip: string;
   hostname: string;
 }
 
-export type NodesNetwork = NodeNetwork[];
+export interface NodeNetworkResponse extends NodeNetwork {
+  updated: string;
+}
 
-export function fetchNodesNetwork(): Observable<RequestResponse<NodesNetwork>> {
+export type NodesNetwork = NodeNetwork[];
+export type NodesNetworkResponse = NodeNetworkResponse[];
+
+export const NodeNetworkSchema = `
+scalar Date
+
+type NodeNetwork {
+  updated: Date
+  public_ips: [String]
+  private_ip: String
+  hostname: String
+}
+`;
+
+export function fetchNodesNetwork(): Observable<
+  RequestResponse<NodesNetworkResponse>
+> {
   const [success, error] = partition(
-    (response: RequestResponse<NodesNetwork>) => response.code < 300
+    (response: RequestResponse<NodesNetworkResponse>) => response.code < 300
   )(request("/net/v1/nodes"));
 
   return merge(
     success,
     error.pipe(
-      tap((response: RequestResponse<NodesNetwork>) => {
+      tap((response: RequestResponse<NodesNetworkResponse>) => {
         const responseMessage =
           response.response && typeof response.response === "object"
             ? JSON.stringify(response.response)

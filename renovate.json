@@ -11,7 +11,10 @@
         "@dcos/tslint-config",
         "@dcos/ui-kit",
         "@dcos/data-service",
-        "typescript"
+        "typescript",
+        "react",
+        "react-dom",
+        "react-test-renderer"
       ],
       "rangeStrategy": "pin",
       "updateTypes": ["major", "minor", "patch", "pin"]
