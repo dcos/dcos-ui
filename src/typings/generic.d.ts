@@ -25,3 +25,4 @@ declare module '#SRC/js/components/form/FormGroupHeading';
 declare module '#SRC/js/components/form/FormGroupHeadingContent';
 declare module '#SRC/js/components/form/FieldHelp';
 declare module '#SRC/js/components/form/FieldError';
+declare module '#SRC/js/utils/Util';

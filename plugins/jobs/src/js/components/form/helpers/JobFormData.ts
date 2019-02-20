@@ -16,9 +16,27 @@ export interface JobSchedule {
   enabled?: boolean;
 }
 
-export interface JobFormUIData {
+export interface JobSpec {
   cmdOnly: boolean;
   container?: "ucr" | "docker" | null;
+  job: JobFormData;
+  schedule?: JobSchedule;
+}
+
+export interface FormOutput {
+  jobId: string;
+  description?: string;
+  cmdOnly: boolean;
+  cmd?: string;
+  container?: string | null;
+  containerImage?: string;
+  cpus: number;
+  gpus: number;
+  mem: number;
+  disk: number;
+}
+
+export interface JobOutput {
   job: JobFormData;
   schedule?: JobSchedule;
 }
@@ -123,4 +141,15 @@ export interface FormError {
   message: string;
   path: string[];
   isPermissive?: boolean;
+}
+
+export enum JobFormActionType {
+  Set = "SET",
+  Override = "OVERRIDE"
+}
+
+export interface Action {
+  path: string;
+  type: JobFormActionType;
+  value: any;
 }

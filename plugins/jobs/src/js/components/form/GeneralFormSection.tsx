@@ -12,10 +12,10 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldError from "#SRC/js/components/form/FieldError";
-import { JobFormUIData, FormError } from "./helpers/JobFormData";
+import { FormOutput, FormError } from "./helpers/JobFormData";
 
 interface GeneralProps {
-  formData: JobFormUIData;
+  formData: FormOutput;
   errors: FormError[];
   showErrors: boolean;
 }
@@ -36,11 +36,7 @@ class GeneralFormSection extends Component<GeneralProps, object> {
   }
 
   getResourceRow() {
-    const {
-      formData: { job },
-      showErrors,
-      errors
-    } = this.props;
+    const { formData, showErrors, errors } = this.props;
     const cpuTooltipContent = (
       <Trans>
         The number of CPU shares this job needs per instance. This number does
@@ -53,9 +49,12 @@ class GeneralFormSection extends Component<GeneralProps, object> {
         with the UCR runtime.
       </Trans>
     );
-    const gpusDisabled = !job.run.ucr;
+    const gpusDisabled = formData.cmdOnly || formData.container !== "ucr";
 
     const cpusError = getFieldError("run.cpus", errors);
+    const gpusError = getFieldError("run.gpus", errors);
+    const memError = getFieldError("run.mem", errors);
+    const diskError = getFieldError("run.disk", errors);
 
     return (
       <FormRow>
@@ -77,11 +76,11 @@ class GeneralFormSection extends Component<GeneralProps, object> {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput min="0.01" name="job.run.cpus" value={job.run.cpus} />
+          <FieldInput min="0.01" name="job.run.cpus" value={formData.cpus} />
           <FieldError>{cpusError}</FieldError>
         </FormGroup>
 
-        <FormGroup className="column-3">
+        <FormGroup className="column-3" showError={showErrors && memError}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading required={true}>
               <FormGroupHeadingContent title="Mem">
@@ -93,11 +92,12 @@ class GeneralFormSection extends Component<GeneralProps, object> {
             min="32"
             name="job.run.mem"
             type="number"
-            value={job.run.mem}
+            value={formData.mem}
           />
+          <FieldError>{memError}</FieldError>
         </FormGroup>
 
-        <FormGroup className="column-3">
+        <FormGroup className="column-3" showError={showErrors && diskError}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading required={true}>
               <FormGroupHeadingContent title="Disk">
@@ -109,11 +109,12 @@ class GeneralFormSection extends Component<GeneralProps, object> {
             min="32"
             name="job.run.disk"
             type="number"
-            value={job.run.disk}
+            value={formData.disk}
           />
+          <FieldError>{diskError}</FieldError>
         </FormGroup>
 
-        <FormGroup className="column-3">
+        <FormGroup className="column-3" showError={showErrors && gpusError}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
               <FormGroupHeadingContent title="GPUs">
@@ -136,8 +137,9 @@ class GeneralFormSection extends Component<GeneralProps, object> {
             name="job.run.gpus"
             type="number"
             disabled={gpusDisabled}
-            value={job.run.gpus}
+            value={formData.gpus}
           />
+          <FieldError>{gpusError}</FieldError>
         </FormGroup>
       </FormRow>
     );
@@ -152,10 +154,7 @@ class GeneralFormSection extends Component<GeneralProps, object> {
         invalid to supply both `cmd` and `args` in the same job.
       </Trans>
     );
-    const containerImage =
-      !formData.cmdOnly && formData.job.run.docker
-        ? formData.job.run.docker.image
-        : formData.job.run.ucr && formData.job.run.ucr.image.id;
+    const containerImage = formData.containerImage;
 
     const containerImageErrors =
       getFieldError("run.docker.image", errors) ||
@@ -170,28 +169,26 @@ class GeneralFormSection extends Component<GeneralProps, object> {
         <Trans render="p">
           Select command only or container image with optional command.
         </Trans>
-        <FormRow>
-          <FormGroup>
-            <FieldLabel>
-              <FieldInput
-                checked={formData.cmdOnly}
-                name="cmdOnly"
-                type="radio"
-                value={true}
-              />
-              <Trans render="span">Command Only</Trans>
-            </FieldLabel>
-            <FieldLabel>
-              <FieldInput
-                checked={!formData.cmdOnly}
-                name="cmdOnly"
-                type="radio"
-                value={false}
-              />
-              <Trans render="span">Container Image</Trans>
-            </FieldLabel>
-          </FormGroup>
-        </FormRow>
+        <FormGroup>
+          <FieldLabel>
+            <FieldInput
+              checked={formData.cmdOnly}
+              name="cmdOnly"
+              type="radio"
+              value={true}
+            />
+            <Trans render="span">Command Only</Trans>
+          </FieldLabel>
+          <FieldLabel>
+            <FieldInput
+              checked={!formData.cmdOnly}
+              name="cmdOnly"
+              type="radio"
+              value={false}
+            />
+            <Trans render="span">Container Image</Trans>
+          </FieldLabel>
+        </FormGroup>
         {!formData.cmdOnly && (
           <FormRow>
             <FormGroup
@@ -258,11 +255,7 @@ class GeneralFormSection extends Component<GeneralProps, object> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput
-                name="job.run.cmd"
-                type="text"
-                value={formData.job.run.cmd}
-              />
+              <FieldInput name="job.run.cmd" type="text" value={formData.cmd} />
             </FieldAutofocus>
             <FieldHelp>
               <Trans render="span">
@@ -315,7 +308,7 @@ class GeneralFormSection extends Component<GeneralProps, object> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput name="job.id" type="text" value={formData.job.id} />
+              <FieldInput name="job.id" type="text" value={formData.jobId} />
             </FieldAutofocus>
             <FieldError>{idError}</FieldError>
           </FormGroup>
@@ -341,9 +334,9 @@ class GeneralFormSection extends Component<GeneralProps, object> {
             </FieldLabel>
             <FieldAutofocus>
               <FieldInput
-                name="formData.job.description"
+                name="job.description"
                 type="text"
-                value={formData.job.description}
+                value={formData.description}
               />
             </FieldAutofocus>
           </FormGroup>
