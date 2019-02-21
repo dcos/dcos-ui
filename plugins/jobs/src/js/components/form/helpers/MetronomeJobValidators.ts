@@ -55,7 +55,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
    */
   jobIdIsValid(formData: JobOutput): FormError[] {
     const jobId = formData.job.id;
-    const jobIdRegex = /^[a-z0-9][-a-z0-9]*[a-z0-9]$/;
+    const jobIdRegex = /^[a-z0-9]+([a-z0-9-]+[a-z0-9])?$/;
     const message =
       "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash.";
     return jobId && jobIdRegex.test(jobId) ? [] : [{ path: ["id"], message }];
