@@ -141,7 +141,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
             <span className="badge-container flex">
               <span className="badge-container-text services-version-text text-overflow">
                 <DateFormat
-                  value={localeVersion}
+                  value={version}
                   format={DateUtil.getFormatOptions()}
                 />
               </span>
