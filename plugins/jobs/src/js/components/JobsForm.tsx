@@ -38,7 +38,7 @@ interface JobFormProps {
   handleTabChange: (tab: string) => void;
   errors: any[];
   isJSONModeActive: boolean;
-  onErrorsChange: (errors: FormError[]) => void;
+  onErrorsChange: (errors: FormError[], type?: string) => void;
   showAllErrors: boolean;
 }
 
@@ -65,8 +65,12 @@ class JobModalForm extends Component<JobFormProps, {}> {
     const { onChange } = this.props;
     const newValue = event.target.value;
     const inputName = event.target.name;
+    const inputType = event.target.type;
     const action = {
-      type: JobFormActionType.Set,
+      type:
+        inputType === "number"
+          ? JobFormActionType.SetNum
+          : JobFormActionType.Set,
       value: newValue,
       path: inputName
     };
