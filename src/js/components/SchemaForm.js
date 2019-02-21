@@ -11,7 +11,6 @@ import Icon from "./Icon";
 import Image from "./Image";
 import SchemaFormUtil from "../utils/SchemaFormUtil";
 import SchemaUtil from "../utils/SchemaUtil";
-import ScrollbarUtil from "../utils/ScrollbarUtil";
 import TabForm from "./TabForm";
 import Util from "../utils/Util";
 
@@ -59,24 +58,6 @@ class SchemaForm extends mixin(StoreMixin) {
     }
 
     this.props.getTriggerSubmit(this.handleExternalSubmit);
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount(...arguments);
-
-    // Unscheduled all validation if component unmounts.
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
-  }
-
-  componentDidUpdate() {
-    super.componentDidUpdate(...arguments);
-
-    // Timeout necessary due to modal content height updates on did mount
-    setTimeout(() => {
-      ScrollbarUtil.updateWithRef(this.refs.geminiForms);
-    });
   }
 
   handleFormChange(formData, eventObj) {
