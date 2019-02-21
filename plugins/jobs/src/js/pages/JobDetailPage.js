@@ -13,7 +13,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
 import Util from "#SRC/js/utils/Util";
 
-import JobFormModal from "../components/NewJobsFormModal";
+import JobFormModal from "../components/JobsFormModal";
 import JobConfiguration from "./JobConfiguration";
 import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
