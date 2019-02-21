@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphqlObservable } from "@dcos/data-service";
 import { take } from "rxjs/operators";
+import isEqual from "lodash.isequal";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
@@ -87,6 +88,35 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.getSubmitAction = this.getSubmitAction.bind(this);
   }
 
+  componentWillReceiveProps(nextProps: JobFormModalProps) {
+    if (!isEqual(nextProps.job, this.props.job)) {
+      const jobSpec = nextProps.job
+        ? this.getJobSpecFromResponse(nextProps.job)
+        : getDefaultJobSpec();
+      this.setState({ jobSpec });
+    }
+  }
+
+  shouldComponentUpdate(
+    nextProps: JobFormModalProps,
+    nextState: JobFormModalState
+  ) {
+    const { job, isOpen } = this.props;
+
+    if (nextState !== this.state) {
+      return true;
+    }
+
+    if (
+      ((nextProps.job || job) && nextProps.job === job) ||
+      nextProps.isOpen === isOpen
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
   getInitialState() {
     const { job } = this.props;
     const jobSpec = job
@@ -161,6 +191,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
 
   handleClose() {
     const { closeModal } = this.props;
+    this.setState(this.getInitialState());
     closeModal();
   }
 
@@ -185,11 +216,11 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   }
 
   handleJobRun() {
-    const { jobSpec } = this.state;
-    const { closeModal } = this.props;
+    const { jobSpec, formJSONErrors } = this.state;
     const jobOutput = jobSpecToOutputParser(jobSpec);
     const validationErrors = this.validateJobSpec(jobOutput);
-    if (validationErrors.length) {
+    const totalErrors = validationErrors.concat(formJSONErrors);
+    if (totalErrors.length) {
       this.setState({
         validationErrors,
         showValidationErrors: true,
@@ -205,7 +236,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       this.getSubmitAction(jobOutput)
         .pipe(take(1))
         .subscribe({
-          next: () => closeModal(),
+          next: () => this.handleClose(),
           error: e => {
             this.setState({
               processing: false,

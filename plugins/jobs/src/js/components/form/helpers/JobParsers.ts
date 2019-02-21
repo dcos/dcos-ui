@@ -4,17 +4,22 @@ import { JobOutput, JobSpec, FormOutput, Container } from "./JobFormData";
 
 export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   const jobSpecCopy = deepCopy(jobSpec);
-  if (jobSpecCopy.cmdOnly) {
-    delete jobSpecCopy.job.run.docker;
-    delete jobSpecCopy.job.run.ucr;
-    delete jobSpecCopy.job.run.gpus;
-  } else if (jobSpecCopy.container) {
-    const container = jobSpecCopy.job.run[jobSpecCopy.container];
-    delete jobSpecCopy.job.run.docker;
-    delete jobSpecCopy.job.run.ucr;
-    jobSpecCopy.job.run[jobSpecCopy.container] = container;
-    if (jobSpecCopy.container !== Container.UCR) {
+  if (jobSpecCopy.job && jobSpecCopy.job.run) {
+    if (jobSpecCopy.job.run.gpus === "") {
       delete jobSpecCopy.job.run.gpus;
+    }
+    if (jobSpecCopy.cmdOnly) {
+      delete jobSpecCopy.job.run.docker;
+      delete jobSpecCopy.job.run.ucr;
+      delete jobSpecCopy.job.run.gpus;
+    } else if (jobSpecCopy.container) {
+      const container = jobSpecCopy.job.run[jobSpecCopy.container];
+      delete jobSpecCopy.job.run.docker;
+      delete jobSpecCopy.job.run.ucr;
+      jobSpecCopy.job.run[jobSpecCopy.container] = container;
+      if (jobSpecCopy.container !== Container.UCR) {
+        delete jobSpecCopy.job.run.gpus;
+      }
     }
   }
   const jobOutput = {
