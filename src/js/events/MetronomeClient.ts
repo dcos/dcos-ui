@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import Config from "../config/Config";
 import {
   JobSchedule,
-  JobFormData
+  JobOutput
 } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 import { switchMap } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
@@ -149,11 +149,6 @@ export interface ScheduleData {
   id: string;
 }
 
-export interface CreateUpdateJobData {
-  job: JobFormData;
-  schedule?: JobSchedule;
-}
-
 export function isDetailResponse(
   response: GenericJobResponse
 ): response is JobDetailResponse {
@@ -165,28 +160,20 @@ const defaultHeaders = {
 };
 
 export function createJob(
-  data: CreateUpdateJobData
+  data: JobOutput
 ): Observable<RequestResponse<JobDetailResponse>> {
-  const jobRequest = (): Observable<RequestResponse<JobDetailResponse>> =>
-    request(`${Config.metronomeAPI}/v1/jobs`, {
-      method: "POST",
-      body: JSON.stringify(data.job),
-      headers: defaultHeaders
-    });
+  const jobRequest = request(`${Config.metronomeAPI}/v1/jobs`, {
+    method: "POST",
+    body: JSON.stringify(data.job),
+    headers: defaultHeaders
+  });
   return data.schedule
-    ? jobRequest().pipe(
-        switchMap(() => {
-          return request(
-            `${Config.metronomeAPI}/v1/jobs/${data.job.id}/schedules`,
-            {
-              method: "POST",
-              body: JSON.stringify(data.schedule),
-              headers: defaultHeaders
-            }
-          );
-        })
-      )
-    : jobRequest();
+    ? (jobRequest.pipe(
+        switchMap(() =>
+          createSchedule(data.job.id, data.schedule as JobSchedule)
+        )
+      ) as Observable<RequestResponse<JobDetailResponse>>)
+    : (jobRequest as Observable<RequestResponse<JobDetailResponse>>);
 }
 
 export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
@@ -221,29 +208,21 @@ export function deleteJob(
 
 export function updateJob(
   jobID: string,
-  data: CreateUpdateJobData
+  data: JobOutput,
+  existingSchedule: boolean = true
 ): Observable<RequestResponse<JobDetailResponse>> {
   const updateJobRequest = request(`${Config.metronomeAPI}/v1/jobs/${jobID}`, {
     method: "PUT",
     body: JSON.stringify(data.job),
     headers: defaultHeaders
   });
-  const updateScheduleRequest = (
-    schedule: JobSchedule
-  ): Observable<RequestResponse<JobDetailResponse>> =>
-    request(
-      `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${schedule.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(schedule),
-        headers: defaultHeaders
-      }
-    );
+  const scheduleRequest = () =>
+    existingSchedule
+      ? updateSchedule(jobID, data.schedule as JobSchedule)
+      : createSchedule(jobID, data.schedule as JobSchedule);
 
   return data.schedule
-    ? updateJobRequest.pipe(
-        switchMap(() => updateScheduleRequest(data.schedule as JobSchedule))
-      )
+    ? updateJobRequest.pipe(switchMap(() => scheduleRequest()))
     : (updateJobRequest as Observable<RequestResponse<JobDetailResponse>>);
 }
 
@@ -272,10 +251,18 @@ export function stopJobRun(
 
 export function updateSchedule(
   jobID: string,
-  data: ScheduleData
+  schedule: JobSchedule
 ): Observable<RequestResponse<any>> {
   return request(
-    `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
-    { method: "PUT", headers: defaultHeaders, body: JSON.stringify(data) }
+    `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${schedule.id}`,
+    { method: "PUT", headers: defaultHeaders, body: JSON.stringify(schedule) }
   );
+}
+
+export function createSchedule(jobID: string, schedule: JobSchedule) {
+  return request(`${Config.metronomeAPI}/v1/jobs/${jobID}/schedules`, {
+    method: "POST",
+    body: JSON.stringify(schedule),
+    headers: defaultHeaders
+  });
 }
