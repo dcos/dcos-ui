@@ -76,7 +76,12 @@ class GeneralFormSection extends Component<GeneralProps, object> {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput min="0.01" name="job.run.cpus" value={formData.cpus} />
+          <FieldInput
+            min="0.01"
+            type="number"
+            name="job.run.cpus"
+            value={formData.cpus}
+          />
           <FieldError>{cpusError}</FieldError>
         </FormGroup>
 
@@ -105,12 +110,7 @@ class GeneralFormSection extends Component<GeneralProps, object> {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput
-            min="32"
-            name="job.run.disk"
-            type="number"
-            value={formData.disk}
-          />
+          <FieldInput name="job.run.disk" type="number" value={formData.disk} />
           <FieldError>{diskError}</FieldError>
         </FormGroup>
 
