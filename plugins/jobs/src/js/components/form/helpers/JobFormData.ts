@@ -171,6 +171,7 @@ export interface FormError {
 
 export enum JobFormActionType {
   Set = "SET",
+  SetNum = "SET_NUM",
   Override = "OVERRIDE"
 }
 
