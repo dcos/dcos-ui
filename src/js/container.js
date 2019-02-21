@@ -1,4 +1,5 @@
-import { Container } from "inversify";
+import "reflect-metadata"; // Needed for inversify
+import { Container } from "@extension-kid/core";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
 
