@@ -43,6 +43,7 @@ interface JobFormModalProps {
 interface JobFormModalState {
   jobOutput: JobOutput;
   jobSpec: JobSpec;
+  hasSchedule: boolean; // Whether the original job has a schedule or not, so that we know whether to PUT or POST a schedule if added
   validationErrors: FormError[];
   formJSONErrors: FormError[];
   serverErrors: FormError[];
@@ -65,7 +66,7 @@ const createJobMutation = gql`
 
 const editJobMutation = gql`
   mutation {
-    updateJob(id: $jobId, data: $data) {
+    updateJob(id: $jobId, data: $data, existingSchedule: $existingSchedule) {
       jobId
     }
   }
@@ -122,10 +123,12 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     const jobSpec = job
       ? this.getJobSpecFromResponse(job)
       : getDefaultJobSpec();
+    const hasSchedule = !!(jobSpec.schedule && jobSpec.schedule.id);
     const jobOutput = jobSpecToOutputParser(jobSpec);
     const initialState = {
       jobSpec,
       jobOutput,
+      hasSchedule,
       validationErrors: [],
       formJSONErrors: [],
       serverErrors: [],
@@ -201,10 +204,12 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
 
   getSubmitAction(jobOutput: JobOutput) {
     const { isEdit } = this.props;
+    const { hasSchedule } = this.state;
     if (isEdit) {
       const editContext = {
         jobId: jobOutput.job.id,
-        data: jobOutput
+        data: jobOutput,
+        existingSchedule: hasSchedule
       };
       return graphqlObservable(editJobMutation, defaultSchema, editContext);
     } else {
