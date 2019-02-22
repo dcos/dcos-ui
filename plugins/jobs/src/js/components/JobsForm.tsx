@@ -86,23 +86,17 @@ class JobModalForm extends Component<JobFormProps, {}> {
   }
 
   handleJSONChange(jobJSON: JobOutput) {
-    const { onChange } = this.props;
-    const updateJSONAction: Action = {
+    this.props.onChange({
       path: "json",
       type: JobFormActionType.Override,
       value: jobJSON
-    };
-    onChange(updateJSONAction);
+    });
   }
 
-  handleJSONErrorStateChange(errorMessage: string) {
-    const { onErrorsChange } = this.props;
-
-    if (errorMessage !== null) {
-      onErrorsChange([{ message: errorMessage, path: [] }]);
-    } else {
-      onErrorsChange([]);
-    }
+  handleJSONErrorStateChange(errorMessage: string | null) {
+    this.props.onErrorsChange(
+      errorMessage === null ? [] : [{ message: errorMessage, path: [] }]
+    );
   }
 
   handleClickItem(item: string) {
