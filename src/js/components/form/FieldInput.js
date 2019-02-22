@@ -30,7 +30,11 @@ FieldInput.propTypes = {
   type: PropTypes.string,
   onChange: PropTypes.func,
   checked: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool
+  ]),
 
   // Classes
   className: PropTypes.oneOfType([
