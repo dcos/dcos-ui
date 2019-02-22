@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
-import { Component } from "react";
+import * as React from "react";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
@@ -46,12 +46,22 @@ interface NavigationItem {
   id: string;
   key: string;
   label: string;
-  className?: string;
-  children?: NavigationItem[];
 }
 
-class JobModalForm extends Component<JobFormProps, {}> {
-  constructor(props) {
+class JobModalForm extends React.Component<JobFormProps> {
+  static navigationItems: NavigationItem[] = [
+    { id: "general", key: "general", label: i18nMark("General") }
+  ];
+
+  static tabList = JobModalForm.navigationItems.map(item => (
+    <TabButton
+      id={item.id}
+      label={<Trans render="span" id={item.label} />}
+      key={item.key}
+    />
+  ));
+
+  constructor(props: Readonly<JobFormProps>) {
     super(props);
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -95,39 +105,6 @@ class JobModalForm extends Component<JobFormProps, {}> {
     this.props.handleTabChange(item);
   }
 
-  getFormNavigationItems() {
-    const tabList = [
-      { id: "general", key: "general", label: i18nMark("General") }
-    ];
-
-    return tabList;
-  }
-
-  getFormTabList(navigationItems?: NavigationItem[]) {
-    if (navigationItems == null) {
-      return null;
-    }
-
-    return navigationItems.map(item => {
-      return (
-        <TabButton
-          className={item.className}
-          id={item.id}
-          label={
-            typeof item.label === "string" ? (
-              <Trans render="span" id={item.label} />
-            ) : (
-              item.label
-            )
-          }
-          key={item.key || item.id}
-        >
-          {this.getFormTabList(item.children)}
-        </TabButton>
-      );
-    });
-  }
-
   render() {
     const {
       activeTab,
@@ -148,9 +125,6 @@ class JobModalForm extends Component<JobFormProps, {}> {
       "is-visible": isJSONModeActive
     });
 
-    const navigationItems = this.getFormNavigationItems();
-    const tabButtonListItems = this.getFormTabList(navigationItems);
-
     return (
       <div className="flex flex-item-grow-1">
         <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
@@ -166,7 +140,7 @@ class JobModalForm extends Component<JobFormProps, {}> {
                   handleTabChange={handleTabChange}
                   vertical={true}
                 >
-                  <TabButtonList>{tabButtonListItems}</TabButtonList>
+                  <TabButtonList>{JobModalForm.tabList}</TabButtonList>
                   <TabViewList>
                     <TabView id="general">
                       {showAllErrors && (
