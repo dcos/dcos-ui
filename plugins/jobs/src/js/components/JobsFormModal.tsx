@@ -197,8 +197,8 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
 
   handleClose() {
     const { closeModal } = this.props;
-    this.setState(this.getInitialState());
     closeModal();
+    this.setState(this.getInitialState());
   }
 
   handleJSONToggle() {
