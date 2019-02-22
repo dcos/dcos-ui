@@ -24,6 +24,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "baseUrl": "./",
+    "skipLibCheck": true,
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
       "*": ["*", "packages/*", "src/typings/*"],
