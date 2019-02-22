@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import { i18nMark, withI18n } from "@lingui/react";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import React, { Component } from "react";
 
@@ -219,4 +219,4 @@ class JobModalForm extends Component<JobFormProps, {}> {
   }
 }
 
-export default withI18n()(JobModalForm);
+export default JobModalForm;
