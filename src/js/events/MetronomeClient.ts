@@ -1,13 +1,13 @@
 import { request, RequestResponse } from "@dcos/http-service";
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
 // tslint:disable-next-line:no-submodule-imports
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import Config from "../config/Config";
 import {
   JobSchedule,
   JobOutput
 } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
-import { switchMap } from "rxjs/operators";
+import { switchMap, catchError } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 
 export interface GenericJobResponse {
@@ -256,7 +256,7 @@ export function updateSchedule(
   return request(
     `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${schedule.id}`,
     { method: "PUT", headers: defaultHeaders, body: JSON.stringify(schedule) }
-  );
+  ).pipe(catchError(e => throwError({ ...e, type: "SCHEDULE" })));
 }
 
 export function createSchedule(jobID: string, schedule: JobSchedule) {
@@ -264,5 +264,5 @@ export function createSchedule(jobID: string, schedule: JobSchedule) {
     method: "POST",
     body: JSON.stringify(schedule),
     headers: defaultHeaders
-  });
+  }).pipe(catchError(e => throwError({ ...e, type: "SCHEDULE" })));
 }
