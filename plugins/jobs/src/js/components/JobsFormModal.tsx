@@ -44,6 +44,7 @@ interface JobFormModalState {
   jobOutput: JobOutput;
   jobSpec: JobSpec;
   hasSchedule: boolean; // Whether the original job has a schedule or not, so that we know whether to PUT or POST a schedule if added
+  scheduleFailure: boolean;
   validationErrors: FormError[];
   formJSONErrors: FormError[];
   serverErrors: FormError[];
@@ -87,6 +88,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.handleFormErrorsChange = this.handleFormErrorsChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.getSubmitAction = this.getSubmitAction.bind(this);
+    this.getErrorMessage = this.getErrorMessage.bind(this);
   }
 
   componentWillReceiveProps(nextProps: JobFormModalProps) {
@@ -129,6 +131,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       jobSpec,
       jobOutput,
       hasSchedule,
+      scheduleFailure: false,
       validationErrors: [],
       formJSONErrors: [],
       serverErrors: [],
@@ -204,8 +207,8 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
 
   getSubmitAction(jobOutput: JobOutput) {
     const { isEdit } = this.props;
-    const { hasSchedule } = this.state;
-    if (isEdit) {
+    const { hasSchedule, scheduleFailure } = this.state;
+    if (isEdit || scheduleFailure) {
       const editContext = {
         jobId: jobOutput.job.id,
         data: jobOutput,
@@ -218,6 +221,14 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       };
       return graphqlObservable(createJobMutation, defaultSchema, createContext);
     }
+  }
+
+  getErrorMessage(e: any) {
+    return e.response && e.response.message
+      ? e.response.message
+      : e.response
+        ? e.response
+        : e;
   }
 
   handleJobRun() {
@@ -243,21 +254,30 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
         .subscribe({
           next: () => this.handleClose(),
           error: e => {
-            this.setState({
-              processing: false,
-              serverErrors: [
-                {
-                  message:
-                    e.response && e.response.message
-                      ? e.response.message
-                      : e.response
-                        ? e.response
-                        : e,
-                  path: []
-                }
-              ],
-              showValidationErrors: true
-            });
+            if (e.type === "SCHEDULE") {
+              this.setState({
+                scheduleFailure: true,
+                processing: false,
+                serverErrors: [
+                  {
+                    message: this.getErrorMessage(e),
+                    path: []
+                  }
+                ],
+                showValidationErrors: true
+              });
+            } else {
+              this.setState({
+                processing: false,
+                serverErrors: [
+                  {
+                    message: this.getErrorMessage(e),
+                    path: []
+                  }
+                ],
+                showValidationErrors: true
+              });
+            }
           }
         });
     }
@@ -291,12 +311,14 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
   getHeader() {
     // TODO: This should say edit if the component is given a job to edit
     const { isEdit } = this.props;
+    const { scheduleFailure } = this.state;
 
-    let title = isEdit ? (
-      <Trans render="span">Edit Job</Trans>
-    ) : (
-      <Trans render="span">Create a Job</Trans>
-    );
+    let title =
+      isEdit || scheduleFailure ? (
+        <Trans render="span">Edit Job</Trans>
+      ) : (
+        <Trans render="span">Create a Job</Trans>
+      );
 
     return (
       <FullScreenModalHeader>
