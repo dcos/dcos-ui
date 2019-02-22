@@ -10,7 +10,7 @@ import { JobRunStatusSchema } from "#PLUGINS/jobs/src/js/types/JobRunStatus";
 import { JobHistoryRun } from "#PLUGINS/jobs/src/js/types/JobHistoryRun";
 
 export interface JobRun {
-  dateCreated: number;
+  dateCreated: number | null;
   dateFinished: number | null;
   jobID: string;
   status: JobStatus;
@@ -42,7 +42,7 @@ export function JobRunTypeResolver(
 }
 
 export const JobRunFieldResolvers = {
-  dateCreated(run: MetronomeActiveJobRun | JobHistoryRun): number {
+  dateCreated(run: MetronomeActiveJobRun | JobHistoryRun): number | null {
     return DateUtil.strToMs(run.createdAt);
   },
   dateFinished(run: MetronomeActiveJobRun | JobHistoryRun): number | null {

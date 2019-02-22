@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    DCOS_UI_VERSION: string;
+  }
+}
+
 interface Resources {
   mem: number;
   disk: number;

@@ -22,6 +22,7 @@ import {
 import gql from "graphql-tag";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+// @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import {
