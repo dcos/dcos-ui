@@ -317,7 +317,7 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       isEdit || scheduleFailure ? (
         <Trans render="span">Edit Job</Trans>
       ) : (
-        <Trans render="span">Create a Job</Trans>
+        <Trans render="span">New Job</Trans>
       );
 
     return (
