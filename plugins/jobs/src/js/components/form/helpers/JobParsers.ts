@@ -13,6 +13,12 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       delete jobSpecCopy.job.run.ucr;
       delete jobSpecCopy.job.run.gpus;
     } else if (jobSpecCopy.container) {
+      if (jobSpecCopy.job.run.cmd === "") {
+        // You are allowed to run a job with a container and no command, but
+        // the API will return an error if `cmd` is in the object but does not have
+        // a minimum length of one.
+        delete jobSpecCopy.job.run.cmd;
+      }
       const container = jobSpecCopy.job.run[jobSpecCopy.container];
       delete jobSpecCopy.job.run.docker;
       delete jobSpecCopy.job.run.ucr;
