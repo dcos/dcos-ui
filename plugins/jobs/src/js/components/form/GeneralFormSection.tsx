@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 
 import Icon from "#SRC/js/components/Icon";
@@ -30,7 +30,7 @@ function getFieldError(path: string, errors: FormError[]) {
     .join(" ");
 }
 
-class GeneralFormSection extends Component<GeneralProps, object> {
+class GeneralFormSection extends React.Component<GeneralProps, object> {
   constructor(props: GeneralProps) {
     super(props);
   }
