@@ -61,18 +61,14 @@ class JobModalForm extends Component<JobFormProps, {}> {
     );
   }
 
-  onInputChange(event: any) {
+  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { onChange } = this.props;
-    const newValue = event.target.value;
-    const inputName = event.target.name;
-    const inputType = event.target.type;
+    const { value, name, type } = event.target;
     const action = {
       type:
-        inputType === "number"
-          ? JobFormActionType.SetNum
-          : JobFormActionType.Set,
-      value: newValue,
-      path: inputName
+        type === "number" ? JobFormActionType.SetNum : JobFormActionType.Set,
+      value,
+      path: name
     };
     onChange(action);
   }
