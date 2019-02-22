@@ -17,8 +17,8 @@ export default class JobsOverviewEmpty extends React.Component<
   JobsOverviewEmptyProps,
   JobsOverviewEmptyState
 > {
-  constructor() {
-    super(...arguments);
+  constructor(props: Readonly<JobsOverviewEmptyProps>) {
+    super(props);
 
     this.state = {
       isJobFormModalOpen: false

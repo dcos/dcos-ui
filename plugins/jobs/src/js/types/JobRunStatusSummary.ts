@@ -19,14 +19,14 @@ export function JobRunStatusSummaryTypeResolver(
   history: MetronomeJobHistorySummary
 ): JobRunStatusSummary {
   const summary = JobHistorySummaryTypeResolver(history);
-  if ([summary.lastFailureAt, summary.lastSuccessAt].every(x => x === null)) {
+  if (summary.lastFailureAt === null && summary.lastSuccessAt === null) {
     return { status: "N/A", time: null };
   }
 
   const lastFailureAt = DateUtil.strToMs(summary.lastFailureAt) || 0;
   const lastSuccessAt = DateUtil.strToMs(summary.lastSuccessAt) || 0;
   return {
-    status: lastFailureAt > lastSuccessAt ? "Failed" : "Success",
+    status: lastSuccessAt >= lastFailureAt ? "Success" : "Failed",
     time: Math.max(lastFailureAt, lastSuccessAt)
   };
 }

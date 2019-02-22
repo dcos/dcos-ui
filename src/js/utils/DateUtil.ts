@@ -1,3 +1,4 @@
+// @ts-ignore
 import moment from "moment";
 
 const DEFAULT_MULTIPLICANTS = {

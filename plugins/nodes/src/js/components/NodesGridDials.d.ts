@@ -9,4 +9,4 @@ interface NodesGridDialsProps {
 
 declare const NodesGridDials: ClassicComponentClass<NodesGridDialsProps>;
 
-export = NodesGridDials;
+export default NodesGridDials;
