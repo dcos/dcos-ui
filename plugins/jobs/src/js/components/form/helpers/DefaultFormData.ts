@@ -12,7 +12,7 @@ export const getDefaultJob = (): JobFormData => ({
   description: "",
   run: {
     cmd: "",
-    cpus: 0.1,
+    cpus: 1.0,
     disk: 0,
     mem: 128,
     gpus: 0,
