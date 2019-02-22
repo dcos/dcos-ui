@@ -2,6 +2,7 @@ const { DefinePlugin } = require("webpack");
 const path = require("path");
 const LessColorLighten = require("less-color-lighten");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 function requireAll(array) {
   // https://stackoverflow.com/a/34574630/1559386
@@ -49,6 +50,10 @@ module.exports = {
     proxy: require("./proxy.dev.js")
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      checkSyntacticErrors: true,
+      useTypescriptIncrementalApi: true
+    }),
     new DefinePlugin({
       "process.env.LATER_COV": false
     }),
@@ -87,6 +92,7 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
+              transpileOnly: true,
               happyPackMode: true
             }
           }
