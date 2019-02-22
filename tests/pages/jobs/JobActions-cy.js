@@ -15,21 +15,26 @@ describe("Job Actions", function() {
     });
 
     it("opens the correct jobs edit modal", function() {
-      cy.get('.modal .form-panel input[name="id"]').should(
-        "to.have.value",
-        "foo"
-      );
+      cy.root()
+        .getFormGroupInputFor("Job ID *")
+        .should("to.have.value", "foo");
     });
 
     it("closes modal on successful API request", function() {
       cy.route({
         method: "PUT",
-        url: /metronome\/v0\/scheduled-jobs\/foo/,
+        url: /metronome\/v1\/jobs\/foo/,
+        response: [],
+        delay: 0
+      });
+      cy.route({
+        method: "PUT",
+        url: /metronome\/v1\/jobs\/foo\/schedules\/every-once-in-a-while/,
         response: [],
         delay: 0
       });
       cy.get(".modal .button-primary")
-        .contains("Save Job")
+        .contains("Submit")
         .click();
       cy.get(".modal").should("to.have.length", 0);
     });
