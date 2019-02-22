@@ -25,8 +25,8 @@ class JobsOverviewList extends React.Component<
   JobsOverviewListProps,
   JobsOverviewListState
 > {
-  constructor() {
-    super(...arguments);
+  constructor(props: Readonly<JobsOverviewListProps>) {
+    super(props);
 
     this.state = {
       isJobFormModalOpen: false

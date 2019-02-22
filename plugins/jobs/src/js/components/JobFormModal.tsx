@@ -152,8 +152,8 @@ export default class JobFormModal extends React.Component<
   };
   private triggerFormSubmit: FormSubmitCallback;
 
-  constructor() {
-    super();
+  constructor(props: Readonly<JobFormModalProps>) {
+    super(props);
 
     this.state = {
       jobFormModel: null,

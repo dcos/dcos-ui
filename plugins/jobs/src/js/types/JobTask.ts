@@ -10,7 +10,7 @@ import {
 
 export interface JobTask {
   dateCompleted: number | null;
-  dateStarted: number;
+  dateStarted: number | null;
   status: MetronomeJobTaskStatus;
   taskId: string;
 }
@@ -35,7 +35,7 @@ export function JobTaskTypeResolver(task: MetronomeJobRunTask): JobTask {
 }
 
 export const JobTaskFieldResolvers = {
-  dateStarted(task: MetronomeJobRunTask): number {
+  dateStarted(task: MetronomeJobRunTask): number | null {
     return DateUtil.strToMs(task.createdAt);
   },
   dateCompleted(task: MetronomeJobRunTask): number | null {
