@@ -84,16 +84,12 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "thread-loader"
-          },
-          {
             loader: "babel-loader"
           },
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true,
-              happyPackMode: true
+              transpileOnly: true
             }
           }
         ]
@@ -102,7 +98,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
-          "thread-loader",
           {
             loader: "babel-loader",
             options: {
