@@ -144,12 +144,8 @@ const TimeSeriesChart = createReactClass({
 
     return d3.svg
       .area()
-      .x(function(d) {
-        return xTimeScale(d.date);
-      })
-      .y0(function() {
-        return yScale(0);
-      })
+      .x(d => xTimeScale(d.date))
+      .y0(() => yScale(0))
       .y1(function(d) {
         if (d[y] != null) {
           successfulValue = yScale(d[y]);
@@ -170,9 +166,30 @@ const TimeSeriesChart = createReactClass({
 
     return d3.svg
       .line()
-      .x(function(d) {
-        return xTimeScale(d.date);
+      .defined(d => d[y] != null)
+      .x(d => xTimeScale(d.date))
+      .y(function(d) {
+        if (d[y] != null) {
+          successfulValue = yScale(d[y] || 0.1);
+        }
+
+        return successfulValue;
       })
+      .interpolate("monotone");
+  },
+
+  getUnavailableLine(xTimeScale, yScale, firstSuccessful) {
+    // We need firstSuccessful because if the current value is null,
+    // we want to make it equal to the most recent successful value in order to
+    // have a straight line on the graph.
+    const y = this.props.y;
+    const value = firstSuccessful[y] || 0.1;
+    let successfulValue = yScale(value);
+
+    return d3.svg
+      .line()
+      .defined(d => d[y] == null)
+      .x(d => xTimeScale(d.date))
       .y(function(d) {
         if (d[y] != null) {
           successfulValue = yScale(d[y] || 0.1);
@@ -334,6 +351,11 @@ const TimeSeriesChart = createReactClass({
     // have a straight line on the graph.
     const area = this.getArea(props.y, xTimeScale, yScale, firstSuccess);
     const valueLine = this.getValueLine(xTimeScale, yScale, firstSuccess);
+    const unavailableLine = this.getUnavailableLine(
+      xTimeScale,
+      yScale,
+      firstSuccess
+    );
 
     return props.data.map((stateResource, i) => {
       const transitionTime = this.getTransitionTime(stateResource.values);
@@ -348,6 +370,7 @@ const TimeSeriesChart = createReactClass({
           className={"path-color-" + stateResource.colorIndex}
           key={i}
           line={valueLine(stateResource.values)}
+          unavailableLine={unavailableLine(stateResource.values)}
           path={area(stateResource.values)}
           position={[-nextY, 0]}
           transitionTime={transitionTime}

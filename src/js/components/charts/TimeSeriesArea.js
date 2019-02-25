@@ -10,6 +10,7 @@ var TimeSeriesArea = createReactClass({
   propTypes: {
     className: PropTypes.string,
     line: PropTypes.string.isRequired,
+    unavailableLine: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     position: PropTypes.array.isRequired,
     transitionTime: PropTypes.number.isRequired
@@ -41,7 +42,17 @@ var TimeSeriesArea = createReactClass({
     return (
       <g>
         <path className={"area " + className} d={this.props.path} />
-        <path className={"line " + className} d={this.props.line} />
+        <path
+          className={"line " + className}
+          stroke-linecap="butt"
+          d={this.props.line}
+        />
+        <path
+          className={"line " + className}
+          stroke-dasharray="2,1"
+          stroke-linecap="butt"
+          d={this.props.unavailableLine}
+        />
       </g>
     );
   }
