@@ -10,7 +10,9 @@ describe("Catalog Page", function() {
     cy.visitUrl({ url: "/dashboard", logIn: true });
 
     // Opens up collapsible menu
-    cy.get(".sidebar").contains("Catalog").click();
+    cy.get(".sidebar")
+      .contains("Catalog")
+      .click();
     cy.hash().should("match", /catalog\/packages/);
   });
 
@@ -20,8 +22,7 @@ describe("Catalog Page", function() {
   });
 
   it("goes to the Packages Details tab when panel is clicked", function() {
-    cy
-      .visitUrl({ url: "/catalog/packages" })
+    cy.visitUrl({ url: "/catalog/packages" })
       .get(".h3")
       .contains("arangodb")
       .click();

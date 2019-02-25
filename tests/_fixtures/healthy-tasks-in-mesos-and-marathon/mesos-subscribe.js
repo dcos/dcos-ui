@@ -14,7 +14,8 @@ var response = JSON.stringify({
                 value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002"
               },
               command: {
-                value: "./executor/bin/kafka-executor server ./executor/conf/executor.yml",
+                value:
+                  "./executor/bin/kafka-executor server ./executor/conf/executor.yml",
                 argv: [],
                 environment: {
                   variables: [
@@ -46,19 +47,23 @@ var response = JSON.stringify({
                 },
                 uris: [
                   {
-                    value: "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
+                    value:
+                      "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
                     executable: false
                   },
                   {
-                    value: "https://packages.confluent.io/archive/3.1/confluent-oss-3.1.1-mesos.tgz",
+                    value:
+                      "https://packages.confluent.io/archive/3.1/confluent-oss-3.1.1-mesos.tgz",
                     executable: false
                   },
                   {
-                    value: "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/overrider.zip",
+                    value:
+                      "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/overrider.zip",
                     executable: false
                   },
                   {
-                    value: "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/executor.zip",
+                    value:
+                      "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/executor.zip",
                     executable: false
                   }
                 ]
@@ -86,7 +91,8 @@ var response = JSON.stringify({
               }
             },
             name: "confluent-kafka",
-            pid: "scheduler-d1c33942-e677-40b5-87fb-f36885359263@10.0.2.121:44347",
+            pid:
+              "scheduler-d1c33942-e677-40b5-87fb-f36885359263@10.0.2.121:44347",
             used_resources: {
               disk: 5000,
               mem: 2560,
@@ -127,7 +133,8 @@ var response = JSON.stringify({
               id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001" }
             },
             name: "marathon",
-            pid: "scheduler-2210a7de-5ddd-425e-a888-b36e3f372cec@10.0.4.58:45121",
+            pid:
+              "scheduler-2210a7de-5ddd-425e-a888-b36e3f372cec@10.0.4.58:45121",
             used_resources: {
               disk: 0,
               mem: 1262,
@@ -168,7 +175,8 @@ var response = JSON.stringify({
               id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-0000" }
             },
             name: "metronome",
-            pid: "scheduler-eeefee3d-ffd9-429f-9057-17e9290b995d@10.0.4.58:41263",
+            pid:
+              "scheduler-eeefee3d-ffd9-429f-9057-17e9290b995d@10.0.4.58:41263",
             used_resources: {
               disk: 0,
               mem: 0,
@@ -268,11 +276,13 @@ var response = JSON.stringify({
                 },
                 {
                   key: "DCOS_PACKAGE_COMMAND",
-                  value: "eyJwaXAiOlsiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20va2Fma2EvYXNzZXRzLzEuMS4xNi0wLjEwLjAuMC9iaW5fd3JhcHBlci0wLjAuMS1weTIucHkzLW5vbmUtYW55LndobCJdfQ=="
+                  value:
+                    "eyJwaXAiOlsiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20va2Fma2EvYXNzZXRzLzEuMS4xNi0wLjEwLjAuMC9iaW5fd3JhcHBlci0wLjAuMS1weTIucHkzLW5vbmUtYW55LndobCJdfQ=="
                 },
                 {
                   key: "DCOS_PACKAGE_METADATA",
-                  value: "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6ImNvbmZsdWVudC1rYWZrYSIsInZlcnNpb24iOiIxLjEuMTYtMy4xLjEiLCJtYWludGFpbmVyIjoicGFydG5lci1zdXBwb3J0QGNvbmZsdWVudC5pbyIsImRlc2NyaXB0aW9uIjoiQXBhY2hlIEthZmthIGJ5IENvbmZsdWVudCIsInRhZ3MiOlsibWVzc2FnZSIsImJyb2tlciIsInB1YnN1YiIsImthZmthIiwiY29uZmx1ZW50Il0sInNlbGVjdGVkIjp0cnVlLCJmcmFtZXdvcmsiOnRydWUsInBvc3RJbnN0YWxsTm90ZXMiOiJBcGFjaGUgS2Fma2EgYnkgQ29uZmx1ZW50IGlzIGJlaW5nIGluc3RhbGxlZC5cblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL3d3dy5jb25mbHVlbnQuaW8vd2hpdGVwYXBlci9kZXBsb3lpbmctY29uZmx1ZW50LXBsYXRmb3JtLXdpdGgtbWVzb3NwaGVyZVxuXHRDb21tdW5pdHkgU3VwcG9ydDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2NvbmZsdWVudC1wbGF0Zm9ybSIsInBvc3RVbmluc3RhbGxOb3RlcyI6IkFwYWNoZSBLYWZrYSBieSBDb25mbHVlbnQgaGFzIGJlZW4gdW5pbnN0YWxsZWQuXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cHM6Ly9kb2NzLm1lc29zcGhlcmUuY29tL2N1cnJlbnQvdXNhZ2Uvc2VydmljZS1ndWlkZXMva2Fma2EvdW5pbnN0YWxsIHRvIHJlbW92ZSBhbnkgcGVyc2lzdGVudCBzdGF0ZSBpZiByZXF1aXJlZC4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIHYyIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NvbmZsdWVudGluYy9rYWZrYS90cnVuay9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL3VuaXZlcnNlL2Fzc2V0cy9pY29uLXNlcnZpY2Uta2Fma2Etc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWthZmthLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vdW5pdmVyc2UvYXNzZXRzL2ljb24tc2VydmljZS1rYWZrYS1sYXJnZS5wbmcifX0="
+                  value:
+                    "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6ImNvbmZsdWVudC1rYWZrYSIsInZlcnNpb24iOiIxLjEuMTYtMy4xLjEiLCJtYWludGFpbmVyIjoicGFydG5lci1zdXBwb3J0QGNvbmZsdWVudC5pbyIsImRlc2NyaXB0aW9uIjoiQXBhY2hlIEthZmthIGJ5IENvbmZsdWVudCIsInRhZ3MiOlsibWVzc2FnZSIsImJyb2tlciIsInB1YnN1YiIsImthZmthIiwiY29uZmx1ZW50Il0sInNlbGVjdGVkIjp0cnVlLCJmcmFtZXdvcmsiOnRydWUsInBvc3RJbnN0YWxsTm90ZXMiOiJBcGFjaGUgS2Fma2EgYnkgQ29uZmx1ZW50IGlzIGJlaW5nIGluc3RhbGxlZC5cblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL3d3dy5jb25mbHVlbnQuaW8vd2hpdGVwYXBlci9kZXBsb3lpbmctY29uZmx1ZW50LXBsYXRmb3JtLXdpdGgtbWVzb3NwaGVyZVxuXHRDb21tdW5pdHkgU3VwcG9ydDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2NvbmZsdWVudC1wbGF0Zm9ybSIsInBvc3RVbmluc3RhbGxOb3RlcyI6IkFwYWNoZSBLYWZrYSBieSBDb25mbHVlbnQgaGFzIGJlZW4gdW5pbnN0YWxsZWQuXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cHM6Ly9kb2NzLm1lc29zcGhlcmUuY29tL2N1cnJlbnQvdXNhZ2Uvc2VydmljZS1ndWlkZXMva2Fma2EvdW5pbnN0YWxsIHRvIHJlbW92ZSBhbnkgcGVyc2lzdGVudCBzdGF0ZSBpZiByZXF1aXJlZC4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIHYyIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NvbmZsdWVudGluYy9rYWZrYS90cnVuay9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL3VuaXZlcnNlL2Fzc2V0cy9pY29uLXNlcnZpY2Uta2Fma2Etc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWthZmthLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vdW5pdmVyc2UvYXNzZXRzL2ljb24tc2VydmljZS1rYWZrYS1sYXJnZS5wbmcifX0="
                 },
                 {
                   key: "DCOS_PACKAGE_REGISTRY_VERSION",
@@ -501,7 +511,8 @@ var response = JSON.stringify({
               mem: 14018,
               gpus: 0,
               cpus: 4,
-              ports: "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+              ports:
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
             },
             used_resources: {
               disk: 5000,
@@ -530,7 +541,8 @@ var response = JSON.stringify({
               mem: 11458,
               gpus: 0,
               cpus: 2.5,
-              ports: "[1026-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-9233, 9235-32000]"
+              ports:
+                "[1026-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-9233, 9235-32000]"
             },
             attributes: {},
             active: true,

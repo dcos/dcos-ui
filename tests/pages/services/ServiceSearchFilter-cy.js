@@ -31,8 +31,7 @@ describe("Service Search Filters", function() {
     it("will clear filters by clear all link click", function() {
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("cassandra-healthy");
-      cy
-        .get("@filterInputText")
+      cy.get("@filterInputText")
         .siblings(".form-control-group-add-on")
         .eq(1)
         .click();

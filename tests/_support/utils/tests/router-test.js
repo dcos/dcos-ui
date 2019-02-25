@@ -60,9 +60,7 @@ describe("router", function() {
       });
     });
 
-    it("calls the callback with null when the fixture is not found", function(
-      done
-    ) {
+    it("calls the callback with null when the fixture is not found", function(done) {
       router.getAPIResponse("baz", function(foundFixture) {
         expect(foundFixture).to.equal(null);
         done();

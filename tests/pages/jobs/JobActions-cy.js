@@ -9,13 +9,16 @@ describe("Job Actions", function() {
       cy.visitUrl({ url: "/jobs/detail/foo" });
 
       cy.get(".page-header-actions .dropdown").click();
-      cy.get(".dropdown-menu-items").contains("Edit").click();
+      cy.get(".dropdown-menu-items")
+        .contains("Edit")
+        .click();
     });
 
     it("opens the correct jobs edit modal", function() {
-      cy
-        .get('.modal .form-panel input[name="id"]')
-        .should("to.have.value", "foo");
+      cy.get('.modal .form-panel input[name="id"]').should(
+        "to.have.value",
+        "foo"
+      );
     });
 
     it("closes modal on successful API request", function() {
@@ -25,12 +28,16 @@ describe("Job Actions", function() {
         response: [],
         delay: 0
       });
-      cy.get(".modal .button-primary").contains("Save Job").click();
+      cy.get(".modal .button-primary")
+        .contains("Save Job")
+        .click();
       cy.get(".modal").should("to.have.length", 0);
     });
 
     it("closes modal on secondary button click", function() {
-      cy.get(".modal .button").contains("Cancel").click();
+      cy.get(".modal .button")
+        .contains("Cancel")
+        .click();
       cy.get(".modal").should("to.have.length", 0);
     });
   });
