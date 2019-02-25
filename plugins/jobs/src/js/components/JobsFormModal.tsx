@@ -223,12 +223,42 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     }
   }
 
-  getErrorMessage(e: any) {
-    return e.response && e.response.message
-      ? e.response.message
-      : e.response
-        ? e.response
-        : e;
+  getErrorMessage(err: any) {
+    if (err.response && err.response.details && err.response.details.length) {
+      return err.response.details.map(
+        (e: { path: string; errors: string[]; type?: string }) => {
+          // Error message will be specific to either the job or the schedule, so we need to
+          // prefix the given path with `job` or `schedule` to give the error messages the correct
+          // visibility.
+          const prefix = err.type === "SCHEDULE" ? "schedule" : "job";
+
+          // The path from the server error will look like ex `\/run\/gpus` so splitting on "\/"
+          // will give the correct array path.
+          const path = [prefix].concat(
+            // Linter does not like `\` but it is necessary here.
+            // tslint:disable-next-line:prettier
+            e.path.split("\/").filter(pathSegment => pathSegment !== "")
+          );
+          return {
+            path,
+            message: e.errors.join(" ")
+          };
+        }
+      );
+    } else {
+      const message =
+        err.response && err.response.message
+          ? err.response.message
+          : err.response
+            ? err.response
+            : err;
+      return [
+        {
+          path: [],
+          message
+        }
+      ];
+    }
   }
 
   handleJobRun() {
@@ -258,23 +288,13 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
               this.setState({
                 scheduleFailure: true,
                 processing: false,
-                serverErrors: [
-                  {
-                    message: this.getErrorMessage(e),
-                    path: []
-                  }
-                ],
+                serverErrors: this.getErrorMessage(e),
                 showValidationErrors: true
               });
             } else {
               this.setState({
                 processing: false,
-                serverErrors: [
-                  {
-                    message: this.getErrorMessage(e),
-                    path: []
-                  }
-                ],
+                serverErrors: this.getErrorMessage(e),
                 showValidationErrors: true
               });
             }
