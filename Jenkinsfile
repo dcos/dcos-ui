@@ -55,7 +55,7 @@ pipeline {
       }
 
       steps {
-        sh 'npm run commitlint -- --from "${CHANGE_TARGET}"'
+        sh 'npm run commitlint -- --from origin/"${CHANGE_TARGET}"'
       }
     }
 
