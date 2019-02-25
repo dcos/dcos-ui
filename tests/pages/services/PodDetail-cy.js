@@ -19,8 +19,7 @@ describe("Pod Detail Page", function() {
         url: "/services/detail/%2Fpodses"
       });
 
-      cy
-        .get(".menu-tabbed-item .active")
+      cy.get(".menu-tabbed-item .active")
         .contains("Tasks")
         .get(".table")
         .contains("podses");
@@ -33,10 +32,11 @@ describe("Pod Detail Page", function() {
         url: "/services/detail/%2Fpodses"
       });
 
-      cy.get(".menu-tabbed-item").contains("Configuration").click();
+      cy.get(".menu-tabbed-item")
+        .contains("Configuration")
+        .click();
 
-      cy
-        .get(".menu-tabbed-item .active")
+      cy.get(".menu-tabbed-item .active")
         .contains("Configuration")
         .get(".configuration-map");
 
@@ -48,10 +48,11 @@ describe("Pod Detail Page", function() {
         url: "/services/detail/%2Fpodses"
       });
 
-      cy.get(".menu-tabbed-item").contains("Debug").click();
+      cy.get(".menu-tabbed-item")
+        .contains("Debug")
+        .click();
 
-      cy
-        .get(".menu-tabbed-item .active")
+      cy.get(".menu-tabbed-item .active")
         .contains("Debug")
         .get(".page-body-content")
         .contains("Last Changes");
@@ -68,12 +69,12 @@ describe("Pod Detail Page", function() {
 
       cy.get("th.task-table-column-host-address").click();
 
-      cy
-        .get(":nth-child(2) > .task-table-column-host-address")
-        .contains("10.0.0.67");
-      cy
-        .get(":nth-child(10) > .task-table-column-host-address")
-        .contains("10.0.5.136");
+      cy.get(":nth-child(2) > .task-table-column-host-address").contains(
+        "10.0.0.67"
+      );
+      cy.get(":nth-child(10) > .task-table-column-host-address").contains(
+        "10.0.5.136"
+      );
     });
 
     it("sorts by host/port DESC", function() {
@@ -84,12 +85,12 @@ describe("Pod Detail Page", function() {
       cy.get("th.task-table-column-host-address").click();
       cy.get("th.task-table-column-host-address").click();
 
-      cy
-        .get(":nth-child(2) > .task-table-column-host-address")
-        .contains("10.0.5.136");
-      cy
-        .get(":nth-child(10) > .task-table-column-host-address")
-        .contains("10.0.0.67");
+      cy.get(":nth-child(2) > .task-table-column-host-address").contains(
+        "10.0.5.136"
+      );
+      cy.get(":nth-child(10) > .task-table-column-host-address").contains(
+        "10.0.0.67"
+      );
     });
 
     it("sorts by region ASC", function() {
@@ -99,12 +100,12 @@ describe("Pod Detail Page", function() {
 
       cy.get("th.task-table-column-region").click();
 
-      cy
-        .get(":nth-child(2) > .task-table-column-region")
-        .contains("ap-southeast-1");
-      cy
-        .get(":nth-child(10) > .task-table-column-region")
-        .contains("us-west-1");
+      cy.get(":nth-child(2) > .task-table-column-region").contains(
+        "ap-southeast-1"
+      );
+      cy.get(":nth-child(10) > .task-table-column-region").contains(
+        "us-west-1"
+      );
     });
 
     it("sorts by region DESC", function() {
@@ -116,9 +117,9 @@ describe("Pod Detail Page", function() {
       cy.get("th.task-table-column-region").click();
 
       cy.get(":nth-child(2) > .task-table-column-region").contains("us-west-1");
-      cy
-        .get(":nth-child(10) > .task-table-column-region")
-        .contains("ap-southeast-1");
+      cy.get(":nth-child(10) > .task-table-column-region").contains(
+        "ap-southeast-1"
+      );
     });
 
     it("sorts by zone ASC", function() {
@@ -128,9 +129,9 @@ describe("Pod Detail Page", function() {
 
       cy.get("th.task-table-column-zone").click();
 
-      cy
-        .get(":nth-child(2) > .task-table-column-zone")
-        .contains("ap-southeast-1a");
+      cy.get(":nth-child(2) > .task-table-column-zone").contains(
+        "ap-southeast-1a"
+      );
       cy.get(":nth-child(10) > .task-table-column-zone").contains("us-west-1d");
     });
 
@@ -143,9 +144,9 @@ describe("Pod Detail Page", function() {
       cy.get("th.task-table-column-zone").click();
 
       cy.get(":nth-child(2) > .task-table-column-zone").contains("us-west-1d");
-      cy
-        .get(":nth-child(10) > .task-table-column-zone")
-        .contains("ap-southeast-1a");
+      cy.get(":nth-child(10) > .task-table-column-zone").contains(
+        "ap-southeast-1a"
+      );
     });
   });
 });

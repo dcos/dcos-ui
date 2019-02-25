@@ -12,11 +12,10 @@ Cypress.Commands.add("visitUrl", { prevSubject: false }, function(visitUrl) {
   var clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
   var url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
 
-  cy
-    .setCookie("dcos-acs-auth-cookie", Cypress.env("CLUSTER_AUTH_TOKEN"), {
-      httpOnly: true,
-      domain: clusterDomain
-    })
+  cy.setCookie("dcos-acs-auth-cookie", Cypress.env("CLUSTER_AUTH_TOKEN"), {
+    httpOnly: true,
+    domain: clusterDomain
+  })
     .setCookie("dcos-acs-info-cookie", Cypress.env("CLUSTER_AUTH_INFO"), {
       domain: clusterDomain
     })
@@ -56,16 +55,14 @@ export function createService(serviceDefinition) {
     `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
   );
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-  cy
-    .get(".page-body-content table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
+  cy.get(".page-body-content table", {
+    timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+  })
     .contains(serviceName, {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
     .should("exist");
-  cy
-    .get(".page-body-content table")
+  cy.get(".page-body-content table")
     .getTableRowThatContains(serviceName)
     .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
     .should("exist");
@@ -83,5 +80,7 @@ export function deleteService(serviceId) {
 
   cy.exec(`dcos marathon app remove ${serviceId}`);
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-  cy.get(".page-body-content").contains(serviceName).should("not.exist");
+  cy.get(".page-body-content")
+    .contains(serviceName)
+    .should("not.exist");
 }

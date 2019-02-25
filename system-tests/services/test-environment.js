@@ -18,8 +18,7 @@ describe("Services", function() {
       cy.contains("No running services").should("exist");
 
       // That should contain a 'Run a Service' button
-      cy
-        .get(".page-body-content .button-primary")
+      cy.get(".page-body-content .button-primary")
         .contains("Run a Service")
         .should("exist");
     });

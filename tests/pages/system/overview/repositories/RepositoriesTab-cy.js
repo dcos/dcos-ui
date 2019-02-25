@@ -1,18 +1,15 @@
 describe("Installed Packages Tab", function() {
   beforeEach(function() {
-    cy
-      .configureCluster({
-        mesos: "1-task-healthy",
-        universePackages: true
-      })
-      .visitUrl({ url: "/settings/repositories" });
+    cy.configureCluster({
+      mesos: "1-task-healthy",
+      universePackages: true
+    }).visitUrl({ url: "/settings/repositories" });
   });
 
   it("displays a table of repositories", function() {
     cy.get("table.table > tbody > tr td:first-child").as("itemNames");
 
-    cy
-      .get("@itemNames")
+    cy.get("@itemNames")
       .eq(1)
       .should("contain", "Universe")
       .get("@itemNames")
@@ -37,7 +34,9 @@ describe("Installed Packages Tab", function() {
   it("displays 'No data' when it has filtered out all packages", function() {
     cy.get('.page-body-content input[type="text"]').as("filterTextbox");
     cy.get("table.table > tbody > tr").as("tableRows");
-    cy.get("@tableRows").get("td").as("tableRowCell");
+    cy.get("@tableRows")
+      .get("td")
+      .as("tableRowCell");
 
     cy.get("@filterTextbox").type("foo_bar_baz_qux");
 
@@ -47,13 +46,13 @@ describe("Installed Packages Tab", function() {
   });
 
   it("displays uninstall modal when uninstall is clicked", function() {
-    cy
-      .get(".button.button-danger-link")
+    cy.get(".button.button-danger-link")
       .eq(0)
       .invoke("show")
       .click({ force: true });
-    cy
-      .get(".modal .modal-footer .button.button-danger")
-      .should("contain", "Delete Repository");
+    cy.get(".modal .modal-footer .button.button-danger").should(
+      "contain",
+      "Delete Repository"
+    );
   });
 });

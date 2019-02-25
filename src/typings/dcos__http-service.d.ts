@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 interface RequestOptions {
   method?: string;
   body?: any;
-  headers?: Object;
+  headers?: object;
   responseType?: string;
   timeout?: number;
 }
@@ -18,7 +18,4 @@ export function request<T>(
   url: string,
   options?: RequestOptions
 ): Observable<RequestResponse<T>>;
-export function stream<T>(
-  url: string,
-  options?: RequestOptions
-): Observable<T>;
+export function stream<T>(url: string, options?: RequestOptions): Observable<T>;
