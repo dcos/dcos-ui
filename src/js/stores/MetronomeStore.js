@@ -222,9 +222,8 @@ class MetronomeStore extends EventEmitter {
   }
 
   stopJobRun(jobID, jobRunID) {
-    const job = this.getJob(jobID);
-
-    if (job == null || jobRunID == null) {
+    // TODO: DCOS-48982 Check if the job actually exists
+    if (jobID == null || jobRunID == null) {
       return;
     }
 
