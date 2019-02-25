@@ -3,30 +3,30 @@ import { JobOutput } from "../JobFormData";
 
 const JOBID_ERRORS = [
   {
-    path: ["id"],
+    path: ["job", "id"],
     message:
       "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
   }
 ];
 const CMDARGSERROR = [
   {
-    path: ["run", "cmd"],
+    path: ["job", "run", "cmd"],
     message: "Please specify only one of `cmd` or `args`"
   },
   {
-    path: ["run", "args"],
+    path: ["job", "run", "args"],
     message: "Please specify only one of `cmd` or `args`"
   }
 ];
 
 const CMDARGSCONTAINERERROR = [
   {
-    path: ["run", "cmd"],
+    path: ["job", "run", "cmd"],
     message:
       "You must specify a command, an argument or a container with an image"
   },
   {
-    path: ["run", "args"],
+    path: ["job", "run", "args"],
     message:
       "You must specify a command, an argument or a container with an image"
   },
@@ -39,70 +39,77 @@ const CMDARGSCONTAINERERROR = [
 
 const MUSTCONTAINIMAGEFORDOCKER = [
   {
-    path: ["run", "docker", "image"],
+    path: ["job", "run", "docker", "image"],
     message: "Must be specified when using the Docker Engine runtime."
   }
 ];
 
 const MUSTCONTAINIMAGEFORUCR = [
   {
-    path: ["run", "ucr", "image", "id"],
+    path: ["job", "run", "ucr", "image", "id"],
     message: "Must be specified when using UCR."
   }
 ];
 
 const GPUSERROR = [
   {
-    path: ["run", "gpus"],
+    path: ["job", "run", "gpus"],
     message: "GPUs are only available with UCR."
   }
 ];
 
 const IDMISSINGERROR = [
   {
-    path: ["id"],
+    path: ["job", "id"],
     message: "ID is required."
   }
 ];
 
 const CPUSMISSINGERROR = [
   {
-    path: ["run.cpus"],
+    path: ["job", "run", "cpus"],
     message: "CPUs is required."
   }
 ];
 
 const DISKMISSINGERROR = [
   {
-    path: ["run.disk"],
+    path: ["job", "run", "disk"],
     message: "Disk is required."
   }
 ];
 
 const MEMMISSINGERROR = [
   {
-    path: ["run.mem"],
+    path: ["job", "run", "mem"],
     message: "Mem is required."
   }
 ];
 
 const CPURANGEERROR = [
   {
-    path: ["run", "cpus"],
+    path: ["job", "run", "cpus"],
     message: "Minimum value is 0.1."
   }
 ];
 
 const MEMRANGEERROR = [
   {
-    path: ["run", "mem"],
+    path: ["job", "run", "mem"],
     message: "Minimum value is 32."
   }
 ];
 
 const DISKRANGEERROR = [
   {
-    path: ["run", "disk"],
+    path: ["job", "run", "disk"],
+    message: "Minimum value is 0."
+  }
+];
+
+const GPURANGEERROR = [
+  {
+    path: ["job", "run", "gpus"],
     message: "Minimum value is 0."
   }
 ];
@@ -531,6 +538,47 @@ describe("MetronomeSpecValidators", () => {
       expect(
         MetronomeSpecValidators.valuesAreWithinRange(spec as JobOutput)
       ).toEqual([...CPURANGEERROR, ...MEMRANGEERROR, ...DISKRANGEERROR]);
+    });
+  });
+
+  describe("#gpusWithinRange", () => {
+    it("does not return error if gpus >= 0", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            gpus: 0
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if gpus not present", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {}
+        }
+      };
+      expect(
+        MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns error if gpus < 0", () => {
+      const spec = {
+        job: {
+          run: {
+            gpus: -1
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
+      ).toEqual(GPURANGEERROR);
     });
   });
 });

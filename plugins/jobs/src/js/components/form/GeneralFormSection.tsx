@@ -51,10 +51,10 @@ class GeneralFormSection extends Component<GeneralProps, object> {
     );
     const gpusDisabled = formData.cmdOnly || formData.container !== "ucr";
 
-    const cpusError = getFieldError("run.cpus", errors);
-    const gpusError = getFieldError("run.gpus", errors);
-    const memError = getFieldError("run.mem", errors);
-    const diskError = getFieldError("run.disk", errors);
+    const cpusError = getFieldError("job.run.cpus", errors);
+    const gpusError = getFieldError("job.run.gpus", errors);
+    const memError = getFieldError("job.run.mem", errors);
+    const diskError = getFieldError("job.run.disk", errors);
 
     return (
       <FormRow>
@@ -146,9 +146,9 @@ class GeneralFormSection extends Component<GeneralProps, object> {
     const containerImage = formData.containerImage;
 
     const containerImageErrors =
-      getFieldError("run.docker.image", errors) ||
-      getFieldError("run.ucr.image.id", errors);
-    const cmdErrors = getFieldError("run.cmd", errors);
+      getFieldError("job.run.docker.image", errors) ||
+      getFieldError("job.run.ucr.image.id", errors);
+    const cmdErrors = getFieldError("job.run.cmd", errors);
 
     return (
       <div className="form-section">
@@ -270,7 +270,7 @@ class GeneralFormSection extends Component<GeneralProps, object> {
       </Trans>
     );
     const descTooltipContent = <Trans>A description of this job.</Trans>;
-    const idError = getFieldError("id", errors);
+    const idError = getFieldError("job.id", errors);
 
     return (
       <div className="form-section">
