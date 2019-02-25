@@ -58,7 +58,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const jobIdRegex = /^[a-z0-9]+([a-z0-9-]+[a-z0-9])?$/;
     const message =
       "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash.";
-    return jobId && jobIdRegex.test(jobId) ? [] : [{ path: ["id"], message }];
+    return jobId && jobIdRegex.test(jobId)
+      ? []
+      : [{ path: ["job", "id"], message }];
   },
 
   /**
@@ -76,11 +78,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
       return [
         {
-          path: ["run", "cmd"],
+          path: ["job", "run", "cmd"],
           message: notBothMessage
         },
         {
-          path: ["run", "args"],
+          path: ["job", "run", "args"],
           message: notBothMessage
         }
       ];
@@ -108,14 +110,14 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       "You must specify a command, an argument or a container with an image";
 
     const containerImageErrorPath = job.run.ucr
-      ? ["run", "ucr", "image", "id"]
+      ? ["job", "run", "ucr", "image", "id"]
       : job.run.docker
-        ? ["run", "docker", "image"]
+        ? ["job", "run", "docker", "image"]
         : [];
 
     return [
-      { path: ["run", "cmd"], message },
-      { path: ["run", "args"], message },
+      { path: ["job", "run", "cmd"], message },
+      { path: ["job", "run", "args"], message },
       {
         path: containerImageErrorPath,
         message
@@ -131,7 +133,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (job.run.docker && !job.run.docker.image) {
       return [
         {
-          path: ["run", "docker", "image"],
+          path: ["job", "run", "docker", "image"],
           message: "Must be specified when using the Docker Engine runtime."
         }
       ];
@@ -140,7 +142,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (job.run.ucr && (!job.run.ucr.image || !job.run.ucr.image.id)) {
       return [
         {
-          path: ["run", "ucr", "image", "id"],
+          path: ["job", "run", "ucr", "image", "id"],
           message: "Must be specified when using UCR."
         }
       ];
@@ -157,7 +159,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if ((job.run.gpus || job.run.gpus === 0) && !job.run.ucr) {
       return [
         {
-          path: ["run", "gpus"],
+          path: ["job", "run", "gpus"],
           message: "GPUs are only available with UCR."
         }
       ];
@@ -180,28 +182,28 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
     if (!id) {
       errors.push({
-        path: ["id"],
+        path: ["job", "id"],
         message: "ID is required."
       });
     }
 
     if (!cpus && cpus !== 0) {
       errors.push({
-        path: ["run.cpus"],
+        path: ["job", "run", "cpus"],
         message: "CPUs is required."
       });
     }
 
     if (!mem && mem !== 0) {
       errors.push({
-        path: ["run.mem"],
+        path: ["job", "run", "mem"],
         message: "Mem is required."
       });
     }
 
     if (!disk && disk !== 0) {
       errors.push({
-        path: ["run.disk"],
+        path: ["job", "run", "disk"],
         message: "Disk is required."
       });
     }
@@ -219,25 +221,38 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
     if (cpus < 0.1) {
       errors.push({
-        path: ["run", "cpus"],
+        path: ["job", "run", "cpus"],
         message: "Minimum value is 0.1."
       });
     }
 
     if (mem < 32) {
       errors.push({
-        path: ["run", "mem"],
+        path: ["job", "run", "mem"],
         message: "Minimum value is 32."
       });
     }
 
     if (disk < 0) {
       errors.push({
-        path: ["run", "disk"],
+        path: ["job", "run", "disk"],
         message: "Minimum value is 0."
       });
     }
 
     return errors;
+  },
+
+  gpusWithinRange(formData: JobOutput) {
+    const gpus = formData.job.run.gpus;
+    if (gpus && gpus < 0) {
+      return [
+        {
+          path: ["job", "run", "gpus"],
+          message: "Minimum value is 0."
+        }
+      ];
+    }
+    return [];
   }
 };
