@@ -45,7 +45,9 @@ declare module "reactjs-components" {
     wrapperClassName?: string;
   }
 
+  // tslint:disable-next-line:max-classes-per-file
   export class Modal extends Component<ModalProps, {}> {}
+  // tslint:disable-next-line:max-classes-per-file
   export class Dropdown extends Component<DropdownProps, {}> {}
 
   interface TooltipProps {
@@ -55,7 +57,7 @@ declare module "reactjs-components" {
     content: React.ReactNode;
     elementTag?: string;
     interactive?: boolean;
-    maxWidth?: number |  string;
+    maxWidth?: number | string;
     position?: string;
     stayOpen?: boolean;
     suppress?: boolean;
@@ -65,5 +67,6 @@ declare module "reactjs-components" {
     contentClassName?: string;
   }
 
+  // tslint:disable-next-line:max-classes-per-file
   export class Tooltip extends Component<TooltipProps, {}> {}
 }

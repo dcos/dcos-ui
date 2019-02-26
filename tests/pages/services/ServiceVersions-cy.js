@@ -8,8 +8,7 @@ describe("Service Versions", function() {
         });
 
         cy.visitUrl({ url: "/services/detail/%2Fsleep" });
-        cy
-          .get(".page-header-navigation .menu-tabbed-item")
+        cy.get(".page-header-navigation .menu-tabbed-item")
           .contains("Configuration")
           .click();
 
@@ -21,29 +20,26 @@ describe("Service Versions", function() {
       });
 
       it("renders the version dropdown with the current locale version as default", function() {
-        cy
-          .get(".page-body-content .dropdown .button span")
+        cy.get(".page-body-content .dropdown .button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
           .should("to.have.length", 1);
       });
 
       it("renders the selected service version", function() {
-        cy
-          .get("@dropdown")
+        cy.get("@dropdown")
           .get(".button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
           .parent()
           .click();
 
-        cy
-          .get("@dropdown")
+        cy.get("@dropdown")
           .get(".dropdown-menu-list ul li")
           .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString())
           .click();
 
-        cy
-          .get("@dropdown")
-          .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString());
+        cy.get("@dropdown").contains(
+          new Date("2015-02-28T05:12:12.221Z").toLocaleString()
+        );
       });
 
       it("applies the selected service version", function() {
@@ -57,45 +53,45 @@ describe("Service Versions", function() {
           delay: 0
         });
 
-        cy
-          .get("@dropdown")
+        cy.get("@dropdown")
           .get(".button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
           .parent()
           .click();
 
-        cy
-          .get("@dropdown")
+        cy.get("@dropdown")
           .get(".dropdown-menu-list ul li")
           .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString())
           .click();
 
-        cy
-          .get("@dropdown")
-          .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString());
+        cy.get("@dropdown").contains(
+          new Date("2015-02-28T05:12:12.221Z").toLocaleString()
+        );
 
-        cy.get(".page-body-content .button").contains("Apply").click();
+        cy.get(".page-body-content .button")
+          .contains("Apply")
+          .click();
       });
 
       it("opens correct edit modal of the selected service version", function() {
-        cy
-          .get("@dropdown")
+        cy.get("@dropdown")
           .get(".button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
           .parent()
           .click();
 
-        cy
-          .get("@dropdown")
+        cy.get("@dropdown")
           .get(".dropdown-menu-list ul li")
           .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString())
           .click();
 
-        cy.get(".page-body-content .button").contains("Edit").click();
+        cy.get(".page-body-content .button")
+          .contains("Edit")
+          .click();
 
-        cy
-          .get('.modal .menu-tabbed-view textarea[name="cmd"]')
-          .contains("sleep 1000");
+        cy.get('.modal .menu-tabbed-view textarea[name="cmd"]').contains(
+          "sleep 1000"
+        );
       });
     });
 

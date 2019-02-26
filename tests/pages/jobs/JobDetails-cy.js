@@ -16,9 +16,10 @@ describe("Job Details", function() {
 
   context("Run History Tab", function() {
     it("shows the correct number of jobs in the filter header", function() {
-      cy
-        .get(".page-body-content .list-inline.list-unstyled")
-        .should("contain", "13 Runs");
+      cy.get(".page-body-content .list-inline.list-unstyled").should(
+        "contain",
+        "13 Runs"
+      );
     });
 
     it("renders the correct number of jobs in the table", function() {
@@ -33,8 +34,7 @@ describe("Job Details", function() {
         // Four rows, two for the virtual list padding and two for the data.
         cy.get(".page table tbody tr:nth-child(2)").as("tableRow");
 
-        cy
-          .get("@tableRow")
+        cy.get("@tableRow")
           .find("td:first-child .expanding-table-child")
           .should(function($children) {
             expect($children.length).to.equal(0);
@@ -45,16 +45,17 @@ describe("Job Details", function() {
     it("expands the table row when clicking a job run", function() {
       cy.get(".page table tbody tr").as("tableRow");
 
-      cy.get("@tableRow").find(".expanding-table-primary-cell").first().click();
+      cy.get("@tableRow")
+        .find(".expanding-table-primary-cell")
+        .first()
+        .click();
 
-      cy
-        .get("@tableRow")
+      cy.get("@tableRow")
         .find(".expanding-table-primary-cell")
         .first()
         .should("have.class", "is-expanded");
 
-      cy
-        .get("@tableRow")
+      cy.get("@tableRow")
         .find("td:nth-child(2) .expanding-table-child")
         .should(function($children) {
           expect($children.length).to.equal(2);
@@ -63,8 +64,12 @@ describe("Job Details", function() {
 
     it("expands a second table row when clicking another job run", function() {
       cy.get(".page table tbody tr .is-expandable").as("tableRows");
-      cy.get("@tableRows").first().as("tableRowA");
-      cy.get("@tableRows").last().as("tableRowB");
+      cy.get("@tableRows")
+        .first()
+        .as("tableRowA");
+      cy.get("@tableRows")
+        .last()
+        .as("tableRowB");
 
       cy.get("@tableRowA").click();
       cy.get("@tableRowB").click();
@@ -79,16 +84,20 @@ describe("Job Details", function() {
 
   context("Configuration Tab", function() {
     it("renders the correct amount of job configuration details", function() {
-      cy.get(".menu-tabbed-item").contains("Configuration").click();
-      cy
-        .get(".page-body-content .configuration-map-row")
-        .should(function($elements) {
-          expect($elements.length).to.equal(15);
-        });
+      cy.get(".menu-tabbed-item")
+        .contains("Configuration")
+        .click();
+      cy.get(".page-body-content .configuration-map-row").should(function(
+        $elements
+      ) {
+        expect($elements.length).to.equal(15);
+      });
     });
 
     it("renders the job configuration data", function() {
-      cy.get(".menu-tabbed-item").contains("Configuration").click();
+      cy.get(".menu-tabbed-item")
+        .contains("Configuration")
+        .click();
       cy.get(".page-body-content .configuration-map-row").as("configRow");
 
       cy.get("@configRow").should("contain", "Command");
