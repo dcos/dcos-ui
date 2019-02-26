@@ -50,7 +50,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           className="configuration-map-label"
         >
           <span>
-            Version
+            Mesos Version
           </span>
         </div>
         <div
