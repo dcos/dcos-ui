@@ -59,6 +59,18 @@ class JobModalForm extends Component<JobFormProps, {}> {
     this.handleJSONErrorStateChange = this.handleJSONErrorStateChange.bind(
       this
     );
+    this.getJSONEditorData = this.getJSONEditorData.bind(this);
+  }
+
+  getJSONEditorData(jobSpec: JobSpec): JobOutput {
+    const jobJSON = jobSpecToOutputParser(jobSpec);
+    if (jobJSON.hasOwnProperty("schedule") && jobJSON.schedule === undefined) {
+      // jobSpecToOutputParser returns object with `schedule: undefined` if there is no schedule present,
+      // but this triggers an update of the JSONEditor and leads to issues where the state of the JSON in the
+      // editor is replaced with old values.
+      delete jobJSON.schedule;
+    }
+    return jobJSON;
   }
 
   onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -139,7 +151,7 @@ class JobModalForm extends Component<JobFormProps, {}> {
       errors,
       showAllErrors
     } = this.props;
-    const jobJSON = jobSpecToOutputParser(jobSpec);
+    const jobJSON = this.getJSONEditorData(jobSpec);
     const formOutput = jobSpecToFormOutputParser(jobSpec);
 
     const jsonEditorPlaceholderClasses = classNames(
@@ -171,12 +183,11 @@ class JobModalForm extends Component<JobFormProps, {}> {
                   <TabButtonList>{tabButtonListItems}</TabButtonList>
                   <TabViewList>
                     <TabView id="general">
-                      {showAllErrors && (
-                        <ErrorsAlert
-                          errors={errors}
-                          pathMapping={ServiceErrorPathMapping}
-                        />
-                      )}
+                      <ErrorsAlert
+                        errors={errors}
+                        pathMapping={ServiceErrorPathMapping}
+                        hideTopLevelErrors={!showAllErrors}
+                      />
                       <GeneralFormSection
                         formData={formOutput}
                         errors={errors}
