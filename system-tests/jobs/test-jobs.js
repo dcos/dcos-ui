@@ -9,7 +9,7 @@ describe("Jobs", function() {
 
   it("creates a simple job", function() {
     const jobName = "job-with-inline-shell-script";
-    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -73,12 +73,12 @@ describe("Jobs", function() {
 
     cy.root()
       .getFormGroupInputFor("Command *")
-      .contains(`${cmdline}`);
+      .should("have.value", `${cmdline}`);
   });
 
   it("creates a job with default ucr config", function() {
     const jobName = "job-with-ucr-config";
-    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -158,7 +158,7 @@ describe("Jobs", function() {
       .should("have.value", "32");
     cy.root()
       .getFormGroupInputFor("Command")
-      .contains(cmdline);
+      .should("have.value", `${cmdline}`);
 
     // Fill-in image
     cy.root()
@@ -169,7 +169,7 @@ describe("Jobs", function() {
   it("removes job from table when deleted", function() {
     // first create a simple job
     const jobName = "job-to-delete";
-    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -184,7 +184,7 @@ describe("Jobs", function() {
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
     cy.root()
-      .getFormGroupInputFor("Command")
+      .getFormGroupInputFor("Command *")
       .type(cmdline);
 
     // Click create job
