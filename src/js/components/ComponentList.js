@@ -120,11 +120,7 @@ class ComponentList extends React.Component {
 
     return (
       <div className="dashboard-health-list">
-        <List
-          className="list list-unstyled"
-          content={content}
-          transition={false}
-        />
+        <List className="list list-unstyled" content={content} />
       </div>
     );
   }
