@@ -78,7 +78,8 @@ describe("LogView", function() {
 
     it("returns a button if not at bottom", function() {
       thisInstance.setState({ isAtBottom: false });
-      var button = thisInstance.instance().getGoToBottomButton();
+      var transition = thisInstance.instance().getGoToBottomButton();
+      var button = transition.props.children;
       expect(button.type).toEqual("button");
     });
   });

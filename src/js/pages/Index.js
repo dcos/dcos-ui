@@ -2,7 +2,7 @@ import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import React from "react";
 import createReactClass from "create-react-class";
-import { CSSTransitionGroup } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -183,13 +183,15 @@ var Index = createReactClass({
 
     if (window.innerWidth <= viewport.MOBILE_THRESHOLD) {
       return (
-        <CSSTransitionGroup
-          transitionName="sidebar-backdrop"
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}
+        <CSSTransition
+          classNames="sidebar-backdrop"
+          timeout={{
+            enter: 250,
+            exit: 250
+          }}
         >
           {overlay}
-        </CSSTransitionGroup>
+        </CSSTransition>
       );
     }
   },
