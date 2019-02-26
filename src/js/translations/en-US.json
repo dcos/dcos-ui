@@ -9,6 +9,7 @@
   "COMMON.CLUSTER": "Cluster",
   "COMMON.LEADER": "Leader",
   "COMMON.VERSION": "Version",
+  "COMMON.MESOSVERSION": "Mesos Version",
   "COMMON.BUILT": "Built",
   "COMMON.STARTED": "Started",
   "COMMON.ELECTED": "Elected",
