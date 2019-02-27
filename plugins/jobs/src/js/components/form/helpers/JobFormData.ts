@@ -38,10 +38,14 @@ export interface FormOutput {
   cmd?: string;
   container?: Container | null;
   containerImage?: string;
+  imageForcePull?: boolean;
+  grantRuntimePrivileges?: boolean;
   cpus: number;
   gpus?: number;
   mem: number;
   disk: number;
+  dockerParams: DockerParameter[];
+  args: string[];
 }
 
 export interface JobOutput {
@@ -172,7 +176,9 @@ export interface FormError {
 export enum JobFormActionType {
   Set = "SET",
   SetNum = "SET_NUM",
-  Override = "OVERRIDE"
+  Override = "OVERRIDE",
+  AddArrayItem = "ADD_ARRAY_ITEM",
+  RemoveArrayItem = "REMOVE_ARRAY_ITEM"
 }
 
 export interface Action {
