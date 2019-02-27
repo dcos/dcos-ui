@@ -154,15 +154,6 @@ If you want to add a new npm package to 'node_modules' you will need to `--save-
   npm install [your package] --save-dev --save-exact
   ```
 
-2.  Create a synced npm-shrinkwrap.json with devDependencies included by running
-
-    ```
-    npm run build-shrinkwrap
-    ```
-
-We have a fixShrinkwrap script wich runs when you run `npm run build-shrinkwrap`, which takes care of the extra fsevents. You only need to manually remove it if shrinkwrap runs automatically. <br>
-For more info https://github.com/npm/npm/issues/2679
-
 3.  Commit to repository
 
 ## ReactJS Components
@@ -397,42 +388,21 @@ We use cypress to drive a browser and run the unit tests for DC/OS UI. This is
 because we want to integrate our system as close as possible to the environment
 it will run, the user browser.
 
-To setup cypress you need to follow the following steps:
-
-1.  Install Cypress CLI.
-
-Cypress is a dev dependency, if you have not installed those yet, run:
-
-```sh
-  npm install --only=dev
-```
-
-2.  Open Cypress.
-
-```sh
-./node_modules/.bin/cypress open
-```
-
-3.  The following window should open. Login via GitHub.
-
-![img](docs/images/cypress-login.png?raw=true)
-
-4.  Add project to Cypress.
-
-Once you've logged in click on the Add Project + button and add the `dcos-ui`
-folder.
-
-![img](docs/images/cypress-no-projects.png?raw=true)
-
 ### Running Integration Tests
 
-1.  Run DC/OS UI in testing mode (you have to close npm start).
+1.  Run DC/OS UI in testing mode (you have to close `npm start`).
 
 ```sh
-npm run testing
+npm run start:testing
 ```
 
-2.  Open the project and click on "Run All Tests" or in one of the test files,
+2.  Open Cypress app
+
+```sh
+npx cypress open
+```
+
+3.  Click on "Run All Tests" or in one of the test files,
     e.g. (PackageTab-cy.js).
 
 ![img](docs/images/cypress-run-tests.png?raw=true)
@@ -463,14 +433,6 @@ that, among other things, include:
 - Leverage videos and screenshots: Cypress can record an image/video when a test fails, use it to help you understand what is going wrong with your test.
 
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
-
-#### Run cypress on the command line
-
-Alternatively you can run cypress from the command line.
-
-```sh
-  npm run cypress
-```
 
 ### Debugging flaky integration tests
 
@@ -543,7 +505,7 @@ When formatting a string containing multiple pieces of logic and/or translation 
 
 Keep in mind that lingui follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
 
-Ensure that `npm run lingui-extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.json` are committed.
+Ensure that `npm run util:lingui:extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.json` are committed.
 
 ### New translation files
 

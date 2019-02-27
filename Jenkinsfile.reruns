@@ -32,13 +32,13 @@ pipeline {
     stage("Build") {
       steps {
         sh "npm --unsafe-perm ci"
-        sh "npm run build-assets"
+        sh "npm run build:assets"
       }
     }
 
     stage("Tests") {
       steps {
-        sh "REPORT=false RERUN=100 npm run rerun:integration-tests"
+        sh "REPORT=false RERUN=100 npm run test:integration:rerun"
       }
 
       post {
