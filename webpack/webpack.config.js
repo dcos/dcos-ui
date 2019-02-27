@@ -51,7 +51,6 @@ module.exports = {
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
-      async: true,
       checkSyntacticErrors: true,
       useTypescriptIncrementalApi: true
     }),
