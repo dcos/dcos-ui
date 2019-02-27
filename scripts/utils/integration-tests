@@ -82,7 +82,7 @@ done
 function executeCypress {
   RECORD_VIDEO=${RECORD_VIDEO:-'true'}
 
-  npx --silent cypress run -- \
+  npx --quiet cypress run -- \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
