@@ -2,8 +2,8 @@ import { RequestResponse } from "@dcos/http-service";
 
 export function buildRequestHeader(
   action: string,
-  actionType: string,
-  entity: string,
+  actionType: number,
+  entity: number,
   version: string
 ) {
   return `application/vnd.dcos.${entity}.${action}-${actionType}+json;charset=utf-8;version=${version}`;
