@@ -390,11 +390,24 @@ it will run, the user browser.
 
 ### Running Integration Tests
 
-1.  Run DC/OS UI in testing mode (you have to close `npm start`).
+1.1 Without Plugins
+
+Run DC/OS UI in testing mode (you have to close `npm start`).
 
 ```sh
+npm config delete externalplugins
 npm run start:testing
 ```
+
+1.1 With Plugins
+
+```sh
+npm config set externalplugins <path>
+npm run test:integration:plugins:setup
+npm run start:testing
+```
+
+NOTE: `npm run test:integration:plugins:setup` will copy plugins test over. Don't forged removing them. This is a workaround since Cypress can't run tests in multiple directories.
 
 2.  Open Cypress app
 
