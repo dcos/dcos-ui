@@ -57,9 +57,9 @@ while getopts 's:hnr:?' flag; do
       echo -e "+-------------------------------+"
       echo -e "| DC/OS Integration test runner |"
       echo -e "+-------------------------------+\n"
-      echo -e "Don't forget running npm run build-assets first!\n\n"
+      echo -e "Don't forget running npm run build:assets first!\n\n"
       echo -e "Usage: \n"
-      echo -e "\tnpm run integration-tests -- [-s <FILE_NAME>] [-hn] [-r <RETRIES>]\n"
+      echo -e "\tnpm run test:integration -- [-s <FILE_NAME>] [-hn] [-r <RETRIES>]\n"
       echo -e "Options:\n"
         printf "  %-17s %-30s \n" "-s <TestFileName>" "Run single Test File. All files if omitted"
         printf "  %-17s %-30s \n" "-h" "Run Chrome in Headed mode"
@@ -82,7 +82,7 @@ done
 function executeCypress {
   RECORD_VIDEO=${RECORD_VIDEO:-'true'}
 
-  npm run --silent cypress -- \
+  npx --silent cypress run -- \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \

@@ -38,21 +38,21 @@ fi
 if [ -n "${staged_javascript_files}" ]
 then
   header "Lint staged JavaScript files..."
-  npm run eslint --silent -- ${staged_javascript_files} || exit $?
+  npm run lint:es --silent -- ${staged_javascript_files} || exit $?
   info "Staged JavaScript looks good"
 fi
 
 if [ -n "${staged_less_files}" ]
 then
   header "Lint staged Less files..."
-  npm run stylelint --silent -- ${staged_less_files} || exit $?
+  npm run lint:styles --silent -- ${staged_less_files} || exit $?
   info "Staged Less looks good"
 fi
 
 if [ -n "${staged_typescript_files}" ]
 then
   header "Lint staged TypeScript files..."
-  npm run tslint --silent -- ${staged_typescript_files} || exit $?
+  npm run lint:ts --silent -- ${staged_typescript_files} || exit $?
 
   header "Check types..."
   npx tsc || exit $?

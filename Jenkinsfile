@@ -40,10 +40,10 @@ pipeline {
         sh "git fetch"
         sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
 
-        // jenkins seem to have this variable set for no reason, explicitly remiving it…
+        // jenkins seem to have this variable set for no reason, explicitly removing it…
         sh "npm config delete externalplugins"
+        sh "npm run test:validate"
         sh "npm --unsafe-perm ci"
-        sh "npm run validate-tests"
         sh "npm run build"
       }
     }
@@ -57,7 +57,7 @@ pipeline {
       }
 
       steps {
-        sh 'npm run commitlint -- --from "${CHANGE_TARGET}"'
+        sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
       }
     }
 
@@ -74,7 +74,7 @@ pipeline {
             ]) {
               sh "./scripts/ci/createDatadogConfig.sh"
             }
-            sh "npm run integration-tests"
+            sh "npm run test:integration"
           }
 
           post {
