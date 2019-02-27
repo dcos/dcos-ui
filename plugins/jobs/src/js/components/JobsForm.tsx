@@ -24,6 +24,7 @@ import {
   JobOutput
 } from "./form/helpers/JobFormData";
 import GeneralFormSection from "./form/GeneralFormSection";
+import ContainerFormSection from "./form/ContainerFormSection";
 import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
@@ -52,7 +53,8 @@ interface NavigationItem {
 
 class JobModalForm extends React.Component<JobFormProps> {
   static navigationItems: NavigationItem[] = [
-    { id: "general", key: "general", label: i18nMark("General") }
+    { id: "general", key: "general", label: i18nMark("General") },
+    { id: "container", key: "container", label: i18nMark("Container") }
   ];
 
   static tabList = JobModalForm.navigationItems.map(item => (
@@ -72,6 +74,8 @@ class JobModalForm extends React.Component<JobFormProps> {
       this
     );
     this.getJSONEditorData = this.getJSONEditorData.bind(this);
+    this.handleAddItem = this.handleAddItem.bind(this);
+    this.handleRemoveItem = this.handleRemoveItem.bind(this);
   }
 
   getJSONEditorData(jobSpec: JobSpec): JobOutput {
@@ -113,6 +117,32 @@ class JobModalForm extends React.Component<JobFormProps> {
 
   handleClickItem(item: string) {
     this.props.handleTabChange(item);
+  }
+
+  handleAddItem(path: string) {
+    return () => {
+      const { onChange } = this.props;
+      const action = {
+        type: JobFormActionType.AddArrayItem,
+        path,
+        value: null
+      };
+
+      onChange(action);
+    };
+  }
+
+  handleRemoveItem(path: string, index: number) {
+    return () => {
+      const { onChange } = this.props;
+      const action = {
+        type: JobFormActionType.RemoveArrayItem,
+        path,
+        value: index
+      };
+
+      onChange(action);
+    };
   }
 
   render() {
@@ -164,6 +194,20 @@ class JobModalForm extends React.Component<JobFormProps> {
                         formData={formOutput}
                         errors={translatedErrors}
                         showErrors={showAllErrors}
+                      />
+                    </TabView>
+                    <TabView id="container">
+                      <ErrorsAlert
+                        errors={errors}
+                        pathMapping={ServiceErrorPathMapping}
+                        hideTopLevelErrors={!showAllErrors}
+                      />
+                      <ContainerFormSection
+                        formData={formOutput}
+                        errors={errors}
+                        showErrors={showAllErrors}
+                        onAddItem={this.handleAddItem}
+                        onRemoveItem={this.handleRemoveItem}
                       />
                     </TabView>
                   </TabViewList>

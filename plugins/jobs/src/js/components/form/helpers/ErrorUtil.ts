@@ -17,3 +17,13 @@ export function translateErrorMessages(errors: FormError[], i18n: any) {
     };
   });
 }
+
+export function getFieldError(path: string, errors: FormError[]): string {
+  return errors
+    .filter(e => {
+      const match = e.path.join(".");
+      return match === path;
+    })
+    .map(e => e.message)
+    .join(" ");
+}
