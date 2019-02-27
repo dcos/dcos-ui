@@ -76,6 +76,7 @@ describe("JSONMultiContainer", function() {
         },
         scheduling: {
           placement: {
+            acceptedResourceRoles: ["*"],
             constraints: [{ fieldName: "hostname", operator: "UNIQUE" }]
           },
           backoff: {

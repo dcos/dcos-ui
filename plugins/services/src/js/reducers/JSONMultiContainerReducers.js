@@ -29,14 +29,15 @@ module.exports = {
       joinedPath === "scheduling" ? Util.deepCopy(value) : state;
 
     const constraintsState =
-      state != null && state.placement != null
-        ? state.placement.constraints
-        : [];
+      scheduling.placement != null ? scheduling.placement.constraints : [];
+    const placementState =
+      scheduling.placement != null ? scheduling.placement : {};
 
     return {
       ...scheduling,
       residency: residency.bind(this)(state.residency, transaction),
       placement: {
+        ...placementState,
         constraints: constraints.bind(this)(constraintsState, transaction)
       }
     };
