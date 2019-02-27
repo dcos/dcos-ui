@@ -262,5 +262,97 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       ];
     }
     return [];
+  },
+
+  parametersHaveKeyAndValue(formData: JobOutput) {
+    const docker = formData.job.run.docker;
+    const errors: FormError[] = [];
+    if (docker && docker.parameters) {
+      if (!Array.isArray(docker.parameters)) {
+        return [
+          {
+            path: ["job", "run", "docker", "parameters"],
+            message: i18nMark("Parameters must be an array.")
+          }
+        ];
+      }
+      docker.parameters.forEach((parameter, index) => {
+        if (!parameter.key) {
+          errors.push({
+            path: ["job", "run", "docker", "parameters", `${index}`, "key"],
+            message: i18nMark("Key cannot be empty.")
+          });
+        }
+        if (!parameter.value) {
+          errors.push({
+            path: ["job", "run", "docker", "parameters", `${index}`, "value"],
+            message: i18nMark("Value cannot be empty.")
+          });
+        }
+      });
+    }
+    return errors;
+  },
+
+  noEmptyArgs(formData: JobOutput) {
+    const args = formData.job.run.args;
+    const errors: FormError[] = [];
+    if (args && Array.isArray(args)) {
+      args.forEach((arg, index) => {
+        if (arg === "" || arg == undefined) {
+          errors.push({
+            path: ["job", "run", "args", `${index}`],
+            message: i18nMark("Arg cannot be empty.")
+          });
+        }
+      });
+    }
+    return errors;
+  },
+
+  argsAreArray(formData: JobOutput) {
+    const args = formData.job.run.args;
+    if (args && !Array.isArray(args)) {
+      return [
+        {
+          path: ["job", "run", "args"],
+          message: i18nMark("Args must be an array.")
+        }
+      ];
+    }
+    return [];
+  },
+
+  argsUsedOnlyWithDocker(formData: JobOutput) {
+    const args = formData.job.run.args;
+    const docker = formData.job.run.docker;
+
+    if (args && !docker) {
+      return [
+        {
+          path: ["job", "run", "args"],
+          message: i18nMark("Args can only be used with Docker.")
+        }
+      ];
+    }
+    return [];
+  },
+
+  oneOfUcrOrDocker(formData: JobOutput) {
+    const docker = formData.job.run.docker;
+    const ucr = formData.job.run.ucr;
+    if (docker && ucr) {
+      return [
+        {
+          path: ["job", "run", "docker"],
+          message: i18nMark("Only one of UCR or Docker is allowed.")
+        },
+        {
+          path: ["job", "run", "ucr"],
+          message: i18nMark("Only one of UCR or Docker is allowed.")
+        }
+      ];
+    }
+    return [];
   }
 };
