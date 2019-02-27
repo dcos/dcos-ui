@@ -107,6 +107,112 @@ const cmdOnlyReducers = {
   }
 };
 
+const dockerParamsReducers = {
+  [JobFormActionType.AddArrayItem]: (_: any, state: JobSpec) => {
+    const stateCopy = deepCopy(state);
+    const docker = stateCopy.job.run.docker;
+    const emptyParam = {
+      key: "",
+      value: ""
+    };
+    if (docker) {
+      if (!docker.parameters) {
+        docker.parameters = [];
+      }
+      docker.parameters.push(emptyParam);
+    }
+    return stateCopy;
+  },
+  [JobFormActionType.RemoveArrayItem]: (value: number, state: JobSpec) => {
+    const stateCopy = deepCopy(state);
+    const docker = stateCopy.job.run.docker;
+    if (
+      docker &&
+      Array.isArray(docker.parameters) &&
+      docker.parameters.length >= value + 1
+    ) {
+      docker.parameters.splice(value, 1);
+    }
+    return stateCopy;
+  },
+  [JobFormActionType.Set]: (value: string, state: JobSpec, path: string[]) => {
+    const stateCopy = deepCopy(state);
+    let docker = stateCopy.job.run.docker;
+    const [prop, i] = path;
+    const index = parseFloat(i);
+    if (
+      docker &&
+      docker.parameters &&
+      Array.isArray(docker.parameters) &&
+      docker.parameters.length >= index + 1
+    ) {
+      docker.parameters[index][prop] = value;
+    }
+    return stateCopy;
+  }
+};
+
+const argsReducers = {
+  [JobFormActionType.AddArrayItem]: (_: any, state: JobSpec) => {
+    const stateCopy = deepCopy(state);
+    if (!Array.isArray(stateCopy.job.run.args) || !stateCopy.job.run.args) {
+      stateCopy.job.run.args = [];
+    }
+    stateCopy.job.run.args.push("");
+    return stateCopy;
+  },
+  [JobFormActionType.RemoveArrayItem]: (value: number, state: JobSpec) => {
+    const stateCopy = deepCopy(state);
+    const args = stateCopy.job.run.args;
+    if (args && Array.isArray(args) && args.length >= value + 1) {
+      args.splice(value, 1);
+    }
+    return stateCopy;
+  },
+  [JobFormActionType.Set]: (value: string, state: JobSpec, path: string[]) => {
+    const stateCopy = deepCopy(state);
+    const args = stateCopy.job.run.args;
+    const [i] = path;
+    const index = parseFloat(i);
+    if (args && Array.isArray(args) && args.length >= index + 1) {
+      args[index] = value;
+    }
+    return stateCopy;
+  }
+};
+
+const imageForcePullReducers = {
+  [JobFormActionType.Set]: (_: any, state: JobSpec) => {
+    const stateCopy = deepCopy(state);
+    const docker = stateCopy.job.run.docker;
+    const ucr = stateCopy.job.run.ucr;
+    const prevValue = Boolean(
+      (docker && docker.forcePullImage) ||
+        (ucr && ucr.image && ucr.image.forcePull)
+    );
+    const newValue = !prevValue;
+    if (docker) {
+      docker.forcePullImage = newValue;
+    }
+    if (ucr) {
+      ucr.image.forcePull = newValue;
+    }
+    return stateCopy;
+  }
+};
+
+const grantRuntimePrivilegesReducers = {
+  [JobFormActionType.Set]: (_: any, state: JobSpec) => {
+    const stateCopy = deepCopy(state);
+    const docker = stateCopy.job.run.docker;
+    if (docker) {
+      const prevValue = Boolean(docker.privileged);
+      docker.privileged = !prevValue;
+    }
+    return stateCopy;
+  }
+};
+
 type DefaultReducerFunction = (
   value: any,
   state: JobSpec,
@@ -141,7 +247,7 @@ const defaultReducer: DefaultReducer = {
   }
 };
 
-type ReducerFunction = (value: any, state: JobSpec, path?: string[]) => JobSpec;
+type ReducerFunction = (value: any, state: JobSpec, path: string[]) => JobSpec;
 interface CombinedReducers {
   [key: string]: { [P in JobFormActionType]?: ReducerFunction };
 }
@@ -149,7 +255,11 @@ interface CombinedReducers {
 const combinedReducers: CombinedReducers = {
   json: jsonReducers,
   containerImage: containerImageReducers,
-  cmdOnly: cmdOnlyReducers
+  cmdOnly: cmdOnlyReducers,
+  dockerParams: dockerParamsReducers,
+  imageForcePull: imageForcePullReducers,
+  grantRuntimePrivileges: grantRuntimePrivilegesReducers,
+  args: argsReducers
 };
 
 const isFunction = (func: any): boolean => {
@@ -172,7 +282,7 @@ export function jobFormOutputToSpecReducer(
   if (reducerSet) {
     updateFunction = reducerSet[action.type];
     if (updateFunction && isFunction(updateFunction)) {
-      return updateFunction(action.value, state);
+      return updateFunction(action.value, state, arrayPath);
     }
   }
   updateFunction = defaultSet[action.type];

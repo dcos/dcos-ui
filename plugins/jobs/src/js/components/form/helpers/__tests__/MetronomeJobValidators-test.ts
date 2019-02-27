@@ -114,6 +114,52 @@ const GPURANGEERROR = [
   }
 ];
 
+const PARAMEMPTYVALUEERROR = [
+  {
+    path: ["job", "run", "docker", "parameters", "0", "value"],
+    message: "Value cannot be empty."
+  }
+];
+
+const PARAMEMPTYKEYERROR = [
+  {
+    path: ["job", "run", "docker", "parameters", "0", "key"],
+    message: "Key cannot be empty."
+  }
+];
+
+const EMPTYARGGERROR = [
+  {
+    path: ["job", "run", "args", "0"],
+    message: "Arg cannot be empty."
+  }
+];
+
+const ARGSARRAYERROR = [
+  {
+    path: ["job", "run", "args"],
+    message: "Args must be an array."
+  }
+];
+
+const ARGSWITHOUTDOCKERERROR = [
+  {
+    path: ["job", "run", "args"],
+    message: "Args can only be used with Docker."
+  }
+];
+
+const UCRANDDOCKERERROR = [
+  {
+    path: ["job", "run", "docker"],
+    message: "Only one of UCR or Docker is allowed."
+  },
+  {
+    path: ["job", "run", "ucr"],
+    message: "Only one of UCR or Docker is allowed."
+  }
+];
+
 describe("MetronomeSpecValidators", () => {
   describe("#jobIdIsValid", () => {
     it("returns error if id contains special characters", () => {
@@ -579,6 +625,285 @@ describe("MetronomeSpecValidators", () => {
       expect(
         MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
       ).toEqual(GPURANGEERROR);
+    });
+  });
+
+  describe("#parametersHaveKeyAndValue", () => {
+    it("does not return error if parameters have both key and value", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: [
+                {
+                  key: "key",
+                  value: "value"
+                }
+              ]
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if there are no parameters", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {}
+        }
+      };
+      expect(
+        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if parameters are an empty array", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: []
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns error if a parameters has an empty key", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: [
+                {
+                  key: "",
+                  value: "value"
+                }
+              ]
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+      ).toEqual(PARAMEMPTYKEYERROR);
+    });
+
+    it("returns error if a parameters has an empty value", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: [
+                {
+                  key: "key",
+                  value: ""
+                }
+              ]
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+      ).toEqual(PARAMEMPTYVALUEERROR);
+    });
+  });
+
+  describe("#noEmptyArgs", () => {
+    it("does not return error if no args are empty", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: ["arg"]
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.noEmptyArgs(spec as JobOutput)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if there are no args", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {}
+        }
+      };
+      expect(MetronomeSpecValidators.noEmptyArgs(spec as JobOutput)).toEqual(
+        []
+      );
+    });
+
+    it("returns error if an arg is an empty string", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: [""]
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.noEmptyArgs(spec as JobOutput)).toEqual(
+        EMPTYARGGERROR
+      );
+    });
+  });
+
+  describe("#argsAreArray", () => {
+    it("does not return error if args are array", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: ["arg"]
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.argsAreArray(spec as JobOutput)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if there are no args", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {}
+        }
+      };
+      expect(MetronomeSpecValidators.argsAreArray(spec as JobOutput)).toEqual(
+        []
+      );
+    });
+
+    it("returns error if args is not an array", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: "string"
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.argsAreArray(spec as JobOutput)).toEqual(
+        ARGSARRAYERROR
+      );
+    });
+  });
+
+  describe("#argsUsedOnlyWithDocker", () => {
+    it("does not return error if args are used with docker", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: [],
+            docker: {}
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if there are no args", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {}
+        }
+      };
+      expect(
+        MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns error if args are used without docker", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: ["arg"]
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as JobOutput)
+      ).toEqual(ARGSWITHOUTDOCKERERROR);
+    });
+  });
+
+  describe("#oneOfUcrOrDocker", () => {
+    it("does not return error if neither docker or ucr are present", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            cmd: "cmd"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if only ucr is present", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            ucr: {}
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if only docker is present", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {}
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns error if both ucr and docker are present", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {},
+            ucr: {}
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
+      ).toEqual(UCRANDDOCKERERROR);
     });
   });
 });
