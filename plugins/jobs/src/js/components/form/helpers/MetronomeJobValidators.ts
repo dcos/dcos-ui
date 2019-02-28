@@ -74,7 +74,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
-      const notBothMessage = "Please specify only one of `cmd` or `args`";
+      const notBothMessage = "Please specify only one of `cmd` or `args`.";
 
       return [
         {
@@ -107,7 +107,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     }
 
     const message =
-      "You must specify a command, an argument or a container with an image";
+      "You must specify a command, an argument or a container with an image.";
 
     const containerImageErrorPath = job.run.ucr
       ? ["job", "run", "ucr", "image", "id"]
