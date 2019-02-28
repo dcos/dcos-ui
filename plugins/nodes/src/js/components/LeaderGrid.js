@@ -46,7 +46,7 @@ export default function LeaderGrid({ leader }) {
 
           <ConfigurationRow
             keyValue="version"
-            title={<FormattedMessage id="COMMON.VERSION" />}
+            title={<FormattedMessage id="COMMON.MESOSVERSION" />}
             value={leader.version}
           />
 
