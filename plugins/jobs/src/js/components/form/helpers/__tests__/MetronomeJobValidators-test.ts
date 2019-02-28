@@ -89,7 +89,7 @@ const MEMMISSINGERROR = [
 const CPURANGEERROR = [
   {
     path: ["job", "run", "cpus"],
-    message: "Minimum value is 0.1."
+    message: "Minimum value is 0.01."
   }
 ];
 
