@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
-import * as React from "react";
+import React from "react";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
@@ -83,7 +83,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     return jobJSON;
   }
 
-  onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  onInputChange(event: any) {
     const { onChange } = this.props;
     const { value, name, type } = event.target;
     const action = {
