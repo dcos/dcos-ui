@@ -219,10 +219,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     } = formData;
     const errors = [];
 
-    if (cpus < 0.1) {
+    if (cpus < 0.01) {
       errors.push({
         path: ["job", "run", "cpus"],
-        message: "Minimum value is 0.1."
+        message: "Minimum value is 0.01."
       });
     }
 
