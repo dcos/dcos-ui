@@ -20,8 +20,8 @@ class NodesGridDials extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach(m => {
-      this[m] = this[m].bind(this);
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
     });
   }
 

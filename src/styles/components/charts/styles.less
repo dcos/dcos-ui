@@ -155,64 +155,6 @@
       stroke-width: 1px;
     }
 
-    .barchart {
-
-      .bar {
-        stroke-width: 0;
-
-        line {
-          fill-opacity: 1;
-          stroke-width: 2px;
-
-          &.hidden,
-          &.invisible {
-            stroke-width: 0;
-          }
-        }
-      }
-
-      .axis {
-
-        &.x path {
-          display: none;
-        }
-
-        &.y {
-
-          &.inverse path {
-            stroke: fade(@neutral, 10%);
-          }
-
-          path {
-            stroke: @neutral;
-          }
-        }
-
-        line {
-          display: none;
-        }
-      }
-
-      .grid-graph {
-
-        .grid.y {
-
-          .tick:first-child line {
-            stroke-dasharray: 0, 0;
-          }
-        }
-
-        &.inverse line {
-          stroke: @neutral;
-        }
-
-        line {
-          stroke: fade(@neutral, 15%);
-          stroke-dasharray: 4, 4;
-        }
-      }
-    }
-
     .timeseries-chart {
       left: 0;
       position: absolute;
@@ -224,10 +166,6 @@
         top: 0;
         transform: translateZ(0);
       }
-    }
-
-    .timeseries-chart,
-    .barchart {
 
       .axis {
 
