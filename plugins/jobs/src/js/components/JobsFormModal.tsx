@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphqlObservable } from "@dcos/data-service";
 import { take } from "rxjs/operators";
+//@ts-ignore
 import isEqual from "lodash/isEqual";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
