@@ -11,11 +11,11 @@ const JOBID_ERRORS = [
 const CMDARGSERROR = [
   {
     path: ["job", "run", "cmd"],
-    message: "Please specify only one of `cmd` or `args`"
+    message: "Please specify only one of `cmd` or `args`."
   },
   {
     path: ["job", "run", "args"],
-    message: "Please specify only one of `cmd` or `args`"
+    message: "Please specify only one of `cmd` or `args`."
   }
 ];
 
@@ -23,17 +23,17 @@ const CMDARGSCONTAINERERROR = [
   {
     path: ["job", "run", "cmd"],
     message:
-      "You must specify a command, an argument or a container with an image"
+      "You must specify a command, an argument or a container with an image."
   },
   {
     path: ["job", "run", "args"],
     message:
-      "You must specify a command, an argument or a container with an image"
+      "You must specify a command, an argument or a container with an image."
   },
   {
     path: [],
     message:
-      "You must specify a command, an argument or a container with an image"
+      "You must specify a command, an argument or a container with an image."
   }
 ];
 
