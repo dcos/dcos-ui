@@ -22,12 +22,12 @@ import {
   JobDetailResponse
 } from "../MetronomeClient";
 import Config from "../../config/Config";
-import { RestartPolicyOptions } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
+import { RestartPolicy } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 
 describe("MetronomeClient", () => {
   const jobId = "my/awesome/job/id";
   const jobRunId = "my/awesome/job/id.1990-01-03t00:00:00z-1";
-  const restartPolicy: RestartPolicyOptions = "NEVER";
+  const restartPolicy: RestartPolicy = RestartPolicy.Never;
 
   const job = {
     id: "testid",
