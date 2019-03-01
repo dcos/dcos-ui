@@ -43,6 +43,9 @@ describe("Job Actions", function() {
       cy.get(".modal .button")
         .contains("Cancel")
         .click();
+      cy.get(".modal .button")
+        .contains("Discard")
+        .click();
       cy.get(".modal").should("to.have.length", 0);
     });
   });
