@@ -1,3 +1,5 @@
+import { i18nMark } from "@lingui/react";
+
 import { JobOutput, FormOutput, FormError } from "./JobFormData";
 
 export const MetronomeUiValidators = {
@@ -56,8 +58,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   jobIdIsValid(formData: JobOutput): FormError[] {
     const jobId = formData.job.id;
     const jobIdRegex = /^[a-z0-9]+([a-z0-9-]+[a-z0-9])?$/;
-    const message =
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash.";
+    const message = i18nMark(
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+    );
     return jobId && jobIdRegex.test(jobId)
       ? []
       : [{ path: ["job", "id"], message }];
@@ -74,7 +77,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
-      const notBothMessage = "Please specify only one of `cmd` or `args`.";
+      const notBothMessage = i18nMark(
+        "Please specify only one of `cmd` or `args`."
+      );
 
       return [
         {
@@ -106,8 +111,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       }
     }
 
-    const message =
-      "You must specify a command, an argument or a container with an image.";
+    const message = i18nMark(
+      "You must specify a command, an argument or a container with an image."
+    );
 
     const containerImageErrorPath = job.run.ucr
       ? ["job", "run", "ucr", "image", "id"]
@@ -134,7 +140,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "docker", "image"],
-          message: "Must be specified when using the Docker Engine runtime."
+          message: i18nMark(
+            "Must be specified when using the Docker Engine runtime."
+          )
         }
       ];
     }
@@ -143,7 +151,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "ucr", "image", "id"],
-          message: "Must be specified when using UCR."
+          message: i18nMark("Must be specified when using UCR.")
         }
       ];
     }
@@ -160,7 +168,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "gpus"],
-          message: "GPUs are only available with UCR."
+          message: i18nMark("GPUs are only available with UCR.")
         }
       ];
     }
@@ -183,28 +191,28 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (!id) {
       errors.push({
         path: ["job", "id"],
-        message: "ID is required."
+        message: i18nMark("ID is required.")
       });
     }
 
     if (!cpus && cpus !== 0) {
       errors.push({
         path: ["job", "run", "cpus"],
-        message: "CPUs is required."
+        message: i18nMark("CPUs is required.")
       });
     }
 
     if (!mem && mem !== 0) {
       errors.push({
         path: ["job", "run", "mem"],
-        message: "Mem is required."
+        message: i18nMark("Mem is required.")
       });
     }
 
     if (!disk && disk !== 0) {
       errors.push({
         path: ["job", "run", "disk"],
-        message: "Disk is required."
+        message: i18nMark("Disk is required.")
       });
     }
 
@@ -222,21 +230,21 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (cpus < 0.01) {
       errors.push({
         path: ["job", "run", "cpus"],
-        message: "Minimum value is 0.01."
+        message: i18nMark("Minimum value is 0.01.")
       });
     }
 
     if (mem < 32) {
       errors.push({
         path: ["job", "run", "mem"],
-        message: "Minimum value is 32."
+        message: i18nMark("Minimum value is 32.")
       });
     }
 
     if (disk < 0) {
       errors.push({
         path: ["job", "run", "disk"],
-        message: "Minimum value is 0."
+        message: i18nMark("Minimum value is 0.")
       });
     }
 
@@ -249,7 +257,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "gpus"],
-          message: "Minimum value is 0."
+          message: i18nMark("Minimum value is 0.")
         }
       ];
     }
