@@ -1,10 +1,11 @@
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { Trans, t } from "@lingui/macro";
+import { withI18n, i18nMark } from "@lingui/react";
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphqlObservable } from "@dcos/data-service";
 import { take } from "rxjs/operators";
 //@ts-ignore
+import { Confirm } from "reactjs-components";
 import isEqual from "lodash/isEqual";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
@@ -12,6 +13,7 @@ import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHead
 import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
 import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
+import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ToggleButton from "#SRC/js/components/ToggleButton";
 import { deepCopy } from "#SRC/js/utils/Util";
 
@@ -39,6 +41,7 @@ interface JobFormModalProps {
   isEdit: boolean;
   isOpen: boolean;
   closeModal: () => void;
+  i18n: any;
 }
 
 interface JobFormModalState {
@@ -56,6 +59,7 @@ interface JobFormModalState {
   activeTab: string;
   isJSONModeActive: boolean;
   submitFailed: boolean;
+  isConfirmOpen: boolean;
 }
 
 const createJobMutation = gql`
@@ -75,8 +79,8 @@ const editJobMutation = gql`
 `;
 
 class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
-  constructor() {
-    super(...arguments);
+  constructor(props: JobFormModalProps) {
+    super(props);
 
     this.state = this.getInitialState();
 
@@ -85,11 +89,12 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.handleJobRun = this.handleJobRun.bind(this);
     this.getAllErrors = this.getAllErrors.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
-    this.handleGoBack = this.handleGoBack.bind(this);
     this.handleFormErrorsChange = this.handleFormErrorsChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.getSubmitAction = this.getSubmitAction.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
+    this.confirmClose = this.confirmClose.bind(this);
+    this.handleCancelClose = this.handleCancelClose.bind(this);
   }
 
   componentWillReceiveProps(nextProps: JobFormModalProps) {
@@ -142,7 +147,8 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
       showValidationErrors: false,
       formInvalid: false,
       submitFailed: false,
-      activeTab: "general"
+      activeTab: "general",
+      isConfirmOpen: false
     };
     return initialState;
   }
@@ -186,12 +192,6 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     this.setState({ jobSpec: newJobSpec, validationErrors });
   }
 
-  handleGoBack() {
-    const { closeModal } = this.props;
-    this.setState(this.getInitialState());
-    closeModal();
-  }
-
   handleTabChange(activeTab: string) {
     this.setState({ activeTab });
   }
@@ -200,6 +200,14 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     const { closeModal } = this.props;
     closeModal();
     this.setState(this.getInitialState());
+  }
+
+  handleCancelClose() {
+    this.setState({ isConfirmOpen: false });
+  }
+
+  confirmClose() {
+    this.setState({ isConfirmOpen: true });
   }
 
   handleJSONToggle() {
@@ -408,14 +416,15 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
     return [
       {
         className: "button-primary-link button-flush-horizontal",
-        clickHandler: this.handleGoBack,
+        clickHandler: this.confirmClose,
         label: i18nMark("Cancel")
       }
     ];
   }
 
   render() {
-    const { isOpen } = this.props;
+    const { isOpen, i18n } = this.props;
+    const { isConfirmOpen } = this.state;
     let useGemini = false;
 
     return (
@@ -426,9 +435,30 @@ class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
         open={isOpen}
       >
         {this.getModalContent()}
+        <Confirm
+          closeByBackdropClick={true}
+          header={
+            <ModalHeading>
+              <Trans render="span">Discard Changes?</Trans>
+            </ModalHeading>
+          }
+          open={isConfirmOpen}
+          leftButtonText={i18n._(t`Cancel`)}
+          leftButtonClassName="button button-primary-link flush-left"
+          leftButtonCallback={this.handleCancelClose}
+          rightButtonText={i18n._(t`Discard`)}
+          rightButtonClassName="button button-danger"
+          rightButtonCallback={this.handleClose}
+          showHeader={true}
+        >
+          <Trans render="p">
+            Are you sure you want to leave this page? Any data you entered will{" "}
+            be lost.
+          </Trans>
+        </Confirm>
       </FullScreenModal>
     );
   }
 }
 
-export default JobFormModal;
+export default withI18n()(JobFormModal);
