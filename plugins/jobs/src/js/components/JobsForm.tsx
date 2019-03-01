@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import React from "react";
 
@@ -28,6 +28,7 @@ import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
 } from "./form/helpers/JobParsers";
+import { translateErrorMessages } from "./form/helpers/ErrorUtil";
 
 const ServiceErrorPathMapping: any[] = [];
 
@@ -40,6 +41,7 @@ interface JobFormProps {
   isJSONModeActive: boolean;
   onErrorsChange: (errors: FormError[], type?: string) => void;
   showAllErrors: boolean;
+  i18n: any;
 }
 
 interface NavigationItem {
@@ -120,10 +122,12 @@ class JobModalForm extends React.Component<JobFormProps> {
       isJSONModeActive,
       jobSpec,
       errors,
-      showAllErrors
+      showAllErrors,
+      i18n
     } = this.props;
     const jobJSON = this.getJSONEditorData(jobSpec);
     const formOutput = jobSpecToFormOutputParser(jobSpec);
+    const translatedErrors = translateErrorMessages(errors, i18n);
 
     const jsonEditorPlaceholderClasses = classNames(
       "modal-full-screen-side-panel-placeholder",
@@ -152,13 +156,13 @@ class JobModalForm extends React.Component<JobFormProps> {
                   <TabViewList>
                     <TabView id="general">
                       <ErrorsAlert
-                        errors={errors}
+                        errors={translatedErrors}
                         pathMapping={ServiceErrorPathMapping}
                         hideTopLevelErrors={!showAllErrors}
                       />
                       <GeneralFormSection
                         formData={formOutput}
-                        errors={errors}
+                        errors={translatedErrors}
                         showErrors={showAllErrors}
                       />
                     </TabView>
@@ -187,4 +191,4 @@ class JobModalForm extends React.Component<JobFormProps> {
   }
 }
 
-export default JobModalForm;
+export default withI18n()(JobModalForm);
