@@ -1,7 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import throttle from "lodash.throttle";
 
 import { PREPEND } from "#SRC/js/constants/SystemLogTypes";
@@ -269,9 +268,7 @@ class LogView extends React.Component {
           {fullLog}
         </Highlight>
       </pre>,
-      <TransitionGroup appear={true}>
-        {this.getGoToBottomButton()}
-      </TransitionGroup>
+      this.getGoToBottomButton()
     ];
   }
 
@@ -286,23 +283,12 @@ class LogView extends React.Component {
     }
 
     return (
-      <CSSTransition
-        key="log-go-down-button"
-        in={true}
-        classNames="button"
-        timeout={{
-          appear: 350,
-          enter: 350,
-          exit: 350
-        }}
+      <button
+        onClick={this.handleGoToBottom}
+        className="button go-to-bottom-button"
       >
-        <button
-          onClick={this.handleGoToBottom}
-          className="button go-to-bottom-button"
-        >
-          <Trans render="span">Go to bottom</Trans>
-        </button>
-      </CSSTransition>
+        <Trans render="span">Go to bottom</Trans>
+      </button>
     );
   }
 
