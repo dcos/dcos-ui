@@ -1,17 +1,21 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
-
-import Icon from "../Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXxs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 function getStateIndicator(isExpanded) {
-  let iconID = "triangle-right";
+  let iconID = SystemIcons.TriangleRight;
 
   if (isExpanded) {
-    iconID = "triangle-down";
+    iconID = SystemIcons.TriangleDown;
   }
 
-  return <Icon id={iconID} color="purple" family="tiny" size="tiny" />;
+  return <Icon shape={iconID} color={purple} size={iconSizeXxs} />;
 }
 
 const AdvancedSectionLabel = ({ className, children, isExpanded, onClick }) => {

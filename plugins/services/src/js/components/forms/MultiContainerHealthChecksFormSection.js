@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
@@ -18,7 +24,7 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
 
@@ -80,11 +86,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -114,11 +116,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -148,11 +146,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -182,11 +176,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -290,7 +280,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                   wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -316,7 +306,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -422,7 +412,7 @@ class MultiContainerHealthChecksFormSection extends Component {
                     wrapperClassName="tooltip-wrapper text-align-center"
                     wrapText={true}
                   >
-                    <Icon color="light-grey" id="circle-question" size="mini" />
+                    <InfoTooltipIcon />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -451,7 +441,11 @@ class MultiContainerHealthChecksFormSection extends Component {
             <h3 className="form-header short-bottom">
               <FormGroupHeading>
                 <FormGroupHeadingContent>
-                  <Icon id="container" size="mini" color="purple" />
+                  <Icon
+                    shape={SystemIcons.Container}
+                    size={iconSizeXs}
+                    color={purple}
+                  />
                 </FormGroupHeadingContent>
                 <FormGroupHeadingContent primary={true}>
                   {container.name}

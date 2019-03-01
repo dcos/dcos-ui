@@ -6,18 +6,19 @@ import PropTypes from "prop-types";
 import React from "react";
 import { withI18n } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
+import { Badge, Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import Icon from "#SRC/js/components/Icon";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 
-import { Badge } from "@dcos/ui-kit";
 import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
 import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
@@ -180,7 +181,7 @@ class TasksView extends mixin(SaveStateMixin) {
           wrapText={true}
         >
           <button className={restartButtonClasses} onClick={handleRestartClick}>
-            <Icon id="repeat" size="mini" />
+            <Icon shape={SystemIcons.Repeat} size={iconSizeXs} />
             <Trans render="span">Restart</Trans>
           </button>
         </Tooltip>
@@ -196,7 +197,7 @@ class TasksView extends mixin(SaveStateMixin) {
           wrapperClassName="button-group"
         >
           <button className={stopButtonClasses} onClick={handleStopClick}>
-            <Icon id="circle-close" size="mini" />
+            <Icon shape={SystemIcons.CircleClose} size={iconSizeXs} />
             <Trans render="span">Stop</Trans>
           </button>
         </Tooltip>

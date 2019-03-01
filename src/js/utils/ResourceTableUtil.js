@@ -5,7 +5,8 @@ import React from "react";
 import { Tooltip } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 
-import Icon from "../components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
+
 import TimeAgo from "../components/TimeAgo";
 import Util from "./Util";
 
@@ -68,7 +69,7 @@ const ResourceTableUtil = {
             interactive={true}
             wrapperClassName="tooltip-wrapper text-align-center table-header-icon"
           >
-            <Icon id="circle-question" size="mini" color="light-grey" />
+            <InfoTooltipIcon />
           </Tooltip>
         );
       }

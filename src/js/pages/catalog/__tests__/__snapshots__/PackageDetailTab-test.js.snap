@@ -648,10 +648,9 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
             className="text-success"
           >
             <Icon
-              color="green"
-              family="system"
-              id="circle-check"
-              size="large"
+              color="#14C684"
+              shape="system-circle-check"
+              size="48px"
             />
           </span>
           <WithI18n

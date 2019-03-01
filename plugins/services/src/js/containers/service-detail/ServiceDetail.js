@@ -4,6 +4,7 @@ import React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
 import { i18nMark } from "@lingui/react";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -292,7 +293,7 @@ class ServiceDetail extends mixin(TabsMixin) {
           actions={this.getActions()}
           tabs={this.getTabs()}
           breadcrumbs={breadcrumbs}
-          iconID="services"
+          iconID={ProductIcons.Services}
           disabledActions={
             service.getServiceStatus() === ServiceStatus.DELETING
           }

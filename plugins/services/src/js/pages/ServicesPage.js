@@ -3,8 +3,10 @@ import React from "react";
 import createReactClass from "create-react-class";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
@@ -22,7 +24,7 @@ var ServicesPage = createReactClass({
   statics: {
     routeConfig: {
       label: i18nMark("Services"),
-      icon: <Icon id="services-inverse" size="small" family="product" />,
+      icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
       matches: /^\/services/
     }
   },

@@ -1,7 +1,8 @@
 import { i18nMark } from "@lingui/react";
 import React from "react";
-
-import Icon from "../components/Icon";
+import { Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class SettingsPage extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class SettingsPage extends React.Component {
 
 SettingsPage.routeConfig = {
   label: i18nMark("Settings"),
-  icon: <Icon id="settings-inverse" size="small" family="product" />,
+  icon: <Icon shape={ProductIcons.GearInverse} size={iconSizeS} />,
   matches: /^\/settings/
 };
 

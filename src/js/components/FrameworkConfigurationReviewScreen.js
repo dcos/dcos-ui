@@ -2,11 +2,16 @@ import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import React from "react";
 import { Dropdown, Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import Icon from "#SRC/js/components/Icon";
 import EmptyStates from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
@@ -46,18 +51,20 @@ class FrameworkConfigurationReviewScreen extends React.Component {
         id: frameworkMeta,
         html: (
           <div className="service-version-dropdown-wrapper button-split-content-wrapper flex">
-            <Icon
-              className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0"
-              id="check"
-              size="mini"
-              color="neutral"
-            />
-            <Icon
-              className="services-version-select-icon button-split-content-item flex-item-shrink-0"
-              id="commit"
-              size="mini"
-              color="neutral"
-            />
+            <span className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0">
+              <Icon
+                shape={SystemIcons.Check}
+                size={iconSizeXs}
+                color={greyDark}
+              />
+            </span>
+            <span className="services-version-select-icon button-split-content-item flex-item-shrink-0">
+              <Icon
+                shape={SystemIcons.Commit}
+                size={iconSizeXs}
+                color={greyDark}
+              />
+            </span>
             <span
               className="button-split-content-item flex-item-grow-1 text-overflow"
               title={frameworkMeta}
@@ -143,7 +150,11 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               className="button button-primary-link button-inline-flex"
               onClick={onEditClick}
             >
-              <Icon id="pencil" size="mini" family="system" />
+              <Icon
+                shape={SystemIcons.Pencil}
+                size={iconSizeXs}
+                color="currentColor"
+              />
               <Trans render="span">Edit Config</Trans>
             </button>
             <a
@@ -160,7 +171,11 @@ class FrameworkConfigurationReviewScreen extends React.Component {
                 configString
               )}
             >
-              <Icon id="download" size="mini" family="system" />
+              <Icon
+                shape={SystemIcons.Download}
+                size={iconSizeXs}
+                color="currentColor"
+              />
               <Trans render="span">Download Config</Trans>
             </a>
           </div>

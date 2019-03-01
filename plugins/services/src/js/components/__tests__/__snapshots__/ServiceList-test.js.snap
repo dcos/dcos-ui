@@ -30,10 +30,16 @@ exports[`ServiceList #getServices returns services that have a value of two elem
           onMouseLeave={[Function]}
         >
           <svg
-            className="icon icon-light-grey icon-mini"
+            aria-label="system-circle-minus icon"
+            className="css-ed86y8"
+            height={16}
+            preserveAspectRatio="xMinYMin meet"
+            role="img"
+            viewBox="0 0 16 16"
+            width={16}
           >
             <use
-              xlinkHref="#icon-system--circle-minus"
+              xlinkHref="#system-circle-minus"
             />
           </svg>
         </div>

@@ -8,6 +8,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Table } from "reactjs-components";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import { Badge } from "@dcos/ui-kit";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -32,7 +33,12 @@ const UnitHealthBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Components}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 const METHODS_TO_BIND = [

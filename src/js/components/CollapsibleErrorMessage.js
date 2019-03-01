@@ -1,11 +1,11 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
-import { InfoBoxBanner } from "@dcos/ui-kit";
+import { Icon, InfoBoxBanner } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import PropTypes from "prop-types";
 import React from "react";
-
-import Icon from "./Icon";
 
 /**
  * Methods to bind in 'this' context
@@ -134,7 +134,13 @@ class CollapsibleErrorMessage extends React.Component {
     // Render the fixed part of the message
     return (
       <div className="collapsible-fixed">
-        <Icon className="icon-alert icon-margin-right" id="yield" size="mini" />
+        <span className="icon-alert icon-margin-right">
+          <Icon
+            shape={SystemIcons.Yield}
+            size={iconSizeXs}
+            color="currentColor"
+          />
+        </span>
         {message}
       </div>
     );

@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import StatusIcon from "#SRC/js/constants/StatusIcon";
 import StringUtil from "#SRC/js/utils/StringUtil";
@@ -83,7 +84,7 @@ class ServiceStatusIcon extends Component {
 
   getTooltip(content) {
     const { service } = this.props;
-    let icon = <Icon {...StatusIcon.WARNING} size="mini" />;
+    let icon = <Icon {...StatusIcon.WARNING} size={iconSizeXs} />;
 
     if (service instanceof Service) {
       const servicePath = encodeURIComponent(service.getId());
@@ -132,7 +133,7 @@ class ServiceStatusIcon extends Component {
   }
 
   renderIcon(iconState) {
-    const icon = <Icon {...iconState} size="mini" />;
+    const icon = <Icon {...iconState} size={iconSizeXs} />;
 
     if (this.props.showTooltip) {
       return (

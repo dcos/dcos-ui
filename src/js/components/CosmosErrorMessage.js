@@ -2,8 +2,9 @@ import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
-import { InfoBoxInline } from "@dcos/ui-kit";
-import Icon from "./Icon";
+import { Icon, InfoBoxInline } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import ErrorPaths from "../../../plugins/services/src/js/constants/ErrorPaths";
 
@@ -118,7 +119,11 @@ class CosmosErrorMessage extends React.Component {
             <div>
               <div className="flex">
                 <div>
-                  <Icon id="yield" size="mini" />
+                  <Icon
+                    shape={SystemIcons.Yield}
+                    size={iconSizeXs}
+                    color="currentColor"
+                  />
                 </div>
                 <div className="errorsAlert-message">{this.getMessage()}</div>
               </div>

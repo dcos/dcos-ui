@@ -5,6 +5,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { i18nMark } from "@lingui/react";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
@@ -60,7 +61,11 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="nodes" />
+        <Page.Header
+          breadcrumbs={breadcrumbs}
+          tabs={tabs}
+          iconID={ProductIcons.Servers}
+        />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

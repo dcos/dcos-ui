@@ -8,13 +8,15 @@ import mixin from "reactjs-mixin";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CollapsingString from "#SRC/js/components/CollapsingString";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ExpandingTable from "#SRC/js/components/ExpandingTable";
-import Icon from "#SRC/js/components/Icon";
 import Image from "#SRC/js/components/Image";
 import Loader from "#SRC/js/components/Loader";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
@@ -289,7 +291,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
           className: "hidden",
           id: "default",
           html: "",
-          selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
+          selectedHtml: (
+            <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
+          )
         },
         {
           id: "rollback",

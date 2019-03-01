@@ -3,10 +3,11 @@ import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Breadcrumb from "./Breadcrumb";
 import BreadcrumbCaret from "./BreadcrumbCaret";
-import Icon from "./Icon";
 
 class PageHeaderBreadcrumbs extends React.Component {
   getCaret(key) {
@@ -21,7 +22,7 @@ class PageHeaderBreadcrumbs extends React.Component {
     const sectionIcon = (
       <Breadcrumb key={-1} isIcon={true} title="Section Icon">
         <Link to={iconRoute}>
-          <Icon family="product" id={iconID} size="small" />
+          <Icon shape={iconID} size={iconSizeS} />
         </Link>
       </Breadcrumb>
     );
