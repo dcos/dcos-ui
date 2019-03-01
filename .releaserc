@@ -24,7 +24,14 @@
   "publish": [
     {
       "path": "@semantic-release/exec",
-      "cmd": "./scripts/ci/upload-release v${nextRelease.version} master",
+      "cmd":
+        "./scripts/ci/finish-release.sh '0.0.0-dev+semantic-release' v${nextRelease.version}",
+      "shell": "/bin/bash"
+    },
+    {
+      "path": "@semantic-release/exec",
+      "cmd":
+        "RELEASE_NAME=v${nextRelease.version} ./scripts/ci/upload-sourcemaps.sh",
       "shell": "/bin/bash"
     },
     {
