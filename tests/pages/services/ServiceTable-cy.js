@@ -31,7 +31,8 @@ describe("Service Table", function() {
       cy.route({
         method: "DELETE",
         url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
+        response: [],
+        delay: 100
       });
       cy.get(".modal-small .button-danger").should("have.class", "disabled");
     });
