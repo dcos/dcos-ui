@@ -10,6 +10,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Badge } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import AlertPanel from "../../components/AlertPanel";
@@ -39,7 +40,12 @@ const PackagesBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="catalog" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Packages}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 const PackagesEmptyState = () => {

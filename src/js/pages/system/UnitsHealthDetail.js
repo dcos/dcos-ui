@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -46,7 +47,12 @@ const UnitHealthDetailBreadcrumbs = ({ unit }) => {
     );
   }
 
-  return <Page.Header.Breadcrumbs iconID="components" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Components}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 const METHODS_TO_BIND = [

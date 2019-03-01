@@ -5,10 +5,15 @@ import { Link, routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Hooks } from "PluginSDK";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import StringUtil from "#SRC/js/utils/StringUtil";
 import EmptyStates from "#SRC/js/constants/EmptyStates";
-import Icon from "#SRC/js/components/Icon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
@@ -157,12 +162,13 @@ class ServicesTable extends React.Component {
         target="_blank"
         title="Open in a new window"
       >
-        <Icon
-          color="neutral"
-          className="icon-margin-left"
-          id="open-external"
-          size="mini"
-        />
+        <span className="icon-margin-left">
+          <Icon
+            color={greyDark}
+            shape={SystemIcons.OpenExternal}
+            size={iconSizeXs}
+          />
+        </span>
       </a>
     );
   }
@@ -197,12 +203,9 @@ class ServicesTable extends React.Component {
     if (service instanceof ServiceTree) {
       // Get serviceTree image/icon
       return (
-        <Icon
-          className="icon-margin-right"
-          color="grey"
-          id="folder"
-          size="mini"
-        />
+        <span className="icon-margin-right">
+          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
+        </span>
       );
     }
 
@@ -284,7 +287,9 @@ class ServicesTable extends React.Component {
       className: "hidden",
       id: MORE,
       html: "",
-      selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
+      selectedHtml: (
+        <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
+      )
     });
 
     if (this.hasWebUI(service)) {

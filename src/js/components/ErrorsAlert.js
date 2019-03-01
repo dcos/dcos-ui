@@ -2,10 +2,11 @@ import { Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
-import { InfoBoxInline } from "@dcos/ui-kit";
+import { Icon, InfoBoxInline } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
-import Icon from "./Icon";
 
 const ErrorsAlert = function(props) {
   const {
@@ -58,7 +59,11 @@ const ErrorsAlert = function(props) {
         message={
           <div className="flex">
             <div>
-              <Icon id="yield" size="mini" />
+              <Icon
+                shape={SystemIcons.Yield}
+                size={iconSizeXs}
+                color="currentColor"
+              />
             </div>
             <div className="errorsAlert-message">
               <Trans render="h4">

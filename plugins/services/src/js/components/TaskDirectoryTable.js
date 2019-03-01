@@ -2,8 +2,14 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  greyLightDarken1,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
@@ -25,11 +31,11 @@ class TaskDirectoryTable extends React.Component {
     let label;
     const { nodeID } = this.props;
     const filePath = directoryItem.get("path");
-    let iconID = "page";
+    let iconID = SystemIcons.Page;
     const value = directoryItem.getName();
 
     if (directoryItem.isDirectory()) {
-      iconID = "folder";
+      iconID = SystemIcons.Folder;
       label = (
         <a
           className="table-cell-link-primary clickable"
@@ -60,25 +66,21 @@ class TaskDirectoryTable extends React.Component {
             this.props.directoryPath
           )}
         >
-          <Icon
-            className="icon-margin-left"
-            color="light-grey"
-            id="search"
-            size="mini"
-          />
+          <span className="icon-margin-left">
+            <Icon
+              color={greyLightDarken1}
+              shape={SystemIcons.Search}
+              size={iconSizeXs}
+            />
+          </span>
         </div>
       );
     }
 
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <div className="table-cell-icon">
-          <Icon
-            className="icon-margin-right"
-            color="grey"
-            id={iconID}
-            size="mini"
-          />
+        <div className="table-cell-icon icon-margin-right">
+          <Icon color={greyDark} shape={iconID} size={iconSizeXs} />
         </div>
         <span title={value} className="table-cell-value text-overflow">
           {label}

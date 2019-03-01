@@ -4,6 +4,12 @@ import React from "react";
 import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -18,7 +24,7 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import Networking from "#SRC/js/constants/Networking";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
@@ -147,7 +153,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -239,7 +245,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                   wrapperClassName="tooltip-wrapper text-align-center"
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -330,7 +336,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -398,7 +404,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -502,7 +508,11 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       return (
         <div key={index}>
           <h3 className="short-bottom">
-            <Icon id="container" size="mini" color="purple" />
+            <Icon
+              shape={SystemIcons.Container}
+              size={iconSizeXs}
+              color={purple}
+            />
             {` ${container.name}`}
           </h3>
           {this.getServiceContainerEndpoints(endpoints, index)}
@@ -622,7 +632,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                     maxWidth={300}
                     wrapText={true}
                   >
-                    <Icon color="light-grey" id="circle-question" size="mini" />
+                    <InfoTooltipIcon />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -649,7 +659,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
                 wrapperClassName="tooltip-wrapper text-align-center"
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>

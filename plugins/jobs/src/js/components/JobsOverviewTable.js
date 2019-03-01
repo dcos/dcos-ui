@@ -5,8 +5,13 @@ import prettycron from "prettycron";
 import PropTypes from "prop-types";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -174,24 +179,22 @@ export default class JobsOverviewTable extends React.Component {
     let scheduleIcon = null;
     let url = `/jobs/detail/${encodeURIComponent(id)}`;
     let itemImage = (
-      <Icon
-        className="icon-margin-right"
-        color="grey"
-        id="page-document"
-        size="mini"
-      />
+      <span className="icon-margin-right">
+        <Icon
+          color={greyDark}
+          shape={SystemIcons.PageDocument}
+          size={iconSizeXs}
+        />
+      </span>
     );
 
     if (isGroup) {
       url = `/jobs/overview/${encodeURIComponent(id)}`;
 
       itemImage = (
-        <Icon
-          className="icon-margin-right"
-          color="grey"
-          id="folder"
-          size="mini"
-        />
+        <span className="icon-margin-right">
+          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
+        </span>
       );
     }
 
@@ -206,7 +209,11 @@ export default class JobsOverviewTable extends React.Component {
             maxWidth={250}
             wrapText={true}
           >
-            <Icon color="grey" id="repeat" size="mini" />
+            <Icon
+              color={greyDark}
+              shape={SystemIcons.Repeat}
+              size={iconSizeXs}
+            />
           </Tooltip>
         );
       }

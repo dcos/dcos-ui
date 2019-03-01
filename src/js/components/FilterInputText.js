@@ -1,9 +1,16 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs,
+  white,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import KeyboardUtil from "#SRC/js/utils/KeyboardUtil";
-import Icon from "./Icon";
 import ServiceFilterTypes from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
 const METHODS_TO_BIND = [
@@ -109,10 +116,10 @@ class FilterInputText extends React.Component {
     }
 
     const { inverseStyle, sideText } = this.props;
-    let color = "white";
+    let color = white;
 
     if (!inverseStyle) {
-      color = "purple";
+      color = purple;
     }
 
     const iconClassNames = classNames("clickable", {
@@ -123,12 +130,13 @@ class FilterInputText extends React.Component {
       <span className="form-control-group-add-on">
         {sideText}
         <a onClick={this.handleInputClear}>
-          <Icon
-            id="circle-close"
-            size="mini"
-            className={iconClassNames}
-            color={color}
-          />
+          <span className={iconClassNames}>
+            <Icon
+              shape={SystemIcons.CircleClose}
+              size={iconSizeXs}
+              color={color}
+            />
+          </span>
         </a>
       </span>
     );
@@ -138,13 +146,13 @@ class FilterInputText extends React.Component {
     const { className, inputContainerClass, inverseStyle } = this.props;
     const { focus } = this.state;
 
-    let iconColor = "grey";
+    let iconColor = greyDark;
     const iconSearchClasses = classNames({
       active: focus
     });
 
     if (!inverseStyle && focus) {
-      iconColor = "purple";
+      iconColor = purple;
     }
 
     const inputContainerClasses = classNames(
@@ -165,11 +173,12 @@ class FilterInputText extends React.Component {
           onClick={this.handleFocus}
           onBlur={this.handleBlur}
         >
-          <span className="form-control-group-add-on form-control-group-add-on-prepend">
+          <span
+            className={`form-control-group-add-on form-control-group-add-on-prepend ${iconSearchClasses}`}
+          >
             <Icon
-              id="search"
-              size="mini"
-              className={iconSearchClasses}
+              shape={SystemIcons.Search}
+              size={iconSizeXs}
               color={iconColor}
             />
           </span>

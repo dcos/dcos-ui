@@ -6,10 +6,12 @@ import mixin from "reactjs-mixin";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { Hooks } from "PluginSDK";
+import { Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Breadcrumb from "../components/Breadcrumb";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
-import Icon from "../components/Icon";
 import Loader from "../components/Loader";
 import Page from "../components/Page";
 import SidebarActions from "../events/SidebarActions";
@@ -26,7 +28,12 @@ const NetworkingBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Network}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 class NetworkPage extends mixin(TabsMixin) {
@@ -73,7 +80,7 @@ NetworkPage.contextTypes = {
 
 NetworkPage.routeConfig = {
   label: i18nMark("Networking"),
-  icon: <Icon id="networking-inverse" size="small" family="product" />,
+  icon: <Icon shape={ProductIcons.NetworkInverse} size={iconSizeS} />,
   matches: /^\/networking/
 };
 

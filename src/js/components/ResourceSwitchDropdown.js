@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Dropdown } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 const ResourceSwitchDropdownTrigger = ({ onTrigger, children }) => {
@@ -29,7 +34,7 @@ export default class ResourceSwitchDropdown extends React.Component {
       if (this.props.selectedResource === resource) {
         html = (
           <span className="selected">
-            <Icon color="purple" id="check" size="mini" />
+            <Icon color={purple} shape={SystemIcons.Check} size={iconSizeXs} />
             {label}
           </span>
         );

@@ -5,6 +5,10 @@ import React from "react";
 import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Badge, Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
@@ -13,7 +17,6 @@ import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import EventTypes from "#SRC/js/constants/EventTypes";
-import Icon from "#SRC/js/components/Icon";
 import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
@@ -21,7 +24,6 @@ import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
-import { Badge } from "@dcos/ui-kit";
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 import NodesTableContainer from "./nodes/nodes-table/NodesTableContainer";
@@ -68,7 +70,7 @@ var NodesAgents = createReactClass({
   statics: {
     routeConfig: {
       label: i18nMark("Nodes"),
-      icon: <Icon family="product" id="servers-inverse" />,
+      icon: <Icon shape={ProductIcons.ServersInverse} />,
       matches: /^\/nodes/
     },
     // Static life cycle method from react router, that will be called
@@ -226,7 +228,7 @@ var NodesAgents = createReactClass({
           <Trans render="span" className="invisible">
             List
           </Trans>
-          <Icon family="system" id="list" size="mini" />
+          <Icon shape={SystemIcons.List} size={iconSizeXs} />
         </Link>
         <Link
           className={gridClassSet}
@@ -236,7 +238,7 @@ var NodesAgents = createReactClass({
           <Trans render="span" className="invisible">
             Grid
           </Trans>
-          <Icon family="system" id="donut" size="mini" />
+          <Icon shape={SystemIcons.Donut} size={iconSizeXs} />
         </Link>
       </div>
     );

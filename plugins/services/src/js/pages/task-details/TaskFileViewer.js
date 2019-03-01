@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape, formatPattern } from "react-router";
 import { Trans } from "@lingui/macro";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import DirectoryItem from "../../structs/DirectoryItem";
@@ -200,7 +202,7 @@ export default class TaskFileViewer extends React.Component {
           disabled={!filePath}
           href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}
         >
-          <Icon id="download" size="mini" />
+          <Icon shape={SystemIcons.Download} size={iconSizeXs} />
         </a>
       </Tooltip>
     ];

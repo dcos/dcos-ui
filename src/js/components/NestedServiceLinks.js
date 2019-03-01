@@ -3,8 +3,9 @@ import classNames from "classnames/dedupe";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
-
-import Icon from "./Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXxs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class NestedServiceLinks extends React.Component {
   getMinorLink(label, id, key, minorLinkClasses, minorLinkAnchorClasses) {
@@ -25,13 +26,9 @@ class NestedServiceLinks extends React.Component {
 
   getCrumbDivider(key) {
     return (
-      <Icon
-        className="list-inline-separator"
-        family="tiny"
-        id="caret-right"
-        key={key}
-        size="tiny"
-      />
+      <span className="list-inline-separator">
+        <Icon shape={SystemIcons.CaretRight} key={key} size={iconSizeXxs} />
+      </span>
     );
   }
 

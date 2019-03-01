@@ -4,6 +4,8 @@ import { i18nMark, withI18n } from "@lingui/react";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
 
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -29,7 +31,9 @@ const UISettingsBreadcrumbs = ({ i18n }) => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="settings" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs iconID={ProductIcons.Gear} breadcrumbs={crumbs} />
+  );
 };
 
 const ConfigurationRow = ({ keyValue, title, value, action }) => {

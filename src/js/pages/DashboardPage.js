@@ -4,6 +4,9 @@ import { routerShape, Link } from "react-router";
 import React from "react";
 import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
@@ -14,7 +17,6 @@ import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
 import HealthSorting from "../../../plugins/services/src/js/constants/HealthSorting";
 import HostTimeSeriesChart from "../components/charts/HostTimeSeriesChart";
-import Icon from "../components/Icon";
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 import Page from "../components/Page";
@@ -52,7 +54,9 @@ const DashboardBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="dashboard" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs iconID={ProductIcons.Graph} breadcrumbs={crumbs} />
+  );
 };
 
 var DashboardPage = createReactClass({
@@ -63,7 +67,7 @@ var DashboardPage = createReactClass({
   statics: {
     routeConfig: {
       label: i18nMark("Dashboard"),
-      icon: <Icon id="dashboard-inverse" size="small" family="product" />,
+      icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
       matches: /^\/dashboard/
     },
 

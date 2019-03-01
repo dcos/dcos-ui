@@ -111,7 +111,7 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by status", function() {
-        cy.get('use[*|href$="#icon-system--funnel"]').click({
+        cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
 
@@ -131,7 +131,7 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by name", function() {
-        cy.get('use[*|href$="#icon-system--funnel"]').click({
+        cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
 
@@ -152,7 +152,7 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by zone", function() {
-        cy.get('use[*|href$="#icon-system--funnel"]').click({
+        cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
 

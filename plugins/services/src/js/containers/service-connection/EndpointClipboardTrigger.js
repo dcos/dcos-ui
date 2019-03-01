@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
-import Icon from "#SRC/js/components/Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyLightDarken1,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class EndpointClipboardTrigger extends React.Component {
   render() {
@@ -15,7 +20,11 @@ class EndpointClipboardTrigger extends React.Component {
             copyText={command}
             useTooltip={true}
           >
-            <Icon id="clipboard" size="mini" color="light-grey" />
+            <Icon
+              shape={SystemIcons.Clipboard}
+              size={iconSizeXs}
+              color={greyLightDarken1}
+            />
           </ClipboardTrigger>
         </div>
         {command}

@@ -1,19 +1,27 @@
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  green,
+  yellow,
+  greyLightDarken1,
+  greyDark
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+
 const STATUS_ICON = {
   SUCCESS: {
-    id: "circle-check",
-    color: "green"
+    shape: SystemIcons.CircleCheck,
+    color: green
   },
   LOADING: {
-    id: "spinner",
-    color: "grey"
+    shape: SystemIcons.Spinner,
+    color: greyDark
   },
   STOPPED: {
-    id: "circle-minus",
-    color: "light-grey"
+    shape: SystemIcons.CircleMinus,
+    color: greyLightDarken1
   },
   WARNING: {
-    id: "yield",
-    color: "yellow"
+    shape: SystemIcons.Yield,
+    color: yellow
   }
 };
 

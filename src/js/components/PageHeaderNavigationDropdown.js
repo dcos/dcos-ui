@@ -2,8 +2,12 @@ import { Dropdown } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 import { Trans } from "@lingui/macro";
-
-import Icon from "./Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyLightDarken1,
+  iconSizeXxs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class PageHeaderNavigationDropdown extends React.Component {
   getActiveItemID() {
@@ -36,10 +40,9 @@ class PageHeaderNavigationDropdown extends React.Component {
             />
             <span className="page-header-navigation-dropdown-caret">
               <Icon
-                id="caret-down"
-                color="light-grey"
-                family="tiny"
-                size="tiny"
+                shape={SystemIcons.CaretDown}
+                color={greyLightDarken1}
+                size={iconSizeXxs}
               />
             </span>
           </div>

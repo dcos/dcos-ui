@@ -1,9 +1,14 @@
 import classNames from "classnames";
 import React from "react";
 import { Trans } from "@lingui/macro";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { isObject } from "#SRC/js/utils/Util";
-import Icon from "#SRC/js/components/Icon";
 import EmptyStates from "#SRC/js/constants/EmptyStates";
 
 const ServiceConfigDisplayUtil = {
@@ -34,7 +39,7 @@ const ServiceConfigDisplayUtil = {
   getContainerNameWithIcon(container) {
     return (
       <span>
-        <Icon id="container" size="mini" color="purple" />
+        <Icon shape={SystemIcons.Container} size={iconSizeXs} color={purple} />
         <span>&nbsp;{container.name}</span>
       </span>
     );
@@ -58,7 +63,7 @@ const ServiceConfigDisplayUtil = {
   getSharedIconWithLabel() {
     return (
       <span>
-        <Icon id="container" size="mini" color="purple" />
+        <Icon shape={SystemIcons.Container} size={iconSizeXs} color={purple} />
         <em>&nbsp;Shared</em>
       </span>
     );

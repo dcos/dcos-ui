@@ -2,8 +2,9 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
 import { Trans } from "@lingui/macro";
-
-import Icon from "#SRC/js/components/Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import PageHeaderActions from "./PageHeaderActions";
 import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
@@ -60,7 +61,9 @@ class PageHeader extends React.Component {
       );
     }
 
-    const editIcon = <Icon id="pencil" size="mini" />;
+    const editIcon = (
+      <Icon shape={SystemIcons.Pencil} size={iconSizeXs} color="currentColor" />
+    );
 
     const editButton = actions
       .filter(action => action.label === "Edit")

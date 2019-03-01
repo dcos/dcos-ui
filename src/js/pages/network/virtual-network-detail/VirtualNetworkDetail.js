@@ -6,6 +6,7 @@ import { Link, routerShape } from "react-router";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "../../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
@@ -42,7 +43,12 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
     );
   }
 
-  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Network}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 const METHODS_TO_BIND = [

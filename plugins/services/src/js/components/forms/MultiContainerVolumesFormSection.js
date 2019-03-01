@@ -15,7 +15,7 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { omit } from "#SRC/js/utils/Util";
 
@@ -286,7 +286,7 @@ class MultiContainerVolumesFormSection extends Component {
               maxWidth={300}
               wrapText={true}
             >
-              <Icon color="light-grey" id="circle-question" size="mini" />
+              <InfoTooltipIcon />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>

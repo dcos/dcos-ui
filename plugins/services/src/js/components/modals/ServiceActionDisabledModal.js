@@ -9,7 +9,12 @@ import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-import Icon from "#SRC/js/components/Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
@@ -327,7 +332,11 @@ class ServiceActionDisabledModal extends React.Component {
             onTextCopy={this.handleTextCopy.bind(this, command)}
             useTooltip={true}
           >
-            <Icon id="clipboard" size="mini" color="grey" />
+            <Icon
+              shape={SystemIcons.Clipboard}
+              size={iconSizeXs}
+              color={greyDark}
+            />
           </ClipboardTrigger>
         </div>
         <pre className="prettyprint flush-bottom prettyprinted">{command}</pre>
