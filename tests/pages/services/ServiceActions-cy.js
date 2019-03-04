@@ -392,7 +392,7 @@ describe("Service Actions", function() {
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
         response: [],
-        delay: 100
+        delay: SERVER_RESPONSE_DELAY
       });
       cy.get(".modal-footer .button-primary")
         .click()
@@ -485,7 +485,7 @@ describe("Service Actions", function() {
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
         response: [],
-        delay: 100
+        delay: SERVER_RESPONSE_DELAY
       });
       cy.get(".modal-small .button-danger")
         .click()
@@ -610,7 +610,7 @@ describe("Service Actions", function() {
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
-        delay: 100
+        delay: SERVER_RESPONSE_DELAY
       });
 
       clickHeaderAction("Resume");
