@@ -32,7 +32,7 @@ describe("Service Table", function() {
         method: "DELETE",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
-        delay: 100
+        delay: SERVER_RESPONSE_DELAY
       });
       cy.get(".modal-small .button-danger").should("have.class", "disabled");
     });
@@ -96,7 +96,8 @@ describe("Service Table", function() {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
+        response: [],
+        delay: SERVER_RESPONSE_DELAY
       });
 
       openDropdown("sleep");
