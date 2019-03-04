@@ -105,7 +105,11 @@ describe("JobParsers", () => {
       cpus: 1,
       gpus: 0,
       mem: 32,
-      disk: 0
+      disk: 0,
+      dockerParams: [],
+      args: [],
+      grantRuntimePrivileges: undefined,
+      imageForcePull: undefined
     };
 
     it("transforms JobSpec to FormOutput", () => {
