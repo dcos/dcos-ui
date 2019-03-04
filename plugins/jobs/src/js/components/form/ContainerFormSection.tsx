@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { InfoBoxInline, Badge } from "@dcos/ui-kit";
 
@@ -18,7 +18,7 @@ interface ContainerSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class ContainerFormSection extends Component<ContainerSectionProps, object> {
+class ContainerFormSection extends React.Component<ContainerSectionProps> {
   constructor(props: ContainerSectionProps) {
     super(props);
   }

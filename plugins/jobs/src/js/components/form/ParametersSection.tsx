@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -22,7 +22,10 @@ interface ParametersSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class ParametersSection extends Component<ParametersSectionProps, object> {
+class ParametersSection extends React.Component<
+  ParametersSectionProps,
+  object
+> {
   constructor(props: ParametersSectionProps) {
     super(props);
   }
