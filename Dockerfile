@@ -1,8 +1,8 @@
 FROM mesosphere/dcos-system-test-driver:latest
 
 # Specify the component versions to use
-ENV NODE_VERSION="8.9.4" \
-  NPM_VERSION="5.7.1" \
+ENV NODE_VERSION="10.15.2" \
+  NPM_VERSION="6.9.0" \
   JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # Expose the 4200 port
