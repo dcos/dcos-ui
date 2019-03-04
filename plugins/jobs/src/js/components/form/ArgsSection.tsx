@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -22,7 +22,7 @@ interface ArgsSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class ArgsSection extends Component<ArgsSectionProps, object> {
+class ArgsSection extends React.Component<ArgsSectionProps> {
   constructor(props: ArgsSectionProps) {
     super(props);
   }
