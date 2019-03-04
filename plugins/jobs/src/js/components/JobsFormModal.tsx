@@ -1,11 +1,12 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
-import React, { Component } from "react";
+import * as React from "react";
 import gql from "graphql-tag";
 import { graphqlObservable } from "@dcos/data-service";
 import { take } from "rxjs/operators";
 //@ts-ignore
 import { Confirm } from "reactjs-components";
+//@ts-ignore
 import isEqual from "lodash/isEqual";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
@@ -78,7 +79,10 @@ const editJobMutation = gql`
   }
 `;
 
-class JobFormModal extends Component<JobFormModalProps, JobFormModalState> {
+class JobFormModal extends React.Component<
+  JobFormModalProps,
+  JobFormModalState
+> {
   constructor(props: JobFormModalProps) {
     super(props);
 
