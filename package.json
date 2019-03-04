@@ -142,8 +142,6 @@
     "file-loader": "1.1.6",
     "fork-ts-checker-webpack-plugin": "0.5.2",
     "glob": "7.0.5",
-    "gulp": "3.9.1",
-    "gulp-connect": "3.2.2",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "http-server": "github:dcos-labs/http-server#e268ac3fc1f01acdd2d9ec037f7dcb5ec76f7c61",
@@ -212,7 +210,7 @@
     "lint": "npm run lint:styles && npm run lint:es && npm run lint:ts",
     "postbuild:assets": "find ./dist -name 'index.*.css' -exec node ./scripts/inline-bootstrap-css.js ./dist/index.html {} \\;",
     "postinstall": "npm run util:scaffold",
-    "prebuild:assets": "./node_modules/.bin/gulp checkDependencies",
+    "prebuild:assets": "node ./scripts/checkDependencies.js",
     "preinstall": "./scripts/pre-install",
     "prestart": "npm run util:env:validate",
     "release": "standard-version --tag-prefix \"$(python -c \"import sys, json; dcosrc = json.load(open('.dcosrc')); sys.stdout.write(str(dcosrc['base']));\")+v\"",
@@ -227,7 +225,7 @@
     "test": "lingui compile && NODE_PATH=node_modules jest --config=jest.config.js --no-cache",
     "util:env:validate": "./scripts/validate-engine-versions",
     "util:lingui:extract-with-plugins": "./scripts/lingui-extract-with-plugins",
-    "util:scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
+    "util:scaffold": "node ./scripts/ensureConfig.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)"
   },
   "jest-webpack-alias": {
