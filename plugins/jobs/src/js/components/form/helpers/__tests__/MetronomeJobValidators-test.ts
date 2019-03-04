@@ -674,7 +674,7 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as any)
       ).toEqual([]);
     });
 
@@ -799,7 +799,7 @@ describe("MetronomeSpecValidators", () => {
           }
         }
       };
-      expect(MetronomeSpecValidators.argsAreArray(spec as JobOutput)).toEqual(
+      expect(MetronomeSpecValidators.argsAreArray(spec as any)).toEqual(
         ARGSARRAYERROR
       );
     });
@@ -817,7 +817,7 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as JobOutput)
+        MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as any)
       ).toEqual([]);
     });
 
