@@ -7,11 +7,9 @@ MARATHON_VERSION="1.7.49-f24b03af3"
 source "${SCRIPT_PATH}/utils/git"
 source "${SCRIPT_PATH}/utils/marathon"
 
-# Validate node and npm version and install git hooks.
 # Install Marathon RAML before hooks so RAML isn't skipped in CI if
 # git hooks fail to install
-"${SCRIPT_PATH}/validate-engine-versions" && \
-  install_marathon_raml "$MARATHON_VERSION" && \
+install_marathon_raml "$MARATHON_VERSION" && \
   install_hooks "pre-commit post-rewrite post-commit post-checkout"
 
 exit 0
