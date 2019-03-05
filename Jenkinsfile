@@ -40,8 +40,10 @@ pipeline {
         sh "git fetch"
         sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
 
-        sh "npm run validate-tests"
+        // jenkins seem to have this variable set for no reason, explicitly remiving it…
+        sh "npm config delete externalplugins"
         sh "npm --unsafe-perm ci"
+        sh "npm run validate-tests"
         sh "npm run build"
       }
     }
