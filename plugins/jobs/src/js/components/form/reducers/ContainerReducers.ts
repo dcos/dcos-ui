@@ -74,6 +74,12 @@ export const dockerParamsReducers = {
       Array.isArray(docker.parameters) &&
       docker.parameters.length >= index + 1
     ) {
+      if (typeof docker.parameters[index] !== "object") {
+        docker.parameters[index] = {
+          key: "",
+          value: ""
+        };
+      }
       docker.parameters[index][prop] = value;
     }
     return stateCopy;
