@@ -621,5 +621,73 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       });
     }
     return errors;
+  },
+
+  scheduleHasId(formData: JobOutput) {
+    const { schedule } = formData;
+    if (schedule && !schedule.id) {
+      return [
+        {
+          path: ["schedule", "id"],
+          message: i18nMark("ID is required.")
+        }
+      ];
+    }
+    return [];
+  },
+
+  scheduleHasCron(formData: JobOutput) {
+    const { schedule } = formData;
+    if (schedule && !schedule.cron) {
+      return [
+        {
+          path: ["schedule", "cron"],
+          message: i18nMark("CRON schedule is required.")
+        }
+      ];
+    }
+    return [];
+  },
+
+  scheduleIdIsValid(formData: JobOutput) {
+    const { schedule } = formData;
+    const idRegex = /^[a-z0-9]+([a-z0-9-]+[a-z0-9])?$/;
+    const message = i18nMark(
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+    );
+    if (!schedule) {
+      return [];
+    }
+    if (schedule.id && typeof schedule.id !== "string") {
+      return [
+        {
+          path: ["schedule", "id"],
+          message: i18nMark("Schedule ID must be a string.")
+        }
+      ];
+    }
+    return schedule && schedule.id && idRegex.test(schedule.id)
+      ? []
+      : [{ path: ["schedule", "id"], message }];
+  },
+
+  scheduleStartingDeadlineIsValid(formData: JobOutput) {
+    const { schedule } = formData;
+    const errors = [];
+    if (schedule && schedule.startingDeadlineSeconds != undefined) {
+      if (typeof schedule.startingDeadlineSeconds !== "number") {
+        errors.push({
+          path: ["schedule", "startingDeadlineSeconds"],
+          message: i18nMark("Starting deadline must be a number.")
+        });
+      }
+      if (schedule.startingDeadlineSeconds < 1) {
+        errors.push({
+          path: ["schedule", "startingDeadlineSeconds"],
+          message: i18nMark("Minimum value is 1.")
+        });
+      }
+    }
+    return errors;
   }
 };

@@ -46,6 +46,12 @@ export interface FormOutput {
   disk: number;
   dockerParams: DockerParameter[];
   args: string[];
+  scheduleEnabled?: boolean;
+  scheduleId?: string;
+  cronSchedule?: string;
+  timezone?: string;
+  startingDeadline?: number;
+  concurrentPolicy?: ConcurrentPolicy;
 }
 
 export interface JobOutput {
