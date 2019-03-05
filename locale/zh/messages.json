@@ -597,6 +597,7 @@
   "No groups to add": "没有要添加的组",
   "No health checks available": "无可用的运行状况检查",
   "No linked clusters": "无链接集群",
+  "No log files found on this agent.": "",
   "No networks detected": "未检测到网络",
   "No nodes detected": "未检测到节点",
   "No package repositories": "无包存储库",
