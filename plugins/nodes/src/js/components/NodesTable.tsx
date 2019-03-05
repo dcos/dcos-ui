@@ -36,7 +36,7 @@ interface NodesTableProps {
 }
 
 interface NodesTableState {
-  data: Node[];
+  data: Node[] | null;
   sortDirection: SortDirection;
   sortColumn: string;
 }
@@ -54,7 +54,7 @@ export default class NodesTable extends React.Component<
     super(props);
 
     this.state = {
-      data: [],
+      data: null,
       sortColumn: "health",
       sortDirection: "ASC"
     };
@@ -99,19 +99,26 @@ export default class NodesTable extends React.Component<
     currentSortColumn?: string
   ): NodesTableState {
     const copiedData = data.slice();
-
     if (
       sortDirection === currentSortDirection &&
       sortColumn === currentSortColumn
     ) {
-      return { data: copiedData, sortDirection, sortColumn };
+      return {
+        data: copiedData,
+        sortDirection,
+        sortColumn
+      };
     }
 
     if (
       sortDirection !== currentSortDirection &&
       sortColumn === currentSortColumn
     ) {
-      return { data: copiedData.reverse(), sortDirection, sortColumn };
+      return {
+        data: copiedData.reverse(),
+        sortDirection,
+        sortColumn
+      };
     }
 
     const sortFunction = this.retrieveSortFunction(sortColumn);
@@ -129,15 +136,17 @@ export default class NodesTable extends React.Component<
         ? "DESC"
         : "ASC";
 
-    this.setState(
-      this.updateData(
-        this.state.data,
-        columnName,
-        toggledDirection,
-        this.state.sortDirection,
-        this.state.sortColumn
-      )
-    );
+    if (this.state.data !== null) {
+      this.setState(
+        this.updateData(
+          this.state.data,
+          columnName,
+          toggledDirection,
+          this.state.sortDirection,
+          this.state.sortColumn
+        )
+      );
+    }
   }
 
   componentWillReceiveProps(nextProps: NodesTableProps): void {
@@ -153,7 +162,7 @@ export default class NodesTable extends React.Component<
   render() {
     const { data, sortColumn, sortDirection } = this.state;
 
-    if (data.length === 0) {
+    if (data === null) {
       return <Loader />;
     }
 
