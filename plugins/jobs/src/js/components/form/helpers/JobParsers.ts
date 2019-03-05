@@ -1,4 +1,4 @@
-import { deepCopy } from "#SRC/js/utils/Util";
+import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import {
   JobOutput,
@@ -76,10 +76,8 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   const container = jobSpec.container;
   const containerImage =
     container === Container.UCR
-      ? jobSpec.job.run.ucr &&
-        jobSpec.job.run.ucr.image &&
-        jobSpec.job.run.ucr.image.id
-      : jobSpec.job.run.docker && jobSpec.job.run.docker.image;
+      ? findNestedPropertyInObject(jobSpec, "job.run.ucr.image.id")
+      : findNestedPropertyInObject(jobSpec, "job.run.docker.image");
   const dockerParameters =
     jobSpec.job.run.docker &&
     Array.isArray(jobSpec.job.run.docker.parameters) &&
@@ -92,14 +90,11 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
       : [];
   const imageForcePull =
     container === Container.UCR
-      ? jobSpec.job.run.ucr &&
-        jobSpec.job.run.ucr.image &&
-        jobSpec.job.run.ucr.image.forcePull
-      : jobSpec.job.run.docker && jobSpec.job.run.docker.forcePullImage;
+      ? findNestedPropertyInObject(jobSpec, "job.run.ucr.image.forcePull")
+      : findNestedPropertyInObject(jobSpec, "job.run.docker.forcePullImage");
   const grantRuntimePrivileges =
     container === Container.Docker &&
-    jobSpec.job.run.docker &&
-    jobSpec.job.run.docker.privileged;
+    findNestedPropertyInObject(jobSpec, "job.run.docker.privileged");
 
   return {
     jobId: jobSpec.job.id,
