@@ -10,6 +10,7 @@ import {
   grantRuntimePrivilegesReducers,
   containerImageReducers
 } from "./ContainerReducers";
+import { enabledReducers, concurrentPolicyReducers } from "./ScheduleReducers";
 
 type DefaultReducerFunction = (
   value: string,
@@ -24,6 +25,9 @@ const defaultReducer: DefaultReducer = {
     const assignProp = path.pop();
     if (assignProp) {
       path.reduce((acc: any, current: string) => {
+        if (current === "schedule" && !acc[current]) {
+          acc[current] = {};
+        }
         return acc[current];
       }, stateCopy)[assignProp] = value;
     }
@@ -37,6 +41,9 @@ const defaultReducer: DefaultReducer = {
     const newValue = !isNaN(numValue) ? numValue : "";
     if (assignProp) {
       path.reduce((acc: any, current: string) => {
+        if (current === "schedule" && !acc[current]) {
+          acc[current] = {};
+        }
         return acc[current];
       }, stateCopy)[assignProp] = newValue;
     }
@@ -57,7 +64,9 @@ const combinedReducers: CombinedReducers = {
   dockerParams: dockerParamsReducers,
   imageForcePull: imageForcePullReducers,
   grantRuntimePrivileges: grantRuntimePrivilegesReducers,
-  args: argsReducers
+  args: argsReducers,
+  scheduleEnabled: enabledReducers,
+  concurrentPolicy: concurrentPolicyReducers
 };
 
 const isFunction = (func: any): boolean => {

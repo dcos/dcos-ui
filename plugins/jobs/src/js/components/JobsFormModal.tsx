@@ -34,7 +34,10 @@ import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
 import defaultSchema from "../data/JobModel";
 import { MetronomeSpecValidators } from "./form/helpers/MetronomeJobValidators";
-import { jobSpecToOutputParser } from "./form/helpers/JobParsers";
+import {
+  jobSpecToOutputParser,
+  removeBlankProperties
+} from "./form/helpers/JobParsers";
 import { jobFormOutputToSpecReducer } from "./form/reducers/JobReducers";
 
 interface JobFormModalProps {
@@ -276,7 +279,7 @@ class JobFormModal extends React.Component<
 
   handleJobRun() {
     const { jobSpec, formJSONErrors } = this.state;
-    const jobOutput = jobSpecToOutputParser(jobSpec);
+    const jobOutput = removeBlankProperties(jobSpecToOutputParser(jobSpec));
     const validationErrors = this.validateJobSpec(jobOutput);
     const totalErrors = validationErrors.concat(formJSONErrors);
     if (totalErrors.length) {

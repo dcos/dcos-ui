@@ -160,6 +160,42 @@ const UCRANDDOCKERERROR = [
   }
 ];
 
+const SCHEDULEIDERROR = [
+  {
+    path: ["schedule", "id"],
+    message: "ID is required."
+  }
+];
+
+const SCHEDULEIDREGEXERROR = [
+  {
+    path: ["schedule", "id"],
+    message:
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+  }
+];
+
+const CRONERROR = [
+  {
+    path: ["schedule", "cron"],
+    message: "CRON schedule is required."
+  }
+];
+
+const STARTINGDEADLINETYPEERROR = [
+  {
+    path: ["schedule", "startingDeadlineSeconds"],
+    message: "Starting deadline must be a number."
+  }
+];
+
+const STARTINGDEADLINEVALUEERROR = [
+  {
+    path: ["schedule", "startingDeadlineSeconds"],
+    message: "Minimum value is 1."
+  }
+];
+
 const stringErrorMessage = "Must be a string.";
 const numberErrorMessage = "Must be a number.";
 const objectErrorMessage = "Must be an object.";
@@ -1406,6 +1442,172 @@ describe("MetronomeSpecValidators", () => {
           }
         ]
       );
+    });
+  });
+
+  describe("#scheduleHasId", () => {
+    it("does not return error if there is no schedule", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            cmd: "cmd"
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.scheduleHasId(spec as JobOutput)).toEqual(
+        []
+      );
+    });
+
+    it("returns error if schedule present without id", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            ucr: {}
+          }
+        },
+        schedule: {}
+      };
+      expect(MetronomeSpecValidators.scheduleHasId(spec as JobOutput)).toEqual(
+        SCHEDULEIDERROR
+      );
+    });
+  });
+
+  describe("#scheduleIdIsValid", () => {
+    it("does not return error if there is no schedule", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            cmd: "cmd"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.scheduleIdIsValid(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns error if schedule id is invalid", () => {
+      const spec = {
+        job: {
+          id: "-id",
+          run: {
+            ucr: {}
+          }
+        },
+        schedule: {}
+      };
+      expect(
+        MetronomeSpecValidators.scheduleIdIsValid(spec as JobOutput)
+      ).toEqual(SCHEDULEIDREGEXERROR);
+    });
+  });
+
+  describe("#scheduleHasCron", () => {
+    it("does not return error if there is no schedule", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            cmd: "cmd"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.scheduleHasCron(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns error if schedule is present without cron", () => {
+      const spec = {
+        job: {
+          id: "-id",
+          run: {
+            ucr: {}
+          }
+        },
+        schedule: {}
+      };
+      expect(
+        MetronomeSpecValidators.scheduleHasCron(spec as JobOutput)
+      ).toEqual(CRONERROR);
+    });
+  });
+
+  describe("#scheduleStartingDeadlineIsValid", () => {
+    it("does not return error if there is no schedule", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            cmd: "cmd"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.scheduleStartingDeadlineIsValid(
+          spec as JobOutput
+        )
+      ).toEqual([]);
+    });
+
+    it("does not return error if starting deadline is number > 0", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            cmd: "cmd"
+          }
+        },
+        schedule: {
+          startingDeadlineSeconds: 1
+        }
+      };
+      expect(
+        MetronomeSpecValidators.scheduleStartingDeadlineIsValid(
+          spec as JobOutput
+        )
+      ).toEqual([]);
+    });
+
+    it("returns error if starting deadline is number less than 1", () => {
+      const spec = {
+        job: {
+          id: "-id",
+          run: {
+            ucr: {}
+          }
+        },
+        schedule: {
+          startingDeadlineSeconds: 0
+        }
+      };
+      expect(
+        MetronomeSpecValidators.scheduleStartingDeadlineIsValid(
+          spec as JobOutput
+        )
+      ).toEqual(STARTINGDEADLINEVALUEERROR);
+    });
+
+    it("returns error if starting deadline is not a number", () => {
+      const spec = {
+        job: {
+          id: "-id",
+          run: {
+            ucr: {}
+          }
+        },
+        schedule: {
+          startingDeadlineSeconds: "not a number"
+        }
+      };
+      expect(
+        MetronomeSpecValidators.scheduleStartingDeadlineIsValid(spec as any)
+      ).toEqual(STARTINGDEADLINETYPEERROR);
     });
   });
 });
