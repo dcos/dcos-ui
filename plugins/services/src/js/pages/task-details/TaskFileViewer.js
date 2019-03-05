@@ -148,6 +148,9 @@ export default class TaskFileViewer extends React.Component {
     }
 
     const files = this.getLogFiles();
+    if (files.length === 0) {
+      return null;
+    }
 
     return (
       files.find(function(file) {
@@ -203,11 +206,22 @@ export default class TaskFileViewer extends React.Component {
     ];
   }
 
+  getNoLogFiles() {
+    return (
+      <div className="flex-grow vertical-top">
+        <Trans>No log files found on this agent.</Trans>
+      </div>
+    );
+  }
+
   render() {
     const { task } = this.props;
 
     // Only try to get path if file exists
     const selectedLogFile = this.getSelectedFile();
+    if (!selectedLogFile) {
+      return this.getNoLogFiles();
+    }
     const selectedName = selectedLogFile && selectedLogFile.getName();
     const filePath = selectedLogFile && selectedLogFile.get("path");
 
