@@ -10,6 +10,12 @@ import {
 } from "#SRC/js/data/ui-update/UIMetadata";
 import Config from "#SRC/js/config/Config";
 
+declare global {
+  interface Window {
+    DCOS_UI_VERSION: string;
+  }
+}
+
 type PossibleMutationArgs = Partial<UIUpdateArgs>;
 
 interface QueryContext {

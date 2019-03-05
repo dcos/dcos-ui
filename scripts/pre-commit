@@ -53,6 +53,9 @@ if [ -n "${staged_typescript_files}" ]
 then
   header "Lint staged TypeScript files..."
   npm run tslint --silent -- ${staged_typescript_files} || exit $?
+
+  header "Check types..."
+  npx tsc || exit $?
   info "Staged TypeScript looks good"
 fi
 

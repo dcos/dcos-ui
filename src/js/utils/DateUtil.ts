@@ -1,4 +1,4 @@
-import moment from "moment";
+import * as moment from "moment";
 
 const DEFAULT_MULTIPLICANTS = {
   ms: 1,
@@ -65,9 +65,7 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
   msToUTCDate(ms: Date | number): string {
-    return moment(ms)
-      .utc()
-      .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+    return moment.utc(ms).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
   },
 
   /**
@@ -76,9 +74,7 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
   msToLogTime(ms: Date | number): string {
-    return moment(ms)
-      .utc()
-      .format("YYYY-MM-DD hh:mm:ss");
+    return moment.utc(ms).format("YYYY-MM-DD hh:mm:ss");
   },
 
   /**
@@ -120,7 +116,7 @@ const DateUtil = {
     ms: Date | number,
     suppressRelativeTime: boolean = false
   ): string {
-    return moment(ms).fromNow(suppressRelativeTime);
+    return moment.utc(ms).fromNow(suppressRelativeTime);
   },
 
   strToMs(str: string | null): number | null {
@@ -129,7 +125,8 @@ const DateUtil = {
     }
 
     return (
-      moment(str).valueOf() || moment(str, "YYYY-MM-DDTHH:mm:ssZ").valueOf()
+      moment.utc(str).valueOf() ||
+      moment.utc(str, "YYYY-MM-DDTHH:mm:ssZ").valueOf()
     );
   },
 

@@ -50,8 +50,8 @@ export default class NodesTable extends React.Component<
   // This workaround will be removed in DCOS-39332
   private regionRenderer: (data: Node) => React.ReactNode;
 
-  constructor() {
-    super();
+  constructor(props: Readonly<NodesTableProps>) {
+    super(props);
 
     this.state = {
       data: [],

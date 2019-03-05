@@ -19,7 +19,7 @@ interface NodesGridViewProps {
   resourcesByFramework: ResourcesByFramework;
   selectedResource: string;
   serviceColors: ServiceColors;
-  services: object[]; // TODO TS: Framework[] `plugins/services/src/js/structs/Framework.js`
+  services: any[]; // TODO TS: Framework[] `plugins/services/src/js/structs/Framework.js`
 }
 
 export default class NodesGridView extends React.PureComponent<
@@ -110,7 +110,7 @@ export default class NodesGridView extends React.PureComponent<
         <div className={classSet}>{this.getServicesList()}</div>
 
         <NodesGridDials
-          hosts={hosts.getItems()}
+          hosts={(hosts as any).getItems()}
           resourcesByFramework={resourcesByFramework}
           selectedResource={selectedResource}
           serviceColors={serviceColors}
