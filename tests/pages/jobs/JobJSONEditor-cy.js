@@ -517,4 +517,95 @@ describe("Job JSON Editor", function() {
         }
       ]);
   });
+
+  it("renders proper JSON for a job with a schedule", () => {
+    const jobName = "job-with-schedule";
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+    const scheduleId = "schedule-id";
+    const cron = "0 0 4 * *";
+    const startingDeadline = 1;
+    const timezone = "UTC";
+
+    // Click 'Create a job'
+    // Note: The current group contains the previous job
+    cy.get(".button.button-primary-link.button-narrow").click();
+
+    // Wait for the 'New Job' dialog to appear
+    cy.get(".modal-header")
+      .contains("New Job")
+      .should("exist");
+
+    // Fill-in the input elements
+    cy.root()
+      .getFormGroupInputFor("Job ID *")
+      .type(`{selectall}${fullJobName}`);
+    cy.root()
+      .getFormGroupInputFor("Mem (MiB) *")
+      .type("{selectall}32");
+    cy.root()
+      .getFormGroupInputFor("Command *")
+      .type(cmdline);
+
+    cy.get(".menu-tabbed-item")
+      .contains("Schedule")
+      .click();
+
+    cy.root()
+      .get("label")
+      .contains("Enable schedule")
+      .click();
+
+    // Toggle Concurrency policy
+    cy.root()
+      .get("label")
+      .contains("Allow")
+      .click();
+
+    cy.root()
+      .getFormGroupInputFor("Schedule ID *")
+      .type(`{selectall}${scheduleId}`);
+
+    cy.root()
+      .getFormGroupInputFor("CRON Schedule *")
+      .type(`{selectall}${cron}`);
+
+    cy.root()
+      .getFormGroupInputFor("Time Zone")
+      .type(`{selectall}${timezone}`);
+
+    cy.root()
+      .getFormGroupInputFor("Starting Deadline")
+      .type(`{selectall}${startingDeadline}`);
+
+    // Check JSON mode
+    cy.contains("JSON Editor").click();
+
+    // Check contents of the JSON editor
+    cy.get("#brace-editor")
+      .contents()
+      .asJson()
+      .should("deep.equal", [
+        {
+          job: {
+            id: fullJobName,
+            description: "",
+            run: {
+              cpus: 1,
+              mem: 32,
+              disk: 0,
+              cmd: cmdline
+            }
+          },
+          schedule: {
+            enabled: true,
+            startingDeadlineSeconds: startingDeadline,
+            id: scheduleId,
+            timezone,
+            cron,
+            concurrentPolicy: "ALLOW"
+          }
+        }
+      ]);
+  });
 });

@@ -152,7 +152,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
 
     return (
       <div className="form-section">
-        <Trans render="h2" className="flush-top short-bottom">
+        <Trans render="h2" className="short-bottom">
           Job Type
         </Trans>
         <Trans render="p">
