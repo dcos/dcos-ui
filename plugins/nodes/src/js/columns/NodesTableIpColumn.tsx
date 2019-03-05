@@ -1,6 +1,6 @@
 import * as React from "react";
-import sort from "array-sort";
 import { Trans } from "@lingui/macro";
+import sort from "array-sort";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 import ipToInt from "ip-to-int";
@@ -12,7 +12,7 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Node from "#SRC/js/structs/Node";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
+import { SortDirection } from "#PLUGINS/nodes/src/js/types/SortDirection";
 
 export function ipRenderer(data: Node): React.ReactNode {
   const nodeID = data.get("id");

@@ -1,12 +1,18 @@
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { map, switchMap, share, startWith } from "rxjs/operators";
+import { combineLatest, timer } from "rxjs";
+import { componentFromStream } from "@dcos/data-service";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
+import Node from "#SRC/js/structs/Node";
+import Config from "#SRC/js/config/Config";
 
 import NodesTable from "../../../components/NodesTable";
+import { fetchNodesNetwork } from "../../../data/NodesNetworkClient";
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
@@ -36,25 +42,58 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   componentWillReceiveProps(nextProps) {
     const {
       location: { query },
-      hosts
+      hosts,
+      networks
     } = nextProps;
     const filters = {
       health: query.filterHealth || "all",
       name: query.searchString || "",
       service: query.filterService || null
     };
-    this.setFilters(hosts, filters);
+    this.setFilters(hosts, networks, filters);
   }
 
   getFilteredNodes(filters = this.state.filters) {
-    return CompositeState.getNodesList().filter(filters);
+    const { networks = [] } = this.props;
+
+    return new NodesList({
+      items: CompositeState.getNodesList()
+        .getItems()
+        .map(node => {
+          const hostname = node.getHostName();
+          const network = networks.find(
+            network => network.private_ip === hostname
+          );
+
+          if (network == null) {
+            return node;
+          }
+
+          return new Node({ ...node.toJSON(), network });
+        })
+    }).filter(filters);
   }
 
   // TODO: remove set Filters and only filter at the top level;
-  setFilters(nodes, newFilters, callback) {
+  setFilters(nodes, networks = [], newFilters, callback) {
     if (newFilters.service === "") {
       newFilters.service = null;
     }
+
+    nodes = new NodesList({
+      items: nodes.getItems().map(node => {
+        const hostname = node.getHostName();
+        const network = networks.find(
+          network => network.private_ip === hostname
+        );
+
+        if (network == null) {
+          return node;
+        }
+
+        return new Node({ ...node.toJSON(), network });
+      })
+    });
     const filters = Object.assign({}, this.state.filters, newFilters);
     const filteredNodes = nodes.filter(filters);
 
@@ -87,4 +126,18 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 }
 
-module.exports = NodesTableContainer;
+const pollingInterval$ = timer(0, Config.getRefreshRate());
+const nodes$ = pollingInterval$.pipe(
+  switchMap(() => fetchNodesNetwork()),
+  map(response => response.response),
+  startWith([]),
+  share()
+);
+
+module.exports = componentFromStream(props$ =>
+  combineLatest(props$, nodes$).pipe(
+    map(([props, networks]) => (
+      <NodesTableContainer {...props} networks={networks} />
+    ))
+  )
+);
