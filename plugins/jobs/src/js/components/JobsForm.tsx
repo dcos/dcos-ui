@@ -25,6 +25,7 @@ import {
 } from "./form/helpers/JobFormData";
 import GeneralFormSection from "./form/GeneralFormSection";
 import ContainerFormSection from "./form/ContainerFormSection";
+import ScheduleFormSection from "./form/ScheduleFormSection";
 import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
@@ -54,7 +55,8 @@ interface NavigationItem {
 class JobModalForm extends React.Component<JobFormProps> {
   static navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
-    { id: "container", key: "container", label: i18nMark("Container") }
+    { id: "container", key: "container", label: i18nMark("Container") },
+    { id: "schedule", key: "schedule", label: i18nMark("Schedule") }
   ];
 
   static tabList = JobModalForm.navigationItems.map(item => (
@@ -208,6 +210,18 @@ class JobModalForm extends React.Component<JobFormProps> {
                         showErrors={showAllErrors}
                         onAddItem={this.handleAddItem}
                         onRemoveItem={this.handleRemoveItem}
+                      />
+                    </TabView>
+                    <TabView id="schedule">
+                      <ErrorsAlert
+                        errors={errors}
+                        pathMapping={ServiceErrorPathMapping}
+                        hideTopLevelErrors={!showAllErrors}
+                      />
+                      <ScheduleFormSection
+                        formData={formOutput}
+                        errors={errors}
+                        showErrors={showAllErrors}
                       />
                     </TabView>
                   </TabViewList>

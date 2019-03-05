@@ -1,4 +1,8 @@
-import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import {
+  deepCopy,
+  findNestedPropertyInObject,
+  filterEmptyValues
+} from "#SRC/js/utils/Util";
 
 import {
   JobOutput,
@@ -7,6 +11,7 @@ import {
   Container,
   DockerParameter
 } from "./JobFormData";
+import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
 
 export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   const jobSpecCopy = deepCopy(jobSpec);
@@ -64,6 +69,21 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       }
     }
   }
+  if (
+    jobSpecCopy.schedule &&
+    jobSpecCopy.schedule.startingDeadlineSeconds === ""
+  ) {
+    delete jobSpecCopy.schedule.startingDeadlineSeconds;
+  }
+  if (jobSpecCopy.schedule) {
+    const filteredSchedule = filterEmptyValues(jobSpecCopy.schedule);
+    if (
+      !Object.keys(filteredSchedule).length ||
+      schedulePropertiesCanBeDiscarded(filteredSchedule)
+    ) {
+      jobSpecCopy.schedule = undefined;
+    }
+  }
   const jobOutput = {
     job: jobSpecCopy.job,
     schedule: jobSpecCopy.schedule
@@ -110,6 +130,35 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     mem: jobSpec.job.run.mem,
     disk: jobSpec.job.run.disk,
     dockerParams: dockerParameters,
-    args
+    args,
+    scheduleId: findNestedPropertyInObject(jobSpec, "schedule.id"),
+    cronSchedule: findNestedPropertyInObject(jobSpec, "schedule.cron"),
+    scheduleEnabled: findNestedPropertyInObject(jobSpec, "schedule.enabled"),
+    timezone: findNestedPropertyInObject(jobSpec, "schedule.timezone"),
+    startingDeadline: findNestedPropertyInObject(
+      jobSpec,
+      "schedule.startingDeadlineSeconds"
+    ),
+    concurrentPolicy: findNestedPropertyInObject(
+      jobSpec,
+      "schedule.concurrentPolicy"
+    )
+  };
+};
+
+export const removeBlankProperties = (jobSpec: JobOutput): JobOutput => {
+  const jobSpecCopy = deepCopy(jobSpec);
+  const job = filterEmptyValues(jobSpecCopy.job);
+  job.run = filterEmptyValues(job.run);
+  let schedule = jobSpecCopy.schedule;
+  if (schedule) {
+    const filteredSchedule = filterEmptyValues(jobSpecCopy.schedule);
+    schedule = Object.keys(filteredSchedule).length
+      ? filteredSchedule
+      : undefined;
+  }
+  return {
+    job,
+    schedule
   };
 };
