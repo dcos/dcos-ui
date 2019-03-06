@@ -389,5 +389,62 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       ];
     }
     return [];
+  },
+
+  noDuplicateArgs(formData: JobOutput) {
+    const args = formData.job.run && formData.job.run.args;
+    const errors: FormError[] = [];
+    const map: { [key: string]: number } = {};
+    const dupIndex: number[] = [];
+
+    if (args && Array.isArray(args)) {
+      args.forEach((arg, index) => {
+        if (!map.hasOwnProperty(arg)) {
+          map[arg] = index;
+          return;
+        }
+        if (dupIndex.length === 0) {
+          dupIndex.push(map[arg]);
+        }
+        dupIndex.push(index);
+      });
+
+      dupIndex.forEach(errorIndex => {
+        errors.push({
+          path: ["job", "run", "args", `${errorIndex}`],
+          message: i18nMark("No duplicate args.")
+        });
+      });
+    }
+    return errors;
+  },
+
+  noDuplicateParams(formData: JobOutput) {
+    const docker = formData.job.run && formData.job.run.docker;
+    const errors: FormError[] = [];
+    const map: { [key: string]: number } = {};
+    const dupIndex: number[] = [];
+
+    if (docker && docker.parameters && Array.isArray(docker.parameters)) {
+      docker.parameters.forEach((param, index) => {
+        const paramId = `${param.key}-${param.value}`;
+        if (!map.hasOwnProperty(paramId)) {
+          map[paramId] = index;
+          return;
+        }
+        if (dupIndex.length === 0) {
+          dupIndex.push(map[paramId]);
+        }
+        dupIndex.push(index);
+      });
+
+      dupIndex.forEach(errorIndex => {
+        errors.push({
+          path: ["job", "run", "docker", "parameters", `${errorIndex}`],
+          message: i18nMark("No duplicate parameters.")
+        });
+      });
+    }
+    return errors;
   }
 };
