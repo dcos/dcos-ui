@@ -1,4 +1,6 @@
+import Config from "#SRC/js/config/Config";
 import Item from "#SRC/js/structs/Item";
+import { getWebURL } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import HealthStatus from "../constants/HealthStatus";
 import ServiceImages from "../constants/ServiceImages";
@@ -86,7 +88,7 @@ module.exports = class Service extends Item {
   }
 
   getWebURL() {
-    return null;
+    return getWebURL(this.getLabels(), Config.rootUrl);
   }
 
   getVersion() {
