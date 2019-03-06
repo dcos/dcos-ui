@@ -264,7 +264,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     return [];
   },
 
-  parametersHaveKeyAndValue(formData: JobOutput) {
+  parametersHaveStringKeyAndValue(formData: JobOutput) {
     const docker = formData.job.run.docker;
     const errors: FormError[] = [];
     if (docker && docker.parameters) {
@@ -282,11 +282,21 @@ export const MetronomeSpecValidators: MetronomeValidators = {
             path: ["job", "run", "docker", "parameters", `${index}`, "key"],
             message: i18nMark("Key cannot be empty.")
           });
+        } else if (typeof parameter.key !== "string") {
+          errors.push({
+            path: ["job", "run", "docker", "parameters", `${index}`, "key"],
+            message: i18nMark("Key must be a string.")
+          });
         }
         if (!parameter.value) {
           errors.push({
             path: ["job", "run", "docker", "parameters", `${index}`, "value"],
             message: i18nMark("Value cannot be empty.")
+          });
+        } else if (typeof parameter.value !== "string") {
+          errors.push({
+            path: ["job", "run", "docker", "parameters", `${index}`, "value"],
+            message: i18nMark("Value must be a string.")
           });
         }
       });
@@ -336,6 +346,31 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       ];
     }
     return [];
+  },
+
+  argsAreStrings(formData: JobOutput) {
+    const args = formData.job.run.args;
+    const errors: FormError[] = [];
+
+    if (args) {
+      if (!Array.isArray(args)) {
+        return [
+          {
+            path: ["job", "run", "args"],
+            message: i18nMark("Args must be a string array.")
+          }
+        ];
+      }
+      args.forEach((arg, index) => {
+        if (!(typeof arg === "string")) {
+          errors.push({
+            path: ["job", "run", "args", `${index}`],
+            message: i18nMark("Arg must be a string")
+          });
+        }
+      });
+    }
+    return errors;
   },
 
   oneOfUcrOrDocker(formData: JobOutput) {
