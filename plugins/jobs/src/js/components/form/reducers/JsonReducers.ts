@@ -1,4 +1,4 @@
-import { deepCopy } from "#SRC/js/utils/Util";
+import { deepCopy, isObject } from "#SRC/js/utils/Util";
 
 import {
   JobSpec,
@@ -51,6 +51,10 @@ export const jsonReducers = {
       };
       return newState;
     }
+
+    valueCopy.job.labels = isObject(valueCopy.job.labels)
+      ? Object.entries(valueCopy.job.labels)
+      : valueCopy.job.labels;
 
     const cmdOnly = !(valueCopy.job.run.docker || valueCopy.job.run.ucr);
 

@@ -31,7 +31,7 @@ describe("MetronomeClient", () => {
 
   const job = {
     id: "testid",
-    labels: {},
+    labels: [] as any, // working around the difference of the label-representation in JobRun and GenericJobResponse.
     run: {
       cpus: 0.01,
       mem: 128,

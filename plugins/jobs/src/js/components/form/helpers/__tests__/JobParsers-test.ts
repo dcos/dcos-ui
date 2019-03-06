@@ -19,13 +19,10 @@ describe("JobParsers", () => {
         }
       };
 
-      const output = {
-        job: {
-          run: {}
-        }
-      };
-
-      expect(jobSpecToOutputParser(input as JobSpec)).toEqual(output);
+      const parsed = jobSpecToOutputParser(input as JobSpec);
+      expect(parsed.job.run.docker).toBe(undefined);
+      expect(parsed.job.run.ucr).toBe(undefined);
+      expect(parsed.job.run.gpus).toBe(undefined);
     });
 
     it("returns object with only container property indicated by `container` if cmdOnly false", () => {
@@ -40,15 +37,9 @@ describe("JobParsers", () => {
         }
       };
 
-      const output = {
-        job: {
-          run: {
-            docker: {}
-          }
-        }
-      };
-
-      expect(jobSpecToOutputParser(input as JobSpec)).toEqual(output);
+      const parsed = jobSpecToOutputParser(input as JobSpec);
+      expect(parsed.job.run.docker).toEqual({});
+      expect(parsed.job.run.ucr).toBe(undefined);
     });
 
     it("returns object with only docker and no gpus if `container` is docker and cmdOnly is false", () => {
@@ -64,15 +55,10 @@ describe("JobParsers", () => {
         }
       };
 
-      const output = {
-        job: {
-          run: {
-            docker: {}
-          }
-        }
-      };
-
-      expect(jobSpecToOutputParser(input as JobSpec)).toEqual(output);
+      const parsed = jobSpecToOutputParser(input as JobSpec);
+      expect(parsed.job.run.docker).toEqual({});
+      expect(parsed.job.run.ucr).toBe(undefined);
+      expect(parsed.job.run.gpus).toBe(undefined);
     });
   });
 
