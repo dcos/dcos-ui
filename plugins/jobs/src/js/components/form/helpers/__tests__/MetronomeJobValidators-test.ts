@@ -160,8 +160,27 @@ const UCRANDDOCKERERROR = [
   }
 ];
 
+const stringErrorMessage = "Must be a string.";
+const numberErrorMessage = "Must be a number.";
+const objectErrorMessage = "Must be an object.";
+const booleanErrorMessage = "Must be a boolean.";
+
 describe("MetronomeSpecValidators", () => {
   describe("#jobIdIsValid", () => {
+    it("returns error if id is not a string", () => {
+      const spec = {
+        job: {
+          id: 123
+        }
+      };
+      expect(MetronomeSpecValidators.jobIdIsValid(spec as any)).toEqual([
+        {
+          path: ["job", "id"],
+          message: stringErrorMessage
+        }
+      ]);
+    });
+
     it("returns error if id contains special characters", () => {
       const spec = {
         job: {
@@ -311,6 +330,42 @@ describe("MetronomeSpecValidators", () => {
       expect(
         MetronomeSpecValidators.mustContainImageOnDockerOrUCR(spec as JobOutput)
       ).toEqual(MUSTCONTAINIMAGEFORDOCKER);
+    });
+
+    it("returns an error if docker is present but is not an object", () => {
+      const spec = {
+        job: {
+          run: {
+            docker: "not an object"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.mustContainImageOnDockerOrUCR(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "docker"],
+          message: objectErrorMessage
+        }
+      ]);
+    });
+
+    it("returns an error if ucr is present but is not an object", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: "not an object"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.mustContainImageOnDockerOrUCR(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "ucr"],
+          message: objectErrorMessage
+        }
+      ]);
     });
 
     it("does not return error if runtime docker and image is specified", () => {
@@ -1058,6 +1113,299 @@ describe("MetronomeSpecValidators", () => {
       expect(
         MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
       ).toEqual(errors);
+    });
+  });
+
+  describe("#checkTypesOfJobRunProps", () => {
+    it("returns error if cmd is not a string", () => {
+      const spec = {
+        job: {
+          run: {
+            cmd: 123
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfJobRunProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "cmd"],
+          message: stringErrorMessage
+        }
+      ]);
+    });
+
+    it("returns error if cpus is not a number", () => {
+      const spec = {
+        job: {
+          run: {
+            cpus: "123"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfJobRunProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "cpus"],
+          message: numberErrorMessage
+        }
+      ]);
+    });
+
+    it("returns error if disk is not a number", () => {
+      const spec = {
+        job: {
+          run: {
+            disk: "123"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfJobRunProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "disk"],
+          message: numberErrorMessage
+        }
+      ]);
+    });
+
+    it("returns error if disk is not a number", () => {
+      const spec = {
+        job: {
+          run: {
+            disk: "123"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfJobRunProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "disk"],
+          message: numberErrorMessage
+        }
+      ]);
+    });
+
+    it("returns error if mem is not a number", () => {
+      const spec = {
+        job: {
+          run: {
+            mem: "123"
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfJobRunProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "mem"],
+          message: numberErrorMessage
+        }
+      ]);
+    });
+  });
+
+  describe("#checkTypesOfDockerProps", () => {
+    it("returns error if image is not a string", () => {
+      const spec = {
+        job: {
+          run: {
+            docker: {
+              image: 123
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfDockerProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "docker", "image"],
+          message: stringErrorMessage
+        }
+      ]);
+    });
+
+    it("returns error if forcePullImage is not a boolean", () => {
+      const spec = {
+        job: {
+          run: {
+            docker: {
+              forcePullImage: 123
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfDockerProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "docker", "forcePullImage"],
+          message: booleanErrorMessage
+        }
+      ]);
+    });
+
+    it("returns error if privileged is not a boolean", () => {
+      const spec = {
+        job: {
+          run: {
+            docker: {
+              privileged: "123"
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.checkTypesOfDockerProps(spec as any)
+      ).toEqual([
+        {
+          path: ["job", "run", "docker", "privileged"],
+          message: booleanErrorMessage
+        }
+      ]);
+    });
+  });
+
+  describe("#checkTypesOfUcrProps", () => {
+    it("does not return error if ucr properties have correc type", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: {
+              image: {
+                id: "image",
+                kind: "docker",
+                forcePull: true
+              },
+              privileged: false
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if no ucr", () => {
+      const spec = {
+        job: {
+          run: {}
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("returns error if image is not an object", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: {
+              image: 123
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        [
+          {
+            path: ["job", "run", "ucr", "image"],
+            message: objectErrorMessage
+          }
+        ]
+      );
+    });
+
+    it("returns error if privileged is not a boolean", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: {
+              privileged: 123
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        [
+          {
+            path: ["job", "run", "ucr", "privileged"],
+            message: booleanErrorMessage
+          }
+        ]
+      );
+    });
+
+    it("returns error if id is not a string", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: {
+              image: {
+                id: 123
+              }
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        [
+          {
+            path: ["job", "run", "ucr", "image", "id"],
+            message: stringErrorMessage
+          }
+        ]
+      );
+    });
+
+    it("returns error if kind is not `docker` or `appc`", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: {
+              image: {
+                kind: 123
+              }
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        [
+          {
+            path: ["job", "run", "ucr", "image", "kind"],
+            message: "Image kind must be one of `docker` or `appc`."
+          }
+        ]
+      );
+    });
+
+    it("returns error if forcePull is not a boolean", () => {
+      const spec = {
+        job: {
+          run: {
+            ucr: {
+              image: {
+                forcePull: 123
+              }
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
+        [
+          {
+            path: ["job", "run", "ucr", "image", "forcePull"],
+            message: booleanErrorMessage
+          }
+        ]
+      );
     });
   });
 });
