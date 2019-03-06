@@ -628,7 +628,7 @@ describe("MetronomeSpecValidators", () => {
     });
   });
 
-  describe("#parametersHaveKeyAndValue", () => {
+  describe("#parametersHaveStringKeyAndValue", () => {
     it("does not return error if parameters have both key and value", () => {
       const spec = {
         job: {
@@ -646,7 +646,9 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+        MetronomeSpecValidators.parametersHaveStringKeyAndValue(
+          spec as JobOutput
+        )
       ).toEqual([]);
     });
 
@@ -658,7 +660,9 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+        MetronomeSpecValidators.parametersHaveStringKeyAndValue(
+          spec as JobOutput
+        )
       ).toEqual([]);
     });
 
@@ -674,7 +678,7 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as any)
+        MetronomeSpecValidators.parametersHaveStringKeyAndValue(spec as any)
       ).toEqual([]);
     });
 
@@ -695,7 +699,9 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+        MetronomeSpecValidators.parametersHaveStringKeyAndValue(
+          spec as JobOutput
+        )
       ).toEqual(PARAMEMPTYKEYERROR);
     });
 
@@ -716,7 +722,9 @@ describe("MetronomeSpecValidators", () => {
         }
       };
       expect(
-        MetronomeSpecValidators.parametersHaveKeyAndValue(spec as JobOutput)
+        MetronomeSpecValidators.parametersHaveStringKeyAndValue(
+          spec as JobOutput
+        )
       ).toEqual(PARAMEMPTYVALUEERROR);
     });
   });
