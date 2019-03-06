@@ -1,8 +1,15 @@
-export interface JobFormData {
+export interface JobNoLabels {
   id: string;
   description?: string;
-  labels?: JobLabels;
   run: JobRun;
+}
+
+export interface JobFormData extends JobNoLabels {
+  labels?: ArrayLabels;
+}
+
+export interface JobOutputData extends JobNoLabels {
+  labels?: JobLabels;
 }
 
 export enum ConcurrentPolicy {
@@ -52,13 +59,24 @@ export interface FormOutput {
   timezone?: string;
   startingDeadline?: number;
   concurrencyPolicy?: ConcurrentPolicy;
+  maxLaunchDelay?: number;
+  killGracePeriod?: number;
+  user?: string;
+  restartPolicy?: RestartPolicy;
+  retryTime?: number;
+  labels?: ArrayLabels;
+  artifacts?: JobArtifact[];
 }
 
 export interface JobOutput {
-  job: JobFormData;
+  job: JobOutputData;
   schedule?: JobSchedule;
 }
 
+// Labels used internally to track form state
+export type ArrayLabels = Array<[string, string]>;
+
+// Labels in the form expected by the API
 export interface JobLabels {
   [key: string]: string;
 }
@@ -79,6 +97,7 @@ export interface JobRun {
   user?: string;
   taskKillGracePeriodSeconds?: number;
   restart?: JobRestart;
+  activeDeadlineSeconds?: number;
   volumes?: Array<JobVolume | SecretVolume>;
   secrets?: {
     [key: string]: FileBasedSecret;
@@ -182,6 +201,7 @@ export interface FormError {
 export enum JobFormActionType {
   Set = "SET",
   SetNum = "SET_NUM",
+  SetBool = "SET_BOOL",
   Override = "OVERRIDE",
   AddArrayItem = "ADD_ARRAY_ITEM",
   RemoveArrayItem = "REMOVE_ARRAY_ITEM"
