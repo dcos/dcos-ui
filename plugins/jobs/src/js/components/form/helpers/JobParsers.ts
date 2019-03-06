@@ -5,11 +5,11 @@ import {
 } from "#SRC/js/utils/Util";
 
 import {
-  JobOutput,
-  JobSpec,
-  FormOutput,
   Container,
-  DockerParameter
+  DockerParameter,
+  FormOutput,
+  JobOutput,
+  JobSpec
 } from "./JobFormData";
 import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
 
@@ -68,7 +68,25 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
         }
       }
     }
+
+    // RUN CONFIG
+    const { artifacts } = jobSpecCopy.job.run;
+    jobSpecCopy.job.run.artifacts = Array.isArray(artifacts)
+      ? artifacts.filter(a => a.uri || a.extract || a.executable || a.cache)
+      : artifacts;
+
+    try {
+      const labels = (jobSpec.job.labels || []).reduce<Record<string, string>>(
+        (acc, [k, v]) => ({ ...acc, [k]: v }),
+        {}
+      );
+
+      // don't show labels in JSON-editor unless we actually have key-value-pairs
+      jobSpecCopy.job.labels =
+        Object.keys(labels).length > 0 ? labels : undefined;
+    } catch {}
   }
+
   if (
     jobSpecCopy.schedule &&
     jobSpecCopy.schedule.startingDeadlineSeconds === ""
@@ -84,6 +102,7 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       jobSpecCopy.schedule = undefined;
     }
   }
+
   const jobOutput = {
     job: jobSpecCopy.job,
     schedule: jobSpecCopy.schedule
@@ -94,20 +113,19 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
 
 export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   const container = jobSpec.container;
+  const run = jobSpec.job.run;
+
   const containerImage =
     container === Container.UCR
       ? findNestedPropertyInObject(jobSpec, "job.run.ucr.image.id")
       : findNestedPropertyInObject(jobSpec, "job.run.docker.image");
   const dockerParameters =
-    jobSpec.job.run.docker &&
-    Array.isArray(jobSpec.job.run.docker.parameters) &&
-    jobSpec.job.run.docker.parameters.length > 0
-      ? jobSpec.job.run.docker.parameters
+    run.docker &&
+    Array.isArray(run.docker.parameters) &&
+    run.docker.parameters.length > 0
+      ? run.docker.parameters
       : [];
-  const args =
-    Array.isArray(jobSpec.job.run.args) && jobSpec.job.run.args.length > 0
-      ? jobSpec.job.run.args
-      : [];
+  const args = Array.isArray(run.args) && run.args.length > 0 ? run.args : [];
   const imageForcePull =
     container === Container.UCR
       ? findNestedPropertyInObject(jobSpec, "job.run.ucr.image.forcePull")
@@ -121,15 +139,22 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     description: jobSpec.job.description,
     cmdOnly: jobSpec.cmdOnly,
     container,
-    cmd: jobSpec.job.run.cmd,
+    cmd: run.cmd,
     containerImage,
     imageForcePull,
     grantRuntimePrivileges,
-    cpus: jobSpec.job.run.cpus,
-    gpus: jobSpec.job.run.gpus,
-    mem: jobSpec.job.run.mem,
-    disk: jobSpec.job.run.disk,
+    cpus: run.cpus,
+    gpus: run.gpus,
+    mem: run.mem,
+    disk: run.disk,
     dockerParams: dockerParameters,
+    maxLaunchDelay: run.maxLaunchDelay,
+    killGracePeriod: run.taskKillGracePeriodSeconds,
+    user: run.user,
+    restartPolicy: findNestedPropertyInObject(run, "restart.policy"),
+    retryTime: findNestedPropertyInObject(run, "restart.activeDeadlineSeconds"),
+    labels: jobSpec.job.labels,
+    artifacts: run.artifacts,
     args,
     scheduleId: findNestedPropertyInObject(jobSpec, "schedule.id"),
     cronSchedule: findNestedPropertyInObject(jobSpec, "schedule.cron"),

@@ -212,6 +212,32 @@ describe("Job JSON Editor", function() {
       .contains("Force Pull Image On Launch")
       .click();
 
+    cy.get(".menu-tabbed-item")
+      .contains("Run Config")
+      .click();
+
+    cy.root()
+      .getFormGroupInputFor("Max Launch Delay")
+      .type("{selectall}1");
+
+    cy.root()
+      .getFormGroupInputFor("Kill Grace Period")
+      .type("{selectall}2");
+
+    cy.root()
+      .getFormGroupInputFor("Username")
+      .type("{selectall}user1");
+
+    // Add Artifact
+
+    // Restart Job
+
+    cy.root()
+      .getFormGroupInputFor("Retry Time")
+      .type("{selectall}3");
+
+    // Add labels
+
     // Check JSON mode
     cy.contains("JSON Editor").click();
 
@@ -236,6 +262,13 @@ describe("Job JSON Editor", function() {
                   kind: "docker",
                   forcePull: true
                 }
+              },
+              maxLaunchDelay: 1,
+              taskKillGracePeriodSeconds: 2,
+              user: "user1",
+              restart: {
+                policy: "NEVER",
+                activeDeadlineSeconds: 3
               }
             }
           }
