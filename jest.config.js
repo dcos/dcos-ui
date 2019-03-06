@@ -62,6 +62,8 @@ module.exports = {
   moduleNameMapper: {
     "@extension-kid/notification-service":
       "<rootDir>/packages/@extension-kid/notification-service",
+    "@extension-kid/toast-notifications":
+      "<rootDir>/packages/@extension-kid/toast-notifications",
     "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
     "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
     "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"

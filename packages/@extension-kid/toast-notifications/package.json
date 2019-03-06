@@ -1,0 +1,20 @@
+{
+  "name": "@extension-kid/toast-notifications",
+  "main": "index.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@extension-kid/core": "^0.2.4",
+    "@extension-kid/notification-service": "^0.1.0",
+    "inversify": "4.13.0",
+    "rxjs": "^6.3.0",
+    "react": "^16.8.2"
+  },
+  "devDependencies": {},
+  "jest-webpack-alias": {}
+}
