@@ -914,4 +914,150 @@ describe("MetronomeSpecValidators", () => {
       ).toEqual(UCRANDDOCKERERROR);
     });
   });
+
+  describe("#noDuplicateParams", () => {
+    it("does not return error if there are no params", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {}
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if there is one param", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: [{ key: "key", value: "value" }]
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if there are no duplicate params", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: [
+                { key: "key", value: "value" },
+                { key: "key2", value: "value" }
+              ]
+            }
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns an error if there are duplicate params", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            docker: {
+              parameters: [
+                { key: "key", value: "value" },
+                { key: "key", value: "value" }
+              ]
+            }
+          }
+        }
+      };
+      const errors = [
+        {
+          path: ["job", "run", "docker", "parameters", "0"],
+          message: "No duplicate parameters."
+        },
+        {
+          path: ["job", "run", "docker", "parameters", "1"],
+          message: "No duplicate parameters."
+        }
+      ];
+      expect(
+        MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
+      ).toEqual(errors);
+    });
+  });
+
+  describe("#noDuplicateArgs", () => {
+    it("does not return error if there are no args", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {}
+        }
+      };
+      expect(
+        MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if there is one param", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: ["arg"]
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("does not return error if there are no duplicate params", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: ["arg1", "arg2"]
+          }
+        }
+      };
+      expect(
+        MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
+      ).toEqual([]);
+    });
+
+    it("returns an error if there are duplicate params", () => {
+      const spec = {
+        job: {
+          id: "id",
+          run: {
+            args: ["arg", "arg"]
+          }
+        }
+      };
+      const errors = [
+        {
+          path: ["job", "run", "args", "0"],
+          message: "No duplicate args."
+        },
+        {
+          path: ["job", "run", "args", "1"],
+          message: "No duplicate args."
+        }
+      ];
+      expect(
+        MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
+      ).toEqual(errors);
+    });
+  });
 });

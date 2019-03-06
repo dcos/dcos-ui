@@ -69,13 +69,17 @@ class ParametersSection extends React.Component<
         `job.run.docker.parameters.${index}.value`,
         errors
       );
+      const generalParamError = getFieldError(
+        `job.run.docker.parameters.${index}`,
+        errors
+      );
 
       return (
         <FormRow key={index}>
           <FormGroup
             className="column-6"
             required={false}
-            showError={Boolean(showErrors && keyErrors)}
+            showError={Boolean(showErrors && (keyErrors || generalParamError))}
           >
             {nameLabel}
             <FieldAutofocus>
@@ -91,7 +95,9 @@ class ParametersSection extends React.Component<
           <FormGroup
             className="column-6"
             required={false}
-            showError={Boolean(showErrors && valueErrors)}
+            showError={Boolean(
+              showErrors && (valueErrors || generalParamError)
+            )}
           >
             {valueLabel}
             <FieldInput
