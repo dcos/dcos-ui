@@ -220,7 +220,6 @@ class ServicesTable extends React.Component {
   hasWebUI(service) {
     return (
       service instanceof Service &&
-      !isSDKService(service) &&
       service.getWebURL() != null &&
       service.getWebURL() !== ""
     );

@@ -115,6 +115,41 @@ const ServiceUtil = {
       typeof service.getLabels === "function" &&
       service.getLabels().DCOS_COMMONS_API_VERSION != null
     );
+  },
+
+  /**
+   * this function generates webui url from given labels.
+   *
+   * - DCOS_SERVICE_WEB_PATH is a newly introduced label which
+   *   contains a url part starting with `/`
+   * - DCOS_SERVICE_PORT_INDEX & DCOS_SERVICE_SCHEME are legacy
+   *   labels used to detect if service has webui
+   * - legacy labels were disabled for SDK Packages (detected via
+   *   DCOS_COMMONS_API_VERSION label)
+   *
+   * @param {object} labels object from service
+   * @param {string} rootUrl from config
+   * @returns {string} url or empty string
+   */
+  getWebURL(labels, rootUrl) {
+    const {
+      DCOS_COMMONS_API_VERSION: apiVersion,
+      DCOS_SERVICE_NAME: name,
+      DCOS_SERVICE_PORT_INDEX: portIndex,
+      DCOS_SERVICE_SCHEME: scheme,
+      DCOS_SERVICE_WEB_PATH: webPath = ""
+    } = labels;
+    const serviceName = encodeURIComponent(name);
+    const hasNewWebUiLabel = serviceName && webPath;
+    const hasOldWebUiLabel = serviceName && portIndex && scheme && !apiVersion;
+
+    if (!hasNewWebUiLabel && !hasOldWebUiLabel) {
+      return "";
+    }
+
+    return `${rootUrl}/service/${serviceName}/${
+      webPath.startsWith("/") ? webPath.substring(1) : webPath
+    }`;
   }
 };
 

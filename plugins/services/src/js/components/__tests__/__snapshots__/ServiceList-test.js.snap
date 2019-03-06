@@ -15,7 +15,7 @@ exports[`ServiceList #getServices returns services that have a value of two elem
       >
         <a
           className="dashboard-health-list-item-cell emphasis"
-          href={null}
+          href=""
           onClick={[Function]}
         >
           

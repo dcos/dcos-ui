@@ -99,4 +99,58 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.getServiceIDFromTaskID()).toEqual("");
     });
   });
+
+  describe("getWebURL", () => {
+    it("returns empty string if no labels are provided", function() {
+      const labels = {};
+      expect(ServiceUtil.getWebURL(labels, "")).toEqual("");
+    });
+    it("works as expected for all known labels (sdk package with new webui label)", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https",
+        DCOS_COMMONS_API_VERSION: "notnull",
+        DCOS_SERVICE_WEB_PATH: "/baz"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual(
+        "foo/service/bar/baz"
+      );
+    });
+    it("returns empty string if service name isn set", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https",
+        DCOS_COMMONS_API_VERSION: "notnull",
+        DCOS_SERVICE_WEB_PATH: "/baz"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
+    });
+    it("returns empty string for sdk package not having new label", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https",
+        DCOS_COMMONS_API_VERSION: "notnull"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
+    });
+    it("returns url for non-sdk package", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("foo/service/bar/");
+    });
+    it("returns empty string for non-sdk package lacking label", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        // DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
+    });
+  });
 });
