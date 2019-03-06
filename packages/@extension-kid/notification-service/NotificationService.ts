@@ -22,6 +22,9 @@ class NotificationService {
     extensionProvider: ExtensionProvider<NotificationServiceExtensionInterface>
   ) {
     this._extensionProvider = extensionProvider;
+
+    this.push = this.push.bind(this);
+    this.findExtension = this.findExtension.bind(this);
   }
 
   push(notification: Notification): void {
@@ -33,6 +36,15 @@ class NotificationService {
       .forEach(extension => {
         extension.push(notification);
       });
+  }
+
+  findExtension(
+    extensionId: symbol
+  ): NotificationServiceExtensionInterface | undefined {
+    const exts = this._extensionProvider.getAllExtensions();
+    return exts.find(ext => {
+      return ext.id === extensionId;
+    });
   }
 }
 

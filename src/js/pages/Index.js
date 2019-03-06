@@ -18,6 +18,7 @@ import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
+import Toasts from "../components/Toasts";
 import UserLanguageStore from "../stores/UserLanguageStore";
 import { hasViewportChanged, getCurrentViewport } from "../utils/ViewportUtil";
 import * as viewport from "../constants/Viewports";
@@ -220,6 +221,7 @@ var Index = createReactClass({
             modalErrorMsg={this.state.modalErrorMsg}
           />
           <ServerErrorModal />
+          <Toasts />
         </div>
       </div>
     );

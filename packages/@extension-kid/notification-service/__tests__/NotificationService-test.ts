@@ -51,27 +51,47 @@ describe("NotificationService", () => {
     ns.push(new Notification(DebugNotification, "This is a test"));
   });
 
-  it("sends typed notification to extension", () => {
-    container.load(getExtensionModule(DebugNotificationExtension));
-    const logSpy = jest.spyOn(console, "log");
+  describe("#push", () => {
+    it("sends typed notification to extension", () => {
+      container.load(getExtensionModule(DebugNotificationExtension));
+      const logSpy = jest.spyOn(console, "log");
 
-    const ns = container.get<NotificationService>(NotificationServiceType);
+      const ns = container.get<NotificationService>(NotificationServiceType);
 
-    ns.push(new Notification(DebugNotification, "This is another test"));
+      ns.push(new Notification(DebugNotification, "This is another test"));
 
-    expect(logSpy).toHaveBeenCalledTimes(1);
-    logSpy.mockRestore();
+      expect(logSpy).toHaveBeenCalledTimes(1);
+      logSpy.mockRestore();
+    });
+
+    it("filters extensions based on type", () => {
+      container.load(getExtensionModule(DebugNotificationExtension));
+      const logSpy = jest.spyOn(console, "log");
+
+      const ns = container.get<NotificationService>(NotificationServiceType);
+
+      ns.push(new Notification(Symbol("Other_Type"), "This is another test"));
+
+      expect(logSpy).not.toHaveBeenCalled();
+      logSpy.mockRestore();
+    });
   });
 
-  it("filters extensions based on type", () => {
-    container.load(getExtensionModule(DebugNotificationExtension));
-    const logSpy = jest.spyOn(console, "log");
+  describe("#findExtension", () => {
+    it("can find extension", () => {
+      container.load(getExtensionModule(DebugNotificationExtension));
 
-    const ns = container.get<NotificationService>(NotificationServiceType);
+      const ns = container.get<NotificationService>(NotificationServiceType);
+      const ext = ns.findExtension(DebugSymbol);
 
-    ns.push(new Notification(Symbol("Other_Type"), "This is another test"));
+      expect(ext).not.toBeUndefined();
+    });
 
-    expect(logSpy).not.toHaveBeenCalled();
-    logSpy.mockRestore();
+    it("returns undefined if extension isn't loaded", () => {
+      const ns = container.get<NotificationService>(NotificationServiceType);
+      const ext = ns.findExtension(DebugSymbol);
+
+      expect(ext).toBeUndefined();
+    });
   });
 });

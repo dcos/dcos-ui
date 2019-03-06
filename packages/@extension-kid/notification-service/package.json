@@ -11,7 +11,8 @@
     "md5": "2.1.0"
   },
   "peerDependencies": {
-    "@extension-kid/core": "0.2.4"
+    "@extension-kid/core": "0.2.4",
+    "inversify": "4.13.0"
   },
   "devDependencies": {
     "@types/md5": "2.1.33"

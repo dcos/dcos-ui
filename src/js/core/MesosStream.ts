@@ -1,3 +1,4 @@
+// @ts-ignore
 import { stream } from "@dcos/mesos-client";
 import { timer } from "rxjs";
 import { repeatWhen } from "rxjs/operators";
