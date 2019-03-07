@@ -93,11 +93,9 @@ describe("ToasterExtension", () => {
       const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
-      const notification01 = new ToastNotification(
-        "unit test one",
-        undefined,
-        notificationCallback
-      );
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
       ext.push(notification01);
       ext.dismissToast(notification01.id);
       expect(notificationCallback).toHaveBeenCalledTimes(1);
@@ -111,11 +109,9 @@ describe("ToasterExtension", () => {
       const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
-      const notification01 = new ToastNotification(
-        "unit test one",
-        undefined,
-        notificationCallback
-      );
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
       ext.push(notification01);
       ext.dismissToast(notification01.id);
       expect(notificationCallback).toHaveBeenCalled();
@@ -140,11 +136,9 @@ describe("ToasterExtension", () => {
       const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
-      const notification01 = new ToastNotification(
-        "unit test one",
-        undefined,
-        notificationCallback
-      );
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
       ext.push(notification01);
       ext.toastPrimaryAction(notification01.id);
       expect(notificationCallback).toHaveBeenCalled();
@@ -173,11 +167,9 @@ describe("ToasterExtension", () => {
       const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
-      const notification01 = new ToastNotification(
-        "unit test one",
-        undefined,
-        notificationCallback
-      );
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
       ext.push(notification01);
       ext.toastSecondaryAction(notification01.id);
       expect(notificationCallback).toHaveBeenCalled();
