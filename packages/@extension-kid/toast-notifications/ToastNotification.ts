@@ -1,6 +1,6 @@
 import { Notification } from "@extension-kid/notification-service";
 
-const enum ToastAppearance {
+enum ToastAppearance {
   Default = "default",
   Success = "success",
   Warning = "warning",
