@@ -20,29 +20,16 @@ interface ToastContainerProps {
   secondaryActionClassName?: string;
 }
 
-function makeToasts(
-  toasts: ToastNotification[],
-  extension: ToastExtension,
-  primaryActionClassName: string | undefined,
-  secondaryActionClassName: string | undefined
-) {
-  return toasts.map(tn =>
-    makeToast(tn, extension, primaryActionClassName, secondaryActionClassName)
-  );
-}
-
 function makeToastContainer(
   container: Container
 ): React.ComponentType<ToastContainerProps> {
   return componentFromStream<ToastContainerProps>(props$ => {
     const ns = container.get<NotificationService>(NotificationServiceType);
     const extension = ns.findExtension(ToastNotification.NotificationType);
-    const toastExtension =
-      extension !== undefined ? (extension as ToastExtension) : undefined;
-
-    if (!toastExtension) {
+    if (!extension) {
       return of(<div />);
     }
+    const toastExtension = extension as ToastExtension;
     return combineLatest<[ToastContainerProps, ToastNotification[]]>([
       props$,
       toastExtension.Toast$
@@ -51,14 +38,14 @@ function makeToastContainer(
         return (
           <div className={props.className}>
             <Toaster>
-              {toasts.length > 0
-                ? makeToasts(
-                    toasts,
-                    toastExtension,
-                    props.primaryActionClassName,
-                    props.secondaryActionClassName
-                  )
-                : []}
+              {toasts.map(toast =>
+                makeToast(
+                  toast,
+                  toastExtension,
+                  props.primaryActionClassName,
+                  props.secondaryActionClassName
+                )
+              )}
             </Toaster>
           </div>
         );
