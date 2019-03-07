@@ -2,10 +2,16 @@ import ToasterExtension from "../ToastExtension";
 import { ToastCallbackType, ToastNotification } from "../ToastNotification";
 
 describe("ToasterExtension", () => {
+  let ext: ToasterExtension, toast$NextCallback: jest.Mock;
+  beforeEach(() => {
+    ext = new ToasterExtension();
+    toast$NextCallback = jest.fn();
+    ext.Toast$.subscribe(toast$NextCallback);
+    jest.resetAllMocks();
+  });
+
   describe("#supportedNotifications", () => {
     it("returns toast symbol", () => {
-      const ext = new ToasterExtension();
-
       expect(ext.supportedNotifications()).toEqual([
         ToastNotification.NotificationType
       ]);
@@ -14,46 +20,34 @@ describe("ToasterExtension", () => {
 
   describe("#push", () => {
     it("updates stream when new notification is pushed", () => {
-      const ext = new ToasterExtension();
       const notification = new ToastNotification("unit test");
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
 
       ext.push(notification);
 
-      expect(nextCallback).toHaveBeenCalledTimes(2);
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
     });
 
     it("new toasts are added to observable's list", () => {
-      const ext = new ToasterExtension();
       const notification = new ToastNotification("unit test");
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
-
-      nextCallback.mockReset();
       ext.push(notification);
 
-      expect(nextCallback).toHaveBeenCalledTimes(1);
-      expect(nextCallback).toHaveBeenCalledWith([notification]);
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
+      expect(toast$NextCallback).toHaveBeenCalledWith([notification]);
     });
 
     it("can received multiple toasts", () => {
-      const ext = new ToasterExtension();
       const notification01 = new ToastNotification("unit test one");
       const notification02 = new ToastNotification("unit test two");
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
-      nextCallback.mockReset();
 
       ext.push(notification01);
 
-      expect(nextCallback).toHaveBeenCalledTimes(1);
-      expect(nextCallback).toHaveBeenCalledWith([notification01]);
-      nextCallback.mockReset();
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
+      expect(toast$NextCallback).toHaveBeenCalledWith([notification01]);
+      toast$NextCallback.mockReset();
 
       ext.push(notification02);
-      expect(nextCallback).toHaveBeenCalledTimes(1);
-      expect(nextCallback).toHaveBeenCalledWith([
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
+      expect(toast$NextCallback).toHaveBeenCalledWith([
         notification01,
         notification02
       ]);
@@ -62,35 +56,29 @@ describe("ToasterExtension", () => {
 
   describe("#dismissToast", () => {
     it("removes notifications when dismissed", () => {
-      const ext = new ToasterExtension();
       const notification01 = new ToastNotification("unit test one");
       const notification02 = new ToastNotification("unit test two");
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
-      nextCallback.mockReset();
+      const notification03 = new ToastNotification("unit test three");
 
       ext.push(notification01);
       ext.push(notification02);
-      nextCallback.mockReset();
+      ext.push(notification03);
+      toast$NextCallback.mockReset();
 
-      ext.dismissToast(notification01.id);
-      expect(nextCallback).toHaveBeenCalledTimes(1);
-      expect(nextCallback).toHaveBeenCalledWith([notification02]);
+      ext.dismissToast(notification02.id);
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
+      expect(toast$NextCallback).toHaveBeenCalledWith([
+        notification01,
+        notification03
+      ]);
     });
 
     it("doesn't emit if notification not found", () => {
-      const ext = new ToasterExtension();
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
-      expect(nextCallback).toHaveBeenCalledWith([]);
-      nextCallback.mockReset();
-
       ext.dismissToast("I.dont.exist");
-      expect(nextCallback).not.toHaveBeenCalled();
+      expect(toast$NextCallback).not.toHaveBeenCalled();
     });
 
     it("invokes notification callback when dismissed", () => {
-      const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
@@ -106,7 +94,6 @@ describe("ToasterExtension", () => {
     });
 
     it("invokes notification callback when dismissed", () => {
-      const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
@@ -116,24 +103,31 @@ describe("ToasterExtension", () => {
       ext.dismissToast(notification01.id);
       expect(notificationCallback).toHaveBeenCalled();
     });
+
+    it("swallows errors from callback", () => {
+      const notificationCallback = () => {
+        throw new Error("Boom!");
+      };
+
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
+      ext.push(notification01);
+      expect(ext.dismissToast.bind(ext, notification01.id)).not.toThrow();
+    });
   });
 
   describe("#toastPrimaryAction", () => {
     it("removes notification action executed", () => {
-      const ext = new ToasterExtension();
       const notification01 = new ToastNotification("unit test one");
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
       ext.push(notification01);
-      nextCallback.mockReset();
-      expect(ext.Toast$.getValue()).toEqual([notification01]);
+      toast$NextCallback.mockReset();
 
       ext.toastPrimaryAction(notification01.id);
-      expect(nextCallback).toHaveBeenCalledTimes(1);
-      expect(nextCallback).toHaveBeenCalledWith([]);
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
+      expect(toast$NextCallback).toHaveBeenCalledWith([]);
     });
     it("invokes notification callback when dismissed", () => {
-      const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
@@ -147,24 +141,30 @@ describe("ToasterExtension", () => {
         notification01
       );
     });
+    it("swallows errors from callback", () => {
+      const notificationCallback = () => {
+        throw new Error("Boom!");
+      };
+
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
+      ext.push(notification01);
+      expect(ext.toastPrimaryAction.bind(ext, notification01.id)).not.toThrow();
+    });
   });
 
   describe("#toastSecondaryAction", () => {
     it("removes notification action executed", () => {
-      const ext = new ToasterExtension();
       const notification01 = new ToastNotification("unit test one");
-      const nextCallback = jest.fn();
-      ext.Toast$.subscribe(nextCallback);
       ext.push(notification01);
-      nextCallback.mockReset();
-      expect(ext.Toast$.getValue()).toEqual([notification01]);
+      toast$NextCallback.mockReset();
 
       ext.toastSecondaryAction(notification01.id);
-      expect(nextCallback).toHaveBeenCalledTimes(1);
-      expect(nextCallback).toHaveBeenCalledWith([]);
+      expect(toast$NextCallback).toHaveBeenCalledTimes(1);
+      expect(toast$NextCallback).toHaveBeenCalledWith([]);
     });
     it("invokes notification callback when dismissed", () => {
-      const ext = new ToasterExtension();
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
@@ -177,6 +177,19 @@ describe("ToasterExtension", () => {
         ToastCallbackType.Secondary,
         notification01
       );
+    });
+    it("swallows errors from callback", () => {
+      const notificationCallback = () => {
+        throw new Error("Boom!");
+      };
+
+      const notification01 = new ToastNotification("unit test one", {
+        callback: notificationCallback
+      });
+      ext.push(notification01);
+      expect(
+        ext.toastSecondaryAction.bind(ext, notification01.id)
+      ).not.toThrow();
     });
   });
 });
