@@ -6,7 +6,8 @@ import {
   ToastAppearance,
   ToastCallback,
   ToastCallbackType,
-  ToastNotification
+  ToastNotification,
+  ToastNotificationOptions
 } from "./ToastNotification";
 
 function makeToastContainer(
@@ -21,5 +22,6 @@ export {
   ToastCallback,
   ToastCallbackType,
   ToastContainerProps,
-  ToastNotification
+  ToastNotification,
+  ToastNotificationOptions
 };
