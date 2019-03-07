@@ -12,7 +12,7 @@ import {
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 import Util from "#SRC/js/utils/Util";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 const METHODS_TO_BIND = ["getHashMapRenderKeys", "getFrameworkSections"];

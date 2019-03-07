@@ -3,7 +3,7 @@ import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a multiline value as a <ConfigurationMapValue>, within the

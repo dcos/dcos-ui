@@ -4,7 +4,7 @@ import React from "react";
 import ActionKeys from "../../constants/ActionKeys";
 import ServiceTree from "../../structs/ServiceTree";
 
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceDestroyModal from "./ServiceDestroyModal";
 import ServiceGroupFormModal from "./ServiceGroupFormModal";
 import ServiceRestartModal from "./ServiceRestartModal";

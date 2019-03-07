@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const EmptyStates = require("#SRC/js/constants/EmptyStates");
+const { EmptyStates } = require("#SRC/js/constants/EmptyStates");
 const ConfigurationMapTable = require("../ConfigurationMapTable");
 
 function mapValuesOfType(instance, type) {

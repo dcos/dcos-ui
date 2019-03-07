@@ -2,10 +2,17 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
 describe("Service Table", function() {
   function openDropdown(serviceName) {
-    cy.get(".service-table")
-      .contains(serviceName)
-      .closest("tr")
-      .find(".service-table-column-actions")
+    cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
+    cy.get(".form-control-group-add-on")
+      .eq(-1)
+      .click(); // close filter window
+    cy.wait(2000); // wait for data to load
+    cy.get(".ReactVirtualized__Grid")
+      .eq(-1) // bottom right grid
+      .scrollTo("right"); // scroll to the actions column
+    cy.get(".dropdown").should("not.to.have.length", 1);
+    cy.get(".dropdown")
+      .eq(1)
       .click();
   }
 
@@ -343,9 +350,13 @@ describe("Service Table", function() {
       });
 
       it("does contain the right region", function() {
-        cy.get(".service-table")
-          .contains("sleep")
-          .closest("tr")
+        cy.get(".filter-input-text").type("sleep");
+        cy.get(".form-control-group-add-on")
+          .eq(-1)
+          .click(); // close filter window
+
+        cy.get(".ReactVirtualized__Grid")
+          .eq(-1) // bottom right grid
           .contains("Region-A")
           .should("to.have.length", 1);
       });
@@ -362,9 +373,13 @@ describe("Service Table", function() {
       });
 
       it("does contain the right region", function() {
-        cy.get(".service-table")
-          .contains("sleep")
-          .closest("tr")
+        cy.get(".filter-input-text").type("sleep");
+        cy.get(".form-control-group-add-on")
+          .eq(-1)
+          .click(); // close filter window
+
+        cy.get(".ReactVirtualized__Grid")
+          .eq(-1) // bottom right grid
           .contains("Region-A, Region-B")
           .should("to.have.length", 1);
       });

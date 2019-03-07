@@ -1,6 +1,17 @@
 import { i18nMark } from "@lingui/react";
 
-const ServiceActionLabels = {
+interface ServiceActionLabelsInterface {
+  edit: string;
+  delete: string;
+  restart: string;
+  resume: string;
+  open: string;
+  scale: string;
+  scale_by: string;
+  stop: string;
+}
+
+const ServiceActionLabels: ServiceActionLabelsInterface = {
   edit: i18nMark("Edit"),
   delete: i18nMark("Delete"),
   restart: i18nMark("Restart"),
@@ -11,4 +22,4 @@ const ServiceActionLabels = {
   stop: i18nMark("Stop")
 };
 
-module.exports = ServiceActionLabels;
+export default ServiceActionLabels;
