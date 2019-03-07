@@ -1,6 +1,6 @@
 import { Notification } from "@extension-kid/notification-service";
 
-enum ToastAppearance {
+const enum ToastAppearance {
   Default = "default",
   Success = "success",
   Warning = "warning",
@@ -8,9 +8,9 @@ enum ToastAppearance {
 }
 
 enum ToastCallbackType {
-  Dismiss,
-  Primary,
-  Secondary
+  Dismiss = "dismiss",
+  Primary = "primary",
+  Secondary = "secondary"
 }
 
 type ToastCallback = (
@@ -18,33 +18,35 @@ type ToastCallback = (
   notification: ToastNotification
 ) => void;
 
+interface ToastNotificationOptions {
+  appearance?: ToastAppearance;
+  autodismiss?: boolean;
+  description?: string;
+  callback?: ToastCallback;
+  primaryActionText?: string;
+  secondaryActionText?: string;
+}
+
 class ToastNotification extends Notification {
   static NotificationType = Symbol("Toast");
   readonly title: string;
   readonly description: string;
   readonly appearance: ToastAppearance;
   readonly autodismiss: boolean;
-  readonly callback: ToastCallback | null;
-  readonly primaryActionText: string;
-  readonly secondaryActionText: string;
+  readonly callback: ToastCallback | undefined;
+  readonly primaryActionText: string | undefined;
+  readonly secondaryActionText: string | undefined;
 
-  constructor(
-    title: string,
-    description: string = "",
-    callback: ToastCallback | null = null,
-    appearance: ToastAppearance = ToastAppearance.Default,
-    primaryActionText: string = "",
-    secondaryActionText: string = "",
-    autodismiss: boolean = false
-  ) {
+  constructor(title: string, options: ToastNotificationOptions = {}) {
+    const description = options.description || "";
     super(ToastNotification.NotificationType, `${title}|${description}`);
     this.title = title;
-    this.description = description || "";
-    this.appearance = appearance;
-    this.autodismiss = autodismiss;
-    this.callback = callback;
-    this.primaryActionText = primaryActionText;
-    this.secondaryActionText = secondaryActionText;
+    this.description = description;
+    this.appearance = options.appearance || ToastAppearance.Default;
+    this.autodismiss = options.autodismiss || false;
+    this.callback = options.callback;
+    this.primaryActionText = options.primaryActionText;
+    this.secondaryActionText = options.secondaryActionText;
 
     this.dismiss = this.dismiss.bind(this);
     this.primaryAction = this.primaryAction.bind(this);
@@ -52,28 +54,41 @@ class ToastNotification extends Notification {
   }
 
   dismiss() {
-    if (this.callback === null) {
+    if (!this.callback) {
       return;
     }
-
-    this.callback(ToastCallbackType.Dismiss, this);
+    // Don't let a notifier exception crash the ToastExtension/ToastContainer
+    try {
+      this.callback(ToastCallbackType.Dismiss, this);
+    } catch {}
   }
 
   primaryAction() {
-    if (this.callback === null) {
+    if (!this.callback) {
       return;
     }
 
-    this.callback(ToastCallbackType.Primary, this);
+    // Don't let a notifier exception crash the ToastExtension/ToastContainer
+    try {
+      this.callback(ToastCallbackType.Primary, this);
+    } catch {}
   }
 
   secondaryAction() {
-    if (this.callback === null) {
+    if (!this.callback) {
       return;
     }
 
-    this.callback(ToastCallbackType.Secondary, this);
+    // Don't let a notifier exception crash the ToastExtension/ToastContainer
+    try {
+      this.callback(ToastCallbackType.Secondary, this);
+    } catch {}
   }
 }
 
-export { ToastNotification, ToastAppearance, ToastCallbackType };
+export {
+  ToastNotification,
+  ToastNotificationOptions,
+  ToastAppearance,
+  ToastCallbackType
+};

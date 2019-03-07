@@ -40,12 +40,14 @@ const toastCallback = (callbackType: ToastCallbackType, toast: ToastNotification
 };
 const toastNotification = new ToastNotification(
   "My toast title", // Title
-  "This is a great description", // Descriptions (optional)
-  toastCallback, // ToastCallback (optional)
-  ToastAppearance.Success, // Appearance (optional)
-  "Main Action", // Primary Action Text (optional)
-  "other action", // Secondary Action Text (optional)
-  false, // Auto dismiss notification (optional, defaults to false)
+  {
+    appearance: ToastAppearance.Success, // Appearance (defaults to ToastAppearance.Default)
+    autodismiss: true, // Auto dismiss notification (defaults to false)
+    callback: toastCallback, // ToastCallback
+    description: "This is a great description", // Description
+    primaryActionText: "Main Action", // Primary Action Text
+    secondaryActionText: "other action", // Secondary Action Text
+  }
 );
 
 notificationService.push(toastNotification);
