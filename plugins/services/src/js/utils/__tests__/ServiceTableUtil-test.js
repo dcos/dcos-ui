@@ -1,7 +1,6 @@
 const Application = require("../../structs/Application");
 const Framework = require("../../structs/Framework");
 const ServiceTableUtil = require("../ServiceTableUtil");
-const ServiceTree = require("../../structs/ServiceTree");
 
 let thisCompareFunction;
 
@@ -92,274 +91,196 @@ describe("ServiceTableUtil", function() {
     tasksRunning: 0
   });
 
-  const recoveringService = new Application({
-    id: "/recovering-service",
-    queue: true,
-    deployments: null
-  });
-
-  const serviceTree = new ServiceTree({
-    id: "/tree",
-    items: []
-  });
-
-  describe("#propCompareFunctionFactory", function() {
-    describe("compare item types", function() {
-      describe("sort ascending", function() {
-        beforeEach(function() {
-          thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-            "name",
-            "asc"
-          );
-        });
-
-        it("returns -1 if type a comes beforeEach type b", function() {
-          expect(thisCompareFunction(serviceTree, healthyService)).toEqual(-1);
-        });
-
-        it("returns 0 if type a is equal to type b", function() {
-          expect(thisCompareFunction(serviceTree, serviceTree)).toEqual(0);
-        });
-
-        it("returns 1 if type a comes after type b", function() {
-          expect(thisCompareFunction(healthyService, serviceTree)).toEqual(1);
-        });
-      });
-
-      describe("sort descending", function() {
-        beforeEach(function() {
-          thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-            "name",
-            "desc"
-          );
-        });
-
-        it("returns 1 if type a comes beforeEach type b", function() {
-          expect(thisCompareFunction(serviceTree, healthyService)).toEqual(1);
-        });
-
-        it("returns 0 if type a is equal to type b", function() {
-          expect(thisCompareFunction(serviceTree, serviceTree)).toEqual(0);
-        });
-
-        it("returns -1 if type a comes after type b", function() {
-          expect(thisCompareFunction(healthyService, serviceTree)).toEqual(-1);
-        });
-      });
+  describe("#sortData", function() {
+    beforeEach(function() {
+      thisCompareFunction = ServiceTableUtil.sortData;
     });
 
     describe("compare item name", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "name",
-          "asc"
-        );
+      it("returns healthy-service first when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction([healthyService, unhealthyService], "ASC", "name")
+        ).toEqual([healthyService, unhealthyService]);
       });
 
-      it("returns 1 if type a comes beforeEach type b", function() {
-        expect(thisCompareFunction(serviceTree, healthyService)).toEqual(-1);
-      });
-
-      it("returns 0 if type a is equal to type b", function() {
-        expect(thisCompareFunction(serviceTree, serviceTree)).toEqual(0);
-      });
-
-      it("returns -1 if type a comes after type b", function() {
-        expect(thisCompareFunction(healthyService, serviceTree)).toEqual(1);
+      it("returns unhealthy-service first when sorting in descending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, unhealthyService],
+            "DESC",
+            "name"
+          )
+        ).toEqual([unhealthyService, healthyService]);
       });
     });
 
     describe("compare item tasks", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "tasks",
-          "asc"
-        );
+      it("returns unhealthy first if it has less tasks when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, unhealthyService],
+            "ASC",
+            "tasks"
+          )
+        ).toEqual([unhealthyService, healthyService]);
       });
 
-      it("returns 1 if a has more running tasks than b", function() {
-        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
-          1
-        );
-      });
-
-      it("returns 0 if a has same number of running tasks as b", function() {
-        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
-      });
-
-      it("returns -1 if a has less running tasks than b", function() {
-        expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
-          -1
-        );
+      it("returns healthy first if it has more tasks when sorting in descending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, unhealthyService],
+            "DESC",
+            "tasks"
+          )
+        ).toEqual([healthyService, unhealthyService]);
       });
     });
 
     describe("compare item status", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "status",
-          "asc"
-        );
+      it("returns stopped first if it has lower status when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction([healthyService, stoppedService], "ASC", "status")
+        ).toEqual([stoppedService, healthyService]);
       });
 
-      it("returns 1 if a comes after b in the status sorting", function() {
-        expect(thisCompareFunction(healthyService, stoppedService)).toEqual(1);
-      });
-
-      it("returns 0 if a has the same status as b", function() {
-        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
-      });
-
-      it("returns -1 if a comes beforeEach b in the status sorting", function() {
-        expect(thisCompareFunction(recoveringService, stoppedService)).toEqual(
-          -1
-        );
+      it("returns healthy first if it has higher status when sorting in descending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, stoppedService],
+            "DESC",
+            "status"
+          )
+        ).toEqual([healthyService, stoppedService]);
       });
     });
 
     describe("compare item cpus", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "cpus"
-        );
+      it("returns unhealthy first if it has lower cpu usage when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction([healthyService, unhealthyService], "ASC", "cpus")
+        ).toEqual([unhealthyService, healthyService]);
       });
 
-      it("returns 1 if a has more cpus than b", function() {
-        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
-          1
-        );
-      });
-
-      it("returns 0 if a has same number of cpus as b", function() {
-        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
-      });
-
-      it("returns -1 if a has less cpus than b", function() {
-        expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
-          -1
-        );
+      it("returns healthy first if it has higher cpu usage when sorting in descending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, unhealthyService],
+            "DESC",
+            "cpus"
+          )
+        ).toEqual([healthyService, unhealthyService]);
       });
     });
 
     describe("compare item gpus", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "gpus"
-        );
+      it("returns unhealthy first if it has lower gpu usage when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction([healthyService, unhealthyService], "ASC", "gpus")
+        ).toEqual([unhealthyService, healthyService]);
       });
 
-      it("returns 1 if a has more gpus than b", function() {
-        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
-          1
-        );
-      });
-
-      it("returns 0 if a has same number of gpus as b", function() {
-        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
-      });
-
-      it("returns -1 if a has less gpus than b", function() {
-        expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
-          -1
-        );
+      it("returns healthy first if it has higher gpu usage when sorting in descending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, unhealthyService],
+            "DESC",
+            "gpus"
+          )
+        ).toEqual([healthyService, unhealthyService]);
       });
     });
 
     describe("compare item mem", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "mem"
-        );
+      it("returns unhealthy first if it has lower mem usage when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction([healthyService, unhealthyService], "ASC", "mem")
+        ).toEqual([unhealthyService, healthyService]);
       });
 
-      it("returns 1 if a has more mem than b", function() {
-        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
-          1
-        );
-      });
-
-      it("returns 0 if a has same number of mem as b", function() {
-        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
-      });
-
-      it("returns -1 if a has less mem than b", function() {
-        expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
-          -1
-        );
+      it("returns healthy first if it has higher mem usage when sorting in descending order", function() {
+        expect(
+          thisCompareFunction([healthyService, unhealthyService], "DESC", "mem")
+        ).toEqual([healthyService, unhealthyService]);
       });
     });
 
     describe("compare item disk", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "disk"
-        );
+      it("returns unhealthy first if it has lower disk usage when sorting in ascending order", function() {
+        expect(
+          thisCompareFunction([healthyService, unhealthyService], "ASC", "disk")
+        ).toEqual([unhealthyService, healthyService]);
       });
 
-      it("returns 1 if a has more disk than b", function() {
-        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
-          1
-        );
-      });
-
-      it("returns 0 if a has same number of disk as b", function() {
-        expect(thisCompareFunction(healthyService, healthyService)).toEqual(0);
-      });
-
-      it("returns -1 if a has less disk than b", function() {
-        expect(thisCompareFunction(unhealthyService, healthyService)).toEqual(
-          -1
-        );
+      it("returns healthy first if it has higher disk usage when sorting in descending order", function() {
+        expect(
+          thisCompareFunction(
+            [healthyService, unhealthyService],
+            "DESC",
+            "disk"
+          )
+        ).toEqual([healthyService, unhealthyService]);
       });
     });
 
     describe("compare item version", function() {
-      beforeEach(function() {
-        thisCompareFunction = ServiceTableUtil.propCompareFunctionFactory(
-          "version"
-        );
-      });
-
-      it("returns 0 if a and b are both empty", function() {
-        expect(thisCompareFunction(healthyService, unhealthyService)).toEqual(
-          0
-        );
-      });
-
-      it("returns -1 if a has lower version than b", function() {
+      it("returns lowerVersionService first if it has lower version when sorting in ascending order", function() {
         expect(
-          thisCompareFunction(lowerVersionService, higherVersionService)
-        ).toEqual(-1);
+          thisCompareFunction(
+            [higherVersionService, lowerVersionService],
+            "ASC",
+            "version"
+          )
+        ).toEqual([lowerVersionService, higherVersionService]);
       });
 
-      it("returns 1 if a has higher version than b", function() {
+      it("returns higherVersionService first if it has higher version when sorting in descending order", function() {
         expect(
-          thisCompareFunction(higherVersionService, lowerVersionService)
-        ).toEqual(1);
+          thisCompareFunction(
+            [higherVersionService, lowerVersionService],
+            "DESC",
+            "version"
+          )
+        ).toEqual([higherVersionService, lowerVersionService]);
       });
 
-      it("returns -1 if a has no version label", function() {
+      it("returns healthyService first if it has no version when sorting in ascending order", function() {
         expect(
-          thisCompareFunction(healthyService, lowerVersionService)
-        ).toEqual(-1);
+          thisCompareFunction(
+            [healthyService, lowerVersionService],
+            "ASC",
+            "version"
+          )
+        ).toEqual([healthyService, lowerVersionService]);
       });
 
-      it("returns 1 if b has no version label", function() {
+      it("returns lowerVersionService first if it has version when sorting in descending order", function() {
         expect(
-          thisCompareFunction(lowerVersionService, healthyService)
-        ).toEqual(1);
+          thisCompareFunction(
+            [healthyService, lowerVersionService],
+            "DESC",
+            "version"
+          )
+        ).toEqual([lowerVersionService, healthyService]);
       });
 
-      it("returns -1 if a is non-semver versioned and b is semver", function() {
+      it("returns nonSemverVersionService first if it has non semver version when sorting in ascending order", function() {
         expect(
-          thisCompareFunction(nonSemverVersionService, lowerVersionService)
-        ).toEqual(-1);
+          thisCompareFunction(
+            [nonSemverVersionService, lowerVersionService],
+            "ASC",
+            "version"
+          )
+        ).toEqual([nonSemverVersionService, lowerVersionService]);
       });
 
-      it("returns 1 if a is semver versioned and b is not", function() {
+      it("returns lowerVersionService first if it has semver version when sorting in descending order", function() {
         expect(
-          thisCompareFunction(lowerVersionService, nonSemverVersionService)
-        ).toEqual(1);
+          thisCompareFunction(
+            [nonSemverVersionService, lowerVersionService],
+            "DESC",
+            "version"
+          )
+        ).toEqual([lowerVersionService, nonSemverVersionService]);
       });
     });
   });

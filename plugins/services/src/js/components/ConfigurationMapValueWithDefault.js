@@ -3,7 +3,7 @@ import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil.js";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a defaultValue value if the value is empty or falsy.

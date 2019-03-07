@@ -98,7 +98,7 @@ class ServiceTreeView extends React.Component {
     }
 
     return (
-      <Page>
+      <Page dontScroll={true} flushBottom={true}>
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
           actions={[
@@ -113,7 +113,7 @@ class ServiceTreeView extends React.Component {
           }}
           supplementalContent={<DeploymentStatusIndicator />}
         />
-        <div>
+        <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
           {this.getSearchHeader()}
           <ServicesTable

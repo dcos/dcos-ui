@@ -15,7 +15,7 @@ import TaskNameTextFilter from "#PLUGINS/services/src/js/filters/TaskNameTextFil
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import TaskModals from "../../components/modals/TaskModals";
 import TasksView from "./TasksView";
 import TaskUtil from "../../utils/TaskUtil";

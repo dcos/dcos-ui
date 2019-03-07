@@ -32,3 +32,6 @@ declare module "#SRC/js/components/form/InfoTooltipIcon";
 declare module "#SRC/js/stores/MetadataStore";
 declare module "#SRC/js/components/form/FormGroupContainer";
 declare module "#SRC/js/components/form/FieldTextarea";
+declare module "#SRC/js/plugin-bridge/PluginSDK";
+declare module "#SRC/js/components/NestedServiceLinks";
+declare module "../components/ServiceStatusProgressBar";
