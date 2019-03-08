@@ -29,11 +29,11 @@ pipeline {
     
     stage("Prepare Environment") {
       steps {
-        // This is entered to update node + npm as part of a test
         // TODO: update main image
         sh "curl -o- https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx"
-        sh "npm install -g npm@5.7.1"
+        sh "npm install -g npm@5.7.1 dogapi"
         sh "apt-get update && apt-get install -y rsync lsof jq"
+        // ENDTODO
       }
     }
 
