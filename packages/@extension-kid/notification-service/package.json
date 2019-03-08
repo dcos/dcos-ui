@@ -17,5 +17,7 @@
   "devDependencies": {
     "@types/md5": "2.1.33"
   },
-  "jest-webpack-alias": {}
+  "jest-webpack-alias": {
+    "configFile": "../../webpack/webpack.config.js"
+  }
 }

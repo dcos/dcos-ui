@@ -1,9 +1,19 @@
 import * as React from "react";
+import { Trans } from "@lingui/macro";
 import { Toast } from "@dcos/ui-kit";
 import { ToastProps } from "@dcos/ui-kit/dist/packages/toaster/components/Toast";
 
-import { ToastNotification } from "../ToastNotification";
+import { ToastNotification, ToastTranslatableText } from "../ToastNotification";
 import ToastExtension from "../ToastExtension";
+
+function makeTextContent(
+  value: string | ToastTranslatableText
+): React.ReactElement<HTMLElement> {
+  if (typeof value === "string") {
+    return <Trans id={value} />;
+  }
+  return <Trans id={value.id} values={value.values} />;
+}
 
 export default (
   toastNotification: ToastNotification,
@@ -13,8 +23,10 @@ export default (
 ): JSX.Element => {
   const toastProps: ToastProps = {
     id: toastNotification.id,
-    title: toastNotification.title,
-    description: toastNotification.description || undefined,
+    title: makeTextContent(toastNotification.title),
+    description: toastNotification.description
+      ? makeTextContent(toastNotification.description)
+      : undefined,
     appearance: toastNotification.appearance,
     autodismiss: toastNotification.autodismiss
   };
@@ -27,7 +39,7 @@ export default (
     };
     toastProps.primaryAction = (
       <button className={primaryActionClassName} onClick={handlePrimaryClick}>
-        {toastNotification.primaryActionText}
+        {makeTextContent(toastNotification.primaryActionText)}
       </button>
     );
   }
@@ -40,7 +52,7 @@ export default (
         className={secondaryActionClassName}
         onClick={handleSecondaryClick}
       >
-        {toastNotification.secondaryActionText}
+        {makeTextContent(toastNotification.secondaryActionText)}
       </button>
     );
   }

@@ -1,6 +1,7 @@
 import { MountService } from "foundation-ui";
 
 import UIDetails from "./components/UIDetails";
+import * as Notifications from "./notifications";
 
 module.exports = {
   initialize() {
@@ -8,5 +9,9 @@ module.exports = {
       UIDetails,
       "UISettings:UIDetails:Content"
     );
+
+    Notifications.setupUIUpdatedNotification();
+    Notifications.setupUpdateFailedNotification();
+    Notifications.setupRollbackFailedNotification();
   }
 };

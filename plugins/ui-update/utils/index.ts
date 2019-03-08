@@ -1,5 +1,10 @@
 import * as semver from "semver";
+import {
+  NotificationService,
+  NotificationServiceType
+} from "@extension-kid/notification-service";
 
+import container from "#SRC/js/container";
 import { Package } from "#SRC/js/data/cosmos/Package";
 import { UIMetadata } from "#SRC/js/data/ui-update/UIMetadata";
 
@@ -49,4 +54,8 @@ function versionUpdateAvailable(
   return null;
 }
 
-export { versionUpdateAvailable };
+function getNotificationService(): NotificationService {
+  return container.get<NotificationService>(NotificationServiceType);
+}
+
+export { getNotificationService, versionUpdateAvailable };

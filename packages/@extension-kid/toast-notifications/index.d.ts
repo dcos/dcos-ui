@@ -7,7 +7,8 @@ import {
   ToastCallback,
   ToastCallbackType,
   ToastNotification,
-  ToastNotificationOptions
+  ToastNotificationOptions,
+  ToastTranslatableText
 } from "./ToastNotification";
 
 function makeToastContainer(
@@ -23,5 +24,6 @@ export {
   ToastCallbackType,
   ToastContainerProps,
   ToastNotification,
-  ToastNotificationOptions
+  ToastNotificationOptions,
+  ToastTranslatableText
 };
