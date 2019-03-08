@@ -214,13 +214,13 @@ class JobModalForm extends React.Component<JobFormProps> {
                     </TabView>
                     <TabView id="schedule">
                       <ErrorsAlert
-                        errors={errors}
+                        errors={translatedErrors}
                         pathMapping={ServiceErrorPathMapping}
                         hideTopLevelErrors={!showAllErrors}
                       />
                       <ScheduleFormSection
                         formData={formOutput}
-                        errors={errors}
+                        errors={translatedErrors}
                         showErrors={showAllErrors}
                       />
                     </TabView>
