@@ -12,9 +12,12 @@
     "@extension-kid/core": "^0.2.4",
     "@extension-kid/notification-service": "^0.1.0",
     "inversify": "4.13.0",
+    "@lingui/react": "2.7.2",
     "rxjs": "^6.3.0",
     "react": "^16.8.2"
   },
   "devDependencies": {},
-  "jest-webpack-alias": {}
+  "jest-webpack-alias": {
+    "configFile": "../../webpack/webpack.config.js"
+  }
 }
