@@ -8,6 +8,7 @@ pipeline {
   agent {
     dockerfile {
       args  "--shm-size=1g"
+      label "dcos-ui-new"
     }
   }
 
