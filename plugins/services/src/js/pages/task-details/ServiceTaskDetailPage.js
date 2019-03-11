@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { i18nMark } from "@lingui/react";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
@@ -44,7 +45,11 @@ class ServiceTaskDetailPage extends React.Component {
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="services" />
+        <Page.Header
+          breadcrumbs={breadcrumbs}
+          tabs={tabs}
+          iconID={ProductIcons.Services}
+        />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

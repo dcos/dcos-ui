@@ -2,8 +2,14 @@ import classNames from "classnames";
 import { Modal } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  iconSizeS,
+  white
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "../Icon";
 import { keyCodes } from "../../utils/KeyboardUtil";
 
 const METHODS_TO_BIND = ["handleClick", "handleKeyPress"];
@@ -94,13 +100,25 @@ class ImageViewerModal extends React.Component {
           onClick={this.handleClick.bind(this, "left")}
           className="modal-image-viewer-arrow-container clickable backward"
         >
-          <Icon className="arrow" color="white" id="caret-left" size="small" />
+          <span className="arrow">
+            <Icon
+              color={white}
+              shape={SystemIcons.CaretLeft}
+              size={iconSizeS}
+            />
+          </span>
         </span>
         <span
           className="modal-image-viewer-arrow-container clickable forward"
           onClick={this.handleClick.bind(this, "left")}
         >
-          <Icon className="arrow" color="white" id="caret-right" size="small" />
+          <span className="arrow">
+            <Icon
+              color={white}
+              shape={SystemIcons.CaretRight}
+              size={iconSizeS}
+            />
+          </span>
         </span>
       </div>
     );
@@ -108,7 +126,7 @@ class ImageViewerModal extends React.Component {
 
   render() {
     const { props, state } = this;
-    const closeIcon = <Icon id="close" size="mini" />;
+    const closeIcon = <Icon shape={SystemIcons.Close} size={iconSizeXs} />;
     const modalClasses = classNames("modal modal-image-viewer", {
       hidden: state.isLoadingImage
     });

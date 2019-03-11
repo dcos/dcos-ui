@@ -7,7 +7,6 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const merge = require("webpack-merge");
 const path = require("path");
-const SVGCompilerPlugin = require("./plugins/svg-compiler-plugin");
 
 const packageInfo = require("../package");
 const common = require("./webpack.config.js");
@@ -27,7 +26,6 @@ module.exports = merge(common, {
     new DefinePlugin({
       "process.env.version": JSON.stringify(packageInfo.version)
     }),
-    new SVGCompilerPlugin({ baseDir: "src/img/components/icons" }),
     new CompressionPlugin({
       asset: "[path].gz[query]",
       algorithm: "gzip",

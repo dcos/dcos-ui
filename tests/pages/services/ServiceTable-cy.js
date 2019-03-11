@@ -5,7 +5,7 @@ describe("Service Table", function() {
     cy.get(".service-table")
       .contains(serviceName)
       .closest("tr")
-      .find(".dropdown")
+      .find(".service-table-column-actions")
       .click();
   }
 

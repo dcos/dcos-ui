@@ -43,10 +43,16 @@ exports[`ServicesTable #renderStatus renders with deploying status 1`] = `
       onMouseLeave={[Function]}
     >
       <svg
-        className="icon icon-yellow icon-mini"
+        aria-label="system-yield icon"
+        className="css-1depasv"
+        height={16}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
       >
         <use
-          xlinkHref="#icon-system--yield"
+          xlinkHref="#system-yield"
         />
       </svg>
     </div>
@@ -94,10 +100,16 @@ exports[`ServicesTable #renderStatus renders with not available status 1`] = `
       onMouseLeave={[Function]}
     >
       <svg
-        className="icon icon-yellow icon-mini"
+        aria-label="system-yield icon"
+        className="css-1depasv"
+        height={16}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
       >
         <use
-          xlinkHref="#icon-system--yield"
+          xlinkHref="#system-yield"
         />
       </svg>
     </div>
@@ -140,10 +152,16 @@ exports[`ServicesTable #renderStatus renders with running status 1`] = `
       onMouseLeave={[Function]}
     >
       <svg
-        className="icon icon-yellow icon-mini"
+        aria-label="system-yield icon"
+        className="css-1depasv"
+        height={16}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
       >
         <use
-          xlinkHref="#icon-system--yield"
+          xlinkHref="#system-yield"
         />
       </svg>
     </div>
@@ -191,10 +209,16 @@ exports[`ServicesTable #renderStatus renders with stopped status 1`] = `
       onMouseLeave={[Function]}
     >
       <svg
-        className="icon icon-yellow icon-mini"
+        aria-label="system-yield icon"
+        className="css-1depasv"
+        height={16}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
       >
         <use
-          xlinkHref="#icon-system--yield"
+          xlinkHref="#system-yield"
         />
       </svg>
     </div>

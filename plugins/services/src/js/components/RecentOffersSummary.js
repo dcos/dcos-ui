@@ -2,9 +2,14 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyLightDarken1,
+  iconSizeS
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Config from "#SRC/js/config/Config";
-import Icon from "#SRC/js/components/Icon";
 import Units from "#SRC/js/utils/Units";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
@@ -88,7 +93,13 @@ function getGraphSpacer({ key, showIcon = true }) {
   let icon = null;
 
   if (showIcon) {
-    icon = <Icon id="caret-right" size="small" color="light-grey" />;
+    icon = (
+      <Icon
+        shape={SystemIcons.CaretRight}
+        size={iconSizeS}
+        color={greyLightDarken1}
+      />
+    );
   }
 
   return (

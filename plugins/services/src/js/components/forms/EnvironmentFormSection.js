@@ -14,7 +14,7 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { FormReducer as env } from "../../reducers/serviceForm/FormReducers/EnvironmentVariables";
 import { FormReducer as labels } from "../../reducers/serviceForm/FormReducers/Labels";
@@ -223,7 +223,7 @@ class EnvironmentFormSection extends Component {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -255,7 +255,7 @@ class EnvironmentFormSection extends Component {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>

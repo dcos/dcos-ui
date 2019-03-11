@@ -5,9 +5,16 @@ import { Link } from "react-router";
 import { MountService } from "foundation-ui";
 import React from "react";
 import { Table, Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  green,
+  iconSizeS,
+  iconSizeXs,
+  red
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DateUtil from "#SRC/js/utils/DateUtil";
-import Icon from "#SRC/js/components/Icon";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
@@ -106,7 +113,7 @@ class DeclinedOffersTable extends React.Component {
       let icon = null;
 
       if (isResourceUnmatched) {
-        icon = <Icon color="red" id="close" size="mini" />;
+        icon = <Icon color={red} shape={SystemIcons.Close} size={iconSizeXs} />;
 
         if (
           unmatchedResource.includes(DeclinedOffersReasons.UNFULFILLED_ROLE) &&
@@ -122,7 +129,9 @@ class DeclinedOffersTable extends React.Component {
           );
         }
       } else {
-        icon = <Icon color="green" id="check" size="mini" />;
+        icon = (
+          <Icon color={green} shape={SystemIcons.Check} size={iconSizeS} />
+        );
       }
 
       if (Array.isArray(receivedResource)) {

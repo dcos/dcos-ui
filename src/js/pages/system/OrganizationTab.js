@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -58,7 +59,9 @@ const UsersBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="organization" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs iconID={ProductIcons.Users} breadcrumbs={crumbs} />
+  );
 };
 
 class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {

@@ -1,8 +1,12 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
-
-import Icon from "../Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXxs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 function AddButton({ children, className, icon, onClick }) {
   const classes = classNames(
@@ -19,7 +23,7 @@ function AddButton({ children, className, icon, onClick }) {
 }
 
 AddButton.defaultProps = {
-  icon: <Icon color="purple" id="plus" size="tiny" />
+  icon: <Icon color={purple} shape={SystemIcons.Plus} size={iconSizeXxs} />
 };
 
 AddButton.propTypes = {

@@ -3,9 +3,9 @@ import isEqual from "lodash.isequal";
 import { Tooltip } from "reactjs-components";
 import DefaultSchemaField from "react-jsonschema-form/lib/components/fields/SchemaField";
 import { MountService } from "foundation-ui";
-import StringUtil from "#SRC/js/utils/StringUtil";
 
-import Icon from "#SRC/js/components/Icon";
+import StringUtil from "#SRC/js/utils/StringUtil";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
@@ -249,7 +249,7 @@ class SchemaField extends Component {
             maxWidth={300}
             wrapText={true}
           >
-            <Icon color="light-grey" id="circle-question" size="mini" />
+            <InfoTooltipIcon />
           </Tooltip>
         </FormGroupHeadingContent>
       </FormGroupHeading>

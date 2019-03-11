@@ -4,8 +4,13 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
-
 import moment from "moment";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
@@ -15,7 +20,6 @@ import CheckboxTable from "#SRC/js/components/CheckboxTable";
 import ExpandingTable from "#SRC/js/components/ExpandingTable";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import Icon from "#SRC/js/components/Icon";
 import JobStopRunModal from "#SRC/js/components/modals/JobStopRunModal";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 
@@ -262,12 +266,13 @@ class JobRunHistoryTable extends React.Component {
 
     const cellContent = (
       <span className="table-cell-flex-box">
-        <Icon
-          className="icon-margin-right table-cell-icon"
-          color="grey"
-          id="page-document"
-          size="mini"
-        />
+        <span className="icon-margin-right table-cell-icon">
+          <Icon
+            color={greyDark}
+            shape={SystemIcons.PageDocument}
+            size={iconSizeXs}
+          />
+        </span>
         <CollapsingString
           endLength={15}
           string={row[prop]}

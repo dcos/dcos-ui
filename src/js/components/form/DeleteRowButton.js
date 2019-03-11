@@ -1,8 +1,9 @@
 import { Trans } from "@lingui/macro";
 import React from "react";
 import { Tooltip } from "reactjs-components";
-
-import Icon from "../Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXxs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 const DeleteRowButton = ({ onClick }) => {
   return (
@@ -13,7 +14,7 @@ const DeleteRowButton = ({ onClick }) => {
       wrapText={true}
     >
       <a className="button button-link button-narrow" onClick={onClick}>
-        <Icon id="close" family="tiny" size="tiny" />
+        <Icon shape={SystemIcons.Close} size={iconSizeXxs} />
       </a>
     </Tooltip>
   );

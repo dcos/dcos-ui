@@ -13,7 +13,7 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import { FormReducer as ContainerReducer } from "../../reducers/serviceForm/Container";
@@ -78,7 +78,7 @@ class ContainerServiceFormSection extends Component {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="light-grey" id="circle-question" size="mini" />
+              <InfoTooltipIcon />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>
@@ -116,7 +116,7 @@ class ContainerServiceFormSection extends Component {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="light-grey" id="circle-question" size="mini" />
+              <InfoTooltipIcon />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>

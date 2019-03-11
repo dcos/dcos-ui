@@ -41,13 +41,23 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      <svg
-        className="icon icon-grey icon-mini"
+      <span
+        className="info-tooltip-icon-wrap"
       >
-        <use
-          xlinkHref="#icon-system--circle-question"
-        />
-      </svg>
+        <svg
+          aria-label="system-circle-question icon"
+          className="css-ed86y8"
+          height={16}
+          preserveAspectRatio="xMinYMin meet"
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <use
+            xlinkHref="#system-circle-question"
+          />
+        </svg>
+      </span>
     </div>
   </h2>
   <div
@@ -65,10 +75,16 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
             onClick={[Function]}
           >
             <svg
-              className="icon icon-purple icon-tiny"
+              aria-label="system-plus icon"
+              className="css-e3vtaz"
+              height={12}
+              preserveAspectRatio="xMinYMin meet"
+              role="img"
+              viewBox="0 0 12 12"
+              width={12}
             >
               <use
-                xlinkHref="#icon-system--plus"
+                xlinkHref="#system-plus"
               />
             </svg>
             <span>

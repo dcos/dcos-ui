@@ -12,10 +12,16 @@ exports[`NodeBreadcrumbs renders no node breadcrumbs if node cant be found 1`] =
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-servers icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--nodes"
+          xlinkHref="#product-servers"
         />
       </svg>
     </a>
@@ -24,10 +30,16 @@ exports[`NodeBreadcrumbs renders no node breadcrumbs if node cant be found 1`] =
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -60,10 +72,16 @@ exports[`NodeBreadcrumbs renders no unitID breadcrumbs without nodeID 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-servers icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--nodes"
+          xlinkHref="#product-servers"
         />
       </svg>
     </a>
@@ -72,10 +90,16 @@ exports[`NodeBreadcrumbs renders no unitID breadcrumbs without nodeID 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -108,10 +132,16 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-servers icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--nodes"
+          xlinkHref="#product-servers"
         />
       </svg>
     </a>
@@ -120,10 +150,16 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -145,10 +181,16 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -181,10 +223,16 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-servers icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--nodes"
+          xlinkHref="#product-servers"
         />
       </svg>
     </a>
@@ -193,10 +241,16 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -218,10 +272,16 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -254,10 +314,16 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-servers icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--nodes"
+          xlinkHref="#product-servers"
         />
       </svg>
     </a>
@@ -266,10 +332,16 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -291,10 +363,16 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -316,10 +394,16 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -359,10 +443,16 @@ exports[`NodeBreadcrumbs renders without breadcrumbs 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-servers icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--nodes"
+          xlinkHref="#product-servers"
         />
       </svg>
     </a>
@@ -371,10 +461,16 @@ exports[`NodeBreadcrumbs renders without breadcrumbs 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>

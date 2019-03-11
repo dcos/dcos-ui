@@ -6,13 +6,13 @@ import { Tooltip } from "reactjs-components";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
-import Icon from "#SRC/js/components/Icon";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormRow from "#SRC/js/components/form/FormRow";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 class ArtifactsSection extends Component {
@@ -41,7 +41,7 @@ class ArtifactsSection extends Component {
           maxWidth={300}
           wrapText={true}
         >
-          <Icon color="light-grey" id="circle-question" size="mini" />
+          <InfoTooltipIcon />
         </Tooltip>
       </FieldLabel>
     );

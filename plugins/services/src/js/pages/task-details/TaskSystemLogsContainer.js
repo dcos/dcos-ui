@@ -5,11 +5,13 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { APPEND, PREPEND } from "#SRC/js/constants/SystemLogTypes";
 import Loader from "#SRC/js/components/Loader";
 import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
-import Icon from "#SRC/js/components/Icon";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import SystemLogStore from "#SRC/js/stores/SystemLogStore";
 import SystemLogUtil from "#SRC/js/utils/SystemLogUtil";
@@ -312,7 +314,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
         href={SystemLogUtil.getUrl(task.slave_id, params, false, "/download")}
         key="download"
       >
-        <Icon id="download" size="mini" />
+        <Icon shape={SystemIcons.Download} size={iconSizeXs} />
       </a>
     );
   }

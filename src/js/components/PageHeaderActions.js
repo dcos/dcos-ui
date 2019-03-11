@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import { Trans } from "@lingui/macro";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "./Icon";
 import PageHeaderActionsMenu from "./PageHeaderActionsMenu";
 
 const getDropdownAction = (action, index) => {
@@ -44,7 +46,10 @@ class PageHeaderActions extends React.Component {
       const dropdownElements = addButton.map(getDropdownAction);
 
       return (
-        <PageHeaderActionsMenu iconID="plus" disabledActions={disabledActions}>
+        <PageHeaderActionsMenu
+          iconID={SystemIcons.Plus}
+          disabledActions={disabledActions}
+        >
           {dropdownElements}
         </PageHeaderActionsMenu>
       );
@@ -59,7 +64,11 @@ class PageHeaderActions extends React.Component {
 
       const button = (
         <button className={buttonClasses} onClick={onItemSelect}>
-          <Icon id="plus" size="mini" />
+          <Icon
+            shape={SystemIcons.Plus}
+            size={iconSizeXs}
+            color="currentColor"
+          />
         </button>
       );
 

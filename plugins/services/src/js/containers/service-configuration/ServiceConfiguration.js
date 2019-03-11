@@ -5,10 +5,14 @@ import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Trans, DateFormat } from "@lingui/macro";
+import { Badge, Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import { Badge } from "@dcos/ui-kit";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
 import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -154,18 +158,20 @@ class ServiceConfiguration extends mixin(StoreMixin) {
           id: version,
           html: (
             <div className="service-version-dropdown-wrapper button-split-content-wrapper flex">
-              <Icon
-                className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0"
-                id="check"
-                size="mini"
-                color="neutral"
-              />
-              <Icon
-                className="services-version-select-icon button-split-content-item flex-item-shrink-0"
-                id="commit"
-                size="mini"
-                color="neutral"
-              />
+              <span className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0">
+                <Icon
+                  shape={SystemIcons.Check}
+                  size={iconSizeXs}
+                  color={greyDark}
+                />
+              </span>
+              <span className="services-version-select-icon button-split-content-item flex-item-shrink-0">
+                <Icon
+                  shape={SystemIcons.Commit}
+                  size={iconSizeXs}
+                  color={greyDark}
+                />
+              </span>
               <span
                 className="button-split-content-item flex-item-grow-1 text-overflow"
                 title={version}
@@ -226,7 +232,11 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               className="button button-primary-link button-inline-flex"
               onClick={this.handleEditButtonClick}
             >
-              <Icon id="pencil" size="mini" family="system" />
+              <Icon
+                shape={SystemIcons.Pencil}
+                size={iconSizeXs}
+                color="currentColor"
+              />
               <Trans render="span">Edit Config</Trans>
             </button>
             <a
@@ -243,7 +253,11 @@ class ServiceConfiguration extends mixin(StoreMixin) {
                 configString
               )}
             >
-              <Icon id="download" size="mini" family="system" />
+              <Icon
+                shape={SystemIcons.Download}
+                size={iconSizeXs}
+                color="currentColor"
+              />
               <Trans render="span">Download Config</Trans>
             </a>
           </div>

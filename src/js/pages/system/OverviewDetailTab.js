@@ -9,6 +9,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import moment from "moment";
 import { request } from "@dcos/mesos-client";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
 
@@ -46,7 +47,12 @@ const SystemOverviewBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Cluster}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 class OverviewDetailTab extends mixin(StoreMixin) {

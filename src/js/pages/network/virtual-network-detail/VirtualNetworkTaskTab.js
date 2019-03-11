@@ -9,11 +9,13 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Table } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXxs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import FilterBar from "../../../components/FilterBar";
 import FilterHeadline from "../../../components/FilterHeadline";
 import FilterInputText from "../../../components/FilterInputText";
-import Icon from "../../../components/Icon";
 import Loader from "../../../components/Loader";
 import MesosStateStore from "../../../stores/MesosStateStore";
 import Overlay from "../../../structs/Overlay";
@@ -243,13 +245,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
       if (mapping.host_port) {
         mapTo = (
-          <span>
-            <Icon
-              className="list-inline-separator"
-              family="tiny"
-              id="caret-right"
-              size="tiny"
-            />
+          <span className="list-inline-separator">
+            <Icon shape={SystemIcons.CaretRight} size={iconSizeXxs} />
             {this.getTaskLink(
               id,
               `${mapping.host_port} (${mapping.protocol})`,

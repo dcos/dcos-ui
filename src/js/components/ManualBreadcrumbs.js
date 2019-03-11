@@ -3,9 +3,11 @@ import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import BreadcrumbSegmentLink from "./BreadcrumbSegmentLink";
-import Icon from "./Icon";
 
 const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
@@ -150,7 +152,7 @@ class ManualBreadcrumbs extends React.Component {
   getBreadcrumbDivider(key) {
     return (
       <li className="flush" key={key}>
-        <Icon id="caret-right" size="mini" />
+        <Icon shape={SystemIcons.CaretRight} size={iconSizeXs} />
       </li>
     );
   }

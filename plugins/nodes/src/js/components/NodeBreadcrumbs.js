@@ -1,6 +1,7 @@
 import { Trans } from "@lingui/macro";
 import React from "react";
 import { Link } from "react-router";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -73,7 +74,9 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
     );
   }
 
-  return <PageHeaderBreadcrumbs iconID="nodes" breadcrumbs={crumbs} />;
+  return (
+    <PageHeaderBreadcrumbs iconID={ProductIcons.Servers} breadcrumbs={crumbs} />
+  );
 };
 
 module.exports = NodeBreadcrumbs;
