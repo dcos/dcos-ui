@@ -45,7 +45,7 @@ describe("Add Repository Form Modal", function() {
       .contains("Add")
       .click();
 
-    cy.get(".modal").should("exist");
+    cy.get(".modal").should("not.exist");
 
     // Clean up
     cy.clusterCleanup(function() {
