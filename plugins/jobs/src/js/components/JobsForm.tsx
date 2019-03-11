@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
