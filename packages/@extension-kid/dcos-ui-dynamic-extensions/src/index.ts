@@ -1,34 +1,39 @@
-import { ContainerModule } from "inversify";
+import { ContainerModule, inject, injectable } from "inversify";
+import { Observable } from "rxjs";
+import { filter } from "rxjs/operators";
 
-class DynamicResolver {
-  importModule(window: any, url: string) {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      const tempGlobal =
-        "__tempModuleLoadingVariable" +
-        Math.random()
-          .toString(32)
-          .substring(2);
-      script.type = "module";
-      script.textContent = `import * as m from "${url}"; window.${tempGlobal} = m;`;
+import {
+  DynamicResolverType,
+  DynamicResolverInterface
+} from "@extension-kid/dynamic-resolver";
 
-      script.onload = () => {
-        resolve(window[tempGlobal]);
-        delete window[tempGlobal];
-        script.remove();
-      };
+import { MesosStreamType } from "#SRC/js/core/MesosStream";
 
-      script.onerror = () => {
-        reject(new Error("Failed to load module script with URL " + url));
-        delete window[tempGlobal];
-        script.remove();
-      };
+// New Framework Registered =>
+// Has `DCOS_UI_EXTENSION_URL` label =>
+// DynamicResolverService.load(DCOS_UI_EXTENSION_URL) =>
+// Try resolving the module =>
+// If resolved load into Container
 
-      document.documentElement.appendChild(script);
-    });
+const EVENTS = [
+  "SUBSCRIBED",
+  "GET_FRAMEWORKS",
+  "FRAMEWORK_ADDED",
+  "FRAMEWORK_UPDATED",
+  "FRAMEWORK_REMOVED"
+];
+
+@injectable()
+class DcosUIExtensionLoader {
+  constructor(
+    @inject(MesosStreamType) mesosStream: Observable<any>,
+    @inject(DynamicResolverType) dynamicResolver: DynamicResolverInterface
+  ) {
+    mesosStream
+      .pipe(filter(({ type }) => EVENTS.includes(type)))
+      .subscribe(({ url }) => dynamicResolver.resolve(url));
   }
 }
-
 export default new ContainerModule(bind => {
-  bind(DynamicResolver).toSelf();
+  bind(DcosUIExtensionLoader).toSelf();
 });

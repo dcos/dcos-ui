@@ -1,6 +1,5 @@
-import { BehaviorSubject } from "rxjs";
-import { ContainerModule, injectable, inject, named } from "inversify";
-import { ExtensionProvider, bindExtensionProvider } from "@extension-kid/core";
+import { ContainerModule, injectable } from "inversify";
+import { Container } from "@extension-kid/core";
 
 export const DynamicResolverExtensionType = Symbol("DynamicResolverExtension");
 export const DynamicResolverType = Symbol("DynamicResolver");
@@ -8,27 +7,38 @@ export interface DynamicResolverExtensionInterface {
   id: symbol;
 }
 
+// tslint:disable-next-line
+export interface DynamicResolverInterface {
+  resolve(url: string): void;
+}
+
 @injectable()
-class DynamicResolver {
+class DynamicResolver implements DynamicResolverInterface {
   extensionType = DynamicResolverExtensionType;
 
-  _extensionProvider: ExtensionProvider<DynamicResolverExtensionInterface>;
-  _extensions$: BehaviorSubject<any>;
+  private container: Container;
+  private urlRegistry: { [index: string]: boolean };
 
-  constructor(
-    @inject(ExtensionProvider)
-    @named(DynamicResolverExtensionType)
-    extensionProvider: ExtensionProvider<DynamicResolverExtensionInterface>
-  ) {
-    this._extensionProvider = extensionProvider;
-    this._extensions$ = new BehaviorSubject(null);
-
-    this._extensionProvider.subscribe({
-      next: () => this._extensions$.next("")
-    });
+  constructor(container: Container) {
+    this.container = container;
+    this.urlRegistry = {};
   }
 
-  importModule(window: any, url: string) {
+  public resolve(url: string) {
+    if (this.urlRegistry[url]) {
+      return;
+    }
+
+    this.importModule({}, url)
+      .then(module => {
+        this.container.load(module as ContainerModule);
+        this.urlRegistry[url] = true;
+      })
+      // tslint:disable-next-line:no-console
+      .catch(error => console.error(error));
+  }
+
+  private importModule(window: any, url: string) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       const tempGlobal =
@@ -57,8 +67,9 @@ class DynamicResolver {
 }
 
 export default new ContainerModule(bind => {
-  bindExtensionProvider(bind, DynamicResolverExtensionType);
   bind(DynamicResolverType)
-    .to(DynamicResolver)
+    .toDynamicValue(
+      ({ container }) => new DynamicResolver(container as Container)
+    )
     .inSingletonScope();
 });
