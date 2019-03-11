@@ -28,3 +28,4 @@ declare module "#SRC/js/components/form/FieldError";
 declare module "#SRC/js/utils/Util";
 declare module "#SRC/js/components/form/AddButton";
 declare module "#SRC/js/components/form/DeleteRowButton";
+declare module "#SRC/js/components/form/InfoTooltipIcon";
