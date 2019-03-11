@@ -116,7 +116,7 @@ export const argsReducers = {
 };
 
 export const imageForcePullReducers = {
-  [JobFormActionType.Set]: (_: any, state: JobSpec) => {
+  [JobFormActionType.Set]: (_: string, state: JobSpec) => {
     const stateCopy = deepCopy(state);
     const docker = stateCopy.job.run.docker;
     const ucr = stateCopy.job.run.ucr;
@@ -136,7 +136,7 @@ export const imageForcePullReducers = {
 };
 
 export const grantRuntimePrivilegesReducers = {
-  [JobFormActionType.Set]: (_: any, state: JobSpec) => {
+  [JobFormActionType.Set]: (_: string, state: JobSpec) => {
     const stateCopy = deepCopy(state);
     const docker = stateCopy.job.run.docker;
     if (docker) {
