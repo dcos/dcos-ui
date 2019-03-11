@@ -12,7 +12,7 @@ import {
 } from "./ContainerReducers";
 
 type DefaultReducerFunction = (
-  value: any,
+  value: string,
   state: JobSpec,
   path: string[]
 ) => JobSpec;
