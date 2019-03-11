@@ -1,18 +1,17 @@
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { map, switchMap, share, startWith } from "rxjs/operators";
-import { combineLatest, timer } from "rxjs";
-import { componentFromStream } from "@dcos/data-service";
+import { map } from "rxjs/operators";
+import { combineLatest } from "rxjs";
+import { graphqlObservable, componentFromStream } from "@dcos/data-service";
+import gql from "graphql-tag";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
-import Config from "#SRC/js/config/Config";
-
-import NodesTable from "../../../components/NodesTable";
-import { fetchNodesNetwork } from "../../../data/NodesNetworkClient";
+import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
+import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
@@ -80,7 +79,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       newFilters.service = null;
     }
 
-    nodes = new NodesList({
+    const newNodes = new NodesList({
       items: nodes.getItems().map(node => {
         const hostname = node.getHostName();
         const network = networks.find(
@@ -95,7 +94,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       })
     });
     const filters = Object.assign({}, this.state.filters, newFilters);
-    const filteredNodes = nodes.filter(filters);
+    const filteredNodes = newNodes.filter(filters);
 
     this.setState({ filters, filteredNodes }, callback);
   }
@@ -126,16 +125,21 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 }
 
-const pollingInterval$ = timer(0, Config.getRefreshRate());
-const nodes$ = pollingInterval$.pipe(
-  switchMap(() => fetchNodesNetwork()),
-  map(response => response.response),
-  startWith([]),
-  share()
-);
+const networks$ = graphqlObservable(
+  gql`
+    query {
+      networks(privateIP: $privateIP) {
+        public_ips
+        private_ip
+      }
+    }
+  `,
+  schema,
+  {}
+).pipe(map(response => response.data.networks));
 
 module.exports = componentFromStream(props$ =>
-  combineLatest(props$, nodes$).pipe(
+  combineLatest(props$, networks$).pipe(
     map(([props, networks]) => (
       <NodesTableContainer {...props} networks={networks} />
     ))
