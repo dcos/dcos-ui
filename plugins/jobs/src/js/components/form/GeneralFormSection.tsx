@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
 
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -71,7 +71,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -117,7 +117,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -199,11 +199,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -238,7 +234,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                     maxWidth={300}
                     wrapText={true}
                   >
-                    <Icon color="light-grey" id="circle-question" size="mini" />
+                    <InfoTooltipIcon />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -291,7 +287,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                     maxWidth={300}
                     wrapText={true}
                   >
-                    <Icon color="light-grey" id="circle-question" size="mini" />
+                    <InfoTooltipIcon />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -316,7 +312,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                     maxWidth={300}
                     wrapText={true}
                   >
-                    <Icon color="light-grey" id="circle-question" size="mini" />
+                    <InfoTooltipIcon />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
