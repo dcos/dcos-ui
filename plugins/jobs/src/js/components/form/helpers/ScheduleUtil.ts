@@ -18,14 +18,14 @@ export const schedulePropertiesCanBeDiscarded = (
   if (
     numProps === 1 &&
     (schedule.enabled === false ||
-      schedule.concurrentPolicy === ConcurrentPolicy.Forbid)
+      schedule.concurrencyPolicy === ConcurrentPolicy.Forbid)
   ) {
     return true;
   }
   if (
     numProps === 2 &&
     (schedule.enabled === false &&
-      schedule.concurrentPolicy === ConcurrentPolicy.Forbid)
+      schedule.concurrencyPolicy === ConcurrentPolicy.Forbid)
   ) {
     return true;
   }
