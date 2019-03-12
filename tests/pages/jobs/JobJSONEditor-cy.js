@@ -603,7 +603,7 @@ describe("Job JSON Editor", function() {
             id: scheduleId,
             timezone,
             cron,
-            concurrentPolicy: "ALLOW"
+            concurrencyPolicy: "ALLOW"
           }
         }
       ]);
