@@ -139,9 +139,9 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
       jobSpec,
       "schedule.startingDeadlineSeconds"
     ),
-    concurrentPolicy: findNestedPropertyInObject(
+    concurrencyPolicy: findNestedPropertyInObject(
       jobSpec,
-      "schedule.concurrentPolicy"
+      "schedule.concurrencyPolicy"
     )
   };
 };

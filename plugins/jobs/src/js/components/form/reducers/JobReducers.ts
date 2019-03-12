@@ -10,7 +10,7 @@ import {
   grantRuntimePrivilegesReducers,
   containerImageReducers
 } from "./ContainerReducers";
-import { enabledReducers, concurrentPolicyReducers } from "./ScheduleReducers";
+import { enabledReducers, concurrencyPolicyReducers } from "./ScheduleReducers";
 
 type DefaultReducerFunction = (
   value: string,
@@ -66,7 +66,7 @@ const combinedReducers: CombinedReducers = {
   grantRuntimePrivileges: grantRuntimePrivilegesReducers,
   args: argsReducers,
   scheduleEnabled: enabledReducers,
-  concurrentPolicy: concurrentPolicyReducers
+  concurrencyPolicy: concurrencyPolicyReducers
 };
 
 const isFunction = (func: any): boolean => {

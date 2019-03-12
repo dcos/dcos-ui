@@ -15,7 +15,7 @@ export interface JobSchedule {
   cron: string;
   timezone?: string;
   startingDeadlineSeconds?: number;
-  concurrentPolicy?: ConcurrentPolicy;
+  concurrencyPolicy?: ConcurrentPolicy;
   enabled?: boolean;
 }
 
@@ -51,7 +51,7 @@ export interface FormOutput {
   cronSchedule?: string;
   timezone?: string;
   startingDeadline?: number;
-  concurrentPolicy?: ConcurrentPolicy;
+  concurrencyPolicy?: ConcurrentPolicy;
 }
 
 export interface JobOutput {
