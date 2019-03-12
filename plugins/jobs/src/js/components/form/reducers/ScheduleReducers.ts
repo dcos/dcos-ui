@@ -22,17 +22,17 @@ export const enabledReducers = {
   }
 };
 
-export const concurrentPolicyReducers = {
+export const concurrencyPolicyReducers = {
   [JobFormActionType.Set]: (_: any, state: JobSpec) => {
     const stateCopy = deepCopy(state);
     if (!stateCopy.schedule) {
       stateCopy.schedule = {};
     }
-    const prevValue = stateCopy.schedule.concurrentPolicy;
-    stateCopy.schedule.concurrentPolicy =
+    const prevValue = stateCopy.schedule.concurrencyPolicy;
+    stateCopy.schedule.concurrencyPolicy =
       !prevValue || prevValue === ConcurrentPolicy.Forbid
-        ? (stateCopy.schedule.concurrentPolicy = ConcurrentPolicy.Allow)
-        : (stateCopy.schedule.concurrentPolicy = ConcurrentPolicy.Forbid);
+        ? (stateCopy.schedule.concurrencyPolicy = ConcurrentPolicy.Allow)
+        : (stateCopy.schedule.concurrencyPolicy = ConcurrentPolicy.Forbid);
     if (schedulePropertiesCanBeDiscarded(stateCopy.schedule)) {
       stateCopy.schedule = undefined;
     }
