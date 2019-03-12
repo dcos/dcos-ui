@@ -12,7 +12,10 @@ export const jsonReducers = {
     const stateCopy = deepCopy(state);
     const valueCopy = deepCopy(value);
 
-    if (!valueCopy.job) {
+    if (
+      !valueCopy.job ||
+      Object.prototype.toString.call(valueCopy.job) !== "[object Object]"
+    ) {
       const newState = {
         job: stateCopy.job,
         schedule: {
@@ -22,16 +25,27 @@ export const jsonReducers = {
         cmdOnly: stateCopy.cmdOnly,
         container: stateCopy.container
       };
+      if (!Object.keys(newState.schedule).length) {
+        newState.schedule = undefined;
+      }
       return newState;
     }
 
-    if (!valueCopy.job.run) {
+    // Can't check `typeof run === "object"` because that will return true for
+    // arrays, null...
+    if (
+      !valueCopy.job.run ||
+      Object.prototype.toString.call(valueCopy.job.run) !== "[object Object]"
+    ) {
       const newState = {
         cmdOnly: stateCopy.cmdOnly,
         container: stateCopy.container,
         job: {
           ...stateCopy.job,
-          ...valueCopy.job
+          ...valueCopy.job,
+          run: {
+            ...stateCopy.job.run
+          }
         },
         schedule: valueCopy.schedule
       };
