@@ -7,9 +7,10 @@ export const cmdOnlyReducers = {
     const stateCopy = deepCopy(state);
     if (value === "true") {
       stateCopy.cmdOnly = true;
-    }
-    if (value === "false") {
+    } else if (value === "false") {
       stateCopy.cmdOnly = false;
+    } else {
+      throw new Error(`expected 'true' or 'false', received ${value}`);
     }
     return stateCopy;
   }
