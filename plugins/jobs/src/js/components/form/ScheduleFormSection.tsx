@@ -181,10 +181,10 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
             </FormGroupHeading>
             <FieldLabel>
               <FieldInput
-                checked={formData.concurrentPolicy === ConcurrentPolicy.Allow}
-                name="concurrentPolicy"
+                checked={formData.concurrencyPolicy === ConcurrentPolicy.Allow}
+                name="concurrencyPolicy"
                 type="checkbox"
-                value={formData.concurrentPolicy}
+                value={formData.concurrencyPolicy}
               />
               <Trans>Allow</Trans>
             </FieldLabel>
