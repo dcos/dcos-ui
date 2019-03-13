@@ -1,6 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import * as semver from "semver";
 import { filter } from "rxjs/operators";
+import { NotificationService } from "@extension-kid/notification-service";
 import {
   ToastAppearance,
   ToastCallbackType,
@@ -10,7 +11,6 @@ import {
 import { getAction$, getUiMetadata$ } from "./streams";
 import { UIActions, UIActionType } from "./types/UIAction";
 import { rollbackUI, updateUI } from "./commands";
-import { getNotificationService } from "./utils";
 
 const LOCAL_DEV_VERSION = "0.0.0";
 const activeNotifications: string[] = [];
@@ -28,10 +28,12 @@ function removeActiveNotification(id: string) {
   }
 }
 
-function displayNotification(notification: ToastNotification) {
+function displayNotification(
+  notificationService: NotificationService,
+  notification: ToastNotification
+) {
   if (!activeNotifications.includes(notification.id)) {
-    const ns = getNotificationService();
-    ns.push(notification);
+    notificationService.push(notification);
     activeNotifications.push(notification.id);
   }
 }
@@ -83,7 +85,7 @@ function dismissNotificationCallback(
   removeActiveNotification(toastNotification.id);
 }
 
-function setupUIUpdatedNotification() {
+function setupUIUpdatedNotification(notificationService: NotificationService) {
   getUiMetadata$().subscribe(uiMetadata => {
     const { clientBuild, serverBuild } = uiMetadata;
     const coercedClientBuild = semver.coerce(clientBuild || "");
@@ -109,12 +111,14 @@ function setupUIUpdatedNotification() {
         primaryActionText: i18nMark("Reload"),
         callback: updateAvailableCallback
       });
-      displayNotification(notification);
+      displayNotification(notificationService, notification);
     }
   });
 }
 
-function setupUpdateFailedNotification() {
+function setupUpdateFailedNotification(
+  notificationService: NotificationService
+) {
   getAction$()
     .pipe(
       filter(
@@ -151,11 +155,13 @@ function setupUpdateFailedNotification() {
         });
       }
 
-      displayNotification(notification);
+      displayNotification(notificationService, notification);
     });
 }
 
-function setupRollbackFailedNotification() {
+function setupRollbackFailedNotification(
+  notificationService: NotificationService
+) {
   getAction$()
     .pipe(
       filter(
@@ -174,7 +180,7 @@ function setupRollbackFailedNotification() {
           callback: rollbackFailedCallback
         }
       );
-      displayNotification(notification);
+      displayNotification(notificationService, notification);
     });
 }
 
