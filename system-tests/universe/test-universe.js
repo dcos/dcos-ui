@@ -115,6 +115,7 @@ describe("Universe", function() {
       .contains("Plans", {
         timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
       })
+      .wait(Timeouts.SERVICE_DEPLOYMENT_TIMEOUT) // workaround for part above
       .click();
 
     cy.get(phaseSelector, {
