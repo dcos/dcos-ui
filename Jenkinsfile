@@ -74,7 +74,8 @@ pipeline {
             ]) {
               sh "./scripts/ci/createDatadogConfig.sh"
             }
-            sh "npm run test:integration"
+            // try to run all at once in the first run
+            sh "npm run test:integration -- -a || npm run test:integration"
           }
 
           post {
@@ -87,6 +88,11 @@ pipeline {
         }
 
         stage("System Test") {
+          when {
+            expression {
+              master_branches.contains(BRANCH_NAME)
+            }
+          }
           steps {
             withCredentials([
               [

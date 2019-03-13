@@ -47,10 +47,14 @@ TESTS_FOLDER="tests"
 
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
-while getopts 's:hnr:?' flag; do
+# if set, runs all tests at once
+RUN_ALL_TESTS=
+
+while getopts 's:ahnr:?' flag; do
   case "${flag}" in
     s) SEARCH=${OPTARG:-'*'} ;;
     h) CYPRESS_HEADED="true" ;;
+    a) RUN_ALL_TESTS="true" ;;
     n) CYPRESS_NO_EXIT="true" ;;
     r) RETRIES=${OPTARG} ;;
     ?)
@@ -235,7 +239,11 @@ function report {
 
 # finds the files and runs the tests
 function run_tests {
-  run_tests_one_by_one
+  if [ -n "${RUN_ALL_TESTS}" ]; then
+    run_all_tests
+  else
+    run_tests_one_by_one
+  fi
 }
 
 function run_all_tests {
