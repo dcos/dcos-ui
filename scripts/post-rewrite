@@ -10,5 +10,5 @@ title "Run post-rewrite hook..."
 header "Run lint..."
 npm run lint &&
 if [ "undefined" != `npm config get externalplugins` ]; then
-  npm run lint-plugins || exit $?
+  npm run lint:plugins || exit $?
 fi

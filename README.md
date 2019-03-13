@@ -4,68 +4,76 @@ The User Interface for The Datacenter Operating System.
 
 The DC/OS UI is used by datacenter operators to administer and manage a datacenter. Developers use DC/OS UI to manage, deploy and debug their applications. The DC/OS UI sits at the top of the [DC/OS stack](https://dcos.io/docs/latest/overview/architecture/) along with the [CLI](github.com/dcos/dcos-cli).
 
-* [Issue tracker](https://jira.dcos.io). Use component `dcos-ui`.
-* [Documentation](https://dcos.io/docs/latest/usage/webinterface/)
-* [Apache License v2](./LICENSE)
+- [Issue tracker](https://jira.dcos.io). Use component `dcos-ui`.
+- [Documentation](https://dcos.io/docs/latest/usage/webinterface/)
+- [Apache License v2](./LICENSE)
 
 ![DC/OS UI](./.github/dcos-ui.gif)
 
 ## Usage
 
 You can choose from two ways of developing this repository.
+
 - Locally
 - Docker
 
 ### Local Development
+
 #### Requirements
 
 Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
 #### DC/OS Installation Instructions:
-1. Clone this repo:
 
-  ```sh
-  git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
-  ```
+1.  Clone this repo:
 
-2. Install dependencies:
 
-  ```sh
-  npm i
-  ```
+```sh
+git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
+```
 
-3. Add developer files for config overrides:
+2.  Install dependencies:
 
-  ```sh
-  npm run scaffold
-  ```
-  This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration.
 
-  Edit `webpack/proxy.dev.js` to point to the cluster address.
+```sh
+npm i
+```
 
-4. (optional) Using External Plugins:
+3.  Add developer files for config overrides:
 
-  DC/OS UI comes bundled with some internal plugins within the `/plugins` directory. You can also load more plugins from another directory and they will be loaded into DC/OS UI along with the internal plugins. To set a directory for external plugins run:
 
-  ```sh
-  # for dcos-ui-plugins-private
-  npm config set externalplugins ../dcos-ui-plugins-private
+```sh
+npm run util:scaffold
+```
 
-  # for your own plugins
-  npm config set externalplugins ../path/to/plugins
-  ```
+This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration.
 
-  Note that `dcos-ui-plugins-private` currently *must* be set up at `../dcos-ui-plugins-private`. You also might want to copy its `Config.template.js` to `src/js/config/Config.dev.ts` to enable the enterprise edition.
+Edit `webpack/proxy.dev.js` to point to the cluster address.
 
-5. Start the development server:
+4.  (optional) Using External Plugins:
 
-  ```sh
-  npm start
-  ```
+DC/OS UI comes bundled with some internal plugins within the `/plugins` directory. You can also load more plugins from another directory and they will be loaded into DC/OS UI along with the internal plugins. To set a directory for external plugins run:
 
-6. Navigate to [http://localhost:4200](http://localhost:4200)
+```sh
+# for dcos-ui-plugins-private
+npm config set externalplugins ../dcos-ui-plugins-private
 
-*7. (optional, not suggested) Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.*
+# for your own plugins
+npm config set externalplugins ../path/to/plugins
+```
+
+Note that `dcos-ui-plugins-private` currently _must_ be set up at `../dcos-ui-plugins-private`. You also might want to copy its `Config.template.js` to `src/js/config/Config.dev.ts` to enable the enterprise edition.
+
+5.  Start the development server:
+
+
+```sh
+npm start
+```
+
+6.  Navigate to [http://localhost:4200](http://localhost:4200)
+
+_7. (optional, not suggested) Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster._
 
 ### Development with Docker
 

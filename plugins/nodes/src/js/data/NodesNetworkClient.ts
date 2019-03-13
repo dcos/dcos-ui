@@ -1,6 +1,6 @@
 import { request, RequestResponse } from "@dcos/http-service";
 import { merge, Observable } from "rxjs";
-import { partition, tap } from "rxjs/operators";
+import { partition, tap, share } from "rxjs/operators";
 
 export interface NodeNetwork {
   updated: string | Date;
@@ -32,7 +32,7 @@ export function fetchNodesNetwork(): Observable<
 > {
   const [success, error] = partition(
     (response: RequestResponse<NodesNetworkResponse>) => response.code < 300
-  )(request("/net/v1/nodes"));
+  )(request<NodeNetworkResponse[]>("/net/v1/nodes").pipe(share()));
 
   return merge(
     success,

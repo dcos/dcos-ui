@@ -8,7 +8,7 @@ source "${SCRIPT_PATH}/utils/message"
 title "Lint commit message..."
 
 ## chore should no longer be allowed!
-linting_errors="$(npm run commitlint --silent -- -e; echo x$?)"
+linting_errors="$(npm run lint:commits --silent -- -e; echo x$?)"
 
 if [  ${linting_errors##*x} -ne 0 ]
 then
