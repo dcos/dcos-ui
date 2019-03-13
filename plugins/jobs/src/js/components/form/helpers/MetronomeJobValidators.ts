@@ -10,14 +10,19 @@ import { JobOutput, FormError, UcrImageKind } from "./JobFormData";
 
 type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 
+// TODO: can be removed once we're on TS3, as it seems flatMap-support has landed there.
+const flatMap = <A, B>(map: (x: A, i: number) => B[], xs: A[]): B[] =>
+  xs.reduce((acc, x, i) => acc.concat(map(x, i)), [] as B[]);
+
 const validation = <T>(isValid: (val: T) => boolean, message: string) => (
   path: (i: number) => string,
   values: T[]
 ) => (errors: FormError[]) =>
   errors.concat(
-    values.flatMap(
+    flatMap(
       (value, index) =>
-        isValid(value) ? [] : [{ message, path: path(index).split(".") }]
+        isValid(value) ? [] : [{ message, path: path(index).split(".") }],
+      values
     )
   );
 
