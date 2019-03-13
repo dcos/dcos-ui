@@ -1,4 +1,7 @@
 import { MountService } from "foundation-ui";
+import { NotificationServiceType } from "@extension-kid/notification-service";
+
+import container from "#SRC/js/container";
 
 import UIDetails from "./components/UIDetails";
 import * as Notifications from "./notifications";
@@ -10,8 +13,11 @@ module.exports = {
       "UISettings:UIDetails:Content"
     );
 
-    Notifications.setupUIUpdatedNotification();
-    Notifications.setupUpdateFailedNotification();
-    Notifications.setupRollbackFailedNotification();
+    const notificationService = container.get(NotificationServiceType);
+    if (notificationService) {
+      Notifications.setupUIUpdatedNotification(notificationService);
+      Notifications.setupUpdateFailedNotification(notificationService);
+      Notifications.setupRollbackFailedNotification(notificationService);
+    }
   }
 };
