@@ -10,34 +10,23 @@ import mesosStream, { MesosStreamType } from "./core/MesosStream";
 
 const container = new Container();
 container.bind(MesosStreamType).toConstantValue(mesosStream);
-container.load(notificationServiceFactory());
 
-const toastsExtension = toastsExtensionFactory();
-if (toastsExtension) {
-  container.load(toastsExtension);
-} else {
-  // tslint:disable-next-line
-  console.error("Could not load toasts extension, please check export");
-}
+const factories = {
+  notification: notificationServiceFactory,
+  toast: toastsExtensionFactory,
+  dataLayer: dataLayerExtensionFactory,
+  jobs: jobsExtensionFactory,
+  repositoriesExtension: repositoriesExtensionFactory
+};
 
-container.load(dataLayerExtensionFactory());
-
-const jobsExtension = jobsExtensionFactory();
-if (jobsExtension) {
-  container.load(jobsExtension);
-} else {
-  // tslint:disable-next-line
-  console.error("Could not load jobs extension, please check the export");
-}
-
-const repositoriesExtension = repositoriesExtensionFactory();
-if (repositoriesExtension) {
-  container.load(repositoriesExtension);
-} else {
-  // tslint:disable-next-line
-  console.error(
-    "Could not load repositories extension, please check the export"
-  );
-}
+Object.entries(factories).forEach(([name, factory]) => {
+  const containerModule = factory();
+  if (containerModule) {
+    container.load(containerModule);
+  } else {
+    // tslint:disable-next-line
+    console.error(`Could not load ${name} extension, please check export`);
+  }
+});
 
 export default container;
