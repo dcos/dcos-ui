@@ -533,7 +533,7 @@ var MarathonActions = {
 };
 
 if (Config.useFixtures) {
-  const groupsFixture = require("../../../../../tests/_fixtures/marathon-pods/groups.json");
+  const groupsFixture = require("../../../../../tests/_fixtures/marathon-pods/groups.js");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
