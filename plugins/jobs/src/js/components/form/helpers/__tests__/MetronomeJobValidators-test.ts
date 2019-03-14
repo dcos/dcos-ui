@@ -122,7 +122,7 @@ const SCHEDULEIDREGEXERROR = [
   {
     path: ["schedule", "id"],
     message:
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
   }
 ];
 
