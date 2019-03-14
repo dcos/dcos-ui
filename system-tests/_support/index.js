@@ -80,9 +80,6 @@ export function deleteService(serviceId) {
   cy.exec(`dcos marathon app remove ${serviceId}`);
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
   cy.get(".page-body-content")
-    .contains("No running services")
-    .should("exist");
-  cy.get(".page-body-content")
     .contains(serviceName)
     .should("not.exist");
 }

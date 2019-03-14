@@ -26,7 +26,7 @@ export function nameRenderer(
 
   return (
     <TextCell>
-      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
+      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
         <Link className="table-cell-icon" to={serviceLink}>
           {getImage(service)}
         </Link>
@@ -76,7 +76,7 @@ function getServiceLink(service: any, isFiltered: boolean): any {
   }
 
   return (
-    <Link className="table-cell-link-primary text-overflow" to={serviceLink}>
+    <Link className="table-cell-link-primary" to={serviceLink}>
       {service.getName()}
     </Link>
   );
