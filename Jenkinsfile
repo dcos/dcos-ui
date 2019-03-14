@@ -31,6 +31,8 @@ pipeline {
 
     stage("Build") {
       steps {
+        // jenkins seem to have this variable set for no reason, explicitly remiving it…
+        sh "npm config delete externalplugins"
         sh "npm --unsafe-perm install"
         sh "npm run build"
       }
