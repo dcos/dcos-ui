@@ -319,15 +319,11 @@ describe("DataLayer", () => {
       }
     `;
 
-    await expect(toPromise(dl.query(query).pipe(take(1)))).resolves.toEqual({
-      data: {},
-      errors: [
-        {
-          message:
-            "There was a GraphQL error: Error: reactive-graphql: field 'task' was not found on type 'Job'. The only fields found in this Object are: id,docker."
-        }
-      ]
-    });
+    await expect(toPromise(dl.query(query).pipe(take(1)))).rejects.toEqual(
+      new Error(
+        "reactive-graphql: field 'task' was not found on type 'Job'. The only fields found in this Object are: id,docker."
+      )
+    );
 
     await container.bindAsync(DataLayerExtensionType, bts => {
       bts.to(TasksExtension).inSingletonScope();
@@ -338,47 +334,7 @@ describe("DataLayer", () => {
     });
   });
 
-  it("extends a schema while a query is running", async () => {
-    jest.useRealTimers();
-    await container.bindAsync(DataLayerExtensionType, bts => {
-      bts.to(JobsExtension).inSingletonScope();
-    });
-    const dl: DataLayer = container.get<DataLayer>(DataLayerType);
-
-    const query = gql`
-      query {
-        jobs {
-          task {
-            id
-          }
-        }
-      }
-    `;
-
-    const obs = dl.query(query).pipe(take(2));
-    const mockNext = jest.fn();
-    const subscriptionDone = new Promise(resolve =>
-      obs.subscribe({ next: mockNext, complete: resolve })
-    );
-    await Promise.all([
-      subscriptionDone,
-      container.bindAsync(DataLayerExtensionType, bts => {
-        bts.to(TasksExtension).inSingletonScope();
-      })
-    ]);
-
-    expect(mockNext).toHaveBeenCalledTimes(2);
-    expect(mockNext).toHaveBeenCalledWith({
-      data: {},
-      errors: [
-        {
-          message:
-            "There was a GraphQL error: Error: reactive-graphql: field 'task' was not found on type 'Job'. The only fields found in this Object are: id,docker."
-        }
-      ]
-    });
-    expect(mockNext).toHaveBeenCalledWith({
-      data: { jobs: [{ task: { id: "footask" } }] }
-    });
-  });
+  // This can currently not be done, because reactive-graphql completes the observable as an error
+  // It relates to this issue: https://github.com/mesosphere/reactive-graphql/issues/13
+  it("extends a schema while a query is running");
 });
