@@ -10,10 +10,12 @@ import mesosStream, { MesosStreamType } from "./core/MesosStream";
 import mesosMasterRequest, {
   MesosMasterRequestType
 } from "./core/MesosMasterRequest";
+import { i18n, I18nType } from "./i18n";
 
 const container = new Container();
 container.bind(MesosStreamType).toConstantValue(mesosStream);
 container.bind(MesosMasterRequestType).toConstantValue(mesosMasterRequest);
+container.bind(I18nType).toConstantValue(i18n);
 
 const factories = {
   notification: notificationServiceFactory,
