@@ -1,6 +1,6 @@
 import PluginSDK from "PluginSDK";
-import { request } from "@dcos/mesos-client";
-import { interval } from "rxjs";
+import * as MesosClient from "@dcos/mesos-client";
+import { interval, of } from "rxjs";
 import {
   merge,
   distinctUntilChanged,
@@ -30,6 +30,8 @@ import { linearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
+
+let { request } = MesosClient;
 
 const MAX_RETRIES = 5;
 const RETRY_DELAY = 500;
@@ -319,6 +321,29 @@ class MesosStateStore extends GetSetBaseStore {
   get storeID() {
     return "state";
   }
+}
+
+if (Config.useFixtures) {
+  const getMasterFixture = require("../../../tests/_fixtures/v1/get_master.json");
+  const subscribeFixture = require("../../../tests/_fixtures/v1/subscribe.js");
+
+  const { MesosStreamType } = require("../core/MesosStream");
+
+  const oldRequest = request;
+
+  request = function(options, url) {
+    if (url === "/mesos/api/v1?get_master") {
+      console.log("Stub /mesos/api/v1?get_master");
+
+      return of(JSON.stringify(getMasterFixture));
+    }
+
+    return oldRequest(options, request);
+  };
+
+  container
+    .rebind(MesosStreamType)
+    .toConstantValue(of(JSON.stringify(subscribeFixture)));
 }
 
 module.exports = new MesosStateStore();
