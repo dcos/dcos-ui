@@ -156,8 +156,17 @@ describe("DataLayer", () => {
   it(
     "provides an extended schema",
     marbles(m => {
-      container.load(getExtensionModule(JobsExtension));
-      container.load(getExtensionModule(TasksExtension));
+      const jobModuleExtension = getExtensionModule(JobsExtension);
+      if (!jobModuleExtension) {
+        throw new Error("Could not get extension module for jobs extension");
+      }
+      container.load(jobModuleExtension);
+
+      const tasksModuleExtension = getExtensionModule(TasksExtension);
+      if (!tasksModuleExtension) {
+        throw new Error("Could not get extension module for tasks extension");
+      }
+      container.load(tasksModuleExtension);
 
       const dl: DataLayer = container.get<DataLayer>(DataLayerType);
       const query = gql`
@@ -206,8 +215,17 @@ describe("DataLayer", () => {
         }
       `;
 
-      container.load(getExtensionModule(JobsExtension));
-      container.load(getExtensionModule(TasksExtension));
+      const jobModuleExtension = getExtensionModule(JobsExtension);
+      if (!jobModuleExtension) {
+        throw new Error("Could not get extension module for jobs extension");
+      }
+      container.load(jobModuleExtension);
+
+      const tasksModuleExtension = getExtensionModule(TasksExtension);
+      if (!tasksModuleExtension) {
+        throw new Error("Could not get extension module for tasks extension");
+      }
+      container.load(tasksModuleExtension);
 
       const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
@@ -250,8 +268,17 @@ describe("DataLayer", () => {
         }
       `;
 
-      container.load(getExtensionModule(TasksExtension));
-      container.load(getExtensionModule(JobsExtension));
+      const jobModuleExtension = getExtensionModule(JobsExtension);
+      if (!jobModuleExtension) {
+        throw new Error("Could not get extension module for jobs extension");
+      }
+      container.load(jobModuleExtension);
+
+      const tasksModuleExtension = getExtensionModule(TasksExtension);
+      if (!tasksModuleExtension) {
+        throw new Error("Could not get extension module for tasks extension");
+      }
+      container.load(tasksModuleExtension);
 
       const dl: DataLayer = container.get<DataLayer>(DataLayerType);
 
