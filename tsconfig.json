@@ -31,7 +31,7 @@
       "@extension-kid/data-layer": ["packages/@extension-kid/data-layer"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
-      "#LOCALE": ["locale/*"],
+      "#LOCALE/*": ["locale/*"],
       "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
       "#PLUGINS/*": ["plugins/*"]
     }
