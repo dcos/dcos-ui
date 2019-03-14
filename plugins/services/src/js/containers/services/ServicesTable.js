@@ -383,7 +383,8 @@ class ServicesTable extends React.Component {
               this.props.isFiltered,
               ...arguments
             )}
-            minWidth={250}
+            growToFill={true}
+            minWidth={200}
           />
 
           <Column
@@ -426,8 +427,8 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={statusRenderer}
-            maxWidth={210}
             growToFill={true}
+            minWidth={210}
           />
 
           <Column
@@ -453,6 +454,8 @@ class ServicesTable extends React.Component {
             }
             cellRenderer={regionRenderer}
             growToFill={true}
+            minWidth={60}
+            maxWidth={150}
           />
 
           <Column
@@ -467,6 +470,9 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={instancesRenderer}
+            growToFill={true}
+            minWidth={100}
+            maxWidth={120}
           />
 
           <Column
@@ -479,8 +485,9 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={cpuRenderer}
-            minWidth={100}
+            minWidth={70}
             maxWidth={100}
+            growToFill={true}
           />
 
           <Column
@@ -493,8 +500,9 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={memRenderer}
-            minWidth={100}
-            maxWidth={100}
+            growToFill={true}
+            minWidth={120}
+            maxWidth={150}
           />
 
           <Column
@@ -507,8 +515,9 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={diskRenderer}
+            growToFill={true}
             minWidth={100}
-            maxWidth={100}
+            maxWidth={120}
           />
 
           <Column
@@ -521,16 +530,18 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={gpuRenderer}
-            minWidth={100}
-            maxWidth={100}
+            growToFill={true}
+            minWidth={50}
+            maxWidth={70}
           />
 
           <Column
             cellRenderer={this.actionsRenderer}
             handleActionDisabledModalOpen={this.handleActionDisabledModalOpen}
             handleServiceAction={this.handleServiceAction}
-            minWidth={50}
-            maxWidth={50}
+            growToFill={true}
+            minWidth={24}
+            maxWidth={36}
           />
         </Table>
         <ServiceActionDisabledModal
