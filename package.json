@@ -213,7 +213,7 @@
     "prebuild:assets": "node ./scripts/checkDependencies.js",
     "preinstall": "./scripts/pre-install",
     "prestart": "npm run util:env:validate",
-    "release": "standard-version --tag-prefix \"$(python -c \"import sys, json; dcosrc = json.load(open('.dcosrc')); sys.stdout.write(str(dcosrc['base']));\")+v\"",
+    "release": "semantic-release",
     "start:testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
     "start": "lingui compile && NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.js --hot --progress --colors --content-base ./dist --host 0.0.0.0 --port $npm_package_config_port",
     "test:integration:local": "npx cypress open",
