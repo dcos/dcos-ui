@@ -1,12 +1,7 @@
 import { Hooks } from "PluginSDK";
 import isEqual from "lodash.isequal";
 
-import Application from "../structs/Application";
 import ApplicationSpec from "../structs/ApplicationSpec";
-import Framework from "../structs/Framework";
-import Pod from "../structs/Pod";
-import Service from "../structs/Service";
-import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 
 const getFindPropertiesRecursive = function(service, item) {
   return Object.keys(item).reduce(function(memo, subItem) {
@@ -45,28 +40,6 @@ const getFindPropertiesRecursive = function(service, item) {
 };
 
 const ServiceUtil = {
-  createServiceFromResponse(data) {
-    if (ServiceValidatorUtil.isPodResponse(data)) {
-      return new Pod(data);
-    }
-
-    if (ServiceValidatorUtil.isFrameworkResponse(data)) {
-      return new Framework(data);
-    }
-
-    if (ServiceValidatorUtil.isApplicationResponse(data)) {
-      return new Application(data);
-    }
-
-    throw Error("Unknown service response: " + JSON.stringify(data));
-  },
-
-  createFormModelFromSchema(schema, service = new Application()) {
-    console.warn("ServieUtil.createFormModelFromSchema has been deprecated.");
-
-    return getFindPropertiesRecursive(service, schema.properties);
-  },
-
   isEqual(serviceA, serviceB) {
     if (serviceA.constructor !== serviceB.constructor) {
       return false;
@@ -135,27 +108,13 @@ const ServiceUtil = {
     return serviceName[serviceName.length - 1];
   },
 
-  convertServiceLabelsToArray(service) {
-    if (!(service instanceof Service)) {
-      return [];
-    }
-
-    const labels = service.getLabels();
-    if (labels == null) {
-      return [];
-    }
-
-    return Object.keys(labels).map(key => ({ key, value: labels[key] }));
-  },
-
   isSDKService(service) {
-    if (!(service instanceof Service)) {
-      return false;
-    }
-
-    const labels = service.getLabels();
-
-    return labels.DCOS_COMMONS_API_VERSION != null;
+    return (
+      service &&
+      service.getLabels &&
+      typeof service.getLabels === "function" &&
+      service.getLabels().DCOS_COMMONS_API_VERSION != null
+    );
   }
 };
 
