@@ -33,7 +33,7 @@ import container from "#SRC/js/container";
 
 import { JobConnection } from "./types/JobConnection";
 
-const dataLayer: DataLayer = container.get<DataLayer>(DataLayerType);
+const dataLayer = container.get<DataLayer>(DataLayerType);
 
 interface JobsOverviewProps {
   path: string[];

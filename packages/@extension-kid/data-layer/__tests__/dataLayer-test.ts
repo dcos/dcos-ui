@@ -133,7 +133,7 @@ describe("DataLayer", () => {
   it(
     "does not error without an extension",
     marbles(m => {
-      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
+      const dl = container.get<DataLayer>(DataLayerType);
 
       const query = gql`
         query {
@@ -168,7 +168,7 @@ describe("DataLayer", () => {
       }
       container.load(tasksModuleExtension);
 
-      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
+      const dl = container.get<DataLayer>(DataLayerType);
       const query = gql`
         query {
           jobs {
@@ -227,7 +227,7 @@ describe("DataLayer", () => {
       }
       container.load(tasksModuleExtension);
 
-      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
+      const dl = container.get<DataLayer>(DataLayerType);
 
       const expected$ = m.cold("(a|)", {
         a: {
@@ -280,7 +280,7 @@ describe("DataLayer", () => {
       }
       container.load(tasksModuleExtension);
 
-      const dl: DataLayer = container.get<DataLayer>(DataLayerType);
+      const dl = container.get<DataLayer>(DataLayerType);
 
       const expected$ = m.cold("(a|)", {
         a: {
@@ -307,7 +307,7 @@ describe("DataLayer", () => {
       bts.to(JobsExtension).inSingletonScope();
     });
 
-    const dl: DataLayer = container.get<DataLayer>(DataLayerType);
+    const dl = container.get<DataLayer>(DataLayerType);
 
     const query = gql`
       query {
