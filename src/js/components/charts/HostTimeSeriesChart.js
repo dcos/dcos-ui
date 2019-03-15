@@ -52,7 +52,7 @@ var HostTimeSeriesChart = createReactClass({
       {
         name: "Nodes",
         colorIndex: props.colorIndex,
-        values: props.data
+        values: props.data.sort((a, b) => (a.date > b.date ? 1 : -1))
       }
     ];
   },

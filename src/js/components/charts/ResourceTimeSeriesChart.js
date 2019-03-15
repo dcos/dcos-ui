@@ -32,7 +32,9 @@ var ResourceTimeSeriesChart = createReactClass({
       {
         name: "Alloc",
         colorIndex,
-        values: usedResourcesStates[mode]
+        values: usedResourcesStates[mode].sort(
+          (a, b) => (a.date > b.date ? 1 : -1)
+        )
       }
     ];
   },
