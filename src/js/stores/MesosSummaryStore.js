@@ -18,7 +18,6 @@ import MesosSummaryActions from "../events/MesosSummaryActions";
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 import StateSummary from "../structs/StateSummary";
 import SummaryList from "../structs/SummaryList";
-import TimeScales from "../constants/TimeScales";
 import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
@@ -29,20 +28,11 @@ let isInactive = false;
  */
 function startPolling() {
   if (requestInterval == null) {
-    // Should always retrieve bulk summary when polling starts
-    MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-
     requestInterval = setInterval(() => {
-      const wasInactive = isInactive && !VisibilityStore.get("isInactive");
       isInactive = VisibilityStore.get("isInactive");
 
       if (!isInactive) {
-        if (wasInactive) {
-          // Flush history with new data set
-          MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-        } else {
-          MesosSummaryActions.fetchSummary();
-        }
+        MesosSummaryActions.fetchSummary();
       } else {
         // If not active, push null placeholder. This will ensure we maintain
         // history when navigating back, for case where history server is down.
