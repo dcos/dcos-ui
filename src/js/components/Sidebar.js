@@ -52,6 +52,11 @@ class Sidebar extends React.Component {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextProps.location !== this.props.location ||
+      nextState.expandedItems !== this.state.expandedItems);
+  }
+
   componentWillMount() {
     const pathnameSegments = this.props.location.pathname.split("/");
 
@@ -140,7 +145,7 @@ class Sidebar extends React.Component {
       expandedItems.splice(expandedItemIndex, 1);
     }
 
-    this.setState({ expandedItems });
+    this.setState({ expandedItems: expandedItems.slice(0) });
   }
 
   handleSidebarTransitionEnd(event) {
