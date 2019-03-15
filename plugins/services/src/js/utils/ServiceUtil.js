@@ -2,7 +2,6 @@ import { Hooks } from "PluginSDK";
 import isEqual from "lodash.isequal";
 
 import ApplicationSpec from "../structs/ApplicationSpec";
-import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 
 const getFindPropertiesRecursive = function(service, item) {
   return Object.keys(item).reduce(function(memo, subItem) {
@@ -109,27 +108,12 @@ const ServiceUtil = {
     return serviceName[serviceName.length - 1];
   },
 
-  convertServiceLabelsToArray(service) {
-    if (!(service instanceof Service)) {
-      return [];
-    }
-
-    const labels = service.getLabels();
-    if (labels == null) {
-      return [];
-    }
-
-    return Object.keys(labels).map(key => ({ key, value: labels[key] }));
-  },
-
   isSDKService(service) {
-    if (!(service instanceof Service)) {
-      return false;
-    }
-
-    const labels = service.getLabels();
-
-    return labels.DCOS_COMMONS_API_VERSION != null;
+    return (
+      service &&
+      service.getLabels &&
+      service.getLabels().DCOS_COMMONS_API_VERSION != null
+    );
   }
 };
 

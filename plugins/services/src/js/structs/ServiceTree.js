@@ -215,10 +215,14 @@ module.exports = class ServiceTree extends Tree {
               return;
             }
 
-            let serviceLabels = service.getLabels();
-
+            let serviceLabels;
             if (service instanceof Service) {
-              serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
+              serviceLabels = Object.keys(service.getLabels()).map(key => ({
+                key,
+                value: service.getLabels()[key]
+              }));
+            } else {
+              serviceLabels = [];
             }
 
             const hasLabel = serviceLabels.some(function(serviceLabel) {
@@ -461,10 +465,11 @@ module.exports = class ServiceTree extends Tree {
 
   getLabels() {
     return this.reduceItems(function(serviceTreeLabels, item) {
-      ServiceUtil.convertServiceLabelsToArray(item).forEach(function({
+      const labels = Object.keys(item.getLabels()).map(key => ({
         key,
-        value
-      }) {
+        value: item.getLabels()[key]
+      }));
+      labels.forEach(function({ key, value }) {
         if (
           serviceTreeLabels.findIndex(function(label) {
             return label.key === key && label.value === value;
