@@ -6,7 +6,7 @@ jest.mock("@dcos/data-service", () => ({
   graphqlObservable: jest.fn()
 }));
 
-describe.skip("JobsRunNow", function() {
+describe("JobsRunNow", function() {
   describe("#jobsRunNow", function() {
     it("onItemSelect triggers a graphql mutation", function() {
       graphqlObservable.mockReturnValue(of("response"));
