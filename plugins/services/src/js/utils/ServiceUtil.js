@@ -41,22 +41,6 @@ const getFindPropertiesRecursive = function(service, item) {
 };
 
 const ServiceUtil = {
-  createServiceFromResponse(data) {
-    if (ServiceValidatorUtil.isPodResponse(data)) {
-      return new Pod(data);
-    }
-
-    if (ServiceValidatorUtil.isFrameworkResponse(data)) {
-      return new Framework(data);
-    }
-
-    if (ServiceValidatorUtil.isApplicationResponse(data)) {
-      return new Application(data);
-    }
-
-    throw Error("Unknown service response: " + JSON.stringify(data));
-  },
-
   createFormModelFromSchema(schema, service = new Application()) {
     console.warn("ServieUtil.createFormModelFromSchema has been deprecated.");
 

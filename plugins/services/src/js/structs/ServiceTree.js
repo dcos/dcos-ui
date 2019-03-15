@@ -1,6 +1,7 @@
 import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
 
+import Application from "./Application";
 import Framework from "./Framework";
 import HealthTypes from "../constants/HealthTypes";
 import HealthStatus from "../constants/HealthStatus";
@@ -9,6 +10,7 @@ import Service from "./Service";
 import ServiceOther from "../constants/ServiceOther";
 import ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
+import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 import VolumeList from "../structs/VolumeList";
 
 module.exports = class ServiceTree extends Tree {
@@ -48,7 +50,19 @@ module.exports = class ServiceTree extends Tree {
       }
 
       // Create the appropriate service according to definition
-      return ServiceUtil.createServiceFromResponse(item);
+      if (ServiceValidatorUtil.isPodResponse(item)) {
+        return new Pod(item);
+      }
+
+      if (ServiceValidatorUtil.isFrameworkResponse(item)) {
+        return new Framework(item);
+      }
+
+      if (ServiceValidatorUtil.isApplicationResponse(item)) {
+        return new Application(item);
+      }
+
+      throw Error("Unknown service response: " + JSON.stringify(item));
     });
   }
 
