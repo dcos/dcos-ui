@@ -66,7 +66,7 @@ interface JobFormModalState {
   isConfirmOpen: boolean;
 }
 
-const dataLayer: DataLayer = container.get<DataLayer>(DataLayerType);
+const dataLayer = container.get<DataLayer>(DataLayerType);
 const createJobMutation = gql`
   mutation {
     createJob(data: $data) {
