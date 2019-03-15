@@ -1,24 +1,33 @@
-export enum UIActions {
+enum UIActions {
   None = "",
   Started = "start",
   Completed = "complete",
   Error = "error"
 }
 
-export enum UIActionType {
+enum UIActionType {
   None = "",
   Reset = "UIReset",
   Update = "UIUpdate"
 }
 
-export interface UIAction {
-  type: UIActionType;
-  action: UIActions;
-  value: string;
+interface UIActionValue {
+  message: string;
+  data?: string;
 }
 
-export const EMPTY_ACTION: UIAction = {
+interface UIAction {
+  type: UIActionType;
+  action: UIActions;
+  value: UIActionValue;
+}
+
+const EMPTY_ACTION: UIAction = {
   type: UIActionType.None,
   action: UIActions.None,
-  value: ""
+  value: {
+    message: ""
+  }
 };
+
+export { UIAction, UIActions, UIActionType, UIActionValue, EMPTY_ACTION };

@@ -1,5 +1,4 @@
 import * as semver from "semver";
-
 import { Package } from "#SRC/js/data/cosmos/Package";
 import { UIMetadata } from "#SRC/js/data/ui-update/UIMetadata";
 

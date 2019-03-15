@@ -3,14 +3,15 @@ jest.mock("@dcos/data-service", () => ({
   graphqlObservable: mockDataLayer
 }));
 
+import { take } from "rxjs/operators";
+import { of } from "rxjs";
 import { marbles } from "rxjs-marbles/jest";
+
+import { DEFAULT_UI_METADATA } from "#SRC/js/data/ui-update/UIMetadata";
 import {
   queryCosmosForUIVersions,
   queryUIServiceForMetadata
 } from "#PLUGINS/ui-update/queries";
-import { take } from "rxjs/operators";
-import { of } from "rxjs";
-import { DEFAULT_UI_METADATA } from "#SRC/js/data/ui-update/UIMetadata";
 
 describe("queries", () => {
   beforeEach(() => {

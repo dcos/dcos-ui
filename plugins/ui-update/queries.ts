@@ -1,9 +1,10 @@
 import { Observable, of } from "rxjs";
-import { graphqlObservable } from "@dcos/data-service";
-import { Package } from "#SRC/js/data/cosmos/Package";
-import gql from "graphql-tag";
-import { schema as cosmosSchema } from "#SRC/js/data/cosmos";
 import { catchError, map } from "rxjs/operators";
+import { graphqlObservable } from "@dcos/data-service";
+import gql from "graphql-tag";
+
+import { Package } from "#SRC/js/data/cosmos/Package";
+import { schema as cosmosSchema } from "#SRC/js/data/cosmos";
 import {
   DEFAULT_UI_METADATA,
   UIMetadata

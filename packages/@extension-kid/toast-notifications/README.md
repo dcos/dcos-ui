@@ -52,3 +52,41 @@ const toastNotification = new ToastNotification(
 
 notificationService.push(toastNotification);
 ``` 
+
+## i18n
+
+`@lingui/react` is used for translating text inside of toasts. The all text strings for the toast, `title` `description` `primaryActionText` `secondaryActionText` can be set to either a `string` or an object with a message `id` and `values` to be used for translation.
+
+```typescript
+const toastNotification = new ToastNotification(
+  "My Title",
+  {
+    description: {
+      id: "My template with a {variable}!",
+      values: {
+        variable: "My runtime variable value"
+      }
+    }
+  }
+);
+```
+
+All static strings or templates used as an `id` should be marked using `i18nMark` from `@lingui/react`
+
+```typescript
+import { i18nMark } from "@lingui/react";
+
+const title = i18nMark("My Title");
+const description = i18nMark("My template with a {variable}!");
+const toastNotification = new ToastNotification(
+  title,
+  {
+    description: {
+      id: description,
+      values: {
+        variable: "My runtime variable value"
+      }
+    }
+  }
+);
+```
