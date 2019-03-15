@@ -1,11 +1,7 @@
 import { Hooks } from "PluginSDK";
 import isEqual from "lodash.isequal";
 
-import Application from "../structs/Application";
 import ApplicationSpec from "../structs/ApplicationSpec";
-import Framework from "../structs/Framework";
-import Pod from "../structs/Pod";
-import Service from "../structs/Service";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 
 const getFindPropertiesRecursive = function(service, item) {
