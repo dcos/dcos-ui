@@ -25,24 +25,26 @@ const MesosSummaryUtil = {
     const resources = { cpus: [], mem: [], disk: [], gpus: [] };
     const resourceTypes = Object.keys(resources);
 
-    stateResources.forEach(function(stateResource) {
-      resourceTypes.forEach(function(resourceType) {
-        let percentage = null,
-          value = null;
+    stateResources
+      .sort((a, b) => (a.date > b.date ? 1 : -1))
+      .forEach(function(stateResource) {
+        resourceTypes.forEach(function(resourceType) {
+          let percentage = null,
+            value = null;
 
-        if (stateResource.resources != null) {
-          const max = Math.max(1, stateResource.totalResources[resourceType]);
-          value = stateResource.resources[resourceType];
-          percentage = Maths.round((100 * value) / max);
-        }
+          if (stateResource.resources != null) {
+            const max = Math.max(1, stateResource.totalResources[resourceType]);
+            value = stateResource.resources[resourceType];
+            percentage = Maths.round((100 * value) / max);
+          }
 
-        resources[resourceType].push({
-          date: stateResource.date,
-          percentage,
-          value
+          resources[resourceType].push({
+            date: stateResource.date,
+            percentage,
+            value
+          });
         });
       });
-    });
 
     return resources;
   },
