@@ -188,7 +188,6 @@ const TimeSeriesChart = createReactClass({
 
     return d3.svg
       .line()
-      .defined(d => d[y] == null)
       .x(d => xTimeScale(d.date))
       .y(function(d) {
         if (d[y] != null) {
