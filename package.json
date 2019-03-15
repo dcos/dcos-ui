@@ -203,7 +203,7 @@
     "build": "npm run lint && ([ -z \"${npm_config_externalplugins}\" ] || npm run lint:plugins) && npm test && npm run build:assets && npm run build:validate",
     "clean": "rm -rf dist locale/_build",
     "lint:commits": "./node_modules/.bin/commitlint",
-    "lint:es": "npx eslint --ignore-path .gitignore **/*.js",
+    "lint:es": "npx eslint --ignore-path .gitignore './**/*.js'",
     "lint:plugins": "PLUGINS=$npm_config_externalplugins; npm run lint:es -- \"$PLUGINS/**/*.js\" && npm run lint:styles -- \"$PLUGINS/**/*.less\"",
     "lint:styles": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
     "lint:ts": "tslint -c tslint.json --project tsconfig.json",
