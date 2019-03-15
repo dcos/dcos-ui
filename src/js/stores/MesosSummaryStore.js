@@ -2,8 +2,6 @@ import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_SUMMARY_ERROR,
-  REQUEST_SUMMARY_HISTORY_ONGOING,
-  REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_SUMMARY_ONGOING,
   REQUEST_SUMMARY_SUCCESS,
   SERVER_ACTION
@@ -100,14 +98,10 @@ class MesosSummaryStore extends GetSetBaseStore {
         case REQUEST_SUMMARY_SUCCESS:
           this.processSummary(action.data);
           break;
-        case REQUEST_SUMMARY_HISTORY_SUCCESS:
-          this.processBulkState(action.data);
-          break;
         case REQUEST_SUMMARY_ERROR:
           this.processSummaryError();
           break;
         case REQUEST_SUMMARY_ONGOING:
-        case REQUEST_SUMMARY_HISTORY_ONGOING:
           this.processSummaryError();
           break;
       }
