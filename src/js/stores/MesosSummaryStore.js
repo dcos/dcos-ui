@@ -19,7 +19,6 @@ import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 import StateSummary from "../structs/StateSummary";
 import SummaryList from "../structs/SummaryList";
 import TimeScales from "../constants/TimeScales";
-import Util from "../utils/Util";
 import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
@@ -214,29 +213,6 @@ class MesosSummaryStore extends GetSetBaseStore {
       this.set({ statesProcessed: true });
       this.emit(MESOS_SUMMARY_CHANGE);
     }
-  }
-
-  processBulkState(data) {
-    if (!Array.isArray(data)) {
-      return MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-    }
-
-    // If we get less data than the history length
-    // fill the front with the `n` copies of the earliest snapshot available
-    if (data.length < Config.historyLength) {
-      const diff = Config.historyLength - data.length;
-      for (var i = 0; i < diff; i++) {
-        data.unshift(Util.deepCopy(data[0]));
-      }
-    }
-
-    // Multiply Config.stateRefresh in order to use larger time slices
-    data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
-    data.forEach(datum => {
-      this.processSummary(datum, { silent: true });
-    });
-    this.set({ lastRequestTime: Date.now() });
-    this.emit(MESOS_SUMMARY_CHANGE);
   }
 
   processSummaryError(options = {}) {
