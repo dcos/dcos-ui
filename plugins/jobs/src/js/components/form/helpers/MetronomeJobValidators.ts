@@ -6,7 +6,7 @@ import {
   findNestedPropertyInObject
 } from "#SRC/js/utils/Util";
 
-import { JobOutput, FormError, UcrImageKind } from "./JobFormData";
+import { JobOutput, FormError, UcrImageKind, JobSpec } from "./JobFormData";
 
 type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 
@@ -477,3 +477,42 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     return errors;
   }
 };
+
+export function validateFormLabels(jobSpec: JobSpec): FormError[] {
+  const labels = jobSpec.job.labels;
+  const errors: FormError[] = [];
+  const map: { [key: string]: number } = {};
+  const dupIndex: number[] = [];
+  const errorMessage = i18nMark(
+    "Cannot have multiple labels with the same key."
+  );
+
+  if (!labels) {
+    return errors;
+  }
+  labels.forEach(([key], i) => {
+    if (!map.hasOwnProperty(key)) {
+      map[key] = i;
+      return;
+    }
+    if (dupIndex.length === 0) {
+      dupIndex.push(map[key]);
+    }
+    dupIndex.push(i);
+  });
+  if (dupIndex.length > 0) {
+    // This error has path to ensure that error is visible in JSON editor
+    errors.push({
+      path: ["job", "labels"],
+      message: errorMessage
+    });
+  }
+  dupIndex.forEach(errorIndex => {
+    // These errors have path to ensure that error is visible on correct form inputs
+    errors.push({
+      path: ["job", "labels", `${errorIndex}`],
+      message: errorMessage
+    });
+  });
+  return errors;
+}
