@@ -37,4 +37,4 @@ HighOrderServiceConfiguration.propTypes = {
   ])
 };
 
-module.exports = HighOrderServiceConfiguration;
+export default HighOrderServiceConfiguration;

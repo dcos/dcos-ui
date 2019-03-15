@@ -24,4 +24,4 @@ ModalHeading.propTypes = {
   level: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
-module.exports = ModalHeading;
+export default ModalHeading;

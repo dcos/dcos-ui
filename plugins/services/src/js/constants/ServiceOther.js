@@ -1,7 +1,7 @@
 import ServiceOtherLabels from "./ServiceOtherLabels";
 import ServiceOtherTypes from "./ServiceOtherTypes";
 
-var SERVICE_OTHER = {
+const SERVICE_OTHER = {
   CATALOG: {
     key: ServiceOtherTypes.CATALOG,
     displayName: ServiceOtherLabels.CATALOG
@@ -16,4 +16,4 @@ var SERVICE_OTHER = {
   }
 };
 
-module.exports = SERVICE_OTHER;
+export default SERVICE_OTHER;

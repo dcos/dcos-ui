@@ -133,4 +133,4 @@ PageHeaderTabs.propTypes = {
   )
 };
 
-module.exports = PageHeaderTabs;
+export default PageHeaderTabs;

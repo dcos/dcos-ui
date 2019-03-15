@@ -424,4 +424,4 @@ const DSLUpdateUtil = {
   }
 };
 
-module.exports = DSLUpdateUtil;
+export default DSLUpdateUtil;

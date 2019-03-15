@@ -1,6 +1,6 @@
 import Item from "#SRC/js/structs/Item";
 
-module.exports = class PodContainerTerminationHistory extends Item {
+export default class PodContainerTerminationHistory extends Item {
   getId() {
     return this.get("containerId");
   }
@@ -17,4 +17,4 @@ module.exports = class PodContainerTerminationHistory extends Item {
       }
     );
   }
-};
+}

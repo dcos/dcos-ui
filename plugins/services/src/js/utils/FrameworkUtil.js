@@ -1,6 +1,6 @@
 import Util from "#SRC/js/utils/Util";
 
-import ServiceImages from "../constants/ServiceImages";
+import { NA_IMAGES } from "../constants/ServiceImages";
 
 // You might be tempted to merge FrameworkUtil into ServiceUtil, but that will
 // cause a circular dependency with ServiceUtil and struct/Service.
@@ -52,7 +52,7 @@ const FrameworkUtil = {
       this.getImageSizeFromImagesObject(images, "medium") == null ||
       this.getImageSizeFromImagesObject(images, "large") == null
     ) {
-      return ServiceImages.NA_IMAGES;
+      return NA_IMAGES;
     }
 
     return images;
@@ -79,4 +79,4 @@ const FrameworkUtil = {
   }
 };
 
-module.exports = FrameworkUtil;
+export default FrameworkUtil;

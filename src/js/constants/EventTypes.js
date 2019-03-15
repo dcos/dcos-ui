@@ -100,4 +100,4 @@ const EventTypes = {};
   EventTypes[eventType] = eventType;
 });
 
-module.exports = EventTypes;
+export default EventTypes;

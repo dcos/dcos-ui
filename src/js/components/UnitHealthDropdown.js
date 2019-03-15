@@ -81,4 +81,4 @@ UnitHealthDropdown.defaultProps = {
   dropdownMenuClassName: "dropdown-menu"
 };
 
-module.exports = UnitHealthDropdown;
+export default UnitHealthDropdown;

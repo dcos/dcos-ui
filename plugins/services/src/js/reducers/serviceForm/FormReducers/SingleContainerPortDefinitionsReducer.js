@@ -71,4 +71,4 @@ function SingleContainerPortDefinitionsReducer(state = [], action) {
   return state;
 }
 
-module.exports = SingleContainerPortDefinitionsReducer;
+export default SingleContainerPortDefinitionsReducer;

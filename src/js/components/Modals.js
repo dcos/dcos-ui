@@ -17,7 +17,7 @@ import LanguagePreferenceFormModal from "./modals/LanguagePreferenceFormModal";
 
 const getLanguageModalState = () => LanguageModalStore.get("isVisible");
 
-var Modals = createReactClass({
+const Modals = createReactClass({
   displayName: "Modals",
 
   propTypes: {
@@ -244,4 +244,4 @@ var Modals = createReactClass({
   }
 });
 
-module.exports = Modals;
+export default Modals;

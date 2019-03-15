@@ -9,4 +9,4 @@ const NetworkValidatorUtil = {
   }
 };
 
-module.exports = NetworkValidatorUtil;
+export default NetworkValidatorUtil;

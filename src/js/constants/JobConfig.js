@@ -2,4 +2,4 @@ const ServiceConfig = {
   BLACKLIST: ["activeRuns", "history", "historySummary"]
 };
 
-module.exports = ServiceConfig;
+export default ServiceConfig;

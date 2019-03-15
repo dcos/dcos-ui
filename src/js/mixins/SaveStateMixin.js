@@ -46,4 +46,4 @@ const SaveStateMixin = {
   }
 };
 
-module.exports = SaveStateMixin;
+export default SaveStateMixin;

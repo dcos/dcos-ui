@@ -33,4 +33,4 @@ CreateServicePickerCatalogOption.propTypes = {
   onOptionSelect: PropTypes.func
 };
 
-module.exports = CreateServicePickerCatalogOption;
+export default CreateServicePickerCatalogOption;

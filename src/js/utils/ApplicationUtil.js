@@ -5,7 +5,7 @@ import {
 import Config from "../config/Config";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 
-module.exports = {
+export default {
   /**
    * Checks that enough time has elapsed before rendering app
    *

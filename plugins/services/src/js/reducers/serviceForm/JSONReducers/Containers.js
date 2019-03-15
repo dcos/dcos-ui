@@ -314,7 +314,7 @@ function shouldDeleteContainerImage(image) {
   return image == null || !image.id;
 }
 
-module.exports = {
+export default {
   JSONReducer(state = [], { type, path = [], value }, containerIndex) {
     if (containerIndex === 0) {
       state = [];

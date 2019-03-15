@@ -256,4 +256,4 @@ DSLFormWithExpressionUpdates.propTypes = {
   )
 };
 
-module.exports = DSLFormWithExpressionUpdates;
+export default DSLFormWithExpressionUpdates;

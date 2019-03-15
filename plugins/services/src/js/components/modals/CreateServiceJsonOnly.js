@@ -139,4 +139,4 @@ CreateServiceJsonOnly.propTypes = {
   service: PropTypes.object
 };
 
-module.exports = withI18n()(CreateServiceJsonOnly);
+export default withI18n()(CreateServiceJsonOnly);

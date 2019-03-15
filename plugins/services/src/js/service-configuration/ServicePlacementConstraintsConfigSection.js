@@ -86,4 +86,4 @@ ServicePlacementConstraintsConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = ServicePlacementConstraintsConfigSection;
+export default ServicePlacementConstraintsConfigSection;

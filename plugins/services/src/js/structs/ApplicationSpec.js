@@ -1,6 +1,6 @@
 import ServiceSpec from "./ServiceSpec";
 
-module.exports = class ApplicationSpec extends ServiceSpec {
+export default class ApplicationSpec extends ServiceSpec {
   getAcceptedResourceRoles() {
     return this.get("acceptedResourceRoles");
   }
@@ -94,4 +94,4 @@ module.exports = class ApplicationSpec extends ServiceSpec {
   getUser() {
     return this.get("user");
   }
-};
+}

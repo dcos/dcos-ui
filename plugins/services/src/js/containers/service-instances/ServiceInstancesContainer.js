@@ -84,4 +84,4 @@ ServiceInstancesContainer.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = ServiceInstancesContainer;
+export default ServiceInstancesContainer;

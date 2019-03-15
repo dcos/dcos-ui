@@ -114,4 +114,4 @@ const SystemLogUtil = {
   }
 };
 
-module.exports = SystemLogUtil;
+export default SystemLogUtil;

@@ -5,4 +5,4 @@ class PodInstanceList extends List {}
 
 PodInstanceList.type = PodInstance;
 
-module.exports = PodInstanceList;
+export default PodInstanceList;

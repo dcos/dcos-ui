@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   SHELL: "SHELL",
   ARGV: "ARGV"
 };

@@ -32,7 +32,7 @@ function processTransaction(state, { type, path, value }) {
   return newState;
 }
 
-module.exports = {
+export default {
   JSONParser(state) {
     if (state.fetch == null) {
       return [];

@@ -2,4 +2,4 @@ const EMPTY_STATES = {
   CONFIG_VALUE: "\u2014"
 };
 
-module.exports = EMPTY_STATES;
+export default EMPTY_STATES;

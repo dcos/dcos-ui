@@ -7,4 +7,4 @@ const KeyboardUtil = {
   }
 };
 
-module.exports = KeyboardUtil;
+export default KeyboardUtil;

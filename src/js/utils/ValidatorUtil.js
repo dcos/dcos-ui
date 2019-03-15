@@ -1,4 +1,4 @@
-var ValidatorUtil = {
+const ValidatorUtil = {
   isCallable(value) {
     return Boolean(value && typeof value.call === "function");
   },
@@ -66,4 +66,4 @@ var ValidatorUtil = {
   }
 };
 
-module.exports = ValidatorUtil;
+export default ValidatorUtil;

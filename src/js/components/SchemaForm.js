@@ -418,4 +418,4 @@ SchemaForm.propTypes = {
   packageVersion: PropTypes.string
 };
 
-module.exports = SchemaForm;
+export default SchemaForm;

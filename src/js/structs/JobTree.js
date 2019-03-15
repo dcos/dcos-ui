@@ -1,7 +1,7 @@
 import Job from "./Job";
 import Tree from "./Tree";
 
-module.exports = class JobTree extends Tree {
+export default class JobTree extends Tree {
   /**
    * (Metronome) JobTree
    * @param {{
@@ -53,4 +53,4 @@ module.exports = class JobTree extends Tree {
       .split(".")
       .pop();
   }
-};
+}

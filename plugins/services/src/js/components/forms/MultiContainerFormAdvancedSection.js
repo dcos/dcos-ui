@@ -51,4 +51,4 @@ MultiContainerFormAdvancedSection.propTypes = {
   path: PropTypes.string
 };
 
-module.exports = MultiContainerFormAdvancedSection;
+export default MultiContainerFormAdvancedSection;

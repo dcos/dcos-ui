@@ -20,4 +20,4 @@ class UniversePackageVersions extends Item {
   }
 }
 
-module.exports = UniversePackageVersions;
+export default UniversePackageVersions;

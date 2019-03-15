@@ -98,6 +98,6 @@ function getRoutes() {
   return routes;
 }
 
-module.exports = {
+export default {
   getRoutes
 };

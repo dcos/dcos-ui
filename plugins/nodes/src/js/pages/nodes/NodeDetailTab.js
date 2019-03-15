@@ -166,4 +166,4 @@ NodeDetailTab.propTypes = {
   node: PropTypes.instanceOf(Node).isRequired
 };
 
-module.exports = NodeDetailTab;
+export default NodeDetailTab;

@@ -105,7 +105,7 @@ function requestFromMesos(resolve, reject) {
   });
 }
 
-var MesosSummaryActions = {
+const MesosSummaryActions = {
   fetchSummary: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function(resolve, reject) {
@@ -160,4 +160,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = MesosSummaryActions;
+export default MesosSummaryActions;

@@ -23,4 +23,4 @@ function OptionsWrapper({ children }) {
   );
 }
 
-module.exports = OptionsWrapper;
+export default OptionsWrapper;

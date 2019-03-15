@@ -285,4 +285,4 @@ ServiceBreadcrumbs.propTypes = {
   taskName: PropTypes.string
 };
 
-module.exports = ServiceBreadcrumbs;
+export default ServiceBreadcrumbs;

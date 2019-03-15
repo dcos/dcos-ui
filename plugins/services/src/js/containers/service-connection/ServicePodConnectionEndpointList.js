@@ -143,4 +143,4 @@ ServicePodConnectionEndpointList.contextTypes = {
   router: routerShape
 };
 
-module.exports = ServicePodConnectionEndpointList;
+export default ServicePodConnectionEndpointList;

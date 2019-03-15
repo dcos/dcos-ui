@@ -15,4 +15,4 @@ const ServiceActionItem = {
   KILL_TASKS: "kill_tasks"
 };
 
-module.exports = ServiceActionItem;
+export default ServiceActionItem;

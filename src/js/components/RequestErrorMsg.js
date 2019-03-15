@@ -63,4 +63,4 @@ RequestErrorMsg.propTypes = {
   message: PropTypes.node
 };
 
-module.exports = RequestErrorMsg;
+export default RequestErrorMsg;

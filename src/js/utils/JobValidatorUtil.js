@@ -31,4 +31,4 @@ const JobValidatorUtil = {
   }
 };
 
-module.exports = JobValidatorUtil;
+export default JobValidatorUtil;

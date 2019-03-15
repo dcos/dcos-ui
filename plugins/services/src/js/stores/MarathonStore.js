@@ -83,7 +83,7 @@ import {
   VISIBILITY_CHANGE
 } from "../constants/EventTypes";
 import Framework from "../structs/Framework";
-import ServiceImages from "../constants/ServiceImages";
+import { MARATHON_IMAGES } from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
@@ -511,7 +511,7 @@ class MarathonStore extends GetSetBaseStore {
         tasksHealthy: numberOfApps,
         tasksRunning: numberOfApps
       }),
-      images: ServiceImages.MARATHON_IMAGES
+      images: MARATHON_IMAGES
     };
 
     this.set({ apps });
@@ -608,4 +608,4 @@ class MarathonStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new MarathonStore();
+export default new MarathonStore();

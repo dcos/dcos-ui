@@ -2,9 +2,11 @@ import { ERROR } from "#SRC/js/constants/TransactionTypes";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import Transaction from "#SRC/js/structs/Transaction";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
-import { JSONParser, JSONReducer } from "../common/Constraints";
+import Constraints from "../common/Constraints";
 
-module.exports = {
+const { JSONParser, JSONReducer } = Constraints;
+
+export default {
   JSONReducer(state, transaction) {
     const constraints = JSONReducer.bind(this)(state, transaction);
 

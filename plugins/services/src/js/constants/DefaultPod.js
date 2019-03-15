@@ -9,7 +9,7 @@ const DEFAULT_POD_SPEC = {
   scaling: DEFAULT_POD_SCALING
 };
 
-module.exports = {
+export default {
   DEFAULT_POD_CONTAINER,
   DEFAULT_POD_RESOURCES,
   DEFAULT_POD_SCALING,

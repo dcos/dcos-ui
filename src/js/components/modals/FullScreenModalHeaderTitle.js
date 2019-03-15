@@ -22,4 +22,4 @@ FullScreenModalHeaderTitle.propTypes = {
   className: classProps
 };
 
-module.exports = FullScreenModalHeaderTitle;
+export default FullScreenModalHeaderTitle;

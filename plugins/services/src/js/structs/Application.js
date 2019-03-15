@@ -9,7 +9,7 @@ import ServiceStatus from "../constants/ServiceStatus";
 import TaskStats from "./TaskStats";
 import VolumeList from "./VolumeList";
 
-module.exports = class Application extends Service {
+export default class Application extends Service {
   constructor() {
     super(...arguments);
 
@@ -239,4 +239,4 @@ module.exports = class Application extends Service {
   findTaskById(taskId) {
     return (this.get("tasks") || []).find(task => task.id === taskId);
   }
-};
+}

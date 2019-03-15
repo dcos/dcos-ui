@@ -1,6 +1,4 @@
-var ValueTypes = {
+export default {
   PERCENTAGE: "percentage",
   ABSOLUTE: "absolute"
 };
-
-module.exports = ValueTypes;

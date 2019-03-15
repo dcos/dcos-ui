@@ -136,4 +136,4 @@ const RouteFactory = {
   }
 };
 
-module.exports = RouteFactory;
+export default RouteFactory;

@@ -27,4 +27,4 @@ BreadcrumbSupplementalContent.propTypes = {
   hasProgressBar: PropTypes.bool
 };
 
-module.exports = BreadcrumbSupplementalContent;
+export default BreadcrumbSupplementalContent;

@@ -49,4 +49,4 @@ class PodInstancesZoneFilter extends DSLFilter {
   }
 }
 
-module.exports = PodInstancesZoneFilter;
+export default PodInstancesZoneFilter;

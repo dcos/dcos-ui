@@ -13,4 +13,4 @@ const StatusSorting = {
   NA: 5
 };
 
-module.exports = StatusSorting;
+export default StatusSorting;

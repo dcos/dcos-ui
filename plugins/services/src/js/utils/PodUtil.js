@@ -1,7 +1,7 @@
 import PodInstance from "../structs/PodInstance";
 import PodInstanceList from "../structs/PodInstanceList";
 
-var PodUtil = {
+const PodUtil = {
   /**
    * Returns true if the container given matches
    * the free-text given.
@@ -129,4 +129,4 @@ var PodUtil = {
   }
 };
 
-module.exports = PodUtil;
+export default PodUtil;

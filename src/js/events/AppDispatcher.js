@@ -2,7 +2,7 @@ import { Dispatcher } from "flux";
 
 import ActionTypes from "../constants/ActionTypes";
 
-var AppDispatcher = Object.assign(new Dispatcher(), {
+const AppDispatcher = Object.assign(new Dispatcher(), {
   handleServerAction(action) {
     if (!action.type) {
       console.warn("Empty action.type: you likely mistyped the action.");
@@ -37,4 +37,4 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
   }
 });
 
-module.exports = AppDispatcher;
+export default AppDispatcher;

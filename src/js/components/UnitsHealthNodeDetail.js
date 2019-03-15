@@ -98,4 +98,4 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 }
 
-module.exports = UnitsHealthNodeDetail;
+export default UnitsHealthNodeDetail;

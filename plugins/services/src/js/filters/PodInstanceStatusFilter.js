@@ -50,4 +50,4 @@ class PodInstanceStatusFilter extends DSLFilter {
   }
 }
 
-module.exports = PodInstanceStatusFilter;
+export default PodInstanceStatusFilter;

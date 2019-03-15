@@ -369,4 +369,4 @@ TaskDetail.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = TaskDetail;
+export default TaskDetail;

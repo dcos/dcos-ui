@@ -28,4 +28,4 @@ const systemOverviewRoutes = [
   }
 ];
 
-module.exports = systemOverviewRoutes;
+export default systemOverviewRoutes;

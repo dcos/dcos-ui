@@ -71,4 +71,4 @@ const OperatorTypes = {
   }
 };
 
-module.exports = OperatorTypes;
+export default OperatorTypes;

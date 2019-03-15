@@ -162,4 +162,4 @@ NestedServiceLinks.propTypes = {
   minorLinkWrapperClassName: classPropType
 };
 
-module.exports = NestedServiceLinks;
+export default NestedServiceLinks;

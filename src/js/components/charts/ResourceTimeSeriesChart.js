@@ -7,7 +7,7 @@ import TimeSeriesChart from "./TimeSeriesChart";
 import TimeSeriesLabel from "./TimeSeriesLabel";
 import Units from "../../utils/Units";
 
-var ResourceTimeSeriesChart = createReactClass({
+const ResourceTimeSeriesChart = createReactClass({
   displayName: "ResourceTimeSeriesChart",
 
   propTypes: {
@@ -84,4 +84,4 @@ var ResourceTimeSeriesChart = createReactClass({
   }
 });
 
-module.exports = ResourceTimeSeriesChart;
+export default ResourceTimeSeriesChart;

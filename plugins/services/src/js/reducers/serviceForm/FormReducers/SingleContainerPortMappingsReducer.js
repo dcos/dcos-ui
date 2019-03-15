@@ -77,4 +77,4 @@ function SingleContainerPortMappingsReducer(state = [], action) {
   return state;
 }
 
-module.exports = SingleContainerPortMappingsReducer;
+export default SingleContainerPortMappingsReducer;

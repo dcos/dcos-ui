@@ -117,4 +117,4 @@ class Node extends Item {
   }
 }
 
-module.exports = Node;
+export default Node;

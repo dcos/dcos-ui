@@ -4,4 +4,4 @@ var ServiceOtherTypes = {
   PODS: 2
 };
 
-module.exports = ServiceOtherTypes;
+export default ServiceOtherTypes;

@@ -16,7 +16,7 @@ import TimeSeriesMouseOver from "./TimeSeriesMouseOver";
 import ValueTypes from "../../constants/ValueTypes";
 import Util from "../../utils/Util";
 
-var TimeSeriesChart = createReactClass({
+const TimeSeriesChart = createReactClass({
   displayName: "TimeSeriesChart",
 
   propTypes: {
@@ -503,4 +503,4 @@ var TimeSeriesChart = createReactClass({
   }
 });
 
-module.exports = TimeSeriesChart;
+export default TimeSeriesChart;

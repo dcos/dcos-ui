@@ -133,4 +133,4 @@ UnitHealthNodesTable.propTypes = {
   params: PropTypes.object
 };
 
-module.exports = UnitHealthNodesTable;
+export default UnitHealthNodesTable;

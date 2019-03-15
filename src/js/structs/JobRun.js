@@ -24,4 +24,4 @@ class JobRun extends Item {
   }
 }
 
-module.exports = JobRun;
+export default JobRun;

@@ -17,7 +17,7 @@ const segmentScript = `!function(){var analytics=window.analytics=window.analyti
   Config.analyticsKey
 }");}}();`;
 
-module.exports = {
+export default {
   filters: [
     "pluginsLoadedCheck",
     "userFormModalFooter",

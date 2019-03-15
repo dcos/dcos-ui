@@ -198,4 +198,4 @@ const MarathonUtil = {
   }
 };
 
-module.exports = MarathonUtil;
+export default MarathonUtil;

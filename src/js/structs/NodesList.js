@@ -61,4 +61,4 @@ class NodesList extends List {
 
 NodesList.type = Node;
 
-module.exports = NodesList;
+export default NodesList;

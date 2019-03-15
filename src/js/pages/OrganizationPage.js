@@ -16,4 +16,4 @@ OrganizationPage.routeConfig = {
   matches: /^\/organization/
 };
 
-module.exports = OrganizationPage;
+export default OrganizationPage;

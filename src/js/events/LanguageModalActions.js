@@ -5,7 +5,7 @@ import {
 
 import AppDispatcher from "./AppDispatcher";
 
-module.exports = {
+export default {
   open() {
     AppDispatcher.handleLanguageModalAction({
       type: REQUEST_LANGUAGE_MODAL_OPEN,

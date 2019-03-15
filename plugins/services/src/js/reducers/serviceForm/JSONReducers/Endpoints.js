@@ -18,7 +18,7 @@ const defaultEndpointsFieldValues = {
   vipLabel: null
 };
 
-module.exports = {
+export default {
   JSONReducer(state = [], { type, path = [], value }) {
     const newState = [].concat(state);
 

@@ -95,4 +95,4 @@ const ServiceErrorPathMapping = [
   }
 ];
 
-module.exports = ServiceErrorPathMapping;
+export default ServiceErrorPathMapping;

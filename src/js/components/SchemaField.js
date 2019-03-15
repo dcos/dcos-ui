@@ -331,4 +331,4 @@ class SchemaField extends Component {
   }
 }
 
-module.exports = SchemaField;
+export default SchemaField;

@@ -8,7 +8,7 @@ import ClickToSelect from "../ClickToSelect";
 import Config from "../../config/Config";
 import ModalHeading from "../modals/ModalHeading";
 
-var VersionsModal = createReactClass({
+const VersionsModal = createReactClass({
   displayName: "VersionsModal",
 
   propTypes: {
@@ -47,4 +47,4 @@ var VersionsModal = createReactClass({
   }
 });
 
-module.exports = VersionsModal;
+export default VersionsModal;

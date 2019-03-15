@@ -9,7 +9,7 @@ import MetadataStore from "../stores/MetadataStore";
 
 const METHODS_TO_BIND = ["handleUserLogout"];
 
-module.exports = class AccessDeniedPage extends React.Component {
+export default class AccessDeniedPage extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -62,4 +62,4 @@ module.exports = class AccessDeniedPage extends React.Component {
       </div>
     );
   }
-};
+}

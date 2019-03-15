@@ -214,4 +214,4 @@ CliInstallModal.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-module.exports = CliInstallModal;
+export default CliInstallModal;

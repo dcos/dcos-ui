@@ -4,7 +4,7 @@ import Networking from "#SRC/js/constants/Networking";
 
 const { CONTAINER } = Networking.type;
 
-module.exports = {
+export default {
   JSONReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;

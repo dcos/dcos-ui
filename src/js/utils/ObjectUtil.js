@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /**
    * This function adds the given mark to the provided object.
    * Note that this will replace the value of a previous mark.

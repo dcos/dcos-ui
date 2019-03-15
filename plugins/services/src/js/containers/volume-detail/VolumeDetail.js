@@ -109,4 +109,4 @@ VolumeDetail.propTypes = {
   volume: PropTypes.object.isRequired
 };
 
-module.exports = VolumeDetail;
+export default VolumeDetail;

@@ -5,7 +5,7 @@ import {
   MESOS_HTTPS
 } from "../../../constants/HealthCheckProtocols";
 
-module.exports = {
+export default {
   FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;

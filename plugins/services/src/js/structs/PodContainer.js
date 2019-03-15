@@ -2,7 +2,7 @@ import Item from "#SRC/js/structs/Item";
 import PodContainerStatus from "../constants/PodContainerStatus";
 import PodContainerState from "../constants/PodContainerState";
 
-module.exports = class PodContainer extends Item {
+export default class PodContainer extends Item {
   getContainerStatus() {
     switch (this.get("status")) {
       case PodContainerState.RUNNING:
@@ -89,4 +89,4 @@ module.exports = class PodContainer extends Item {
       return ep.healthy !== undefined && !ep.healthy;
     });
   }
-};
+}

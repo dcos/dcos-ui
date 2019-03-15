@@ -5,4 +5,4 @@ var HealthTypesDescription = {
   NA: "No health checks are set up for this service."
 };
 
-module.exports = HealthTypesDescription;
+export default HealthTypesDescription;

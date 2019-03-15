@@ -127,4 +127,4 @@ class SidebarStore extends GetSetBaseStore {
 const store = new SidebarStore();
 store.setMaxListeners(1000);
 
-module.exports = store;
+export default store;

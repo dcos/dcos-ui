@@ -151,4 +151,4 @@ const PlacementsValidators = {
   }
 };
 
-module.exports = PlacementsValidators;
+export default PlacementsValidators;

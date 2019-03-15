@@ -31,4 +31,4 @@ class HealthUnit extends Item {
   }
 }
 
-module.exports = HealthUnit;
+export default HealthUnit;

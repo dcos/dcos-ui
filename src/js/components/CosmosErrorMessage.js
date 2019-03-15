@@ -155,4 +155,4 @@ CosmosErrorMessage.propTypes = {
   flushBottom: PropTypes.bool
 };
 
-module.exports = CosmosErrorMessage;
+export default CosmosErrorMessage;

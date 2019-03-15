@@ -172,4 +172,4 @@ class RoutingService extends EventEmitter {
   }
 }
 
-module.exports = RoutingService;
+export default RoutingService;

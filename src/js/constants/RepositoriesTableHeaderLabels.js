@@ -6,4 +6,4 @@ const RepositoriesTableHeaderLabels = {
   uri: i18nMark("URL")
 };
 
-module.exports = RepositoriesTableHeaderLabels;
+export default RepositoriesTableHeaderLabels;

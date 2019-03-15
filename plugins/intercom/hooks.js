@@ -10,7 +10,7 @@ const SDK = require("./SDK").getSDK();
 
 const INTERCOM_LOAD_TIMEOUT = 500;
 
-module.exports = {
+export default {
   filters: ["pluginsLoadedCheck"],
   actions: ["pluginsConfigured", "userLoginSuccess", "userLogoutSuccess"],
 

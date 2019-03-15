@@ -23,7 +23,7 @@ function getContainerSettingsReducer(name) {
   };
 }
 
-module.exports = combineReducers({
+export default combineReducers({
   privileged: getContainerSettingsReducer("privileged"),
   forcePullImage: simpleReducer("container.docker.forcePullImage", null),
   image: simpleReducer("container.docker.image", "")

@@ -155,4 +155,4 @@ ServiceTreeView.propTypes = {
   serviceTree: PropTypes.instanceOf(ServiceTree)
 };
 
-module.exports = ServiceTreeView;
+export default ServiceTreeView;

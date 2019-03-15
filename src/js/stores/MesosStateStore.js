@@ -346,4 +346,4 @@ if (Config.useFixtures) {
     .toConstantValue(of(JSON.stringify(subscribeFixture)));
 }
 
-module.exports = new MesosStateStore();
+export default new MesosStateStore();

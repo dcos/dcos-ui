@@ -111,4 +111,4 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
   }
 }
 
-module.exports = ServiceLabelsConfigSection;
+export default ServiceLabelsConfigSection;

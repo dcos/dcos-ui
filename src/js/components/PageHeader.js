@@ -140,4 +140,4 @@ PageHeader.Breadcrumbs = PageHeaderBreadcrumbs;
 PageHeader.Actions = PageHeaderActions;
 PageHeader.Tabs = PageHeaderTabs;
 
-module.exports = PageHeader;
+export default PageHeader;

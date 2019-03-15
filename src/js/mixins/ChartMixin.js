@@ -1,6 +1,6 @@
 import d3 from "d3";
 
-var ChartMixin = {
+const ChartMixin = {
   getXScale(data = [], width, refreshRate) {
     var length = width;
     var firstDataSet = data[0];
@@ -44,4 +44,4 @@ var ChartMixin = {
   }
 };
 
-module.exports = ChartMixin;
+export default ChartMixin;

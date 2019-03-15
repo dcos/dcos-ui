@@ -100,4 +100,4 @@ ServiceStatusDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = ServiceStatusDSLSection;
+export default ServiceStatusDSLSection;

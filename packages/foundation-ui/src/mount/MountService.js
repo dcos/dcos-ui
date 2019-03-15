@@ -130,4 +130,4 @@ class MountService extends EventEmitter {
   }
 }
 
-module.exports = MountService;
+export default MountService;

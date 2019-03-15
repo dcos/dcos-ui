@@ -56,4 +56,4 @@ AdvancedSection.propTypes = {
   ])
 };
 
-module.exports = AdvancedSection;
+export default AdvancedSection;

@@ -66,4 +66,4 @@ class UniversePackagesList extends List {
 
 UniversePackagesList.type = UniversePackage;
 
-module.exports = UniversePackagesList;
+export default UniversePackagesList;

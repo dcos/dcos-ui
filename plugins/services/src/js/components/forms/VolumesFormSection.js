@@ -481,4 +481,4 @@ VolumesFormSection.validationReducers = {
   }
 };
 
-module.exports = VolumesFormSection;
+export default VolumesFormSection;

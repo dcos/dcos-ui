@@ -58,4 +58,4 @@ const TemplateUtil = {
   }
 };
 
-module.exports = TemplateUtil;
+export default TemplateUtil;

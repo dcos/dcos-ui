@@ -6,7 +6,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import DOMUtils from "../../utils/DOMUtils";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 
-var Chart = createReactClass({
+const Chart = createReactClass({
   displayName: "Chart",
 
   mixins: [InternalStorageMixin, StoreMixin],
@@ -105,4 +105,4 @@ var Chart = createReactClass({
   }
 });
 
-module.exports = Chart;
+export default Chart;

@@ -81,4 +81,4 @@ const ErrorMessageUtil = {
   }
 };
 
-module.exports = ErrorMessageUtil;
+export default ErrorMessageUtil;

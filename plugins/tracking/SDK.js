@@ -1,6 +1,6 @@
 let SDK;
 
-module.exports = {
+export default {
   getSDK() {
     return SDK;
   },

@@ -45,4 +45,4 @@ const universeRoutes = [
   }
 ];
 
-module.exports = universeRoutes;
+export default universeRoutes;

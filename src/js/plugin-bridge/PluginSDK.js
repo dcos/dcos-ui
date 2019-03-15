@@ -336,4 +336,4 @@ if (global.__DEV__) {
 // Add manual load method
 ApplicationSDK.initialize = initialize;
 
-module.exports = ApplicationSDK;
+export default ApplicationSDK;

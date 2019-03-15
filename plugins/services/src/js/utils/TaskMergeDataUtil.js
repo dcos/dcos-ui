@@ -94,6 +94,6 @@ function mergeTaskData(tasks) {
   return tasks.map(task => mergeData(task, DCOSStore.taskLookupTable));
 }
 
-module.exports = {
+export default {
   mergeTaskData
 };

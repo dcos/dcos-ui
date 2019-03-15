@@ -430,4 +430,4 @@ const MultiContainerHealthChecks = {
   }
 };
 
-module.exports = MultiContainerHealthChecks;
+export default MultiContainerHealthChecks;

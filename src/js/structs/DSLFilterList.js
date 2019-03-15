@@ -38,4 +38,4 @@ class DSLFilterList {
   }
 }
 
-module.exports = DSLFilterList;
+export default DSLFilterList;

@@ -16,4 +16,4 @@ const TaskTableHeaderLabels = {
   version: i18nMark("Version")
 };
 
-module.exports = TaskTableHeaderLabels;
+export default TaskTableHeaderLabels;

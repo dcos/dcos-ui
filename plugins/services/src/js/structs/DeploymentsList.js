@@ -9,4 +9,4 @@ import Deployment from "./Deployment";
 class DeploymentsList extends List {}
 DeploymentsList.type = Deployment;
 
-module.exports = DeploymentsList;
+export default DeploymentsList;

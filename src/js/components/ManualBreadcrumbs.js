@@ -204,4 +204,4 @@ ManualBreadcrumbs.propTypes = {
   crumbs: PropTypes.array
 };
 
-module.exports = ManualBreadcrumbs;
+export default ManualBreadcrumbs;

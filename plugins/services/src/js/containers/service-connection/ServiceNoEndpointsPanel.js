@@ -30,4 +30,4 @@ ServiceNoEndpointPanel.propTypes = {
   serviceId: PropTypes.string.isRequired
 };
 
-module.exports = ServiceNoEndpointPanel;
+export default ServiceNoEndpointPanel;

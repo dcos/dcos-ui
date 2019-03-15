@@ -18,7 +18,7 @@ const performComplexMath = function(Store, prevState, action, factor) {
   return Object.assign({}, prevState, newState);
 };
 
-module.exports = function(PluginSDK) {
+export default function(PluginSDK) {
   const { Hooks, config, Store, dispatch } = PluginSDK;
 
   // Set plugin's hooks
@@ -50,4 +50,4 @@ module.exports = function(PluginSDK) {
   }
 
   return RootReducer;
-};
+}

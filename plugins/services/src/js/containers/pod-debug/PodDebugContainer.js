@@ -266,4 +266,4 @@ PodDebugTabView.propTypes = {
   pod: PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodDebugTabView;
+export default PodDebugTabView;

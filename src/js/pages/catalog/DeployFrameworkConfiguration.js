@@ -156,4 +156,4 @@ DeployFrameworkConfiguration.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = DeployFrameworkConfiguration;
+export default DeployFrameworkConfiguration;

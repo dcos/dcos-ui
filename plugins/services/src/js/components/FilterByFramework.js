@@ -118,4 +118,4 @@ const FilterByService = createReactClass({
   }
 });
 
-module.exports = FilterByService;
+export default FilterByService;

@@ -43,7 +43,7 @@ function processTransaction(state, { type, path, value }) {
   return newState;
 }
 
-module.exports = {
+export default {
   JSONParser(constraints) {
     if (!Array.isArray(constraints)) {
       return [new Transaction(["constraints"], "not-list", ERROR)];

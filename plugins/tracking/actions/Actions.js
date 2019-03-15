@@ -8,7 +8,7 @@ import Util from "#SRC/js/utils/Util";
 
 const SDK = require("../SDK").getSDK();
 
-var Actions = {
+const Actions = {
   previousFakePageLog: "",
 
   dcosMetadata: null,
@@ -256,4 +256,4 @@ var Actions = {
   }
 };
 
-module.exports = Actions;
+export default Actions;

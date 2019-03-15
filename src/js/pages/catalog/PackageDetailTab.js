@@ -562,4 +562,4 @@ PackageDetailTab.contextTypes = {
   router: routerShape
 };
 
-module.exports = PackageDetailTab;
+export default PackageDetailTab;

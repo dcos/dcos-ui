@@ -179,4 +179,4 @@ HealthTab.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = withI18n()(HealthTab);
+export default withI18n()(HealthTab);

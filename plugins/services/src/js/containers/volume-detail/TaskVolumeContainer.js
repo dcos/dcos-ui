@@ -91,4 +91,4 @@ TaskVolumeContainer.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = TaskVolumeContainer;
+export default TaskVolumeContainer;

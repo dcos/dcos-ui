@@ -38,4 +38,4 @@ class UserSettingsStore extends EventEmitter {
   }
 }
 
-module.exports = new UserSettingsStore();
+export default new UserSettingsStore();

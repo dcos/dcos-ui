@@ -5,4 +5,4 @@ const MesosConstants = {
   MIN_MEM: 32
 };
 
-module.exports = MesosConstants;
+export default MesosConstants;

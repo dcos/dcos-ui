@@ -92,4 +92,4 @@ FilterHeadline.propTypes = {
   totalLength: PropTypes.number.isRequired
 };
 
-module.exports = FilterHeadline;
+export default FilterHeadline;

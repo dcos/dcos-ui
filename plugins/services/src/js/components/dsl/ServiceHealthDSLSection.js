@@ -80,4 +80,4 @@ ServiceHealthDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = ServiceHealthDSLSection;
+export default ServiceHealthDSLSection;

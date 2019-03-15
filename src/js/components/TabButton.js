@@ -110,4 +110,4 @@ TabButton.propTypes = {
   onClickBadge: PropTypes.func
 };
 
-module.exports = TabButton;
+export default TabButton;

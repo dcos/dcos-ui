@@ -98,4 +98,4 @@ CreateServiceModalServicePicker.propTypes = {
   onServiceSelect: PropTypes.func
 };
 
-module.exports = CreateServiceModalServicePicker;
+export default CreateServiceModalServicePicker;

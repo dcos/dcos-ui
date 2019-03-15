@@ -410,4 +410,4 @@ JobRunHistoryTable.propTypes = {
   params: PropTypes.object
 };
 
-module.exports = withI18n()(JobRunHistoryTable);
+export default withI18n()(JobRunHistoryTable);

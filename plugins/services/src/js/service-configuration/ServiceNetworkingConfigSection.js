@@ -240,4 +240,4 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   }
 }
 
-module.exports = ServiceNetworkingConfigSection;
+export default ServiceNetworkingConfigSection;

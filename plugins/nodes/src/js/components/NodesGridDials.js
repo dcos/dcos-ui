@@ -17,7 +17,7 @@ var colors = {
   unused: "unused"
 };
 
-var NodesGridDials = createReactClass({
+const NodesGridDials = createReactClass({
   displayName: "NodesGridDials",
 
   propTypes: {
@@ -182,4 +182,4 @@ var NodesGridDials = createReactClass({
   }
 });
 
-module.exports = NodesGridDials;
+export default NodesGridDials;

@@ -37,4 +37,4 @@ BreadcrumbSegmentLink.propTypes = {
   route: PropTypes.object
 };
 
-module.exports = BreadcrumbSegmentLink;
+export default BreadcrumbSegmentLink;

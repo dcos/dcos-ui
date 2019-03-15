@@ -859,4 +859,4 @@ CreateServiceModalForm.propTypes = {
   showAllErrors: PropTypes.bool
 };
 
-module.exports = withI18n()(CreateServiceModalForm);
+export default withI18n()(CreateServiceModalForm);

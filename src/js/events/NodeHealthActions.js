@@ -138,4 +138,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = NodeHealthActions;
+export default NodeHealthActions;

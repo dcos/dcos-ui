@@ -12,4 +12,4 @@ const ServiceTableHeaderLabels = {
   regions: i18nMark("Region")
 };
 
-module.exports = ServiceTableHeaderLabels;
+export default ServiceTableHeaderLabels;

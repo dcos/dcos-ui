@@ -44,4 +44,4 @@ class Volume extends Item {
   }
 }
 
-module.exports = Volume;
+export default Volume;

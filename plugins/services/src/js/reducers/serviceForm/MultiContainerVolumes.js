@@ -19,7 +19,7 @@ function transformContainers(memo, container, containerIndex) {
   return memo.concat(tuples);
 }
 
-module.exports = {
+export default {
   JSONReducer(state = [], { type, path, value }, counterIndex) {
     if (counterIndex === 0) {
       state = [];

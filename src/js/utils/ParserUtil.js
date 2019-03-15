@@ -1,7 +1,7 @@
 import { findNestedPropertyInObject } from "./Util";
 import Transaction from "../structs/Transaction";
 
-module.exports = {
+export default {
   combineParsers(parsers = []) {
     parsers = parsers
       .filter(function(parser) {

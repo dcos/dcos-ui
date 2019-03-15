@@ -26,4 +26,4 @@ const AppLockedMessage = function({ service }) {
   );
 };
 
-module.exports = AppLockedMessage;
+export default AppLockedMessage;

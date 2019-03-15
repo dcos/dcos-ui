@@ -63,4 +63,4 @@ ServiceTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = ServiceTaskDetailPage;
+export default ServiceTaskDetailPage;

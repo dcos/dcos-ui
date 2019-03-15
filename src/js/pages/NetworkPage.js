@@ -88,4 +88,4 @@ NetworkPage.willTransitionTo = function() {
   SidebarActions.close();
 };
 
-module.exports = NetworkPage;
+export default NetworkPage;

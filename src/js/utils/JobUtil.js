@@ -182,4 +182,4 @@ const JobUtil = {
   }
 };
 
-module.exports = JobUtil;
+export default JobUtil;

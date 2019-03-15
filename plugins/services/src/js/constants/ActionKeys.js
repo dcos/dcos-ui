@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   REVERT_DEPLOYMENT: "revertDeployment",
   GROUP_CREATE: "groupCreate",
   GROUP_DELETE: "groupDelete",

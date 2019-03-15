@@ -6,4 +6,4 @@ const DSL_UPDATE_POLICY = {
   Radio: Symbol("Radio")
 };
 
-module.exports = DSL_UPDATE_POLICY;
+export default DSL_UPDATE_POLICY;

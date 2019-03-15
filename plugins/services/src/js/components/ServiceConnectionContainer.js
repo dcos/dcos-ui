@@ -25,4 +25,4 @@ ServiceConnectionContainer.propTypes = {
   service: PropTypes.instanceOf(Service)
 };
 
-module.exports = ServiceConnectionContainer;
+export default ServiceConnectionContainer;

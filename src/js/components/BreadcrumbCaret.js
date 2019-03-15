@@ -16,4 +16,4 @@ function BreadcrumbCaret() {
   );
 }
 
-module.exports = BreadcrumbCaret;
+export default BreadcrumbCaret;

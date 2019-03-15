@@ -419,4 +419,4 @@ ServiceActionDisabledModal.propTypes = {
   ])
 };
 
-module.exports = withI18n()(ServiceActionDisabledModal);
+export default withI18n()(ServiceActionDisabledModal);

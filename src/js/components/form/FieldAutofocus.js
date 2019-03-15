@@ -27,4 +27,4 @@ class FieldAutofocus extends React.Component {
   }
 }
 
-module.exports = FieldAutofocus;
+export default FieldAutofocus;

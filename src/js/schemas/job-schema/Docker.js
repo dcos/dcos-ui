@@ -22,4 +22,4 @@ const General = {
   required: []
 };
 
-module.exports = General;
+export default General;

@@ -49,4 +49,4 @@ const StructUtil = {
   }
 };
 
-module.exports = StructUtil;
+export default StructUtil;

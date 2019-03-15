@@ -42,4 +42,4 @@ class ServiceEndpoint extends Item {
   }
 }
 
-module.exports = ServiceEndpoint;
+export default ServiceEndpoint;

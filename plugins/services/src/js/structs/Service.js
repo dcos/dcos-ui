@@ -1,12 +1,12 @@
 import Item from "#SRC/js/structs/Item";
 
 import HealthStatus from "../constants/HealthStatus";
-import ServiceImages from "../constants/ServiceImages";
+import { NA_IMAGES } from "../constants/ServiceImages";
 import ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
 import VolumeList from "./VolumeList";
 
-module.exports = class Service extends Item {
+export default class Service extends Item {
   constructor() {
     super(...arguments);
     this._regions = undefined;
@@ -78,7 +78,7 @@ module.exports = class Service extends Item {
   }
 
   getImages() {
-    return ServiceImages.NA_IMAGES;
+    return NA_IMAGES;
   }
 
   getQueue() {
@@ -132,4 +132,4 @@ module.exports = class Service extends Item {
   toJSON() {
     return this.get();
   }
-};
+}

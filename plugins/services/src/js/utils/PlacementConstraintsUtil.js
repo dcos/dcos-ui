@@ -1,6 +1,6 @@
 import OperatorTypes from "../constants/OperatorTypes";
 
-module.exports = {
+export default {
   requiresValue(operator) {
     const constraintType = OperatorTypes[operator] || {};
 

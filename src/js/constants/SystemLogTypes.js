@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   APPEND: "APPEND",
   PREPEND: "PREPEND"
 };

@@ -31,4 +31,4 @@ ConfigurationMapValueWithDefault.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
-module.exports = ConfigurationMapValueWithDefault;
+export default ConfigurationMapValueWithDefault;

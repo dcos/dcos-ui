@@ -41,4 +41,4 @@ const ServiceConfigUtil = {
   }
 };
 
-module.exports = ServiceConfigUtil;
+export default ServiceConfigUtil;

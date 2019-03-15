@@ -372,4 +372,4 @@ OverviewDetailTab.routeConfig = {
   matches: /^\/overview\/details/
 };
 
-module.exports = OverviewDetailTab;
+export default OverviewDetailTab;

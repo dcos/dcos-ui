@@ -5,4 +5,4 @@ class OverlayList extends List {}
 
 OverlayList.type = Overlay;
 
-module.exports = OverlayList;
+export default OverlayList;

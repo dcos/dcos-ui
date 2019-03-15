@@ -8,7 +8,7 @@ import DOMUtils from "#SRC/js/utils/DOMUtils";
 
 const SDK = require("./SDK").getSDK();
 
-module.exports = {
+export default {
   configuration: {
     backgroundColor: "#1E232F",
     foregroundColor: "#FFFFFF",

@@ -126,4 +126,4 @@ const General = {
   required: ["id"]
 };
 
-module.exports = General;
+export default General;

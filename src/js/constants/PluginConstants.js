@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   APPLICATION: "APPLICATION",
   PLUGIN_LOAD_TIMEOUT: 5000
 };

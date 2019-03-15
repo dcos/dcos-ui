@@ -1,6 +1,6 @@
 import { i18nMark } from "@lingui/react";
 
-module.exports = {
+export default {
   name: i18nMark("Name"),
   address: i18nMark("Host/Port"),
   zone: i18nMark("Zone"),

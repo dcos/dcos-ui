@@ -1,5 +1,5 @@
 import MountService from "./MountService";
 
-module.exports = {
+export default {
   MountService: new MountService()
 };

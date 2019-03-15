@@ -137,4 +137,4 @@ DetailViewHeader.propTypes = {
   subTitleClassName: classPropType
 };
 
-module.exports = DetailViewHeader;
+export default DetailViewHeader;

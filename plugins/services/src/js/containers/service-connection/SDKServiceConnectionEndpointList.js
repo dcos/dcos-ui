@@ -211,4 +211,4 @@ SDKServiceConnectionEndpointList.propTypes = {
   service: PropTypes.instanceOf(Service)
 };
 
-module.exports = SDKServiceConnectionEndpointList;
+export default SDKServiceConnectionEndpointList;

@@ -5,7 +5,7 @@ import ActionTypes from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
 
-var MetadataActions = {
+const MetadataActions = {
   fetchDCOSBuildInfo() {
     const host = Config.rootUrl.replace(/:[0-9]{0,4}$/, "");
     const url = host + "/pkgpanda/active.buildinfo.full.json";
@@ -56,4 +56,4 @@ var MetadataActions = {
   }
 };
 
-module.exports = MetadataActions;
+export default MetadataActions;

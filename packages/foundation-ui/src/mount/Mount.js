@@ -108,4 +108,4 @@ Mount.propTypes = {
   wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
-module.exports = Mount;
+export default Mount;

@@ -106,4 +106,4 @@ class VisibilityStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new VisibilityStore();
+export default new VisibilityStore();

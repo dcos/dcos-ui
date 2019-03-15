@@ -1,7 +1,7 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
+export default {
   JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;

@@ -1,6 +1,6 @@
 import TransactionTypes from "../constants/TransactionTypes";
 
-module.exports = {
+export default {
   /**
    * This function is heavily inspired by the combineReducer function from
    * redux. https://github.com/reactjs/redux/blob/master/src/combineReducers.js

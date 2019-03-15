@@ -531,4 +531,4 @@ OrganizationTab.propTypes = {
   itemName: PropTypes.string.isRequired
 };
 
-module.exports = OrganizationTab;
+export default OrganizationTab;

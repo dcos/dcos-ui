@@ -2,7 +2,7 @@ import HealthSorting from "../../../plugins/services/src/js/constants/HealthSort
 import UnitHealthStatus from "../constants/UnitHealthStatus";
 import Util from "./Util";
 
-var TableUtil = {
+const TableUtil = {
   /**
    * WARNING: When removing/modifying this function be aware of comments/sizes
    * in variables-layout.less
@@ -143,4 +143,4 @@ var TableUtil = {
   }
 };
 
-module.exports = TableUtil;
+export default TableUtil;

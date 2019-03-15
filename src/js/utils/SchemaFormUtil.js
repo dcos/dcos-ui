@@ -463,4 +463,4 @@ const SchemaFormUtil = {
   }
 };
 
-module.exports = SchemaFormUtil;
+export default SchemaFormUtil;

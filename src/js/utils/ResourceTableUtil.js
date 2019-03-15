@@ -107,4 +107,4 @@ const ResourceTableUtil = {
   }
 };
 
-module.exports = ResourceTableUtil;
+export default ResourceTableUtil;

@@ -44,4 +44,4 @@ class ServiceAttribIsFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttribIsFilter;
+export default ServiceAttribIsFilter;

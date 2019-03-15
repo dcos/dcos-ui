@@ -79,4 +79,4 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
   );
 };
 
-module.exports = NodeBreadcrumbs;
+export default NodeBreadcrumbs;

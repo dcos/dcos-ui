@@ -115,4 +115,4 @@ SideTabs.propTypes = {
   tabs: PropTypes.array
 };
 
-module.exports = SideTabs;
+export default SideTabs;

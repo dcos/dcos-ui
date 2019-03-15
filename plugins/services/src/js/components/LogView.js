@@ -334,4 +334,4 @@ LogView.propTypes = {
   watching: PropTypes.number
 };
 
-module.exports = LogView;
+export default LogView;

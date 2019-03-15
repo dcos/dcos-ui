@@ -57,4 +57,4 @@ const DSLFormUtil = {
   }
 };
 
-module.exports = DSLFormUtil;
+export default DSLFormUtil;

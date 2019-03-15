@@ -35,4 +35,4 @@ HighOrderServiceInstances.propTypes = {
   ])
 };
 
-module.exports = HighOrderServiceInstances;
+export default HighOrderServiceInstances;

@@ -1,6 +1,6 @@
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 
-module.exports = {
+export default {
   FormReducer(state = [], { type, path = [], value }) {
     let newState = [].concat(state);
 

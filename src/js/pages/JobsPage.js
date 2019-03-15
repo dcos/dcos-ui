@@ -27,4 +27,4 @@ JobsPage.willTransitionTo = function() {
   SidebarActions.close();
 };
 
-module.exports = JobsPage;
+export default JobsPage;

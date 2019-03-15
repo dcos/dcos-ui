@@ -8,7 +8,7 @@ import Item from "#SRC/js/structs/Item";
  *   {@link http://mesosphere.github.io/marathon/docs/deployments.html|Marathon
  *   application deployment documentation}
  */
-module.exports = class Deployment extends Item {
+export default class Deployment extends Item {
   /**
    * @return {string} the id of this deployment
    */
@@ -85,4 +85,4 @@ module.exports = class Deployment extends Item {
       });
     }
   }
-};
+}

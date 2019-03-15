@@ -357,4 +357,4 @@ MultiContainerVolumesFormSection.configReducers = {
   volumeMounts
 };
 
-module.exports = MultiContainerVolumesFormSection;
+export default MultiContainerVolumesFormSection;

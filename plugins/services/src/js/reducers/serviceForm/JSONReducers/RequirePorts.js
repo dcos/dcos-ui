@@ -1,7 +1,7 @@
 import { SET } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
+export default {
   JSONReducer(state, { path, type, value }) {
     const [base] = path;
 

@@ -3,7 +3,7 @@
  * part of state.
  */
 
-var InternalStorageMixin = {
+const InternalStorageMixin = {
   internalStorage_data: {},
 
   internalStorage_get() {
@@ -25,4 +25,4 @@ var InternalStorageMixin = {
   }
 };
 
-module.exports = InternalStorageMixin;
+export default InternalStorageMixin;

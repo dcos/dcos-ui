@@ -132,4 +132,4 @@ PageHeaderActions.propTypes = {
   disabledActions: PropTypes.bool
 };
 
-module.exports = PageHeaderActions;
+export default PageHeaderActions;

@@ -1,3 +1,3 @@
 import ApplicationSpec from "./ApplicationSpec";
 
-module.exports = class FrameworkSpec extends ApplicationSpec {};
+export default class FrameworkSpec extends ApplicationSpec {}

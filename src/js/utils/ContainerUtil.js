@@ -34,4 +34,4 @@ const ContainerUtil = {
   }
 };
 
-module.exports = ContainerUtil;
+export default ContainerUtil;

@@ -4,7 +4,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
-var AnimationCircle = createReactClass({
+const AnimationCircle = createReactClass({
   displayName: "AnimationCircle",
 
   propTypes: {
@@ -70,4 +70,4 @@ var AnimationCircle = createReactClass({
   }
 });
 
-module.exports = AnimationCircle;
+export default AnimationCircle;

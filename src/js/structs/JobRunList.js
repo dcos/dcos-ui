@@ -25,4 +25,4 @@ class JobRunList extends List {
 
 JobRunList.type = JobRun;
 
-module.exports = JobRunList;
+export default JobRunList;

@@ -12,4 +12,4 @@ class TaskDirectory extends List {
 
 TaskDirectory.type = DirectoryItem;
 
-module.exports = TaskDirectory;
+export default TaskDirectory;

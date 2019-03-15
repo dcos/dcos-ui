@@ -39,4 +39,4 @@ const VolumeDefinitions = {
   }
 };
 
-module.exports = VolumeDefinitions;
+export default VolumeDefinitions;

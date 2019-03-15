@@ -17,4 +17,4 @@ const TaskStatusSorting = {
   TASK_UNKNOWN: 15
 };
 
-module.exports = TaskStatusSorting;
+export default TaskStatusSorting;

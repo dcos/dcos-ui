@@ -383,4 +383,4 @@ class DeclinedOffersTable extends React.Component {
   }
 }
 
-module.exports = DeclinedOffersTable;
+export default DeclinedOffersTable;

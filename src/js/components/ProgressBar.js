@@ -131,4 +131,4 @@ ProgressBar.propTypes = {
   ).isRequired
 };
 
-module.exports = ProgressBar;
+export default ProgressBar;

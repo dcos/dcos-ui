@@ -35,4 +35,4 @@ class ServiceAttributeHasVolumesFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttributeHasVolumesFilter;
+export default ServiceAttributeHasVolumesFilter;

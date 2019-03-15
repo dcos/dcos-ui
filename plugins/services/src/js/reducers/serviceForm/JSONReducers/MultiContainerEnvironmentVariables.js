@@ -1,7 +1,7 @@
 import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
+export default {
   JSONParser(state) {
     if (state.environment == null) {
       return [];

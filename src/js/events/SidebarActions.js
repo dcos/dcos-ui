@@ -9,7 +9,7 @@ import {
 
 import AppDispatcher from "./AppDispatcher";
 
-module.exports = {
+export default {
   open() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_OPEN,

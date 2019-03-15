@@ -170,4 +170,4 @@ PodStorageConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodStorageConfigSection;
+export default PodStorageConfigSection;

@@ -35,4 +35,4 @@ const componentsRoutes = {
   ]
 };
 
-module.exports = componentsRoutes;
+export default componentsRoutes;

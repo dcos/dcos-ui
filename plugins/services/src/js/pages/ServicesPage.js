@@ -12,7 +12,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 
-var ServicesPage = createReactClass({
+const ServicesPage = createReactClass({
   contextTypes: {
     router: routerShape
   },
@@ -83,4 +83,4 @@ var ServicesPage = createReactClass({
   }
 });
 
-module.exports = ServicesPage;
+export default ServicesPage;

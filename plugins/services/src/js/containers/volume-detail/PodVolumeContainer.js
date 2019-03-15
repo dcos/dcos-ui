@@ -90,4 +90,4 @@ PodVolumeContainer.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = PodVolumeContainer;
+export default PodVolumeContainer;

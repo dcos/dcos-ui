@@ -126,4 +126,4 @@ PodContainerTerminationTable.propTypes = {
   containers: PropTypes.array.isRequired
 };
 
-module.exports = PodContainerTerminationTable;
+export default PodContainerTerminationTable;

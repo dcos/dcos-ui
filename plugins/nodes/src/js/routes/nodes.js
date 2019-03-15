@@ -182,4 +182,4 @@ const nodesRoutes = [
   }
 ];
 
-module.exports = nodesRoutes;
+export default nodesRoutes;

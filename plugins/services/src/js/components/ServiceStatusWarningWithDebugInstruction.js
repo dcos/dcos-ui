@@ -17,4 +17,4 @@ class ServiceStatusWarningWithDebugInstruction extends ServiceStatusIcon {
   }
 }
 
-module.exports = ServiceStatusWarningWithDebugInstruction;
+export default ServiceStatusWarningWithDebugInstruction;

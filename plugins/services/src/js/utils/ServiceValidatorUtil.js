@@ -85,4 +85,4 @@ const ServiceValidatorUtil = {
   }
 };
 
-module.exports = ServiceValidatorUtil;
+export default ServiceValidatorUtil;

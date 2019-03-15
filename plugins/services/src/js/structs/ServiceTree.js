@@ -11,7 +11,7 @@ import ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
 import VolumeList from "../structs/VolumeList";
 
-module.exports = class ServiceTree extends Tree {
+export default class ServiceTree extends Tree {
   /**
    * (Marathon) ServiceTree
    * @param {{
@@ -463,4 +463,4 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeLabels;
     }, []);
   }
-};
+}

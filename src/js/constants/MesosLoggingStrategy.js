@@ -4,4 +4,4 @@ const MesosLoggingStrategy = {
   SYSTEM_AND_MESOS_LOGS: "journald+logrotate"
 };
 
-module.exports = MesosLoggingStrategy;
+export default MesosLoggingStrategy;

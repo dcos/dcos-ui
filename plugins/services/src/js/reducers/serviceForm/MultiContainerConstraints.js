@@ -2,7 +2,7 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 import { FormReducer, JSONParser, JSONReducer } from "./common/Constraints";
 
-module.exports = {
+export default {
   FormReducer,
   JSONReducer(state, transaction) {
     const constraints = JSONReducer.bind(this)(state, transaction);

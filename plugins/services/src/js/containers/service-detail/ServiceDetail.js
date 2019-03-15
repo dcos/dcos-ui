@@ -331,4 +331,4 @@ ServiceDetail.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = ServiceDetail;
+export default ServiceDetail;

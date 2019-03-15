@@ -108,4 +108,4 @@ PodLabelsConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodLabelsConfigSection;
+export default PodLabelsConfigSection;

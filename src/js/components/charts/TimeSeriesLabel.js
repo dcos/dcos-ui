@@ -6,7 +6,7 @@ import createReactClass from "create-react-class";
 
 import ValueTypes from "../../constants/ValueTypes";
 
-var TimeSeriesLabel = createReactClass({
+const TimeSeriesLabel = createReactClass({
   displayName: "TimeSeriesLabel",
 
   propTypes: {
@@ -53,4 +53,4 @@ var TimeSeriesLabel = createReactClass({
   }
 });
 
-module.exports = TimeSeriesLabel;
+export default TimeSeriesLabel;

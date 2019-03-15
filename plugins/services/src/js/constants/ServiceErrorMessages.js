@@ -42,4 +42,4 @@ const ServiceErrorMessages = [
   }
 ].concat(DefaultErrorMessages);
 
-module.exports = ServiceErrorMessages;
+export default ServiceErrorMessages;

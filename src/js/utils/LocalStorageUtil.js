@@ -1,4 +1,4 @@
-var LocalStorageUtil = {
+const LocalStorageUtil = {
   set() {
     return global.localStorage.setItem.apply(global.localStorage, arguments);
   },
@@ -8,4 +8,4 @@ var LocalStorageUtil = {
   }
 };
 
-module.exports = LocalStorageUtil;
+export default LocalStorageUtil;

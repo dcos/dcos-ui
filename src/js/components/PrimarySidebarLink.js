@@ -59,4 +59,4 @@ const PrimarySidebarLink = ({
   );
 };
 
-module.exports = PrimarySidebarLink;
+export default PrimarySidebarLink;

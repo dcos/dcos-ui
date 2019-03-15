@@ -70,4 +70,4 @@ const ServiceConfigDisplayUtil = {
   }
 };
 
-module.exports = ServiceConfigDisplayUtil;
+export default ServiceConfigDisplayUtil;

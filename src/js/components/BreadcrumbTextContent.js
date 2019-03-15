@@ -19,4 +19,4 @@ BreadcrumbTextContent.propTypes = {
   title: PropTypes.string
 };
 
-module.exports = BreadcrumbTextContent;
+export default BreadcrumbTextContent;

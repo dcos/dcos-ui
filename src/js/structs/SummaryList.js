@@ -104,4 +104,4 @@ class SummaryList extends List {
   }
 }
 
-module.exports = SummaryList;
+export default SummaryList;

@@ -82,7 +82,7 @@ class FilterNode extends ASTNode {
 /**
  * Expose the leaf nodes that can be used in more than one place
  */
-module.exports = {
+export default {
   CombinerNode,
   FilterNode
 };

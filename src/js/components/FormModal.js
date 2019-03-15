@@ -194,4 +194,4 @@ FormModal.propTypes = {
   open: PropTypes.bool
 };
 
-module.exports = FormModal;
+export default FormModal;

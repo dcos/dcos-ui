@@ -50,4 +50,4 @@ Rect.propTypes = {
   key: PropTypes.any
 };
 
-module.exports = Rect;
+export default Rect;

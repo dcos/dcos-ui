@@ -181,4 +181,4 @@ PodNetworkConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = withI18n()(PodNetworkConfigSection);
+export default withI18n()(PodNetworkConfigSection);

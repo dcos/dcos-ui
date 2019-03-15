@@ -100,4 +100,4 @@ PodEnvironmentVariablesConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodEnvironmentVariablesConfigSection;
+export default PodEnvironmentVariablesConfigSection;

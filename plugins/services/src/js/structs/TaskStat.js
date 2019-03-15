@@ -67,4 +67,4 @@ class TaskStat extends Item {
   }
 }
 
-module.exports = TaskStat;
+export default TaskStat;

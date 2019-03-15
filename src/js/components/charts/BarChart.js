@@ -11,7 +11,7 @@ import ChartMixin from "../../mixins/ChartMixin";
 import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 import Util from "../../utils/Util";
 
-var BarChart = createReactClass({
+const BarChart = createReactClass({
   displayName: "BarChart",
 
   mixins: [ChartMixin, InternalStorageMixin],
@@ -389,4 +389,4 @@ var BarChart = createReactClass({
   }
 });
 
-module.exports = BarChart;
+export default BarChart;

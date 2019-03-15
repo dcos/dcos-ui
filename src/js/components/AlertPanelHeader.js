@@ -9,4 +9,4 @@ AlertPanelHeader.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = AlertPanelHeader;
+export default AlertPanelHeader;

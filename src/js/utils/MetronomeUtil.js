@@ -139,4 +139,4 @@ const MetronomeUtil = {
   }
 };
 
-module.exports = MetronomeUtil;
+export default MetronomeUtil;

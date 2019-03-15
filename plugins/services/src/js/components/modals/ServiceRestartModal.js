@@ -156,4 +156,4 @@ ServiceRestartModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = withI18n()(ServiceRestartModal);
+export default withI18n()(ServiceRestartModal);

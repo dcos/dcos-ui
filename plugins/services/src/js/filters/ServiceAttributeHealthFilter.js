@@ -41,4 +41,4 @@ class ServiceAttribHealthFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttribHealthFilter;
+export default ServiceAttribHealthFilter;

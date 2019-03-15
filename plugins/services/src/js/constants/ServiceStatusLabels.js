@@ -11,4 +11,4 @@ const ServiceStatusLabels = {
   RECOVERING: i18nMark("Recovering")
 };
 
-module.exports = ServiceStatusLabels;
+export default ServiceStatusLabels;

@@ -182,4 +182,4 @@ VolumeTable.propTypes = {
   routes: PropTypes.array.isRequired
 };
 
-module.exports = VolumeTable;
+export default VolumeTable;

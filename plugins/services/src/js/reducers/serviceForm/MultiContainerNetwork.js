@@ -2,7 +2,7 @@ import Networking from "#SRC/js/constants/Networking";
 import { SET, ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
+export default {
   JSONReducer(
     state = [{ mode: Networking.type.HOST.toLowerCase() }],
     { type, path, value }

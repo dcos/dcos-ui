@@ -5,4 +5,4 @@ const LogFields = {
   SYSLOG_IDENTIFIER: "SYSLOG_IDENTIFIER"
 };
 
-module.exports = LogFields;
+export default LogFields;

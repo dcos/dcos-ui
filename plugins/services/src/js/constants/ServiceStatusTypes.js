@@ -1,4 +1,4 @@
-var ServiceStatusTypes = {
+const ServiceStatusTypes = {
   NA: 0,
   STOPPED: 1,
   RUNNING: 2,
@@ -9,4 +9,4 @@ var ServiceStatusTypes = {
   DELETING: 6
 };
 
-module.exports = ServiceStatusTypes;
+export default ServiceStatusTypes;

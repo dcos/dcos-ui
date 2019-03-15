@@ -1,3 +1,3 @@
-module.exports = {
+export default {
   NAVIGATION_CHANGE: "NAVIGATION_CHANGE"
 };

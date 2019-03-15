@@ -79,4 +79,4 @@ NodesTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = NodesTaskDetailPage;
+export default NodesTaskDetailPage;

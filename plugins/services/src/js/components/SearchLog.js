@@ -166,4 +166,4 @@ SearchLog.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = withI18n()(SearchLog);
+export default withI18n()(SearchLog);

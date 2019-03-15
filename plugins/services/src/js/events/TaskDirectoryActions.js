@@ -25,7 +25,7 @@ function getNodeStateURL(task, node) {
   return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
 }
 
-var TaskDirectoryActions = {
+const TaskDirectoryActions = {
   getDownloadURL(nodeID, path) {
     return `${Config.rootUrl}/agent/${nodeID}/files/download?path=${path}`;
   },
@@ -107,4 +107,4 @@ var TaskDirectoryActions = {
   }
 };
 
-module.exports = TaskDirectoryActions;
+export default TaskDirectoryActions;

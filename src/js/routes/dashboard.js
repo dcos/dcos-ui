@@ -10,4 +10,4 @@ const dashboardRoutes = {
   isInSidebar: true
 };
 
-module.exports = dashboardRoutes;
+export default dashboardRoutes;

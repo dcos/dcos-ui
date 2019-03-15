@@ -54,4 +54,4 @@ class LanguageModalStore extends GetSetBaseStore {
     return "languageModal";
   }
 }
-module.exports = new LanguageModalStore();
+export default new LanguageModalStore();

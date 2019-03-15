@@ -1,6 +1,6 @@
 import HealthCheckProtocols from "../constants/HealthCheckProtocols";
 
-module.exports = {
+export default {
   isKnownProtocol(protocol) {
     return [
       "",

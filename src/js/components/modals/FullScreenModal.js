@@ -44,4 +44,4 @@ FullScreenModal.propTypes = {
   useGemini: PropTypes.bool
 };
 
-module.exports = FullScreenModal;
+export default FullScreenModal;

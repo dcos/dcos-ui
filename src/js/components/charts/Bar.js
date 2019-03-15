@@ -4,7 +4,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
-var Bar = createReactClass({
+const Bar = createReactClass({
   displayName: "Bar",
 
   propTypes: {
@@ -81,4 +81,4 @@ var Bar = createReactClass({
   }
 });
 
-module.exports = Bar;
+export default Bar;

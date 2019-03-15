@@ -160,4 +160,4 @@ ImageViewerModal.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-module.exports = ImageViewerModal;
+export default ImageViewerModal;

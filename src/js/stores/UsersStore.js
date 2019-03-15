@@ -83,4 +83,4 @@ class UsersStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new UsersStore();
+export default new UsersStore();

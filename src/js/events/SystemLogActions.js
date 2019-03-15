@@ -272,4 +272,4 @@ const SystemLogActions = {
   }
 };
 
-module.exports = SystemLogActions;
+export default SystemLogActions;

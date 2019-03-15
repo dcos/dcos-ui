@@ -104,4 +104,4 @@ const ActionTypes = {};
   ActionTypes[actionType] = actionType;
 });
 
-module.exports = ActionTypes;
+export default ActionTypes;

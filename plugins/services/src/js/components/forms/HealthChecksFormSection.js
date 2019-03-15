@@ -558,4 +558,4 @@ HealthChecksFormSection.validationReducers = {
   }
 };
 
-module.exports = HealthChecksFormSection;
+export default HealthChecksFormSection;

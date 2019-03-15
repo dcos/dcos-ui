@@ -11,7 +11,7 @@ function encodeValuesToURIComponents(values) {
   });
 }
 
-var QueryParamsMixin = {
+const QueryParamsMixin = {
   contextTypes: {
     router: routerShape
   },
@@ -73,4 +73,4 @@ var QueryParamsMixin = {
   }
 };
 
-module.exports = QueryParamsMixin;
+export default QueryParamsMixin;

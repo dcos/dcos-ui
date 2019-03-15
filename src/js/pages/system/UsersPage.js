@@ -129,4 +129,4 @@ UsersPage.routeConfig = {
   matches: /^\/organization\/users/
 };
 
-module.exports = UsersPage;
+export default UsersPage;

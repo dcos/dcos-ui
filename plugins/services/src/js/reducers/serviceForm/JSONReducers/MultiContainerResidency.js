@@ -2,7 +2,7 @@ import { SET } from "#SRC/js/constants/TransactionTypes";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
+export default {
   JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;

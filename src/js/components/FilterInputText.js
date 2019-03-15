@@ -206,4 +206,4 @@ FilterInputText.propTypes = {
   onEnter: PropTypes.func
 };
 
-module.exports = FilterInputText;
+export default FilterInputText;

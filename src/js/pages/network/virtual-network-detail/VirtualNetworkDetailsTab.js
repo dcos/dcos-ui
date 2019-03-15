@@ -42,4 +42,4 @@ VirtualNetworkDetailsTab.propTypes = {
   overlay: PropTypes.instanceOf(Overlay)
 };
 
-module.exports = VirtualNetworkDetailsTab;
+export default VirtualNetworkDetailsTab;

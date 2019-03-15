@@ -59,7 +59,7 @@ const DashboardBreadcrumbs = () => {
   );
 };
 
-var DashboardPage = createReactClass({
+const DashboardPage = createReactClass({
   displayName: "DashboardPage",
 
   mixins: [InternalStorageMixin, StoreMixin],
@@ -303,4 +303,4 @@ var DashboardPage = createReactClass({
   }
 });
 
-module.exports = DashboardPage;
+export default DashboardPage;

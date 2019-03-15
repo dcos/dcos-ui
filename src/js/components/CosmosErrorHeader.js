@@ -9,4 +9,4 @@ CosmosErrorHeader.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = CosmosErrorHeader;
+export default CosmosErrorHeader;

@@ -6,7 +6,7 @@ import PodContainerStatus from "../constants/PodContainerStatus";
 import PodInstanceStatus from "../constants/PodInstanceStatus";
 import PodInstanceState from "../constants/PodInstanceState";
 
-module.exports = class PodInstance extends Item {
+export default class PodInstance extends Item {
   getAgentAddress() {
     return this.get("agentHostname") || "";
   }
@@ -162,4 +162,4 @@ module.exports = class PodInstance extends Item {
   isTerminating() {
     return this.getStatus() === PodInstanceState.TERMINAL;
   }
-};
+}

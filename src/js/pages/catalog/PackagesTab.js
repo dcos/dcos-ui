@@ -323,4 +323,4 @@ PackagesTab.contextTypes = {
   router: routerShape
 };
 
-module.exports = PackagesTab;
+export default PackagesTab;

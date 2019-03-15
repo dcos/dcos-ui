@@ -1,6 +1,6 @@
 import SDK from "./SDK";
 
-module.exports = function(PluginSDK) {
+export default function(PluginSDK) {
   SDK.setSDK(PluginSDK);
 
   const PluginHooks = require("./hooks");
@@ -10,4 +10,4 @@ module.exports = function(PluginSDK) {
 
   // Register Actions
   PluginSDK.registerActions(TrackingActions);
-};
+}

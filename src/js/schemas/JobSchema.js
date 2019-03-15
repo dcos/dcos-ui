@@ -20,4 +20,4 @@ const JobSchema = {
   required: ["general"]
 };
 
-module.exports = JobSchema;
+export default JobSchema;

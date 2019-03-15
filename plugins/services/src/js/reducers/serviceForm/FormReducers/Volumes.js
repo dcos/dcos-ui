@@ -1,7 +1,7 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 
-module.exports = {
+export default {
   FormReducer(state = [], { type, path, value }) {
     if (path == null) {
       return state;

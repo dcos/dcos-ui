@@ -19,7 +19,7 @@ function allowedToProceed(action) {
 }
 
 // Clones state from application stores and maps it into the OmniStore
-module.exports = function(state = initialState, action) {
+export default function(state = initialState, action) {
   // Return early if the action didn't come from Application
   //  or plugins with permission
   if (!allowedToProceed(action)) {
@@ -32,4 +32,4 @@ module.exports = function(state = initialState, action) {
     default:
       return state;
   }
-};
+}

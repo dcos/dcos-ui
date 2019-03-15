@@ -657,4 +657,4 @@ ServicesContainer.routeConfig = {
   matches: /^\/services\/(detail|overview)/
 };
 
-module.exports = ServicesContainer;
+export default ServicesContainer;

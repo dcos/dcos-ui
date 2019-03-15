@@ -244,4 +244,4 @@ const ServiceTableUtil = {
   getFormattedVersion
 };
 
-module.exports = ServiceTableUtil;
+export default ServiceTableUtil;

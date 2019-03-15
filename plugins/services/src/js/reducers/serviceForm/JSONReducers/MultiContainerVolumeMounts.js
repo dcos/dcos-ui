@@ -1,6 +1,6 @@
 import { ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 
-module.exports = {
+export default {
   JSONReducer(state = [], { type, path, value }) {
     const [base, index, name, secondIndex] = path;
 

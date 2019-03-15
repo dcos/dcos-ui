@@ -1,7 +1,7 @@
 import DateUtil from "../utils/DateUtil";
 import Item from "./Item";
 
-module.exports = class JobTask extends Item {
+export default class JobTask extends Item {
   getDateStarted() {
     return DateUtil.strToMs(this.get("startedAt"));
   }
@@ -17,4 +17,4 @@ module.exports = class JobTask extends Item {
   getStatus() {
     return this.get("status");
   }
-};
+}

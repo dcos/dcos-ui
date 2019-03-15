@@ -203,4 +203,4 @@ PodHealthChecksConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodHealthChecksConfigSection;
+export default PodHealthChecksConfigSection;

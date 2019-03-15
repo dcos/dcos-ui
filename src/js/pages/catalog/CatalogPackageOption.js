@@ -42,4 +42,4 @@ function CatalogPackageOption(props) {
   );
 }
 
-module.exports = CatalogPackageOption;
+export default CatalogPackageOption;

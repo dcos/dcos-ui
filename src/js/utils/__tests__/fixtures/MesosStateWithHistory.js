@@ -7,7 +7,7 @@ const timestamp06 = 1006;
 const timestamp07 = 1007;
 const timestamp08 = 1008;
 
-module.exports = {
+export default {
   frameworks: [
     {
       name: "marathon",

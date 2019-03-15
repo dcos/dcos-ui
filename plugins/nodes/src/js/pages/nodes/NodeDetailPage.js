@@ -209,4 +209,4 @@ NodeDetailPage.contextTypes = {
   router: routerShape
 };
 
-module.exports = NodeDetailPage;
+export default NodeDetailPage;

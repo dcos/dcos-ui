@@ -132,4 +132,4 @@ VirtualNetworksTable.propTypes = {
   overlays: PropTypes.instanceOf(OverlayList)
 };
 
-module.exports = VirtualNetworksTable;
+export default VirtualNetworksTable;

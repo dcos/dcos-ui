@@ -155,4 +155,4 @@ class TaskDirectoryStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new TaskDirectoryStore();
+export default new TaskDirectoryStore();

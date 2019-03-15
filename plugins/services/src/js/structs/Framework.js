@@ -10,7 +10,7 @@ import FrameworkUtil from "../utils/FrameworkUtil";
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
-module.exports = class Framework extends Application {
+export default class Framework extends Application {
   constructor() {
     super(...arguments);
 
@@ -132,4 +132,4 @@ module.exports = class Framework extends Application {
       disk: allocatedFrameworkResources.disk + schedulerResources.disk
     };
   }
-};
+}

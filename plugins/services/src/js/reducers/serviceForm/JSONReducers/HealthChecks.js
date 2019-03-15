@@ -38,7 +38,7 @@ function getMapHealthChecks(runtime) {
   };
 }
 
-module.exports = {
+export default {
   JSONReducer(state, { type, path, value }) {
     if (path == null) {
       return state;

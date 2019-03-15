@@ -44,4 +44,4 @@ FieldInput.propTypes = {
   ])
 };
 
-module.exports = FieldInput;
+export default FieldInput;

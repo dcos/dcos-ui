@@ -1,4 +1,4 @@
-var HEALTH_LABELS = {
+const HEALTH_LABELS = {
   ALL: "All",
   HEALTHY: "Healthy",
   UNHEALTHY: "Unhealthy",
@@ -6,4 +6,4 @@ var HEALTH_LABELS = {
   NA: "N/A"
 };
 
-module.exports = HEALTH_LABELS;
+export default HEALTH_LABELS;

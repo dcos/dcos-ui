@@ -18,4 +18,4 @@ const BulkOptions = {
   }
 };
 
-module.exports = BulkOptions;
+export default BulkOptions;

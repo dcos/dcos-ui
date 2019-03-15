@@ -81,4 +81,4 @@ TaskModals.propTypes = {
   pendingActions: PropTypes.object
 };
 
-module.exports = TaskModals;
+export default TaskModals;

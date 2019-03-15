@@ -62,4 +62,4 @@ const UnitHealthUtil = {
   }
 };
 
-module.exports = UnitHealthUtil;
+export default UnitHealthUtil;

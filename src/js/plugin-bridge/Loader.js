@@ -24,6 +24,6 @@ function getAvailablePlugins() {
   };
 }
 
-module.exports = {
+export default {
   getAvailablePlugins
 };

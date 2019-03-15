@@ -10,10 +10,7 @@ import BatchContainer from "#SRC/js/components/BatchContainer";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import { Tooltip } from "reactjs-components";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
-import {
-  JSONReducer,
-  JSONParser
-} from "#PLUGINS/services/src/js/reducers/serviceForm/JSONReducers/Constraints";
+import JSONReducerConstraints from "#PLUGINS/services/src/js/reducers/serviceForm/JSONReducers/Constraints";
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 import { FormReducer } from "#PLUGINS/services/src/js/reducers/serviceForm/FormReducers/Constraints";
 import CreateServiceModalFormUtil from "#PLUGINS/services/src/js/utils/CreateServiceModalFormUtil";
@@ -21,6 +18,7 @@ import MarathonAppValidators from "#PLUGINS/services/src/js/validators/MarathonA
 
 import PlacementValidators from "#PLUGINS/services/src/js/validators/PlacementsValidators";
 
+const { JSONReducer, JSONParser } = JSONReducerConstraints;
 const jsonReducer = combineReducers({ constraints: JSONReducer });
 
 const JsonField = props => (

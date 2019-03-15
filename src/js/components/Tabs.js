@@ -42,4 +42,4 @@ Tabs.propTypes = {
   vertical: PropTypes.bool
 };
 
-module.exports = Tabs;
+export default Tabs;

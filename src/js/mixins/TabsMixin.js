@@ -175,4 +175,4 @@ const TabsMixin = {
   }
 };
 
-module.exports = TabsMixin;
+export default TabsMixin;

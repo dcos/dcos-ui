@@ -9,4 +9,4 @@ constants.FRAMEWORK_RESOURCE_ID_REGEXP = new RegExp(
   }]+$`
 );
 
-module.exports = constants;
+export default constants;

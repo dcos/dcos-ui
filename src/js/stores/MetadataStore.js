@@ -158,4 +158,4 @@ class MetadataStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new MetadataStore();
+export default new MetadataStore();

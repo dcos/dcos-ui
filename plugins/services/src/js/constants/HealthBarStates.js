@@ -21,4 +21,4 @@ const HealthBarStates = {
   }
 };
 
-module.exports = HealthBarStates;
+export default HealthBarStates;

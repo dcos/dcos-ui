@@ -94,4 +94,4 @@ FilterButtons.propTypes = {
   selectedFilter: PropTypes.string
 };
 
-module.exports = FilterButtons;
+export default FilterButtons;

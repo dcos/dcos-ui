@@ -23,4 +23,4 @@ const HealthStatus = {
   }
 };
 
-module.exports = HealthStatus;
+export default HealthStatus;

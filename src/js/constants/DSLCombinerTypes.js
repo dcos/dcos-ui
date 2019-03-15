@@ -6,4 +6,4 @@ const COMBINER_TYPES = {
   OR: 2
 };
 
-module.exports = COMBINER_TYPES;
+export default COMBINER_TYPES;

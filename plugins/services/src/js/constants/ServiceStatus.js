@@ -1,7 +1,7 @@
 import ServiceStatusLabels from "./ServiceStatusLabels";
 import ServiceStatusTypes from "./ServiceStatusTypes";
 
-var SERVICE_STATUS = {
+const SERVICE_STATUS = {
   RUNNING: {
     key: ServiceStatusTypes.RUNNING,
     displayName: ServiceStatusLabels.RUNNING
@@ -36,4 +36,4 @@ var SERVICE_STATUS = {
   }
 };
 
-module.exports = SERVICE_STATUS;
+export default SERVICE_STATUS;

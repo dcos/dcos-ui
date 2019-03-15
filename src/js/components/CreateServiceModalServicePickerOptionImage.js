@@ -10,4 +10,4 @@ function CreateServiceModalServicePickerOptionImage(props) {
   );
 }
 
-module.exports = CreateServiceModalServicePickerOptionImage;
+export default CreateServiceModalServicePickerOptionImage;

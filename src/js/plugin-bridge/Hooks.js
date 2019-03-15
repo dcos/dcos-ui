@@ -32,6 +32,7 @@ function removeListener(store, hook, listener) {
     }
   });
 }
+
 /*
  * Example usage:
  *
@@ -51,7 +52,7 @@ function removeListener(store, hook, listener) {
  * hooks.doAction('someAction');
  * hooks.applyFilter('someFilter', 'someValue');
  */
-module.exports = function Hooks() {
+export default function Hooks() {
   return {
     // Event store for actions
     actions: {},
@@ -170,4 +171,4 @@ module.exports = function Hooks() {
       });
     }
   };
-};
+}

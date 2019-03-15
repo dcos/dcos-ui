@@ -110,4 +110,4 @@ DSLFormDropdownPanel.propTypes = {
   sections: PropTypes.array.isRequired
 };
 
-module.exports = DSLFormDropdownPanel;
+export default DSLFormDropdownPanel;

@@ -30,4 +30,4 @@ FieldHelp.propTypes = {
   textTransform: PropTypes.oneOf(["none", "uppercase"])
 };
 
-module.exports = FieldHelp;
+export default FieldHelp;

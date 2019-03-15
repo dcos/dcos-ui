@@ -7,4 +7,4 @@ const FILTER_TYPES = {
   FUZZY: 3
 };
 
-module.exports = FILTER_TYPES;
+export default FILTER_TYPES;

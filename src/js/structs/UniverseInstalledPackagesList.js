@@ -35,4 +35,4 @@ class UniverseInstalledPackagesList extends List {
   }
 }
 
-module.exports = UniverseInstalledPackagesList;
+export default UniverseInstalledPackagesList;

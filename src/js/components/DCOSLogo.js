@@ -15,4 +15,4 @@ class DCOSLogo extends React.Component {
   }
 }
 
-module.exports = DCOSLogo;
+export default DCOSLogo;

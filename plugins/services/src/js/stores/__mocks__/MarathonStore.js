@@ -1,6 +1,6 @@
-var MarathonStore = jest.genMockFromModule("../MarathonStore");
+const MarathonStore = jest.genMockFromModule("../MarathonStore");
 
-var _data = {};
+let _data = {};
 
 /**
  * Sets mock data for MarathonStore.get to return.
@@ -25,4 +25,4 @@ function get(key) {
 MarathonStore.__setKeyResponse = __setKeyResponse;
 MarathonStore.get = get;
 
-module.exports = MarathonStore;
+export default MarathonStore;

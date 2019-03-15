@@ -1,7 +1,7 @@
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import ServiceSpec from "./ServiceSpec";
 
-module.exports = class PodSpec extends ServiceSpec {
+export default class PodSpec extends ServiceSpec {
   getContainers() {
     return this.get("containers") || [];
   }
@@ -80,4 +80,4 @@ module.exports = class PodSpec extends ServiceSpec {
   getUser() {
     return this.get("user") || "";
   }
-};
+}

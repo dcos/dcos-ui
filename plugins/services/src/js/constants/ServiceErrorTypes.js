@@ -61,4 +61,4 @@ const ServiceErrorTypes = {
   SYNTAX_ERROR: "SYNTAX_ERROR"
 };
 
-module.exports = ServiceErrorTypes;
+export default ServiceErrorTypes;

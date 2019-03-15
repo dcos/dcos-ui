@@ -11,4 +11,4 @@ const ServiceActionLabels = {
   stop: i18nMark("Stop")
 };
 
-module.exports = ServiceActionLabels;
+export default ServiceActionLabels;

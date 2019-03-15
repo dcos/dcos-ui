@@ -183,4 +183,4 @@ CollapsingString.propTypes = {
   wrapperClassName: PropTypes.string
 };
 
-module.exports = CollapsingString;
+export default CollapsingString;

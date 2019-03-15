@@ -25,4 +25,4 @@ FieldError.propTypes = {
   ])
 };
 
-module.exports = FieldError;
+export default FieldError;

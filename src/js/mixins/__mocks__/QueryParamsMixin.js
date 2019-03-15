@@ -1,4 +1,4 @@
-var QueryParamsMixin = jest.genMockFromModule("../QueryParamsMixin");
+const QueryParamsMixin = jest.genMockFromModule("../QueryParamsMixin");
 
 var _data = {};
 
@@ -25,4 +25,4 @@ QueryParamsMixin.setQueryParam = jasmine.createSpy("setQueryParam");
 QueryParamsMixin.__setData = __setData;
 QueryParamsMixin.getQueryParamObject = getQueryParamObject;
 
-module.exports = QueryParamsMixin;
+export default QueryParamsMixin;

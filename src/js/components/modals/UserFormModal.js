@@ -152,4 +152,4 @@ class UserFormModal extends mixin(StoreMixin) {
     );
   }
 }
-module.exports = UserFormModal;
+export default UserFormModal;

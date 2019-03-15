@@ -16,4 +16,4 @@ SettingsPage.routeConfig = {
   matches: /^\/settings/
 };
 
-module.exports = SettingsPage;
+export default SettingsPage;

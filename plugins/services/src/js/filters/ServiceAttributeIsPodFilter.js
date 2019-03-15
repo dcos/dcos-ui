@@ -34,4 +34,4 @@ class ServiceAttributeIsPodFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttributeIsPodFilter;
+export default ServiceAttributeIsPodFilter;

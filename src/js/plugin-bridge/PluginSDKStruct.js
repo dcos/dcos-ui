@@ -9,4 +9,4 @@ class PluginSDK {
   }
 }
 
-module.exports = PluginSDK;
+export default PluginSDK;

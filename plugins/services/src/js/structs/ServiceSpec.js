@@ -1,6 +1,6 @@
 import Item from "#SRC/js/structs/Item";
 
-module.exports = class ServiceSpec extends Item {
+export default class ServiceSpec extends Item {
   getId() {
     return this.get("id") || "";
   }
@@ -17,4 +17,4 @@ module.exports = class ServiceSpec extends Item {
   toJSON() {
     return this.get();
   }
-};
+}

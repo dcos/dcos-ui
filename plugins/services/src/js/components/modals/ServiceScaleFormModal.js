@@ -182,4 +182,4 @@ ServiceScaleFormModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceScaleFormModal;
+export default ServiceScaleFormModal;

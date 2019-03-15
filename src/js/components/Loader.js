@@ -102,4 +102,4 @@ Loader.propTypes = {
   ])
 };
 
-module.exports = Loader;
+export default Loader;

@@ -25,4 +25,4 @@ class GetSetBaseStore extends BaseStore {
   }
 }
 
-module.exports = GetSetBaseStore;
+export default GetSetBaseStore;

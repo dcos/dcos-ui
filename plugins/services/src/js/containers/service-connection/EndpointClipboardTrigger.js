@@ -37,4 +37,4 @@ EndpointClipboardTrigger.propTypes = {
   command: PropTypes.string.isRequired
 };
 
-module.exports = EndpointClipboardTrigger;
+export default EndpointClipboardTrigger;

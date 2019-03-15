@@ -34,4 +34,4 @@ class ServiceAttributeIsCatalogFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttributeIsCatalogFilter;
+export default ServiceAttributeIsCatalogFilter;

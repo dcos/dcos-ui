@@ -227,7 +227,7 @@ const containerReducer = combineReducers({
   }
 });
 
-module.exports = {
+export default {
   JSONReducer(_, ...args) {
     if (this.internalState == null) {
       this.internalState = {};

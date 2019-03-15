@@ -134,4 +134,4 @@ FrameworkConfigurationContainer.contextTypes = {
   router: routerShape
 };
 
-module.exports = FrameworkConfigurationContainer;
+export default FrameworkConfigurationContainer;

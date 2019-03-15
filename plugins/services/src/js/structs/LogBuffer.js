@@ -177,4 +177,4 @@ class LogBuffer extends List {
 
 LogBuffer.type = Item;
 
-module.exports = LogBuffer;
+export default LogBuffer;

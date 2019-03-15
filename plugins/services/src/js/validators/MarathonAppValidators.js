@@ -205,4 +205,4 @@ const MarathonAppValidators = {
   }
 };
 
-module.exports = MarathonAppValidators;
+export default MarathonAppValidators;

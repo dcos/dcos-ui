@@ -143,4 +143,4 @@ const ResourcesUtil = {
   }
 };
 
-module.exports = ResourcesUtil;
+export default ResourcesUtil;

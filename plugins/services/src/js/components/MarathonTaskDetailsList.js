@@ -187,4 +187,4 @@ MarathonTaskDetailsList.propTypes = {
   taskID: PropTypes.string.isRequired
 };
 
-module.exports = MarathonTaskDetailsList;
+export default MarathonTaskDetailsList;

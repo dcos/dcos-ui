@@ -49,4 +49,4 @@ class TasksZoneFilter extends DSLFilter {
   }
 }
 
-module.exports = TasksZoneFilter;
+export default TasksZoneFilter;

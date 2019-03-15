@@ -43,4 +43,4 @@ class TasksStatusFilter extends DSLFilter {
   }
 }
 
-module.exports = TasksStatusFilter;
+export default TasksStatusFilter;

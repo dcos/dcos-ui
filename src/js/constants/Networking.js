@@ -32,4 +32,4 @@ const Networking = {
   VIP_LABEL_VALUE_REGEX: /([\w\d_\-./]+):(\d+)/
 };
 
-module.exports = Networking;
+export default Networking;

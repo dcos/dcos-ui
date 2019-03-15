@@ -22,7 +22,7 @@ function cast(item) {
   return item;
 }
 
-module.exports = class List {
+export default class List {
   /**
    * List
    * @param {Object} options Options object
@@ -205,4 +205,4 @@ module.exports = class List {
       return callback(previousValue, currentValue, index, this);
     }, initialValue);
   }
-};
+}

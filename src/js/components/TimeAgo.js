@@ -95,4 +95,4 @@ TimeAgo.propTypes = {
   time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
 
-module.exports = TimeAgo;
+export default TimeAgo;

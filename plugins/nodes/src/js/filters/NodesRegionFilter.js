@@ -48,4 +48,4 @@ class NodesRegionFilter extends DSLFilter {
   }
 }
 
-module.exports = NodesRegionFilter;
+export default NodesRegionFilter;

@@ -20,4 +20,4 @@ const DeleteRowButton = ({ onClick }) => {
   );
 };
 
-module.exports = DeleteRowButton;
+export default DeleteRowButton;

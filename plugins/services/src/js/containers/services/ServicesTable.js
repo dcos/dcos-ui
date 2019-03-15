@@ -652,4 +652,4 @@ ServicesTable.propTypes = {
   services: PropTypes.array
 };
 
-module.exports = ServicesTable;
+export default ServicesTable;

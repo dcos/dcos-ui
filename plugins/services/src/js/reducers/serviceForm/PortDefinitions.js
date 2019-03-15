@@ -7,7 +7,7 @@ import VipLabelUtil from "../../utils/VipLabelUtil";
 
 const { HOST } = Networking.type;
 
-module.exports = {
+export default {
   /**
    * Creates portDefinitions for the JSON Editor. Only returns definitions for
    * network type HOST, but will still record changes if network is

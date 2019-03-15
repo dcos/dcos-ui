@@ -34,4 +34,4 @@ const Labels = {
   }
 };
 
-module.exports = Labels;
+export default Labels;

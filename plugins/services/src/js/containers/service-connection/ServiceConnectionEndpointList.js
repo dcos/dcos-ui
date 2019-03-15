@@ -214,4 +214,4 @@ ServiceConnectionEndpointList.contextTypes = {
   router: routerShape
 };
 
-module.exports = ServiceConnectionEndpointList;
+export default ServiceConnectionEndpointList;

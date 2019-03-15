@@ -1,5 +1,7 @@
 import DSLFilterTypes from "../constants/DSLFilterTypes";
-import { FilterNode } from "./DSLASTNodes";
+import DSLAstNodes from "./DSLASTNodes";
+
+const { FilterNode } = DSLAstNodes;
 
 /**
  * The DSL Expression Parts are used by components inserted in a `DSLInputForm`
@@ -56,4 +58,4 @@ class DSLExpressionPart {
   }
 }
 
-module.exports = DSLExpressionPart;
+export default DSLExpressionPart;

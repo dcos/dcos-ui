@@ -216,4 +216,4 @@ CollapsibleErrorMessage.propTypes = {
   onToggle: PropTypes.func
 };
 
-module.exports = CollapsibleErrorMessage;
+export default CollapsibleErrorMessage;

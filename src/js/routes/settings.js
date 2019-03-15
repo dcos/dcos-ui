@@ -34,4 +34,4 @@ const settingsRoutes = [
   }
 ];
 
-module.exports = settingsRoutes;
+export default settingsRoutes;

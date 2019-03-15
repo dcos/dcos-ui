@@ -1,7 +1,5 @@
-var TimeScales = {
+export default {
   MINUTE: "minute",
   HOUR: "hour",
   DAY: "day"
 };
-
-module.exports = TimeScales;

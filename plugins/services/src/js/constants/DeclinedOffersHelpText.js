@@ -7,7 +7,7 @@ const summaryDocsURL = MetadataStore.buildDocsURI(
   "/overview/concepts/#mesos-resource-offer"
 );
 
-module.exports = {
+export default {
   summaryIntro: (
     <Trans render="span">
       When you attempt to deploy a service, DC/OS waits for offers to match the{" "}

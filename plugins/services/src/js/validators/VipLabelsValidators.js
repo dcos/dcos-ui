@@ -70,4 +70,4 @@ const VipLabelsValidators = {
   }
 };
 
-module.exports = VipLabelsValidators;
+export default VipLabelsValidators;

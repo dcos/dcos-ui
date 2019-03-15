@@ -231,4 +231,4 @@ class NodeHealthStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new NodeHealthStore();
+export default new NodeHealthStore();

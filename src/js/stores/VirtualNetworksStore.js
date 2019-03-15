@@ -124,4 +124,4 @@ class VirtualNetworksStore extends BaseStore {
   }
 }
 
-module.exports = new VirtualNetworksStore();
+export default new VirtualNetworksStore();

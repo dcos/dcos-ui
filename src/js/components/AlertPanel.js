@@ -5,7 +5,7 @@ import createReactClass from "create-react-class";
 
 import Panel from "./Panel";
 
-var AlertPanel = createReactClass({
+const AlertPanel = createReactClass({
   displayName: "AlertPanel",
 
   defaultProps: {
@@ -72,4 +72,4 @@ var AlertPanel = createReactClass({
   }
 });
 
-module.exports = AlertPanel;
+export default AlertPanel;

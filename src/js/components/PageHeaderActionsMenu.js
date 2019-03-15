@@ -71,4 +71,4 @@ PageHeaderActionsMenu.propTypes = {
   disabledActions: PropTypes.bool
 };
 
-module.exports = PageHeaderActionsMenu;
+export default PageHeaderActionsMenu;

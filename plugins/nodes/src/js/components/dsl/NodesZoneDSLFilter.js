@@ -83,4 +83,4 @@ NodesZoneDSLSection.propTypes = {
   defaultData: PropTypes.object.isRequired
 };
 
-module.exports = NodesZoneDSLSection;
+export default NodesZoneDSLSection;

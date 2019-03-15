@@ -50,4 +50,4 @@ UsersActionsModal.propTypes = {
   selectedItems: PropTypes.array.isRequired
 };
 
-module.exports = UsersActionsModal;
+export default UsersActionsModal;

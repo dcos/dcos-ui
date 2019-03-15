@@ -15,7 +15,7 @@ import FormGroupHeading from "./FormGroupHeading";
 import FormGroupHeadingContent from "./FormGroupHeadingContent";
 import FormRow from "./FormRow";
 
-module.exports = {
+export default {
   AddButton,
   AdvancedSection,
   AdvancedSectionContainer,

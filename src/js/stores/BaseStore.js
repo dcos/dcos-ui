@@ -10,4 +10,4 @@ class BaseStore extends EventEmitter {
   }
 }
 
-module.exports = BaseStore;
+export default BaseStore;

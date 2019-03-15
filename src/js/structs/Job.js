@@ -8,7 +8,7 @@ import {
 } from "../constants/JobResources";
 import { findNestedPropertyInObject } from "../utils/Util";
 
-module.exports = class Job extends Item {
+export default class Job extends Item {
   getActiveRuns() {
     return new JobRunList({ items: this.get("activeRuns") });
   }
@@ -80,4 +80,4 @@ module.exports = class Job extends Item {
   toJSON() {
     return cleanJobJSON(this.get());
   }
-};
+}

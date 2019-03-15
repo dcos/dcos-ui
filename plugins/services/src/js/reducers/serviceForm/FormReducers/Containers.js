@@ -12,7 +12,7 @@ const containerReducer = combineReducers({
   disk: simpleReducer("resources.disk")
 });
 
-module.exports = {
+export default {
   FormReducer(state, { type, path = [], value }) {
     const [_, index, field, subField] = path;
 

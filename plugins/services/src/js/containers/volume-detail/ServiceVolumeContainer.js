@@ -90,4 +90,4 @@ ServiceVolumeContainer.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = ServiceVolumeContainer;
+export default ServiceVolumeContainer;

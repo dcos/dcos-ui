@@ -954,4 +954,4 @@ CreateServiceModal.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-module.exports = withI18n()(CreateServiceModal);
+export default withI18n()(CreateServiceModal);

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   COMMAND: "COMMAND",
   HTTP: "HTTP",
   HTTPS: "HTTPS",

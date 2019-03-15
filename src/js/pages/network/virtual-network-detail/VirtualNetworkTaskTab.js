@@ -328,4 +328,4 @@ VirtualNetworkTaskTab.propTypes = {
   overlay: PropTypes.instanceOf(Overlay)
 };
 
-module.exports = withI18n()(VirtualNetworkTaskTab);
+export default withI18n()(VirtualNetworkTaskTab);

@@ -4,7 +4,7 @@ import PodSpec from "../structs/PodSpec";
 import ApplicationSpec from "../structs/ApplicationSpec";
 import FrameworkSpec from "../structs/FrameworkSpec";
 
-var ServiceSpecUtil = {
+const ServiceSpecUtil = {
   /**
    * Creates a new PodSpec with the scaling specifications
    * changed to fixed, and with the number of instances defined
@@ -80,4 +80,4 @@ var ServiceSpecUtil = {
   }
 };
 
-module.exports = ServiceSpecUtil;
+export default ServiceSpecUtil;

@@ -4,7 +4,7 @@ import Transaction from "#SRC/js/structs/Transaction";
 import { PROTOCOLS } from "../../constants/PortDefinitionConstants";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 
-module.exports = {
+export default {
   /**
    * This parser must take precedence over PortDefinition parser, as it assumes
    * some data available from it

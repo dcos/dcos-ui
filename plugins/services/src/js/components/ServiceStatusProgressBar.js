@@ -68,4 +68,4 @@ ServiceStatusProgressBar.propTypes = {
   ]).isRequired
 };
 
-module.exports = ServiceStatusProgressBar;
+export default ServiceStatusProgressBar;

@@ -177,4 +177,4 @@ RepositoriesTable.propTypes = {
   pendingRequest: PropTypes.bool.isRequired
 };
 
-module.exports = RepositoriesTable;
+export default RepositoriesTable;

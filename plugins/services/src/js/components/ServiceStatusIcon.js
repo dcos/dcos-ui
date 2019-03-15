@@ -209,4 +209,4 @@ ServiceStatusIcon.propTypes = {
   ])
 };
 
-module.exports = ServiceStatusIcon;
+export default ServiceStatusIcon;

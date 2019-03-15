@@ -474,4 +474,4 @@ GeneralServiceFormSection.propTypes = {
 
 GeneralServiceFormSection.configReducers = General;
 
-module.exports = withI18n()(GeneralServiceFormSection);
+export default withI18n()(GeneralServiceFormSection);

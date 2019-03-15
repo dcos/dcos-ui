@@ -24,7 +24,7 @@ const defaultOrganizationRoute = {
   routes: []
 };
 
-module.exports = Object.assign({}, StoreMixin, {
+export default Object.assign({}, StoreMixin, {
   actions: [
     "AJAXRequestError",
     "userLoginSuccess",

@@ -3,7 +3,7 @@ import EventTypes from "./EventTypes";
 
 const service = new NavigationService();
 
-module.exports = {
+export default {
   EventTypes,
   NavigationService: service
 };

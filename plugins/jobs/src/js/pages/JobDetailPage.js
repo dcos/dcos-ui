@@ -158,4 +158,4 @@ JobDetailPage.propTypes = {
   jobActionDialog: PropTypes.any
 };
 
-module.exports = JobDetailPage;
+export default JobDetailPage;

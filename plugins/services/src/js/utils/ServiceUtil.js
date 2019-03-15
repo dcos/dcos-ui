@@ -159,4 +159,4 @@ const ServiceUtil = {
   }
 };
 
-module.exports = ServiceUtil;
+export default ServiceUtil;

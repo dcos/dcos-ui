@@ -6,4 +6,4 @@ const ServiceOtherLabels = {
   PODS: i18nMark("Pods")
 };
 
-module.exports = ServiceOtherLabels;
+export default ServiceOtherLabels;

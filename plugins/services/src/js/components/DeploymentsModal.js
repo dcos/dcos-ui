@@ -568,4 +568,4 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 }
 
-module.exports = withI18n()(DeploymentsModal);
+export default withI18n()(DeploymentsModal);

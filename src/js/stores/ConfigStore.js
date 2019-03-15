@@ -109,4 +109,4 @@ class ConfigStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new ConfigStore();
+export default new ConfigStore();

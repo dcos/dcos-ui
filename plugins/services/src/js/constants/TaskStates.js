@@ -82,4 +82,4 @@ const TaskStates = {
   }
 };
 
-module.exports = TaskStates;
+export default TaskStates;

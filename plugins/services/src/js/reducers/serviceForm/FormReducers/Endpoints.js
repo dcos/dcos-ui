@@ -17,7 +17,7 @@ const defaultEndpointsFieldValues = {
   vipPort: null
 };
 
-module.exports = {
+export default {
   FormReducer(state = [], { type, path = [], value }) {
     let newState = [].concat(state);
 

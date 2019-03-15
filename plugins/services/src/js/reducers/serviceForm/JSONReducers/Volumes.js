@@ -174,7 +174,7 @@ function reduceVolumes(state, { type, path, value }) {
   );
 }
 
-module.exports = {
+export default {
   JSONReducer: reduceVolumes,
   JSONParser(state) {
     if (state.container == null || state.container.volumes == null) {

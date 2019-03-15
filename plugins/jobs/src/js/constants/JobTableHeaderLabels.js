@@ -6,4 +6,4 @@ const JobTableHeaderLabels = {
   lastRun: i18nMark("Last Run")
 };
 
-module.exports = JobTableHeaderLabels;
+export default JobTableHeaderLabels;

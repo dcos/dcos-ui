@@ -21,4 +21,4 @@ const VirtualNetworkUtil = {
   }
 };
 
-module.exports = VirtualNetworkUtil;
+export default VirtualNetworkUtil;

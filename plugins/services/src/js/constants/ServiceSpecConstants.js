@@ -43,4 +43,4 @@ const ServiceSpecConstants = {
   ]
 };
 
-module.exports = ServiceSpecConstants;
+export default ServiceSpecConstants;

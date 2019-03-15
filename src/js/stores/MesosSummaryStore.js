@@ -263,4 +263,4 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new MesosSummaryStore();
+export default new MesosSummaryStore();

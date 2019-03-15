@@ -143,4 +143,4 @@ HashMapDisplay.propTypes = {
   emptyValue: PropTypes.string
 };
 
-module.exports = HashMapDisplay;
+export default HashMapDisplay;

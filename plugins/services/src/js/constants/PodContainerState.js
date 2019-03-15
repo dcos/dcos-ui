@@ -5,7 +5,7 @@
  * TODO: Note that the SPEC currently states that this is not yet well-defined,
  *       the current values are assumed to be correct (DCOS-9852).
  */
-module.exports = {
+export default {
   STAGING: "TASK_STAGING",
   STARTING: "TASK_STARTING",
   STARTED: "TASK_STARTED",

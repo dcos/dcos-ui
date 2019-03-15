@@ -116,4 +116,4 @@ FluidGeminiScrollbar.propTypes = {
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
-module.exports = FluidGeminiScrollbar;
+export default FluidGeminiScrollbar;

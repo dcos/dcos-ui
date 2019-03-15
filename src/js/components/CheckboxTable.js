@@ -253,4 +253,4 @@ CheckboxTable.defaultProps = {
   sortOrder: "asc"
 };
 
-module.exports = CheckboxTable;
+export default CheckboxTable;

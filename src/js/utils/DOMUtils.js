@@ -31,7 +31,7 @@ const matchesFn = (function() {
   return names[0];
 })();
 
-var DOMUtils = {
+const DOMUtils = {
   appendScript(el, code) {
     const scriptNode = global.document.createElement("script");
     scriptNode.type = "text/javascript";
@@ -191,4 +191,4 @@ var DOMUtils = {
   }
 };
 
-module.exports = DOMUtils;
+export default DOMUtils;

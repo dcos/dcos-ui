@@ -41,4 +41,4 @@ FormGroupHeading.propTypes = {
   required: PropTypes.bool
 };
 
-module.exports = FormGroupHeading;
+export default FormGroupHeading;

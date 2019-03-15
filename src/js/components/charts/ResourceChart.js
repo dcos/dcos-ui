@@ -99,4 +99,4 @@ ResourceChart.propTypes = {
   resources: PropTypes.object
 };
 
-module.exports = ResourceChart;
+export default ResourceChart;

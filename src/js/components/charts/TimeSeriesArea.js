@@ -4,7 +4,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
-var TimeSeriesArea = createReactClass({
+const TimeSeriesArea = createReactClass({
   displayName: "TimeSeriesArea",
 
   propTypes: {
@@ -47,4 +47,4 @@ var TimeSeriesArea = createReactClass({
   }
 });
 
-module.exports = TimeSeriesArea;
+export default TimeSeriesArea;

@@ -193,4 +193,4 @@ PodHeader.propTypes = {
   tabs: PropTypes.array
 };
 
-module.exports = PodHeader;
+export default PodHeader;

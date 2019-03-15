@@ -2,4 +2,4 @@ const ExecutorTypes = {
   DEFAULT: "DEFAULT"
 };
 
-module.exports = ExecutorTypes;
+export default ExecutorTypes;

@@ -32,4 +32,4 @@ FieldSelect.propTypes = {
   ])
 };
 
-module.exports = FieldSelect;
+export default FieldSelect;

@@ -301,4 +301,4 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
   }
 }
 
-module.exports = ServiceGeneralConfigSection;
+export default ServiceGeneralConfigSection;

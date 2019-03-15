@@ -10,7 +10,7 @@ const DEFAULT_APP_SPEC = Object.assign(
   DEFAULT_APP_RESOURCES
 );
 
-module.exports = {
+export default {
   DEFAULT_APP_RESOURCES,
   DEFAULT_APP_SPEC
 };

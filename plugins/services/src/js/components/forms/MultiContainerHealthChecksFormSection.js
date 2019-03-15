@@ -542,4 +542,4 @@ MultiContainerHealthChecksFormSection.propTypes = {
   onRemoveItem: PropTypes.func
 };
 
-module.exports = MultiContainerHealthChecksFormSection;
+export default MultiContainerHealthChecksFormSection;

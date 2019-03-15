@@ -2,7 +2,7 @@
  * This module contains the utility functions for the `JSONEditor` component,
  * separated into a different file solely for organization purposes.
  */
-var JSONEditorUtil = {
+const JSONEditorUtil = {
   /**
    * This function walks the `text` argument and locates the line and
    * column the given string offset.
@@ -185,4 +185,4 @@ var JSONEditorUtil = {
   }
 };
 
-module.exports = JSONEditorUtil;
+export default JSONEditorUtil;

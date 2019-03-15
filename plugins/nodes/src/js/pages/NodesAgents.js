@@ -62,7 +62,7 @@ var DEFAULT_FILTER_OPTIONS = {
   filterExpression: new DSLExpression("")
 };
 
-var NodesAgents = createReactClass({
+const NodesAgents = createReactClass({
   displayName: "NodesAgents",
 
   mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
@@ -330,4 +330,4 @@ var NodesAgents = createReactClass({
   }
 });
 
-module.exports = NodesAgents;
+export default NodesAgents;

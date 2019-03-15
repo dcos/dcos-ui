@@ -1,4 +1,4 @@
-var NodesTableHeaderLabels = {
+export default {
   cpus: "CPU",
   gpus: "GPU",
   disk: "Disk",
@@ -9,5 +9,3 @@ var NodesTableHeaderLabels = {
   zone: "Zone",
   TASK_RUNNING: "Tasks"
 };
-
-module.exports = NodesTableHeaderLabels;

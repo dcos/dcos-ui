@@ -6,10 +6,10 @@ import PodTerminationHistoryList from "./PodTerminationHistoryList";
 import PodUtil from "../utils/PodUtil";
 import Service from "./Service";
 import ServiceStatus from "../constants/ServiceStatus";
-import ServiceImages from "../constants/ServiceImages";
+import { NA_IMAGES } from "../constants/ServiceImages";
 import VolumeList from "./VolumeList";
 
-module.exports = class Pod extends Service {
+export default class Pod extends Service {
   constructor() {
     super(...arguments);
 
@@ -83,7 +83,7 @@ module.exports = class Pod extends Service {
    * @override
    */
   getImages() {
-    return ServiceImages.NA_IMAGES;
+    return NA_IMAGES;
   }
 
   /**
@@ -237,4 +237,4 @@ module.exports = class Pod extends Service {
 
     return this._regions;
   }
-};
+}

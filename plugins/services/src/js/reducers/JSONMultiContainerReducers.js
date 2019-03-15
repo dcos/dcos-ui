@@ -11,7 +11,7 @@ import { JSONReducer as labels } from "./serviceForm/JSONReducers/Labels";
 import { JSONReducer as volumes } from "./serviceForm/MultiContainerVolumes";
 import { JSONReducer as networks } from "./serviceForm/MultiContainerNetwork";
 
-module.exports = {
+export default {
   id: simpleReducer("id"),
   containers,
   environment,

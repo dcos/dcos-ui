@@ -384,4 +384,4 @@ ServiceDebugContainer.propTypes = {
   service: PropTypes.instanceOf(Service)
 };
 
-module.exports = ServiceDebugContainer;
+export default ServiceDebugContainer;

@@ -5,4 +5,4 @@ class UsersList extends List {}
 
 UsersList.type = Item;
 
-module.exports = UsersList;
+export default UsersList;

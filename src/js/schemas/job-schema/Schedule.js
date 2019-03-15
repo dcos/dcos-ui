@@ -123,4 +123,4 @@ const Schedule = {
   required: ["cron"]
 };
 
-module.exports = Schedule;
+export default Schedule;

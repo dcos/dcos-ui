@@ -47,7 +47,7 @@ function processTransaction(state, { type, path, value }) {
   return newState;
 }
 
-module.exports = {
+export default {
   FormReducer(state = [], { type, path, value }) {
     if (path == null || !Array.isArray(state)) {
       return state;

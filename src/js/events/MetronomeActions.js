@@ -196,4 +196,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = MetronomeActions;
+export default MetronomeActions;

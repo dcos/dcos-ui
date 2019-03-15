@@ -12,7 +12,7 @@ function getEmptyState() {
   return [{ colorIndex: 7, value: 1 }];
 }
 
-var DialChart = createReactClass({
+const DialChart = createReactClass({
   displayName: "DialChart",
 
   mixins: [InternalStorageMixin],
@@ -195,4 +195,4 @@ var DialChart = createReactClass({
   }
 });
 
-module.exports = DialChart;
+export default DialChart;

@@ -108,4 +108,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = UsersActions;
+export default UsersActions;

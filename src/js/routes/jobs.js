@@ -110,4 +110,4 @@ const jobsRoutes = [
   }
 ];
 
-module.exports = jobsRoutes;
+export default jobsRoutes;

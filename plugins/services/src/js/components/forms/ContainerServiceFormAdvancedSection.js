@@ -285,4 +285,4 @@ ContainerServiceFormAdvancedSection.configReducers = {
   containers: ContainersReducer
 };
 
-module.exports = ContainerServiceFormAdvancedSection;
+export default ContainerServiceFormAdvancedSection;

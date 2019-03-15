@@ -31,4 +31,4 @@ class UserLanguageStore extends EventEmitter {
   }
 }
 
-module.exports = new UserLanguageStore();
+export default new UserLanguageStore();

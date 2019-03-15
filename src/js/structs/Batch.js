@@ -97,4 +97,4 @@ class Batch {
   }
 }
 
-module.exports = Batch;
+export default Batch;

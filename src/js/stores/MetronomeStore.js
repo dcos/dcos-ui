@@ -350,4 +350,4 @@ class MetronomeStore extends EventEmitter {
   }
 }
 
-module.exports = new MetronomeStore();
+export default new MetronomeStore();

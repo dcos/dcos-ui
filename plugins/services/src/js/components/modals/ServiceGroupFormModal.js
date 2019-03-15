@@ -118,4 +118,4 @@ ServiceGroupFormModal.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-module.exports = withI18n()(ServiceGroupFormModal);
+export default withI18n()(ServiceGroupFormModal);

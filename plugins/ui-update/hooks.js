@@ -6,7 +6,7 @@ import container from "#SRC/js/container";
 import UIDetails from "./components/UIDetails";
 import * as Notifications from "./notifications";
 
-module.exports = {
+export default {
   initialize() {
     MountService.MountService.registerComponent(
       UIDetails,

@@ -201,4 +201,4 @@ PodInstancesView.propTypes = {
   filters: PropTypes.instanceOf(DSLFilterList)
 };
 
-module.exports = withI18n()(PodInstancesView);
+export default withI18n()(PodInstancesView);
