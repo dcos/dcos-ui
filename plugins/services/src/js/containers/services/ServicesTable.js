@@ -157,7 +157,7 @@ class ServicesTable extends React.Component {
 
     return (
       <a
-        className="table-cell-icon table-display-on-row-hover"
+        className="table-cell-icon"
         href={service.getWebURL()}
         target="_blank"
         title="Open in a new window"
