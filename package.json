@@ -158,7 +158,6 @@
     "localStorage": "1.0.3",
     "marked": "0.3.12",
     "mini-css-extract-plugin": "0.4.3",
-    "mockdate": "2.0.2",
     "node": "10.15.2",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss": "6.0.19",

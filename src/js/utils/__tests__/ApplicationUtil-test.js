@@ -1,5 +1,3 @@
-const MockDate = require("mockdate");
-
 const ApplicationUtil = require("../ApplicationUtil");
 const Config = require("#SRC/js/config/Config").default;
 const EventTypes = require("../../constants/EventTypes");
@@ -7,14 +5,6 @@ const MesosSummaryStore = require("../../stores/MesosSummaryStore");
 
 describe("ApplicationUtil", function() {
   describe("#invokeAfterPageLoad", function() {
-    beforeEach(function() {
-      MockDate.set(new Date(2016, 3, 19));
-    });
-
-    afterEach(function() {
-      MockDate.reset();
-    });
-
     it("calls callback right away", function() {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
