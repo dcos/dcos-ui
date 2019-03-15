@@ -1,5 +1,5 @@
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import {
   ROUTE_ACCESS_PREFIX,

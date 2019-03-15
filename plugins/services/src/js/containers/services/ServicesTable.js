@@ -19,7 +19,7 @@ import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";

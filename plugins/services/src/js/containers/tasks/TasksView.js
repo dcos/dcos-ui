@@ -17,7 +17,7 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
 import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";

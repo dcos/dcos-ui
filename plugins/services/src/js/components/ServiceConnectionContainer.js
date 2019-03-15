@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
