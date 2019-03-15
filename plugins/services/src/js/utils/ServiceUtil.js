@@ -41,12 +41,6 @@ const getFindPropertiesRecursive = function(service, item) {
 };
 
 const ServiceUtil = {
-  createFormModelFromSchema(schema, service = new Application()) {
-    console.warn("ServieUtil.createFormModelFromSchema has been deprecated.");
-
-    return getFindPropertiesRecursive(service, schema.properties);
-  },
-
   isEqual(serviceA, serviceB) {
     if (serviceA.constructor !== serviceB.constructor) {
       return false;
