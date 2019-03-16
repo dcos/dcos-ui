@@ -14,10 +14,12 @@ type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 const flatMap = <A, B>(map: (x: A, i: number) => B[], xs: A[]): B[] =>
   xs.reduce((acc, x, i) => acc.concat(map(x, i)), [] as B[]);
 
-const validation = <T>(isValid: (val: T) => boolean, message: string) => (
-  path: (i: number) => string,
-  values: T[]
-) => (errors: FormError[]) =>
+const validation = <T>(
+  isValid: (val: T) => boolean,
+  defaultMessage: string
+) => (path: (i: number) => string, values: T[], message = defaultMessage) => (
+  errors: FormError[]
+) =>
   errors.concat(
     flatMap(
       (value, index) =>
@@ -46,6 +48,17 @@ const isString = validation<string | undefined>(
   x => x === undefined || typeof x === "string",
   i18nMark("Must be a string.")
 );
+
+const allUniq = validation<any[]>(
+  list => new Set(list).size === list.length,
+  i18nMark("All elements must be unique.")
+);
+
+const isUniqIn = <T>(list: T[]) =>
+  validation<T>(
+    (el: T) => list.filter(x => x === el).length < 2,
+    i18nMark("Must be unique.")
+  );
 
 export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
@@ -479,40 +492,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 };
 
 export function validateFormLabels(jobSpec: JobSpec): FormError[] {
-  const labels = jobSpec.job.labels;
-  const errors: FormError[] = [];
-  const map: { [key: string]: number } = {};
-  const dupIndex: number[] = [];
-  const errorMessage = i18nMark(
-    "Cannot have multiple labels with the same key."
-  );
+  const labels = (jobSpec.job.labels || []).map(([k]) => k);
+  const message = i18nMark("Cannot have multiple labels with the same key.");
 
-  if (!labels) {
-    return errors;
-  }
-  labels.forEach(([key], i) => {
-    if (!map.hasOwnProperty(key)) {
-      map[key] = i;
-      return;
-    }
-    if (dupIndex.length === 0) {
-      dupIndex.push(map[key]);
-    }
-    dupIndex.push(i);
-  });
-  if (dupIndex.length > 0) {
-    // This error has path to ensure that error is visible in JSON editor
-    errors.push({
-      path: ["job", "labels"],
-      message: errorMessage
-    });
-  }
-  dupIndex.forEach(errorIndex => {
-    // These errors have path to ensure that error is visible on correct form inputs
-    errors.push({
-      path: ["job", "labels", `${errorIndex}`],
-      message: errorMessage
-    });
-  });
-  return errors;
+  return pipe(
+    allUniq(_ => "job.labels", [labels], message),
+    isUniqIn(labels)(i => `job.labels.${i}`, labels, message)
+  )([]);
 }
