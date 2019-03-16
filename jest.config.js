@@ -64,6 +64,7 @@ module.exports = {
       "<rootDir>/packages/@extension-kid/notification-service",
     "@extension-kid/toast-notifications":
       "<rootDir>/packages/@extension-kid/toast-notifications",
+    "@extension-kid/data-layer": "<rootDir>/packages/@extension-kid/data-layer",
     "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
     "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
     "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"

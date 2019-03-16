@@ -1,6 +1,6 @@
 import { map } from "rxjs/operators";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
-import { makeExecutableSchema } from "graphql-tools/dist/index";
+import { injectable, decorate } from "inversify";
 
 // Streams we get our data from
 import {
@@ -17,11 +17,11 @@ export const typeDefs = `
     index: Int!
   }
 
-  type Query {
+  extend type Query {
     packageRepository(filter: String): [PackageRepository!]!
   }
 
-  type Mutation {
+  extend type Mutation {
     addPackageRepository(name: String!, uri: String!, index: Int! ): [PackageRepository!]!
     removePackageRepository(name: String!, uri: String!, index: Int!): [PackageRepository!]!
   }
@@ -63,11 +63,28 @@ export function resolvers({
   };
 }
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers: resolvers({
-    liveFetchRepositories,
-    addRepository,
-    deleteRepository
-  })
+const boundResolvers = resolvers({
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
 });
+
+const RepositoryType = Symbol("Repository");
+// tslint:disable-next-line
+
+export class RepositoryExtension {
+  constructor() {
+    this.id = RepositoryType;
+  }
+
+  getResolvers() {
+    return boundResolvers;
+  }
+
+  getTypeDefinitions() {
+    return typeDefs;
+  }
+}
+
+// Mutates the RepositoryExtension to be injectable
+decorate(injectable(), RepositoryExtension);
