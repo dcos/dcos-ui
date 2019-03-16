@@ -1,0 +1,13 @@
+{
+  "name": "@extension-kid/data-layer",
+  "main": "index.ts",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "peerDependencies": {},
+  "devDependencies": {},
+  "jest-webpack-alias": {}
+}
