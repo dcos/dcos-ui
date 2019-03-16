@@ -392,30 +392,30 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
               </span>
             </FormRow>
           </div>
-          {labels.map(([key, value], i) => {
-            const labelErrors = getFieldError(`job.labels.${i}`, errors);
-
-            return (
-              <FormRow key={i}>
-                <FormGroup
-                  className="column-6"
-                  showError={Boolean(showErrors && labelErrors)}
-                >
-                  <FieldAutofocus>
-                    <FieldInput name={`key.${i}.labels`} value={key} />
-                    <FieldError>{labelErrors}</FieldError>
-                  </FieldAutofocus>
-                  <span className="emphasis form-colon">:</span>
-                </FormGroup>
-                <FormGroup className="column-6">
-                  <FieldInput name={`value.${i}.labels`} value={value} />
-                </FormGroup>
-                <FormGroup hasNarrowMargins={true}>
-                  <DeleteRowButton onClick={onRemoveItem("labels", i)} />
-                </FormGroup>
-              </FormRow>
-            );
-          })}
+          {labels.map(([key, value], i) => (
+            <FormRow key={i}>
+              <FormGroup
+                className="column-6"
+                showError={Boolean(
+                  showErrors && getFieldError(`job.labels.${i}`, errors)
+                )}
+              >
+                <FieldAutofocus>
+                  <FieldInput name={`key.${i}.labels`} value={key} />
+                  <FieldError>
+                    {getFieldError(`job.labels.${i}`, errors)}
+                  </FieldError>
+                </FieldAutofocus>
+                <span className="emphasis form-colon">:</span>
+              </FormGroup>
+              <FormGroup className="column-6">
+                <FieldInput name={`value.${i}.labels`} value={value} />
+              </FormGroup>
+              <FormGroup hasNarrowMargins={true}>
+                <DeleteRowButton onClick={onRemoveItem("labels", i)} />
+              </FormGroup>
+            </FormRow>
+          ))}
           <FormRow>
             <FormGroup className="column-12">
               <AddButton onClick={onAddItem("labels")}>
