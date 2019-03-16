@@ -1,31 +1,26 @@
 {
-  "enabled": true,
-  "semanticCommits": true,
-  "rebaseStalePrs": true,
-  "labels": [
-    "renovate"
-  ],
+  "extends": ["config:js-app", ":semanticCommits", ":rebaseStalePrs"],
+  "labels": ["renovate"],
   "packageRules": [
     {
       "packageNames": [
-        "@dcos/http-service",
-        "@dcos/mesos-client",
-        "@dcos/tslint-config",
-        "@dcos/ui-kit",
-        "@dcos/data-service",
-        "@extension-kid/core",
-        "typescript",
-        "react",
-        "react-dom",
-        "react-test-renderer"
+        "browser-info",
+        "clipboard",
+        "d3",
+        "flux",
+        "graphql-tools",
+        "inversify",
+        "query-string",
+        "react-ace",
+        "react-bootstrap-typeahead",
+        "react-router",
+        "redux"
       ],
-      "rangeStrategy": "pin",
-      "updateTypes": [
-        "major",
-        "minor",
-        "patch",
-        "pin"
-      ]
+      "updateTypes": ["minor", "patch", "pin"]
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["minor", "patch", "pin"]
     }
   ]
 }
