@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
 import { Subject } from "rxjs";
 import {
   map,
@@ -13,10 +13,12 @@ import {
   mapTo
 } from "rxjs/operators";
 import gql from "graphql-tag";
+import { DataLayerType } from "@extension-kid/data-layer";
+import container from "#SRC/js/container";
 
 import JobStopRunModal from "./components/JobStopRunModal";
 
-import defaultSchema from "./data/JobModel";
+const dataLayer = container.get(DataLayerType);
 
 const stopJobRunMutation = gql`
   mutation {
@@ -27,14 +29,16 @@ const stopJobRunMutation = gql`
 `;
 
 function executeStopJobRunMutation({ jobId, jobRunId, onSuccess }) {
-  return graphqlObservable(stopJobRunMutation, defaultSchema, {
-    jobId,
-    jobRunId
-  }).pipe(
-    mapTo({ done: true }),
-    tap(_ => onSuccess()),
-    startWith({ done: false })
-  );
+  return dataLayer
+    .query(stopJobRunMutation, {
+      jobId,
+      jobRunId
+    })
+    .pipe(
+      mapTo({ done: true }),
+      tap(_ => onSuccess()),
+      startWith({ done: false })
+    );
 }
 
 function stopEventHandler() {
