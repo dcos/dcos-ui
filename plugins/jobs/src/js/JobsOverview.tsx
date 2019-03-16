@@ -20,7 +20,8 @@ import {
 } from "rxjs/operators";
 import { Subscribable } from "recompose";
 
-import { graphqlObservable, componentFromStream } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
+import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import gql from "graphql-tag";
 
 import JobsOverviewLoading from "./components/JobsOverviewLoading";
@@ -28,8 +29,11 @@ import JobsOverviewError from "./components/JobsOverviewError";
 import JobsOverviewList from "./components/JobsOverviewList";
 import JobsOverviewEmpty from "./components/JobsOverviewEmpty";
 
-import JobModel from "./data/JobModel";
+import container from "#SRC/js/container";
+
 import { JobConnection } from "./types/JobConnection";
+
+const dataLayer = container.get<DataLayer>(DataLayerType);
 
 interface JobsOverviewProps {
   path: string[];
@@ -80,7 +84,7 @@ const JobsOverview = withRouter(
       const jobs$ = combineLatest(path$, filter$).pipe(
         sampleTime(250),
         switchMap(([path, filter]) => {
-          return graphqlObservable(jobsOverviewQuery, JobModel, {
+          return dataLayer.query(jobsOverviewQuery, {
             path,
             filter
           }) as Observable<{ data: { jobs: JobConnection } }>;

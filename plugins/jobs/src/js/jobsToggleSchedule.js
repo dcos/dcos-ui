@@ -1,9 +1,11 @@
-import { graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { i18nMark } from "@lingui/react";
 import { take } from "rxjs/operators";
+import { DataLayerType } from "@extension-kid/data-layer";
 
-import defaultSchema from "./data/JobModel";
+import container from "#SRC/js/container";
+
+const dataLayer = container.get(DataLayerType);
 
 const runUpdateSchedule = gql`
   mutation {
@@ -28,10 +30,11 @@ export default function jobsToggleSchedule(job) {
     onItemSelect() {
       // take(1) makes sure the observable is going to complete after finishing
       // the request, so we don't have to care about unsubscribing.
-      graphqlObservable(runUpdateSchedule, defaultSchema, {
-        jobId: job.id,
-        data
-      })
+      dataLayer
+        .query(runUpdateSchedule, {
+          jobId: job.id,
+          data
+        })
         .pipe(take(1))
         .subscribe();
     }
