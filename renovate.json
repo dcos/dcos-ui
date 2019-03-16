@@ -1,26 +1,4 @@
 {
   "extends": ["config:js-app", ":semanticCommits", ":rebaseStalePrs"],
-  "labels": ["renovate"],
-  "packageRules": [
-    {
-      "packageNames": [
-        "browser-info",
-        "clipboard",
-        "d3",
-        "flux",
-        "graphql-tools",
-        "inversify",
-        "query-string",
-        "react-ace",
-        "react-bootstrap-typeahead",
-        "react-router",
-        "redux"
-      ],
-      "updateTypes": ["minor", "patch", "pin"]
-    },
-    {
-      "depTypeList": ["devDependencies"],
-      "updateTypes": ["minor", "patch", "pin"]
-    }
-  ]
+  "labels": ["renovate"]
 }
