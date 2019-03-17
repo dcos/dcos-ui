@@ -101,7 +101,7 @@
     "@types/md5": "2.1.33",
     "@types/lodash.isequal": "4.5.5",
     "@types/prop-types": "15.5.3",
-    "@types/react": "16.8.2",
+    "@types/react": "16.8.8",
     "@types/react-router": "2.0.54",
     "@types/recompose": "0.26.1",
     "@types/semver": "5.5.0",
