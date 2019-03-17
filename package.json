@@ -92,7 +92,7 @@
     "@dcos/eslint-config": "0.3.0",
     "@lingui/cli": "2.7.2",
     "@lingui/macro": "2.7.2",
-    "@semantic-release/exec": "3.1.0",
+    "@semantic-release/exec": "3.3.2",
     "@sentry/cli": "1.35.6",
     "@types/events": "1.2.0",
     "@types/graphql": "14.0.3",
