@@ -97,7 +97,7 @@
     "@types/events": "1.2.0",
     "@types/graphql": "14.0.3",
     "@types/jest": "22.2.3",
-    "@types/lingui__react": "2.5.0",
+    "@types/lingui__react": "2.5.2",
     "@types/md5": "2.1.33",
     "@types/lodash.isequal": "4.5.5",
     "@types/prop-types": "15.5.3",
