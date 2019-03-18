@@ -11,8 +11,13 @@ import Config from "../config/Config";
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 
 function requestFromMesos(resolve, reject) {
+  // Forcing the RequestUtil to treat every new request as a unique request
+  // Otherwise it would detect polling and skip some requests if one is running already
+  // causing missing data
+  const timestamp = Date.now();
+
   RequestUtil.json({
-    url: `${Config.rootUrl}/mesos/master/state-summary`,
+    url: `${Config.rootUrl}/mesos/master/state-summary?_ts=${timestamp}`,
     success(response) {
       AppDispatcher.handleServerAction({
         type: REQUEST_SUMMARY_SUCCESS,
