@@ -7,7 +7,6 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { MountService } from "foundation-ui";
 import BasePageHeader from "../components/PageHeader";
 import FluidGeminiScrollbar from "./FluidGeminiScrollbar";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import TemplateUtil from "../utils/TemplateUtil";
 
@@ -58,7 +57,13 @@ PageHeader.propTypes = {
 const Page = createReactClass({
   displayName: "Page",
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [StoreMixin],
+
+  getInitialState() {
+    return {
+      rendered: false
+    };
+  },
 
   propTypes: {
     className: PropTypes.oneOfType([
@@ -82,10 +87,10 @@ const Page = createReactClass({
   },
 
   componentDidMount() {
-    this.internalStorage_set({
+    // eslint-disable-next-line
+    this.setState({
       rendered: true
     });
-    this.forceUpdate();
   },
 
   onSidebarStoreWidthChange() {
@@ -93,8 +98,7 @@ const Page = createReactClass({
   },
 
   getChildren() {
-    var data = this.internalStorage_get();
-    if (data.rendered === true) {
+    if (this.state.rendered === true) {
       // Avoid rendering template children twice
       return TemplateUtil.filterTemplateChildren(
         this.constructor,
