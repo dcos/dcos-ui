@@ -139,7 +139,6 @@ var NodesAgents = createReactClass({
 
   onMesosStateChange() {
     this.internalStorage_update(getMesosHosts(this.state));
-    this.forceUpdate();
   },
 
   resetFilter() {
