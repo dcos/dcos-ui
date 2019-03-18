@@ -38,7 +38,9 @@ pipeline {
           sh "rm -rf {.*,*} || ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
         }
         sh "git fetch"
-        sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
+        sh 'git checkout "$([ -z "$CHANGE_BRANCH" ] && echo $BRANCH_NAME || echo $CHANGE_BRANCH )"'
+
+        sh '[ -n "$CHANGE_TARGET" ] && git rebase origin/${CHANGE_TARGET} || echo "on release branch"'
 
         // jenkins seem to have this variable set for no reason, explicitly removing it…
         sh "npm config delete externalplugins"
