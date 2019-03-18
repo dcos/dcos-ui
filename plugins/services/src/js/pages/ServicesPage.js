@@ -37,7 +37,7 @@ var ServicesPage = createReactClass({
 
   componentWillMount() {
     this.store_listeners = [
-      { name: "notification", events: ["change"], suppressUpdate: false }
+      { name: "notification", events: ["change"], suppressUpdate: true }
     ];
     this.tabs_tabs = {
       "/services/overview": i18nMark("Services")

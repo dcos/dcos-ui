@@ -58,7 +58,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       {
         name: "unitHealth",
         events: ["success", "error"],
-        suppressUpdate: false
+        suppressUpdate: true
       }
     ];
 

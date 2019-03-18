@@ -68,7 +68,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
     this.state = {};
     this.store_listeners = [
-      { name: "dcos", events: ["change"], suppressUpdate: false },
+      { name: "dcos", events: ["change"], suppressUpdate: true },
       {
         name: "marathon",
         events: ["deploymentRollbackSuccess", "deploymentRollbackError"],

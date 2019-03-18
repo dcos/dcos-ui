@@ -28,7 +28,7 @@ var Chart = createReactClass({
       {
         name: "sidebar",
         events: ["widthChange"],
-        suppressUpdate: false
+        suppressUpdate: true
       }
     ];
 

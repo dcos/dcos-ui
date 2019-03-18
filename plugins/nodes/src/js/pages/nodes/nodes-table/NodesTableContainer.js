@@ -30,7 +30,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
         name: "nodeHealth",
         suppressUpdate: true
       },
-      { name: "state", events: ["success"], suppressUpdate: false }
+      { name: "state", events: ["success"], suppressUpdate: true }
     ];
   }
 
