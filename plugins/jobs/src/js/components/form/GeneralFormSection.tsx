@@ -5,6 +5,7 @@ import { Tooltip } from "reactjs-components";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
+import FieldTextarea from "#SRC/js/components/form/FieldTextarea";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormRow from "#SRC/js/components/form/FormRow";
@@ -240,7 +241,11 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput name="job.run.cmd" type="text" value={formData.cmd} />
+              <FieldTextarea
+                name="job.run.cmd"
+                type="text"
+                value={formData.cmd}
+              />
             </FieldAutofocus>
             <FieldHelp>
               <Trans render="span">
