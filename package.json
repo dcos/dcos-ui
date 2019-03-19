@@ -120,7 +120,7 @@
     "babel-runtime": "6.26.0",
     "cache-loader": "1.2.2",
     "colors": "1.1.2",
-    "compression-webpack-plugin": "1.1.6",
+    "compression-webpack-plugin": "1.1.12",
     "console": "0.7.0",
     "css-loader": "0.28.10",
     "cypress": "3.1.5",
