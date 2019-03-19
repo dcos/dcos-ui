@@ -6,7 +6,7 @@ import {
   findNestedPropertyInObject
 } from "#SRC/js/utils/Util";
 
-import { JobOutput, FormError, UcrImageKind } from "./JobFormData";
+import { JobOutput, FormError, UcrImageKind, JobSpec } from "./JobFormData";
 
 type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 
@@ -14,10 +14,12 @@ type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 const flatMap = <A, B>(map: (x: A, i: number) => B[], xs: A[]): B[] =>
   xs.reduce((acc, x, i) => acc.concat(map(x, i)), [] as B[]);
 
-const validation = <T>(isValid: (val: T) => boolean, message: string) => (
-  path: (i: number) => string,
-  values: T[]
-) => (errors: FormError[]) =>
+const validation = <T>(
+  isValid: (val: T) => boolean,
+  defaultMessage: string
+) => (path: (i: number) => string, values: T[], message = defaultMessage) => (
+  errors: FormError[]
+) =>
   errors.concat(
     flatMap(
       (value, index) =>
@@ -46,6 +48,17 @@ const isString = validation<string | undefined>(
   x => x === undefined || typeof x === "string",
   i18nMark("Must be a string.")
 );
+
+const allUniq = validation<any[]>(
+  list => new Set(list).size === list.length,
+  i18nMark("All elements must be unique.")
+);
+
+const isUniqIn = <T>(list: T[]) =>
+  validation<T>(
+    (el: T) => list.filter(x => x === el).length < 2,
+    i18nMark("Must be unique.")
+  );
 
 export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
@@ -113,7 +126,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
    */
   jobIdIsValid(formData: JobOutput): FormError[] {
     const jobId = findNestedPropertyInObject(formData, "job.id");
-    const jobIdRegex = /^[a-z0-9]+([a-z0-9-]+[a-z0-9])?$/;
+    const jobIdRegex = /^([a-z0-9]([a-z0-9-]*[a-z0-9]+)*)([.][a-z0-9]([a-z0-9-]*[a-z0-9]+)*)*$/;
     const message = i18nMark(
       "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
     );
@@ -437,9 +450,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
   scheduleIdIsValid(formData: JobOutput) {
     const { schedule } = formData;
-    const idRegex = /^[a-z0-9]+([a-z0-9-]+[a-z0-9])?$/;
+    const idRegex = /^([a-z0-9][a-z0-9\\-]*[a-z0-9]+)$/;
     const message = i18nMark(
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
     );
     if (!schedule) {
       return [];
@@ -477,3 +490,13 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     return errors;
   }
 };
+
+export function validateFormLabels(jobSpec: JobSpec): FormError[] {
+  const labels = (jobSpec.job.labels || []).map(([k]) => k);
+  const message = i18nMark("Cannot have multiple labels with the same key.");
+
+  return pipe(
+    allUniq(_ => "job.labels", [labels], message),
+    isUniqIn(labels)(i => `job.labels.${i}`, labels, message)
+  )([]);
+}

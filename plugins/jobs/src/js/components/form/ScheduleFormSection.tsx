@@ -30,8 +30,8 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
     const { formData, showErrors, errors } = this.props;
     const idTooltipContent = (
       <Trans>
-        Unique identifier for the job schedule of a string with at least 1
-        character and may only contain digits (`0-9`), dashes (`-`), and
+        Unique identifier for the job schedule of a string with at least 2
+        characters and may only contain digits (`0-9`), dashes (`-`), and
         lowercase letters (`a-z`). The id may not begin or end with a dash.
       </Trans>
     );
