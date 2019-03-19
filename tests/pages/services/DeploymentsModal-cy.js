@@ -49,8 +49,8 @@ describe("Deployments Modal", function() {
     });
 
     it("renders the deployments count", function() {
-      cy.get(".modal-header").then(function($header) {
-        expect($header.get(0).textContent).to.equal("1 Active Deployment");
+      cy.get(".modal-header-title").then(function($header) {
+        expect($header.get(0).textContent).to.contain("1 Active Deployment");
       });
     });
 
