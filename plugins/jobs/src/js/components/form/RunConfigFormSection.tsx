@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
+import { Tooltip } from "reactjs-components";
+import classNames from "classnames";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
@@ -12,10 +14,10 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
+import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
-import classNames from "classnames";
 import { FormOutput, FormError, RestartPolicy } from "./helpers/JobFormData";
-import { Tooltip } from "reactjs-components";
+import { getFieldError } from "./helpers/ErrorUtil";
 
 interface RunConfigSectionProps {
   formData: FormOutput;
@@ -31,8 +33,13 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
   }
 
   render() {
-    const { formData, onAddItem, onRemoveItem } = this.props;
-    const showErrors = false;
+    const {
+      formData,
+      errors,
+      showErrors,
+      onAddItem,
+      onRemoveItem
+    } = this.props;
     const labels = formData.labels || [];
     const artifacts = formData.artifacts || [];
 
@@ -54,7 +61,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
 
           */}
           <FormRow>
-            <FormGroup className="column-3" showError={showErrors}>
+            <FormGroup className="column-3">
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent title="Max Launch Delay">
@@ -94,7 +101,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
 
           */}
           <FormRow>
-            <FormGroup className="column-3" showError={showErrors}>
+            <FormGroup className="column-3">
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent title="Kill Grace Period">
@@ -136,7 +143,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
 
           */}
           <FormRow>
-            <FormGroup className="column-6" showError={showErrors}>
+            <FormGroup className="column-6">
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent title="Username">
@@ -387,9 +394,17 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
           </div>
           {labels.map(([key, value], i) => (
             <FormRow key={i}>
-              <FormGroup className="column-6">
+              <FormGroup
+                className="column-6"
+                showError={Boolean(
+                  showErrors && getFieldError(`job.labels.${i}`, errors)
+                )}
+              >
                 <FieldAutofocus>
                   <FieldInput name={`key.${i}.labels`} value={key} />
+                  <FieldError>
+                    {getFieldError(`job.labels.${i}`, errors)}
+                  </FieldError>
                 </FieldAutofocus>
                 <span className="emphasis form-colon">:</span>
               </FormGroup>
