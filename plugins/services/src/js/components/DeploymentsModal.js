@@ -66,7 +66,10 @@ class DeploymentsModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.state = {};
+    this.state = {
+      dcosServiceDataReceived: false,
+      dcosDeploymentsList: []
+    };
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       {
@@ -79,6 +82,13 @@ class DeploymentsModal extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     }, this);
+  }
+
+  onDcosStoreChange() {
+    this.setState({
+      dcosDeploymentsList: DCOSStore.deploymentsList.getItems(),
+      dcosServiceDataReceived: DCOSStore.serviceDataReceived
+    });
   }
 
   onMarathonStoreDeploymentRollbackSuccess(data) {
@@ -521,9 +531,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
   render() {
     let content = null;
-    const deployments = DCOSStore.deploymentsList.getItems();
+    const deployments = this.state.dcosDeploymentsList;
     const { isOpen, onClose } = this.props;
-    const loading = !DCOSStore.serviceDataReceived;
+    const loading = !this.state.dcosServiceDataReceived;
 
     if (loading) {
       content = this.renderLoading();
@@ -545,12 +555,12 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const deploymentsCount = deployments.length;
     const deploymentsText =
       deploymentsCount === 1 ? i18nMark("Deployment") : i18nMark("Deployments");
-    const heading = (
+    const heading = !loading ? (
       <ModalHeading>
         {deploymentsCount} <Trans render="span">Active</Trans>{" "}
         <Trans render="span" id={deploymentsText} />
       </ModalHeading>
-    );
+    ) : null;
 
     return (
       <Modal
