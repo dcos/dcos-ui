@@ -1,31 +1,4 @@
 {
-  "enabled": true,
-  "semanticCommits": true,
-  "rebaseStalePrs": true,
-  "labels": [
-    "renovate"
-  ],
-  "packageRules": [
-    {
-      "packageNames": [
-        "@dcos/http-service",
-        "@dcos/mesos-client",
-        "@dcos/tslint-config",
-        "@dcos/ui-kit",
-        "@dcos/data-service",
-        "@extension-kid/core",
-        "typescript",
-        "react",
-        "react-dom",
-        "react-test-renderer"
-      ],
-      "rangeStrategy": "pin",
-      "updateTypes": [
-        "major",
-        "minor",
-        "patch",
-        "pin"
-      ]
-    }
-  ]
+  "extends": ["config:js-app", ":semanticCommits", ":rebaseStalePrs"],
+  "labels": ["renovate"]
 }
