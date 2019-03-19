@@ -33,7 +33,10 @@ import {
 } from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
-import { MetronomeSpecValidators } from "./form/helpers/MetronomeJobValidators";
+import {
+  MetronomeSpecValidators,
+  validateFormLabels
+} from "./form/helpers/MetronomeJobValidators";
 import {
   jobSpecToOutputParser,
   removeBlankProperties
@@ -199,7 +202,9 @@ class JobFormModal extends React.Component<
     const { submitFailed, jobSpec } = this.state;
     const newJobSpec = jobFormOutputToSpecReducer(action, jobSpec);
     const validationErrors = submitFailed
-      ? this.validateJobSpec(jobSpecToOutputParser(newJobSpec))
+      ? this.validateJobOutput(jobSpecToOutputParser(newJobSpec)).concat(
+          validateFormLabels(newJobSpec)
+        )
       : [];
     this.setState({ jobSpec: newJobSpec, validationErrors });
   }
@@ -284,8 +289,14 @@ class JobFormModal extends React.Component<
 
   handleJobRun() {
     const { jobSpec, formJSONErrors } = this.state;
+
+    // labels must be validated separately based on jobSpec, not jobOutput
+    const labelErrors = validateFormLabels(jobSpec);
+
     const jobOutput = removeBlankProperties(jobSpecToOutputParser(jobSpec));
-    const validationErrors = this.validateJobSpec(jobOutput);
+    const validationErrors = this.validateJobOutput(jobOutput).concat(
+      labelErrors
+    );
     const totalErrors = validationErrors.concat(formJSONErrors);
     if (totalErrors.length) {
       this.setState({
@@ -331,7 +342,7 @@ class JobFormModal extends React.Component<
   /**
    * This function returns errors produced by the form validators
    */
-  validateJobSpec(jobOutput: JobOutput) {
+  validateJobOutput(jobOutput: JobOutput) {
     const validationErrors = DataValidatorUtil.validate(
       jobOutput,
       Object.values(MetronomeSpecValidators)

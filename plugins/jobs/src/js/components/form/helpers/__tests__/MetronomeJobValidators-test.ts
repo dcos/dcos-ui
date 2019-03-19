@@ -1,4 +1,7 @@
-import { MetronomeSpecValidators } from "../MetronomeJobValidators";
+import {
+  MetronomeSpecValidators,
+  validateFormLabels
+} from "../MetronomeJobValidators";
 import { JobOutput } from "../JobFormData";
 
 const JOBID_ERRORS = [
@@ -122,7 +125,7 @@ const SCHEDULEIDREGEXERROR = [
   {
     path: ["schedule", "id"],
     message:
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
   }
 ];
 
@@ -1291,5 +1294,49 @@ describe("MetronomeSpecValidators", () => {
         MetronomeSpecValidators.scheduleStartingDeadlineIsValid(spec as any)
       ).toEqual(STARTINGDEADLINETYPEERROR);
     });
+  });
+});
+
+describe("validateFormLabels", () => {
+  it("does not return error if labels are not present", () => {
+    const spec = {
+      job: {}
+    };
+
+    expect(validateFormLabels(spec as any)).toEqual([]);
+  });
+
+  it("does not return error if labels contain no duplicate keys", () => {
+    const spec = {
+      job: {
+        labels: [["a", "b"], ["c", "d"]]
+      }
+    };
+
+    expect(validateFormLabels(spec as any)).toEqual([]);
+  });
+
+  it("returns error if labels contain duplicate keys", () => {
+    const spec = {
+      job: {
+        labels: [["a", "b"], ["a", "d"]]
+      }
+    };
+    const message = "Cannot have multiple labels with the same key.";
+
+    expect(validateFormLabels(spec as any)).toEqual([
+      {
+        path: ["job", "labels"],
+        message
+      },
+      {
+        path: ["job", "labels", "0"],
+        message
+      },
+      {
+        path: ["job", "labels", "1"],
+        message
+      }
+    ]);
   });
 });
