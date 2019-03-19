@@ -119,7 +119,7 @@
     "babel-register": "6.26.0",
     "babel-runtime": "6.26.0",
     "cache-loader": "1.2.2",
-    "colors": "1.1.2",
+    "colors": "1.3.3",
     "compression-webpack-plugin": "1.1.6",
     "console": "0.7.0",
     "css-loader": "0.28.10",
