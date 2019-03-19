@@ -126,7 +126,7 @@
     "cypress": "3.2.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.8.0",
-    "eslint": "3.15.0",
+    "eslint": "3.19.0",
     "eslint-plugin-compat": "1.0.2",
     "eslint-plugin-destructuring": "2.1.0",
     "eslint-plugin-import": "1.13.0",
