@@ -103,7 +103,7 @@
     "@types/prop-types": "15.5.3",
     "@types/react": "16.8.8",
     "@types/react-router": "2.0.56",
-    "@types/recompose": "0.26.1",
+    "@types/recompose": "0.30.5",
     "@types/semver": "5.5.0",
     "autoprefixer": "6.3.6",
     "babel-cli": "6.26.0",
