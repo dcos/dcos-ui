@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import { InfoBoxInline, Badge } from "@dcos/ui-kit";
+import { InfoBoxInline, Badge, Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -26,10 +28,15 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
   getDisabledBanner() {
     const { formData } = this.props;
     const message = (
-      <Trans>
-        Container options disabled. Select Container Image in general tab to
-        enable.
-      </Trans>
+      <div className="flex-box flex-box-align-vertical-center">
+        <span className="icon-margin-right">
+          <Icon shape={SystemIcons.CircleInformation} size={iconSizeXs} />
+        </span>
+        <Trans>
+          Container options disabled. Select Container Image in general tab to
+          enable.
+        </Trans>
+      </div>
     );
     return (
       formData.cmdOnly && (
