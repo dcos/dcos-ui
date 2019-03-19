@@ -37,69 +37,35 @@ describe("Mesos State Actions", function() {
   });
 
   describe("#fetchSummary", function() {
-    it("fetches the most recent state by default", function() {
-      MesosSummaryActions.fetchSummary();
-      expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual(
-        "http://historyserver/dcos-history-service/history/last"
-      );
+    beforeEach(function() {
+      spyOn(AppDispatcher, "handleServerAction");
+      RequestUtil.json.and.callFake(function(req) {
+        req.error({ message: "Guru Meditation" });
+      });
     });
 
-    it("fetches a whole minute when instructed", function() {
+    afterEach(function() {
+      // Clean up debouncing
+      RequestUtil.json.and.callFake(function(req) {
+        req.success();
+      });
+      MesosSummaryActions.fetchSummary();
+    });
+
+    it("falls back to the Mesos endpoint if the history service is offline on initial fetch", function() {
       MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
       expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual(
-        "http://historyserver/dcos-history-service/history/minute"
+      expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain(
+        "http://mesosserver/mesos/master/state-summary"
       );
     });
 
-    it("fetches a whole hour when instructed", function() {
-      MesosSummaryActions.fetchSummary(TimeScales.HOUR);
+    it("falls back to the Mesos endpoint if the history service goes offline", function() {
+      MesosSummaryActions.fetchSummary();
       expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual(
-        "http://historyserver/dcos-history-service/history/hour"
+      expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain(
+        "http://mesosserver/mesos/master/state-summary"
       );
-    });
-
-    it("fetches a whole day when instructed", function() {
-      MesosSummaryActions.fetchSummary(TimeScales.DAY);
-      expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual(
-        "http://historyserver/dcos-history-service/history/day"
-      );
-    });
-
-    describe("When the history server is offline", function() {
-      beforeEach(function() {
-        spyOn(AppDispatcher, "handleServerAction");
-        RequestUtil.json.and.callFake(function(req) {
-          req.error({ message: "Guru Meditation" });
-        });
-      });
-
-      afterEach(function() {
-        // Clean up debouncing
-        RequestUtil.json.and.callFake(function(req) {
-          req.success();
-        });
-        MesosSummaryActions.fetchSummary();
-      });
-
-      it("falls back to the Mesos endpoint if the history service is offline on initial fetch", function() {
-        MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-        expect(RequestUtil.json).toHaveBeenCalled();
-        expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain(
-          "http://mesosserver/mesos/master/state-summary"
-        );
-      });
-
-      it("falls back to the Mesos endpoint if the history service goes offline", function() {
-        MesosSummaryActions.fetchSummary();
-        expect(RequestUtil.json).toHaveBeenCalled();
-        expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain(
-          "http://mesosserver/mesos/master/state-summary"
-        );
-      });
     });
   });
 });

@@ -43,16 +43,12 @@ function getMesosHosts(state) {
   if (filterExpression && filterExpression.defined) {
     filteredNodes = filterExpression.filter(filters, filteredNodes);
   }
-  const nodeIDs = filteredNodes.getItems().map(function(node) {
-    return node.id;
-  });
 
   return {
     filterExpression,
     nodes: filteredNodes,
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
-    totalHostsResources: states.getResourceStatesForNodeIDs(nodeIDs),
     totalNodes: nodes.getItems().length,
     totalResources: lastState.getSlaveTotalResources()
   };

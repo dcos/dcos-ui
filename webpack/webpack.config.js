@@ -146,13 +146,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf|woff)$/,
-        loader: "file-loader",
-        options: {
-          name: "./fonts/source-sans-pro/[name].[ext]"
-        }
-      },
-      {
         test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,

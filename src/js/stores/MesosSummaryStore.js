@@ -2,8 +2,6 @@ import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_SUMMARY_ERROR,
-  REQUEST_SUMMARY_HISTORY_ONGOING,
-  REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_SUMMARY_ONGOING,
   REQUEST_SUMMARY_SUCCESS,
   SERVER_ACTION
@@ -20,8 +18,6 @@ import MesosSummaryActions from "../events/MesosSummaryActions";
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 import StateSummary from "../structs/StateSummary";
 import SummaryList from "../structs/SummaryList";
-import TimeScales from "../constants/TimeScales";
-import Util from "../utils/Util";
 import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
@@ -32,20 +28,11 @@ let isInactive = false;
  */
 function startPolling() {
   if (requestInterval == null) {
-    // Should always retrieve bulk summary when polling starts
-    MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-
     requestInterval = setInterval(() => {
-      const wasInactive = isInactive && !VisibilityStore.get("isInactive");
       isInactive = VisibilityStore.get("isInactive");
 
       if (!isInactive) {
-        if (wasInactive) {
-          // Flush history with new data set
-          MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-        } else {
-          MesosSummaryActions.fetchSummary();
-        }
+        MesosSummaryActions.fetchSummary();
       } else {
         // If not active, push null placeholder. This will ensure we maintain
         // history when navigating back, for case where history server is down.
@@ -100,14 +87,10 @@ class MesosSummaryStore extends GetSetBaseStore {
         case REQUEST_SUMMARY_SUCCESS:
           this.processSummary(action.data);
           break;
-        case REQUEST_SUMMARY_HISTORY_SUCCESS:
-          this.processBulkState(action.data);
-          break;
         case REQUEST_SUMMARY_ERROR:
           this.processSummaryError();
           break;
         case REQUEST_SUMMARY_ONGOING:
-        case REQUEST_SUMMARY_HISTORY_ONGOING:
           this.processSummaryError();
           break;
       }
@@ -220,29 +203,6 @@ class MesosSummaryStore extends GetSetBaseStore {
       this.set({ statesProcessed: true });
       this.emit(MESOS_SUMMARY_CHANGE);
     }
-  }
-
-  processBulkState(data) {
-    if (!Array.isArray(data)) {
-      return MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-    }
-
-    // If we get less data than the history length
-    // fill the front with the `n` copies of the earliest snapshot available
-    if (data.length < Config.historyLength) {
-      const diff = Config.historyLength - data.length;
-      for (var i = 0; i < diff; i++) {
-        data.unshift(Util.deepCopy(data[0]));
-      }
-    }
-
-    // Multiply Config.stateRefresh in order to use larger time slices
-    data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
-    data.forEach(datum => {
-      this.processSummary(datum, { silent: true });
-    });
-    this.set({ lastRequestTime: Date.now() });
-    this.emit(MESOS_SUMMARY_CHANGE);
   }
 
   processSummaryError(options = {}) {
