@@ -30,7 +30,7 @@ class YamlEditorSchemaField extends Component {
           <AceEditor
             mode="yaml"
             value={decodedValue}
-            height="300"
+            height="300px"
             width=""
             className="framework-form-yaml-editor"
             highlightActiveLine={false}
