@@ -18,7 +18,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     super(...arguments);
 
     this.state = {
-      filteredNodes: new NodesList([]),
+      filteredNodes: null,
       filters: { health: "all", name: "", service: null },
       nodeHealthResponse: false,
       masterRegion: null
