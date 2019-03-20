@@ -53,7 +53,7 @@ describe("TabButton", function() {
 
     // Click the TabButton's label
     thisInstance
-      .find(".menu-tabbed-item .menu-tabbed-item .menu-tabbed-item-label")
+      .find(".menu-tabbed-item .menu-tabbed-item-label")
       .at(1)
       .simulate("click");
 
