@@ -951,6 +951,7 @@
   "The path where your application will read and write data. This must be a single-level path relative to the container. <0>More information</0>.": "应用程序读写数据的路径。这必须是相对于容器的单层路径。<0>更多信息</0>.",
   "The phase has been evaluated, and any Tasks relevant to it have been killed if necessary.": "",
   "The port offered": "已提供端口",
+  "The repository image name.": "",
   "The resource offer": "resource offer",
   "The secret cannot be empty.": "密钥不能为空。",
   "The service is currently locked by one or more deployments. Press again to force this operation.": "服务当前被一个或多个部署锁定。再次按下以强制执行此操作。",
