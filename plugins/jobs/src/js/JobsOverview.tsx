@@ -27,7 +27,6 @@ import gql from "graphql-tag";
 import JobsOverviewLoading from "./components/JobsOverviewLoading";
 import JobsOverviewError from "./components/JobsOverviewError";
 import JobsOverviewList from "./components/JobsOverviewList";
-import JobsOverviewEmpty from "./components/JobsOverviewEmpty";
 
 import container from "#SRC/js/container";
 
@@ -100,19 +99,12 @@ const JobsOverview = withRouter(
 
             filter$.next(filter);
           }
-
-          if (jobs.totalCount > 0) {
-            return (
-              <JobsOverviewList
-                data={jobs}
-                filter={filter}
-                handleFilterChange={handleFilterChange}
-              />
-            );
-          }
-
           return (
-            <JobsOverviewEmpty key={"JobsOverviewEmpty"} jobPath={jobs.path} />
+            <JobsOverviewList
+              data={jobs}
+              filter={filter}
+              handleFilterChange={handleFilterChange}
+            />
           );
         }),
         startWith(<JobsOverviewLoading />),
