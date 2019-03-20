@@ -238,8 +238,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
    */
   gpusOnlyWithUCR(formData: JobOutput) {
     const gpus = findNestedPropertyInObject(formData, "job.run.gpus");
-    const ucr = findNestedPropertyInObject(formData, "job.run.ucr");
-    if ((gpus || gpus === 0) && !ucr) {
+    const docker = findNestedPropertyInObject(formData, "job.run.docker");
+    if ((gpus || gpus === 0) && docker) {
       return [
         {
           path: ["job", "run", "gpus"],

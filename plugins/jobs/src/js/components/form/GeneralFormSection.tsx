@@ -50,7 +50,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
         with the UCR runtime.
       </Trans>
     );
-    const gpusDisabled = formData.cmdOnly || formData.container !== "ucr";
+    const gpusDisabled = !formData.cmdOnly && formData.container !== "ucr";
 
     const cpusError = getFieldError("job.run.cpus", errors);
     const gpusError = getFieldError("job.run.gpus", errors);
@@ -144,6 +144,9 @@ class GeneralFormSection extends React.Component<GeneralProps> {
         invalid to supply both `cmd` and `args` in the same job.
       </Trans>
     );
+    const containerImageTooltipContent = (
+      <Trans>The repository image name.</Trans>
+    );
     const containerImage = formData.containerImage;
 
     const containerImageErrors =
@@ -195,7 +198,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent title="Container Image Info">
                     <Tooltip
-                      content={cmdTooltipContent}
+                      content={containerImageTooltipContent}
                       interactive={true}
                       maxWidth={300}
                       wrapText={true}

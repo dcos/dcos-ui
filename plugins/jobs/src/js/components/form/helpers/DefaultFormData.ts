@@ -21,7 +21,6 @@ export const getDefaultJob = (): JobFormData => ({
     cpus: 1.0,
     disk: 0,
     mem: 128,
-    gpus: 0,
     docker: getDefaultDocker(),
     ucr: getDefaultContainer()
   }

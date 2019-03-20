@@ -953,6 +953,7 @@
   "The path where your application will read and write data. This must be a single-level path relative to the container. <0>More information</0>.": "",
   "The phase has been evaluated, and any Tasks relevant to it have been killed if necessary.": "",
   "The port offered": "",
+  "The repository image name.": "",
   "The resource offer": "",
   "The secret cannot be empty.": "",
   "The service is currently locked by one or more deployments. Press again to force this operation.": "",

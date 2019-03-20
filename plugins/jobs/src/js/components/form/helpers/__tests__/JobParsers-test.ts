@@ -7,7 +7,7 @@ import { getDefaultDocker, getDefaultContainer } from "../DefaultFormData";
 
 describe("JobParsers", () => {
   describe("#jobSpecToOutputParser", () => {
-    it("returns object without docker, ucr, or gpus if cmdOnly true", () => {
+    it("returns object without docker or ucr if cmdOnly true", () => {
       const input = {
         cmdOnly: true,
         job: {
@@ -22,7 +22,7 @@ describe("JobParsers", () => {
       const parsed = jobSpecToOutputParser(input as JobSpec);
       expect(parsed.job.run.docker).toBe(undefined);
       expect(parsed.job.run.ucr).toBe(undefined);
-      expect(parsed.job.run.gpus).toBe(undefined);
+      expect(parsed.job.run.gpus).toBe(0);
     });
 
     it("returns object with only container property indicated by `container` if cmdOnly false", () => {
