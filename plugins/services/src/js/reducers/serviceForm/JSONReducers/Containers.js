@@ -29,6 +29,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
     let {
       name,
+      networkNames,
       hostPort,
       containerPort,
       automaticPort,
@@ -56,6 +57,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     if (networkType === CONTAINER) {
       return {
         name,
+        networkNames,
         containerPort,
         hostPort,
         protocol,
@@ -65,6 +67,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
 
     return {
       name,
+      networkNames,
       hostPort,
       protocol,
       labels
@@ -207,6 +210,15 @@ function containersParser(state) {
             new Transaction(
               ["containers", index, "endpoints", endpointIndex, "labels"],
               endpoint.labels
+            )
+          );
+        }
+
+        if (endpoint.networkNames != null) {
+          memo.push(
+            new Transaction(
+              ["containers", index, "endpoints", endpointIndex, "networkNames"],
+              endpoint.networkNames
             )
           );
         }
