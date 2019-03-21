@@ -101,11 +101,9 @@ function cleanConfig(config) {
   return newServiceConfig;
 }
 
-/* eslint-disable */
 const JSONEditor = lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
-/* eslint-enable */
 
 class CreateServiceModalForm extends Component {
   constructor() {
