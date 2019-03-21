@@ -358,16 +358,15 @@ module.exports = {
 
     if (!path.includes("containers") && !path.includes("volumeMounts")) {
       return state.map((container, index) => {
-        if (
-          this.endpoints &&
-          this.endpoints[index] &&
-          this.endpoints[index].length !== 0
-        ) {
+        if (this.endpoints && this.endpoints[index]) {
           container.endpoints = mapEndpoints(
             this.endpoints[index],
             this.networkType,
             this.appState
           );
+          if (container.endpoints.length === 0) {
+            delete container.endpoints;
+          }
         }
 
         return container;
@@ -465,16 +464,15 @@ module.exports = {
       });
     }
     newState = newState.map((container, index) => {
-      if (
-        this.endpoints &&
-        this.endpoints[index] &&
-        this.endpoints[index].length !== 0
-      ) {
+      if (this.endpoints && this.endpoints[index]) {
         container.endpoints = mapEndpoints(
           this.endpoints[index],
           this.networkType,
           this.appState
         );
+        if (container.endpoints.length === 0) {
+          delete container.endpoints;
+        }
       }
 
       return container;
