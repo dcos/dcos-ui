@@ -98,8 +98,8 @@ class JobModalForm extends React.Component<JobFormProps> {
       type === "number"
         ? JobFormActionType.SetNum
         : dataset.parser === "boolean"
-          ? JobFormActionType.SetBool
-          : JobFormActionType.Set;
+        ? JobFormActionType.SetBool
+        : JobFormActionType.Set;
 
     this.props.onChange({ type: actionType, value, path: name });
   }

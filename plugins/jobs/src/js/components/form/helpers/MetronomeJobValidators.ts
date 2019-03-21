@@ -194,8 +194,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const containerImageErrorPath = job.run.ucr
       ? ["job", "run", "ucr", "image", "id"]
       : job.run.docker
-        ? ["job", "run", "docker", "image"]
-        : [];
+      ? ["job", "run", "docker", "image"]
+      : [];
 
     return [
       { path: ["job", "run", "cmd"], message },
