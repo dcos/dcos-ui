@@ -287,6 +287,29 @@ describe("Containers", function() {
           ]);
         });
 
+        it("removes the last endpoint", function() {
+          let batch = new Batch();
+
+          batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
+
+          batch = batch.add(
+            new Transaction(["containers", 0, "endpoints"], null, ADD_ITEM)
+          );
+          batch = batch.add(
+            new Transaction(["containers", 0, "endpoints"], 0, REMOVE_ITEM)
+          );
+
+          expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
+            {
+              name: "container-1",
+              resources: {
+                cpus: 0.1,
+                mem: 128
+              }
+            }
+          ]);
+        });
+
         it("has one endpoint with name", function() {
           let batch = new Batch();
 
