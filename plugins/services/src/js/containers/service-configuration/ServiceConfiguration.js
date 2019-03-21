@@ -14,14 +14,16 @@ import {
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Loader from "#SRC/js/components/Loader";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import {
+  isSDKService,
+  getDefinitionFromSpec
+} from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
 import ApplicationSpec from "../../structs/ApplicationSpec";
 import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
 import Service from "../../structs/Service";
-import { getDefinitionFromSpec } from "../../utils/ServiceUtil";
 
 const METHODS_TO_BIND = [
   "handleApplyButtonClick",

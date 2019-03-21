@@ -497,62 +497,19 @@ describe("Application", function() {
     });
   });
 
-  describe("#getWebURL", function() {
-    it("returns the url if the service label is present", function() {
+  describe("getWebURL", () => {
+    // this test mostly makes sure that util isnt removed from `Service` struct - see ServiceUtil tests for more details
+    it("returns url if service is SDK Service providing DCOS_SERVICE_WEB_PATH label", function() {
       const service = new Application({
         labels: {
-          DCOS_SERVICE_NAME: "baz",
+          DCOS_SERVICE_NAME: "foo",
           DCOS_SERVICE_PORT_INDEX: "80",
-          DCOS_SERVICE_SCHEME: "https"
+          DCOS_SERVICE_SCHEME: "https",
+          DCOS_COMMONS_API_VERSION: "notnull",
+          DCOS_SERVICE_WEB_PATH: "/bar"
         }
       });
-      expect(service.getWebURL()).toEqual("/service/baz/");
-    });
-
-    it("returns null if no labels are present", function() {
-      const service = new Application({ foo: "bar" });
-      expect(service.getWebURL()).toEqual(null);
-    });
-
-    it("returns null if not all labels are present", function() {
-      const service1 = new Application({
-        foo: "bar",
-        labels: {
-          DCOS_SERVICE_NAME: "baz",
-          DCOS_SERVICE_PORT_INDEX: "80"
-          // DCOS_SERVICE_SCHEME: 'https'
-        }
-      });
-      const service2 = new Application({
-        foo: "bar",
-        labels: {
-          DCOS_SERVICE_NAME: "baz",
-          // DCOS_SERVICE_PORT_INDEX: '80',
-          DCOS_SERVICE_SCHEME: "https"
-        }
-      });
-      const service3 = new Application({
-        foo: "bar",
-        labels: {
-          DCOS_SERVICE_NAME: "baz"
-          // DCOS_SERVICE_PORT_INDEX: '80',
-          // DCOS_SERVICE_SCHEME: 'https'
-        }
-      });
-      expect(service1.getWebURL()).toEqual(null);
-      expect(service2.getWebURL()).toEqual(null);
-      expect(service3.getWebURL()).toEqual(null);
-    });
-
-    it("returns null if the name is an empty string", function() {
-      const service = new Application({
-        labels: {
-          DCOS_SERVICE_NAME: "",
-          DCOS_SERVICE_PORT_INDEX: "80",
-          DCOS_SERVICE_SCHEME: "https"
-        }
-      });
-      expect(service.getWebURL()).toEqual(null);
+      expect(service.getWebURL()).toEqual("/service/foo/bar");
     });
   });
 

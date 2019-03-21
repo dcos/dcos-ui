@@ -295,7 +295,7 @@ describe("StringUtil", function() {
           "Hello this is a bad [link](http://a.com/<a-mean-uri)"
         ).__html
       ).toEqual(
-        `<p>Hello this is a bad <a target="_blank" href="http://a.com/&lt;a-mean-uri">link</a></p>\n`
+        `<p>Hello this is a bad <a target="_blank" href="http://a.com/%3Ca-mean-uri">link</a></p>\n`
       );
     });
   });

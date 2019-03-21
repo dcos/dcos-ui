@@ -276,8 +276,8 @@ class JobFormModal extends React.Component<
         err.response && err.response.message
           ? err.response.message
           : err.response
-            ? err.response
-            : err;
+          ? err.response
+          : err;
       return [
         {
           path: [],

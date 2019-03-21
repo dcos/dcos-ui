@@ -8,7 +8,7 @@ import { Modal } from "reactjs-components";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
