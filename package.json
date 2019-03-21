@@ -155,7 +155,7 @@
     "license-checker": "5.1.2",
     "localStorage": "1.0.4",
     "marked": "0.6.1",
-    "mini-css-extract-plugin": "0.4.3",
+    "mini-css-extract-plugin": "0.5.0",
     "node": "10.15.2",
     "postcss": "6.0.19",
     "postcss-loader": "2.1.1",
