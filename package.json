@@ -157,7 +157,7 @@
     "marked": "0.3.12",
     "mini-css-extract-plugin": "0.4.3",
     "node": "10.15.2",
-    "postcss": "6.0.19",
+    "postcss": "6.0.23",
     "postcss-loader": "2.1.1",
     "prettier": "1.13.3",
     "purify-css": "1.2.5",
