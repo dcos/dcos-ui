@@ -1,18 +1,22 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import isEqual from "lodash.isequal";
 
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
-import JSONEditor from "#SRC/js/components/JSONEditor";
+import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
 
 import { SYNTAX_ERROR } from "../../constants/ServiceErrorTypes";
 import ApplicationSpec from "../../structs/ApplicationSpec";
 import PodSpec from "../../structs/PodSpec";
 import ServiceUtil from "../../utils/ServiceUtil";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
+
+const JSONEditor = lazy(() =>
+  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+);
 
 const METHODS_TO_BIND = ["handleJSONChange", "handleJSONErrorStateChange"];
 
@@ -108,17 +112,19 @@ class CreateServiceJsonOnly extends React.Component {
           </FieldHelp>
         </div>
         <div className="create-service-modal-json-only-editor-container">
-          <JSONEditor
-            className="create-service-modal-json-only-editor"
-            errors={errors}
-            onChange={this.handleJSONChange}
-            onErrorStateChange={this.handleJSONErrorStateChange}
-            onPropertyChange={onPropertyChange}
-            showGutter={true}
-            showPrintMargin={false}
-            theme="monokai"
-            value={appConfig}
-          />
+          <Suspense fallback={<JSONEditorLoading />}>
+            <JSONEditor
+              className="create-service-modal-json-only-editor"
+              errors={errors}
+              onChange={this.handleJSONChange}
+              onErrorStateChange={this.handleJSONErrorStateChange}
+              onPropertyChange={onPropertyChange}
+              showGutter={true}
+              showPrintMargin={false}
+              theme="monokai"
+              value={appConfig}
+            />
+          </Suspense>
         </div>
       </div>
     );
