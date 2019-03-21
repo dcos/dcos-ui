@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import isEqual from "lodash.isequal";
 import "brace/ext/searchbox";
+import "brace/mode/json";
+import "brace/theme/monokai";
+import "brace/ext/language_tools";
 
 import { omit } from "../utils/Util";
 import JSONUtil from "../utils/JSONUtil";
