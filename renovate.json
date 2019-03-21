@@ -1,4 +1,44 @@
 {
-  "extends": ["config:js-app", ":semanticCommits", ":rebaseStalePrs"],
-  "labels": ["renovate"]
+  "extends": ["config:js-app", ":semanticCommits"],
+  "labels": ["renovate"],
+  "automerge": true,
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "packagePatterns": "eslint",
+      "groupName": ["eslint"]
+    },
+    {
+      "packagePatterns": "react",
+      "groupName": ["react"]
+    },
+    {
+      "packagePatterns": "babel",
+      "groupName": ["babel"]
+    },
+    {
+      "packagePatterns": "jest|enzyme",
+      "groupName": ["jest"]
+    },
+    {
+      "packagePatterns": "tslint",
+      "groupName": ["tslint"]
+    },
+    {
+      "packagePatterns": "webpack|loader",
+      "groupName": ["webpack"]
+    },
+    {
+      "packagePatterns": "stylelint",
+      "groupName": ["stylelint"]
+    },
+    {
+      "packagePatterns": "graphql",
+      "groupName": ["graphql"]
+    },
+    {
+      "packagePatterns": "^@dcos",
+      "groupName": ["@dcos"]
+    }
+  ]
 }
