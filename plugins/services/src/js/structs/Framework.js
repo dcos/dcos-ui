@@ -1,14 +1,40 @@
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from "../constants/FrameworkConstants";
 import FrameworkUtil from "../utils/FrameworkUtil";
+import ServiceStatus from "../constants/ServiceStatus";
 
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
+
+const frameworkStatusHelper = (displayName, key, priority = 0) => ({
+  displayName,
+  key,
+  priority
+});
+
+// prettier-ignore
+/* eslint-disable no-multi-spaces */
+const FrameworkStatus = {
+  418: frameworkStatusHelper("Initializing",                    ServiceStatus.DEPLOYING,  1),
+  200: frameworkStatusHelper("Running",                         ServiceStatus.RUNNING,    1),
+  500: frameworkStatusHelper("Error Creating Service",          ServiceStatus.WARNING,    1),
+  204: frameworkStatusHelper("Deploying (Awaiting Resources)",  ServiceStatus.DEPLOYING,  2),
+  202: frameworkStatusHelper("Deploying",                       ServiceStatus.DEPLOYING,  2),
+  203: frameworkStatusHelper("Degraded (Awaiting Resources)",   ServiceStatus.RECOVERING, 4),
+  205: frameworkStatusHelper("Degraded (Recovering)",           ServiceStatus.RECOVERING, 4),
+  206: frameworkStatusHelper("Degraded",                        ServiceStatus.RECOVERING, 3),
+  420: frameworkStatusHelper("Backing up",                      ServiceStatus.RECOVERING, 5),
+  421: frameworkStatusHelper("Restoring",                       ServiceStatus.RECOVERING, 5),
+  426: frameworkStatusHelper("Upgrade / Rollback / Downgrade",  ServiceStatus.DEPLOYING,  6),
+  503: frameworkStatusHelper("Service Unavailable",             ServiceStatus.STOPPED)
+};
+/* eslint-enable */
 
 module.exports = class Framework extends Application {
   constructor() {
@@ -64,6 +90,70 @@ module.exports = class Framework extends Application {
     }
 
     return this._spec;
+  }
+
+  getCheckStatus() {
+    const tasks = this.get("tasks") || [];
+    const checkStatus = tasks.reduce((acc, cur = {}) => {
+      if (cur.checkResult != null) {
+        const curStatusCode = findNestedPropertyInObject(
+          cur,
+          "checkResult.http.statusCode"
+        );
+        const accStatusCode =
+          findNestedPropertyInObject(acc, "checkResult.http.statusCode") ||
+          null;
+        const curPriority =
+          (FrameworkStatus[curStatusCode] &&
+            FrameworkStatus[curStatusCode].priority) ||
+          0;
+        const accPriority =
+          (FrameworkStatus[accStatusCode] &&
+            FrameworkStatus[accStatusCode].priority) ||
+          0;
+        if (curPriority > accPriority) {
+          return cur;
+        }
+      }
+
+      return acc;
+    }, false);
+
+    if (checkStatus == null) {
+      return false;
+    }
+
+    return checkStatus;
+  }
+
+  /**
+   * @override
+   */
+  getStatus() {
+    const checkStatus = this.getCheckStatus();
+    const statusCode = findNestedPropertyInObject(
+      checkStatus,
+      "checkResult.http.statusCode"
+    );
+
+    return checkStatus
+      ? FrameworkStatus[statusCode].displayName
+      : super.getStatus();
+  }
+
+  /**
+   * @override
+   */
+  getServiceStatus() {
+    const checkStatus = this.getCheckStatus();
+    const statusCode = findNestedPropertyInObject(
+      checkStatus,
+      "checkResult.http.statusCode"
+    );
+
+    return checkStatus
+      ? FrameworkStatus[statusCode].key
+      : super.getServiceStatus();
   }
 
   getTasksSummary() {
