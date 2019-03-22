@@ -25,6 +25,10 @@ describe("JSONMultiContainer", function() {
           {
             mode: "container",
             name: "dcos"
+          },
+          {
+            mode: "container",
+            name: "dcos2"
           }
         ],
         containers: [
@@ -58,6 +62,7 @@ describe("JSONMultiContainer", function() {
             endpoints: [
               {
                 name: "nginx",
+                networkNames: ["dcos"],
                 hostPort: 0,
                 protocol: ["udp", "tcp"],
                 labels: {

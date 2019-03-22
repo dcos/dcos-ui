@@ -64,8 +64,8 @@ export const jsonReducers = {
     const container = valueCopy.job.run.docker
       ? Container.Docker
       : valueCopy.job.run.ucr
-        ? Container.UCR
-        : stateCopy.container || Container.UCR;
+      ? Container.UCR
+      : stateCopy.container || Container.UCR;
 
     const newState = {
       ...stateCopy,

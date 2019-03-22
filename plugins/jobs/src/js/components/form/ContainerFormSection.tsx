@@ -122,46 +122,45 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
             </Trans>
           </FieldHelp>
         </FieldLabel>
-        {!formData.cmdOnly &&
-          selectedContainer === Container.Docker && (
-            <div>
-              <FieldLabel>
-                <FieldInput
-                  checked={!formData.cmdOnly && formData.grantRuntimePrivileges}
-                  name="grantRuntimePrivileges"
-                  type="checkbox"
-                  value={formData.grantRuntimePrivileges}
-                  disabled={formData.cmdOnly}
-                />
-                <Trans>Grant Runtime Privileges</Trans>
-                <FieldHelp>
-                  <Trans>
-                    By default, containers are "underprivileged" and cannot, for
-                    example, run a Docker daemon inside a Docker container.
-                  </Trans>
-                </FieldHelp>
-              </FieldLabel>
-              <div className="form-inner-section">
-                <Trans render="p">Docker parameters</Trans>
-                <ParametersSection
-                  formData={formData}
-                  errors={errors}
-                  showErrors={showErrors}
-                  onAddItem={onAddItem}
-                  onRemoveItem={onRemoveItem}
-                />
-              </div>
-              <div className="form-inner-section">
-                <ArgsSection
-                  formData={formData}
-                  errors={errors}
-                  showErrors={showErrors}
-                  onAddItem={onAddItem}
-                  onRemoveItem={onRemoveItem}
-                />
-              </div>
+        {!formData.cmdOnly && selectedContainer === Container.Docker && (
+          <div>
+            <FieldLabel>
+              <FieldInput
+                checked={!formData.cmdOnly && formData.grantRuntimePrivileges}
+                name="grantRuntimePrivileges"
+                type="checkbox"
+                value={formData.grantRuntimePrivileges}
+                disabled={formData.cmdOnly}
+              />
+              <Trans>Grant Runtime Privileges</Trans>
+              <FieldHelp>
+                <Trans>
+                  By default, containers are "underprivileged" and cannot, for
+                  example, run a Docker daemon inside a Docker container.
+                </Trans>
+              </FieldHelp>
+            </FieldLabel>
+            <div className="form-inner-section">
+              <Trans render="p">Docker parameters</Trans>
+              <ParametersSection
+                formData={formData}
+                errors={errors}
+                showErrors={showErrors}
+                onAddItem={onAddItem}
+                onRemoveItem={onRemoveItem}
+              />
             </div>
-          )}
+            <div className="form-inner-section">
+              <ArgsSection
+                formData={formData}
+                errors={errors}
+                showErrors={showErrors}
+                onAddItem={onAddItem}
+                onRemoveItem={onRemoveItem}
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

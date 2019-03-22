@@ -1,6 +1,7 @@
 import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
 
+import Application from "./Application";
 import Framework from "./Framework";
 import HealthTypes from "../constants/HealthTypes";
 import HealthStatus from "../constants/HealthStatus";
@@ -9,6 +10,7 @@ import Service from "./Service";
 import ServiceOther from "../constants/ServiceOther";
 import ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
+import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 import VolumeList from "../structs/VolumeList";
 
 module.exports = class ServiceTree extends Tree {
@@ -48,7 +50,19 @@ module.exports = class ServiceTree extends Tree {
       }
 
       // Create the appropriate service according to definition
-      return ServiceUtil.createServiceFromResponse(item);
+      if (ServiceValidatorUtil.isPodResponse(item)) {
+        return new Pod(item);
+      }
+
+      if (ServiceValidatorUtil.isFrameworkResponse(item)) {
+        return new Framework(item);
+      }
+
+      if (ServiceValidatorUtil.isApplicationResponse(item)) {
+        return new Application(item);
+      }
+
+      throw Error("Unknown service response: " + JSON.stringify(item));
     });
   }
 
@@ -201,10 +215,13 @@ module.exports = class ServiceTree extends Tree {
               return;
             }
 
-            let serviceLabels = service.getLabels();
-
+            let serviceLabels;
             if (service instanceof Service) {
-              serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
+              serviceLabels = Object.entries(service.getLabels()).map(
+                ([key, value]) => ({ key, value })
+              );
+            } else {
+              serviceLabels = [];
             }
 
             const hasLabel = serviceLabels.some(function(serviceLabel) {
@@ -447,10 +464,12 @@ module.exports = class ServiceTree extends Tree {
 
   getLabels() {
     return this.reduceItems(function(serviceTreeLabels, item) {
-      ServiceUtil.convertServiceLabelsToArray(item).forEach(function({
+      const labels = Object.entries(item.getLabels()).map(([key, value]) => ({
         key,
         value
-      }) {
+      }));
+
+      labels.forEach(function({ key, value }) {
         if (
           serviceTreeLabels.findIndex(function(label) {
             return label.key === key && label.value === value;
