@@ -46,7 +46,8 @@ class FrameworkConfiguration extends Component {
       jsonEditorActive: false,
       isConfirmOpen: false,
       isOpen: true,
-      liveValidate: false
+      liveValidate: false,
+      showCosmosErrors: true
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -92,7 +93,7 @@ class FrameworkConfiguration extends Component {
     const { reviewActive } = this.state;
 
     if (reviewActive) {
-      this.setState({ reviewActive: false });
+      this.setState({ reviewActive: false, showCosmosErrors: false });
 
       return;
     }
@@ -105,6 +106,7 @@ class FrameworkConfiguration extends Component {
     const { reviewActive } = this.state;
 
     if (reviewActive) {
+      this.setState({ showCosmosErrors: true });
       handleRun();
 
       return;
@@ -264,7 +266,7 @@ class FrameworkConfiguration extends Component {
     }
 
     let errorsAlert = null;
-    if (deployErrors) {
+    if (deployErrors && this.state.showCosmosErrors) {
       errorsAlert = <CosmosErrorMessage error={deployErrors} />;
     }
 
@@ -323,7 +325,6 @@ class FrameworkConfiguration extends Component {
     } = this.state;
     const {
       packageDetails,
-      deployErrors,
       formErrors,
       formData,
       onFormDataChange,
@@ -346,7 +347,6 @@ class FrameworkConfiguration extends Component {
           formData={formData}
           formErrors={formErrors}
           packageDetails={packageDetails}
-          deployErrors={deployErrors}
           onFormDataChange={onFormDataChange}
           onFormErrorChange={onFormErrorChange}
           onFormSubmit={this.handleFormSubmit}
