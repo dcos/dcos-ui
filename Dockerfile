@@ -26,11 +26,7 @@ RUN set -x \
   && echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list \
   && apt-get update \
   && apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
-  && apt-get install -t jessie-backports -y openjdk-8-jre-headless ca-certificates-java \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
-  # Post-install java certificates
-  /var/lib/dpkg/info/ca-certificates-java.postinst configure \
   # Install System Tests dependencies
   # Install dcos-launch
   && pip install git+git://github.com/dcos/dcos-test-utils@5361c8623cd0751f9312cf79b66dde6f09da1e74\
