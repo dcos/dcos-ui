@@ -149,6 +149,7 @@ const containerJSONReducer = combineReducers({
       const containerPort = Number(portDefinition.containerPort) || 0;
       const servicePort = parseInt(portDefinition.servicePort, 10) || null;
       const defaultVipPort = vipPort || containerPort;
+      const networkNames = portDefinition.networkNames;
       let hostPort = Number(portDefinition.hostPort) || 0;
       let protocol = PROTOCOLS.filter(function(protocol) {
         return portDefinition.protocol[protocol];
@@ -176,6 +177,7 @@ const containerJSONReducer = combineReducers({
         containerPort,
         hostPort,
         labels,
+        networkNames,
         protocol,
         servicePort,
         name: portDefinition.name

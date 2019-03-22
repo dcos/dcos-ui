@@ -9,7 +9,7 @@ import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icon
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";

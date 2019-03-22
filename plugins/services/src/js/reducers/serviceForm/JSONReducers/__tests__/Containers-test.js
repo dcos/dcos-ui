@@ -278,6 +278,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   hostPort: 0,
                   labels: null,
                   protocol: ["tcp"]
@@ -333,6 +334,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: "foo",
+                  networkNames: null,
                   hostPort: 0,
                   labels: null,
                   protocol: ["tcp"]
@@ -365,6 +367,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   hostPort: 0,
                   labels: { custom: "label" },
                   protocol: ["tcp"]
@@ -410,6 +413,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: "foo",
+                  networkNames: null,
                   hostPort: 8080,
                   labels: null,
                   protocol: ["tcp"]
@@ -447,6 +451,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   hostPort: 0,
                   labels: null,
                   protocol: ["tcp", "udp"]
@@ -484,6 +489,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   hostPort: 0,
                   labels: null,
                   protocol: ["tcp", "foo"]
@@ -516,6 +522,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   hostPort: 0,
                   containerPort: null,
                   labels: null,
@@ -551,6 +558,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: "foo",
+                  networkNames: null,
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
@@ -585,6 +593,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   hostPort: 0,
                   containerPort: null,
                   labels: { custom: "label" },
@@ -631,6 +640,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: "foo",
+                  networkNames: null,
                   containerPort: null,
                   labels: null,
                   hostPort: 8080,
@@ -669,6 +679,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
@@ -707,6 +718,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
@@ -745,6 +757,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: 8080,
                   labels: null,
                   hostPort: 0,
@@ -791,6 +804,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: 8080,
                   labels: {
                     VIP_0: "/foobar:8080"
@@ -846,6 +860,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: 8080,
                   labels: {
                     VIP_0: "1.3.3.7:8080"
@@ -896,6 +911,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: 8080,
                   labels: {
                     VIP_0: "/barfoo:8080"
@@ -953,6 +969,7 @@ describe("Containers", function() {
               endpoints: [
                 {
                   name: null,
+                  networkNames: null,
                   containerPort: 8080,
                   labels: {
                     VIP_0: "1.3.3.7:8080"

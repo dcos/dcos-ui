@@ -21,7 +21,7 @@ import Image from "#SRC/js/components/Image";
 import Loader from "#SRC/js/components/Loader";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import ServiceUtil from "#SRC/js/utils/ServiceUtil";
+import ServiceUtil from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";

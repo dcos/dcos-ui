@@ -114,7 +114,8 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
                   target="_blank"
                 >
                   View documentation
-                </a>.
+                </a>
+                .
               </Trans>
             </FieldHelp>
             <FieldError>{cronErrors}</FieldError>

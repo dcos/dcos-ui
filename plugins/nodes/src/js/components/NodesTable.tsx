@@ -95,12 +95,20 @@ export default class NodesTable extends React.Component<
   }
 
   updateData(
-    data: Node[],
+    data: Node[] | null,
     sortColumn: string,
     sortDirection: SortDirection,
     currentSortDirection?: SortDirection,
     currentSortColumn?: string
   ): NodesTableState {
+    if (data === null) {
+      return {
+        data: null,
+        sortDirection,
+        sortColumn
+      };
+    }
+
     const copiedData = data.slice();
     if (
       sortDirection === currentSortDirection &&
@@ -155,7 +163,7 @@ export default class NodesTable extends React.Component<
   componentWillReceiveProps(nextProps: NodesTableProps): void {
     this.setState(
       this.updateData(
-        nextProps.hosts.getItems(),
+        nextProps.hosts ? nextProps.hosts.getItems() : null,
         this.state.sortColumn,
         this.state.sortDirection
       )

@@ -19,7 +19,7 @@ import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
@@ -157,7 +157,7 @@ class ServicesTable extends React.Component {
 
     return (
       <a
-        className="table-cell-icon table-display-on-row-hover"
+        className="table-cell-icon"
         href={service.getWebURL()}
         target="_blank"
         title="Open in a new window"
@@ -220,7 +220,6 @@ class ServicesTable extends React.Component {
   hasWebUI(service) {
     return (
       service instanceof Service &&
-      !isSDKService(service) &&
       service.getWebURL() != null &&
       service.getWebURL() !== ""
     );

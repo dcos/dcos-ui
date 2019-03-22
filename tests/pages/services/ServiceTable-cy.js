@@ -268,6 +268,14 @@ describe("Service Table", function() {
         .contains("stop")
         .should("not.exist");
     });
+
+    it("has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set", function() {
+      openDropdown("sdk-sleep-with-image");
+
+      cy.get(".dropdown-menu-items")
+        .contains("Open Service")
+        .should("exist");
+    });
   });
 
   context("SDK Groups", function() {

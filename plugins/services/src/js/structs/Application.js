@@ -1,4 +1,3 @@
-import Config from "#SRC/js/config/Config";
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
 
 import ApplicationSpec from "./ApplicationSpec";
@@ -218,22 +217,6 @@ module.exports = class Application extends Service {
    */
   getVolumes() {
     return new VolumeList({ items: this.get("volumes") || [] });
-  }
-
-  /**
-   * @override
-   */
-  getWebURL() {
-    const { DCOS_SERVICE_NAME, DCOS_SERVICE_PORT_INDEX, DCOS_SERVICE_SCHEME } =
-      this.getLabels() || {};
-
-    const serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
-
-    if (!serviceName || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
-      return null;
-    }
-
-    return `${Config.rootUrl}/service/${serviceName}/`;
   }
 
   findTaskById(taskId) {

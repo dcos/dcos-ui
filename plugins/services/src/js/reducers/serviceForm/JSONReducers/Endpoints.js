@@ -8,6 +8,7 @@ const defaultEndpointsFieldValues = {
   labels: null,
   loadBalanced: false,
   name: null,
+  networkNames: null,
   protocol: {
     tcp: true,
     udp: false
@@ -52,6 +53,7 @@ module.exports = {
 
     const fieldNames = [
       "name",
+      "networkNames",
       "automaticPort",
       "loadBalanced",
       "labels",
