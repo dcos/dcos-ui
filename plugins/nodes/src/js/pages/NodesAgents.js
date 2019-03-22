@@ -83,7 +83,10 @@ var NodesAgents = createReactClass({
   },
 
   getInitialState() {
-    return Object.assign({ selectedResource: "cpus" }, DEFAULT_FILTER_OPTIONS);
+    return Object.assign(
+      { selectedResource: "cpus", nodesHealth: null },
+      DEFAULT_FILTER_OPTIONS
+    );
   },
 
   componentWillMount() {
@@ -96,9 +99,27 @@ var NodesAgents = createReactClass({
     this.store_listeners = [
       {
         name: "nodeHealth",
-        events: ["success", "error"]
+        events: ["success", "error"],
+        suppressUpdate: true
       }
     ];
+  },
+
+  updateNodeHealth() {
+    const nodesHealth = CompositeState.getNodesList()
+      .getItems()
+      .map(function(node) {
+        return node.getHealth();
+      });
+
+    this.setState({ nodesHealth });
+  },
+  onNodeHealthStoreSuccess() {
+    this.updateNodeHealth();
+  },
+
+  onNodeHealthStoreError() {
+    this.updateNodeHealth();
   },
 
   componentDidMount() {
@@ -243,11 +264,8 @@ var NodesAgents = createReactClass({
     const { filterExpression, byServiceFilter, selectedResource } = this.state;
     var data = this.internalStorage_get();
     const nodesList = data.nodes || [];
-    const nodesHealth = CompositeState.getNodesList()
-      .getItems()
-      .map(function(node) {
-        return node.getHealth();
-      });
+
+    const nodesHealth = this.state.nodesHealth;
     const isFiltering = filterExpression && filterExpression.defined;
 
     const isNodesTableContainer =
