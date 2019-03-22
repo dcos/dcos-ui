@@ -24,6 +24,7 @@ RUN set -x \
   && npm install -g npm@${NPM_VERSION} \
   # Install cypress dependencies & JRE (required by Jenkins)
   && echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list \
+  && add-apt-repository ppa:openjdk-r/ppa \
   && apt-get update \
   && apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
   && apt-get install -t jessie-backports -y openjdk-8-jre-headless ca-certificates-java \
