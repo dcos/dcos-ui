@@ -23,17 +23,10 @@ RUN set -x \
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
   # Install cypress dependencies & JRE (required by Jenkins)
-  && apt-get update \
-  && apt-get install -y software-properties-common \
   && echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list \
-  && add-apt-repository ppa:openjdk-r/ppa \
   && apt-get update \
   && apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
-  && apt-get install -t jessie-backports -y openjdk-8-jre-headless ca-certificates-java \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
-  # Post-install java certificates
-  /var/lib/dpkg/info/ca-certificates-java.postinst configure \
   # Install System Tests dependencies
   # Install dcos-launch
   && pip install git+git://github.com/dcos/dcos-test-utils@5361c8623cd0751f9312cf79b66dde6f09da1e74\
