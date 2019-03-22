@@ -16,7 +16,6 @@ import JSONEditor from "#SRC/js/components/JSONEditor";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
-import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import SchemaField from "#SRC/js/components/SchemaField";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
@@ -280,7 +279,6 @@ class FrameworkConfigurationForm extends Component {
       jsonEditorActive,
       formData,
       activeTab,
-      deployErrors,
       defaultConfigWarning,
       onFormSubmit,
       liveValidate,
@@ -322,11 +320,6 @@ class FrameworkConfigurationForm extends Component {
 
     const schema = packageDetails.getConfig();
 
-    let errorsAlert = null;
-    if (deployErrors) {
-      errorsAlert = <CosmosErrorMessage error={deployErrors} />;
-    }
-
     let defaultConfigWarningMessage = null;
     if (defaultConfigWarning) {
       defaultConfigWarningMessage = (
@@ -364,7 +357,6 @@ class FrameworkConfigurationForm extends Component {
                 >
                   <TabButtonList>{this.getFormTabList()}</TabButtonList>
                   <div className="menu-tabbed-view-container">
-                    {errorsAlert}
                     {defaultConfigWarningMessage}
                     <SchemaForm
                       schema={schema}
@@ -422,7 +414,6 @@ FrameworkConfigurationForm.propTypes = {
   formErrors: PropTypes.object.isRequired,
   focusField: PropTypes.string.isRequired,
   activeTab: PropTypes.string.isRequired,
-  deployErrors: PropTypes.object,
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
