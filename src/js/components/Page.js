@@ -81,7 +81,8 @@ const Page = createReactClass({
     this.store_listeners = [
       {
         name: "sidebar",
-        events: ["widthChange"]
+        events: ["widthChange"],
+        suppressUpdate: true
       }
     ];
   },
