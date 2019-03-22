@@ -82,6 +82,62 @@ describe("ResourcesUtil", function() {
         expect(resources).toEqual(["cpus", "mem"]);
       });
     });
+
+    describe("invalid or empty data", function() {
+      it("returns an empty array when used resources is null", function() {
+        CompositeState.getNodesList = function() {
+          return {
+            getItems: () => {
+              return [
+                {
+                  getResources: () => {
+                    return null;
+                  }
+                }
+              ];
+            }
+          };
+        };
+        const resources = ResourcesUtil.getAvailableResources();
+        expect(resources).toEqual([]);
+      });
+
+      it("returns an empty array when used resources is undefined", function() {
+        CompositeState.getNodesList = function() {
+          return {
+            getItems: () => {
+              return [
+                {
+                  getResources: () => {
+                    return undefined;
+                  }
+                }
+              ];
+            }
+          };
+        };
+        const resources = ResourcesUtil.getAvailableResources();
+        expect(resources).toEqual([]);
+      });
+
+      it("returns an empty array when used resources is empty array", function() {
+        CompositeState.getNodesList = function() {
+          return {
+            getItems: () => {
+              return [
+                {
+                  getResources: () => {
+                    return [];
+                  }
+                }
+              ];
+            }
+          };
+        };
+        const resources = ResourcesUtil.getAvailableResources();
+        expect(resources).toEqual([]);
+      });
+    });
   });
 
   describe("#getAdditionalResources", function() {
