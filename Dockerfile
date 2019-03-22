@@ -22,10 +22,9 @@ RUN set -x \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
-  # Install cypress dependencies & JRE (required by Jenkins)
-  && echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list \
   && apt-get update \
-  && apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
+  # lsof is used by integration test script
+  && apt-get install -y lsof \
   && apt-get clean \
   # Install System Tests dependencies
   # Install dcos-launch
