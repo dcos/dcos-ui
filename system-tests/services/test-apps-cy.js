@@ -632,12 +632,15 @@ describe("Services", function() {
         .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(serviceName)
-        .click();
+        .click({
+          force: true
+        });
 
       // open edit screen
       cy.get(".page-header-actions .dropdown")
         .click()
         .get(".dropdown-menu-items")
+        .scrollIntoView()
         .contains("Edit")
         .click();
 
