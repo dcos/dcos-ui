@@ -37,7 +37,9 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(packageName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("exist");
   });
 
@@ -74,7 +76,9 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(packageName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("exist");
   });
 
@@ -101,7 +105,9 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(packageName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .click();
 
     // TODO: Check scheduler is running after Mesos Stream is fixed
@@ -155,7 +161,9 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(packageName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(packageName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("exist");
   });
 
@@ -199,7 +207,9 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(serviceName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("exist");
   });
 
@@ -243,7 +253,9 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(serviceName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("exist");
   });
 
@@ -272,13 +284,17 @@ describe("Universe", function() {
     cy.get(".modal.modal-small button.button-danger", {
       timeout: Timeouts.ANIMATION_TIMEOUT
     })
-      .contains("Delete Service", { timeout: Timeouts.ANIMATION_TIMEOUT })
+      .contains("Delete Service", {
+        timeout: Timeouts.ANIMATION_TIMEOUT
+      })
       .click();
 
     cy.get(".page-body-content .service-table", {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
-      .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
+      .contains(serviceName, {
+        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
+      })
       .should("not.exist");
   });
 });
