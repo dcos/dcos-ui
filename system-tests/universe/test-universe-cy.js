@@ -270,12 +270,13 @@ describe("Universe", function() {
       .contains(serviceName)
       .get("a.table-cell-link-primary")
       .contains(serviceName)
-      .click();
+      .click({ force: true });
 
     // Click delete in the dropdown
     cy.get(".page-header-actions .dropdown")
       .click()
       .get(".dropdown-menu-items")
+      .scrollIntoView()
       .contains("Delete")
       .click();
 
