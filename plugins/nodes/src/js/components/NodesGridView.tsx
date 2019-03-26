@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 
-import NodesGridDials from "./NodesGridDials";
+const NodesGridDials = React.lazy(() => import("./NodesGridDials"));
 
 const MAX_SERVICES_TO_SHOW = 32;
 const OTHER_SERVICES_COLOR = 32;
@@ -108,13 +108,14 @@ export default class NodesGridView extends React.PureComponent<
     return (
       <div className="nodes-grid">
         <div className={classSet}>{this.getServicesList()}</div>
-
-        <NodesGridDials
-          hosts={(hosts as any).getItems()}
-          resourcesByFramework={resourcesByFramework}
-          selectedResource={selectedResource}
-          serviceColors={serviceColors}
-        />
+        <React.Suspense fallback={<Loader />}>
+          <NodesGridDials
+            hosts={(hosts as any).getItems()}
+            resourcesByFramework={resourcesByFramework}
+            selectedResource={selectedResource}
+            serviceColors={serviceColors}
+          />
+        </React.Suspense>
       </div>
     );
   }
