@@ -44,7 +44,7 @@ class ServiceStatusIcon extends Component {
       return this.getTooltip(
         <Trans render="span">
           DC/OS has been waiting for resources and is unable to complete this
-          deployment for {DateUtil.getDuration(timeWaiting, null)}.
+          deployment for {DateUtil.getDuration(timeWaiting)}.
         </Trans>
       );
     }
@@ -110,9 +110,9 @@ class ServiceStatusIcon extends Component {
         <Trans render="span">
           There are tasks in this queue that DC/OS has failed to deploy for{" "}
           {DateUtil.getDuration(
-            Date.now() - DateUtil.strToMs(service.getQueue().since),
-            null
-          )}.
+            Date.now() - DateUtil.strToMs(service.getQueue().since)
+          )}
+          .
         </Trans>
       );
     }

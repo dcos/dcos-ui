@@ -669,13 +669,13 @@ describe("JobModel Resolver", () => {
                     {
                       jobId: 1,
                       status: "foo",
-                      createdAt: "1985-01-03t00:00:00z-1",
+                      createdAt: "1985-01-03t00:00:00z",
                       tasks: []
                     },
                     {
                       jobId: 2,
                       status: "bar",
-                      createdAt: "1990-01-03t00:00:00z-1",
+                      createdAt: "1990-01-03t00:00:00z",
                       tasks: []
                     }
                   ]
