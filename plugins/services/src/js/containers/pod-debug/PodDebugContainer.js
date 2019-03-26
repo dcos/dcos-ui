@@ -85,8 +85,7 @@ class PodDebugTabView extends React.Component {
         headline = (
           <Trans render={<ConfigurationMapHeading level={2} />}>
             Terminated at {terminatedAt.toString()} (
-            <TimeAgo time={terminatedAt} />
-            )
+            <TimeAgo time={terminatedAt} />)
           </Trans>
         );
       }
@@ -215,7 +214,7 @@ class PodDebugTabView extends React.Component {
           message={
             <Trans render="span">
               DC/OS has been waiting for resources and is unable to complete
-              this deployment for {DateUtil.getDuration(timeWaiting, null)}.
+              this deployment for {DateUtil.getDuration(timeWaiting)}.
             </Trans>
           }
           primaryAction={
