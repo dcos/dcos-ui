@@ -18,12 +18,13 @@ COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 # Install required components & prepare environment
 RUN set -x \
   # Install aws-cli
+  && apt-get update \
+  && apt-get install -y curl \
   && pip install awscli --upgrade \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
   # Install cypress dependencies (required by Jenkins)
-  && apt-get update \
   && apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
   && apt-get clean \
   # Install System Tests dependencies
