@@ -11,7 +11,6 @@ import CompositeState from "#SRC/js/structs/CompositeState";
 import Loader from "#SRC/js/components/Loader";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
-import ResourceChart from "#SRC/js/components/charts/ResourceChart";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
@@ -133,23 +132,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
           </Trans>
         </div>
       </Page>
-    );
-  }
-
-  getCharts(itemType, item) {
-    if (!item) {
-      return null;
-    }
-
-    const states = MesosSummaryStore.get("states");
-    const resources = states[`getResourceStatesFor${itemType}IDs`]([item.id]);
-
-    return (
-      <div className="row">
-        <ResourceChart resourceName="cpus" resources={resources} />
-        <ResourceChart resourceName="mem" resources={resources} />
-        <ResourceChart resourceName="disk" resources={resources} />
-      </div>
     );
   }
 
