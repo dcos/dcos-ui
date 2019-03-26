@@ -21,6 +21,7 @@ import {
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
 import * as MetronomeClient from "./MetronomeClient";
+import getFixtureResponses from "../utils/getFixtureResponses";
 
 const MetronomeActions = {
   createJob(data) {
@@ -153,46 +154,49 @@ const MetronomeActions = {
 };
 
 if (Config.useFixtures) {
-  const jobFixture = require("../../../tests/_fixtures/metronome/job.json");
-  const jobsFixture = require("../../../tests/_fixtures/metronome/jobs.json");
+  const methodFixtureMapping = {
+    fetchJobDetail: import(/* webpackChunkName: "jobFixture" */ "../../../tests/_fixtures/metronome/job.json"),
+    fetchJobs: import(/* webpackChunkName: "jobsFixture" */ "../../../tests/_fixtures/metronome/jobs.json")
+  };
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
-  global.actionTypes.MetronomeActions = {
-    deleteJob: {
-      event: "success",
-      success: { response: {} }
-    },
-    fetchJobDetail: {
-      event: "success",
-      success: { response: jobFixture }
-    },
-    fetchJobs: {
-      event: "success",
-      success: { response: jobsFixture }
-    },
-    runJob: {
-      event: "success",
-      success: { response: {} }
-    },
-    stopJobRun: {
-      event: "success",
-      success: { response: {} }
-    },
-    updateSchedule: {
-      event: "success",
-      success: { response: {} }
-    }
-  };
-
-  Object.keys(global.actionTypes.MetronomeActions).forEach(function(method) {
-    MetronomeActions[method] = RequestUtil.stubRequest(
-      MetronomeActions,
-      "MetronomeActions",
-      method
+  Promise.all(
+    Object.keys(methodFixtureMapping).map(
+      method => methodFixtureMapping[method]
+    )
+  ).then(responses => {
+    global.actionTypes.MetronomeActions = Object.assign(
+      getFixtureResponses(methodFixtureMapping, responses),
+      {
+        deleteJob: {
+          event: "success",
+          success: { response: {} }
+        },
+        runJob: {
+          event: "success",
+          success: { response: {} }
+        },
+        stopJobRun: {
+          event: "success",
+          success: { response: {} }
+        },
+        updateSchedule: {
+          event: "success",
+          success: { response: {} }
+        }
+      }
     );
+
+    Object.keys(global.actionTypes.MetronomeActions).forEach(function(method) {
+      MetronomeActions[method] = RequestUtil.stubRequest(
+        MetronomeActions,
+        "MetronomeActions",
+        method
+      );
+    });
   });
 }
 

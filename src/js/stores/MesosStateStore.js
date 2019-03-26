@@ -324,26 +324,28 @@ class MesosStateStore extends GetSetBaseStore {
 }
 
 if (Config.useFixtures) {
-  const getMasterFixture = require("../../../tests/_fixtures/v1/get_master.json");
-  const subscribeFixture = require("../../../tests/_fixtures/v1/subscribe.js");
+  const getMasterFixture = import(/* getMasterFixture */ "../../../tests/_fixtures/v1/get_master.json");
+  const subscribeFixture = import(/* subscribeFixture */ "../../../tests/_fixtures/v1/subscribe.js");
 
   const { MesosStreamType } = require("../core/MesosStream");
 
   const oldRequest = request;
 
-  request = function(options, url) {
-    if (url === "/mesos/api/v1?get_master") {
-      console.log("Stub /mesos/api/v1?get_master");
+  Promise.all([getMasterFixture, subscribeFixture]).then(values => {
+    request = function(options, url) {
+      if (url === "/mesos/api/v1?get_master") {
+        console.log("Stub /mesos/api/v1?get_master");
 
-      return of(JSON.stringify(getMasterFixture));
-    }
+        return of(JSON.stringify(values[0]));
+      }
 
-    return oldRequest(options, request);
-  };
+      return oldRequest(options, request);
+    };
 
-  container
-    .rebind(MesosStreamType)
-    .toConstantValue(of(JSON.stringify(subscribeFixture)));
+    container
+      .rebind(MesosStreamType)
+      .toConstantValue(of(JSON.stringify(values[1])));
+  });
 }
 
 module.exports = new MesosStateStore();
