@@ -20,6 +20,7 @@ RUN set -x \
   # Install aws-cli
   && apk update \
   && apk add -y curl \
+  && apk add --update nodejs nodejs-npm \
   && pip install awscli --upgrade \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
