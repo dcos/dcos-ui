@@ -24,7 +24,7 @@ RUN set -x \
   && pip install awscli --upgrade \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
-  && npm install -g npm@${NPM_VERSION} \
+  && npm install -g --unsafe-perm npm@${NPM_VERSION} \
   # Install cypress dependencies (required by Jenkins)
   && apk add -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
   # Install System Tests dependencies
@@ -41,7 +41,7 @@ RUN set -x \
   && pip install 'six==1.10.0' \
   && pip install 'python-dateutil==2.6.0' \
   && pip install 'PyYAML==3.12' \
-  && npm install -g dogapi
+  && npm install -g --unsafe-perm dogapi
 
 # Define entrypoint
 ENTRYPOINT [ "/bin/bash", "/usr/local/bin/dcos-ui-docker-entrypoint" ]
