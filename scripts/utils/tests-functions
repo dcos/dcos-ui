@@ -125,10 +125,20 @@ function setup_integration {
     echo "==> ERROR: no dist folder! forgot npm run build?"
     exit 1
   fi
-  echo "==> Starting http-server, serving files from ./dist…"
-  npx http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist"&
-  PROXY_PID=$!
-  echo "===> done (PID: ${PROXY_PID})."
+
+  if [ -n "${CLUSTER_URL}" ]; then
+    echo "==> Starting http-server, proxying ${CLUSTER_URL}, serving files from ./dist…"
+    npx http-server -sp "${PROXY_PORT}" --proxy "${CLUSTER_URL}" "${PROJECT_ROOT}/dist"&
+    PROXY_PID=$!
+    CLUSTER_URL_PROXIED="${CLUSTER_URL}"
+    CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
+    echo "===> done (PID: ${PROXY_PID})."
+  else
+    echo "==> Starting http-server, serving files from ./dist…"
+    npx http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist"&
+    PROXY_PID=$!
+    echo "===> done (PID: ${PROXY_PID})."
+  fi
 
   ## Setup plugins if configured
   if [ -n "${PLUGINS_PATH}" ]; then
