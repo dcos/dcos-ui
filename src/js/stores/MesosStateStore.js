@@ -88,8 +88,8 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   subscribe() {
-    const mesosStream = container.get(MesosStreamType);
-    const getMasterRequest = request(
+    const mesos$ = container.get(MesosStreamType);
+    const masterRequest$ = request(
       { type: "GET_MASTER" },
       "/mesos/api/v1?get_master"
     ).pipe(
@@ -105,15 +105,15 @@ class MesosStateStore extends GetSetBaseStore {
     );
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
-    const dataStream = mesosStream.pipe(
-      merge(getMasterRequest),
+    const data$ = mesos$.pipe(
+      merge(masterRequest$),
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
       tap(state => this.setState(state))
     );
 
-    const waitStream = getMasterRequest.pipe(zip(mesosStream.pipe(take(1))));
-    const eventTriggerStream = dataStream.pipe(
+    const wait$ = masterRequest$.pipe(zip(mesos$.pipe(take(1))));
+    const eventTrigger$ = data$.pipe(
       merge(
         // A lot of DCOS UI rely on the MesosStateStore emitting
         // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
@@ -132,9 +132,9 @@ class MesosStateStore extends GetSetBaseStore {
     // Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-    this.stream = waitStream
+    this.stream = wait$
       .pipe(
-        concat(eventTriggerStream),
+        concat(eventTrigger$),
         sampleTime(Config.getRefreshRate() * 0.5),
         retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
       )
