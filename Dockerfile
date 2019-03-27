@@ -25,7 +25,7 @@ RUN set -x \
   && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
   && apk add --update nodejs nodejs-npm \
   # Install cypress dependencies
-  && apk add --no-cache git dumb-init curl make gcc g++ linux-headers binutils-gold gnupg libstdc++ nss libffi-dev openssl-dev \
+  && apk add --no-cache bash git dumb-init curl make gcc g++ linux-headers binutils-gold gnupg libstdc++ nss libffi-dev openssl-dev \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g --unsafe-perm npm@${NPM_VERSION} \
