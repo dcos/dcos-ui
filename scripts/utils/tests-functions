@@ -14,14 +14,36 @@ set -e
 function executeCypress {
   RECORD_VIDEO=${RECORD_VIDEO:-'true'}
 
+  if [ -n "${CLUSTER_URL}" ]; then
+    CYPRESS_ENV="CLUSTER_URL=${CLUSTER_URL}"
+  fi
+
+  if [ -n "${CLUSTER_AUTH_TOKEN}" ]; then
+    CYPRESS_ENV="${CYPRESS_ENV},CLUSTER_AUTH_TOKEN=${CLUSTER_AUTH_TOKEN}"
+  fi
+
+  if [ -n "${CLUSTER_AUTH_INFO}" ]; then
+    CYPRESS_ENV="${CYPRESS_ENV},CLUSTER_AUTH_INFO=${CLUSTER_AUTH_INFO}"
+  fi
+
+  if [ -n "${TEST_UUID}" ]; then
+    CYPRESS_ENV="${CYPRESS_ENV},TEST_UUID=${TEST_UUID}"
+  fi
+
+  if [ -n "${CYPRESS_ENV}" ]; then
+    CYPRESS_ENV="--env $CYPRESS_ENV"
+  fi
+
   npx cypress run \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
-    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO},videosFolder=${OUTPUT_PATH}/videos" \
+    --config "screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO},videosFolder=${OUTPUT_PATH}/videos,integrationFolder=${TESTS_FOLDER},supportFile=${TESTS_FOLDER}/_support" \
     --reporter junit \
+    ${CYPRESS_ENV:-""} \
     --reporter-options "mochaFile=${OUTPUT_PATH}/result.xml"
 }
+
 
 # runs tests for matched file
 #
@@ -38,9 +60,25 @@ function runTestFile {
     # Record video only on the 3rd run, videos are heavy
     local RECORD_VIDEO=$([ "$RUN" == 3 ] && echo "true" || echo "false")
 
+
+    if [ -f "$(dirname "${PROJECT_ROOT}/${TESTS_FOLDER}/${RELATIVE_PATH}")/_scripts/setup" ]; then
+      echo "==> Running setup script"
+      $(dirname "${PROJECT_ROOT}/${TESTS_FOLDER}/${RELATIVE_PATH}")/_scripts/setup
+    fi
+
+    # TODO: env vars for cypress
     echo "===> Executing Cypress (${RUN}/${RETRIES})"
-    CYOUT="$(FILE="${PROJECT_ROOT}/tests/${RELATIVE_PATH}" RUN=${RUN} OUTPUT_PATH=${OUTPUT_PATH} RECORD_VIDEO=${RECORD_VIDEO} executeCypress)"
+    CYOUT="$(FILE="${PROJECT_ROOT}/${TESTS_FOLDER}/${RELATIVE_PATH}" \
+              RUN=${RUN} \
+              OUTPUT_PATH="${OUTPUT_PATH}" \
+              RECORD_VIDEO=${RECORD_VIDEO} \
+              executeCypress)"
     EXIT_CODE=$?
+
+    if [ -f "$(dirname "${PROJECT_ROOT}/${TESTS_FOLDER}/${RELATIVE_PATH}")/_scripts/teardown" ]; then
+      echo "==> Running teardown script"
+      $(dirname "${PROJECT_ROOT}/${TESTS_FOLDER}/${RELATIVE_PATH}")/_scripts/teardown
+    fi
 
     if [ $EXIT_CODE -eq 0 ]; then
       report "$RELATIVE_PATH" "success"
@@ -128,7 +166,7 @@ function setup_integration {
 
   if [ -n "${CLUSTER_URL}" ]; then
     echo "==> Starting http-server, proxying ${CLUSTER_URL}, serving files from ./dist…"
-    npx http-server -sp "${PROXY_PORT}" --proxy "${CLUSTER_URL}" "${PROJECT_ROOT}/dist"&
+    npx http-server -sp "${PROXY_PORT}" --proxy "${CLUSTER_URL}" --proxy-secure=false "${PROJECT_ROOT}/dist"&
     PROXY_PID=$!
     CLUSTER_URL_PROXIED="${CLUSTER_URL}"
     CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
@@ -140,6 +178,7 @@ function setup_integration {
     echo "===> done (PID: ${PROXY_PID})."
   fi
 
+  # TODO: how to do this for system tests?
   ## Setup plugins if configured
   if [ -n "${PLUGINS_PATH}" ]; then
     setup_plugins
