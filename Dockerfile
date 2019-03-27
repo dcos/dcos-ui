@@ -19,16 +19,19 @@ COPY scripts/docker-entrypoint /usr/local/bin/dcos-ui-docker-entrypoint
 RUN set -x \
   # Install aws-cli
   && apk update \
-  && apk add -y curl \
+  && apk upgrade \
+  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" > /etc/apk/repositories \
+  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
   && apk add --update nodejs nodejs-npm \
-  && pip install awscli --upgrade \
+  # Install cypress dependencies
+  && apk add --no-cache git dumb-init curl make gcc g++ linux-headers binutils-gold gnupg libstdc++ nss libffi-dev openssl-dev \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g --unsafe-perm npm@${NPM_VERSION} \
-  # Install cypress dependencies (required by Jenkins)
-  && apk add -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
   # Install System Tests dependencies
   # Install dcos-launch
+  && pip install awscli --upgrade \
   && pip install git+git://github.com/dcos/dcos-test-utils@5361c8623cd0751f9312cf79b66dde6f09da1e74\
   && pip install git+git://github.com/dcos/dcos-launch.git@4a2515f4819f0a7efc051eb5ad2c5ceb34da5975 \
   && chmod +x /usr/local/bin/dcos-launch \
@@ -37,10 +40,6 @@ RUN set -x \
   # Make sure bash is the default shell
   && rm /bin/sh \
   && ln -sf /bin/bash /bin/sh \
-  # Fix system tests as long as upstream dependency has errors
-  && pip install 'six==1.10.0' \
-  && pip install 'python-dateutil==2.6.0' \
-  && pip install 'PyYAML==3.12' \
   && npm install -g --unsafe-perm dogapi
 
 # Define entrypoint
