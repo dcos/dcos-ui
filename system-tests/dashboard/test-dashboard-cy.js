@@ -96,8 +96,7 @@ describe("Dashboard", function() {
       const serviceName = serviceDefinition.id.substring(
         serviceDefinition.id.lastIndexOf("/") + 1
       );
-      cy
-        .get(".panel-header")
+      cy.get(".panel-header")
         .contains("Services Status")
         .parents(".panel")
         .find("li")
@@ -178,8 +177,7 @@ describe("Dashboard", function() {
       const serviceName = serviceDefinition.id.substring(
         serviceDefinition.id.lastIndexOf("/") + 1
       );
-      cy
-        .get(".panel-header")
+      cy.get(".panel-header")
         .contains("Services Status")
         .parents(".panel")
         .contains(serviceName)
