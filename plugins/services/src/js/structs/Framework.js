@@ -12,7 +12,7 @@ import ServiceStatus from "../constants/ServiceStatus";
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
-const frameworkStatusHelper = (displayName, key, priority = 0) => ({
+const frameworkStatusHelper = (displayName, key, priority) => ({
   displayName,
   key,
   priority
@@ -32,9 +32,22 @@ const FrameworkStatus = {
   420: frameworkStatusHelper("Backing up",                      ServiceStatus.RECOVERING, 5),
   421: frameworkStatusHelper("Restoring",                       ServiceStatus.RECOVERING, 5),
   426: frameworkStatusHelper("Upgrade / Rollback / Downgrade",  ServiceStatus.DEPLOYING,  6),
-  503: frameworkStatusHelper("Service Unavailable",             ServiceStatus.STOPPED)
+  503: frameworkStatusHelper("Service Unavailable",             ServiceStatus.STOPPED,    0)
 };
 /* eslint-enable */
+
+const taskToStatus = task =>
+  FrameworkStatus[
+    findNestedPropertyInObject(task, "checkResult.http.statusCode")
+  ];
+
+const getHighestPriorityStatus = tasks => {
+  const statuses = tasks.map(taskToStatus).filter(x => x);
+
+  return statuses.length !== 0
+    ? statuses.reduce((acc, cur) => (cur.priority > acc.priority ? cur : acc))
+    : null;
+};
 
 module.exports = class Framework extends Application {
   constructor() {
@@ -92,68 +105,22 @@ module.exports = class Framework extends Application {
     return this._spec;
   }
 
-  getCheckStatus() {
-    const tasks = this.get("tasks") || [];
-    const checkStatus = tasks.reduce((acc, cur = {}) => {
-      if (cur.checkResult != null) {
-        const curStatusCode = findNestedPropertyInObject(
-          cur,
-          "checkResult.http.statusCode"
-        );
-        const accStatusCode =
-          findNestedPropertyInObject(acc, "checkResult.http.statusCode") ||
-          null;
-        const curPriority =
-          (FrameworkStatus[curStatusCode] &&
-            FrameworkStatus[curStatusCode].priority) ||
-          0;
-        const accPriority =
-          (FrameworkStatus[accStatusCode] &&
-            FrameworkStatus[accStatusCode].priority) ||
-          0;
-        if (curPriority > accPriority) {
-          return cur;
-        }
-      }
-
-      return acc;
-    }, false);
-
-    if (checkStatus == null) {
-      return false;
-    }
-
-    return checkStatus;
-  }
-
   /**
    * @override
    */
   getStatus() {
-    const checkStatus = this.getCheckStatus();
-    const statusCode = findNestedPropertyInObject(
-      checkStatus,
-      "checkResult.http.statusCode"
-    );
+    const status = getHighestPriorityStatus(this.get("tasks") || []);
 
-    return checkStatus
-      ? FrameworkStatus[statusCode].displayName
-      : super.getStatus();
+    return status !== null ? status.displayName : super.getStatus();
   }
 
   /**
    * @override
    */
   getServiceStatus() {
-    const checkStatus = this.getCheckStatus();
-    const statusCode = findNestedPropertyInObject(
-      checkStatus,
-      "checkResult.http.statusCode"
-    );
+    const status = getHighestPriorityStatus(this.get("tasks") || []);
 
-    return checkStatus
-      ? FrameworkStatus[statusCode].key
-      : super.getServiceStatus();
+    return status !== null ? status.key : super.getServiceStatus();
   }
 
   getTasksSummary() {
