@@ -36,6 +36,6 @@
       "#PLUGINS/*": ["plugins/*"]
     }
   },
-  "include": ["src/**/*", "packages/**/*", "plugins/**/*"],
+  "include": ["src/**/*", "packages/**/*", "plugins/**/*", "../dcos-ui-plugins-private/**/*"],
   "exclude": ["node_modules", "src/styles/**/*"]
 }
