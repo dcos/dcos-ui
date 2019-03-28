@@ -18,6 +18,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import { FormOutput, FormError, RestartPolicy } from "./helpers/JobFormData";
 import { getFieldError } from "./helpers/ErrorUtil";
+import { JobDataPlaceholders } from "./helpers/DefaultFormData";
 
 interface RunConfigSectionProps {
   formData: FormOutput;
@@ -89,6 +90,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
                 type="number"
                 name="job.run.maxLaunchDelay"
                 value={formData.maxLaunchDelay}
+                placeholder={JobDataPlaceholders.maxLaunchDelay}
               />
               <FieldHelp>
                 <Trans render="span">Enter in seconds</Trans>
@@ -210,6 +212,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
                       name={`uri.${i}.artifacts`}
                       type="text"
                       value={artifact.uri}
+                      placeholder="http://www.artifact.com"
                     />
                   </FieldAutofocus>
                 </FormGroup>

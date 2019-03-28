@@ -7,6 +7,12 @@ import {
   UcrImageKind
 } from "./JobFormData";
 
+export const JobDataPlaceholders = {
+  maxLaunchDelay: 3600,
+  timezone: "UTC",
+  startingDeadlineSeconds: 900
+};
+
 export const getDefaultJob = (): JobFormData => ({
   id: "",
   description: "",
