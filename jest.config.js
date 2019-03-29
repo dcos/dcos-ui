@@ -27,8 +27,7 @@ module.exports = {
   roots,
   transform: {
     "^.+\\.jsx?$": "babel-jest",
-    "^.+\\.tsx?$": "ts-jest",
-    "^.+\\.jison?$": "./jest/jison.js"
+    "^.+\\.tsx?$": "ts-jest"
   },
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
