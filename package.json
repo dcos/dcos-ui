@@ -150,7 +150,6 @@
     "image-webpack-loader": "4.6.0",
     "jasmine-reporters": "2.3.2",
     "jest-cli": "22.4.0",
-    "jison-loader": "1.0.0",
     "junit-merge": "1.3.0",
     "less": "2.7.3",
     "less-loader": "4.0.5",

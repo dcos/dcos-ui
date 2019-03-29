@@ -65,7 +65,7 @@ module.exports = {
     ]
   },
   node: {
-    fs: "empty" // Jison loader fails otherwise
+    fs: "empty" // Jison-generated files fail otherwise
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
@@ -167,10 +167,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.jison$/,
-        loader: "jison-loader"
       },
       {
         test: /\.raml$/,

@@ -1,4 +1,4 @@
-import SearchDSL from "../../resources/grammar/SearchDSL.jison";
+import SearchDSL from "../../resources/grammar/SearchDSL";
 
 /**
  * This is a high-level compnent that wraps
