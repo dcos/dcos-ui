@@ -7,6 +7,8 @@
       {
         "root": ["./src"],
         "alias": {
+          // specifying @extension-kid/core here first, as it is the special case being
+          // outside of this repo.
           "@extension-kid/core": "./node_modules/@extension-kid/core",
           "@extension-kid": "./packages/@extension-kid",
           "PluginSDK": "./src/js/plugin-bridge/PluginSDK",
