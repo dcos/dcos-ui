@@ -20,7 +20,6 @@ import zh from "#LOCALE/zh/messages.js";
 // TODO - DCOS-6452 - remove component @imports from index.less and
 // require them in the component.js
 import "../styles/index.less";
-import "./utils/MomentJSConfig";
 import { CONFIG_ERROR, LANGUAGE_MODAL_CLOSE } from "./constants/EventTypes";
 import ApplicationUtil from "./utils/ApplicationUtil";
 import appRoutes from "./routes/index";

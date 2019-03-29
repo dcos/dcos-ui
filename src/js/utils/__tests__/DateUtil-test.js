@@ -63,7 +63,7 @@ describe("DateUtil", function() {
       date.setYear(date.getFullYear() - 1);
       const result = DateUtil.msToRelativeTime(date.getTime());
 
-      expect(result).toEqual("a year ago");
+      expect(result).toEqual("1 year ago");
     });
 
     it("suppresses the suffix if specified", function() {
@@ -71,7 +71,7 @@ describe("DateUtil", function() {
       date.setYear(date.getFullYear() - 1);
       const result = DateUtil.msToRelativeTime(date.getTime(), true);
 
-      expect(result).toEqual("a year");
+      expect(result).toEqual("1 year");
     });
 
     it('returns "in a year" if the date in a year from now', function() {
@@ -79,7 +79,7 @@ describe("DateUtil", function() {
       date.setYear(date.getFullYear() + 1);
       const result = DateUtil.msToRelativeTime(date);
 
-      expect(result).toEqual("in a year");
+      expect(result).toEqual("in 1 year");
     });
   });
 

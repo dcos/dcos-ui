@@ -4,7 +4,6 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
-import moment from "moment";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -22,6 +21,7 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import JobStopRunModal from "#SRC/js/components/modals/JobStopRunModal";
 import TimeAgo from "#SRC/js/components/TimeAgo";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 const columnClasses = {
   checkbox: "job-run-history-table-column-checkbox",
@@ -337,7 +337,7 @@ class JobRunHistoryTable extends React.Component {
       return <Trans render="div">N/A</Trans>;
     }
     // L10NTODO: Relative time
-    const runTimeFormat = moment.duration(time).humanize();
+    const runTimeFormat = DateUtil.getDuration(time);
 
     return <div>{runTimeFormat}</div>;
   }
