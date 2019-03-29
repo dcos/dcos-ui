@@ -35,9 +35,9 @@ pipeline {
           usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
         ]) {
           // Clone the repository again with a full git clone
-          sh "rm -rf {.*,*} || ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
+          sh "rm -rfv .* || ls -la ; rm -rfv ./* || ls -la && ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
         }
-        sh "git fetch"
+        sh "git fetch -a"
         sh 'git checkout "$([ -z "$CHANGE_BRANCH" ] && echo $BRANCH_NAME || echo $CHANGE_BRANCH )"'
 
         sh '[ -n "$CHANGE_TARGET" ] && git rebase origin/${CHANGE_TARGET} || echo "on release branch"'
@@ -63,7 +63,7 @@ pipeline {
       }
     }
 
-    stage("Tests") {
+    stage("Test") {
       parallel {
         stage("Integration Test") {
           environment {
@@ -98,17 +98,32 @@ pipeline {
                 secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
               ]
             ]) {
-              retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
-              }
+              sh '''
+                ./system-tests/_scripts/launch-cluster.sh
+                export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+                export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
+                export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
+                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+                npm run test:system
+              '''
             }
           }
+        }
+      }
 
-          post {
-            always {
-              archiveArtifacts "results/**/*"
-              junit "results/results.xml"
-            }
+      post {
+        always {
+          archiveArtifacts "results/**/*"
+          junit "results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./system-tests/_scripts/delete-cluster.sh"
           }
         }
       }
