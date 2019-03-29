@@ -144,6 +144,9 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
         formData={formData}
         formErrors={formErrors}
         defaultConfigWarning={defaultConfigWarning}
+        onCosmosPackagesStoreServiceUpdateError={this.onCosmosPackagesStoreServiceUpdateError.bind(
+          this
+        )}
       />
     );
   }
