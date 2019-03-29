@@ -4,11 +4,6 @@ const LessColorLighten = require("less-color-lighten");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-function requireAll(array) {
-  // https://stackoverflow.com/a/34574630/1559386
-  return array.map(require.resolve);
-}
-
 const devServer = {
   open: false,
   overlay: true,
@@ -29,6 +24,15 @@ if (process.env.NODE_ENV === "testing") {
   };
   devServer.proxy = {};
 }
+
+const babelLoader = {
+  loader: "babel-loader",
+  options: {
+    cacheDirectory: true,
+    // babel-loader does not load the projects babel-config by default for some reason.
+    babelrc: true
+  }
+};
 
 module.exports = {
   devServer,
@@ -70,7 +74,7 @@ module.exports = {
     }),
     new EnvironmentPlugin(["NODE_ENV"]),
     new DefinePlugin({
-      "process.env.LATER_COV": false
+      "process.env.LATER_COV": false // prettycron fails otherwise
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
@@ -98,9 +102,8 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: "babel-loader"
-          },
+          // we currently need babel here, as lingui relies on babel-transforms.
+          babelLoader,
           {
             loader: "ts-loader",
             options: {
@@ -112,19 +115,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: true,
-              presets: requireAll([
-                "babel-preset-env",
-                "babel-preset-stage-3",
-                "babel-preset-react"
-              ])
-            }
-          }
-        ]
+        use: [babelLoader]
       },
       {
         test: /\.(svg|png|jpg|gif|ico|icns)$/,
