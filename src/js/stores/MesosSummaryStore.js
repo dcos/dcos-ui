@@ -181,6 +181,16 @@ class MesosSummaryStore extends GetSetBaseStore {
     return lastRequestTime + Config.getRefreshRate();
   }
 
+  getLastSuccessfulSummarySnapshot() {
+    const states = this.get("states");
+    let lastSuccessful = null;
+    if (states) {
+      lastSuccessful = states.lastSuccessful().snapshot;
+    }
+
+    return lastSuccessful;
+  }
+
   processSummary(data, options = {}) {
     // If request to Mesos times out we get an empty Object
     if (!Object.keys(data).length) {
