@@ -4,9 +4,9 @@ var EventEmitter = require("events").EventEmitter;
 
 // Tests should just mock responses for the json API
 // so let's just default to a noop
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+const { RequestUtil } = require("mesosphere-shared-reactjs");
 
-RequestUtil.json = function() {};
+RequestUtil.json = _ => {};
 
 // jsdom doesn't have support for requestAnimationFrame so we polyfill it.
 // https://gist.github.com/paulirish/1579671
