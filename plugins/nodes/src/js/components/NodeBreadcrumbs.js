@@ -5,9 +5,9 @@ import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icon
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
-import CompositeState from "#SRC/js/structs/CompositeState";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import UnitHealthStore from "#SRC/js/stores/UnitHealthStore";
+import { useNode } from "#SRC/js/stores/MesosHooks";
 
 const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
   const trimmedNodeID = decodeURIComponent(nodeID).replace(/^\//, "");
@@ -19,22 +19,16 @@ const NodeBreadcrumbs = ({ nodeID, taskID, taskName, unitID }) => {
       </BreadcrumbTextContent>
     </Breadcrumb>
   ];
-  let node;
+  const node = useNode(nodeID);
 
-  if (nodeID != null && trimmedNodeID.length > 0) {
-    node = CompositeState.getNodesList()
-      .filter({ ids: [nodeID] })
-      .last();
-
-    if (node) {
-      crumbs.push(
-        <Breadcrumb key="hostname" title={node.hostname}>
-          <BreadcrumbTextContent>
-            <Link to={`/nodes/${encodedNodeID}`}>{node.hostname}</Link>
-          </BreadcrumbTextContent>
-        </Breadcrumb>
-      );
-    }
+  if (node) {
+    crumbs.push(
+      <Breadcrumb key="hostname" title={node.hostname}>
+        <BreadcrumbTextContent>
+          <Link to={`/nodes/${encodedNodeID}`}>{node.hostname}</Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
+    );
   }
 
   if (taskID != null && taskName != null) {
