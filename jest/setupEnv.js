@@ -14,23 +14,19 @@ RequestUtil.json = _ => {};
  * We are in this case mocking the EventSource, since it is not supported in
  * Jest.
  */
-(function() {
-  global.EventSource = function() {
-    var eventEmitter = Object.create(EventEmitter.prototype);
+global.EventSource = () => {
+  const eventEmitter = Object.create(EventEmitter.prototype);
 
-    // Transfer functionality from EventEmitter to our fake EventSource object
-    var fakeEventSource = {
-      addEventListener: eventEmitter.addListener,
-      close: eventEmitter.removeAllListeners,
-      dispatchEvent: eventEmitter.emit,
-      removeEventListener: eventEmitter.removeListener
-    };
-
-    return fakeEventSource;
+  // Transfer functionality from EventEmitter to our fake EventSource object
+  return {
+    addEventListener: eventEmitter.addListener,
+    close: eventEmitter.removeAllListeners,
+    dispatchEvent: eventEmitter.emit,
+    removeEventListener: eventEmitter.removeListener
   };
+};
 
-  // Constants available on EventSource
-  global.EventSource.CONNECTING = 0;
-  global.EventSource.OPEN = 1;
-  global.EventSource.CLOSED = 2;
-})();
+// Constants available on EventSource
+global.EventSource.CONNECTING = 0;
+global.EventSource.OPEN = 1;
+global.EventSource.CLOSED = 2;
