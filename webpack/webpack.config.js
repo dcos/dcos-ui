@@ -46,19 +46,10 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
-      PluginSDK: path.resolve(__dirname, "../src/js/plugin-bridge/PluginSDK"),
-      PluginTestUtils: path.resolve(
-        __dirname,
-        "../src/js/plugin-bridge/PluginTestUtils"
-      ),
       "#EXTERNAL_PLUGINS": path.resolve(
         __dirname,
         `../${process.env.npm_config_externalplugins || "../plugins"}`
-      ),
-      "#PLUGINS": path.resolve(__dirname, "../plugins"),
-      "#SRC": path.resolve(__dirname, "../src"),
-      "#LOCALE": path.resolve(__dirname, "../locale"),
-      "#TESTS": path.resolve(__dirname, "../tests")
+      )
     },
     modules: [
       // include packages

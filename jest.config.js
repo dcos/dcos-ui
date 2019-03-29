@@ -49,26 +49,19 @@ module.exports = {
       useBabelrc: true
     }
   },
-  // TODO: split up transforms
   transform: {
+    "^.+\\.jsx?$": "babel-jest",
     "^.+\\.tsx?$": "ts-jest",
-    ".*": "./jest/preprocessor.js"
+    "^.+\\.jison?$": "./jest/jison.js"
   },
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
-  testRegex: "/__tests__/.*\\-test\\.(es6|js|ts)$",
-  moduleFileExtensions: ["js", "json", "es6", "ts", "tsx"],
+  testRegex: "/__tests__/.*\\-test\\.(js|ts)$",
+  moduleFileExtensions: ["js", "json", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
-    "@extension-kid/notification-service":
-      "<rootDir>/packages/@extension-kid/notification-service",
-    "@extension-kid/toast-notifications":
-      "<rootDir>/packages/@extension-kid/toast-notifications",
-    "@extension-kid/data-layer": "<rootDir>/packages/@extension-kid/data-layer",
-    "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
-    "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
-    "#LOCALE/([^\\.]*)$": "<rootDir>/locale/$1",
-    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"
+    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1",
+    "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.js"
   },
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],
