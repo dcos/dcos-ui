@@ -4,7 +4,7 @@
     "CLUSTER_URL": "http://localhost:4200",
     "FULL_INTEGRATION_TEST": false
   },
-  "fixturesFolder": "tests/_fixtures",
+
   "integrationFolder": "tests",
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
   "supportFile": "tests/_support",
