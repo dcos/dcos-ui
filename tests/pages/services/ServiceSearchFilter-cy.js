@@ -11,10 +11,18 @@ describe("Service Search Filters", function() {
     });
 
     it("filters correctly on search string", function() {
-      cy.get("tbody tr").should("to.have.length", 6);
+      cy.get(
+        ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
+      )
+        .children()
+        .should("to.have.length", 4);
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("unhealthy");
-      cy.get("tbody tr").should("to.have.length", 3);
+      cy.get(
+        ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
+      )
+        .children()
+        .should("to.have.length", 1);
     });
 
     it("sets the correct search string filter query params", function() {
@@ -40,7 +48,11 @@ describe("Service Search Filters", function() {
         const searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter)).to.equal("q=");
       });
-      cy.get("tbody tr").should("to.have.length", 6);
+      cy.get(
+        ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
+      )
+        .children()
+        .should("to.have.length", 4);
     });
   });
 });

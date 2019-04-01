@@ -52,12 +52,12 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
         .click();
@@ -184,7 +184,7 @@ describe("Services", function() {
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
@@ -338,12 +338,12 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
         .click();
@@ -461,7 +461,7 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table", {
+      cy.get(".page-body-content .service-table", {
         timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
       })
         .contains(serviceName, {
@@ -469,8 +469,8 @@ describe("Services", function() {
         })
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
         .click();
@@ -579,12 +579,12 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName)
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
         .click();
@@ -694,12 +694,12 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName)
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
         .click();
@@ -834,12 +834,12 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName)
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(`${serviceName}`)
         .click();
@@ -970,17 +970,17 @@ describe("Services", function() {
         .contains("Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName)
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .should("exist");
 
       // Now click on the name
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();
@@ -1087,7 +1087,7 @@ describe("Services", function() {
         .contains("button", "Run Service")
         .click({ timeout: Timeouts.ANIMATION_TIMEOUT });
 
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist")
         .as("serviceName");
@@ -1098,8 +1098,8 @@ describe("Services", function() {
         .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .should("exist");
 
       cy.contains(serviceName).click();

@@ -11,7 +11,7 @@ import StatusIcon from "#SRC/js/constants/StatusIcon";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";

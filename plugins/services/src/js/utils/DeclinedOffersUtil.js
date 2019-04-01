@@ -2,7 +2,7 @@ import DateUtil from "#SRC/js/utils/DateUtil";
 import Util from "#SRC/js/utils/Util";
 
 import DeclinedOffersReasons from "../constants/DeclinedOffersReasons";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 const DEPLOYMENT_WARNING_DELAY_MS = 1000 * 60 * 5;
 const UNAVAILABLE_TEXT = "N/A";

@@ -20,7 +20,7 @@ import MarathonActions from "../../events/MarathonActions";
 import Pod from "../../structs/Pod";
 import PodInstancesView from "./PodInstancesView";
 import PodUtil from "../../utils/PodUtil";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import TaskModals from "../../components/modals/TaskModals";
 import InstanceUtil from "../../utils/InstanceUtil";
 import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";

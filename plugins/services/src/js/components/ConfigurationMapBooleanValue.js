@@ -5,7 +5,7 @@ import { i18nMark } from "@lingui/react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a boolean value as a <ConfigurationMapValue>, with it's values being

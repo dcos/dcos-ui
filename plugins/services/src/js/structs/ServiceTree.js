@@ -8,7 +8,7 @@ import HealthStatus from "../constants/HealthStatus";
 import Pod from "./Pod";
 import Service from "./Service";
 import ServiceOther from "../constants/ServiceOther";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 import VolumeList from "../structs/VolumeList";
