@@ -739,7 +739,7 @@
   "Region": "区域",
   "Regions": "区域",
   "Registered": "已注册",
-  "Rejected offer analysis is not currently supported for {frameworkName}.": "目前不支持已拒绝 offer 分析 {frameworkName}。",
+  "Rejected offer analysis is not currently supported for {frameworkName} .": "目前不支持已拒绝 offer 分析 {frameworkName}。",
   "Rejected offer analysis is not currently supported.": "目前不支持已拒绝 offer 分析 。",
   "Reload": "",
   "Remove": "移除",
