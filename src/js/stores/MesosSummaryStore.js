@@ -195,7 +195,7 @@ class MesosSummaryStore extends GetSetBaseStore {
       data.date = lastRequestTime;
     }
 
-    CompositeState.addSummary(data);
+    CompositeState.addState(data);
 
     states.addSnapshot(data, data.date);
 
