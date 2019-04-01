@@ -6,10 +6,10 @@
             "ip": 1694826506,
             "port": 5050,
             "pid": "master@10.0.5.101:5050",
-            "hostname": "10.0.5.101",
+            "hostname": "dcos-0",
             "version": "1.5.0",
             "address": {
-                "hostname": "10.0.5.101",
+                "hostname": "dcos-0",
                 "ip": "10.0.5.101",
                 "port": 5050
             },

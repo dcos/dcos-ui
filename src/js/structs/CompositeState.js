@@ -103,13 +103,6 @@ class CompositeState {
     this.data = mergeData(data, this.data);
   }
 
-  addSummary(data) {
-    if (this._isDisabled()) {
-      return;
-    }
-    this.data = mergeData(data, this.data);
-  }
-
   getServiceList() {
     return new ServicesList({
       items: this.data.frameworks
