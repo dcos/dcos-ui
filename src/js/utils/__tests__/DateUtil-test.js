@@ -84,8 +84,24 @@ describe("DateUtil", function() {
   });
 
   describe("#strToMs", function() {
-    it("returns value of date in ms", function() {
+    it("returns value of date in ms (1)", function() {
       expect(DateUtil.strToMs("1990-01-03T00:00:00Z-1")).toEqual(631324800000);
+    });
+    it("returns value of date in ms (2)", function() {
+      expect(DateUtil.strToMs("1990-01-03t00:00:00z-1")).toEqual(631324800000);
+    });
+    it("returns value of date in ms (3)", function() {
+      expect(DateUtil.strToMs("1990-01-03T00:00:00Z")).toEqual(631324800000);
+    });
+    it("returns value of date in ms (4)", function() {
+      expect(DateUtil.strToMs("1990-01-03t00:00:00z")).toEqual(631324800000);
+    });
+
+    it("returns null if called with something other then string (int)", function() {
+      expect(DateUtil.strToMs(0)).toEqual(null);
+    });
+    it("returns null if called with something other then string (array)", function() {
+      expect(DateUtil.strToMs([])).toEqual(null);
     });
 
     it("returns null if the string is undefined or null", function() {
