@@ -44,7 +44,7 @@ pipeline {
         sh 'git checkout "$([ -z "$CHANGE_BRANCH" ] && echo $BRANCH_NAME || echo $CHANGE_BRANCH )"'
 
         // when on PR rebase to target
-        sh '[ -n "$CHANGE_TARGET" ] && git rebase origin/${CHANGE_TARGET} || echo "on release branch"'
+        sh '[ -z "$CHANGE_TARGET" ] && echo "on release branch" || git rebase origin/${CHANGE_TARGET}'
 
         // jenkins seem to have this variable set for no reason, explicitly removing it…
         sh "npm config delete externalplugins"
