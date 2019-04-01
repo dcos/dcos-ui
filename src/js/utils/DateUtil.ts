@@ -131,13 +131,15 @@ const DateUtil = {
   },
 
   strToMs(str: string | null): number | null {
-    if (str == null) {
+    if (str == null || typeof str !== "string") {
       return null;
     }
 
+    const dateStr = str.toUpperCase();
+
     return (
-      getTime(str) ||
-      getTime(format(new Date(str).toISOString(), "YYYY-MM-DDTHH:mm:ssZ"))
+      getTime(dateStr) ||
+      getTime(format(new Date(dateStr).toISOString(), "YYYY-MM-DDTHH:mm:ssZ"))
     );
   },
 
