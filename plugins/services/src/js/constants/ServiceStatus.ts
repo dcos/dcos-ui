@@ -1,7 +1,23 @@
 import ServiceStatusLabels from "./ServiceStatusLabels";
 import ServiceStatusTypes from "./ServiceStatusTypes";
 
-var SERVICE_STATUS = {
+interface ServiceStatusType {
+  key: number;
+  displayName: string;
+}
+
+interface ServiceStatusInterface {
+  RUNNING: ServiceStatusType;
+  DEPLOYING: ServiceStatusType;
+  STOPPED: ServiceStatusType;
+  NA: ServiceStatusType;
+  DELAYED: ServiceStatusType;
+  WAITING: ServiceStatusType;
+  DELETING: ServiceStatusType;
+  RECOVERING: ServiceStatusType;
+}
+
+var ServiceStatus: ServiceStatusInterface = {
   RUNNING: {
     key: ServiceStatusTypes.RUNNING,
     displayName: ServiceStatusLabels.RUNNING
@@ -36,4 +52,5 @@ var SERVICE_STATUS = {
   }
 };
 
-module.exports = SERVICE_STATUS;
+module.exports = ServiceStatus;
+export default ServiceStatus;

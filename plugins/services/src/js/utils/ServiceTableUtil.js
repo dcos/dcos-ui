@@ -1,8 +1,11 @@
 import compareVersions from "compare-versions";
+import sort from "array-sort";
 
 import StatusSorting from "../constants/StatusSorting";
 import Framework from "../structs/Framework";
+/* eslint-disable no-unused-vars */
 import ServiceTree from "../structs/ServiceTree";
+/* eslint-enable no-unused-vars */
 import FrameworkUtil from "./FrameworkUtil";
 
 /**
@@ -106,6 +109,14 @@ function taskCompareFunction(a, b) {
  * is the same as "b" in sort order.
  */
 function statusCompareFunction(a, b) {
+  // needed because the constant is NA and not N/A
+  if (a.getServiceStatus().displayName === "N/A") {
+    a.getServiceStatus().displayName = "NA";
+  }
+  if (b.getServiceStatus().displayName === "N/A") {
+    b.getServiceStatus().displayName = "NA";
+  }
+
   return numberCompareFunction(
     StatusSorting[a.getServiceStatus().displayName],
     StatusSorting[b.getServiceStatus().displayName]
@@ -182,11 +193,6 @@ function versionCompareFunction(a, b) {
   );
 }
 
-/**
- * Get service table prop compare functions
- * @param {string} prop
- * @returns {function} prop compare function
- */
 function getCompareFunctionByProp(prop) {
   switch (prop) {
     case "name":
@@ -216,29 +222,18 @@ function getCompareFunctionByProp(prop) {
 
 const ServiceTableUtil = {
   /**
-   * Create service table prop compare functions
+   * Get service table prop compare functions
+   * @param {array} data
+   * @param {string} sortDirection
    * @param {string} prop
-   * @param {string} [direction]
    * @returns {function} prop compare function
    */
-  propCompareFunctionFactory(prop, direction) {
+  sortData(data, sortDirection, prop) {
     const compareFunction = getCompareFunctionByProp(prop);
-    let score = 1;
+    const comparators = [compareFunction];
+    const reverse = sortDirection !== "ASC";
 
-    if (direction === "desc") {
-      score = -1;
-    }
-
-    return function(a, b) {
-      // Hoist service trees to the top
-      if (a instanceof ServiceTree && !(b instanceof ServiceTree)) {
-        return score * -1;
-      } else if (b instanceof ServiceTree && !(a instanceof ServiceTree)) {
-        return score;
-      }
-
-      return compareFunction(a, b);
-    };
+    return sort(data, comparators, { reverse });
   },
 
   getFormattedVersion

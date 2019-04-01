@@ -83,13 +83,13 @@ describe("Services", function() {
         .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content table")
+      cy.get(".page-body-content .service-table")
         .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
         .should("exist");
 
       // Now click on the name
-      cy.get(".page-body-content table")
-        .getTableRowThatContains(serviceName)
+      cy.get(".page-body-content .service-table")
+        .contains(serviceName)
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click();

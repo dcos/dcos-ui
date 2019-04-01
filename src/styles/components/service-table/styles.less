@@ -10,6 +10,16 @@
   .service-table {
     table-layout: fixed;
 
+    .service-breadcrumb {
+      display: inline-grid;
+
+      .table-cell-link-secondary {
+        color: inherit;
+        font-size: 12px;
+        text-decoration: inherit;
+      }
+    }
+
     &-column {
 
       &-cpus,
@@ -24,43 +34,12 @@
         }
       }
 
-      &-mem,
-      &-disk {
-        width: 70px;
-      }
-
-      &-name {
-        width: 180px;
-      }
-
-      &-status {
-        width: 115px;
-      }
-
-      &-version {
-        width: 115px;
-      }
-
-      &-regions {
-        width: 115px;
-      }
-
       &-instances {
-        width: 115px;
 
         td&,
         th& {
           text-align: center;
         }
-      }
-
-      &-cpus,
-      &-gpus {
-        width: 65px;
-      }
-
-      &-actions {
-        width: 40px;
       }
     }
 
@@ -91,37 +70,6 @@
 
       .status-bar-indicator {
         display: none;
-      }
-
-      &-column {
-
-        &-name {
-          width: 100px;
-        }
-
-        &-instances {
-          width: 93px;
-        }
-
-        &-cpus,
-        &-gpus,
-        &-mem,
-        &-disk {
-          width: 60px;
-        }
-
-        &-status,
-        &-version {
-          width: 100px;
-        }
-
-        &-regions {
-          width: 110px;
-        }
-
-        &-actions {
-          width: 30px;
-        }
       }
     }
 
@@ -156,19 +104,6 @@
             display: table-column;
           }
         }
-
-        &-status,
-        &-version {
-          width: 70px;
-        }
-
-        &-regions {
-          width: 80px;
-        }
-
-        &-actions {
-          width: 20px;
-        }
       }
 
       .status-bar-wrapper {
@@ -192,36 +127,6 @@
         display: inline;
       }
 
-      &-column {
-
-        &-name {
-          max-width: 55px;
-        }
-
-        &-instances {
-          width: 45px;
-        }
-
-        &-cpus,
-        &-gpus,
-        &-mem,
-        &-disk {
-          width: 40px;
-        }
-
-        &-status {
-          width: 78px;
-        }
-
-        &-regions {
-          width: 88px;
-        }
-
-        &-actions {
-          width: 30px;
-        }
-      }
-
       .service-status-progressbar-wrapper {
         margin-left: 5px;
       }
@@ -238,25 +143,6 @@
   @media (min-width: @layout-screen-jumbo-min-width) {
 
     .service-table {
-
-      &-column {
-
-        &-name {
-          width: 180px;
-        }
-
-        &-status {
-          width: 115px;
-        }
-
-        &-regions {
-          width: 125px;
-        }
-
-        &-instances {
-          width: 60px;
-        }
-      }
 
       .service-status-progressbar-wrapper {
         display: inline-block;

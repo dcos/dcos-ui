@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServicesTable #renderRegions renders with multiple regions 1`] = `
+<div
+  className="css-1c5c0a1"
+>
+  <span
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    aws/eu-central-1, dc-east
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderRegions renders with no regions 1`] = `
+<div
+  className="css-1c5c0a1"
+>
+  <span
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    N/A
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderRegions renders with one region 1`] = `
+<div
+  className="css-1c5c0a1"
+>
+  <span
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    aws/eu-central-1
+  </span>
+</div>
+`;

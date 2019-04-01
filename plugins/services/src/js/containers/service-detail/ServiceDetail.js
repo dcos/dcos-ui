@@ -15,20 +15,20 @@ import ActionKeys from "../../constants/ActionKeys";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
-import ServiceStatus from "../../constants/ServiceStatus";
+import * as ServiceStatus from "../../constants/ServiceStatus";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
-import {
-  DELETE,
-  EDIT,
-  OPEN,
-  RESTART,
-  RESUME,
-  SCALE,
-  STOP
-} from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
+
+const DELETE = ServiceActionItem.DELETE;
+const EDIT = ServiceActionItem.EDIT;
+const OPEN = ServiceActionItem.OPEN;
+const RESTART = ServiceActionItem.RESTART;
+const RESUME = ServiceActionItem.RESUME;
+const SCALE = ServiceActionItem.SCALE;
+const STOP = ServiceActionItem.STOP;
 
 const METHODS_TO_BIND = [
   "handleEditClearError",
