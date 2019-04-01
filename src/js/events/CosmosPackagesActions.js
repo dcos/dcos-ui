@@ -28,6 +28,7 @@ import {
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
 import Util from "../utils/Util";
+import getFixtureResponses from "../utils/getFixtureResponses";
 
 function getContentType({ action, actionType, entity, version }) {
   return `application/vnd.dcos.${entity}.${action}-${actionType}+json;charset=utf-8;version=${version}`;
@@ -460,57 +461,44 @@ const CosmosPackagesActions = {
 };
 
 if (Config.useFixtures) {
-  const packageDescribeFixture = require("../../../tests/_fixtures/cosmos/package-describe.json");
-  const serviceDescribeFixture = require("../../../tests/_fixtures/cosmos/service-describe.json");
-  const packagesListFixture = require("../../../tests/_fixtures/cosmos/packages-list.json");
-  const packagesSearchFixture = require("../../../tests/_fixtures/cosmos/packages-search.json");
-  const packagesRepositoriesFixture = require("../../../tests/_fixtures/cosmos/packages-repositories.json");
-  const packageListVersionsFixture = require("../../../tests/_fixtures/cosmos/package-list-versions.json");
+  const methodFixtureMapping = {
+    fetchPackageDescription: import(/* webpackChunkName: "packageDescribeFixture" */ "../../../tests/_fixtures/cosmos/package-describe.json"),
+    fetchPackageVersions: import(/* webpackChunkName: "packageListVersionsFixture" */ "../../../tests/_fixtures/cosmos/package-list-versions.json"),
+    fetchServiceDescription: import(/* webpackChunkName: "serviceDescribeFixture" */ "../../../tests/_fixtures/cosmos/service-describe.json"),
+    fetchInstalledPackages: import(/* webpackChunkName: "packagesListFixture" */ "../../../tests/_fixtures/cosmos/packages-list.json"),
+    fetchAvailablePackages: import(/* webpackChunkName: "packagesSearchFixture" */ "../../../tests/_fixtures/cosmos/packages-search.json"),
+    fetchRepositories: import(/* webpackChunkName: "packagesRepositoriesFixture" */ "../../../tests/_fixtures/cosmos/packages-repositories.json")
+  };
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
-  global.actionTypes.CosmosPackagesActions = {
-    fetchPackageDescription: {
-      event: "success",
-      success: { response: packageDescribeFixture }
-    },
-    fetchPackageVersions: {
-      event: "success",
-      success: { response: packageListVersionsFixture }
-    },
-    fetchServiceDescription: {
-      event: "success",
-      success: { response: serviceDescribeFixture }
-    },
-    fetchInstalledPackages: {
-      event: "success",
-      success: { response: packagesListFixture }
-    },
-    fetchAvailablePackages: {
-      event: "success",
-      success: { response: packagesSearchFixture }
-    },
-    updateService: { event: "success" },
-    installPackage: { event: "success" },
-    uninstallPackage: { event: "success" },
-    fetchRepositories: {
-      event: "success",
-      success: { response: packagesRepositoriesFixture }
-    },
-    addRepository: { event: "success" },
-    deleteRepository: { event: "success" }
-  };
-
-  Object.keys(global.actionTypes.CosmosPackagesActions).forEach(function(
-    method
-  ) {
-    CosmosPackagesActions[method] = RequestUtil.stubRequest(
-      CosmosPackagesActions,
-      "CosmosPackagesActions",
-      method
+  Promise.all(
+    Object.keys(methodFixtureMapping).map(
+      method => methodFixtureMapping[method]
+    )
+  ).then(responses => {
+    global.actionTypes.CosmosPackagesActions = Object.assign(
+      getFixtureResponses(methodFixtureMapping, responses),
+      {
+        updateService: { event: "success" },
+        installPackage: { event: "success" },
+        uninstallPackage: { event: "success" },
+        addRepository: { event: "success" },
+        deleteRepository: { event: "success" }
+      }
     );
+
+    Object.keys(global.actionTypes.CosmosPackagesActions).forEach(function(
+      method
+    ) {
+      CosmosPackagesActions[method] = RequestUtil.stubRequest(
+        CosmosPackagesActions,
+        "CosmosPackagesActions",
+        method
+      );
+    });
   });
 }
 
