@@ -107,6 +107,6 @@ until $(curl -k --output /dev/null -H "Cookie: dcos-acs-auth-cookie=${CLUSTER_AU
 done
 echo "Successfull pinged Marathon on ${CLUSTER_URL}."
 
-setup_integration
-trap teardown_integration EXIT
-run_tests_integration
+setup
+trap teardown EXIT
+run_tests

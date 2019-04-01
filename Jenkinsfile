@@ -12,13 +12,11 @@ pipeline {
   }
 
   environment {
-    JENKINS_VERSION = "yes"
-    NODE_PATH = "node_modules"
     INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
   }
 
   options {
-    timeout(time: 4, unit: "HOURS")
+    timeout(time: 3, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -29,24 +27,33 @@ pipeline {
       }
     }
 
-    stage("Build") {
+    stage("Prepare Repository") {
       steps {
+        // clean up existing files
+        sh "rm -rfv .* || ls -la ; rm -rfv ./* || ls -la"
+
+        // cloning oss repo, we need this for commit history
         withCredentials([
           usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
         ]) {
-          // Clone the repository again with a full git clone
-          sh "rm -rfv .* || ls -la ; rm -rfv ./* || ls -la && ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
+          sh "git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
         }
         sh "git fetch -a"
+
+        // checking out correct branch
         sh 'git checkout "$([ -z "$CHANGE_BRANCH" ] && echo $BRANCH_NAME || echo $CHANGE_BRANCH )"'
 
+        // when on PR rebase to target
         sh '[ -n "$CHANGE_TARGET" ] && git rebase origin/${CHANGE_TARGET} || echo "on release branch"'
 
         // jenkins seem to have this variable set for no reason, explicitly removing it…
         sh "npm config delete externalplugins"
-        sh "npm run test:validate"
+      }
+    }
+
+    stage("Install") {
+      steps {
         sh "npm --unsafe-perm ci"
-        sh "npm run build"
       }
     }
 
@@ -63,6 +70,23 @@ pipeline {
       }
     }
 
+    stage("Build") {
+      steps {
+        sh "npm run build"
+      }
+    }
+
+    stage("Setup Data Dog") {
+      steps {
+        withCredentials([
+          string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
+          string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
+        ]) {
+          sh "./scripts/ci/createDatadogConfig.sh"
+        }
+      }
+    }
+
     stage("Test") {
       parallel {
         stage("Integration Test") {
@@ -70,12 +94,6 @@ pipeline {
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
           }
           steps {
-            withCredentials([
-              string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
-              string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
-            ]) {
-              sh "./scripts/ci/createDatadogConfig.sh"
-            }
             sh "npm run test:integration"
           }
 
