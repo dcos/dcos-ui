@@ -81,6 +81,6 @@ BRANCH=${REPORT_BRANCH:-$BRANCH_NAME}
 
 source "$SCRIPT_PATH/utils/tests-functions"
 
-setup_integration
-trap teardown_integration EXIT
-run_tests_integration
+setup
+trap teardown EXIT
+run_tests

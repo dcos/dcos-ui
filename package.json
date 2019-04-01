@@ -208,6 +208,7 @@
     "postinstall": "npm run util:scaffold; npm run util:env:validate",
     "prebuild:assets": "node ./scripts/checkDependencies.js",
     "preinstall": "./scripts/pre-install",
+    "pretest": "npm run test:validate",
     "prestart": "npm run util:env:validate",
     "release": "semantic-release",
     "start:testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.js --progress --colors --content-base ./build --host 0.0.0.0 --port $npm_package_config_port",
