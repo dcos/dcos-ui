@@ -533,41 +533,43 @@ var MarathonActions = {
 };
 
 if (Config.useFixtures) {
-  const groupsFixture = require("../../../../../tests/_fixtures/marathon-pods/groups.js");
+  const groupsFixtureImportPromise = import(/* webpackChunkName: "groupsFixture" */ "../../../../../tests/_fixtures/marathon-pods/groups.js");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
-  global.actionTypes.MarathonActions = {
-    createService: {
-      event: "success",
-      success: { response: {} }
-    },
-    deleteService: {
-      event: "success",
-      success: { response: {} }
-    },
-    editService: {
-      event: "success",
-      success: { response: {} }
-    },
-    restartService: {
-      event: "success",
-      success: { response: {} }
-    },
-    fetchGroups: {
-      event: "success",
-      success: { response: groupsFixture }
-    }
-  };
+  groupsFixtureImportPromise.then(groupsFixture => {
+    global.actionTypes.MarathonActions = {
+      createService: {
+        event: "success",
+        success: { response: {} }
+      },
+      deleteService: {
+        event: "success",
+        success: { response: {} }
+      },
+      editService: {
+        event: "success",
+        success: { response: {} }
+      },
+      restartService: {
+        event: "success",
+        success: { response: {} }
+      },
+      fetchGroups: {
+        event: "success",
+        success: { response: groupsFixture }
+      }
+    };
 
-  Object.keys(global.actionTypes.MarathonActions).forEach(function(method) {
-    MarathonActions[method] = RequestUtil.stubRequest(
-      MarathonActions,
-      "MarathonActions",
-      method
-    );
+    Object.keys(global.actionTypes.MarathonActions).forEach(function(method) {
+      MarathonActions[method] = RequestUtil.stubRequest(
+        MarathonActions,
+        "MarathonActions",
+        method
+      );
+    });
   });
 }
 

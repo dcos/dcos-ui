@@ -1,4 +1,6 @@
-import * as moment from "moment";
+import format from "date-fns/format";
+import distanceInWordsStrict from "date-fns/distance_in_words_strict";
+import getTime from "date-fns/get_time";
 
 const DEFAULT_MULTIPLICANTS = {
   ms: 1,
@@ -65,7 +67,10 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
   msToUTCDate(ms: Date | number): string {
-    return moment.utc(ms).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+    return format(
+      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
+      "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
+    );
   },
 
   /**
@@ -74,7 +79,10 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
   msToLogTime(ms: Date | number): string {
-    return moment.utc(ms).format("YYYY-MM-DD hh:mm:ss");
+    return format(
+      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
+      "YYYY-MM-DD hh:mm:ss"
+    );
   },
 
   /**
@@ -116,25 +124,27 @@ const DateUtil = {
     ms: Date | number,
     suppressRelativeTime: boolean = false
   ): string {
-    return moment.utc(ms).fromNow(suppressRelativeTime);
+    return distanceInWordsStrict(Date.now(), ms, {
+      addSuffix: !suppressRelativeTime,
+      partialMethod: "round"
+    });
   },
 
   strToMs(str: string | null): number | null {
-    if (str == null) {
+    if (str == null || typeof str !== "string") {
       return null;
     }
 
+    const dateStr = str.toUpperCase();
+
     return (
-      moment.utc(str).valueOf() ||
-      moment.utc(str, "YYYY-MM-DDTHH:mm:ssZ").valueOf()
+      getTime(dateStr) ||
+      getTime(format(new Date(dateStr).toISOString(), "YYYY-MM-DDTHH:mm:ssZ"))
     );
   },
 
-  getDuration(
-    time: number,
-    formatKey: moment.DurationInputArg2 = "seconds"
-  ): string {
-    return moment.duration(time, formatKey).humanize();
+  getDuration(time: number): string {
+    return distanceInWordsStrict(0, time);
   }
 };
 

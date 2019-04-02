@@ -7,11 +7,11 @@ import { MountService } from "foundation-ui";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import moment from "moment";
 import { request } from "@dcos/mesos-client";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -274,13 +274,13 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     const mesosCluster = cluster || this.getLoading();
     const mesosVersion = version || this.getLoading();
     const mesosBuilt = buildTime
-      ? moment(buildTime * 1000).fromNow()
+      ? DateUtil.msToRelativeTime(buildTime * 1000)
       : this.getLoading();
     const mesosStarted = startTime
-      ? moment(startTime * 1000).fromNow()
+      ? DateUtil.msToRelativeTime(startTime * 1000)
       : this.getLoading();
     const mesosElected = electedTime
-      ? moment(electedTime * 1000).fromNow()
+      ? DateUtil.msToRelativeTime(electedTime * 1000)
       : this.getLoading();
     const mesosBuildUser = buildUser;
 

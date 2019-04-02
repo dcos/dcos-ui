@@ -87,24 +87,26 @@ const UsersActions = {
 };
 
 if (Config.useFixtures) {
-  const usersFixture = require("../stores/__tests__/fixtures/users-unicode.json");
+  const usersFixtureImportPromise = import(/* usersFixture */ "../stores/__tests__/fixtures/users-unicode.json");
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
-  global.actionTypes.UsersActions = {
-    fetch: { event: "success", success: { response: usersFixture } },
-    addUser: { event: "success" },
-    deleteUser: { event: "success" }
-  };
+  usersFixtureImportPromise.then(usersFixture => {
+    global.actionTypes.UsersActions = {
+      fetch: { event: "success", success: { response: usersFixture } },
+      addUser: { event: "success" },
+      deleteUser: { event: "success" }
+    };
 
-  Object.keys(global.actionTypes.UsersActions).forEach(function(method) {
-    UsersActions[method] = RequestUtil.stubRequest(
-      UsersActions,
-      "UsersActions",
-      method
-    );
+    Object.keys(global.actionTypes.UsersActions).forEach(function(method) {
+      UsersActions[method] = RequestUtil.stubRequest(
+        UsersActions,
+        "UsersActions",
+        method
+      );
+    });
   });
 }
 

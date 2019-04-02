@@ -12,6 +12,7 @@ import {
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
+import getFixtureResponses from "../utils/getFixtureResponses";
 
 const UnitHealthActions = {
   fetchUnits() {
@@ -104,37 +105,34 @@ const UnitHealthActions = {
 };
 
 if (Config.useFixtures) {
-  const unitsFixture = require("../../../tests/_fixtures/unit-health/units.json");
-  const unitFixture = require("../../../tests/_fixtures/unit-health/unit.json");
-  const unitNodesFixture = require("../../../tests/_fixtures/unit-health/unit-nodes.json");
-  const unitNodeFixture = require("../../../tests/_fixtures/unit-health/unit-node.json");
+  const methodFixtureMapping = {
+    fetchUnits: import(/* unitsFixture */ "../../../tests/_fixtures/unit-health/units.json"),
+    fetchUnit: import(/* unitFixture */ "../../../tests/_fixtures/unit-health/unit.json"),
+    fetchUnitNodes: import(/* unitNodesFixture */ "../../../tests/_fixtures/unit-health/unit-nodes.json"),
+    fetchUnitNode: import(/* unitNodeFixture */ "../../../tests/_fixtures/unit-health/unit-node.json")
+  };
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
-  global.actionTypes.UnitHealthActions = {
-    fetchUnits: {
-      event: "success",
-      success: { response: unitsFixture }
-    },
-    fetchUnit: { event: "success", success: { response: unitFixture } },
-    fetchUnitNodes: {
-      event: "success",
-      success: { response: unitNodesFixture }
-    },
-    fetchUnitNode: {
-      event: "success",
-      success: { response: unitNodeFixture }
-    }
-  };
-
-  Object.keys(global.actionTypes.UnitHealthActions).forEach(function(method) {
-    UnitHealthActions[method] = RequestUtil.stubRequest(
-      UnitHealthActions,
-      "UnitHealthActions",
-      method
+  Promise.all(
+    Object.keys(methodFixtureMapping).map(
+      method => methodFixtureMapping[method]
+    )
+  ).then(responses => {
+    global.actionTypes.UnitHealthActions = getFixtureResponses(
+      methodFixtureMapping,
+      responses
     );
+
+    Object.keys(global.actionTypes.UnitHealthActions).forEach(function(method) {
+      UnitHealthActions[method] = RequestUtil.stubRequest(
+        UnitHealthActions,
+        "UnitHealthActions",
+        method
+      );
+    });
   });
 }
 

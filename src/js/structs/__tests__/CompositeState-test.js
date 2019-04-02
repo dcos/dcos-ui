@@ -70,7 +70,7 @@ describe("CompositeState", function() {
     });
 
     it("handles null data gracefully", function() {
-      expect(CompositeState.addNodeHealth).not.toThrow();
+      expect(() => CompositeState.addNodeHealth()).not.toThrow();
     });
   });
 
@@ -294,6 +294,68 @@ describe("CompositeState", function() {
       var nodesList = CompositeState.getNodesList();
 
       expect(nodesList instanceof NodesList).toEqual(true);
+    });
+  });
+
+  describe("#enable & #disable", function() {
+    it("does not update state when disabled", function() {
+      CompositeState.disable();
+      expect(CompositeState._isDisabled()).toBe(true);
+      CompositeState.addState({ foo: "bar" });
+
+      expect(CompositeState.data).toEqual({});
+    });
+
+    it("does not update addSummary when disabled", function() {
+      CompositeState.disable();
+
+      CompositeState.addSummary({ foo: "bar" });
+      expect(CompositeState.data).toEqual({});
+    });
+
+    it("does not update nodehealth when disabled", function() {
+      CompositeState.addState({
+        slaves: [
+          {
+            id: "foo-id",
+            hostname: "foo"
+          }
+        ]
+      });
+
+      CompositeState.disable();
+      CompositeState.addNodeHealth([
+        {
+          host_ip: "foo",
+          health: 100
+        }
+      ]);
+
+      expect(CompositeState.data.slaves[0].health).not.toEqual(100);
+    });
+
+    it("is disabled if there are more disable calls then enables", function() {
+      expect(CompositeState._isDisabled()).toBe(false);
+
+      CompositeState.disable();
+      expect(CompositeState._isDisabled()).toBe(true);
+
+      CompositeState.disable();
+      CompositeState.enable();
+      expect(CompositeState._isDisabled()).toBe(true);
+    });
+
+    it("is disabled no matter how many enables have been called", function() {
+      expect(CompositeState._isDisabled()).toBe(false);
+
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.disable();
+      expect(CompositeState._isDisabled()).toBe(true);
     });
   });
 });

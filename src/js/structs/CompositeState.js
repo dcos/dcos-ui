@@ -46,10 +46,33 @@ const mergeObjectsById = function(newData, data = []) {
 
 class CompositeState {
   constructor(data = {}) {
+    this._refCount = 0;
     this.data = data;
   }
 
+  /**
+   * Enables the composite state if there is no
+   * one requesting it to be disabled anymore
+   */
+  enable() {
+    this._refCount = Math.max(this._refCount - 1, 0);
+  }
+
+  /**
+   * Disables the composite state
+   */
+  disable() {
+    this._refCount = this._refCount + 1;
+  }
+
+  _isDisabled() {
+    return this._refCount > 0;
+  }
+
   addNodeHealth(data) {
+    if (this._isDisabled()) {
+      return;
+    }
     if (data == null) {
       return;
     }
@@ -74,10 +97,16 @@ class CompositeState {
   }
 
   addState(data) {
+    if (this._isDisabled()) {
+      return;
+    }
     this.data = mergeData(data, this.data);
   }
 
   addSummary(data) {
+    if (this._isDisabled()) {
+      return;
+    }
     this.data = mergeData(data, this.data);
   }
 

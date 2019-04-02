@@ -4,7 +4,7 @@ import React from "react";
 import ActionKeys from "../../constants/ActionKeys";
 import KillPodInstanceModal from "./KillPodInstanceModal";
 import KillTaskModal from "./KillTaskModal";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 
 class TaskModals extends React.Component {
   getKillPodInstancesModal() {
