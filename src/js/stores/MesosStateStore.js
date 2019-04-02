@@ -1,17 +1,16 @@
 import CompositeState from "#SRC/js/structs/CompositeState";
 import PluginSDK from "PluginSDK";
-import * as MesosClient from "@dcos/mesos-client";
 import { interval, of } from "rxjs";
 import {
   merge,
   distinctUntilChanged,
   map,
   tap,
+  sampleTime,
+  retryWhen,
   zip,
   take,
-  concat,
-  sampleTime,
-  retryWhen
+  concat
 } from "rxjs/operators";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
@@ -28,12 +27,10 @@ import MesosStateUtil from "../utils/MesosStateUtil";
 import pipe from "../utils/pipe";
 import { linearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
+import { MesosMasterRequestType } from "../core/MesosMasterRequest";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
-let { request } = MesosClient;
-
-const MAX_RETRIES = 5;
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
 const METHODS_TO_BIND = [
@@ -89,11 +86,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   subscribe() {
     const mesos$ = container.get(MesosStreamType);
-    const masterRequest$ = request(
-      { type: "GET_MASTER" },
-      "/mesos/api/v1?get_master"
-    ).pipe(
-      retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES)),
+    const masterRequest$ = container.get(MesosMasterRequestType).pipe(
       tap(response => {
         const master = mesosStreamParsers.getMaster(
           this.getMaster(),
@@ -109,7 +102,7 @@ class MesosStateStore extends GetSetBaseStore {
       merge(masterRequest$),
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
-      tap(state => this.setState(state))
+      tap(state => this.setState(state), console.error)
     );
 
     const wait$ = masterRequest$.pipe(zip(mesos$.pipe(take(1))));
@@ -327,18 +320,8 @@ if (Config.useFixtures) {
 
   const { MesosStreamType } = require("../core/MesosStream");
 
-  const oldRequest = request;
-
   Promise.all([getMasterFixture, subscribeFixture]).then(values => {
-    request = function(options, url) {
-      if (url === "/mesos/api/v1?get_master") {
-        console.log("Stub /mesos/api/v1?get_master");
-
-        return of(JSON.stringify(values[0]));
-      }
-
-      return oldRequest(options, request);
-    };
+    container.rebind(MesosMasterRequestType).toConstantValue(of(values[0]));
 
     container
       .rebind(MesosStreamType)

@@ -7,9 +7,13 @@ import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
 import repositoriesExtensionFactory from "#PLUGINS/catalog/src/js";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
+import mesosMasterRequest, {
+  MesosMasterRequestType
+} from "./core/MesosMasterRequest";
 
 const container = new Container();
 container.bind(MesosStreamType).toConstantValue(mesosStream);
+container.bind(MesosMasterRequestType).toConstantValue(mesosMasterRequest);
 
 const factories = {
   notification: notificationServiceFactory,
