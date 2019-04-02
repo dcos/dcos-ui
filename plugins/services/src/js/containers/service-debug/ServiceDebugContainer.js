@@ -195,7 +195,8 @@ class ServiceDebugContainer extends React.Component {
     if (frameworkName != null) {
       return (
         <Trans render="span">
-          Rejected offer analysis is not currently supported for {frameworkName}.
+          Rejected offer analysis is not currently supported for {frameworkName}
+          .
         </Trans>
       );
     }
@@ -296,7 +297,7 @@ class ServiceDebugContainer extends React.Component {
           message={
             <Trans render="span">
               DC/OS has been waiting for resources and is unable to complete
-              this deployment for {DateUtil.getDuration(timeWaiting, null)}.
+              this deployment for {DateUtil.getDuration(timeWaiting)}.
             </Trans>
           }
           primaryAction={

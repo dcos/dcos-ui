@@ -1,9 +1,6 @@
-import PropTypes from "prop-types";
-import React from "react";
+import * as PropTypes from "prop-types";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
-/* eslint-disable no-unused-vars */
-import { Trans, Plural } from "@lingui/macro";
-/* eslint-enable no-unused-vars */
 
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import Pod from "../structs/Pod";
@@ -11,7 +8,23 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import ServiceStatus from "../constants/ServiceStatus";
 
-class ServiceStatusProgressBar extends React.Component {
+const { Plural } = require("@lingui/macro");
+
+interface ServiceStatusProgressBarProps {
+  service: Service | ServiceTree | Pod;
+}
+
+class ServiceStatusProgressBar extends React.Component<
+  ServiceStatusProgressBarProps
+> {
+  static propTypes = {
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(Service),
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Pod)
+    ]).isRequired
+  };
+
   getTooltipContent() {
     const { service } = this.props;
     const runningInstances = service.getRunningInstancesCount();
@@ -60,12 +73,5 @@ class ServiceStatusProgressBar extends React.Component {
   }
 }
 
-ServiceStatusProgressBar.propTypes = {
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(Service),
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Pod)
-  ]).isRequired
-};
-
 module.exports = ServiceStatusProgressBar;
+export default ServiceStatusProgressBar;

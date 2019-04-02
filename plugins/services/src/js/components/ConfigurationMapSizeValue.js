@@ -4,7 +4,7 @@ import React from "react";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import Units from "#SRC/js/utils/Units";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 /**
  * Render a size value as a <ConfigurationMapValue>, with it's values being

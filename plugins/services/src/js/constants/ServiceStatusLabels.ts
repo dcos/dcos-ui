@@ -1,6 +1,17 @@
 import { i18nMark } from "@lingui/react";
 
-const ServiceStatusLabels = {
+interface ServiceStatusLabelsInterface {
+  RUNNING: string;
+  DEPLOYING: string;
+  STOPPED: string;
+  NA: string;
+  DELAYED: string;
+  WAITING: string;
+  DELETING: string;
+  RECOVERING: string;
+}
+
+const ServiceStatusLabels: ServiceStatusLabelsInterface = {
   RUNNING: i18nMark("Running"),
   DEPLOYING: i18nMark("Deploying"),
   STOPPED: i18nMark("Stopped"),
@@ -11,4 +22,4 @@ const ServiceStatusLabels = {
   RECOVERING: i18nMark("Recovering")
 };
 
-module.exports = ServiceStatusLabels;
+export default ServiceStatusLabels;

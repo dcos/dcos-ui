@@ -1,6 +1,6 @@
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 import DSLFilter from "#SRC/js/structs/DSLFilter";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 const LABEL = "is";
 

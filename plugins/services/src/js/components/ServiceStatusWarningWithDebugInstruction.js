@@ -10,8 +10,8 @@ class ServiceStatusWarningWithDebugInstruction extends ServiceStatusIcon {
     return (
       <Trans render="span">
         DC/OS has been waiting for resources and is unable to complete this
-        deployment for {DateUtil.getDuration(timeWaiting, null)}. See more
-        information in the debug tab.
+        deployment for {DateUtil.getDuration(timeWaiting)}. See more information
+        in the debug tab.
       </Trans>
     );
   }
