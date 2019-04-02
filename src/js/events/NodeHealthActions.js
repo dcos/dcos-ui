@@ -106,7 +106,7 @@ const NodeHealthActions = {
 
 if (Config.useFixtures) {
   const methodFixtureMapping = {
-    fetchNodes: import(/* nodesFixture */ "../../../tests/_fixtures/unit-health/nodes.json"),
+    fetchNodes: import(/* nodesFixture */ "../../../tests/_fixtures/unit-health/nodes"),
     fetchNode: import(/* nodeFixture */ "../../../tests/_fixtures/unit-health/node.json"),
     fetchNodeUnits: import(/* nodeUnitsFixture */ "../../../tests/_fixtures/unit-health/node-units.json"),
     fetchNodeUnit: import(/* nodeUnitFixture */ "../../../tests/_fixtures/unit-health/node-unit.json")
