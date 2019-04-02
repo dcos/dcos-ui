@@ -3,6 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import { MountService } from "foundation-ui";
+import { Hooks } from "PluginSDK";
 import PropTypes from "prop-types";
 import React, { Component, Suspense, lazy } from "react";
 
@@ -473,7 +474,7 @@ class CreateServiceModalForm extends Component {
         ? "Service"
         : "Services";
 
-    const tabList = [
+    let tabList = [
       {
         id: "services",
         label: serviceLabel,
@@ -501,6 +502,10 @@ class CreateServiceModalForm extends Component {
           label: i18nMark("Environment")
         }
       );
+      tabList = Hooks.applyFilter(
+        "createServiceMultiContainerTabList",
+        tabList
+      );
     } else {
       tabList.push(
         { id: "placement", key: "placement", label: i18nMark("Placement") },
@@ -516,6 +521,10 @@ class CreateServiceModalForm extends Component {
           key: "environment",
           label: i18nMark("Environment")
         }
+      );
+      tabList = Hooks.applyFilter(
+        "createServiceMultiContainerTabList",
+        tabList
       );
     }
 
@@ -551,8 +560,19 @@ class CreateServiceModalForm extends Component {
     const { showAllErrors } = this.props;
     const errors = this.getErrors();
 
+    const pluginTabProps = {
+      data,
+      errors,
+      errorMap,
+      hideTopLevelErrors: !showAllErrors,
+      onAddItem: this.handleAddItem,
+      onRemoveItem: this.handleRemoveItem,
+      onTabChange: this.props.handleTabChange,
+      pathMapping: ServiceErrorPathMapping
+    };
+
     if (this.state.isPod) {
-      return [
+      const tabs = [
         <TabView id="placement" key="placement">
           <ErrorsAlert
             errors={errors}
@@ -630,9 +650,15 @@ class CreateServiceModalForm extends Component {
           />
         </TabView>
       ];
+
+      return Hooks.applyFilter(
+        "createServiceMultiContainerTabViews",
+        tabs,
+        pluginTabProps
+      );
     }
 
-    return [
+    const tabs = [
       <TabView id="placement" key="placement">
         <ErrorsAlert
           errors={errors}
@@ -708,6 +734,8 @@ class CreateServiceModalForm extends Component {
         />
       </TabView>
     ];
+
+    return Hooks.applyFilter("createServiceTabViews", tabs, pluginTabProps);
   }
 
   /**
