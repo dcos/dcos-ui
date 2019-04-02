@@ -1,14 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import HealthUnit from "#SRC/js/structs/HealthUnit";
-
-const mockMesosSummaryStore = {
-  getLastSuccessfulSummarySnapshot: jest.fn(),
-  addChangeListener: jest.fn()
-};
-jest.mock("#SRC/js/stores/MesosSummaryStore", function() {
-  return mockMesosSummaryStore;
-});
+import Node from "#SRC/js/structs/Node";
 
 const mockUnitHealthStore = {
   getUnit: jest.fn(),
@@ -22,7 +15,6 @@ const NodeBreadcrumbs = require("../NodeBreadcrumbs");
 
 describe("NodeBreadcrumbs", function() {
   beforeEach(function() {
-    mockMesosSummaryStore.getLastSuccessfulSummarySnapshot = jest.fn();
     mockUnitHealthStore.getUnit = jest.fn();
     mockUnitHealthStore.getNode = jest.fn();
   });
@@ -33,30 +25,27 @@ describe("NodeBreadcrumbs", function() {
   });
 
   it("renders with node breadcrumbs", function() {
-    mockMesosSummaryStore.getLastSuccessfulSummarySnapshot.mockReturnValue({
-      slaves: [
-        {
-          id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-          hostname: "foo.bar.baz"
-        }
-      ]
+    const node = new Node({
+      id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
+      hostname: "foo.bar.baz"
     });
-    const tree = renderer
-      .create(
-        <NodeBreadcrumbs nodeID="e99adb4a-eee7-4e48-ba86-79cd061d2215-S1" />
-      )
-      .toJSON();
+    const tree = renderer.create(<NodeBreadcrumbs node={node} />).toJSON();
 
-    expect(
-      mockMesosSummaryStore.getLastSuccessfulSummarySnapshot
-    ).toHaveBeenCalled();
     expect(tree).toMatchSnapshot();
   });
 
   it("renders with taskID breadcrumbs", function() {
+    const node = new Node({
+      id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
+      hostname: "foo.bar.baz"
+    });
     const tree = renderer
       .create(
-        <NodeBreadcrumbs taskID="super-nice-task-id" taskName="My Task" />
+        <NodeBreadcrumbs
+          taskID="super-nice-task-id"
+          taskName="My Task"
+          node={node}
+        />
       )
       .toJSON();
 
@@ -64,13 +53,9 @@ describe("NodeBreadcrumbs", function() {
   });
 
   it("renders with unitID breadcrumbs", function() {
-    mockMesosSummaryStore.getLastSuccessfulSummarySnapshot.mockReturnValue({
-      slaves: [
-        {
-          id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-          hostname: "foo.bar.baz"
-        }
-      ]
+    const node = new Node({
+      id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
+      hostname: "foo.bar.baz"
     });
     mockUnitHealthStore.getUnit.mockReturnValue(
       new HealthUnit({
@@ -87,12 +72,7 @@ describe("NodeBreadcrumbs", function() {
       })
     });
     const tree = renderer
-      .create(
-        <NodeBreadcrumbs
-          nodeID="e99adb4a-eee7-4e48-ba86-79cd061d2215-S1"
-          unitID="unit-ids-are-nice"
-        />
-      )
+      .create(<NodeBreadcrumbs node={node} unitID="unit-ids-are-nice" />)
       .toJSON();
 
     expect(mockUnitHealthStore.getUnit).toHaveBeenCalled();
@@ -106,22 +86,6 @@ describe("NodeBreadcrumbs", function() {
       .create(<NodeBreadcrumbs unitID="unit-ids-are-nice" />)
       .toJSON();
 
-    expect(tree).toMatchSnapshot();
-  });
-
-  it("renders no node breadcrumbs if node cant be found", function() {
-    mockMesosSummaryStore.getLastSuccessfulSummarySnapshot.mockReturnValue({
-      slaves: []
-    });
-    const tree = renderer
-      .create(
-        <NodeBreadcrumbs nodeID="e99adb4a-eee7-4e48-ba86-79cd061d2215-S1" />
-      )
-      .toJSON();
-
-    expect(
-      mockMesosSummaryStore.getLastSuccessfulSummarySnapshot
-    ).toHaveBeenCalled();
     expect(tree).toMatchSnapshot();
   });
 });
