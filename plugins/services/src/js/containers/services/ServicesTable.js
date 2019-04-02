@@ -3,15 +3,26 @@ import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
+
+import { componentFromStream } from "@dcos/data-service";
+import { combineLatest } from "rxjs";
+import { map } from "rxjs/operators";
 import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import CompositeState from "#SRC/js/structs/CompositeState";
 
 import Loader from "#SRC/js/components/Loader";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import {
+  MesosMasterRequestType,
+  getMasterRegionName
+} from "#SRC/js/core/MesosMasterRequest";
+import container from "#SRC/js/container";
+
 import { isSDKService } from "../../utils/ServiceUtil";
 
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
@@ -34,7 +45,7 @@ import {
   versionSorter
 } from "../../columns/ServicesTableVersionColumn";
 import {
-  regionRenderer,
+  regionRendererFactory,
   regionSorter
 } from "../../columns/ServicesTableRegionColumn";
 import {
@@ -67,7 +78,7 @@ const METHODS_TO_BIND = [
 ];
 
 class ServicesTable extends React.Component {
-  constructor() {
+  constructor(props) {
     super(...arguments);
     this.actionsRenderer = actionsRendererFactory(
       this.handleActionDisabledModalOpen.bind(this),
@@ -81,12 +92,25 @@ class ServicesTable extends React.Component {
       sortDirection: "ASC"
     };
 
+    this.regionRenderer = regionRendererFactory(props.masterRegionName);
+
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
+  // this page does not use the composite state anymore, so let's not calculate it
+  componentDidMount() {
+    CompositeState.disable();
+  }
+
+  componentWillUnmount() {
+    CompositeState.enable();
+  }
+
   componentWillReceiveProps(nextProps) {
+    this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
+
     this.setState(
       this.updateData(
         nextProps.services,
@@ -355,7 +379,6 @@ class ServicesTable extends React.Component {
       sortDirection
     } = this.state;
 
-    const sortedGroups = this.sortGroupsOnTop(data);
     if (data.length === 0) {
       if (this.props.isFiltered === false) {
         return <Loader />;
@@ -363,6 +386,7 @@ class ServicesTable extends React.Component {
         return <div>No data.</div>;
       }
     }
+    const sortedGroups = this.sortGroupsOnTop(data);
 
     return (
       <div className="table-wrapper service-table">
@@ -408,7 +432,8 @@ class ServicesTable extends React.Component {
                             target="_blank"
                           >
                             Read more
-                          </a>.
+                          </a>
+                          .
                         </Trans>
                       }
                     >
@@ -452,7 +477,7 @@ class ServicesTable extends React.Component {
                 sortDirection={sortColumn === "region" ? sortDirection : null}
               />
             }
-            cellRenderer={regionRenderer}
+            cellRenderer={this.regionRenderer}
             growToFill={true}
             minWidth={60}
             maxWidth={150}
@@ -576,4 +601,19 @@ ServicesTable.propTypes = {
   services: PropTypes.array
 };
 
-module.exports = ServicesTable;
+function withMasterRegionName(Component) {
+  const master$ = container
+    .get(MesosMasterRequestType)
+    .pipe(map(data => JSON.parse(data)));
+  const masterRegionName$ = getMasterRegionName(master$);
+
+  return componentFromStream(prop$ =>
+    combineLatest([prop$, masterRegionName$]).pipe(
+      map(([props, masterRegionName]) => (
+        <Component {...props} masterRegionName={masterRegionName} />
+      ))
+    )
+  );
+}
+
+module.exports = withMasterRegionName(ServicesTable);

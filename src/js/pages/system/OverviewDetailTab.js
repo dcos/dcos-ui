@@ -108,19 +108,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     );
 
-    request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").subscribe(
-      response => {
-        const {
-          get_master: {
-            master_info: masterInfo,
-            elected_time: electedTime,
-            start_time: startTime
-          }
-        } = JSON.parse(response);
+    container.get(MesosMasterRequestType).subscribe(response => {
+      const {
+        get_master: {
+          master_info: masterInfo,
+          elected_time: electedTime,
+          start_time: startTime
+        }
+      } = JSON.parse(response);
 
-        this.setState({ masterInfo, electedTime, startTime });
-      }
-    );
+      this.setState({ masterInfo, electedTime, startTime });
+    });
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
