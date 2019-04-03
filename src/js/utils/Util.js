@@ -26,6 +26,7 @@ const Util = {
   keyBy(array, key) {
     return array.reduce((acc, current) => {
       acc[current[key]] = current;
+
       return acc;
     }, {});
   },
@@ -38,6 +39,7 @@ const Util = {
    */
   pluck(object, allowKeys) {
     const allow = new Set(allowKeys);
+
     return Object.keys(object).reduce(function(newObject, key) {
       if (allow.has(key)) {
         newObject[key] = object[key];
@@ -55,6 +57,7 @@ const Util = {
    */
   omit(object, denyKeys) {
     const deny = new Set(denyKeys);
+
     return Object.keys(object).reduce(function(newObject, key) {
       if (!deny.has(key)) {
         newObject[key] = object[key];

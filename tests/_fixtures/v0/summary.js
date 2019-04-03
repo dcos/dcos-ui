@@ -79,7 +79,9 @@ module.exports = {
     domain: {
       fault_domain: {
         region: {
-          name: ["aws/eu-central-1", "aws/eu-central-2", "aws/eu-central-3"][Math.floor(Math.random() * 3)]
+          name: ["aws/eu-central-1", "aws/eu-central-2", "aws/eu-central-3"][
+            Math.floor(Math.random() * 3)
+          ]
         },
         zone: {
           name: "aws/eu-central-1c"
