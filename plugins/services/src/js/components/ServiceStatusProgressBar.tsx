@@ -6,7 +6,7 @@ import ProgressBar from "#SRC/js/components/ProgressBar";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 const { Plural } = require("@lingui/macro");
 

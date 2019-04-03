@@ -175,7 +175,7 @@ export function actionsRendererFactory(
       )
     });
 
-    if (service.getServiceStatus() === (ServiceStatus as any).DELETING) {
+    if (service.getServiceStatus() === ServiceStatus.DELETING) {
       return (
         <Cell>
           {renderServiceActionsDropdown(

@@ -7,7 +7,7 @@ import {
   FRAMEWORK_ID_VALID_CHARACTERS
 } from "../constants/FrameworkConstants";
 import FrameworkUtil from "../utils/FrameworkUtil";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";

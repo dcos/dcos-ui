@@ -24,7 +24,7 @@ import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
-import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
+import * as ServiceStatus from "../../constants/ServiceStatus";
 import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import TaskTable from "./TaskTable";
@@ -130,7 +130,7 @@ class TasksView extends mixin(SaveStateMixin) {
 
       return (
         service &&
-        service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING
+        service.getServiceStatus().key === ServiceStatus.DEPLOYING.key
       );
     });
 
