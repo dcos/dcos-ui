@@ -76,6 +76,16 @@ module.exports = {
       disk: 0,
       mem: 0
     },
+    domain: {
+      fault_domain: {
+        region: {
+          name: ["aws/eu-central-1", "aws/eu-central-2", "aws/eu-central-3"][Math.floor(Math.random() * 3)]
+        },
+        zone: {
+          name: "aws/eu-central-1c"
+        }
+      }
+    },
     pid: `slave(${i})@10.0.1.110:5051`,
     registered_time: 1443995289.19971,
     reregistered_time: 1443995289.19981,
