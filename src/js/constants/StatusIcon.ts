@@ -1,28 +1,32 @@
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import {
-  green,
-  yellow,
-  greyLightDarken1,
-  greyDark
-} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import * as Color from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-const STATUS_ICON = {
-  SUCCESS: {
-    shape: SystemIcons.CircleCheck,
-    color: green
-  },
-  LOADING: {
-    shape: SystemIcons.Spinner,
-    color: greyDark
-  },
-  STOPPED: {
-    shape: SystemIcons.CircleMinus,
-    color: greyLightDarken1
-  },
-  WARNING: {
-    shape: SystemIcons.Yield,
-    color: yellow
-  }
+type StatusIcon = {
+  shape: SystemIcons;
+  color: string;
 };
 
-export default STATUS_ICON;
+const SUCCESS: StatusIcon = {
+  shape: SystemIcons.CircleCheck,
+  color: Color.green
+};
+const LOADING: StatusIcon = {
+  shape: SystemIcons.Spinner,
+  color: Color.greyDark
+};
+const STOPPED: StatusIcon = {
+  shape: SystemIcons.CircleMinus,
+  color: Color.greyLightDarken1
+};
+const WARNING: StatusIcon = {
+  shape: SystemIcons.Yield,
+  color: Color.yellow
+};
+const ERROR: StatusIcon = {
+  shape: SystemIcons.CircleClose,
+  color: Color.red
+};
+
+const StatusIcon = { SUCCESS, LOADING, STOPPED, WARNING, ERROR };
+
+export default StatusIcon;
