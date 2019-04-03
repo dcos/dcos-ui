@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
@@ -10,6 +10,7 @@ import DateUtil from "#SRC/js/utils/DateUtil";
 import StatusIcon from "#SRC/js/constants/StatusIcon";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
+// @ts-ignore
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";
@@ -18,7 +19,7 @@ import ServiceTree from "../structs/ServiceTree";
 
 const UNABLE_TO_LAUNCH_TIMEOUT = 1000 * 60 * 30; // 30 minutes
 
-const getTooltipContent = (service, content) => {
+const getTooltipContent = (service: Service, content: JSX.Element) => {
   const servicePath = encodeURIComponent(service.getId());
 
   return (
@@ -34,12 +35,30 @@ const getTooltipContent = (service, content) => {
   );
 };
 
-class ServiceStatusIcon extends Component {
-  getDeclinedOffersWarning(service) {
+type ServiceOrPodOrTree = Service | ServiceTree | Pod;
+
+class ServiceStatusIcon extends React.Component<{
+  showTooltip?: boolean;
+  tooltipContent: JSX.Element;
+  service: ServiceOrPodOrTree;
+}> {
+  static propTypes = {
+    showTooltip: PropTypes.bool,
+    tooltipContent: PropTypes.node,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(Service),
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Pod)
+    ])
+  };
+
+  getDeclinedOffersWarning(service: ServiceOrPodOrTree) {
     if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
       const timeWaiting =
         Date.now() -
-        DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(service.getQueue()));
+        DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(
+          service.getQueue()
+        ) as string);
 
       return this.getTooltip(
         <Trans render="span">
@@ -52,8 +71,8 @@ class ServiceStatusIcon extends Component {
     return null;
   }
 
-  getServiceTreeWarning(service) {
-    const appsWithWarningsCount = service
+  getServiceTreeWarning(serviceTree: ServiceTree) {
+    const appsWithWarningsCount = serviceTree
       .filterItems(item => {
         if (!(item instanceof ServiceTree)) {
           return (
@@ -82,7 +101,7 @@ class ServiceStatusIcon extends Component {
     return null;
   }
 
-  getTooltip(content) {
+  getTooltip(content: JSX.Element) {
     const { service } = this.props;
     let icon = <Icon {...StatusIcon.WARNING} size={iconSizeXs} />;
 
@@ -104,13 +123,14 @@ class ServiceStatusIcon extends Component {
     );
   }
 
-  getUnableToLaunchWarning(service) {
+  getUnableToLaunchWarning(service: Service) {
     if (this.isUnableToLaunch(service)) {
       return this.getTooltip(
         <Trans render="span">
           There are tasks in this queue that DC/OS has failed to deploy for{" "}
           {DateUtil.getDuration(
-            Date.now() - DateUtil.strToMs(service.getQueue().since)
+            Date.now() -
+              DateUtil.strToMs((service.getQueue() as any).since as string)
           )}
           .
         </Trans>
@@ -120,19 +140,20 @@ class ServiceStatusIcon extends Component {
     return null;
   }
 
-  isUnableToLaunch(service) {
-    const queue = service.getQueue();
+  isUnableToLaunch(service: ServiceOrPodOrTree) {
+    const queue: any = service.getQueue();
 
     if (queue == null) {
       return false;
     }
 
     return (
-      Date.now() - DateUtil.strToMs(queue.since) >= UNABLE_TO_LAUNCH_TIMEOUT
+      Date.now() - (DateUtil.strToMs(queue.since) as number) >=
+      UNABLE_TO_LAUNCH_TIMEOUT
     );
   }
 
-  renderIcon(iconState) {
+  renderIcon(iconState: any) {
     const icon = <Icon {...iconState} size={iconSizeXs} />;
 
     if (this.props.showTooltip) {
@@ -153,28 +174,25 @@ class ServiceStatusIcon extends Component {
 
   render() {
     const { service } = this.props;
-    const serviceStatus = service.getServiceStatus();
-    let iconState;
-
-    if (serviceStatus === ServiceStatus.RUNNING) {
-      iconState = StatusIcon.SUCCESS;
-    }
-
-    if (
-      serviceStatus === ServiceStatus.DEPLOYING ||
-      serviceStatus === ServiceStatus.RECOVERING ||
-      serviceStatus === ServiceStatus.DELETING
-    ) {
-      iconState = StatusIcon.LOADING;
-    }
-
-    if (serviceStatus === ServiceStatus.WARNING) {
-      iconState = StatusIcon.WARNING;
-    }
-
-    if (serviceStatus === ServiceStatus.STOPPED) {
-      iconState = StatusIcon.STOPPED;
-    }
+    const serviceStatus = service.getServiceStatus() as ServiceStatus;
+    const iconState = (() => {
+      switch (serviceStatus) {
+        case ServiceStatus.RUNNING:
+          return StatusIcon.SUCCESS;
+        case ServiceStatus.DEPLOYING:
+          return StatusIcon.LOADING;
+        case ServiceStatus.RECOVERING:
+          return StatusIcon.LOADING;
+        case ServiceStatus.DELETING:
+          return StatusIcon.LOADING;
+        case ServiceStatus.WARNING:
+          return StatusIcon.WARNING;
+        case ServiceStatus.STOPPED:
+          return StatusIcon.STOPPED;
+        default:
+          return null;
+      }
+    })();
 
     // Catch other cases instead throwing a warning/error
     if (iconState == null) {
@@ -199,14 +217,4 @@ class ServiceStatusIcon extends Component {
   }
 }
 
-ServiceStatusIcon.propTypes = {
-  showTooltip: PropTypes.bool,
-  tooltipContent: PropTypes.node,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(Service),
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Pod)
-  ])
-};
-
-module.exports = ServiceStatusIcon;
+export default ServiceStatusIcon;
