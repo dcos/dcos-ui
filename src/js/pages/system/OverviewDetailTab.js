@@ -12,6 +12,8 @@ import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icon
 
 import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
 import DateUtil from "#SRC/js/utils/DateUtil";
+import { MesosMasterRequestType } from "#SRC/js/core/MesosMasterRequest";
+import container from "#SRC/js/container";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";

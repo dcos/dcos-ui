@@ -18,7 +18,7 @@ const RETRY_DELAY = 500;
 
 export const MesosMasterRequestType = Symbol("MesosMasterRequest");
 
-export default request({ type: "GET_MASTER" }, "/mesos/api/v1?get_master").pipe(
+export default request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").pipe(
   retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES)),
   shareReplay()
 );
