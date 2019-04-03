@@ -73,5 +73,4 @@ class ServiceStatusProgressBar extends React.Component<
   }
 }
 
-module.exports = ServiceStatusProgressBar;
 export default ServiceStatusProgressBar;

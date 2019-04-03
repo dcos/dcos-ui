@@ -174,7 +174,7 @@ class ServiceStatusIcon extends React.Component<{
 
   render() {
     const { service } = this.props;
-    const serviceStatus = service.getServiceStatus() as ServiceStatus;
+    const serviceStatus: ServiceStatus = service.getServiceStatus();
     const iconState = (() => {
       switch (serviceStatus) {
         case ServiceStatus.RUNNING:
