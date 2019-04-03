@@ -12,7 +12,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 
 // @ts-ignore
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
-import * as ServiceStatus from "../constants/ServiceStatus";
+import { Status } from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
@@ -174,25 +174,8 @@ class ServiceStatusIcon extends React.Component<{
 
   render() {
     const { service } = this.props;
-    const serviceStatus: ServiceStatus = service.getServiceStatus();
-    const iconState = (() => {
-      switch (serviceStatus) {
-        case ServiceStatus.RUNNING:
-          return StatusIcon.SUCCESS;
-        case ServiceStatus.DEPLOYING:
-          return StatusIcon.LOADING;
-        case ServiceStatus.RECOVERING:
-          return StatusIcon.LOADING;
-        case ServiceStatus.DELETING:
-          return StatusIcon.LOADING;
-        case ServiceStatus.WARNING:
-          return StatusIcon.WARNING;
-        case ServiceStatus.STOPPED:
-          return StatusIcon.STOPPED;
-        default:
-          return null;
-      }
-    })();
+    const serviceStatus: Status | null = service.getServiceStatus();
+    const iconState = serviceStatus && serviceStatus.icon;
 
     // Catch other cases instead throwing a warning/error
     if (iconState == null) {

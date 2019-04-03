@@ -7,45 +7,23 @@ import {
   FRAMEWORK_ID_VALID_CHARACTERS
 } from "../constants/FrameworkConstants";
 import FrameworkUtil from "../utils/FrameworkUtil";
-import * as ServiceStatus from "../constants/ServiceStatus";
+import * as FrameworkStatus from "../constants/FrameworkStatus";
 
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
-const frameworkStatusHelper = (displayName, key, priority) => ({
-  displayName,
-  key,
-  priority
-});
-
-// prettier-ignore
-/* eslint-disable no-multi-spaces */
-const FrameworkStatus = {
-  418: frameworkStatusHelper("Initializing",                    ServiceStatus.DEPLOYING,  1),
-  200: frameworkStatusHelper("Running",                         ServiceStatus.RUNNING,    1),
-  500: frameworkStatusHelper("Error Creating Service",          ServiceStatus.WARNING,    1),
-  204: frameworkStatusHelper("Deploying (Awaiting Resources)",  ServiceStatus.DEPLOYING,  2),
-  202: frameworkStatusHelper("Deploying",                       ServiceStatus.DEPLOYING,  2),
-  203: frameworkStatusHelper("Degraded (Awaiting Resources)",   ServiceStatus.RECOVERING, 4),
-  205: frameworkStatusHelper("Degraded (Recovering)",           ServiceStatus.RECOVERING, 4),
-  206: frameworkStatusHelper("Degraded",                        ServiceStatus.RECOVERING, 3),
-  420: frameworkStatusHelper("Backing up",                      ServiceStatus.RECOVERING, 5),
-  421: frameworkStatusHelper("Restoring",                       ServiceStatus.RECOVERING, 5),
-  426: frameworkStatusHelper("Upgrade / Rollback / Downgrade",  ServiceStatus.DEPLOYING,  6),
-  503: frameworkStatusHelper("Service Unavailable",             ServiceStatus.STOPPED,    0)
-};
 /* eslint-enable */
 
 const taskToStatus = task =>
-  FrameworkStatus[
+  FrameworkStatus.fromHttpCode(
     findNestedPropertyInObject(task, "checkResult.http.statusCode")
-  ];
+  );
 
 const getHighestPriorityStatus = tasks => {
   const statuses = tasks.map(taskToStatus).filter(x => x);
 
   return statuses.length !== 0
-    ? statuses.reduce((acc, cur) => (cur.priority > acc.priority ? cur : acc))
+    ? statuses.reduce((acc, cur) => (cur.key > acc.key ? cur : acc))
     : null;
 };
 
@@ -120,7 +98,7 @@ module.exports = class Framework extends Application {
   getServiceStatus() {
     const status = getHighestPriorityStatus(this.get("tasks") || []);
 
-    return status !== null ? status.key : super.getServiceStatus();
+    return status || super.getServiceStatus();
   }
 
   getTasksSummary() {
