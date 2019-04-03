@@ -69,7 +69,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -149,7 +149,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -182,7 +182,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:1-service-with-executor-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -241,7 +241,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -268,7 +268,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -300,7 +300,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -372,7 +372,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -415,7 +415,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -446,7 +446,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -564,7 +564,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
