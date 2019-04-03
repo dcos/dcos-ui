@@ -50,11 +50,14 @@ class CompositeState {
     if (data == null) {
       return;
     }
-    
-    // Memoize node health data as an object with "host_ip" keys
-    this.nodeHealthData = Util.keyBy(data, "host_ip")
 
-    this.data.slaves = enrichNodeDataWithHealthData(this.data.slaves || [], this.nodeHealthData)
+    // Memoize node health data as an object with "host_ip" keys
+    this.nodeHealthData = Util.keyBy(data, "host_ip");
+
+    this.data.slaves = enrichNodeDataWithHealthData(
+      this.data.slaves || [],
+      this.nodeHealthData
+    );
   }
 
   addState(newData) {
@@ -71,7 +74,10 @@ class CompositeState {
     };
 
     // Reuse memoized node health data
-    this.data.slaves = enrichNodeDataWithHealthData(this.data.slaves || [], this.nodeHealthData)
+    this.data.slaves = enrichNodeDataWithHealthData(
+      this.data.slaves || [],
+      this.nodeHealthData
+    );
   }
 
   getServiceList() {
