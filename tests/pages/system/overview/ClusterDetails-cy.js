@@ -21,7 +21,7 @@ describe("Cluster Details", function() {
       .contains("test-cluster");
     cy.get("@mesosDetailsSection")
       .configurationMapValue("Leader")
-      .contains("10.0.5.101:5050");
+      .contains("dcos-0:5050");
     cy.get("@mesosDetailsSection")
       .configurationMapValue("Version")
       .contains("1.5.0");
