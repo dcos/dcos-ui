@@ -263,47 +263,18 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
 
           */}
           <Trans render="h2" className="short-bottom">
-            Restart Configuration
+            Restart Policy
           </Trans>
-          <Trans render="p">The steps to take if a job fails.</Trans>
+          <Trans render="p">
+            The steps to take if a job fails. Either never relaunch a job or try
+            to start a job when it fails.
+          </Trans>
           {/*
 
             RESTART JOB
 
           */}
           <FormGroup>
-            <h3 className="short-bottom">
-              <FormGroupHeading>
-                <FormGroupHeadingContent title="Restart Job">
-                  <Trans render="span">Restart Job</Trans>
-                </FormGroupHeadingContent>
-                <FormGroupHeadingContent title="Restart Job Info">
-                  <Tooltip
-                    content={
-                      <Trans>
-                        The policy to use if a job fails. No/NEVER will never
-                        try to relaunch a job. Yes/ON_FAILURE will try to start
-                        a job in case of failure.
-                      </Trans>
-                    }
-                    interactive={true}
-                    maxWidth={300}
-                    wrapText={true}
-                  >
-                    <InfoTooltipIcon />
-                  </Tooltip>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </h3>
-            <FieldLabel>
-              <FieldInput
-                checked={formData.restartPolicy === RestartPolicy.OnFailure}
-                name="restartPolicy"
-                type="radio"
-                value={RestartPolicy.OnFailure}
-              />
-              <Trans render="span">Yes</Trans>
-            </FieldLabel>
             <FieldLabel>
               <FieldInput
                 checked={formData.restartPolicy !== RestartPolicy.OnFailure}
@@ -311,7 +282,16 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
                 type="radio"
                 value={RestartPolicy.Never}
               />
-              <Trans render="span">No</Trans>
+              <Trans render="span">Never</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={formData.restartPolicy === RestartPolicy.OnFailure}
+                name="restartPolicy"
+                type="radio"
+                value={RestartPolicy.OnFailure}
+              />
+              <Trans render="span">On Failure</Trans>
             </FieldLabel>
           </FormGroup>
           {/*
@@ -324,7 +304,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
               <FieldLabel>
                 <FormGroupHeading>
                   <FormGroupHeadingContent title="Retry Time">
-                    <Trans render="span">Retry Time</Trans>
+                    <Trans render="span">Keep Trying Time</Trans>
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent title="Retry Time Info">
                     <Tooltip
@@ -347,6 +327,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
                 type="number"
                 name="activeDeadlineSeconds"
                 value={formData.retryTime}
+                disabled={formData.restartPolicy !== RestartPolicy.OnFailure}
               />
               <FieldHelp>
                 <Trans render="span">
