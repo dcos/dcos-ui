@@ -20,13 +20,6 @@ describe("CompositeState", function() {
     });
   });
 
-  describe("#addSummary", function() {
-    it("adds an object to state", function() {
-      CompositeState.addSummary({ foo: "bar" });
-      expect(CompositeState.data).toEqual({ foo: "bar" });
-    });
-  });
-
   describe("#addNodeHealth", function() {
     beforeEach(function() {
       CompositeState.addState({
@@ -116,7 +109,7 @@ describe("CompositeState", function() {
       expect(CompositeState.data).toEqual({ foo: "baz", baz: "qux" });
     });
 
-    it("merges framework data set with both addState and addSummary", function() {
+    it("merges framework data set with both addState and addState", function() {
       CompositeState.addState({
         frameworks: [
           {
@@ -138,7 +131,7 @@ describe("CompositeState", function() {
         ]
       });
 
-      CompositeState.addSummary({
+      CompositeState.addState({
         frameworks: [
           {
             id: "foo-id",
@@ -306,10 +299,10 @@ describe("CompositeState", function() {
       expect(CompositeState.data).toEqual({});
     });
 
-    it("does not update addSummary when disabled", function() {
+    it("does not update addState when disabled", function() {
       CompositeState.disable();
 
-      CompositeState.addSummary({ foo: "bar" });
+      CompositeState.addState({ foo: "bar" });
       expect(CompositeState.data).toEqual({});
     });
 

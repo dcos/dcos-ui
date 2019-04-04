@@ -40,7 +40,7 @@ const mergeObjectsById = function(newData, data = []) {
     });
 
     // These objects don't need to be deeply merged.
-    return Object.assign({}, oldDatum, newDatum);
+    return { ...oldDatum, ...newDatum };
   });
 };
 
@@ -87,7 +87,7 @@ class CompositeState {
     const newData = oldData.map(function(oldDatum) {
       const matchedNode = dataByIP[oldDatum.hostname] || BLANK_NODE;
 
-      return Object.assign({}, oldDatum, matchedNode);
+      return { ...oldDatum, ...matchedNode };
     });
 
     this.data = {
@@ -97,13 +97,6 @@ class CompositeState {
   }
 
   addState(data) {
-    if (this._isDisabled()) {
-      return;
-    }
-    this.data = mergeData(data, this.data);
-  }
-
-  addSummary(data) {
     if (this._isDisabled()) {
       return;
     }

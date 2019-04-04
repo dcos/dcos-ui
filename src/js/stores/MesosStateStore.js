@@ -1,3 +1,4 @@
+import CompositeState from "#SRC/js/structs/CompositeState";
 import PluginSDK from "PluginSDK";
 import * as MesosClient from "@dcos/mesos-client";
 import { interval, of } from "rxjs";
@@ -16,7 +17,6 @@ import {
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import Task from "#PLUGINS/services/src/js/structs/Task";
 
-import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
 import DCOSStore from "./DCOSStore";
 import GetSetBaseStore from "./GetSetBaseStore";
@@ -99,6 +99,7 @@ class MesosStateStore extends GetSetBaseStore {
           this.getMaster(),
           JSON.parse(response)
         );
+        CompositeState.addState(master);
         this.setMaster(master);
       })
     );
@@ -108,10 +109,7 @@ class MesosStateStore extends GetSetBaseStore {
       merge(getMasterRequest),
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
-      tap(state => {
-        CompositeState.addState(state);
-        this.setState(state);
-      })
+      tap(state => this.setState(state))
     );
 
     const waitStream = getMasterRequest.pipe(zip(mesosStream.pipe(take(1))));
