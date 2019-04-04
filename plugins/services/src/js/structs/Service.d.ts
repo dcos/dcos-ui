@@ -1,5 +1,5 @@
 import Item from "#SRC/js/structs/Item";
-import ServiceStatus from "#PLUGINS/services/src/js/structs/ServiceStatus";
+import { Status } from "#PLUGINS/services/src/js/structs/ServiceStatus";
 
 export default class Service extends Item {
   getId(): string;
@@ -10,7 +10,7 @@ export default class Service extends Item {
   getLabels(): object;
   getVolumes(): any;
   getStatus(): any;
-  getServiceStatus(): ServiceStatus;
+  getServiceStatus(): Status;
   getRegions(): any;
   getImages(): any;
   getQueue(): null;

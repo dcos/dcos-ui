@@ -3,13 +3,13 @@ import { Trans } from "@lingui/macro";
 import { TextCell } from "@dcos/ui-kit";
 
 import StringUtil from "#SRC/js/utils/StringUtil";
-import ServiceStatusIcon from "../components/ServiceStatusIcon";
+import { SortDirection } from "#PLUGINS/services/src/js/types/SortDirection";
+import ServiceStatusProgressBar from "#PLUGINS/services/src/js/components/ServiceStatusProgressBar";
 import * as ServiceStatus from "../constants/ServiceStatus";
-import ServiceStatusProgressBar from "../components/ServiceStatusProgressBar";
+import ServiceStatusIcon from "../components/ServiceStatusIcon";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
 const StatusMapping: any = {
@@ -19,8 +19,26 @@ const StatusMapping: any = {
 export function statusRenderer(
   service: Service | ServiceTree
 ): React.ReactNode {
-  const serviceStatusText: string = service.getStatus();
-  const serviceStatusClassSet: string = StatusMapping[serviceStatusText] || "";
+  const serviceStatus = service.getStatus();
+  let serviceStatusClassSet: string = "";
+  let statusContent: JSX.Element | null = null;
+  if (typeof serviceStatus === "object") {
+    serviceStatusClassSet = StatusMapping[serviceStatus.status] || "";
+    statusContent = (
+      <span className="status-bar-text">
+        <Trans id={serviceStatus.status} />{" "}
+        <Trans id={serviceStatus.countsText} values={serviceStatus.values} />
+      </span>
+    );
+  } else if (
+    serviceStatus !== null &&
+    serviceStatus !== ServiceStatus.NA.displayName
+  ) {
+    serviceStatusClassSet = StatusMapping[serviceStatus] || "";
+    statusContent = (
+      <Trans id={serviceStatus} render="span" className="status-bar-text" />
+    );
+  }
   const instancesCount = service.getInstancesCount() as number;
   const runningInstances = service.getRunningInstancesCount() as number;
   // L10NTODO: Pluralize
@@ -30,7 +48,6 @@ export function statusRenderer(
       running out of {instancesCount}
     </Trans>
   );
-  const hasStatusText = serviceStatusText !== ServiceStatus.NA.displayName;
 
   return (
     <TextCell>
@@ -41,13 +58,7 @@ export function statusRenderer(
             showTooltip={true}
             tooltipContent={tooltipContent}
           />
-          {hasStatusText && (
-            <Trans
-              id={serviceStatusText}
-              render="span"
-              className="status-bar-text"
-            />
-          )}
+          {statusContent}
         </div>
         <div className="service-status-progressbar-wrapper">
           <ServiceStatusProgressBar service={service} />
