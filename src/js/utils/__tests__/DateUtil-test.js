@@ -63,7 +63,7 @@ describe("DateUtil", function() {
       date.setYear(date.getFullYear() - 1);
       const result = DateUtil.msToRelativeTime(date.getTime());
 
-      expect(result).toEqual("a year ago");
+      expect(result).toEqual("1 year ago");
     });
 
     it("suppresses the suffix if specified", function() {
@@ -71,7 +71,7 @@ describe("DateUtil", function() {
       date.setYear(date.getFullYear() - 1);
       const result = DateUtil.msToRelativeTime(date.getTime(), true);
 
-      expect(result).toEqual("a year");
+      expect(result).toEqual("1 year");
     });
 
     it('returns "in a year" if the date in a year from now', function() {
@@ -79,18 +79,50 @@ describe("DateUtil", function() {
       date.setYear(date.getFullYear() + 1);
       const result = DateUtil.msToRelativeTime(date);
 
-      expect(result).toEqual("in a year");
+      expect(result).toEqual("in 1 year");
     });
   });
 
   describe("#strToMs", function() {
-    it("returns value of date in ms", function() {
+    it("returns value of date in ms (1)", function() {
       expect(DateUtil.strToMs("1990-01-03T00:00:00Z-1")).toEqual(631324800000);
+    });
+    it("returns value of date in ms (2)", function() {
+      expect(DateUtil.strToMs("1990-01-03t00:00:00z-1")).toEqual(631324800000);
+    });
+    it("returns value of date in ms (3)", function() {
+      expect(DateUtil.strToMs("1990-01-03T00:00:00Z")).toEqual(631324800000);
+    });
+    it("returns value of date in ms (4)", function() {
+      expect(DateUtil.strToMs("1990-01-03t00:00:00z")).toEqual(631324800000);
+    });
+
+    it("returns null if called with something other then string (int)", function() {
+      expect(DateUtil.strToMs(0)).toEqual(null);
+    });
+    it("returns null if called with something other then string (array)", function() {
+      expect(DateUtil.strToMs([])).toEqual(null);
     });
 
     it("returns null if the string is undefined or null", function() {
       expect(DateUtil.strToMs(null)).toEqual(null);
       expect(DateUtil.strToMs(undefined)).toEqual(null);
+    });
+  });
+
+  describe("#isValidDate", function() {
+    it("return true for a valid date", function() {
+      expect(DateUtil.isValidDate("1990-01-03T00:00:00.000+0000")).toEqual(
+        true
+      );
+    });
+
+    it("return false for an invalid date", function() {
+      expect(DateUtil.isValidDate("foo")).toEqual(false);
+    });
+
+    it("returns false for null", function() {
+      expect(DateUtil.isValidDate(null)).toEqual(false);
     });
   });
 });

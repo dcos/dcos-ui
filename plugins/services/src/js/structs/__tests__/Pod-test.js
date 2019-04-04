@@ -261,7 +261,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx", healthy: true }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "healthy",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           }
@@ -293,7 +301,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx", healthy: false }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "healthy",
+                    reason: "health-reported-by-mesos",
+                    value: "false"
+                  }
+                ]
               }
             ]
           }
@@ -325,7 +341,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx" }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "something-else",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           }
@@ -389,7 +413,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx" }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "something-else",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           },
@@ -398,7 +430,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx" }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "something-else",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           }
