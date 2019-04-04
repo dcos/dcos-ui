@@ -110,6 +110,14 @@
         "disk": 0,
         "mem": 0
       },
+      "domain": {
+        "fault_domain": {
+          "region": {
+            "name": "eu-central-1"
+          },
+          "zone": { "name": "eu-central-1c" }
+        }
+      },
       "pid": "slave(1)@172.17.8.101:5051",
       "registered_time": 1443995289.19971,
       "reregistered_time": 1443995289.19981,

@@ -308,14 +308,14 @@ describe("Tasks Table", function() {
 
       cy.get("th.task-table-column-region-address").click();
 
-      cy.get(":nth-child(2) > .task-table-column-region-address").contains(
-        "ap-northeast-1"
+      cy.get(
+        ':nth-child(2) > .task-table-column-region-address:contains("ap-northeast-1")'
       );
-      cy.get(":nth-child(3) > .task-table-column-region-address").contains(
-        "eu-central-1"
+      cy.get(
+        ':nth-child(3) > .task-table-column-region-address:contains("eu-central-1")'
       );
-      cy.get(":nth-child(4) > .task-table-column-region-address").contains(
-        "eu-central-1"
+      cy.get(
+        ':nth-child(4) > .task-table-column-region-address:contains("eu-central-1")'
       );
     });
 
@@ -325,14 +325,14 @@ describe("Tasks Table", function() {
       cy.get("th.task-table-column-region-address").click();
       cy.get("th.task-table-column-region-address").click();
 
-      cy.get(":nth-child(2) > .task-table-column-region-address").contains(
-        "eu-central-1"
+      cy.get(
+        ':nth-child(2) > .task-table-column-region-address:contains("eu-central-1")'
       );
-      cy.get(":nth-child(3) > .task-table-column-region-address").contains(
-        "eu-central-1"
+      cy.get(
+        ':nth-child(3) > .task-table-column-region-address:contains("eu-central-1")'
       );
-      cy.get(":nth-child(4) > .task-table-column-region-address").contains(
-        "ap-northeast-1"
+      cy.get(
+        ':nth-child(4) > .task-table-column-region-address:contains("ap-northeast-1")'
       );
     });
 
@@ -341,14 +341,14 @@ describe("Tasks Table", function() {
 
       cy.get("th.task-table-column-zone-address").click();
 
-      cy.get(":nth-child(2) > .task-table-column-zone-address").contains(
-        "ap-northeast-1a"
+      cy.get(
+        ':nth-child(2) > .task-table-column-zone-address:contains("ap-northeast-1a")'
       );
-      cy.get(":nth-child(3) > .task-table-column-zone-address").contains(
-        "eu-central-1b"
+      cy.get(
+        ':nth-child(3) > .task-table-column-zone-address:contains("eu-central-1b")'
       );
-      cy.get(":nth-child(4) > .task-table-column-zone-address").contains(
-        "eu-central-1c"
+      cy.get(
+        ':nth-child(4) > .task-table-column-zone-address:contains("eu-central-1c")'
       );
     });
 
@@ -357,14 +357,15 @@ describe("Tasks Table", function() {
 
       cy.get("th.task-table-column-zone-address").click();
       cy.get("th.task-table-column-zone-address").click();
-      cy.get(":nth-child(2) > .task-table-column-zone-address").contains(
-        "eu-central-1c"
+
+      cy.get(
+        ':nth-child(2) > .task-table-column-zone-address:contains("eu-central-1c")'
       );
-      cy.get(":nth-child(3) > .task-table-column-zone-address").contains(
-        "eu-central-1b"
+      cy.get(
+        ':nth-child(3) > .task-table-column-zone-address:contains("eu-central-1b")'
       );
-      cy.get(":nth-child(4) > .task-table-column-zone-address").contains(
-        "ap-northeast-1a"
+      cy.get(
+        ':nth-child(4) > .task-table-column-zone-address:contains("ap-northeast-1a")'
       );
     });
   });
