@@ -79,7 +79,6 @@ describe("CompositeState", function() {
         slaves: [
           {
             hostname: "foo",
-            host_ip: "foo",
             health: 1
           }
         ]
