@@ -8,12 +8,12 @@ const MISSING_HEALTH_NODE = {
   health: 3
 };
 
-// replaces node data with previous node data plus health data
+// Mutates node data with node health data. This is much faster than mapping and creating new node objects
 const enrichNodeDataWithHealthData = (nodes, healthData) => {
-  return nodes.map(function(node) {
+  nodes.forEach(function(node) {
     const matchedHealthNode = healthData[node.hostname] || MISSING_HEALTH_NODE;
 
-    return { ...node, ...matchedHealthNode };
+    node.health = matchedHealthNode.health;
   });
 };
 
@@ -54,10 +54,8 @@ class CompositeState {
     // Memoize node health data as an object with "host_ip" keys
     this.nodeHealthData = Util.keyBy(data, "host_ip");
 
-    this.data.slaves = enrichNodeDataWithHealthData(
-      this.data.slaves || [],
-      this.nodeHealthData
-    );
+    this.data.slaves = this.data.slaves || [];
+    enrichNodeDataWithHealthData(this.data.slaves, this.nodeHealthData);
   }
 
   addState(newData) {
@@ -74,10 +72,8 @@ class CompositeState {
     };
 
     // Reuse memoized node health data
-    this.data.slaves = enrichNodeDataWithHealthData(
-      this.data.slaves || [],
-      this.nodeHealthData
-    );
+    this.data.slaves = this.data.slaves || [];
+    enrichNodeDataWithHealthData(this.data.slaves, this.nodeHealthData);
   }
 
   getServiceList() {
