@@ -1,8 +1,20 @@
 import Service from "./Service";
+import StatusIcon from "#SRC/js/constants/StatusIcon";
 import Tree from "#SRC/js/structs/Tree";
+import { Status } from "../constants/ServiceStatus";
 
-export default class ServiceTree extends Tree<Service> {
-  getDeployments(): any;
+interface ServiceTreeStatusSummary {
+  status: string;
+  statusCounts: Record<string, number>;
+  countsText: string;
+  values: {
+    priorityStatusCount: number;
+    totalCount: number;
+  };
+}
+
+declare class ServiceTree extends Tree<Service> {
+  getDeployments(): object[] | null;
   getQueue(): null;
   getRegions(): any[];
   getHealth(): any;
@@ -16,8 +28,9 @@ export default class ServiceTree extends Tree<Service> {
   getInstancesCount(): number;
   getName(): string;
   getResources(): object;
-  getStatus(): string;
-  getServiceStatus(): any;
+  getStatus(): string | ServiceTreeStatusSummary | null;
+  getStatusIconCounts(): { status: Record<string, number>; total: number };
+  getServiceStatus(): Status | null;
   getServices(): any;
   getTasksSummary(): any;
   getRunningInstancesCount(): number;
@@ -25,3 +38,5 @@ export default class ServiceTree extends Tree<Service> {
   getVolumes(): any;
   getLabels(): any;
 }
+
+export { ServiceTree as default, ServiceTreeStatusSummary };

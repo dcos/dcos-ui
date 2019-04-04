@@ -4,27 +4,33 @@ import * as Color from "@dcos/ui-kit/dist/packages/design-tokens/build/js/design
 type StatusIcon = {
   shape: SystemIcons;
   color: string;
+  name: string;
 };
 
 const SUCCESS: StatusIcon = {
   shape: SystemIcons.CircleCheck,
-  color: Color.green
+  color: Color.green,
+  name: "SUCCESS"
 };
 const LOADING: StatusIcon = {
   shape: SystemIcons.Spinner,
-  color: Color.greyDark
+  color: Color.greyDark,
+  name: "LOADING"
 };
 const STOPPED: StatusIcon = {
   shape: SystemIcons.CircleMinus,
-  color: Color.greyLightDarken1
+  color: Color.greyLightDarken1,
+  name: "STOPPED"
 };
 const WARNING: StatusIcon = {
   shape: SystemIcons.Yield,
-  color: Color.yellow
+  color: Color.yellow,
+  name: "WARNING"
 };
 const ERROR: StatusIcon = {
   shape: SystemIcons.CircleClose,
-  color: Color.red
+  color: Color.red,
+  name: "ERROR"
 };
 
 const StatusIcon = { SUCCESS, LOADING, STOPPED, WARNING, ERROR };

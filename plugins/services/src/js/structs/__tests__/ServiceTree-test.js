@@ -3,7 +3,6 @@ import * as ServiceStatus from "../../constants/ServiceStatus";
 const Application = require("../Application");
 const Framework = require("../Framework");
 const HealthStatus = require("../../constants/HealthStatus");
-const HealthTypes = require("../../constants/HealthTypes");
 const ServiceTree = require("../ServiceTree");
 const VolumeList = require("../../structs/VolumeList");
 
@@ -658,6 +657,140 @@ describe("ServiceTree", function() {
       expect(thisInstance.getStatus()).toEqual(
         ServiceStatus.DEPLOYING.displayName
       );
+    });
+
+    it("aggregates status to a summary", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual({
+        status: "Running",
+        statusCounts: {
+          SUCCESS: 2
+        },
+        countsText: "({priorityStatusCount} of {totalCount})",
+        values: {
+          priorityStatusCount: 2,
+          totalCount: 2
+        }
+      });
+    });
+
+    it("aggregates status by icon to a summary", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 15,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 2,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
+          queue: {
+            delay: true
+          }
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual({
+        status: "Processing",
+        statusCounts: {
+          LOADING: 2,
+          SUCCESS: 1
+        },
+        countsText: "({priorityStatusCount} of {totalCount})",
+        values: {
+          priorityStatusCount: 2,
+          totalCount: 3
+        }
+      });
+    });
+
+    it("aggregates highest priority to summary", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: []
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [],
+          queue: {
+            delay: true
+          }
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual({
+        status: "Processing",
+        statusCounts: {
+          LOADING: 1,
+          STOPPED: 1,
+          SUCCESS: 1
+        },
+        countsText: "({priorityStatusCount} of {totalCount})",
+        values: {
+          priorityStatusCount: 1,
+          totalCount: 3
+        }
+      });
     });
   });
 

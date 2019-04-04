@@ -103,7 +103,13 @@ class ServiceStatusIcon extends React.Component<{
 
   getTooltip(content: JSX.Element) {
     const { service } = this.props;
-    let icon = <Icon {...StatusIcon.WARNING} size={iconSizeXs} />;
+    let icon = (
+      <Icon
+        shape={StatusIcon.WARNING.shape}
+        color={StatusIcon.WARNING.color}
+        size={iconSizeXs}
+      />
+    );
 
     if (service instanceof Service) {
       const servicePath = encodeURIComponent(service.getId());
@@ -149,8 +155,10 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  renderIcon(iconState: any) {
-    const icon = <Icon {...iconState} size={iconSizeXs} />;
+  renderIcon(iconState: StatusIcon) {
+    const icon = (
+      <Icon shape={iconState.shape} color={iconState.color} size={iconSizeXs} />
+    );
 
     if (this.props.showTooltip) {
       return (

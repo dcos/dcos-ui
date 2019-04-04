@@ -1,4 +1,7 @@
+import { i18nMark } from "@lingui/react";
+
 import List from "#SRC/js/structs/List";
+import StatusIcon from "#SRC/js/constants/StatusIcon";
 import Tree from "#SRC/js/structs/Tree";
 
 import Application from "./Application";
@@ -7,7 +10,6 @@ import HealthTypes from "../constants/HealthTypes";
 import HealthStatus from "../constants/HealthStatus";
 import Pod from "./Pod";
 import Service from "./Service";
-import ServiceOther from "../constants/ServiceOther";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
@@ -166,6 +168,32 @@ module.exports = class ServiceTree extends Tree {
     }, 0);
   }
 
+  getStatusIconCounts() {
+    const summaryCounts = {
+      status: {},
+      total: 0
+    };
+
+    return this.reduceItems(function(counts, item) {
+      if (item instanceof Service) {
+        const itemStatus = item.getServiceStatus();
+        if (itemStatus === null) {
+          return counts;
+        }
+        counts.total++;
+
+        const iconName = itemStatus.icon.name;
+        if (counts.status[iconName]) {
+          counts.status[iconName]++;
+        } else {
+          counts.status[iconName] = 1;
+        }
+      }
+
+      return counts;
+    }, summaryCounts);
+  }
+
   getName() {
     return this.getId()
       .split("/")
@@ -195,8 +223,40 @@ module.exports = class ServiceTree extends Tree {
     if (status == null) {
       return null;
     }
+    const statusIconCounts = this.getStatusIconCounts();
+    if (statusIconCounts.total <= 1) {
+      return status.displayName;
+    }
+    const statusSummary = {
+      status: status.displayName,
+      statusCounts: statusIconCounts.status,
+      countsText: i18nMark("({priorityStatusCount} of {totalCount})"),
+      values: {
+        priorityStatusCount: statusIconCounts.status[status.icon.name],
+        totalCount: statusIconCounts.total
+      }
+    };
+    switch (status.icon) {
+      case StatusIcon.SUCCESS:
+        statusSummary.status = i18nMark("Running");
+        break;
+      case StatusIcon.LOADING:
+        statusSummary.status = i18nMark("Processing");
+        break;
+      case StatusIcon.STOPPED:
+        statusSummary.status = i18nMark("Stopped");
+        break;
+      case StatusIcon.WARNING:
+        statusSummary.status = i18nMark("Warning");
+        break;
+      case StatusIcon.ERROR:
+        statusSummary.status = i18nMark("Error");
+        break;
+      default:
+        return status.displayName;
+    }
 
-    return status.displayName;
+    return statusSummary;
   }
 
   getServiceStatus() {
