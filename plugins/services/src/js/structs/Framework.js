@@ -7,23 +7,19 @@ import {
   FRAMEWORK_ID_VALID_CHARACTERS
 } from "../constants/FrameworkConstants";
 import FrameworkUtil from "../utils/FrameworkUtil";
-import * as FrameworkStatus from "../constants/FrameworkStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
 
-/* eslint-enable */
-
-const taskToStatus = task =>
-  FrameworkStatus.fromHttpCode(
-    findNestedPropertyInObject(task, "checkResult.http.statusCode")
-  );
-
 const getHighestPriorityStatus = tasks => {
-  const statuses = tasks.map(taskToStatus).filter(x => x);
+  const statuses = tasks
+    .map(t => findNestedPropertyInObject(t, "checkResult.http.statusCode"))
+    .map(ServiceStatus.fromHttpCode)
+    .filter(x => x);
 
   return statuses.length !== 0
-    ? statuses.reduce((acc, cur) => (cur.key > acc.key ? cur : acc))
+    ? statuses.reduce((acc, cur) => (cur.priority > acc.priority ? cur : acc))
     : null;
 };
 

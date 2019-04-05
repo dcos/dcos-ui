@@ -369,7 +369,7 @@ module.exports = class ServiceTree extends Tree {
           return serviceTreeStatus;
         }
 
-        if (status.key > serviceTreeStatus.key) {
+        if (status.priority > serviceTreeStatus.priority) {
           serviceTreeStatus = status;
         }
       }
