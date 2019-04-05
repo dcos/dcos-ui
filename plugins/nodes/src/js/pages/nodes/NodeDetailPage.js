@@ -22,12 +22,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     super(...arguments);
 
     this.store_listeners = [
-      { name: "summary", events: ["success"], suppressUpdate: false },
-      { name: "state", events: ["success"], suppressUpdate: false },
+      { name: "summary", events: ["success"], suppressUpdate: true },
+      { name: "state", events: ["success"], suppressUpdate: true },
       {
         name: "nodeHealth",
         events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"],
-        suppressUpdate: false
+        suppressUpdate: true
       }
     ];
 
@@ -88,6 +88,13 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
   }
 
+  onSummaryStoreSuccess() {
+    this.setState({
+      summaryStatesProcessed: MesosSummaryStore.get("statesProcessed"),
+      summaryStates: MesosSummaryStore.get("states")
+    });
+  }
+
   updateCurrentTab(nextProps) {
     const { routes } = nextProps || this.props;
     const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
@@ -122,10 +129,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   render() {
-    if (
-      !MesosSummaryStore.get("statesProcessed") ||
-      !this.state.mesosStateLoaded
-    ) {
+    if (!this.state.summaryStatesProcessed || !this.state.mesosStateLoaded) {
       return this.getLoadingScreen();
     }
 

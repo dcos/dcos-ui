@@ -252,7 +252,10 @@ export default class JobsOverviewTable extends React.Component {
     const nodes = [];
     const statusNode = <span className={statusClasses}>{status}</span>;
 
-    if (lastFailureAt == null && lastSuccessAt == null) {
+    if (
+      !DateUtil.isValidDate(lastFailureAt) ||
+      !DateUtil.isValidDate(lastSuccessAt)
+    ) {
       return statusNode;
     }
 

@@ -47,6 +47,15 @@ module.exports = {
             }
           }
         ],
+        conditions: [
+          {
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "true"
+          }
+        ],
         resources: { cpus: 0.5, mem: 64 }
       },
       {
@@ -61,6 +70,15 @@ module.exports = {
             labels: {
               VIP_0: "1.2.3.4:80"
             }
+          }
+        ],
+        conditions: [
+          {
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "true"
           }
         ],
         resources: { cpus: 0.5, mem: 64 }
@@ -98,6 +116,15 @@ module.exports = {
           statusSince: "2016-08-31T01:01:01.001",
           containerId: "container-id-1",
           endpoints: [{ name: "nginx", allocatedHostPort: 31001 }],
+          conditions: [
+            {
+              lastChanged: "2019-01-01T12:00:00.000Z",
+              lastUpdated: "2019-01-01T12:00:00.000Z",
+              name: "healthy",
+              reason: "health-reported-by-mesos",
+              value: "true"
+            }
+          ],
           lastUpdated: "2016-08-31T01:01:01.001",
           lastChanged: "2016-08-31T01:01:01.001"
         },
@@ -107,6 +134,15 @@ module.exports = {
           statusSince: "2016-08-31T01:01:01.001",
           containerId: "container-id-2",
           endpoints: [{ name: "nginx", allocatedHostPort: 31002 }],
+          conditions: [
+            {
+              lastChanged: "2019-01-01T12:00:00.000Z",
+              lastUpdated: "2019-01-01T12:00:00.000Z",
+              name: "healthy",
+              reason: "health-reported-by-mesos",
+              value: "true"
+            }
+          ],
           lastUpdated: "2016-08-31T01:01:01.001",
           lastChanged: "2016-08-31T01:01:01.001"
         }
@@ -127,6 +163,15 @@ module.exports = {
           statusSince: "2016-08-31T01:01:01.001",
           containerId: "container-id-3",
           endpoints: [{ name: "nginx", allocatedHostPort: 31011 }],
+          conditions: [
+            {
+              lastChanged: "2019-01-01T12:00:00.000Z",
+              lastUpdated: "2019-01-01T12:00:00.000Z",
+              name: "healthy",
+              reason: "health-reported-by-mesos",
+              value: "true"
+            }
+          ],
           lastUpdated: "2016-08-31T01:01:01.001",
           lastChanged: "2016-08-31T01:01:01.001"
         },
@@ -136,6 +181,15 @@ module.exports = {
           statusSince: "2016-08-31T01:01:01.001",
           containerId: "container-id-4",
           endpoints: [{ name: "nginx", allocatedHostPort: 31012 }],
+          conditions: [
+            {
+              lastChanged: "2019-01-01T12:00:00.000Z",
+              lastUpdated: "2019-01-01T12:00:00.000Z",
+              name: "healthy",
+              reason: "health-reported-by-mesos",
+              value: "true"
+            }
+          ],
           lastUpdated: "2016-08-31T01:01:01.001",
           lastChanged: "2016-08-31T01:01:01.001"
         }
@@ -156,6 +210,15 @@ module.exports = {
           statusSince: "2016-08-31T01:01:01.001",
           containerId: "container-id-5",
           endpoints: [{ name: "nginx", allocatedHostPort: 31021 }],
+          conditions: [
+            {
+              lastChanged: "2019-01-01T12:00:00.000Z",
+              lastUpdated: "2019-01-01T12:00:00.000Z",
+              name: "healthy",
+              reason: "health-reported-by-mesos",
+              value: "true"
+            }
+          ],
           lastUpdated: "2016-08-31T01:01:01.001",
           lastChanged: "2016-08-31T01:01:01.001"
         },
@@ -165,6 +228,15 @@ module.exports = {
           statusSince: "2016-08-31T01:01:01.001",
           containerId: "container-id-6",
           endpoints: [{ name: "nginx", allocatedHostPort: 31022 }],
+          conditions: [
+            {
+              lastChanged: "2019-01-01T12:00:00.000Z",
+              lastUpdated: "2019-01-01T12:00:00.000Z",
+              name: "healthy",
+              reason: "health-reported-by-mesos",
+              value: "true"
+            }
+          ],
           lastUpdated: "2016-08-31T01:01:01.001",
           lastChanged: "2016-08-31T01:01:01.001"
         }
