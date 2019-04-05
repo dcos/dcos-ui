@@ -21,29 +21,35 @@ import SummaryList from "../structs/SummaryList";
 import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
-let isInactive = false;
 
 /**
  * @this {MesosSummaryStore}
  */
+
 function startPolling() {
+  const fetchSummaryIfActive = () => {
+    const isInactive = VisibilityStore.get("isInactive");
+
+    if (!isInactive) {
+      MesosSummaryActions.fetchSummary();
+    } else {
+      // If not active, push null placeholder. This will ensure we maintain
+      // history when navigating back, for case where history server is down.
+
+      // Use {silent: true} Because we only want to push a summary on the stack without side
+      // effects (like re-rendering etc). The tab is out of focus so we
+      // don't want it to do any work. It only matters that there is
+      // appropriate history when we return focus to the tab.
+      this.processSummaryError({ silent: true });
+    }
+  };
+
   if (requestInterval == null) {
     requestInterval = setInterval(() => {
-      isInactive = VisibilityStore.get("isInactive");
-
-      if (!isInactive) {
-        MesosSummaryActions.fetchSummary();
-      } else {
-        // If not active, push null placeholder. This will ensure we maintain
-        // history when navigating back, for case where history server is down.
-
-        // Use {silent: true} Because we only want to push a summary on the stack without side
-        // effects (like re-rendering etc). The tab is out of focus so we
-        // don't want it to do any work. It only matters that there is
-        // appropriate history when we return focus to the tab.
-        this.processSummaryError({ silent: true });
-      }
+      fetchSummaryIfActive();
     }, Config.getRefreshRate());
+
+    fetchSummaryIfActive();
   }
 }
 
