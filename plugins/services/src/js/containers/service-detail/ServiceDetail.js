@@ -163,7 +163,6 @@ class ServiceDetail extends mixin(TabsMixin) {
       this.hasVolumes()
     ) {
       this.tabs_tabs["/services/overview/:id/volumes"] = "Volumes";
-      this.forceUpdate();
     }
   }
 
