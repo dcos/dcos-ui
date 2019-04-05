@@ -85,6 +85,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     ];
 
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+
+    MarathonStore.fetchMarathonInstanceInfo();
+    MetadataStore.fetchDCOSBuildInfo();
+
     request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
       response => {
         const cluster = JSON.parse(response).get_flags.flags.find(
@@ -121,17 +132,6 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
       this.setState({ masterInfo, electedTime, startTime });
     });
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-
-    MarathonStore.fetchMarathonInstanceInfo();
-    MetadataStore.fetchDCOSBuildInfo();
   }
 
   handleClusterConfigModalOpen() {
