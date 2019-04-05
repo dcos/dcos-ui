@@ -51,6 +51,23 @@ pipeline {
       }
     }
 
+    stage("Setup System Test Cluster") {
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ]
+        ]) {
+          sh '''
+            ./system-tests/_scripts/launch-cluster.sh
+          '''
+          }
+      }
+    }
+
     stage("Install") {
       steps {
         sh "npm --unsafe-perm ci"
@@ -117,7 +134,6 @@ pipeline {
               ]
             ]) {
               sh '''
-                ./system-tests/_scripts/launch-cluster.sh
                 export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
                 export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
                 export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
@@ -192,7 +208,21 @@ pipeline {
     }
   }
 
+
   post {
+    always {
+      withCredentials([
+        [
+          $class: "AmazonWebServicesCredentialsBinding",
+          credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+          accessKeyVariable: "AWS_ACCESS_KEY_ID",
+          secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+        ]
+      ]) {
+        sh "./system-tests/_scripts/delete-cluster.sh"
+      }
+    }
+
     failure {
       withCredentials([
         string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")

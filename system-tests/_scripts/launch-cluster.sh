@@ -62,14 +62,7 @@ URL=$(echo $LAUNCH_DESCRIBE | jq -r .masters[0].public_ip)
 echo $URL
 URL="http://$URL"
 
-BACKOFF=1
-until $(curl --output /dev/null --silent --head --fail ${URL}); do
-  BACKOFF=$((BACKOFF * 2))
-  sleep $BACKOFF
-done
-
 export CLUSTER_URL=${URL}
-
 if [ -f $CLUSTER_URL_FILE ]; then
   echo "Removing $CLUSTER_URL_FILE"
   rm $CLUSTER_URL_FILE
