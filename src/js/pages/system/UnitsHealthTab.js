@@ -247,7 +247,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
                 table-borderless-inner-columns table-hover flush-bottom"
               columns={this.getColumns()}
               colGroup={this.getColGroup()}
-              containerSelector=".gm-scroll-view"
+              containerSelector=".gm-scrollbar-container-fluid-view-width"
               data={visibleData}
               itemHeight={TableUtil.getRowHeight()}
               sortBy={{ prop: "health", order: "asc" }}
