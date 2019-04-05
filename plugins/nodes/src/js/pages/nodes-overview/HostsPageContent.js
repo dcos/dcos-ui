@@ -24,6 +24,11 @@ import NodesZoneFilter from "../../filters/NodesZoneFilter";
 import NodesTextFilter from "../../filters/NodesTextFilter";
 
 const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
+const DSL_FORM_SECTIONS = [
+  NodesHealthDSLSection,
+  NodesRegionDSLFilter,
+  NodesZoneDSLFilter
+];
 
 class HostsPageContent extends React.PureComponent {
   constructor() {
@@ -143,11 +148,7 @@ class HostsPageContent extends React.PureComponent {
       <div className="column-12 flush-left">
         <DSLFilterField
           filters={filters}
-          formSections={[
-            NodesHealthDSLSection,
-            NodesRegionDSLFilter,
-            NodesZoneDSLFilter
-          ]}
+          formSections={DSL_FORM_SECTIONS}
           expression={filterExpression}
           onChange={this.onFilterChangeHandler}
           defaultData={defaultFilterData}

@@ -30,6 +30,12 @@ import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 import TaskTable from "./TaskTable";
 
 const METHODS_TO_BIND = ["handleItemCheck"];
+const DSL_FORM_SECTIONS = [
+  TaskStatusDSLSection,
+  TaskZoneDSLSection,
+  TaskRegionDSLSection,
+  FuzzyTextDSLSection
+];
 
 class TasksView extends mixin(SaveStateMixin) {
   constructor() {
@@ -221,12 +227,7 @@ class TasksView extends mixin(SaveStateMixin) {
       <div className={hostClasses}>
         <DSLFilterField
           filters={filters}
-          formSections={[
-            TaskStatusDSLSection,
-            TaskZoneDSLSection,
-            TaskRegionDSLSection,
-            FuzzyTextDSLSection
-          ]}
+          formSections={DSL_FORM_SECTIONS}
           defaultData={defaultFilterData}
           expression={filterExpression}
           onChange={handleExpressionChange}
