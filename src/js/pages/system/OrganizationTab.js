@@ -509,7 +509,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
                 table-borderless-inner-columns table-hover flush-bottom"
               columns={this.getColumns()}
               colGroup={this.getColGroup()}
-              containerSelector=".gm-scroll-view"
+              containerSelector=".gm-scrollbar-container-fluid-view-width"
               data={visibleItems}
               itemHeight={TableUtil.getRowHeight()}
               sortBy={{ prop: sortProp, order: "asc" }}
