@@ -21,8 +21,7 @@ module.exports = class Service extends Item {
     return this.getId()
       .split("/")
       .slice(1)
-      .reverse()
-      .join(".");
+      .join("_");
   }
 
   getName() {
