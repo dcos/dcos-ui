@@ -24,8 +24,10 @@ describe("Tasks Table", function() {
       });
 
       it("shows the contents of the Mesos sandbox", function() {
-        cy.get(".page-body-content tbody tr:visible").should(function($rows) {
-          expect($rows.length).to.equal(13);
+        const numberOfItems = 13;
+        const numberOfSpacers = 2;
+        cy.get(".page-body-content tbody tr").should(function($rows) {
+          expect($rows.length).to.equal(numberOfItems + numberOfSpacers);
         });
       });
 
