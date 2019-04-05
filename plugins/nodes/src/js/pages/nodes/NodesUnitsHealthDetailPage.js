@@ -7,6 +7,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import Page from "#SRC/js/components/Page";
 import UnitsHealthNodeDetail from "#SRC/js/components/UnitsHealthNodeDetail";
 import UnitHealthStore from "#SRC/js/stores/UnitHealthStore";
+import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
@@ -31,8 +32,9 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
   }
 
   render() {
-    const { unitID, nodeID } = this.props.params;
-    const breadcrumbs = <NodeBreadcrumbs nodeID={nodeID} unitID={unitID} />;
+    const { node, params } = this.props;
+    const { unitID } = params;
+    const breadcrumbs = <NodeBreadcrumbs node={node} unitID={unitID} />;
 
     return (
       <Page>
@@ -43,4 +45,4 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
   }
 }
 
-module.exports = NodesUnitsHealthDetailPage;
+module.exports = withNode(NodesUnitsHealthDetailPage);
