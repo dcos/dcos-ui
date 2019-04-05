@@ -3,6 +3,7 @@ import { Link, routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Trans } from "@lingui/macro";
+import isEqual from "lodash.isequal";
 
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
@@ -15,6 +16,10 @@ class PageHeaderTabs extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props.tabs, nextProps.tabs);
   }
 
   handleNavigationItemSelection(navItem) {
