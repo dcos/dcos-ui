@@ -565,6 +565,45 @@ var response = {
       },
       get_frameworks: {
         frameworks: [
+          ...[...Array(1000).keys()].map(i => ({
+            framework_info: {
+              id: {
+                value: `b3bd182c-c6d7-463e-8bf0-06cd5807df4e-${i}`
+              }
+            },
+            name: `framework_${i}`,
+            pid: `scheduler-d571a745-055d-4180-9eed-${i}@10.0.1.110:40153`,
+            used_resources: {
+              cpus: 3.0,
+              disk: 27648.0,
+              mem: 14592.0,
+              ports: "[7000-7001, 7199-7199, 9000-9001, 9042-9042, 9160-9160]"
+            },
+            offered_resources: {
+              cpus: 0.0,
+              disk: 0.0,
+              mem: 0.0
+            },
+            capabilities: [],
+            hostname: "ip-10-0-1-110.us-west-2.compute.internal",
+            webui_url: "",
+            active: true,
+            user: "root",
+            failover_timeout: 604800.0,
+            checkpoint: true,
+            role: "cassandra_role",
+            registered_time: 1456239546.53993,
+            unregistered_time: 0.0,
+
+            principal: "cassandra_principal",
+            resources: {
+              cpus: 3.0,
+              disk: 27648.0,
+              mem: 14592.0,
+              ports: "[7000-7001, 7199-7199, 9000-9001, 9042-9042, 9160-9160]"
+            },
+            offers: []
+          })),
           {
             framework_info: {
               id: {
@@ -647,12 +686,12 @@ var response = {
         ]
       },
       get_agents: {
-        agents: [...Array(9001).keys()].map(i => ({
+        agents: [...Array(5000).keys()].map(i => ({
           agent_info: {
             id: { value: `${i}-b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0` }
           },
           pid: `slave(${i})@10.0.1.110:5051`,
-          hostname: `host-${i}`,
+          hostname: `dcos-${i}`,
           registered_time: 1456203090.91345,
           resources: {
             cpus: 4.0,

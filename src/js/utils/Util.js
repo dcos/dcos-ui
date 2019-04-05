@@ -17,14 +17,49 @@ const Util = {
   },
 
   /**
-   * Copies an object, omitting blacklisted keys.
-   * @param  {Object} object        Object to copy
-   * @param  {Array} blacklistKeys  Keys to not copy over
-   * @return {Object}               Copy of object without blacklisted keys
+   * Returns a composed aggregate object given an array and a key to use as the composed
+   * object id. If the values of key are not unique, the last object is used.
+   * @param {Array} array            The collection of objects to iterate over
+   * @param {string} key             The key used to retreive a value that will become the key of the aggregate object
+   * @return {Object}                The aggregate object
    */
-  omit(object, blacklistKeys) {
+  keyBy(array, key) {
+    return array.reduce((acc, current) => {
+      acc[current[key]] = current;
+
+      return acc;
+    }, {});
+  },
+
+  /**
+   * Copies specific keys of an object
+   * @param  {Object} object        Object to copy
+   * @param  {Array} allowKeys      Keys to copy
+   * @return {Object}               Copy of object with allowed keys
+   */
+  pluck(object, allowKeys) {
+    const allow = new Set(allowKeys);
+
     return Object.keys(object).reduce(function(newObject, key) {
-      if (blacklistKeys.indexOf(key) === -1) {
+      if (allow.has(key)) {
+        newObject[key] = object[key];
+      }
+
+      return newObject;
+    }, {});
+  },
+
+  /**
+   * Copies an object, omitting specific keys.
+   * @param  {Object} object        Object to copy
+   * @param  {Array} denyKeys       Keys to not copy over
+   * @return {Object}               Copy of object without disallowed keys
+   */
+  omit(object, denyKeys) {
+    const deny = new Set(denyKeys);
+
+    return Object.keys(object).reduce(function(newObject, key) {
+      if (!deny.has(key)) {
         newObject[key] = object[key];
       }
 

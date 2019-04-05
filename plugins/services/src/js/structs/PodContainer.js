@@ -76,17 +76,16 @@ module.exports = class PodContainer extends Item {
     // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/container-status.raml#L49
     // 'healthy: should only be present if a health check is defined for this endpoint'
     //
-
-    return this.getEndpoints().some(function(ep) {
-      return ep.healthy !== undefined;
+    return this.get("conditions").some(function(cnd) {
+      return cnd.name === "healthy";
     });
   }
 
   isHealthy() {
     // If we have at least 1 health check and it has failed, we are assumed to
     // be unhealthy.
-    return !this.getEndpoints().some(function(ep) {
-      return ep.healthy !== undefined && !ep.healthy;
+    return !this.get("conditions").some(function(cnd) {
+      return cnd.name === "healthy" && cnd.value === "false";
     });
   }
 };
