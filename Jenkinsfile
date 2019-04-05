@@ -139,6 +139,7 @@ pipeline {
                 export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
                 DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
                 npm run test:system
+                ./system-tests/_scripts/delete-cluster.sh
               '''
             }
           }
@@ -210,19 +211,6 @@ pipeline {
 
 
   post {
-    always {
-      withCredentials([
-        [
-          $class: "AmazonWebServicesCredentialsBinding",
-          credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-          accessKeyVariable: "AWS_ACCESS_KEY_ID",
-          secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-        ]
-      ]) {
-        sh "./system-tests/_scripts/delete-cluster.sh"
-      }
-    }
-
     failure {
       withCredentials([
         string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
@@ -234,6 +222,16 @@ pipeline {
           teamDomain: "mesosphere",
           token: "${env.SLACK_TOKEN}",
         )
+      }
+      withCredentials([
+        [
+          $class: "AmazonWebServicesCredentialsBinding",
+          credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+          accessKeyVariable: "AWS_ACCESS_KEY_ID",
+          secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+        ]
+      ]) {
+        sh "./system-tests/_scripts/delete-cluster.sh"
       }
     }
     unstable {
