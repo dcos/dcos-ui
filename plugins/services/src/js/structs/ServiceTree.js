@@ -1,7 +1,6 @@
 import { i18nMark } from "@lingui/react";
 
 import List from "#SRC/js/structs/List";
-import StatusIcon from "#SRC/js/constants/StatusIcon";
 import Tree from "#SRC/js/structs/Tree";
 
 import Application from "./Application";
@@ -228,7 +227,7 @@ module.exports = class ServiceTree extends Tree {
       return status.displayName;
     }
     const statusSummary = {
-      status: status.displayName,
+      status: status.icon.name,
       statusCounts: statusIconCounts.status,
       countsText: i18nMark("({priorityStatusCount} of {totalCount})"),
       values: {
@@ -236,25 +235,6 @@ module.exports = class ServiceTree extends Tree {
         totalCount: statusIconCounts.total
       }
     };
-    switch (status.icon) {
-      case StatusIcon.SUCCESS:
-        statusSummary.status = i18nMark("Running");
-        break;
-      case StatusIcon.LOADING:
-        statusSummary.status = i18nMark("Processing");
-        break;
-      case StatusIcon.STOPPED:
-        statusSummary.status = i18nMark("Stopped");
-        break;
-      case StatusIcon.WARNING:
-        statusSummary.status = i18nMark("Warning");
-        break;
-      case StatusIcon.ERROR:
-        statusSummary.status = i18nMark("Error");
-        break;
-      default:
-        return status.displayName;
-    }
 
     return statusSummary;
   }

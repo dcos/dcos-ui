@@ -682,7 +682,7 @@ describe("ServiceTree", function() {
       );
 
       expect(thisInstance.getStatus()).toEqual({
-        status: "Running",
+        status: "SUCCESS",
         statusCounts: {
           SUCCESS: 2
         },
@@ -730,7 +730,7 @@ describe("ServiceTree", function() {
       );
 
       expect(thisInstance.getStatus()).toEqual({
-        status: "Processing",
+        status: "LOADING",
         statusCounts: {
           LOADING: 2,
           SUCCESS: 1
@@ -779,7 +779,7 @@ describe("ServiceTree", function() {
       );
 
       expect(thisInstance.getStatus()).toEqual({
-        status: "Processing",
+        status: "LOADING",
         statusCounts: {
           LOADING: 1,
           STOPPED: 1,
