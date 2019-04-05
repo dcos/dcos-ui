@@ -124,20 +124,16 @@ class ServiceStatusIcon extends React.Component<{
   }
 
   getUnableToLaunchWarning(service: Service) {
-    if (this.isUnableToLaunch(service)) {
-      return this.getTooltip(
-        <Trans render="span">
-          There are tasks in this queue that DC/OS has failed to deploy for{" "}
-          {DateUtil.getDuration(
-            Date.now() -
-              DateUtil.strToMs((service.getQueue() as any).since as string)
-          )}
-          .
-        </Trans>
-      );
-    }
+    const duration = DateUtil.getDuration(
+      Date.now() - DateUtil.strToMs((service.getQueue() as any).since as string)
+    );
 
-    return null;
+    return this.getTooltip(
+      <Trans render="span">
+        There are tasks in this queue that DC/OS has failed to deploy for
+        {duration}.
+      </Trans>
+    );
   }
 
   isUnableToLaunch(service: ServiceOrPodOrTree) {
