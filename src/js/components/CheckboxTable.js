@@ -193,7 +193,7 @@ class CheckboxTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         prop: "selected",
-        render: this.renderCheckbox,
+        render: () => "x", // this.renderCheckbox,
         sortable: false,
         heading: this.renderHeadingCheckbox
       }
@@ -201,6 +201,7 @@ class CheckboxTable extends React.Component {
   }
 
   render() {
+    console.log("checkboxtable#render");
     const { className, data, getColGroup, sortOrder, sortProp } = this.props;
     const columns = this.getColumns();
 
@@ -218,7 +219,7 @@ class CheckboxTable extends React.Component {
         colGroup={getColGroup()}
         containerSelector=".gm-scroll-view"
         data={data}
-        itemHeight={TableUtil.getRowHeight()}
+        itemHeight={50}
         sortBy={{ prop: sortProp, order: sortOrder }}
       />
     );

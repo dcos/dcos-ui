@@ -138,7 +138,7 @@ const Page = createReactClass({
     }
 
     return (
-      <FluidGeminiScrollbar
+      <div
         autoshow={true}
         className="page-body flex flex-direction-top-to-bottom
           flex-direction-left-to-right-screen-large flex-item-grow-1
@@ -146,7 +146,7 @@ const Page = createReactClass({
         ref={ref => (this.geminiRef = ref)}
       >
         {content}
-      </FluidGeminiScrollbar>
+      </div>
     );
   },
 

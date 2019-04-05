@@ -84,7 +84,11 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "id",
-        render: this.renderHeadline({ primary: true }),
+        render: () => {
+          console.log("renderHeadline");
+
+          return "x";
+        }, // this.renderHeadline({ primary: true }),
         sortable: true,
         sortFunction
       },
@@ -93,7 +97,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "name",
-        render: this.renderHeadline({ secondary: true }),
+        render: () => "x", // this.renderHeadline({ secondary: true }),
         sortable: true,
         sortFunction
       },
@@ -102,7 +106,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "host",
-        render: this.renderHost,
+        render: () => "x", // this.renderHost,
         sortable: true,
         sortFunction
       },
@@ -111,7 +115,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "zone",
-        render: this.renderZone,
+        render: () => "x", // this.renderZone,
         sortable: true,
         sortFunction
       },
@@ -120,7 +124,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "region",
-        render: this.renderRegion,
+        render: () => "x", // this.renderRegion,
         sortable: true,
         sortFunction
       },
@@ -131,7 +135,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "status",
-        render: this.renderStatus,
+        render: () => "x", // this.renderStatus,
         sortable: true,
         sortFunction
       },
@@ -142,7 +146,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "health",
-        render: this.renderHealth,
+        render: () => "x", // this.renderHealth,
         sortable: true,
         sortFunction: getHealthSorting
       },
@@ -152,7 +156,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "logs",
-        render: this.renderLog,
+        render: () => "x", // this.renderLog,
         sortable: false
       },
       {
@@ -162,7 +166,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "cpus",
-        render: this.renderStats,
+        render: () => "x", // this.renderStats,
         sortable: true,
         sortFunction
       },
@@ -173,7 +177,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "mem",
-        render: this.renderStats,
+        render: () => "x", // this.renderStats,
         sortable: true,
         sortFunction
       },
@@ -184,7 +188,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "gpus",
-        render: this.renderStats,
+        render: () => "x", // this.renderStats,
         sortable: true,
         sortFunction
       },
@@ -193,7 +197,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "updated",
-        render: ResourceTableUtil.renderUpdated,
+        render: () => "x", // ResourceTableUtil.renderUpdated,
         sortable: true,
         sortFunction
       }
@@ -414,7 +418,12 @@ class TaskTable extends React.Component {
     );
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
+    console.log("tasktable render");
     const { checkedItemsMap, className, onCheckboxChange, tasks } = this.props;
 
     return (

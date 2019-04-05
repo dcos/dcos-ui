@@ -115,6 +115,7 @@ class TasksContainer extends React.Component {
   }
 
   propsToState(props) {
+    console.log("propsToState");
     const {
       defaultFilterData: { regions },
       defaultFilterData: { zones }

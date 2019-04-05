@@ -324,7 +324,7 @@ class Sidebar extends React.Component {
         }}
       >
         <div className="sidebar flex flex-direction-top-to-bottom">
-          <GeminiScrollbar
+          <div
             autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
             ref={ref => (this.geminiRef = ref)}
@@ -334,7 +334,7 @@ class Sidebar extends React.Component {
                 {this.getNavigationSections()}
               </div>
             </div>
-          </GeminiScrollbar>
+          </div>
         </div>
       </div>
     );
