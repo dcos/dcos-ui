@@ -128,10 +128,7 @@ class TasksView extends mixin(SaveStateMixin) {
     const isDeploying = Object.keys(checkedItems).some(function(taskId) {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
-      return (
-        service &&
-        service.getServiceStatus().key === ServiceStatus.DEPLOYING.key
-      );
+      return service && service.getServiceStatus() === ServiceStatus.DEPLOYING;
     });
 
     const isSDK = Object.keys(checkedItems).some(function(taskId) {
