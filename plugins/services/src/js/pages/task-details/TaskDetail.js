@@ -14,6 +14,7 @@ import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
+import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskStates from "../../constants/TaskStates";
@@ -22,7 +23,8 @@ const METHODS_TO_BIND = [
   "handleBreadcrumbClick",
   "handleOpenLogClick",
   "onTaskDirectoryStoreError",
-  "onTaskDirectoryStoreSuccess"
+  "onTaskDirectoryStoreSuccess",
+  "onMesosStateChange"
 ];
 
 // TODO remove
@@ -63,7 +65,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
     this.store_listeners = [
       { name: "marathon", events: ["appsSuccess"], listenAlways: false },
-      { name: "state", events: ["success"], listenAlways: false },
       { name: "summary", events: ["success"], listenAlways: false },
       {
         name: "taskDirectory",
@@ -110,6 +111,18 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
       this.updateCurrentTab();
     }
+    MesosStateStore.addChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+  }
+
+  onMesosStateChange() {
+    const { directory } = this.state;
+
+    if (!directory) {
+      this.handleFetchDirectory();
+    }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -135,10 +148,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
     this.store_removeEventListenerForStoreID("summary", "success");
-  }
-
-  onStateStoreSuccess() {
-    this.handleFetchDirectory();
   }
 
   onTaskDirectoryStoreError() {
@@ -171,8 +180,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     if (task != null) {
       TaskDirectoryStore.fetchDirectory(task, innerPath);
     }
-
-    this.setState({ directory: null });
   }
 
   handleBreadcrumbClick(path) {
@@ -338,7 +345,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
   render() {
     if (MesosStateStore.get("lastMesosState").slaves == null) {
-      return null;
+      return this.getLoadingScreen();
     }
 
     return (

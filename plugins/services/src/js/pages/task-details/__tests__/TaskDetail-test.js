@@ -70,8 +70,8 @@ describe("TaskDetail", function() {
   });
 
   describe("#componentDidMount", function() {
-    it("calls fetchDirectory after onStateStoreSuccess is called", function() {
-      TaskDetail.prototype.onStateStoreSuccess.call(mockThis);
+    it("calls fetchDirectory after onMesosStateChange is called", function() {
+      TaskDetail.prototype.onMesosStateChange.call(mockThis);
       expect(mockThis.handleFetchDirectory).toHaveBeenCalled();
     });
   });
