@@ -1,6 +1,6 @@
 import { i18nMark } from "@lingui/react";
 
-module.exports = {
+export default {
   type: {
     MESOS: "MESOS",
     DOCKER: "DOCKER"
