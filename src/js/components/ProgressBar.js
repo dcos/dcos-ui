@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames/dedupe";
+import memoize from "fast-memoize";
 
 // Size of largest portion to give to smallest portion. We have a max of 5
 // status types so we want to keep this growth ratio relatively small.
@@ -49,7 +50,20 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
   stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 }
 
-class ProgressBar extends React.Component {
+function getProgressBarData(value, className) {
+  return [
+    {
+      value,
+      className
+    }
+  ];
+}
+const memoizedGetProgressBarData = memoize(getProgressBarData);
+class ProgressBar extends React.PureComponent {
+  static getDataFromValue(value, className) {
+    return memoizedGetProgressBarData(value, className);
+  }
+
   getBars(data) {
     let max = data.reduce(function(sum, item) {
       return sum + item.value;
