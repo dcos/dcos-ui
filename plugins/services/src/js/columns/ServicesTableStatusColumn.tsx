@@ -3,11 +3,6 @@ import { Trans } from "@lingui/macro";
 import { TextCell } from "@dcos/ui-kit";
 
 import StringUtil from "#SRC/js/utils/StringUtil";
-import {
-  StatusCategoryPriority,
-  StatusCategoryText,
-  StatusCategories
-} from "#SRC/js/constants/StatusIcon";
 import { SortDirection } from "#PLUGINS/services/src/js/types/SortDirection";
 import ServiceStatusProgressBar from "#PLUGINS/services/src/js/components/ServiceStatusProgressBar";
 import * as ServiceStatus from "../constants/ServiceStatus";
@@ -17,21 +12,18 @@ import Service from "../structs/Service";
 import ServiceTree, { ServiceTreeStatusSummary } from "../structs/ServiceTree";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
-const StatusMapping: any = {
-  Running: "running-state"
-};
-
 function statusCountsToTooltipContent(
-  statusCounts: Record<StatusCategories, number>
+  statusCounts: Record<ServiceStatus.StatusCategory, number>
 ): JSX.Element[] {
   return Object.keys(statusCounts)
-    .filter(value => (value as StatusCategories) in StatusCategoryText)
+    .filter(value => value in ServiceStatus.StatusCategory)
     .sort(statusCategorySorter)
     .map((value, index) => {
-      const iconName = value as StatusCategories;
+      const category = value as ServiceStatus.StatusCategory;
       return (
         <div key={`status.${index}`}>
-          {statusCounts[iconName]} <Trans id={StatusCategoryText[iconName]} />
+          {statusCounts[category]}{" "}
+          <Trans id={ServiceStatus.toCategoryLabel(category)} />
         </div>
       );
     });
@@ -44,12 +36,10 @@ export function statusRenderer(
     | string
     | ServiceTreeStatusSummary
     | null = service.getStatus();
-  let serviceStatusClassSet: string = "";
   let statusContent: JSX.Element | null = null;
   let tooltipContent: JSX.Element;
   if (typeof serviceStatus === "object" && serviceStatus !== null) {
-    const statusText = StatusCategoryText[serviceStatus.status];
-    serviceStatusClassSet = StatusMapping[statusText] || "";
+    const statusText = ServiceStatus.toCategoryLabel(serviceStatus.status);
     statusContent = (
       <span className="status-bar-text">
         <Trans id={statusText} />{" "}
@@ -64,7 +54,6 @@ export function statusRenderer(
       serviceStatus !== null &&
       serviceStatus !== ServiceStatus.NA.displayName
     ) {
-      serviceStatusClassSet = StatusMapping[serviceStatus] || "";
       statusContent = (
         <Trans id={serviceStatus} render="span" className="status-bar-text" />
       );
@@ -83,7 +72,7 @@ export function statusRenderer(
   return (
     <TextCell>
       <div className="flex">
-        <div className={`${serviceStatusClassSet} service-status-icon-wrapper`}>
+        <div className="service-status-icon-wrapper">
           <ServiceStatusIcon
             service={service}
             showTooltip={true}
@@ -107,9 +96,8 @@ export function statusSorter(
 }
 
 export function statusCategorySorter(a: string, b: string): number {
-  const statusNameA = (a as StatusCategories) || "NA";
-  const statusNameB = (b as StatusCategories) || "NA";
   return (
-    StatusCategoryPriority[statusNameB] - StatusCategoryPriority[statusNameA]
+    ServiceStatus.toCategoryPriority(b as ServiceStatus.StatusCategory) -
+    ServiceStatus.toCategoryPriority(a as ServiceStatus.StatusCategory)
   );
 }

@@ -12,7 +12,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 
 // @ts-ignore
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
-import { Status } from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
@@ -178,8 +178,7 @@ class ServiceStatusIcon extends React.Component<{
 
   render() {
     const { service } = this.props;
-    const serviceStatus: Status | null = service.getServiceStatus();
-    const iconState = serviceStatus && serviceStatus.icon;
+    const iconState = ServiceStatus.toIcon(service.getServiceStatus());
 
     // Catch other cases instead throwing a warning/error
     if (iconState == null) {

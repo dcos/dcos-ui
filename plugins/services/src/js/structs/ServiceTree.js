@@ -180,15 +180,10 @@ module.exports = class ServiceTree extends Tree {
           return counts;
         }
         counts.total++;
-        let category = "NA";
-        if (itemStatus.displayName !== ServiceStatus.NA.displayName) {
-          category = itemStatus.icon.category;
-        }
-
-        if (counts.status[category]) {
-          counts.status[category]++;
+        if (counts.status[itemStatus.category]) {
+          counts.status[itemStatus.category]++;
         } else {
-          counts.status[category] = 1;
+          counts.status[itemStatus.category] = 1;
         }
       }
 
@@ -229,14 +224,12 @@ module.exports = class ServiceTree extends Tree {
     if (statusCategoryCounts.total <= 1) {
       return status.displayName;
     }
-    const priorityStatusCategory = status.icon ? status.icon.category : "NA";
     const statusSummary = {
-      status: priorityStatusCategory,
+      status: status.category,
       statusCounts: statusCategoryCounts.status,
       countsText: i18nMark("({priorityStatusCount} of {totalCount})"),
       values: {
-        priorityStatusCount:
-          statusCategoryCounts.status[priorityStatusCategory],
+        priorityStatusCount: statusCategoryCounts.status[status.category],
         totalCount: statusCategoryCounts.total
       }
     };

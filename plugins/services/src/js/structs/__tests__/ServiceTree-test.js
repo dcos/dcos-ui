@@ -682,9 +682,9 @@ describe("ServiceTree", function() {
       );
 
       expect(thisInstance.getStatus()).toEqual({
-        status: "SUCCESS",
+        status: ServiceStatus.StatusCategory.RUNNING,
         statusCounts: {
-          SUCCESS: 2
+          RUNNING: 2
         },
         countsText: "({priorityStatusCount} of {totalCount})",
         values: {
@@ -733,7 +733,7 @@ describe("ServiceTree", function() {
         status: "LOADING",
         statusCounts: {
           LOADING: 2,
-          SUCCESS: 1
+          RUNNING: 1
         },
         countsText: "({priorityStatusCount} of {totalCount})",
         values: {
@@ -783,7 +783,7 @@ describe("ServiceTree", function() {
         statusCounts: {
           LOADING: 1,
           STOPPED: 1,
-          SUCCESS: 1
+          RUNNING: 1
         },
         countsText: "({priorityStatusCount} of {totalCount})",
         values: {
@@ -827,10 +827,10 @@ describe("ServiceTree", function() {
       );
 
       expect(thisInstance.getStatus()).toEqual({
-        status: "SUCCESS",
+        status: "RUNNING",
         statusCounts: {
           NA: 1,
-          SUCCESS: 2
+          RUNNING: 2
         },
         countsText: "({priorityStatusCount} of {totalCount})",
         values: {
