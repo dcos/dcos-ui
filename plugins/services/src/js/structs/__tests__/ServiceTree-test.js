@@ -792,6 +792,53 @@ describe("ServiceTree", function() {
         }
       });
     });
+
+    it("aggregate handles NA status", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: null,
+          queue: null
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual({
+        status: "SUCCESS",
+        statusCounts: {
+          NA: 1,
+          SUCCESS: 2
+        },
+        countsText: "({priorityStatusCount} of {totalCount})",
+        values: {
+          priorityStatusCount: 2,
+          totalCount: 3
+        }
+      });
+    });
   });
 
   describe("#getServiceStatus", function() {

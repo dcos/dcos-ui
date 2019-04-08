@@ -167,8 +167,8 @@ module.exports = class ServiceTree extends Tree {
     }, 0);
   }
 
-  getStatusIconCounts() {
-    const summaryCounts = {
+  getStatusCategoryCounts() {
+    const categoryCounts = {
       status: {},
       total: 0
     };
@@ -180,17 +180,20 @@ module.exports = class ServiceTree extends Tree {
           return counts;
         }
         counts.total++;
+        let category = "NA";
+        if (itemStatus.displayName !== ServiceStatus.NA.displayName) {
+          category = itemStatus.icon.category;
+        }
 
-        const iconName = itemStatus.icon.name;
-        if (counts.status[iconName]) {
-          counts.status[iconName]++;
+        if (counts.status[category]) {
+          counts.status[category]++;
         } else {
-          counts.status[iconName] = 1;
+          counts.status[category] = 1;
         }
       }
 
       return counts;
-    }, summaryCounts);
+    }, categoryCounts);
   }
 
   getName() {
@@ -222,17 +225,19 @@ module.exports = class ServiceTree extends Tree {
     if (status == null) {
       return null;
     }
-    const statusIconCounts = this.getStatusIconCounts();
-    if (statusIconCounts.total <= 1) {
+    const statusCategoryCounts = this.getStatusCategoryCounts();
+    if (statusCategoryCounts.total <= 1) {
       return status.displayName;
     }
+    const priorityStatusCategory = status.icon ? status.icon.category : "NA";
     const statusSummary = {
-      status: status.icon.name,
-      statusCounts: statusIconCounts.status,
+      status: priorityStatusCategory,
+      statusCounts: statusCategoryCounts.status,
       countsText: i18nMark("({priorityStatusCount} of {totalCount})"),
       values: {
-        priorityStatusCount: statusIconCounts.status[status.icon.name],
-        totalCount: statusIconCounts.total
+        priorityStatusCount:
+          statusCategoryCounts.status[priorityStatusCategory],
+        totalCount: statusCategoryCounts.total
       }
     };
 
