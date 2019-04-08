@@ -179,7 +179,7 @@ export default class NodesTable extends React.Component<
 
     return (
       <div className="table-wrapper">
-        <Table data={data.slice()}>
+        <Table data={data}>
           <Column
             header={
               <SortableHeaderCell
