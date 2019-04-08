@@ -1,11 +1,11 @@
 import Service from "./Service";
-import { StatusIconNames } from "#SRC/js/constants/StatusIcon";
+import { StatusCategories } from "#SRC/js/constants/StatusIcon";
 import Tree from "#SRC/js/structs/Tree";
 import { Status } from "../constants/ServiceStatus";
 
 interface ServiceTreeStatusSummary {
-  status: StatusIconNames;
-  statusCounts: Record<StatusIconNames, number>;
+  status: StatusCategories;
+  statusCounts: Record<StatusCategories, number>;
   countsText: string;
   values: {
     priorityStatusCount: number;
@@ -29,7 +29,10 @@ declare class ServiceTree extends Tree<Service> {
   getName(): string;
   getResources(): object;
   getStatus(): string | ServiceTreeStatusSummary | null;
-  getStatusIconCounts(): { status: Record<string, number>; total: number };
+  getStatusCategoryCounts(): {
+    status: Record<StatusCategories, number>;
+    total: number;
+  };
   getServiceStatus(): Status | null;
   getServices(): any;
   getTasksSummary(): any;

@@ -4,9 +4,9 @@ import { TextCell } from "@dcos/ui-kit";
 
 import StringUtil from "#SRC/js/utils/StringUtil";
 import {
-  StatusIconPriority,
-  StatusIconText,
-  StatusIconNames
+  StatusCategoryPriority,
+  StatusCategoryText,
+  StatusCategories
 } from "#SRC/js/constants/StatusIcon";
 import { SortDirection } from "#PLUGINS/services/src/js/types/SortDirection";
 import ServiceStatusProgressBar from "#PLUGINS/services/src/js/components/ServiceStatusProgressBar";
@@ -22,20 +22,16 @@ const StatusMapping: any = {
 };
 
 function statusCountsToTooltipContent(
-  statusCounts: Record<StatusIconNames, number>
+  statusCounts: Record<StatusCategories, number>
 ): JSX.Element[] {
   return Object.keys(statusCounts)
-    .sort((a, b) => {
-      const statusNameA = a as StatusIconNames;
-      const statusNameB = b as StatusIconNames;
-      return StatusIconPriority[statusNameA] - StatusIconPriority[statusNameB];
-    })
-    .filter(value => (value as StatusIconNames) in StatusIconText)
+    .filter(value => (value as StatusCategories) in StatusCategoryText)
+    .sort(statusCategorySorter)
     .map((value, index) => {
-      const iconName = value as StatusIconNames;
+      const iconName = value as StatusCategories;
       return (
         <div key={`status.${index}`}>
-          {statusCounts[iconName]} <Trans id={StatusIconText[iconName]} />
+          {statusCounts[iconName]} <Trans id={StatusCategoryText[iconName]} />
         </div>
       );
     });
@@ -52,7 +48,7 @@ export function statusRenderer(
   let statusContent: JSX.Element | null = null;
   let tooltipContent: JSX.Element;
   if (typeof serviceStatus === "object" && serviceStatus !== null) {
-    const statusText = StatusIconText[serviceStatus.status];
+    const statusText = StatusCategoryText[serviceStatus.status];
     serviceStatusClassSet = StatusMapping[statusText] || "";
     statusContent = (
       <span className="status-bar-text">
@@ -108,4 +104,12 @@ export function statusSorter(
   sortDirection: SortDirection
 ): any {
   return ServiceTableUtil.sortData(data, sortDirection, "status");
+}
+
+export function statusCategorySorter(a: string, b: string): number {
+  const statusNameA = (a as StatusCategories) || "NA";
+  const statusNameB = (b as StatusCategories) || "NA";
+  return (
+    StatusCategoryPriority[statusNameB] - StatusCategoryPriority[statusNameA]
+  );
 }
