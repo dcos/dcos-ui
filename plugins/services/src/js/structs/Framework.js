@@ -16,7 +16,7 @@ const getHighestPriorityStatus = tasks => {
   const statuses = tasks
     .map(t => findNestedPropertyInObject(t, "checkResult.http.statusCode"))
     .map(ServiceStatus.fromHttpCode)
-    .filter(x => x);
+    .filter(status => status);
 
   return statuses.length !== 0
     ? statuses.reduce((acc, cur) => (cur.priority > acc.priority ? cur : acc))
