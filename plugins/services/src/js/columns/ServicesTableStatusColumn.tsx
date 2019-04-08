@@ -10,6 +10,7 @@ import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
+import { getStatusIconProps } from "../utils/ServiceStatusIconUtil";
 
 function statusCountsToTooltipContent(counts: {
   total: number;
@@ -29,67 +30,135 @@ function statusCountsToTooltipContent(counts: {
     });
 }
 
-export function statusRenderer(node: Service | ServiceTree): React.ReactNode {
-  return node instanceof ServiceTree
-    ? renderServiceTree(node)
-    : renderService(node);
+//Incoming
+interface StatusColumnProps {
+  statusText: string;
+  instancesCount: number;
+  runningInstances: number;
+  timeWaiting: string | null;
+  timeQueued: number | null;
+  serviceStatus: object;
+  isServiceTree: boolean;
+  isService: boolean;
+  id: string | number;
+  displayDeclinedOffers: boolean;
+  appsWithWarnings: number | null;
+  unableToLaunch: boolean;
 }
 
-function renderService(service: Service | Pod): React.ReactNode {
-  const status = service.getStatus();
-  if (isNA(status)) {
+interface TreeStatusColumnProps extends StatusColumnProps {
+  statusText: string;
+  totalCount: number;
+  priorityStatusCount: number;
+  tooltipContent: JSX.Element;
+}
+
+export function statusRenderer(
+  service: Service | ServiceTree
+): React.ReactNode {
+  const iconProps = getStatusIconProps(service);
+
+  const props = {
+    statusText: service.getStatus(),
+    instancesCount: service.getInstancesCount(),
+    runningInstances: service.getRunningInstancesCount()
+  };
+  let serviceTreeProps = {};
+  if (service instanceof ServiceTree) {
+    const summary = service.getServiceTreeStatusSummary();
+    const statusText = ServiceStatus.toCategoryLabel(summary.status);
+    const totalCount = summary.counts.total;
+    const priorityStatusCount = summary.counts.status[summary.status];
+    const tooltipContent = statusCountsToTooltipContent(summary.counts);
+    serviceTreeProps = {
+      statusText,
+      totalCount,
+      priorityStatusCount,
+      tooltipContent
+    };
+  }
+
+  return service instanceof ServiceTree ? (
+    <RenderServiceTree {...iconProps} {...props} {...serviceTreeProps} />
+  ) : (
+    <RenderService {...iconProps} {...props} />
+  );
+}
+
+//Master
+function RenderService(props: StatusColumnProps): React.ReactNode {
+  //const status = service.getStatus();
+  if (isNA(props.statusText)) {
     return null;
   }
-  const instancesCount = service.getInstancesCount();
+  //const instancesCount = service.getInstancesCount();
 
   return (
     <TextCell>
       <div className="flex">
         <div className="service-status-icon-wrapper">
           <ServiceStatusIcon
-            service={service}
+            id={props.id}
+            isService={props.isService}
+            isServiceTree={props.isServiceTree}
+            serviceStatus={props.serviceStatus}
+            timeWaiting={props.timeWaiting}
+            timeQueued={props.timeQueued}
+            appsWithWarnings={props.appsWithWarnings}
+            displayDeclinedOffers={props.displayDeclinedOffers}
+            unableToLaunch={props.unableToLaunch}
             showTooltip={true}
             tooltipContent={
               <Plural
-                value={service.getRunningInstancesCount()}
-                one={`# instance running out of ${instancesCount}`}
-                other={`# instances running out of ${instancesCount}`}
+                value={props.runningInstances}
+                one={`# instance running out of ${props.instancesCount}`}
+                other={`# instances running out of ${props.instancesCount}`}
               />
             }
           />
-          <Trans id={status} render="span" className="status-bar-text" />
+          <Trans
+            id={props.statusText}
+            render="span"
+            className="status-bar-text"
+          />
         </div>
         <div className="service-status-progressbar-wrapper">
-          <ServiceStatusProgressBar service={service} />
+          <ServiceStatusProgressBar
+            instancesCount={props.instancesCount}
+            serviceStatus={props.serviceStatus}
+            runningInstances={props.runningInstances}
+          />
         </div>
       </div>
     </TextCell>
   );
 }
 
-function renderServiceTree(service: ServiceTree): React.ReactNode {
-  const summary = service.getServiceTreeStatusSummary();
-  const statusText = ServiceStatus.toCategoryLabel(summary.status);
-  if (isNA(statusText)) {
+function RenderServiceTree(props: TreeStatusColumnProps): React.ReactNode {
+  if (isNA(props.statusText)) {
     return null;
   }
-  const totalCount = summary.counts.total;
-  const priorityStatusCount = summary.counts.status[summary.status];
   return (
     <TextCell>
       <div className="service-status-icon-wrapper">
         <ServiceStatusIcon
-          service={service}
+          id={props.id}
+          isService={props.isService}
+          isServiceTree={props.isServiceTree}
+          serviceStatus={props.serviceStatus}
+          timeWaiting={props.timeWaiting}
+          timeQueued={props.timeQueued}
+          appsWithWarnings={props.appsWithWarnings}
+          displayDeclinedOffers={props.displayDeclinedOffers}
+          unableToLaunch={props.unableToLaunch}
           showTooltip={true}
-          tooltipContent={
-            <span>{statusCountsToTooltipContent(summary.counts)}</span>
-          }
+          tooltipContent={<span>{props.tooltipContent}</span>}
         />
         <span className="status-bar-text">
-          <Trans id={statusText} />{" "}
-          {totalCount > 1 ? (
+          <Trans id={props.statusText} />{" "}
+          {props.totalCount > 1 ? (
             <Trans>
-              ({priorityStatusCount} of {totalCount})
+              ({props.priorityStatusCount} of {props.totalCount})
             </Trans>
           ) : null}
         </span>

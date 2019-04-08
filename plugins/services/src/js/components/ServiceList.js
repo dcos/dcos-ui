@@ -7,6 +7,7 @@ import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 
 import ServiceStatusIcon from "./ServiceStatusIcon";
+import { getStatusIconProps } from "../utils/ServiceStatusIconUtil";
 
 const ServiceList = createReactClass({
   displayName: "ServiceList",
@@ -50,6 +51,7 @@ const ServiceList = createReactClass({
     return services.map(service => {
       const instancesCount = service.getInstancesCount();
       const runningInstances = service.getRunningInstancesCount();
+      const iconProps = getStatusIconProps(service);
 
       const tooltipContent = (
         <Plural
@@ -81,9 +83,9 @@ const ServiceList = createReactClass({
             content: (
               <ServiceStatusIcon
                 key="icon"
-                service={service}
                 showTooltip={true}
                 tooltipContent={tooltipContent}
+                {...iconProps}
               />
             ),
             tag: "div"

@@ -3,15 +3,14 @@ import * as React from "react";
 import { Tooltip } from "reactjs-components";
 
 import ProgressBar from "#SRC/js/components/ProgressBar";
-import Pod from "../structs/Pod";
-import Service from "../structs/Service";
-import ServiceTree from "../structs/ServiceTree";
 import * as ServiceStatus from "../constants/ServiceStatus";
 
 const { Plural } = require("@lingui/macro");
 
 interface ServiceStatusProgressBarProps {
-  service: Service | ServiceTree | Pod;
+  runningInstances: number;
+  instancesCount: number;
+  serviceStatus: any;
 }
 
 export const ServiceProgressBar = React.memo(
@@ -48,19 +47,15 @@ class ServiceStatusProgressBar extends React.Component<
   ServiceStatusProgressBarProps
 > {
   static propTypes = {
-    service: PropTypes.oneOfType([
-      PropTypes.instanceOf(Service),
-      PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Pod)
-    ]).isRequired
+    runningInstances: PropTypes.number.isRequired,
+    instancesCount: PropTypes.number.isRequired,
+    serviceStatus: PropTypes.object.isRequired
   };
 
   render() {
-    const { service } = this.props;
-    const instancesCount = service.getInstancesCount();
-    const runningInstances = service.getRunningInstancesCount();
+    const { instancesCount, serviceStatus, runningInstances } = this.props;
 
-    if (!ServiceStatus.showProgressBar(service.getServiceStatus())) {
+    if (!ServiceStatus.showProgressBar(serviceStatus)) {
       return null;
     }
 

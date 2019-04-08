@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServicesTable #renderRegions renders with multiple regions 1`] = `
+<div
+  className="css-1c5c0a1"
+>
+  <span
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    aws/eu-central-1, dc-east
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderRegions renders with no regions 1`] = `
+<div
+  className="css-1c5c0a1"
+>
+  <span
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    N/A
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderRegions renders with one region 1`] = `
+<div
+  className="css-1c5c0a1"
+>
+  <span
+    className="tooltip-wrapper text-align-center"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    aws/eu-central-1
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders resources/stats cpus property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    1
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders resources/stats disk property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    0 B
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders resources/stats gpus property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    1
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders resources/stats mem property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    2 GiB
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders sum of resources/stats cpus property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    1
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders sum of resources/stats gpus property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    1
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders sum of resources/stats mem property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    2 GiB
+  </span>
+</div>
+`;
+
+exports[`ServicesTable #renderStats renders sum of resources/stats disk property 1`] = `
+<div
+  className="css-jupmst"
+>
+  <span>
+    0 B
+  </span>
+</div>
+`;

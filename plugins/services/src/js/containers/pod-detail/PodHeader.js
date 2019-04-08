@@ -109,6 +109,8 @@ class PodHeader extends React.Component {
   getSubHeader(pod) {
     const serviceHealth = pod.getHealth();
     const serviceStatus = pod.getServiceStatus();
+    const runningInstances = pod.getRunningInstancesCount();
+    const instancesCount = pod.getInstancesCount();
     const tasksSummary = pod.getTasksSummary();
     const serviceStatusClassSet =
       StatusMapping[serviceStatus.displayName] || "";
@@ -130,7 +132,14 @@ class PodHeader extends React.Component {
         shouldShow: runningTasksCount != null && runningTasksSubHeader != null
       },
       {
-        label: <ServiceStatusProgressBar service={pod} />,
+        label: (
+          <ServiceStatusProgressBar
+            service={pod}
+            instancesCount={instancesCount}
+            runningInstances={runningInstances}
+            serviceStatus={serviceStatus}
+          />
+        ),
         shouldShow: true
       }
     ].map(function(item, index) {

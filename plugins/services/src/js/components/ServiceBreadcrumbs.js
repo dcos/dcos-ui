@@ -142,6 +142,7 @@ class ServiceBreadcrumbs extends React.Component {
     let iconDisplay = null;
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();
+    const serviceStatus = service.getServiceStatus();
 
     const tooltipContent = (
       <Plural
@@ -154,7 +155,12 @@ class ServiceBreadcrumbs extends React.Component {
     if (this.props.taskID == null && this.props.params != null) {
       progressBar = (
         <BreadcrumbSupplementalContent hasProgressBar={true}>
-          <ServiceStatusProgressBar key="status-bar" service={service} />
+          <ServiceStatusProgressBar
+            key="status-bar"
+            instancesCount={instancesCount}
+            runningInstances={runningInstances}
+            serviceStatus={serviceStatus}
+          />
         </BreadcrumbSupplementalContent>
       );
     }
