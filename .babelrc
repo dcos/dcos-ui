@@ -1,5 +1,10 @@
 {
-  "plugins": ["transform-runtime", "macros", "syntax-dynamic-import"],
+  "plugins": [
+    "transform-runtime",
+    "macros",
+    "syntax-dynamic-import",
+    "transform-react-constant-elements"
+  ],
   "presets": ["env", "stage-3", "react"],
   "env": {
     "test": {
