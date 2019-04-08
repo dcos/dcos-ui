@@ -11,17 +11,14 @@ function getMemUsage(data: Node): number {
   return data.getUsageStats("mem").percentage;
 }
 
+const className = `color-${ResourcesUtil.getResourceColor("mem")}`;
+
 export function memRenderer(data: Node): React.ReactNode {
   return (
     <Cell>
       <div>
         <ProgressBar
-          data={[
-            {
-              value: data.getUsageStats("mem").percentage,
-              className: `color-${ResourcesUtil.getResourceColor("mem")}`
-            }
-          ]}
+          data={ProgressBar.getDataFromValue(getMemUsage(data), className)}
           total={100}
         />
 

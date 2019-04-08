@@ -11,17 +11,14 @@ function getDiskUsage(data: Node) {
   return data.getUsageStats("disk").percentage;
 }
 
+const className = `color-${ResourcesUtil.getResourceColor("disk")}`;
+
 export function diskRenderer(data: Node): React.ReactNode {
   return (
     <Cell>
       <div>
         <ProgressBar
-          data={[
-            {
-              value: data.getUsageStats("disk").percentage,
-              className: `color-${ResourcesUtil.getResourceColor("disk")}`
-            }
-          ]}
+          data={ProgressBar.getDataFromValue(getDiskUsage(data), className)}
           total={100}
         />
 
