@@ -42,7 +42,7 @@ const removePackageRepository = gql`
 `;
 
 const removePackageRepositoryGraphql = (name, uri) =>
-  dataLayer.get(removePackageRepository, {
+  dataLayer.query(removePackageRepository, {
     name,
     uri
   });

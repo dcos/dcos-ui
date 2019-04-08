@@ -8,6 +8,16 @@ class Node extends Item {
     return this.get("id");
   }
 
+  getEncodedID() {
+    const id = this.get("id");
+    if (!id) {
+      return null;
+    }
+    const trimmedNodeID = decodeURIComponent(id).replace(/^\//, "");
+
+    return encodeURIComponent(trimmedNodeID);
+  }
+
   getServiceIDs() {
     return this.get("framework_ids");
   }

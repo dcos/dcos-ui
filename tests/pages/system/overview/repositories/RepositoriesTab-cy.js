@@ -45,14 +45,15 @@ describe("Installed Packages Tab", function() {
     });
   });
 
-  it("displays uninstall modal when uninstall is clicked", function() {
+  it("displays uninstall modal when uninstall is clicked and closes the modal when delete button is clicked", function() {
     cy.get(".button.button-danger-link")
       .eq(0)
       .invoke("show")
       .click({ force: true });
-    cy.get(".modal .modal-footer .button.button-danger").should(
-      "contain",
-      "Delete Repository"
-    );
+    cy.get(".modal .modal-footer .button.button-danger")
+      .should("contain", "Delete Repository")
+      .click();
+    cy.get(".modal").should("not.exist");
+    cy.get("table").should("exist");
   });
 });

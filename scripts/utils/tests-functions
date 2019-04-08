@@ -148,7 +148,7 @@ function teardown_proxy() {
 }
 
 # sets up everything
-function setup_integration() {
+function setup() {
   echo ""
   echo "=> Setup"
 
@@ -190,7 +190,7 @@ function setup_integration() {
 }
 
 # tears down everything…
-function teardown_integration() {
+function teardown() {
   echo ""
   echo "=> Teardown"
   teardown_proxy
@@ -212,7 +212,7 @@ function report() {
 }
 
 # finds the files and runs the tests
-function run_tests_integration() {
+function run_tests() {
   run_tests_one_by_one
 }
 

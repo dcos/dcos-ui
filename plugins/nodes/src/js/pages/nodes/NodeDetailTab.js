@@ -84,10 +84,12 @@ class NodeDetailTab extends PureComponent {
                 <Trans render="span">Registered</Trans>
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                <DateFormat
-                  value={new Date(node.registered_time.toFixed(3) * 1000)}
-                  format={DateUtil.getFormatOptions("longMonthDateTime")}
-                />
+                {node.registered_time ? (
+                  <DateFormat
+                    value={new Date(node.registered_time.toFixed(3) * 1000)}
+                    format={DateUtil.getFormatOptions("longMonthDateTime")}
+                  />
+                ) : null}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>

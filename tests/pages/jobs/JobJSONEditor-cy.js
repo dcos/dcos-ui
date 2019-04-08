@@ -233,7 +233,12 @@ describe("Job JSON Editor", function() {
     // Restart Job
 
     cy.root()
-      .getFormGroupInputFor("Retry Time")
+      .get("label")
+      .contains("On Failure")
+      .click();
+
+    cy.root()
+      .getFormGroupInputFor("Keep Trying Time")
       .type("{selectall}3");
 
     // Add labels
@@ -267,7 +272,7 @@ describe("Job JSON Editor", function() {
               taskKillGracePeriodSeconds: 2,
               user: "user1",
               restart: {
-                policy: "NEVER",
+                policy: "ON_FAILURE",
                 activeDeadlineSeconds: 3
               }
             }

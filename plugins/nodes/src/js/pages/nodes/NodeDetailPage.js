@@ -7,9 +7,9 @@ import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CompositeState from "#SRC/js/structs/CompositeState";
 import Loader from "#SRC/js/components/Loader";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
+import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -22,12 +22,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     super(...arguments);
 
     this.store_listeners = [
-      { name: "summary", events: ["success"], suppressUpdate: false },
-      { name: "state", events: ["success"], suppressUpdate: false },
+      { name: "summary", events: ["success"], suppressUpdate: true },
+      { name: "state", events: ["success"], suppressUpdate: true },
       {
         name: "nodeHealth",
         events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"],
-        suppressUpdate: false
+        suppressUpdate: true
       }
     ];
 
@@ -38,17 +38,15 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     };
 
     this.state = {
-      mesosStateLoaded: false,
-      node: null
+      mesosStateLoaded: false
     };
   }
 
   componentWillMount() {
     super.componentWillMount(...arguments);
 
-    const node = this.getNode(this.props);
+    const { node } = this.props;
     if (node) {
-      this.setState({ node });
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
 
@@ -72,20 +70,14 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.params.nodeID !== nextProps.params.nodeID) {
-      const node = this.getNode(nextProps);
-      this.setState({ node });
-    }
-
     this.updateCurrentTab(nextProps);
   }
 
   componentWillUpdate() {
     super.componentWillUpdate(...arguments);
 
-    const node = this.getNode(this.props);
-    if (node && !this.state.node) {
-      this.setState({ node });
+    const { node } = this.props;
+    if (node) {
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
   }
@@ -96,18 +88,19 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
   }
 
+  onSummaryStoreSuccess() {
+    this.setState({
+      summaryStatesProcessed: MesosSummaryStore.get("statesProcessed"),
+      summaryStates: MesosSummaryStore.get("states")
+    });
+  }
+
   updateCurrentTab(nextProps) {
     const { routes } = nextProps || this.props;
     const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentTab != null) {
       this.setState({ currentTab });
     }
-  }
-
-  getNode(props) {
-    return CompositeState.getNodesList()
-      .filter({ ids: [props.params.nodeID] })
-      .last();
   }
 
   getLoadingScreen() {
@@ -136,14 +129,11 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   render() {
-    if (
-      !MesosSummaryStore.get("statesProcessed") ||
-      !this.state.mesosStateLoaded
-    ) {
+    if (!this.state.summaryStatesProcessed || !this.state.mesosStateLoaded) {
       return this.getLoadingScreen();
     }
 
-    const { node } = this.state;
+    const { node } = this.props;
     const { nodeID } = this.props.params;
 
     if (!node) {
@@ -178,7 +168,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     return (
       <Page>
         <Page.Header
-          breadcrumbs={<NodeBreadcrumbs nodeID={nodeID} />}
+          breadcrumbs={<NodeBreadcrumbs node={node} />}
           tabs={tabs}
         />
         {React.cloneElement(this.props.children, { node })}
@@ -191,4 +181,4 @@ NodeDetailPage.contextTypes = {
   router: routerShape
 };
 
-module.exports = NodeDetailPage;
+module.exports = withNode(NodeDetailPage);
