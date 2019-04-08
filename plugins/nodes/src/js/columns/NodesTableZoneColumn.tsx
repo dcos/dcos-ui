@@ -5,12 +5,13 @@ import { TextCell } from "@dcos/ui-kit";
 import Node from "#SRC/js/structs/Node";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
+const NodeZone = React.memo(({ name }: { name: string }) => (
+  <TextCell>
+    <span title={name}>{name}</span>
+  </TextCell>
+));
 export function zoneRenderer(data: Node): React.ReactNode {
-  return (
-    <TextCell>
-      <span title={data.getZoneName()}>{data.getZoneName()}</span>
-    </TextCell>
-  );
+  return <NodeZone name={data.getZoneName()} />;
 }
 
 function compareNodesByZone(a: Node, b: Node): number {
