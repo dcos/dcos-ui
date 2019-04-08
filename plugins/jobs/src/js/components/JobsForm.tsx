@@ -56,9 +56,9 @@ interface NavigationItem {
 class JobModalForm extends React.Component<JobFormProps> {
   static navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
-    { id: "container", key: "container", label: i18nMark("Container") },
+    { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
-    { id: "run_config", key: "runConfig", label: i18nMark("Run Config") }
+    { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
   static tabList = JobModalForm.navigationItems.map(item => (

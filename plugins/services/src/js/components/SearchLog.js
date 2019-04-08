@@ -13,7 +13,7 @@ const METHODS_TO_BIND = [
   "handleEnterPress"
 ];
 
-class SearchLog extends React.Component {
+class SearchLog extends React.PureComponent {
   constructor() {
     super(...arguments);
 
