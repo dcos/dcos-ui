@@ -9,4 +9,4 @@ const ErrorPaths = {
   "/": "general"
 };
 
-module.exports = ErrorPaths;
+export default ErrorPaths;
