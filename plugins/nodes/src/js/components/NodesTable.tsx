@@ -6,6 +6,7 @@ import {
   HeaderCell
 } from "@dcos/ui-kit/dist/packages";
 import { Trans } from "@lingui/macro";
+import deepEqual from "fast-deep-equal";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
@@ -158,6 +159,11 @@ export default class NodesTable extends React.Component<
         )
       );
     }
+    this.forceUpdate();
+  }
+
+  shouldComponentUpdate(nextProps: NodesTableProps) {
+    return !deepEqual(this.props, nextProps);
   }
 
   componentWillReceiveProps(nextProps: NodesTableProps): void {
