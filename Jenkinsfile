@@ -101,7 +101,7 @@ pipeline {
             always {
               archiveArtifacts "cypress/**/*"
               // We currently want flaky test runs be marked as success
-              // junit "cypress/results.xml"
+              junit "cypress/results.xml"
             }
           }
         }
