@@ -10,7 +10,6 @@ import UserActions from "#SRC/js/constants/UserActions";
 
 import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
 import Pod from "../../structs/Pod";
-import StatusMapping from "../../constants/StatusMapping";
 import PodActionItem from "../../constants/PodActionItem";
 
 const METHODS_TO_BIND = ["handleDropdownAction"];
@@ -110,8 +109,6 @@ class PodHeader extends React.Component {
     const serviceHealth = pod.getHealth();
     const serviceStatus = pod.getServiceStatus();
     const tasksSummary = pod.getTasksSummary();
-    const serviceStatusClassSet =
-      StatusMapping[serviceStatus.displayName] || "";
     const runningTasksCount = tasksSummary.tasksRunning;
     // L10NTODO: Pluralize
     const runningTasksSubHeader = StringUtil.pluralize(
@@ -120,7 +117,7 @@ class PodHeader extends React.Component {
     );
     const subHeaderItems = [
       {
-        classes: `media-object-item ${serviceStatusClassSet}`,
+        classes: `media-object-item`,
         label: <Trans id={serviceStatus.displayName} />,
         shouldShow: serviceHealth.key != null
       },
