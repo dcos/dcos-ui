@@ -35,12 +35,12 @@ const getTooltipContent = (service: Service, content: JSX.Element) => {
   );
 };
 
-type ServiceOrPodOrTree = Service | ServiceTree | Pod;
+type TreeNode = Service | ServiceTree;
 
 class ServiceStatusIcon extends React.Component<{
   showTooltip?: boolean;
   tooltipContent: JSX.Element;
-  service: ServiceOrPodOrTree;
+  service: TreeNode;
 }> {
   static propTypes = {
     showTooltip: PropTypes.bool,
@@ -52,7 +52,7 @@ class ServiceStatusIcon extends React.Component<{
     ])
   };
 
-  getDeclinedOffersWarning(service: ServiceOrPodOrTree) {
+  getDeclinedOffersWarning(service: TreeNode) {
     if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
       const timeWaiting =
         Date.now() -
@@ -136,7 +136,7 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  isUnableToLaunch(service: ServiceOrPodOrTree) {
+  isUnableToLaunch(service: TreeNode) {
     const queue: any = service.getQueue();
 
     if (queue == null) {

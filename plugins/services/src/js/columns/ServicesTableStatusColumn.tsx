@@ -17,7 +17,7 @@ const StatusMapping: any = {
 };
 
 export function statusRenderer(
-  service: Service | Pod | ServiceTree
+  service: Service | ServiceTree
 ): React.ReactNode {
   const serviceStatusText: string = service.getStatus();
   const serviceStatusClassSet: string = StatusMapping[serviceStatusText] || "";
