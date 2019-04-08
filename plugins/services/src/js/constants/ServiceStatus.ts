@@ -150,9 +150,14 @@ function fromHttpCode(code: number): Status | null {
   return map[code];
 }
 
+function showProgressBar(status: Status): boolean {
+  return [DEPLOYING, WAITING, DELAYED, RECOVERING, DELETING].includes(status);
+}
+
 export {
   Status,
   fromHttpCode,
+  showProgressBar,
   BACKING_UP,
   CREATION_ERROR,
   DEGRADED,
