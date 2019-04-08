@@ -4,7 +4,7 @@ describe("ServicesTableStatusColumn", () => {
   describe("#statusCategorySorter", () => {
     it("sorts by category priority", () => {
       const statusKeys = [
-        "SUCCESS",
+        "RUNNING",
         "NA",
         "LOADING",
         "STOPPED",
@@ -16,7 +16,7 @@ describe("ServicesTableStatusColumn", () => {
         "ERROR",
         "WARNING",
         "LOADING",
-        "SUCCESS",
+        "RUNNING",
         "STOPPED",
         "NA"
       ]);
