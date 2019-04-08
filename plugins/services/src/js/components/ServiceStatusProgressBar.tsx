@@ -45,14 +45,9 @@ class ServiceStatusProgressBar extends React.Component<
   render() {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
-    const serviceStatus = service.getServiceStatus();
     const runningInstances = service.getRunningInstancesCount();
 
-    if (
-      serviceStatus === ServiceStatus.RUNNING ||
-      serviceStatus === ServiceStatus.STOPPED ||
-      serviceStatus === ServiceStatus.NA
-    ) {
+    if (!ServiceStatus.showProgressBar(service.getServiceStatus())) {
       return null;
     }
 
