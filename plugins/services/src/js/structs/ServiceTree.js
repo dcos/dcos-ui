@@ -191,6 +191,20 @@ module.exports = class ServiceTree extends Tree {
     }, categoryCounts);
   }
 
+  getServiceTreeStatusSummary() {
+    const status = this.getStatus();
+    const statusCategoryCounts = this.getStatusCategoryCounts();
+
+    return {
+      status: status.category,
+      statusCounts: statusCategoryCounts.status,
+      values: {
+        priorityStatusCount: statusCategoryCounts.status[status.category],
+        totalCount: statusCategoryCounts.total
+      }
+    };
+  }
+
   getName() {
     return this.getId()
       .split("/")
@@ -216,25 +230,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status == null) {
-      return null;
-    }
-    const statusCategoryCounts = this.getStatusCategoryCounts();
-    if (statusCategoryCounts.total <= 1) {
-      return status.displayName;
-    }
-    const statusSummary = {
-      status: status.category,
-      statusCounts: statusCategoryCounts.status,
-      countsText: i18nMark("({priorityStatusCount} of {totalCount})"),
-      values: {
-        priorityStatusCount: statusCategoryCounts.status[status.category],
-        totalCount: statusCategoryCounts.total
-      }
-    };
-
-    return statusSummary;
+    return this.getServiceStatus();
   }
 
   getServiceStatus() {

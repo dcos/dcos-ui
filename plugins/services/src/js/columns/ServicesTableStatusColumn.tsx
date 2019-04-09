@@ -1,15 +1,14 @@
 import * as React from "react";
-import { Trans } from "@lingui/macro";
+import { Plural, Trans } from "@lingui/macro";
 import { TextCell } from "@dcos/ui-kit";
 
-import StringUtil from "#SRC/js/utils/StringUtil";
 import { SortDirection } from "#PLUGINS/services/src/js/types/SortDirection";
 import ServiceStatusProgressBar from "#PLUGINS/services/src/js/components/ServiceStatusProgressBar";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceStatusIcon from "../components/ServiceStatusIcon";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
-import ServiceTree, { ServiceTreeStatusSummary } from "../structs/ServiceTree";
+import ServiceTree from "../structs/ServiceTree";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
 function statusCountsToTooltipContent(
@@ -29,45 +28,18 @@ function statusCountsToTooltipContent(
     });
 }
 
-export function statusRenderer(
-  service: Service | ServiceTree
-): React.ReactNode {
-  const serviceStatus:
-    | string
-    | ServiceTreeStatusSummary
-    | null = service.getStatus();
-  let statusContent: JSX.Element | null = null;
-  let tooltipContent: JSX.Element;
-  if (typeof serviceStatus === "object" && serviceStatus !== null) {
-    const statusText = ServiceStatus.toCategoryLabel(serviceStatus.status);
-    statusContent = (
-      <span className="status-bar-text">
-        <Trans id={statusText} />{" "}
-        <Trans id={serviceStatus.countsText} values={serviceStatus.values} />
-      </span>
-    );
-    tooltipContent = (
-      <span>{statusCountsToTooltipContent(serviceStatus.statusCounts)}</span>
-    );
-  } else {
-    if (
-      serviceStatus !== null &&
-      serviceStatus !== ServiceStatus.NA.displayName
-    ) {
-      statusContent = (
-        <Trans id={serviceStatus} render="span" className="status-bar-text" />
-      );
-    }
+export function statusRenderer(node: Service | ServiceTree): React.ReactNode {
+  return node instanceof ServiceTree
+    ? renderServiceTree(node)
+    : renderService(node);
+}
 
-    const instancesCount = service.getInstancesCount() as number;
-    const runningInstances = service.getRunningInstancesCount() as number;
-    tooltipContent = (
-      <Trans render="span">
-        {runningInstances} {StringUtil.pluralize("instance", runningInstances)}{" "}
-        running out of {instancesCount}
-      </Trans>
-    );
+function renderService(service: Service | Pod): React.ReactNode {
+  const status = service.getStatus();
+  if (isNA(status)) {
+    return null;
   }
+  const instancesCount = service.getInstancesCount();
 
   return (
     <TextCell>
@@ -76,9 +48,15 @@ export function statusRenderer(
           <ServiceStatusIcon
             service={service}
             showTooltip={true}
-            tooltipContent={tooltipContent}
+            tooltipContent={
+              <Plural
+                value={service.getRunningInstancesCount()}
+                one={`# instance running out of ${instancesCount}`}
+                other={`# instances running out of ${instancesCount}`}
+              />
+            }
           />
-          {statusContent}
+          <Trans id={status} render="span" className="status-bar-text" />
         </div>
         <div className="service-status-progressbar-wrapper">
           <ServiceStatusProgressBar service={service} />
@@ -87,6 +65,41 @@ export function statusRenderer(
     </TextCell>
   );
 }
+
+function renderServiceTree(service: ServiceTree): React.ReactNode {
+  const summary = service.getServiceTreeStatusSummary();
+  const statusText = ServiceStatus.toCategoryLabel(summary.status);
+  if (isNA(statusText)) {
+    return null;
+  }
+
+  return (
+    <TextCell>
+      <div className="service-status-icon-wrapper">
+        <ServiceStatusIcon
+          service={service}
+          showTooltip={true}
+          tooltipContent={
+            <span>{statusCountsToTooltipContent(summary.statusCounts)}</span>
+          }
+        />
+
+        <span className="status-bar-text">
+          <Trans id={statusText} />{" "}
+          {summary.values.totalCount > 1 ? (
+            <Trans
+              id="({priorityStatusCount} of {totalCount})"
+              values={summary.values}
+            />
+          ) : null}
+        </span>
+      </div>
+    </TextCell>
+  );
+}
+
+const isNA = (status: string) =>
+  status === null || status === ServiceStatus.NA.displayName;
 
 export function statusSorter(
   data: Array<Service | Pod | ServiceTree>,

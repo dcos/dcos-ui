@@ -28,7 +28,8 @@ declare class ServiceTree extends Tree<Service> {
   getInstancesCount(): number;
   getName(): string;
   getResources(): object;
-  getStatus(): string | ServiceTreeStatusSummary | null;
+  getStatus(): string | null;
+  getServiceTreeStatusSummary(): ServiceTreeStatusSummary;
   getStatusCategoryCounts(): {
     status: Record<StatusCategory, number>;
     total: number;
