@@ -20,7 +20,7 @@ const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(function(
 // The 'marathon-' prefix is used for task launched because of an AppDefinition.
 //
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
-const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)$/;
+const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)?.*$/;
 
 const MesosStateUtil = {
   /**
