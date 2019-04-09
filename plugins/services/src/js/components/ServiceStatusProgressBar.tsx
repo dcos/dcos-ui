@@ -14,6 +14,36 @@ interface ServiceStatusProgressBarProps {
   service: Service | ServiceTree | Pod;
 }
 
+export const ServiceProgressBar = React.memo(
+  ({
+    instancesCount,
+    runningInstances
+  }: {
+    instancesCount: number;
+    runningInstances: number;
+  }) => (
+    <Tooltip
+      interactive={true}
+      content={
+        <div className="tooltip-line-item">
+          <Plural
+            render="span"
+            value={runningInstances}
+            one={`# instance running out of ${instancesCount}`}
+            other={`# instances running out of ${instancesCount}`}
+          />
+        </div>
+      }
+    >
+      <ProgressBar
+        className="status-bar--large staged"
+        data={ProgressBar.getDataFromValue(runningInstances, "success")}
+        total={instancesCount}
+      />
+    </Tooltip>
+  )
+);
+
 class ServiceStatusProgressBar extends React.Component<
   ServiceStatusProgressBarProps
 > {
@@ -25,23 +55,6 @@ class ServiceStatusProgressBar extends React.Component<
     ]).isRequired
   };
 
-  getTooltipContent() {
-    const { service } = this.props;
-    const runningInstances = service.getRunningInstancesCount();
-    const instancesTotal = service.getInstancesCount();
-
-    return (
-      <div className="tooltip-line-item">
-        <Plural
-          render="span"
-          value={runningInstances}
-          one={`# instance running out of ${instancesTotal}`}
-          other={`# instances running out of ${instancesTotal}`}
-        />
-      </div>
-    );
-  }
-
   render() {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
@@ -52,18 +65,10 @@ class ServiceStatusProgressBar extends React.Component<
     }
 
     return (
-      <Tooltip interactive={true} content={this.getTooltipContent()}>
-        <ProgressBar
-          className="status-bar--large staged"
-          data={[
-            {
-              className: "success",
-              value: runningInstances
-            }
-          ]}
-          total={instancesCount}
-        />
-      </Tooltip>
+      <ServiceProgressBar
+        instancesCount={instancesCount}
+        runningInstances={runningInstances}
+      />
     );
   }
 }
