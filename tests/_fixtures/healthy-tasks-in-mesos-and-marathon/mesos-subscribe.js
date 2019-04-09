@@ -217,7 +217,7 @@ var response = JSON.stringify({
           {
             task_id: {
               value:
-                "confluent-kafka.instance-.825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1"
+                "confluent-kafka.instance-825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1"
             },
             name: "confluent-kafka",
             framework_id: {

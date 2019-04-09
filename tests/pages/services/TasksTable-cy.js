@@ -108,7 +108,7 @@ describe("Tasks Table", function() {
       beforeEach(function() {
         cy.get("table tr")
           .contains(
-            "confluent-kafka.instance-.825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1"
+            "confluent-kafka.instance-825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1"
           )
           .closest("tr")
           .find("td")
@@ -172,7 +172,7 @@ describe("Tasks Table", function() {
         .find("input")
         .should(function($checkbox) {
           expect($checkbox[0].name).to.equal(
-            "cassandra.instance-.f3c25eea-da3d-11e5-af84-0242fa37187c._app.1"
+            "cassandra.instance-f3c25eea-da3d-11e5-af84-0242fa37187c._app.1"
           );
           expect($checkbox[0].checked).to.equal(true);
         });
@@ -186,7 +186,7 @@ describe("Tasks Table", function() {
         .find("input")
         .should(function($checkbox) {
           expect($checkbox[0].name).to.equal(
-            "cassandra.instance-.f3c25eea-da3d-11e5-af84-0242fa37187c._app.1"
+            "cassandra.instance-f3c25eea-da3d-11e5-af84-0242fa37187c._app.1"
           );
           expect($checkbox[0].checked).to.equal(false);
         });
