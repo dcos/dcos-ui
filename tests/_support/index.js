@@ -57,7 +57,8 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   if (
     configuration.mesos === "1-task-healthy" ||
-    configuration.mesos === "1-task-healthy-with-region"
+    configuration.mesos === "1-task-healthy-with-region" ||
+    configuration.mesos === "1-task-healthy-with-offers"
   ) {
     cy.route({
       method: "POST",
@@ -101,6 +102,13 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
+
+    if (configuration.mesos === "1-task-healthy-with-offers") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/offers-queue"
+      );
+    }
   }
 
   if (configuration.mesos === "1-task-healthy-with-region") {

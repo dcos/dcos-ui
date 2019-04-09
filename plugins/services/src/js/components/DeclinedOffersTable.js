@@ -210,12 +210,16 @@ class DeclinedOffersTable extends React.Component {
 
           return (
             <Tooltip content={hostname} maxWidth={400} wrapText={true}>
-              <Link
-                className="table-cell-link-primary"
-                to={`/nodes/${node.id}`}
-              >
-                {hostname}
-              </Link>
+              {node && node.id ? (
+                <Link
+                  className="table-cell-link-primary"
+                  to={`/nodes/${node.id}`}
+                >
+                  {hostname}
+                </Link>
+              ) : (
+                <span className="table-cell-link-primary">{hostname}</span>
+              )}
             </Tooltip>
           );
         },
