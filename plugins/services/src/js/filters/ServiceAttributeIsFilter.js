@@ -2,16 +2,6 @@ import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 import DSLFilter from "#SRC/js/structs/DSLFilter";
 import * as ServiceStatus from "../constants/ServiceStatus";
 
-const LABEL = "is";
-
-const LABEL_TO_INSTANCE = {
-  deleting: ServiceStatus.DELETING,
-  deploying: ServiceStatus.DEPLOYING,
-  recovering: ServiceStatus.RECOVERING,
-  running: ServiceStatus.RUNNING,
-  stopped: ServiceStatus.STOPPED
-};
-
 /**
  * This filter handles the `is:status` for services using `getServiceStatus`
  */
@@ -24,8 +14,8 @@ class ServiceAttribIsFilter extends DSLFilter {
   filterCanHandle(filterType, filterArguments) {
     return (
       filterType === DSLFilterTypes.ATTRIB &&
-      filterArguments.label === LABEL &&
-      LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()] != null
+      filterArguments.label === "is" &&
+      ServiceStatus[filterArguments.text.toUpperCase()] != null
     );
   }
 
@@ -36,7 +26,7 @@ class ServiceAttribIsFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset, filterType, filterArguments) {
-    const testStatus = LABEL_TO_INSTANCE[filterArguments.text.toLowerCase()];
+    const testStatus = ServiceStatus[filterArguments.text.toUpperCase()];
 
     return resultset.filterItems(service => {
       return service.getServiceStatus() === testStatus;

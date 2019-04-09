@@ -17,7 +17,7 @@ const StatusMapping: any = {
 };
 
 export function statusRenderer(
-  service: Service | Pod | ServiceTree
+  service: Service | ServiceTree
 ): React.ReactNode {
   const serviceStatusText: string = service.getStatus();
   const serviceStatusClassSet: string = StatusMapping[serviceStatusText] || "";
@@ -30,8 +30,7 @@ export function statusRenderer(
       running out of {instancesCount}
     </Trans>
   );
-  const hasStatusText =
-    serviceStatusText !== (ServiceStatus as any).NA.displayName;
+  const hasStatusText = serviceStatusText !== ServiceStatus.NA.displayName;
 
   return (
     <TextCell>

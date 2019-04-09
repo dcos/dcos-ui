@@ -6,7 +6,7 @@ import ProgressBar from "#SRC/js/components/ProgressBar";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 const { Plural } = require("@lingui/macro");
 
@@ -45,14 +45,9 @@ class ServiceStatusProgressBar extends React.Component<
   render() {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
-    const serviceStatus = service.getServiceStatus();
     const runningInstances = service.getRunningInstancesCount();
 
-    if (
-      serviceStatus === ServiceStatus.RUNNING ||
-      serviceStatus === ServiceStatus.STOPPED ||
-      serviceStatus === ServiceStatus.NA
-    ) {
+    if (!ServiceStatus.showProgressBar(service.getServiceStatus())) {
       return null;
     }
 
@@ -73,5 +68,4 @@ class ServiceStatusProgressBar extends React.Component<
   }
 }
 
-module.exports = ServiceStatusProgressBar;
 export default ServiceStatusProgressBar;
