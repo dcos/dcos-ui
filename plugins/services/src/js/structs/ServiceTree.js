@@ -1,5 +1,3 @@
-import { i18nMark } from "@lingui/react";
-
 import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
 
@@ -192,16 +190,12 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServiceTreeStatusSummary() {
-    const status = this.getStatus();
+    const status = this.getServiceStatus();
     const statusCategoryCounts = this.getStatusCategoryCounts();
 
     return {
       status: status.category,
-      statusCounts: statusCategoryCounts.status,
-      values: {
-        priorityStatusCount: statusCategoryCounts.status[status.category],
-        totalCount: statusCategoryCounts.total
-      }
+      counts: statusCategoryCounts
     };
   }
 
@@ -230,7 +224,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getStatus() {
-    return this.getServiceStatus();
+    return this.getServiceStatus().displayName;
   }
 
   getServiceStatus() {

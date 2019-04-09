@@ -620,16 +620,72 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct status for running tree", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: []
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual(
+        ServiceStatus.RUNNING.displayName
+      );
+    });
+
+    it("returns correct status for stopped tree", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: []
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual(
+        ServiceStatus.STOPPED.displayName
+      );
+    });
+
+    it("returns correct status for deploying tree", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 15,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+        })
+      );
+
+      expect(thisInstance.getStatus()).toEqual(
+        ServiceStatus.DEPLOYING.displayName
+      );
+    });
+  });
+
+  describe("#getServiceTreeStatusSummary", function() {
+    beforeEach(function() {
+      thisInstance = new ServiceTree();
+    });
+
+    it("returns correct status for running tree", function() {
       thisInstance.add(runningApp());
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: ServiceStatus.StatusCategory.RUNNING,
-        statusCounts: {
-          RUNNING: 1
-        },
-        values: {
-          priorityStatusCount: 1,
-          totalCount: 1
+        counts: {
+          status: {
+            RUNNING: 1
+          },
+          total: 1
         }
       });
     });
@@ -648,12 +704,11 @@ describe("ServiceTree", function() {
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: ServiceStatus.StatusCategory.STOPPED,
-        statusCounts: {
-          STOPPED: 1
-        },
-        values: {
-          priorityStatusCount: 1,
-          totalCount: 1
+        counts: {
+          status: {
+            STOPPED: 1
+          },
+          total: 1
         }
       });
     });
@@ -672,12 +727,11 @@ describe("ServiceTree", function() {
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: ServiceStatus.StatusCategory.LOADING,
-        statusCounts: {
-          LOADING: 1
-        },
-        values: {
-          priorityStatusCount: 1,
-          totalCount: 1
+        counts: {
+          status: {
+            LOADING: 1
+          },
+          total: 1
         }
       });
     });
@@ -688,12 +742,11 @@ describe("ServiceTree", function() {
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: ServiceStatus.StatusCategory.RUNNING,
-        statusCounts: {
-          RUNNING: 2
-        },
-        values: {
-          priorityStatusCount: 2,
-          totalCount: 2
+        counts: {
+          status: {
+            RUNNING: 2
+          },
+          total: 2
         }
       });
     });
@@ -726,13 +779,12 @@ describe("ServiceTree", function() {
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: "LOADING",
-        statusCounts: {
-          LOADING: 2,
-          RUNNING: 1
-        },
-        values: {
-          priorityStatusCount: 2,
-          totalCount: 3
+        counts: {
+          status: {
+            LOADING: 2,
+            RUNNING: 1
+          },
+          total: 3
         }
       });
     });
@@ -756,14 +808,13 @@ describe("ServiceTree", function() {
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: "LOADING",
-        statusCounts: {
-          LOADING: 1,
-          STOPPED: 1,
-          RUNNING: 1
-        },
-        values: {
-          priorityStatusCount: 1,
-          totalCount: 3
+        counts: {
+          status: {
+            LOADING: 1,
+            STOPPED: 1,
+            RUNNING: 1
+          },
+          total: 3
         }
       });
     });
@@ -785,13 +836,12 @@ describe("ServiceTree", function() {
 
       expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: "RUNNING",
-        statusCounts: {
-          NA: 1,
-          RUNNING: 2
-        },
-        values: {
-          priorityStatusCount: 2,
-          totalCount: 3
+        counts: {
+          status: {
+            NA: 1,
+            RUNNING: 2
+          },
+          total: 3
         }
       });
     });

@@ -11,17 +11,18 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
-function statusCountsToTooltipContent(
-  statusCounts: Record<ServiceStatus.StatusCategory, number>
-): JSX.Element[] {
-  return Object.keys(statusCounts)
+function statusCountsToTooltipContent(counts: {
+  total: number;
+  status: Record<ServiceStatus.StatusCategory, number>;
+}): JSX.Element[] {
+  return Object.keys(counts.status)
     .filter(value => value in ServiceStatus.StatusCategory)
     .sort(statusCategorySorter)
     .map((value, index) => {
       const category = value as ServiceStatus.StatusCategory;
       return (
         <div key={`status.${index}`}>
-          {statusCounts[category]}{" "}
+          {counts.status[category]}{" "}
           <Trans id={ServiceStatus.toCategoryLabel(category)} />
         </div>
       );
@@ -72,7 +73,8 @@ function renderServiceTree(service: ServiceTree): React.ReactNode {
   if (isNA(statusText)) {
     return null;
   }
-
+  const totalCount = summary.counts.total;
+  const priorityStatusCount = summary.counts.status[summary.status];
   return (
     <TextCell>
       <div className="service-status-icon-wrapper">
@@ -80,17 +82,15 @@ function renderServiceTree(service: ServiceTree): React.ReactNode {
           service={service}
           showTooltip={true}
           tooltipContent={
-            <span>{statusCountsToTooltipContent(summary.statusCounts)}</span>
+            <span>{statusCountsToTooltipContent(summary.counts)}</span>
           }
         />
-
         <span className="status-bar-text">
           <Trans id={statusText} />{" "}
-          {summary.values.totalCount > 1 ? (
-            <Trans
-              id="({priorityStatusCount} of {totalCount})"
-              values={summary.values}
-            />
+          {totalCount > 1 ? (
+            <Trans>
+              ({priorityStatusCount} of {totalCount})
+            </Trans>
           ) : null}
         </span>
       </div>

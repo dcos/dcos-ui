@@ -5,11 +5,9 @@ import { StatusCategory } from "../constants/ServiceStatus";
 
 interface ServiceTreeStatusSummary {
   status: StatusCategory;
-  statusCounts: Record<StatusCategory, number>;
-  countsText: string;
-  values: {
-    priorityStatusCount: number;
-    totalCount: number;
+  counts: {
+    total: number;
+    status: Record<StatusCategory, number>;
   };
 }
 
