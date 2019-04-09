@@ -20,7 +20,7 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 import { Subscribable } from "recompose";
-import _ from "lodash";
+import isEqual from "lodash.isequal";
 
 import { componentFromStream } from "@dcos/data-service";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
@@ -91,9 +91,7 @@ const JobsOverview = withRouter(
           }) as Observable<{ data: { jobs: JobConnection } }>;
         }),
         map(data => data.data.jobs),
-        distinctUntilChanged((prevData, nextData) =>
-          _.isEqual(prevData, nextData)
-        )
+        distinctUntilChanged(isEqual)
       );
 
       // we assume here the router does not change
