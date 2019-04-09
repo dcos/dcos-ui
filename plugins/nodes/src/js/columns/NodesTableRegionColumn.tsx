@@ -5,6 +5,12 @@ import { TextCell } from "@dcos/ui-kit";
 import Node from "#SRC/js/structs/Node";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
+const NodeRegion = React.memo(({ regionName }: { regionName: string }) => (
+  <TextCell>
+    <span title={regionName}>{regionName}</span>
+  </TextCell>
+));
+
 export function regionRenderer(
   masterRegion: string,
   data: Node
@@ -15,11 +21,7 @@ export function regionRenderer(
       ? " (Local)"
       : "");
 
-  return (
-    <TextCell>
-      <span title={regionName}>{regionName}</span>
-    </TextCell>
-  );
+  return <NodeRegion regionName={regionName} />;
 }
 
 function compareNodesByRegion(a: Node, b: Node): number {

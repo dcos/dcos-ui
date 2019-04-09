@@ -69,6 +69,9 @@ describe("Service Detail Page", function() {
           .contains("Debug")
           .get(".page-body-content")
           .contains("Last Changes");
+        cy.contains(
+          "Offers will appear here when your service is deploying or waiting for resources."
+        ); // when we have no resource offes
 
         cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
       });

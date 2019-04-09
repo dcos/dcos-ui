@@ -1,10 +1,11 @@
 import React from "react";
 import { shallow } from "enzyme";
 
+import ServiceStatusProgressBar from "../ServiceStatusProgressBar";
+
 const Tooltip = require("reactjs-components").Tooltip;
 
 const ProgressBar = require("#SRC/js/components/ProgressBar");
-const ServiceStatusProgressBar = require("../ServiceStatusProgressBar");
 const Application = require("../../structs/Application");
 const Pod = require("../../structs/Pod");
 

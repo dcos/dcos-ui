@@ -1,11 +1,7 @@
 import { EventEmitter } from "events";
 import PluginSDK, { Hooks } from "PluginSDK";
 
-import {
-  METRONOME_JOBS_CHANGE,
-  DCOS_CHANGE,
-  MESOS_SUMMARY_CHANGE
-} from "../constants/EventTypes";
+import { DCOS_CHANGE, MESOS_SUMMARY_CHANGE } from "../constants/EventTypes";
 import {
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_GROUPS_CHANGE,
@@ -18,16 +14,13 @@ import DeclinedOffersUtil from "../../../plugins/services/src/js/utils/DeclinedO
 import DeploymentsList from "../../../plugins/services/src/js/structs/DeploymentsList";
 import Item from "../structs/Item";
 import Framework from "../../../plugins/services/src/js/structs/Framework";
-import JobTree from "../structs/JobTree";
 import MarathonStore from "../../../plugins/services/src/js/stores/MarathonStore";
 import MesosSummaryStore from "./MesosSummaryStore";
-import MetronomeStore from "./MetronomeStore";
 import NotificationStore from "./NotificationStore";
 import ServiceTree from "../../../plugins/services/src/js/structs/ServiceTree";
 import SummaryList from "../structs/SummaryList";
 
 const METHODS_TO_BIND = [
-  "onMetronomeChange",
   "onMarathonGroupsChange",
   "onMarathonQueueChange",
   "onMarathonDeploymentsChange",
@@ -64,10 +57,6 @@ class DCOSStore extends EventEmitter {
         versions: new Map(),
         dataReceived: false
       },
-      metronome: {
-        jobTree: new JobTree(),
-        dataReceived: false
-      },
       mesos: new SummaryList()
     };
 
@@ -86,14 +75,6 @@ class DCOSStore extends EventEmitter {
 
   getProxyListeners() {
     let proxyListeners = [];
-
-    if (Hooks.applyFilter("hasCapability", false, "metronomeAPI")) {
-      proxyListeners.push({
-        event: METRONOME_JOBS_CHANGE,
-        handler: this.onMetronomeChange,
-        store: MetronomeStore
-      });
-    }
 
     if (Hooks.applyFilter("hasCapability", false, "mesosAPI")) {
       proxyListeners.push({
@@ -330,17 +311,6 @@ class DCOSStore extends EventEmitter {
     this.emit(DCOS_CHANGE);
   }
 
-  onMetronomeChange() {
-    const { metronome } = this.data;
-
-    // Update job tree and data received flag
-    metronome.jobTree = MetronomeStore.jobTree;
-    metronome.dataReceived = true;
-
-    this.clearServiceTreeCache();
-    this.emit(DCOS_CHANGE);
-  }
-
   addProxyListeners() {
     this.getProxyListeners().forEach(function(item) {
       item.store.addChangeListener(item.event, item.handler);
@@ -392,13 +362,6 @@ class DCOSStore extends EventEmitter {
     }
 
     return this;
-  }
-
-  /**
-   * @type {JobTree}
-   */
-  get jobTree() {
-    return this.data.metronome.jobTree;
   }
 
   /**
@@ -497,10 +460,6 @@ class DCOSStore extends EventEmitter {
 
       return memo;
     }, {});
-  }
-
-  get jobDataReceived() {
-    return this.data.metronome.dataReceived;
   }
 
   get serviceDataReceived() {

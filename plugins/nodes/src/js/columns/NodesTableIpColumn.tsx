@@ -14,40 +14,57 @@ import {
 import Node from "#SRC/js/structs/Node";
 import { SortDirection } from "#PLUGINS/nodes/src/js/types/SortDirection";
 
-export function ipRenderer(data: Node): React.ReactNode {
-  const nodeID = data.get("id");
-  const headline = data.getIp();
+const NodeIp = React.memo(
+  ({
+    nodeID,
+    headline,
+    isActive
+  }: {
+    nodeID: string;
+    headline: string;
+    isActive: boolean;
+  }) => {
+    if (!isActive) {
+      return (
+        <TextCell>
+          <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
+            <span title={headline}>
+              <Tooltip
+                anchor="start"
+                content={<Trans render="span">Connection to node lost</Trans>}
+              >
+                <span className="icon-alert icon-margin-right">
+                  <Icon
+                    color={greyDark}
+                    shape={SystemIcons.Yield}
+                    size={iconSizeXs}
+                  />
+                </span>
+                {headline}
+              </Tooltip>
+            </span>
+          </Link>
+        </TextCell>
+      );
+    }
 
-  if (!data.isActive()) {
     return (
       <TextCell>
         <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
-          <span title={headline}>
-            <Tooltip
-              anchor="start"
-              content={<Trans render="span">Connection to node lost</Trans>}
-            >
-              <span className="icon-alert icon-margin-right">
-                <Icon
-                  color={greyDark}
-                  shape={SystemIcons.Yield}
-                  size={iconSizeXs}
-                />
-              </span>
-              {headline}
-            </Tooltip>
-          </span>
+          <span title={headline}>{headline}</span>
         </Link>
       </TextCell>
     );
   }
+);
 
+export function ipRenderer(data: Node): React.ReactNode {
   return (
-    <TextCell>
-      <Link className="table-cell-link-primary" to={`/nodes/${nodeID}`}>
-        <span title={headline}>{headline}</span>
-      </Link>
-    </TextCell>
+    <NodeIp
+      nodeID={data.get("id")}
+      headline={data.getIp()}
+      isActive={data.isActive()}
+    />
   );
 }
 
