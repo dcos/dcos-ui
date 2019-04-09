@@ -8,6 +8,17 @@ const VolumeList = require("../../structs/VolumeList");
 
 let thisInstance;
 
+const runningApp = opts =>
+  new Application({
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 1,
+    tasksUnhealthy: 0,
+    instances: 1,
+    deployments: [],
+    ...opts
+  });
+
 describe("ServiceTree", function() {
   describe("#constructor", function() {
     beforeEach(function() {
@@ -609,20 +620,18 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct status for running tree", function() {
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
+      thisInstance.add(runningApp());
 
-      expect(thisInstance.getStatus()).toEqual(
-        ServiceStatus.RUNNING.displayName
-      );
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.RUNNING,
+        statusCounts: {
+          RUNNING: 1
+        },
+        values: {
+          priorityStatusCount: 1,
+          totalCount: 1
+        }
+      });
     });
 
     it("returns correct status for stopped tree", function() {
@@ -637,9 +646,16 @@ describe("ServiceTree", function() {
         })
       );
 
-      expect(thisInstance.getStatus()).toEqual(
-        ServiceStatus.STOPPED.displayName
-      );
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.STOPPED,
+        statusCounts: {
+          STOPPED: 1
+        },
+        values: {
+          priorityStatusCount: 1,
+          totalCount: 1
+        }
+      });
     });
 
     it("returns correct status for deploying tree", function() {
@@ -654,39 +670,27 @@ describe("ServiceTree", function() {
         })
       );
 
-      expect(thisInstance.getStatus()).toEqual(
-        ServiceStatus.DEPLOYING.displayName
-      );
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.LOADING,
+        statusCounts: {
+          LOADING: 1
+        },
+        values: {
+          priorityStatusCount: 1,
+          totalCount: 1
+        }
+      });
     });
 
     it("aggregates status to a summary", function() {
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
+      thisInstance.add(runningApp());
+      thisInstance.add(runningApp());
 
-      expect(thisInstance.getStatus()).toEqual({
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: ServiceStatus.StatusCategory.RUNNING,
         statusCounts: {
           RUNNING: 2
         },
-        countsText: "({priorityStatusCount} of {totalCount})",
         values: {
           priorityStatusCount: 2,
           totalCount: 2
@@ -695,16 +699,7 @@ describe("ServiceTree", function() {
     });
 
     it("aggregates status by icon to a summary", function() {
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
+      thisInstance.add(runningApp());
       thisInstance.add(
         new Application({
           tasksStaged: 0,
@@ -729,13 +724,12 @@ describe("ServiceTree", function() {
         })
       );
 
-      expect(thisInstance.getStatus()).toEqual({
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: "LOADING",
         statusCounts: {
           LOADING: 2,
           RUNNING: 1
         },
-        countsText: "({priorityStatusCount} of {totalCount})",
         values: {
           priorityStatusCount: 2,
           totalCount: 3
@@ -744,26 +738,8 @@ describe("ServiceTree", function() {
     });
 
     it("aggregates highest priority to summary", function() {
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 0,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 0,
-          deployments: []
-        })
-      );
+      thisInstance.add(runningApp());
+      thisInstance.add(new Application({ tasksRunning: 0 }));
       thisInstance.add(
         new Application({
           tasksStaged: 0,
@@ -778,14 +754,13 @@ describe("ServiceTree", function() {
         })
       );
 
-      expect(thisInstance.getStatus()).toEqual({
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: "LOADING",
         statusCounts: {
           LOADING: 1,
           STOPPED: 1,
           RUNNING: 1
         },
-        countsText: "({priorityStatusCount} of {totalCount})",
         values: {
           priorityStatusCount: 1,
           totalCount: 3
@@ -794,26 +769,8 @@ describe("ServiceTree", function() {
     });
 
     it("aggregate handles NA status", function() {
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
+      thisInstance.add(runningApp());
+      thisInstance.add(runningApp());
       thisInstance.add(
         new Application({
           tasksStaged: 0,
@@ -826,13 +783,12 @@ describe("ServiceTree", function() {
         })
       );
 
-      expect(thisInstance.getStatus()).toEqual({
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
         status: "RUNNING",
         statusCounts: {
           NA: 1,
           RUNNING: 2
         },
-        countsText: "({priorityStatusCount} of {totalCount})",
         values: {
           priorityStatusCount: 2,
           totalCount: 3
@@ -847,16 +803,7 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct status object for running tree", function() {
-      thisInstance.add(
-        new Application({
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 0,
-          tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
-        })
-      );
+      thisInstance.add(runningApp());
 
       expect(thisInstance.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
@@ -957,15 +904,7 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct task summary", function() {
-      thisInstance.add(
-        new Application({
-          instances: 1,
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 1,
-          tasksUnhealthy: 0
-        })
-      );
+      thisInstance.add(runningApp({ tasksHealthy: 1 }));
       thisInstance.add(
         new Application({
           instances: 19,
@@ -987,15 +926,7 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct task summary for Over Capacity", function() {
-      thisInstance.add(
-        new Application({
-          instances: 1,
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 1,
-          tasksUnhealthy: 0
-        })
-      );
+      thisInstance.add(runningApp({ tasksHealthy: 1 }));
       thisInstance.add(
         new Application({
           instances: 10,
