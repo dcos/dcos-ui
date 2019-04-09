@@ -39,7 +39,7 @@ type TreeNode = Service | ServiceTree;
 
 class ServiceStatusIcon extends React.Component<{
   showTooltip?: boolean;
-  tooltipContent: JSX.Element;
+  tooltipContent: React.ReactNode;
   service: TreeNode;
 }> {
   static propTypes = {

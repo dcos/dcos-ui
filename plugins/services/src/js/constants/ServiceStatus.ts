@@ -163,10 +163,7 @@ function showProgressBar(status: Status): boolean {
   return [DEPLOYING, WAITING, DELAYED, RECOVERING, DELETING].includes(status);
 }
 
-function toIcon(status: Status | null): StatusIcon | null {
-  if (status === null) {
-    return null;
-  }
+function toIcon(status: Status): StatusIcon | null {
   switch (status.category) {
     case StatusCategory.NA:
       return null;
@@ -181,11 +178,12 @@ function toIcon(status: Status | null): StatusIcon | null {
     case StatusCategory.ERROR:
       return StatusIcon.ERROR;
   }
-  return null;
 }
 
 function toCategoryPriority(category: StatusCategory): number {
   switch (category) {
+    case StatusCategory.NA:
+      return -1;
     case StatusCategory.STOPPED:
       return 0;
     case StatusCategory.RUNNING:
@@ -197,10 +195,11 @@ function toCategoryPriority(category: StatusCategory): number {
     case StatusCategory.ERROR:
       return 4;
   }
-  return -1;
 }
 function toCategoryLabel(category: StatusCategory): string {
   switch (category) {
+    case StatusCategory.NA:
+      return i18nMark("N/A");
     case StatusCategory.STOPPED:
       return i18nMark("Stopped");
     case StatusCategory.RUNNING:
@@ -212,7 +211,6 @@ function toCategoryLabel(category: StatusCategory): string {
     case StatusCategory.ERROR:
       return i18nMark("Error");
   }
-  return i18nMark("N/A");
 }
 
 export {
