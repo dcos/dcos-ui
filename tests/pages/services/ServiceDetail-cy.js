@@ -155,15 +155,14 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by zone", function() {
+        // wait for zones to load
+        cy.wait(2500);
+
         cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
-
         // Enable zone
         cy.contains("ap-northeast-1a").click({ force: true });
-
-        // Wait a moment to check it doesn't flip back
-        cy.wait(500);
 
         // Apply filter
         cy.contains("Apply").click({ force: true });
