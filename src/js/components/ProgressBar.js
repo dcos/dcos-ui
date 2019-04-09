@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames/dedupe";
-import memoize from "fast-memoize";
+import _ from "lodash";
 
 // Size of largest portion to give to smallest portion. We have a max of 5
 // status types so we want to keep this growth ratio relatively small.
@@ -58,7 +58,7 @@ function getProgressBarData(value, className) {
     }
   ];
 }
-const memoizedGetProgressBarData = memoize(getProgressBarData);
+const memoizedGetProgressBarData = _.memoize(getProgressBarData);
 class ProgressBar extends React.PureComponent {
   static getDataFromValue(value, className) {
     return memoizedGetProgressBarData(value, className);
