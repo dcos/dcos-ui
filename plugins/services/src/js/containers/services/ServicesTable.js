@@ -23,7 +23,9 @@ import {
 } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
 
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { isSDKService } from "../../utils/ServiceUtil";
+import ServiceTableUtil from "../../utils/ServiceTableUtil";
 
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
@@ -60,6 +62,7 @@ import {
 } from "../../columns/ServicesTableDiskColumn";
 import { gpuRenderer, gpuSorter } from "../../columns/ServicesTableGPUColumn";
 import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn";
+import { getStatusIconProps } from "../../utils/ServiceStatusIconUtil";
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
@@ -76,6 +79,62 @@ const METHODS_TO_BIND = [
   "handleActionDisabledModalClose",
   "handleSortClick"
 ];
+
+const isServiceDataNew = (prevData, nextData) => {
+  const serviceDataCompareArr = nextData.map((nextServiceData, i) => {
+    if (!nextServiceData || !prevData[i]) {
+      return false;
+    }
+
+    const sameStatus =
+      getStatusIconProps(prevData[i]).serviceStatus.key ===
+      getStatusIconProps(nextServiceData).serviceStatus.key;
+    const sameVersion =
+      findNestedPropertyInObject(
+        ServiceTableUtil.getFormattedVersion(nextServiceData),
+        "displayVersion"
+      ) ===
+      findNestedPropertyInObject(
+        ServiceTableUtil.getFormattedVersion(prevData[i]),
+        "displayVersion"
+      );
+    const sameReg =
+      nextServiceData.getRegions().length ===
+      [...new Set(nextServiceData.getRegions(), prevData[i].getRegions())]
+        .length;
+    const sameInstances =
+      nextServiceData.getInstancesCount() === prevData[i].getInstancesCount() ||
+      nextServiceData.getRunningInstancesCount() ===
+        prevData[i].getRunningInstancesCount();
+    const sameCPU =
+      nextServiceData.getResources()["cpus"] ===
+      prevData[i].getResources()["cpus"];
+    const sameMem =
+      nextServiceData.getResources()["mem"] ===
+      prevData[i].getResources()["mem"];
+    const sameDisk =
+      nextServiceData.getResources()["disk"] ===
+      prevData[i].getResources()["disk"];
+    const sameGPU =
+      nextServiceData.getResources()["gpus"] ===
+      prevData[i].getResources()["gpus"];
+
+    const isChanged = [
+      sameStatus,
+      sameVersion,
+      sameReg,
+      sameInstances,
+      sameCPU,
+      sameMem,
+      sameDisk,
+      sameGPU
+    ].some(hasChange => hasChange === false);
+
+    return isChanged;
+  });
+
+  return serviceDataCompareArr.some(isChanged => isChanged === true);
+};
 
 class ServicesTable extends React.Component {
   constructor(props) {
@@ -106,6 +165,16 @@ class ServicesTable extends React.Component {
 
   componentWillUnmount() {
     CompositeState.enable();
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const sameServiceCount =
+      nextProps.services.length === this.props.services.length;
+
+    return (
+      !sameServiceCount ||
+      isServiceDataNew(this.props.services, nextProps.services)
+    );
   }
 
   componentWillReceiveProps(nextProps) {
