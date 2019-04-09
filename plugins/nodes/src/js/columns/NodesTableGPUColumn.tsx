@@ -11,17 +11,14 @@ function getGpuUsage(data: Node): number {
   return data.getUsageStats("gpus").percentage;
 }
 
+const className = `color-${ResourcesUtil.getResourceColor("gpus")}`;
+
 export function gpuRenderer(data: Node): React.ReactNode {
   return (
     <Cell>
       <div>
         <ProgressBar
-          data={[
-            {
-              value: data.getUsageStats("gpus").percentage,
-              className: `color-${ResourcesUtil.getResourceColor("gpus")}`
-            }
-          ]}
+          data={ProgressBar.getDataFromValue(getGpuUsage(data), className)}
           total={100}
         />
         <span className="table-content-spacing-left">{getGpuUsage(data)}%</span>

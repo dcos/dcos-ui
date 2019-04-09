@@ -1,7 +1,6 @@
 import compareVersions from "compare-versions";
 import sort from "array-sort";
 
-import StatusSorting from "../constants/StatusSorting";
 import Framework from "../structs/Framework";
 /* eslint-disable no-unused-vars */
 import ServiceTree from "../structs/ServiceTree";
@@ -109,18 +108,7 @@ function taskCompareFunction(a, b) {
  * is the same as "b" in sort order.
  */
 function statusCompareFunction(a, b) {
-  // needed because the constant is NA and not N/A
-  if (a.getServiceStatus().displayName === "N/A") {
-    a.getServiceStatus().displayName = "NA";
-  }
-  if (b.getServiceStatus().displayName === "N/A") {
-    b.getServiceStatus().displayName = "NA";
-  }
-
-  return numberCompareFunction(
-    StatusSorting[a.getServiceStatus().displayName],
-    StatusSorting[b.getServiceStatus().displayName]
-  );
+  return b.getServiceStatus().priority - a.getServiceStatus().priority;
 }
 
 /**

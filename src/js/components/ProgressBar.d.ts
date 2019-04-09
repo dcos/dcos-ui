@@ -1,11 +1,16 @@
 import { Component, ReactElement } from "react";
 
+interface ProgressBarValue {
+  value: unknown;
+  className?: Array<string> | Object | string;
+}
+
 interface ProgressBarProps {
   className?: Array<string> | Object | string;
   total: number;
-  data: Array<{
-    className?: Array<string> | Object | string;
-    value: number;
-  }>;
+  data: ProgressBarValue[];
 }
-export default class ProgressBar extends Component<ProgressBarProps> {}
+
+export default class ProgressBar extends Component<ProgressBarProps> {
+  static getDataFromValue(value: number, className: string): ProgressBarValue[];
+}

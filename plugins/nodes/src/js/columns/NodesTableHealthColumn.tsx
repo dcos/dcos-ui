@@ -5,13 +5,22 @@ import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 import Node from "#SRC/js/structs/Node";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
+const NodeHealth = ({
+  classNames,
+  title
+}: {
+  classNames: string;
+  title: string;
+}) => (
+  <TextCell>
+    <span className={classNames}>{title}</span>
+  </TextCell>
+);
+const NodeHealthMemo = React.memo(NodeHealth);
+
 export function healthRenderer(data: Node): React.ReactNode {
   const health = data.getHealth();
-  return (
-    <TextCell>
-      <span className={health.classNames}>{health.title}</span>
-    </TextCell>
-  );
+  return <NodeHealthMemo classNames={health.classNames} title={health.title} />;
 }
 
 export function healthSorter(

@@ -1,10 +1,11 @@
+import * as ServiceStatus from "../../constants/ServiceStatus";
+
 const Pod = require("../Pod");
 const PodInstance = require("../PodInstance");
 
 const HealthStatus = require("../../constants/HealthStatus");
 const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
 const ServiceImages = require("../../constants/ServiceImages");
-const ServiceStatus = require("../../constants/ServiceStatus");
 
 describe("Pod", function() {
   describe("#constructor", function() {

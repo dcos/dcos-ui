@@ -6,6 +6,7 @@ import {
   HeaderCell
 } from "@dcos/ui-kit/dist/packages";
 import { Trans } from "@lingui/macro";
+import _ from "lodash";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
@@ -160,6 +161,15 @@ export default class NodesTable extends React.Component<
     }
   }
 
+  shouldComponentUpdate(
+    nextProps: NodesTableProps,
+    nextState: NodesTableState
+  ) {
+    return (
+      !_.isEqual(this.props, nextProps) || !_.isEqual(this.state, nextState)
+    );
+  }
+
   componentWillReceiveProps(nextProps: NodesTableProps): void {
     this.setState(
       this.updateData(
@@ -179,7 +189,7 @@ export default class NodesTable extends React.Component<
 
     return (
       <div className="table-wrapper">
-        <Table data={data.slice()}>
+        <Table data={data}>
           <Column
             header={
               <SortableHeaderCell

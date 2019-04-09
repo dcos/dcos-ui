@@ -1,6 +1,7 @@
+import Service from "./Service";
 import Tree from "#SRC/js/structs/Tree";
 
-export default class ServiceTree extends Tree {
+export default class ServiceTree extends Tree<Service> {
   getDeployments(): any;
   getQueue(): null;
   getRegions(): any[];
@@ -11,6 +12,7 @@ export default class ServiceTree extends Tree {
   getItemParent(id: any, parent: any): any;
   findItemById(id: any): any;
   filterItemsByFilter(filter: string): any;
+  filterItems(callback: (a: Service) => boolean): Tree<Service>;
   getInstancesCount(): number;
   getName(): string;
   getResources(): object;

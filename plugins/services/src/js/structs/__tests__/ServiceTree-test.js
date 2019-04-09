@@ -1,9 +1,10 @@
+import * as ServiceStatus from "../../constants/ServiceStatus";
+
 const Application = require("../Application");
 const Framework = require("../Framework");
 const HealthStatus = require("../../constants/HealthStatus");
 const HealthTypes = require("../../constants/HealthTypes");
 const ServiceTree = require("../ServiceTree");
-const ServiceStatus = require("../../constants/ServiceStatus");
 const VolumeList = require("../../structs/VolumeList");
 
 let thisInstance;
@@ -162,99 +163,6 @@ describe("ServiceTree", function() {
     it("does no include matching subtrees", function() {
       const filteredItems = thisInstance.filterItemsByText("foo").getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
-    });
-  });
-
-  describe("#filterItemsByFilter", function() {
-    beforeEach(function() {
-      thisInstance = new ServiceTree({
-        id: "/group",
-        items: [
-          {
-            id: "/group/test",
-            items: [
-              {
-                id: "/group/test/foo",
-                cmd: "cmd"
-              },
-              {
-                id: "/group/test/bar",
-                cmd: "cmd"
-              }
-            ]
-          },
-          {
-            id: "/group/alpha",
-            cmd: "cmd"
-          },
-          {
-            id: "/group/beta",
-            cmd: "cmd",
-            labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            },
-            tasksHealthy: 1,
-            tasksRunning: 1
-          },
-          {
-            id: "gamma",
-            cmd: "cmd",
-            labels: {
-              RANDOM_LABEL: "random"
-            }
-          }
-        ],
-        filterProperties: {
-          id(item) {
-            return item.getId();
-          }
-        }
-      });
-    });
-
-    it("filters by name", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          id: "alpha"
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/alpha");
-    });
-
-    it("filters by name in groups", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          id: "/group/test/foo"
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/test/foo");
-    });
-
-    it("filters by health", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          health: [HealthTypes.HEALTHY]
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/beta");
-    });
-
-    it("performs a logical AND with multiple filters", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          health: [HealthTypes.NA],
-          id: "alpha"
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/alpha");
     });
   });
 

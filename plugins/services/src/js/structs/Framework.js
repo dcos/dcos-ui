@@ -1,14 +1,27 @@
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from "../constants/FrameworkConstants";
 import FrameworkUtil from "../utils/FrameworkUtil";
+import * as ServiceStatus from "../constants/ServiceStatus";
 
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
+
+const getHighestPriorityStatus = tasks => {
+  const statuses = tasks
+    .map(t => findNestedPropertyInObject(t, "checkResult.http.statusCode"))
+    .map(ServiceStatus.fromHttpCode)
+    .filter(status => status);
+
+  return statuses.length !== 0
+    ? statuses.reduce((acc, cur) => (cur.priority > acc.priority ? cur : acc))
+    : null;
+};
 
 module.exports = class Framework extends Application {
   constructor() {
@@ -64,6 +77,24 @@ module.exports = class Framework extends Application {
     }
 
     return this._spec;
+  }
+
+  /**
+   * @override
+   */
+  getStatus() {
+    const status = getHighestPriorityStatus(this.get("tasks") || []);
+
+    return status !== null ? status.displayName : super.getStatus();
+  }
+
+  /**
+   * @override
+   */
+  getServiceStatus() {
+    const status = getHighestPriorityStatus(this.get("tasks") || []);
+
+    return status || super.getServiceStatus();
   }
 
   getTasksSummary() {

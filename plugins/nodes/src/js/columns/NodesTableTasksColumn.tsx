@@ -5,12 +5,14 @@ import { NumberCell } from "@dcos/ui-kit";
 import Node from "#SRC/js/structs/Node";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
+const NodeTasks = React.memo(({ tasks }: { tasks: string }) => (
+  <NumberCell>
+    <span>{tasks}</span>
+  </NumberCell>
+));
+
 export function tasksRenderer(data: Node): React.ReactNode {
-  return (
-    <NumberCell>
-      <span>{(data.get("TASK_RUNNING") || "0").toString()}</span>
-    </NumberCell>
-  );
+  return <NodeTasks tasks={(data.get("TASK_RUNNING") || "0").toString()} />;
 }
 
 function compareNodesByTasks(a: Node, b: Node): number {
