@@ -48,12 +48,7 @@ module.exports = class Service extends Item {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status.displayName == null) {
-      return null;
-    }
-
-    return status.displayName;
+    return this.getServiceStatus().displayName;
   }
 
   getServiceStatus() {
