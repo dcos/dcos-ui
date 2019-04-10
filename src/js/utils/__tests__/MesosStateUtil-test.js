@@ -224,15 +224,15 @@ describe("MesosStateUtil", function() {
   });
 
   describe("#decomposePodTaskId", function() {
-    it("de-scompose", function() {
+    it("decomposes task id into parts", function() {
       expect(
         MesosStateUtil.decomposePodTaskId(
-          "podname.instance-instancename.taskname"
+          "failing-pod.instance-c4a70195-5aaa-11e9-bc3e-5abede31217b.container-1.8"
         )
       ).toEqual({
-        podID: "podname",
-        instanceID: "instancename",
-        taskName: "taskname"
+        podID: "failing-pod",
+        instanceID: "c4a70195-5aaa-11e9-bc3e-5abede31217b",
+        taskName: "container-1"
       });
     });
   });
