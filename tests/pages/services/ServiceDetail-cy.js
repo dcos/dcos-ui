@@ -142,7 +142,7 @@ describe("Service Detail Page", function() {
         cy.contains("Active").click({ force: true });
 
         cy.get(".dsl-form-group input[name='text']").type(
-          "sleep.7084272b-6b76-11e5-a953-08002719334c"
+          "sleep.instance-7084272b-6b76-11e5-a953-08002719334c._app.1"
         );
 
         // Wait a moment to check it doesn't flip back

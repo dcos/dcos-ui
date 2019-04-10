@@ -1,10 +1,10 @@
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import * as Color from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-type StatusIcon = {
+interface StatusIcon {
   shape: SystemIcons;
   color: string;
-};
+}
 
 const SUCCESS: StatusIcon = {
   shape: SystemIcons.CircleCheck,

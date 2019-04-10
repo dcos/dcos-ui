@@ -8,12 +8,5 @@
   "scm": "https://github.com/dcos/dcos-ui",
   "website": "https://dcos.io/",
   "framework": false,
-  "selected": true,
-  "licenses": [
-    {
-      "name": "Apache License Version 2.0",
-      "url": "https://raw.githubusercontent.com/dcos/dcos-ui/master/LICENSE"
-    }
-  ],
   "minDcosReleaseVersion": "1.12"
 }
