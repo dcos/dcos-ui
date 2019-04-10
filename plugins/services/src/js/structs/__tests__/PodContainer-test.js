@@ -246,6 +246,12 @@ describe("PodContainer", function() {
 
       expect(podContainer.hasHealthChecks()).toEqual(true);
     });
+
+    it("returns false if conditions is undefined", function() {
+      const podContainer = new PodContainer({});
+
+      expect(podContainer.hasHealthChecks()).toBeFalsy();
+    });
   });
 
   describe("#isHealthy", function() {
@@ -253,6 +259,12 @@ describe("PodContainer", function() {
       const podContainer = new PodContainer({
         conditions: []
       });
+
+      expect(podContainer.isHealthy()).toBeTruthy();
+    });
+
+    it("returns true if conditions is undefined", function() {
+      const podContainer = new PodContainer({});
 
       expect(podContainer.isHealthy()).toBeTruthy();
     });
