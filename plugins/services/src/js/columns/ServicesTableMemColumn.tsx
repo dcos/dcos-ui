@@ -8,15 +8,16 @@ import Units from "#SRC/js/utils/Units";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
+export const ServiceMem = React.memo(({ resource }: { resource: string }) => (
+  <NumberCell>
+    <span>{Units.formatResource("mem", resource)}</span>
+  </NumberCell>
+));
+
 export function memRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const resource = service.getResources()[`mem`];
-  return (
-    <NumberCell>
-      <span>{Units.formatResource("mem", resource)}</span>
-    </NumberCell>
-  );
+  return <ServiceMem resource={service.getResources()[`mem`]} />;
 }
 
 export function memSorter(
