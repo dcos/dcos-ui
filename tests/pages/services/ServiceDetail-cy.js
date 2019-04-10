@@ -97,7 +97,7 @@ describe("Service Detail Page", function() {
     });
 
     context("Filter Tasks", function() {
-      const DEFAULT_ROWS = 3; // Headline plus invisible rows
+      const DEFAULT_ROWS = 1; // Headline
       beforeEach(function() {
         cy.configureCluster({
           mesos: "1-task-healthy",
