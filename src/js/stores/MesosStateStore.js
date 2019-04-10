@@ -239,10 +239,10 @@ class MesosStateStore extends GetSetBaseStore {
     const { frameworks, tasks = [] } = this.getLastMesosState();
     const serviceName = service.getName();
 
-    // Convert serviceId to Mesos task name
-    const mesosTaskName = service.getMesosId();
+    // Convert serviceId to Mesos task id prefix
+    const taskIdPrefix = service.getMesosId();
 
-    if (!serviceName || !mesosTaskName || !frameworks) {
+    if (!serviceName || !taskIdPrefix || !frameworks) {
       return [];
     }
 
@@ -266,7 +266,11 @@ class MesosStateStore extends GetSetBaseStore {
     }
 
     return tasks
-      .filter(task => task.isStartedByMarathon && task.name === mesosTaskName)
+      .filter(
+        task =>
+          task.isStartedByMarathon &&
+          task.id.startsWith(`${taskIdPrefix}.instance`)
+      )
       .concat(serviceTasks)
       .map(task => MesosStateUtil.flagSDKTask(task, service));
   }

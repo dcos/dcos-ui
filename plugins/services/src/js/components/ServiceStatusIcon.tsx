@@ -12,7 +12,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 
 // @ts-ignore
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
-import { Status } from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
@@ -39,7 +39,7 @@ type TreeNode = Service | ServiceTree;
 
 class ServiceStatusIcon extends React.Component<{
   showTooltip?: boolean;
-  tooltipContent: JSX.Element;
+  tooltipContent: React.ReactNode;
   service: TreeNode;
 }> {
   static propTypes = {
@@ -103,7 +103,13 @@ class ServiceStatusIcon extends React.Component<{
 
   getTooltip(content: JSX.Element) {
     const { service } = this.props;
-    let icon = <Icon {...StatusIcon.WARNING} size={iconSizeXs} />;
+    let icon = (
+      <Icon
+        shape={StatusIcon.WARNING.shape}
+        color={StatusIcon.WARNING.color}
+        size={iconSizeXs}
+      />
+    );
 
     if (service instanceof Service) {
       const servicePath = encodeURIComponent(service.getId());
@@ -149,8 +155,10 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  renderIcon(iconState: any) {
-    const icon = <Icon {...iconState} size={iconSizeXs} />;
+  renderIcon(iconState: StatusIcon) {
+    const icon = (
+      <Icon shape={iconState.shape} color={iconState.color} size={iconSizeXs} />
+    );
 
     if (this.props.showTooltip) {
       return (
@@ -170,8 +178,7 @@ class ServiceStatusIcon extends React.Component<{
 
   render() {
     const { service } = this.props;
-    const serviceStatus: Status | null = service.getServiceStatus();
-    const iconState = serviceStatus && serviceStatus.icon;
+    const iconState = ServiceStatus.toIcon(service.getServiceStatus());
 
     // Catch other cases instead throwing a warning/error
     if (iconState == null) {
