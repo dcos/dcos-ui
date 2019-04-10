@@ -596,6 +596,7 @@ describe("Service Form Modal", function() {
             .focus()
             .type("{selectall}{backspace}")
             .type("{selectall}{backspace}")
+            .type("{selectall}{backspace}")
             .type("/test-back-button-prompt");
         });
       });
