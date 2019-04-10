@@ -1,6 +1,7 @@
 import * as React from "react";
 import { TextCell } from "@dcos/ui-kit";
 import { Tooltip } from "reactjs-components";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 // @ts-ignore
 import Framework from "../structs/Framework";
@@ -8,6 +9,8 @@ import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import * as Version from "../utils/Version";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
+import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
 
 const ServiceVersion = React.memo(
   ({
@@ -39,4 +42,8 @@ export function versionRenderer(
   return (
     <ServiceVersion rawVersion={rawVersion} displayVersion={displayVersion} />
   );
+}
+
+export function versionWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).version;
 }
