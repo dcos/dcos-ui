@@ -2,6 +2,7 @@ import * as ServiceStatus from "../../constants/ServiceStatus";
 
 const Application = require("../Application");
 const Framework = require("../Framework");
+const Service = require("../Service");
 const HealthStatus = require("../../constants/HealthStatus");
 const ServiceTree = require("../ServiceTree");
 const VolumeList = require("../../structs/VolumeList");
@@ -535,6 +536,66 @@ describe("ServiceTree", function() {
       thisInstance.add(naService);
 
       expect(thisInstance.getHealth()).toEqual(HealthStatus.NA);
+    });
+  });
+
+  describe("#getRegions", function() {
+    beforeEach(function() {
+      thisInstance = new ServiceTree();
+    });
+
+    it("returns [] with no applications", function() {
+      expect(thisInstance.getRegions()).toEqual([]);
+    });
+
+    it("returns [] with only applications without regions", function() {
+      thisInstance.add(
+        new Application({
+          cpus: 1,
+          mem: 2048,
+          disk: 0,
+          gpus: 2,
+          instances: 1
+        })
+      );
+      thisInstance.add(
+        new Service({
+          id: "/metronome"
+        })
+      );
+      expect(thisInstance.getRegions()).toEqual([]);
+    });
+
+    it("does not fail if getRegion is not implemented", function() {
+      thisInstance.add(
+        new Framework({
+          id: "/metronome"
+        })
+      );
+      expect(thisInstance.getRegions()).toEqual([]);
+    });
+
+    it("returns [] regions for all applications without duplicates", function() {
+      thisInstance.add(
+        new Application({
+          cpus: 1,
+          mem: 2048,
+          disk: 0,
+          gpus: 2,
+          instances: 1
+        })
+      );
+      thisInstance.add(
+        new Service({
+          tasks: [{ region: "a" }, { region: "b" }, {}]
+        })
+      );
+      thisInstance.add(
+        new Service({
+          tasks: [{ region: "b" }, { region: "c" }, {}]
+        })
+      );
+      expect(thisInstance.getRegions()).toEqual(["a", "b", "c"]);
     });
   });
 

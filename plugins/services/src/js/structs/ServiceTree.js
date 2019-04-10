@@ -1,3 +1,5 @@
+import uniq from "lodash.uniq";
+
 import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
 
@@ -80,7 +82,13 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getRegions() {
-    return [];
+    return uniq(
+      this.reduceItems(function(carry, item) {
+        const itemRegions = item.getRegions();
+
+        return [...carry, ...itemRegions];
+      }, [])
+    ).sort();
   }
 
   getHealth() {
