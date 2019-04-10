@@ -8,6 +8,14 @@ import ServiceTree from "../structs/ServiceTree";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
+const ServiceRegion = React.memo(({ regions }: { regions: string }) => (
+  <TextCell>
+    <Tooltip elementTag="span" wrapText={true} content={regions}>
+      {regions}
+    </Tooltip>
+  </TextCell>
+));
+
 export function regionRendererFactory(localRegion: string | undefined) {
   return (service: Service | Pod | ServiceTree) => {
     let regions: string[] = service.getRegions();
@@ -20,13 +28,7 @@ export function regionRendererFactory(localRegion: string | undefined) {
       regions.push("N/A");
     }
 
-    return (
-      <TextCell>
-        <Tooltip elementTag="span" wrapText={true} content={regions.join(", ")}>
-          {regions.join(", ")}
-        </Tooltip>
-      </TextCell>
-    );
+    return <ServiceRegion regions={regions.join(", ")} />;
   };
 }
 export function regionSorter(
