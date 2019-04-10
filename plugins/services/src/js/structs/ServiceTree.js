@@ -7,7 +7,6 @@ import HealthTypes from "../constants/HealthTypes";
 import HealthStatus from "../constants/HealthStatus";
 import Pod from "./Pod";
 import Service from "./Service";
-import ServiceOther from "../constants/ServiceOther";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
@@ -166,6 +165,40 @@ module.exports = class ServiceTree extends Tree {
     }, 0);
   }
 
+  getStatusCategoryCounts() {
+    const categoryCounts = {
+      status: {},
+      total: 0
+    };
+
+    return this.reduceItems(function(counts, item) {
+      if (item instanceof Service) {
+        const itemStatus = item.getServiceStatus();
+        if (itemStatus === null) {
+          return counts;
+        }
+        counts.total++;
+        if (counts.status[itemStatus.category]) {
+          counts.status[itemStatus.category]++;
+        } else {
+          counts.status[itemStatus.category] = 1;
+        }
+      }
+
+      return counts;
+    }, categoryCounts);
+  }
+
+  getServiceTreeStatusSummary() {
+    const status = this.getServiceStatus();
+    const statusCategoryCounts = this.getStatusCategoryCounts();
+
+    return {
+      status: status.category,
+      counts: statusCategoryCounts
+    };
+  }
+
   getName() {
     return this.getId()
       .split("/")
@@ -191,12 +224,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status == null) {
-      return null;
-    }
-
-    return status.displayName;
+    return this.getServiceStatus().displayName;
   }
 
   getServiceStatus() {
