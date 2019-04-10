@@ -1,6 +1,6 @@
 import { NumberCell } from "@dcos/ui-kit";
 
-import { regionRenderer } from "../../../columns/ServicesTableRegionColumn";
+import { regionRendererFactory } from "../../../columns/ServicesTableRegionColumn";
 import { cpuRenderer } from "../../../columns/ServicesTableCPUColumn";
 import { memRenderer } from "../../../columns/ServicesTableMemColumn";
 import { diskRenderer } from "../../../columns/ServicesTableDiskColumn";
@@ -147,7 +147,7 @@ describe("ServicesTable", function() {
   });
 
   describe("#renderRegions", function() {
-    const renderRegions = regionRenderer;
+    const renderRegions = regionRendererFactory("aws/eu-central-2");
     let mockService;
     beforeEach(function() {
       mockService = {
@@ -165,6 +165,14 @@ describe("ServicesTable", function() {
 
     it("renders with one region", function() {
       mockService.getRegions.mockReturnValue(["aws/eu-central-1"]);
+
+      expect(
+        renderer.create(renderRegions(mockService)).toJSON()
+      ).toMatchSnapshot();
+    });
+
+    it("renders with one local region", function() {
+      mockService.getRegions.mockReturnValue(["aws/eu-central-2"]);
 
       expect(
         renderer.create(renderRegions(mockService)).toJSON()

@@ -152,6 +152,10 @@ function setup() {
   echo ""
   echo "=> Setup"
 
+  if [ -n "${NO_BUILD}" ]; then
+    return
+  fi
+
   ## Setup proxy
   if [ -n "$(lsof -i :"${PROXY_PORT}")" ]; then
     echo "==> ERROR: Port ${PROXY_PORT} is already in use"
@@ -191,6 +195,10 @@ function setup() {
 
 # tears down everything…
 function teardown() {
+  if [ -n "${NO_BUILD}" ]; then
+    return
+  fi
+
   echo ""
   echo "=> Teardown"
   teardown_proxy

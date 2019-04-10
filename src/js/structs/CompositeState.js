@@ -17,6 +17,7 @@ const enrichNodeDataWithHealthData = (nodes, healthData) => {
   });
 };
 
+let storedNodeHealth, storedState;
 class CompositeState {
   constructor(data = {}) {
     this._refCount = 0;
@@ -30,6 +31,19 @@ class CompositeState {
    */
   enable() {
     this._refCount = Math.max(this._refCount - 1, 0);
+
+    // if this update enables the composite state again, let's update everyting
+    if (!this._isDisabled()) {
+      if (storedNodeHealth) {
+        this.addNodeHealth(storedNodeHealth);
+        storedNodeHealth = null;
+      }
+
+      if (storedState) {
+        this.addState(storedState);
+        storedState = null;
+      }
+    }
   }
 
   /**
@@ -45,6 +59,8 @@ class CompositeState {
 
   addNodeHealth(data) {
     if (this._isDisabled()) {
+      storedNodeHealth = data;
+
       return;
     }
     if (data == null) {
@@ -60,6 +76,8 @@ class CompositeState {
 
   addState(newData) {
     if (this._isDisabled()) {
+      storedState = newData;
+
       return;
     }
     if (newData == null) {
