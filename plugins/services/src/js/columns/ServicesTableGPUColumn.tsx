@@ -8,16 +8,16 @@ import Units from "#SRC/js/utils/Units";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
+export const ServiceGPU = React.memo(({ resource }: { resource: string }) => (
+  <NumberCell>
+    <span>{Units.formatResource("gpus", resource)}</span>
+  </NumberCell>
+));
+
 export function gpuRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const resource = service.getResources()[`gpus`];
-
-  return (
-    <NumberCell>
-      <span>{Units.formatResource("gpus", resource)}</span>
-    </NumberCell>
-  );
+  return <ServiceGPU resource={service.getResources()[`gpus`]} />;
 }
 
 export function gpuSorter(
