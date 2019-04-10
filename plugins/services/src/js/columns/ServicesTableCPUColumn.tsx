@@ -8,16 +8,16 @@ import Units from "#SRC/js/utils/Units";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
 
+export const ServiceCPU = React.memo(({ resource }: { resource: string }) => (
+  <NumberCell>
+    <span>{Units.formatResource("cpus", resource)}</span>
+  </NumberCell>
+));
+
 export function cpuRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const resource = service.getResources()[`cpus`];
-
-  return (
-    <NumberCell>
-      <span>{Units.formatResource("cpus", resource)}</span>
-    </NumberCell>
-  );
+  return <ServiceCPU resource={service.getResources()[`cpus`]} />;
 }
 
 export function cpuSorter(
