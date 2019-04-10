@@ -8,6 +8,22 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 
+const ServiceVersion = React.memo(
+  ({
+    rawVersion,
+    displayVersion
+  }: {
+    rawVersion: string;
+    displayVersion: string;
+  }) => (
+    <TextCell>
+      <Tooltip content={rawVersion} wrapText={true}>
+        {displayVersion}
+      </Tooltip>
+    </TextCell>
+  )
+);
+
 export function versionRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
@@ -17,11 +33,10 @@ export function versionRenderer(
   }
 
   return (
-    <TextCell>
-      <Tooltip content={version.rawVersion} wrapText={true}>
-        {version.displayVersion}
-      </Tooltip>
-    </TextCell>
+    <ServiceVersion
+      rawVersion={version.rawVersion}
+      displayVersion={version.displayVersion}
+    />
   );
 }
 
