@@ -180,7 +180,7 @@
   },
   "scripts": {
     "build:assets": "npm run clean && NODE_ENV=production webpack --colors --config ./webpack/webpack.production.js",
-    "build:validate": "scripts/validate-build dist/assets/*.js",
+    "build:validate": "scripts/validate-build dist/*.js",
     "build": "npm run lint && ([ -z \"${npm_config_externalplugins}\" ] || npm run lint:plugins) && npm test && npm run build:assets && npm run build:validate",
     "clean": "rm -rf dist locale/_build",
     "lint:commits": "./node_modules/.bin/commitlint",
