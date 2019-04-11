@@ -39,6 +39,19 @@ describe("MultiContainerScaling", function() {
         instances: 1
       });
     });
+
+    it("returns scaling block when instances == 0", () => {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(["instances"], 0));
+
+      expect(
+        batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
+      ).toEqual({
+        kind: "fixed",
+        instances: 0
+      });
+    });
   });
 
   describe("#JSONParser", function() {
