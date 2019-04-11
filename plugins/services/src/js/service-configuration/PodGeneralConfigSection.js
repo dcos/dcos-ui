@@ -10,7 +10,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Units from "#SRC/js/utils/Units";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValueWithDefault";
 import DurationValue from "../components/ConfigurationMapDurationValue";

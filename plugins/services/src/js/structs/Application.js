@@ -4,7 +4,7 @@ import ApplicationSpec from "./ApplicationSpec";
 import FrameworkUtil from "../utils/FrameworkUtil";
 import HealthStatus from "../constants/HealthStatus";
 import Service from "./Service";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import TaskStats from "./TaskStats";
 import VolumeList from "./VolumeList";
 
@@ -113,12 +113,7 @@ module.exports = class Application extends Service {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status.displayName == null) {
-      return null;
-    }
-
-    return status.displayName;
+    return this.getServiceStatus().displayName;
   }
 
   /**

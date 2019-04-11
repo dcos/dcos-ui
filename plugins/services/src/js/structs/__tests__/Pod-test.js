@@ -1,10 +1,11 @@
+import * as ServiceStatus from "../../constants/ServiceStatus";
+
 const Pod = require("../Pod");
 const PodInstance = require("../PodInstance");
 
 const HealthStatus = require("../../constants/HealthStatus");
 const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
 const ServiceImages = require("../../constants/ServiceImages");
-const ServiceStatus = require("../../constants/ServiceStatus");
 
 describe("Pod", function() {
   describe("#constructor", function() {
@@ -261,7 +262,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx", healthy: true }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "healthy",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           }
@@ -293,7 +302,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx", healthy: false }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "healthy",
+                    reason: "health-reported-by-mesos",
+                    value: "false"
+                  }
+                ]
               }
             ]
           }
@@ -325,7 +342,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx" }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "something-else",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           }
@@ -389,7 +414,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx" }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "something-else",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           },
@@ -398,7 +431,15 @@ describe("Pod", function() {
             containers: [
               {
                 status: "stable",
-                endpoints: [{ name: "nginx" }]
+                conditions: [
+                  {
+                    lastChanged: "2019-01-01T12:00:00.000Z",
+                    lastUpdated: "2019-01-01T12:00:00.000Z",
+                    name: "something-else",
+                    reason: "health-reported-by-mesos",
+                    value: "true"
+                  }
+                ]
               }
             ]
           }

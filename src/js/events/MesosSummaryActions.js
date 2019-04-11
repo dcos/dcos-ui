@@ -64,24 +64,29 @@ var MesosSummaryActions = {
 };
 
 if (Config.useFixtures) {
-  if (!global.actionTypes) {
-    global.actionTypes = {};
-  }
+  import(/* summaryFixture */ "../../../tests/_fixtures/v0/summary.js").then(
+    summaryFixture => {
+      if (!global.actionTypes) {
+        global.actionTypes = {};
+      }
+      global.actionTypes.MesosSummaryActions = {
+        fetchSummary: {
+          event: "success",
+          success: { response: summaryFixture.default }
+        }
+      };
 
-  global.actionTypes.MesosSummaryActions = {
-    fetchSummary: {
-      event: "success",
-      success: { response: {} }
+      Object.keys(global.actionTypes.MesosSummaryActions).forEach(function(
+        method
+      ) {
+        MesosSummaryActions[method] = RequestUtil.stubRequest(
+          MesosSummaryActions,
+          "MesosSummaryActions",
+          method
+        );
+      });
     }
-  };
-
-  Object.keys(global.actionTypes.MesosSummaryActions).forEach(function(method) {
-    MesosSummaryActions[method] = RequestUtil.stubRequest(
-      MesosSummaryActions,
-      "MesosSummaryActions",
-      method
-    );
-  });
+  );
 }
 
 module.exports = MesosSummaryActions;

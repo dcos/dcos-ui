@@ -28,7 +28,7 @@ import ServiceActions from "../../events/ServiceActions";
 import Pod from "../../structs/Pod";
 import PodDetail from "../pod-detail/PodDetail";
 import Service from "../../structs/Service";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceAttributeHasVolumesFilter from "../../filters/ServiceAttributeHasVolumesFilter";
 import ServiceAttributeHealthFilter from "../../filters/ServiceAttributeHealthFilter";
 import ServiceAttributeIsFilter from "../../filters/ServiceAttributeIsFilter";

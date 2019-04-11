@@ -69,7 +69,7 @@ class CliInstallModal extends React.Component {
 
     const downloadUrl = `https://downloads.dcos.io/binaries/cli/${
       osTypes[selectedOS]
-    }/x86-64/latest/dcos`;
+    }/x86-64/dcos-1.13/dcos`;
     if (selectedOS === "Windows") {
       return this.getWindowsInstallInstruction(clusterUrl, downloadUrl);
     }

@@ -55,15 +55,14 @@ export function createService(serviceDefinition) {
     `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
   );
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-  cy.get(".page-body-content table", {
+  cy.get(".page-body-content .service-table", {
     timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
   })
     .contains(serviceName, {
       timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
     })
     .should("exist");
-  cy.get(".page-body-content table")
-    .getTableRowThatContains(serviceName)
+  cy.get(".page-body-content .service-table")
     .contains("Running", { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
     .should("exist");
 }

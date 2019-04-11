@@ -1,12 +1,23 @@
+import * as ServiceStatus from "../../constants/ServiceStatus";
+
 const Application = require("../Application");
 const Framework = require("../Framework");
 const HealthStatus = require("../../constants/HealthStatus");
-const HealthTypes = require("../../constants/HealthTypes");
 const ServiceTree = require("../ServiceTree");
-const ServiceStatus = require("../../constants/ServiceStatus");
 const VolumeList = require("../../structs/VolumeList");
 
 let thisInstance;
+
+const runningApp = opts =>
+  new Application({
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 1,
+    tasksUnhealthy: 0,
+    instances: 1,
+    deployments: [],
+    ...opts
+  });
 
 describe("ServiceTree", function() {
   describe("#constructor", function() {
@@ -162,99 +173,6 @@ describe("ServiceTree", function() {
     it("does no include matching subtrees", function() {
       const filteredItems = thisInstance.filterItemsByText("foo").getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
-    });
-  });
-
-  describe("#filterItemsByFilter", function() {
-    beforeEach(function() {
-      thisInstance = new ServiceTree({
-        id: "/group",
-        items: [
-          {
-            id: "/group/test",
-            items: [
-              {
-                id: "/group/test/foo",
-                cmd: "cmd"
-              },
-              {
-                id: "/group/test/bar",
-                cmd: "cmd"
-              }
-            ]
-          },
-          {
-            id: "/group/alpha",
-            cmd: "cmd"
-          },
-          {
-            id: "/group/beta",
-            cmd: "cmd",
-            labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            },
-            tasksHealthy: 1,
-            tasksRunning: 1
-          },
-          {
-            id: "gamma",
-            cmd: "cmd",
-            labels: {
-              RANDOM_LABEL: "random"
-            }
-          }
-        ],
-        filterProperties: {
-          id(item) {
-            return item.getId();
-          }
-        }
-      });
-    });
-
-    it("filters by name", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          id: "alpha"
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/alpha");
-    });
-
-    it("filters by name in groups", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          id: "/group/test/foo"
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/test/foo");
-    });
-
-    it("filters by health", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          health: [HealthTypes.HEALTHY]
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/beta");
-    });
-
-    it("performs a logical AND with multiple filters", function() {
-      const filteredServices = thisInstance
-        .filterItemsByFilter({
-          health: [HealthTypes.NA],
-          id: "alpha"
-        })
-        .getItems();
-
-      expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual("/group/alpha");
     });
   });
 
@@ -753,22 +671,189 @@ describe("ServiceTree", function() {
     });
   });
 
-  describe("#getServiceStatus", function() {
+  describe("#getServiceTreeStatusSummary", function() {
     beforeEach(function() {
       thisInstance = new ServiceTree();
     });
 
-    it("returns correct status object for running tree", function() {
+    it("returns correct status for running tree", function() {
+      thisInstance.add(runningApp());
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.RUNNING,
+        counts: {
+          status: {
+            RUNNING: 1
+          },
+          total: 1
+        }
+      });
+    });
+
+    it("returns correct status for stopped tree", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: []
+        })
+      );
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.STOPPED,
+        counts: {
+          status: {
+            STOPPED: 1
+          },
+          total: 1
+        }
+      });
+    });
+
+    it("returns correct status for deploying tree", function() {
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 15,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+        })
+      );
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.LOADING,
+        counts: {
+          status: {
+            LOADING: 1
+          },
+          total: 1
+        }
+      });
+    });
+
+    it("aggregates status to a summary", function() {
+      thisInstance.add(runningApp());
+      thisInstance.add(runningApp());
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: ServiceStatus.StatusCategory.RUNNING,
+        counts: {
+          status: {
+            RUNNING: 2
+          },
+          total: 2
+        }
+      });
+    });
+
+    it("aggregates status by icon to a summary", function() {
+      thisInstance.add(runningApp());
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 15,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+        })
+      );
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 2,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 0,
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
+          queue: {
+            delay: true
+          }
+        })
+      );
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: "LOADING",
+        counts: {
+          status: {
+            LOADING: 2,
+            RUNNING: 1
+          },
+          total: 3
+        }
+      });
+    });
+
+    it("aggregates highest priority to summary", function() {
+      thisInstance.add(runningApp());
+      thisInstance.add(new Application({ tasksRunning: 0 }));
       thisInstance.add(
         new Application({
           tasksStaged: 0,
           tasksRunning: 1,
           tasksHealthy: 0,
           tasksUnhealthy: 0,
-          instances: 1,
-          deployments: []
+          instances: 0,
+          deployments: [],
+          queue: {
+            delay: true
+          }
         })
       );
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: "LOADING",
+        counts: {
+          status: {
+            LOADING: 1,
+            STOPPED: 1,
+            RUNNING: 1
+          },
+          total: 3
+        }
+      });
+    });
+
+    it("aggregate handles NA status", function() {
+      thisInstance.add(runningApp());
+      thisInstance.add(runningApp());
+      thisInstance.add(
+        new Application({
+          tasksStaged: 0,
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          instances: 1,
+          deployments: null,
+          queue: null
+        })
+      );
+
+      expect(thisInstance.getServiceTreeStatusSummary()).toEqual({
+        status: "RUNNING",
+        counts: {
+          status: {
+            NA: 1,
+            RUNNING: 2
+          },
+          total: 3
+        }
+      });
+    });
+  });
+
+  describe("#getServiceStatus", function() {
+    beforeEach(function() {
+      thisInstance = new ServiceTree();
+    });
+
+    it("returns correct status object for running tree", function() {
+      thisInstance.add(runningApp());
 
       expect(thisInstance.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
@@ -869,15 +954,7 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct task summary", function() {
-      thisInstance.add(
-        new Application({
-          instances: 1,
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 1,
-          tasksUnhealthy: 0
-        })
-      );
+      thisInstance.add(runningApp({ tasksHealthy: 1 }));
       thisInstance.add(
         new Application({
           instances: 19,
@@ -899,15 +976,7 @@ describe("ServiceTree", function() {
     });
 
     it("returns correct task summary for Over Capacity", function() {
-      thisInstance.add(
-        new Application({
-          instances: 1,
-          tasksStaged: 0,
-          tasksRunning: 1,
-          tasksHealthy: 1,
-          tasksUnhealthy: 0
-        })
-      );
+      thisInstance.add(runningApp({ tasksHealthy: 1 }));
       thisInstance.add(
         new Application({
           instances: 10,

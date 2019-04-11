@@ -3,12 +3,83 @@
 # path of this file
 SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
 
-source "$SCRIPT_PATH/utils/integration-tests"
+# This script is a temporary solution to run the integration tests in a <= 1.GB
+# memory environment and with support for retries per test file. We should
+# replace it with a test runner in the future, please see it more as a proof of
+# concept
+
+## Configuration
+#####################################################################
+
+# Search string passed to `find`
+# Values: String
+SEARCH='*'
+
+# Run headed Chrome instead of headless
+# Values: anything :)
+CYPRESS_HEADED=
+
+# Don't close headed Chrome after spec finishes
+# Values: anything :)
+CYPRESS_NO_EXIT=
+
+# Maximum number of retries
+# Values: n ∈ ℕ
+RETRIES=${RETRIES:-3}
+
+# Stop if file failed $RETRIES times? (turn this off, if you want
+# to test all tests locally but something keeps failing)
+# Values: 0, 1
+STOP_ON_FAIL=${STOP_ON_FAIL:-1}
+
+# Suppresses Cypress output on failures
+# Values: 0, 1
+SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-0}
+
+CLEANUP_TESTS=${CLEANUP_TESTS:-0}
+
+PROXY_PORT=${PROXY_PORT:-4200}
+PROXY_PID=0
+
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)"
+CYPRESS_FOLDER="cypress"
+TESTS_FOLDER="tests"
+
+PLUGINS_PATH=${PLUGINS_PATH:-''}
+
+while getopts 's:hknr:?' flag; do
+  case "${flag}" in
+  s) SEARCH=${OPTARG:-'*'} ;;
+  h) CYPRESS_HEADED="true" ;;
+  n) CYPRESS_NO_EXIT="true" ;;
+  k) NO_BUILD="true" ;;
+  r) RETRIES=${OPTARG} ;;
+  ?)
+    echo -e "+-------------------------------+"
+    echo -e "| DC/OS Integration test runner |"
+    echo -e "+-------------------------------+\n"
+    echo -e "Don't forget running npm run build:assets first!\n\n"
+    echo -e "Usage: \n"
+    echo -e "\tnpm run test:integration -- [-s <FILE_NAME>] [-hnk] [-r <RETRIES>]\n"
+    echo -e "Options:\n"
+    printf "  %-17s %-30s \n" "-s <TestFileName>" "Run single Test File. All files if omitted"
+    printf "  %-17s %-30s \n" "-h" "Run Chrome in Headed mode"
+    printf "  %-17s %-30s \n" "-n" "Don't close Chrome after tests are finished"
+    printf "  %-17s %-30s \n" "-r <NUM_RETRIES>" "Number of retries, 3 by default"
+    printf "  %-17s %-30s \n" "-k" "Don't run the build, just assume something runs on the right port"
+    printf "  %-17s %-30s \n" "-?" "Prints this help"
+    echo ""
+    exit 0
+    ;;
+  esac
+done
 
 # Used for datadog reporting
 REPORT=${REPORT_TO_DATADOG:-true}
 DISTRIBUTION=${REPORT_DISTRIBUTION:-oss}
 BRANCH=${REPORT_BRANCH:-$BRANCH_NAME}
+
+source "$SCRIPT_PATH/utils/tests-functions"
 
 setup
 trap teardown EXIT

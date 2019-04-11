@@ -1,7 +1,8 @@
+import * as ServiceStatus from "../../constants/ServiceStatus";
+
 const Application = require("../Application");
 const HealthStatus = require("../../constants/HealthStatus");
 const ServiceImages = require("../../constants/ServiceImages");
-const ServiceStatus = require("../../constants/ServiceStatus");
 const TaskStats = require("../TaskStats");
 const VolumeList = require("../VolumeList");
 

@@ -22,7 +22,6 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
     if (jobSpecCopy.cmdOnly) {
       delete jobSpecCopy.job.run.docker;
       delete jobSpecCopy.job.run.ucr;
-      delete jobSpecCopy.job.run.gpus;
       delete jobSpecCopy.job.run.args;
     } else if (jobSpecCopy.container) {
       if (jobSpecCopy.job.run.cmd === "") {

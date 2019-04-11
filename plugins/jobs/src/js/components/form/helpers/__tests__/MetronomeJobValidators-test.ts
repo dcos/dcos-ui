@@ -412,7 +412,7 @@ describe("MetronomeSpecValidators", () => {
       ).toEqual(GPUSERROR);
     });
 
-    it("returns error when gpus are used without docker or ucr", () => {
+    it("does not return error when gpus are used without explicit container", () => {
       const spec = {
         job: {
           run: {
@@ -422,7 +422,7 @@ describe("MetronomeSpecValidators", () => {
       };
       expect(
         MetronomeSpecValidators.gpusOnlyWithUCR(spec as JobOutput)
-      ).toEqual(GPUSERROR);
+      ).toEqual([]);
     });
   });
 

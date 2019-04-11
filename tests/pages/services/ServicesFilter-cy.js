@@ -32,10 +32,6 @@ describe("Services Filter", function() {
       it("Filters Running services", function() {
         testFilterByStatus("Running");
       });
-
-      it("Filters Deploying services", function() {
-        testFilterByStatus("Deploying");
-      });
     });
 
     context("Suspended tasks", function() {

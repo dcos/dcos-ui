@@ -57,7 +57,8 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   if (
     configuration.mesos === "1-task-healthy" ||
-    configuration.mesos === "1-task-healthy-with-region"
+    configuration.mesos === "1-task-healthy-with-region" ||
+    configuration.mesos === "1-task-healthy-with-offers"
   ) {
     cy.route({
       method: "POST",
@@ -68,7 +69,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -101,6 +102,13 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
+
+    if (configuration.mesos === "1-task-healthy-with-offers") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/offers-queue"
+      );
+    }
   }
 
   if (configuration.mesos === "1-task-healthy-with-region") {
@@ -141,7 +149,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -174,7 +182,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:1-service-with-executor-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -233,7 +241,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -260,7 +268,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -292,7 +300,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -364,7 +372,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -407,7 +415,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -438,7 +446,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -556,7 +564,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"

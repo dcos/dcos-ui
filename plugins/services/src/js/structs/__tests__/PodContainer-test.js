@@ -60,7 +60,8 @@ describe("PodContainer", function() {
 
     it("detects container in RUNNING state", function() {
       const podContainer = new PodContainer({
-        status: "TASK_RUNNING"
+        status: "TASK_RUNNING",
+        conditions: []
       });
 
       // It has no health checks, so it returns RUNNING
@@ -72,11 +73,13 @@ describe("PodContainer", function() {
     it("detects container in HEALTHY state", function() {
       const podContainer = new PodContainer({
         status: "TASK_RUNNING",
-        endpoints: [
+        conditions: [
           {
-            name: "nginx",
-            allocatedHostPort: 31001,
-            healthy: true
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "true"
           }
         ]
       });
@@ -90,16 +93,13 @@ describe("PodContainer", function() {
     it("detects container in UNHEALTHY state", function() {
       const podContainer = new PodContainer({
         status: "TASK_RUNNING",
-        endpoints: [
+        conditions: [
           {
-            name: "nginx",
-            allocatedHostPort: 31001,
-            healthy: false
-          },
-          {
-            name: "netcat",
-            allocatedHostPort: 31002,
-            healthy: true
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "false"
           }
         ]
       });
@@ -225,10 +225,7 @@ describe("PodContainer", function() {
   describe("#hasHealthChecks", function() {
     it("returns false if no health checks defined", function() {
       const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001 },
-          { name: "netcat", allocatedHostPort: 31002 }
-        ]
+        conditions: []
       });
 
       expect(podContainer.hasHealthChecks()).toBeFalsy();
@@ -236,55 +233,52 @@ describe("PodContainer", function() {
 
     it("returns true if 'healthy' is defined for at least one container", function() {
       const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001, healthy: true },
-          { name: "netcat", allocatedHostPort: 31002 }
+        conditions: [
+          {
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "true"
+          }
         ]
       });
 
       expect(podContainer.hasHealthChecks()).toEqual(true);
     });
 
-    it("returns true if at least one check has failed", function() {
-      const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001, healthy: false },
-          { name: "netcat", allocatedHostPort: 31002 }
-        ]
-      });
+    it("returns false if conditions is undefined", function() {
+      const podContainer = new PodContainer({});
 
-      expect(podContainer.hasHealthChecks()).toBeTruthy();
-    });
-
-    it("returns true if healthy is defined everywhere", function() {
-      const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001, healthy: true },
-          { name: "netcat", allocatedHostPort: 31002, healthy: true }
-        ]
-      });
-
-      expect(podContainer.hasHealthChecks()).toBeTruthy();
+      expect(podContainer.hasHealthChecks()).toBeFalsy();
     });
   });
 
   describe("#isHealthy", function() {
     it("returns true if no health checks defined", function() {
       const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001 },
-          { name: "netcat", allocatedHostPort: 31002 }
-        ]
+        conditions: []
       });
+
+      expect(podContainer.isHealthy()).toBeTruthy();
+    });
+
+    it("returns true if conditions is undefined", function() {
+      const podContainer = new PodContainer({});
 
       expect(podContainer.isHealthy()).toBeTruthy();
     });
 
     it("returns false if at least one check fails", function() {
       const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001, healthy: false },
-          { name: "netcat", allocatedHostPort: 31002 }
+        conditions: [
+          {
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "false"
+          }
         ]
       });
 
@@ -293,9 +287,14 @@ describe("PodContainer", function() {
 
     it("returns true if all defined tests passes", function() {
       const podContainer = new PodContainer({
-        endpoints: [
-          { name: "nginx", allocatedHostPort: 31001, healthy: true },
-          { name: "netcat", allocatedHostPort: 31002 }
+        conditions: [
+          {
+            lastChanged: "2019-01-01T12:00:00.000Z",
+            lastUpdated: "2019-01-01T12:00:00.000Z",
+            name: "healthy",
+            reason: "health-reported-by-mesos",
+            value: "true"
+          }
         ]
       });
 

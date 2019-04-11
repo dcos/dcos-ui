@@ -6,7 +6,7 @@ import { i18nMark } from "@lingui/react";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Util from "#SRC/js/utils/Util";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 import {
   getColumnClassNameFn,
