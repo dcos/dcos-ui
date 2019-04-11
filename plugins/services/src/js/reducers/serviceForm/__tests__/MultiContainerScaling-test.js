@@ -5,7 +5,7 @@ const { SET } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerScaling", function() {
   describe("#JSONReducer", function() {
-    it("does not return anything with an empty back", function() {
+    it("does not return anything with an empty batch", function() {
       const batch = new Batch();
 
       expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({}))).toEqual(
