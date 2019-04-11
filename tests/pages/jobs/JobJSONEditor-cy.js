@@ -36,6 +36,12 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -84,6 +90,11 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -138,6 +149,11 @@ describe("Job JSON Editor", function() {
     // Note: The current group contains the previous job
     cy.get(".button.button-primary-link.button-narrow").click();
 
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+
     cy.get(".menu-tabbed-item")
       .contains("Container")
       .click();
@@ -184,14 +200,15 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -302,14 +319,14 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -388,14 +405,14 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -485,14 +502,14 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -581,6 +598,11 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);

@@ -165,21 +165,21 @@ class GeneralFormSection extends React.Component<GeneralProps> {
         <FormGroup>
           <FieldLabel>
             <FieldInput
-              checked={formData.cmdOnly}
-              name="cmdOnly"
-              type="radio"
-              value={true}
-            />
-            <Trans render="span">Command Only</Trans>
-          </FieldLabel>
-          <FieldLabel>
-            <FieldInput
               checked={!formData.cmdOnly}
               name="cmdOnly"
               type="radio"
               value={false}
             />
             <Trans render="span">Container Image</Trans>
+          </FieldLabel>
+          <FieldLabel>
+            <FieldInput
+              checked={formData.cmdOnly}
+              name="cmdOnly"
+              type="radio"
+              value={true}
+            />
+            <Trans render="span">Command Only</Trans>
           </FieldLabel>
         </FormGroup>
         {!formData.cmdOnly && (

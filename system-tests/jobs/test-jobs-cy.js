@@ -38,6 +38,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -70,6 +75,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .should("have.value", "32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
 
     cy.root()
       .getFormGroupInputFor("Command *")
@@ -107,15 +117,15 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     // Select `Container Image` radio button
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -183,6 +193,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
