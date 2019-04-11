@@ -148,9 +148,13 @@ function teardown_proxy() {
 }
 
 # sets up everything
-function setup_integration() {
+function setup() {
   echo ""
   echo "=> Setup"
+
+  if [ -n "${NO_BUILD}" ]; then
+    return
+  fi
 
   ## Setup proxy
   if [ -n "$(lsof -i :"${PROXY_PORT}")" ]; then
@@ -190,7 +194,11 @@ function setup_integration() {
 }
 
 # tears down everything…
-function teardown_integration() {
+function teardown() {
+  if [ -n "${NO_BUILD}" ]; then
+    return
+  fi
+
   echo ""
   echo "=> Teardown"
   teardown_proxy
@@ -212,7 +220,7 @@ function report() {
 }
 
 # finds the files and runs the tests
-function run_tests_integration() {
+function run_tests() {
   run_tests_one_by_one
 }
 
