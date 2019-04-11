@@ -9,16 +9,14 @@ import Config from "../config/Config";
 
 function getDefaultMessage() {
   return (
-    <p className="text-align-center flush-bottom">
-      <Trans>
-        You can also join us on our{" "}
-        <a href={Config.slackChannel} target="_blank">
-          Slack channel
-        </a>{" "}
-        or send us an email at
-      </Trans>{" "}
+    <Trans render="p" className="text-align-center flush-bottom">
+      You can also join us on our{" "}
+      <a href={Config.slackChannel} target="_blank">
+        Slack channel
+      </a>{" "}
+      or send us an email at{" "}
       <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>.
-    </p>
+    </Trans>
   );
 }
 
