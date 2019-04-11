@@ -10,7 +10,7 @@ let thisFakeFilter,
 describe("HooksAPI", function() {
   describe("#applyFilter", function() {
     beforeEach(function() {
-      thisFakeFilter = jest.genMockFunction();
+      thisFakeFilter = jest.fn();
       thisFakeFilter.mockImplementation(function(value) {
         return value.replace("bar", "baz");
       });
@@ -34,8 +34,8 @@ describe("HooksAPI", function() {
     });
 
     it("applies the filters in the order of priority", function() {
-      var lowPriorityFilter = jest.genMockFunction();
-      var highPriorityFilter = jest.genMockFunction();
+      var lowPriorityFilter = jest.fn();
+      var highPriorityFilter = jest.fn();
 
       lowPriorityFilter.mockImplementation(function(value) {
         return value.replace("bar", "baz");
@@ -57,7 +57,7 @@ describe("HooksAPI", function() {
   describe("#doAction", function() {
     beforeEach(function() {
       thisHooks = new Hooks();
-      thisFakeAction = jest.genMockFunction();
+      thisFakeAction = jest.fn();
       thisHooks.addAction("foo", thisFakeAction);
     });
 
@@ -72,14 +72,14 @@ describe("HooksAPI", function() {
     });
 
     it("does not receive arguments when arguments are not passed", function() {
-      thisNoArgumentsAction = jest.genMockFunction();
+      thisNoArgumentsAction = jest.fn();
       thisHooks.addAction("qux", thisNoArgumentsAction);
       thisHooks.doAction("qux");
       expect(thisNoArgumentsAction.mock.calls[0].length).toEqual(0);
     });
 
     it("receives two arguments when two arguments are passed", function() {
-      thisTwoArgumentsAction = jest.genMockFunction();
+      thisTwoArgumentsAction = jest.fn();
       thisHooks.addAction("quux", thisTwoArgumentsAction);
       thisHooks.doAction("quux", "baz", "bar");
       expect(thisTwoArgumentsAction.mock.calls[0].length).toEqual(2);

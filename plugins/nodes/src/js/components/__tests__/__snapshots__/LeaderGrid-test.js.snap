@@ -10,9 +10,7 @@ exports[`LeaderGrid renders with running status 1`] = `
     <h1
       className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
     >
-      <span
-        className={undefined}
-      >
+      <span>
         Leader
       </span>
     </h1>
@@ -25,9 +23,7 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span
-            className={undefined}
-          >
+          <span>
             IP and Port
           </span>
         </div>
@@ -43,9 +39,7 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span
-            className={undefined}
-          >
+          <span>
             Region
           </span>
         </div>
@@ -61,9 +55,7 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span
-            className={undefined}
-          >
+          <span>
             Mesos Version
           </span>
         </div>
@@ -79,9 +71,7 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span
-            className={undefined}
-          >
+          <span>
             Started
           </span>
         </div>
@@ -105,9 +95,7 @@ exports[`LeaderGrid renders with running status 1`] = `
         <div
           className="configuration-map-label"
         >
-          <span
-            className={undefined}
-          >
+          <span>
             Elected
           </span>
         </div>
