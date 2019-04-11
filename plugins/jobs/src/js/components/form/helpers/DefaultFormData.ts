@@ -28,7 +28,7 @@ export const getDefaultJob = (): JobFormData => ({
 
 export const getDefaultJobSpec = (): JobSpec => ({
   job: getDefaultJob(),
-  cmdOnly: true,
+  cmdOnly: false,
   container: Container.UCR
 });
 
