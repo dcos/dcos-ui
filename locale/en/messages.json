@@ -1097,7 +1097,7 @@
   "You are about to stop the selected job runs.": "",
   "You are about to {0} {instanceCountContent}. Are you sure you want to continue?": "",
   "You are about to {0} {taskCountContent}. Are you sure you want to continue?": "",
-  "You can also join us on our <0>Slack channel</0> or send us an email at": "",
+  "You can also join us on our <0>Slack channel</0> or send us an email at <1>{0}</1>.": "",
   "You can configure the placement of agent nodes in regions and zones for high availability or to expand capacity to new regions when necessary": "",
   "You can go to the <0>Repositories Settings</0> page to change installed repositories.": "",
   "You can link a cluster via the DC/OS CLI. See {documentation} for complete instructions.": "",
