@@ -18,7 +18,7 @@ describe("IntercomStore", function() {
 
   describe("#addChangeListener", function() {
     const addIntercomChangeListener = () => {
-      IntercomStore.addChangeListener(INTERCOM_CHANGE, jest.genMockFunction());
+      IntercomStore.addChangeListener(INTERCOM_CHANGE, jest.fn());
     };
 
     beforeEach(function() {
@@ -26,7 +26,7 @@ describe("IntercomStore", function() {
     });
 
     it("triggers an action upon dcos metadata change", function() {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       IntercomStore.onDCOSMetadataChange = mockedFn;
 
       addIntercomChangeListener();
@@ -37,7 +37,7 @@ describe("IntercomStore", function() {
     });
 
     it("triggers an action upon metadata change", function() {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       IntercomStore.onMetadataChange = mockedFn;
 
       addIntercomChangeListener();
@@ -48,7 +48,7 @@ describe("IntercomStore", function() {
     });
 
     it("triggers an action upon node health change", function() {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       IntercomStore.onHealthNodesChange = mockedFn;
 
       addIntercomChangeListener();
@@ -59,7 +59,7 @@ describe("IntercomStore", function() {
     });
 
     it("triggers an action upon ccid success", function() {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       IntercomStore.onClusterCCIDSuccess = mockedFn;
 
       AuthStore.getUser.mockResolvedValue({ uid: "user_uid" });

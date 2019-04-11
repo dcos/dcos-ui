@@ -5,8 +5,8 @@ let thisMockFn, thisMockFn1, thisUnsubscribe;
 
 describe("#ActionsPubSub", function() {
   beforeEach(function() {
-    thisMockFn = jest.genMockFunction();
-    thisMockFn1 = jest.genMockFunction();
+    thisMockFn = jest.fn();
+    thisMockFn1 = jest.fn();
     thisUnsubscribe = PluginSDK.onDispatch(thisMockFn);
     PluginSDK.onDispatch(thisMockFn1);
   });

@@ -6,7 +6,7 @@ let thisHandler;
 describe("ConfigStore", function() {
   describe("#processCCIDSuccess", function() {
     beforeEach(function() {
-      thisHandler = jest.genMockFunction();
+      thisHandler = jest.fn();
       ConfigStore.once(EventTypes.CLUSTER_CCID_SUCCESS, thisHandler);
       ConfigStore.processCCIDSuccess({ foo: "bar" });
     });

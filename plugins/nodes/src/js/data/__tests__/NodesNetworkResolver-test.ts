@@ -1,7 +1,4 @@
-const mockRequest = jest.fn();
-jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
-}));
+jest.mock("@dcos/http-service");
 import { NodesNetworkResponse } from "#PLUGINS/nodes/src/js/data/NodesNetworkClient";
 
 import { of } from "rxjs";

@@ -110,7 +110,7 @@ describe("AuthStore", function() {
   describe("dispatcher", function() {
     describe("login", function() {
       it("dispatches the correct event upon error", function() {
-        var mockedFn = jest.genMockFunction();
+        var mockedFn = jest.fn();
         AuthStore.addChangeListener(EventTypes.AUTH_USER_LOGIN_ERROR, mockedFn);
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_LOGIN_ERROR,
@@ -141,7 +141,7 @@ describe("AuthStore", function() {
       });
 
       it("dispatches the correct event upon error", function() {
-        var mockedFn = jest.genMockFunction();
+        var mockedFn = jest.fn();
         AuthStore.addChangeListener(
           EventTypes.AUTH_USER_LOGOUT_ERROR,
           mockedFn

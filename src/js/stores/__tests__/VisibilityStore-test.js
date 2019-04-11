@@ -5,7 +5,7 @@ const VisibilityStore = require("../VisibilityStore");
 describe("VisibilityStore", function() {
   describe("#emit", function() {
     it("emits the correct event on visibilityChange", function() {
-      var mockFn = jest.genMockFunction();
+      var mockFn = jest.fn();
       VisibilityStore.addChangeListener(VISIBILITY_CHANGE, mockFn);
       VisibilityStore.onVisibilityChange();
       expect(mockFn).toBeCalled();
