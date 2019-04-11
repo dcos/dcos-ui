@@ -50,17 +50,17 @@ pipeline {
     }
 
 
-    stage("Lint Commits") {
-      when {
-        expression {
-          !master_branches.contains(BRANCH_NAME)
-        }
-      }
+    // stage("Lint Commits") {
+    //   when {
+    //     expression {
+    //       !master_branches.contains(BRANCH_NAME)
+    //     }
+    //   }
 
-      steps {
-        sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
-      }
-    }
+    //   steps {
+    //     sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
+    //   }
+    // }
 
     stage("Test") {
       parallel {
