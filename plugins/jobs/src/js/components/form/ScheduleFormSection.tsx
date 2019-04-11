@@ -46,7 +46,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
 
     return (
       <div className="form-section">
-        <Trans render="h1" className="short-bottom">
+        <Trans render="h1" className="flush-top short-bottom">
           Schedule
         </Trans>
         <div className="form-row-pad-bottom">
