@@ -2,8 +2,6 @@ import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_SUMMARY_ERROR,
-  REQUEST_SUMMARY_HISTORY_ONGOING,
-  REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_SUMMARY_ONGOING,
   REQUEST_SUMMARY_SUCCESS,
   SERVER_ACTION
@@ -20,43 +18,38 @@ import MesosSummaryActions from "../events/MesosSummaryActions";
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 import StateSummary from "../structs/StateSummary";
 import SummaryList from "../structs/SummaryList";
-import TimeScales from "../constants/TimeScales";
-import Util from "../utils/Util";
 import VisibilityStore from "./VisibilityStore";
 
 let requestInterval = null;
-let isInactive = false;
 
 /**
  * @this {MesosSummaryStore}
  */
+
 function startPolling() {
+  const fetchSummaryIfActive = () => {
+    const isInactive = VisibilityStore.get("isInactive");
+
+    if (!isInactive) {
+      MesosSummaryActions.fetchSummary();
+    } else {
+      // If not active, push null placeholder. This will ensure we maintain
+      // history when navigating back, for case where history server is down.
+
+      // Use {silent: true} Because we only want to push a summary on the stack without side
+      // effects (like re-rendering etc). The tab is out of focus so we
+      // don't want it to do any work. It only matters that there is
+      // appropriate history when we return focus to the tab.
+      this.processSummaryError({ silent: true });
+    }
+  };
+
   if (requestInterval == null) {
-    // Should always retrieve bulk summary when polling starts
-    MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-
     requestInterval = setInterval(() => {
-      const wasInactive = isInactive && !VisibilityStore.get("isInactive");
-      isInactive = VisibilityStore.get("isInactive");
-
-      if (!isInactive) {
-        if (wasInactive) {
-          // Flush history with new data set
-          MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-        } else {
-          MesosSummaryActions.fetchSummary();
-        }
-      } else {
-        // If not active, push null placeholder. This will ensure we maintain
-        // history when navigating back, for case where history server is down.
-
-        // Use {silent: true} Because we only want to push a summary on the stack without side
-        // effects (like re-rendering etc). The tab is out of focus so we
-        // don't want it to do any work. It only matters that there is
-        // appropriate history when we return focus to the tab.
-        this.processSummaryError({ silent: true });
-      }
+      fetchSummaryIfActive();
     }, Config.getRefreshRate());
+
+    fetchSummaryIfActive();
   }
 }
 
@@ -100,14 +93,10 @@ class MesosSummaryStore extends GetSetBaseStore {
         case REQUEST_SUMMARY_SUCCESS:
           this.processSummary(action.data);
           break;
-        case REQUEST_SUMMARY_HISTORY_SUCCESS:
-          this.processBulkState(action.data);
-          break;
         case REQUEST_SUMMARY_ERROR:
           this.processSummaryError();
           break;
         case REQUEST_SUMMARY_ONGOING:
-        case REQUEST_SUMMARY_HISTORY_ONGOING:
           this.processSummaryError();
           break;
       }
@@ -198,6 +187,16 @@ class MesosSummaryStore extends GetSetBaseStore {
     return lastRequestTime + Config.getRefreshRate();
   }
 
+  getLastSuccessfulSummarySnapshot() {
+    const states = this.get("states");
+    let lastSuccessful = null;
+    if (states) {
+      lastSuccessful = states.lastSuccessful().snapshot;
+    }
+
+    return lastSuccessful;
+  }
+
   processSummary(data, options = {}) {
     // If request to Mesos times out we get an empty Object
     if (!Object.keys(data).length) {
@@ -212,7 +211,7 @@ class MesosSummaryStore extends GetSetBaseStore {
       data.date = lastRequestTime;
     }
 
-    CompositeState.addSummary(data);
+    CompositeState.addState(data);
 
     states.addSnapshot(data, data.date);
 
@@ -220,29 +219,6 @@ class MesosSummaryStore extends GetSetBaseStore {
       this.set({ statesProcessed: true });
       this.emit(MESOS_SUMMARY_CHANGE);
     }
-  }
-
-  processBulkState(data) {
-    if (!Array.isArray(data)) {
-      return MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-    }
-
-    // If we get less data than the history length
-    // fill the front with the `n` copies of the earliest snapshot available
-    if (data.length < Config.historyLength) {
-      const diff = Config.historyLength - data.length;
-      for (var i = 0; i < diff; i++) {
-        data.unshift(Util.deepCopy(data[0]));
-      }
-    }
-
-    // Multiply Config.stateRefresh in order to use larger time slices
-    data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
-    data.forEach(datum => {
-      this.processSummary(datum, { silent: true });
-    });
-    this.set({ lastRequestTime: Date.now() });
-    this.emit(MESOS_SUMMARY_CHANGE);
   }
 
   processSummaryError(options = {}) {

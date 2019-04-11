@@ -1,4 +1,6 @@
-import * as moment from "moment";
+import format from "date-fns/format";
+import distanceInWordsStrict from "date-fns/distance_in_words_strict";
+import getTime from "date-fns/get_time";
 
 const DEFAULT_MULTIPLICANTS = {
   ms: 1,
@@ -14,6 +16,8 @@ interface Multiplicants {
 
 const fullDateTime = "fullDateTime";
 const longMonthDateTime = "longMonthDateTime";
+
+type strToMsReturn<T> = T extends string ? number : null;
 
 type FormatOptionType = typeof fullDateTime | typeof longMonthDateTime;
 interface FormatOptions {
@@ -65,7 +69,10 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
   msToUTCDate(ms: Date | number): string {
-    return moment.utc(ms).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+    return format(
+      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
+      "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
+    );
   },
 
   /**
@@ -74,7 +81,10 @@ const DateUtil = {
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
    */
   msToLogTime(ms: Date | number): string {
-    return moment.utc(ms).format("YYYY-MM-DD hh:mm:ss");
+    return format(
+      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
+      "YYYY-MM-DD hh:mm:ss"
+    );
   },
 
   /**
@@ -116,25 +126,37 @@ const DateUtil = {
     ms: Date | number,
     suppressRelativeTime: boolean = false
   ): string {
-    return moment.utc(ms).fromNow(suppressRelativeTime);
+    return distanceInWordsStrict(Date.now(), ms, {
+      addSuffix: !suppressRelativeTime,
+      partialMethod: "round"
+    });
   },
 
-  strToMs(str: string | null): number | null {
-    if (str == null) {
-      return null;
+  strToMs<T extends string | null>(str: T): strToMsReturn<T> {
+    if (typeof str !== "string") {
+      // ugly return cast necessary as per https://github.com/Microsoft/TypeScript/issues/24929
+      return null as strToMsReturn<T>;
     }
 
-    return (
-      moment.utc(str).valueOf() ||
-      moment.utc(str, "YYYY-MM-DDTHH:mm:ssZ").valueOf()
-    );
+    const dateStr = str.toUpperCase();
+
+    return (getTime(dateStr) ||
+      getTime(
+        format(new Date(dateStr).toISOString(), "YYYY-MM-DDTHH:mm:ssZ")
+      )) as strToMsReturn<T>;
   },
 
-  getDuration(
-    time: number,
-    formatKey: moment.DurationInputArg2 = "seconds"
-  ): string {
-    return moment.duration(time, formatKey).humanize();
+  getDuration(time: number): string {
+    return distanceInWordsStrict(0, time);
+  },
+
+  isValidDate(dateString: string) {
+    if (dateString === null) {
+      return false;
+    }
+
+    const date: Date = new Date(dateString);
+    return date instanceof Date && !isNaN(date.getTime());
   }
 };
 

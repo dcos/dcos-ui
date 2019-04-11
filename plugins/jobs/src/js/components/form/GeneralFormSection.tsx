@@ -5,6 +5,7 @@ import { Tooltip } from "reactjs-components";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
+import FieldTextarea from "#SRC/js/components/form/FieldTextarea";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormRow from "#SRC/js/components/form/FormRow";
@@ -49,7 +50,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
         with the UCR runtime.
       </Trans>
     );
-    const gpusDisabled = formData.cmdOnly || formData.container !== "ucr";
+    const gpusDisabled = !formData.cmdOnly && formData.container !== "ucr";
 
     const cpusError = getFieldError("job.run.cpus", errors);
     const gpusError = getFieldError("job.run.gpus", errors);
@@ -143,6 +144,9 @@ class GeneralFormSection extends React.Component<GeneralProps> {
         invalid to supply both `cmd` and `args` in the same job.
       </Trans>
     );
+    const containerImageTooltipContent = (
+      <Trans>The repository image name.</Trans>
+    );
     const containerImage = formData.containerImage;
 
     const containerImageErrors =
@@ -194,7 +198,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
                   </FormGroupHeadingContent>
                   <FormGroupHeadingContent title="Container Image Info">
                     <Tooltip
-                      content={cmdTooltipContent}
+                      content={containerImageTooltipContent}
                       interactive={true}
                       maxWidth={300}
                       wrapText={true}
@@ -240,7 +244,11 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput name="job.run.cmd" type="text" value={formData.cmd} />
+              <FieldTextarea
+                name="job.run.cmd"
+                type="text"
+                value={formData.cmd}
+              />
             </FieldAutofocus>
             <FieldHelp>
               <Trans render="span">

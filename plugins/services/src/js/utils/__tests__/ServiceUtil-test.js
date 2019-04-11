@@ -5,97 +5,6 @@ const Pod = require("../../structs/Pod");
 const ServiceUtil = require("../ServiceUtil");
 
 describe("ServiceUtil", function() {
-  describe("#createServiceFromResponse", function() {
-    it("creates Application instances", function() {
-      const instance = ServiceUtil.createServiceFromResponse({
-        id: "/test",
-        cmd: "sleep 1000;",
-        cpus: null,
-        mem: null,
-        disk: null,
-        instances: null
-      });
-
-      expect(instance instanceof Application).toBeTruthy();
-    });
-
-    it("creates Framework instances", function() {
-      const instance = ServiceUtil.createServiceFromResponse({
-        id: "/test",
-        cmd: "sleep 1000;",
-        cpus: null,
-        mem: null,
-        disk: null,
-        instances: null,
-        labels: {
-          DCOS_PACKAGE_FRAMEWORK_NAME: "Test Framework"
-        }
-      });
-
-      expect(instance instanceof Framework).toBeTruthy();
-    });
-
-    it("creates Pod instances", function() {
-      const instance = ServiceUtil.createServiceFromResponse({
-        id: "/test",
-        spec: {
-          containers: []
-        },
-        instances: []
-      });
-
-      expect(instance instanceof Pod).toBeTruthy();
-    });
-  });
-
-  describe("#createFormModelFromSchema", function() {
-    it("creates the correct model", function() {
-      const schema = {
-        type: "object",
-        properties: {
-          General: {
-            description: "Configure your container",
-            type: "object",
-            properties: {
-              id: {
-                default: "/service",
-                title: "ID",
-                description: "The id for the service",
-                type: "string",
-                getter(service) {
-                  return service.getId();
-                }
-              },
-              cmd: {
-                title: "Command",
-                default: "sleep 1000;",
-                description: "The command which is executed by the service",
-                type: "string",
-                multiLine: true,
-                getter(service) {
-                  return service.getSpec().getCommand();
-                }
-              }
-            }
-          }
-        },
-        required: ["General"]
-      };
-
-      const service = new Application({
-        id: "/test",
-        cmd: "sleep 1000;"
-      });
-
-      expect(ServiceUtil.createFormModelFromSchema(schema, service)).toEqual({
-        General: {
-          id: "/test",
-          cmd: "sleep 1000;"
-        }
-      });
-    });
-  });
-
   describe("#getDefinitionFromSpec", function() {
     it("creates the correct definition for ApplicationSpec", function() {
       const service = new ApplicationSpec({
@@ -107,44 +16,6 @@ describe("ServiceUtil", function() {
         id: "/test",
         cmd: "sleep 1000;"
       });
-    });
-  });
-
-  describe("#convertServiceLabelsToArray", function() {
-    it("returns an array of key-value tuples", function() {
-      const service = new Application({
-        id: "/test",
-        cmd: "sleep 1000;",
-        labels: {
-          label_one: "value_one",
-          label_two: "value_two"
-        }
-      });
-
-      const serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
-      expect(serviceLabels.length).toEqual(2);
-      expect(serviceLabels).toEqual([
-        { key: "label_one", value: "value_one" },
-        { key: "label_two", value: "value_two" }
-      ]);
-    });
-
-    it("returns an empty array if no labels are found", function() {
-      const service = new Application({
-        id: "/test",
-        cmd: "sleep 1000;"
-      });
-
-      const serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
-      expect(serviceLabels.length).toEqual(0);
-      expect(serviceLabels).toEqual([]);
-    });
-
-    it("only performs the conversion on a Service", function() {
-      const service = {};
-      const serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
-      expect(serviceLabels.length).toEqual(0);
-      expect(serviceLabels).toEqual([]);
     });
   });
 
@@ -226,6 +97,60 @@ describe("ServiceUtil", function() {
 
     it("returns empty string if id is undefined", function() {
       expect(ServiceUtil.getServiceIDFromTaskID()).toEqual("");
+    });
+  });
+
+  describe("getWebURL", () => {
+    it("returns empty string if no labels are provided", function() {
+      const labels = {};
+      expect(ServiceUtil.getWebURL(labels, "")).toEqual("");
+    });
+    it("works as expected for all known labels (sdk package with new webui label)", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https",
+        DCOS_COMMONS_API_VERSION: "notnull",
+        DCOS_SERVICE_WEB_PATH: "/baz"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual(
+        "foo/service/bar/baz"
+      );
+    });
+    it("returns empty string if service name isn set", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https",
+        DCOS_COMMONS_API_VERSION: "notnull",
+        DCOS_SERVICE_WEB_PATH: "/baz"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
+    });
+    it("returns empty string for sdk package not having new label", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https",
+        DCOS_COMMONS_API_VERSION: "notnull"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
+    });
+    it("returns url for non-sdk package", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("foo/service/bar/");
+    });
+    it("returns empty string for non-sdk package lacking label", function() {
+      const labels = {
+        DCOS_SERVICE_NAME: "bar",
+        // DCOS_SERVICE_PORT_INDEX: "80",
+        DCOS_SERVICE_SCHEME: "https"
+      };
+      expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
     });
   });
 });

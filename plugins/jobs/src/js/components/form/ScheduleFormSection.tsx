@@ -14,6 +14,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { FormOutput, FormError, ConcurrentPolicy } from "./helpers/JobFormData";
 import { getFieldError } from "./helpers/ErrorUtil";
+import { JobDataPlaceholders } from "./helpers/DefaultFormData";
 
 interface ScheduleSectionProps {
   formData: FormOutput;
@@ -30,8 +31,8 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
     const { formData, showErrors, errors } = this.props;
     const idTooltipContent = (
       <Trans>
-        Unique identifier for the job schedule of a string with at least 1
-        character and may only contain digits (`0-9`), dashes (`-`), and
+        Unique identifier for the job schedule of a string with at least 2
+        characters and may only contain digits (`0-9`), dashes (`-`), and
         lowercase letters (`a-z`). The id may not begin or end with a dash.
       </Trans>
     );
@@ -104,6 +105,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
             <FieldInput
               name="schedule.cron"
               type="text"
+              placeholder="* * * * *"
               value={formData.cronSchedule}
             />
             <FieldHelp>
@@ -114,7 +116,8 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
                   target="_blank"
                 >
                   View documentation
-                </a>.
+                </a>
+                .
               </Trans>
             </FieldHelp>
             <FieldError>{cronErrors}</FieldError>
@@ -134,6 +137,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               name="schedule.timezone"
               type="text"
               value={formData.timezone}
+              placeholder={JobDataPlaceholders.timezone}
             />
             <FieldError>{timezoneErrors}</FieldError>
           </FormGroup>
@@ -157,6 +161,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               name="schedule.startingDeadlineSeconds"
               type="number"
               value={formData.startingDeadline}
+              placeholder={JobDataPlaceholders.startingDeadlineSeconds}
             />
             <FieldHelp>
               <Trans render="span">

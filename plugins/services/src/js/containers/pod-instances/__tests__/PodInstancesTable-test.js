@@ -171,7 +171,7 @@ describe("PodInstancesTable", function() {
             return el.text();
           });
 
-        expect(names).toEqual(["a day ago", "7 days ago", "13 days ago"]);
+        expect(names).toEqual(["1 day ago", "7 days ago", "13 days ago"]);
       });
 
       it("renders the version column", function() {
@@ -398,7 +398,7 @@ describe("PodInstancesTable", function() {
           });
 
         expect(names).toEqual([
-          "a day ago",
+          "1 day ago",
           "3 days ago",
           "5 days ago",
           "7 days ago",

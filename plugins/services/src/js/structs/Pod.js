@@ -5,7 +5,7 @@ import PodState from "../constants/PodState";
 import PodTerminationHistoryList from "./PodTerminationHistoryList";
 import PodUtil from "../utils/PodUtil";
 import Service from "./Service";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceImages from "../constants/ServiceImages";
 import VolumeList from "./VolumeList";
 

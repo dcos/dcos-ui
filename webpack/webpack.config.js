@@ -34,7 +34,14 @@ module.exports = {
   devServer,
   entry: "./src/js/index.js",
   output: {
-    filename: "[name].[hash].js"
+    filename: "[name].[hash].js",
+    chunkFilename: "[name].[chunkhash].bundle.js"
+  },
+  optimization: {
+    runtimeChunk: "single",
+    splitChunks: {
+      chunks: "all"
+    }
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
@@ -144,13 +151,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.(ttf|woff)$/,
-        loader: "file-loader",
-        options: {
-          name: "./fonts/source-sans-pro/[name].[ext]"
-        }
       },
       {
         test: /\.less$/,

@@ -5,16 +5,12 @@ import * as React from "react";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
-import JSONEditor from "#SRC/js/components/JSONEditor";
+import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
 import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
-
-import "brace/mode/json";
-import "brace/theme/monokai";
-import "brace/ext/language_tools";
 
 import {
   FormError,
@@ -34,6 +30,10 @@ import {
 import { translateErrorMessages } from "./form/helpers/ErrorUtil";
 
 const ServiceErrorPathMapping: any[] = [];
+
+const JSONEditor = React.lazy(() =>
+  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+);
 
 interface JobFormProps {
   onChange: (action: Action) => void;
@@ -56,9 +56,9 @@ interface NavigationItem {
 class JobModalForm extends React.Component<JobFormProps> {
   static navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
-    { id: "container", key: "container", label: i18nMark("Container") },
+    { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
-    { id: "run_config", key: "runConfig", label: i18nMark("Run Config") }
+    { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
   static tabList = JobModalForm.navigationItems.map(item => (
@@ -98,8 +98,8 @@ class JobModalForm extends React.Component<JobFormProps> {
       type === "number"
         ? JobFormActionType.SetNum
         : dataset.parser === "boolean"
-          ? JobFormActionType.SetBool
-          : JobFormActionType.Set;
+        ? JobFormActionType.SetBool
+        : JobFormActionType.Set;
 
     this.props.onChange({ type: actionType, value, path: name });
   }
@@ -243,17 +243,19 @@ class JobModalForm extends React.Component<JobFormProps> {
         </div>
         <div className={jsonEditorPlaceholderClasses} />
         <div className={jsonEditorClasses}>
-          <JSONEditor
-            errors={errors}
-            onChange={this.handleJSONChange}
-            onErrorStateChange={this.handleJSONErrorStateChange}
-            showGutter={true}
-            showPrintMargin={false}
-            theme="monokai"
-            height="100%"
-            value={jobJSON}
-            width="100%"
-          />
+          <React.Suspense fallback={<JSONEditorLoading isSidePanel={true} />}>
+            <JSONEditor
+              errors={errors}
+              onChange={this.handleJSONChange}
+              onErrorStateChange={this.handleJSONErrorStateChange}
+              showGutter={true}
+              showPrintMargin={false}
+              theme="monokai"
+              height="100%"
+              value={jobJSON}
+              width="100%"
+            />
+          </React.Suspense>
         </div>
       </div>
     );

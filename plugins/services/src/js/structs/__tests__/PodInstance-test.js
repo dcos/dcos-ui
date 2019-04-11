@@ -3,6 +3,30 @@ const PodInstanceStatus = require("../../constants/PodInstanceStatus");
 
 const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
 
+const conditions = {
+  unhealthyConditions: {
+    lastChanged: "2019-01-01T12:00:00.000Z",
+    lastUpdated: "2019-01-01T12:00:00.000Z",
+    name: "healthy",
+    reason: "health-reported-by-mesos",
+    value: "false"
+  },
+  healthyConditions: {
+    lastChanged: "2019-01-01T12:00:00.000Z",
+    lastUpdated: "2019-01-01T12:00:00.000Z",
+    name: "healthy",
+    reason: "health-reported-by-mesos",
+    value: "true"
+  },
+  somethingelseConditions: {
+    lastChanged: "2019-01-01T12:00:00.000Z",
+    lastUpdated: "2019-01-01T12:00:00.000Z",
+    name: "something-else",
+    reason: "health-reported-by-mesos",
+    value: "true"
+  }
+};
+
 describe("PodInstance", function() {
   describe("#constructor", function() {
     it("creates instances", function() {
@@ -148,7 +172,7 @@ describe("PodInstance", function() {
         status: "stable",
         containers: [
           {
-            endpoints: [{ name: "nginx", healthy: false }]
+            conditions: [conditions.unhealthyConditions]
           }
         ]
       });
@@ -164,7 +188,7 @@ describe("PodInstance", function() {
         status: "stable",
         containers: [
           {
-            endpoints: [{ name: "nginx", healthy: true }]
+            conditions: [conditions.healthyConditions]
           }
         ]
       });
@@ -230,21 +254,15 @@ describe("PodInstance", function() {
   });
 
   describe("#hasHealthChecks", function() {
-    it("returns true if all container have health checks", function() {
+    it("returns true if all containers have health checks", function() {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
           {
-            endpoints: [
-              { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.healthyConditions]
           },
           {
-            endpoints: [
-              { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.unhealthyConditions]
           }
         ]
       });
@@ -257,13 +275,7 @@ describe("PodInstance", function() {
         status: "stable",
         containers: [
           {
-            endpoints: [{ name: "nginx" }, { name: "marathon", healthy: true }]
-          },
-          {
-            endpoints: [
-              { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.healthyConditions]
           }
         ]
       });
@@ -299,10 +311,10 @@ describe("PodInstance", function() {
         status: "stable",
         containers: [
           {
-            endpoints: [{ name: "nginx" }, { name: "marathon", healthy: false }]
+            conditions: [conditions.healthyConditions]
           },
           {
-            endpoints: [{ name: "nginx" }, { name: "marathon" }]
+            conditions: [conditions.unhealthyConditions]
           }
         ]
       });
@@ -321,21 +333,15 @@ describe("PodInstance", function() {
   });
 
   describe("#isHealthy", function() {
-    it("returns true if all container are healthy", function() {
+    it("returns true if all containers are healthy", function() {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
           {
-            endpoints: [
-              { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.healthyConditions]
           },
           {
-            endpoints: [
-              { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.healthyConditions]
           }
         ]
       });
@@ -348,10 +354,7 @@ describe("PodInstance", function() {
         status: "stable",
         containers: [
           {
-            endpoints: [{ name: "nginx" }, { name: "marathon", healthy: true }]
-          },
-          {
-            endpoints: [{ name: "nginx" }, { name: "marathon" }]
+            conditions: [conditions.somethingelseConditions]
           }
         ]
       });
@@ -364,16 +367,10 @@ describe("PodInstance", function() {
         status: "degraded",
         containers: [
           {
-            endpoints: [
-              { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.healthyConditions]
           },
           {
-            endpoints: [
-              { name: "nginx", healthy: false },
-              { name: "marathon", healthy: true }
-            ]
+            conditions: [conditions.unhealthyConditions]
           }
         ]
       });
@@ -386,10 +383,7 @@ describe("PodInstance", function() {
         status: "stable",
         containers: [
           {
-            endpoints: [{ name: "nginx" }, { name: "marathon", healthy: false }]
-          },
-          {
-            endpoints: [{ name: "nginx" }, { name: "marathon" }]
+            conditions: [conditions.unhealthyConditions]
           }
         ]
       });

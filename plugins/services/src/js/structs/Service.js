@@ -1,8 +1,10 @@
+import Config from "#SRC/js/config/Config";
 import Item from "#SRC/js/structs/Item";
+import { getWebURL } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import HealthStatus from "../constants/HealthStatus";
 import ServiceImages from "../constants/ServiceImages";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
 import VolumeList from "./VolumeList";
 
@@ -19,8 +21,7 @@ module.exports = class Service extends Item {
     return this.getId()
       .split("/")
       .slice(1)
-      .reverse()
-      .join(".");
+      .join("_");
   }
 
   getName() {
@@ -46,12 +47,7 @@ module.exports = class Service extends Item {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status.displayName == null) {
-      return null;
-    }
-
-    return status.displayName;
+    return this.getServiceStatus().displayName;
   }
 
   getServiceStatus() {
@@ -86,7 +82,7 @@ module.exports = class Service extends Item {
   }
 
   getWebURL() {
-    return null;
+    return getWebURL(this.getLabels(), Config.rootUrl);
   }
 
   getVersion() {

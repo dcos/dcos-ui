@@ -18,7 +18,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     super(...arguments);
 
     this.state = {
-      filteredNodes: new NodesList([]),
+      filteredNodes: null,
       filters: { health: "all", name: "", service: null },
       nodeHealthResponse: false,
       masterRegion: null
@@ -30,7 +30,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
         name: "nodeHealth",
         suppressUpdate: true
       },
-      { name: "state", events: ["success"], suppressUpdate: false }
+      { name: "state", events: ["success"], suppressUpdate: true }
     ];
   }
 
@@ -49,7 +49,13 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       name: query.searchString || "",
       service: query.filterService || null
     };
-    this.setFilters(hosts, networks, filters);
+
+    if (
+      this.props.location.query.filterExpression !== query.filterExpression ||
+      this.props.location.query.filterService !== query.filterService
+    ) {
+      this.setFilters(hosts, networks, filters);
+    }
   }
 
   getFilteredNodes(filters = this.state.filters) {

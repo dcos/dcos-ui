@@ -1,113 +1,123 @@
+import * as React from "react";
 import { Trans } from "@lingui/macro";
-import classNames from "classnames";
-import { Dropdown, Table, Tooltip } from "reactjs-components";
-import { Link, routerShape } from "react-router";
+import { Tooltip } from "reactjs-components";
+import { routerShape } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
-import { Hooks } from "PluginSDK";
-import { Icon } from "@dcos/ui-kit";
+
+import { componentFromStream } from "@dcos/data-service";
+import { combineLatest } from "rxjs";
+import { map } from "rxjs/operators";
+import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
-
-import StringUtil from "#SRC/js/utils/StringUtil";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
-import MetadataStore from "#SRC/js/stores/MetadataStore";
-import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
-import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import TableUtil from "#SRC/js/utils/TableUtil";
-import Units from "#SRC/js/utils/Units";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
 import CompositeState from "#SRC/js/structs/CompositeState";
-import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar";
-import Pod from "../../structs/Pod";
-import Service from "../../structs/Service";
-import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
+
+import Loader from "#SRC/js/components/Loader";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 import {
-  DELETE,
-  EDIT,
-  MORE,
-  OPEN,
-  RESTART,
-  RESUME,
-  SCALE,
-  STOP
-} from "../../constants/ServiceActionItem";
-import ServiceStatus from "../../constants/ServiceStatus";
+  MesosMasterRequestType,
+  getMasterRegionName
+} from "#SRC/js/core/MesosMasterRequest";
+import container from "#SRC/js/container";
+
+import { isSDKService } from "../../utils/ServiceUtil";
+
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
-import ServiceTableHeaderLabels from "../../constants/ServiceTableHeaderLabels";
-import ServiceTableUtil from "../../utils/ServiceTableUtil";
+import * as ServiceStatus from "../../constants/ServiceStatus";
 import ServiceTree from "../../structs/ServiceTree";
-import ServiceStatusIcon from "../../components/ServiceStatusIcon";
+import Pod from "../../structs/Pod";
+import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 
-const StatusMapping = {
-  Running: "running-state"
-};
+import {
+  nameRenderer,
+  nameSorter
+} from "../../columns/ServicesTableNameColumn";
+import {
+  statusRenderer,
+  statusSorter
+} from "../../columns/ServicesTableStatusColumn";
+import {
+  versionRenderer,
+  versionSorter
+} from "../../columns/ServicesTableVersionColumn";
+import {
+  regionRendererFactory,
+  regionSorter
+} from "../../columns/ServicesTableRegionColumn";
+import {
+  instancesRenderer,
+  instancesSorter
+} from "../../columns/ServicesTableInstancesColumn";
+import { cpuRenderer, cpuSorter } from "../../columns/ServicesTableCPUColumn";
+import { memRenderer, memSorter } from "../../columns/ServicesTableMemColumn";
+import {
+  diskRenderer,
+  diskSorter
+} from "../../columns/ServicesTableDiskColumn";
+import { gpuRenderer, gpuSorter } from "../../columns/ServicesTableGPUColumn";
+import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn";
 
-const columnClasses = {
-  name: "service-table-column-name",
-  status: "service-table-column-status",
-  version: "service-table-column-version",
-  regions: "service-table-column-regions",
-  instances: "service-table-column-instances",
-  cpus: "service-table-column-cpus",
-  mem: "service-table-column-mem",
-  disk: "service-table-column-disk",
-  actions: "service-table-column-actions",
-  gpus: "service-table-column-gpus"
-};
+const DELETE = ServiceActionItem.DELETE;
+const EDIT = ServiceActionItem.EDIT;
+const MORE = ServiceActionItem.MORE;
+const OPEN = ServiceActionItem.OPEN;
+const RESTART = ServiceActionItem.RESTART;
+const RESUME = ServiceActionItem.RESUME;
+const SCALE = ServiceActionItem.SCALE;
+const STOP = ServiceActionItem.STOP;
 
 const METHODS_TO_BIND = [
-  "onActionsItemSelection",
   "handleServiceAction",
   "handleActionDisabledModalOpen",
   "handleActionDisabledModalClose",
-  "renderHeadline",
-  "renderRegions",
-  "renderStats",
-  "renderStatus",
-  "renderServiceActions"
+  "handleSortClick"
 ];
 
 class ServicesTable extends React.Component {
-  constructor() {
+  constructor(props) {
     super(...arguments);
+    this.actionsRenderer = actionsRendererFactory(
+      this.handleActionDisabledModalOpen.bind(this),
+      this.handleServiceAction.bind(this)
+    );
 
-    this.state = { actionDisabledService: null };
+    this.state = {
+      actionDisabledService: null,
+      data: [],
+      sortColumn: "name",
+      sortDirection: "ASC"
+    };
+
+    this.regionRenderer = regionRendererFactory(props.masterRegionName);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
-  onActionsItemSelection(service, actionItem) {
-    const isGroup = service instanceof ServiceTree;
-    let containsSDKService = false;
+  // this page does not use the composite state anymore, so let's not calculate it
+  componentDidMount() {
+    CompositeState.disable();
+  }
 
-    if (isGroup) {
-      containsSDKService =
-        // #findItem will flatten the service tree
-        service.findItem(function(item) {
-          return item instanceof Service && isSDKService(item);
-        }) != null;
-    }
+  componentWillUnmount() {
+    CompositeState.enable();
+  }
 
-    if (
-      actionItem.id !== EDIT &&
-      actionItem.id !== DELETE &&
-      (containsSDKService || isSDKService(service)) &&
-      !Hooks.applyFilter(
-        "isEnabledSDKAction",
-        actionItem.id === EDIT || actionItem.id === OPEN,
-        actionItem.id
+  componentWillReceiveProps(nextProps) {
+    this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
+
+    this.setState(
+      this.updateData(
+        nextProps.services,
+        this.state.sortColumn,
+        this.state.sortDirection
       )
-    ) {
-      this.handleActionDisabledModalOpen(service, actionItem.id);
-    } else {
-      this.handleServiceAction(service, actionItem.id);
-    }
+    );
   }
 
   handleServiceAction(service, actionID) {
@@ -157,7 +167,7 @@ class ServicesTable extends React.Component {
 
     return (
       <a
-        className="table-cell-icon table-display-on-row-hover"
+        className="table-cell-icon"
         href={service.getWebURL()}
         target="_blank"
         title="Open in a new window"
@@ -170,32 +180,6 @@ class ServicesTable extends React.Component {
           />
         </span>
       </a>
-    );
-  }
-
-  getServiceLink(service) {
-    const id = encodeURIComponent(service.getId());
-    const isGroup = service instanceof ServiceTree;
-    const serviceLink = isGroup
-      ? `/services/overview/${id}`
-      : `/services/detail/${id}`;
-
-    if (this.props.isFiltered) {
-      return (
-        <NestedServiceLinks
-          serviceLink={serviceLink}
-          serviceID={id}
-          className="service-breadcrumb"
-          majorLinkClassName="service-breadcrumb-service-id"
-          minorLinkWrapperClassName="service-breadcrumb-crumb"
-        />
-      );
-    }
-
-    return (
-      <Link className="table-cell-link-primary text-overflow" to={serviceLink}>
-        {service.getName()}
-      </Link>
     );
   }
 
@@ -217,56 +201,20 @@ class ServicesTable extends React.Component {
     );
   }
 
-  hasWebUI(service) {
-    return (
-      service instanceof Service &&
-      !isSDKService(service) &&
-      service.getWebURL() != null &&
-      service.getWebURL() !== ""
-    );
-  }
+  handleSortClick(columnName) {
+    const toggledDirection =
+      this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
+        ? "DESC"
+        : "ASC";
 
-  renderHeadline(prop, service) {
-    const id = encodeURIComponent(service.getId());
-    const isGroup = service instanceof ServiceTree;
-    const serviceLink = isGroup
-      ? `/services/overview/${id}`
-      : `/services/detail/${id}`;
-
-    return (
-      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <Link className="table-cell-icon" to={serviceLink}>
-          {this.getImage(service)}
-        </Link>
-        <span className="table-cell-value table-cell-flex-box">
-          {this.getServiceLink(service)}
-          {this.getOpenInNewWindowLink(service)}
-        </span>
-      </div>
-    );
-  }
-
-  renderRegions(prop, service) {
-    const localRegion = CompositeState.getMasterNode().getRegionName();
-    let regions = service.getRegions();
-
-    regions = regions.map(
-      region => (region === localRegion ? region + " (Local)" : region)
-    );
-
-    if (regions.length === 0) {
-      regions.push("N/A");
-    }
-
-    return (
-      <Tooltip
-        elementTag="span"
-        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-overflow"
-        wrapText={true}
-        content={regions.join(", ")}
-      >
-        {regions.join(", ")}
-      </Tooltip>
+    this.setState(
+      this.updateData(
+        this.state.data,
+        columnName,
+        toggledDirection,
+        this.state.sortDirection,
+        this.state.sortColumn
+      )
     );
   }
 
@@ -358,268 +306,269 @@ class ServicesTable extends React.Component {
     );
   }
 
-  renderServiceActionsDropdown(service, actions) {
-    return (
-      <Dropdown
-        anchorRight={true}
-        buttonClassName="button button-mini button-link"
-        dropdownMenuClassName="dropdown-menu"
-        dropdownMenuListClassName="dropdown-menu-list"
-        dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown flush-bottom table-cell-icon"
-        items={actions}
-        persistentID={MORE}
-        onItemSelection={this.onActionsItemSelection.bind(this, service)}
-        scrollContainer=".gm-scroll-view"
-        scrollContainerParentSelector=".gm-prevented"
-        title="More actions"
-        transition={true}
-        transitionName="dropdown-menu"
-        disabled={service.getServiceStatus() === ServiceStatus.DELETING}
-      />
-    );
+  retrieveSortFunction(sortColumn) {
+    switch (sortColumn) {
+      case "name":
+        return nameSorter;
+      case "status":
+        return statusSorter;
+      case "version":
+        return versionSorter;
+      case "region":
+        return regionSorter;
+      case "instances":
+        return instancesSorter;
+      case "cpus":
+        return cpuSorter;
+      case "mem":
+        return memSorter;
+      case "disk":
+        return diskSorter;
+      case "gpus":
+        return gpuSorter;
+      default:
+        return (data, _sortDirection) => data;
+    }
   }
 
-  renderStatus(prop, service) {
-    const serviceStatusText = service.getStatus();
-    const serviceStatusClassSet = StatusMapping[serviceStatusText] || "";
-    const instancesCount = service.getInstancesCount();
-    const runningInstances = service.getRunningInstancesCount();
+  sortGroupsOnTop(data) {
+    const groups = data.filter(service => service instanceof ServiceTree);
+    const services = data.filter(service => !(service instanceof ServiceTree));
 
-    // L10NTODO: Pluralize
-    const tooltipContent = (
-      <Trans render="span">
-        {runningInstances} {StringUtil.pluralize("instance", runningInstances)}{" "}
-        running out of {instancesCount}
-      </Trans>
-    );
-    const hasStatusText = serviceStatusText !== ServiceStatus.NA.displayName;
-
-    return (
-      <div className="flex">
-        <div className={`${serviceStatusClassSet} service-status-icon-wrapper`}>
-          <ServiceStatusIcon
-            service={service}
-            showTooltip={true}
-            tooltipContent={tooltipContent}
-          />
-          {hasStatusText && (
-            <Trans
-              id={serviceStatusText}
-              render="span"
-              className="status-bar-text"
-            />
-          )}
-        </div>
-        <div className="service-status-progressbar-wrapper">
-          <ServiceStatusProgressBar service={service} />
-        </div>
-      </div>
-    );
+    return groups.concat(services);
   }
 
-  renderStats(prop, service) {
-    const resource = service.getResources()[prop];
+  updateData(
+    data,
+    sortColumn,
+    sortDirection,
+    currentSortDirection,
+    currentSortColumn
+  ) {
+    const copiedData = data.slice();
 
-    return <span>{Units.formatResource(prop, resource)}</span>;
-  }
-
-  renderVersion(prop, service) {
-    const version = ServiceTableUtil.getFormattedVersion(service);
-    if (!version) {
-      return null;
+    if (
+      sortDirection === currentSortDirection &&
+      sortColumn === currentSortColumn
+    ) {
+      return { data: copiedData, sortDirection, sortColumn };
     }
 
-    return (
-      <Tooltip
-        content={version.rawVersion}
-        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-overflow"
-        wrapText={true}
-      >
-        {version.displayVersion}
-      </Tooltip>
-    );
-  }
+    if (
+      sortDirection !== currentSortDirection &&
+      sortColumn === currentSortColumn
+    ) {
+      return { data: copiedData.reverse(), sortDirection, sortColumn };
+    }
 
-  renderInstances(prop, service) {
-    const instancesCount = service.getInstancesCount();
-    const runningInstances = service.getRunningInstancesCount();
-    const overview =
-      runningInstances === instancesCount
-        ? ` ${runningInstances}`
-        : ` ${runningInstances}/${instancesCount}`;
+    const sortFunction = this.retrieveSortFunction(sortColumn);
 
-    const content = !Number.isInteger(instancesCount)
-      ? EmptyStates.CONFIG_VALUE
-      : overview;
-
-    // L10NTODO: Pluralize
-    const tooltipContent = (
-      <Trans render="span">
-        {runningInstances} {StringUtil.pluralize("instance", runningInstances)}{" "}
-        running out of {instancesCount}
-      </Trans>
-    );
-
-    return (
-      <Tooltip content={tooltipContent}>
-        <span>{content}</span>
-      </Tooltip>
-    );
-  }
-
-  getCellClasses(prop, sortBy, row) {
-    const isHeader = row == null;
-
-    return classNames(columnClasses[prop], {
-      active: prop === sortBy.prop,
-      clickable: isHeader
-    });
-  }
-
-  getColumns() {
-    const heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
-
-    return [
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "name",
-        render: this.renderHeadline,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "status",
-        helpText: (
-          <Trans render="span">
-            At-a-glance overview of the global application or group state.{" "}
-            <a
-              href={MetadataStore.buildDocsURI(
-                "/deploying-services/task-handling"
-              )}
-              target="_blank"
-            >
-              Read more
-            </a>.
-          </Trans>
-        ),
-        render: this.renderStatus,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "version",
-        render: this.renderVersion,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "regions",
-        render: this.renderRegions,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "instances",
-        render: this.renderInstances,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "cpus",
-        render: this.renderStats,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "mem",
-        render: this.renderStats,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "disk",
-        render: this.renderStats,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "gpus",
-        render: this.renderStats,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.getCellClasses,
-        headerClassName: this.getCellClasses,
-        prop: "actions",
-        render: this.renderServiceActions,
-        sortable: false,
-        heading() {
-          return null;
-        }
-      }
-    ];
-  }
-
-  getColGroup() {
-    return (
-      <colgroup>
-        <col className={columnClasses.name} />
-        <col className={columnClasses.status} />
-        <col className={columnClasses.version} />
-        <col className={columnClasses.regions} />
-        <col className={columnClasses.instances} />
-        <col className={columnClasses.cpus} />
-        <col className={columnClasses.mem} />
-        <col className={columnClasses.disk} />
-        <col className={columnClasses.gpus} />
-        <col className={columnClasses.actions} />
-      </colgroup>
-    );
+    return {
+      data: sortFunction(copiedData, sortDirection),
+      sortDirection,
+      sortColumn
+    };
   }
 
   render() {
-    const { actionDisabledService, actionDisabledID } = this.state;
+    const {
+      actionDisabledService,
+      actionDisabledID,
+      data,
+      sortColumn,
+      sortDirection
+    } = this.state;
+
+    if (data.length === 0) {
+      if (this.props.isFiltered === false) {
+        return <Loader />;
+      } else {
+        return <div>No data.</div>;
+      }
+    }
+    const sortedGroups = this.sortGroupsOnTop(data);
 
     return (
-      <div>
+      <div className="table-wrapper service-table">
         <Table
-          buildRowOptions={this.getRowAttributes}
-          className="table service-table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
-          columns={this.getColumns()}
-          colGroup={this.getColGroup()}
-          data={this.props.services.slice()}
-          itemHeight={TableUtil.getRowHeight()}
-          containerSelector=".gm-scroll-view"
-          sortBy={{ prop: "name", order: "asc" }}
-        />
+          data={sortedGroups.slice()}
+          rowHeight={this.props.isFiltered ? 45 : 35}
+        >
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Name</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "name")}
+                sortDirection={sortColumn === "name" ? sortDirection : null}
+              />
+            }
+            cellRenderer={nameRenderer.bind(
+              null,
+              this.props.isFiltered,
+              ...arguments
+            )}
+            growToFill={true}
+            minWidth={200}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={
+                  <span>
+                    <Trans render="span">Status</Trans>{" "}
+                    <Tooltip
+                      interactive={true}
+                      wrapperClassName="tooltip-wrapper"
+                      wrapText={true}
+                      content={
+                        <Trans render="span">
+                          At-a-glance overview of the global application or
+                          group state.{" "}
+                          <a
+                            href={MetadataStore.buildDocsURI(
+                              "/deploying-services/task-handling"
+                            )}
+                            target="_blank"
+                          >
+                            Read more
+                          </a>
+                          .
+                        </Trans>
+                      }
+                    >
+                      <span className="icon-margin-right">
+                        <Icon
+                          color={greyDark}
+                          shape={SystemIcons.CircleQuestion}
+                          size={iconSizeXs}
+                        />
+                      </span>
+                    </Tooltip>
+                  </span>
+                }
+                sortHandler={this.handleSortClick.bind(null, "status")}
+                sortDirection={sortColumn === "status" ? sortDirection : null}
+              />
+            }
+            cellRenderer={statusRenderer}
+            growToFill={true}
+            minWidth={210}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Version</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "version")}
+                sortDirection={sortColumn === "version" ? sortDirection : null}
+              />
+            }
+            cellRenderer={versionRenderer}
+            growToFill={true}
+            maxWidth={120}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Region</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "region")}
+                sortDirection={sortColumn === "region" ? sortDirection : null}
+              />
+            }
+            cellRenderer={this.regionRenderer}
+            growToFill={true}
+            minWidth={60}
+            maxWidth={150}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Instances</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "instances")}
+                sortDirection={
+                  sortColumn === "instances" ? sortDirection : null
+                }
+                textAlign="right"
+              />
+            }
+            cellRenderer={instancesRenderer}
+            growToFill={true}
+            minWidth={100}
+            maxWidth={120}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">CPU</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "cpus")}
+                sortDirection={sortColumn === "cpus" ? sortDirection : null}
+                textAlign="right"
+              />
+            }
+            cellRenderer={cpuRenderer}
+            minWidth={70}
+            maxWidth={100}
+            growToFill={true}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Mem</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "mem")}
+                sortDirection={sortColumn === "mem" ? sortDirection : null}
+                textAlign="right"
+              />
+            }
+            cellRenderer={memRenderer}
+            growToFill={true}
+            minWidth={120}
+            maxWidth={150}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Disk</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "disk")}
+                sortDirection={sortColumn === "disk" ? sortDirection : null}
+                textAlign="right"
+              />
+            }
+            cellRenderer={diskRenderer}
+            growToFill={true}
+            minWidth={100}
+            maxWidth={120}
+          />
+
+          <Column
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">GPU</Trans>}
+                sortHandler={this.handleSortClick.bind(null, "gpu")}
+                sortDirection={sortColumn === "gpus" ? sortDirection : null}
+                textAlign="right"
+              />
+            }
+            cellRenderer={gpuRenderer}
+            growToFill={true}
+            minWidth={50}
+            maxWidth={70}
+          />
+
+          <Column
+            cellRenderer={this.actionsRenderer}
+            handleActionDisabledModalOpen={this.handleActionDisabledModalOpen}
+            handleServiceAction={this.handleServiceAction}
+            growToFill={true}
+            minWidth={24}
+            maxWidth={36}
+          />
+        </Table>
         <ServiceActionDisabledModal
           actionID={actionDisabledID}
           open={actionDisabledService != null}
@@ -652,4 +601,19 @@ ServicesTable.propTypes = {
   services: PropTypes.array
 };
 
-module.exports = ServicesTable;
+function withMasterRegionName(Component) {
+  const master$ = container
+    .get(MesosMasterRequestType)
+    .pipe(map(data => JSON.parse(data)));
+  const masterRegionName$ = getMasterRegionName(master$);
+
+  return componentFromStream(prop$ =>
+    combineLatest([prop$, masterRegionName$]).pipe(
+      map(([props, masterRegionName]) => (
+        <Component {...props} masterRegionName={masterRegionName} />
+      ))
+    )
+  );
+}
+
+module.exports = withMasterRegionName(ServicesTable);

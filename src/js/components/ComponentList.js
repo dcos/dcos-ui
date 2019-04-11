@@ -5,7 +5,7 @@ import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 
-class ComponentList extends React.Component {
+class ComponentList extends React.PureComponent {
   getComponentListContent(units) {
     return units.map(function(unit) {
       const health = unit.getHealth();

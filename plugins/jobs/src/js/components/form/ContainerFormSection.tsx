@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import { InfoBoxInline, Badge } from "@dcos/ui-kit";
+import { InfoBoxInline, Badge, Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -26,10 +28,15 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
   getDisabledBanner() {
     const { formData } = this.props;
     const message = (
-      <Trans>
-        Container options disabled. Select Container Image in general tab to
-        enable.
-      </Trans>
+      <div className="flex-box flex-box-align-vertical-center">
+        <span className="icon-margin-right">
+          <Icon shape={SystemIcons.CircleInformation} size={iconSizeXs} />
+        </span>
+        <Trans>
+          Container options disabled. Select Container Image in general tab to
+          enable.
+        </Trans>
+      </div>
     );
     return (
       formData.cmdOnly && (
@@ -115,46 +122,45 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
             </Trans>
           </FieldHelp>
         </FieldLabel>
-        {!formData.cmdOnly &&
-          selectedContainer === Container.Docker && (
-            <div>
-              <FieldLabel>
-                <FieldInput
-                  checked={!formData.cmdOnly && formData.grantRuntimePrivileges}
-                  name="grantRuntimePrivileges"
-                  type="checkbox"
-                  value={formData.grantRuntimePrivileges}
-                  disabled={formData.cmdOnly}
-                />
-                <Trans>Grant Runtime Privileges</Trans>
-                <FieldHelp>
-                  <Trans>
-                    By default, containers are "underprivileged" and cannot, for
-                    example, run a Docker daemon inside a Docker container.
-                  </Trans>
-                </FieldHelp>
-              </FieldLabel>
-              <div className="form-inner-section">
-                <Trans render="p">Docker parameters</Trans>
-                <ParametersSection
-                  formData={formData}
-                  errors={errors}
-                  showErrors={showErrors}
-                  onAddItem={onAddItem}
-                  onRemoveItem={onRemoveItem}
-                />
-              </div>
-              <div className="form-inner-section">
-                <ArgsSection
-                  formData={formData}
-                  errors={errors}
-                  showErrors={showErrors}
-                  onAddItem={onAddItem}
-                  onRemoveItem={onRemoveItem}
-                />
-              </div>
+        {!formData.cmdOnly && selectedContainer === Container.Docker && (
+          <div>
+            <FieldLabel>
+              <FieldInput
+                checked={!formData.cmdOnly && formData.grantRuntimePrivileges}
+                name="grantRuntimePrivileges"
+                type="checkbox"
+                value={formData.grantRuntimePrivileges}
+                disabled={formData.cmdOnly}
+              />
+              <Trans>Grant Runtime Privileges</Trans>
+              <FieldHelp>
+                <Trans>
+                  By default, containers are "underprivileged" and cannot, for
+                  example, run a Docker daemon inside a Docker container.
+                </Trans>
+              </FieldHelp>
+            </FieldLabel>
+            <div className="form-inner-section">
+              <Trans render="p">Docker parameters</Trans>
+              <ParametersSection
+                formData={formData}
+                errors={errors}
+                showErrors={showErrors}
+                onAddItem={onAddItem}
+                onRemoveItem={onRemoveItem}
+              />
             </div>
-          )}
+            <div className="form-inner-section">
+              <ArgsSection
+                formData={formData}
+                errors={errors}
+                showErrors={showErrors}
+                onAddItem={onAddItem}
+                onRemoveItem={onRemoveItem}
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

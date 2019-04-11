@@ -16,14 +16,73 @@ describe("CompositeState", function() {
   describe("#addState", function() {
     it("adds an object to state", function() {
       CompositeState.addState({ foo: "bar" });
-      expect(CompositeState.data).toEqual({ foo: "bar" });
+      expect(CompositeState.data).toEqual({ foo: "bar", slaves: [] });
     });
-  });
 
-  describe("#addSummary", function() {
-    it("adds an object to state", function() {
-      CompositeState.addSummary({ foo: "bar" });
-      expect(CompositeState.data).toEqual({ foo: "bar" });
+    it("removes framework IDs that were not received in the new data", function() {
+      CompositeState.addState({
+        frameworks: [
+          {
+            id: "foo-id",
+            name: "foo",
+            bar: "baz"
+          }
+        ]
+      });
+
+      CompositeState.addState({
+        frameworks: [
+          {
+            id: "bar-id",
+            name: "bar",
+            bar: "baz"
+          }
+        ]
+      });
+
+      expect(CompositeState.data).toEqual({
+        slaves: [],
+        frameworks: [
+          {
+            id: "bar-id",
+            name: "bar",
+            bar: "baz"
+          }
+        ]
+      });
+    });
+
+    it("preserves the master_info key", function() {
+      CompositeState.addState({
+        other_key: "foo-id",
+        master_info: { foo: "bar" }
+      });
+      CompositeState.addState({ bar: "baz" });
+
+      expect(CompositeState.data).toEqual({
+        master_info: { foo: "bar" },
+        bar: "baz",
+        slaves: []
+      });
+    });
+
+    it("preserves node health data", function() {
+      CompositeState.addState({ slaves: [{ hostname: "foo" }] });
+      CompositeState.addNodeHealth([
+        {
+          host_ip: "foo",
+          health: 1
+        }
+      ]);
+
+      expect(CompositeState.data).toEqual({
+        slaves: [
+          {
+            hostname: "foo",
+            health: 1
+          }
+        ]
+      });
     });
   });
 
@@ -70,144 +129,35 @@ describe("CompositeState", function() {
     });
 
     it("handles null data gracefully", function() {
-      expect(CompositeState.addNodeHealth).not.toThrow();
-    });
-  });
-
-  describe("#mergeData", function() {
-    it("deeply merges old and new states", function() {
-      CompositeState.addState({ foo: "bar" });
-      CompositeState.addState({
-        baz: {
-          qux: "quux",
-          corge: {
-            grault: "garply",
-            fred: "plugh"
-          }
-        }
-      });
-      CompositeState.addState({
-        baz: {
-          qux: "quux",
-          corge: {
-            fred: "foo"
-          },
-          xyzzy: ["thud", "bar"]
-        }
-      });
-
-      expect(CompositeState.data).toEqual({
-        foo: "bar",
-        baz: {
-          qux: "quux",
-          corge: {
-            grault: "garply",
-            fred: "foo"
-          },
-          xyzzy: ["thud", "bar"]
-        }
-      });
+      expect(() => CompositeState.addNodeHealth()).not.toThrow();
     });
 
-    it("merges old and new states, overwriting old with new", function() {
-      CompositeState.addState({ foo: "bar" });
-      CompositeState.addState({ baz: "qux" });
-      CompositeState.addState({ foo: "baz" });
-      expect(CompositeState.data).toEqual({ foo: "baz", baz: "qux" });
-    });
+    it("node health data provided for missing health nodes", function() {
+      CompositeState.addNodeHealth([
+        {
+          host_ip: "bar",
+          health: 1
+        }
+      ]);
 
-    it("merges framework data set with both addState and addSummary", function() {
       CompositeState.addState({
-        frameworks: [
-          {
-            id: "foo-id",
-            name: "foo",
-            baz: {
-              qux: "quux",
-              fred: "plugh"
-            }
-          },
-          {
-            id: "baz-id",
-            name: "baz",
-            baz: {
-              qux: "quux",
-              corge: "graply"
-            }
-          }
-        ]
-      });
-
-      CompositeState.addSummary({
-        frameworks: [
-          {
-            id: "foo-id",
-            name: "foo",
-            bar: {
-              qux: "grault"
-            }
-          },
-          {
-            id: "baz-id",
-            name: "baz",
-            baz: {
-              corge: "quux"
-            }
-          }
+        slaves: [
+          { host_ip: "bar", hostname: "bar" },
+          { host_ip: "foo", hostname: "foo" }
         ]
       });
 
       expect(CompositeState.data).toEqual({
-        frameworks: [
+        slaves: [
           {
-            id: "foo-id",
-            name: "foo",
-            baz: {
-              qux: "quux",
-              fred: "plugh"
-            },
-            bar: {
-              qux: "grault"
-            }
+            hostname: "bar",
+            host_ip: "bar",
+            health: 1
           },
           {
-            id: "baz-id",
-            name: "baz",
-            baz: {
-              corge: "quux"
-            }
-          }
-        ]
-      });
-    });
-
-    it("removes framework IDs that were not received in the new data", function() {
-      CompositeState.addState({
-        frameworks: [
-          {
-            id: "foo-id",
-            name: "foo",
-            bar: "baz"
-          }
-        ]
-      });
-
-      CompositeState.addState({
-        frameworks: [
-          {
-            id: "bar-id",
-            name: "bar",
-            bar: "baz"
-          }
-        ]
-      });
-
-      expect(CompositeState.data).toEqual({
-        frameworks: [
-          {
-            id: "bar-id",
-            name: "bar",
-            bar: "baz"
+            hostname: "foo",
+            host_ip: "foo",
+            health: 3
           }
         ]
       });
@@ -274,12 +224,14 @@ describe("CompositeState", function() {
           {
             id: "foo-id",
             hostname: "foo",
-            _itemData: { id: "foo-id", hostname: "foo" }
+            health: 3,
+            _itemData: { id: "foo-id", hostname: "foo", health: 3 }
           },
           {
             id: "qq-id",
             hostname: "qq",
-            _itemData: { id: "qq-id", hostname: "qq" }
+            health: 3,
+            _itemData: { id: "qq-id", hostname: "qq", health: 3 }
           }
         ],
         filterProperties: {}
@@ -294,6 +246,68 @@ describe("CompositeState", function() {
       var nodesList = CompositeState.getNodesList();
 
       expect(nodesList instanceof NodesList).toEqual(true);
+    });
+  });
+
+  describe("#enable & #disable", function() {
+    it("does not update state when disabled", function() {
+      CompositeState.disable();
+      expect(CompositeState._isDisabled()).toBe(true);
+      CompositeState.addState({ foo: "bar" });
+
+      expect(CompositeState.data).toEqual({});
+    });
+
+    it("does not update addState when disabled", function() {
+      CompositeState.disable();
+
+      CompositeState.addState({ foo: "bar" });
+      expect(CompositeState.data).toEqual({});
+    });
+
+    it("does not update nodehealth when disabled", function() {
+      CompositeState.addState({
+        slaves: [
+          {
+            id: "foo-id",
+            hostname: "foo"
+          }
+        ]
+      });
+
+      CompositeState.disable();
+      CompositeState.addNodeHealth([
+        {
+          host_ip: "foo",
+          health: 100
+        }
+      ]);
+
+      expect(CompositeState.data.slaves[0].health).not.toEqual(100);
+    });
+
+    it("is disabled if there are more disable calls then enables", function() {
+      expect(CompositeState._isDisabled()).toBe(false);
+
+      CompositeState.disable();
+      expect(CompositeState._isDisabled()).toBe(true);
+
+      CompositeState.disable();
+      CompositeState.enable();
+      expect(CompositeState._isDisabled()).toBe(true);
+    });
+
+    it("is disabled no matter how many enables have been called", function() {
+      expect(CompositeState._isDisabled()).toBe(false);
+
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.enable();
+      CompositeState.disable();
+      expect(CompositeState._isDisabled()).toBe(true);
     });
   });
 });

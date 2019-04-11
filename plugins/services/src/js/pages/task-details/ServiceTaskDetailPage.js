@@ -11,7 +11,7 @@ import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
-class ServiceTaskDetailPage extends React.Component {
+class ServiceTaskDetailPage extends React.PureComponent {
   render() {
     const { location, params, routes } = this.props;
     const { id, taskID } = params;

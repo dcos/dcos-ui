@@ -1,7 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Suspense, lazy } from "react";
 import classNames from "classnames";
 import SchemaForm from "react-jsonschema-form";
 import { MountService } from "foundation-ui";
@@ -12,16 +12,28 @@ import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
 import Util from "#SRC/js/utils/Util";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
-import JSONEditor from "#SRC/js/components/JSONEditor";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
+import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
 import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
-import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import SchemaField from "#SRC/js/components/SchemaField";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
-import YamlEditorSchemaField from "#SRC/js/components/YamlEditorSchemaField";
 import FrameworkConfigurationConstants from "#SRC/js/constants/FrameworkConfigurationConstants";
+
+const JSONEditor = lazy(() =>
+  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+);
+
+const YamlEditorSchemaField = lazy(() =>
+  import(/* webpackChunkName: "yamleditorschemafield" */ "#SRC/js/components/YamlEditorSchemaField")
+);
+
+const YamlEditorSchemaFieldWrapper = props => (
+  <Suspense fallback={<JSONEditorLoading />}>
+    <YamlEditorSchemaField {...props} />
+  </Suspense>
+);
 
 MountService.MountService.registerComponent(
   PlacementConstraintsSchemaField,
@@ -32,7 +44,7 @@ MountService.MountService.registerComponent(
   "SchemaField:application/x-zone-constraints+json"
 );
 MountService.MountService.registerComponent(
-  YamlEditorSchemaField,
+  YamlEditorSchemaFieldWrapper,
   "SchemaField:application/x-yaml"
 );
 
@@ -280,7 +292,6 @@ class FrameworkConfigurationForm extends Component {
       jsonEditorActive,
       formData,
       activeTab,
-      deployErrors,
       defaultConfigWarning,
       onFormSubmit,
       liveValidate,
@@ -322,11 +333,6 @@ class FrameworkConfigurationForm extends Component {
 
     const schema = packageDetails.getConfig();
 
-    let errorsAlert = null;
-    if (deployErrors) {
-      errorsAlert = <CosmosErrorMessage error={deployErrors} />;
-    }
-
     let defaultConfigWarningMessage = null;
     if (defaultConfigWarning) {
       defaultConfigWarningMessage = (
@@ -364,7 +370,6 @@ class FrameworkConfigurationForm extends Component {
                 >
                   <TabButtonList>{this.getFormTabList()}</TabButtonList>
                   <div className="menu-tabbed-view-container">
-                    {errorsAlert}
                     {defaultConfigWarningMessage}
                     <SchemaForm
                       schema={schema}
@@ -393,16 +398,18 @@ class FrameworkConfigurationForm extends Component {
         </div>
         <div className={jsonEditorPlaceholderClasses} />
         <div className={jsonEditorClasses}>
-          <JSONEditor
-            errors={this.getErrorsForJSONEditor()}
-            showGutter={true}
-            showPrintMargin={false}
-            onChange={this.handleJSONChange}
-            theme="monokai"
-            height="100%"
-            value={formData}
-            width="100%"
-          />
+          <Suspense fallback={<JSONEditorLoading isSidePanel={true} />}>
+            <JSONEditor
+              errors={this.getErrorsForJSONEditor()}
+              showGutter={true}
+              showPrintMargin={false}
+              onChange={this.handleJSONChange}
+              theme="monokai"
+              height="100%"
+              value={formData}
+              width="100%"
+            />
+          </Suspense>
         </div>
       </div>
     );
@@ -422,7 +429,6 @@ FrameworkConfigurationForm.propTypes = {
   formErrors: PropTypes.object.isRequired,
   focusField: PropTypes.string.isRequired,
   activeTab: PropTypes.string.isRequired,
-  deployErrors: PropTypes.object,
   onFormDataChange: PropTypes.func.isRequired,
   onFormErrorChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,

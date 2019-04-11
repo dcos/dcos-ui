@@ -1,8 +1,6 @@
 {
   "id": "/",
-  "dependencies": [
-    
-  ],
+  "dependencies": [],
   "version": "2017-01-09T20:02:12.029Z",
   "apps": [
     {
@@ -19,18 +17,10 @@
       "disk": 0,
       "gpus": 0,
       "executor": "",
-      "constraints": [
-        
-      ],
-      "uris": [
-        
-      ],
-      "fetch": [
-        
-      ],
-      "storeUrls": [
-        
-      ],
+      "constraints": [],
+      "uris": [],
+      "fetch": [],
+      "storeUrls": [],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
@@ -61,9 +51,7 @@
           "preserveLastResponse": true
         }
       ],
-      "dependencies": [
-        
-      ],
+      "dependencies": [],
       "upgradeStrategy": {
         "minimumHealthCapacity": 0,
         "maximumOverCapacity": 0
@@ -87,9 +75,7 @@
       "ipAddress": null,
       "version": "2017-01-09T20:02:12.029Z",
       "residency": null,
-      "secrets": {
-        
-      },
+      "secrets": {},
       "taskKillGracePeriodSeconds": null,
       "unreachableStrategy": {
         "inactiveAfterSeconds": 900,
@@ -105,17 +91,13 @@
           "port": 10001,
           "protocol": "tcp",
           "name": "health",
-          "labels": {
-            
-          }
+          "labels": {}
         },
         {
           "port": 1,
           "protocol": "tcp",
           "name": "api",
-          "labels": {
-            
-          }
+          "labels": {}
         }
       ],
       "requirePorts": false,
@@ -148,7 +130,7 @@
           ],
           "startedAt": "2017-01-09T20:02:26.435Z",
           "version": "2017-01-09T20:02:12.029Z",
-          "id": "confluent-kafka.825e1e2e-d6a6-11e6-a564-8605ecf0a9df",
+          "id": "confluent-kafka.instance-825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1",
           "appId": "/confluent-kafka",
           "slaveId": "74f1836b-6784-4030-816e-aacbdd45ff57-S1",
           "host": "10.0.2.121",
@@ -215,53 +197,33 @@
       "cmd": "sleep 1234567;",
       "args": null,
       "user": null,
-      "env": {
-        
-      },
+      "env": {},
       "instances": 1,
       "cpus": 0.01,
       "mem": 32,
       "disk": 0,
       "gpus": 0,
       "executor": "",
-      "constraints": [
-        
-      ],
-      "uris": [
-        
-      ],
-      "fetch": [
-        
-      ],
-      "storeUrls": [
-        
-      ],
+      "constraints": [],
+      "uris": [],
+      "fetch": [],
+      "storeUrls": [],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": null,
-      "healthChecks": [
-        
-      ],
-      "readinessChecks": [
-        
-      ],
-      "dependencies": [
-        
-      ],
+      "healthChecks": [],
+      "readinessChecks": [],
+      "dependencies": [],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
         "maximumOverCapacity": 1
       },
-      "labels": {
-        
-      },
+      "labels": {},
       "ipAddress": null,
       "version": "2017-01-09T20:02:03.443Z",
       "residency": null,
-      "secrets": {
-        
-      },
+      "secrets": {},
       "taskKillGracePeriodSeconds": null,
       "unreachableStrategy": {
         "inactiveAfterSeconds": 900,
@@ -275,9 +237,7 @@
         {
           "port": 10000,
           "protocol": "tcp",
-          "labels": {
-            
-          }
+          "labels": {}
         }
       ],
       "requirePorts": false,
@@ -289,9 +249,7 @@
       "tasksRunning": 1,
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
-      "deployments": [
-        
-      ],
+      "deployments": [],
       "tasks": [
         {
           "ipAddresses": [
@@ -359,10 +317,6 @@
       }
     }
   ],
-  "groups": [
-    
-  ],
-  "pods": [
-    
-  ]
+  "groups": [],
+  "pods": []
 }

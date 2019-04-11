@@ -216,7 +216,7 @@ class CheckboxTable extends React.Component {
         className={tableClassSet}
         columns={columns}
         colGroup={getColGroup()}
-        containerSelector=".gm-scroll-view"
+        containerSelector=".gm-scrollbar-container-fluid-view-width"
         data={data}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{ prop: sortProp, order: sortOrder }}

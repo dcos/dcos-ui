@@ -16,9 +16,11 @@ import {
   sampleTime,
   switchMap,
   startWith,
-  catchError
+  catchError,
+  distinctUntilChanged
 } from "rxjs/operators";
 import { Subscribable } from "recompose";
+import isEqual from "lodash.isequal";
 
 import { componentFromStream } from "@dcos/data-service";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
@@ -27,7 +29,6 @@ import gql from "graphql-tag";
 import JobsOverviewLoading from "./components/JobsOverviewLoading";
 import JobsOverviewError from "./components/JobsOverviewError";
 import JobsOverviewList from "./components/JobsOverviewList";
-import JobsOverviewEmpty from "./components/JobsOverviewEmpty";
 
 import container from "#SRC/js/container";
 
@@ -89,30 +90,40 @@ const JobsOverview = withRouter(
             filter
           }) as Observable<{ data: { jobs: JobConnection } }>;
         }),
-        map(data => data.data.jobs)
+        map(data => data.data.jobs),
+        distinctUntilChanged(isEqual)
       );
 
-      return combineLatest(filter$, jobs$, props$ as RxSubscribable<any>).pipe(
-        map(([filter, jobs, props]) => {
-          function handleFilterChange(filter: string) {
-            const query = filter === "" ? {} : { searchString: filter };
-            props.router.push({ pathname: props.location.pathname, query });
+      // we assume here the router does not change
+      const handleFilterChange$ = (props$ as any).pipe(
+        distinctUntilChanged(
+          (prevProps, nextProps) =>
+            (prevProps as any).location.pathname ===
+            (nextProps as any).location.pathname
+        ),
+        map(props => (filter: string) => {
+          const query = filter === "" ? {} : { searchString: filter };
+          (props as any).router.push({
+            pathname: (props as any).location.pathname,
+            query
+          });
 
-            filter$.next(filter);
-          }
+          filter$.next(filter);
+        })
+      );
 
-          if (jobs.totalCount > 0) {
-            return (
-              <JobsOverviewList
-                data={jobs}
-                filter={filter}
-                handleFilterChange={handleFilterChange}
-              />
-            );
-          }
-
+      return combineLatest(
+        filter$,
+        jobs$,
+        handleFilterChange$ as RxSubscribable<(filter: string) => void>
+      ).pipe(
+        map(([filter, jobs, handleFilterChange]) => {
           return (
-            <JobsOverviewEmpty key={"JobsOverviewEmpty"} jobPath={jobs.path} />
+            <JobsOverviewList
+              data={jobs}
+              filter={filter}
+              handleFilterChange={handleFilterChange}
+            />
           );
         }),
         startWith(<JobsOverviewLoading />),

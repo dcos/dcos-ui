@@ -1,5 +1,3 @@
-const MockDate = require("mockdate");
-
 jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
 jest.mock("../MesosSummaryStore");
 jest.mock("../../events/MetronomeActions", () => ({
@@ -49,14 +47,6 @@ describe("DCOSStore", function() {
   });
 
   describe("#emit", function() {
-    beforeEach(function() {
-      MockDate.set(new Date(2016, 3, 19));
-    });
-
-    afterEach(function() {
-      MockDate.reset();
-    });
-
     it("calls arbitrary event handler directly", function() {
       const handler = jasmine.createSpy("handler");
       DCOSStore.on("direct", handler);

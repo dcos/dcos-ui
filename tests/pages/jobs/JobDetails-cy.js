@@ -24,8 +24,7 @@ describe("Job Details", function() {
 
     it("renders the correct number of jobs in the table", function() {
       cy.get(".page table tbody tr").should(function($rows) {
-        // Four rows, two for the virtual list padding and two for the data.
-        expect($rows.length).to.equal(15);
+        expect($rows.length).to.equal(13);
       });
     });
 

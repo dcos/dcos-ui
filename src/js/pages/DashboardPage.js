@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
@@ -16,18 +16,16 @@ import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
 import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
 import HealthSorting from "../../../plugins/services/src/js/constants/HealthSorting";
-import HostTimeSeriesChart from "../components/charts/HostTimeSeriesChart";
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 import Page from "../components/Page";
 import Panel from "../components/Panel";
-import ResourceTimeSeriesChart from "../components/charts/ResourceTimeSeriesChart";
 import ServiceList from "../../../plugins/services/src/js/components/ServiceList";
 import StringUtil from "../utils/StringUtil";
-import TasksChart from "../components/charts/TasksChart";
 import SidebarActions from "../events/SidebarActions";
 import UnitHealthStore from "../stores/UnitHealthStore";
 import DashboardHeadings from "../constants/DashboardHeadings";
+import HealthUnitsList from "../structs/HealthUnitsList";
 
 function getMesosState() {
   const states = MesosSummaryStore.get("states");
@@ -42,6 +40,15 @@ function getMesosState() {
     totalResources: last.getSlaveTotalResources()
   };
 }
+
+const resourceTimeSeriesChartPromise = import(/* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart");
+const ResourceTimeSeriesChart = lazy(() => resourceTimeSeriesChartPromise);
+
+const hostTimeSeriesChartPromise = import(/* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart");
+const HostTimeSeriesChart = lazy(() => hostTimeSeriesChartPromise);
+
+const tasksChartPromise = import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart");
+const TasksChart = lazy(() => tasksChartPromise);
 
 const DashboardBreadcrumbs = () => {
   const crumbs = [
@@ -91,14 +98,21 @@ var DashboardPage = createReactClass({
     };
   },
 
+  getInitialState() {
+    return {
+      dcosServices: [],
+      unitHealthUnits: new HealthUnitsList({ items: [] })
+    };
+  },
+
   componentWillMount() {
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
-      { name: "summary", events: ["success", "error"], suppressUpdate: false },
+      { name: "summary", events: ["success", "error"], suppressUpdate: true },
       {
         name: "unitHealth",
         events: ["success", "error"],
-        suppressUpdate: false
+        suppressUpdate: true
       }
     ];
 
@@ -117,8 +131,26 @@ var DashboardPage = createReactClass({
     this.internalStorage_update(getMesosState());
   },
 
+  onDcosStoreChange() {
+    this.setState({
+      dcosServices: DCOSStore.serviceTree.getServices().getItems()
+    });
+  },
+
+  onUnitHealthStoreSuccess() {
+    this.setState({
+      unitHealthUnits: UnitHealthStore.getUnits()
+    });
+  },
+
+  onUnitHealthStoreError() {
+    this.setState({
+      unitHealthUnits: UnitHealthStore.getUnits()
+    });
+  },
+
   getServicesList() {
-    const services = DCOSStore.serviceTree.getServices().getItems();
+    const services = this.state.dcosServices;
 
     const sortedServices = services.sort(function(service, other) {
       const health = service.getHealth();
@@ -131,7 +163,7 @@ var DashboardPage = createReactClass({
   },
 
   getUnits() {
-    return UnitHealthStore.getUnits();
+    return this.state.unitHealthUnits;
   },
 
   getViewAllComponentsButton() {
@@ -155,7 +187,7 @@ var DashboardPage = createReactClass({
   },
 
   getViewAllServicesBtn() {
-    let servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
+    let servicesCount = this.state.dcosServices.length;
     if (!servicesCount) {
       return null;
     }
@@ -198,14 +230,16 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.CPU)}
             >
-              <ResourceTimeSeriesChart
-                colorIndex={resourceColors["cpus"]}
-                usedResourcesStates={data.usedResourcesStates}
-                usedResources={data.usedResources}
-                totalResources={data.totalResources}
-                mode="cpus"
-                refreshRate={Config.getRefreshRate()}
-              />
+              <Suspense fallback={<div />}>
+                <ResourceTimeSeriesChart
+                  colorIndex={resourceColors["cpus"]}
+                  usedResourcesStates={data.usedResourcesStates}
+                  usedResources={data.usedResources}
+                  totalResources={data.totalResources}
+                  mode="cpus"
+                  refreshRate={Config.getRefreshRate()}
+                />
+              </Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -213,14 +247,16 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.MEMORY)}
             >
-              <ResourceTimeSeriesChart
-                colorIndex={resourceColors["mem"]}
-                usedResourcesStates={data.usedResourcesStates}
-                usedResources={data.usedResources}
-                totalResources={data.totalResources}
-                mode="mem"
-                refreshRate={Config.getRefreshRate()}
-              />
+              <Suspense fallback={<div />}>
+                <ResourceTimeSeriesChart
+                  colorIndex={resourceColors["mem"]}
+                  usedResourcesStates={data.usedResourcesStates}
+                  usedResources={data.usedResources}
+                  totalResources={data.totalResources}
+                  mode="mem"
+                  refreshRate={Config.getRefreshRate()}
+                />
+              </Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -228,14 +264,16 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.DISK)}
             >
-              <ResourceTimeSeriesChart
-                colorIndex={resourceColors["disk"]}
-                usedResourcesStates={data.usedResourcesStates}
-                usedResources={data.usedResources}
-                totalResources={data.totalResources}
-                mode="disk"
-                refreshRate={Config.getRefreshRate()}
-              />
+              <Suspense fallback={<div />}>
+                <ResourceTimeSeriesChart
+                  colorIndex={resourceColors["disk"]}
+                  usedResourcesStates={data.usedResourcesStates}
+                  usedResources={data.usedResources}
+                  totalResources={data.totalResources}
+                  mode="disk"
+                  refreshRate={Config.getRefreshRate()}
+                />
+              </Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -243,14 +281,16 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.GPU)}
             >
-              <ResourceTimeSeriesChart
-                colorIndex={resourceColors["gpus"]}
-                usedResourcesStates={data.usedResourcesStates}
-                usedResources={data.usedResources}
-                totalResources={data.totalResources}
-                mode="gpus"
-                refreshRate={Config.getRefreshRate()}
-              />
+              <Suspense fallback={<div />}>
+                <ResourceTimeSeriesChart
+                  colorIndex={resourceColors["gpus"]}
+                  usedResourcesStates={data.usedResourcesStates}
+                  usedResources={data.usedResources}
+                  totalResources={data.totalResources}
+                  mode="gpus"
+                  refreshRate={Config.getRefreshRate()}
+                />
+              </Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -258,12 +298,14 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.NODES)}
             >
-              <HostTimeSeriesChart
-                data={data.activeNodes}
-                currentValue={data.hostCount}
-                refreshRate={Config.getRefreshRate()}
-                colorIndex={4}
-              />
+              <Suspense fallback={<div />}>
+                <HostTimeSeriesChart
+                  data={data.activeNodes}
+                  currentValue={data.hostCount}
+                  refreshRate={Config.getRefreshRate()}
+                  colorIndex={4}
+                />
+              </Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -281,7 +323,9 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart panel"
               heading={this.getHeading(DashboardHeadings.TASKS)}
             >
-              <TasksChart tasks={data.tasks} />
+              <Suspense fallback={<div />}>
+                <TasksChart tasks={data.tasks} />
+              </Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>

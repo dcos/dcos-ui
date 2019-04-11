@@ -12,9 +12,11 @@
     "es6": true
   },
 
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2017,
+    "allowImportExportEverywhere": true,
     "ecmaFeatures": {
       "jsx": true,
       "experimentalObjectRestSpread": true
