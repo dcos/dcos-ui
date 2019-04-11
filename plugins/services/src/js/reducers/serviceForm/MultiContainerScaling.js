@@ -17,7 +17,7 @@ module.exports = {
 
     if (type === SET && joinedPath === "instances") {
       this.internalState.instances = parseInt(value, 10);
-      if (!this.internalState.instances) {
+      if (this.internalState.instances == null) {
         return null;
       }
 
@@ -26,7 +26,7 @@ module.exports = {
 
     if (type === SET && joinedPath === "scaling.kind") {
       this.internalState.kind = value;
-      if (!this.internalState.instances) {
+      if (this.internalState.instances == null) {
         return null;
       }
 
