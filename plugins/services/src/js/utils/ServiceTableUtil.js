@@ -97,7 +97,7 @@ function getCompareFunctionByProp(prop) {
     case "disk":
       return (a, b) => a.getResources().disk - b.getResources().disk;
     case "instances":
-      return (a, b) => a.instances - b.instances;
+      return (a, b) => a.getInstancesCount() - b.getInstancesCount();
     case "version":
       return versionCompareFunction;
     default:
