@@ -3,6 +3,8 @@ import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import mixin from "reactjs-mixin";
 
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -75,6 +77,6 @@ ServicesPage.displayName = "ServicesPage";
 
 ServicesPage.routeConfig = {
   label: i18nMark("Services"),
-  icon: <Icon id="services-inverse" size="small" family="product" />,
+  icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
   matches: /^\/services/
 };

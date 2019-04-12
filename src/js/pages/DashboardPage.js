@@ -6,6 +6,7 @@ import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
@@ -67,7 +68,10 @@ const DashboardBreadcrumbs = () => {
   );
 };
 
-export default class DashboardPage extends mixin(InternalStorageMixin, StoreMixin) {
+export default class DashboardPage extends mixin(
+  InternalStorageMixin,
+  StoreMixin
+) {
   constructor() {
     super(...arguments);
 
@@ -107,19 +111,19 @@ export default class DashboardPage extends mixin(InternalStorageMixin, StoreMixi
     this.setState({
       dcosServices: DCOSStore.serviceTree.getServices().getItems()
     });
-  },
+  }
 
   onUnitHealthStoreSuccess() {
     this.setState({
       unitHealthUnits: UnitHealthStore.getUnits()
     });
-  },
+  }
 
   onUnitHealthStoreError() {
     this.setState({
       unitHealthUnits: UnitHealthStore.getUnits()
     });
-  },
+  }
 
   getServicesList() {
     const services = this.state.dcosServices;
@@ -323,7 +327,7 @@ DashboardPage.displayName = "DashboardPage";
 
 DashboardPage.routeConfig = {
   label: i18nMark("Dashboard"),
-  icon: <Icon id="dashboard-inverse" size="small" family="product" />,
+  icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
   matches: /^\/dashboard/
 };
 

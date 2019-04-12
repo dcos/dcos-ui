@@ -7,6 +7,7 @@ import mixin from "reactjs-mixin";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Badge, Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
@@ -112,14 +113,15 @@ export default class NodesAgents extends mixin(
       });
 
     this.setState({ nodesHealth });
-  },
+  }
+
   onNodeHealthStoreSuccess() {
     this.updateNodeHealth();
-  },
+  }
 
   onNodeHealthStoreError() {
     this.updateNodeHealth();
-  },
+  }
 
   componentDidMount() {
     MesosSummaryStore.addChangeListener(
@@ -346,7 +348,7 @@ NodesAgents.displayName = "NodesAgents";
 
 NodesAgents.routeConfig = {
   label: i18nMark("Nodes"),
-  icon: <Icon family="product" id="servers-inverse" />,
+  icon: <Icon shape={ProductIcons.ServersInverse} />,
   matches: /^\/nodes/
 };
 

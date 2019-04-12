@@ -22,7 +22,10 @@ const METHODS_TO_BIND = [
   "formatXAxis" // from ChartMixin
 ];
 
-export default class TimeSeriesChart extends mixin(ChartMixin, InternalStorageMixin) {
+export default class TimeSeriesChart extends mixin(
+  ChartMixin,
+  InternalStorageMixin
+) {
   constructor() {
     super(...arguments);
 
@@ -149,7 +152,7 @@ export default class TimeSeriesChart extends mixin(ChartMixin, InternalStorageMi
         return successfulValue;
       })
       .interpolate("monotone");
-  },
+  }
 
   getUnavailableLine(xTimeScale, yScale, firstSuccessful) {
     // We need firstSuccessful because if the current value is null,
