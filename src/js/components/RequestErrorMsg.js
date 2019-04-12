@@ -9,15 +9,14 @@ import Config from "../config/Config";
 
 function getDefaultMessage() {
   return (
-    <p className="text-align-center flush-bottom">
-      <Trans
-        id="You can also join us on our <0>Slack channel</0> or send us an email at <1></1>."
-        components={[
-          <a href={Config.slackChannel} target="_blank" />,
-          <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>
-        ]}
-      />
-    </p>
+    <Trans render="p" className="text-align-center flush-bottom">
+      You can also join us on our{" "}
+      <a href={Config.slackChannel} target="_blank">
+        Slack channel
+      </a>{" "}
+      or send us an email at{" "}
+      <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>.
+    </Trans>
   );
 }
 
