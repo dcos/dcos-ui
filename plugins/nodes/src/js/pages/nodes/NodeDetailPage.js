@@ -38,7 +38,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     };
 
     this.state = {
-      mesosStateLoaded: false
+      mesosStateLoaded: false,
+      summaryStatesProcessed: MesosSummaryStore.get("statesProcessed"),
+      summaryStates: MesosSummaryStore.get("states")
     };
   }
 
