@@ -5,7 +5,7 @@ import React from "react";
 import { mount } from "enzyme";
 
 const MockTimeSeriesData = require("./fixtures/MockTimeSeriesData.json");
-const TimeSeriesArea = require("../TimeSeriesArea");
+const TimeSeriesArea = require("../TimeSeriesArea").default;
 
 function checkPath(instance, props) {
   var area = instance.find(".area");

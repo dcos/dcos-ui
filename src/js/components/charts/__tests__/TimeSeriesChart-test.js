@@ -3,7 +3,7 @@ const React = require("react");
 /* eslint-enable no-unused-vars */
 const ReactDOM = require("react-dom");
 
-const TimeSeriesChart = require("../TimeSeriesChart");
+const TimeSeriesChart = require("../TimeSeriesChart").default;
 
 let thisContainer, thisInstance;
 
