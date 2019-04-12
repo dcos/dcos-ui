@@ -83,7 +83,9 @@ function sortForColumn(name) {
       return (a, b) =>
         Version.compare(serviceToVersion(a), serviceToVersion(b));
     case "region":
-      return () => 0;
+      return (a, b) => {
+        return (a.getRegions()[0] || "") < (b.getRegions()[0] || "") ? 1 : -1;
+      };
     case "instances":
       return (a, b) => a.getInstancesCount() - b.getInstancesCount();
     case "cpus":
