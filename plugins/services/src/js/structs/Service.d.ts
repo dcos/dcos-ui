@@ -1,5 +1,5 @@
 import Item from "#SRC/js/structs/Item";
-import { Status } from "#PLUGINS/services/src/js/structs/ServiceStatus";
+import { Status } from "#PLUGINS/services/src/js/constants/ServiceStatus";
 
 export default class Service extends Item {
   getId(): string;
