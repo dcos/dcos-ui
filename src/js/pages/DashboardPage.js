@@ -12,6 +12,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 import Breadcrumb from "../components/Breadcrumb";
+import Loader from "../components/Loader";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
 import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
@@ -231,7 +232,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.CPU)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["cpus"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -248,7 +249,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.MEMORY)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["mem"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -265,7 +266,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.DISK)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["disk"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -282,7 +283,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.GPU)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["gpus"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -299,7 +300,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.NODES)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <HostTimeSeriesChart
                   data={data.activeNodes}
                   currentValue={data.hostCount}
@@ -324,7 +325,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart panel"
               heading={this.getHeading(DashboardHeadings.TASKS)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <TasksChart tasks={data.tasks} />
               </Suspense>
             </Panel>
