@@ -26,19 +26,6 @@ function getFormattedVersion(service) {
 }
 
 /**
- * Compare number values
- * @param {number} a
- * @param {number} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function numberCompareFunction(a, b) {
-  const delta = a - b;
-
-  return delta / Math.abs(delta || 1);
-}
-
-/**
  * Validate whether a version string is semver formatteed
  * @param {string} version
  * @returns {boolean} true if "version" is semver formatted,
@@ -76,96 +63,6 @@ function dottedNumberCompareFunction(a, b) {
 }
 
 /**
- * Compare service names
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function nameCompareFunction(a, b) {
-  return a.getName().localeCompare(b.getName());
-}
-
-/**
- * Compare number of running tasks
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function taskCompareFunction(a, b) {
-  return numberCompareFunction(
-    a.getTasksSummary().tasksRunning,
-    b.getTasksSummary().tasksRunning
-  );
-}
-
-/**
- * Compare service status
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function statusCompareFunction(a, b) {
-  return b.getServiceStatus().priority - a.getServiceStatus().priority;
-}
-
-/**
- * Compare service cpus
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function cpusCompareFunction(a, b) {
-  return numberCompareFunction(a.getResources().cpus, b.getResources().cpus);
-}
-
-/**
- * Compare service gpus
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function gpusCompareFunction(a, b) {
-  return numberCompareFunction(a.getResources().gpus, b.getResources().gpus);
-}
-
-/**
- * Compare service memory
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function memCompareFunction(a, b) {
-  return numberCompareFunction(a.getResources().mem, b.getResources().mem);
-}
-
-/**
- * Compare service disk
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {number} a number indicating whether "a" comes before or after or
- * is the same as "b" in sort order.
- */
-function diskCompareFunction(a, b) {
-  return numberCompareFunction(a.getResources().disk, b.getResources().disk);
-}
-
-/**
- * Compare service instances
- * @param {Service|ServiceTree} a
- * @param {Service|ServiceTree} b
- * @returns {Number} desc first
- */
-function instancesCompareFunction(a, b) {
-  return numberCompareFunction(a.instances, b.instances);
-}
-
-/**
  * Compare service version
  * @param {Service|ServiceTree} a
  * @param {Service|ServiceTree} b
@@ -184,27 +81,27 @@ function versionCompareFunction(a, b) {
 function getCompareFunctionByProp(prop) {
   switch (prop) {
     case "name":
-      return nameCompareFunction;
+      return (a, b) => a.getName().localeCompare(b.getName());
     case "tasks":
-      return taskCompareFunction;
+      return (a, b) =>
+        a.getTasksSummary().tasksRunning - b.getTasksSummary().tasksRunning;
     case "status":
-      return statusCompareFunction;
+      return (a, b) =>
+        b.getServiceStatus().priority - a.getServiceStatus().priority;
     case "cpus":
-      return cpusCompareFunction;
+      return (a, b) => a.getResources().cpus - b.getResources().cpus;
     case "gpus":
-      return gpusCompareFunction;
+      return (a, b) => a.getResources().gpus - b.getResources().gpus;
     case "mem":
-      return memCompareFunction;
+      return (a, b) => a.getResources().mem - b.getResources().mem;
     case "disk":
-      return diskCompareFunction;
+      return (a, b) => a.getResources().disk - b.getResources().disk;
     case "instances":
-      return instancesCompareFunction;
+      return (a, b) => a.instances - b.instances;
     case "version":
       return versionCompareFunction;
     default:
-      return function() {
-        return 0;
-      };
+      return () => 0;
   }
 }
 
