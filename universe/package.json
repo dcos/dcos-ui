@@ -8,5 +8,5 @@
   "scm": "https://github.com/dcos/dcos-ui",
   "website": "https://dcos.io/",
   "framework": false,
-  "minDcosReleaseVersion": "1.12"
+  "minDcosReleaseVersion": "1.13"
 }

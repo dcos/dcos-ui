@@ -1,6 +1,6 @@
 {
-  "branch": "master",
-  "tagFormat": "master+v${version}",
+  "branch": "release/1.13",
+  "tagFormat": "1.13+v${version}",
   "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
   "analyzeCommits": [
     {
@@ -24,7 +24,7 @@
   "publish": [
     {
       "path": "@semantic-release/exec",
-      "cmd": "./scripts/ci/upload-release v${nextRelease.version} master",
+      "cmd": "./scripts/ci/upload-release v${nextRelease.version} 1.13",
       "shell": "/bin/bash"
     },
     {
@@ -41,7 +41,7 @@
       "path": "semantic-release-jira",
       "apiURL": "https://jira.mesosphere.com/rest/api/2/issue/${issueKey}",
       "apiJSON":
-        "{ \"update\": { \"labels\": [ { \"add\": \"released-repo:dcos-ui\" }, { \"add\": \"released-tag:master+v${version}\" } ] } }"
+        "{ \"update\": { \"labels\": [ { \"add\": \"released-repo:dcos-ui\" }, { \"add\": \"released-tag:1.13+v${version}\" } ] } }"
     }
   ]
 }

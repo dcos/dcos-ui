@@ -2,7 +2,7 @@
 
 @Library("sec_ci_libs@v2-latest") _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["release/1.13", ] as String[]
 
 pipeline {
   agent {
@@ -12,7 +12,7 @@ pipeline {
   }
 
   environment {
-    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/1.13/dcos_generate_config.sh"
   }
 
   options {
@@ -175,7 +175,7 @@ pipeline {
         ]) {
           sh "git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons"
           sh "tar czf release.tar.gz dist"
-          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
+          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='1.13' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
         }
       }
     }

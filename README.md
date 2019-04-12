@@ -1,4 +1,4 @@
-# DC/OS UI [![Build Status](https://jenkins.mesosphere.com/service/jenkins/buildStatus/icon?job=frontend/dcos-ui-oss-pipeline/master)](https://jenkins.mesosphere.com/service/jenkins/job/frontend/job/dcos-ui-oss-pipeline/job/master/)
+# DC/OS UI [![Build Status](https://jenkins.mesosphere.com/service/jenkins/buildStatus/icon?job=frontend/dcos-ui-oss-pipeline/release%252F1.13)](https://jenkins.mesosphere.com/service/jenkins/job/frontend/job/dcos-ui-oss-pipeline/job/release%252F1.13/)
 
 The User Interface for The Datacenter Operating System.
 
@@ -92,7 +92,7 @@ using this command:
 
 ```sh
 dcos package repo remove dcos-ui-aws
-dcos package repo add --index=0 dcos-ui-aws 'https://universe-converter.mesosphere.com/transform?url=https://dcos-ui-universe.s3.amazonaws.com/oss/dcos-ui/latest/stub-universe-dcos-ui.json'
+dcos package repo add --index=0 dcos-ui-aws 'https://universe-converter.mesosphere.com/transform?url=https://dcos-ui-universe.s3.amazonaws.com/oss/dcos-ui/1.13/stub-universe-dcos-ui.json'
 ```
 
 This allows you to see the newest version of DC/OS UI in the Catalog.
