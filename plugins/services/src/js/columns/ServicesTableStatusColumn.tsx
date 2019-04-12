@@ -2,14 +2,12 @@ import * as React from "react";
 import { Plural, Trans } from "@lingui/macro";
 import { TextCell } from "@dcos/ui-kit";
 
-import { SortDirection } from "#PLUGINS/services/src/js/types/SortDirection";
 import ServiceStatusProgressBar from "#PLUGINS/services/src/js/components/ServiceStatusProgressBar";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceStatusIcon from "../components/ServiceStatusIcon";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import ServiceTableUtil from "../utils/ServiceTableUtil";
 
 function statusCountsToTooltipContent(counts: {
   total: number;
@@ -100,13 +98,6 @@ function renderServiceTree(service: ServiceTree): React.ReactNode {
 
 const isNA = (status: string) =>
   status === null || status === ServiceStatus.NA.displayName;
-
-export function statusSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "status");
-}
 
 export function statusCategorySorter(a: string, b: string): number {
   return (
