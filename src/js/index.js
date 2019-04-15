@@ -13,8 +13,7 @@ import PluginSDK from "PluginSDK";
 // Can be removed if recompose library usage is removed.
 import "symbol-observable";
 
-import en from "#LOCALE/en/messages.js";
-import zh from "#LOCALE/zh/messages.js";
+import { i18n, catalogs } from "./i18n";
 
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
@@ -82,8 +81,9 @@ RequestUtil.json = function(options = {}) {
           <Provider store={PluginSDK.Store}>
             <I18nProvider
               defaultRender="span"
+              i18n={i18n}
               language={UserLanguageStore.get()}
-              catalogs={{ en, zh }}
+              catalogs={catalogs}
             >
               <Router history={hashHistory} routes={routes} />
             </I18nProvider>

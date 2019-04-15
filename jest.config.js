@@ -67,6 +67,7 @@ module.exports = {
     "@extension-kid/data-layer": "<rootDir>/packages/@extension-kid/data-layer",
     "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
     "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
+    "#LOCALE/([^\\.]*)$": "<rootDir>/locale/$1",
     "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"
   },
   timers: "fake",
