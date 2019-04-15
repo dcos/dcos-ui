@@ -83,7 +83,9 @@ const METHODS_TO_BIND = [
   "onMarathonStoreServiceCreateError",
   "onMarathonStoreServiceCreateSuccess",
   "onMarathonStoreServiceEditError",
-  "onMarathonStoreServiceEditSuccess"
+  "onMarathonStoreServiceEditSuccess",
+  "resetExpandAdvancedSettings",
+  "getExpandAdvancedSettings"
 ];
 
 const APP_VALIDATORS = [
@@ -463,17 +465,21 @@ class CreateServiceModal extends Component {
   }
 
   handleServiceReview() {
-    if (!this.anyCriticalFormErrors()) {
+    const expandAdvancedSettings = this.getExpandAdvancedSettings();
+
+    if (this.criticalFormErrors().length === 0) {
       this.setState({
         apiErrors: [],
         formErrors: [],
-        serviceReviewActive: true
+        serviceReviewActive: true,
+        expandAdvancedSettings
       });
     } else {
       this.setState({
         showAllErrors: true,
         submitFailed: true,
-        formErrors: this.validateServiceSpec(this.state.serviceSpec)
+        formErrors: this.validateServiceSpec(this.state.serviceSpec),
+        expandAdvancedSettings
       });
     }
   }
@@ -491,21 +497,34 @@ class CreateServiceModal extends Component {
     this.setState({ isPending: true });
   }
 
+  getExpandAdvancedSettings() {
+    // If we have errors inside the advanced options, expand the options to allow the user to see the errors.
+    const { serviceSpec } = this.state;
+    const isDockerContainer =
+      Util.findNestedPropertyInObject(serviceSpec, "container.type") ===
+      "DOCKER";
+
+    return this.criticalFormErrors().some(
+      ({ path }) =>
+        isEqual(path, ["gpus"]) ||
+        isEqual(path, ["disk"]) ||
+        (isDockerContainer && isEqual(path, ["container", "docker", "image"]))
+    );
+  }
+
   isLocationEdit(location) {
     return location.pathname.includes("/edit");
   }
 
   /**
    * Determines whether or not the form can be submitted
-   * @returns {boolean} critical errors are present
+   * @returns {array} of critical errors that are present
    */
-  anyCriticalFormErrors() {
+  criticalFormErrors() {
     const formErrors = this.validateServiceSpec(this.state.serviceSpec);
     const criticalFormErrors = formErrors.filter(error => !error.isPermissive);
 
-    return (
-      criticalFormErrors.length > 0 || this.state.serviceFormErrors.length > 0
-    );
+    return criticalFormErrors.concat(this.state.serviceFormErrors);
   }
 
   /**
@@ -603,6 +622,14 @@ class CreateServiceModal extends Component {
     );
   }
 
+  resetExpandAdvancedSettings() {
+    // Reset, otherwise every change in the form will open the advanced options
+    // after they are opened once
+    if (this.state.expandAdvancedSettings) {
+      this.setState({ expandAdvancedSettings: false });
+    }
+  }
+
   getModalContent() {
     const {
       isJSONModeActive,
@@ -610,7 +637,8 @@ class CreateServiceModal extends Component {
       serviceFormActive,
       serviceJsonActive,
       servicePickerActive,
-      serviceReviewActive
+      serviceReviewActive,
+      expandAdvancedSettings
     } = this.state;
 
     // NOTE: Always prioritize review screen check
@@ -718,6 +746,7 @@ class CreateServiceModal extends Component {
         <CreateServiceModalForm
           activeTab={this.state.activeTab}
           errors={this.getAllErrors()}
+          expandAdvancedSettings={expandAdvancedSettings}
           jsonParserReducers={jsonParserReducers}
           jsonConfigReducers={jsonConfigReducers}
           handleTabChange={this.handleTabChange}
@@ -732,6 +761,7 @@ class CreateServiceModal extends Component {
           onErrorsChange={this.handleServiceErrorsChange}
           service={serviceSpec}
           showAllErrors={showAllErrors}
+          resetExpandAdvancedSettings={this.resetExpandAdvancedSettings}
         />
       );
     }
@@ -849,6 +879,7 @@ class CreateServiceModal extends Component {
     const newState = {
       activeTab: null,
       apiErrors: [],
+      expandAdvancedSettings: false,
       formErrors: [], // Errors detected by form validation
       hasChangesApplied: false,
       isConfirmOpen: false,
