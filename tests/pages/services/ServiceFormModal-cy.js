@@ -1492,10 +1492,11 @@ describe("Service Form Modal", function() {
         });
 
         it('Should remove "Environment Variable" form fields when remove button clicked', function() {
-          cy.contains(".form-row", "Key").within(function() {
-            // Click delete button
-            cy.get("a.button").click();
-          });
+          // Click delete button
+          cy.get('.form-control[name="env.0.key"]')
+            .closest(".form-row")
+            .find("a.button")
+            .click();
 
           cy.get('.form-control[name="env.0.key"]').should("not.exist");
         });
@@ -1532,10 +1533,11 @@ describe("Service Form Modal", function() {
         });
 
         it('Should remove "Label" form fields when remove button clicked', function() {
-          cy.contains(".form-row", "Key").within(function() {
-            // Click delete button
-            cy.get("a.button").click();
-          });
+          // Click delete button
+          cy.get('.form-control[name="labels.0.key"]')
+            .closest(".form-row")
+            .find("a.button")
+            .click();
 
           cy.get('.form-control[name="labels.0.key"]').should("not.exist");
         });
