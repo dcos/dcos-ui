@@ -28,28 +28,6 @@ class EnvironmentFormSection extends Component {
         return item.value == null || typeof item.value === "string";
       })
       .map((env, key) => {
-        let keyLabel = null;
-        let valueLabel = null;
-        if (key === 0) {
-          keyLabel = (
-            <FieldLabel>
-              <FormGroupHeading>
-                <FormGroupHeadingContent primary={true}>
-                  <Trans render="span">Key</Trans>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
-          );
-          valueLabel = (
-            <FieldLabel>
-              <FormGroupHeading>
-                <FormGroupHeadingContent primary={true}>
-                  <Trans render="span">Value</Trans>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
-          );
-        }
         const isValueWithoutKey = Boolean(!env.key && env.value);
 
         return (
@@ -59,7 +37,6 @@ class EnvironmentFormSection extends Component {
               required={false}
               showError={isValueWithoutKey}
             >
-              {keyLabel}
               <FieldAutofocus>
                 <FieldInput
                   name={`env.${key}.key`}
@@ -77,7 +54,6 @@ class EnvironmentFormSection extends Component {
               required={false}
               showError={Boolean(errors[env.key])}
             >
-              {valueLabel}
               <FieldInput
                 name={`env.${key}.value`}
                 type="text"
@@ -85,7 +61,7 @@ class EnvironmentFormSection extends Component {
               />
               <FieldError>{errors[env.key]}</FieldError>
             </FormGroup>
-            <FormGroup hasNarrowMargins={true} applyLabelOffset={key === 0}>
+            <FormGroup hasNarrowMargins={true}>
               <DeleteRowButton
                 onClick={this.props.onRemoveItem.bind(this, {
                   value: key,
@@ -102,35 +78,11 @@ class EnvironmentFormSection extends Component {
     const errors = this.props.errors.labels || {};
 
     return data.map((label, key) => {
-      let keyLabel = null;
-      let valueLabel = null;
-      if (key === 0) {
-        keyLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Key</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-        valueLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Value</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-      }
-
       const isValueWithoutKey = Boolean(!label.key && label.value);
 
       return (
         <FormRow key={key}>
           <FormGroup className="column-6" showError={isValueWithoutKey}>
-            {keyLabel}
             <FieldAutofocus>
               <FieldInput
                 name={`labels.${key}.key`}
@@ -148,7 +100,6 @@ class EnvironmentFormSection extends Component {
             required={false}
             showError={Boolean(errors[label.key])}
           >
-            {valueLabel}
             <FieldInput
               name={`labels.${key}.value`}
               type="text"
@@ -156,7 +107,7 @@ class EnvironmentFormSection extends Component {
             />
             <FieldError>{errors[label.key]}</FieldError>
           </FormGroup>
-          <FormGroup hasNarrowMargins={true} applyLabelOffset={key === 0}>
+          <FormGroup hasNarrowMargins={true}>
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {
                 value: key,
@@ -172,6 +123,7 @@ class EnvironmentFormSection extends Component {
   render() {
     const { data, errors } = this.props;
 
+    // prettier-ignore
     const envTooltipContent = (
       <Trans render="span">
         DC/OS also exposes environment variables for host ports and metdata.{" "}
@@ -185,6 +137,7 @@ class EnvironmentFormSection extends Component {
         </a>.
       </Trans>
     );
+    // prettier-ignore
     const labelsTooltipContent = (
       <Trans render="span">
         For example, you could label services “staging” and “production” to mark{" "}
@@ -197,6 +150,8 @@ class EnvironmentFormSection extends Component {
         </a>.
       </Trans>
     );
+    const environmentLines = this.getEnvironmentLines(data.env);
+    const labelsLines = this.getLabelsLines(data.labels);
 
     return (
       <div>
@@ -231,7 +186,33 @@ class EnvironmentFormSection extends Component {
         <Trans render="p">
           Set up environment variables for each instance your service launches.
         </Trans>
-        {this.getEnvironmentLines(data.env)}
+        {environmentLines.length > 0 ? (
+          <FormRow>
+            <FormGroup className="column-6 short-bottom">
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    <Trans render="span">Key</Trans>
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+            </FormGroup>
+            <FormGroup className="column-6 short-bottom">
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    <Trans render="span">Value</Trans>
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+            </FormGroup>
+            {/* add a fake-button here, so flexbox calculates the widths of the labels above like it does on the following rows */}
+            <div style={{ visibility: "hidden", height: "0" }}>
+              <DeleteRowButton />
+            </div>
+          </FormRow>
+        ) : null}
+        {environmentLines}
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
@@ -263,7 +244,33 @@ class EnvironmentFormSection extends Component {
         <Trans render="p">
           Attach metadata to expose additional information to other services.
         </Trans>
-        {this.getLabelsLines(data.labels)}
+        {labelsLines.length > 0 ? (
+          <FormRow>
+            <FormGroup className="column-6 short-bottom">
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    <Trans render="span">Key</Trans>
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+            </FormGroup>
+            <FormGroup className="column-6 short-bottom">
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    <Trans render="span">Value</Trans>
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+            </FormGroup>
+            {/* add a fake-button here, so flexbox calculates the widths of the labels above like it does on the following rows */}
+            <div style={{ visibility: "hidden", height: "0" }}>
+              <DeleteRowButton />
+            </div>
+          </FormRow>
+        ) : null}
+        {labelsLines}
         <FormRow>
           <FormGroup className="column-12">
             <AddButton
