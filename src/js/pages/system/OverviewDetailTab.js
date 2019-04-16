@@ -12,6 +12,8 @@ import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icon
 
 import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
 import DateUtil from "#SRC/js/utils/DateUtil";
+import { MesosMasterRequestType } from "#SRC/js/core/MesosMasterRequest";
+import container from "#SRC/js/container";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -83,6 +85,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     ];
 
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+
+    MarathonStore.fetchMarathonInstanceInfo();
+    MetadataStore.fetchDCOSBuildInfo();
+
     request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
       response => {
         const cluster = JSON.parse(response).get_flags.flags.find(
@@ -108,30 +121,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     );
 
-    request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").subscribe(
-      response => {
-        const {
-          get_master: {
-            master_info: masterInfo,
-            elected_time: electedTime,
-            start_time: startTime
-          }
-        } = JSON.parse(response);
+    container.get(MesosMasterRequestType).subscribe(response => {
+      const {
+        get_master: {
+          master_info: masterInfo,
+          elected_time: electedTime,
+          start_time: startTime
+        }
+      } = JSON.parse(response);
 
-        this.setState({ masterInfo, electedTime, startTime });
-      }
-    );
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
+      this.setState({ masterInfo, electedTime, startTime });
     });
-  }
-
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-
-    MarathonStore.fetchMarathonInstanceInfo();
-    MetadataStore.fetchDCOSBuildInfo();
   }
 
   handleClusterConfigModalOpen() {

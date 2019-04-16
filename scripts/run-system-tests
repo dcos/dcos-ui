@@ -49,11 +49,12 @@ TESTS_FOLDER="system-tests"
 
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
-while getopts 's:hnr:?' flag; do
+while getopts 's:hknr:?' flag; do
   case "${flag}" in
   s) SEARCH=${OPTARG:-'*'} ;;
   h) CYPRESS_HEADED="true" ;;
   n) CYPRESS_NO_EXIT="true" ;;
+  k) NO_BUILD="true" ;;
   r) RETRIES=${OPTARG} ;;
   ?)
     echo -e "+-------------------------------+"
@@ -61,12 +62,13 @@ while getopts 's:hnr:?' flag; do
     echo -e "+-------------------------------+\n"
     echo -e "Don't forget running npm run build:assets first!\n\n"
     echo -e "Usage: \n"
-    echo -e "\tnpm run test:integration -- [-s <FILE_NAME>] [-hn] [-r <RETRIES>]\n"
+    echo -e "\tnpm run test:system -- [-s <FILE_NAME>] [-hnk] [-r <RETRIES>]\n"
     echo -e "Options:\n"
     printf "  %-17s %-30s \n" "-s <TestFileName>" "Run single Test File. All files if omitted"
     printf "  %-17s %-30s \n" "-h" "Run Chrome in Headed mode"
     printf "  %-17s %-30s \n" "-n" "Don't close Chrome after tests are finished"
     printf "  %-17s %-30s \n" "-r <NUM_RETRIES>" "Number of retries, 3 by default"
+    printf "  %-17s %-30s \n" "-k" "Don't run the build, just assume something runs on the right port"
     printf "  %-17s %-30s \n" "-?" "Prints this help"
     echo ""
     exit 0

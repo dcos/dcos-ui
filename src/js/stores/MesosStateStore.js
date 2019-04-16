@@ -1,17 +1,16 @@
 import CompositeState from "#SRC/js/structs/CompositeState";
 import PluginSDK from "PluginSDK";
-import * as MesosClient from "@dcos/mesos-client";
 import { interval, of } from "rxjs";
 import {
   merge,
   distinctUntilChanged,
   map,
   tap,
+  sampleTime,
+  retryWhen,
   zip,
   take,
-  concat,
-  sampleTime,
-  retryWhen
+  concat
 } from "rxjs/operators";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
@@ -28,12 +27,10 @@ import MesosStateUtil from "../utils/MesosStateUtil";
 import pipe from "../utils/pipe";
 import { linearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
+import { MesosMasterRequestType } from "../core/MesosMasterRequest";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
-let { request } = MesosClient;
-
-const MAX_RETRIES = 5;
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
 const METHODS_TO_BIND = [
@@ -88,12 +85,8 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   subscribe() {
-    const mesosStream = container.get(MesosStreamType);
-    const getMasterRequest = request(
-      { type: "GET_MASTER" },
-      "/mesos/api/v1?get_master"
-    ).pipe(
-      retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES)),
+    const mesos$ = container.get(MesosStreamType);
+    const masterRequest$ = container.get(MesosMasterRequestType).pipe(
       tap(response => {
         const master = mesosStreamParsers.getMaster(
           this.getMaster(),
@@ -105,15 +98,15 @@ class MesosStateStore extends GetSetBaseStore {
     );
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
-    const dataStream = mesosStream.pipe(
-      merge(getMasterRequest),
+    const data$ = mesos$.pipe(
+      merge(masterRequest$),
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
-      tap(state => this.setState(state))
+      tap(state => this.setState(state), console.error)
     );
 
-    const waitStream = getMasterRequest.pipe(zip(mesosStream.pipe(take(1))));
-    const eventTriggerStream = dataStream.pipe(
+    const wait$ = masterRequest$.pipe(zip(mesos$.pipe(take(1))));
+    const eventTrigger$ = data$.pipe(
       merge(
         // A lot of DCOS UI rely on the MesosStateStore emitting
         // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
@@ -132,9 +125,9 @@ class MesosStateStore extends GetSetBaseStore {
     // Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-    this.stream = waitStream
+    this.stream = wait$
       .pipe(
-        concat(eventTriggerStream),
+        concat(eventTrigger$),
         sampleTime(Config.getRefreshRate() * 0.5),
         retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
       )
@@ -246,10 +239,10 @@ class MesosStateStore extends GetSetBaseStore {
     const { frameworks, tasks = [] } = this.getLastMesosState();
     const serviceName = service.getName();
 
-    // Convert serviceId to Mesos task name
-    const mesosTaskName = service.getMesosId();
+    // Convert serviceId to Mesos task id prefix
+    const taskIdPrefix = service.getMesosId();
 
-    if (!serviceName || !mesosTaskName || !frameworks) {
+    if (!serviceName || !taskIdPrefix || !frameworks) {
       return [];
     }
 
@@ -273,7 +266,11 @@ class MesosStateStore extends GetSetBaseStore {
     }
 
     return tasks
-      .filter(task => task.isStartedByMarathon && task.name === mesosTaskName)
+      .filter(
+        task =>
+          task.isStartedByMarathon &&
+          task.id.startsWith(`${taskIdPrefix}.instance`)
+      )
       .concat(serviceTasks)
       .map(task => MesosStateUtil.flagSDKTask(task, service));
   }
@@ -327,18 +324,8 @@ if (Config.useFixtures) {
 
   const { MesosStreamType } = require("../core/MesosStream");
 
-  const oldRequest = request;
-
   Promise.all([getMasterFixture, subscribeFixture]).then(values => {
-    request = function(options, url) {
-      if (url === "/mesos/api/v1?get_master") {
-        console.log("Stub /mesos/api/v1?get_master");
-
-        return of(JSON.stringify(values[0]));
-      }
-
-      return oldRequest(options, request);
-    };
+    container.rebind(MesosMasterRequestType).toConstantValue(of(values[0]));
 
     container
       .rebind(MesosStreamType)

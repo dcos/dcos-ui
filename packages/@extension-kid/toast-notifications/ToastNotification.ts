@@ -18,47 +18,31 @@ type ToastCallback = (
   notification: ToastNotification
 ) => void;
 
-interface ToastTranslatableText {
-  id: string;
-  values?: Record<string, string>;
-}
-
-function messageForId(
-  title: string | ToastTranslatableText,
-  description?: string | ToastTranslatableText
-) {
-  let descValue = "";
-  const titleValue = typeof title === "string" ? title : title.id;
-  if (description) {
-    descValue = typeof description === "string" ? description : description.id;
-  }
-
-  return `${titleValue}|${descValue}`;
+function messageForId(title: string, description?: string) {
+  return `${title}|${description || ""}`;
 }
 
 interface ToastNotificationOptions {
   appearance?: ToastAppearance;
   autodismiss?: boolean;
-  description?: string | ToastTranslatableText;
+  description?: string;
   callback?: ToastCallback;
-  primaryActionText?: string | ToastTranslatableText;
-  secondaryActionText?: string | ToastTranslatableText;
+  primaryActionText?: string;
+  secondaryActionText?: string;
 }
 
 class ToastNotification extends Notification {
-  static NotificationType = Symbol("Toast");
-  readonly title: string | ToastTranslatableText;
-  readonly description?: string | ToastTranslatableText;
+  static NotificationType = Symbol.for("Toast");
+
   readonly appearance: ToastAppearance;
   readonly autodismiss: boolean;
-  readonly callback: ToastCallback | undefined;
-  readonly primaryActionText?: string | ToastTranslatableText;
-  readonly secondaryActionText?: string | ToastTranslatableText;
+  readonly callback?: ToastCallback;
+  readonly description?: string;
+  readonly primaryActionText?: string;
+  readonly secondaryActionText?: string;
+  readonly title: string;
 
-  constructor(
-    title: string | ToastTranslatableText,
-    options: ToastNotificationOptions = {}
-  ) {
+  constructor(title: string, options: ToastNotificationOptions = {}) {
     super(
       ToastNotification.NotificationType,
       messageForId(title, options.description)
@@ -113,6 +97,5 @@ export {
   ToastNotification,
   ToastNotificationOptions,
   ToastAppearance,
-  ToastCallbackType,
-  ToastTranslatableText
+  ToastCallbackType
 };

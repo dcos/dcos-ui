@@ -17,6 +17,8 @@ interface Multiplicants {
 const fullDateTime = "fullDateTime";
 const longMonthDateTime = "longMonthDateTime";
 
+type strToMsReturn<T> = T extends string ? number : null;
+
 type FormatOptionType = typeof fullDateTime | typeof longMonthDateTime;
 interface FormatOptions {
   timeZone?: string;
@@ -130,17 +132,18 @@ const DateUtil = {
     });
   },
 
-  strToMs(str: string | null): number | null {
-    if (str == null || typeof str !== "string") {
-      return null;
+  strToMs<T extends string | null>(str: T): strToMsReturn<T> {
+    if (typeof str !== "string") {
+      // ugly return cast necessary as per https://github.com/Microsoft/TypeScript/issues/24929
+      return null as strToMsReturn<T>;
     }
 
     const dateStr = str.toUpperCase();
 
-    return (
-      getTime(dateStr) ||
-      getTime(format(new Date(dateStr).toISOString(), "YYYY-MM-DDTHH:mm:ssZ"))
-    );
+    return (getTime(dateStr) ||
+      getTime(
+        format(new Date(dateStr).toISOString(), "YYYY-MM-DDTHH:mm:ssZ")
+      )) as strToMsReturn<T>;
   },
 
   getDuration(time: number): string {

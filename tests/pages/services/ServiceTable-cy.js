@@ -385,4 +385,28 @@ describe("Service Table", function() {
       });
     });
   });
+
+  context("Groups", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("group status is an aggregate of children", function() {
+      cy.get('.status-bar-text')
+        .eq(1)
+        .contains("Running (3 of 3)")
+    });
+
+    it("shows service status counts in group tooltip", function() {
+      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+        .eq(1)
+        .trigger("mouseover");
+      cy.get(".tooltip").contains("3 Running");
+    })
+  });
 });

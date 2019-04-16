@@ -11,17 +11,14 @@ function getCpuUsage(data: Node): number {
   return data.getUsageStats("cpus").percentage;
 }
 
+const className = `color-${ResourcesUtil.getResourceColor("cpus")}`;
+
 export function cpuRenderer(data: Node): React.ReactNode {
   return (
     <Cell>
       <div>
         <ProgressBar
-          data={[
-            {
-              value: data.getUsageStats("cpus").percentage,
-              className: `color-${ResourcesUtil.getResourceColor("cpus")}`
-            }
-          ]}
+          data={ProgressBar.getDataFromValue(getCpuUsage(data), className)}
           total={100}
         />
 

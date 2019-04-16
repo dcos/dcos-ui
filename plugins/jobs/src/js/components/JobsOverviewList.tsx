@@ -23,7 +23,7 @@ interface JobsOverviewListState {
   isJobFormModalOpen: boolean;
 }
 
-class JobsOverviewList extends React.Component<
+class JobsOverviewList extends React.PureComponent<
   JobsOverviewListProps,
   JobsOverviewListState
 > {

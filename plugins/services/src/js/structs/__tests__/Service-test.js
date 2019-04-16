@@ -12,12 +12,12 @@ describe("Service", function() {
   });
 
   describe("#getMesosId", function() {
-    it("returns correct id", function() {
+    it("returns correct id prefix", function() {
       const service = new Service({
         id: "/test/cmd"
       });
 
-      expect(service.getMesosId()).toEqual("cmd.test");
+      expect(service.getMesosId()).toEqual("test_cmd");
     });
   });
 

@@ -44,13 +44,13 @@ var TimeSeriesArea = createReactClass({
         <path className={"area " + className} d={this.props.path} />
         <path
           className={"line " + className}
-          stroke-linecap="butt"
+          strokeLinecap="butt"
           d={this.props.line}
         />
         <path
           className={"line line-unavailable " + className}
-          stroke-dasharray="2,1"
-          stroke-linecap="butt"
+          strokeDasharray="2,1"
+          strokeLinecap="butt"
           d={this.props.unavailableLine}
         />
       </g>
