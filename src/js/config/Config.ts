@@ -26,6 +26,7 @@ interface IConfiguration {
   productName: string;
   rootUrl: string;
   secretsAPIPrefix: string;
+  secretsDefaultStore: string;
   setInactiveAfter: number;
   slackChannel: string;
   stateRefresh: number;
@@ -48,6 +49,7 @@ let Config: IConfiguration = {
   networkingAPIPrefix: "/networking/api/v1",
   cosmosAPIPrefix: "/package",
   secretsAPIPrefix: "/secrets/v1",
+  secretsDefaultStore: "default",
   delayAfterErrorCount: 5,
   documentationURI: "https://docs.mesosphere.com",
   mesosDocsURI: "https://mesos.apache.org/documentation/latest/",
