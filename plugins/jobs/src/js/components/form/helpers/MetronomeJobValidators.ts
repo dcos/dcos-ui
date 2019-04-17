@@ -67,6 +67,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
     // prettier-ignore
     return pipe(
+
       // IS BOOLEAN
 
       isBoolean(_ => "job.run.docker.forcePullImage", [run.docker && run.docker.forcePullImage]),
@@ -88,6 +89,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
       isObject(_ => "job.labels", [formData.job.labels]),
       isObject(_ => "job.run.docker", [run.docker]),
+      isObject(_ => "job.run.env", [run.env]),
       isObject(_ => "job.run.ucr", [run.ucr]),
       isObject(_ => "job.run.ucr.image", [run.ucr && run.ucr.image]),
 
@@ -115,7 +117,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       isString(i => `job.run.args.${i}`, run.args || []),
       isString(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
       isString(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
-      isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value))
+      isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
 
       // pipe only infers 10 steps, so we need a cast here
     )([]) as FormError[];
@@ -491,12 +493,32 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   }
 };
 
-export function validateFormLabels(jobSpec: JobSpec): FormError[] {
+// We sometimes need to validate the spec instead of the formOutput to make sure
+// that e.g. two ENV-params don't have the same key. we need to allow for
+// that UX-wise, as if you have `DB_HOST` and type `DB_HOSTNAME` in the next
+// field you'd run into trouble when using a POJO as the backing model.
+export function validateSpec(jobSpec: JobSpec): FormError[] {
+  const run = jobSpec.job.run || {};
+  const envs = (run.env || []).map(([key]) => key);
+  const envsMsg = i18nMark(
+    "Cannot have multiple environment variables with the same key."
+  );
   const labels = (jobSpec.job.labels || []).map(([k]) => k);
-  const message = i18nMark("Cannot have multiple labels with the same key.");
+  const labelsMsg = i18nMark("Cannot have multiple labels with the same key.");
 
   return pipe(
-    allUniq(_ => "job.labels", [labels], message),
-    isUniqIn(labels)(i => `job.labels.${i}`, labels, message)
+    allUniq(_ => "job.labels", [labels], labelsMsg),
+    allUniq(_ => "job.run.env", [envs], envsMsg),
+
+    // all envs with a value need a key to be present
+    isPresent(
+      i => `job.run.env.${i}`,
+      (run.env || []).filter(([_, v]) => v).map(([k]) => k)
+    ),
+    isString(i => `job.run.env.${i}`, envs),
+    isString(i => `job.run.env.${i}`, envs),
+
+    isUniqIn(envs)(i => `job.run.env.${i}`, envs, envsMsg),
+    isUniqIn(labels)(i => `job.labels.${i}`, labels, labelsMsg)
   )([]);
 }

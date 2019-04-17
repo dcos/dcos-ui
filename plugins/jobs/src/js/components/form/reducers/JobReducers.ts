@@ -2,6 +2,7 @@ import { deepCopy } from "#SRC/js/utils/Util";
 
 import { JobSpec, Action, JobFormActionType } from "../helpers/JobFormData";
 import { jsonReducers } from "./JsonReducers";
+import { env } from "./EnvironmentReducers";
 import {
   artifacts,
   labels,
@@ -75,7 +76,8 @@ const combinedReducers: CombinedReducers = {
   labels,
   artifacts,
   activeDeadlineSeconds,
-  restartPolicy
+  restartPolicy,
+  env
 };
 
 export function jobFormOutputToSpecReducer(

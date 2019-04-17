@@ -94,6 +94,7 @@ describe("JobParsers", () => {
       disk: 0,
       dockerParams: [],
       args: [],
+      env: [],
       grantRuntimePrivileges: undefined,
       imageForcePull: undefined
     };

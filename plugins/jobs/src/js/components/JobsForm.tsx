@@ -1,5 +1,6 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
+import { MountService } from "foundation-ui";
 import classNames from "classnames";
 import * as React from "react";
 
@@ -21,6 +22,7 @@ import {
 } from "./form/helpers/JobFormData";
 import GeneralFormSection from "./form/GeneralFormSection";
 import ContainerFormSection from "./form/ContainerFormSection";
+import EnvironmentFormSection from "./form/EnvironmentFormSection";
 import RunConfigFormSection from "./form/RunConfigFormSection";
 import ScheduleFormSection from "./form/ScheduleFormSection";
 import {
@@ -58,6 +60,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     { id: "general", key: "general", label: i18nMark("General") },
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
+    { id: "environment", key: "environment", label: i18nMark("Environment") },
     { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
@@ -220,6 +223,29 @@ class JobModalForm extends React.Component<JobFormProps> {
                         errors={translatedErrors}
                         showErrors={showAllErrors}
                       />
+                    </TabView>
+                    <TabView id="environment">
+                      <ErrorsAlert
+                        errors={translatedErrors}
+                        pathMapping={ServiceErrorPathMapping}
+                        hideTopLevelErrors={!showAllErrors}
+                      />
+                      <MountService.Mount
+                        type="CreateJob:EnvironmentSection"
+                        formData={formOutput}
+                        errors={translatedErrors}
+                        showErrors={showAllErrors}
+                        onAddItem={this.handleAddItem}
+                        onRemoveItem={this.handleRemoveItem}
+                      >
+                        <EnvironmentFormSection
+                          formData={formOutput}
+                          errors={translatedErrors}
+                          showErrors={showAllErrors}
+                          onAddItem={this.handleAddItem}
+                          onRemoveItem={this.handleRemoveItem}
+                        />
+                      </MountService.Mount>
                     </TabView>
                     <TabView id="run_config">
                       <ErrorsAlert
