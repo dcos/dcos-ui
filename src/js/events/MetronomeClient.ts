@@ -19,7 +19,7 @@ export interface GenericJobResponse {
     mem: number;
     disk: number;
     cmd: string;
-    env: object;
+    env: { [key: string]: string };
     placement: {
       constraints: any[];
     };
