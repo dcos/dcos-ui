@@ -56,7 +56,7 @@ let Config: IConfiguration = {
   historyLength: 31,
   historyServer: "",
   fullProductName: "Mesosphere DC/OS",
-  marathonAPIPrefix: "/service/marathon/v2",
+  marathonAPIPrefix: global.MARATHON_API_PREFIX,
   metronomeAPI: "/service/metronome",
   productName: "Mesosphere DC/OS",
   productHomepageURI: "https://dcos.io",

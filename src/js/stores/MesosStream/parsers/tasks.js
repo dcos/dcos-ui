@@ -46,7 +46,7 @@ function processTask(task) {
 
 function getMarathonId(frameworks = []) {
   const { id: marathonId } =
-    frameworks.find(({ name }) => name === "marathon") || {};
+    frameworks.find(({ name }) => name === global.MARATHON_NAME) || {};
 
   return marathonId;
 }

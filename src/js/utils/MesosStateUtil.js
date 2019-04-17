@@ -144,7 +144,7 @@ const MesosStateUtil = {
   getPodHistoricalInstances(state, pod) {
     const { frameworks = [], tasks = [] } = state;
     const marathon = frameworks.find(function(framework) {
-      return framework.name === "marathon";
+      return framework.name === global.MARATHON_NAME;
     });
 
     if (!marathon) {

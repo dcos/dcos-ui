@@ -5,6 +5,9 @@ var EventEmitter = require("events").EventEmitter;
 // jsdom doesn't have support for localStorage at the moment
 global.localStorage = require("localStorage");
 
+global.MARATHON_NAME = "marathon";
+global.MARATHON_API_PREFIX = "/service/marathon/v2";
+
 // Tests should just mock responses for the json API
 // so let's just default to a noop
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
