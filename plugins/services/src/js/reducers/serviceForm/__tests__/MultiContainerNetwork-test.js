@@ -1,8 +1,9 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const MultiContainerNetwork = require("../MultiContainerNetwork");
 const Networking = require("#SRC/js/constants/Networking");
 const Batch = require("#SRC/js/structs/Batch");
 const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
-const Transaction = require("#SRC/js/structs/Transaction");
 
 describe("MultiContainerNetwork", function() {
   describe("#JSONReducer", function() {

@@ -1,6 +1,5 @@
-const TransactionTypes = require("../../constants/TransactionTypes");
-
-const Transaction = require("../Transaction");
+import Transaction from "../Transaction";
+import * as TransactionTypes from "../../constants/TransactionTypes";
 
 describe("Transaction", function() {
   describe("#constructor", function() {

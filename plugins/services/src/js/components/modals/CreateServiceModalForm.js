@@ -23,7 +23,7 @@ import Tabs from "#SRC/js/components/Tabs";
 import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 import Transaction from "#SRC/js/structs/Transaction";
-import TransactionTypes from "#SRC/js/constants/TransactionTypes";
+import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import ArtifactsSection from "../forms/ArtifactsSection";
