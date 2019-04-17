@@ -1,10 +1,14 @@
-import TransactionTypes from "../constants/TransactionTypes";
+import * as TransactionTypes from "../constants/TransactionTypes";
 
 const validTypes = Object.values(TransactionTypes);
 const validKeys = Object.keys(TransactionTypes);
 
 class Transaction {
-  constructor(path, value, type = TransactionTypes.SET) {
+  constructor(
+    path: string[],
+    value: unknown,
+    type: typeof validTypes[0] = TransactionTypes.SET
+  ) {
     if (!validTypes.includes(type)) {
       throw new TypeError(`Only the following types are allowed: ${validKeys}`);
     }
@@ -28,4 +32,4 @@ class Transaction {
   }
 }
 
-module.exports = Transaction;
+export default Transaction;

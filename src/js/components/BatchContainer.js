@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import Transaction from "#SRC/js/structs/Transaction";
-import TransactionTypes from "#SRC/js/constants/TransactionTypes";
+import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
 
 export default class BatchContainer extends Component {
   constructor() {
