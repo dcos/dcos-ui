@@ -32,8 +32,8 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="./img/components/icons/favicon-apple-120x120.png">
   <link rel="apple-touch-icon-precomposed" sizes="152x152" href="./img/components/icons/favicon-apple-152x152.png">
   <script type="text/javascript"> window.DCOS_UI_VERSION = "0.0.0-dev+semantic-release"; </script>
-  <script type="text/javascript"> window.MARATHON_NAME = "mom1"; </script>
-  <script type="text/javascript"> window.MARATHON_API_PREFIX = "/service/mom1/v2"; </script>
+  <script type="text/javascript"> window.MARATHON_NAME = process.env.MARATHON_NAME; </script>
+  <script type="text/javascript"> window.MARATHON_API_PREFIX = process.env.MARATHON_API_PREFIX; </script>
   <script type="text/javascript">
     (function(){
       if(window.DCOS_UI_VERSION.startsWith("master+")) {

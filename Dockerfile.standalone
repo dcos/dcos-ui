@@ -1,0 +1,16 @@
+FROM node:10
+
+# Expose the 4200 port
+EXPOSE 4200
+
+ADD . /dcos-ui
+
+WORKDIR /dcos-ui
+
+RUN npm i
+
+ENV MARATHON_NAME="marathon"
+ENV MARATHON_API_PREFIX="/service/marathon/v2"
+ENV C="http://leader.mesos"
+
+ENTRYPOINT npm start

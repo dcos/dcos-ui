@@ -79,7 +79,10 @@ module.exports = {
     }),
     new EnvironmentPlugin(["NODE_ENV"]),
     new DefinePlugin({
-      "process.env.LATER_COV": false
+      "process.env.LATER_COV": false,
+      "process.env.MARATHON_NAME": process.env.MARATHON_NAME || "marathon",
+      "process.env.MARATHON_API_PREFIX":
+        process.env.MARATHON_API_PREFIX || "/service/marathon/v2"
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
