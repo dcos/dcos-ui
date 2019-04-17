@@ -10,9 +10,15 @@ import {
   DockerParameter,
   FormOutput,
   JobOutput,
-  JobSpec
+  JobSpec,
+  PlacementConstraint
 } from "./JobFormData";
 import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
+import { isArray } from "util";
+
+function isEmpty(value: any) {
+  return value == null || value === "";
+}
 
 // Array<[string, T]> => Record<string, T>
 const zipObject = <T>(list: Array<[string, T]>): Record<string, T> =>
@@ -82,6 +88,21 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       );
       if (!jobSpecCopy.job.run.volumes.length) {
         delete jobSpecCopy.job.run.volumes;
+      }
+    }
+
+    // PLACEMENT
+    if (
+      jobSpecCopy.job.run.placement &&
+      jobSpecCopy.job.run.placement.constraints &&
+      isArray(jobSpecCopy.job.run.placement.constraints)
+    ) {
+      jobSpecCopy.job.run.placement.constraints = jobSpecCopy.job.run.placement.constraints.filter(
+        ({ operator, attribute, value }: PlacementConstraint) =>
+          !(isEmpty(operator) && isEmpty(attribute) && isEmpty(value))
+      );
+      if (!jobSpecCopy.job.run.placement.constraints.length) {
+        delete jobSpecCopy.job.run.placement;
       }
     }
 
@@ -159,6 +180,12 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   const grantRuntimePrivileges =
     container === Container.Docker &&
     findNestedPropertyInObject(jobSpec, "job.run.docker.privileged");
+  const constraints = findNestedPropertyInObject(
+    jobSpec,
+    "job.run.placement.constraints"
+  );
+  const placementConstraints =
+    constraints && Array.isArray(constraints) ? constraints : [];
 
   return {
     jobId: jobSpec.job.id,
@@ -195,7 +222,8 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
       jobSpec,
       "schedule.concurrencyPolicy"
     ),
-    volumes: findNestedPropertyInObject(jobSpec, "job.run.volumes") || []
+    volumes: findNestedPropertyInObject(jobSpec, "job.run.volumes") || [],
+    placementConstraints
   };
 };
 
