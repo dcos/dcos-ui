@@ -1,6 +1,6 @@
 import {
   MetronomeSpecValidators,
-  validateFormLabels
+  validateSpec
 } from "../MetronomeJobValidators";
 import { JobOutput } from "../JobFormData";
 
@@ -1297,46 +1297,54 @@ describe("MetronomeSpecValidators", () => {
   });
 });
 
-describe("validateFormLabels", () => {
-  it("does not return error if labels are not present", () => {
-    const spec = {
-      job: {}
-    };
+describe("validateSpec", () => {
+  describe("for labels", () => {
+    it("does not return error if labels are not present", () => {
+      const spec = { job: {} };
 
-    expect(validateFormLabels(spec as any)).toEqual([]);
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
+
+    it("does not return error if labels contain no duplicate keys", () => {
+      const spec = { job: { labels: [["a", "b"], ["c", "d"]] } };
+
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
+
+    it("returns error if labels contain duplicate keys", () => {
+      const spec = { job: { labels: [["a", "b"], ["a", "d"]] } };
+      const message = "Cannot have multiple labels with the same key.";
+
+      expect(validateSpec(spec as any)).toEqual([
+        { path: ["job", "labels"], message },
+        { path: ["job", "labels", "0"], message },
+        { path: ["job", "labels", "1"], message }
+      ]);
+    });
   });
+  describe("for env vars", () => {
+    it("does not return error if vars are not present", () => {
+      const spec = { job: {} };
 
-  it("does not return error if labels contain no duplicate keys", () => {
-    const spec = {
-      job: {
-        labels: [["a", "b"], ["c", "d"]]
-      }
-    };
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
 
-    expect(validateFormLabels(spec as any)).toEqual([]);
-  });
+    it("does not return error if env vars contain no duplicate keys", () => {
+      const spec = { job: { run: { env: [["a", "b"], ["c", "d"]] } } };
 
-  it("returns error if labels contain duplicate keys", () => {
-    const spec = {
-      job: {
-        labels: [["a", "b"], ["a", "d"]]
-      }
-    };
-    const message = "Cannot have multiple labels with the same key.";
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
 
-    expect(validateFormLabels(spec as any)).toEqual([
-      {
-        path: ["job", "labels"],
-        message
-      },
-      {
-        path: ["job", "labels", "0"],
-        message
-      },
-      {
-        path: ["job", "labels", "1"],
-        message
-      }
-    ]);
+    it("returns error if labels contain duplicate keys", () => {
+      const spec = { job: { run: { env: [["a", "b"], ["a", "d"]] } } };
+      const message =
+        "Cannot have multiple environment variables with the same key.";
+
+      expect(validateSpec(spec as any)).toEqual([
+        { path: ["job", "run", "env"], message },
+        { path: ["job", "run", "env", "0"], message },
+        { path: ["job", "run", "env", "1"], message }
+      ]);
+    });
   });
 });
