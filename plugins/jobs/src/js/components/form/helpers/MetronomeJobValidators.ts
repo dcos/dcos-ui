@@ -7,6 +7,7 @@ import {
 } from "#SRC/js/utils/Util";
 
 import { JobOutput, FormError, UcrImageKind, JobSpec } from "./JobFormData";
+import { OperatorTypes } from "./Constants";
 
 type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 
@@ -488,6 +489,71 @@ export const MetronomeSpecValidators: MetronomeValidators = {
           message: i18nMark("Minimum value is 1")
         });
       }
+    }
+    return errors;
+  },
+
+  constraintsAreArray(formData: JobOutput) {
+    const placement = findNestedPropertyInObject(formData, "job.run.placement");
+    const errors = [];
+    if (placement && placement.constraints) {
+      if (!Array.isArray(placement.constraints)) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints"],
+          message: i18nMark("Constraints must be an array.")
+        });
+      }
+    }
+
+    return errors;
+  },
+
+  constraintsAreComplete(formData: JobOutput) {
+    const placement = findNestedPropertyInObject(formData, "job.run.placement");
+    const errors: FormError[] = [];
+    if (
+      placement &&
+      placement.constraints &&
+      Array.isArray(placement.constraints)
+    ) {
+      placement.constraints.forEach((constraint: any, i: number) => {
+        const { operator, attribute, value } = constraint;
+        if (operator == null || operator === "") {
+          errors.push({
+            path: [
+              "job",
+              "run",
+              "placement",
+              "constraints",
+              `${i}`,
+              "operator"
+            ],
+            message: i18nMark("Operator is required.")
+          });
+        }
+        if (attribute == null || attribute === "") {
+          errors.push({
+            path: [
+              "job",
+              "run",
+              "placement",
+              "constraints",
+              `${i}`,
+              "attribute"
+            ],
+            message: i18nMark("Field is required.")
+          });
+        }
+        if (
+          ((OperatorTypes as any)[operator] || {}).requiresValue &&
+          (value == null || value === "")
+        ) {
+          errors.push({
+            path: ["job", "run", "placement", "constraints", `${i}`, "value"],
+            message: i18nMark("Value is required.")
+          });
+        }
+      });
     }
     return errors;
   }
