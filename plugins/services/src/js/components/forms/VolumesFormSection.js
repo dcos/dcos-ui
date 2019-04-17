@@ -452,6 +452,10 @@ class VolumesFormSection extends Component {
             <Trans render="span">Add Volume</Trans>
           </AddButton>
         </div>
+        <MountService.Mount
+          type="CreateService:SingleContainerVolumes:VolumeConflicts"
+          data={data}
+        />
       </div>
     );
   }
