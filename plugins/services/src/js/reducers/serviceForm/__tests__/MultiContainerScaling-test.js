@@ -61,6 +61,14 @@ describe("MultiContainerScaling", function() {
       expect(MultiContainerScaling.JSONParser({})).toEqual(expectedObject);
     });
 
+    it("supports instances = 0", function() {
+      const expectedObject = [{ type: SET, value: 0, path: ["instances"] }];
+
+      expect(
+        MultiContainerScaling.JSONParser({ scaling: { instances: 0 } })
+      ).toEqual(expectedObject);
+    });
+
     it("populates instances and scaling.kind", function() {
       const expectedObject = [
         { type: SET, value: 2, path: ["instances"] },
