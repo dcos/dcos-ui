@@ -142,6 +142,7 @@ class HealthChecksFormSection extends Component {
                 min="0"
                 placeholder="60"
                 value={healthCheck.intervalSeconds}
+                autoFocus={Boolean(errors.intervalSeconds)}
               />
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
@@ -172,6 +173,7 @@ class HealthChecksFormSection extends Component {
                 min="0"
                 placeholder="20"
                 value={healthCheck.timeoutSeconds}
+                autoFocus={Boolean(errors.timeoutSeconds)}
               />
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
@@ -202,6 +204,7 @@ class HealthChecksFormSection extends Component {
                 min="0"
                 placeholder="3"
                 value={healthCheck.maxConsecutiveFailures}
+                autoFocus={Boolean(errors.maxConsecutiveFailures)}
               />
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
@@ -418,7 +421,8 @@ class HealthChecksFormSection extends Component {
             target="_blank"
           >
             More Information
-          </a>.
+          </a>
+          .
         </Trans>
       );
 
@@ -489,7 +493,8 @@ class HealthChecksFormSection extends Component {
           target="_blank"
         >
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 

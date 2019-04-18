@@ -61,7 +61,8 @@ class ContainerServiceFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -99,7 +100,8 @@ class ContainerServiceFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -146,7 +148,11 @@ class ContainerServiceFormSection extends Component {
           <FieldLabel>
             <Trans render="span">Container Name</Trans>
           </FieldLabel>
-          <FieldInput name={containerNamePath} value={containerName} />
+          <FieldInput
+            name={containerNamePath}
+            value={containerName}
+            autoFocus={Boolean(containerNameErrors)}
+          />
           <FieldError>{containerNameErrors}</FieldError>
         </FormGroup>
       </FormRow>
@@ -178,7 +184,11 @@ class ContainerServiceFormSection extends Component {
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(imageErrors)}>
             {this.getImageLabel()}
-            <FieldInput name={imagePath} value={image} />
+            <FieldInput
+              name={imagePath}
+              value={image}
+              autoFocus={Boolean(imageErrors)}
+            />
             <FieldHelp>
               <Trans render="span">
                 Enter a Docker image you want to run, e.g. nginx.
@@ -201,6 +211,7 @@ class ContainerServiceFormSection extends Component {
               step="any"
               type="number"
               value={findNestedPropertyInObject(data, cpusPath)}
+              autoFocus={Boolean(cpusErrors)}
             />
             <FieldError>{cpusErrors}</FieldError>
           </FormGroup>
@@ -219,6 +230,7 @@ class ContainerServiceFormSection extends Component {
               step="any"
               type="number"
               value={findNestedPropertyInObject(data, memPath)}
+              autoFocus={Boolean(memErrors)}
             />
             <FieldError>{memErrors}</FieldError>
           </FormGroup>
@@ -230,6 +242,7 @@ class ContainerServiceFormSection extends Component {
             <FieldTextarea
               name={cmdPath}
               value={findNestedPropertyInObject(data, cmdPath)}
+              autoFocus={Boolean(cmdErrors)}
             />
             <FieldHelp>
               <Trans render="span">

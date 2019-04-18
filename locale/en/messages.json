@@ -1202,6 +1202,7 @@
   "{completedSteps} out of {totalSteps} steps completed.": "",
   "{containerName} Path": "",
   "{errorMsg} Go to <0>insert permission string</0> to enter a permission manually.": "",
+  "{finalErrorCount} issues need addressing": "",
   "{issueCount} issues need addressing": "",
   "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration.": "",
   "{logName} Log is Currently Empty": "",
