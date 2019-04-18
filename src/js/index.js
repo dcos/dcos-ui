@@ -29,6 +29,8 @@ import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
 import RouterUtil from "./utils/RouterUtil";
 
+__webpack_public_path__ = window.resourceBaseUrl; // To support chunks when ui in runnigng not ont the root /
+
 const productIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/product-icons-sprite.svg");
 const systemIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/system-icons-sprite.svg");
 
