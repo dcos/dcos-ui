@@ -6,7 +6,14 @@ import {
   findNestedPropertyInObject
 } from "#SRC/js/utils/Util";
 
-import { JobOutput, FormError, UcrImageKind, JobSpec } from "./JobFormData";
+import {
+  JobOutput,
+  FormError,
+  UcrImageKind,
+  JobSpec,
+  ConstraintOperator,
+  PlacementConstraint
+} from "./JobFormData";
 import { OperatorTypes } from "./Constants";
 
 type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
@@ -61,10 +68,20 @@ const isUniqIn = <T>(list: T[]) =>
     i18nMark("Must be unique")
   );
 
+const isOnlyWhitespace = (str: string): boolean => {
+  if (!`${str}`.replace(/\s/g, "").length) {
+    return true;
+  }
+  return false;
+};
+
 export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
     const { run } = formData.job;
     const parameters = (run.docker && run.docker.parameters) || [];
+    const constraints =
+      findNestedPropertyInObject(formData, "job.run.placement.constraints") ||
+      [];
 
     // prettier-ignore
     return pipe(
@@ -119,6 +136,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       isString(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
       isString(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
       isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
+      isString(i => `job.run.placement.constraints.${i}.operator`, constraints.map((_: PlacementConstraint) => _.operator)),
+      isString(i => `job.run.placement.constraints.${i}.attribute`, constraints.map((_: PlacementConstraint) => _.attribute)),
+      isString(i => `job.run.placement.constraints.${i}.value`, constraints.map((_: PlacementConstraint) => _.value))
 
       // pipe only infers 10 steps, so we need a cast here
     )([]) as FormError[];
@@ -508,6 +528,39 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     return errors;
   },
 
+  constraintOperatorsArePermitted(formData: JobOutput) {
+    const placement = findNestedPropertyInObject(formData, "job.run.placement");
+    const errors: FormError[] = [];
+    if (
+      placement &&
+      placement.constraints &&
+      Array.isArray(placement.constraints)
+    ) {
+      placement.constraints.forEach((constraint: any, i: number) => {
+        if (
+          constraint.operator &&
+          !(
+            Object.values(ConstraintOperator).includes(constraint.operator) ||
+            constraint.operator === "EQ"
+          )
+        ) {
+          errors.push({
+            path: [
+              "job",
+              "run",
+              "placement",
+              "constraints",
+              `${i}`,
+              "operator"
+            ],
+            message: i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ.")
+          });
+        }
+      });
+    }
+    return errors;
+  },
+
   constraintsAreComplete(formData: JobOutput) {
     const placement = findNestedPropertyInObject(formData, "job.run.placement");
     const errors: FormError[] = [];
@@ -518,7 +571,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     ) {
       placement.constraints.forEach((constraint: any, i: number) => {
         const { operator, attribute, value } = constraint;
-        if (operator == null || operator === "") {
+        if (operator == null || operator === "" || isOnlyWhitespace(operator)) {
           errors.push({
             path: [
               "job",
@@ -531,7 +584,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
             message: i18nMark("Operator is required.")
           });
         }
-        if (attribute == null || attribute === "") {
+        if (
+          attribute == null ||
+          attribute === "" ||
+          isOnlyWhitespace(attribute)
+        ) {
           errors.push({
             path: [
               "job",
@@ -546,7 +603,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         }
         if (
           ((OperatorTypes as any)[operator] || {}).requiresValue &&
-          (value == null || value === "")
+          (value == null || value === "" || isOnlyWhitespace(value))
         ) {
           errors.push({
             path: ["job", "run", "placement", "constraints", `${i}`, "value"],
