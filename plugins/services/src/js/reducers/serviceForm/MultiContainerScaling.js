@@ -16,10 +16,7 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === "instances") {
-      this.internalState.instances = parseInt(value, 10);
-      if (this.internalState.instances == null) {
-        return null;
-      }
+      this.internalState.instances = parseInt(value, 10) || 0;
 
       return this.internalState;
     }
@@ -42,7 +39,7 @@ module.exports = {
     }
 
     const transactions = [];
-    if (state.scaling.instances) {
+    if (Number.isInteger(state.scaling.instances)) {
       transactions.push(
         new Transaction(["instances"], state.scaling.instances)
       );
