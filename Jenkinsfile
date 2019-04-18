@@ -57,19 +57,6 @@ pipeline {
       }
     }
 
-
-    stage("Lint Commits") {
-      when {
-        expression {
-          !master_branches.contains(BRANCH_NAME)
-        }
-      }
-
-      steps {
-        sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
-      }
-    }
-
     stage("Build") {
       steps {
         sh "npm run build"
