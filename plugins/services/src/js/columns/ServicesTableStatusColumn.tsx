@@ -1,15 +1,19 @@
 import * as React from "react";
 import { Plural, Trans } from "@lingui/macro";
 import { TextCell } from "@dcos/ui-kit";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import { SortDirection } from "#PLUGINS/services/src/js/types/SortDirection";
 import ServiceStatusProgressBar from "#PLUGINS/services/src/js/components/ServiceStatusProgressBar";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceStatusIcon from "../components/ServiceStatusIcon";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
+// import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+const columnWidthsStorageKey = "servicesTableColWidths";
 
 function statusCountsToTooltipContent(counts: {
   total: number;
@@ -113,4 +117,8 @@ export function statusCategorySorter(a: string, b: string): number {
     ServiceStatus.toCategoryPriority(b as ServiceStatus.StatusCategory) -
     ServiceStatus.toCategoryPriority(a as ServiceStatus.StatusCategory)
   );
+}
+
+export function statusWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).status;
 }

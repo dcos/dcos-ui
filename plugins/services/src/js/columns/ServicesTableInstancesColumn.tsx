@@ -2,7 +2,9 @@ import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { NumberCell } from "@dcos/ui-kit";
 import { Tooltip } from "reactjs-components";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
@@ -10,6 +12,8 @@ import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
+// import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+const columnWidthsStorageKey = "servicesTableColWidths";
 
 const ServiceInstances = React.memo(
   ({
@@ -62,4 +66,8 @@ export function instancesSorter(
   sortDirection: SortDirection
 ): any {
   return ServiceTableUtil.sortData(data, sortDirection, "instances");
+}
+
+export function instancesWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).instances;
 }

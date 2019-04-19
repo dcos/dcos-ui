@@ -1,12 +1,16 @@
 import * as React from "react";
 import { NumberCell } from "@dcos/ui-kit";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import Units from "#SRC/js/utils/Units";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
+// import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+const columnWidthsStorageKey = "servicesTableColWidths";
 
 export const ServiceCPU = React.memo(({ resource }: { resource: string }) => (
   <NumberCell>
@@ -25,4 +29,8 @@ export function cpuSorter(
   sortDirection: SortDirection
 ): any {
   return ServiceTableUtil.sortData(data, sortDirection, "cpus");
+}
+
+export function cpuWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).cpu;
 }

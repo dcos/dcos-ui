@@ -6,13 +6,17 @@ import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
 import { SortDirection } from "plugins/services/src/js/types/SortDirection";
 import ServiceTableUtil from "../utils/ServiceTableUtil";
+// import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+const columnWidthsStorageKey = "servicesTableColWidths";
 
 const ServiceName = React.memo(
   ({
@@ -160,4 +164,8 @@ export function nameSorter(
   sortDirection: SortDirection
 ): any {
   return ServiceTableUtil.sortData(data, sortDirection, "name");
+}
+
+export function nameWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).name;
 }
