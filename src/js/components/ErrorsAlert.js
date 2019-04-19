@@ -47,7 +47,7 @@ const ErrorsAlert = function(props) {
   const errorItems = errorMessages.map((message, index) => {
     return (
       <li key={index} className="errorsAlert-listItem">
-        {message}.
+        {message}
       </li>
     );
   });

@@ -1,11 +1,11 @@
-export interface Job<Labels, Env> {
+export interface Job<Labels, Env, Secrets> {
   id: string;
   description?: string;
   labels?: Labels;
-  run: JobRun<Env>;
+  run: JobRun<Env, Secrets>;
 }
 
-export interface JobRun<Env> {
+export interface JobRun<Env, Secrets> {
   args?: string[];
   artifacts?: JobArtifact[];
   cmd?: string;
@@ -23,14 +23,12 @@ export interface JobRun<Env> {
   restart?: JobRestart;
   activeDeadlineSeconds?: number;
   volumes?: Array<JobVolume | SecretVolume>;
-  secrets?: {
-    [key: string]: FileBasedSecret;
-  };
+  secrets?: Secrets;
 }
 
-export type JobFormData = Job<ArrayLabels, EnvModel>;
+export type JobFormData = Job<ArrayLabels, EnvModel, SecretModel>;
 
-export type JobOutputData = Job<JobLabels, JobEnv>;
+export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
 export interface JobOutput {
   job: JobOutputData;
@@ -64,6 +62,7 @@ export interface JobSpec {
 }
 
 export type EnvModel = Array<[string, string]>;
+export type SecretModel = Array<[string, string, string]>;
 
 export interface FormOutput {
   jobId: string;
@@ -93,6 +92,7 @@ export interface FormOutput {
   retryTime?: number;
   labels?: ArrayLabels;
   env: EnvModel;
+  secrets?: SecretModel;
   artifacts?: JobArtifact[];
 }
 
@@ -190,6 +190,10 @@ export interface SecretVolume {
 
 export interface FileBasedSecret {
   source: string;
+}
+
+export interface JobSecrets {
+  [key: string]: FileBasedSecret;
 }
 
 export interface FormError {

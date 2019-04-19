@@ -1,3 +1,4 @@
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import {
   deepCopy,
   findNestedPropertyInObject,
@@ -121,7 +122,7 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
     schedule: jobSpecCopy.schedule
   };
 
-  return jobOutput;
+  return Hooks.applyFilter("jobSpecToOutputParser", jobOutput);
 }
 
 export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
