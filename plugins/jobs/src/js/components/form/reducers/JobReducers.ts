@@ -1,3 +1,4 @@
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import { deepCopy } from "#SRC/js/utils/Util";
 
 import { JobSpec, Action, JobFormActionType } from "../helpers/JobFormData";
@@ -86,7 +87,11 @@ export function jobFormOutputToSpecReducer(
 ): JobSpec {
   const arrayPath = action.path.split(".");
   const propToChange = arrayPath[arrayPath.length - 1];
-  const reducer = combinedReducers[propToChange] || defaultReducer;
+  const customReducers = Hooks.applyFilter(
+    "jobOutputReducers",
+    combinedReducers
+  );
+  const reducer = customReducers[propToChange] || defaultReducer;
   const updateFunction = reducer[action.type];
 
   if (!updateFunction || typeof updateFunction !== "function") {

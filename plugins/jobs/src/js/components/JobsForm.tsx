@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
-import { MountService } from "foundation-ui";
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import classNames from "classnames";
 import * as React from "react";
 
@@ -56,22 +56,6 @@ interface NavigationItem {
 }
 
 class JobModalForm extends React.Component<JobFormProps> {
-  static navigationItems: NavigationItem[] = [
-    { id: "general", key: "general", label: i18nMark("General") },
-    { id: "container", key: "container", label: i18nMark("Container Runtime") },
-    { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
-    { id: "environment", key: "environment", label: i18nMark("Environment") },
-    { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
-  ];
-
-  static tabList = JobModalForm.navigationItems.map(item => (
-    <TabButton
-      id={item.id}
-      label={<Trans render="span" id={item.label} />}
-      key={item.key}
-    />
-  ));
-
   constructor(props: Readonly<JobFormProps>) {
     super(props);
 
@@ -83,6 +67,25 @@ class JobModalForm extends React.Component<JobFormProps> {
     this.getJSONEditorData = this.getJSONEditorData.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
+    this.getFormOutput = this.getFormOutput.bind(this);
+  }
+
+  getNavigationItems(): NavigationItem[] {
+    return [
+      { id: "general", key: "general", label: i18nMark("General") },
+      {
+        id: "container",
+        key: "container",
+        label: i18nMark("Container Runtime")
+      },
+      { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
+      { id: "environment", key: "environment", label: i18nMark("Environment") },
+      {
+        id: "run_config",
+        key: "runConfig",
+        label: i18nMark("Run Configuration")
+      }
+    ];
   }
 
   getJSONEditorData(jobSpec: JobSpec): JobOutput {
@@ -147,19 +150,122 @@ class JobModalForm extends React.Component<JobFormProps> {
     };
   }
 
+  getTabContent() {
+    const { jobSpec, errors, showAllErrors, i18n } = this.props;
+    const formOutput = this.getFormOutput(jobSpec);
+    const translatedErrors = translateErrorMessages(errors, i18n);
+    const pluginTabProps = {
+      errors: translatedErrors,
+      data: formOutput,
+      pathMapping: ServiceErrorPathMapping,
+      hideTopLevelErrors: !showAllErrors,
+      showErrors: showAllErrors,
+      onAddItem: this.handleAddItem,
+      onRemoveItem: this.handleRemoveItem
+    };
+
+    const tabs = [
+      // tslint:disable
+      (<TabView id="general" key="general">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <GeneralFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+        />
+      </TabView>),
+      (<TabView id="container" key="container">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <ContainerFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>),
+      (<TabView id="schedule" key="schedule">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <ScheduleFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+        />
+      </TabView>),
+      (<TabView id="environment" key="environment">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <EnvironmentFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>),
+      (<TabView id="run_config" key="run_config">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <RunConfigFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>)
+      // tslint:enable
+    ];
+
+    const result = Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
+    return result;
+  }
+
+  getFormOutput(jobSpec: JobSpec) {
+    return Hooks.applyFilter(
+      "jobSpecToFormOutputParser",
+      jobSpecToFormOutputParser(jobSpec),
+      jobSpec
+    );
+  }
+
   render() {
     const {
       activeTab,
       handleTabChange,
       isJSONModeActive,
       jobSpec,
-      errors,
-      showAllErrors,
-      i18n
+      errors
     } = this.props;
     const jobJSON = this.getJSONEditorData(jobSpec);
-    const formOutput = jobSpecToFormOutputParser(jobSpec);
-    const translatedErrors = translateErrorMessages(errors, i18n);
+    const tabList = Hooks.applyFilter(
+      "createJobTabList",
+      this.getNavigationItems()
+    ).map((item: NavigationItem) => (
+      <TabButton
+        id={item.id}
+        label={<Trans render="span" id={item.label} />}
+        key={item.key}
+      />
+    ));
 
     const jsonEditorPlaceholderClasses = classNames(
       "modal-full-screen-side-panel-placeholder",
@@ -184,84 +290,8 @@ class JobModalForm extends React.Component<JobFormProps> {
                   handleTabChange={handleTabChange}
                   vertical={true}
                 >
-                  <TabButtonList>{JobModalForm.tabList}</TabButtonList>
-                  <TabViewList>
-                    <TabView id="general">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <GeneralFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                      />
-                    </TabView>
-                    <TabView id="container">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <ContainerFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                        onAddItem={this.handleAddItem}
-                        onRemoveItem={this.handleRemoveItem}
-                      />
-                    </TabView>
-                    <TabView id="schedule">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <ScheduleFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                      />
-                    </TabView>
-                    <TabView id="environment">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <MountService.Mount
-                        type="CreateJob:EnvironmentSection"
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                        onAddItem={this.handleAddItem}
-                        onRemoveItem={this.handleRemoveItem}
-                      >
-                        <EnvironmentFormSection
-                          formData={formOutput}
-                          errors={translatedErrors}
-                          showErrors={showAllErrors}
-                          onAddItem={this.handleAddItem}
-                          onRemoveItem={this.handleRemoveItem}
-                        />
-                      </MountService.Mount>
-                    </TabView>
-                    <TabView id="run_config">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <RunConfigFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                        onAddItem={this.handleAddItem}
-                        onRemoveItem={this.handleRemoveItem}
-                      />
-                    </TabView>
-                  </TabViewList>
+                  <TabButtonList>{tabList}</TabButtonList>
+                  <TabViewList>{this.getTabContent()}</TabViewList>
                 </Tabs>
               </form>
             </div>
