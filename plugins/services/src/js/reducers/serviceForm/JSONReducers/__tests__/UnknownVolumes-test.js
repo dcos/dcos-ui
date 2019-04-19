@@ -2,10 +2,10 @@ const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const UnknownVolumes = require("../UnknownVolumes");
 
 describe("UnknownVolumes", function() {
-  describe("#JSONParser", function() {
+  describe("#UnknownVolumesJSONParser", function() {
     describe("with empty input", function() {
       it("returns an empty array", function() {
-        expect(UnknownVolumes.JSONParser({})).toEqual([]);
+        expect(UnknownVolumes.UnknownVolumesJSONParser({})).toEqual([]);
       });
     });
 
@@ -29,7 +29,9 @@ describe("UnknownVolumes", function() {
               ]
             }
           };
-          expect(UnknownVolumes.JSONParser(externalVolume)).toEqual([]);
+          expect(
+            UnknownVolumes.UnknownVolumesJSONParser(externalVolume)
+          ).toEqual([]);
         });
       });
 
@@ -46,7 +48,9 @@ describe("UnknownVolumes", function() {
               ]
             }
           };
-          expect(UnknownVolumes.JSONParser(persistentVolume)).toEqual([]);
+          expect(
+            UnknownVolumes.UnknownVolumesJSONParser(persistentVolume)
+          ).toEqual([]);
         });
       });
 
@@ -63,7 +67,9 @@ describe("UnknownVolumes", function() {
               ]
             }
           };
-          expect(UnknownVolumes.JSONParser(dockerVolume)).toEqual([]);
+          expect(UnknownVolumes.UnknownVolumesJSONParser(dockerVolume)).toEqual(
+            []
+          );
         });
       });
     });
@@ -79,15 +85,17 @@ describe("UnknownVolumes", function() {
             ]
           }
         };
-        expect(UnknownVolumes.JSONParser(unknownVolumes)).toEqual([
-          {
-            type: ADD_ITEM,
-            value: {
-              containerPath: "/dev/null"
-            },
-            path: ["unknownVolumes"]
-          }
-        ]);
+        expect(UnknownVolumes.UnknownVolumesJSONParser(unknownVolumes)).toEqual(
+          [
+            {
+              type: ADD_ITEM,
+              value: {
+                containerPath: "/dev/null"
+              },
+              path: ["unknownVolumes"]
+            }
+          ]
+        );
       });
     });
 
@@ -115,22 +123,24 @@ describe("UnknownVolumes", function() {
             ]
           }
         };
-        expect(UnknownVolumes.JSONParser(unknownVolumes)).toEqual([
-          {
-            type: ADD_ITEM,
-            value: {
-              containerPath: "/dev/null1"
+        expect(UnknownVolumes.UnknownVolumesJSONParser(unknownVolumes)).toEqual(
+          [
+            {
+              type: ADD_ITEM,
+              value: {
+                containerPath: "/dev/null1"
+              },
+              path: ["unknownVolumes"]
             },
-            path: ["unknownVolumes"]
-          },
-          {
-            type: ADD_ITEM,
-            value: {
-              containerPath: "/dev/null2"
-            },
-            path: ["unknownVolumes"]
-          }
-        ]);
+            {
+              type: ADD_ITEM,
+              value: {
+                containerPath: "/dev/null2"
+              },
+              path: ["unknownVolumes"]
+            }
+          ]
+        );
       });
     });
   });

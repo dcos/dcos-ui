@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { hashHistory } from "react-router";
 
 import EditFrameworkConfiguration from "#PLUGINS/services/src/js/pages/EditFrameworkConfiguration";
 import CreateServiceModal from "#PLUGINS/services/src/js/components/modals/CreateServiceModal";
@@ -19,7 +20,7 @@ class EditServiceModal extends Component {
 
     // Service not found
     if (!service) {
-      this.props.history.push("/services/404");
+      hashHistory.push("/services/404");
 
       return null;
     }

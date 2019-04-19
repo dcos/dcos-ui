@@ -5,7 +5,7 @@ const { SET } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerScaling", function() {
   describe("#JSONReducer", function() {
-    it("does not return anything with an empty back", function() {
+    it("does not return anything with an empty batch", function() {
       const batch = new Batch();
 
       expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({}))).toEqual(
@@ -37,6 +37,19 @@ describe("MultiContainerScaling", function() {
       ).toEqual({
         kind: "wrong",
         instances: 1
+      });
+    });
+
+    it("returns scaling block when instances == 0", () => {
+      let batch = new Batch();
+
+      batch = batch.add(new Transaction(["instances"], 0));
+
+      expect(
+        batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
+      ).toEqual({
+        kind: "fixed",
+        instances: 0
       });
     });
   });
