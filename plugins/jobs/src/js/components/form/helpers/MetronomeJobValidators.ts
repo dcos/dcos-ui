@@ -28,6 +28,9 @@ const validation = <T>(
     )
   );
 
+const stringMsg = i18nMark("Must be a string.");
+const presentMsg = i18nMark("Must be present.");
+
 const isBoolean = validation<boolean | undefined>(
   x => x === undefined || typeof x === "boolean",
   i18nMark("Must be a boolean.")
@@ -40,13 +43,10 @@ const isObject = validation<object | undefined>(
   x => x === undefined || isObjectUtil(x),
   i18nMark("Must be an object.")
 );
-const isPresent = validation<any>(
-  x => x !== undefined && x !== "",
-  i18nMark("Must be present.")
-);
+const isPresent = validation<any>(x => x !== undefined && x !== "", presentMsg);
 const isString = validation<string | undefined>(
   x => x === undefined || typeof x === "string",
-  i18nMark("Must be a string.")
+  stringMsg
 );
 
 const allUniq = validation<any[]>(
@@ -499,26 +499,56 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 // field you'd run into trouble when using a POJO as the backing model.
 export function validateSpec(jobSpec: JobSpec): FormError[] {
   const run = jobSpec.job.run || {};
-  const envs = (run.env || []).map(([key]) => key);
   const envsMsg = i18nMark(
     "Cannot have multiple environment variables with the same key."
   );
   const labels = (jobSpec.job.labels || []).map(([k]) => k);
   const labelsMsg = i18nMark("Cannot have multiple labels with the same key.");
 
+  const envVarsErrors: FormError[] = [];
+  const map: { [key: string]: number[] } = {};
+  (run.env || []).forEach(([k, v], i) => {
+    if (k) {
+      if (map[k] != null) {
+        map[k].push(i);
+      } else {
+        map[k] = [i];
+      }
+    }
+    if (v && !isObjectUtil(v)) {
+      if (k == null || k === "") {
+        envVarsErrors.push({
+          path: ["job", "run", "env", `${i}`],
+          message: presentMsg
+        });
+      }
+      if (typeof v !== "string") {
+        envVarsErrors.push({
+          path: ["job", "run", "env", k, "value", `${i}`],
+          message: stringMsg
+        });
+      }
+    }
+    if (k && (v == null || v === "")) {
+      envVarsErrors.push({
+        path: ["job", "run", "env", k, "value", `${i}`],
+        message: presentMsg
+      });
+    }
+  });
+  Object.keys(map).forEach(envVarKey => {
+    if (map[envVarKey].length > 1) {
+      map[envVarKey].forEach(index => {
+        envVarsErrors.push({
+          path: ["job", "run", "env", `${index}`],
+          message: envsMsg
+        });
+      });
+    }
+  });
+
   return pipe(
     allUniq(_ => "job.labels", [labels], labelsMsg),
-    allUniq(_ => "job.run.env", [envs], envsMsg),
-
-    // all envs with a value need a key to be present
-    isPresent(
-      i => `job.run.env.${i}`,
-      (run.env || []).filter(([_, v]) => v).map(([k]) => k)
-    ),
-    isString(i => `job.run.env.${i}`, envs),
-    isString(i => `job.run.env.${i}`, envs),
-
-    isUniqIn(envs)(i => `job.run.env.${i}`, envs, envsMsg),
     isUniqIn(labels)(i => `job.labels.${i}`, labels, labelsMsg)
-  )([]);
+  )([]).concat(envVarsErrors);
 }
