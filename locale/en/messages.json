@@ -1115,6 +1115,7 @@
   "You have several protocol options. <0>More Information</0>.": "",
   "You must specify a command, an argument or a container with an image.": "",
   "You need at least one package repository with some packages to be able to install packages. For more <0>information on repositories</0>.": "",
+  "Your computer seems to be offline. We will keep trying to reconnect.": "",
   "Zone": "",
   "Zones": "",
   "and": "",
