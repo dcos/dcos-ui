@@ -808,6 +808,22 @@ describe("Service Form Modal", function() {
           );
         });
       });
+
+      it("Should show asterisk next to Container Image if Docker is selected", function() {
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("bottom");
+        cy.get(".flex-align-items-center")
+          .contains("Docker")
+          .click();
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("top");
+        cy.get(".form-group-heading")
+          .contains("Container Image")
+          .parents(".form-group-heading")
+          .should("contain", "*");
+      });
     });
 
     context("Service: Placement", function() {

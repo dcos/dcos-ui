@@ -1,7 +1,6 @@
-const mockRequest = jest.fn(() => of("test"));
-jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
-}));
+import { request } from "@dcos/http-service";
+jest.mock("@dcos/http-service");
+const mockRequest = request as jest.Mock;
 
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
 // tslint:disable:no-submodule-imports
@@ -112,6 +111,8 @@ describe("MetronomeClient", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+
+    mockRequest.mockReturnValue(of({}));
   });
 
   describe("#createJob", () => {
@@ -207,13 +208,11 @@ describe("MetronomeClient", () => {
 
   describe("#fetchJobs", () => {
     it("makes a request", () => {
-      mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalledWith(
         `${
@@ -338,6 +337,7 @@ describe("MetronomeClient", () => {
     it(
       "sends 2 requests if schedule is present",
       observe(() => {
+        mockRequest.mockReturnValue(of({}));
         const {
           job: { id }
         } = createUpdateWithSchedule;
@@ -350,6 +350,7 @@ describe("MetronomeClient", () => {
     it(
       "sends schedule request to correct URL if schedule is present",
       observe(() => {
+        mockRequest.mockReturnValue(of({}));
         const {
           job: { id }
         } = createUpdateWithSchedule;
@@ -369,6 +370,7 @@ describe("MetronomeClient", () => {
     it(
       "sends schedule request with correct data if schedule is present",
       observe(() => {
+        mockRequest.mockReturnValue(of({}));
         const {
           job: { id }
         } = createUpdateWithSchedule;
@@ -479,11 +481,13 @@ describe("MetronomeClient", () => {
 
   describe("#updateSchedule", () => {
     it("makes a request", () => {
+      mockRequest.mockReturnValue(of({}));
       updateSchedule(jobId, scheduleData);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
+      mockRequest.mockReturnValue(of({}));
       updateSchedule(jobId, scheduleData);
       expect(mockRequest).toHaveBeenCalledWith(
         `${Config.metronomeAPI}/v1/jobs/${jobId}/schedules/my-schedule-data`,
@@ -492,6 +496,7 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct method", () => {
+      mockRequest.mockReturnValue(of({}));
       updateSchedule(jobId, scheduleData);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "PUT",

@@ -46,7 +46,7 @@ module.exports = {
   globals: {
     __DEV__: true,
     "ts-jest": {
-      useBabelrc: true
+      babelConfig: true
     }
   },
   // TODO: split up transforms
@@ -56,7 +56,7 @@ module.exports = {
   },
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
-  testRegex: "/__tests__/.*\\-test\\.(es6|js|ts)$",
+  testRegex: "/__tests__/.*\\-test\\.(es6|js|tsx?)$",
   moduleFileExtensions: ["js", "json", "es6", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
