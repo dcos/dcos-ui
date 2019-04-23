@@ -1,1 +1,60 @@
-{}
+{
+  "labels": {
+    "DCOS_SERVICE_NAME": "{{ui.name}}",
+    "DCOS_SERVICE_SCHEME": "http",
+    "DCOS_SERVICE_PORT_INDEX": "0"
+  },
+  "id": "/tenant-web/web-ui",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": "sed -i -e 's/\\/assets/\\.\\/assets/g' dist/index.html ; \\\nsed -i -e 's~<head>~<head><script  type=\"text/javascript\">window.resourceBaseUrl = \"/service/{{ui.name}}/assets/\"</script>~g' dist/index.html ; \\\nsed -i -e 's~process.env.MARATHON_NAME~\"{{mom.name}}\"~g' dist/index.html ; \\\nsed -i -e 's~process.env.MARATHON_API_PREFIX~\"/service/{{mom.name}}/v2\"~g' dist/index.html ; \\\npython3 -m http.server --directory dist --bind 0.0.0.0 8080",
+  "container": {
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 0,
+        "protocol": "tcp",
+        "servicePort": 10000,
+        "name": "ui"
+      }
+    ],
+    "type": "MESOS",
+    "volumes": [],
+    "docker": {
+      "image": "python:3",
+      "forcePullImage": false,
+      "parameters": []
+    }
+  },
+  "cpus": 0.1,
+  "disk": 0,
+  "fetch": [
+    {
+      "uri": "{{resource.assets.uri.dcos-ui-bundle}}",
+      "extract": true,
+      "executable": false,
+      "cache": false
+    }
+  ],
+  "instances": 1,
+  "maxLaunchDelaySeconds": 300,
+  "mem": 128,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 1
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "constraints": []
+}
