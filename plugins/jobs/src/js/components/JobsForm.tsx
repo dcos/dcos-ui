@@ -165,8 +165,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     };
 
     const tabs = [
-      // tslint:disable
-      (<TabView id="general" key="general">
+      <TabView id="general" key="general">
         <ErrorsAlert
           errors={translatedErrors}
           pathMapping={ServiceErrorPathMapping}
@@ -177,8 +176,8 @@ class JobModalForm extends React.Component<JobFormProps> {
           errors={translatedErrors}
           showErrors={showAllErrors}
         />
-      </TabView>),
-      (<TabView id="container" key="container">
+      </TabView>,
+      <TabView id="container" key="container">
         <ErrorsAlert
           errors={translatedErrors}
           pathMapping={ServiceErrorPathMapping}
@@ -191,8 +190,8 @@ class JobModalForm extends React.Component<JobFormProps> {
           onAddItem={this.handleAddItem}
           onRemoveItem={this.handleRemoveItem}
         />
-      </TabView>),
-      (<TabView id="schedule" key="schedule">
+      </TabView>,
+      <TabView id="schedule" key="schedule">
         <ErrorsAlert
           errors={translatedErrors}
           pathMapping={ServiceErrorPathMapping}
@@ -203,8 +202,8 @@ class JobModalForm extends React.Component<JobFormProps> {
           errors={translatedErrors}
           showErrors={showAllErrors}
         />
-      </TabView>),
-      (<TabView id="environment" key="environment">
+      </TabView>,
+      <TabView id="environment" key="environment">
         <ErrorsAlert
           errors={translatedErrors}
           pathMapping={ServiceErrorPathMapping}
@@ -217,8 +216,8 @@ class JobModalForm extends React.Component<JobFormProps> {
           onAddItem={this.handleAddItem}
           onRemoveItem={this.handleRemoveItem}
         />
-      </TabView>),
-      (<TabView id="run_config" key="run_config">
+      </TabView>,
+      <TabView id="run_config" key="run_config">
         <ErrorsAlert
           errors={translatedErrors}
           pathMapping={ServiceErrorPathMapping}
@@ -231,8 +230,7 @@ class JobModalForm extends React.Component<JobFormProps> {
           onAddItem={this.handleAddItem}
           onRemoveItem={this.handleRemoveItem}
         />
-      </TabView>)
-      // tslint:enable
+      </TabView>
     ];
 
     const result = Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
