@@ -1,4 +1,31 @@
 {
   "type": "object",
-  "properties": {}
+  "properties": {
+    "ui": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "dcos-ui marathon app name",
+          "required": true,
+          "default": "dcos-ui"
+        }
+      },
+      "required": ["name"]
+    },
+    "mom": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Marathon/MoM app name",
+          "required": true,
+          "default": "marathon-user"
+        }
+      },
+      "required": ["name"]
+    }
+
+  },
+  "required": ["ui", "mom"]
 }
