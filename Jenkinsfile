@@ -7,7 +7,7 @@ def master_branches = ["master", ] as String[]
 pipeline {
   agent {
     dockerfile {
-      args  "--shm-size=1g"
+      args  "--shm-size=1g --entrypoint=''"
     }
   }
 
