@@ -463,8 +463,8 @@ If you want to test more runs you can change the number in `Jenkinsfile.reruns`.
 At the System Test level, you want to guarantee that your project works on the
 context of the whole system, in the case of DC/OS UI, that it works within DC/OS
 as a product. To do this, we want our tests to run against a DC/OS cluster.
-For example we want to test that when an slave fails in a cluster, the UI
-visually shows this slave failure. A different example is validating that
+For example we want to test that when an agent fails in a cluster, the UI
+visually shows this agent failure. A different example is validating that
 when a new service is installed on a cluster, it will show up in the services
 page.
 
