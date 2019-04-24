@@ -1,6 +1,13 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 
+const pushMock = jest.fn();
+jest.setMock("react-router", {
+  hashHistory: {
+    push: pushMock
+  }
+});
+
 jest.mock("#SRC/js/stores/DCOSStore");
 
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
@@ -28,14 +35,8 @@ describe("EditServiceModal", function() {
         return null;
       }
     };
-    const pushMock = jest.fn();
 
-    mount(
-      <EditServiceModal
-        history={{ push: pushMock }}
-        params={{ id: "/my-non-existant-service" }}
-      />
-    );
+    mount(<EditServiceModal params={{ id: "/my-non-existant-service" }} />);
 
     expect(pushMock).toHaveBeenCalled();
   });
