@@ -221,7 +221,7 @@
     "test:system": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/run-system-tests",
     "test:validate": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/validate-tests",
     "test:watch": "npm test -- --watch",
-    "test": "lingui compile && NODE_PATH=node_modules jest --config=jest.config.js --no-cache --forceExit --detectOpenHandles",
+    "test": "lingui compile && NODE_PATH=node_modules jest --config=jest.config.js --no-cache",
     "util:env:validate": "node ./scripts/validate-engine-versions.js",
     "util:lingui:extract-with-plugins": "./scripts/lingui-extract-with-plugins",
     "util:scaffold": "node ./scripts/ensureConfig.js",
