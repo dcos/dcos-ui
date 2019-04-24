@@ -23,8 +23,8 @@ describe("BannerPlugin", function() {
       thisHooks = SDK.Hooks;
 
       SDK.Hooks = {
-        addAction: jest.fn(),
-        addFilter: jest.fn()
+        addAction: jest.genMockFunction(),
+        addFilter: jest.genMockFunction()
       };
 
       BannerPlugin.initialize();
