@@ -7,7 +7,7 @@ let thisMockFn;
 describe("NotificationStore", function() {
   describe("updating values", function() {
     beforeEach(function() {
-      thisMockFn = jest.fn();
+      thisMockFn = jest.genMockFunction();
       NotificationStore.addChangeListener(NOTIFICATION_CHANGE, thisMockFn);
       NotificationStore.addNotification("foo", "bar", 1);
     });

@@ -18,7 +18,7 @@ describe("FilterButtons", function() {
       <FilterButtons
         filters={thisFilters}
         filterByKey={thisKey}
-        getfilterChangeHandler={jest.fn()}
+        getfilterChangeHandler={jest.genMockFunction()}
         itemList={thisItemList}
         selectedFilter="all"
       />

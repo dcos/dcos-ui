@@ -12,7 +12,7 @@ describe("PluginSDK", function() {
     describe("#reducers", function() {
       it("does not create a namespace in Store for plugin if no reducer returned", function() {
         // Mock a fake plugin
-        thisMockPlugin = jest.fn().mockImplementation(function() {
+        thisMockPlugin = jest.genMockFunction().mockImplementation(function() {
           // Don't return anything
         });
         PluginTestUtils.loadPlugins({
@@ -30,7 +30,7 @@ describe("PluginSDK", function() {
 
       it("creates a namespace in Store for plugin if reducer returned", function() {
         // Mock a fake plugin
-        thisMockPlugin = jest.fn().mockImplementation(function() {
+        thisMockPlugin = jest.genMockFunction().mockImplementation(function() {
           // Return reducer
           return function() {
             // Return an initial state
@@ -52,7 +52,7 @@ describe("PluginSDK", function() {
 
       it("throws an error if reducer is not a function", function() {
         // Mock a fake plugin
-        var mockPlugin = jest.fn().mockImplementation(function() {
+        var mockPlugin = jest.genMockFunction().mockImplementation(function() {
           // Return invalid reducer
           return {};
         });
@@ -73,7 +73,7 @@ describe("PluginSDK", function() {
 
   describe("#bootstrapPlugin", function() {
     beforeEach(function() {
-      thisMockPlugin = jest.fn();
+      thisMockPlugin = jest.genMockFunction();
 
       PluginTestUtils.loadPlugins({
         fakePlugin3: {
@@ -112,7 +112,7 @@ describe("PluginSDK", function() {
       var dispatch = SDK.dispatch;
       var pluginID = SDK.pluginID;
       var storeDispatch = store.dispatch;
-      store.dispatch = jest.fn();
+      store.dispatch = jest.genMockFunction();
       dispatch({
         type: "foo",
         data: "bar"
@@ -143,7 +143,7 @@ describe("PluginSDK", function() {
 
   describe("#store and dispatch", function() {
     beforeEach(function() {
-      var mockReducer = jest.fn();
+      var mockReducer = jest.genMockFunction();
       // Mock reducer
       mockReducer.mockImplementation(function(state, action) {
         if (!state || action.type === "reset") {
@@ -162,7 +162,7 @@ describe("PluginSDK", function() {
       var testArgs = {};
 
       // Mock a fake plugin
-      thisMockPlugin = jest.fn().mockImplementation(function(SDK) {
+      thisMockPlugin = jest.genMockFunction().mockImplementation(function(SDK) {
         testArgs.dispatch = SDK.dispatch;
 
         return mockReducer;

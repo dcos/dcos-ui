@@ -153,7 +153,7 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonDeployments", function() {
     beforeEach(function() {
-      thisHandler = jest.fn();
+      thisHandler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, thisHandler);
       MarathonStore.processMarathonDeployments([{ id: "deployment-id" }]);
     });
@@ -177,7 +177,7 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonInfoRequest", function() {
     beforeEach(function() {
-      thisHandler = jest.fn();
+      thisHandler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_INSTANCE_INFO_SUCCESS,
         thisHandler
@@ -196,7 +196,7 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonQueue", function() {
     beforeEach(function() {
-      thisHandler = jest.fn();
+      thisHandler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_QUEUE_CHANGE, thisHandler);
       MarathonStore.processMarathonQueue({
         queue: [
@@ -221,7 +221,7 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonServiceVersion", function() {
     it("emits correct event", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
         serviceID: "service-id",
@@ -233,7 +233,7 @@ describe("MarathonStore", function() {
     });
 
     it("passes correct service id", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
         serviceID: "service-id",
@@ -246,7 +246,7 @@ describe("MarathonStore", function() {
     });
 
     it("passes correct version id", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
         serviceID: "service-id",
@@ -261,7 +261,7 @@ describe("MarathonStore", function() {
 
   describe("#processMarathonServiceVersions", function() {
     it("emits correct event", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: "service-id",
@@ -272,7 +272,7 @@ describe("MarathonStore", function() {
     });
 
     it("converts versions list to Map", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: "service-id",
@@ -285,7 +285,7 @@ describe("MarathonStore", function() {
     });
 
     it("passes correct service id", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: "service-id",
@@ -307,7 +307,7 @@ describe("MarathonStore", function() {
     });
 
     it("emits a deployments change event", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, handler);
       MarathonStore.processMarathonDeploymentRollback({
         originalDeploymentID: "deployment-id"
@@ -316,7 +316,7 @@ describe("MarathonStore", function() {
     });
 
     it("emits a rollback success event", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
         handler
@@ -332,7 +332,7 @@ describe("MarathonStore", function() {
 
   describe("processMarathonDeploymentRollbackError", function() {
     it("emits a rollback error event", function() {
-      const handler = jest.fn();
+      const handler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
         handler

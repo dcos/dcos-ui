@@ -91,7 +91,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SEARCH_CHANGE,
           mockedFn
@@ -174,7 +174,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_PACKAGE_DESCRIBE_CHANGE,
           mockedFn
@@ -287,7 +287,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event upon success", function() {
-        const mockedFn = jest.fn();
+        const mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_LIST_VERSIONS_CHANGE,
           mockedFn
@@ -377,7 +377,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SERVICE_DESCRIBE_CHANGE,
           mockedFn
@@ -432,7 +432,7 @@ describe("CosmosPackagesStore", function() {
 
     describe("dispatcher", function() {
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SERVICE_UPDATE_SUCCESS,
           mockedFn
@@ -517,7 +517,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_LIST_CHANGE,
           mockedFn
@@ -558,7 +558,7 @@ describe("CosmosPackagesStore", function() {
   describe("#installPackage", function() {
     describe("dispatcher", function() {
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_INSTALL_SUCCESS,
           mockedFn
@@ -599,7 +599,7 @@ describe("CosmosPackagesStore", function() {
   describe("#uninstallPackage", function() {
     describe("dispatcher", function() {
       it("dispatches the correct event upon success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_UNINSTALL_SUCCESS,
           mockedFn
@@ -657,7 +657,7 @@ describe("CosmosPackagesStore", function() {
   describe("dispatcher", function() {
     describe("repositories fetch", function() {
       it("dispatches the correct event on success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORIES_SUCCESS,
           mockedFn
@@ -671,7 +671,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event on error", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORIES_ERROR,
           mockedFn
@@ -690,7 +690,7 @@ describe("CosmosPackagesStore", function() {
 
     describe("repository add", function() {
       it("dispatches the correct event on success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_ADD_SUCCESS,
           mockedFn
@@ -707,7 +707,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event on error", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_ADD_ERROR,
           mockedFn
@@ -726,7 +726,7 @@ describe("CosmosPackagesStore", function() {
 
     describe("repository delete", function() {
       it("dispatches the correct event on success", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_DELETE_SUCCESS,
           mockedFn
@@ -743,7 +743,7 @@ describe("CosmosPackagesStore", function() {
       });
 
       it("dispatches the correct event on error", function() {
-        var mockedFn = jest.fn();
+        var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_DELETE_ERROR,
           mockedFn
