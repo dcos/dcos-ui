@@ -29,13 +29,15 @@
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
       "@extension-kid/data-layer": ["packages/@extension-kid/data-layer"],
+      "@extension-kid/notification-service": ["packages/@extension-kid/notification-service"],
+      "@extension-kid/toast-notifications": ["packages/@extension-kid/toast-notifications"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
-      "#LOCALE": ["locale/*"],
+      "#LOCALE/*": ["locale/*"],
       "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
       "#PLUGINS/*": ["plugins/*"]
     }
   },
-  "include": ["src/**/*", "packages/**/*", "plugins/**/*"],
+  "include": ["src/**/*", "packages/**/*", "plugins/**/*", "locale/**/*"],
   "exclude": ["node_modules", "src/styles/**/*"]
 }

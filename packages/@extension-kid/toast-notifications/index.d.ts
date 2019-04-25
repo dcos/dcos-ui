@@ -24,6 +24,5 @@ export {
   ToastCallbackType,
   ToastContainerProps,
   ToastNotification,
-  ToastNotificationOptions,
-  ToastTranslatableText
+  ToastNotificationOptions
 };
