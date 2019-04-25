@@ -1,5 +1,5 @@
 var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var PodInstanceStatusFilter = require("../PodInstanceStatusFilter");
 var List = require("#SRC/js/structs/List");
 
