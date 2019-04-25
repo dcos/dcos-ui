@@ -413,6 +413,18 @@ You should see a browser open and your tests running.
 
 ![img](docs/images/cypress-tests-running.png?raw=true)
 
+#### Running a single integration test
+
+To run a single integration test, run the following command, where `Filename` is replaced by the name of the integration test you want to run, without `-cy` or `.js`.
+```
+npm run test:integration:local -- -s Filename
+```
+
+Example for running `../tests/pages/services/ServiceActions-cy.js`:
+```
+npm run test:integration:local -- -s ServiceActions
+```
+
 ### Example of an Integration test
 
 You can see examples of integration tests for actions that could be performed
@@ -481,6 +493,18 @@ npm run test:system:plugins:setup
 npm start
 # In a different shell
 npm run test:system:local
+```
+
+#### Running a single system test
+
+To run a single system test, run the following command, where `Filename` is replaced by the name of the system test you want to run, without `-cy` or `.js`.
+```
+npm run test:system:local -- -s Filename
+```
+
+Example for running `../system-tests/services/test-apps-cy.js`:
+```
+npm run test:system:local -- -s test-apps
 ```
 
 ## i18n
