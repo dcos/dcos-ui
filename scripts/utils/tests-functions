@@ -142,9 +142,11 @@ function teardown_merge() {
 }
 
 function teardown_proxy() {
-  echo "==> Killing Proxy…"
-  kill $PROXY_PID
-  echo "===> done."
+  if [ -z "$PROXY_PID" ]; then
+    echo "==> Killing Proxy…"
+    kill "$PROXY_PID"
+    echo "===> done."
+  fi
 }
 
 # sets up everything

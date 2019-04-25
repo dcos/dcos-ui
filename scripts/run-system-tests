@@ -49,7 +49,7 @@ TESTS_FOLDER="system-tests"
 
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
-while getopts 's:hknr:?' flag; do
+while getopts 's:hdnr:?' flag; do
   case "${flag}" in
   s) SEARCH=${OPTARG:-'*'} ;;
   h) CYPRESS_HEADED="true" ;;
@@ -89,26 +89,27 @@ CLUSTER_AUTH_INFO="${CLUSTER_AUTH_INFO}"
 INSTALLER_URL="${INSTALLER_URL:-}"
 TEST_UUID="${TEST_UUID:-system-tests-$(date +%s)}"
 
-if [ -z "$CLUSTER_URL" ]; then
-  echo "We need to have a cluster to run the system tests against"
-  exit 1
-fi
+if [ -z "$DEVELOPMENT" ]; then
+  if [ -z "$CLUSTER_URL" ]; then
+    echo "We need to have a cluster to run the system tests against"
+    exit 1
+  fi
 
-if [ -z "$(which dcos)" ]; then
-  echo "DC/OS CLI needs to be installed and setup, aborting"
-  exit 1
+  if [ -z "$(which dcos)" ]; then
+    echo "DC/OS CLI needs to be installed and setup, aborting"
+    exit 1
+  fi
+
+  # it takes a while until marathon actually responds after cluster started :(
+  echo "Pinging Marathon on ${CLUSTER_URL}…"
+  until $(curl -k --output /dev/null -H "Cookie: dcos-acs-auth-cookie=${CLUSTER_AUTH_TOKEN};" --silent --head --fail ${CLUSTER_URL}/service/marathon/ping); do
+    echo "Timed out, trying again in 30s…"
+    sleep 30
+  done
+  echo "Successfull pinged Marathon on ${CLUSTER_URL}."
 fi
 
 source "$SCRIPT_PATH/utils/tests-functions"
-
-# it takes a while until marathon actually responds after cluster started :(
-echo "Pinging Marathon on ${CLUSTER_URL}…"
-until $(curl -k --output /dev/null -H "Cookie: dcos-acs-auth-cookie=${CLUSTER_AUTH_TOKEN};" --silent --head --fail ${CLUSTER_URL}/service/marathon/ping); do
-  echo "Timed out, trying again in 30s…"
-  sleep 30
-done
-echo "Successfull pinged Marathon on ${CLUSTER_URL}."
-
 setup
 trap teardown EXIT
 run_tests
