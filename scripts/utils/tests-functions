@@ -152,37 +152,49 @@ function setup() {
   echo ""
   echo "=> Setup"
 
-  if [ -n "${NO_BUILD}" ]; then
-    return
-  fi
-
-  ## Setup proxy
-  if [ -n "$(lsof -i :"${PROXY_PORT}")" ]; then
-    echo "==> ERROR: Port ${PROXY_PORT} is already in use"
-    exit 1
-  fi
-  if [ ! -d "${PROJECT_ROOT}/dist" ]; then
-    echo "==> ERROR: no dist folder! forgot npm run build?"
-    exit 1
-  fi
-
-  if [ -n "${CLUSTER_URL}" ]; then
-    echo "==> Starting http-server, proxying ${CLUSTER_URL}, serving files from ./dist…"
-    npx http-server -sp "${PROXY_PORT}" --proxy "${CLUSTER_URL}" --proxy-secure=false "${PROJECT_ROOT}/dist" &
-    PROXY_PID=$!
-    CLUSTER_URL_PROXIED="${CLUSTER_URL}"
-    CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
-    echo "===> done (PID: ${PROXY_PID})."
+  if [ -n "${DEVELOPMENT}" ]; then
+    if [ -n "$(lsof -i :"${PROXY_PORT}")" ]; then
+      echo "==> Something serves on ${PROXY_PORT}, we take that as the proxy"
+    else
+      ## Start Development server
+      echo "==> Starting development server using npm start"
+      npm start &
+      PROXY_PID=$!
+      echo "==> Waiting for npm start to finish"
+      until $(curl -k --output /dev/null --silent --head --fail http://localhost:${PROXY_PORT}); do
+        echo "Timed out, trying again in 10s…"
+        sleep 10
+      done
+    fi
   else
-    echo "==> Starting http-server, serving files from ./dist…"
-    npx http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist" &
-    PROXY_PID=$!
-    echo "===> done (PID: ${PROXY_PID})."
-  fi
+    ## Setup proxy
+    if [ -n "$(lsof -i :"${PROXY_PORT}")" ]; then
+      echo "==> ERROR: Port ${PROXY_PORT} is already in use"
+      exit 1
+    fi
+    if [ ! -d "${PROJECT_ROOT}/dist" ]; then
+      echo "==> ERROR: no dist folder! forgot npm run build?"
+      exit 1
+    fi
 
-  ## Setup plugins if configured
-  if [ -n "${PLUGINS_PATH}" ]; then
-    setup_plugins
+    if [ -n "${CLUSTER_URL}" ]; then
+      echo "==> Starting http-server, proxying ${CLUSTER_URL}, serving files from ./dist…"
+      npx http-server -sp "${PROXY_PORT}" --proxy "${CLUSTER_URL}" --proxy-secure=false "${PROJECT_ROOT}/dist" &
+      PROXY_PID=$!
+      CLUSTER_URL_PROXIED="${CLUSTER_URL}"
+      CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
+      echo "===> done (PID: ${PROXY_PID})."
+    else
+      echo "==> Starting http-server, serving files from ./dist…"
+      npx http-server -sp "${PROXY_PORT}" "${PROJECT_ROOT}/dist" &
+      PROXY_PID=$!
+      echo "===> done (PID: ${PROXY_PID})."
+    fi
+
+    ## Setup plugins if configured
+    if [ -n "${PLUGINS_PATH}" ]; then
+      setup_plugins
+    fi
   fi
 
   ## Remove old results
