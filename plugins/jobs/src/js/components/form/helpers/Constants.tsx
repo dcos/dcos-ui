@@ -6,7 +6,7 @@ interface OperatorData {
   requiresValue: boolean;
   requiresEmptyValue: boolean;
   stringNumberValue: boolean;
-  tooltipContent: string | React.ReactNode | null;
+  tooltipContent: React.ReactNode | null;
   name: string;
   description: string;
 }

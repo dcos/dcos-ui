@@ -79,9 +79,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
     const { run } = formData.job;
     const parameters = (run.docker && run.docker.parameters) || [];
-    const constraints =
-      findNestedPropertyInObject(formData, "job.run.placement.constraints") ||
-      [];
+    const constraints = findNestedPropertyInObject(
+      formData,
+      "job.run.placement.constraints"
+    );
+    const arrayConstraints = Array.isArray(constraints) ? constraints : [];
 
     // prettier-ignore
     return pipe(
@@ -136,9 +138,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       isString(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
       isString(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
       isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
-      isString(i => `job.run.placement.constraints.${i}.operator`, constraints.map((_: PlacementConstraint) => _.operator)),
-      isString(i => `job.run.placement.constraints.${i}.attribute`, constraints.map((_: PlacementConstraint) => _.attribute)),
-      isString(i => `job.run.placement.constraints.${i}.value`, constraints.map((_: PlacementConstraint) => _.value))
+      isString(i => `job.run.placement.constraints.${i}.operator`, arrayConstraints.map((_: PlacementConstraint) => _.operator)),
+      isString(i => `job.run.placement.constraints.${i}.attribute`, arrayConstraints.map((_: PlacementConstraint) => _.attribute)),
+      isString(i => `job.run.placement.constraints.${i}.value`, arrayConstraints.map((_: PlacementConstraint) => _.value))
 
       // pipe only infers 10 steps, so we need a cast here
     )([]) as FormError[];
@@ -526,93 +528,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     }
 
     return errors;
-  },
-
-  constraintOperatorsArePermitted(formData: JobOutput) {
-    const placement = findNestedPropertyInObject(formData, "job.run.placement");
-    const errors: FormError[] = [];
-    if (
-      placement &&
-      placement.constraints &&
-      Array.isArray(placement.constraints)
-    ) {
-      placement.constraints.forEach((constraint: any, i: number) => {
-        if (
-          constraint.operator &&
-          !(
-            Object.values(ConstraintOperator).includes(constraint.operator) ||
-            constraint.operator === "EQ"
-          )
-        ) {
-          errors.push({
-            path: [
-              "job",
-              "run",
-              "placement",
-              "constraints",
-              `${i}`,
-              "operator"
-            ],
-            message: i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ.")
-          });
-        }
-      });
-    }
-    return errors;
-  },
-
-  constraintsAreComplete(formData: JobOutput) {
-    const placement = findNestedPropertyInObject(formData, "job.run.placement");
-    const errors: FormError[] = [];
-    if (
-      placement &&
-      placement.constraints &&
-      Array.isArray(placement.constraints)
-    ) {
-      placement.constraints.forEach((constraint: any, i: number) => {
-        const { operator, attribute, value } = constraint;
-        if (operator == null || operator === "" || isOnlyWhitespace(operator)) {
-          errors.push({
-            path: [
-              "job",
-              "run",
-              "placement",
-              "constraints",
-              `${i}`,
-              "operator"
-            ],
-            message: i18nMark("Operator is required.")
-          });
-        }
-        if (
-          attribute == null ||
-          attribute === "" ||
-          isOnlyWhitespace(attribute)
-        ) {
-          errors.push({
-            path: [
-              "job",
-              "run",
-              "placement",
-              "constraints",
-              `${i}`,
-              "attribute"
-            ],
-            message: i18nMark("Field is required.")
-          });
-        }
-        if (
-          ((OperatorTypes as any)[operator] || {}).requiresValue &&
-          (value == null || value === "" || isOnlyWhitespace(value))
-        ) {
-          errors.push({
-            path: ["job", "run", "placement", "constraints", `${i}`, "value"],
-            message: i18nMark("Value is required.")
-          });
-        }
-      });
-    }
-    return errors;
   }
 };
 
@@ -695,6 +610,75 @@ function checkVolumePropertyTypes(formData: JobSpec) {
   return errors;
 }
 
+export function constraintOperatorsArePermitted(formData: JobSpec) {
+  const placement = findNestedPropertyInObject(formData, "job.run.placement");
+  const errors: FormError[] = [];
+  if (
+    placement &&
+    placement.constraints &&
+    Array.isArray(placement.constraints)
+  ) {
+    placement.constraints.forEach((constraint: any, i: number) => {
+      if (
+        constraint.operator &&
+        !(
+          Object.values(ConstraintOperator).includes(constraint.operator) ||
+          constraint.operator === "EQ"
+        )
+      ) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "operator"],
+          message: i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ.")
+        });
+      }
+    });
+  }
+  return errors;
+}
+
+export function constraintsAreComplete(formData: JobSpec) {
+  const placement = findNestedPropertyInObject(formData, "job.run.placement");
+  const errors: FormError[] = [];
+  if (
+    placement &&
+    placement.constraints &&
+    Array.isArray(placement.constraints)
+  ) {
+    placement.constraints.forEach((constraint: any, i: number) => {
+      const { operator, attribute, value } = constraint;
+      if (!(attribute || operator || value)) {
+        return;
+      }
+      if (operator == null || operator === "" || isOnlyWhitespace(operator)) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "operator"],
+          message: i18nMark("Operator is required.")
+        });
+      }
+      if (
+        attribute == null ||
+        attribute === "" ||
+        isOnlyWhitespace(attribute)
+      ) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "attribute"],
+          message: i18nMark("Field is required.")
+        });
+      }
+      if (
+        ((OperatorTypes as any)[operator] || {}).requiresValue &&
+        (value == null || value === "" || isOnlyWhitespace(value))
+      ) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "value"],
+          message: i18nMark("Value is required.")
+        });
+      }
+    });
+  }
+  return errors;
+}
+
 // We sometimes need to validate the spec instead of the formOutput to make sure
 // that e.g. two ENV-params don't have the same key. we need to allow for
 // that UX-wise, as if you have `DB_HOST` and type `DB_HOSTNAME` in the next
@@ -748,6 +732,9 @@ export function validateSpec(jobSpec: JobSpec): FormError[] {
       });
     }
   });
+  const constraintErrors = constraintsAreComplete(jobSpec).concat(
+    constraintOperatorsArePermitted(jobSpec)
+  );
 
   const volumesErrors = volumesAreComplete(jobSpec).concat(
     checkVolumePropertyTypes(jobSpec)
@@ -758,5 +745,6 @@ export function validateSpec(jobSpec: JobSpec): FormError[] {
     isUniqIn(labels)(i => `job.labels.${i}`, labels, labelsMsg)
   )([])
     .concat(envVarsErrors)
-    .concat(volumesErrors);
+    .concat(volumesErrors)
+    .concat(constraintErrors);
 }
