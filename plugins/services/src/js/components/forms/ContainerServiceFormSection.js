@@ -105,7 +105,7 @@ class ContainerServiceFormSection extends Component {
 
     return (
       <FieldLabel>
-        <FormGroupHeading>
+        <FormGroupHeading required={this.isDockerContainer()}>
           <FormGroupHeadingContent primary={true}>
             <Trans render="span">Container Image</Trans>
           </FormGroupHeadingContent>
@@ -151,6 +151,13 @@ class ContainerServiceFormSection extends Component {
         </FormGroup>
       </FormRow>
     );
+  }
+
+  isDockerContainer() {
+    const { data, path } = this.props;
+    const containerTypePath = this.getFieldPath(path, "type");
+    const containerType = findNestedPropertyInObject(data, containerTypePath);
+    return containerType && containerType === "DOCKER";
   }
 
   render() {

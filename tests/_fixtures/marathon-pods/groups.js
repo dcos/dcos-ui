@@ -1,5 +1,5 @@
 const createFrameworks = () =>
-  [418, 200, 500, 204, 202, 203, 205, 206, 420, 421, 426, 503].map(
+  [318, 200, 500, 204, 202, 203, 205, 206, 320, 321, 326, 503].map(
     statusCode => ({
       id: `/${statusCode}-hello-world`,
       backoffFactor: 1.15,
