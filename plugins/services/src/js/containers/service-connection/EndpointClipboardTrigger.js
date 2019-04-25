@@ -14,6 +14,7 @@ class EndpointClipboardTrigger extends React.Component {
 
     return (
       <div className="code-copy-wrapper">
+        {command}
         <div className="code-copy-icon tight">
           <ClipboardTrigger
             className="clickable"
@@ -27,7 +28,6 @@ class EndpointClipboardTrigger extends React.Component {
             />
           </ClipboardTrigger>
         </div>
-        {command}
       </div>
     );
   }
