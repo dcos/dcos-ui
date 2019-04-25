@@ -1,3 +1,4 @@
+import { Container } from "inversify";
 import { BehaviorSubject, of } from "rxjs";
 import { marbles } from "rxjs-marbles/jest";
 
@@ -10,13 +11,20 @@ jest.mock("../streams", () => ({
 
 import { ToastNotification } from "@extension-kid/toast-notifications";
 
-import * as Notifications from "../notifications";
 import {
   EMPTY_ACTION,
   UIAction,
   UIActions,
   UIActionType
 } from "../types/UIAction";
+import { TYPES } from "#SRC/js/types/containerTypes";
+import { NotificationServiceType } from "@extension-kid/notification-service";
+import {
+  loadNotifications,
+  UIUpdateNotifications,
+  UIUpdateNotificationsType
+} from "../notifications";
+import { setupI18n } from "@lingui/core";
 
 mockAction$ = new BehaviorSubject<UIAction>(EMPTY_ACTION);
 const mockNS = {
@@ -24,11 +32,24 @@ const mockNS = {
 };
 
 describe("Notifications", () => {
+  let notifications: UIUpdateNotifications;
+  beforeAll(() => {
+    const container = new Container();
+    const i18n = setupI18n();
+    i18n._ = (id: string) => id;
+    container.bind(TYPES.I18n).toConstantValue(i18n);
+    container.bind(NotificationServiceType).toConstantValue(mockNS);
+    loadNotifications(container);
+
+    notifications = container.get<UIUpdateNotifications>(
+      UIUpdateNotificationsType
+    );
+  });
   beforeEach(() => {
     jest.resetAllMocks();
   });
   afterEach(() => {
-    Notifications.clearActiveNotifications();
+    notifications._clear();
   });
   describe("UIUpdatedNotification", () => {
     it(
@@ -42,8 +63,7 @@ describe("Notifications", () => {
             serverBuild: "master+v1.2.0"
           }
         });
-        //@ts-ignore
-        Notifications.setupUIUpdatedNotification(mockNS);
+        notifications.setupUIUpdatedNotification();
         m.flush();
 
         expect(mockNS.push).toHaveBeenCalled();
@@ -60,8 +80,7 @@ describe("Notifications", () => {
             serverBuild: "master+v1.0.1"
           }
         });
-        //@ts-ignore
-        Notifications.setupUIUpdatedNotification(mockNS);
+        notifications.setupUIUpdatedNotification();
         m.flush();
 
         expect(mockNS.push).not.toHaveBeenCalled();
@@ -78,8 +97,7 @@ describe("Notifications", () => {
             serverBuild: "master+v1.0.1"
           }
         });
-        //@ts-ignore
-        Notifications.setupUIUpdatedNotification(mockNS);
+        notifications.setupUIUpdatedNotification();
         m.flush();
 
         expect(mockNS.push).not.toHaveBeenCalled();
@@ -102,8 +120,7 @@ describe("Notifications", () => {
             serverBuild: "master+v1.2.0"
           }
         });
-        //@ts-ignore
-        Notifications.setupUIUpdatedNotification(mockNS);
+        notifications.setupUIUpdatedNotification();
         m.flush();
 
         expect(mockNS.push).toHaveBeenCalledTimes(1);
@@ -127,8 +144,8 @@ describe("Notifications", () => {
           .mockImplementation(() => {
             return;
           });
-        //@ts-ignore
-        Notifications.setupUIUpdatedNotification(mockNS);
+
+        notifications.setupUIUpdatedNotification();
         m.flush();
 
         expect(notification).not.toBeNull();
@@ -147,8 +164,7 @@ describe("Notifications", () => {
     });
 
     it("should push a notification when an update fails", () => {
-      //@ts-ignore
-      Notifications.setupUpdateFailedNotification(mockNS);
+      notifications.setupUpdateFailedNotification();
       mockAction$.next({
         type: UIActionType.Update,
         action: UIActions.Error,
@@ -162,8 +178,7 @@ describe("Notifications", () => {
     });
 
     it("should not push a notification when an update succeeds", () => {
-      //@ts-ignore
-      Notifications.setupUpdateFailedNotification(mockNS);
+      notifications.setupUpdateFailedNotification();
       mockAction$.next({
         type: UIActionType.Update,
         action: UIActions.Completed,
@@ -177,8 +192,7 @@ describe("Notifications", () => {
     });
 
     it("should have a primaryAction if UIAction has data", () => {
-      //@ts-ignore
-      Notifications.setupUpdateFailedNotification(mockNS);
+      notifications.setupUpdateFailedNotification();
       mockAction$.next({
         type: UIActionType.Update,
         action: UIActions.Error,
@@ -194,8 +208,7 @@ describe("Notifications", () => {
     });
 
     it("should not have a primaryAction if UIAction is missing data", () => {
-      //@ts-ignore
-      Notifications.setupUpdateFailedNotification(mockNS);
+      notifications.setupUpdateFailedNotification();
       mockAction$.next({
         type: UIActionType.Update,
         action: UIActions.Error,
@@ -213,8 +226,7 @@ describe("Notifications", () => {
     });
 
     it("should push a notification when a rollback fails", () => {
-      //@ts-ignore
-      Notifications.setupRollbackFailedNotification(mockNS);
+      notifications.setupRollbackFailedNotification();
       mockAction$.next({
         type: UIActionType.Reset,
         action: UIActions.Error,
@@ -227,8 +239,7 @@ describe("Notifications", () => {
     });
 
     it("should not push a notification when a rollback succeeds", () => {
-      //@ts-ignore
-      Notifications.setupRollbackFailedNotification(mockNS);
+      notifications.setupRollbackFailedNotification();
       mockAction$.next({
         type: UIActionType.Reset,
         action: UIActions.Completed,

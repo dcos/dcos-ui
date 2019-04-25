@@ -12,6 +12,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 import Breadcrumb from "../components/Breadcrumb";
+import Loader from "../components/Loader";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
 import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
@@ -41,14 +42,15 @@ function getMesosState() {
   };
 }
 
-const resourceTimeSeriesChartPromise = import(/* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart");
-const ResourceTimeSeriesChart = lazy(() => resourceTimeSeriesChartPromise);
-
-const hostTimeSeriesChartPromise = import(/* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart");
-const HostTimeSeriesChart = lazy(() => hostTimeSeriesChartPromise);
-
-const tasksChartPromise = import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart");
-const TasksChart = lazy(() => tasksChartPromise);
+const ResourceTimeSeriesChart = lazy(() =>
+  import(/* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart")
+);
+const HostTimeSeriesChart = lazy(() =>
+  import(/* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart")
+);
+const TasksChart = lazy(() =>
+  import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")
+);
 
 const DashboardBreadcrumbs = () => {
   const crumbs = [
@@ -230,7 +232,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.CPU)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["cpus"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -247,7 +249,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.MEMORY)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["mem"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -264,7 +266,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.DISK)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["disk"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -281,7 +283,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.GPU)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["gpus"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -298,7 +300,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.NODES)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <HostTimeSeriesChart
                   data={data.activeNodes}
                   currentValue={data.hostCount}
@@ -323,7 +325,7 @@ var DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart panel"
               heading={this.getHeading(DashboardHeadings.TASKS)}
             >
-              <Suspense fallback={<div />}>
+              <Suspense fallback={<Loader />}>
                 <TasksChart tasks={data.tasks} />
               </Suspense>
             </Panel>

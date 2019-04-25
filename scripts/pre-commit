@@ -56,6 +56,10 @@ then
 
   header "Check types..."
   npx tsc || exit $?
+
+  header "Running tests..."
+  npm run test --silent -- --findRelatedTests \
+      ${staged_typescript_files} || exit $?
   info "Staged TypeScript looks good"
 fi
 
@@ -65,4 +69,5 @@ then
   header "Test staged JavaScript files.."
   npm run test --silent -- --findRelatedTests \
     ${staged_javascript_files} || exit $?
+  info "Javascript Tests passed"
 fi
