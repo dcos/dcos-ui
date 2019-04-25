@@ -29,7 +29,7 @@ interface PlacementPartialProps {
   onRemoveItem: (path: string, index: number) => void;
   onAddItem: (path: string) => void;
   i18n: any;
-  addButtonText?: string | React.ReactNode;
+  addButtonText?: React.ReactNode;
   getIsGenericConstraint?: (constraint: PlacementConstraint) => boolean;
 }
 

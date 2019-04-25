@@ -10,6 +10,7 @@ import { Confirm } from "reactjs-components";
 //@ts-ignore
 import isEqual from "lodash/isEqual";
 
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
 import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";

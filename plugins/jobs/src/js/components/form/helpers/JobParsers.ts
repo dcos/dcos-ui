@@ -97,10 +97,16 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       jobSpecCopy.job.run.placement.constraints &&
       isArray(jobSpecCopy.job.run.placement.constraints)
     ) {
-      jobSpecCopy.job.run.placement.constraints = jobSpecCopy.job.run.placement.constraints.filter(
-        ({ operator, attribute, value }: PlacementConstraint) =>
-          !(isEmpty(operator) && isEmpty(attribute) && isEmpty(value))
-      );
+      jobSpecCopy.job.run.placement.constraints = jobSpecCopy.job.run.placement.constraints
+        .filter(
+          ({ operator, attribute, value }: PlacementConstraint) =>
+            !(isEmpty(operator) && isEmpty(attribute) && isEmpty(value))
+        )
+        .map(({ operator, attribute, value }: PlacementConstraint) => ({
+          operator,
+          attribute,
+          value
+        }));
       if (!jobSpecCopy.job.run.placement.constraints.length) {
         delete jobSpecCopy.job.run.placement;
       }
