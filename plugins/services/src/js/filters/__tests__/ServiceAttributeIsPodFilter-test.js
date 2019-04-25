@@ -3,7 +3,7 @@ var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var Framework = require("../../structs/Framework");
 var List = require("#SRC/js/structs/List");
 var Pod = require("../../structs/Pod");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var ServiceAttributeIsPodFilter = require("../ServiceAttributeIsPodFilter");
 
 let thisMockItems;

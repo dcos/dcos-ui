@@ -3,7 +3,7 @@ const DSLCombinerTypes = require("../../../js/constants/DSLCombinerTypes");
 const DSLFilter = require("../../../js/structs/DSLFilter");
 const DSLFilterList = require("../../../js/structs/DSLFilterList");
 const List = require("../../../js/structs/List");
-const SearchDSL = require("../SearchDSL.jison");
+const SearchDSL = require("../SearchDSL");
 
 // Handles 'attrib:?'
 class AttribFilter extends DSLFilter {
