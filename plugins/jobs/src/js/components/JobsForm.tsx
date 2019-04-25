@@ -56,6 +56,14 @@ interface NavigationItem {
 }
 
 class JobModalForm extends React.Component<JobFormProps> {
+  static readonly navigationItems: NavigationItem[] = [
+    { id: "general", key: "general", label: i18nMark("General") },
+    { id: "container", key: "container", label: i18nMark("Container Runtime") },
+    { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
+    { id: "environment", key: "environment", label: i18nMark("Environment") },
+    { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
+  ];
+
   constructor(props: Readonly<JobFormProps>) {
     super(props);
 
@@ -68,24 +76,6 @@ class JobModalForm extends React.Component<JobFormProps> {
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.getFormOutput = this.getFormOutput.bind(this);
-  }
-
-  getNavigationItems(): NavigationItem[] {
-    return [
-      { id: "general", key: "general", label: i18nMark("General") },
-      {
-        id: "container",
-        key: "container",
-        label: i18nMark("Container Runtime")
-      },
-      { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
-      { id: "environment", key: "environment", label: i18nMark("Environment") },
-      {
-        id: "run_config",
-        key: "runConfig",
-        label: i18nMark("Run Configuration")
-      }
-    ];
   }
 
   getJSONEditorData(jobSpec: JobSpec): JobOutput {
@@ -233,8 +223,7 @@ class JobModalForm extends React.Component<JobFormProps> {
       </TabView>
     ];
 
-    const result = Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
-    return result;
+    return Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
   }
 
   getFormOutput(jobSpec: JobSpec) {
@@ -256,7 +245,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     const jobJSON = this.getJSONEditorData(jobSpec);
     const tabList = Hooks.applyFilter(
       "createJobTabList",
-      this.getNavigationItems()
+      JobModalForm.navigationItems
     ).map((item: NavigationItem) => (
       <TabButton
         id={item.id}
