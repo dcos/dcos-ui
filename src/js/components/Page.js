@@ -9,6 +9,9 @@ import BasePageHeader from "../components/PageHeader";
 import FluidGeminiScrollbar from "./FluidGeminiScrollbar";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import TemplateUtil from "../utils/TemplateUtil";
+import OfflineBanner from "./OfflineBanner";
+
+MountService.MountService.registerComponent(OfflineBanner, "Page:TopBanner");
 
 const PageHeader = ({
   actions,

@@ -390,39 +390,40 @@ it will run, the user browser.
 
 ### Running Integration Tests
 
-1.1 Without Plugins
+#### Without Plugins
 
-Run DC/OS UI in testing mode (you have to close `npm start`).
+Run the integration tests in testing mode. If you already run a proxy to a cluster or `npm start` the script will take this, otherwise it will start a new server.
 
 ```sh
 npm config delete externalplugins
-npm run start:testing
+npm run test:integration:local
 ```
 
-1.1 With Plugins
+#### With Plugins
 
 ```sh
 npm config set externalplugins <path>
 npm run test:integration:plugins:setup
-npm run start:testing
+npm run test:integration:local
 ```
 
-NOTE: `npm run test:integration:plugins:setup` will copy plugins test over. Don't forged removing them. This is a workaround since Cypress can't run tests in multiple directories.
-
-2.  Open Cypress app
-
-```sh
-npx cypress open
-```
-
-3.  Click on "Run All Tests" or in one of the test files,
-    e.g. (PackageTab-cy.js).
-
-![img](docs/images/cypress-run-tests.png?raw=true)
+NOTE: `npm run test:integration:plugins:setup` will copy plugins test over. Don't forget to remove them. This is a workaround since Cypress can't run tests in multiple directories.
 
 You should see a browser open and your tests running.
 
 ![img](docs/images/cypress-tests-running.png?raw=true)
+
+#### Running a single integration test
+
+To run a single integration test, run the following command, where `Filename` is replaced by the name of the integration test you want to run, without `-cy` or `.js`.
+```
+npm run test:integration:local -- -s Filename
+```
+
+Example for running `../tests/pages/services/ServiceActions-cy.js`:
+```
+npm run test:integration:local -- -s ServiceActions
+```
 
 ### Example of an Integration test
 
@@ -470,18 +471,41 @@ page.
 
 ### System Tests setup
 
-In the DC/OS UI, System Tests are executed with the dcos-system-test-driver
-utility; This utility takes care of provisioning a cluster, launching the
-integration tests and driving the setup and teardown process for every test.
+Before you start, please make sure you are configured against a new and empty cluster (See `webpack/proxy.dev.js`).
+We need a real cluster to work with and the tests are going to make changes to that cluster.
 
-The system-test-driver-utility is currently **not available** for public use.
+#### Without Plugins
 
-For contributing members of this repository. Comprehensive documentation on how
-to run, write, debug and troubleshoot system tests are available in the
-**System Tests in DC/OS UI** google document currently only available internally
-at Mesosphere.
+Run DC/OS UI in testing mode (you have to close `npm start`).
 
-You will need a fully functional cluster to run your system tests.
+```sh
+npm config delete externalplugins
+npm start
+# In a different shell
+npm run test:system:local
+```
+
+#### With Plugins
+
+```sh
+npm config set externalplugins <path>
+npm run test:system:plugins:setup
+npm start
+# In a different shell
+npm run test:system:local
+```
+
+#### Running a single system test
+
+To run a single system test, run the following command, where `Filename` is replaced by the name of the system test you want to run, without `-cy` or `.js`.
+```
+npm run test:system:local -- -s Filename
+```
+
+Example for running `../system-tests/services/test-apps-cy.js`:
+```
+npm run test:system:local -- -s test-apps
+```
 
 ## i18n
 

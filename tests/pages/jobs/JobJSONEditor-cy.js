@@ -427,11 +427,11 @@ describe("Job JSON Editor", function() {
       .click();
 
     cy.root()
-      .getFormGroupInputFor("Parameter Name")
+      .get("[name='key.0.dockerParams']")
       .type(dockerParam.key);
 
     cy.root()
-      .getFormGroupInputFor("Parameter Value")
+      .get("[name='value.0.dockerParams']")
       .type(dockerParam.value);
 
     // Check JSON mode
