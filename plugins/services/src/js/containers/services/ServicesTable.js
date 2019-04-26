@@ -24,13 +24,8 @@ import {
 } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
 
-import { isSDKService } from "../../utils/ServiceUtil";
-
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
-import ServiceActionLabels from "../../constants/ServiceActionLabels";
-import * as ServiceStatus from "../../constants/ServiceStatus";
 import ServiceTree from "../../structs/ServiceTree";
-import Pod from "../../structs/Pod";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 import * as Version from "../../utils/Version";
 
@@ -47,7 +42,6 @@ import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
-const MORE = ServiceActionItem.MORE;
 const OPEN = ServiceActionItem.OPEN;
 const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
@@ -211,49 +205,6 @@ class ServicesTable extends React.Component {
     this.setState({ actionDisabledService: null, actionDisabledID: null });
   }
 
-  getOpenInNewWindowLink(service) {
-    // This might be a serviceTree and therefore we need this check
-    // And getWebURL might therefore not be available
-    if (!this.hasWebUI(service)) {
-      return null;
-    }
-
-    return (
-      <a
-        className="table-cell-icon"
-        href={service.getWebURL()}
-        target="_blank"
-        title="Open in a new window"
-      >
-        <span className="icon-margin-left">
-          <Icon
-            color={greyDark}
-            shape={SystemIcons.OpenExternal}
-            size={iconSizeXs}
-          />
-        </span>
-      </a>
-    );
-  }
-
-  getImage(service) {
-    if (service instanceof ServiceTree) {
-      // Get serviceTree image/icon
-      return (
-        <span className="icon-margin-right">
-          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
-        </span>
-      );
-    }
-
-    // Get service image/icon
-    return (
-      <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
-        <img src={service.getImages()["icon-small"]} />
-      </span>
-    );
-  }
-
   handleSortClick(columnName) {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
@@ -268,94 +219,6 @@ class ServicesTable extends React.Component {
         this.state.sortDirection,
         this.state.sortColumn
       )
-    );
-  }
-
-  renderServiceActions(prop, service) {
-    const isGroup = service instanceof ServiceTree;
-    const isPod = service instanceof Pod;
-    const isSingleInstanceApp = service.getLabels()
-      .MARATHON_SINGLE_INSTANCE_APP;
-    const instancesCount = service.getInstancesCount();
-    const scaleTextID = isGroup
-      ? ServiceActionLabels.scale_by
-      : ServiceActionLabels[SCALE];
-    const isSDK = isSDKService(service);
-
-    const actions = [];
-
-    actions.push({
-      className: "hidden",
-      id: MORE,
-      html: "",
-      selectedHtml: (
-        <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-      )
-    });
-
-    if (this.hasWebUI(service)) {
-      actions.push({
-        id: OPEN,
-        html: <Trans render="span" id={ServiceActionLabels.open} />
-      });
-    }
-
-    if (!isGroup) {
-      actions.push({
-        id: EDIT,
-        html: <Trans render="span" id={ServiceActionLabels.edit} />
-      });
-    }
-
-    // isSingleInstanceApp = Framework main scheduler
-    // instancesCount = service instances
-    if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
-      actions.push({
-        id: SCALE,
-        html: <Trans render="span" id={scaleTextID} />
-      });
-    }
-
-    if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
-      actions.push({
-        id: RESTART,
-        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />
-      });
-    }
-
-    if (instancesCount > 0 && !isSDK) {
-      actions.push({
-        id: STOP,
-        html: <Trans render="span" id={ServiceActionLabels[STOP]} />
-      });
-    }
-
-    if (!isGroup && instancesCount === 0 && !isSDK) {
-      actions.push({
-        id: RESUME,
-        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />
-      });
-    }
-
-    actions.push({
-      id: DELETE,
-      html: (
-        <Trans
-          render="span"
-          className="text-danger"
-          id={ServiceActionLabels[DELETE]}
-        />
-      )
-    });
-
-    if (service.getServiceStatus() === ServiceStatus.DELETING) {
-      return this.renderServiceActionsDropdown(service, actions);
-    }
-
-    return (
-      <Tooltip content={<Trans render="span">More actions</Trans>}>
-        {this.renderServiceActionsDropdown(service, actions)}
-      </Tooltip>
     );
   }
 
