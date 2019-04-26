@@ -276,7 +276,12 @@ class ServicesTable extends React.Component {
     }
     const sortedGroups = this.sortGroupsOnTop(data);
 
-    return (
+    // Hiding the table when the create service modal is open.
+    //
+    // This is a workaround for an issue where Cypress' `type`
+    // command would not work as expected when there is a table
+    // with many resizable columns in the DOM
+    return this.props.hideTable ? null : (
       <div className="table-wrapper service-table">
         <Table
           data={sortedGroups.slice()}
