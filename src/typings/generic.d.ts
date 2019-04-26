@@ -35,3 +35,4 @@ declare module "#SRC/js/components/form/FieldTextarea";
 declare module "#SRC/js/plugin-bridge/PluginSDK";
 declare module "#SRC/js/components/NestedServiceLinks";
 declare module "../components/ServiceStatusProgressBar";
+declare module "#SRC/js/components/ConfigurationMapHeading";

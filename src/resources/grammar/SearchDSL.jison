@@ -1,5 +1,13 @@
-/* Description: Parses and generates AST + Combined Filter Function from a    */
-/*              common filter description language.                           */
+/* To compile this file:
+
+    npx jison SearchDSL.jison
+
+Afterwards you want to make the output compliant to our linting-rules:
+
+- `npx prettier --write SearchDSL.js`
+- Add a /* eslint-disable *\/ in the first line. Putting this in the source
+  won't work cause the compiler already prepends some invalid code.
+*/
 
 %{
 var DSLParserUtil = require('../../js/utils/DSLParserUtil');

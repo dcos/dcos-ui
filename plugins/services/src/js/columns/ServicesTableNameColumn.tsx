@@ -11,8 +11,6 @@ import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
 import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
-import ServiceTableUtil from "../utils/ServiceTableUtil";
 
 const ServiceName = React.memo(
   ({
@@ -153,11 +151,4 @@ function hasWebUI(service: any): any {
     service.getWebURL() != null &&
     service.getWebURL() !== ""
   );
-}
-
-export function nameSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "name");
 }

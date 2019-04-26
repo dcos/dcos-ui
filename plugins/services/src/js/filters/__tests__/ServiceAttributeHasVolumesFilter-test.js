@@ -1,6 +1,6 @@
 var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var List = require("#SRC/js/structs/List");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var ServiceAttributeHasVolumesFilter = require("../ServiceAttributeHasVolumesFilter");
 var VolumeList = require("../../structs/VolumeList");
 

@@ -122,7 +122,7 @@ function filterFunctionFactory(ast) {
 }
 
 /**
- * The following functions are used by the JISON parser in order to parse
+ * The following functions are used by the JISON generated code in order to parse
  * the expression into a properly nested set of functions and AST nodes.
  *
  * @name DSLParserUtil
