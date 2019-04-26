@@ -85,6 +85,10 @@ export default class DataLayer {
     return makeExecutableSchema({ typeDefs, resolvers });
   }
 
+  getExecutableSchema$(): Observable<GraphQLSchema> {
+    return this._schema$;
+  }
+
   query(doc: any, context?: any): Observable<any> {
     return this._schema$.pipe(
       switchMap(schema => graphqlObservable(doc, schema, context))

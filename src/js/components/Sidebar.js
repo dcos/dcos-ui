@@ -30,7 +30,8 @@ const defaultMenuItems = [
   "/cluster",
   "/components",
   "/settings",
-  "/organization"
+  "/organization",
+  "/graphiql"
 ];
 
 const { Hooks } = PluginSDK;

@@ -1,4 +1,4 @@
-import { routing } from "foundation-ui";
+import { routing, navigation } from "foundation-ui";
 import { Route, Redirect } from "react-router";
 import { Hooks } from "PluginSDK";
 
@@ -36,6 +36,12 @@ function getApplicationRoutes() {
     settings
     // Plugins routes will be appended to this array
   );
+
+  if (process.env.NODE_ENV !== "production") {
+    const development = require("./development").default;
+
+    development(routing, navigation);
+  }
 
   routeFactories.forEach(function(routeFactory) {
     routes = routes.concat(routeFactory.getRoutes());

@@ -116,11 +116,17 @@ export const typeDefs = `
     ): Job
   }
 
+  # We dont validate this, and wrote it incorrectly before.
+  # This is the exact same type as Job
+  input JobInput {
+    id: ID!
+  }
+
   extend type Mutation {
     runJob(id: String!): JobLink!
-    createJob(data: Job!): JobLink!
-    updateJob(id: String!, data: Job!, existingSchedule: Boolean): JobLink!
-    updateSchedule(id: String!, data: Job!): JobLink!
+    createJob(data: JobInput!): JobLink!
+    updateJob(id: String!, data: JobInput!, existingSchedule: Boolean): JobLink!
+    updateSchedule(id: String!, data: JobInput!): JobLink!
     deleteJob(id: String!, stopCurrentJobRuns: Boolean!): JobLink!
     stopJobRun(id: String!, jobRunid: String!): JobLink!
   }
