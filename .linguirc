@@ -7,7 +7,7 @@
   "srcPathDirs": [
       "./src",
       "./plugins",
-      "./.dcos-ui-plugins-private"
+      "./plugins-ee"
   ],
   "srcPathIgnorePatterns": [
       "node_modules/",

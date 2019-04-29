@@ -18,10 +18,9 @@ tmp/
 jest/test-results
 webpack/proxy.dev.js
 src/resources/raml
-.vscode/
 .chrome/
 .envrc
 .env
 locale/_build/
 locale/*/messages.js
-.dcos-ui-plugins-private
+plugins-ee
