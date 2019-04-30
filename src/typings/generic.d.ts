@@ -37,3 +37,4 @@ declare module "#SRC/js/components/NestedServiceLinks";
 declare module "../components/ServiceStatusProgressBar";
 declare module "#SRC/js/components/ConfigurationMapHeading";
 declare module "foundation-ui";
+declare module "#SRC/js/components/form/FieldSelect";

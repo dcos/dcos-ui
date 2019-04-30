@@ -25,6 +25,7 @@ import ContainerFormSection from "./form/ContainerFormSection";
 import EnvironmentFormSection from "./form/EnvironmentFormSection";
 import RunConfigFormSection from "./form/RunConfigFormSection";
 import ScheduleFormSection from "./form/ScheduleFormSection";
+import VolumesFormSection from "./form/VolumesFormSection";
 import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
@@ -61,6 +62,7 @@ class JobsForm extends React.Component<JobsFormProps> {
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
     { id: "environment", key: "environment", label: i18nMark("Environment") },
+    { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
     { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
@@ -200,6 +202,20 @@ class JobsForm extends React.Component<JobsFormProps> {
           hideTopLevelErrors={!showAllErrors}
         />
         <EnvironmentFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>,
+      <TabView id="volumes" key="volumes">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <VolumesFormSection
           formData={formOutput}
           errors={translatedErrors}
           showErrors={showAllErrors}
