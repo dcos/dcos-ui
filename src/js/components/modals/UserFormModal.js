@@ -1,5 +1,6 @@
 import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
+
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 /* eslint-disable no-unused-vars */
@@ -55,6 +56,16 @@ class UserFormModal extends mixin(StoreMixin) {
   }
 
   handleNewUserSubmit(model) {
+    const { i18n } = this.props;
+    const passwordsMessage = i18nMark("Passwords do not match.");
+
+    if (model.password !== model.confirmPassword) {
+      // Check if passwords match.
+      return this.setState({
+        errorMsg: i18n._(passwordsMessage)
+      });
+    }
+    delete model.confirmPassword; // We don't need to send this to the backend.
     this.setState({ disableNewUser: true });
 
     const userModelObject = Hooks.applyFilter(
@@ -152,4 +163,4 @@ class UserFormModal extends mixin(StoreMixin) {
     );
   }
 }
-module.exports = UserFormModal;
+module.exports = withI18n()(UserFormModal);
