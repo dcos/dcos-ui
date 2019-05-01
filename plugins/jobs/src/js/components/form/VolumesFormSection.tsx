@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
+import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldError from "#SRC/js/components/form/FieldError";
@@ -14,6 +15,7 @@ import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingCon
 import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import {
   FormOutput,
   FormError,
@@ -31,7 +33,7 @@ interface VolumesSectionProps {
   onAddItem: (path: string) => void;
 }
 
-function isFBS(volume: JobVolume | SecretVolume): boolean {
+function isFBS(volume: JobVolume | SecretVolume): volume is SecretVolume {
   return volume.hasOwnProperty("secret");
 }
 
@@ -47,123 +49,137 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
       errors,
       showErrors
     } = this.props;
+    let firstIndex = 0;
 
-    return volumes.map((volume: JobVolume | SecretVolume, index: number) => {
-      if (isFBS(volume)) {
-        return null;
-      }
-      let containerPathLabel = null;
-      let hostPathLabel = null;
-      let modeLabel = null;
+    return (Array.isArray(volumes) ? volumes : []).map(
+      (volume: JobVolume | SecretVolume, index: number) => {
+        if (isFBS(volume)) {
+          if (index === firstIndex) {
+            firstIndex++;
+          }
+          return null;
+        }
+        let containerPathLabel = null;
+        let hostPathLabel = null;
+        let modeLabel = null;
 
-      let mode: any = (volume as JobVolume).mode;
+        let mode: any = volume.mode;
 
-      if (
-        !(
-          (volume as JobVolume).mode === VolumeMode.RO ||
-          (volume as JobVolume).mode === VolumeMode.RW
-        )
-      ) {
-        // If mode is changed to something not in the list (for ex: in the JSON editor),
-        // show the default "Select ..." option
-        mode = "";
-      }
+        if (!(volume.mode === VolumeMode.RO || volume.mode === VolumeMode.RW)) {
+          // If mode is changed to something not in the list (for ex: in the JSON editor),
+          // show the default "Select ..." option
+          mode = "";
+        }
 
-      if (index === 0) {
-        containerPathLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans>Container Path</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
+        if (index === firstIndex) {
+          containerPathLabel = (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  <Trans>Container Path</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          );
+          hostPathLabel = (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  <Trans>Host Path</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          );
+          modeLabel = (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  <Trans>Mode</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          );
+        }
+
+        const containerPathErrors = getFieldError(
+          `job.run.volumes.${index}.containerPath`,
+          errors
         );
-        hostPathLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans>Host Path</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
+        const hostPathErrors = getFieldError(
+          `job.run.volumes.${index}.hostPath`,
+          errors
         );
-        modeLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans>Mode</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
+        const modeErrors = getFieldError(
+          `job.run.volumes.${index}.mode`,
+          errors
+        );
+
+        return (
+          <FormRow key={`volume-${index}`}>
+            <FormGroup
+              className="column-4"
+              required={true}
+              showError={Boolean(showErrors && containerPathErrors)}
+            >
+              {containerPathLabel}
+              <FieldAutofocus>
+                <FieldInput
+                  name={`containerPath.${index}.volumes`}
+                  type="text"
+                  value={volume.containerPath || ""}
+                />
+              </FieldAutofocus>
+              <FieldError>{containerPathErrors}</FieldError>
+            </FormGroup>
+            <FormGroup
+              className="column-4"
+              required={true}
+              showError={Boolean(showErrors && hostPathErrors)}
+            >
+              {hostPathLabel}
+              <FieldInput
+                name={`hostPath.${index}.volumes`}
+                type="text"
+                value={volume.hostPath || ""}
+              />
+              <FieldError>{hostPathErrors}</FieldError>
+            </FormGroup>
+            <FormGroup
+              className="column-4"
+              required={true}
+              showError={Boolean(showErrors && modeErrors)}
+            >
+              {modeLabel}
+              <FieldSelect name={`mode.${index}.volumes`} value={mode}>
+                <Trans render={<option value={""} disabled={true} />}>
+                  Select ...
+                </Trans>
+                <Trans render={<option value={VolumeMode.RW} />}>
+                  Read and Write
+                </Trans>
+                <Trans render={<option value={VolumeMode.RO} />}>
+                  Read Only
+                </Trans>
+              </FieldSelect>
+              <FieldError>{modeErrors}</FieldError>
+            </FormGroup>
+            <FormGroup
+              hasNarrowMargins={true}
+              applyLabelOffset={index === firstIndex}
+            >
+              <DeleteRowButton onClick={onRemoveItem("volumes", index)} />
+            </FormGroup>
+          </FormRow>
         );
       }
-
-      const containerPathErrors = getFieldError(
-        `job.run.volumes.${index}.containerPath`,
-        errors
-      );
-      const hostPathErrors = getFieldError(
-        `job.run.volumes.${index}.hostPath`,
-        errors
-      );
-      const modeErrors = getFieldError(`job.run.volumes.${index}.mode`, errors);
-
-      return (
-        <FormRow key={index}>
-          <FormGroup
-            className="column-4"
-            required={true}
-            showError={Boolean(showErrors && containerPathErrors)}
-          >
-            {containerPathLabel}
-            <FieldInput
-              name={`containerPath.${index}.volumes`}
-              type="text"
-              value={volume.containerPath || ""}
-            />
-            <FieldError>{containerPathErrors}</FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-4"
-            required={true}
-            showError={Boolean(showErrors && hostPathErrors)}
-          >
-            {hostPathLabel}
-            <FieldInput
-              name={`hostPath.${index}.volumes`}
-              type="text"
-              value={(volume as JobVolume).hostPath || ""}
-            />
-            <FieldError>{hostPathErrors}</FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-4"
-            required={true}
-            showError={Boolean(showErrors && modeErrors)}
-          >
-            {modeLabel}
-            <FieldSelect name={`mode.${index}.volumes`} value={mode}>
-              <Trans render={<option value={""} disabled={true} />}>
-                Select ...
-              </Trans>
-              <Trans render={<option value={VolumeMode.RW} />}>
-                Read and Write
-              </Trans>
-              <Trans render={<option value={VolumeMode.RO} />}>Read Only</Trans>
-            </FieldSelect>
-            <FieldError>{modeErrors}</FieldError>
-          </FormGroup>
-          <FormGroup hasNarrowMargins={true} applyLabelOffset={index === 0}>
-            <DeleteRowButton onClick={onRemoveItem("volumes", index)} />
-          </FormGroup>
-        </FormRow>
-      );
-    });
+    );
   }
 
   render() {
-    const { onAddItem } = this.props;
+    const {
+      onAddItem,
+      formData: { volumes = [] }
+    } = this.props;
 
     const tooltipContent = (
       <Trans>
@@ -174,6 +190,9 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
         .
       </Trans>
     );
+    const fbs = Array.isArray(volumes)
+      ? volumes.filter(volume => isFBS(volume))
+      : [];
 
     return (
       <div>
@@ -206,6 +225,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
             </AddButton>
           </FormGroup>
         </FormRow>
+        <MountService.Mount type="CreateJob:VolumesFBS" volumes={fbs} />
       </div>
     );
   }
