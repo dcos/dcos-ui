@@ -28,20 +28,20 @@ const validation = <T>(
     )
   );
 
-const stringMsg = i18nMark("Must be a string.");
-const presentMsg = i18nMark("Must be present.");
+const stringMsg = i18nMark("Must be a string");
+const presentMsg = i18nMark("Must be present");
 
 const isBoolean = validation<boolean | undefined>(
   x => x === undefined || typeof x === "boolean",
-  i18nMark("Must be a boolean.")
+  i18nMark("Must be a boolean")
 );
 const isNumber = validation<number | undefined>(
   x => x === undefined || typeof x === "number",
-  i18nMark("Must be a number.")
+  i18nMark("Must be a number")
 );
 const isObject = validation<object | undefined>(
   x => x === undefined || isObjectUtil(x),
-  i18nMark("Must be an object.")
+  i18nMark("Must be an object")
 );
 const isPresent = validation<any>(x => x !== undefined && x !== "", presentMsg);
 const isString = validation<string | undefined>(
@@ -51,13 +51,13 @@ const isString = validation<string | undefined>(
 
 const allUniq = validation<any[]>(
   list => new Set(list).size === list.length,
-  i18nMark("All elements must be unique.")
+  i18nMark("All elements must be unique")
 );
 
 const isUniqIn = <T>(list: T[]) =>
   validation<T>(
     (el: T) => list.filter(x => x === el).length < 2,
-    i18nMark("Must be unique.")
+    i18nMark("Must be unique")
   );
 
 export const MetronomeSpecValidators: MetronomeValidators = {
@@ -130,7 +130,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const jobId = findNestedPropertyInObject(formData, "job.id");
     const jobIdRegex = /^([a-z0-9]([a-z0-9-]*[a-z0-9]+)*)([.][a-z0-9]([a-z0-9-]*[a-z0-9]+)*)*$/;
     const message = i18nMark(
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
     );
     if (jobId == undefined) {
       return [];
@@ -154,7 +154,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
       const notBothMessage = i18nMark(
-        "Please specify only one of `cmd` or `args`."
+        "Please specify only one of `cmd` or `args`"
       );
 
       return [
@@ -190,7 +190,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     }
 
     const message = i18nMark(
-      "You must specify a command, an argument or a container with an image."
+      "You must specify a command, an argument or a container with an image"
     );
 
     const containerImageErrorPath = job.run.ucr
@@ -216,7 +216,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         {
           path: ["job", "run", "docker", "image"],
           message: i18nMark(
-            "Must be specified when using the Docker Engine runtime."
+            "Must be specified when using the Docker Engine runtime"
           )
         }
       ];
@@ -227,7 +227,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "ucr", "image", "id"],
-          message: i18nMark("Must be specified when using UCR.")
+          message: i18nMark("Must be specified when using UCR")
         }
       ];
     }
@@ -245,7 +245,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "gpus"],
-          message: i18nMark("GPUs are only available with UCR.")
+          message: i18nMark("GPUs are only available with UCR")
         }
       ];
     }
@@ -260,11 +260,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "docker"],
-          message: i18nMark("Only one of UCR or Docker is allowed.")
+          message: i18nMark("Only one of UCR or Docker is allowed")
         },
         {
           path: ["job", "run", "ucr"],
-          message: i18nMark("Only one of UCR or Docker is allowed.")
+          message: i18nMark("Only one of UCR or Docker is allowed")
         }
       ];
     }
@@ -287,7 +287,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     ) {
       errors.push({
         path: ["job", "run", "ucr", "image", "kind"],
-        message: i18nMark("Image kind must be one of `docker` or `appc`.")
+        message: i18nMark("Image kind must be one of `docker` or `appc`")
       });
     }
     return errors;
@@ -302,21 +302,21 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (cpus != undefined && typeof cpus === "number" && cpus < 0.01) {
       errors.push({
         path: ["job", "run", "cpus"],
-        message: i18nMark("Minimum value is 0.01.")
+        message: i18nMark("Minimum value is 0.01")
       });
     }
 
     if (mem != undefined && typeof mem === "number" && mem < 32) {
       errors.push({
         path: ["job", "run", "mem"],
-        message: i18nMark("Minimum value is 32.")
+        message: i18nMark("Minimum value is 32")
       });
     }
 
     if (disk != undefined && typeof disk === "number" && disk < 0) {
       errors.push({
         path: ["job", "run", "disk"],
-        message: i18nMark("Minimum value is 0.")
+        message: i18nMark("Minimum value is 0")
       });
     }
 
@@ -329,7 +329,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "gpus"],
-          message: i18nMark("Minimum value is 0.")
+          message: i18nMark("Minimum value is 0")
         }
       ];
     }
@@ -344,7 +344,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         if (arg === "" || arg == undefined) {
           errors.push({
             path: ["job", "run", "args", `${index}`],
-            message: i18nMark("Arg cannot be empty.")
+            message: i18nMark("Arg cannot be empty")
           });
         }
       });
@@ -360,7 +360,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "args"],
-          message: i18nMark("Args can only be used with Docker.")
+          message: i18nMark("Args can only be used with Docker")
         }
       ];
     }
@@ -388,7 +388,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       dupIndex.forEach(errorIndex => {
         errors.push({
           path: ["job", "run", "args", `${errorIndex}`],
-          message: i18nMark("No duplicate args.")
+          message: i18nMark("No duplicate args")
         });
       });
     }
@@ -417,7 +417,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       dupIndex.forEach(errorIndex => {
         errors.push({
           path: ["job", "run", "docker", "parameters", `${errorIndex}`],
-          message: i18nMark("No duplicate parameters.")
+          message: i18nMark("No duplicate parameters")
         });
       });
     }
@@ -430,7 +430,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedule", "id"],
-          message: i18nMark("ID is required.")
+          message: i18nMark("ID is required")
         }
       ];
     }
@@ -443,7 +443,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedule", "cron"],
-          message: i18nMark("CRON schedule is required.")
+          message: i18nMark("CRON schedule is required")
         }
       ];
     }
@@ -454,7 +454,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const { schedule } = formData;
     const idRegex = /^([a-z0-9][a-z0-9\\-]*[a-z0-9]+)$/;
     const message = i18nMark(
-      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
     );
     if (!schedule) {
       return [];
@@ -463,7 +463,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedule", "id"],
-          message: i18nMark("Schedule ID must be a string.")
+          message: i18nMark("Schedule ID must be a string")
         }
       ];
     }
@@ -479,13 +479,13 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       if (typeof schedule.startingDeadlineSeconds !== "number") {
         errors.push({
           path: ["schedule", "startingDeadlineSeconds"],
-          message: i18nMark("Starting deadline must be a number.")
+          message: i18nMark("Starting deadline must be a number")
         });
       }
       if (schedule.startingDeadlineSeconds < 1) {
         errors.push({
           path: ["schedule", "startingDeadlineSeconds"],
-          message: i18nMark("Minimum value is 1.")
+          message: i18nMark("Minimum value is 1")
         });
       }
     }
@@ -500,10 +500,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 export function validateSpec(jobSpec: JobSpec): FormError[] {
   const run = jobSpec.job.run || {};
   const envsMsg = i18nMark(
-    "Cannot have multiple environment variables with the same key."
+    "Cannot have multiple environment variables with the same key"
   );
   const labels = (jobSpec.job.labels || []).map(([k]) => k);
-  const labelsMsg = i18nMark("Cannot have multiple labels with the same key.");
+  const labelsMsg = i18nMark("Cannot have multiple labels with the same key");
 
   const envVarsErrors: FormError[] = [];
   const map: { [key: string]: number[] } = {};
