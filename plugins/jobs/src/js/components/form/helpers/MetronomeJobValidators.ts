@@ -55,6 +55,10 @@ const isString = validation<string | undefined>(
   x => x === undefined || typeof x === "string",
   stringMsg
 );
+const isArray = validation<any[] | undefined>(
+  x => x === undefined || Array.isArray(x),
+  i18nMark("Constraints must be an array.")
+);
 
 const allUniq = validation<any[]>(
   list => new Set(list).size === list.length,
@@ -509,19 +513,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     return errors;
   },
 
-  constraintsAreArray(formData: JobOutput) {
-    const placement = findNestedPropertyInObject(formData, "job.run.placement");
-    const errors = [];
-    if (placement && placement.constraints) {
-      if (!Array.isArray(placement.constraints)) {
-        errors.push({
-          path: ["job", "run", "placement", "constraints"],
-          message: i18nMark("Constraints must be an array.")
-        });
-      }
-    }
+  constraintsAreArray(formData: JobOutput): FormError[] {
+    const path = "job.run.placement.constraints";
 
-    return errors;
+    return isArray(_ => path, [findNestedPropertyInObject(formData, path)])([]);
   }
 };
 
