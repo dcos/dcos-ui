@@ -11,8 +11,7 @@ import {
   FormError,
   UcrImageKind,
   JobSpec,
-  ConstraintOperator,
-  PlacementConstraint
+  ConstraintOperator
 } from "./JobFormData";
 import { OperatorTypes } from "./Constants";
 
@@ -75,15 +74,14 @@ const isOnlyWhitespace = (str: string): boolean => {
   return false;
 };
 
+const ensureArray = <T>(something?: T[]): T[] =>
+  Array.isArray(something) ? something : [];
+
 export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
     const { run } = formData.job;
-    const parameters = (run.docker && run.docker.parameters) || [];
-    const constraints = findNestedPropertyInObject(
-      formData,
-      "job.run.placement.constraints"
-    );
-    const arrayConstraints = Array.isArray(constraints) ? constraints : [];
+    const parameters = ensureArray(run.docker && run.docker.parameters);
+    const constraints = ensureArray(run.placement && run.placement.constraints);
 
     // prettier-ignore
     return pipe(
@@ -138,9 +136,9 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       isString(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
       isString(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
       isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
-      isString(i => `job.run.placement.constraints.${i}.operator`, arrayConstraints.map((_: PlacementConstraint) => _.operator)),
-      isString(i => `job.run.placement.constraints.${i}.attribute`, arrayConstraints.map((_: PlacementConstraint) => _.attribute)),
-      isString(i => `job.run.placement.constraints.${i}.value`, arrayConstraints.map((_: PlacementConstraint) => _.value))
+      isString(i => `job.run.placement.constraints.${i}.operator`, constraints.map(_ => _.operator)),
+      isString(i => `job.run.placement.constraints.${i}.attribute`, constraints.map(_ => _.attribute)),
+      isString(i => `job.run.placement.constraints.${i}.value`, constraints.map(_ => _.value))
 
       // pipe only infers 10 steps, so we need a cast here
     )([]) as FormError[];
