@@ -1,6 +1,5 @@
 import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import { deepCopy } from "#SRC/js/utils/Util";
-import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 
 import { JobSpec, Action, JobFormActionType } from "../helpers/JobFormData";
 import { jsonReducers } from "./JsonReducers";
