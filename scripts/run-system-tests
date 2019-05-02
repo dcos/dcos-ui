@@ -49,7 +49,7 @@ TESTS_FOLDER="system-tests"
 
 PLUGINS_PATH=${PLUGINS_PATH:-''}
 
-while getopts 's:hknr:?' flag; do
+while getopts 's:hdnr:?' flag; do
   case "${flag}" in
   s) SEARCH=${OPTARG:-'*'} ;;
   h) CYPRESS_HEADED="true" ;;
