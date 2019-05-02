@@ -1,12 +1,12 @@
 import Transaction from "#SRC/js/structs/Transaction";
 
-const {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} = require("#SRC/js/constants/TransactionTypes");
-const Batch = require("#SRC/js/structs/Batch");
-const VolumeMounts = require("../MultiContainerVolumes");
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import Batch from "#SRC/js/structs/Batch";
+import {
+  MultiContainerVolumeMountsJSONReducer as JSONReducer,
+  MultiContainerVolumeMountsJSONParser as JSONParser,
+  FormReducer
+} from "../MultiContainerVolumes";
 
 describe("Volumes", function() {
   describe("#JSONReducer", function() {
@@ -17,7 +17,7 @@ describe("Volumes", function() {
           new Transaction(["volumeMounts"], { defaultValue: "foo" }, ADD_ITEM)
         );
 
-        expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+        expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
           { defaultValue: "foo" }
         ]);
       });
@@ -28,9 +28,7 @@ describe("Volumes", function() {
         let batch = new Batch();
         batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
-        expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-          {}
-        ]);
+        expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{}]);
       });
     });
 
@@ -39,9 +37,7 @@ describe("Volumes", function() {
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "foo" }
-      ]);
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
     });
 
     it("has an array with one object containing only a name", function() {
@@ -52,9 +48,7 @@ describe("Volumes", function() {
         new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
       );
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "foo" }
-      ]);
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
     });
 
     it("has two items with names", function() {
@@ -65,9 +59,7 @@ describe("Volumes", function() {
         new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
       );
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "foo" }
-      ]);
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
     });
 
     it("has two items with names", function() {
@@ -77,7 +69,7 @@ describe("Volumes", function() {
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
         { name: "foo" },
         { name: "bar" }
       ]);
@@ -91,9 +83,7 @@ describe("Volumes", function() {
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
       batch = batch.add(new Transaction(["volumeMounts"], 0, REMOVE_ITEM));
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "bar" }
-      ]);
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "bar" }]);
     });
 
     it("handles HOST type", function() {
@@ -105,7 +95,7 @@ describe("Volumes", function() {
         new Transaction(["volumeMounts", 0, "hostPath"], "hostpath")
       );
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
         { name: "foo", host: "hostpath" }
       ]);
     });
@@ -118,7 +108,7 @@ describe("Volumes", function() {
       );
       batch = batch.add(new Transaction(["volumeMounts", 0, "size"], "1"));
 
-      expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
         { name: "foo", persistent: { size: 1 } }
       ]);
     });
@@ -129,7 +119,7 @@ describe("Volumes", function() {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
-      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { mountPath: [] }
       ]);
     });
@@ -139,7 +129,7 @@ describe("Volumes", function() {
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
 
-      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { name: "foo", mountPath: [] }
       ]);
     });
@@ -151,7 +141,7 @@ describe("Volumes", function() {
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
 
-      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { name: "foo", mountPath: [] },
         { name: "bar", mountPath: [] }
       ]);
@@ -165,7 +155,7 @@ describe("Volumes", function() {
       batch = batch.add(new Transaction(["volumeMounts", 1, "name"], "bar"));
       batch = batch.add(new Transaction(["volumeMounts"], 0, REMOVE_ITEM));
 
-      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { name: "bar", mountPath: [] }
       ]);
     });
@@ -183,7 +173,7 @@ describe("Volumes", function() {
         new Transaction(["volumeMounts", 1, "mountPath", 0], "barfoo")
       );
 
-      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         {
           name: "foo",
           mountPath: ["foobar"]
@@ -203,7 +193,7 @@ describe("Volumes", function() {
       );
       batch = batch.add(new Transaction(["volumeMounts", 0, "size"], 1));
 
-      expect(batch.reduce(VolumeMounts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { name: "foo", size: 1, type: "PERSISTENT", mountPath: [] }
       ]);
     });
@@ -218,7 +208,7 @@ describe("Volumes", function() {
       ];
 
       expect(
-        VolumeMounts.JSONParser({
+        JSONParser({
           containers: [],
           volumes: [
             {
@@ -238,7 +228,7 @@ describe("Volumes", function() {
       ];
 
       expect(
-        VolumeMounts.JSONParser({
+        JSONParser({
           containers: [
             {
               volumeMounts: [
@@ -280,7 +270,7 @@ describe("Volumes", function() {
       ];
 
       expect(
-        VolumeMounts.JSONParser({
+        JSONParser({
           containers: [
             {
               volumeMounts: [
@@ -328,7 +318,7 @@ describe("Volumes", function() {
       ];
 
       expect(
-        VolumeMounts.JSONParser({
+        JSONParser({
           containers: [],
           volumes: [
             {
@@ -360,7 +350,7 @@ describe("Volumes", function() {
       ];
 
       expect(
-        VolumeMounts.JSONParser({
+        JSONParser({
           containers: [],
           volumes: [
             {
