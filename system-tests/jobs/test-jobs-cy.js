@@ -8,8 +8,8 @@ describe("Jobs", function() {
   });
 
   it("creates a simple job", function() {
-    const jobName = "job-with-inline-shell-script";
-    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
+    const jobName = "simple";
+    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -30,6 +30,7 @@ describe("Jobs", function() {
       .type(`{selectall}${fullJobName}`);
     //
     // TODO: Due to a bug in cypress you cannot type values with dots
+    // Cypress will also sometimes hang when typing long strings with hyphens
     // cy
     //   .root()
     //   .getFormGroupInputFor('CPUs')
@@ -87,8 +88,8 @@ describe("Jobs", function() {
   });
 
   it("creates a job with default ucr config", function() {
-    const jobName = "job-with-ucr-config";
-    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
+    const jobName = "ucr";
+    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -178,8 +179,8 @@ describe("Jobs", function() {
 
   it("runs, stops and deletes a job", function() {
     // first create a simple job
-    const jobName = "job-to-delete";
-    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
+    const jobName = "delete";
+    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
