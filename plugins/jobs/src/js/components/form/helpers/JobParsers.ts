@@ -16,8 +16,8 @@ import {
 import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
 import { isArray } from "util";
 
-function isEmpty(value: any) {
-  return value == null || value === "";
+function isPresent(value: any) {
+  return value != null && value !== "";
 }
 
 // Array<[string, T]> => Record<string, T>
@@ -97,12 +97,13 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       jobSpecCopy.job.run.placement.constraints &&
       isArray(jobSpecCopy.job.run.placement.constraints)
     ) {
-      jobSpecCopy.job.run.placement.constraints = jobSpecCopy.job.run.placement.constraints
+      jobSpecCopy.job.run.placement.constraints = (jobSpecCopy.job.run.placement
+        .constraints as PlacementConstraint[])
         .filter(
-          ({ operator, attribute, value }: PlacementConstraint) =>
-            !(isEmpty(operator) && isEmpty(attribute) && isEmpty(value))
+          ({ operator, attribute, value }) =>
+            isPresent(operator) || isPresent(attribute) || isPresent(value)
         )
-        .map(({ operator, attribute, value }: PlacementConstraint) => ({
+        .map(({ operator, attribute, value }) => ({
           operator,
           attribute,
           value

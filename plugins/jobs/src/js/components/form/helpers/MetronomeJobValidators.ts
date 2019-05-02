@@ -600,29 +600,15 @@ function checkVolumePropertyTypes(formData: JobSpec) {
 }
 
 export function constraintOperatorsArePermitted(formData: JobSpec) {
-  const placement = findNestedPropertyInObject(formData, "job.run.placement");
-  const errors: FormError[] = [];
-  if (
-    placement &&
-    placement.constraints &&
-    Array.isArray(placement.constraints)
-  ) {
-    placement.constraints.forEach((constraint: any, i: number) => {
-      if (
-        constraint.operator &&
-        !(
-          Object.values(ConstraintOperator).includes(constraint.operator) ||
-          constraint.operator === "EQ"
-        )
-      ) {
-        errors.push({
-          path: ["job", "run", "placement", "constraints", `${i}`, "operator"],
-          message: i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ.")
-        });
-      }
-    });
-  }
-  return errors;
+  const path = "job.run.placement.constraints";
+  const operators = (findNestedPropertyInObject(formData, path) || []).map(
+    (_: any) => _.operator
+  );
+
+  return validation(
+    op => Object.values(ConstraintOperator).includes(op) || op === "EQ",
+    i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ.")
+  )(i => `${path}.${i}.operator`, operators)([]);
 }
 
 export function constraintsAreComplete(formData: JobSpec) {
