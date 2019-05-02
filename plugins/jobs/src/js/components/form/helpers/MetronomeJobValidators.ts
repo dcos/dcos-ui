@@ -67,12 +67,8 @@ const isUniqIn = <T>(list: T[]) =>
     i18nMark("Must be unique")
   );
 
-const isOnlyWhitespace = (str: string): boolean => {
-  if (!`${str}`.replace(/\s/g, "").length) {
-    return true;
-  }
-  return false;
-};
+const isOnlyWhitespace = (str: unknown): boolean =>
+  !`${str}`.replace(/\s/g, "").length;
 
 const ensureArray = <T>(something?: T[]): T[] =>
   Array.isArray(something) ? something : [];
