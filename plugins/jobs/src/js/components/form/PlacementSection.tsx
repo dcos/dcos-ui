@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
 import { Tooltip } from "reactjs-components";
 
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -16,7 +15,6 @@ interface PlacementSectionProps {
   showErrors: boolean;
   onRemoveItem: (path: string, index: number) => void;
   onAddItem: (path: string) => void;
-  i18n: any;
 }
 
 class PlacementSection extends React.Component<PlacementSectionProps, {}> {
@@ -54,4 +52,4 @@ class PlacementSection extends React.Component<PlacementSectionProps, {}> {
   }
 }
 
-export default withI18n()(PlacementSection);
+export default PlacementSection;

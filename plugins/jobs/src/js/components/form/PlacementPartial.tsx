@@ -89,9 +89,7 @@ class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
         const lastIndex = placementConstraints.length - 1;
         let isLastField = lastIndex === index;
         if (getIsGenericConstraint) {
-          isLastField = getIsGenericConstraint(placementConstraints[
-            lastIndex
-          ] as PlacementConstraint)
+          isLastField = getIsGenericConstraint(placementConstraints[lastIndex])
             ? index === lastIndex
             : index === lastIndex - 1;
         }
@@ -138,27 +136,28 @@ class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
                 value={String(constraint.operator)}
                 placeholder={i18n._(t`Select ...`)}
               >
-                {Object.keys(OperatorTypes).map((type, index) => {
-                  const operatorType = (OperatorTypes as any)[type];
-                  return (
-                    <SelectOption
-                      key={index}
-                      value={type}
-                      label={i18n._(operatorType.name)}
-                    >
-                      <Trans
-                        render="span"
-                        id={operatorType.name}
-                        className="dropdown-select-item-title"
-                      />
-                      <Trans
-                        render="span"
-                        id={operatorType.description}
-                        className="dropdown-select-item-description"
-                      />
-                    </SelectOption>
-                  );
-                })}
+                {Object.entries(OperatorTypes).map(
+                  ([type, operatorType], index) => {
+                    return (
+                      <SelectOption
+                        key={index}
+                        value={type}
+                        label={i18n._(operatorType.name)}
+                      >
+                        <Trans
+                          render="span"
+                          id={operatorType.name}
+                          className="dropdown-select-item-title"
+                        />
+                        <Trans
+                          render="span"
+                          id={operatorType.description}
+                          className="dropdown-select-item-description"
+                        />
+                      </SelectOption>
+                    );
+                  }
+                )}
               </Select>
               <FieldHelp>{operatorHelpText}</FieldHelp>
               <FieldError>{operatorErrors}</FieldError>
