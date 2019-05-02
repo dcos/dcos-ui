@@ -1,3 +1,7 @@
+import { parseVersion } from "./utils";
+
+const defaultClientBuild = parseVersion(window.DCOS_UI_VERSION);
+
 export interface UIMetadata {
   clientBuild?: string;
   packageVersion?: string;
@@ -15,6 +19,5 @@ export const UIMetadataSchema = `
 `;
 
 export const DEFAULT_UI_METADATA: UIMetadata = {
-  // @ts-ignore
-  clientBuild: window.DCOS_UI_VERSION
+  clientBuild: defaultClientBuild
 };
