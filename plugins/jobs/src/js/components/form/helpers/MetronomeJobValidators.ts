@@ -508,20 +508,20 @@ function volumesAreComplete(formData: JobSpec) {
       if (volume.containerPath == null || volume.containerPath === "") {
         errors.push({
           path: ["job", "run", "volumes", `${index}`, "containerPath"],
-          message: i18nMark("Container path is required.")
+          message: i18nMark("Container path is required")
         });
       }
       if (!volume.hasOwnProperty("secret")) {
         if (volume.hostPath == null || volume.hostPath === "") {
           errors.push({
             path: ["job", "run", "volumes", `${index}`, "hostPath"],
-            message: i18nMark("Host path is required.")
+            message: i18nMark("Host path is required")
           });
         }
         if (volume.mode == null || volume.mode === "") {
           errors.push({
             path: ["job", "run", "volumes", `${index}`, "mode"],
-            message: i18nMark("Mode is required.")
+            message: i18nMark("Mode is required")
           });
         }
       }
@@ -545,20 +545,20 @@ function checkVolumePropertyTypes(formData: JobSpec) {
       if (typeof volume.containerPath !== "string") {
         errors.push({
           path: ["job", "run", "volumes", `${index}`, "containerPath"],
-          message: i18nMark("Must be a string.")
+          message: stringMsg
         });
       }
       if (!volume.hasOwnProperty("secret")) {
         if (typeof volume.hostPath !== "string") {
           errors.push({
             path: ["job", "run", "volumes", `${index}`, "hostPath"],
-            message: i18nMark("Must be a string.")
+            message: stringMsg
           });
         }
         if (typeof volume.mode !== "string") {
           errors.push({
             path: ["job", "run", "volumes", `${index}`, "mode"],
-            message: i18nMark("Must be a string.")
+            message: stringMsg
           });
         } else if (volume.mode !== "RO" && volume.mode !== "RW") {
           errors.push({
