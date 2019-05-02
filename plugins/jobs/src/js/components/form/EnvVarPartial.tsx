@@ -85,7 +85,7 @@ class EnvVarPartial extends React.Component<EnvVarPartialProps, {}> {
     // prettier-ignore
     const envTooltipContent = (
         <Trans render="span">
-          DC/OS also exposes environment variables for host ports and metdata.
+          DC/OS also exposes environment variables for host ports and metadata.
         </Trans>
       );
 
