@@ -1350,7 +1350,7 @@ describe("MetronomeSpecValidators", () => {
       expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual([
         {
           path: ["job", "run", "placement", "constraints"],
-          message: "Constraints must be an array."
+          message: "Constraints must be an array"
         }
       ]);
     });
@@ -1415,7 +1415,7 @@ describe("#constraintsAreComplete", () => {
     expect(constraintsAreComplete(spec as any)).toEqual([
       {
         path: ["job", "run", "placement", "constraints", "0", "value"],
-        message: "Value is required."
+        message: "Value is required"
       }
     ]);
   });
@@ -1438,7 +1438,7 @@ describe("#constraintsAreComplete", () => {
     expect(constraintsAreComplete(spec as any)).toEqual([
       {
         path: ["job", "run", "placement", "constraints", "0", "attribute"],
-        message: "Field is required."
+        message: "Field is required"
       }
     ]);
   });
@@ -1461,7 +1461,7 @@ describe("#constraintsAreComplete", () => {
     expect(constraintsAreComplete(spec as any)).toEqual([
       {
         path: ["job", "run", "placement", "constraints", "0", "operator"],
-        message: "Operator is required."
+        message: "Operator is required"
       }
     ]);
   });

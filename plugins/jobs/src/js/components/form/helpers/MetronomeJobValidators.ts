@@ -57,7 +57,7 @@ const isString = validation<string | undefined>(
 );
 const isArray = validation<any[] | undefined>(
   x => x === undefined || Array.isArray(x),
-  i18nMark("Constraints must be an array.")
+  i18nMark("Constraints must be an array")
 );
 
 const allUniq = validation<any[]>(
@@ -607,7 +607,7 @@ export function constraintOperatorsArePermitted(formData: JobSpec) {
 
   return validation(
     op => Object.values(ConstraintOperator).includes(op) || op === "EQ",
-    i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ.")
+    i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ")
   )(i => `${path}.${i}.operator`, operators)([]);
 }
 
@@ -627,7 +627,7 @@ export function constraintsAreComplete(formData: JobSpec) {
       if (operator == null || operator === "" || isOnlyWhitespace(operator)) {
         errors.push({
           path: ["job", "run", "placement", "constraints", `${i}`, "operator"],
-          message: i18nMark("Operator is required.")
+          message: i18nMark("Operator is required")
         });
       }
       if (
@@ -637,7 +637,7 @@ export function constraintsAreComplete(formData: JobSpec) {
       ) {
         errors.push({
           path: ["job", "run", "placement", "constraints", `${i}`, "attribute"],
-          message: i18nMark("Field is required.")
+          message: i18nMark("Field is required")
         });
       }
       if (
@@ -646,7 +646,7 @@ export function constraintsAreComplete(formData: JobSpec) {
       ) {
         errors.push({
           path: ["job", "run", "placement", "constraints", `${i}`, "value"],
-          message: i18nMark("Value is required.")
+          message: i18nMark("Value is required")
         });
       }
     });
