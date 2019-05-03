@@ -6,7 +6,7 @@ import {
   HeaderCell
 } from "@dcos/ui-kit/dist/packages";
 import { Trans } from "@lingui/macro";
-import _ from "lodash";
+import isEqual from "lodash/isEqual";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
@@ -165,9 +165,7 @@ export default class NodesTable extends React.Component<
     nextProps: NodesTableProps,
     nextState: NodesTableState
   ) {
-    return (
-      !_.isEqual(this.props, nextProps) || !_.isEqual(this.state, nextState)
-    );
+    return !isEqual(this.props, nextProps) || !isEqual(this.state, nextState);
   }
 
   componentWillReceiveProps(nextProps: NodesTableProps): void {
