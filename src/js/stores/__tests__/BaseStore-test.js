@@ -1,4 +1,4 @@
-const BaseStore = require("../BaseStore");
+import BaseStore from "../BaseStore";
 
 let thisInstance;
 
