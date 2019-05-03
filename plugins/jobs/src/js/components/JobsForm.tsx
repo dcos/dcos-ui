@@ -37,7 +37,7 @@ const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-interface JobFormProps {
+interface JobsFormProps {
   onChange: (action: Action) => void;
   jobSpec: JobSpec;
   activeTab: string;
@@ -55,7 +55,7 @@ interface NavigationItem {
   label: string;
 }
 
-class JobModalForm extends React.Component<JobFormProps> {
+class JobsForm extends React.Component<JobsFormProps> {
   static readonly navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
@@ -64,7 +64,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
-  constructor(props: Readonly<JobFormProps>) {
+  constructor(props: Readonly<JobsFormProps>) {
     super(props);
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -245,7 +245,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     const jobJSON = this.getJSONEditorData(jobSpec);
     const tabList = Hooks.applyFilter(
       "createJobTabList",
-      JobModalForm.navigationItems
+      JobsForm.navigationItems
     ).map((item: NavigationItem) => (
       <TabButton
         id={item.id}
@@ -305,4 +305,4 @@ class JobModalForm extends React.Component<JobFormProps> {
   }
 }
 
-export default withI18n()(JobModalForm);
+export default withI18n()(JobsForm);
