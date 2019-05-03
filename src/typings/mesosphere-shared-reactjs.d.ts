@@ -12,4 +12,10 @@ declare module "mesosphere-shared-reactjs" {
   }
 
   export var StoreMixin: StoreMixin;
+
+  interface RequestUtil {
+    parseResponseBody: (req: XMLHttpRequest) => any;
+  }
+
+  export var RequestUtil: RequestUtil;
 }
