@@ -184,7 +184,7 @@ describe("SystemLogUtil", function() {
 
   describe("#accumulatedThrottle", function() {
     beforeEach(function() {
-      thisFunc = jest.fn();
+      thisFunc = jest.genMockFunction();
       thisAccumulatedThrottle = SystemLogUtil.accumulatedThrottle(
         thisFunc,
         200

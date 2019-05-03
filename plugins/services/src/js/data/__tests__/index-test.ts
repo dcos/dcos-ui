@@ -1,6 +1,7 @@
-import { request } from "@dcos/http-service";
-jest.mock("@dcos/http-service");
-const mockRequest = request as jest.Mock;
+const mockRequest = jest.fn();
+jest.mock("@dcos/http-service", () => ({
+  request: mockRequest
+}));
 
 import { of } from "rxjs";
 import { take } from "rxjs/operators";

@@ -1,6 +1,7 @@
-import { graphqlObservable } from "@dcos/data-service";
-jest.mock("@dcos/data-service");
-const mockDataLayer = graphqlObservable as jest.Mock;
+const mockDataLayer = jest.fn();
+jest.mock("@dcos/data-service", () => ({
+  graphqlObservable: mockDataLayer
+}));
 
 import { take } from "rxjs/operators";
 import { of } from "rxjs";

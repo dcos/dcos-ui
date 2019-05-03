@@ -5,6 +5,7 @@ const {
 
 const CompressionPlugin = require("compression-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const merge = require("webpack-merge");
 const path = require("path");
 
@@ -36,6 +37,15 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "../index.html"
+    }),
+    // Chunks with 'chart' in the name are prefetched in anticipation of being loaded on the dashboard after login.
+    // All other chunks that are not dynamically fetched are synchronous
+    new ScriptExtHtmlWebpackPlugin({
+      prefetch: {
+        test: /chart/,
+        chunks: "all"
+      },
+      defaultAttribute: "sync"
     })
   ]
 });

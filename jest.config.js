@@ -1,74 +1,42 @@
-const fs = require("fs");
+const glob = require("glob");
+
+// Return directories within the given path.
+const dirs = path => (path ? glob.sync(`${path}/*/`) : []);
 
 /**
  * List of root (test path) directories
  *
- * @description Jest will only search for tests and
- * load manual mocks (e.g. `src/__mocks__/fs.js`) within these directories.
- *
- * @type {Array.<string>}
+ * Jest will only search for tests and load manual mocks
+ * (e.g. `src/__mocks__/fs.js`) within these directories.
  */
-const roots = ["./src", "./tests"];
-
-/**
- * List of package directories
- *
- * @description Packages (subdirectories)  within these directories are
- * going to be added as a "root" directory; this allows packages to roll
- * their own "manual" mocks (e.g., `my-package/__mocks__/fs.js`),
- * as Jest only loads them from root directories.
- *
- * @type {Array.<string>}
- */
-const packages = ["plugins", "packages"];
-
-// Add `npm_config_externalplugins` and strip trailing slash
-// to make sure the paths are compatible.
-if (process.env.npm_config_externalplugins) {
-  packages.push(process.env.npm_config_externalplugins.replace(/\/$/, ""));
-}
-
-// Traverse the subdirectories for every package directory and add the
-// directories to the list root directories.
-packages.forEach(function(packageDir) {
-  fs.readdirSync(packageDir).forEach(function(rootDir) {
-    const relativePath = packageDir + "/" + rootDir;
-    if (fs.statSync(relativePath).isDirectory()) {
-      roots.push("./" + relativePath);
-    }
-  });
-});
+const roots = ["./src", "./tests"].concat(
+  dirs("./plugins"),
+  dirs("./packages"),
+  dirs(process.env.npm_config_externalplugins)
+);
 
 module.exports = {
   verbose: true,
   testURL: "http://localhost/",
-  roots,
   globals: {
     __DEV__: true,
     "ts-jest": {
-      babelConfig: true
+      useBabelrc: true
     }
   },
-  // TODO: split up transforms
+  roots,
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
-    ".*": "./jest/preprocessor.js"
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.tsx?$": "ts-jest"
   },
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
-  testRegex: "/__tests__/.*\\-test\\.(es6|js|tsx?)$",
-  moduleFileExtensions: ["js", "json", "es6", "ts", "tsx"],
+  testRegex: "/__tests__/.*\\-test\\.(js|ts)$",
+  moduleFileExtensions: ["js", "json", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
-    "@extension-kid/notification-service":
-      "<rootDir>/packages/@extension-kid/notification-service",
-    "@extension-kid/toast-notifications":
-      "<rootDir>/packages/@extension-kid/toast-notifications",
-    "@extension-kid/data-layer": "<rootDir>/packages/@extension-kid/data-layer",
-    "#SRC/([^\\.]*)$": "<rootDir>/src/$1",
-    "#PLUGINS/([^\\.]*)$": "<rootDir>/plugins/$1",
-    "#LOCALE/([^\\.]*)$": "<rootDir>/locale/$1",
-    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1"
+    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1",
+    "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.js"
   },
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],

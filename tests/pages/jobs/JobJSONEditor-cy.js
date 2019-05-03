@@ -36,6 +36,12 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -84,6 +90,11 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -138,6 +149,11 @@ describe("Job JSON Editor", function() {
     // Note: The current group contains the previous job
     cy.get(".button.button-primary-link.button-narrow").click();
 
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+
     cy.get(".menu-tabbed-item")
       .contains("Container")
       .click();
@@ -184,14 +200,15 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -302,14 +319,14 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -388,14 +405,14 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -427,11 +444,11 @@ describe("Job JSON Editor", function() {
       .click();
 
     cy.root()
-      .getFormGroupInputFor("Parameter Name")
+      .get("[name='key.0.dockerParams']")
       .type(dockerParam.key);
 
     cy.root()
-      .getFormGroupInputFor("Parameter Value")
+      .get("[name='value.0.dockerParams']")
       .type(dockerParam.value);
 
     // Check JSON mode
@@ -485,14 +502,14 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -581,6 +598,11 @@ describe("Job JSON Editor", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -642,6 +664,82 @@ describe("Job JSON Editor", function() {
             timezone,
             cron,
             concurrencyPolicy: "ALLOW"
+          }
+        }
+      ]);
+  });
+
+  it("renders proper JSON for a job using environment variables", () => {
+    const jobName = "job-with-env-vars";
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+    const envVar = {
+      key: "key",
+      value: "value"
+    };
+
+    // Click 'Create a job'
+    // Note: The current group contains the previous job
+    cy.get(".button.button-primary-link.button-narrow").click();
+
+    // Wait for the 'New Job' dialog to appear
+    cy.get(".modal-header")
+      .contains("New Job")
+      .should("exist");
+
+    // Fill-in the input elements
+    cy.root()
+      .getFormGroupInputFor("Job ID *")
+      .type(`{selectall}${fullJobName}`);
+    cy.root()
+      .getFormGroupInputFor("Mem (MiB) *")
+      .type("{selectall}32");
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+    cy.root()
+      .getFormGroupInputFor("Command *")
+      .type(cmdline);
+
+    cy.get(".menu-tabbed-item")
+      .contains("Environment")
+      .click();
+
+    cy.root()
+      .get(".button")
+      .contains("Add Environment Variable")
+      .click();
+
+    cy.root()
+      .get("[name='0.0.env']")
+      .type(envVar.key);
+
+    cy.root()
+      .get("[name='1.0.env']")
+      .type(envVar.value);
+
+    // Check JSON mode
+    cy.contains("JSON Editor").click();
+
+    // Check contents of the JSON editor
+    cy.get("#brace-editor")
+      .contents()
+      .asJson()
+      .should("deep.equal", [
+        {
+          job: {
+            id: fullJobName,
+            description: "",
+            run: {
+              cpus: 1,
+              mem: 32,
+              disk: 0,
+              cmd: cmdline,
+              env: {
+                [envVar.key]: envVar.value
+              }
+            }
           }
         }
       ]);

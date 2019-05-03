@@ -48,10 +48,11 @@
     }
   }
 
-  // TODO: Remove this when the fix hits CNVS:
-  // https://github.com/mesosphere/cnvs/issues/76
   .form-control {
+    position: relative;
 
+    // TODO: Remove this when the fix hits CNVS:
+    // https://github.com/mesosphere/cnvs/issues/76
     &:disabled,
     &.disabled {
       color: color-lighten(@neutral, 50);
@@ -61,7 +62,9 @@
   .form-colon {
     left: 100%;
     position: absolute;
-    top: 2.2rem;
+    top: 0.5rem;
+    // perfectly center the colon visually
+    transform: translate(-1px, -1px);
   }
 
   .form-group-container-action-button-group {

@@ -56,6 +56,10 @@ export const jsonReducers = {
       ? Object.entries(valueCopy.job.labels)
       : valueCopy.job.labels;
 
+    valueCopy.job.run.env = isObject(valueCopy.job.run.env)
+      ? Object.entries(valueCopy.job.run.env)
+      : valueCopy.job.run.env;
+
     const cmdOnly = !(valueCopy.job.run.docker || valueCopy.job.run.ucr);
 
     // Try to assign `container` based first off of whether the new value from JSON contains a `docker` or
