@@ -26,7 +26,7 @@ export interface JobRun<Env, Secrets> {
   secrets?: Secrets;
 }
 
-export type JobFormData = Job<ArrayLabels, EnvModel, SecretModel>;
+export type JobSpecData = Job<ArrayLabels, EnvModel, SecretModel>;
 
 export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
@@ -57,7 +57,7 @@ export enum Container {
 export interface JobSpec {
   cmdOnly: boolean;
   container?: Container | null;
-  job: JobFormData;
+  job: JobSpecData;
   schedule?: JobSchedule;
 }
 
