@@ -23,9 +23,9 @@ function getEnvironmentLines(
   showErrors: boolean
 ) {
   return data.map(([key, value], i) => {
-    const valueError = getFieldError(`job.run.env.${key}.value.${i}`, errors);
-    const keyError = getFieldError(`job.run.env.${key}.key`, errors);
-    const envError = getFieldError(`job.run.env.${i}`, errors);
+    const valueError = getFieldError(`run.env.${key}.value.${i}`, errors);
+    const keyError = getFieldError(`run.env.${key}.key`, errors);
+    const envError = getFieldError(`run.env.${i}`, errors);
     return (
       <FormRow key={`env-row-${i}`}>
         <FormGroup
@@ -84,10 +84,10 @@ class EnvVarPartial extends React.Component<EnvVarPartialProps, {}> {
 
     // prettier-ignore
     const envTooltipContent = (
-        <Trans render="span">
-          DC/OS also exposes environment variables for host ports and metadata.
-        </Trans>
-      );
+      <Trans render="span">
+        DC/OS also exposes environment variables for host ports and metadata.
+      </Trans>
+    );
 
     return (
       <div>
