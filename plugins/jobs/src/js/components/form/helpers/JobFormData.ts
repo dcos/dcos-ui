@@ -26,7 +26,7 @@ export interface JobRun<Env, Secrets> {
   secrets?: Secrets;
 }
 
-export type JobSpecData = Job<ArrayLabels, EnvModel, SecretModel>;
+export type JobSpecData = Job<ArrayLabels, EnvModel, JobSecretExposure[]>;
 
 export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
@@ -62,7 +62,6 @@ export interface JobSpec {
 }
 
 export type EnvModel = Array<[string, string]>;
-export type SecretModel = Array<[string, string, string]>;
 
 export interface JobSecretExposure {
   exposureType: "" | "env" | "file";
