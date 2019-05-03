@@ -64,6 +64,13 @@ export interface JobSpec {
 export type EnvModel = Array<[string, string]>;
 export type SecretModel = Array<[string, string, string]>;
 
+export interface JobSecretExposure {
+  exposureType: "" | "env" | "file";
+  exposureValue: string;
+  key: string;
+  secretPath: string;
+}
+
 export interface FormOutput {
   jobId: string;
   description?: string;
@@ -92,7 +99,7 @@ export interface FormOutput {
   retryTime?: number;
   labels?: ArrayLabels;
   env: EnvModel;
-  secrets?: SecretModel;
+  secrets?: JobSecretExposure[];
   artifacts?: JobArtifact[];
 }
 
