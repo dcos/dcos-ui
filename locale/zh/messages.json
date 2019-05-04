@@ -1211,6 +1211,7 @@
   "{completedSteps} out of {totalSteps} steps completed.": "",
   "{containerName} Path": "{containerName} 路径",
   "{errorMsg} Go to <0>insert permission string</0> to enter a permission manually.": "{errorMsg} 转至 <0>插入权限字符串</0> 以手动输入权限。",
+  "{finalErrorCount} issues need addressing": "",
   "{issueCount} issues need addressing": "{issueCount} 问题需要解决",
   "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration.": "{itemType} 当前被一个或多个部署锁定。再次按下按钮，以强制更改和部署新配置。",
   "{logName} Log is Currently Empty": "{logName} 日志当前为空",
