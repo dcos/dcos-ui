@@ -34,6 +34,7 @@ import { gpuSorter, gpuRenderer } from "../columns/NodesTableGPUColumn";
 import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
 
 interface NodesTableProps {
+  withPublicIP: boolean;
   hosts: NodesList;
   nodeHealthResponse: boolean;
   masterRegion: string;
@@ -180,6 +181,7 @@ export default class NodesTable extends React.Component<
 
   render() {
     const { data, sortColumn, sortDirection } = this.state;
+    const { withPublicIP } = this.props;
 
     if (data === null) {
       return <Loader />;
@@ -213,15 +215,19 @@ export default class NodesTable extends React.Component<
             maxWidth={100}
           />
 
-          <Column
-            header={
-              <HeaderCell>
-                <Trans>Public IP</Trans>
-              </HeaderCell>
-            }
-            cellRenderer={PublicIPColumn}
-            minWidth={125}
-          />
+          {withPublicIP ? (
+            <Column
+              header={
+                <HeaderCell>
+                  <Trans>Public IP</Trans>
+                </HeaderCell>
+              }
+              cellRenderer={PublicIPColumn}
+              minWidth={125}
+            />
+          ) : (
+            <noscript />
+          )}
 
           <Column
             header={
