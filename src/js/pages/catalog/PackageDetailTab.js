@@ -13,22 +13,33 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import {
   green,
-  iconSizeL
+  iconSizeL,
+  iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import classNames from "classnames";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
-import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
 import Image from "#SRC/js/components/Image";
 import ImageViewer from "#SRC/js/components/ImageViewer";
 import Loader from "#SRC/js/components/Loader";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
+import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 
 const semver = require("semver");
+
+const runningServicesNames = (tasks = []) =>
+  tasks
+    .filter(t => t.state === "TASK_RUNNING")
+    .map(t => t.labels || [])
+    .map(ls => ls.find(l => l.key === "DCOS_SERVICE_NAME") || {})
+    .map(l => l.value);
 
 const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   const name = cosmosPackage.getName();
@@ -65,8 +76,11 @@ const METHODS_TO_BIND = [
   "renderReviewAndRunButton",
   "handlePackageVersionChange",
   "handleReviewAndRunClick",
+  "hasUnresolvedDependency",
   "onInstalledSuccessModalClose",
-  "renderInstallButton"
+  "onMesosStateChange",
+  "renderInstallButton",
+  "renderReviewAndRunButton"
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
@@ -76,7 +90,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.state = {
       hasError: 0,
       isLoadingSelectedVersion: false,
-      isLoadingVersions: false
+      isLoadingVersions: false,
+      runningPackageNames: { state: "loading" }
     };
 
     this.store_listeners = [
@@ -117,6 +132,29 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
       CosmosPackagesStore.fetchPackageDescription(packageName, version);
     }
+  }
+
+  componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+  }
+
+  componentWillMount() {
+    MesosStateStore.addChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+  }
+
+  onMesosStateChange() {
+    this.setState({
+      runningPackageNames: {
+        state: "success",
+        data: runningServicesNames(MesosStateStore.getLastMesosState().tasks)
+      }
+    });
   }
 
   componentDidMount() {
@@ -298,21 +336,24 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   renderInstallButton({ tooltipContent, disabled }) {
-    return (
+    const button = (
+      <button
+        className={classNames("button button-primary", { disabled })}
+        onClick={this.handleReviewAndRunClick}
+      >
+        <Trans render="span">Review & Run</Trans>
+      </button>
+    );
+    return !tooltipContent ? (
+      button
+    ) : (
       <Tooltip
-        wrapperClassName="button-group"
         wrapText={true}
         content={tooltipContent}
         suppress={!disabled}
         width={200}
       >
-        <button
-          disabled={disabled}
-          className="button button-primary"
-          onClick={this.handleReviewAndRunClick}
-        >
-          <Trans render="span">Review & Run</Trans>
-        </button>
+        {button}
       </Tooltip>
     );
   }
@@ -334,6 +375,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
       });
     }
 
+    if (this.hasUnresolvedDependency(cosmosPackage)) {
+      return this.renderInstallButton({
+        disabled: true,
+        tooltipContent: (
+          <Trans>Cannot run without {dependency(cosmosPackage)} package.</Trans>
+        )
+      });
     }
 
     if (
@@ -345,7 +393,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       ) < 0
     ) {
       return this.renderInstallButton({
-        disable: true,
+        disabled: true,
         tooltipContent: (
           <Trans>
             This version of {cosmosPackage.getName()} requires DC/OS version{" "}
@@ -520,7 +568,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
       }
     ];
 
-    const isLoading = false;
+    const isLoading = this.state.runningPackageNames.state === "loading";
+
     return (
       <Page>
         <Page.Header
@@ -532,9 +581,12 @@ class PackageDetailTab extends mixin(StoreMixin) {
           }
         />
 
-        {!isLoading && (
+        {!isLoading ? (
           <div>
             <div className="container">
+              {this.hasUnresolvedDependency(cosmosPackage) &&
+                renderUnresolvedDependency(dependency(cosmosPackage))}
+
               <div className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset">
                 <div className="media-object media-object-align-top media-object-wrap">
                   <div className="media-object-item">
@@ -574,6 +626,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
             </div>
             {this.getInstalledSuccessModal(name)}
           </div>
+        ) : (
+          <Loader />
+        )}
       </Page>
     );
   }
@@ -582,5 +637,24 @@ class PackageDetailTab extends mixin(StoreMixin) {
 PackageDetailTab.contextTypes = {
   router: routerShape
 };
+
+const dependency = cosmosPackage => (cosmosPackage.manager || {}).packageName;
+
+const renderUnresolvedDependency = dependency => (
+  <div className="infoBoxWrapper">
+    <InfoBoxInline
+      message={
+        <div>
+          <Icon shape={SystemIcons.CircleInformation} size={iconSizeXs} />{" "}
+          <Trans>
+            This service cannot run without the "
+            <Link to={`/catalog/packages/${dependency}`}>{dependency}</Link>"
+            package.
+          </Trans>
+        </div>
+      }
+    />
+  </div>
+);
 
 module.exports = PackageDetailTab;
