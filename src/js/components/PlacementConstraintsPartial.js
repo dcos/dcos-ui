@@ -94,6 +94,7 @@ class PlacementConstraintsPartial extends Component {
           type="text"
           value={constraint.value}
           disabled={!!valueIsRequiredEmpty}
+          autoFocus={Boolean(valueError)}
         />
       );
 
@@ -158,6 +159,7 @@ class PlacementConstraintsPartial extends Component {
               type="text"
               placeholder="hostname"
               value={constraint.fieldName}
+              autoFocus={Boolean(fieldNameError)}
             />
             {fieldNameError && <FieldError>{fieldNameError}</FieldError>}
             {!fieldNameError && <FieldHelp>{fieldNameHelpText}</FieldHelp>}

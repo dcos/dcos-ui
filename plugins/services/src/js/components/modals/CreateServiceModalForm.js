@@ -41,6 +41,7 @@ import NetworkingFormSection from "../forms/NetworkingFormSection";
 import PodSpec from "../../structs/PodSpec";
 import ServiceErrorMessages from "../../constants/ServiceErrorMessages";
 import ServiceErrorPathMapping from "../../constants/ServiceErrorPathMapping";
+import ServiceErrorTabPathRegexes from "../../constants/ServiceErrorTabPathRegexes";
 import ServiceUtil from "../../utils/ServiceUtil";
 import VolumesFormSection from "../forms/VolumesFormSection";
 
@@ -378,7 +379,8 @@ class CreateServiceModalForm extends Component {
         return {
           className: "text-overflow",
           id: `container${index}`,
-          label: getContainerNameWithIcon(fakeContainer)
+          label: getContainerNameWithIcon(fakeContainer),
+          isContainer: true
         };
       });
     }
@@ -536,7 +538,21 @@ class CreateServiceModalForm extends Component {
       return null;
     }
 
+    const errorsByTab = CreateServiceModalFormUtil.getTopLevelTabErrors(
+      this.props.errors,
+      ServiceErrorTabPathRegexes,
+      ServiceErrorPathMapping,
+      this.props.i18n
+    );
+
     return navigationItems.map(item => {
+      const finalErrorCount = item.isContainer
+        ? findNestedPropertyInObject(
+            CreateServiceModalFormUtil.getContainerTabErrors(errorsByTab),
+            `${item.id}.length`
+          )
+        : findNestedPropertyInObject(errorsByTab, `${item.id}.length`);
+
       return (
         <TabButton
           className={item.className}
@@ -549,6 +565,14 @@ class CreateServiceModalForm extends Component {
             )
           }
           key={item.key || item.id}
+          count={finalErrorCount}
+          showErrorBadge={Boolean(finalErrorCount) && this.props.showAllErrors}
+          description={
+            // TODO: pluralize
+            <Trans render="span">
+              {finalErrorCount} issues need addressing
+            </Trans>
+          }
         >
           {this.getFormTabList(item.children)}
         </TabButton>

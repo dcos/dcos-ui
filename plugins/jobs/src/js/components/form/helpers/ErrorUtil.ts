@@ -25,5 +25,5 @@ export function getFieldError(path: string, errors: FormError[]): string {
       return match === path;
     })
     .map(e => e.message)
-    .join(" ");
+    .join(". ");
 }

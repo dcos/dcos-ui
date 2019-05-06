@@ -1,3 +1,4 @@
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import {
   deepCopy,
   findNestedPropertyInObject,
@@ -12,6 +13,10 @@ import {
   JobSpec
 } from "./JobFormData";
 import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
+
+// Array<[string, T]> => Record<string, T>
+const zipObject = <T>(list: Array<[string, T]>): Record<string, T> =>
+  list.reduce<Record<string, T>>((acc, [k, v]) => ({ ...acc, [k]: v }), {});
 
 export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   const jobSpecCopy = deepCopy(jobSpec);
@@ -75,15 +80,25 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       : artifacts;
 
     try {
-      const labels = (jobSpec.job.labels || []).reduce<Record<string, string>>(
-        (acc, [k, v]) => ({ ...acc, [k]: v }),
-        {}
-      );
+      // filter out empty keys ("")
+      const labels = zipObject((jobSpec.job.labels || []).filter(([k]) => k));
 
       // don't show labels in JSON-editor unless we actually have key-value-pairs
       jobSpecCopy.job.labels =
         Object.keys(labels).length > 0 ? labels : undefined;
-    } catch {}
+    } catch {
+      // someone entered invalid stuff in the JSON editor
+    }
+
+    // ENVIRONMENT
+    try {
+      // filter out empty keys ("")
+      const env = zipObject((jobSpec.job.run.env || []).filter(([k]) => k));
+      // don't show labels in JSON-editor unless we actually have key-value-pairs
+      jobSpecCopy.job.run.env = Object.keys(env).length > 0 ? env : undefined;
+    } catch {
+      // someone entered invalid stuff in the JSON editor
+    }
   }
 
   if (
@@ -107,7 +122,7 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
     schedule: jobSpecCopy.schedule
   };
 
-  return jobOutput;
+  return Hooks.applyFilter("jobSpecToOutputParser", jobOutput);
 }
 
 export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
@@ -142,6 +157,7 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     containerImage,
     imageForcePull,
     grantRuntimePrivileges,
+    env: run.env || [],
     cpus: run.cpus,
     gpus: run.gpus,
     mem: run.mem,

@@ -96,7 +96,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -130,6 +131,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           name={`portDefinitions.${index}.hostPort`}
           type="number"
           value={hostPortValue}
+          autoFocus={Boolean(hostPortError)}
         />
         <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
@@ -164,7 +166,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         balancer and attach this service.{" "}
         <a href={loadBalancerDocsURI} target="_blank">
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -303,6 +306,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   name={`portDefinitions.${index}.vipPort`}
                   type="number"
                   value={vipPort}
+                  autoFocus={Boolean(vipPortError)}
                 />
               </FieldAutofocus>
             </FormGroup>
@@ -337,7 +341,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -413,6 +418,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             name={`portDefinitions.${index}.containerPort`}
             type="number"
             value={portDefinition.containerPort}
+            autoFocus={Boolean(containerPortError)}
           />
         </FieldAutofocus>
         <FieldError>{containerPortError}</FieldError>
@@ -607,7 +613,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         and ports.{" "}
         <a href={serviceEndpointsDocsURI} target="_blank">
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
     const heading = (
