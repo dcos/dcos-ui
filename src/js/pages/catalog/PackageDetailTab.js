@@ -62,9 +62,11 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
 };
 
 const METHODS_TO_BIND = [
+  "renderReviewAndRunButton",
   "handlePackageVersionChange",
   "handleReviewAndRunClick",
-  "onInstalledSuccessModalClose"
+  "onInstalledSuccessModalClose",
+  "renderInstallButton"
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
@@ -275,34 +277,63 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  getInstallButtons(cosmosPackage) {
+  renderCliHint() {
+    return (
+      <div>
+        <Trans render="p">CLI Only Package</Trans>
+        <Trans render="p">
+          {"This package can only be installed using the CLI. See the "}
+          <a
+            href={MetadataStore.buildDocsURI(
+              "/cli/command-reference/dcos-package/dcos-package-install/"
+            )}
+            target="_blank"
+          >
+            documentation
+          </a>
+          .
+        </Trans>
+      </div>
+    );
+  }
+
+  renderInstallButton({ tooltipContent, disabled }) {
+    return (
+      <Tooltip
+        wrapperClassName="button-group"
+        wrapText={true}
+        content={tooltipContent}
+        suppress={!disabled}
+        width={200}
+      >
+        <button
+          disabled={disabled}
+          className="button button-primary"
+          onClick={this.handleReviewAndRunClick}
+        >
+          <Trans render="span">Review & Run</Trans>
+        </button>
+      </Tooltip>
+    );
+  }
+
+  hasUnresolvedDependency(cosmosPackage) {
+    const dep = dependency(cosmosPackage);
+    return dep && !(this.state.runningPackageNames.data || []).includes(dep);
+  }
+
+  renderReviewAndRunButton(cosmosPackage) {
     if (cosmosPackage.isCLIOnly()) {
-      return (
-        <div>
-          <Trans render="p">CLI Only Package</Trans>
-          <Trans render="p">
-            {"This package can only be installed using the CLI. See the "}
-            <a
-              href={MetadataStore.buildDocsURI(
-                "/cli/command-reference/dcos-package/dcos-package-install/"
-              )}
-              target="_blank"
-            >
-              documentation
-            </a>
-            .
-          </Trans>
-        </div>
-      );
+      return this.renderCliHint();
     }
 
-    const { isLoadingSelectedVersion } = this.state;
-    let tooltipContent = "";
-    let installButtonIsDisabled = false;
+    if (this.state.isLoadingSelectedVersion) {
+      return this.renderInstallButton({
+        disabled: true,
+        tooltipContent: <Trans>Loading selected version</Trans>
+      });
+    }
 
-    if (isLoadingSelectedVersion) {
-      tooltipContent = <Trans render="span">Loading selected version</Trans>;
-      installButtonIsDisabled = true;
     }
 
     if (
@@ -313,35 +344,19 @@ class PackageDetailTab extends mixin(StoreMixin) {
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
-      tooltipContent = (
-        <Trans render="span">
-          This version of {cosmosPackage.getName()} requires DC/OS version{" "}
-          {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
-          DC/OS version {semver.coerce(MetadataStore.version)}
-        </Trans>
-      );
-      installButtonIsDisabled = true;
+      return this.renderInstallButton({
+        disable: true,
+        tooltipContent: (
+          <Trans>
+            This version of {cosmosPackage.getName()} requires DC/OS version{" "}
+            {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
+            DC/OS version {semver.coerce(MetadataStore.version)}
+          </Trans>
+        )
+      });
     }
 
-    return (
-      <div className="button-collection">
-        <Tooltip
-          wrapperClassName="button-group"
-          wrapText={true}
-          content={tooltipContent}
-          suppress={!installButtonIsDisabled}
-          width={200}
-        >
-          <button
-            disabled={installButtonIsDisabled}
-            className="button button-primary"
-            onClick={this.handleReviewAndRunClick}
-          >
-            <Trans render="span">Review & Run</Trans>
-          </button>
-        </Tooltip>
-      </div>
-    );
+    return this.renderInstallButton({ tooltipContent: "", disabled: false });
   }
 
   getPackageVersionsDropdown() {
@@ -505,6 +520,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       }
     ];
 
+    const isLoading = false;
     return (
       <Page>
         <Page.Header
@@ -515,45 +531,49 @@ class PackageDetailTab extends mixin(StoreMixin) {
             />
           }
         />
-        <div className="container">
-          <div className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset">
-            <div className="media-object media-object-align-top media-object-wrap">
-              <div className="media-object-item">
-                <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
-                  <Image
-                    fallbackSrc={defaultServiceImage}
-                    src={
-                      state.isLoadingSelectedVersion
-                        ? defaultServiceImage
-                        : cosmosPackage.getIcons()["icon-large"]
-                    }
-                  />
+
+        {!isLoading && (
+          <div>
+            <div className="container">
+              <div className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset">
+                <div className="media-object media-object-align-top media-object-wrap">
+                  <div className="media-object-item">
+                    <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                      <Image
+                        fallbackSrc={defaultServiceImage}
+                        src={
+                          state.isLoadingSelectedVersion
+                            ? defaultServiceImage
+                            : cosmosPackage.getIcons()["icon-large"]
+                        }
+                      />
+                    </div>
+                  </div>
+                  {!state.isLoadingSelectedVersion && (
+                    <div className="media-object-item media-object-item-grow ">
+                      <h1 className="short flush-top flush-bottom">{name}</h1>
+                      <div className="flex flex-align-items-center">
+                        <span className="package-version-label">
+                          <Trans>Version</Trans>:
+                        </span>
+                        {this.getPackageVersionsDropdown()}
+                      </div>
+                      <div className="row">
+                        {this.getPackageBadge(cosmosPackage)}
+                      </div>
+                    </div>
+                  )}
+                  <div className="media-object-item package-action-buttons">
+                    {this.renderReviewAndRunButton(cosmosPackage)}
+                  </div>
                 </div>
               </div>
-              {!state.isLoadingSelectedVersion && (
-                <div className="media-object-item media-object-item-grow ">
-                  <h1 className="short flush-top flush-bottom">{name}</h1>
-                  <div className="flex flex-align-items-center">
-                    <span className="package-version-label">
-                      <Trans>Version</Trans>:
-                    </span>
-                    {this.getPackageVersionsDropdown()}
-                  </div>
-                  <div className="row">
-                    {this.getPackageBadge(cosmosPackage)}
-                  </div>
-                </div>
-              )}
-              <div className="media-object-item package-action-buttons">
-                {this.getInstallButtons(cosmosPackage)}
-              </div>
+              {state.isLoadingSelectedVersion
+                ? this.getLoadingScreen()
+                : this.getPackageDescription(definition, cosmosPackage)}
             </div>
+            {this.getInstalledSuccessModal(name)}
           </div>
-          {state.isLoadingSelectedVersion
-            ? this.getLoadingScreen()
-            : this.getPackageDescription(definition, cosmosPackage)}
-        </div>
-        {this.getInstalledSuccessModal(name)}
       </Page>
     );
   }
