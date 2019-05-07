@@ -189,150 +189,151 @@ export default class NodesTable extends React.Component<
       return <Loader />;
     }
 
+    const columns = [
+      <Column
+        key="hostname"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Host</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "host")}
+            sortDirection={sortColumn === "host" ? sortDirection : null}
+          />
+        }
+        cellRenderer={ipRenderer}
+        minWidth={120}
+      />,
+      <Column
+        key="health"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Health</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "health")}
+            sortDirection={sortColumn === "health" ? sortDirection : null}
+          />
+        }
+        cellRenderer={healthRenderer}
+        minWidth={80}
+        maxWidth={100}
+      />,
+      withPublicIP ? (
+        <Column
+          key="public_ip"
+          header={
+            <HeaderCell>
+              <Trans>Public IP</Trans>
+            </HeaderCell>
+          }
+          cellRenderer={PublicIPColumn}
+          minWidth={125}
+        />
+      ) : null,
+      <Column
+        key="type"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Type</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "type")}
+            sortDirection={sortColumn === "type" ? sortDirection : null}
+          />
+        }
+        cellRenderer={typeRenderer}
+        maxWidth={70}
+      />,
+      <Column
+        key="region"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Region</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "region")}
+            sortDirection={sortColumn === "region" ? sortDirection : null}
+          />
+        }
+        cellRenderer={this.regionRenderer}
+        minWidth={170}
+      />,
+      <Column
+        key="zone"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Zone</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "zone")}
+            sortDirection={sortColumn === "zone" ? sortDirection : null}
+          />
+        }
+        cellRenderer={zoneRenderer}
+        minWidth={100}
+      />,
+      <Column
+        key="tasks"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Tasks</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "tasks")}
+            sortDirection={sortColumn === "tasks" ? sortDirection : null}
+            textAlign="right"
+          />
+        }
+        cellRenderer={tasksRenderer}
+        minWidth={60}
+        maxWidth={80}
+      />,
+      <Column
+        key="cpu"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">CPU</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "cpu")}
+            sortDirection={sortColumn === "cpu" ? sortDirection : null}
+          />
+        }
+        cellRenderer={cpuRenderer}
+        growToFill={true}
+        minWidth={110}
+      />,
+      <Column
+        key="mem"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Mem</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "mem")}
+            sortDirection={sortColumn === "mem" ? sortDirection : null}
+          />
+        }
+        cellRenderer={memRenderer}
+        growToFill={true}
+        minWidth={110}
+      />,
+      <Column
+        key="disk"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Disk</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "disk")}
+            sortDirection={sortColumn === "disk" ? sortDirection : null}
+          />
+        }
+        cellRenderer={diskRenderer}
+        growToFill={true}
+        minWidth={110}
+      />,
+      <Column
+        key="gpu"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">GPU</Trans>}
+            sortHandler={this.handleSortClick.bind(null, "gpu")}
+            sortDirection={sortColumn === "gpu" ? sortDirection : null}
+          />
+        }
+        cellRenderer={gpuRenderer}
+        growToFill={true}
+        minWidth={110}
+      />
+    ].filter((col): col is React.ReactElement => col !== null);
+
     return (
       <div className="table-wrapper">
-        <Table data={data}>
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Host</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "host")}
-                sortDirection={sortColumn === "host" ? sortDirection : null}
-              />
-            }
-            cellRenderer={ipRenderer}
-            minWidth={120}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Health</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "health")}
-                sortDirection={sortColumn === "health" ? sortDirection : null}
-              />
-            }
-            cellRenderer={healthRenderer}
-            minWidth={80}
-            maxWidth={100}
-          />
-
-          {withPublicIP ? (
-            <Column
-              header={
-                <HeaderCell>
-                  <Trans>Public IP</Trans>
-                </HeaderCell>
-              }
-              cellRenderer={PublicIPColumn}
-              minWidth={125}
-            />
-          ) : (
-            <noscript />
-          )}
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Type</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "type")}
-                sortDirection={sortColumn === "type" ? sortDirection : null}
-              />
-            }
-            cellRenderer={typeRenderer}
-            maxWidth={70}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Region</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "region")}
-                sortDirection={sortColumn === "region" ? sortDirection : null}
-              />
-            }
-            cellRenderer={this.regionRenderer}
-            minWidth={170}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Zone</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "zone")}
-                sortDirection={sortColumn === "zone" ? sortDirection : null}
-              />
-            }
-            cellRenderer={zoneRenderer}
-            minWidth={100}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Tasks</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "tasks")}
-                sortDirection={sortColumn === "tasks" ? sortDirection : null}
-                textAlign="right"
-              />
-            }
-            cellRenderer={tasksRenderer}
-            minWidth={60}
-            maxWidth={80}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">CPU</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "cpu")}
-                sortDirection={sortColumn === "cpu" ? sortDirection : null}
-              />
-            }
-            cellRenderer={cpuRenderer}
-            growToFill={true}
-            minWidth={110}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Mem</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "mem")}
-                sortDirection={sortColumn === "mem" ? sortDirection : null}
-              />
-            }
-            cellRenderer={memRenderer}
-            growToFill={true}
-            minWidth={110}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">Disk</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "disk")}
-                sortDirection={sortColumn === "disk" ? sortDirection : null}
-              />
-            }
-            cellRenderer={diskRenderer}
-            growToFill={true}
-            minWidth={110}
-          />
-
-          <Column
-            header={
-              <SortableHeaderCell
-                columnContent={<Trans render="span">GPU</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "gpu")}
-                sortDirection={sortColumn === "gpu" ? sortDirection : null}
-              />
-            }
-            cellRenderer={gpuRenderer}
-            growToFill={true}
-            minWidth={110}
-          />
-        </Table>
+        <Table data={data}>{columns}</Table>
       </div>
     );
   }
