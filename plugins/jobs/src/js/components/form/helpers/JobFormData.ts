@@ -1,15 +1,38 @@
-export interface JobNoLabels {
+export interface Job<Labels, Env, Secrets> {
   id: string;
   description?: string;
-  run: JobRun;
+  labels?: Labels;
+  run: JobRun<Env, Secrets>;
 }
 
-export interface JobFormData extends JobNoLabels {
-  labels?: ArrayLabels;
+export interface JobRun<Env, Secrets> {
+  args?: string[];
+  artifacts?: JobArtifact[];
+  cmd?: string;
+  cpus: number;
+  gpus?: number;
+  disk: number;
+  ucr?: UcrContainer;
+  docker?: DockerContainer;
+  env?: Env;
+  maxLaunchDelay?: number;
+  mem: number;
+  placement?: JobPlacement;
+  user?: string;
+  taskKillGracePeriodSeconds?: number;
+  restart?: JobRestart;
+  activeDeadlineSeconds?: number;
+  volumes?: Array<JobVolume | SecretVolume>;
+  secrets?: Secrets;
 }
 
-export interface JobOutputData extends JobNoLabels {
-  labels?: JobLabels;
+export type JobFormData = Job<ArrayLabels, EnvModel, SecretModel>;
+
+export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
+
+export interface JobOutput {
+  job: JobOutputData;
+  schedule?: JobSchedule;
 }
 
 export enum ConcurrentPolicy {
@@ -38,6 +61,9 @@ export interface JobSpec {
   schedule?: JobSchedule;
 }
 
+export type EnvModel = Array<[string, string]>;
+export type SecretModel = Array<[string, string, string]>;
+
 export interface FormOutput {
   jobId: string;
   description?: string;
@@ -65,12 +91,9 @@ export interface FormOutput {
   restartPolicy?: RestartPolicy;
   retryTime?: number;
   labels?: ArrayLabels;
+  env: EnvModel;
+  secrets?: SecretModel;
   artifacts?: JobArtifact[];
-}
-
-export interface JobOutput {
-  job: JobOutputData;
-  schedule?: JobSchedule;
 }
 
 // Labels used internally to track form state
@@ -79,29 +102,6 @@ export type ArrayLabels = Array<[string, string]>;
 // Labels in the form expected by the API
 export interface JobLabels {
   [key: string]: string;
-}
-
-export interface JobRun {
-  args?: string[];
-  artifacts?: JobArtifact[];
-  cmd?: string;
-  cpus: number;
-  gpus?: number;
-  disk: number;
-  ucr?: UcrContainer;
-  docker?: DockerContainer;
-  env?: JobEnv;
-  maxLaunchDelay?: number;
-  mem: number;
-  placement?: JobPlacement;
-  user?: string;
-  taskKillGracePeriodSeconds?: number;
-  restart?: JobRestart;
-  activeDeadlineSeconds?: number;
-  volumes?: Array<JobVolume | SecretVolume>;
-  secrets?: {
-    [key: string]: FileBasedSecret;
-  };
 }
 
 export interface JobArtifact {
@@ -190,6 +190,10 @@ export interface SecretVolume {
 
 export interface FileBasedSecret {
   source: string;
+}
+
+export interface JobSecrets {
+  [key: string]: FileBasedSecret;
 }
 
 export interface FormError {
