@@ -183,7 +183,10 @@ const CosmosPackagesActions = {
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
-      data: JSON.stringify({ packageName, packageVersion }),
+      data: JSON.stringify({
+        packageName,
+        ...(packageVersion && { packageVersion })
+      }),
       success(response) {
         const cosmosPackage = response.package;
 

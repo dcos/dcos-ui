@@ -134,6 +134,102 @@ describe("Service Form Modal", function() {
             .contains("Service ID must be defined")
             .should("not.be.visible");
         });
+
+        it("displays an error badge for the Services tab", function() {
+          openServiceModal();
+          openServiceForm();
+
+          cy.get('.form-control[name="id"]')
+            .type("{selectall}{backspace}")
+            .blur();
+
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".errorsAlert-listItem")
+            .should(function($items) {
+              expect($items.length).to.equal(2);
+            })
+            .then(function($items) {
+              cy.get('.active > .menu-tabbed-item-label span[role="button"]')
+                .contains($items.length.toString())
+                .should("be.visible");
+            });
+
+          cy.get('.form-control[name="id"]')
+            .type("/hello-world")
+            .blur();
+
+          cy.get('.form-control[name="container.docker.image"]')
+            .type("nginx")
+            .blur();
+
+          cy.get(
+            '.active > .menu-tabbed-item-label span[role="button"]'
+          ).should("not.be.visible");
+        });
+        it("displays an error badge for a container tab", function() {
+          openServiceModal();
+          cy.get(".create-service-modal-service-picker-option")
+            .contains("Multi-container (Pod)")
+            .click();
+
+          cy.get(".menu-tabbed-item")
+            .contains("container-1")
+            .click();
+
+          cy.get('.form-control[name="containers.0.name"]')
+            .type("{selectall}{backspace}")
+            .type("!!!")
+            .blur();
+
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".errorsAlert-listItem")
+            .should(function($items) {
+              expect($items.length).to.equal(1);
+            })
+            .then(function($items) {
+              cy.get('.active > .menu-tabbed-item-label span[role="button"]')
+                .contains($items.length.toString())
+                .should("be.visible");
+            });
+
+          cy.get('.form-control[name="containers.0.name"]')
+            .type("{selectall}{backspace}")
+            .type("hello-world")
+            .blur();
+
+          cy.get(
+            '.active > .menu-tabbed-item-label span[role="button"]'
+          ).should("not.be.visible");
+        });
+        it("focuses the last field with an error when clicking to a tab with an error", function() {
+          openServiceModal();
+          openServiceForm();
+
+          cy.get('.form-control[name="id"]')
+            .type("{selectall}{backspace}")
+            .type("{selectall}{backspace}")
+            .blur();
+
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".menu-tabbed-item")
+            .contains("Placement")
+            .click();
+
+          cy.get(".menu-tabbed-item")
+            .contains("Service")
+            .click();
+
+          cy.focused().should("have.attr.name", "cmd");
+        });
       });
 
       describe("JSON errors", function() {

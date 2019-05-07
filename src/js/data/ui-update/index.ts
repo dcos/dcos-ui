@@ -3,6 +3,7 @@ import { map, publishReplay, refCount, retry, switchMap } from "rxjs/operators";
 import { RequestResponse } from "@dcos/http-service";
 import { makeExecutableSchema } from "graphql-tools";
 import { DCOSUIUpdateClient, UIVersionResponse } from "dcos-ui-update-client";
+import { parseVersion } from "./utils";
 
 import {
   UIMetadata,
@@ -34,7 +35,8 @@ function isUIUpdateArgs(args: PossibleMutationArgs): args is UIUpdateArgs {
 export const resolvers = {
   UIMetadata: {
     clientBuild() {
-      return of(window.DCOS_UI_VERSION);
+      const clientBuildVersion = parseVersion(window.DCOS_UI_VERSION);
+      return of(clientBuildVersion);
     },
     packageVersion(_parent = {}, _args = {}, context: QueryContext) {
       if (!context.versionStream) {
@@ -71,9 +73,8 @@ export const resolvers = {
       }
       const version$ = context.versionStream;
       return version$.pipe(
-        map(
-          ({ response }: RequestResponse<UIVersionResponse>) =>
-            response.buildVersion
+        map(({ response }: RequestResponse<UIVersionResponse>) =>
+          parseVersion(response.buildVersion)
         )
       );
     }

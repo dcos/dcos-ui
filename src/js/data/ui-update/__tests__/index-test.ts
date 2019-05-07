@@ -55,10 +55,10 @@ describe("UI-Update Service data-layer", () => {
             j: {
               data: {
                 ui: {
-                  clientBuild: "unit_test+v2.50.1",
+                  clientBuild: "v2.50.1",
                   packageVersion: "2.50.1",
                   packageVersionIsDefault: false,
-                  serverBuild: "master+v2.50.1+hfges"
+                  serverBuild: "v2.50.1"
                 }
               }
             }
@@ -100,7 +100,7 @@ describe("UI-Update Service data-layer", () => {
               expect(value).toEqual({
                 data: {
                   ui: {
-                    clientBuild: "unit_test+v1.0.0"
+                    clientBuild: "v1.0.0"
                   }
                 }
               });

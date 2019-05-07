@@ -157,7 +157,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     router.push(
       `/catalog/packages/${encodeURIComponent(
         params.packageName
-      )}/deploy?version=${location.query.version}`
+      )}/deploy?${qs.stringify({ version: location.query.version })}`
     );
   }
 
@@ -289,7 +289,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
               target="_blank"
             >
               documentation
-            </a>.
+            </a>
+            .
           </Trans>
         </div>
       );
