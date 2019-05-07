@@ -168,6 +168,7 @@ export interface PlacementConstraint {
   attribute: string;
   operator: ConstraintOperator;
   value?: string;
+  type?: string;
 }
 
 export enum RestartPolicy {
