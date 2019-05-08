@@ -20,6 +20,7 @@ import {
   containerImageReducers
 } from "./ContainerReducers";
 import { enabledReducers, concurrencyPolicyReducers } from "./ScheduleReducers";
+import { volumesReducers } from "./VolumesReducers";
 
 type DefaultReducerFunction = (
   value: string,
@@ -74,6 +75,7 @@ const combinedReducers: CombinedReducers = {
   args: argsReducers,
   scheduleEnabled: enabledReducers,
   concurrencyPolicy: concurrencyPolicyReducers,
+  volumes: volumesReducers,
   labels,
   artifacts,
   activeDeadlineSeconds,

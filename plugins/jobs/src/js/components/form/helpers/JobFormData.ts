@@ -100,6 +100,7 @@ export interface FormOutput {
   env: EnvModel;
   secrets?: JobSecretExposure[];
   artifacts?: JobArtifact[];
+  volumes: Array<SecretVolume | JobVolume>;
 }
 
 // Labels used internally to track form state

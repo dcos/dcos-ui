@@ -493,6 +493,85 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   }
 };
 
+function volumesAreComplete(formData: JobSpec) {
+  const volumes = findNestedPropertyInObject(formData, "job.run.volumes");
+  const errors: FormError[] = [];
+  if (volumes && Array.isArray(volumes)) {
+    volumes.forEach((volume, index) => {
+      if (
+        (volume.containerPath == null || volume.containerPath === "") &&
+        (volume.hostPath == null || volume.hostPath === "") &&
+        (volume.mode == null || volume.mode === "")
+      ) {
+        return;
+      }
+      if (volume.containerPath == null || volume.containerPath === "") {
+        errors.push({
+          path: ["job", "run", "volumes", `${index}`, "containerPath"],
+          message: i18nMark("Container path is required")
+        });
+      }
+      if (!volume.hasOwnProperty("secret")) {
+        if (volume.hostPath == null || volume.hostPath === "") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "hostPath"],
+            message: i18nMark("Host path is required")
+          });
+        }
+        if (volume.mode == null || volume.mode === "") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "mode"],
+            message: i18nMark("Mode is required")
+          });
+        }
+      }
+    });
+  }
+  return errors;
+}
+
+function checkVolumePropertyTypes(formData: JobSpec) {
+  const volumes = findNestedPropertyInObject(formData, "job.run.volumes");
+  const errors: FormError[] = [];
+  if (volumes && Array.isArray(volumes)) {
+    volumes.forEach((volume, index) => {
+      if (
+        (volume.containerPath == null || volume.containerPath === "") &&
+        (volume.hostPath == null || volume.hostPath === "") &&
+        (volume.mode == null || volume.mode === "")
+      ) {
+        return;
+      }
+      if (typeof volume.containerPath !== "string") {
+        errors.push({
+          path: ["job", "run", "volumes", `${index}`, "containerPath"],
+          message: stringMsg
+        });
+      }
+      if (!volume.hasOwnProperty("secret")) {
+        if (typeof volume.hostPath !== "string") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "hostPath"],
+            message: stringMsg
+          });
+        }
+        if (typeof volume.mode !== "string") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "mode"],
+            message: stringMsg
+          });
+        } else if (volume.mode !== "RO" && volume.mode !== "RW") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "mode"],
+            message: i18nMark("Mode must be one of: RO, RW")
+          });
+        }
+      }
+    });
+  }
+  return errors;
+}
+
 // We sometimes need to validate the spec instead of the formOutput to make sure
 // that e.g. two ENV-params don't have the same key. we need to allow for
 // that UX-wise, as if you have `DB_HOST` and type `DB_HOSTNAME` in the next
@@ -547,8 +626,14 @@ export function validateSpec(jobSpec: JobSpec): FormError[] {
     }
   });
 
+  const volumesErrors = volumesAreComplete(jobSpec).concat(
+    checkVolumePropertyTypes(jobSpec)
+  );
+
   return pipe(
     allUniq(_ => "job.labels", [labels], labelsMsg),
     isUniqIn(labels)(i => `job.labels.${i}`, labels, labelsMsg)
-  )([]).concat(envVarsErrors);
+  )([])
+    .concat(envVarsErrors)
+    .concat(volumesErrors);
 }
