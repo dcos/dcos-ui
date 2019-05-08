@@ -73,6 +73,18 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       }
     }
 
+    // VOLUMES
+
+    const { volumes } = jobSpecCopy.job.run;
+    if (volumes && Array.isArray(volumes)) {
+      jobSpecCopy.job.run.volumes = volumes.filter(
+        ({ hostPath, containerPath, mode }) => hostPath || containerPath || mode
+      );
+      if (!jobSpecCopy.job.run.volumes.length) {
+        delete jobSpecCopy.job.run.volumes;
+      }
+    }
+
     // RUN CONFIG
     const { artifacts } = jobSpecCopy.job.run;
     jobSpecCopy.job.run.artifacts = Array.isArray(artifacts)
@@ -182,7 +194,8 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     concurrencyPolicy: findNestedPropertyInObject(
       jobSpec,
       "schedule.concurrencyPolicy"
-    )
+    ),
+    volumes: findNestedPropertyInObject(jobSpec, "job.run.volumes") || []
   };
 };
 
