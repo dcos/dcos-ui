@@ -132,14 +132,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
   }
 
-  componentWillUnmount() {
-    DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
-  }
-
-  componentWillMount() {
-    DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
-  }
-
   onStoreChange() {
     this.setState({
       runningPackageNames: {
@@ -152,10 +144,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
 
+    DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
     this.retrievePackageInfo(
       this.props.params.packageName,
       this.props.location.query.version
     );
+  }
+
+  componentWillUnmount() {
+    DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -331,7 +328,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     const button = (
       <button
         className={classNames("button button-primary", { disabled })}
-        onClick={this.handleReviewAndRunClick}
+        onClick={() => disabled || this.handleReviewAndRunClick()}
       >
         <Trans render="span">Review & Run</Trans>
       </button>
@@ -639,8 +636,8 @@ const renderUnresolvedDependency = dependency => (
         <div>
           <Icon shape={SystemIcons.CircleInformation} size={iconSizeXs} />{" "}
           <Trans>
-            This service cannot run without the "
-            <Link to={`/catalog/packages/${dependency}`}>{dependency}</Link>"
+            This service cannot run without the{" "}
+            <Link to={`/catalog/packages/${dependency}`}>{dependency}</Link>{" "}
             package.
           </Trans>
         </div>

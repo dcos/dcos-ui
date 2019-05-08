@@ -1161,7 +1161,7 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
                     />,
                   ]
                 }
-                id="This service cannot run without the \\"<0>{dependency}</0>\\" package."
+                id="This service cannot run without the <0>{dependency}</0> package."
                 values={
                   Object {
                     "dependency": "someDep",
