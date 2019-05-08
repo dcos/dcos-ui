@@ -26,7 +26,7 @@ export interface JobRun<Env, Secrets> {
   secrets?: Secrets;
 }
 
-export type JobFormData = Job<ArrayLabels, EnvModel, SecretModel>;
+export type JobSpecData = Job<ArrayLabels, EnvModel, JobSecretExposure[]>;
 
 export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
@@ -57,12 +57,18 @@ export enum Container {
 export interface JobSpec {
   cmdOnly: boolean;
   container?: Container | null;
-  job: JobFormData;
+  job: JobSpecData;
   schedule?: JobSchedule;
 }
 
 export type EnvModel = Array<[string, string]>;
-export type SecretModel = Array<[string, string, string]>;
+
+export interface JobSecretExposure {
+  exposureType: "" | "env" | "file";
+  exposureValue: string;
+  key: string;
+  secretPath: string;
+}
 
 export interface FormOutput {
   jobId: string;
@@ -92,8 +98,9 @@ export interface FormOutput {
   retryTime?: number;
   labels?: ArrayLabels;
   env: EnvModel;
-  secrets?: SecretModel;
+  secrets?: JobSecretExposure[];
   artifacts?: JobArtifact[];
+  volumes: Array<SecretVolume | JobVolume>;
 }
 
 // Labels used internally to track form state

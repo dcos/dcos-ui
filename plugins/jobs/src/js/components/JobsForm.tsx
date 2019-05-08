@@ -25,6 +25,7 @@ import ContainerFormSection from "./form/ContainerFormSection";
 import EnvironmentFormSection from "./form/EnvironmentFormSection";
 import RunConfigFormSection from "./form/RunConfigFormSection";
 import ScheduleFormSection from "./form/ScheduleFormSection";
+import VolumesFormSection from "./form/VolumesFormSection";
 import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
@@ -37,7 +38,7 @@ const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-interface JobFormProps {
+interface JobsFormProps {
   onChange: (action: Action) => void;
   jobSpec: JobSpec;
   activeTab: string;
@@ -55,16 +56,17 @@ interface NavigationItem {
   label: string;
 }
 
-class JobModalForm extends React.Component<JobFormProps> {
+class JobsForm extends React.Component<JobsFormProps> {
   static readonly navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
     { id: "environment", key: "environment", label: i18nMark("Environment") },
+    { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
     { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
-  constructor(props: Readonly<JobFormProps>) {
+  constructor(props: Readonly<JobsFormProps>) {
     super(props);
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -207,6 +209,20 @@ class JobModalForm extends React.Component<JobFormProps> {
           onRemoveItem={this.handleRemoveItem}
         />
       </TabView>,
+      <TabView id="volumes" key="volumes">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <VolumesFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>,
       <TabView id="run_config" key="run_config">
         <ErrorsAlert
           errors={translatedErrors}
@@ -245,7 +261,7 @@ class JobModalForm extends React.Component<JobFormProps> {
     const jobJSON = this.getJSONEditorData(jobSpec);
     const tabList = Hooks.applyFilter(
       "createJobTabList",
-      JobModalForm.navigationItems
+      JobsForm.navigationItems
     ).map((item: NavigationItem) => (
       <TabButton
         id={item.id}
@@ -305,4 +321,4 @@ class JobModalForm extends React.Component<JobFormProps> {
   }
 }
 
-export default withI18n()(JobModalForm);
+export default withI18n()(JobsForm);
