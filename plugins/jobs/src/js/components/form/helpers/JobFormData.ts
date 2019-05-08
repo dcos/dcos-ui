@@ -64,7 +64,7 @@ export interface JobSpec {
 export type EnvModel = Array<[string, string]>;
 
 export interface JobSecretExposure {
-  exposureType: "" | "env" | "file";
+  exposureType: "" | "envVar" | "file";
   exposureValue: string;
   key: string;
   secretPath: string;
