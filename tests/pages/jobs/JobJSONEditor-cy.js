@@ -744,4 +744,165 @@ describe("Job JSON Editor", function() {
         }
       ]);
   });
+
+  it("renders proper JSON for a job with volumes", () => {
+    const jobName = "job-with-volume";
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+    const volume = {
+      containerPath: "cp",
+      hostPath: "hp",
+      mode: "RO"
+    };
+
+    // Click 'Create a job'
+    // Note: The current group contains the previous job
+    cy.get(".button.button-primary-link.button-narrow").click();
+
+    // Wait for the 'New Job' dialog to appear
+    cy.get(".modal-header")
+      .contains("New Job")
+      .should("exist");
+
+    // Fill-in the input elements
+    cy.root()
+      .getFormGroupInputFor("Job ID *")
+      .type(`{selectall}${fullJobName}`);
+    cy.root()
+      .getFormGroupInputFor("Mem (MiB) *")
+      .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+
+    cy.root()
+      .getFormGroupInputFor("Command *")
+      .type(cmdline);
+
+    cy.get(".menu-tabbed-item")
+      .contains("Volumes")
+      .click();
+
+    cy.root()
+      .get(".button")
+      .contains("Add Volume")
+      .click();
+
+    cy.root()
+      .get("[name='containerPath.0.volumes']")
+      .type(volume.containerPath);
+
+    cy.root()
+      .get("[name='hostPath.0.volumes']")
+      .type(volume.hostPath);
+
+    cy.get('select[name="mode.0.volumes"]').select(volume.mode);
+
+    // Check JSON mode
+    cy.contains("JSON Editor").click();
+
+    // Check contents of the JSON editor
+    cy.get("#brace-editor")
+      .contents()
+      .asJson()
+      .should("deep.equal", [
+        {
+          job: {
+            id: fullJobName,
+            description: "",
+            run: {
+              cpus: 1,
+              mem: 32,
+              disk: 0,
+              cmd: cmdline,
+              volumes: [volume]
+            }
+          }
+        }
+      ]);
+  });
+
+  it("renders proper JSON for a job with a constraint", () => {
+    const jobName = "job-with-constraint";
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
+    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+    const constraint = {
+      attribute: "a",
+      operator: "IS",
+      value: "b"
+    };
+
+    // Click 'Create a job'
+    // Note: The current group contains the previous job
+    cy.get(".button.button-primary-link.button-narrow").click();
+
+    // Wait for the 'New Job' dialog to appear
+    cy.get(".modal-header")
+      .contains("New Job")
+      .should("exist");
+
+    // Fill-in the input elements
+    cy.root()
+      .getFormGroupInputFor("Job ID *")
+      .type(`{selectall}${fullJobName}`);
+    cy.root()
+      .getFormGroupInputFor("Mem (MiB) *")
+      .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+    cy.root()
+      .getFormGroupInputFor("Command *")
+      .type(cmdline);
+
+    cy.get(".menu-tabbed-item")
+      .contains("Placement")
+      .click();
+
+    cy.root()
+      .get(".button")
+      .contains("Add Placement Constraint")
+      .click();
+
+    cy.root()
+      .getFormGroupInputFor("Field")
+      .type(constraint.attribute);
+
+    cy.root()
+      .getFormGroupInputFor("Value")
+      .type(constraint.value);
+
+    cy.get(".button.dropdown-toggle").click();
+
+    cy.contains(".dropdown-menu-list-item", "Is").click();
+
+    // Check JSON mode
+    cy.contains("JSON Editor").click();
+
+    // Check contents of the JSON editor
+    cy.get("#brace-editor")
+      .contents()
+      .asJson()
+      .should("deep.equal", [
+        {
+          job: {
+            id: fullJobName,
+            description: "",
+            run: {
+              cpus: 1,
+              mem: 32,
+              disk: 0,
+              cmd: cmdline,
+              placement: {
+                constraints: [constraint]
+              }
+            }
+          }
+        }
+      ]);
+  });
 });

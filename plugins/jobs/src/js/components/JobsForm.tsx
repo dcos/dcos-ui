@@ -3,6 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import classNames from "classnames";
 import * as React from "react";
+import { MountService } from "foundation-ui";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
@@ -25,6 +26,8 @@ import ContainerFormSection from "./form/ContainerFormSection";
 import EnvironmentFormSection from "./form/EnvironmentFormSection";
 import RunConfigFormSection from "./form/RunConfigFormSection";
 import ScheduleFormSection from "./form/ScheduleFormSection";
+import VolumesFormSection from "./form/VolumesFormSection";
+import PlacementSection from "./form/PlacementSection";
 import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
@@ -61,6 +64,8 @@ class JobsForm extends React.Component<JobsFormProps> {
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
     { id: "environment", key: "environment", label: i18nMark("Environment") },
+    { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
+    { id: "placement", key: "placement", label: i18nMark("Placement") },
     { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
@@ -206,6 +211,43 @@ class JobsForm extends React.Component<JobsFormProps> {
           onAddItem={this.handleAddItem}
           onRemoveItem={this.handleRemoveItem}
         />
+      </TabView>,
+      <TabView id="volumes" key="volumes">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <VolumesFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>,
+      <TabView id="placement" key="placement">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <MountService.Mount
+          type="CreateJob:PlacementSection"
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        >
+          <PlacementSection
+            formData={formOutput}
+            errors={translatedErrors}
+            showErrors={showAllErrors}
+            onAddItem={this.handleAddItem}
+            onRemoveItem={this.handleRemoveItem}
+          />
+        </MountService.Mount>
       </TabView>,
       <TabView id="run_config" key="run_config">
         <ErrorsAlert

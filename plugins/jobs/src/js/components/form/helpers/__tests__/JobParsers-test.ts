@@ -96,7 +96,9 @@ describe("JobParsers", () => {
       args: [],
       env: [],
       grantRuntimePrivileges: undefined,
-      imageForcePull: undefined
+      imageForcePull: undefined,
+      volumes: [],
+      placementConstraints: []
     };
 
     it("transforms JobSpec to FormOutput", () => {

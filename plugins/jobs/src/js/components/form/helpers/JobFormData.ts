@@ -64,7 +64,7 @@ export interface JobSpec {
 export type EnvModel = Array<[string, string]>;
 
 export interface JobSecretExposure {
-  exposureType: "" | "env" | "file";
+  exposureType: "" | "envVar" | "file";
   exposureValue: string;
   key: string;
   secretPath: string;
@@ -100,6 +100,8 @@ export interface FormOutput {
   env: EnvModel;
   secrets?: JobSecretExposure[];
   artifacts?: JobArtifact[];
+  volumes: Array<SecretVolume | JobVolume>;
+  placementConstraints?: PlacementConstraint[];
 }
 
 // Labels used internally to track form state
@@ -158,7 +160,7 @@ export interface JobPlacement {
 }
 
 export enum ConstraintOperator {
-  Eq = "EQ",
+  Is = "IS",
   Like = "LIKE",
   Unlike = "UNLIKE"
 }
@@ -166,6 +168,7 @@ export interface PlacementConstraint {
   attribute: string;
   operator: ConstraintOperator;
   value?: string;
+  type?: string;
 }
 
 export enum RestartPolicy {

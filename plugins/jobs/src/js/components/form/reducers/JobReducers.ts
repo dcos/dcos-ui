@@ -19,7 +19,9 @@ import {
   grantRuntimePrivilegesReducers,
   containerImageReducers
 } from "./ContainerReducers";
+import { placementReducers } from "./PlacementReducers";
 import { enabledReducers, concurrencyPolicyReducers } from "./ScheduleReducers";
+import { volumesReducers } from "./VolumesReducers";
 
 type DefaultReducerFunction = (
   value: string,
@@ -74,6 +76,8 @@ const combinedReducers: CombinedReducers = {
   args: argsReducers,
   scheduleEnabled: enabledReducers,
   concurrencyPolicy: concurrencyPolicyReducers,
+  volumes: volumesReducers,
+  placementConstraints: placementReducers,
   labels,
   artifacts,
   activeDeadlineSeconds,
