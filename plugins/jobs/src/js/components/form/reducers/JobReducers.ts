@@ -19,6 +19,7 @@ import {
   grantRuntimePrivilegesReducers,
   containerImageReducers
 } from "./ContainerReducers";
+import { placementReducers } from "./PlacementReducers";
 import { enabledReducers, concurrencyPolicyReducers } from "./ScheduleReducers";
 import { volumesReducers } from "./VolumesReducers";
 
@@ -76,6 +77,7 @@ const combinedReducers: CombinedReducers = {
   scheduleEnabled: enabledReducers,
   concurrencyPolicy: concurrencyPolicyReducers,
   volumes: volumesReducers,
+  placementConstraints: placementReducers,
   labels,
   artifacts,
   activeDeadlineSeconds,

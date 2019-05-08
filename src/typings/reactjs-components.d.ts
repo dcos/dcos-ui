@@ -71,4 +71,24 @@ declare module "reactjs-components" {
 
   // tslint:disable-next-line:max-classes-per-file
   export class Tooltip extends Component<TooltipProps, {}> {}
+
+  interface SelectProps {
+    className?: string;
+    onChange?: (e?: any) => void;
+    name?: string;
+    placeholder?: string;
+    value?: string | number;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class Select extends Component<SelectProps, {}> {}
+
+  interface SelectOptionProps {
+    value?: string;
+    label?: string;
+    disabled?: boolean;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class SelectOption extends Component<SelectOptionProps, {}> {}
 }

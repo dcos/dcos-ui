@@ -1,6 +1,7 @@
 import {
   MetronomeSpecValidators,
-  validateSpec
+  validateSpec,
+  constraintsAreComplete
 } from "../MetronomeJobValidators";
 import { JobOutput } from "../JobFormData";
 
@@ -1294,6 +1295,175 @@ describe("MetronomeSpecValidators", () => {
         MetronomeSpecValidators.scheduleStartingDeadlineIsValid(spec as any)
       ).toEqual(STARTINGDEADLINETYPEERROR);
     });
+  });
+
+  describe("#constraintsAreArray", () => {
+    it("does not return error if constraints are array", () => {
+      const spec = {
+        job: {
+          run: {
+            placement: {
+              constraints: []
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if no constraints present", () => {
+      const spec = {
+        job: {
+          run: {
+            placement: {}
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if no placement present", () => {
+      const spec = {
+        job: {
+          run: {}
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("returns error if constraints are not an array", () => {
+      const spec = {
+        job: {
+          run: {
+            placement: {
+              constraints: {}
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual([
+        {
+          path: ["job", "run", "placement", "constraints"],
+          message: "Constraints must be an array"
+        }
+      ]);
+    });
+  });
+});
+
+describe("#constraintsAreComplete", () => {
+  it("does not return error if no constraints present", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {}
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([]);
+  });
+
+  it("does not return error if no placement present", () => {
+    const spec = {
+      job: {
+        run: {}
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([]);
+  });
+
+  it("does not return error if constraints are complete", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                attribute: "a",
+                operator: "IS",
+                value: "c"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([]);
+  });
+
+  it("returns error if value is required and missing", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                attribute: "a",
+                operator: "IS"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([
+      {
+        path: ["job", "run", "placement", "constraints", "0", "value"],
+        message: "Value is required"
+      }
+    ]);
+  });
+
+  it("returns error if attribute is missing", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                operator: "IS",
+                value: "b"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([
+      {
+        path: ["job", "run", "placement", "constraints", "0", "attribute"],
+        message: "Field is required"
+      }
+    ]);
+  });
+
+  it("returns error if operator is missing", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                value: "b",
+                attribute: "a"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([
+      {
+        path: ["job", "run", "placement", "constraints", "0", "operator"],
+        message: "Operator is required"
+      }
+    ]);
   });
 });
 
