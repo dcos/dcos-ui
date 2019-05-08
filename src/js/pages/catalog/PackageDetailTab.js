@@ -24,22 +24,20 @@ import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import Image from "#SRC/js/components/Image";
 import ImageViewer from "#SRC/js/components/ImageViewer";
 import Loader from "#SRC/js/components/Loader";
-import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
-import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
+import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 
 const semver = require("semver");
 
-const runningServicesNames = (tasks = []) =>
-  tasks
-    .filter(t => t.state === "TASK_RUNNING")
-    .map(t => t.labels || [])
-    .map(ls => ls.find(l => l.key === "DCOS_SERVICE_NAME") || {})
-    .map(l => l.value);
+const runningServicesNames = (labels = []) =>
+  labels
+    .filter(label => label.key === "DCOS_SERVICE_NAME")
+    .map(label => label.value);
 
 const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   const name = cosmosPackage.getName();
@@ -78,7 +76,7 @@ const METHODS_TO_BIND = [
   "handleReviewAndRunClick",
   "hasUnresolvedDependency",
   "onInstalledSuccessModalClose",
-  "onMesosStateChange",
+  "onStoreChange",
   "renderInstallButton",
   "renderReviewAndRunButton"
 ];
@@ -135,24 +133,18 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   componentWillUnmount() {
-    MesosStateStore.removeChangeListener(
-      MESOS_STATE_CHANGE,
-      this.onMesosStateChange
-    );
+    DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
 
   componentWillMount() {
-    MesosStateStore.addChangeListener(
-      MESOS_STATE_CHANGE,
-      this.onMesosStateChange
-    );
+    DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
 
-  onMesosStateChange() {
+  onStoreChange() {
     this.setState({
       runningPackageNames: {
         state: "success",
-        data: runningServicesNames(MesosStateStore.getLastMesosState().tasks)
+        data: runningServicesNames(DCOSStore.serviceTree.getLabels())
       }
     });
   }
