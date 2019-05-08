@@ -636,9 +636,11 @@ const renderUnresolvedDependency = dependency => (
         <div>
           <Icon shape={SystemIcons.CircleInformation} size={iconSizeXs} />{" "}
           <Trans>
-            This service cannot run without the{" "}
-            <Link to={`/catalog/packages/${dependency}`}>{dependency}</Link>{" "}
-            package.
+            This service cannot run without the {dependency} package. Please run{" "}
+            <Link to={`/catalog/packages/${dependency}`}>
+              {dependency} package
+            </Link>{" "}
+            to enable this service.
           </Trans>
         </div>
       }
