@@ -121,3 +121,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 Authors are listed in [Authors.md file](./Authors.md).
+
+If you are using VS code and used `npm run util:lingui:extract-with-plugins` and want typescript validation errors please include the following settings into your `.vscode/settings.json`
+
+```JSON
+{
+  "search.exclude": {
+    "**/_build": true,
+    "cypress": true
+  },
+  "search.useIgnoreFiles": false,
+  "git.ignoreLimitWarning": true,
+  "[less]": {
+    "editor.formatOnSave": false
+  }
+}
+```

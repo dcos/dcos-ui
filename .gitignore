@@ -24,3 +24,4 @@ src/resources/raml
 locale/_build/
 locale/*/messages.js
 plugins-ee
+.vscode
