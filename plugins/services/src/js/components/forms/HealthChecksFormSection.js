@@ -22,6 +22,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { isHostNetwork } from "../../utils/NetworkUtil";
 
 import {
   MESOS_HTTP,
@@ -250,13 +251,15 @@ class HealthChecksFormSection extends Component {
   getEndpoints() {
     const { data } = this.props;
 
-    return data.portDefinitions.map((port, index) => {
-      return (
-        <option key={index} value={index}>
-          {port.name || index}
-        </option>
-      );
-    });
+    const endpoints = isHostNetwork(data)
+      ? data.portDefinitions
+      : data.portMappings;
+
+    return endpoints.map((endpoint, index) => (
+      <option key={index} value={index}>
+        {HealthCheckUtil.getEndpointText(index, endpoint, data)}
+      </option>
+    ));
   }
 
   getIpProtocol(data) {
