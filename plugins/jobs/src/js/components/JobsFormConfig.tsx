@@ -10,6 +10,7 @@ import GeneralConfigSection from "./config/GeneralConfigSection";
 import { JobOutput, FormError } from "./form/helpers/JobFormData";
 import ContainerConfigSection from "./config/ContainerConfigSection";
 import ParametersConfigSection from "./config/ParametersConfigSection";
+import ScheduleConfigSection from "./config/ScheduleConfigSection";
 
 const PRIORITIES_PAD_NUMBER = 100;
 const DEFAULT_DISPLAY_COMPONENTS = [
@@ -18,7 +19,8 @@ const DEFAULT_DISPLAY_COMPONENTS = [
     COMPONENTS: [
       GeneralConfigSection,
       ContainerConfigSection,
-      ParametersConfigSection
+      ParametersConfigSection,
+      ScheduleConfigSection
     ]
   }
 ];
