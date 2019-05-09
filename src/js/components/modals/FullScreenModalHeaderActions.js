@@ -20,17 +20,14 @@ class FullScreenModalHeaderActions extends React.Component {
         const classes = classNames("button flush-top", className);
 
         return (
-          <Trans
-            id={label}
-            render={
-              <button
-                className={classes}
-                disabled={disabled}
-                key={index}
-                onClick={clickHandler}
-              />
-            }
-          />
+          <button
+            className={classes}
+            disabled={disabled}
+            key={index}
+            onClick={clickHandler}
+          >
+            <Trans id={label} />
+          </button>
         );
       }
     );
