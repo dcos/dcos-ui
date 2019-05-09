@@ -1,5 +1,5 @@
 declare module "reactjs-components" {
-  import { Component, ReactElement } from "react";
+  import { Component, ReactElement, ReactNode } from "react";
 
   interface ModalProps {
     backdropClass?: string;
@@ -91,4 +91,24 @@ declare module "reactjs-components" {
 
   // tslint:disable-next-line:max-classes-per-file
   export class SelectOption extends Component<SelectOptionProps, {}> {}
+
+  interface Column {
+    heading: (
+      prop: string,
+      order: number | undefined,
+      sortBy: any
+    ) => ReactNode;
+    prop: string;
+    render?: (prop: string, row: any) => ReactNode;
+    sortable?: boolean;
+  }
+
+  interface TableProps {
+    columns: Column[];
+    data: any[];
+    className: string;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class Table extends Component<TableProps, {}> {}
 }

@@ -3,7 +3,6 @@ import { Trans } from "@lingui/macro";
 
 import BaseConfig, { Value } from "#SRC/js/components/BaseConfig";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import { getDisplayValue } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput } from "../form/helpers/JobFormData";
 
@@ -60,20 +59,6 @@ class GeneralConfigSection extends BaseConfig<JobOutput> {
         {
           key: "run.cmd",
           label: <Trans>Command</Trans>
-        },
-        {
-          key: "containerImage",
-          label: <Trans>Container Image</Trans>,
-          transformValue(_: any, config: JobOutput) {
-            const { ucr, docker } = config.run;
-            if (ucr) {
-              return getDisplayValue(ucr.image && ucr.image.id);
-            }
-            if (docker) {
-              return getDisplayValue(docker.image);
-            }
-            return getDisplayValue("");
-          }
         }
       ]
     };
