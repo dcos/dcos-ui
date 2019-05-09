@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-class Breadcrumb extends React.PureComponent {
+class Breadcrumb extends React.Component {
   shouldComponentUpdate(nextProps) {
     return (
       this.props.isCaret !== nextProps.isCaret ||
