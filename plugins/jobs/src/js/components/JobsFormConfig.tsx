@@ -8,12 +8,18 @@ import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import { translateErrorMessages } from "./form/helpers/ErrorUtil";
 import GeneralConfigSection from "./config/GeneralConfigSection";
 import { JobOutput, FormError } from "./form/helpers/JobFormData";
+import ContainerConfigSection from "./config/ContainerConfigSection";
+import ParametersConfigSection from "./config/ParametersConfigSection";
 
 const PRIORITIES_PAD_NUMBER = 100;
 const DEFAULT_DISPLAY_COMPONENTS = [
   {
     MOUNT_TYPE: "CreateJob:JobConfigDisplay:App",
-    COMPONENTS: [GeneralConfigSection]
+    COMPONENTS: [
+      GeneralConfigSection,
+      ContainerConfigSection,
+      ParametersConfigSection
+    ]
   }
 ];
 
