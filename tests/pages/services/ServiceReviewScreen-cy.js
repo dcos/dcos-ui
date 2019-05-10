@@ -962,7 +962,7 @@ describe("Services", function() {
         .select("HTTP");
       cy.root()
         .getFormGroupInputFor("Service Endpoint")
-        .select("http");
+        .select("http (tcp/$PORT0)");
       cy.root()
         .getFormGroupInputFor("Path")
         .type("/");

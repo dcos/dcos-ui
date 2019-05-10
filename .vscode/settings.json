@@ -1,0 +1,8 @@
+{
+  "search.exclude": {
+    "**/_build": true,
+    "cypress": true,
+    "dist/": true
+  },
+  "search.useIgnoreFiles": false
+}

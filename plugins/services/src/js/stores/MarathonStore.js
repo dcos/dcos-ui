@@ -83,6 +83,7 @@ import {
   VISIBILITY_CHANGE
 } from "../constants/EventTypes";
 import Framework from "../structs/Framework";
+import Application from "../structs/Application";
 import ServiceImages from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
@@ -470,7 +471,12 @@ class MarathonStore extends GetSetBaseStore {
     data.items.forEach(item => {
       if (item.items && Array.isArray(item.items)) {
         this.injectGroupsWithPackageImages(item);
-      } else if (ServiceValidatorUtil.isFrameworkResponse(item)) {
+      } else if (
+        (ServiceValidatorUtil.isFrameworkResponse(item) ||
+          ServiceValidatorUtil.isApplicationResponse(item)) &&
+        item.labels &&
+        item.labels.DCOS_PACKAGE_NAME
+      ) {
         item["images"] = CosmosPackagesStore.getPackageImages()[
           item.labels.DCOS_PACKAGE_NAME
         ];
@@ -489,6 +495,14 @@ class MarathonStore extends GetSetBaseStore {
     const apps = groups.reduceItems(function(map, item) {
       if (item instanceof Framework) {
         map[item.getFrameworkName().toLowerCase()] = {
+          health: item.getHealth(),
+          images: item.getImages(),
+          snapshot: item.get()
+        };
+      }
+
+      if (item instanceof Application) {
+        map[item.getName().toLowerCase()] = {
           health: item.getHealth(),
           images: item.getImages(),
           snapshot: item.get()
