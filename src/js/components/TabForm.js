@@ -5,7 +5,8 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 
-import Icon from "./Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
+
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SideTabs from "./SideTabs";
@@ -120,7 +121,7 @@ class TabForm extends mixin(InternalStorageMixin) {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="light-grey" id="circle-question" size="mini" />
+              <InfoTooltipIcon />
             </Tooltip>
           </div>
         </span>

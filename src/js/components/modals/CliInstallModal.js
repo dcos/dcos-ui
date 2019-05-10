@@ -6,9 +6,11 @@ import classNames from "classnames";
 import { Modal } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import ClickToSelect from "../ClickToSelect";
-import Icon from "../Icon";
 import MetadataStore from "../../stores/MetadataStore";
 import ModalHeading from "../modals/ModalHeading";
 
@@ -65,14 +67,9 @@ class CliInstallModal extends React.Component {
     const clusterUrl = `${protocol}://${hostname}${port}`;
     const { selectedOS } = this.state;
 
-    let version = MetadataStore.parsedVersion;
-    // Prepend 'dcos-' to any version other than latest
-    if (version !== "latest") {
-      version = `dcos-${version}`;
-    }
     const downloadUrl = `https://downloads.dcos.io/binaries/cli/${
       osTypes[selectedOS]
-    }/x86-64/${version}/dcos`;
+    }/x86-64/dcos-1.13/dcos`;
     if (selectedOS === "Windows") {
       return this.getWindowsInstallInstruction(clusterUrl, downloadUrl);
     }
@@ -134,7 +131,12 @@ class CliInstallModal extends React.Component {
         <Trans render="li">
           Download and install:{" "}
           <a href={downloadUrl + ".exe"}>
-            <Icon id="download" size="mini" /> Download dcos.exe
+            <Icon
+              shape={SystemIcons.Download}
+              size={iconSizeXs}
+              color="currentColor"
+            />
+            Download dcos.exe
           </a>.
         </Trans>
         {steps}

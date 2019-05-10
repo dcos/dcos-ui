@@ -8,19 +8,24 @@ import { Modal } from "reactjs-components";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
-import Icon from "#SRC/js/components/Icon";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceTree from "../../structs/ServiceTree";
-import {
-  EDIT,
-  RESTART,
-  RESUME,
-  SCALE,
-  STOP
-} from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
+
+const EDIT = ServiceActionItem.EDIT;
+const RESTART = ServiceActionItem.RESTART;
+const RESUME = ServiceActionItem.RESUME;
+const SCALE = ServiceActionItem.SCALE;
+const STOP = ServiceActionItem.STOP;
 
 const METHODS_TO_BIND = ["handleTextCopy"];
 
@@ -327,7 +332,11 @@ class ServiceActionDisabledModal extends React.Component {
             onTextCopy={this.handleTextCopy.bind(this, command)}
             useTooltip={true}
           >
-            <Icon id="clipboard" size="mini" color="grey" />
+            <Icon
+              shape={SystemIcons.Clipboard}
+              size={iconSizeXs}
+              color={greyDark}
+            />
           </ClipboardTrigger>
         </div>
         <pre className="prettyprint flush-bottom prettyprinted">{command}</pre>

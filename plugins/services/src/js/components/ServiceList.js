@@ -115,8 +115,6 @@ const ServiceList = createReactClass({
         <List
           className="list list-unstyled"
           content={this.getServices(props.services)}
-          transition={false}
-          transitionName="something"
         />
       </div>
     );

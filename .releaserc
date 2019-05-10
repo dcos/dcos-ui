@@ -27,7 +27,13 @@
       "cmd": "./scripts/ci/upload-release v${nextRelease.version} master",
       "shell": "/bin/bash"
     },
-    "@semantic-release/github"
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        { "path": "release.tar.gz", "label": "dcos-ui generated js files" },
+        { "path": "buildinfo.json", "label": "buildinfo including shasum" }
+      ]
+    }
   ],
   "success": [
     "@semantic-release/github",

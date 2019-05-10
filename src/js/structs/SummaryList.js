@@ -21,18 +21,20 @@ class SummaryList extends List {
   }
 
   getActiveNodesByState() {
-    return this.getItems().map(function(state) {
-      let slavesCount = null;
+    return this.getItems()
+      .map(function(state) {
+        let slavesCount = null;
 
-      if (state.isSnapshotSuccessful()) {
-        slavesCount = state.getActiveSlaves().length;
-      }
+        if (state.isSnapshotSuccessful()) {
+          slavesCount = state.getActiveSlaves().length;
+        }
 
-      return {
-        date: state.getSnapshotDate(),
-        slavesCount
-      };
-    });
+        return {
+          date: state.getSnapshotDate(),
+          slavesCount
+        };
+      })
+      .sort((a, b) => (a.date > b.date ? 1 : -1));
   }
 
   lastSuccessful() {

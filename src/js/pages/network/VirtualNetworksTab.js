@@ -7,6 +7,8 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+
 import AlertPanel from "../../components/AlertPanel";
 import AlertPanelHeader from "../../components/AlertPanelHeader";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -29,7 +31,12 @@ const NetworksBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Network}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 const METHODS_TO_BIND = [

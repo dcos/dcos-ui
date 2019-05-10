@@ -188,10 +188,7 @@ describe("Packages Tab", function() {
       cy.get(".panel")
         .contains("arangodb")
         .click();
-      cy.get(".button.button-primary")
-        .contains("Review & Run")
-        .parent()
-        .should("be.disabled");
+      cy.get(".button.button-primary.disabled").contains("Review & Run");
     });
   });
 });

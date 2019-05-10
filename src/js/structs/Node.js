@@ -8,6 +8,16 @@ class Node extends Item {
     return this.get("id");
   }
 
+  getEncodedID() {
+    const id = this.get("id");
+    if (!id) {
+      return null;
+    }
+    const trimmedNodeID = decodeURIComponent(id).replace(/^\//, "");
+
+    return encodeURIComponent(trimmedNodeID);
+  }
+
   getServiceIDs() {
     return this.get("framework_ids");
   }
@@ -106,6 +116,14 @@ class Node extends Item {
 
   getIp() {
     return this.get("host_ip") || this.getHostName();
+  }
+
+  getPublicIps() {
+    if (!this.get("network")) {
+      return [];
+    }
+
+    return this.get("network").public_ips || [];
   }
 }
 

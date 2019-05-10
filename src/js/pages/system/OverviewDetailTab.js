@@ -7,10 +7,13 @@ import { MountService } from "foundation-ui";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import moment from "moment";
 import { request } from "@dcos/mesos-client";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
+import DateUtil from "#SRC/js/utils/DateUtil";
+import { MesosMasterRequestType } from "#SRC/js/core/MesosMasterRequest";
+import container from "#SRC/js/container";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -46,7 +49,12 @@ const SystemOverviewBreadcrumbs = () => {
     </Breadcrumb>
   ];
 
-  return <Page.Header.Breadcrumbs iconID="cluster" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Cluster}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 class OverviewDetailTab extends mixin(StoreMixin) {
@@ -77,6 +85,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     ];
 
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+
+    MarathonStore.fetchMarathonInstanceInfo();
+    MetadataStore.fetchDCOSBuildInfo();
+
     request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
       response => {
         const cluster = JSON.parse(response).get_flags.flags.find(
@@ -102,30 +121,17 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       }
     );
 
-    request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").subscribe(
-      response => {
-        const {
-          get_master: {
-            master_info: masterInfo,
-            elected_time: electedTime,
-            start_time: startTime
-          }
-        } = JSON.parse(response);
+    container.get(MesosMasterRequestType).subscribe(response => {
+      const {
+        get_master: {
+          master_info: masterInfo,
+          elected_time: electedTime,
+          start_time: startTime
+        }
+      } = JSON.parse(response);
 
-        this.setState({ masterInfo, electedTime, startTime });
-      }
-    );
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
+      this.setState({ masterInfo, electedTime, startTime });
     });
-  }
-
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-
-    MarathonStore.fetchMarathonInstanceInfo();
-    MetadataStore.fetchDCOSBuildInfo();
   }
 
   handleClusterConfigModalOpen() {
@@ -268,13 +274,13 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     const mesosCluster = cluster || this.getLoading();
     const mesosVersion = version || this.getLoading();
     const mesosBuilt = buildTime
-      ? moment(buildTime * 1000).fromNow()
+      ? DateUtil.msToRelativeTime(buildTime * 1000)
       : this.getLoading();
     const mesosStarted = startTime
-      ? moment(startTime * 1000).fromNow()
+      ? DateUtil.msToRelativeTime(startTime * 1000)
       : this.getLoading();
     const mesosElected = electedTime
-      ? moment(electedTime * 1000).fromNow()
+      ? DateUtil.msToRelativeTime(electedTime * 1000)
       : this.getLoading();
     const mesosBuildUser = buildUser;
 

@@ -1,5 +1,5 @@
 import * as httpService from "@dcos/http-service";
-import Rx from "rxjs";
+import { of } from "rxjs";
 import Config from "#SRC/js/config/Config";
 import {
   fetchRepositories,
@@ -12,9 +12,7 @@ jest.mock("@dcos/http-service");
 
 describe("#fetchRepositories", function() {
   it("makes the call with correct arguments", function(done) {
-    const spy = jest
-      .spyOn(httpService, "request")
-      .mockReturnValueOnce(Rx.Observable.of(""));
+    const spy = jest.spyOn(httpService, "request").mockReturnValueOnce(of(""));
 
     fetchRepositories().subscribe(function() {
       done();
@@ -38,9 +36,7 @@ describe("#fetchRepositories", function() {
 
 describe("#liveFetchRepositories", function() {
   it("makes the call with correct arguments", function(done) {
-    const spy = jest
-      .spyOn(httpService, "request")
-      .mockReturnValueOnce(Rx.Observable.of(""));
+    const spy = jest.spyOn(httpService, "request").mockReturnValueOnce(of(""));
 
     liveFetchRepositories().subscribe(function() {
       done();
@@ -64,9 +60,7 @@ describe("#liveFetchRepositories", function() {
 
 describe("#addRepository", function() {
   it("makes the call with correct arguments", function(done) {
-    const spy = jest
-      .spyOn(httpService, "request")
-      .mockReturnValue(Rx.Observable.of(""));
+    const spy = jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     addRepository("bar", "foo", 1).subscribe(function() {
       done();
@@ -88,7 +82,7 @@ describe("#addRepository", function() {
   });
 
   it("triggers #liveFetchRepositories", function(done) {
-    jest.spyOn(httpService, "request").mockReturnValue(Rx.Observable.of(""));
+    jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     addRepository("bar", "foo", 1).subscribe(function() {});
 
@@ -107,9 +101,7 @@ describe("#addRepository", function() {
 
 describe("#deleteRepository", function() {
   it("makes the call with correct arguments", function(done) {
-    const spy = jest
-      .spyOn(httpService, "request")
-      .mockReturnValue(Rx.Observable.of(""));
+    const spy = jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     deleteRepository("bar", "foo").subscribe(function() {
       done();
@@ -131,7 +123,7 @@ describe("#deleteRepository", function() {
   });
 
   it("triggers #liveFetchRepositories", function(done) {
-    jest.spyOn(httpService, "request").mockReturnValue(Rx.Observable.of(""));
+    jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     addRepository("bar", "foo", 1).subscribe(function() {});
 

@@ -1,8 +1,6 @@
-import "rxjs/add/operator/combineLatest";
-import "rxjs/add/operator/map";
-
+import { map } from "rxjs/operators";
 import RepositoryList from "#SRC/js/structs/RepositoryList";
-import { makeExecutableSchema } from "graphql-tools/dist/index";
+import { injectable, decorate } from "inversify";
 
 // Streams we get our data from
 import {
@@ -16,15 +14,16 @@ export const typeDefs = `
     id: ID!
     name: String!
     uri: String!
+    index: Int!
   }
 
-  type Query {
+  extend type Query {
     packageRepository(filter: String): [PackageRepository!]!
   }
 
-  type Mutation {
+  extend type Mutation {
     addPackageRepository(name: String!, uri: String!, index: Int! ): [PackageRepository!]!
-    removePackageRepository(name: String!, uri: String!): [PackageRepository!]!
+    removePackageRepository(name: String!, uri: String!, index: Int!): [PackageRepository!]!
   }
 `;
 
@@ -46,27 +45,46 @@ export function resolvers({
         const { filter } = args;
 
         // Filter Logic Backwards compatible with the previous struct/RepositoryList
-        return liveFetchRepositories().map(getRepositoryList(filter));
+        return liveFetchRepositories().pipe(map(getRepositoryList(filter)));
       }
     },
     Mutation: {
       addPackageRepository: (parent, args) => {
-        return addRepository(args.name, args.uri, args.index).map(
-          getRepositoryList("")
+        return addRepository(args.name, args.uri, args.index).pipe(
+          map(getRepositoryList(""))
         );
       },
       removePackageRepository: (parent, args) => {
-        return deleteRepository(args.name, args.uri).map(getRepositoryList(""));
+        return deleteRepository(args.name, args.uri).pipe(
+          map(getRepositoryList(""))
+        );
       }
     }
   };
 }
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers: resolvers({
-    liveFetchRepositories,
-    addRepository,
-    deleteRepository
-  })
+const boundResolvers = resolvers({
+  liveFetchRepositories,
+  addRepository,
+  deleteRepository
 });
+
+const RepositoryType = Symbol("Repository");
+// tslint:disable-next-line
+
+export class RepositoryExtension {
+  constructor() {
+    this.id = RepositoryType;
+  }
+
+  getResolvers() {
+    return boundResolvers;
+  }
+
+  getTypeDefinitions() {
+    return typeDefs;
+  }
+}
+
+// Mutates the RepositoryExtension to be injectable
+decorate(injectable(), RepositoryExtension);

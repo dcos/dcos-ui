@@ -12,13 +12,11 @@ pipeline {
   }
 
   environment {
-    JENKINS_VERSION = "yes"
-    NODE_PATH = "node_modules"
     INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
   }
 
   options {
-    timeout(time: 4, unit: "HOURS")
+    timeout(time: 3, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -29,19 +27,33 @@ pipeline {
       }
     }
 
-    stage("Build") {
+    stage("Prepare Repository") {
       steps {
+        // clean up existing files
+        sh "rm -rfv .* || ls -la ; rm -rfv ./* || ls -la"
+
+        // cloning oss repo, we need this for commit history
         withCredentials([
           usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
         ]) {
-          // Clone the repository again with a full git clone
-          sh "rm -rf {.*,*} || ls -la && git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
+          sh "git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/dcos/dcos-ui.git ."
         }
-        sh "git fetch"
-        sh "git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
+        sh "git fetch -a"
 
+        // checking out correct branch
+        sh 'git checkout "$([ -z "$CHANGE_BRANCH" ] && echo $BRANCH_NAME || echo $CHANGE_BRANCH )"'
+
+        // when on PR rebase to target
+        sh '[ -z "$CHANGE_TARGET" ] && echo "on release branch" || git rebase origin/${CHANGE_TARGET}'
+
+        // jenkins seem to have this variable set for no reason, explicitly removing it…
+        sh "npm config delete externalplugins"
+      }
+    }
+
+    stage("Install") {
+      steps {
         sh "npm --unsafe-perm ci"
-        sh "npm run build"
       }
     }
 
@@ -54,31 +66,41 @@ pipeline {
       }
 
       steps {
-        sh 'npm run commitlint -- --from "${CHANGE_TARGET}"'
+        sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
       }
     }
 
-    stage("Tests") {
+    stage("Build") {
+      steps {
+        sh "npm run build"
+      }
+    }
+
+    stage("Setup Data Dog") {
+      steps {
+        withCredentials([
+          string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
+          string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
+        ]) {
+          sh "./scripts/ci/createDatadogConfig.sh"
+        }
+      }
+    }
+
+    stage("Test") {
       parallel {
         stage("Integration Test") {
           environment {
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
           }
           steps {
-            withCredentials([
-              string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
-              string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
-            ]) {
-              sh "./scripts/ci/createDatadogConfig.sh"
-            }
-            sh "npm run integration-tests"
+            sh "npm run test:integration"
           }
 
           post {
             always {
               archiveArtifacts "cypress/**/*"
-              // We currently want flaky test runs be marked as success
-              // junit "cypress/results.xml"
+              junit "cypress/results.xml"
             }
           }
         }
@@ -93,17 +115,32 @@ pipeline {
                 secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
               ]
             ]) {
-              retry(3) {
-                sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
-              }
+              sh '''
+                ./system-tests/_scripts/launch-cluster.sh
+                export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+                export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
+                export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
+                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+                npm run test:system
+              '''
             }
           }
+        }
+      }
 
-          post {
-            always {
-              archiveArtifacts "results/**/*"
-              junit "results/results.xml"
-            }
+      post {
+        always {
+          archiveArtifacts "results/**/*"
+          junit "results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./system-tests/_scripts/delete-cluster.sh"
           }
         }
       }
@@ -119,7 +156,7 @@ pipeline {
           usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER"), // update-dcos-repo
           usernamePassword(credentialsId: "6c147571-7145-410a-bf9c-4eec462fbe02", passwordVariable: "JIRA_PASS", usernameVariable: "JIRA_USER") // semantic-release-jira
         ]) {
-          sh "npx semantic-release"
+          sh "npm run release"
         }
       }
     }

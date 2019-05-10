@@ -1,14 +1,15 @@
 import { Dropdown } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
-
-import Icon from "./Icon";
+import { Icon } from "@dcos/ui-kit";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
 const getMenuItems = (children, iconID) => {
   return [
     {
       className: "hidden",
-      html: <Icon id={iconID} size="mini" />,
+      html: <Icon shape={iconID} size={iconSizeXs} color="currentColor" />,
       id: "trigger"
     },
     ...React.Children.map(children, getDropdownItemFromComponent)
@@ -53,7 +54,7 @@ const PageHeaderActionsMenu = ({
 
 PageHeaderActionsMenu.defaultProps = {
   anchorRight: true,
-  iconID: "ellipsis-vertical"
+  iconID: SystemIcons.EllipsisVertical
 };
 
 PageHeaderActionsMenu.propTypes = {

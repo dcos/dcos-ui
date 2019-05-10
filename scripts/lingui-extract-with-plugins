@@ -6,14 +6,11 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 source "${SCRIPT_PATH}/utils/message"
 
 function sanityCheck {
-  if [ ! -d ../dcos-ui-plugins-private ]; then
-    warning "../dcos-ui-plugins-private directory not found."
+  if [ ! -d "$SCRIPT_PATH/../plugins-ee" ]; then
+    warning "Extraction tooling currently requires enterprise plugins to be linked with this repo. Please seek assistance from a DC/OS Github admin for more info"
     return 1
-  elif [ ! -f ../dcos-ui-plugins-private/.babelrc ]; then
-    warning "../dcos-ui-plugins-private/.babelrc file not found. Did this script fail previously? Try running with --unpatch to fix"
-    return 1
-  elif [ -f ./.dcos-ui-plugins-private ]; then
-    warning "Temporary symlink already exists. Did this script fail previously? Try running with --unpatch to fix"
+  elif [ ! -f "$SCRIPT_PATH/../.babelrc" ]; then
+    warning "plugins-ee/.babelrc file not found. Did this script fail previously? Try running with --unpatch to fix"
     return 1
   else
     return 0
@@ -25,15 +22,13 @@ function sanityCheck {
 # to the conventional dcos-ui-plugins-private directory and also temporarily hides the .babelrc file
 # which is not useful when followed through the symlink
 function patch {
-  info "Symlinking .dcos-ui-plugins-private for lingui extract tooling"
-  ln -s ../dcos-ui-plugins-private ./.dcos-ui-plugins-private
-  mv ../dcos-ui-plugins-private/.babelrc ../dcos-ui-plugins-private/.tmp.babelrc
+  info "Temporarily renaming .babelrc for lingui extract tooling"
+  mv "$SCRIPT_PATH/../plugins-ee/.babelrc" "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc"
 }
 
 function unpatch {
-  unlink ./.dcos-ui-plugins-private
-  mv ../dcos-ui-plugins-private/.tmp.babelrc ../dcos-ui-plugins-private/.babelrc
-  info "Unlinked .dcos-ui-plugins-private"
+  mv "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc" "$SCRIPT_PATH/../plugins-ee/.babelrc"
+  info "Restored .babelrc"
 }
 
 title "Running lingui extract for dcos-ui and dcos-ui-plugins-private"

@@ -1,9 +1,16 @@
 import { Trans } from "@lingui/macro";
 
 import * as React from "react";
-import { Table, Column, TextCell, HeaderCell } from "@dcos/ui-kit";
+import { Table, Column, TextCell, HeaderCell, Icon } from "@dcos/ui-kit";
 import { Tooltip } from "reactjs-components";
 import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  green,
+  iconSizeXs,
+  red,
+  yellow
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import {
   flattenServicePlanPhases,
@@ -15,8 +22,6 @@ import {
   formatServicePlanStatus,
   ServicePlanStatus
 } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
-
-import Icon from "#SRC/js/components/Icon";
 
 const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
   const { status } = data;
@@ -92,25 +97,31 @@ const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
 export const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
   switch (status) {
     case "ERROR":
-      return <Icon id="circle-close" family="system" size="mini" color="red" />;
+      return (
+        <Icon shape={SystemIcons.CircleClose} size={iconSizeXs} color={red} />
+      );
     case "WAITING":
-      return <Icon id="yield" family="system" size="mini" color="yellow" />;
+      return (
+        <Icon shape={SystemIcons.Yield} size={iconSizeXs} color={yellow} />
+      );
     case "PENDING":
-      return <Icon id="yield" family="system" size="mini" color="yellow" />;
+      return (
+        <Icon shape={SystemIcons.Yield} size={iconSizeXs} color={yellow} />
+      );
     case "PREPARED":
-      return <Icon id="spinner" family="system" size="mini" />;
+      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
     case "STARTING":
-      return <Icon id="spinner" family="system" size="mini" />;
+      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
     case "STARTED":
-      return <Icon id="spinner" family="system" size="mini" />;
+      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
     case "IN_PROGRESS":
-      return <Icon id="spinner" family="system" size="mini" />;
+      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
     case "COMPLETE":
       return (
-        <Icon id="circle-check" family="system" size="mini" color="green" />
+        <Icon shape={SystemIcons.CircleCheck} size={iconSizeXs} color={green} />
       );
     default:
-      return <Icon id="circle-question" family="system" size="mini" />;
+      return <Icon shape={SystemIcons.CircleQuestion} size={iconSizeXs} />;
   }
 };
 

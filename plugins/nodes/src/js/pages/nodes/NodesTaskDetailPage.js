@@ -5,8 +5,10 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { i18nMark } from "@lingui/react";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
 
 import TaskDetail from "../../../../../services/src/js/pages/task-details/TaskDetail";
@@ -28,7 +30,7 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
   }
 
   render() {
-    const { location, params, routes } = this.props;
+    const { location, params, routes, node } = this.props;
     const { nodeID, taskID } = params;
 
     const routePrefix = `/nodes/${encodeURIComponent(
@@ -45,13 +47,13 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     if (task != null) {
       breadcrumbs = (
         <NodeBreadcrumbs
-          nodeID={nodeID}
+          node={node}
           taskID={task.getId()}
           taskName={task.getName()}
         />
       );
     } else {
-      breadcrumbs = <NodeBreadcrumbs nodeID={nodeID} />;
+      breadcrumbs = <NodeBreadcrumbs node={node} />;
     }
 
     const dontScroll = dontScrollRoutes.some(regex => {
@@ -60,7 +62,11 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
 
     return (
       <Page dontScroll={dontScroll}>
-        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs} iconID="nodes" />
+        <Page.Header
+          breadcrumbs={breadcrumbs}
+          tabs={tabs}
+          iconID={ProductIcons.Servers}
+        />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>
@@ -74,4 +80,4 @@ NodesTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = NodesTaskDetailPage;
+module.exports = withNode(NodesTaskDetailPage);

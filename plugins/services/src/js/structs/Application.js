@@ -1,11 +1,10 @@
-import Config from "#SRC/js/config/Config";
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
 
 import ApplicationSpec from "./ApplicationSpec";
 import FrameworkUtil from "../utils/FrameworkUtil";
 import HealthStatus from "../constants/HealthStatus";
 import Service from "./Service";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import TaskStats from "./TaskStats";
 import VolumeList from "./VolumeList";
 
@@ -66,7 +65,9 @@ module.exports = class Application extends Service {
    * @override
    */
   getImages() {
-    return FrameworkUtil.getServiceImages(this.getMetadata().images);
+    const images = this.getMetadata().images || this.get("images");
+
+    return FrameworkUtil.getServiceImages(images);
   }
 
   /**
@@ -114,12 +115,7 @@ module.exports = class Application extends Service {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status.displayName == null) {
-      return null;
-    }
-
-    return status.displayName;
+    return this.getServiceStatus().displayName;
   }
 
   /**
@@ -218,22 +214,6 @@ module.exports = class Application extends Service {
    */
   getVolumes() {
     return new VolumeList({ items: this.get("volumes") || [] });
-  }
-
-  /**
-   * @override
-   */
-  getWebURL() {
-    const { DCOS_SERVICE_NAME, DCOS_SERVICE_PORT_INDEX, DCOS_SERVICE_SCHEME } =
-      this.getLabels() || {};
-
-    const serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
-
-    if (!serviceName || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
-      return null;
-    }
-
-    return `${Config.rootUrl}/service/${serviceName}/`;
   }
 
   findTaskById(taskId) {

@@ -21,6 +21,13 @@ import ServicesTable from "./ServicesTable";
 import ServiceStatusDSLSection from "../../components/dsl/ServiceStatusDSLSection";
 import ServiceTree from "../../structs/ServiceTree";
 
+const DSL_FORM_SECTIONS = [
+  ServiceStatusDSLSection,
+  ServiceHealthDSLSection,
+  ServiceOtherDSLSection,
+  FuzzyTextDSLSection
+];
+
 class ServiceTreeView extends React.Component {
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
@@ -35,12 +42,7 @@ class ServiceTreeView extends React.Component {
         <div className={hostClasses}>
           <DSLFilterField
             filters={filters}
-            formSections={[
-              ServiceStatusDSLSection,
-              ServiceHealthDSLSection,
-              ServiceOtherDSLSection,
-              FuzzyTextDSLSection
-            ]}
+            formSections={DSL_FORM_SECTIONS}
             expression={filterExpression}
             onChange={onFilterExpressionChange}
           />
@@ -98,7 +100,7 @@ class ServiceTreeView extends React.Component {
     }
 
     return (
-      <Page>
+      <Page dontScroll={true} flushBottom={true}>
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
           actions={[
@@ -113,7 +115,7 @@ class ServiceTreeView extends React.Component {
           }}
           supplementalContent={<DeploymentStatusIndicator />}
         />
-        <div>
+        <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
           {this.getSearchHeader()}
           <ServicesTable

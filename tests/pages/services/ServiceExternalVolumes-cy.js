@@ -25,119 +25,129 @@ describe("Services", function() {
       const serviceName = "app-with-external-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
-      const volumeName = `dcos-system-test-${Cypress.env("TEST_UUID")}-${serviceName}`;
+      const volumeName = `dcos-system-test-${Cypress.env(
+        "TEST_UUID"
+      )}-${serviceName}`;
 
       // Select 'Single Container'
       cy.contains("Single Container").click();
 
       // Fill-in the input elements
-      cy
-        .root()
+      cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}64");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      cy.root()
+        .getFormGroupInputFor("Memory (MiB) *")
+        .type("{selectall}64");
+      cy.root()
+        .getFormGroupInputFor("Command")
+        .type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       cy.contains("More Settings").click();
-      cy.get("label").contains("Universal Container Runtime (UCR)").click();
+      cy.get("label")
+        .contains("Universal Container Runtime (UCR)")
+        .click();
 
       // Select Volumes section
-      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
+      cy.root()
+        .get(".menu-tabbed-item")
+        .contains("Volumes")
+        .click();
 
       // Add an environment variable
       cy.contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
-      cy
-        .root()
+      cy.root()
         .contains(".dropdown-select-item-title", "External Persistent Volume")
         .click();
-      cy.root().getFormGroupInputFor("Name").type(volumeName);
-      cy.root().getFormGroupInputFor("Size (GiB)").type("1");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
+      cy.root()
+        .getFormGroupInputFor("Name")
+        .type(volumeName);
+      cy.root()
+        .getFormGroupInputFor("Size (GiB)")
+        .type("1");
+      cy.root()
+        .getFormGroupInputFor("Container Path")
+        .type("test");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
 
       // Check contents of the JSON editor
-      cy.get("#brace-editor").contents().asJson().should("deep.equal", [
-        {
-          id: `/${serviceName}`,
-          instances: 1,
-          cpus: 0.1,
-          mem: 64,
-          cmd: cmdline,
-          container: {
-            volumes: [
-              {
-                containerPath: "test",
-                external: {
-                  name: volumeName,
-                  provider: "dvdi",
-                  options: {
-                    "dvdi/driver": "rexray"
+      cy.get("#brace-editor")
+        .contents()
+        .asJson()
+        .should("deep.equal", [
+          {
+            id: `/${serviceName}`,
+            instances: 1,
+            cpus: 0.1,
+            mem: 64,
+            cmd: cmdline,
+            container: {
+              volumes: [
+                {
+                  containerPath: "test",
+                  external: {
+                    name: volumeName,
+                    provider: "dvdi",
+                    options: {
+                      "dvdi/driver": "rexray"
+                    },
+                    size: 1
                   },
-                  size: 1
-                },
-                mode: "RW"
-              }
-            ],
-            type: "MESOS"
-          },
-          portDefinitions: [],
-          requirePorts: false,
-          networks: [],
-          healthChecks: [],
-          fetch: [],
-          constraints: []
-        }
-      ]);
+                  mode: "RW"
+                }
+              ],
+              type: "MESOS"
+            },
+            portDefinitions: [],
+            requirePorts: false,
+            networks: [],
+            healthChecks: [],
+            fetch: [],
+            constraints: []
+          }
+        ]);
 
       // Click Review and Run
       cy.contains("Review & Run").click();
 
       // Verify the review screen
-      cy
-        .root()
+      cy.root()
         .configurationSection("Service")
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
-      cy
-        .root()
+      cy.root()
         .configurationSection("Service")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
-      cy
-        .root()
+      cy.root()
         .configurationSection("Service")
         .configurationMapValue("CPU")
         .contains("0.1");
-      cy
-        .root()
+      cy.root()
         .configurationSection("Service")
         .configurationMapValue("Memory")
         .contains("64 MiB");
-      cy
-        .root()
+      cy.root()
         .configurationSection("Service")
         .configurationMapValue("Disk")
         .contains("\u2014");
 
-      cy
-        .root()
+      cy.root()
         .configurationSection("External Persistent Volume")
         .configurationMapValue("Name")
         .contains(`${volumeName}`);
 
-      cy
-        .root()
+      cy.root()
         .configurationSection("External Persistent Volume")
         .configurationMapValue("Container Path")
         .contains("test");
 
-      cy
-        .root()
+      cy.root()
         .configurationSection("External Persistent Volume")
         .configurationMapValue("Size")
         .contains("1 GiB");

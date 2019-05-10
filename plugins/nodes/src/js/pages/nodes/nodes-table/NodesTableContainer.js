@@ -1,19 +1,24 @@
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { map } from "rxjs/operators";
+import { combineLatest } from "rxjs";
+import { graphqlObservable, componentFromStream } from "@dcos/data-service";
+import gql from "graphql-tag";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
-
-import NodesTable from "../../../components/NodesTable";
+import Node from "#SRC/js/structs/Node";
+import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
+import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
     super(...arguments);
 
     this.state = {
-      filteredNodes: new NodesList([]),
+      filteredNodes: null,
       filters: { health: "all", name: "", service: null },
       nodeHealthResponse: false,
       masterRegion: null
@@ -25,7 +30,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
         name: "nodeHealth",
         suppressUpdate: true
       },
-      { name: "state", events: ["success"], suppressUpdate: false }
+      { name: "state", events: ["success"], suppressUpdate: true }
     ];
   }
 
@@ -36,27 +41,66 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   componentWillReceiveProps(nextProps) {
     const {
       location: { query },
-      hosts
+      hosts,
+      networks
     } = nextProps;
     const filters = {
       health: query.filterHealth || "all",
       name: query.searchString || "",
       service: query.filterService || null
     };
-    this.setFilters(hosts, filters);
+
+    if (
+      this.props.location.query.filterExpression !== query.filterExpression ||
+      this.props.location.query.filterService !== query.filterService
+    ) {
+      this.setFilters(hosts, networks, filters);
+    }
   }
 
   getFilteredNodes(filters = this.state.filters) {
-    return CompositeState.getNodesList().filter(filters);
+    const { networks = [] } = this.props;
+
+    return new NodesList({
+      items: CompositeState.getNodesList()
+        .getItems()
+        .map(node => {
+          const hostname = node.getHostName();
+          const network = networks.find(
+            network => network.private_ip === hostname
+          );
+
+          if (network == null) {
+            return node;
+          }
+
+          return new Node({ ...node.toJSON(), network });
+        })
+    }).filter(filters);
   }
 
   // TODO: remove set Filters and only filter at the top level;
-  setFilters(nodes, newFilters, callback) {
+  setFilters(nodes, networks = [], newFilters, callback) {
     if (newFilters.service === "") {
       newFilters.service = null;
     }
+
+    const newNodes = new NodesList({
+      items: nodes.getItems().map(node => {
+        const hostname = node.getHostName();
+        const network = networks.find(
+          network => network.private_ip === hostname
+        );
+
+        if (network == null) {
+          return node;
+        }
+
+        return new Node({ ...node.toJSON(), network });
+      })
+    });
     const filters = Object.assign({}, this.state.filters, newFilters);
-    const filteredNodes = nodes.filter(filters);
+    const filteredNodes = newNodes.filter(filters);
 
     this.setState({ filters, filteredNodes }, callback);
   }
@@ -87,4 +131,23 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 }
 
-module.exports = NodesTableContainer;
+const networks$ = graphqlObservable(
+  gql`
+    query {
+      networks(privateIP: $privateIP) {
+        public_ips
+        private_ip
+      }
+    }
+  `,
+  schema,
+  {}
+).pipe(map(response => response.data.networks));
+
+module.exports = componentFromStream(props$ =>
+  combineLatest(props$, networks$).pipe(
+    map(([props, networks]) => (
+      <NodesTableContainer {...props} networks={networks} />
+    ))
+  )
+);

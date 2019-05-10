@@ -77,12 +77,19 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
       return null;
     }
     const { service, schedulerTaskId } = this.props;
+    let serviceIdURI, schedulerTaskIdURI;
+
+    try {
+      serviceIdURI = encodeURIComponent(service.id);
+      schedulerTaskIdURI = encodeURIComponent(schedulerTaskId);
+    } catch (e) {
+      return null;
+    }
+
     return (
       <div className="flex-item-shrink-1">
         <Link
-          to={`/services/detail/${encodeURIComponent(
-            service.id
-          )}/tasks/${encodeURIComponent(schedulerTaskId)}/logs`}
+          to={`/services/detail/${serviceIdURI}/tasks/${schedulerTaskIdURI}/logs`}
         >
           View Scheduler Logs
         </Link>

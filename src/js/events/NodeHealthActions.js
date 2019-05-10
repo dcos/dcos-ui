@@ -12,6 +12,7 @@ import {
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
+import getFixtureResponses from "../utils/getFixtureResponses";
 
 const NodeHealthActions = {
   fetchNodes() {
@@ -104,37 +105,34 @@ const NodeHealthActions = {
 };
 
 if (Config.useFixtures) {
-  const nodesFixture = require("../../../tests/_fixtures/unit-health/nodes.json");
-  const nodeFixture = require("../../../tests/_fixtures/unit-health/node.json");
-  const nodeUnitsFixture = require("../../../tests/_fixtures/unit-health/node-units.json");
-  const nodeUnitFixture = require("../../../tests/_fixtures/unit-health/node-unit.json");
+  const methodFixtureMapping = {
+    fetchNodes: import(/* nodesFixture */ "../../../tests/_fixtures/unit-health/nodes"),
+    fetchNode: import(/* nodeFixture */ "../../../tests/_fixtures/unit-health/node.json"),
+    fetchNodeUnits: import(/* nodeUnitsFixture */ "../../../tests/_fixtures/unit-health/node-units.json"),
+    fetchNodeUnit: import(/* nodeUnitFixture */ "../../../tests/_fixtures/unit-health/node-unit.json")
+  };
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
-  global.actionTypes.NodeHealthActions = {
-    fetchNodes: {
-      event: "success",
-      success: { response: nodesFixture }
-    },
-    fetchNode: { event: "success", success: { response: nodeFixture } },
-    fetchNodeUnits: {
-      event: "success",
-      success: { response: nodeUnitsFixture }
-    },
-    fetchNodeUnit: {
-      event: "success",
-      success: { response: nodeUnitFixture }
-    }
-  };
-
-  Object.keys(global.actionTypes.NodeHealthActions).forEach(function(method) {
-    NodeHealthActions[method] = RequestUtil.stubRequest(
-      NodeHealthActions,
-      "NodeHealthActions",
-      method
+  Promise.all(
+    Object.keys(methodFixtureMapping).map(
+      method => methodFixtureMapping[method]
+    )
+  ).then(responses => {
+    global.actionTypes.NodeHealthActions = getFixtureResponses(
+      methodFixtureMapping,
+      responses
     );
+
+    Object.keys(global.actionTypes.NodeHealthActions).forEach(function(method) {
+      NodeHealthActions[method] = RequestUtil.stubRequest(
+        NodeHealthActions,
+        "NodeHealthActions",
+        method
+      );
+    });
   });
 }
 

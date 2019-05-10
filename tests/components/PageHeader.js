@@ -64,13 +64,17 @@ describe("Page Header Component", function() {
     });
 
     it("display path when hovering ellipsis", function() {
-      cy.get(".breadcrumb--force-ellipsis").eq(0).trigger("mouseover");
+      cy.get(".breadcrumb--force-ellipsis")
+        .eq(0)
+        .trigger("mouseover");
 
       cy.get(".tooltip").contains("some");
     });
 
     it("route back to services overview", function() {
-      cy.get(".breadcrumb").eq(0).click();
+      cy.get(".breadcrumb")
+        .eq(0)
+        .click();
 
       cy.window().then(function($window) {
         const hash = $window.location.hash;
@@ -105,9 +109,8 @@ describe("Page Header Component", function() {
         const $pageHeaderActiveTab = $pageHeader.find(
           ".menu-tabbed-item-label.active"
         );
-        const pageHeaderActiveTabBottomPosition = $pageHeaderActiveTab[
-          0
-        ].getBoundingClientRect().bottom;
+        const pageHeaderActiveTabBottomPosition = $pageHeaderActiveTab[0].getBoundingClientRect()
+          .bottom;
 
         expect(pageHeaderBottomPosition).to.equal(
           pageHeaderActiveTabBottomPosition - 1

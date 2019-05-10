@@ -1,14 +1,13 @@
-const mockRequest = jest.fn();
+const mockRequest = jest.fn(() => of("test"));
 jest.mock("@dcos/http-service", () => ({
   request: mockRequest
 }));
 
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
 // tslint:disable:no-submodule-imports
-import { marbles } from "rxjs-marbles/jest";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import "rxjs/add/operator/take";
+import { of } from "rxjs";
+import { tap } from "rxjs/operators";
+import { marbles, observe } from "rxjs-marbles/jest";
 // tslint:enable
 import {
   fetchJobDetail,
@@ -23,14 +22,16 @@ import {
   JobDetailResponse
 } from "../MetronomeClient";
 import Config from "../../config/Config";
+import { RestartPolicy } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
 
 describe("MetronomeClient", () => {
   const jobId = "my/awesome/job/id";
   const jobRunId = "my/awesome/job/id.1990-01-03t00:00:00z-1";
+  const restartPolicy: RestartPolicy = RestartPolicy.Never;
 
-  const jobData: JobResponse = {
+  const job = {
     id: "testid",
-    labels: {},
+    labels: [] as any, // working around the difference of the label-representation in JobRun and GenericJobResponse.
     run: {
       cpus: 0.01,
       mem: 128,
@@ -38,7 +39,7 @@ describe("MetronomeClient", () => {
       cmd: "sleep 10",
       maxLaunchDelay: 3600,
       restart: {
-        policy: "NEVER"
+        policy: restartPolicy
       },
       volumes: [],
       env: {},
@@ -47,7 +48,10 @@ describe("MetronomeClient", () => {
       },
       artifacts: [],
       secrets: {}
-    },
+    }
+  };
+  const jobData: JobResponse = {
+    ...job,
     schedules: [],
     historySummary: {
       failureCount: 0,
@@ -58,26 +62,8 @@ describe("MetronomeClient", () => {
   };
 
   const jobDetailData: JobDetailResponse = {
-    id: "testid",
+    ...job,
     description: "test description",
-    labels: {},
-    run: {
-      cpus: 0.01,
-      mem: 128,
-      disk: 0,
-      cmd: "sleep 10",
-      env: {},
-      placement: {
-        constraints: []
-      },
-      artifacts: [],
-      maxLaunchDelay: 3600,
-      volumes: [],
-      restart: {
-        policy: "NEVER"
-      },
-      secrets: {}
-    },
     schedules: [],
     activeRuns: [],
     history: {
@@ -111,8 +97,17 @@ describe("MetronomeClient", () => {
       ]
     }
   };
+  const createUpdateV1Data = {
+    job,
+    schedule: undefined
+  };
   const scheduleData = {
-    id: "my-schedule-data"
+    id: "my-schedule-data",
+    cron: "0 4 * * *"
+  };
+  const createUpdateWithSchedule = {
+    job,
+    schedule: scheduleData
   };
 
   beforeEach(() => {
@@ -121,20 +116,20 @@ describe("MetronomeClient", () => {
 
   describe("#createJob", () => {
     it("makes a request", () => {
-      createJob(jobDetailData);
+      createJob(createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      createJob(jobDetailData);
+      createJob(createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalledWith(
-        `${Config.metronomeAPI}/v0/scheduled-jobs`,
+        `${Config.metronomeAPI}/v1/jobs`,
         expect.anything()
       );
     });
 
     it("sends request with the correct method", () => {
-      createJob(jobDetailData);
+      createJob(createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         body: expect.anything(),
         method: "POST",
@@ -143,19 +138,57 @@ describe("MetronomeClient", () => {
     });
 
     it("sends request with the correct stringified data", () => {
-      createJob(jobDetailData);
+      createJob(createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
-        body: JSON.stringify(jobDetailData),
+        body: JSON.stringify(createUpdateV1Data.job),
         method: expect.anything(),
         headers: expect.anything()
       });
     });
 
     it(
+      "sends 2 requests if schedule is present",
+      observe(() => {
+        return createJob(createUpdateWithSchedule).pipe(
+          tap(() => expect(mockRequest).toHaveBeenCalledTimes(2))
+        );
+      })
+    );
+
+    it(
+      "sends schedule request to correct URL if schedule is present",
+      observe(() => {
+        return createJob(createUpdateWithSchedule).pipe(
+          tap(() =>
+            expect(mockRequest).toHaveBeenLastCalledWith(
+              `${Config.metronomeAPI}/v1/jobs/${
+                createUpdateWithSchedule.job.id
+              }/schedules`,
+              expect.anything()
+            )
+          )
+        );
+      })
+    );
+
+    it(
+      "sends schedule request with correct data if schedule is present",
+      observe(() => {
+        return createJob(createUpdateWithSchedule).pipe(
+          tap(() =>
+            expect(mockRequest).toHaveBeenLastCalledWith(expect.anything(), {
+              body: JSON.stringify(createUpdateWithSchedule.schedule),
+              method: "POST",
+              headers: expect.anything()
+            })
+          )
+        );
+      })
+    );
+
+    it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: {
             response: jobDetailData,
@@ -165,7 +198,7 @@ describe("MetronomeClient", () => {
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = createJob(jobDetailData);
+        const result$ = createJob(createUpdateV1Data);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -174,13 +207,13 @@ describe("MetronomeClient", () => {
 
   describe("#fetchJobs", () => {
     it("makes a request", () => {
-      mockRequest.mockReturnValueOnce(Observable.of({}));
+      mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      mockRequest.mockReturnValueOnce(Observable.of({}));
+      mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalledWith(
         `${
@@ -192,7 +225,6 @@ describe("MetronomeClient", () => {
     it(
       "emits an event if the data is received",
       marbles(m => {
-        m.bind();
         const expectedResult = [jobData, jobData] as JobResponse[];
         const expected$ = m.cold("--j|", {
           j: {
@@ -227,8 +259,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: {
             response: jobDetailData as JobDetailResponse,
@@ -270,8 +300,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
@@ -286,40 +314,85 @@ describe("MetronomeClient", () => {
 
   describe("#updateJob", () => {
     it("makes a request", () => {
-      updateJob(jobId, jobDetailData);
+      updateJob(jobId, createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalled();
     });
 
     it("sends data to the correct URL", () => {
-      updateJob(jobId, jobDetailData);
+      updateJob(jobId, createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalledWith(
-        `${
-          Config.metronomeAPI
-        }/v0/scheduled-jobs/${jobId}?embed=activeRuns&embed=history&embed=schedules`,
+        `${Config.metronomeAPI}/v1/jobs/${jobId}`,
         expect.anything()
       );
     });
 
     it("sends request with the correct method", () => {
-      updateJob(jobId, jobDetailData);
+      updateJob(jobId, createUpdateV1Data);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "PUT",
-        body: JSON.stringify(jobDetailData),
+        body: JSON.stringify(createUpdateV1Data.job),
         headers: expect.anything()
       });
     });
 
     it(
+      "sends 2 requests if schedule is present",
+      observe(() => {
+        const {
+          job: { id }
+        } = createUpdateWithSchedule;
+        return updateJob(id, createUpdateWithSchedule).pipe(
+          tap(() => expect(mockRequest).toHaveBeenCalledTimes(2))
+        );
+      })
+    );
+
+    it(
+      "sends schedule request to correct URL if schedule is present",
+      observe(() => {
+        const {
+          job: { id }
+        } = createUpdateWithSchedule;
+        return updateJob(id, createUpdateWithSchedule).pipe(
+          tap(() =>
+            expect(mockRequest).toHaveBeenLastCalledWith(
+              `${Config.metronomeAPI}/v1/jobs/${
+                createUpdateWithSchedule.job.id
+              }/schedules/${createUpdateWithSchedule.schedule.id}`,
+              expect.anything()
+            )
+          )
+        );
+      })
+    );
+
+    it(
+      "sends schedule request with correct data if schedule is present",
+      observe(() => {
+        const {
+          job: { id }
+        } = createUpdateWithSchedule;
+        return updateJob(id, createUpdateWithSchedule).pipe(
+          tap(() =>
+            expect(mockRequest).toHaveBeenLastCalledWith(expect.anything(), {
+              body: JSON.stringify(createUpdateWithSchedule.schedule),
+              method: "PUT",
+              headers: expect.anything()
+            })
+          )
+        );
+      })
+    );
+
+    it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: jobDetailData, code: 200, message: "ok" }
         });
 
         mockRequest.mockReturnValueOnce(expected$);
-        const result$ = updateJob(jobId, jobDetailData);
+        const result$ = updateJob(jobId, createUpdateV1Data);
 
         m.expect(result$).toBeObservable(expected$);
       })
@@ -354,8 +427,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
@@ -394,8 +465,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });
@@ -434,8 +503,6 @@ describe("MetronomeClient", () => {
     it(
       "emits the successful request result",
       marbles(m => {
-        m.bind();
-
         const expected$ = m.cold("--j|", {
           j: { response: null, code: 200, message: "ok" }
         });

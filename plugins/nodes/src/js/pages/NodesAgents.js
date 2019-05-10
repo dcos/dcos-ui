@@ -5,6 +5,10 @@ import React from "react";
 import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Badge, Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
@@ -13,7 +17,6 @@ import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import EventTypes from "#SRC/js/constants/EventTypes";
-import Icon from "#SRC/js/components/Icon";
 import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
@@ -21,7 +24,6 @@ import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
-import { Badge } from "@dcos/ui-kit";
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 import NodesTableContainer from "./nodes/nodes-table/NodesTableContainer";
@@ -41,16 +43,12 @@ function getMesosHosts(state) {
   if (filterExpression && filterExpression.defined) {
     filteredNodes = filterExpression.filter(filters, filteredNodes);
   }
-  const nodeIDs = filteredNodes.getItems().map(function(node) {
-    return node.id;
-  });
 
   return {
     filterExpression,
     nodes: filteredNodes,
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
-    totalHostsResources: states.getResourceStatesForNodeIDs(nodeIDs),
     totalNodes: nodes.getItems().length,
     totalResources: lastState.getSlaveTotalResources()
   };
@@ -68,7 +66,7 @@ var NodesAgents = createReactClass({
   statics: {
     routeConfig: {
       label: i18nMark("Nodes"),
-      icon: <Icon family="product" id="servers-inverse" />,
+      icon: <Icon shape={ProductIcons.ServersInverse} />,
       matches: /^\/nodes/
     },
     // Static life cycle method from react router, that will be called
@@ -85,7 +83,10 @@ var NodesAgents = createReactClass({
   },
 
   getInitialState() {
-    return Object.assign({ selectedResource: "cpus" }, DEFAULT_FILTER_OPTIONS);
+    return Object.assign(
+      { selectedResource: "cpus", nodesHealth: null },
+      DEFAULT_FILTER_OPTIONS
+    );
   },
 
   componentWillMount() {
@@ -98,9 +99,27 @@ var NodesAgents = createReactClass({
     this.store_listeners = [
       {
         name: "nodeHealth",
-        events: ["success", "error"]
+        events: ["success", "error"],
+        suppressUpdate: true
       }
     ];
+  },
+
+  updateNodeHealth() {
+    const nodesHealth = CompositeState.getNodesList()
+      .getItems()
+      .map(function(node) {
+        return node.getHealth();
+      });
+
+    this.setState({ nodesHealth });
+  },
+  onNodeHealthStoreSuccess() {
+    this.updateNodeHealth();
+  },
+
+  onNodeHealthStoreError() {
+    this.updateNodeHealth();
   },
 
   componentDidMount() {
@@ -141,7 +160,6 @@ var NodesAgents = createReactClass({
 
   onMesosStateChange() {
     this.internalStorage_update(getMesosHosts(this.state));
-    this.forceUpdate();
   },
 
   resetFilter() {
@@ -226,7 +244,7 @@ var NodesAgents = createReactClass({
           <Trans render="span" className="invisible">
             List
           </Trans>
-          <Icon family="system" id="list" size="mini" />
+          <Icon shape={SystemIcons.List} size={iconSizeXs} />
         </Link>
         <Link
           className={gridClassSet}
@@ -236,7 +254,7 @@ var NodesAgents = createReactClass({
           <Trans render="span" className="invisible">
             Grid
           </Trans>
-          <Icon family="system" id="donut" size="mini" />
+          <Icon shape={SystemIcons.Donut} size={iconSizeXs} />
         </Link>
       </div>
     );
@@ -246,11 +264,8 @@ var NodesAgents = createReactClass({
     const { filterExpression, byServiceFilter, selectedResource } = this.state;
     var data = this.internalStorage_get();
     const nodesList = data.nodes || [];
-    const nodesHealth = CompositeState.getNodesList()
-      .getItems()
-      .map(function(node) {
-        return node.getHealth();
-      });
+
+    const nodesHealth = this.state.nodesHealth;
     const isFiltering = filterExpression && filterExpression.defined;
 
     const isNodesTableContainer =

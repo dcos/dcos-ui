@@ -154,15 +154,6 @@ If you want to add a new npm package to 'node_modules' you will need to `--save-
   npm install [your package] --save-dev --save-exact
   ```
 
-2.  Create a synced npm-shrinkwrap.json with devDependencies included by running
-
-    ```
-    npm run build-shrinkwrap
-    ```
-
-We have a fixShrinkwrap script wich runs when you run `npm run build-shrinkwrap`, which takes care of the extra fsevents. You only need to manually remove it if shrinkwrap runs automatically. <br>
-For more info https://github.com/npm/npm/issues/2679
-
 3.  Commit to repository
 
 ## ReactJS Components
@@ -397,49 +388,42 @@ We use cypress to drive a browser and run the unit tests for DC/OS UI. This is
 because we want to integrate our system as close as possible to the environment
 it will run, the user browser.
 
-To setup cypress you need to follow the following steps:
-
-1.  Install Cypress CLI.
-
-Cypress is a dev dependency, if you have not installed those yet, run:
-
-```sh
-  npm install --only=dev
-```
-
-2.  Open Cypress.
-
-```sh
-./node_modules/.bin/cypress open
-```
-
-3.  The following window should open. Login via GitHub.
-
-![img](docs/images/cypress-login.png?raw=true)
-
-4.  Add project to Cypress.
-
-Once you've logged in click on the Add Project + button and add the `dcos-ui`
-folder.
-
-![img](docs/images/cypress-no-projects.png?raw=true)
-
 ### Running Integration Tests
 
-1.  Run DC/OS UI in testing mode (you have to close npm start).
+#### Without Plugins
+
+Run the integration tests in testing mode. If you already run a proxy to a cluster or `npm start` the script will take this, otherwise it will start a new server.
 
 ```sh
-npm run testing
+npm config delete externalplugins
+npm run test:integration:local
 ```
 
-2.  Open the project and click on "Run All Tests" or in one of the test files,
-    e.g. (PackageTab-cy.js).
+#### With Plugins
 
-![img](docs/images/cypress-run-tests.png?raw=true)
+```sh
+npm config set externalplugins <path>
+npm run test:integration:plugins:setup
+npm run test:integration:local
+```
+
+NOTE: `npm run test:integration:plugins:setup` will copy plugins test over. Don't forget to remove them. This is a workaround since Cypress can't run tests in multiple directories.
 
 You should see a browser open and your tests running.
 
 ![img](docs/images/cypress-tests-running.png?raw=true)
+
+#### Running a single integration test
+
+To run a single integration test, run the following command, where `Filename` is replaced by the name of the integration test you want to run, without `-cy` or `.js`.
+```
+npm run test:integration:local -- -s Filename
+```
+
+Example for running `../tests/pages/services/ServiceActions-cy.js`:
+```
+npm run test:integration:local -- -s ServiceActions
+```
 
 ### Example of an Integration test
 
@@ -464,25 +448,14 @@ that, among other things, include:
 
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
 
-#### Run cypress on the command line
-
-Alternatively you can run cypress from the command line.
-
-```sh
-  npm run cypress
-```
-
 ### Debugging flaky integration tests
 
 We have tooling to check if a test case (or the implementation) is flaky.
 
 1.  Open up a PR with your changes
-2.  Add a `.only` on the test case you want to check
-3.  Click on the `continuous-integration/jenkins/pr-head` and navigate to the old view (square symbol with arrow on the top right corner)
-4.  Navigate to the PR in Jenkins by clicking the PR name on the breadcrumbs
-5.  Click "Build with Parameters" on the left sidebar to and run the job with "shouldRun" checked
-6.  Wait for the `100` runs to finish
-7.  Check the result on the PR notification. If there is still a flake `continuous-integration/jenkins/pr-head` should be red.
+2.  Add a `.only` on the test case you want to check and push the commit
+3.  Wait for the `100` runs to finish
+4.  Check the result on the PR status. If there is still a flake `continuous-integration/jenkins/pr-head` should be red.
 
 If you want to test more runs you can change the number in `Jenkinsfile.reruns`.
 
@@ -498,18 +471,41 @@ page.
 
 ### System Tests setup
 
-In the DC/OS UI, System Tests are executed with the dcos-system-test-driver
-utility; This utility takes care of provisioning a cluster, launching the
-integration tests and driving the setup and teardown process for every test.
+Before you start, please make sure you are configured against a new and empty cluster (See `webpack/proxy.dev.js`).
+We need a real cluster to work with and the tests are going to make changes to that cluster.
 
-The system-test-driver-utility is currently **not available** for public use.
+#### Without Plugins
 
-For contributing members of this repository. Comprehensive documentation on how
-to run, write, debug and troubleshoot system tests are available in the
-**System Tests in DC/OS UI** google document currently only available internally
-at Mesosphere.
+Run DC/OS UI in testing mode (you have to close `npm start`).
 
-You will need a fully functional cluster to run your system tests.
+```sh
+npm config delete externalplugins
+npm start
+# In a different shell
+npm run test:system:local
+```
+
+#### With Plugins
+
+```sh
+npm config set externalplugins <path>
+npm run test:system:plugins:setup
+npm start
+# In a different shell
+npm run test:system:local
+```
+
+#### Running a single system test
+
+To run a single system test, run the following command, where `Filename` is replaced by the name of the system test you want to run, without `-cy` or `.js`.
+```
+npm run test:system:local -- -s Filename
+```
+
+Example for running `../system-tests/services/test-apps-cy.js`:
+```
+npm run test:system:local -- -s test-apps
+```
 
 ## i18n
 
@@ -546,7 +542,7 @@ When formatting a string containing multiple pieces of logic and/or translation 
 
 Keep in mind that lingui follows the React pattern where everything is a component that way making it easier to compose and reason about the application.
 
-Ensure that `npm run lingui-extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.json` are committed.
+Ensure that `npm run util:lingui:extract-with-plugins` is run with every update to dcos-ui, and that any updates to `messages.json` are committed.
 
 ### New translation files
 

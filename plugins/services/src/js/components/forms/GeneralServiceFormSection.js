@@ -22,7 +22,7 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
@@ -44,16 +44,16 @@ const METHODS_TO_BIND = [
 ];
 
 const containerRuntimes = {
-  [DOCKER]: {
-    label: <Trans render="span" id={labelMap[DOCKER]} />,
-    helpText: i18nMark(
-      "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
-    )
-  },
   [MESOS]: {
     label: <Trans render="span" id={labelMap[MESOS]} />,
     helpText: i18nMark(
       "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
+    )
+  },
+  [DOCKER]: {
+    label: <Trans render="span" id={labelMap[DOCKER]} />,
+    helpText: i18nMark(
+      "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
     )
   }
 };
@@ -83,7 +83,7 @@ class GeneralServiceFormSection extends Component {
   }
 
   getAdvancedSettingsSection() {
-    const { data = {}, errors, service } = this.props;
+    const { data = {}, errors, expandAdvancedSettings, service } = this.props;
 
     if (service instanceof PodSpec) {
       return null;
@@ -92,7 +92,10 @@ class GeneralServiceFormSection extends Component {
     const initialIsExpanded = this.shouldShowAdvancedOptions();
 
     return (
-      <AdvancedSection initialIsExpanded={initialIsExpanded}>
+      <AdvancedSection
+        initialIsExpanded={initialIsExpanded}
+        shouldExpand={expandAdvancedSettings}
+      >
         <AdvancedSectionLabel>
           <Trans render="span">More Settings</Trans>
         </AdvancedSectionLabel>
@@ -143,7 +146,8 @@ class GeneralServiceFormSection extends Component {
           Need to run a service with multiple containers?{" "}
           <a className="clickable" onClick={this.handleOpenConvertToPodModal}>
             Add another container
-          </a>.
+          </a>
+          .
         </Trans>
       </div>
     );
@@ -203,7 +207,8 @@ class GeneralServiceFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -221,7 +226,7 @@ class GeneralServiceFormSection extends Component {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -316,8 +321,7 @@ class GeneralServiceFormSection extends Component {
       !isEmpty(data.constraints) ||
       !isEmpty(findNestedPropertyInObject(docker, "forcePullImage")) ||
       !isEmpty(findNestedPropertyInObject(docker, "image")) ||
-      !isEmpty(findNestedPropertyInObject(docker, "privileged")) ||
-      findNestedPropertyInObject(container, "type") !== DOCKER
+      !isEmpty(findNestedPropertyInObject(docker, "privileged"))
     );
   }
 
@@ -347,7 +351,8 @@ class GeneralServiceFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -374,7 +379,7 @@ class GeneralServiceFormSection extends Component {
                     maxWidth={300}
                     wrapText={true}
                   >
-                    <Icon color="light-grey" id="circle-question" size="mini" />
+                    <InfoTooltipIcon />
                   </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -446,7 +451,8 @@ class GeneralServiceFormSection extends Component {
               target="_blank"
             >
               More information
-            </a>.
+            </a>
+            .
           </Trans>
           <Trans render="p">
             Are you sure you would like to continue and create a Pod? Any data
@@ -461,6 +467,7 @@ class GeneralServiceFormSection extends Component {
 GeneralServiceFormSection.defaultProps = {
   data: {},
   errors: {},
+  expandAdvancedSettings: false,
   onAddItem() {},
   onRemoveItem() {}
 };
@@ -468,6 +475,7 @@ GeneralServiceFormSection.defaultProps = {
 GeneralServiceFormSection.propTypes = {
   data: PropTypes.object,
   errors: PropTypes.object,
+  expandAdvancedSettings: PropTypes.bool,
   onAddItem: PropTypes.func,
   onRemoveItem: PropTypes.func,
   onClickItem: PropTypes.func

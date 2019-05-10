@@ -2,10 +2,17 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
 describe("Service Table", function() {
   function openDropdown(serviceName) {
-    cy.get(".service-table")
-      .contains(serviceName)
-      .closest("tr")
-      .find(".dropdown")
+    cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
+    cy.get(".form-control-group-add-on")
+      .eq(-1)
+      .click(); // close filter window
+    cy.wait(2000); // wait for data to load
+    cy.get(".ReactVirtualized__Grid")
+      .eq(-1) // bottom right grid
+      .scrollTo("right"); // scroll to the actions column
+    cy.get(".dropdown").should("not.to.have.length", 1);
+    cy.get(".dropdown")
+      .eq(1)
       .click();
   }
 
@@ -31,7 +38,8 @@ describe("Service Table", function() {
       cy.route({
         method: "DELETE",
         url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
+        response: [],
+        delay: SERVER_RESPONSE_DELAY
       });
       cy.get(".modal-small .button-danger").should("have.class", "disabled");
     });
@@ -95,7 +103,8 @@ describe("Service Table", function() {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
+        response: [],
+        delay: SERVER_RESPONSE_DELAY
       });
 
       openDropdown("sleep");
@@ -266,6 +275,14 @@ describe("Service Table", function() {
         .contains("stop")
         .should("not.exist");
     });
+
+    it("has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set", function() {
+      openDropdown("sdk-sleep-with-image");
+
+      cy.get(".dropdown-menu-items")
+        .contains("Open Service")
+        .should("exist");
+    });
   });
 
   context("SDK Groups", function() {
@@ -333,9 +350,13 @@ describe("Service Table", function() {
       });
 
       it("does contain the right region", function() {
-        cy.get(".service-table")
-          .contains("sleep")
-          .closest("tr")
+        cy.get(".filter-input-text").type("sleep");
+        cy.get(".form-control-group-add-on")
+          .eq(-1)
+          .click(); // close filter window
+
+        cy.get(".ReactVirtualized__Grid")
+          .eq(-1) // bottom right grid
           .contains("Region-A")
           .should("to.have.length", 1);
       });
@@ -352,12 +373,40 @@ describe("Service Table", function() {
       });
 
       it("does contain the right region", function() {
-        cy.get(".service-table")
-          .contains("sleep")
-          .closest("tr")
+        cy.get(".filter-input-text").type("sleep");
+        cy.get(".form-control-group-add-on")
+          .eq(-1)
+          .click(); // close filter window
+
+        cy.get(".ReactVirtualized__Grid")
+          .eq(-1) // bottom right grid
           .contains("Region-A, Region-B")
           .should("to.have.length", 1);
       });
     });
+  });
+
+  context("Groups", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("group status is an aggregate of children", function() {
+      cy.get('.status-bar-text')
+        .eq(1)
+        .contains("Running (3 of 3)")
+    });
+
+    it("shows service status counts in group tooltip", function() {
+      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+        .eq(1)
+        .trigger("mouseover");
+      cy.get(".tooltip").contains("3 Running");
+    })
   });
 });

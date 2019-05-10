@@ -28,9 +28,9 @@ class LoginPage extends mixin(StoreMixin) {
       }
     ];
 
-    this.state = {
+    this.setState({
       showClusterError: false
-    };
+    });
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

@@ -4,10 +4,12 @@ import createReactClass from "create-react-class";
 import { routerShape } from "react-router";
 import { Tooltip } from "reactjs-components";
 import { Trans } from "@lingui/macro";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { greyDark } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Chart from "#SRC/js/components/charts/Chart";
 import DialChart from "#SRC/js/components/charts/DialChart";
-import Icon from "#SRC/js/components/Icon";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 var colors = {
@@ -115,7 +117,7 @@ var NodesGridDials = createReactClass({
         data: this.getInactiveSliceData(),
         description: (
           <span className="error">
-            <Icon id="yield" className="icon-alert" color="neutral" />
+            <Icon shape={SystemIcons.Yield} color={greyDark} />
           </span>
         )
       };

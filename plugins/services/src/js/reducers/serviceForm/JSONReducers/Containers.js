@@ -29,6 +29,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
     let {
       name,
+      networkNames,
       hostPort,
       containerPort,
       automaticPort,
@@ -56,6 +57,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
     if (networkType === CONTAINER) {
       return {
         name,
+        networkNames,
         containerPort,
         hostPort,
         protocol,
@@ -65,6 +67,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
 
     return {
       name,
+      networkNames,
       hostPort,
       protocol,
       labels
@@ -211,6 +214,15 @@ function containersParser(state) {
           );
         }
 
+        if (endpoint.networkNames != null) {
+          memo.push(
+            new Transaction(
+              ["containers", index, "endpoints", endpointIndex, "networkNames"],
+              endpoint.networkNames
+            )
+          );
+        }
+
         if (networkMode === CONTAINER.toLowerCase()) {
           memo.push(
             new Transaction(
@@ -346,16 +358,15 @@ module.exports = {
 
     if (!path.includes("containers") && !path.includes("volumeMounts")) {
       return state.map((container, index) => {
-        if (
-          this.endpoints &&
-          this.endpoints[index] &&
-          this.endpoints[index].length !== 0
-        ) {
+        if (this.endpoints && this.endpoints[index]) {
           container.endpoints = mapEndpoints(
             this.endpoints[index],
             this.networkType,
             this.appState
           );
+          if (container.endpoints.length === 0) {
+            delete container.endpoints;
+          }
         }
 
         return container;
@@ -453,16 +464,15 @@ module.exports = {
       });
     }
     newState = newState.map((container, index) => {
-      if (
-        this.endpoints &&
-        this.endpoints[index] &&
-        this.endpoints[index].length !== 0
-      ) {
+      if (this.endpoints && this.endpoints[index]) {
         container.endpoints = mapEndpoints(
           this.endpoints[index],
           this.networkType,
           this.appState
         );
+        if (container.endpoints.length === 0) {
+          delete container.endpoints;
+        }
       }
 
       return container;

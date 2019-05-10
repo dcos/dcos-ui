@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Loader from "#SRC/js/components/Loader";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -11,7 +14,6 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
-import Icon from "#SRC/js/components/Icon";
 
 import Service from "../../structs/Service";
 import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
@@ -103,13 +105,8 @@ class SDKServiceConnectionEndpointList extends React.Component {
               endpoint.getData()
             )}
           >
-            <Trans render="span">
-              <Icon
-                id="download"
-                className="endpoint-download-icon"
-                size="mini"
-              />{" "}
-              Download
+            <Trans render="span" className="endpoint-download-icon">
+              <Icon shape={SystemIcons.Download} size={iconSizeXs} /> Download
             </Trans>
           </a>
         </ConfigurationMapValue>

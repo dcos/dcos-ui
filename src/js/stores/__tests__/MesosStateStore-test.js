@@ -120,25 +120,31 @@ describe("MesosStateStore", function() {
           tasks: [
             {
               name: "spark",
-              id: "spark.1",
+              id: "spark.instance.1",
               framework_id: "marathon_1",
               isStartedByMarathon: true
             },
             {
               name: "alpha",
-              id: "alpha.1",
+              id: "alpha.instance.1",
               framework_id: "marathon_1",
               isStartedByMarathon: true
             },
             {
               name: "alpha",
-              id: "alpha.2",
+              id: "alpha.instance.2",
               framework_id: "marathon_1",
               isStartedByMarathon: true
             },
             {
               name: "alpha",
-              id: "alpha.3",
+              id: "alpha.instance.3",
+              framework_id: "marathon_1",
+              isStartedByMarathon: true
+            },
+            {
+              name: "alpha",
+              id: "pod_alpha.instance.3",
               framework_id: "marathon_1",
               isStartedByMarathon: true
             },
@@ -164,7 +170,7 @@ describe("MesosStateStore", function() {
       expect(tasks).toEqual([
         {
           name: "spark",
-          id: "spark.1",
+          id: "spark.instance.1",
           framework_id: "marathon_1",
           isStartedByMarathon: true
         },
@@ -181,19 +187,19 @@ describe("MesosStateStore", function() {
       expect(tasks).toEqual([
         {
           name: "alpha",
-          id: "alpha.1",
+          id: "alpha.instance.1",
           framework_id: "marathon_1",
           isStartedByMarathon: true
         },
         {
           name: "alpha",
-          id: "alpha.2",
+          id: "alpha.instance.2",
           framework_id: "marathon_1",
           isStartedByMarathon: true
         },
         {
           name: "alpha",
-          id: "alpha.3",
+          id: "alpha.instance.3",
           framework_id: "marathon_1",
           isStartedByMarathon: true
         }
@@ -239,7 +245,7 @@ describe("MesosStateStore", function() {
       expect(tasks).toEqual([
         {
           name: "spark",
-          id: "spark.1",
+          id: "spark.instance.1",
           framework_id: "marathon_1",
           isStartedByMarathon: true,
           sdkTask: true

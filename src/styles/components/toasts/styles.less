@@ -1,0 +1,14 @@
+& when (@toasts-enabled) {
+
+  .toasts-container {
+    bottom: @toasts-bottom-spacing;
+    min-width: @toasts-min-width;
+    position: fixed;
+    right: @toasts-right-spacing;
+    z-index: @z-index-toasts;
+
+    li:before {
+      display: none;
+    }
+  }
+}

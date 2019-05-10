@@ -1,7 +1,3 @@
 # Marathon RAML Files
 
-To download and place the latest marathon RAML files in this directory type:
-
-```
-npm run update-raml
-```
+RAML definitions will be downloaded and unarchived during the preinstall step

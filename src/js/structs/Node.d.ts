@@ -14,5 +14,6 @@ export default class Node extends Item {
   sumTaskTypesByState: (state: any) => any;
   getResources: () => any;
   isPublic: () => boolean;
-  getIp:() => string;
+  getIp: () => string;
+  getPublicIps: () => string[];
 }

@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { of, throwError } from "rxjs";
 
 const mockCreateJob = jest.fn();
 const mockDeleteJob = jest.fn();
@@ -31,7 +31,7 @@ describe("MetronomeActions", function() {
     });
 
     it("calls the createJob", function() {
-      mockCreateJob.mockReturnValueOnce(Observable.of({}));
+      mockCreateJob.mockReturnValueOnce(of({}));
       MetronomeActions.createJob({});
 
       expect(mockCreateJob).toHaveBeenCalled();
@@ -47,7 +47,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockCreateJob.mockReturnValueOnce(Observable.of({}));
+      mockCreateJob.mockReturnValueOnce(of({}));
 
       MetronomeActions.createJob({});
     });
@@ -62,7 +62,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockCreateJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockCreateJob.mockReturnValueOnce(throwError({ message: "error" }));
 
       MetronomeActions.createJob({});
     });
@@ -75,7 +75,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockCreateJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockCreateJob.mockReturnValueOnce(throwError({ message: "error" }));
 
       MetronomeActions.createJob({});
     });
@@ -83,7 +83,7 @@ describe("MetronomeActions", function() {
 
   describe("#fetchJobs", function() {
     it("calls the createJob", function() {
-      mockFetchJobs.mockReturnValueOnce(Observable.of([]));
+      mockFetchJobs.mockReturnValueOnce(of([]));
       MetronomeActions.fetchJobs();
 
       expect(mockFetchJobs).toHaveBeenCalled();
@@ -97,7 +97,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockFetchJobs.mockReturnValueOnce(Observable.of([]));
+      mockFetchJobs.mockReturnValueOnce(of([]));
       MetronomeActions.fetchJobs();
     });
 
@@ -109,7 +109,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockFetchJobs.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockFetchJobs.mockReturnValueOnce(throwError({ message: "error" }));
       MetronomeActions.fetchJobs();
     });
 
@@ -125,7 +125,7 @@ describe("MetronomeActions", function() {
       });
 
       mockFetchJobs.mockReturnValueOnce(
-        Observable.throw({
+        throwError({
           foo: "bar",
           responseJSON: { description: "baz" }
         })
@@ -136,7 +136,7 @@ describe("MetronomeActions", function() {
 
   describe("#fetchJobDetail", function() {
     it("calls fetchJobDetail", function() {
-      mockFetchJobDetail.mockReturnValueOnce(Observable.of({}));
+      mockFetchJobDetail.mockReturnValueOnce(of({}));
       MetronomeActions.fetchJobDetail("my/id");
 
       expect(mockFetchJobDetail).toHaveBeenCalled();
@@ -154,7 +154,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockFetchJobDetail.mockReturnValueOnce(Observable.of({}));
+      mockFetchJobDetail.mockReturnValueOnce(of({}));
 
       MetronomeActions.fetchJobDetail("my/id");
     });
@@ -171,9 +171,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockFetchJobDetail.mockReturnValueOnce(
-        Observable.throw({ message: "error" })
-      );
+      mockFetchJobDetail.mockReturnValueOnce(throwError({ message: "error" }));
 
       MetronomeActions.fetchJobDetail("my/id");
     });
@@ -190,7 +188,7 @@ describe("MetronomeActions", function() {
       });
 
       mockFetchJobDetail.mockReturnValueOnce(
-        Observable.throw({ foo: "bar", responseJSON: { description: "baz" } })
+        throwError({ foo: "bar", responseJSON: { description: "baz" } })
       );
 
       MetronomeActions.fetchJobDetail("my/id");
@@ -203,7 +201,7 @@ describe("MetronomeActions", function() {
     });
 
     it("calls the createJob", function() {
-      mockDeleteJob.mockReturnValueOnce(Observable.of({}));
+      mockDeleteJob.mockReturnValueOnce(of({}));
       MetronomeActions.deleteJob("foo");
 
       expect(mockDeleteJob).toHaveBeenCalled();
@@ -219,7 +217,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockDeleteJob.mockReturnValueOnce(Observable.of({}));
+      mockDeleteJob.mockReturnValueOnce(of({}));
 
       MetronomeActions.deleteJob("foo");
     });
@@ -234,7 +232,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockDeleteJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockDeleteJob.mockReturnValueOnce(throwError({ message: "error" }));
 
       MetronomeActions.deleteJob("foo");
     });
@@ -247,7 +245,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockDeleteJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockDeleteJob.mockReturnValueOnce(throwError({ message: "error" }));
 
       MetronomeActions.deleteJob("foo");
     });
@@ -255,7 +253,7 @@ describe("MetronomeActions", function() {
 
   describe("#updateJob", function() {
     it("calls the updateJob", function() {
-      mockUpdateJob.mockReturnValueOnce(Observable.of({}));
+      mockUpdateJob.mockReturnValueOnce(of({}));
       MetronomeActions.updateJob({});
 
       expect(mockUpdateJob).toHaveBeenCalled();
@@ -271,7 +269,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockUpdateJob.mockReturnValueOnce(Observable.of({}));
+      mockUpdateJob.mockReturnValueOnce(of({}));
       MetronomeActions.updateJob("foo", {});
     });
 
@@ -285,7 +283,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockUpdateJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockUpdateJob.mockReturnValueOnce(throwError({ message: "error" }));
       MetronomeActions.updateJob("foo", {});
     });
 
@@ -301,7 +299,7 @@ describe("MetronomeActions", function() {
       });
 
       mockUpdateJob.mockReturnValueOnce(
-        Observable.throw({
+        throwError({
           foo: "bar",
           responseJSON: { description: "baz" }
         })
@@ -312,7 +310,7 @@ describe("MetronomeActions", function() {
 
   describe("#runJob", function() {
     it("calls the runJob", function() {
-      mockRunJob.mockReturnValueOnce(Observable.of({}));
+      mockRunJob.mockReturnValueOnce(of({}));
       MetronomeActions.runJob("foo");
 
       expect(mockRunJob).toHaveBeenCalled();
@@ -329,7 +327,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockRunJob.mockReturnValueOnce(Observable.of([]));
+      mockRunJob.mockReturnValueOnce(of([]));
       MetronomeActions.runJob("foo");
     });
 
@@ -344,7 +342,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockRunJob.mockReturnValueOnce(Observable.throw({ message: "error" }));
+      mockRunJob.mockReturnValueOnce(throwError({ message: "error" }));
       MetronomeActions.runJob("foo");
     });
 
@@ -360,7 +358,7 @@ describe("MetronomeActions", function() {
       });
 
       mockRunJob.mockReturnValueOnce(
-        Observable.throw({
+        throwError({
           foo: "bar",
           responseJSON: { description: "baz" }
         })
@@ -371,7 +369,7 @@ describe("MetronomeActions", function() {
 
   describe("#stopJobRun", function() {
     it("calls the stopJobRun", function() {
-      mockStopJobRun.mockReturnValueOnce(Observable.of({}));
+      mockStopJobRun.mockReturnValueOnce(of({}));
       MetronomeActions.stopJobRun("foo");
 
       expect(mockStopJobRun).toHaveBeenCalled();
@@ -388,7 +386,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockStopJobRun.mockReturnValueOnce(Observable.of([]));
+      mockStopJobRun.mockReturnValueOnce(of([]));
       MetronomeActions.stopJobRun("foo");
     });
 
@@ -403,9 +401,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockStopJobRun.mockReturnValueOnce(
-        Observable.throw({ message: "error" })
-      );
+      mockStopJobRun.mockReturnValueOnce(throwError({ message: "error" }));
       MetronomeActions.stopJobRun("foo");
     });
 
@@ -421,7 +417,7 @@ describe("MetronomeActions", function() {
       });
 
       mockStopJobRun.mockReturnValueOnce(
-        Observable.throw({
+        throwError({
           foo: "bar",
           responseJSON: { description: "baz" }
         })
@@ -432,7 +428,7 @@ describe("MetronomeActions", function() {
 
   describe("#updateSchedule", function() {
     it("calls the updateSchedule", function() {
-      mockUpdateSchedule.mockReturnValueOnce(Observable.of({}));
+      mockUpdateSchedule.mockReturnValueOnce(of({}));
       MetronomeActions.updateSchedule("foo", {});
 
       expect(mockStopJobRun).toHaveBeenCalled();
@@ -450,7 +446,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockUpdateSchedule.mockReturnValueOnce(Observable.of({}));
+      mockUpdateSchedule.mockReturnValueOnce(of({}));
       MetronomeActions.updateSchedule("foo", {});
     });
 
@@ -466,9 +462,7 @@ describe("MetronomeActions", function() {
         done();
       });
 
-      mockUpdateSchedule.mockReturnValueOnce(
-        Observable.throw({ message: "error" })
-      );
+      mockUpdateSchedule.mockReturnValueOnce(throwError({ message: "error" }));
       MetronomeActions.updateSchedule("foo", {});
     });
 
@@ -484,7 +478,7 @@ describe("MetronomeActions", function() {
       });
 
       mockUpdateSchedule.mockReturnValueOnce(
-        Observable.throw({
+        throwError({
           foo: "bar",
           responseJSON: { description: "baz" }
         })

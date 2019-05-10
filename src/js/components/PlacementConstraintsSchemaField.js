@@ -9,7 +9,7 @@ import PlacementConstraintsPartial from "#SRC/js/components/PlacementConstraints
 import BatchContainer from "#SRC/js/components/BatchContainer";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import { Tooltip } from "reactjs-components";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import {
   JSONReducer,
   JSONParser
@@ -136,7 +136,7 @@ export default class PlacementConstraintsSchemaField extends Component {
             maxWidth={300}
             wrapText={true}
           >
-            <Icon color="grey" id="circle-question" size="mini" />
+            <InfoTooltipIcon />
           </Tooltip>
         </h2>
         <BatchContainer batch={batch} onChange={this.handleBatchChange}>

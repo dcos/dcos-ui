@@ -1,4 +1,5 @@
 import React from "react";
+import { combineLatest, startWith } from "rxjs/operators";
 
 import { mesosMastersLeader } from "./MesosMastersLeader";
 import { mesosMastersHealth } from "./MesosMastersHealth";
@@ -29,16 +30,18 @@ function filterLeader(leader, masters) {
 }
 
 export function combineMasterData(leaderDataSource, mesosMastersHealth) {
-  const mesosLeader$ = leaderDataSource().startWith(
-    mastersInitialState().leader
+  const mesosLeader$ = leaderDataSource().pipe(
+    startWith(mastersInitialState().leader)
   );
-  const mesosMasters$ = mesosMastersHealth().startWith(undefined);
+  const mesosMasters$ = mesosMastersHealth().pipe(startWith(undefined));
 
   return function() {
-    return mesosLeader$.combineLatest(mesosMasters$, (leader, masters) => ({
-      leader,
-      masters: filterLeader(leader, masters)
-    }));
+    return mesosLeader$.pipe(
+      combineLatest(mesosMasters$, (leader, masters) => ({
+        leader,
+        masters: filterLeader(leader, masters)
+      }))
+    );
   };
 }
 

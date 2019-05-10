@@ -14,6 +14,7 @@ interface IConfiguration {
   environment?: string;
   fullProductName: string;
   getRefreshRate: () => number;
+  getLongPollingInterval: () => number;
   historyLength: number;
   historyServer: string;
   logsAPIPrefix: string;
@@ -28,6 +29,7 @@ interface IConfiguration {
   setInactiveAfter: number;
   slackChannel: string;
   stateRefresh: number;
+  stateLongPoll: number;
   supportEmail: string;
   tailRefresh: number;
   testHistoryInterval: number;
@@ -63,6 +65,7 @@ let Config: IConfiguration = {
   rootUrl: "",
   slackChannel: "https://dcos-community.slack.com/messages/general/",
   stateRefresh: 2000,
+  stateLongPoll: 300000,
   supportEmail: "help@dcos.io",
   tailRefresh: 10000,
   unitHealthAPIPrefix: "/system/health/v1",
@@ -71,6 +74,9 @@ let Config: IConfiguration = {
   virtualNetworksApi: "/mesos/overlay-master",
   getRefreshRate() {
     return this.stateRefresh;
+  },
+  getLongPollingInterval() {
+    return this.stateLongPoll;
   }
 };
 

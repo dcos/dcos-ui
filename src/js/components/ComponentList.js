@@ -5,7 +5,7 @@ import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import React from "react";
 
-class ComponentList extends React.Component {
+class ComponentList extends React.PureComponent {
   getComponentListContent(units) {
     return units.map(function(unit) {
       const health = unit.getHealth();
@@ -120,11 +120,7 @@ class ComponentList extends React.Component {
 
     return (
       <div className="dashboard-health-list">
-        <List
-          className="list list-unstyled"
-          content={content}
-          transition={false}
-        />
+        <List className="list list-unstyled" content={content} />
       </div>
     );
   }

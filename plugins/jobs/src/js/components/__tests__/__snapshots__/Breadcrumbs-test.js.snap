@@ -12,10 +12,16 @@ exports[`Breadcrumbs has a long path 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-jobs icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--jobs"
+          xlinkHref="#product-jobs"
         />
       </svg>
     </a>
@@ -24,10 +30,16 @@ exports[`Breadcrumbs has a long path 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -55,10 +67,16 @@ exports[`Breadcrumbs has a long path 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -80,10 +98,16 @@ exports[`Breadcrumbs has a long path 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -119,10 +143,16 @@ exports[`Breadcrumbs has no path 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-jobs icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--jobs"
+          xlinkHref="#product-jobs"
         />
       </svg>
     </a>
@@ -131,10 +161,16 @@ exports[`Breadcrumbs has no path 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -156,10 +192,16 @@ exports[`Breadcrumbs has no path 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -195,10 +237,16 @@ exports[`Breadcrumbs has no props at all 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-jobs icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--jobs"
+          xlinkHref="#product-jobs"
         />
       </svg>
     </a>
@@ -207,10 +255,16 @@ exports[`Breadcrumbs has no props at all 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -243,10 +297,16 @@ exports[`Breadcrumbs has path but no name 1`] = `
       style={Object {}}
     >
       <svg
-        className="icon icon-small"
+        aria-label="product-jobs icon"
+        className="css-zgvqkl"
+        height={24}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 24 24"
+        width={24}
       >
         <use
-          xlinkHref="#icon-product--jobs"
+          xlinkHref="#product-jobs"
         />
       </svg>
     </a>
@@ -255,10 +315,16 @@ exports[`Breadcrumbs has path but no name 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -280,10 +346,16 @@ exports[`Breadcrumbs has path but no name 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>
@@ -305,10 +377,16 @@ exports[`Breadcrumbs has path but no name 1`] = `
     className="breadcrumb breadcrumb--is-caret"
   >
     <svg
-      className="icon icon-grey icon-mini"
+      aria-label="system-caret-right icon"
+      className="css-1vunjz0"
+      height={16}
+      preserveAspectRatio="xMinYMin meet"
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
     >
       <use
-        xlinkHref="#icon-system--caret-right"
+        xlinkHref="#system-caret-right"
       />
     </svg>
   </div>

@@ -4,14 +4,17 @@ import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 
 import defaultServiceImage from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
 import FormUtil from "../utils/FormUtil";
-import Icon from "./Icon";
 import Image from "./Image";
 import SchemaFormUtil from "../utils/SchemaFormUtil";
 import SchemaUtil from "../utils/SchemaUtil";
-import ScrollbarUtil from "../utils/ScrollbarUtil";
 import TabForm from "./TabForm";
 import Util from "../utils/Util";
 
@@ -59,24 +62,6 @@ class SchemaForm extends mixin(StoreMixin) {
     }
 
     this.props.getTriggerSubmit(this.handleExternalSubmit);
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount(...arguments);
-
-    // Unscheduled all validation if component unmounts.
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
-  }
-
-  componentDidUpdate() {
-    super.componentDidUpdate(...arguments);
-
-    // Timeout necessary due to modal content height updates on did mount
-    setTimeout(() => {
-      ScrollbarUtil.updateWithRef(this.refs.geminiForms);
-    });
   }
 
   handleFormChange(formData, eventObj) {
@@ -204,7 +189,7 @@ class SchemaForm extends mixin(StoreMixin) {
           className="button button-narrow button-primary-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}
         >
-          <Icon id="close" size="mini" />
+          <Icon shape={SystemIcons.Close} size={iconSizeXs} />
         </button>
       </div>
     );
@@ -303,7 +288,7 @@ class SchemaForm extends mixin(StoreMixin) {
           wrapText={true}
           maxWidth={300}
         >
-          <Icon color="light-grey" id="circle-question" size="mini" />
+          <InfoTooltipIcon />
         </Tooltip>
       );
     } else if (description && levelsDeep === 0) {
@@ -344,7 +329,7 @@ class SchemaForm extends mixin(StoreMixin) {
         maxWidth={300}
         interactive={true}
       >
-        <Icon color="light-grey" id="circle-question" size="mini" />
+        <InfoTooltipIcon />
       </Tooltip>
     );
 

@@ -4,18 +4,18 @@ exports[`Schedule renders the schedule 1`] = `
 <div
   className="breadcrumb__content breadcrumb__content--supplemental"
 >
-  <div
-    className="tooltip-wrapper text-align-center"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+  <svg
+    aria-label="system-repeat icon"
+    className="css-17f4obm"
+    height={16}
+    preserveAspectRatio="xMinYMin meet"
+    role="img"
+    viewBox="0 0 16 16"
+    width={16}
   >
-    <svg
-      className="icon icon-grey icon-mini"
-    >
-      <use
-        xlinkHref="#icon-system--repeat"
-      />
-    </svg>
-  </div>
+    <use
+      xlinkHref="#system-repeat"
+    />
+  </svg>
 </div>
 `;

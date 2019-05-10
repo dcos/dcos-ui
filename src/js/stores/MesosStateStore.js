@@ -1,11 +1,21 @@
+import CompositeState from "#SRC/js/structs/CompositeState";
 import PluginSDK from "PluginSDK";
-import { request } from "@dcos/mesos-client";
-import { Observable } from "rxjs/Observable";
+import { interval, of } from "rxjs";
+import {
+  merge,
+  distinctUntilChanged,
+  map,
+  tap,
+  sampleTime,
+  retryWhen,
+  zip,
+  take,
+  concat
+} from "rxjs/operators";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import Task from "#PLUGINS/services/src/js/structs/Task";
 
-import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
 import DCOSStore from "./DCOSStore";
 import GetSetBaseStore from "./GetSetBaseStore";
@@ -17,10 +27,10 @@ import MesosStateUtil from "../utils/MesosStateUtil";
 import pipe from "../utils/pipe";
 import { linearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
+import { MesosMasterRequestType } from "../core/MesosMasterRequest";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
 
-const MAX_RETRIES = 5;
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
 const METHODS_TO_BIND = [
@@ -75,38 +85,36 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   subscribe() {
-    const mesosStream = container.get(MesosStreamType);
-    const getMasterRequest = request(
-      { type: "GET_MASTER" },
-      "/mesos/api/v1?get_master"
-    )
-      .retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES))
-      .do(response => {
+    const mesos$ = container.get(MesosStreamType);
+    const masterRequest$ = container.get(MesosMasterRequestType).pipe(
+      tap(response => {
         const master = mesosStreamParsers.getMaster(
           this.getMaster(),
           JSON.parse(response)
         );
+        CompositeState.addState(master);
         this.setMaster(master);
-      });
+      })
+    );
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
-    const dataStream = mesosStream
-      .merge(getMasterRequest)
-      .distinctUntilChanged()
-      .map(message => parsers(this.getLastMesosState(), JSON.parse(message)))
-      .do(state => {
-        CompositeState.addState(state);
-        this.setState(state);
-      });
+    const data$ = mesos$.pipe(
+      merge(masterRequest$),
+      distinctUntilChanged(),
+      map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
+      tap(state => this.setState(state), console.error)
+    );
 
-    const waitStream = getMasterRequest.zip(mesosStream.take(1));
-    const eventTriggerStream = dataStream.merge(
-      // A lot of DCOS UI rely on the MesosStateStore emitting
-      // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
-      // event. To avoid a deeper refactor, we introduced this fake emitter.
-      //
-      // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-      Observable.interval(Config.getRefreshRate())
+    const wait$ = masterRequest$.pipe(zip(mesos$.pipe(take(1))));
+    const eventTrigger$ = data$.pipe(
+      merge(
+        // A lot of DCOS UI rely on the MesosStateStore emitting
+        // MESOS_STATE_CHANGE events. After the switch to the stream, we lost this
+        // event. To avoid a deeper refactor, we introduced this fake emitter.
+        //
+        // TODO: https://jira.mesosphere.com/browse/DCOS-18277
+        interval(Config.getRefreshRate())
+      )
     );
 
     // Since we introduced the fake event above, we have to guarantee certain
@@ -117,10 +125,12 @@ class MesosStateStore extends GetSetBaseStore {
     // Observable.interval
     //
     // TODO: https://jira.mesosphere.com/browse/DCOS-18277
-    this.stream = waitStream
-      .concat(eventTriggerStream)
-      .sampleTime(Config.getRefreshRate() * 0.5)
-      .retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
+    this.stream = wait$
+      .pipe(
+        concat(eventTrigger$),
+        sampleTime(Config.getRefreshRate() * 0.5),
+        retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
+      )
       .subscribe(
         () => Promise.resolve().then(this.onStreamData),
         this.onStreamError
@@ -229,10 +239,10 @@ class MesosStateStore extends GetSetBaseStore {
     const { frameworks, tasks = [] } = this.getLastMesosState();
     const serviceName = service.getName();
 
-    // Convert serviceId to Mesos task name
-    const mesosTaskName = service.getMesosId();
+    // Convert serviceId to Mesos task id prefix
+    const taskIdPrefix = service.getMesosId();
 
-    if (!serviceName || !mesosTaskName || !frameworks) {
+    if (!serviceName || !taskIdPrefix || !frameworks) {
       return [];
     }
 
@@ -256,7 +266,11 @@ class MesosStateStore extends GetSetBaseStore {
     }
 
     return tasks
-      .filter(task => task.isStartedByMarathon && task.name === mesosTaskName)
+      .filter(
+        task =>
+          task.isStartedByMarathon &&
+          task.id.startsWith(`${taskIdPrefix}.instance`)
+      )
       .concat(serviceTasks)
       .map(task => MesosStateUtil.flagSDKTask(task, service));
   }
@@ -302,6 +316,21 @@ class MesosStateStore extends GetSetBaseStore {
   get storeID() {
     return "state";
   }
+}
+
+if (Config.useFixtures) {
+  const getMasterFixture = import(/* getMasterFixture */ "../../../tests/_fixtures/v1/get_master.json");
+  const subscribeFixture = import(/* subscribeFixture */ "../../../tests/_fixtures/v1/subscribe.js");
+
+  const { MesosStreamType } = require("../core/MesosStream");
+
+  Promise.all([getMasterFixture, subscribeFixture]).then(values => {
+    container.rebind(MesosMasterRequestType).toConstantValue(of(values[0]));
+
+    container
+      .rebind(MesosStreamType)
+      .toConstantValue(of(JSON.stringify(values[1])));
+  });
 }
 
 module.exports = new MesosStateStore();

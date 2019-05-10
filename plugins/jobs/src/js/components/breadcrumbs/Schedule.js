@@ -1,23 +1,34 @@
-import React from "react";
-import prettycron from "prettycron";
+import React, { lazy, Suspense } from "react";
 import PropTypes from "prop-types";
-import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  textColorSecondary,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
+
+const JobsCronTooltip = lazy(() =>
+  import(/* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip")
+);
 
 export default function ItemSchedule({ schedule }) {
   const { cron } = schedule;
 
   return (
     <BreadcrumbSupplementalContent>
-      <Tooltip
-        content={prettycron.toString(cron)}
-        maxWidth={250}
-        wrapText={true}
+      <Suspense
+        fallback={
+          <Icon
+            shape={SystemIcons.Repeat}
+            color={textColorSecondary}
+            size={iconSizeXs}
+          />
+        }
       >
-        <Icon color="grey" id="repeat" size="mini" />
-      </Tooltip>
+        <JobsCronTooltip content={cron} />
+      </Suspense>
     </BreadcrumbSupplementalContent>
   );
 }

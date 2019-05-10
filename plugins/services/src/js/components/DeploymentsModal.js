@@ -8,18 +8,20 @@ import mixin from "reactjs-mixin";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CollapsingString from "#SRC/js/components/CollapsingString";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ExpandingTable from "#SRC/js/components/ExpandingTable";
-import Icon from "#SRC/js/components/Icon";
 import Image from "#SRC/js/components/Image";
 import Loader from "#SRC/js/components/Loader";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import ServiceUtil from "#SRC/js/utils/ServiceUtil";
+import ServiceUtil from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
@@ -64,9 +66,12 @@ class DeploymentsModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.state = {};
+    this.state = {
+      dcosServiceDataReceived: false,
+      dcosDeploymentsList: []
+    };
     this.store_listeners = [
-      { name: "dcos", events: ["change"], suppressUpdate: false },
+      { name: "dcos", events: ["change"], suppressUpdate: true },
       {
         name: "marathon",
         events: ["deploymentRollbackSuccess", "deploymentRollbackError"],
@@ -77,6 +82,13 @@ class DeploymentsModal extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     }, this);
+  }
+
+  onDcosStoreChange() {
+    this.setState({
+      dcosDeploymentsList: DCOSStore.deploymentsList.getItems(),
+      dcosServiceDataReceived: DCOSStore.serviceDataReceived
+    });
   }
 
   onMarathonStoreDeploymentRollbackSuccess(data) {
@@ -289,7 +301,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
           className: "hidden",
           id: "default",
           html: "",
-          selectedHtml: <Icon id="ellipsis-vertical" size="mini" />
+          selectedHtml: (
+            <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
+          )
         },
         {
           id: "rollback",
@@ -517,9 +531,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
   render() {
     let content = null;
-    const deployments = DCOSStore.deploymentsList.getItems();
+    const deployments = this.state.dcosDeploymentsList;
     const { isOpen, onClose } = this.props;
-    const loading = !DCOSStore.serviceDataReceived;
+    const loading = !this.state.dcosServiceDataReceived;
 
     if (loading) {
       content = this.renderLoading();
@@ -541,12 +555,12 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const deploymentsCount = deployments.length;
     const deploymentsText =
       deploymentsCount === 1 ? i18nMark("Deployment") : i18nMark("Deployments");
-    const heading = (
+    const heading = !loading ? (
       <ModalHeading>
         {deploymentsCount} <Trans render="span">Active</Trans>{" "}
         <Trans render="span" id={deploymentsText} />
       </ModalHeading>
-    );
+    ) : null;
 
     return (
       <Modal

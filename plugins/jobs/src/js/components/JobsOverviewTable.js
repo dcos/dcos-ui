@@ -1,12 +1,17 @@
 import { Trans, DateFormat } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
-import prettycron from "prettycron";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Table, Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  textColorSecondary,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -16,6 +21,10 @@ import JobStatus from "../constants/JobStatus";
 import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 
 const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
+
+const JobsCronTooltip = lazy(() =>
+  import(/* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip")
+);
 
 // TODO: DCOS-38858
 export default class JobsOverviewTable extends React.Component {
@@ -81,17 +90,17 @@ export default class JobsOverviewTable extends React.Component {
     return Object.values(
       data.nodes.reduce((acc, job) => {
         /*
-        * we can find out if current job is nested in another path by
-        * comparing the job.path array with our given data.path
-        *
-        * we know already, that all jobs are in our given data.path -
-        * no need to check for something like bar.bar.baz when data.path is "foo.bar"
-        *
-        * Example:
-        * job.path = "foo.bar.baz";
-        * data.path = "foo.bar";
-        * => isGroup should be true, because there is "baz" as extra path below our prefix
-        */
+         * we can find out if current job is nested in another path by
+         * comparing the job.path array with our given data.path
+         *
+         * we know already, that all jobs are in our given data.path -
+         * no need to check for something like bar.bar.baz when data.path is "foo.bar"
+         *
+         * Example:
+         * job.path = "foo.bar.baz";
+         * data.path = "foo.bar";
+         * => isGroup should be true, because there is "baz" as extra path below our prefix
+         */
         const isGroup = job.path.slice(data.path.length).length > 0;
         let lastRun = {};
         let schedules = null;
@@ -174,24 +183,22 @@ export default class JobsOverviewTable extends React.Component {
     let scheduleIcon = null;
     let url = `/jobs/detail/${encodeURIComponent(id)}`;
     let itemImage = (
-      <Icon
-        className="icon-margin-right"
-        color="grey"
-        id="page-document"
-        size="mini"
-      />
+      <span className="icon-margin-right">
+        <Icon
+          color={greyDark}
+          shape={SystemIcons.PageDocument}
+          size={iconSizeXs}
+        />
+      </span>
     );
 
     if (isGroup) {
       url = `/jobs/overview/${encodeURIComponent(id)}`;
 
       itemImage = (
-        <Icon
-          className="icon-margin-right"
-          color="grey"
-          id="folder"
-          size="mini"
-        />
+        <span className="icon-margin-right">
+          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
+        </span>
       );
     }
 
@@ -200,14 +207,19 @@ export default class JobsOverviewTable extends React.Component {
 
       if (schedule.enabled) {
         scheduleIcon = (
-          <Tooltip
-            wrapperClassName="tooltip-wrapper icon-margin-left"
-            content={prettycron.toString(schedule.cron)}
-            maxWidth={250}
-            wrapText={true}
-          >
-            <Icon color="grey" id="repeat" size="mini" />
-          </Tooltip>
+          <span className="icon-margin-left">
+            <Suspense
+              fallback={
+                <Icon
+                  shape={SystemIcons.Repeat}
+                  color={textColorSecondary}
+                  size={iconSizeXs}
+                />
+              }
+            >
+              <JobsCronTooltip content={schedule.cron} />
+            </Suspense>
+          </span>
         );
       }
     }
@@ -240,7 +252,10 @@ export default class JobsOverviewTable extends React.Component {
     const nodes = [];
     const statusNode = <span className={statusClasses}>{status}</span>;
 
-    if (lastFailureAt == null && lastSuccessAt == null) {
+    if (
+      !DateUtil.isValidDate(lastFailureAt) ||
+      !DateUtil.isValidDate(lastSuccessAt)
+    ) {
       return statusNode;
     }
 

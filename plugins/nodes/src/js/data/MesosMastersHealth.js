@@ -1,32 +1,36 @@
 import Config from "#SRC/js/config/Config";
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
-import { Observable } from "rxjs";
+import { of, timer } from "rxjs";
+import {
+  catchError,
+  map,
+  exhaustMap,
+  publishReplay,
+  refCount
+} from "rxjs/operators";
 import { request } from "@dcos/http-service";
-import "rxjs/add/observable/of";
-import "rxjs/add/observable/timer";
-
-import "rxjs/add/operator/catch";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/exhaustMap";
-import "rxjs/add/operator/publishReplay";
 
 function fetchUnit(unitID) {
   const unitUrl = `${Config.rootUrl}${
     Config.unitHealthAPIPrefix
   }/units/${unitID}/nodes`;
 
-  return request(unitUrl)
-    .map(({ response }) => response.nodes)
-    .catch(_err => Observable.of([]));
+  return request(unitUrl).pipe(
+    map(({ response }) => response.nodes),
+    catchError(_err => of([]))
+  );
 }
 
 function pollStream(interval, stream) {
-  return Observable.timer(0, interval).exhaustMap(() => stream);
+  return timer(0, interval).pipe(exhaustMap(() => stream));
 }
 
 export function replayStream(stream) {
-  return stream.publishReplay(1).refCount();
+  return stream.pipe(
+    publishReplay(1),
+    refCount()
+  );
 }
 
 function withHealthDescription(masters) {
@@ -38,7 +42,7 @@ function withHealthDescription(masters) {
 }
 
 export function mesosMastersHealthQuery(source, interval) {
-  const request$ = source().map(withHealthDescription);
+  const request$ = source().pipe(map(withHealthDescription));
 
   return replayStream(pollStream(interval, request$));
 }

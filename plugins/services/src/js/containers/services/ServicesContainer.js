@@ -3,6 +3,9 @@ import React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
+import { Icon } from "@dcos/ui-kit";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
@@ -11,7 +14,6 @@ import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
-import Icon from "#SRC/js/components/Icon";
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
@@ -26,7 +28,7 @@ import ServiceActions from "../../events/ServiceActions";
 import Pod from "../../structs/Pod";
 import PodDetail from "../pod-detail/PodDetail";
 import Service from "../../structs/Service";
-import ServiceActionItem from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceAttributeHasVolumesFilter from "../../filters/ServiceAttributeHasVolumesFilter";
 import ServiceAttributeHealthFilter from "../../filters/ServiceAttributeHealthFilter";
 import ServiceAttributeIsFilter from "../../filters/ServiceAttributeIsFilter";
@@ -651,7 +653,7 @@ ServicesContainer.contextTypes = {
 
 ServicesContainer.routeConfig = {
   label: i18nMark("Services"),
-  icon: <Icon id="services" size="small" family="product" />,
+  icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
   matches: /^\/services\/(detail|overview)/
 };
 

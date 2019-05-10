@@ -4,13 +4,15 @@ import { routerShape } from "react-router";
 import classNames from "classnames";
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import Icon from "#SRC/js/components/Icon";
 import FilterBar from "#SRC/js/components/FilterBar";
 import Pod from "../../structs/Pod";
 import PodInstancesTable from "./PodInstancesTable";
@@ -22,6 +24,12 @@ import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
 const METHODS_TO_BIND = ["handleKillClick", "handleSelectionChange"];
+const DSL_FORM_SECTIONS = [
+  TaskStatusDSLSection,
+  TaskZoneDSLSection,
+  TaskRegionDSLSection,
+  FuzzyTextDSLSection
+];
 
 class PodInstancesView extends React.Component {
   constructor() {
@@ -47,7 +55,7 @@ class PodInstancesView extends React.Component {
           className="button button-primary-link"
           onClick={this.handleKillClick}
         >
-          <Icon id="repeat" size="mini" />
+          <Icon shape={SystemIcons.Repeat} size={iconSizeXs} />
           <Trans render="span">Restart</Trans>
         </div>
       </div>
@@ -90,12 +98,7 @@ class PodInstancesView extends React.Component {
       <div className={hostClasses}>
         <DSLFilterField
           filters={filters}
-          formSections={[
-            TaskStatusDSLSection,
-            TaskZoneDSLSection,
-            TaskRegionDSLSection,
-            FuzzyTextDSLSection
-          ]}
+          formSections={DSL_FORM_SECTIONS}
           defaultData={defaultFilterData}
           expression={filterExpression}
           onChange={handleExpressionChange}

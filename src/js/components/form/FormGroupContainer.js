@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import classNames from "classnames";
-
-import Icon from "../Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyDark,
+  iconSizeXxs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 const FormGroupContainer = props => {
   let removeButton = null;
@@ -17,7 +21,11 @@ const FormGroupContainer = props => {
           wrapText={true}
         >
           <a className="button button-primary-link" onClick={props.onRemove}>
-            <Icon id="close" color="grey" size="tiny" family="tiny" />
+            <Icon
+              shape={SystemIcons.Close}
+              color={greyDark}
+              size={iconSizeXxs}
+            />
           </a>
         </Tooltip>
       </div>

@@ -1,5 +1,13 @@
-import { makeExecutableSchema, IResolvers } from "graphql-tools";
-import { Observable } from "rxjs/Observable";
+import { throwError, timer, Observable } from "rxjs";
+import {
+  exhaustMap,
+  publishReplay,
+  refCount,
+  map,
+  switchMap
+} from "rxjs/operators";
+import { IResolvers } from "graphql-tools";
+import { injectable } from "inversify";
 import {
   createJob,
   fetchJobs,
@@ -13,6 +21,7 @@ import {
   JobDetailResponse as MetronomeJobDetailResponse
 } from "#SRC/js/events/MetronomeClient";
 import { RequestResponse } from "@dcos/http-service";
+import { DataLayerExtensionInterface } from "@extension-kid/data-layer";
 
 import Config from "#SRC/js/config/Config";
 import {
@@ -27,6 +36,8 @@ import {
   JobSchema
 } from "#PLUGINS/jobs/src/js/types/Job";
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
+import { JobOutput } from "../components/form/helpers/JobFormData";
+import { JobSchedule } from "../types/JobSchedule";
 
 export interface Query {
   jobs: JobConnection | null;
@@ -41,15 +52,16 @@ export interface ResolverArgs {
   pollingInterval: number;
   runJob: (id: string) => Observable<RequestResponse<JobLink>>;
   createJob: (
-    data: MetronomeJobDetailResponse
+    data: JobOutput
   ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   updateJob: (
     id: string,
-    data: MetronomeJobDetailResponse
+    data: JobOutput,
+    existingSchedule?: boolean
   ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   updateSchedule: (
     id: string,
-    data: MetronomeJobDetailResponse
+    data: JobSchedule
   ) => Observable<RequestResponse<JobLink>>;
   deleteJob: (
     id: string,
@@ -74,6 +86,15 @@ export const typeDefs = `
   ${JobLinkSchema}
   ${JobConnectionSchema}
 
+  type JobSchedule {
+    id: String!
+    cron: String!
+    timezone: String
+    startingDeadlineSeconds: Int
+    concurrentPolicy: String
+    enabled: Boolean
+  }
+
   enum SortOption {
     ID
     STATUS
@@ -83,7 +104,7 @@ export const typeDefs = `
     ASC
     DESC
   }
-  type Query {
+  extend type Query {
     jobs(
       filter: String
       path: String
@@ -95,10 +116,10 @@ export const typeDefs = `
     ): Job
   }
 
-  type Mutation {
+  extend type Mutation {
     runJob(id: String!): JobLink!
     createJob(data: Job!): JobLink!
-    updateJob(id: String!, data: Job!): JobLink!
+    updateJob(id: String!, data: Job!, existingSchedule: Boolean): JobLink!
     updateSchedule(id: String!, data: Job!): JobLink!
     deleteJob(id: String!, stopCurrentJobRuns: Boolean!): JobLink!
     stopJobRun(id: String!, jobRunid: String!): JobLink!
@@ -124,10 +145,11 @@ export const resolvers = ({
   deleteJob,
   stopJobRun
 }: ResolverArgs): IResolvers => {
-  const jobs$ = Observable.timer(0, pollingInterval)
-    .exhaustMap(fetchJobs)
-    .publishReplay(1)
-    .refCount();
+  const jobs$ = timer(0, pollingInterval).pipe(
+    exhaustMap(fetchJobs),
+    publishReplay(1),
+    refCount()
+  );
 
   return {
     Query: {
@@ -137,13 +159,13 @@ export const resolvers = ({
         _context = {}
       ): Observable<JobConnection> {
         if (!isJobsQueryArg(args)) {
-          return Observable.throw(
+          return throwError(
             "Jobs resolver arguments arent valid for type JobsQueryArgs"
           );
         }
 
-        return jobs$.map(({ response }) =>
-          JobConnectionTypeResolver(response, args)
+        return jobs$.pipe(
+          map(({ response }) => JobConnectionTypeResolver(response, args))
         );
       },
       job(
@@ -152,17 +174,19 @@ export const resolvers = ({
         _context = {}
       ): Observable<Job | null> {
         if (!isJobQueryArg(args)) {
-          return Observable.throw(
+          return throwError(
             "Job resolver arguments arent valid for type JobQueryArgs"
           );
         }
 
-        const pollingInterval$ = Observable.timer(0, pollingInterval);
-        const responses$ = pollingInterval$.switchMap(() =>
-          fetchJobDetail(args.id).map(({ response }) => response)
+        const pollingInterval$ = timer(0, pollingInterval);
+        const responses$ = pollingInterval$.pipe(
+          switchMap(() =>
+            fetchJobDetail(args.id).pipe(map(({ response }) => response))
+          )
         );
 
-        return responses$.map(response => JobTypeResolver(response));
+        return responses$.pipe(map(response => JobTypeResolver(response)));
       }
     },
     Mutation: {
@@ -172,12 +196,14 @@ export const resolvers = ({
         _context = {}
       ): Observable<JobLink> {
         if (!args.id) {
-          return Observable.throw({
+          return throwError({
             response: { message: "runJob requires the `id` of the job to run" }
           });
         }
 
-        return runJob(args.id).map(({ response: { jobId } }) => ({ jobId }));
+        return runJob(args.id).pipe(
+          map(({ response: { jobId } }) => ({ jobId }))
+        );
       },
       updateSchedule(
         _parent = {},
@@ -185,7 +211,7 @@ export const resolvers = ({
         _context = {}
       ): Observable<JobLink> {
         if (!args.id || !args.data) {
-          return Observable.throw({
+          return throwError({
             response: {
               message:
                 "updateSchedule requires the `id` and `data` of the job to run"
@@ -193,10 +219,10 @@ export const resolvers = ({
           });
         }
 
-        return updateSchedule(args.id, args.data).map(
-          ({ response: { jobId } }) => ({
+        return updateSchedule(args.id, args.data).pipe(
+          map(({ response: { jobId } }) => ({
             jobId
-          })
+          }))
         );
       },
       createJob(
@@ -205,12 +231,12 @@ export const resolvers = ({
         _context = {}
       ): Observable<MetronomeJobDetailResponse> {
         if (!args.data) {
-          return Observable.throw({
+          return throwError({
             response: { message: "createJob requires `data` to be provided!" }
           });
         }
 
-        return createJob(args.data).map(({ response }) => response);
+        return createJob(args.data).pipe(map(({ response }) => response));
       },
       deleteJob(
         _parent = {},
@@ -221,7 +247,7 @@ export const resolvers = ({
           typeof args.stopCurrentJobRuns === "boolean";
 
         if (!args.id || !stopCurrentJobRunsIsBoolean) {
-          return Observable.throw({
+          return throwError({
             response: {
               message:
                 "deleteJob requires both `id` and `stopCurrentJobRuns` to" +
@@ -230,10 +256,10 @@ export const resolvers = ({
           });
         }
 
-        return deleteJob(args.id, args.stopCurrentJobRuns).map(
-          ({ response: { jobId } }) => ({
+        return deleteJob(args.id, args.stopCurrentJobRuns).pipe(
+          map(({ response: { jobId } }) => ({
             jobId
-          })
+          }))
         );
       },
       stopJobRun(
@@ -242,7 +268,7 @@ export const resolvers = ({
         _context = {}
       ): Observable<JobLink> {
         if (!args.id || !args.jobRunId) {
-          return Observable.throw({
+          return throwError({
             response: {
               message:
                 "stopJobRun requires both `id` and `jobRunId` to be provided!"
@@ -250,10 +276,10 @@ export const resolvers = ({
           });
         }
 
-        return stopJobRun(args.id, args.jobRunId).map(
-          ({ response: { jobId } }) => ({
+        return stopJobRun(args.id, args.jobRunId).pipe(
+          map(({ response: { jobId } }) => ({
             jobId
-          })
+          }))
         );
       },
       updateJob(
@@ -262,30 +288,44 @@ export const resolvers = ({
         _context = {}
       ): Observable<MetronomeJobDetailResponse> {
         if (!args.id || !args.data) {
-          return Observable.throw({
+          return throwError({
             response: {
               message: "updateJob requires both `id` and `data` to be provided!"
             }
           });
         }
 
-        return updateJob(args.id, args.data).map(({ response }) => response);
+        return updateJob(args.id, args.data, args.existingSchedule).pipe(
+          map(({ response }) => response)
+        );
       }
     }
   };
 };
 
-export default makeExecutableSchema({
-  typeDefs,
-  resolvers: resolvers({
-    fetchJobs,
-    fetchJobDetail,
-    pollingInterval: Config.getRefreshRate(),
-    runJob,
-    createJob,
-    updateJob,
-    updateSchedule,
-    deleteJob,
-    stopJobRun
-  })
+const boundResolvers = resolvers({
+  fetchJobs,
+  fetchJobDetail,
+  pollingInterval: Config.getRefreshRate(),
+  runJob,
+  createJob,
+  updateJob,
+  updateSchedule,
+  deleteJob,
+  stopJobRun
 });
+
+const JobType = Symbol("Job");
+// tslint:disable-next-line
+@injectable()
+export class JobExtension implements DataLayerExtensionInterface {
+  id = JobType;
+
+  getResolvers() {
+    return boundResolvers;
+  }
+
+  getTypeDefinitions() {
+    return typeDefs;
+  }
+}

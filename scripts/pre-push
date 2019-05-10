@@ -30,7 +30,7 @@ info "Staged JavaScript tests looks good"
 
 header "Lint commit messages..."
 linting_errors="$(
-  npm run commitlint --silent -- -f "${fork_point}" -t HEAD;
+  npm run lint:commits --silent -- -f "${fork_point}" -t HEAD;
   echo x$?
 )"
 

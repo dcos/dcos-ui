@@ -2,7 +2,7 @@ import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import React from "react";
 import createReactClass from "create-react-class";
-import { CSSTransitionGroup } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
@@ -18,6 +18,7 @@ import HeaderBar from "../components/HeaderBar";
 import Sidebar from "../components/Sidebar";
 import SidebarActions from "../events/SidebarActions";
 import SidebarStore from "../stores/SidebarStore";
+import Toasts from "../components/Toasts";
 import UserLanguageStore from "../stores/UserLanguageStore";
 import { hasViewportChanged, getCurrentViewport } from "../utils/ViewportUtil";
 import * as viewport from "../constants/Viewports";
@@ -183,13 +184,15 @@ var Index = createReactClass({
 
     if (window.innerWidth <= viewport.MOBILE_THRESHOLD) {
       return (
-        <CSSTransitionGroup
-          transitionName="sidebar-backdrop"
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}
+        <CSSTransition
+          classNames="sidebar-backdrop"
+          timeout={{
+            enter: 250,
+            exit: 250
+          }}
         >
           {overlay}
-        </CSSTransitionGroup>
+        </CSSTransition>
       );
     }
   },
@@ -218,6 +221,7 @@ var Index = createReactClass({
             modalErrorMsg={this.state.modalErrorMsg}
           />
           <ServerErrorModal />
+          <Toasts />
         </div>
       </div>
     );

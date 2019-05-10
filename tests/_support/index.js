@@ -19,7 +19,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         cookies.forEach(function(cookie) {
           var sessionID = cookie.split("=")[0];
           // Set cookies for cypress
-          Cypress.Cookies.set(sessionID, response.body.token);
+          cy.setCookie(sessionID, response.body.token);
           // Set cookies for application
           cy.window().then(function(win) {
             win.document.cookie = cookie;
@@ -57,7 +57,8 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   if (
     configuration.mesos === "1-task-healthy" ||
-    configuration.mesos === "1-task-healthy-with-region"
+    configuration.mesos === "1-task-healthy-with-region" ||
+    configuration.mesos === "1-task-healthy-with-offers"
   ) {
     cy.route({
       method: "POST",
@@ -68,7 +69,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -77,6 +78,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app")
+      .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(
         /service\/marathon\/v2\/apps\/\/sleep\/versions/,
         "fx:marathon-1-task/versions"
@@ -100,6 +102,13 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
+
+    if (configuration.mesos === "1-task-healthy-with-offers") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/offers-queue"
+      );
+    }
   }
 
   if (configuration.mesos === "1-task-healthy-with-region") {
@@ -140,7 +149,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -149,6 +158,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
     router
       .route(/service\/marathon\/v2\/apps/, "fx:1-app-for-each-health/app")
+      .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(/service\/marathon\/v2\/groups/, "fx:1-app-for-each-health/groups")
       .route(
         /service\/marathon\/v2\/deployments/,
@@ -172,7 +182,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:1-service-with-executor-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -184,6 +194,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /service\/marathon\/v2\/apps/,
         "fx:1-service-with-executor-task/app"
       )
+      .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:1-service-with-executor-task/app"
@@ -230,7 +241,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -257,7 +268,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -289,7 +300,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -361,7 +372,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -404,7 +415,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -435,7 +446,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -553,7 +564,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -600,6 +611,113 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   if (configuration.jobDetails) {
     router.route(/jobs\/(.*)/, "fx:metronome/job");
+  }
+
+  if (configuration["ui-settings"]) {
+    switch (configuration["ui-settings"]) {
+      case "default":
+        cy.route({
+          method: "GET",
+          url: /dcos-ui-update-service\/api\/v1\/version\//,
+          response: "fx:ui-settings/default-version",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).as("getUiVersion");
+        break;
+      case "v0.1.0":
+        cy.route({
+          method: "GET",
+          url: /dcos-ui-update-service\/api\/v1\/version\//,
+          response: "fx:ui-settings/version-010",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).as("getUiVersion");
+        break;
+      case "v0.1.1":
+        cy.route({
+          method: "GET",
+          url: /dcos-ui-update-service\/api\/v1\/version\//,
+          response: "fx:ui-settings/version-011",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).as("getUiVersion");
+        break;
+      case "error":
+        cy.route({
+          method: "GET",
+          url: /dcos-ui-update-service\/api\/v1\/version\//,
+          response: "Internal Server Error",
+          status: 500
+        }).as("getUiVersion");
+        break;
+    }
+    switch (configuration.cosmos) {
+      case "no-versions":
+        cy.route({
+          method: "POST",
+          url: /package\/list-versions/,
+          status: 200,
+          response: "fx:ui-settings/package-versions-none"
+        }).as("cosmosListVersions");
+        break;
+      case "error":
+        cy.route({
+          method: "POST",
+          url: /package\/list-versions/,
+          status: 500,
+          response: "Internal Server Error"
+        }).as("cosmosListVersions");
+        break;
+      default:
+        cy.route({
+          method: "POST",
+          url: /package\/list-versions/,
+          status: 200,
+          response: "fx:ui-settings/package-versions"
+        }).as("cosmosListVersions");
+        break;
+    }
+    switch (configuration["update-service"]) {
+      case "reset-pass":
+        cy.route({
+          method: "DELETE",
+          url: /dcos-ui-update-service\/api\/v1\/reset\//,
+          response: "OK",
+          headers: {
+            "Content-Type": "text/plain"
+          }
+        }).as("resetUiVersion");
+        break;
+      case "reset-fail":
+        cy.route({
+          method: "DELETE",
+          url: /dcos-ui-update-service\/api\/v1\/reset\//,
+          response: "Internal Server Error",
+          status: 500
+        }).as("resetUiVersion");
+        break;
+      case "update-pass":
+        cy.route({
+          method: "POST",
+          url: /dcos-ui-update-service\/api\/v1\/update\/([\w\d.-]+)\//,
+          response: "OK",
+          headers: {
+            "Content-Type": "text/plain"
+          }
+        }).as("updateUiVersion");
+        break;
+      case "update-fail":
+        cy.route({
+          method: "POST",
+          url: /dcos-ui-update-service\/api\/v1\/update\/([\w\d.-]+)\//,
+          response: "Internal Server Error",
+          status: 500
+        }).as("updateUiVersion");
+        break;
+    }
   }
 
   // The app won't load until plugins are loaded

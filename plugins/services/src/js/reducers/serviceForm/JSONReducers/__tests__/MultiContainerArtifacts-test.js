@@ -1,10 +1,11 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
 } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const MultiContainerArtifacts = require("../MultiContainerArtifacts");
 
 describe("MultiContainerArtifacts", function() {

@@ -1,5 +1,4 @@
-import { Observable } from "rxjs";
-import "rxjs/add/observable/of";
+import { of } from "rxjs";
 
 import { graphqlObservable } from "@dcos/data-service";
 import jobsToggleSchedule from "../jobsToggleSchedule";
@@ -36,7 +35,7 @@ describe("JobsToggleSchedule", function() {
 
     describe("onItemSelect", function() {
       it("triggers a graphql mutation to disable schedule", function() {
-        graphqlObservable.mockReturnValue(Observable.of("response"));
+        graphqlObservable.mockReturnValue(of("response"));
         jobsToggleSchedule(enabledJob).onItemSelect();
 
         expect(graphqlObservable).toBeCalledWith(
@@ -50,7 +49,7 @@ describe("JobsToggleSchedule", function() {
       });
 
       it("triggers a graphql mutation to enable schedule", function() {
-        graphqlObservable.mockReturnValue(Observable.of("response"));
+        graphqlObservable.mockReturnValue(of("response"));
         jobsToggleSchedule(disabledJob).onItemSelect();
 
         expect(graphqlObservable).toBeCalledWith(

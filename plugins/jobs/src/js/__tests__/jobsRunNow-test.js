@@ -1,6 +1,5 @@
-import { Observable } from "rxjs";
-import "rxjs/add/observable/of";
 import { graphqlObservable } from "@dcos/data-service";
+import { of } from "rxjs";
 import jobsRunNow from "../jobsRunNow";
 
 jest.mock("@dcos/data-service", () => ({
@@ -10,7 +9,7 @@ jest.mock("@dcos/data-service", () => ({
 describe("JobsRunNow", function() {
   describe("#jobsRunNow", function() {
     it("onItemSelect triggers a graphql mutation", function() {
-      graphqlObservable.mockReturnValue(Observable.of("response"));
+      graphqlObservable.mockReturnValue(of("response"));
       jobsRunNow("aJobId").onItemSelect();
 
       expect(graphqlObservable).toBeCalledWith(

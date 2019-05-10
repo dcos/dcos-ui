@@ -8,14 +8,17 @@ import { Router, hashHistory } from "react-router";
 import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
 
-import en from "#LOCALE/en/messages.js";
-import zh from "#LOCALE/zh/messages.js";
+// This polyfills Symbol.observable which is required for rxjs to recognize the object received
+// from componentFromStream as an Observable, otherwise it throws the TypeError.
+// Can be removed if recompose library usage is removed.
+import "symbol-observable";
+
+import { i18n, catalogs } from "./i18n";
 
 // Load in our CSS.
 // TODO - DCOS-6452 - remove component @imports from index.less and
 // require them in the component.js
 import "../styles/index.less";
-import "./utils/MomentJSConfig";
 import { CONFIG_ERROR, LANGUAGE_MODAL_CLOSE } from "./constants/EventTypes";
 import ApplicationUtil from "./utils/ApplicationUtil";
 import appRoutes from "./routes/index";
@@ -26,27 +29,11 @@ import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
 import RouterUtil from "./utils/RouterUtil";
 
+const productIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/product-icons-sprite.svg");
+const systemIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/system-icons-sprite.svg");
+
 const domElement = global.document.getElementById("application");
 const initialLanguage = UserLanguageStore.get();
-
-// TODO: Implement loader that can concat many sprites into a single one
-// We opt to load the sprite after the Javscript files are parsed because it
-// is quite expensive for the browser to parse a sprite file. This way we
-// don't block the JS execution.
-setTimeout(function() {
-  var ajax = new XMLHttpRequest();
-  ajax.open("GET", "/assets/sprite.svg", true);
-  ajax.send();
-  ajax.onload = function() {
-    var div = global.document.createElement("div");
-    div.innerHTML = ajax.responseText;
-    div.style.height = 0;
-    div.style.overflow = "hidden";
-    div.style.width = 0;
-    div.style.visibility = "hidden";
-    global.document.body.insertBefore(div, global.document.body.childNodes[0]);
-  };
-});
 
 // Patch json
 const oldJSON = RequestUtil.json;
@@ -94,11 +81,24 @@ RequestUtil.json = function(options = {}) {
           <Provider store={PluginSDK.Store}>
             <I18nProvider
               defaultRender="span"
+              i18n={i18n}
               language={UserLanguageStore.get()}
-              catalogs={{ en, zh }}
+              catalogs={catalogs}
             >
               <Router history={hashHistory} routes={routes} />
             </I18nProvider>
+            <div
+              style={{
+                height: 0,
+                opacity: 0,
+                overflow: "hidden",
+                visibility: "hidden",
+                width: 0
+              }}
+            >
+              <div dangerouslySetInnerHTML={{ __html: systemIconSprite }} />
+              <div dangerouslySetInnerHTML={{ __html: productIconSprite }} />
+            </div>
           </Provider>
         );
 

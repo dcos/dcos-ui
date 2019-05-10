@@ -17,7 +17,7 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
@@ -54,7 +54,8 @@ class VolumesFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -73,7 +74,7 @@ class VolumesFormSection extends Component {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -82,6 +83,7 @@ class VolumesFormSection extends Component {
             name={`volumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}
+            autoFocus={Boolean(containerPathError)}
           />
           <FieldError>{containerPathError}</FieldError>
         </FormGroup>
@@ -124,7 +126,8 @@ class VolumesFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -159,7 +162,7 @@ class VolumesFormSection extends Component {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -168,6 +171,7 @@ class VolumesFormSection extends Component {
             name={`volumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}
+            autoFocus={Boolean(containerPathError)}
           />
           <FieldError>{containerPathError}</FieldError>
         </FormGroup>
@@ -240,6 +244,7 @@ class VolumesFormSection extends Component {
           name={`volumes.${key}.size`}
           type="number"
           value={volume.size}
+          autoFocus={Boolean(sizeError)}
         />
       );
     }
@@ -275,6 +280,7 @@ class VolumesFormSection extends Component {
             name={`volumes.${key}.containerPath`}
             type="text"
             value={volume.containerPath}
+            autoFocus={Boolean(containerPathError)}
           />
           <FieldError>{containerPathError}</FieldError>
         </FormGroup>
@@ -415,7 +421,8 @@ class VolumesFormSection extends Component {
         DC/OS offers several storage options.{" "}
         <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -433,7 +440,7 @@ class VolumesFormSection extends Component {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>
@@ -452,6 +459,10 @@ class VolumesFormSection extends Component {
             <Trans render="span">Add Volume</Trans>
           </AddButton>
         </div>
+        <MountService.Mount
+          type="CreateService:SingleContainerVolumes:VolumeConflicts"
+          data={data}
+        />
       </div>
     );
   }

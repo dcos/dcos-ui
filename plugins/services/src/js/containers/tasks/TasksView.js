@@ -6,29 +6,36 @@ import PropTypes from "prop-types";
 import React from "react";
 import { withI18n } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
+import { Badge, Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import Icon from "#SRC/js/components/Icon";
 import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
-import { Badge } from "@dcos/ui-kit";
 import TaskStatusDSLSection from "../../components/dsl/TaskStatusDSLSection";
 import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
-import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
+import * as ServiceStatus from "../../constants/ServiceStatus";
 import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import TaskTable from "./TaskTable";
 
 const METHODS_TO_BIND = ["handleItemCheck"];
+const DSL_FORM_SECTIONS = [
+  TaskStatusDSLSection,
+  TaskZoneDSLSection,
+  TaskRegionDSLSection,
+  FuzzyTextDSLSection
+];
 
 class TasksView extends mixin(SaveStateMixin) {
   constructor() {
@@ -127,10 +134,7 @@ class TasksView extends mixin(SaveStateMixin) {
     const isDeploying = Object.keys(checkedItems).some(function(taskId) {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
-      return (
-        service &&
-        service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING
-      );
+      return service && service.getServiceStatus() === ServiceStatus.DEPLOYING;
     });
 
     const isSDK = Object.keys(checkedItems).some(function(taskId) {
@@ -180,7 +184,7 @@ class TasksView extends mixin(SaveStateMixin) {
           wrapText={true}
         >
           <button className={restartButtonClasses} onClick={handleRestartClick}>
-            <Icon id="repeat" size="mini" />
+            <Icon shape={SystemIcons.Repeat} size={iconSizeXs} />
             <Trans render="span">Restart</Trans>
           </button>
         </Tooltip>
@@ -196,7 +200,7 @@ class TasksView extends mixin(SaveStateMixin) {
           wrapperClassName="button-group"
         >
           <button className={stopButtonClasses} onClick={handleStopClick}>
-            <Icon id="circle-close" size="mini" />
+            <Icon shape={SystemIcons.CircleClose} size={iconSizeXs} />
             <Trans render="span">Stop</Trans>
           </button>
         </Tooltip>
@@ -223,12 +227,7 @@ class TasksView extends mixin(SaveStateMixin) {
       <div className={hostClasses}>
         <DSLFilterField
           filters={filters}
-          formSections={[
-            TaskStatusDSLSection,
-            TaskZoneDSLSection,
-            TaskRegionDSLSection,
-            FuzzyTextDSLSection
-          ]}
+          formSections={DSL_FORM_SECTIONS}
           defaultData={defaultFilterData}
           expression={filterExpression}
           onChange={handleExpressionChange}

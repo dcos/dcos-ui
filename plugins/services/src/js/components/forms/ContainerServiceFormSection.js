@@ -13,7 +13,7 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import { FormReducer as ContainerReducer } from "../../reducers/serviceForm/Container";
@@ -61,7 +61,8 @@ class ContainerServiceFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -78,7 +79,7 @@ class ContainerServiceFormSection extends Component {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="light-grey" id="circle-question" size="mini" />
+              <InfoTooltipIcon />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>
@@ -99,13 +100,14 @@ class ContainerServiceFormSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
     return (
       <FieldLabel>
-        <FormGroupHeading>
+        <FormGroupHeading required={this.isDockerContainer()}>
           <FormGroupHeadingContent primary={true}>
             <Trans render="span">Container Image</Trans>
           </FormGroupHeadingContent>
@@ -116,7 +118,7 @@ class ContainerServiceFormSection extends Component {
               wrapText={true}
               maxWidth={300}
             >
-              <Icon color="light-grey" id="circle-question" size="mini" />
+              <InfoTooltipIcon />
             </Tooltip>
           </FormGroupHeadingContent>
         </FormGroupHeading>
@@ -146,11 +148,22 @@ class ContainerServiceFormSection extends Component {
           <FieldLabel>
             <Trans render="span">Container Name</Trans>
           </FieldLabel>
-          <FieldInput name={containerNamePath} value={containerName} />
+          <FieldInput
+            name={containerNamePath}
+            value={containerName}
+            autoFocus={Boolean(containerNameErrors)}
+          />
           <FieldError>{containerNameErrors}</FieldError>
         </FormGroup>
       </FormRow>
     );
+  }
+
+  isDockerContainer() {
+    const { data, path } = this.props;
+    const containerTypePath = this.getFieldPath(path, "type");
+    const containerType = findNestedPropertyInObject(data, containerTypePath);
+    return containerType && containerType === "DOCKER";
   }
 
   render() {
@@ -171,7 +184,11 @@ class ContainerServiceFormSection extends Component {
         <FormRow>
           <FormGroup className="column-6" showError={Boolean(imageErrors)}>
             {this.getImageLabel()}
-            <FieldInput name={imagePath} value={image} />
+            <FieldInput
+              name={imagePath}
+              value={image}
+              autoFocus={Boolean(imageErrors)}
+            />
             <FieldHelp>
               <Trans render="span">
                 Enter a Docker image you want to run, e.g. nginx.
@@ -194,6 +211,7 @@ class ContainerServiceFormSection extends Component {
               step="any"
               type="number"
               value={findNestedPropertyInObject(data, cpusPath)}
+              autoFocus={Boolean(cpusErrors)}
             />
             <FieldError>{cpusErrors}</FieldError>
           </FormGroup>
@@ -212,6 +230,7 @@ class ContainerServiceFormSection extends Component {
               step="any"
               type="number"
               value={findNestedPropertyInObject(data, memPath)}
+              autoFocus={Boolean(memErrors)}
             />
             <FieldError>{memErrors}</FieldError>
           </FormGroup>
@@ -223,6 +242,7 @@ class ContainerServiceFormSection extends Component {
             <FieldTextarea
               name={cmdPath}
               value={findNestedPropertyInObject(data, cmdPath)}
+              autoFocus={Boolean(cmdErrors)}
             />
             <FieldHelp>
               <Trans render="span">

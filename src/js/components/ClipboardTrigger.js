@@ -4,8 +4,12 @@ import Clipboard from "clipboard";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
-
-import Icon from "./Icon";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  purple
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 const METHODS_TO_BIND = ["handleCopy", "handleCopyIconMouseEnter"];
 
@@ -58,14 +62,13 @@ class ClipboardTrigger extends React.Component {
     }
 
     return (
-      <Icon
-        id="clipboard"
-        size="mini"
+      <span
         className={`clickable icon-clipboard ${className}`}
-        color="purple"
         onMouseEnter={this.handleCopyIconMouseEnter}
         ref={this.copyButtonRef}
-      />
+      >
+        <Icon shape={SystemIcons.Clipboard} size={iconSizeXs} color={purple} />
+      </span>
     );
   }
 

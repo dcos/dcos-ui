@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape, formatPattern } from "react-router";
 import { Trans } from "@lingui/macro";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "#SRC/js/components/Icon";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import DirectoryItem from "../../structs/DirectoryItem";
@@ -148,6 +150,9 @@ export default class TaskFileViewer extends React.Component {
     }
 
     const files = this.getLogFiles();
+    if (files.length === 0) {
+      return null;
+    }
 
     return (
       files.find(function(file) {
@@ -197,10 +202,18 @@ export default class TaskFileViewer extends React.Component {
           disabled={!filePath}
           href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}
         >
-          <Icon id="download" size="mini" />
+          <Icon shape={SystemIcons.Download} size={iconSizeXs} />
         </a>
       </Tooltip>
     ];
+  }
+
+  getNoLogFiles() {
+    return (
+      <div className="flex-grow vertical-top">
+        <Trans>No log files found on this agent.</Trans>
+      </div>
+    );
   }
 
   render() {
@@ -208,6 +221,9 @@ export default class TaskFileViewer extends React.Component {
 
     // Only try to get path if file exists
     const selectedLogFile = this.getSelectedFile();
+    if (!selectedLogFile) {
+      return this.getNoLogFiles();
+    }
     const selectedName = selectedLogFile && selectedLogFile.getName();
     const filePath = selectedLogFile && selectedLogFile.get("path");
 

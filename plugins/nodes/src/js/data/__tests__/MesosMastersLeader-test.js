@@ -1,5 +1,5 @@
 import { marbles } from "rxjs-marbles/jest";
-import "rxjs/add/operator/take";
+import { take } from "rxjs/operators";
 
 import { mesosMasterLeaderQuery, getRegion } from "../MesosMastersLeader";
 
@@ -31,8 +31,6 @@ describe("MesosMastersLeader", function() {
     it(
       "emits correct master",
       marbles(function(m) {
-        m.bind();
-
         const expectedData = {
           electedTime: 12345789,
           hostPort: "127.0.0.1:8080",
@@ -49,7 +47,7 @@ describe("MesosMastersLeader", function() {
           a: expectedData
         });
 
-        m.expect(master$.take(2)).toBeObservable(expected$);
+        m.expect(master$.pipe(take(2))).toBeObservable(expected$);
       })
     );
   });

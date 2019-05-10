@@ -69,13 +69,19 @@ exports[`PackagesTab with packages on the list displays the catalog with package
           onClick={[Function]}
         >
           <span
-            className="form-control-group-add-on form-control-group-add-on-prepend"
+            className="form-control-group-add-on form-control-group-add-on-prepend "
           >
             <svg
-              className="icon icon-grey icon-mini"
+              aria-label="system-search icon"
+              className="css-1vunjz0"
+              height={16}
+              preserveAspectRatio="xMinYMin meet"
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
             >
               <use
-                xlinkHref="#icon-system--search"
+                xlinkHref="#system-search"
               />
             </svg>
           </span>

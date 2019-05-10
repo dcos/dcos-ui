@@ -1,7 +1,10 @@
 {
-  "extends": ["@dcos/tslint-config"],
+  "extends": ["@dcos/tslint-config", "tslint-react-hooks", "tslint-config-prettier"],
   "rules": {
     "interface-name": [false],
-    "no-submodule-imports": [false]
+    "interface-over-type-literal": false,
+    "jsx-wrap-multiline": false,
+    "no-submodule-imports": [false],
+    "react-hooks-nesting": "error"
   }
 }

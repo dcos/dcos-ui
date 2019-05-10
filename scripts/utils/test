@@ -25,3 +25,4 @@ find_files_with_debug_directives(){
 
   grep -E -l --recursive ${DEBUG_DIRECTIVE_PATTERN} "$@"
 }
+

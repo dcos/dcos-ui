@@ -1,14 +1,25 @@
 import React from "react";
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
 import { getContext } from "recompose";
 import { routerShape } from "react-router";
-import { Observable, BehaviorSubject } from "rxjs";
+import { of, combineLatest, BehaviorSubject } from "rxjs";
 import gql from "graphql-tag";
-import { default as schema } from "#PLUGINS/jobs/src/js/data/JobModel";
+import {
+  switchMap,
+  map,
+  distinctUntilChanged,
+  catchError,
+  startWith
+} from "rxjs/operators";
+import { DataLayerType } from "@extension-kid/data-layer";
+
+import container from "#SRC/js/container";
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import JobDetailPage from "./pages/JobDetailPage";
+
+const dataLayer = container.get(DataLayerType);
 
 export const DIALOGS = {
   EDIT: "edit",
@@ -54,7 +65,7 @@ const closeDialog = () => {
 };
 
 const getGraphQL = id =>
-  graphqlObservable(
+  dataLayer.query(
     gql`
       query {
         job(id: $id) {
@@ -74,7 +85,6 @@ const getGraphQL = id =>
         }
       }
     `,
-    schema,
     { id }
   );
 
@@ -82,18 +92,22 @@ export default getContext({
   router: routerShape
 })(
   componentFromStream(props$ => {
-    const id$ = props$.map(props => props.params.id).distinctUntilChanged();
-    const job$ = id$
-      .switchMap(id => getGraphQL(id))
-      .map(({ data: { job } }) => job);
+    const id$ = props$.pipe(
+      map(props => props.params.id),
+      distinctUntilChanged()
+    );
+    const job$ = id$.pipe(
+      switchMap(id => getGraphQL(id)),
+      map(({ data: { job } }) => job)
+    );
 
-    return Observable.combineLatest([
+    return combineLatest([
       job$,
       props$,
       jobActionDialog$,
       disabledDialog$
-    ])
-      .map(([job, { router, ...props }, jobActionDialog, disabledDialog]) => {
+    ]).pipe(
+      map(([job, { router, ...props }, jobActionDialog, disabledDialog]) => {
         function onJobDeleteSuccess() {
           router.push("/jobs");
           closeDialog();
@@ -113,8 +127,9 @@ export default getContext({
             disableDialog={disableDialog}
           />
         );
-      })
-      .catch(() => Observable.of(<ErrorScreen />))
-      .startWith(<LoadingScreen />);
+      }),
+      catchError(() => of(<ErrorScreen />)),
+      startWith(<LoadingScreen />)
+    );
   })
 );

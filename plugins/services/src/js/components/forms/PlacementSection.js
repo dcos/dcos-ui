@@ -6,7 +6,7 @@ import { Tooltip } from "reactjs-components";
 import PlacementConstraintsPartial from "#SRC/js/components/PlacementConstraintsPartial";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 export default class PlacementSection extends Component {
@@ -42,7 +42,7 @@ export default class PlacementSection extends Component {
                 maxWidth={300}
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>

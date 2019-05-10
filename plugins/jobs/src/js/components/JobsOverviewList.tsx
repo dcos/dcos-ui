@@ -5,10 +5,12 @@ import { Trans, t } from "@lingui/macro";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import FilterInputText from "#SRC/js/components/FilterInputText";
+import AlertPanel from "#SRC/js/components/AlertPanel";
+import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
 import JobsOverviewTable from "./JobsOverviewTable";
 import JobsPage from "./JobsPage";
-import JobCreateEditFormModal from "../JobCreateEditFormModal";
+import JobFormModal from "./JobsFormModal";
 import { JobConnection } from "../types/JobConnection";
 
 interface JobsOverviewListProps {
@@ -21,12 +23,12 @@ interface JobsOverviewListState {
   isJobFormModalOpen: boolean;
 }
 
-class JobsOverviewList extends React.Component<
+class JobsOverviewList extends React.PureComponent<
   JobsOverviewListProps,
   JobsOverviewListState
 > {
-  constructor() {
-    super(...arguments);
+  constructor(props: Readonly<JobsOverviewListProps>) {
+    super(props);
 
     this.state = {
       isJobFormModalOpen: false
@@ -54,7 +56,7 @@ class JobsOverviewList extends React.Component<
     this.props.handleFilterChange("");
   }
 
-  render() {
+  getListContent() {
     const { data, filter, i18n } = this.props;
     // L10NTODO: Pluralize
     // We should pluralize FilterHeadline name here using lingui macro instead of
@@ -69,28 +71,60 @@ class JobsOverviewList extends React.Component<
     ) : null;
 
     return (
-      <JobsPage
-        addButton={{
+      <div className="flex-grow">
+        {headline}
+        <FilterBar>
+          <FilterInputText
+            className="flush-bottom"
+            handleFilterChange={this.handleFilterChange}
+            placeholder={i18n._(t`Search`)}
+            searchString={this.props.filter || ""}
+          />
+        </FilterBar>
+        <JobsOverviewTable data={data} />
+      </div>
+    );
+  }
+
+  getEmptyContent() {
+    return (
+      <AlertPanel>
+        <AlertPanelHeader>
+          <Trans>No active jobs</Trans>
+        </AlertPanelHeader>
+        <Trans render="p" className="tall">
+          Create both one-off or scheduled jobs to perform tasks at a predefined
+          interval.
+        </Trans>
+        <div className="button-collection flush-bottom">
+          <button
+            className="button button-primary"
+            onClick={this.handleOpenJobFormModal}
+          >
+            <Trans>Create a Job</Trans>
+          </button>
+        </div>
+      </AlertPanel>
+    );
+  }
+
+  render() {
+    const { data } = this.props;
+    const hasJobs = data.totalCount > 0;
+    const addButton = hasJobs
+      ? {
           label: <Trans render="span">Create a job</Trans>,
           onItemSelect: this.handleOpenJobFormModal
-        }}
-        jobPath={data.path}
-      >
-        <div className="flex-grow">
-          {headline}
-          <FilterBar>
-            <FilterInputText
-              className="flush-bottom"
-              handleFilterChange={this.handleFilterChange}
-              placeholder={i18n._(t`Search`)}
-              searchString={this.props.filter || ""}
-            />
-          </FilterBar>
-          <JobsOverviewTable data={data} />
-        </div>
-        <JobCreateEditFormModal
-          open={this.state.isJobFormModalOpen}
-          onClose={this.handleCloseJobFormModal}
+        }
+      : null;
+
+    return (
+      <JobsPage addButton={addButton} jobPath={data.path}>
+        {hasJobs ? this.getListContent() : this.getEmptyContent()}
+        <JobFormModal
+          isOpen={this.state.isJobFormModalOpen}
+          closeModal={this.handleCloseJobFormModal}
+          isEdit={false}
         />
       </JobsPage>
     );

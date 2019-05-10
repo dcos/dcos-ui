@@ -1,14 +1,15 @@
 import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
 
+import Application from "./Application";
 import Framework from "./Framework";
 import HealthTypes from "../constants/HealthTypes";
 import HealthStatus from "../constants/HealthStatus";
 import Pod from "./Pod";
 import Service from "./Service";
-import ServiceOther from "../constants/ServiceOther";
-import ServiceStatus from "../constants/ServiceStatus";
+import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
+import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 import VolumeList from "../structs/VolumeList";
 
 module.exports = class ServiceTree extends Tree {
@@ -48,7 +49,19 @@ module.exports = class ServiceTree extends Tree {
       }
 
       // Create the appropriate service according to definition
-      return ServiceUtil.createServiceFromResponse(item);
+      if (ServiceValidatorUtil.isPodResponse(item)) {
+        return new Pod(item);
+      }
+
+      if (ServiceValidatorUtil.isFrameworkResponse(item)) {
+        return new Framework(item);
+      }
+
+      if (ServiceValidatorUtil.isApplicationResponse(item)) {
+        return new Application(item);
+      }
+
+      throw Error("Unknown service response: " + JSON.stringify(item));
     });
   }
 
@@ -142,165 +155,6 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
-  // TODO @pierlo-upitup MARATHON-1030: refactor for more generic usage
-  filterItemsByFilter(filter) {
-    let services = this.getItems();
-
-    if (filter) {
-      if (filter.ids) {
-        services = services.filter(
-          function(service) {
-            return this.ids.indexOf(service.id) !== -1;
-          },
-          { ids: filter.ids }
-        );
-      }
-
-      if (filter.id) {
-        const filterProperties = Object.assign({}, this.getFilterProperties(), {
-          name(item) {
-            return item.getName();
-          }
-        });
-
-        services = this.flattenItems()
-          .filterItemsByText(filter.id, filterProperties)
-          .getItems();
-      }
-
-      if (Array.isArray(filter.health) && filter.health.length !== 0) {
-        services = services.reduce(function(memo, service) {
-          filter.health.forEach(function(healthValue) {
-            if (service instanceof ServiceTree) {
-              memo = memo.concat(
-                service
-                  .filterItemsByFilter({ health: [healthValue] })
-                  .getItems()
-              );
-
-              return;
-            }
-
-            if (service.getHealth().value === parseInt(healthValue, 10)) {
-              memo.push(service);
-            }
-          });
-
-          return memo;
-        }, []);
-      }
-
-      if (Array.isArray(filter.labels) && filter.labels.length > 0) {
-        services = services.reduce(function(memo, service) {
-          filter.labels.forEach(function(label) {
-            if (service instanceof ServiceTree) {
-              memo = memo.concat(
-                service.filterItemsByFilter({ labels: [label] }).getItems()
-              );
-
-              return;
-            }
-
-            let serviceLabels = service.getLabels();
-
-            if (service instanceof Service) {
-              serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
-            }
-
-            const hasLabel = serviceLabels.some(function(serviceLabel) {
-              return (
-                serviceLabel.key === label.key &&
-                serviceLabel.value === label.value
-              );
-            });
-
-            if (hasLabel) {
-              memo.push(service);
-            }
-          });
-
-          return memo;
-        }, []);
-      }
-
-      if (Array.isArray(filter.other) && filter.other.length !== 0) {
-        services = services.reduce(function(memo, service) {
-          filter.other.forEach(function(otherKey) {
-            if (parseInt(otherKey, 10) === ServiceOther.CATALOG.key) {
-              if (service instanceof ServiceTree) {
-                memo = memo.concat(
-                  service.filterItemsByFilter({ other: [otherKey] }).getItems()
-                );
-              }
-
-              if (service instanceof Framework) {
-                memo.push(service);
-              }
-            }
-
-            if (parseInt(otherKey, 10) === ServiceOther.VOLUMES.key) {
-              const volumes = service.getVolumes();
-
-              if (volumes.list && volumes.list.length > 0) {
-                memo.push(service);
-              }
-            }
-
-            if (parseInt(otherKey, 10) === ServiceOther.PODS.key) {
-              if (service instanceof ServiceTree) {
-                memo = memo.concat(
-                  service.filterItemsByFilter({ other: [otherKey] }).getItems()
-                );
-              }
-
-              if (service instanceof Pod) {
-                memo.push(service);
-              }
-            }
-          });
-
-          return memo;
-        }, []);
-      }
-
-      if (Array.isArray(filter.status) && filter.status.length !== 0) {
-        services = services.reduce(function(memo, service) {
-          filter.status.some(function(statusValue) {
-            if (service instanceof ServiceTree) {
-              memo = memo.concat(
-                service
-                  .filterItemsByFilter({ status: [statusValue] })
-                  .getItems()
-              );
-
-              return;
-            }
-
-            if (service.getServiceStatus().key === parseInt(statusValue, 10)) {
-              memo.push(service);
-            }
-          });
-
-          return memo;
-        }, []);
-      }
-    }
-
-    const { uniques } = services.reduce(
-      function(memo, service) {
-        if (!(service.getId() in memo.serviceIds)) {
-          memo.serviceIds[service.getId()] = true;
-          memo.uniques.push(service);
-        }
-
-        return memo;
-      },
-      { uniques: [], serviceIds: {} }
-    );
-
-    return new this.constructor(Object.assign({}, this, { items: uniques }));
-  }
-
   getInstancesCount() {
     return this.reduceItems(function(instances, item) {
       if (item instanceof Service) {
@@ -309,6 +163,40 @@ module.exports = class ServiceTree extends Tree {
 
       return instances;
     }, 0);
+  }
+
+  getStatusCategoryCounts() {
+    const categoryCounts = {
+      status: {},
+      total: 0
+    };
+
+    return this.reduceItems(function(counts, item) {
+      if (item instanceof Service) {
+        const itemStatus = item.getServiceStatus();
+        if (itemStatus === null) {
+          return counts;
+        }
+        counts.total++;
+        if (counts.status[itemStatus.category]) {
+          counts.status[itemStatus.category]++;
+        } else {
+          counts.status[itemStatus.category] = 1;
+        }
+      }
+
+      return counts;
+    }, categoryCounts);
+  }
+
+  getServiceTreeStatusSummary() {
+    const status = this.getServiceStatus();
+    const statusCategoryCounts = this.getStatusCategoryCounts();
+
+    return {
+      status: status.category,
+      counts: statusCategoryCounts
+    };
   }
 
   getName() {
@@ -336,12 +224,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getStatus() {
-    const status = this.getServiceStatus();
-    if (status == null) {
-      return null;
-    }
-
-    return status.displayName;
+    return this.getServiceStatus().displayName;
   }
 
   getServiceStatus() {
@@ -352,7 +235,7 @@ module.exports = class ServiceTree extends Tree {
           return serviceTreeStatus;
         }
 
-        if (status.key > serviceTreeStatus.key) {
+        if (status.priority > serviceTreeStatus.priority) {
           serviceTreeStatus = status;
         }
       }
@@ -447,10 +330,12 @@ module.exports = class ServiceTree extends Tree {
 
   getLabels() {
     return this.reduceItems(function(serviceTreeLabels, item) {
-      ServiceUtil.convertServiceLabelsToArray(item).forEach(function({
+      const labels = Object.entries(item.getLabels()).map(([key, value]) => ({
         key,
         value
-      }) {
+      }));
+
+      labels.forEach(function({ key, value }) {
         if (
           serviceTreeLabels.findIndex(function(label) {
             return label.key === key && label.value === value;

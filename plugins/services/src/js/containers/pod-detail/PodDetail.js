@@ -8,7 +8,7 @@ import { Hooks } from "PluginSDK";
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
-import { isSDKService } from "#SRC/js/utils/ServiceUtil";
+import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import Pod from "../../structs/Pod";
 import PodHeader from "./PodHeader";
@@ -18,14 +18,14 @@ import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
 import ServiceTree from "../../structs/ServiceTree";
-import {
-  DELETE,
-  EDIT,
-  OPEN,
-  RESUME,
-  SCALE,
-  STOP
-} from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
+
+const DELETE = ServiceActionItem.DELETE;
+const EDIT = ServiceActionItem.EDIT;
+const OPEN = ServiceActionItem.OPEN;
+const RESUME = ServiceActionItem.RESUME;
+const SCALE = ServiceActionItem.SCALE;
+const STOP = ServiceActionItem.STOP;
 
 const METHODS_TO_BIND = [
   "handleActionDisabledModalOpen",

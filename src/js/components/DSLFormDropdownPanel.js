@@ -2,6 +2,7 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import isEqual from "lodash.isequal";
 
 import DSLForm from "./DSLForm";
 import DSLExpression from "../structs/DSLExpression";
@@ -25,6 +26,14 @@ class DSLFormDropdownPanel extends React.Component {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return (
+      this.props.isVisible !== nextProps.isVisible ||
+      this.props.expression.value !== nextProps.expression.value ||
+      !isEqual(this.props.sections, nextProps.sections)
+    );
   }
 
   /**

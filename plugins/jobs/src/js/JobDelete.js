@@ -1,19 +1,24 @@
 import * as React from "react";
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
 import PropTypes from "prop-types";
-import { Subject } from "rxjs/Subject";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/combineLatest";
-import "rxjs/add/operator/startWith";
-import "rxjs/add/operator/catch";
+import { Subject } from "rxjs";
+import {
+  map,
+  switchMap,
+  tap,
+  combineLatest,
+  startWith,
+  catchError,
+  mapTo
+} from "rxjs/operators";
 
 import gql from "graphql-tag";
+import { DataLayerType } from "@extension-kid/data-layer";
+import container from "#SRC/js/container";
 
 import JobDeleteModal from "./components/JobDeleteModal";
-import defaultSchema from "./data/JobModel";
 
+const dataLayer = container.get(DataLayerType);
 const deleteJobMutation = gql`
   mutation {
     deleteJob(id: $jobId, stopCurrentJobRuns: $stopCurrentJobRuns) {
@@ -28,25 +33,31 @@ function executeDeleteMutation({
   onSuccess,
   errorMessage
 }) {
-  return graphqlObservable(deleteJobMutation, defaultSchema, {
-    jobId,
-    stopCurrentJobRuns
-  })
-    .mapTo({ done: true, stopCurrentJobRuns, errorMessage })
-    .do(_ => onSuccess())
-    .startWith({ done: false, stopCurrentJobRuns, errorMessage });
+  return dataLayer
+    .query(deleteJobMutation, {
+      jobId,
+      stopCurrentJobRuns
+    })
+    .pipe(
+      mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
+      tap(_ => onSuccess()),
+      startWith({ done: false, stopCurrentJobRuns, errorMessage })
+    );
 }
 
 function deleteEventHandler() {
   const deleteSubject$ = new Subject();
-  const delete$ = deleteSubject$
-    .switchMap(executeDeleteMutation)
-    .catch(error => {
-      return delete$.startWith({
-        errorMessage: error && error.response && error.response.message,
-        done: true
-      });
-    });
+  const delete$ = deleteSubject$.pipe(
+    switchMap(executeDeleteMutation),
+    catchError(error => {
+      return delete$.pipe(
+        startWith({
+          errorMessage: error && error.response && error.response.message,
+          done: true
+        })
+      );
+    })
+  );
 
   return {
     delete$,
@@ -67,13 +78,13 @@ function isTaskCurrentlyRunning(errorMessage) {
 
 const JobDelete = componentFromStream(prop$ => {
   const { delete$, deleteHandler } = deleteEventHandler();
-  const deleteWithInitialValue$ = delete$.startWith({ done: null });
+  const deleteWithInitialValue$ = delete$.pipe(startWith({ done: null }));
 
-  return prop$
-    .combineLatest(deleteWithInitialValue$, (props, { done, errorMessage }) => {
+  return prop$.pipe(
+    combineLatest(deleteWithInitialValue$, (props, { done, errorMessage }) => {
       return { ...props, done, errorMessage };
-    })
-    .map(({ open, jobId, onClose, onSuccess, errorMessage, done }) => {
+    }),
+    map(({ open, jobId, onClose, onSuccess, errorMessage, done }) => {
       const stopCurrentJobRuns = isTaskCurrentlyRunning(errorMessage);
 
       function onSuccessEvent() {
@@ -90,7 +101,8 @@ const JobDelete = componentFromStream(prop$ => {
           stopCurrentJobRuns={stopCurrentJobRuns}
         />
       );
-    });
+    })
+  );
 });
 
 JobDelete.propTypes = {

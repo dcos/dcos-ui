@@ -1,19 +1,24 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
-import { Subject } from "rxjs/Subject";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/combineLatest";
-import "rxjs/add/operator/startWith";
-import "rxjs/add/operator/catch";
+import { componentFromStream } from "@dcos/data-service";
+import { Subject } from "rxjs";
+import {
+  map,
+  switchMap,
+  tap,
+  combineLatest,
+  startWith,
+  catchError,
+  mapTo
+} from "rxjs/operators";
 import gql from "graphql-tag";
+import { DataLayerType } from "@extension-kid/data-layer";
+import container from "#SRC/js/container";
 
 import JobStopRunModal from "./components/JobStopRunModal";
 
-import defaultSchema from "./data/JobModel";
+const dataLayer = container.get(DataLayerType);
 
 const stopJobRunMutation = gql`
   mutation {
@@ -24,25 +29,31 @@ const stopJobRunMutation = gql`
 `;
 
 function executeStopJobRunMutation({ jobId, jobRunId, onSuccess }) {
-  return graphqlObservable(stopJobRunMutation, defaultSchema, {
-    jobId,
-    jobRunId
-  })
-    .mapTo({ done: true })
-    .do(_ => onSuccess())
-    .startWith({ done: false });
+  return dataLayer
+    .query(stopJobRunMutation, {
+      jobId,
+      jobRunId
+    })
+    .pipe(
+      mapTo({ done: true }),
+      tap(_ => onSuccess()),
+      startWith({ done: false })
+    );
 }
 
 function stopEventHandler() {
   const stopSubject$ = new Subject();
-  const stop$ = stopSubject$
-    .switchMap(executeStopJobRunMutation)
-    .catch(error => {
-      return stop$.startWith({
-        errorMessage: error && error.response && error.response.message,
-        done: true
-      });
-    });
+  const stop$ = stopSubject$.pipe(
+    switchMap(executeStopJobRunMutation),
+    catchError(error => {
+      return stop$.pipe(
+        startWith({
+          errorMessage: error && error.response && error.response.message,
+          done: true
+        })
+      );
+    })
+  );
 
   return {
     stop$,
@@ -61,13 +72,13 @@ export function stopSingleJobRun(stopHandler, jobId, jobRuns, onSuccess) {
 
 export const JobStopRun = componentFromStream(props$ => {
   const { stop$, stopHandler } = stopEventHandler();
-  const stopRequestState$ = stop$.startWith({ done: null });
+  const stopRequestState$ = stop$.pipe(startWith({ done: null }));
 
-  return props$
-    .combineLatest(stopRequestState$, (props, { done }) => {
+  return props$.pipe(
+    combineLatest(stopRequestState$, (props, { done }) => {
       return { ...props, done };
-    })
-    .map(({ jobID, jobRuns, onClose, onSuccess, open, done }) => {
+    }),
+    map(({ jobID, jobRuns, onClose, onSuccess, open, done }) => {
       function onSuccessHandler() {
         stopSingleJobRun(stopHandler, jobID, jobRuns, onSuccess);
       }
@@ -82,7 +93,8 @@ export const JobStopRun = componentFromStream(props$ => {
           selectedItems={jobRuns}
         />
       );
-    });
+    })
+  );
 });
 
 JobStopRun.propTypes = {

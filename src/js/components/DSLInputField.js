@@ -2,8 +2,16 @@ import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  purple,
+  red,
+  white,
+  greyDark
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import Icon from "./Icon";
 import DSLExpression from "../structs/DSLExpression";
 
 const METHODS_TO_BIND = [
@@ -126,26 +134,22 @@ class DSLInputField extends React.Component {
 
     const { expression } = this.state;
     const { inverseStyle } = this.props;
-    let color = "purple";
+    let color = purple;
 
     if (inverseStyle) {
-      color = "white";
+      color = white;
     }
 
     if (expression.hasErrors) {
-      color = "red";
+      color = red;
     }
 
     return (
-      <span className="form-control-group-add-on">
-        <Icon
-          family="system"
-          id="close"
-          size="mini"
-          className="clickable"
-          color={color}
-          onClick={this.handleInputClear}
-        />
+      <span
+        className="form-control-group-add-on clickable"
+        onClick={this.handleInputClear}
+      >
+        <Icon shape={SystemIcons.Close} size={iconSizeXs} color={color} />
       </span>
     );
   }
@@ -156,7 +160,7 @@ class DSLInputField extends React.Component {
    * @returns {Node|null} The button contents or null if empty
    */
   getDropdownButton() {
-    let color = "grey";
+    let color = greyDark;
     const {
       dropdownVisible,
       hasDropdown,
@@ -169,23 +173,19 @@ class DSLInputField extends React.Component {
     }
 
     if (inverseStyle) {
-      color = "white";
+      color = white;
     }
 
     if (dropdownVisible) {
-      color = "purple";
+      color = purple;
     }
 
     return (
-      <span className="form-control-group-add-on">
-        <Icon
-          family="system"
-          id="funnel"
-          size="mini"
-          className="clickable"
-          color={color}
-          onClick={onDropdownClick}
-        />
+      <span
+        className="form-control-group-add-on clickable"
+        onClick={onDropdownClick}
+      >
+        <Icon shape={SystemIcons.Funnel} size={iconSizeXs} color={color} />
       </span>
     );
   }
@@ -221,17 +221,17 @@ class DSLInputField extends React.Component {
     const { className, inputContainerClass, inverseStyle } = this.props;
     const { expression, focus } = this.state;
 
-    let iconColor = "grey";
+    let iconColor = greyDark;
     const iconSearchClasses = classNames({
       active: focus
     });
 
     if (!inverseStyle && (focus || expression.defined)) {
-      iconColor = "purple";
+      iconColor = purple;
     }
 
     if (expression.hasErrors) {
-      iconColor = "red";
+      iconColor = red;
     }
 
     const inputContainerClasses = classNames(
@@ -254,14 +254,14 @@ class DSLInputField extends React.Component {
     return (
       <div className={formGroupClasses}>
         <div className={inputContainerClasses} onBlur={this.handleBlur}>
-          <span className="form-control-group-add-on form-control-group-add-on-prepend">
+          <span
+            className={`form-control-group-add-on form-control-group-add-on-prepend ${iconSearchClasses}`}
+            onClick={this.handleFocus}
+          >
             <Icon
-              family="system"
-              id="search"
-              size="mini"
-              className={iconSearchClasses}
+              shape={SystemIcons.Search}
+              size={iconSizeXs}
               color={iconColor}
-              onClick={this.handleFocus}
             />
           </span>
           {this.getInputField()}

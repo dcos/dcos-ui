@@ -4,9 +4,14 @@ import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  greyLightDarken1
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
-import Icon from "#SRC/js/components/Icon";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
@@ -291,7 +296,11 @@ class TaskTable extends React.Component {
           wrapperClassName="tooltip-wrapper text-align-center description"
         >
           <Link to={linkTo} title={title}>
-            <Icon color="light-grey" id="page-document" size="mini" />
+            <Icon
+              color={greyLightDarken1}
+              shape={SystemIcons.PageDocument}
+              size={iconSizeXs}
+            />
           </Link>
         </Tooltip>
       </div>

@@ -5,9 +5,14 @@ import React from "react";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  iconSizeXs,
+  greyDark
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import Icon from "#SRC/js/components/Icon";
 
 import DeploymentsModal from "./DeploymentsModal";
 
@@ -68,7 +73,7 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
         className="button button-primary-link button--deployments"
         onClick={this.handleDeploymentsButtonClick}
       >
-        <Icon color="grey" id="spinner" size="mini" />
+        <Icon color={greyDark} shape={SystemIcons.Spinner} size={iconSizeXs} />
         <div className="button--deployments__copy">
           {deploymentsCount} <Trans id={deploymentText} render="span" />
         </div>

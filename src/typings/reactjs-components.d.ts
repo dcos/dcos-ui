@@ -2,15 +2,17 @@ declare module "reactjs-components" {
   import { Component, ReactElement } from "react";
 
   interface ModalProps {
-    backdropClass: string;
-    modalWrapperClass: string;
-    open: boolean;
-    scrollContainerClass: string;
-    showHeader: boolean;
-    footer: ReactElement<any>;
-    header: ReactElement<any>;
-    showFooter: boolean;
-    useGemini: boolean;
+    backdropClass?: string;
+    modalWrapperClass?: string;
+    open?: boolean;
+    scrollContainerClass?: string;
+    showHeader?: boolean;
+    footer?: ReactElement<any>;
+    header?: ReactElement<any>;
+    showFooter?: boolean;
+    useGemini?: boolean;
+    onClose: () => void;
+    modalClass: string;
   }
 
   interface MenuItem {
@@ -45,7 +47,9 @@ declare module "reactjs-components" {
     wrapperClassName?: string;
   }
 
+  // tslint:disable-next-line:max-classes-per-file
   export class Modal extends Component<ModalProps, {}> {}
+  // tslint:disable-next-line:max-classes-per-file
   export class Dropdown extends Component<DropdownProps, {}> {}
 
   interface TooltipProps {
@@ -55,7 +59,7 @@ declare module "reactjs-components" {
     content: React.ReactNode;
     elementTag?: string;
     interactive?: boolean;
-    maxWidth?: number |  string;
+    maxWidth?: number | string;
     position?: string;
     stayOpen?: boolean;
     suppress?: boolean;
@@ -65,5 +69,26 @@ declare module "reactjs-components" {
     contentClassName?: string;
   }
 
+  // tslint:disable-next-line:max-classes-per-file
   export class Tooltip extends Component<TooltipProps, {}> {}
+
+  interface SelectProps {
+    className?: string;
+    onChange?: (e?: any) => void;
+    name?: string;
+    placeholder?: string;
+    value?: string | number;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class Select extends Component<SelectProps, {}> {}
+
+  interface SelectOptionProps {
+    value?: string;
+    label?: string;
+    disabled?: boolean;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class SelectOption extends Component<SelectOptionProps, {}> {}
 }

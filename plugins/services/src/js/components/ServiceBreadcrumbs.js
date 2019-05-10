@@ -1,4 +1,6 @@
 import { Trans, Plural } from "@lingui/macro";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -264,7 +266,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <PageHeaderBreadcrumbs
-        iconID="services"
+        iconID={ProductIcons.Services}
         iconRoute="/services"
         breadcrumbs={crumbs}
       />

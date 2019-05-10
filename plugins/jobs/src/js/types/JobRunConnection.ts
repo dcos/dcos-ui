@@ -54,7 +54,10 @@ export const JobRunConnectionFieldResolvers = {
         return -1;
       }
 
-      return DateUtil.strToMs(a.createdAt) - DateUtil.strToMs(b.createdAt);
+      return (
+        (DateUtil.strToMs(a.createdAt) as number) -
+        (DateUtil.strToMs(b.createdAt) as number)
+      );
     });
 
     return JobRunTypeResolver(sortedRuns[0]);

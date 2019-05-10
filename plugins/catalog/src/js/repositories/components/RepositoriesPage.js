@@ -1,6 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import React from "react";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -19,7 +20,7 @@ const RepositoriesBreadcrumbs = addButton => {
 
   return (
     <Page.Header.Breadcrumbs
-      iconID="settings"
+      iconID={ProductIcons.Gear}
       breadcrumbs={crumbs}
       addButton={addButton}
     />

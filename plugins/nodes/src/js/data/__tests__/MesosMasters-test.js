@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { Observable } from "rxjs/Observable";
+import { of } from "rxjs";
 
 import { connectMasterComponent, combineMasterData } from "../MesosMasters";
 
@@ -89,8 +89,8 @@ describe("LeaderGrid", function() {
   it("renders with running status", function() {
     const initialState = mastersInitialState;
 
-    const leaderData = () => Observable.of(leader);
-    const healthData = () => Observable.of(nonLeader);
+    const leaderData = () => of(leader);
+    const healthData = () => of(nonLeader);
     const combinedData = combineMasterData(leaderData, healthData);
     const MasterNodesTab = connectMasterComponent(initialState, combinedData);
 

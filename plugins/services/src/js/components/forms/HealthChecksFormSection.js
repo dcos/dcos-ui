@@ -20,8 +20,9 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
-import Icon from "#SRC/js/components/Icon";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { isHostNetwork } from "../../utils/NetworkUtil";
 
 import {
   MESOS_HTTP,
@@ -99,11 +100,7 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -135,11 +132,7 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -150,6 +143,7 @@ class HealthChecksFormSection extends Component {
                 min="0"
                 placeholder="60"
                 value={healthCheck.intervalSeconds}
+                autoFocus={Boolean(errors.intervalSeconds)}
               />
               <FieldError>{errors.intervalSeconds}</FieldError>
             </FormGroup>
@@ -169,11 +163,7 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -184,6 +174,7 @@ class HealthChecksFormSection extends Component {
                 min="0"
                 placeholder="20"
                 value={healthCheck.timeoutSeconds}
+                autoFocus={Boolean(errors.timeoutSeconds)}
               />
               <FieldError>{errors.timeoutSeconds}</FieldError>
             </FormGroup>
@@ -203,11 +194,7 @@ class HealthChecksFormSection extends Component {
                       maxWidth={300}
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -218,6 +205,7 @@ class HealthChecksFormSection extends Component {
                 min="0"
                 placeholder="3"
                 value={healthCheck.maxConsecutiveFailures}
+                autoFocus={Boolean(errors.maxConsecutiveFailures)}
               />
               <FieldError>{errors.maxConsecutiveFailures}</FieldError>
             </FormGroup>
@@ -263,13 +251,15 @@ class HealthChecksFormSection extends Component {
   getEndpoints() {
     const { data } = this.props;
 
-    return data.portDefinitions.map((port, index) => {
-      return (
-        <option key={index} value={index}>
-          {port.name || index}
-        </option>
-      );
-    });
+    const endpoints = isHostNetwork(data)
+      ? data.portDefinitions
+      : data.portMappings;
+
+    return endpoints.map((endpoint, index) => (
+      <option key={index} value={index}>
+        {HealthCheckUtil.getEndpointText(index, endpoint, data)}
+      </option>
+    ));
   }
 
   getIpProtocol(data) {
@@ -339,7 +329,7 @@ class HealthChecksFormSection extends Component {
                   wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -365,7 +355,7 @@ class HealthChecksFormSection extends Component {
                   maxWidth={300}
                   wrapText={true}
                 >
-                  <Icon color="light-grey" id="circle-question" size="mini" />
+                  <InfoTooltipIcon />
                 </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -434,7 +424,8 @@ class HealthChecksFormSection extends Component {
             target="_blank"
           >
             More Information
-          </a>.
+          </a>
+          .
         </Trans>
       );
 
@@ -464,11 +455,7 @@ class HealthChecksFormSection extends Component {
                       wrapperClassName="tooltip-wrapper text-align-center"
                       wrapText={true}
                     >
-                      <Icon
-                        color="light-grey"
-                        id="circle-question"
-                        size="mini"
-                      />
+                      <InfoTooltipIcon />
                     </Tooltip>
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
@@ -509,7 +496,8 @@ class HealthChecksFormSection extends Component {
           target="_blank"
         >
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -528,7 +516,7 @@ class HealthChecksFormSection extends Component {
                 wrapperClassName="tooltip-wrapper text-align-center"
                 wrapText={true}
               >
-                <Icon color="light-grey" id="circle-question" size="mini" />
+                <InfoTooltipIcon />
               </Tooltip>
             </FormGroupHeadingContent>
           </FormGroupHeading>

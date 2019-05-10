@@ -5,11 +5,16 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
+import { Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import {
+  greyLightDarken1,
+  iconSizeXs
+} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
 import CollapsingString from "#SRC/js/components/CollapsingString";
 import ExpandingTable from "#SRC/js/components/ExpandingTable";
-import Icon from "#SRC/js/components/Icon";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import Units from "#SRC/js/utils/Units";
 import TableUtil from "#SRC/js/utils/TableUtil";
@@ -362,7 +367,11 @@ class PodInstancesTable extends React.Component {
 
     return (
       <Link to={`/services/detail/${id}/tasks/${taskID}/logs`} title={row.name}>
-        <Icon color="light-grey" id="page-document" size="mini" />
+        <Icon
+          color={greyLightDarken1}
+          shape={SystemIcons.PageDocument}
+          size={iconSizeXs}
+        />
       </Link>
     );
   }

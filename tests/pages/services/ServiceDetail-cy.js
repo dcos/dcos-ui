@@ -69,6 +69,9 @@ describe("Service Detail Page", function() {
           .contains("Debug")
           .get(".page-body-content")
           .contains("Last Changes");
+        cy.contains(
+          "Offers will appear here when your service is deploying or waiting for resources."
+        ); // when we have no resource offes
 
         cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
       });
@@ -94,7 +97,7 @@ describe("Service Detail Page", function() {
     });
 
     context("Filter Tasks", function() {
-      const DEFAULT_ROWS = 3; // Headline plus invisible rows
+      const DEFAULT_ROWS = 1; // Headline
       beforeEach(function() {
         cy.configureCluster({
           mesos: "1-task-healthy",
@@ -111,7 +114,7 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by status", function() {
-        cy.get('use[*|href$="#icon-system--funnel"]').click({
+        cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
 
@@ -131,7 +134,7 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by name", function() {
-        cy.get('use[*|href$="#icon-system--funnel"]').click({
+        cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
 
@@ -139,7 +142,7 @@ describe("Service Detail Page", function() {
         cy.contains("Active").click({ force: true });
 
         cy.get(".dsl-form-group input[name='text']").type(
-          "sleep.7084272b-6b76-11e5-a953-08002719334c"
+          "sleep.instance-7084272b-6b76-11e5-a953-08002719334c._app.1"
         );
 
         // Wait a moment to check it doesn't flip back
@@ -152,15 +155,14 @@ describe("Service Detail Page", function() {
       });
 
       it("can filter tasks by zone", function() {
-        cy.get('use[*|href$="#icon-system--funnel"]').click({
+        // wait for zones to load
+        cy.wait(2500);
+
+        cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
-
         // Enable zone
         cy.contains("ap-northeast-1a").click({ force: true });
-
-        // Wait a moment to check it doesn't flip back
-        cy.wait(500);
 
         // Apply filter
         cy.contains("Apply").click({ force: true });

@@ -2,6 +2,7 @@ import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
@@ -47,7 +48,12 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
     breadcrumbParts = breadcrumbParts.concat(React.Children.toArray(children));
   }
 
-  return <PageHeaderBreadcrumbs iconID="jobs" breadcrumbs={breadcrumbParts} />;
+  return (
+    <PageHeaderBreadcrumbs
+      iconID={ProductIcons.Jobs}
+      breadcrumbs={breadcrumbParts}
+    />
+  );
 }
 
 Breadcrumbs.propTypes = {

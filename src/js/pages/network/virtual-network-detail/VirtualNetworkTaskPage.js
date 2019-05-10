@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 
+import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+
 import Breadcrumb from "../../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
 import MesosStateStore from "../../../stores/MesosStateStore";
@@ -64,7 +66,12 @@ const NetworksDetailTaskBreadcrumbs = ({
     );
   }
 
-  return <Page.Header.Breadcrumbs iconID="networking" breadcrumbs={crumbs} />;
+  return (
+    <Page.Header.Breadcrumbs
+      iconID={ProductIcons.Network}
+      breadcrumbs={crumbs}
+    />
+  );
 };
 
 class VirtualNetworkTaskPage extends React.Component {
@@ -117,7 +124,7 @@ class VirtualNetworkTaskPage extends React.Component {
         <Page.Header
           breadcrumbs={breadcrumbs}
           tabs={tabs}
-          iconID="networking"
+          iconID={ProductIcons.Network}
         />
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
