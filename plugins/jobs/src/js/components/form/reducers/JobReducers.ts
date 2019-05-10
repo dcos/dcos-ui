@@ -1,7 +1,9 @@
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import { deepCopy } from "#SRC/js/utils/Util";
 
 import { JobSpec, Action, JobFormActionType } from "../helpers/JobFormData";
 import { jsonReducers } from "./JsonReducers";
+import { env } from "./EnvironmentReducers";
 import {
   artifacts,
   labels,
@@ -17,7 +19,9 @@ import {
   grantRuntimePrivilegesReducers,
   containerImageReducers
 } from "./ContainerReducers";
+import { placementReducers } from "./PlacementReducers";
 import { enabledReducers, concurrencyPolicyReducers } from "./ScheduleReducers";
+import { volumesReducers } from "./VolumesReducers";
 
 type DefaultReducerFunction = (
   value: string,
@@ -72,10 +76,13 @@ const combinedReducers: CombinedReducers = {
   args: argsReducers,
   scheduleEnabled: enabledReducers,
   concurrencyPolicy: concurrencyPolicyReducers,
+  volumes: volumesReducers,
+  placementConstraints: placementReducers,
   labels,
   artifacts,
   activeDeadlineSeconds,
-  restartPolicy
+  restartPolicy,
+  env
 };
 
 export function jobFormOutputToSpecReducer(
@@ -84,7 +91,11 @@ export function jobFormOutputToSpecReducer(
 ): JobSpec {
   const arrayPath = action.path.split(".");
   const propToChange = arrayPath[arrayPath.length - 1];
-  const reducer = combinedReducers[propToChange] || defaultReducer;
+  const customReducers = Hooks.applyFilter(
+    "jobOutputReducers",
+    combinedReducers
+  );
+  const reducer = customReducers[propToChange] || defaultReducer;
   const updateFunction = reducer[action.type];
 
   if (!updateFunction || typeof updateFunction !== "function") {

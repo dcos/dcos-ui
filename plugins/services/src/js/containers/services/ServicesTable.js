@@ -3,9 +3,10 @@ import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
+import sort from "array-sort";
 
 import { componentFromStream } from "@dcos/data-service";
-import { combineLatest } from "rxjs";
+import { combineLatest, pipe } from "rxjs";
 import { map } from "rxjs/operators";
 import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -23,47 +24,24 @@ import {
 } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
 
-import { isSDKService } from "../../utils/ServiceUtil";
-
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
-import ServiceActionLabels from "../../constants/ServiceActionLabels";
-import * as ServiceStatus from "../../constants/ServiceStatus";
 import ServiceTree from "../../structs/ServiceTree";
-import Pod from "../../structs/Pod";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
+import * as Version from "../../utils/Version";
 
-import {
-  nameRenderer,
-  nameSorter
-} from "../../columns/ServicesTableNameColumn";
-import {
-  statusRenderer,
-  statusSorter
-} from "../../columns/ServicesTableStatusColumn";
-import {
-  versionRenderer,
-  versionSorter
-} from "../../columns/ServicesTableVersionColumn";
-import {
-  regionRendererFactory,
-  regionSorter
-} from "../../columns/ServicesTableRegionColumn";
-import {
-  instancesRenderer,
-  instancesSorter
-} from "../../columns/ServicesTableInstancesColumn";
-import { cpuRenderer, cpuSorter } from "../../columns/ServicesTableCPUColumn";
-import { memRenderer, memSorter } from "../../columns/ServicesTableMemColumn";
-import {
-  diskRenderer,
-  diskSorter
-} from "../../columns/ServicesTableDiskColumn";
-import { gpuRenderer, gpuSorter } from "../../columns/ServicesTableGPUColumn";
+import { nameRenderer } from "../../columns/ServicesTableNameColumn";
+import { statusRenderer } from "../../columns/ServicesTableStatusColumn";
+import { versionRenderer } from "../../columns/ServicesTableVersionColumn";
+import { regionRendererFactory } from "../../columns/ServicesTableRegionColumn";
+import { instancesRenderer } from "../../columns/ServicesTableInstancesColumn";
+import { cpuRenderer } from "../../columns/ServicesTableCPUColumn";
+import { memRenderer } from "../../columns/ServicesTableMemColumn";
+import { diskRenderer } from "../../columns/ServicesTableDiskColumn";
+import { gpuRenderer } from "../../columns/ServicesTableGPUColumn";
 import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn";
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
-const MORE = ServiceActionItem.MORE;
 const OPEN = ServiceActionItem.OPEN;
 const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
@@ -76,6 +54,75 @@ const METHODS_TO_BIND = [
   "handleActionDisabledModalClose",
   "handleSortClick"
 ];
+
+const serviceToVersion = serviceTreeNode => {
+  if (serviceTreeNode instanceof ServiceTree) {
+    return "";
+  }
+
+  return pipe(
+    Version.fromService,
+    Version.toDisplayVersion
+  )(serviceTreeNode);
+};
+
+function sortForColumn(name) {
+  switch (name) {
+    case "name":
+      return (a, b) => a.getName().localeCompare(b.getName());
+    case "status":
+      return (a, b) =>
+        b.getServiceStatus().priority - a.getServiceStatus().priority;
+    case "version":
+      return (a, b) =>
+        Version.compare(serviceToVersion(a), serviceToVersion(b));
+    case "region":
+      return (a, b) => {
+        return (a.getRegions()[0] || "") < (b.getRegions()[0] || "") ? 1 : -1;
+      };
+    case "instances":
+      return (a, b) => a.getInstancesCount() - b.getInstancesCount();
+    case "cpus":
+      return (a, b) => a.getResources().cpus - b.getResources().cpus;
+    case "mem":
+      return (a, b) => a.getResources().mem - b.getResources().mem;
+    case "disk":
+      return (a, b) => a.getResources().disk - b.getResources().disk;
+    case "gpus":
+      return (a, b) => a.getResources().gpus - b.getResources().gpus;
+    default:
+      return () => 0;
+  }
+}
+
+function sortData(
+  data,
+  sortColumn,
+  sortDirection,
+  currentSortDirection,
+  currentSortColumn
+) {
+  const copiedData = data.slice();
+
+  if (sortColumn === currentSortColumn) {
+    return {
+      data:
+        sortDirection === currentSortDirection
+          ? copiedData
+          : copiedData.reverse(),
+      sortColumn,
+      sortDirection
+    };
+  }
+
+  return {
+    data: sort(copiedData, sortForColumn(sortColumn), {
+      reverse: sortDirection !== "ASC"
+    }),
+    sortColumn,
+    sortDirection
+  };
+}
 
 class ServicesTable extends React.Component {
   constructor(props) {
@@ -112,7 +159,7 @@ class ServicesTable extends React.Component {
     this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
 
     this.setState(
-      this.updateData(
+      sortData(
         nextProps.services,
         this.state.sortColumn,
         this.state.sortDirection
@@ -158,49 +205,6 @@ class ServicesTable extends React.Component {
     this.setState({ actionDisabledService: null, actionDisabledID: null });
   }
 
-  getOpenInNewWindowLink(service) {
-    // This might be a serviceTree and therefore we need this check
-    // And getWebURL might therefore not be available
-    if (!this.hasWebUI(service)) {
-      return null;
-    }
-
-    return (
-      <a
-        className="table-cell-icon"
-        href={service.getWebURL()}
-        target="_blank"
-        title="Open in a new window"
-      >
-        <span className="icon-margin-left">
-          <Icon
-            color={greyDark}
-            shape={SystemIcons.OpenExternal}
-            size={iconSizeXs}
-          />
-        </span>
-      </a>
-    );
-  }
-
-  getImage(service) {
-    if (service instanceof ServiceTree) {
-      // Get serviceTree image/icon
-      return (
-        <span className="icon-margin-right">
-          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
-        </span>
-      );
-    }
-
-    // Get service image/icon
-    return (
-      <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
-        <img src={service.getImages()["icon-small"]} />
-      </span>
-    );
-  }
-
   handleSortClick(columnName) {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
@@ -208,7 +212,7 @@ class ServicesTable extends React.Component {
         : "ASC";
 
     this.setState(
-      this.updateData(
+      sortData(
         this.state.data,
         columnName,
         toggledDirection,
@@ -218,156 +222,11 @@ class ServicesTable extends React.Component {
     );
   }
 
-  renderServiceActions(prop, service) {
-    const isGroup = service instanceof ServiceTree;
-    const isPod = service instanceof Pod;
-    const isSingleInstanceApp = service.getLabels()
-      .MARATHON_SINGLE_INSTANCE_APP;
-    const instancesCount = service.getInstancesCount();
-    const scaleTextID = isGroup
-      ? ServiceActionLabels.scale_by
-      : ServiceActionLabels[SCALE];
-    const isSDK = isSDKService(service);
-
-    const actions = [];
-
-    actions.push({
-      className: "hidden",
-      id: MORE,
-      html: "",
-      selectedHtml: (
-        <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-      )
-    });
-
-    if (this.hasWebUI(service)) {
-      actions.push({
-        id: OPEN,
-        html: <Trans render="span" id={ServiceActionLabels.open} />
-      });
-    }
-
-    if (!isGroup) {
-      actions.push({
-        id: EDIT,
-        html: <Trans render="span" id={ServiceActionLabels.edit} />
-      });
-    }
-
-    // isSingleInstanceApp = Framework main scheduler
-    // instancesCount = service instances
-    if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
-      actions.push({
-        id: SCALE,
-        html: <Trans render="span" id={scaleTextID} />
-      });
-    }
-
-    if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
-      actions.push({
-        id: RESTART,
-        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />
-      });
-    }
-
-    if (instancesCount > 0 && !isSDK) {
-      actions.push({
-        id: STOP,
-        html: <Trans render="span" id={ServiceActionLabels[STOP]} />
-      });
-    }
-
-    if (!isGroup && instancesCount === 0 && !isSDK) {
-      actions.push({
-        id: RESUME,
-        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />
-      });
-    }
-
-    actions.push({
-      id: DELETE,
-      html: (
-        <Trans
-          render="span"
-          className="text-danger"
-          id={ServiceActionLabels[DELETE]}
-        />
-      )
-    });
-
-    if (service.getServiceStatus() === ServiceStatus.DELETING) {
-      return this.renderServiceActionsDropdown(service, actions);
-    }
-
-    return (
-      <Tooltip content={<Trans render="span">More actions</Trans>}>
-        {this.renderServiceActionsDropdown(service, actions)}
-      </Tooltip>
-    );
-  }
-
-  retrieveSortFunction(sortColumn) {
-    switch (sortColumn) {
-      case "name":
-        return nameSorter;
-      case "status":
-        return statusSorter;
-      case "version":
-        return versionSorter;
-      case "region":
-        return regionSorter;
-      case "instances":
-        return instancesSorter;
-      case "cpus":
-        return cpuSorter;
-      case "mem":
-        return memSorter;
-      case "disk":
-        return diskSorter;
-      case "gpus":
-        return gpuSorter;
-      default:
-        return (data, _sortDirection) => data;
-    }
-  }
-
   sortGroupsOnTop(data) {
     const groups = data.filter(service => service instanceof ServiceTree);
     const services = data.filter(service => !(service instanceof ServiceTree));
 
-    return groups.concat(services);
-  }
-
-  updateData(
-    data,
-    sortColumn,
-    sortDirection,
-    currentSortDirection,
-    currentSortColumn
-  ) {
-    const copiedData = data.slice();
-
-    if (
-      sortDirection === currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return { data: copiedData, sortDirection, sortColumn };
-    }
-
-    if (
-      sortDirection !== currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return { data: copiedData.reverse(), sortDirection, sortColumn };
-    }
-
-    const sortFunction = this.retrieveSortFunction(sortColumn);
-
-    return {
-      data: sortFunction(copiedData, sortDirection),
-      sortDirection,
-      sortColumn
-    };
+    return [...groups, ...services];
   }
 
   render() {
@@ -616,4 +475,6 @@ function withMasterRegionName(Component) {
   );
 }
 
-module.exports = withMasterRegionName(ServicesTable);
+const Component = withMasterRegionName(ServicesTable);
+
+export { Component as default, sortData };

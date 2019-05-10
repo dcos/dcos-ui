@@ -6,7 +6,14 @@ import {
   findNestedPropertyInObject
 } from "#SRC/js/utils/Util";
 
-import { JobOutput, FormError, UcrImageKind, JobSpec } from "./JobFormData";
+import {
+  JobOutput,
+  FormError,
+  UcrImageKind,
+  JobSpec,
+  ConstraintOperator
+} from "./JobFormData";
+import { OperatorTypes } from "./Constants";
 
 type MetronomeValidators = Record<string, (formData: JobOutput) => FormError[]>;
 
@@ -28,45 +35,57 @@ const validation = <T>(
     )
   );
 
+const stringMsg = i18nMark("Must be a string");
+const presentMsg = i18nMark("Must be present");
+
 const isBoolean = validation<boolean | undefined>(
   x => x === undefined || typeof x === "boolean",
-  i18nMark("Must be a boolean.")
+  i18nMark("Must be a boolean")
 );
 const isNumber = validation<number | undefined>(
   x => x === undefined || typeof x === "number",
-  i18nMark("Must be a number.")
+  i18nMark("Must be a number")
 );
 const isObject = validation<object | undefined>(
   x => x === undefined || isObjectUtil(x),
-  i18nMark("Must be an object.")
+  i18nMark("Must be an object")
 );
-const isPresent = validation<any>(
-  x => x !== undefined && x !== "",
-  i18nMark("Must be present.")
-);
+const isPresent = validation<any>(x => x !== undefined && x !== "", presentMsg);
 const isString = validation<string | undefined>(
   x => x === undefined || typeof x === "string",
-  i18nMark("Must be a string.")
+  stringMsg
+);
+const isArray = validation<any[] | undefined>(
+  x => x === undefined || Array.isArray(x),
+  i18nMark("Constraints must be an array")
 );
 
 const allUniq = validation<any[]>(
   list => new Set(list).size === list.length,
-  i18nMark("All elements must be unique.")
+  i18nMark("All elements must be unique")
 );
 
 const isUniqIn = <T>(list: T[]) =>
   validation<T>(
     (el: T) => list.filter(x => x === el).length < 2,
-    i18nMark("Must be unique.")
+    i18nMark("Must be unique")
   );
+
+const isOnlyWhitespace = (str: unknown): boolean =>
+  !`${str}`.replace(/\s/g, "").length;
+
+const ensureArray = <T>(something?: T[]): T[] =>
+  Array.isArray(something) ? something : [];
 
 export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
     const { run } = formData.job;
-    const parameters = (run.docker && run.docker.parameters) || [];
+    const parameters = ensureArray(run.docker && run.docker.parameters);
+    const constraints = ensureArray(run.placement && run.placement.constraints);
 
     // prettier-ignore
     return pipe(
+
       // IS BOOLEAN
 
       isBoolean(_ => "job.run.docker.forcePullImage", [run.docker && run.docker.forcePullImage]),
@@ -88,6 +107,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
       isObject(_ => "job.labels", [formData.job.labels]),
       isObject(_ => "job.run.docker", [run.docker]),
+      isObject(_ => "job.run.env", [run.env]),
       isObject(_ => "job.run.ucr", [run.ucr]),
       isObject(_ => "job.run.ucr.image", [run.ucr && run.ucr.image]),
 
@@ -115,7 +135,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       isString(i => `job.run.args.${i}`, run.args || []),
       isString(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
       isString(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
-      isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value))
+      isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
+      isString(i => `job.run.placement.constraints.${i}.operator`, constraints.map(_ => _.operator)),
+      isString(i => `job.run.placement.constraints.${i}.attribute`, constraints.map(_ => _.attribute)),
+      isString(i => `job.run.placement.constraints.${i}.value`, constraints.map(_ => _.value))
 
       // pipe only infers 10 steps, so we need a cast here
     )([]) as FormError[];
@@ -128,7 +151,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const jobId = findNestedPropertyInObject(formData, "job.id");
     const jobIdRegex = /^([a-z0-9]([a-z0-9-]*[a-z0-9]+)*)([.][a-z0-9]([a-z0-9-]*[a-z0-9]+)*)*$/;
     const message = i18nMark(
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
     );
     if (jobId == undefined) {
       return [];
@@ -152,7 +175,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     // Dont accept both `args` and `cmd`
     if (hasCmd && hasArgs) {
       const notBothMessage = i18nMark(
-        "Please specify only one of `cmd` or `args`."
+        "Please specify only one of `cmd` or `args`"
       );
 
       return [
@@ -188,7 +211,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     }
 
     const message = i18nMark(
-      "You must specify a command, an argument or a container with an image."
+      "You must specify a command, an argument or a container with an image"
     );
 
     const containerImageErrorPath = job.run.ucr
@@ -214,7 +237,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         {
           path: ["job", "run", "docker", "image"],
           message: i18nMark(
-            "Must be specified when using the Docker Engine runtime."
+            "Must be specified when using the Docker Engine runtime"
           )
         }
       ];
@@ -225,7 +248,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "ucr", "image", "id"],
-          message: i18nMark("Must be specified when using UCR.")
+          message: i18nMark("Must be specified when using UCR")
         }
       ];
     }
@@ -243,7 +266,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "gpus"],
-          message: i18nMark("GPUs are only available with UCR.")
+          message: i18nMark("GPUs are only available with UCR")
         }
       ];
     }
@@ -258,11 +281,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "docker"],
-          message: i18nMark("Only one of UCR or Docker is allowed.")
+          message: i18nMark("Only one of UCR or Docker is allowed")
         },
         {
           path: ["job", "run", "ucr"],
-          message: i18nMark("Only one of UCR or Docker is allowed.")
+          message: i18nMark("Only one of UCR or Docker is allowed")
         }
       ];
     }
@@ -285,7 +308,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     ) {
       errors.push({
         path: ["job", "run", "ucr", "image", "kind"],
-        message: i18nMark("Image kind must be one of `docker` or `appc`.")
+        message: i18nMark("Image kind must be one of `docker` or `appc`")
       });
     }
     return errors;
@@ -300,21 +323,21 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (cpus != undefined && typeof cpus === "number" && cpus < 0.01) {
       errors.push({
         path: ["job", "run", "cpus"],
-        message: i18nMark("Minimum value is 0.01.")
+        message: i18nMark("Minimum value is 0.01")
       });
     }
 
     if (mem != undefined && typeof mem === "number" && mem < 32) {
       errors.push({
         path: ["job", "run", "mem"],
-        message: i18nMark("Minimum value is 32.")
+        message: i18nMark("Minimum value is 32")
       });
     }
 
     if (disk != undefined && typeof disk === "number" && disk < 0) {
       errors.push({
         path: ["job", "run", "disk"],
-        message: i18nMark("Minimum value is 0.")
+        message: i18nMark("Minimum value is 0")
       });
     }
 
@@ -327,7 +350,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "gpus"],
-          message: i18nMark("Minimum value is 0.")
+          message: i18nMark("Minimum value is 0")
         }
       ];
     }
@@ -342,7 +365,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         if (arg === "" || arg == undefined) {
           errors.push({
             path: ["job", "run", "args", `${index}`],
-            message: i18nMark("Arg cannot be empty.")
+            message: i18nMark("Arg cannot be empty")
           });
         }
       });
@@ -358,7 +381,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["job", "run", "args"],
-          message: i18nMark("Args can only be used with Docker.")
+          message: i18nMark("Args can only be used with Docker")
         }
       ];
     }
@@ -386,7 +409,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       dupIndex.forEach(errorIndex => {
         errors.push({
           path: ["job", "run", "args", `${errorIndex}`],
-          message: i18nMark("No duplicate args.")
+          message: i18nMark("No duplicate args")
         });
       });
     }
@@ -415,7 +438,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       dupIndex.forEach(errorIndex => {
         errors.push({
           path: ["job", "run", "docker", "parameters", `${errorIndex}`],
-          message: i18nMark("No duplicate parameters.")
+          message: i18nMark("No duplicate parameters")
         });
       });
     }
@@ -428,7 +451,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedule", "id"],
-          message: i18nMark("ID is required.")
+          message: i18nMark("ID is required")
         }
       ];
     }
@@ -441,7 +464,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedule", "cron"],
-          message: i18nMark("CRON schedule is required.")
+          message: i18nMark("CRON schedule is required")
         }
       ];
     }
@@ -452,7 +475,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const { schedule } = formData;
     const idRegex = /^([a-z0-9][a-z0-9\\-]*[a-z0-9]+)$/;
     const message = i18nMark(
-      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
     );
     if (!schedule) {
       return [];
@@ -461,7 +484,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedule", "id"],
-          message: i18nMark("Schedule ID must be a string.")
+          message: i18nMark("Schedule ID must be a string")
         }
       ];
     }
@@ -477,26 +500,226 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       if (typeof schedule.startingDeadlineSeconds !== "number") {
         errors.push({
           path: ["schedule", "startingDeadlineSeconds"],
-          message: i18nMark("Starting deadline must be a number.")
+          message: i18nMark("Starting deadline must be a number")
         });
       }
       if (schedule.startingDeadlineSeconds < 1) {
         errors.push({
           path: ["schedule", "startingDeadlineSeconds"],
-          message: i18nMark("Minimum value is 1.")
+          message: i18nMark("Minimum value is 1")
         });
       }
     }
     return errors;
+  },
+
+  constraintsAreArray(formData: JobOutput): FormError[] {
+    const path = "job.run.placement.constraints";
+
+    return isArray(_ => path, [findNestedPropertyInObject(formData, path)])([]);
   }
 };
 
-export function validateFormLabels(jobSpec: JobSpec): FormError[] {
+function volumesAreComplete(formData: JobSpec) {
+  const volumes = findNestedPropertyInObject(formData, "job.run.volumes");
+  const errors: FormError[] = [];
+  if (volumes && Array.isArray(volumes)) {
+    volumes.forEach((volume, index) => {
+      if (
+        (volume.containerPath == null || volume.containerPath === "") &&
+        (volume.hostPath == null || volume.hostPath === "") &&
+        (volume.mode == null || volume.mode === "")
+      ) {
+        return;
+      }
+      if (volume.containerPath == null || volume.containerPath === "") {
+        errors.push({
+          path: ["job", "run", "volumes", `${index}`, "containerPath"],
+          message: i18nMark("Container path is required")
+        });
+      }
+      if (!volume.hasOwnProperty("secret")) {
+        if (volume.hostPath == null || volume.hostPath === "") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "hostPath"],
+            message: i18nMark("Host path is required")
+          });
+        }
+        if (volume.mode == null || volume.mode === "") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "mode"],
+            message: i18nMark("Mode is required")
+          });
+        }
+      }
+    });
+  }
+  return errors;
+}
+
+function checkVolumePropertyTypes(formData: JobSpec) {
+  const volumes = findNestedPropertyInObject(formData, "job.run.volumes");
+  const errors: FormError[] = [];
+  if (volumes && Array.isArray(volumes)) {
+    volumes.forEach((volume, index) => {
+      if (
+        (volume.containerPath == null || volume.containerPath === "") &&
+        (volume.hostPath == null || volume.hostPath === "") &&
+        (volume.mode == null || volume.mode === "")
+      ) {
+        return;
+      }
+      if (typeof volume.containerPath !== "string") {
+        errors.push({
+          path: ["job", "run", "volumes", `${index}`, "containerPath"],
+          message: stringMsg
+        });
+      }
+      if (!volume.hasOwnProperty("secret")) {
+        if (typeof volume.hostPath !== "string") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "hostPath"],
+            message: stringMsg
+          });
+        }
+        if (typeof volume.mode !== "string") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "mode"],
+            message: stringMsg
+          });
+        } else if (volume.mode !== "RO" && volume.mode !== "RW") {
+          errors.push({
+            path: ["job", "run", "volumes", `${index}`, "mode"],
+            message: i18nMark("Mode must be one of: RO, RW")
+          });
+        }
+      }
+    });
+  }
+  return errors;
+}
+
+export function constraintOperatorsArePermitted(formData: JobSpec) {
+  const path = "job.run.placement.constraints";
+  const operators = (findNestedPropertyInObject(formData, path) || []).map(
+    (_: any) => _.operator
+  );
+
+  return validation(
+    op => Object.values(ConstraintOperator).includes(op) || op === "EQ",
+    i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ")
+  )(i => `${path}.${i}.operator`, operators)([]);
+}
+
+export function constraintsAreComplete(formData: JobSpec) {
+  const placement = findNestedPropertyInObject(formData, "job.run.placement");
+  const errors: FormError[] = [];
+  if (
+    placement &&
+    placement.constraints &&
+    Array.isArray(placement.constraints)
+  ) {
+    placement.constraints.forEach((constraint: any, i: number) => {
+      const { operator, attribute, value } = constraint;
+      if (!(attribute || operator || value)) {
+        return;
+      }
+      if (operator == null || operator === "" || isOnlyWhitespace(operator)) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "operator"],
+          message: i18nMark("Operator is required")
+        });
+      }
+      if (
+        attribute == null ||
+        attribute === "" ||
+        isOnlyWhitespace(attribute)
+      ) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "attribute"],
+          message: i18nMark("Field is required")
+        });
+      }
+      if (
+        ((OperatorTypes as any)[operator] || {}).requiresValue &&
+        (value == null || value === "" || isOnlyWhitespace(value))
+      ) {
+        errors.push({
+          path: ["job", "run", "placement", "constraints", `${i}`, "value"],
+          message: i18nMark("Value is required")
+        });
+      }
+    });
+  }
+  return errors;
+}
+
+// We sometimes need to validate the spec instead of the formOutput to make sure
+// that e.g. two ENV-params don't have the same key. we need to allow for
+// that UX-wise, as if you have `DB_HOST` and type `DB_HOSTNAME` in the next
+// field you'd run into trouble when using a POJO as the backing model.
+export function validateSpec(jobSpec: JobSpec): FormError[] {
+  const run = jobSpec.job.run || {};
+  const envsMsg = i18nMark(
+    "Cannot have multiple environment variables with the same key"
+  );
   const labels = (jobSpec.job.labels || []).map(([k]) => k);
-  const message = i18nMark("Cannot have multiple labels with the same key.");
+  const labelsMsg = i18nMark("Cannot have multiple labels with the same key");
+
+  const envVarsErrors: FormError[] = [];
+  const map: { [key: string]: number[] } = {};
+  (run.env || []).forEach(([k, v], i) => {
+    if (k) {
+      if (map[k] != null) {
+        map[k].push(i);
+      } else {
+        map[k] = [i];
+      }
+    }
+    if (v && !isObjectUtil(v)) {
+      if (k == null || k === "") {
+        envVarsErrors.push({
+          path: ["job", "run", "env", `${i}`],
+          message: presentMsg
+        });
+      }
+      if (typeof v !== "string") {
+        envVarsErrors.push({
+          path: ["job", "run", "env", k, "value", `${i}`],
+          message: stringMsg
+        });
+      }
+    }
+    if (k && (v == null || v === "")) {
+      envVarsErrors.push({
+        path: ["job", "run", "env", k, "value", `${i}`],
+        message: presentMsg
+      });
+    }
+  });
+  Object.keys(map).forEach(envVarKey => {
+    if (map[envVarKey].length > 1) {
+      map[envVarKey].forEach(index => {
+        envVarsErrors.push({
+          path: ["job", "run", "env", `${index}`],
+          message: envsMsg
+        });
+      });
+    }
+  });
+  const constraintErrors = constraintsAreComplete(jobSpec).concat(
+    constraintOperatorsArePermitted(jobSpec)
+  );
+
+  const volumesErrors = volumesAreComplete(jobSpec).concat(
+    checkVolumePropertyTypes(jobSpec)
+  );
 
   return pipe(
-    allUniq(_ => "job.labels", [labels], message),
-    isUniqIn(labels)(i => `job.labels.${i}`, labels, message)
-  )([]);
+    allUniq(_ => "job.labels", [labels], labelsMsg),
+    isUniqIn(labels)(i => `job.labels.${i}`, labels, labelsMsg)
+  )([])
+    .concat(envVarsErrors)
+    .concat(volumesErrors)
+    .concat(constraintErrors);
 }

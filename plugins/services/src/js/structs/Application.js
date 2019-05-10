@@ -65,7 +65,9 @@ module.exports = class Application extends Service {
    * @override
    */
   getImages() {
-    return FrameworkUtil.getServiceImages(this.getMetadata().images);
+    const images = this.getMetadata().images || this.get("images");
+
+    return FrameworkUtil.getServiceImages(images);
   }
 
   /**

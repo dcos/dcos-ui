@@ -1,7 +1,7 @@
 jest.mock("../../utils/TaskUtil");
 
 var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var PodInstancesZoneFilter = require("../PodInstancesZoneFilter");
 var List = require("#SRC/js/structs/List");
 var InstanceUtil = require("../../utils/InstanceUtil");

@@ -27,6 +27,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
+import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 class MultiContainerHealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, path, errorsLens) {
@@ -232,14 +233,16 @@ class MultiContainerHealthChecksFormSection extends Component {
   }
 
   getEndpoints(container) {
+    const { data } = this.props;
+
     if (container.endpoints == null) {
       return [];
     }
 
-    return container.endpoints.map(endpoint => {
+    return container.endpoints.map((endpoint, index) => {
       return (
         <option key={endpoint} value={endpoint.name}>
-          {endpoint.name}
+          {HealthCheckUtil.getEndpointText(index, endpoint, data)}
         </option>
       );
     });
@@ -389,7 +392,8 @@ class MultiContainerHealthChecksFormSection extends Component {
           target="_blank"
         >
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -473,7 +477,8 @@ class MultiContainerHealthChecksFormSection extends Component {
           target="_blank"
         >
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
     const heading = (

@@ -2,11 +2,12 @@ import * as React from "react";
 import { TextCell } from "@dcos/ui-kit";
 import { Tooltip } from "reactjs-components";
 
-import ServiceTableUtil from "../utils/ServiceTableUtil";
+// @ts-ignore
+import Framework from "../structs/Framework";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
+import * as Version from "../utils/Version";
 
 const ServiceVersion = React.memo(
   ({
@@ -27,22 +28,15 @@ const ServiceVersion = React.memo(
 export function versionRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const version = ServiceTableUtil.getFormattedVersion(service);
-  if (!version) {
+  if (service instanceof ServiceTree) {
     return null;
   }
 
-  return (
-    <ServiceVersion
-      rawVersion={version.rawVersion}
-      displayVersion={version.displayVersion}
-    />
-  );
-}
+  const rawVersion = Version.fromService(service);
+  const displayVersion =
+    service instanceof Framework ? Version.toDisplayVersion(rawVersion) : "";
 
-export function versionSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "version");
+  return (
+    <ServiceVersion rawVersion={rawVersion} displayVersion={displayVersion} />
+  );
 }

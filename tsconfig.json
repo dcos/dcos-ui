@@ -28,9 +28,8 @@
     "skipLibCheck": true,
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
-      "@extension-kid/data-layer": ["packages/@extension-kid/data-layer"],
-      "@extension-kid/notification-service": ["packages/@extension-kid/notification-service"],
-      "@extension-kid/toast-notifications": ["packages/@extension-kid/toast-notifications"],
+      "@extension-kid/core": ["node_modules/@extension-kid/core"],
+      "@extension-kid/*": ["packages/@extension-kid/*"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
       "#LOCALE/*": ["locale/*"],
@@ -38,6 +37,12 @@
       "#PLUGINS/*": ["plugins/*"]
     }
   },
-  "include": ["src/**/*", "packages/**/*", "plugins/**/*", "locale/**/*"],
+  "include": [
+    "src/**/*",
+    "packages/**/*",
+    "plugins/**/*",
+    "plugins-ee/**/*",
+    "locale/**/*"
+  ],
   "exclude": ["node_modules", "src/styles/**/*"]
 }
