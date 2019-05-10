@@ -232,6 +232,14 @@ describe("Tasks Table", function() {
       cy.get("table tr td.task-table-column-name").should("to.have.length", 4);
     });
 
+    it("Filters tasks that are in failed state", function() {
+      cy.get(".form-control.filter-input-text")
+        .type("{selectall}{backspace}")
+        .type("{selectall}{backspace}");
+      cy.get(".form-control.filter-input-text").type("is:failed");
+      cy.get("table tr td.task-table-column-name").should("to.have.length", 0);
+    });
+
     it("Filters tasks by region", function() {
       cy.get(".form-control.filter-input-text")
         .type("{selectall}{backspace}")
