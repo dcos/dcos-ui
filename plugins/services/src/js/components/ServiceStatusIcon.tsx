@@ -19,7 +19,7 @@ import ServiceTree from "../structs/ServiceTree";
 
 const UNABLE_TO_LAUNCH_TIMEOUT = 1000 * 60 * 30; // 30 minutes
 
-const getTooltipContent = (service: Service, content: JSX.Element) => {
+const getTooltipContent = (service: Service | Pod, content: JSX.Element) => {
   const servicePath = encodeURIComponent(service.getId());
 
   return (
@@ -35,7 +35,7 @@ const getTooltipContent = (service: Service, content: JSX.Element) => {
   );
 };
 
-type TreeNode = Service | ServiceTree;
+type TreeNode = Service | ServiceTree | Pod;
 
 class ServiceStatusIcon extends React.Component<{
   showTooltip?: boolean;
@@ -129,7 +129,7 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  getUnableToLaunchWarning(service: Service) {
+  getUnableToLaunchWarning(service: Service | Pod) {
     const duration = DateUtil.getDuration(
       Date.now() - DateUtil.strToMs((service.getQueue() as any).since as string)
     );

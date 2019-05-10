@@ -29,6 +29,7 @@ import SingleContainerPortMappings from "../../reducers/serviceForm/FormReducers
 import { FormReducer as networks } from "../../reducers/serviceForm/FormReducers/Networks";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import VipLabelUtil from "../../utils/VipLabelUtil";
+import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
@@ -55,13 +56,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     this.forceUpdate();
   }
 
-  isHostNetwork() {
-    const networkType =
-      findNestedPropertyInObject(this.props.data, "networks.0.mode") || HOST;
-
-    return networkType === HOST;
-  }
-
   getHostPortFields(portDefinition, index) {
     let hostPortValue = portDefinition.hostPort;
     const {
@@ -74,14 +68,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         errors,
         `container.portMappings.${index}.hostPort`
       );
-    const isInputDisabled = this.isHostNetwork()
+    const isInputDisabled = isHostNetwork(this.props.data)
       ? portsAutoAssign
       : portDefinition.automaticPort;
 
     let placeholder;
 
     if (isInputDisabled) {
-      placeholder = `$PORT${index}`;
+      placeholder = getHostPortPlaceholder(index);
       hostPortValue = "";
     }
 
@@ -96,7 +90,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -130,10 +125,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           name={`portDefinitions.${index}.hostPort`}
           type="number"
           value={hostPortValue}
+          autoFocus={Boolean(hostPortError)}
         />
         <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
-      !this.isHostNetwork() &&
+      !isHostNetwork(this.props.data) &&
         this.getNonHostNetworkPortsAutoAssignSection(portDefinition, index)
     ];
   }
@@ -164,7 +160,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         balancer and attach this service.{" "}
         <a href={loadBalancerDocsURI} target="_blank">
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -211,11 +208,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       data: { id, portsAutoAssign }
     } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
-    const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
+    const defaultVipPort = isHostNetwork(this.props.data)
+      ? hostPort
+      : containerPort;
 
     // clear placeholder when HOST network portsAutoAssign is true
     const placeholder =
-      this.isHostNetwork() && portsAutoAssign ? "" : defaultVipPort;
+      isHostNetwork(this.props.data) && portsAutoAssign ? "" : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError =
@@ -303,6 +302,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   name={`portDefinitions.${index}.vipPort`}
                   type="number"
                   value={vipPort}
+                  autoFocus={Boolean(vipPortError)}
                 />
               </FieldAutofocus>
             </FormGroup>
@@ -337,7 +337,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -413,6 +414,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             name={`portDefinitions.${index}.containerPort`}
             type="number"
             value={portDefinition.containerPort}
+            autoFocus={Boolean(containerPortError)}
           />
         </FieldAutofocus>
         <FieldError>{containerPortError}</FieldError>
@@ -463,7 +465,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     } = this.props;
     const networkType = findNestedPropertyInObject(networks, "0.mode") || HOST;
 
-    const endpoints = this.isHostNetwork()
+    const endpoints = isHostNetwork(this.props.data)
       ? this.props.data.portDefinitions
       : this.props.data.portMappings;
 
@@ -607,7 +609,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         and ports.{" "}
         <a href={serviceEndpointsDocsURI} target="_blank">
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
     const heading = (
@@ -638,7 +641,8 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           DC/OS can automatically generate a Service Address to connect to each
           of your load balanced endpoints.
         </Trans>
-        {this.isHostNetwork() && this.getHostNetworkPortsAutoAssignSection()}
+        {isHostNetwork(this.props.data) &&
+          this.getHostNetworkPortsAutoAssignSection()}
         {this.getServiceEndpoints()}
         <FormRow key="service-endpoints-add-button">
           <FormGroup className="column-12">

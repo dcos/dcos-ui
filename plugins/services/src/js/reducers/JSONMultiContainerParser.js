@@ -14,7 +14,7 @@ import { JSONParser as residency } from "./serviceForm/JSONReducers/MultiContain
 import { JSONParser as scaling } from "./serviceForm/MultiContainerScaling";
 import { JSONParser as networks } from "./serviceForm/JSONReducers/Networks";
 import { JSONParser as multiContainerNetwork } from "./serviceForm/MultiContainerNetwork";
-import { JSONParser as volumeMounts } from "./serviceForm/MultiContainerVolumes";
+import { MultiContainerVolumeMountsJSONParser as volumeMounts } from "./serviceForm/MultiContainerVolumes";
 import { JSONParser as containers } from "./serviceForm/JSONReducers/Containers";
 
 module.exports = [

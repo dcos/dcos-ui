@@ -28,14 +28,21 @@
     "skipLibCheck": true,
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
-      "@extension-kid/data-layer": ["packages/@extension-kid/data-layer"],
+      "@extension-kid/core": ["node_modules/@extension-kid/core"],
+      "@extension-kid/*": ["packages/@extension-kid/*"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
-      "#LOCALE": ["locale/*"],
+      "#LOCALE/*": ["locale/*"],
       "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
       "#PLUGINS/*": ["plugins/*"]
     }
   },
-  "include": ["src/**/*", "packages/**/*", "plugins/**/*"],
+  "include": [
+    "src/**/*",
+    "packages/**/*",
+    "plugins/**/*",
+    "plugins-ee/**/*",
+    "locale/**/*"
+  ],
   "exclude": ["node_modules", "src/styles/**/*"]
 }

@@ -18,7 +18,7 @@ function checkServiceEndpoints(ports, pathPrefix) {
         return errorsMemo.concat({
           path: pathPrefix.concat([index, "labels", label]),
           message:
-            "VIP label must be in the following format: <ip-addres|name>:<port>"
+            "Label for VIP must be in the following format: <ip-addres|name>:<port>"
         });
       }
 

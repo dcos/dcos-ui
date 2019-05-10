@@ -1,6 +1,6 @@
 import {
   UcrContainer,
-  JobFormData,
+  JobSpecData,
   DockerContainer,
   JobSpec,
   Container,
@@ -13,7 +13,7 @@ export const JobDataPlaceholders = {
   startingDeadlineSeconds: 900
 };
 
-export const getDefaultJob = (): JobFormData => ({
+export const getDefaultJob = (): JobSpecData => ({
   id: "",
   description: "",
   run: {
@@ -28,7 +28,7 @@ export const getDefaultJob = (): JobFormData => ({
 
 export const getDefaultJobSpec = (): JobSpec => ({
   job: getDefaultJob(),
-  cmdOnly: true,
+  cmdOnly: false,
   container: Container.UCR
 });
 
