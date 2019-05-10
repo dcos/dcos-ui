@@ -111,7 +111,7 @@ describe("Job Details", function() {
       cy.get(".page-body-content .configuration-map-row").should(function(
         $elements
       ) {
-        expect($elements.length).to.equal(15);
+        expect($elements.length).to.equal(16);
       });
     });
 
