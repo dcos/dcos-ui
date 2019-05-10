@@ -6,7 +6,9 @@ const LABEL = "is";
 
 const LABEL_TO_STATUS = {
   active: "active",
-  completed: "completed"
+  completed: "completed",
+  failed: "failure",
+  killed: "killed"
 };
 
 /**

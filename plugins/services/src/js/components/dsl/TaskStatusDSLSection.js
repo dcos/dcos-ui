@@ -13,7 +13,9 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
   is_active: DSLExpressionPart.attribute("is", "active"),
-  is_completed: DSLExpressionPart.attribute("is", "completed")
+  is_completed: DSLExpressionPart.attribute("is", "completed"),
+  is_failed: DSLExpressionPart.attribute("is", "failed"),
+  is_killed: DSLExpressionPart.attribute("is", "killed")
 };
 
 class TasksStatusDSLSection extends React.Component {
@@ -52,6 +54,24 @@ class TasksStatusDSLSection extends React.Component {
                   type="checkbox"
                 />
                 <Trans render="span">Completed</Trans>
+              </FieldLabel>
+              <FieldLabel>
+                <FieldInput
+                  checked={data.is_failed}
+                  disabled={!enabled}
+                  name="is_failed"
+                  type="checkbox"
+                />
+                <Trans render="span">Failed</Trans>
+              </FieldLabel>
+              <FieldLabel>
+                <FieldInput
+                  checked={data.is_killed}
+                  disabled={!enabled}
+                  name="is_killed"
+                  type="checkbox"
+                />
+                <Trans render="span">Killed</Trans>
               </FieldLabel>
             </FormGroup>
           </div>

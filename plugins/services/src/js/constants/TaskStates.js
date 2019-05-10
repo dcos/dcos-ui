@@ -27,7 +27,7 @@ const TaskStates = {
   },
 
   TASK_KILLING: {
-    stateTypes: ["active", "failure"],
+    stateTypes: ["active", "killed"],
     displayName: i18nMark("Killing")
   },
 
@@ -37,7 +37,7 @@ const TaskStates = {
   },
 
   TASK_KILLED: {
-    stateTypes: ["completed", "failure"],
+    stateTypes: ["completed", "killed"],
     displayName: i18nMark("Killed")
   },
 
