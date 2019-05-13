@@ -10,33 +10,26 @@ source "${SCRIPT_PATH}/utils/message"
 # to the conventional dcos-ui-plugins-private directory and also temporarily hides the .babelrc file
 # which is not useful when followed through the symlink
 function patch {
-  info "Temporarily renaming .linguirc for external plugins extraction"
+  info "Temporarily swapping .linguirc for external plugins compilation..."
   mv "$SCRIPT_PATH/../.linguirc" "$SCRIPT_PATH/../.tmp.linguirc"
   cp "$SCRIPT_PATH/../plugins-ee/.linguirc.ee" "$SCRIPT_PATH/../.linguirc"
-  mv "$SCRIPT_PATH/../plugins-ee/.babelrc" "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc"
 }
 
 function unpatch {
-  mv "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc" "$SCRIPT_PATH/../plugins-ee/.babelrc"
   rm "$SCRIPT_PATH/../.linguirc"
   mv "$SCRIPT_PATH/../.tmp.linguirc" "$SCRIPT_PATH/../.linguirc"
-  info "Deleted temporary .linguirc.ee"
+  info "Deleted temporary linguirc config"
 }
 
-title "lingui extract"
-
-VERBOSE=""
-if [[ $* == *--verbose* ]]; then
-  VERBOSE="--verbose "
-fi
+title "lingui compile"
 
 if [[ $? == 0 ]]; then
-  info "Extracting message catalogs for dcos-ui..."
-  eval "lingui extract $VERBOSE--clean"
+  info "Compiling message catalogs for dcos-ui..."
+  eval "lingui compile"
   if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
-    info "Extracting message catalogs for dcos-ui-plugins-private"
+    info "Compiling message catalogs for dcos-ui-plugins-private"
     patch
-    eval "lingui extract $VERBOSE--clean"
+    eval "lingui compile"
     unpatch
   fi
 elif [[ $* == *--unpatch ]]; then
