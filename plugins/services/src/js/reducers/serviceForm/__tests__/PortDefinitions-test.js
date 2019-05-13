@@ -1,6 +1,7 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const PortDefinitions = require("../PortDefinitions");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
 const {
   type: { BRIDGE, HOST, USER }

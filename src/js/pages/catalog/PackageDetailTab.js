@@ -13,22 +13,31 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import {
   green,
-  iconSizeL
+  iconSizeL,
+  iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import classNames from "classnames";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
-import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
 import Image from "#SRC/js/components/Image";
 import ImageViewer from "#SRC/js/components/ImageViewer";
 import Loader from "#SRC/js/components/Loader";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StringUtil from "#SRC/js/utils/StringUtil";
+import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
+import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 
 const semver = require("semver");
+
+const runningServicesNames = (labels = []) =>
+  labels
+    .filter(label => label.key === "DCOS_SERVICE_NAME")
+    .map(label => label.value);
 
 const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   const name = cosmosPackage.getName();
@@ -62,9 +71,14 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
 };
 
 const METHODS_TO_BIND = [
+  "renderReviewAndRunButton",
   "handlePackageVersionChange",
   "handleReviewAndRunClick",
-  "onInstalledSuccessModalClose"
+  "hasUnresolvedDependency",
+  "onInstalledSuccessModalClose",
+  "onStoreChange",
+  "renderInstallButton",
+  "renderReviewAndRunButton"
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
@@ -74,7 +88,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.state = {
       hasError: 0,
       isLoadingSelectedVersion: false,
-      isLoadingVersions: false
+      isLoadingVersions: false,
+      runningPackageNames: { state: "loading" }
     };
 
     this.store_listeners = [
@@ -117,13 +132,27 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
   }
 
+  onStoreChange() {
+    this.setState({
+      runningPackageNames: {
+        state: "success",
+        data: runningServicesNames(DCOSStore.serviceTree.getLabels())
+      }
+    });
+  }
+
   componentDidMount() {
     super.componentDidMount(...arguments);
 
+    DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
     this.retrievePackageInfo(
       this.props.params.packageName,
       this.props.location.query.version
     );
+  }
+
+  componentWillUnmount() {
+    DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -157,7 +186,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     router.push(
       `/catalog/packages/${encodeURIComponent(
         params.packageName
-      )}/deploy?version=${location.query.version}`
+      )}/deploy?${qs.stringify({ version: location.query.version })}`
     );
   }
 
@@ -275,33 +304,73 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  getInstallButtons(cosmosPackage) {
+  renderCliHint() {
+    return (
+      <div>
+        <Trans render="p">CLI Only Package</Trans>
+        <Trans render="p">
+          {"This package can only be installed using the CLI. See the "}
+          <a
+            href={MetadataStore.buildDocsURI(
+              "/cli/command-reference/dcos-package/dcos-package-install/"
+            )}
+            target="_blank"
+          >
+            documentation
+          </a>
+          .
+        </Trans>
+      </div>
+    );
+  }
+
+  renderInstallButton({ tooltipContent, disabled }) {
+    const button = (
+      <button
+        className={classNames("button button-primary", { disabled })}
+        onClick={() => disabled || this.handleReviewAndRunClick()}
+      >
+        <Trans render="span">Review & Run</Trans>
+      </button>
+    );
+    return !tooltipContent ? (
+      button
+    ) : (
+      <Tooltip
+        wrapText={true}
+        content={tooltipContent}
+        suppress={!disabled}
+        width={200}
+      >
+        {button}
+      </Tooltip>
+    );
+  }
+
+  hasUnresolvedDependency(cosmosPackage) {
+    const dep = dependency(cosmosPackage);
+    return dep && !(this.state.runningPackageNames.data || []).includes(dep);
+  }
+
+  renderReviewAndRunButton(cosmosPackage) {
     if (cosmosPackage.isCLIOnly()) {
-      return (
-        <div>
-          <Trans render="p">CLI Only Package</Trans>
-          <Trans render="p">
-            {"This package can only be installed using the CLI. See the "}
-            <a
-              href={MetadataStore.buildDocsURI(
-                "/cli/command-reference/dcos-package/dcos-package-install/"
-              )}
-              target="_blank"
-            >
-              documentation
-            </a>.
-          </Trans>
-        </div>
-      );
+      return this.renderCliHint();
     }
 
-    const { isLoadingSelectedVersion } = this.state;
-    let tooltipContent = "";
-    let installButtonIsDisabled = false;
+    if (this.state.isLoadingSelectedVersion) {
+      return this.renderInstallButton({
+        disabled: true,
+        tooltipContent: <Trans>Loading selected version</Trans>
+      });
+    }
 
-    if (isLoadingSelectedVersion) {
-      tooltipContent = <Trans render="span">Loading selected version</Trans>;
-      installButtonIsDisabled = true;
+    if (this.hasUnresolvedDependency(cosmosPackage)) {
+      return this.renderInstallButton({
+        disabled: true,
+        tooltipContent: (
+          <Trans>Cannot run without {dependency(cosmosPackage)} package.</Trans>
+        )
+      });
     }
 
     if (
@@ -312,35 +381,19 @@ class PackageDetailTab extends mixin(StoreMixin) {
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
-      tooltipContent = (
-        <Trans render="span">
-          This version of {cosmosPackage.getName()} requires DC/OS version{" "}
-          {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
-          DC/OS version {semver.coerce(MetadataStore.version)}
-        </Trans>
-      );
-      installButtonIsDisabled = true;
+      return this.renderInstallButton({
+        disabled: true,
+        tooltipContent: (
+          <Trans>
+            This version of {cosmosPackage.getName()} requires DC/OS version{" "}
+            {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
+            DC/OS version {semver.coerce(MetadataStore.version)}
+          </Trans>
+        )
+      });
     }
 
-    return (
-      <div className="button-collection">
-        <Tooltip
-          wrapperClassName="button-group"
-          wrapText={true}
-          content={tooltipContent}
-          suppress={!installButtonIsDisabled}
-          width={200}
-        >
-          <button
-            disabled={installButtonIsDisabled}
-            className="button button-primary"
-            onClick={this.handleReviewAndRunClick}
-          >
-            <Trans render="span">Review & Run</Trans>
-          </button>
-        </Tooltip>
-      </div>
-    );
+    return this.renderInstallButton({ tooltipContent: "", disabled: false });
   }
 
   getPackageVersionsDropdown() {
@@ -504,6 +557,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
       }
     ];
 
+    const isLoading = this.state.runningPackageNames.state === "loading";
+
     return (
       <Page>
         <Page.Header
@@ -514,45 +569,55 @@ class PackageDetailTab extends mixin(StoreMixin) {
             />
           }
         />
-        <div className="container">
-          <div className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset">
-            <div className="media-object media-object-align-top media-object-wrap">
-              <div className="media-object-item">
-                <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
-                  <Image
-                    fallbackSrc={defaultServiceImage}
-                    src={
-                      state.isLoadingSelectedVersion
-                        ? defaultServiceImage
-                        : cosmosPackage.getIcons()["icon-large"]
-                    }
-                  />
+
+        {!isLoading ? (
+          <div>
+            <div className="container">
+              {this.hasUnresolvedDependency(cosmosPackage) &&
+                renderUnresolvedDependency(dependency(cosmosPackage))}
+
+              <div className="media-object-spacing-wrapper media-object-spacing-wide media-object-offset">
+                <div className="media-object media-object-align-top media-object-wrap">
+                  <div className="media-object-item">
+                    <div className="icon icon-huge icon-image-container icon-app-container icon-app-container--borderless icon-default-white">
+                      <Image
+                        fallbackSrc={defaultServiceImage}
+                        src={
+                          state.isLoadingSelectedVersion
+                            ? defaultServiceImage
+                            : cosmosPackage.getIcons()["icon-large"]
+                        }
+                      />
+                    </div>
+                  </div>
+                  {!state.isLoadingSelectedVersion && (
+                    <div className="media-object-item media-object-item-grow ">
+                      <h1 className="short flush-top flush-bottom">{name}</h1>
+                      <div className="flex flex-align-items-center">
+                        <span className="package-version-label">
+                          <Trans>Version</Trans>:
+                        </span>
+                        {this.getPackageVersionsDropdown()}
+                      </div>
+                      <div className="row">
+                        {this.getPackageBadge(cosmosPackage)}
+                      </div>
+                    </div>
+                  )}
+                  <div className="media-object-item package-action-buttons">
+                    {this.renderReviewAndRunButton(cosmosPackage)}
+                  </div>
                 </div>
               </div>
-              {!state.isLoadingSelectedVersion && (
-                <div className="media-object-item media-object-item-grow ">
-                  <h1 className="short flush-top flush-bottom">{name}</h1>
-                  <div className="flex flex-align-items-center">
-                    <span className="package-version-label">
-                      <Trans>Version</Trans>:
-                    </span>
-                    {this.getPackageVersionsDropdown()}
-                  </div>
-                  <div className="row">
-                    {this.getPackageBadge(cosmosPackage)}
-                  </div>
-                </div>
-              )}
-              <div className="media-object-item package-action-buttons">
-                {this.getInstallButtons(cosmosPackage)}
-              </div>
+              {state.isLoadingSelectedVersion
+                ? this.getLoadingScreen()
+                : this.getPackageDescription(definition, cosmosPackage)}
             </div>
+            {this.getInstalledSuccessModal(name)}
           </div>
-          {state.isLoadingSelectedVersion
-            ? this.getLoadingScreen()
-            : this.getPackageDescription(definition, cosmosPackage)}
-        </div>
-        {this.getInstalledSuccessModal(name)}
+        ) : (
+          <Loader />
+        )}
       </Page>
     );
   }
@@ -561,5 +626,26 @@ class PackageDetailTab extends mixin(StoreMixin) {
 PackageDetailTab.contextTypes = {
   router: routerShape
 };
+
+const dependency = cosmosPackage => (cosmosPackage.manager || {}).packageName;
+
+const renderUnresolvedDependency = dependency => (
+  <div className="infoBoxWrapper">
+    <InfoBoxInline
+      message={
+        <div>
+          <Icon shape={SystemIcons.CircleInformation} size={iconSizeXs} />{" "}
+          <Trans>
+            This service cannot run without the {dependency} package. Please run{" "}
+            <Link to={`/catalog/packages/${dependency}`}>
+              {dependency} package
+            </Link>{" "}
+            to enable this service.
+          </Trans>
+        </div>
+      }
+    />
+  </div>
+);
 
 module.exports = PackageDetailTab;

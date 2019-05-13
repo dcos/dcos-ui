@@ -1,6 +1,7 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const MultiContainerConstraints = require("../MultiContainerConstraints");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const { SET, ADD_ITEM, ERROR } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerConstraints", function() {

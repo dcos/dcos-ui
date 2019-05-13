@@ -1,6 +1,7 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const Labels = require("../Labels");
 
 describe("Labels", function() {

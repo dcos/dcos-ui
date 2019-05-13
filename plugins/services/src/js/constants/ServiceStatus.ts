@@ -22,18 +22,23 @@ interface Status {
 ///////////////////////////////////////////////////////////////////////////////
 
 const CREATION_ERROR: Status = {
-  priority: 32,
+  priority: 33,
   displayName: i18nMark("Error Creating Service"),
   category: StatusCategory.ERROR
 };
 const UNAVAILABLE = {
-  priority: 31,
+  priority: 32,
   displayName: i18nMark("Service Unavailable"),
   category: StatusCategory.ERROR
 };
 const ERROR = {
-  priority: 30,
+  priority: 31,
   displayName: i18nMark("Error"),
+  category: StatusCategory.ERROR
+};
+const DEGRADED_AWAITING_RESOURCES: Status = {
+  priority: 30,
+  displayName: i18nMark("Degraded (Awaiting Resources)"),
   category: StatusCategory.ERROR
 };
 
@@ -44,11 +49,6 @@ const ERROR = {
 const DEGRADED: Status = {
   priority: 25,
   displayName: i18nMark("Degraded"),
-  category: StatusCategory.WARNING
-};
-const DEGRADED_AWAITING_RESOURCES: Status = {
-  priority: 24,
-  displayName: i18nMark("Degraded (Awaiting Resources)"),
   category: StatusCategory.WARNING
 };
 const DEGRADED_RECOVERING: Status = {
