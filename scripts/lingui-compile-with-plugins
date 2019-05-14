@@ -5,12 +5,19 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 # Import utils
 source "${SCRIPT_PATH}/utils/message"
 
-# lingui extract cannot extract messages from macros that are outside of the package
-# due to the way packages are resolved from each source file. This script creates a temporary symlink
-# to the conventional dcos-ui-plugins-private directory and also temporarily hides the .babelrc file
-# which is not useful when followed through the symlink
+function eeSanityCheck {
+  if [ -f "$SCRIPT_PATH/../.tmp.linguirc" ]; then
+    warning ".tmp.linguirc file found. Did this script fail previously? Try running with --unpatch to fix"
+    return 1
+  else
+    return 0
+  fi
+}
+
+# lingui config file from the plugins-ee/ is swapped into the workspace. The original
+# file is temporary renamed and copied back at the end of the operation
 function patch {
-  info "Temporarily swapping .linguirc for external plugins compilation..."
+  info "Swapping .linguirc for external plugin extraction"
   mv "$SCRIPT_PATH/../.linguirc" "$SCRIPT_PATH/../.tmp.linguirc"
   cp "$SCRIPT_PATH/../plugins-ee/.linguirc.ee" "$SCRIPT_PATH/../.linguirc"
 }
@@ -18,7 +25,7 @@ function patch {
 function unpatch {
   rm "$SCRIPT_PATH/../.linguirc"
   mv "$SCRIPT_PATH/../.tmp.linguirc" "$SCRIPT_PATH/../.linguirc"
-  info "Deleted temporary linguirc config"
+  info "Restored .linguirc"
 }
 
 title "lingui compile"
@@ -27,6 +34,7 @@ if [[ $? == 0 ]]; then
   info "Compiling message catalogs for dcos-ui..."
   eval "lingui compile"
   if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
+    eeSanityCheck
     info "Compiling message catalogs for dcos-ui-plugins-private"
     patch
     eval "lingui compile"
