@@ -162,6 +162,10 @@ class CreateServiceModalForm extends Component {
     const { editingFieldPath, appConfig } = this.state;
     const { onChange, service } = this.props;
 
+    if (this.props.expandAdvancedSettings) {
+      this.props.resetExpandAdvancedSettings();
+    }
+
     const shouldUpdate =
       editingFieldPath === null &&
       (prevState.editingFieldPath !== null ||
@@ -198,6 +202,12 @@ class CreateServiceModalForm extends Component {
     if (
       !isEqual(prevJSON, nextJSON) &&
       !isEqual(this.state.appConfig, nextJSON)
+    ) {
+      return true;
+    }
+
+    if (
+      nextProps.expandAdvancedSettings !== this.props.expandAdvancedSettings
     ) {
       return true;
     }
@@ -794,6 +804,7 @@ class CreateServiceModalForm extends Component {
     const { appConfig, batch } = this.state;
     const {
       activeTab,
+      expandAdvancedSettings,
       handleTabChange,
       isEdit,
       isJSONModeActive,
@@ -853,6 +864,7 @@ class CreateServiceModalForm extends Component {
                       />
                       <GeneralServiceFormSection
                         errors={errorMap}
+                        expandAdvancedSettings={expandAdvancedSettings}
                         data={data}
                         isEdit={isEdit}
                         onConvertToPod={onConvertToPod}
@@ -898,6 +910,7 @@ class CreateServiceModalForm extends Component {
 
 CreateServiceModalForm.defaultProps = {
   errors: [],
+  expandAdvancedSettings: false,
   handleTabChange() {},
   isJSONModeActive: false,
   onChange() {},
@@ -908,12 +921,14 @@ CreateServiceModalForm.defaultProps = {
 CreateServiceModalForm.propTypes = {
   activeTab: PropTypes.string,
   errors: PropTypes.array,
+  expandAdvancedSettings: PropTypes.bool,
   handleTabChange: PropTypes.func,
   isJSONModeActive: PropTypes.bool,
   onChange: PropTypes.func,
   onErrorStateChange: PropTypes.func,
   service: PropTypes.object,
-  showAllErrors: PropTypes.bool
+  showAllErrors: PropTypes.bool,
+  resetExpandAdvancedSettings: PropTypes.func
 };
 
 module.exports = withI18n()(CreateServiceModalForm);

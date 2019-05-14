@@ -920,6 +920,29 @@ describe("Service Form Modal", function() {
           .parents(".form-group-heading")
           .should("contain", "*");
       });
+
+      it("Should expand Advanced settings they contain errors", function() {
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("bottom");
+        cy.get(".advanced-section-content")
+          .find('.form-control[name="gpus"]')
+          .type("-1");
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("top");
+        cy.get("a.clickable") // Close advanced settings
+          .contains("More Settings")
+          .click();
+        cy.get(".button")
+          .contains("Review & Run")
+          .click();
+        cy.get(".infoBoxWrapper").should("exist");
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("bottom");
+        cy.get(".form-group").contains("GPUs"); // The advanced settings have expanded
+      });
     });
 
     context("Service: Placement", function() {

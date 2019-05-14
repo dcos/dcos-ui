@@ -26,7 +26,7 @@ export default {
           enabled: true
         },
         tracking: {
-          enabled: true
+          enabled: false
         }
       }
     },
