@@ -5,22 +5,32 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 # Import utils
 source "${SCRIPT_PATH}/utils/message"
 
-# lingui extract cannot extract messages from macros that are outside of the package
-# due to the way packages are resolved from each source file. This script creates a temporary symlink
-# to the conventional dcos-ui-plugins-private directory and also temporarily hides the .babelrc file
-# which is not useful when followed through the symlink
+function eeSanityCheck {
+  if [ ! -f "$SCRIPT_PATH/../plugins-ee/.babelrc" ]; then
+    warning "plugins-ee/.babelrc file not found. Did this script fail previously? Try running with --unpatch to fix"
+    return 1
+  else
+    return 0
+  fi
+}
+
+# This function temporarily replaces the lingui config and temporarily hides
+# the .babelrc file. lingui extract cannot extract messages from macros that
+# are outside of the package due to the way packages are resolved from each source file. 
 function patch {
-  info "Temporarily renaming .linguirc for external plugins extraction"
+  info "Swapping .linguirc for external plugin extraction"
   mv "$SCRIPT_PATH/../.linguirc" "$SCRIPT_PATH/../.tmp.linguirc"
   cp "$SCRIPT_PATH/../plugins-ee/.linguirc.ee" "$SCRIPT_PATH/../.linguirc"
+  info "Hiding .babelrc for external plugin extraction"
   mv "$SCRIPT_PATH/../plugins-ee/.babelrc" "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc"
 }
 
 function unpatch {
   mv "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc" "$SCRIPT_PATH/../plugins-ee/.babelrc"
+  info "Restored .babelrc"
   rm "$SCRIPT_PATH/../.linguirc"
   mv "$SCRIPT_PATH/../.tmp.linguirc" "$SCRIPT_PATH/../.linguirc"
-  info "Deleted temporary .linguirc.ee"
+  info "Restored .linguirc"
 }
 
 title "lingui extract"
@@ -34,6 +44,7 @@ if [[ $? == 0 ]]; then
   info "Extracting message catalogs for dcos-ui..."
   eval "lingui extract $VERBOSE--clean"
   if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
+    eeSanityCheck
     info "Extracting message catalogs for dcos-ui-plugins-private"
     patch
     eval "lingui extract $VERBOSE--clean"
