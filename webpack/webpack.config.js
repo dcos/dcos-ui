@@ -74,7 +74,7 @@ module.exports = {
     }),
     new EnvironmentPlugin(["NODE_ENV"]),
     new DefinePlugin({
-      "process.env.LATER_COV": false // prettycron fails otherwise
+      "process.env.LATER_COV": false, // prettycron fails otherwise
       "process.env.MARATHON_NAME": process.env.MARATHON_NAME || "marathon",
       "process.env.MARATHON_API_PREFIX":
         process.env.MARATHON_API_PREFIX || "/service/marathon/v2"
