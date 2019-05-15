@@ -8,8 +8,8 @@ describe("Jobs", function() {
   });
 
   it("creates a simple job", function() {
-    const jobName = "job-with-inline-shell-script";
-    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
+    const jobName = "simple";
+    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -30,6 +30,7 @@ describe("Jobs", function() {
       .type(`{selectall}${fullJobName}`);
     //
     // TODO: Due to a bug in cypress you cannot type values with dots
+    // Cypress will also sometimes hang when typing long strings with hyphens
     // cy
     //   .root()
     //   .getFormGroupInputFor('CPUs')
@@ -38,6 +39,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);
@@ -72,13 +78,18 @@ describe("Jobs", function() {
       .should("have.value", "32");
 
     cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
+
+    cy.root()
       .getFormGroupInputFor("Command *")
       .should("have.value", `${cmdline}`);
   });
 
   it("creates a job with default ucr config", function() {
-    const jobName = "job-with-ucr-config";
-    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
+    const jobName = "ucr";
+    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -107,15 +118,15 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Mem (MiB) *")
       .type("{selectall}32");
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
 
     // Select `Container Image` radio button
     cy.root()
       .get("label")
       .contains("Container Image")
       .click();
+    cy.root()
+      .getFormGroupInputFor("Command")
+      .type(cmdline);
 
     // Fill-in image
     cy.root()
@@ -168,8 +179,8 @@ describe("Jobs", function() {
 
   it("runs, stops and deletes a job", function() {
     // first create a simple job
-    const jobName = "job-to-delete";
-    const fullJobName = `${Cypress.env("TEST_UUID")}-${jobName}`;
+    const jobName = "delete";
+    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -183,6 +194,11 @@ describe("Jobs", function() {
     cy.root()
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
+
+    cy.root()
+      .get("label")
+      .contains("Command Only")
+      .click();
     cy.root()
       .getFormGroupInputFor("Command *")
       .type(cmdline);

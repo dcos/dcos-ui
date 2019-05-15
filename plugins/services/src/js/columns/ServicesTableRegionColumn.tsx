@@ -5,8 +5,6 @@ import { Tooltip } from "reactjs-components";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
-import ServiceTableUtil from "../utils/ServiceTableUtil";
 
 const ServiceRegion = React.memo(({ regions }: { regions: string }) => (
   <TextCell>
@@ -30,10 +28,4 @@ export function regionRendererFactory(localRegion: string | undefined) {
 
     return <ServiceRegion regions={regions.join(", ")} />;
   };
-}
-export function regionSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "region");
 }

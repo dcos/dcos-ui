@@ -1,5 +1,6 @@
+import * as TransactionType from "../../constants/TransactionTypes";
+
 const ReducerUtil = require("../ReducerUtil");
-const TransactionType = require("../../constants/TransactionTypes");
 
 let thisItems, thisReducers;
 

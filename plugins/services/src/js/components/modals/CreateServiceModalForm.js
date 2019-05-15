@@ -23,7 +23,7 @@ import Tabs from "#SRC/js/components/Tabs";
 import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 import Transaction from "#SRC/js/structs/Transaction";
-import TransactionTypes from "#SRC/js/constants/TransactionTypes";
+import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import ArtifactsSection from "../forms/ArtifactsSection";
@@ -41,6 +41,7 @@ import NetworkingFormSection from "../forms/NetworkingFormSection";
 import PodSpec from "../../structs/PodSpec";
 import ServiceErrorMessages from "../../constants/ServiceErrorMessages";
 import ServiceErrorPathMapping from "../../constants/ServiceErrorPathMapping";
+import ServiceErrorTabPathRegexes from "../../constants/ServiceErrorTabPathRegexes";
 import ServiceUtil from "../../utils/ServiceUtil";
 import VolumesFormSection from "../forms/VolumesFormSection";
 
@@ -161,6 +162,10 @@ class CreateServiceModalForm extends Component {
     const { editingFieldPath, appConfig } = this.state;
     const { onChange, service } = this.props;
 
+    if (this.props.expandAdvancedSettings) {
+      this.props.resetExpandAdvancedSettings();
+    }
+
     const shouldUpdate =
       editingFieldPath === null &&
       (prevState.editingFieldPath !== null ||
@@ -197,6 +202,12 @@ class CreateServiceModalForm extends Component {
     if (
       !isEqual(prevJSON, nextJSON) &&
       !isEqual(this.state.appConfig, nextJSON)
+    ) {
+      return true;
+    }
+
+    if (
+      nextProps.expandAdvancedSettings !== this.props.expandAdvancedSettings
     ) {
       return true;
     }
@@ -378,7 +389,8 @@ class CreateServiceModalForm extends Component {
         return {
           className: "text-overflow",
           id: `container${index}`,
-          label: getContainerNameWithIcon(fakeContainer)
+          label: getContainerNameWithIcon(fakeContainer),
+          isContainer: true
         };
       });
     }
@@ -536,7 +548,21 @@ class CreateServiceModalForm extends Component {
       return null;
     }
 
+    const errorsByTab = CreateServiceModalFormUtil.getTopLevelTabErrors(
+      this.props.errors,
+      ServiceErrorTabPathRegexes,
+      ServiceErrorPathMapping,
+      this.props.i18n
+    );
+
     return navigationItems.map(item => {
+      const finalErrorCount = item.isContainer
+        ? findNestedPropertyInObject(
+            CreateServiceModalFormUtil.getContainerTabErrors(errorsByTab),
+            `${item.id}.length`
+          )
+        : findNestedPropertyInObject(errorsByTab, `${item.id}.length`);
+
       return (
         <TabButton
           className={item.className}
@@ -549,6 +575,14 @@ class CreateServiceModalForm extends Component {
             )
           }
           key={item.key || item.id}
+          count={finalErrorCount}
+          showErrorBadge={Boolean(finalErrorCount) && this.props.showAllErrors}
+          description={
+            // TODO: pluralize
+            <Trans render="span">
+              {finalErrorCount} issues need addressing
+            </Trans>
+          }
         >
           {this.getFormTabList(item.children)}
         </TabButton>
@@ -770,6 +804,7 @@ class CreateServiceModalForm extends Component {
     const { appConfig, batch } = this.state;
     const {
       activeTab,
+      expandAdvancedSettings,
       handleTabChange,
       isEdit,
       isJSONModeActive,
@@ -829,6 +864,7 @@ class CreateServiceModalForm extends Component {
                       />
                       <GeneralServiceFormSection
                         errors={errorMap}
+                        expandAdvancedSettings={expandAdvancedSettings}
                         data={data}
                         isEdit={isEdit}
                         onConvertToPod={onConvertToPod}
@@ -874,6 +910,7 @@ class CreateServiceModalForm extends Component {
 
 CreateServiceModalForm.defaultProps = {
   errors: [],
+  expandAdvancedSettings: false,
   handleTabChange() {},
   isJSONModeActive: false,
   onChange() {},
@@ -884,12 +921,14 @@ CreateServiceModalForm.defaultProps = {
 CreateServiceModalForm.propTypes = {
   activeTab: PropTypes.string,
   errors: PropTypes.array,
+  expandAdvancedSettings: PropTypes.bool,
   handleTabChange: PropTypes.func,
   isJSONModeActive: PropTypes.bool,
   onChange: PropTypes.func,
   onErrorStateChange: PropTypes.func,
   service: PropTypes.object,
-  showAllErrors: PropTypes.bool
+  showAllErrors: PropTypes.bool,
+  resetExpandAdvancedSettings: PropTypes.func
 };
 
 module.exports = withI18n()(CreateServiceModalForm);

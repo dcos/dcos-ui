@@ -1,8 +1,8 @@
 import mixin from "reactjs-mixin";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { map } from "rxjs/operators";
-import { combineLatest } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { combineLatest, of } from "rxjs";
 import { graphqlObservable, componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
 
@@ -120,9 +120,11 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   render() {
     const { nodeHealthResponse, filteredNodes, masterRegion } = this.state;
+    const { networks = [] } = this.props;
 
     return (
       <NodesTable
+        withPublicIP={networks.length > 0}
         hosts={filteredNodes}
         nodeHealthResponse={nodeHealthResponse}
         masterRegion={masterRegion}
@@ -142,7 +144,10 @@ const networks$ = graphqlObservable(
   `,
   schema,
   {}
-).pipe(map(response => response.data.networks));
+).pipe(
+  map(response => response.data.networks),
+  catchError(() => of([]))
+);
 
 module.exports = componentFromStream(props$ =>
   combineLatest(props$, networks$).pipe(

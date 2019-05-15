@@ -1,6 +1,7 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const MultiContainerScaling = require("../MultiContainerScaling");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const { SET } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerScaling", function() {
@@ -59,6 +60,14 @@ describe("MultiContainerScaling", function() {
       const expectedObject = [];
 
       expect(MultiContainerScaling.JSONParser({})).toEqual(expectedObject);
+    });
+
+    it("supports instances = 0", function() {
+      const expectedObject = [{ type: SET, value: 0, path: ["instances"] }];
+
+      expect(
+        MultiContainerScaling.JSONParser({ scaling: { instances: 0 } })
+      ).toEqual(expectedObject);
     });
 
     it("populates instances and scaling.kind", function() {

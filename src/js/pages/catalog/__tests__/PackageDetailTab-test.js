@@ -213,9 +213,7 @@ describe("PackageDetailTab", function() {
     });
 
     it("ignores getLoadingScreen when not loading", function() {
-      thisInstance.isSelectedVersionLoading = function() {
-        return false;
-      };
+      thisInstance.isSelectedVersionLoading = () => false;
       thisInstance.state.isLoading = false;
       thisInstance.state.isLoadingSelectedVersion = false;
       thisInstance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
@@ -239,6 +237,17 @@ describe("PackageDetailTab", function() {
 
     it("does not render stale data when the service is changed", function() {
       thisInstance.state.isLoadingSelectedVersion = true;
+      expect(thisInstance.render()).toMatchSnapshot();
+    });
+
+    it("renders an infobox, when a dependency of the service has not been installed yet.", function() {
+      const packageData = packageDescribeFixtures;
+      packageData.manager = { packageName: "someDep" };
+      CosmosPackagesStore.getPackageDetails = jest.fn(
+        () => new UniversePackage(packageData)
+      );
+
+      thisInstance.state.runningPackageNames = [];
       expect(thisInstance.render()).toMatchSnapshot();
     });
   });

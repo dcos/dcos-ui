@@ -8,7 +8,7 @@ import { JSONReducer as residency } from "./serviceForm/JSONReducers/MultiContai
 import { JSONReducer as fetch } from "./serviceForm/JSONReducers/Artifacts";
 import { JSONReducer as scaling } from "./serviceForm/MultiContainerScaling";
 import { JSONReducer as labels } from "./serviceForm/JSONReducers/Labels";
-import { JSONReducer as volumes } from "./serviceForm/MultiContainerVolumes";
+import { MultiContainerVolumeMountsJSONReducer as volumes } from "./serviceForm/MultiContainerVolumes";
 import { JSONReducer as networks } from "./serviceForm/MultiContainerNetwork";
 
 module.exports = {

@@ -8,8 +8,6 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import StringUtil from "#SRC/js/utils/StringUtil";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
-import ServiceTableUtil from "../utils/ServiceTableUtil";
 
 const ServiceInstances = React.memo(
   ({
@@ -55,11 +53,4 @@ export function instancesRenderer(
       runningInstances={service.getRunningInstancesCount()}
     />
   );
-}
-
-export function instancesSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "instances");
 }

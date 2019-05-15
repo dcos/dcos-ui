@@ -1,5 +1,6 @@
+import Transaction from "../Transaction";
+
 const Batch = require("../Batch");
-const Transaction = require("../Transaction");
 
 let thisBatch;
 

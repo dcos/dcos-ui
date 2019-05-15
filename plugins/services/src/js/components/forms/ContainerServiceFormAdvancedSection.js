@@ -107,6 +107,7 @@ class ContainerServiceFormAdvancedSection extends Component {
         step="any"
         type="number"
         value={findNestedPropertyInObject(data, gpusPath)}
+        autoFocus={Boolean(!gpusDisabled && gpusErrors)}
       />
     );
 
@@ -248,6 +249,7 @@ class ContainerServiceFormAdvancedSection extends Component {
               step="any"
               type="number"
               value={findNestedPropertyInObject(data, diskPath)}
+              autoFocus={Boolean(diskErrors)}
             />
             <FieldError>{diskErrors}</FieldError>
           </FormGroup>

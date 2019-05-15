@@ -4,11 +4,6 @@ const LessColorLighten = require("less-color-lighten");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-function requireAll(array) {
-  // https://stackoverflow.com/a/34574630/1559386
-  return array.map(require.resolve);
-}
-
 const devServer = {
   open: false,
   overlay: true,
@@ -30,6 +25,15 @@ if (process.env.NODE_ENV === "testing") {
   devServer.proxy = {};
 }
 
+const babelLoader = {
+  loader: "babel-loader",
+  options: {
+    cacheDirectory: true,
+    // babel-loader does not load the projects babel-config by default for some reason.
+    babelrc: true
+  }
+};
+
 module.exports = {
   devServer,
   entry: "./src/js/index.js",
@@ -46,19 +50,10 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
-      PluginSDK: path.resolve(__dirname, "../src/js/plugin-bridge/PluginSDK"),
-      PluginTestUtils: path.resolve(
-        __dirname,
-        "../src/js/plugin-bridge/PluginTestUtils"
-      ),
       "#EXTERNAL_PLUGINS": path.resolve(
         __dirname,
         `../${process.env.npm_config_externalplugins || "../plugins"}`
-      ),
-      "#PLUGINS": path.resolve(__dirname, "../plugins"),
-      "#SRC": path.resolve(__dirname, "../src"),
-      "#LOCALE": path.resolve(__dirname, "../locale"),
-      "#TESTS": path.resolve(__dirname, "../tests")
+      )
     },
     modules: [
       // include packages
@@ -70,7 +65,7 @@ module.exports = {
     ]
   },
   node: {
-    fs: "empty" // Jison loader fails otherwise
+    fs: "empty" // Jison-generated files fail otherwise
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
@@ -79,7 +74,7 @@ module.exports = {
     }),
     new EnvironmentPlugin(["NODE_ENV"]),
     new DefinePlugin({
-      "process.env.LATER_COV": false,
+      "process.env.LATER_COV": false // prettycron fails otherwise
       "process.env.MARATHON_NAME": process.env.MARATHON_NAME || "marathon",
       "process.env.MARATHON_API_PREFIX":
         process.env.MARATHON_API_PREFIX || "/service/marathon/v2"
@@ -110,9 +105,8 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: "babel-loader"
-          },
+          // we currently need babel here, as lingui relies on babel-transforms.
+          babelLoader,
           {
             loader: "ts-loader",
             options: {
@@ -124,19 +118,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: true,
-              presets: requireAll([
-                "babel-preset-env",
-                "babel-preset-stage-3",
-                "babel-preset-react"
-              ])
-            }
-          }
-        ]
+        use: [babelLoader]
       },
       {
         test: /\.(svg|png|jpg|gif|ico|icns)$/,
@@ -188,10 +170,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.jison$/,
-        loader: "jison-loader"
       },
       {
         test: /\.raml$/,

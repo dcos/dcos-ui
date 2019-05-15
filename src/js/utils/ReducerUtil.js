@@ -1,4 +1,4 @@
-import TransactionTypes from "../constants/TransactionTypes";
+import * as TransactionTypes from "../constants/TransactionTypes";
 
 module.exports = {
   /**
