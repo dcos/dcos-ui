@@ -407,6 +407,83 @@ describe("Service Form Modal", function() {
         });
       });
     });
+
+    describe("switching to multi-container", function() {
+      beforeEach(function() {
+        openServiceModal();
+        openServiceForm();
+        cy.get("a.clickable")
+          .contains("Add another container")
+          .click();
+        cy.get(".button-primary")
+          .contains("Switch to Pod")
+          .click();
+      });
+
+      it("successfully switches to multi-container", function() {
+        cy.get("span")
+          .contains("Add Container")
+          .should("exist");
+      });
+
+      it("successfully adds a container and opens the container tab", function() {
+        cy.get("span")
+          .contains("Add Container")
+          .click();
+        cy.get(".pod-narrow")
+          .contains("container-1")
+          .should("exist")
+          .click();
+        cy.get("h1")
+          .contains("Container")
+          .should("exist");
+      });
+
+      it("successfully opens the placement tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Placement")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Placement")
+          .should("exist");
+      });
+
+      it("successfully opens the networking tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Networking")
+          .click();
+        cy.get("h1.flush-top")
+          .contains("Networking")
+          .should("exist");
+      });
+
+      it("successfully opens the volumes tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Volumes")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Volumes")
+          .should("exist");
+      });
+
+      it("successfully opens the health checks tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Health Checks")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Health Checks")
+          .should("exist");
+      });
+
+      it("successfully opens the environment variables tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Environment")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Environment")
+          .should("exist");
+      });
+    });
   });
 
   context("Edit", function() {
