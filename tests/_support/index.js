@@ -701,39 +701,24 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 });
 
 Cypress.Commands.add("visitUrl", function(options) {
-  var callback = function() {};
-
-  if (options.logIn && options.remoteLogIn) {
-    callback = function(win) {
-      // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
+  cy.visit(Cypress.env("CLUSTER_URL") + "/#" + options.url, {
+    onBeforeLoad(win) {
       win.document.cookie =
-        "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K";
-    };
-  } else {
-    callback = function(win) {
-      // {"uid":"ui-bot","description":"UI Automated Test Bot"}
-      win.document.cookie =
-        "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
-    };
-  }
+        options.logIn && options.remoteLogIn
+          ? // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
+            "dcos-acs-info-cookie=eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K"
+          : // {"uid":"ui-bot","description":"UI Automated Test Bot"}
+            "dcos-acs-info-cookie=eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
 
-  if (options.identify && options.fakeAnalytics) {
-    var identifyCallback = callback;
-    callback = function(win) {
-      identifyCallback(win);
+      // mock a global analytics object
       win.analytics = {
         initialized: true,
         page() {},
         push() {},
         track() {}
       };
-    };
-  }
-
-  var url = Cypress.env("CLUSTER_URL") + "/#" + options.url;
-  cy.visit(url, { onBeforeLoad: callback });
+    }
+  });
 });
 
 Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
