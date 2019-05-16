@@ -8,7 +8,7 @@ describe("Nodes Detail Page", function() {
 
   context("Navigate to node detail page", function() {
     it("navigates to node detail page", function() {
-      cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/nodes", identify: true });
       var nodeName;
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
@@ -26,11 +26,7 @@ describe("Nodes Detail Page", function() {
     });
 
     it("shows error in node detail page when node is invalid [10a]", function() {
-      cy.visitUrl({
-        url: "/nodes/INVALID_NODE",
-        identify: true,
-        fakeAnalytics: true
-      });
+      cy.visitUrl({ url: "/nodes/INVALID_NODE", identify: true });
 
       cy.hash().should("match", /nodes\/INVALID_NODE/);
       cy.get(".page-body-content h3").should(function($title) {
