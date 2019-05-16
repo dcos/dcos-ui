@@ -494,6 +494,24 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getServiceEndpoints() {
     const { containers } = this.props.data;
+    const { handleTabChange } = this.props;
+
+    if (!containers || !containers.length) {
+      return (
+        <div>
+          <Trans render="p">
+            Please{" "}
+            <a
+              onClick={handleTabChange.bind(null, "services")}
+              className="clickable"
+            >
+              add a container
+            </a>{" "}
+            before configuring Endpoints.
+          </Trans>
+        </div>
+      );
+    }
 
     return containers.map((container, index) => {
       const { endpoints = [] } = container;
