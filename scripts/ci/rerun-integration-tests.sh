@@ -39,8 +39,6 @@ PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 CYPRESS_FOLDER="cypress"
 TESTS_FOLDER="tests"
 
-PLUGINS_PATH=${PLUGINS_PATH:-''}
-
 while getopts 'hkn?' flag; do
   case "${flag}" in
   h) CYPRESS_HEADED="true" ;;
