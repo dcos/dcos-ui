@@ -192,13 +192,14 @@
     "webpack-merge": "4.1.1"
   },
   "scripts": {
-    "analyzebundle": "NODE_ENV=production npx webpack --config ./webpack/webpack.analyze.js",
+    "analyzebundle": "NODE_ENV=production webpack --config ./webpack/webpack.analyze.js",
     "build:assets": "npm run clean && ./scripts/lingui-compile && NODE_ENV=production webpack --colors --config ./webpack/webpack.production.js",
     "build:validate": "scripts/validate-build dist/assets/*.js",
     "build": "npm run lint && ([ -z \"${npm_config_externalplugins}\" ] || npm run lint:plugins) && npm test && npm run build:assets && npm run build:validate",
     "clean": "rm -rf dist locale/_build",
+    "cypress:open": "cypress open --config fixturesFolder=tests/_fixtures",
     "lint:commits": "./node_modules/.bin/commitlint",
-    "lint:es": "npx eslint --ignore-path .gitignore **/*.js",
+    "lint:es": "eslint --ignore-path .gitignore **/*.js",
     "lint:plugins": "PLUGINS=$npm_config_externalplugins; npm run lint:es -- \"$PLUGINS/**/*.js\" && npm run lint:styles -- \"$PLUGINS/**/*.less\"",
     "lint:styles": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
     "lint:ts": "tslint -c tslint.json --project tsconfig.json",

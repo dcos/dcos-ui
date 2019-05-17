@@ -9,6 +9,5 @@
   "supportFile": "tests/_support",
   "waitForAnimations": true,
   "videoUploadOnPasses": false,
-  "numTestsKeptInMemory": 0,
   "chromeWebSecurity": false
 }
