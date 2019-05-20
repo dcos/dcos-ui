@@ -46,18 +46,6 @@ describe("Add Repository Form Modal", function() {
       .click();
 
     cy.get(".modal").should("not.exist");
-
-    // Clean up
-    cy.clusterCleanup(function() {
-      cy.get(".page-body-content")
-        .contains("tr", "Here we go!")
-        .find(".button.button-primary-link.button-danger")
-        .invoke("show")
-        .click({ force: true });
-      cy.get(".modal .modal-footer .button.button-danger")
-        .contains("Delete Repository")
-        .click();
-    });
   });
 
   it("displays error in modal after add causes an error", function() {
