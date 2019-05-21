@@ -82,6 +82,29 @@ const ServiceValidatorUtil = {
   // between their spec and their server response.
   isFrameworkSpecDefinition(data) {
     return ServiceValidatorUtil.isFrameworkResponse(data);
+  },
+
+  isValidGroupID(groupID) {
+    if (typeof groupID !== "string" || groupID === "") {
+      return false;
+    }
+
+    // This RegExp is taken from the ID field explanation described here:
+    // https://mesosphere.github.io/marathon/docs/rest-api.html#post-v2-apps
+    const groupIDSegmentPattern = new RegExp(
+      "^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])[.])" +
+        "*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$"
+    );
+
+    return groupID.split("/").every(function(segment, index) {
+      return (
+        index === 0 &&
+        !(segment === null || segment === "" || segment === ".") &&
+        segment !== "." &&
+        segment !== ".." &&
+        groupIDSegmentPattern.test(segment)
+      );
+    });
   }
 };
 

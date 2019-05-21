@@ -337,7 +337,89 @@ describe("Service Table", function() {
 
       cy.get(".modal").should("not.exist");
     });
+
+    context("Create groups modal", function() {
+      beforeEach(function() {
+        cy.get("button.button-narrow")
+          .eq(-1)
+          .click();
+        cy.get("li.is-selectable")
+          .contains("Create Group")
+          .click();
+      });
+
+      it("displays an error for a group name starting with a dot", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type(".test");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name ending with a dot", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type("test.");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name starting with a dash", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type("-test");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name ending with a dash", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type("test-");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name containing unallowed symbols", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type(".te$t");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+    });
   });
+
   context("Region Column", function() {
     context("Single Region", () => {
       beforeEach(function() {
@@ -397,16 +479,16 @@ describe("Service Table", function() {
     });
 
     it("group status is an aggregate of children", function() {
-      cy.get('.status-bar-text')
+      cy.get(".status-bar-text")
         .eq(1)
-        .contains("Running (3 of 3)")
+        .contains("Running (3 of 3)");
     });
 
     it("shows service status counts in group tooltip", function() {
-      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(1)
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
-    })
+    });
   });
 });
