@@ -64,16 +64,17 @@ pipeline {
                   secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
                 ]
               ]) {
-              sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
+              sh "echo 'dcos-system-test-driver disabled!'"
+              //sh "dcos-system-test-driver -j1 -v ./system-tests/driver-config/jenkins.sh"
             }
           }
 
-          post {
-            always {
-              archiveArtifacts "results/**/*"
-              junit "results/results.xml"
-            }
-          }
+          // post {
+          //   always {
+          //     archiveArtifacts "results/**/*"
+          //     junit "results/results.xml"
+          //   }
+          // }
         }
       }
     }
