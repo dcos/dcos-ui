@@ -42,13 +42,11 @@ PROXY_PORT=${PROXY_PORT:-4200}
 PROXY_PID=0
 
 # make sure we run in the testing configuration
-NODE_ENV="testing" 
+NODE_ENV="testing"
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)"
 CYPRESS_FOLDER="cypress"
 TESTS_FOLDER="tests"
-
-PLUGINS_PATH=${PLUGINS_PATH:-''}
 
 while getopts 's:hdnr:?' flag; do
   case "${flag}" in

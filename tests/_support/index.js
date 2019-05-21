@@ -3,34 +3,6 @@ require("./formChildCommands");
 require("./utils/ServicesUtil");
 
 Cypress.Commands.add("configureCluster", function(configuration) {
-  if (Object.keys(configuration).length === 0) {
-    return;
-  }
-
-  if (Cypress.env("FULL_INTEGRATION_TEST")) {
-    // Assume login if not explicitly set to false
-    if (configuration.logIn !== false) {
-      cy.request(
-        "POST",
-        Cypress.env("CLUSTER_URL") + "/acs/api/v1/auth/login",
-        { password: "deleteme", uid: "bootstrapuser" }
-      ).then(function(response) {
-        var cookies = response.headers["set-cookie"];
-        cookies.forEach(function(cookie) {
-          var sessionID = cookie.split("=")[0];
-          // Set cookies for cypress
-          cy.setCookie(sessionID, response.body.token);
-          // Set cookies for application
-          cy.window().then(function(win) {
-            win.document.cookie = cookie;
-          });
-        });
-      });
-    }
-
-    return;
-  }
-
   router.clearRoutes();
   cy.server();
 
@@ -726,12 +698,6 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   // Metadata
   router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
-});
-
-Cypress.Commands.add("clusterCleanup", function(fn) {
-  if (Cypress.env("FULL_INTEGRATION_TEST")) {
-    fn();
-  }
 });
 
 Cypress.Commands.add("visitUrl", function(options) {
