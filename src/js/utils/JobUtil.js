@@ -84,6 +84,15 @@ const JobUtil = {
       }
     }
 
+    // default values for id and policy
+    let scheduleId = "default";
+    let schedulePolicy = "ALLOW";
+    // preserve id and concurrencyPolicy
+    if (typeof spec.schedules != "undefined" && spec.schedules.length > 0) {
+      scheduleId = spec.schedules[0].id;
+      schedulePolicy = spec.schedules[0].concurrencyPolicy;
+    }
+
     // Reset schedules
     spec.schedules = [];
 
@@ -91,11 +100,11 @@ const JobUtil = {
     // defaults
     if (!schedule || schedule.runOnSchedule) {
       const {
-        id = "default",
+        id = scheduleId,
         enabled = true,
         cron,
         timezone,
-        concurrencyPolicy = "ALLOW",
+        concurrencyPolicy = schedulePolicy,
         startingDeadlineSeconds
       } = schedule || {};
 
@@ -147,12 +156,13 @@ const JobUtil = {
     if (schedule) {
       const {
         id = "default",
-        enabled = true,
+        enabled,
         cron,
         timezone,
         concurrencyPolicy = "ALLOW",
         startingDeadlineSeconds
       } = schedule;
+
       // Transfer schedule as with reasonable defaults
       spec.schedules = [
         {

@@ -128,7 +128,8 @@ describe("JobUtil", function() {
         schedules: [
           {
             id: "every-minute",
-            cron: "* * * * *"
+            cron: "* * * * *",
+            enabled: true
           }
         ]
       });
