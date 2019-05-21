@@ -40,16 +40,16 @@ describe("Nodes Page", function() {
         .should("contain", "167.114.218.156");
     });
 
-    it("should only show nodes with service", function() {
-      cy.get("@filterBar").contains("Filter by Service").click();
-      cy.get(".dropdown-menu").contains("cassandra-healthy").click();
+    // it("should only show nodes with service", function() {
+    //   cy.get("@filterBar").contains("Filter by Service").click();
+    //   cy.get(".dropdown-menu").contains("cassandra-healthy").click();
 
-      cy
-        .get("@hostnames")
-        .should("not.contain", "167.114.218.156")
-        .should("not.contain", "167.114.218.155")
-        .should("contain", "dcos-01");
-    });
+    //   cy
+    //     .get("@hostnames")
+    //     .should("not.contain", "167.114.218.156")
+    //     .should("not.contain", "167.114.218.155")
+    //     .should("contain", "dcos-01");
+    // });
   });
 
   context("Nodes grid", function() {
@@ -73,45 +73,45 @@ describe("Nodes Page", function() {
         .should("contain", "1%");
     });
 
-    context("Filters nodes grid", function() {
-      beforeEach(function() {
-        cy.visitUrl({ url: "/nodes/grid" });
-        cy.get(".filter-bar").as("filterBar");
-      });
+    // context("Filters nodes grid", function() {
+    //   beforeEach(function() {
+    //     cy.visitUrl({ url: "/nodes/grid" });
+    //     cy.get(".filter-bar").as("filterBar");
+    //   });
 
-      it("should only show cassandra-healthy nodes", function() {
-        cy.get("@filterBar").contains("Filter by Service").click();
-        cy.get(".dropdown-menu").contains("cassandra-healthy").click();
+    //   it("should only show cassandra-healthy nodes", function() {
+    //     cy.get("@filterBar").contains("Filter by Service").click();
+    //     cy.get(".dropdown-menu").contains("cassandra-healthy").click();
 
-        cy
-          .get(".nodes-grid-dials")
-          .should("contain", "3%")
-          .should("not.contain", "5%")
-          .should("not.contain", "19%");
-      });
+    //     cy
+    //       .get(".nodes-grid-dials")
+    //       .should("contain", "3%")
+    //       .should("not.contain", "5%")
+    //       .should("not.contain", "19%");
+    //   });
 
-      it("should not display any nodes", function() {
-        cy.get("@filterBar").contains("Filter by Service").click();
-        cy.get(".dropdown-menu").contains("cassandra-na").click();
+    //   it("should not display any nodes", function() {
+    //     cy.get("@filterBar").contains("Filter by Service").click();
+    //     cy.get(".dropdown-menu").contains("cassandra-na").click();
 
-        cy
-          .get(".nodes-grid-dials")
-          .should("not.contain", "3%")
-          .should("not.contain", "5%")
-          .should("not.contain", "19%");
-      });
+    //     cy
+    //       .get(".nodes-grid-dials")
+    //       .should("not.contain", "3%")
+    //       .should("not.contain", "5%")
+    //       .should("not.contain", "19%");
+    //   });
 
-      it("should only show unhealthy node", function() {
-        cy.get("@filterBar").contains("Filter by Service").click();
-        cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
-        cy.get(".filter-input-text").as("filterInputText");
-        cy.get("@filterInputText").type("is:healthy");
+    //   it("should only show unhealthy node", function() {
+    //     cy.get("@filterBar").contains("Filter by Service").click();
+    //     cy.get(".dropdown-menu").contains("cassandra-unhealthy").click();
+    //     cy.get(".filter-input-text").as("filterInputText");
+    //     cy.get("@filterInputText").type("is:healthy");
 
-        cy
-          .get(".nodes-grid-dials")
-          .should("contain", "13%")
-          .should("not.contain", "19%");
-      });
-    });
+    //     cy
+    //       .get(".nodes-grid-dials")
+    //       .should("contain", "13%")
+    //       .should("not.contain", "19%");
+    //   });
+    // });
   });
 });
