@@ -31,6 +31,7 @@ pipeline {
 
     stage("Build") {
       steps {
+        sh "npm config delete externalplugins"
         sh "npm --unsafe-perm install"
         sh "npx cypress install"
         sh "npm run build"
