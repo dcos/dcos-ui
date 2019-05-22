@@ -19,6 +19,7 @@ interface GeneralProps {
   formData: FormOutput;
   errors: FormError[];
   showErrors: boolean;
+  isEdit: boolean;
 }
 
 function getFieldError(path: string, errors: FormError[]) {
@@ -263,7 +264,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
   }
 
   render() {
-    const { formData, errors, showErrors } = this.props;
+    const { formData, errors, showErrors, isEdit } = this.props;
 
     const idTooltipContent = (
       <Trans>
@@ -301,7 +302,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput name="job.id" type="text" value={formData.jobId} />
+              <FieldInput
+                name="job.id"
+                type="text"
+                disabled={isEdit}
+                value={formData.jobId}
+              />
             </FieldAutofocus>
             <FieldError>{idError}</FieldError>
           </FormGroup>
