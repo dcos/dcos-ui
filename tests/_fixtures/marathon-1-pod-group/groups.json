@@ -32,7 +32,14 @@
               "gpus": 0
             },
             "endpoints": [
-
+              {
+                "name": "ping",
+                "containerPort": 80,
+                "hostPort": 0,
+                "protocol": [
+                  "tcp"
+                ]
+              }
             ],
             "image": {
               "kind": "DOCKER",
