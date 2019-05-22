@@ -1,6 +1,7 @@
 import {
   MetronomeSpecValidators,
-  validateFormLabels
+  validateSpec,
+  constraintsAreComplete
 } from "../MetronomeJobValidators";
 import { JobOutput } from "../JobFormData";
 
@@ -8,17 +9,17 @@ const JOBID_ERRORS = [
   {
     path: ["job", "id"],
     message:
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
   }
 ];
 const CMDARGSERROR = [
   {
     path: ["job", "run", "cmd"],
-    message: "Please specify only one of `cmd` or `args`."
+    message: "Please specify only one of `cmd` or `args`"
   },
   {
     path: ["job", "run", "args"],
-    message: "Please specify only one of `cmd` or `args`."
+    message: "Please specify only one of `cmd` or `args`"
   }
 ];
 
@@ -26,98 +27,98 @@ const CMDARGSCONTAINERERROR = [
   {
     path: ["job", "run", "cmd"],
     message:
-      "You must specify a command, an argument or a container with an image."
+      "You must specify a command, an argument or a container with an image"
   },
   {
     path: ["job", "run", "args"],
     message:
-      "You must specify a command, an argument or a container with an image."
+      "You must specify a command, an argument or a container with an image"
   },
   {
     path: [],
     message:
-      "You must specify a command, an argument or a container with an image."
+      "You must specify a command, an argument or a container with an image"
   }
 ];
 
 const MUSTCONTAINIMAGEFORDOCKER = [
   {
     path: ["job", "run", "docker", "image"],
-    message: "Must be specified when using the Docker Engine runtime."
+    message: "Must be specified when using the Docker Engine runtime"
   }
 ];
 
 const MUSTCONTAINIMAGEFORUCR = [
   {
     path: ["job", "run", "ucr", "image", "id"],
-    message: "Must be specified when using UCR."
+    message: "Must be specified when using UCR"
   }
 ];
 
 const GPUSERROR = [
   {
     path: ["job", "run", "gpus"],
-    message: "GPUs are only available with UCR."
+    message: "GPUs are only available with UCR"
   }
 ];
 
 const CPURANGEERROR = [
   {
     path: ["job", "run", "cpus"],
-    message: "Minimum value is 0.01."
+    message: "Minimum value is 0.01"
   }
 ];
 
 const MEMRANGEERROR = [
   {
     path: ["job", "run", "mem"],
-    message: "Minimum value is 32."
+    message: "Minimum value is 32"
   }
 ];
 
 const DISKRANGEERROR = [
   {
     path: ["job", "run", "disk"],
-    message: "Minimum value is 0."
+    message: "Minimum value is 0"
   }
 ];
 
 const GPURANGEERROR = [
   {
     path: ["job", "run", "gpus"],
-    message: "Minimum value is 0."
+    message: "Minimum value is 0"
   }
 ];
 
 const EMPTYARGGERROR = [
   {
     path: ["job", "run", "args", "0"],
-    message: "Arg cannot be empty."
+    message: "Arg cannot be empty"
   }
 ];
 
 const ARGSWITHOUTDOCKERERROR = [
   {
     path: ["job", "run", "args"],
-    message: "Args can only be used with Docker."
+    message: "Args can only be used with Docker"
   }
 ];
 
 const UCRANDDOCKERERROR = [
   {
     path: ["job", "run", "docker"],
-    message: "Only one of UCR or Docker is allowed."
+    message: "Only one of UCR or Docker is allowed"
   },
   {
     path: ["job", "run", "ucr"],
-    message: "Only one of UCR or Docker is allowed."
+    message: "Only one of UCR or Docker is allowed"
   }
 ];
 
 const SCHEDULEIDERROR = [
   {
     path: ["schedule", "id"],
-    message: "ID is required."
+    message: "ID is required"
   }
 ];
 
@@ -125,28 +126,28 @@ const SCHEDULEIDREGEXERROR = [
   {
     path: ["schedule", "id"],
     message:
-      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
   }
 ];
 
 const CRONERROR = [
   {
     path: ["schedule", "cron"],
-    message: "CRON schedule is required."
+    message: "CRON schedule is required"
   }
 ];
 
 const STARTINGDEADLINETYPEERROR = [
   {
     path: ["schedule", "startingDeadlineSeconds"],
-    message: "Starting deadline must be a number."
+    message: "Starting deadline must be a number"
   }
 ];
 
 const STARTINGDEADLINEVALUEERROR = [
   {
     path: ["schedule", "startingDeadlineSeconds"],
-    message: "Minimum value is 1."
+    message: "Minimum value is 1"
   }
 ];
 
@@ -169,7 +170,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         path: ["job", "id"],
-        message: "Must be a string."
+        message: "Must be a string"
       });
     });
 
@@ -326,7 +327,7 @@ describe("MetronomeSpecValidators", () => {
       const spec: any = validJobSpec();
       spec.job.run.docker = "not an object";
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be an object.",
+        message: "Must be an object",
         path: ["job", "run", "docker"]
       });
     });
@@ -336,7 +337,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.ucr = "not an object";
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be an object.",
+        message: "Must be an object",
         path: ["job", "run", "ucr"]
       });
     });
@@ -412,7 +413,7 @@ describe("MetronomeSpecValidators", () => {
       ).toEqual(GPUSERROR);
     });
 
-    it("returns error when gpus are used without docker or ucr", () => {
+    it("does not return error when gpus are used without explicit container", () => {
       const spec = {
         job: {
           run: {
@@ -422,7 +423,7 @@ describe("MetronomeSpecValidators", () => {
       };
       expect(
         MetronomeSpecValidators.gpusOnlyWithUCR(spec as JobOutput)
-      ).toEqual(GPUSERROR);
+      ).toEqual([]);
     });
   });
 
@@ -436,7 +437,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.job.id;
       expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
-        { message: "Must be present.", path: ["job", "id"] }
+        { message: "Must be present", path: ["job", "id"] }
       ]);
     });
 
@@ -444,7 +445,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.job.run.cpus;
       expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
-        { message: "Must be present.", path: ["job", "run", "cpus"] }
+        { message: "Must be present", path: ["job", "run", "cpus"] }
       ]);
     });
 
@@ -452,7 +453,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.job.run.mem;
       expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
-        { message: "Must be present.", path: ["job", "run", "mem"] }
+        { message: "Must be present", path: ["job", "run", "mem"] }
       ]);
     });
 
@@ -460,7 +461,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.job.run.disk;
       expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
-        { message: "Must be present.", path: ["job", "run", "disk"] }
+        { message: "Must be present", path: ["job", "run", "disk"] }
       ]);
     });
 
@@ -468,10 +469,10 @@ describe("MetronomeSpecValidators", () => {
       const spec = { job: { run: {} } };
 
       expect(MetronomeSpecValidators.validate(spec as any)).toEqual([
-        { message: "Must be present.", path: ["job", "id"] },
-        { message: "Must be present.", path: ["job", "run", "cpus"] },
-        { message: "Must be present.", path: ["job", "run", "disk"] },
-        { message: "Must be present.", path: ["job", "run", "mem"] }
+        { message: "Must be present", path: ["job", "id"] },
+        { message: "Must be present", path: ["job", "run", "cpus"] },
+        { message: "Must be present", path: ["job", "run", "disk"] },
+        { message: "Must be present", path: ["job", "run", "mem"] }
       ]);
     });
   });
@@ -616,7 +617,7 @@ describe("MetronomeSpecValidators", () => {
       };
 
       expect(MetronomeSpecValidators.validate(spec as any)).not.toContainEqual({
-        message: "Must be present.",
+        message: "Must be present",
         path: ["job", "run", "docker", "parameters", "0", "value"]
       });
     });
@@ -640,7 +641,7 @@ describe("MetronomeSpecValidators", () => {
       expect(
         MetronomeSpecValidators.validate(spec as JobOutput)
       ).toContainEqual({
-        message: "Must be present.",
+        message: "Must be present",
         path: ["job", "run", "docker", "parameters", "0", "key"]
       });
     });
@@ -665,7 +666,7 @@ describe("MetronomeSpecValidators", () => {
       expect(
         MetronomeSpecValidators.validate(spec as JobOutput)
       ).toContainEqual({
-        message: "Must be present.",
+        message: "Must be present",
         path: ["job", "run", "docker", "parameters", "0", "value"]
       });
     });
@@ -882,11 +883,11 @@ describe("MetronomeSpecValidators", () => {
       const errors = [
         {
           path: ["job", "run", "docker", "parameters", "0"],
-          message: "No duplicate parameters."
+          message: "No duplicate parameters"
         },
         {
           path: ["job", "run", "docker", "parameters", "1"],
-          message: "No duplicate parameters."
+          message: "No duplicate parameters"
         }
       ];
       expect(
@@ -948,11 +949,11 @@ describe("MetronomeSpecValidators", () => {
       const errors = [
         {
           path: ["job", "run", "args", "0"],
-          message: "No duplicate args."
+          message: "No duplicate args"
         },
         {
           path: ["job", "run", "args", "1"],
-          message: "No duplicate args."
+          message: "No duplicate args"
         }
       ];
       expect(
@@ -967,7 +968,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.cmd = 123;
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a string.",
+        message: "Must be a string",
         path: ["job", "run", "cmd"]
       });
     });
@@ -977,7 +978,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.cpus = "123";
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a number.",
+        message: "Must be a number",
         path: ["job", "run", "cpus"]
       });
     });
@@ -987,7 +988,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.disk = "123";
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a number.",
+        message: "Must be a number",
         path: ["job", "run", "disk"]
       });
     });
@@ -997,7 +998,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.mem = "123";
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a number.",
+        message: "Must be a number",
         path: ["job", "run", "mem"]
       });
     });
@@ -1009,7 +1010,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.docker = { image: 123 };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a string.",
+        message: "Must be a string",
         path: ["job", "run", "docker", "image"]
       });
     });
@@ -1019,7 +1020,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.docker = { forcePullImage: 123 };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a boolean.",
+        message: "Must be a boolean",
         path: ["job", "run", "docker", "forcePullImage"]
       });
     });
@@ -1029,7 +1030,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.docker = { privileged: 123 };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a boolean.",
+        message: "Must be a boolean",
         path: ["job", "run", "docker", "privileged"]
       });
     });
@@ -1072,7 +1073,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.ucr = { image: 123 };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be an object.",
+        message: "Must be an object",
         path: ["job", "run", "ucr", "image"]
       });
     });
@@ -1082,7 +1083,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.ucr = { privileged: 123 };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a boolean.",
+        message: "Must be a boolean",
         path: ["job", "run", "ucr", "privileged"]
       });
     });
@@ -1092,7 +1093,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.ucr = { image: { id: 123 } };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a string.",
+        message: "Must be a string",
         path: ["job", "run", "ucr", "image", "id"]
       });
     });
@@ -1113,7 +1114,7 @@ describe("MetronomeSpecValidators", () => {
         [
           {
             path: ["job", "run", "ucr", "image", "kind"],
-            message: "Image kind must be one of `docker` or `appc`."
+            message: "Image kind must be one of `docker` or `appc`"
           }
         ]
       );
@@ -1124,7 +1125,7 @@ describe("MetronomeSpecValidators", () => {
       spec.job.run.ucr = { image: { forcePull: 123 } };
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
-        message: "Must be a boolean.",
+        message: "Must be a boolean",
         path: ["job", "run", "ucr", "image", "forcePull"]
       });
     });
@@ -1295,48 +1296,224 @@ describe("MetronomeSpecValidators", () => {
       ).toEqual(STARTINGDEADLINETYPEERROR);
     });
   });
+
+  describe("#constraintsAreArray", () => {
+    it("does not return error if constraints are array", () => {
+      const spec = {
+        job: {
+          run: {
+            placement: {
+              constraints: []
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if no constraints present", () => {
+      const spec = {
+        job: {
+          run: {
+            placement: {}
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("does not return error if no placement present", () => {
+      const spec = {
+        job: {
+          run: {}
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
+        []
+      );
+    });
+
+    it("returns error if constraints are not an array", () => {
+      const spec = {
+        job: {
+          run: {
+            placement: {
+              constraints: {}
+            }
+          }
+        }
+      };
+      expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual([
+        {
+          path: ["job", "run", "placement", "constraints"],
+          message: "Constraints must be an array"
+        }
+      ]);
+    });
+  });
 });
 
-describe("validateFormLabels", () => {
-  it("does not return error if labels are not present", () => {
-    const spec = {
-      job: {}
-    };
-
-    expect(validateFormLabels(spec as any)).toEqual([]);
-  });
-
-  it("does not return error if labels contain no duplicate keys", () => {
+describe("#constraintsAreComplete", () => {
+  it("does not return error if no constraints present", () => {
     const spec = {
       job: {
-        labels: [["a", "b"], ["c", "d"]]
+        run: {
+          placement: {}
+        }
       }
     };
-
-    expect(validateFormLabels(spec as any)).toEqual([]);
+    expect(constraintsAreComplete(spec as any)).toEqual([]);
   });
 
-  it("returns error if labels contain duplicate keys", () => {
+  it("does not return error if no placement present", () => {
     const spec = {
       job: {
-        labels: [["a", "b"], ["a", "d"]]
+        run: {}
       }
     };
-    const message = "Cannot have multiple labels with the same key.";
+    expect(constraintsAreComplete(spec as any)).toEqual([]);
+  });
 
-    expect(validateFormLabels(spec as any)).toEqual([
+  it("does not return error if constraints are complete", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                attribute: "a",
+                operator: "IS",
+                value: "c"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([]);
+  });
+
+  it("returns error if value is required and missing", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                attribute: "a",
+                operator: "IS"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([
       {
-        path: ["job", "labels"],
-        message
-      },
-      {
-        path: ["job", "labels", "0"],
-        message
-      },
-      {
-        path: ["job", "labels", "1"],
-        message
+        path: ["job", "run", "placement", "constraints", "0", "value"],
+        message: "Value is required"
       }
     ]);
+  });
+
+  it("returns error if attribute is missing", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                operator: "IS",
+                value: "b"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([
+      {
+        path: ["job", "run", "placement", "constraints", "0", "attribute"],
+        message: "Field is required"
+      }
+    ]);
+  });
+
+  it("returns error if operator is missing", () => {
+    const spec = {
+      job: {
+        run: {
+          placement: {
+            constraints: [
+              {
+                value: "b",
+                attribute: "a"
+              }
+            ]
+          }
+        }
+      }
+    };
+    expect(constraintsAreComplete(spec as any)).toEqual([
+      {
+        path: ["job", "run", "placement", "constraints", "0", "operator"],
+        message: "Operator is required"
+      }
+    ]);
+  });
+});
+
+describe("validateSpec", () => {
+  describe("for labels", () => {
+    it("does not return error if labels are not present", () => {
+      const spec = { job: {} };
+
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
+
+    it("does not return error if labels contain no duplicate keys", () => {
+      const spec = { job: { labels: [["a", "b"], ["c", "d"]] } };
+
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
+
+    it("returns error if labels contain duplicate keys", () => {
+      const spec = { job: { labels: [["a", "b"], ["a", "d"]] } };
+      const message = "Cannot have multiple labels with the same key";
+
+      expect(validateSpec(spec as any)).toEqual([
+        { path: ["job", "labels"], message },
+        { path: ["job", "labels", "0"], message },
+        { path: ["job", "labels", "1"], message }
+      ]);
+    });
+  });
+  describe("for env vars", () => {
+    it("does not return error if vars are not present", () => {
+      const spec = { job: {} };
+
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
+
+    it("does not return error if env vars contain no duplicate keys", () => {
+      const spec = { job: { run: { env: [["a", "b"], ["c", "d"]] } } };
+
+      expect(validateSpec(spec as any)).toEqual([]);
+    });
+
+    it("returns error if env vars contain duplicate keys", () => {
+      const spec = { job: { run: { env: [["a", "b"], ["a", "d"]] } } };
+      const message =
+        "Cannot have multiple environment variables with the same key";
+
+      expect(validateSpec(spec as any)).toEqual([
+        { path: ["job", "run", "env", "0"], message },
+        { path: ["job", "run", "env", "1"], message }
+      ]);
+    });
   });
 });

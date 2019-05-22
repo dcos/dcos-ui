@@ -5,23 +5,33 @@ import { Trans } from "@lingui/macro";
 
 import Node from "#SRC/js/structs/Node";
 
-const NodesTablePublicIpColumn = (item: Node) => {
-  const publicIps = item.getPublicIps();
-  if (publicIps.length === 0) {
+const noPublicIps = (
+  <TextCell>
+    <Trans>N/A</Trans>
+  </TextCell>
+);
+const NodePublicIp = React.memo(
+  ({ firstIp, allIps }: { firstIp: string; allIps: string }) => {
+    if (!firstIp) {
+      return noPublicIps;
+    }
+
+    if (!allIps) {
+      return <TextCell>{firstIp}</TextCell>;
+    }
+
     return (
       <TextCell>
-        <Trans>N/A</Trans>
+        <Tooltip content={allIps}>{firstIp}</Tooltip>
       </TextCell>
     );
   }
-  if (publicIps.length === 1) {
-    return <TextCell>{publicIps[0]}</TextCell>;
-  }
-  return (
-    <TextCell>
-      <Tooltip content={publicIps.join(", ")}>{publicIps[0]}</Tooltip>
-    </TextCell>
-  );
+);
+
+const NodesTablePublicIpColumn = (item: Node) => {
+  const publicIps = item.getPublicIps() || [];
+
+  return <NodePublicIp firstIp={publicIps[0]} allIps={publicIps.join(", ")} />;
 };
 
 export { NodesTablePublicIpColumn as default };

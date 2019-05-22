@@ -1,7 +1,8 @@
+import * as ServiceStatus from "../../constants/ServiceStatus";
+
 const Application = require("../Application");
 const HealthStatus = require("../../constants/HealthStatus");
 const ServiceImages = require("../../constants/ServiceImages");
-const ServiceStatus = require("../../constants/ServiceStatus");
 const TaskStats = require("../TaskStats");
 const VolumeList = require("../VolumeList");
 
@@ -111,11 +112,27 @@ describe("Application", function() {
       expect(service.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
 
-    it("returns correct images", function() {
+    it("returns correct images from metadata", function() {
       const service = new Application({
         labels: {
           DCOS_PACKAGE_METADATA:
             "eyJpbWFnZXMiOiB7ICJpY29uLXNtYWxsIjogImZvby1zbWFsbC5wbmciLCAiaWNvbi1tZWRpdW0iOiAiZm9vLW1lZGl1bS5wbmciLCAiaWNvbi1sYXJnZSI6ICJmb28tbGFyZ2UucG5nIn19"
+        }
+      });
+
+      expect(service.getImages()).toEqual({
+        "icon-small": "foo-small.png",
+        "icon-medium": "foo-medium.png",
+        "icon-large": "foo-large.png"
+      });
+    });
+
+    it("returns correct images from service", function() {
+      const service = new Application({
+        images: {
+          "icon-small": "foo-small.png",
+          "icon-medium": "foo-medium.png",
+          "icon-large": "foo-large.png"
         }
       });
 

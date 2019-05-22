@@ -16,17 +16,14 @@ module.exports = {
     }
 
     if (type === SET && joinedPath === "instances") {
-      this.internalState.instances = parseInt(value, 10);
-      if (!this.internalState.instances) {
-        return null;
-      }
+      this.internalState.instances = parseInt(value, 10) || 0;
 
       return this.internalState;
     }
 
     if (type === SET && joinedPath === "scaling.kind") {
       this.internalState.kind = value;
-      if (!this.internalState.instances) {
+      if (this.internalState.instances == null) {
         return null;
       }
 
@@ -42,7 +39,7 @@ module.exports = {
     }
 
     const transactions = [];
-    if (state.scaling.instances) {
+    if (Number.isInteger(state.scaling.instances)) {
       transactions.push(
         new Transaction(["instances"], state.scaling.instances)
       );

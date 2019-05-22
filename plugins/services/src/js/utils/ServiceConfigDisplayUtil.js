@@ -9,7 +9,7 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { isObject } from "#SRC/js/utils/Util";
-import EmptyStates from "#SRC/js/constants/EmptyStates";
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {

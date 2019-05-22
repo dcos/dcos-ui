@@ -204,7 +204,7 @@ class TaskDirectoryTable extends React.Component {
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
-        containerSelector=".gm-scroll-view"
+        containerSelector=".gm-scrollbar-container-fluid-view-width"
         data={this.props.files}
         sortBy={{ prop: "path", order: "asc" }}
       />

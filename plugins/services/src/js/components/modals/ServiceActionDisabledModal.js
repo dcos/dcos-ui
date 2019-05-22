@@ -19,13 +19,13 @@ import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceTree from "../../structs/ServiceTree";
-import {
-  EDIT,
-  RESTART,
-  RESUME,
-  SCALE,
-  STOP
-} from "../../constants/ServiceActionItem";
+import { ServiceActionItem } from "../../constants/ServiceActionItem";
+
+const EDIT = ServiceActionItem.EDIT;
+const RESTART = ServiceActionItem.RESTART;
+const RESUME = ServiceActionItem.RESUME;
+const SCALE = ServiceActionItem.SCALE;
+const STOP = ServiceActionItem.STOP;
 
 const METHODS_TO_BIND = ["handleTextCopy"];
 

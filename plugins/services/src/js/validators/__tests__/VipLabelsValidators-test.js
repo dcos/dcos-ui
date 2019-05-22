@@ -13,14 +13,14 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if VIP label is correct", function() {
+      it("returns no errors if Label for VIP is correct", function() {
         const spec = {
           portDefinitions: [{ labels: { VIP_0: "endpoint-name:1000" } }]
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if VIP label is correct", function() {
+      it("returns no errors if Label for VIP is correct", function() {
         const spec = {
           container: {
             portMappings: [{ labels: { VIP_0: "0.0.0.0:1000" } }]
@@ -29,20 +29,20 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns an error if VIP label contains no port", function() {
+      it("returns an error if Label for VIP contains no port", function() {
         const spec = {
           portDefinitions: [{ labels: { VIP_0: "endpoint-name" } }]
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
-              "VIP label must be in the following format: <ip-addres|name>:<port>",
+              "Label for VIP must be in the following format: <ip-addres|name>:<port>",
             path: ["portDefinitions", 0, "labels", "VIP_0"]
           }
         ]);
       });
 
-      it("returns an error if VIP label contains non-integer port", function() {
+      it("returns an error if Label for VIP contains non-integer port", function() {
         const spec = {
           container: {
             portMappings: [{ labels: { VIP_0: "0.0.0.0:port" } }]
@@ -51,13 +51,13 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
-              "VIP label must be in the following format: <ip-addres|name>:<port>",
+              "Label for VIP must be in the following format: <ip-addres|name>:<port>",
             path: ["container", "portMappings", 0, "labels", "VIP_0"]
           }
         ]);
       });
 
-      it("returns an error if VIP label contains an integer port that exceeds the max", function() {
+      it("returns an error if Label for VIP contains an integer port that exceeds the max", function() {
         const spec = {
           container: {
             portMappings: [{ labels: { VIP_0: "0.0.0.0:10000000" } }]
@@ -85,12 +85,12 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
-              "VIP label must be in the following format: <ip-addres|name>:<port>",
+              "Label for VIP must be in the following format: <ip-addres|name>:<port>",
             path: ["container", "portMappings", 0, "labels", "VIP_0"]
           },
           {
             message:
-              "VIP label must be in the following format: <ip-addres|name>:<port>",
+              "Label for VIP must be in the following format: <ip-addres|name>:<port>",
             path: ["container", "portMappings", 3, "labels", "VIP_3"]
           }
         ]);
@@ -103,7 +103,7 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if VIP label is correct", function() {
+      it("returns no errors if Label for VIP is correct", function() {
         const spec = {
           containers: [
             {
@@ -114,7 +114,7 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns an error if VIP label contains no address", function() {
+      it("returns an error if Label for VIP contains no address", function() {
         const spec = {
           containers: [
             {
@@ -125,7 +125,7 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
-              "VIP label must be in the following format: <ip-addres|name>:<port>",
+              "Label for VIP must be in the following format: <ip-addres|name>:<port>",
             path: ["containers", 0, "endpoints", 0, "labels", "VIP_0"]
           }
         ]);

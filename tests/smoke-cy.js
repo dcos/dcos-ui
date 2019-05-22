@@ -1,7 +1,8 @@
 describe("DC/OS UI [00j]", function() {
   beforeEach(function() {
     cy.configureCluster({
-      mesos: "1-task-healthy"
+      mesos: "1-task-healthy",
+      nodeHealth: true
     }).visitUrl({ url: "/", identify: true, fakeAnalytics: true });
   });
 

@@ -54,7 +54,7 @@ class DSLFilterField extends React.Component {
    */
   shouldComponentUpdate(nextProps, nextState) {
     return (
-      this.props.expression !== nextProps.expression ||
+      this.props.expression.value !== nextProps.expression.value ||
       this.props.filters !== nextProps.filters ||
       this.state.dropdownVisible !== nextState.dropdownVisible
     );

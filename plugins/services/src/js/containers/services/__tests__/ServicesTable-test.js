@@ -1,232 +1,84 @@
-import { shallow } from "enzyme";
-// Explicitly mock for react-intl
-jest.mock("../../../components/modals/ServiceActionDisabledModal");
+import Application from "../../../structs/Application";
+import Framework from "../../../structs/Framework";
+import { sortData } from "../ServicesTable";
 
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
-const renderer = require("react-test-renderer");
-const ServicesTable = require("../ServicesTable");
-const Application = require("../../../structs/Application");
-const ServiceStatus = require("../../../constants/ServiceStatus");
+const application = opts => new Application({ instances: 1, ...opts });
 
-let thisInstance;
+describe("ServicesTable", () => {
+  describe("#sortData", () => {
+    it("sorts by name", () => {
+      const one = application({ id: "/a" });
+      const two = application({ id: "/b" });
 
-describe("ServicesTable", function() {
-  const healthyService = new Application({
-    healthChecks: [{ path: "", protocol: "HTTP" }],
-    cpus: 1,
-    gpus: 1,
-    instances: 1,
-    mem: 2048,
-    disk: 0,
-    tasksStaged: 0,
-    tasksRunning: 2,
-    tasksHealthy: 2,
-    tasksUnhealthy: 0
-  });
-
-  beforeEach(function() {
-    thisInstance = shallow(<ServicesTable />);
-  });
-
-  describe("#renderStatus", function() {
-    thisInstance = shallow(<ServicesTable />);
-    const renderStatus = thisInstance.instance().renderStatus;
-    let mockService;
-    beforeEach(function() {
-      mockService = {
-        getStatus: jest.fn(),
-        getServiceStatus: jest.fn(),
-        getQueue: jest.fn(),
-        getInstancesCount: jest.fn().mockReturnValue(10),
-        getRunningInstancesCount: jest.fn().mockReturnValue(3)
-      };
+      expect(sortData([one, two], "name", "ASC").data).toEqual([one, two]);
+      expect(sortData([one, two], "name", "DESC").data).toEqual([two, one]);
     });
 
-    it("renders with running status", function() {
-      mockService.getStatus.mockReturnValue(ServiceStatus.RUNNING.displayName);
+    it("sorts by status", () => {
+      // stopped
+      const one = application({ instances: 0, tasksRunning: 0 });
+      // running
+      const two = application();
 
-      expect(
-        renderer.create(renderStatus(null, mockService)).toJSON()
-      ).toMatchSnapshot();
+      expect(sortData([one, two], "status", "ASC").data).toEqual([one, two]);
+      expect(sortData([one, two], "status", "DESC").data).toEqual([two, one]);
     });
 
-    it("renders with stopped status", function() {
-      mockService.getStatus.mockReturnValue(ServiceStatus.STOPPED.displayName);
+    it("sorts by cpus", () => {
+      const one = application({ cpus: 1 });
+      const two = application({ cpus: 2 });
 
-      expect(
-        renderer.create(renderStatus(null, mockService)).toJSON()
-      ).toMatchSnapshot();
+      expect(sortData([one, two], "cpus", "ASC").data).toEqual([one, two]);
+      expect(sortData([one, two], "cpus", "DESC").data).toEqual([two, one]);
     });
 
-    it("renders with deploying status", function() {
-      mockService.getStatus.mockReturnValue(
-        ServiceStatus.DEPLOYING.displayName
-      );
+    it("sorts by gpus", () => {
+      const one = application({ gpus: 1 });
+      const two = application({ gpus: 2 });
 
-      expect(
-        renderer.create(renderStatus(null, mockService)).toJSON()
-      ).toMatchSnapshot();
+      expect(sortData([one, two], "gpus", "ASC").data).toEqual([one, two]);
+      expect(sortData([one, two], "gpus", "DESC").data).toEqual([two, one]);
     });
 
-    it("renders with not available status", function() {
-      mockService.getStatus.mockReturnValue(ServiceStatus.NA.displayName);
+    it("sorts by mem", () => {
+      const one = application({ mem: 1024 });
+      const two = application({ mem: 2048 });
 
-      expect(
-        renderer.create(renderStatus(null, mockService)).toJSON()
-      ).toMatchSnapshot();
-    });
-  });
-
-  describe("#renderStats", function() {
-    it("renders resources/stats cpus property", function() {
-      var cpusCell = shallow(
-        thisInstance.instance().renderStats("cpus", healthyService)
-      );
-
-      expect(cpusCell.text()).toEqual("1");
+      expect(sortData([one, two], "mem", "ASC").data).toEqual([one, two]);
+      expect(sortData([one, two], "mem", "DESC").data).toEqual([two, one]);
     });
 
-    it("renders resources/stats gpus property", function() {
-      var gpusCell = shallow(
-        thisInstance.instance().renderStats("gpus", healthyService)
-      );
+    it("sorts by disk", () => {
+      const one = application({ disk: 0 });
+      const two = application({ disk: 1 });
 
-      expect(gpusCell.text()).toEqual("1");
+      expect(sortData([one, two], "disk", "ASC").data).toEqual([one, two]);
+      expect(sortData([one, two], "disk", "DESC").data).toEqual([two, one]);
     });
 
-    it("renders resources/stats mem property", function() {
-      var memCell = shallow(
-        thisInstance.instance().renderStats("mem", healthyService)
-      );
+    it("sorts by version", () => {
+      const framework = version =>
+        new Framework({ labels: { DCOS_PACKAGE_VERSION: version } });
 
-      expect(memCell.text()).toEqual("2 GiB");
-    });
+      const highSemver = framework("2.3.0-3.0.16");
+      const lowSemver = framework("2.3.0-1.1.0");
+      const nonSemver = framework("not-semver-beta");
+      const no = new Framework();
 
-    it("renders resources/stats disk property", function() {
-      var disksCell = shallow(
-        thisInstance.instance().renderStats("disk", healthyService)
-      );
+      const data = [highSemver, lowSemver, nonSemver, no];
 
-      expect(disksCell.text()).toEqual("0 B");
-    });
-
-    it("renders sum of resources/stats cpus property", function() {
-      const application = new Application({
-        healthChecks: [{ path: "", protocol: "HTTP" }],
-        cpus: 1,
-        instances: 2,
-        mem: 2048,
-        disk: 0,
-        tasksStaged: 0,
-        tasksRunning: 2,
-        tasksHealthy: 2,
-        tasksUnhealthy: 0
-      });
-
-      var cpusCell = shallow(
-        thisInstance.instance().renderStats("cpus", application)
-      );
-
-      expect(cpusCell.text()).toEqual("2");
-    });
-
-    it("renders sum of resources/stats gpus property", function() {
-      const application = new Application({
-        healthChecks: [{ path: "", protocol: "HTTP" }],
-        cpus: 1,
-        gpus: 1,
-        instances: 2,
-        mem: 2048,
-        disk: 0,
-        tasksStaged: 0,
-        tasksRunning: 2,
-        tasksHealthy: 2,
-        tasksUnhealthy: 0
-      });
-
-      var gpusCell = shallow(
-        thisInstance.instance().renderStats("gpus", application)
-      );
-
-      expect(gpusCell.text()).toEqual("2");
-    });
-
-    it("renders sum of resources/stats mem property", function() {
-      const application = new Application({
-        healthChecks: [{ path: "", protocol: "HTTP" }],
-        cpus: 1,
-        gpus: 1,
-        instances: 2,
-        mem: 2048,
-        disk: 0,
-        tasksStaged: 0,
-        tasksRunning: 2,
-        tasksHealthy: 2,
-        tasksUnhealthy: 0
-      });
-
-      var memCell = shallow(
-        thisInstance.instance().renderStats("mem", application)
-      );
-
-      expect(memCell.text()).toEqual("4 GiB");
-    });
-
-    it("renders sum of resources/stats disk property", function() {
-      const application = new Application({
-        healthChecks: [{ path: "", protocol: "HTTP" }],
-        cpus: 1,
-        gpus: 1,
-        instances: 2,
-        mem: 2048,
-        disk: 0,
-        tasksStaged: 0,
-        tasksRunning: 2,
-        tasksHealthy: 2,
-        tasksUnhealthy: 0
-      });
-
-      var disksCell = shallow(
-        thisInstance.instance().renderStats("disk", application)
-      );
-
-      expect(disksCell.text()).toEqual("0 B");
-    });
-  });
-
-  describe("#renderRegions", function() {
-    const renderRegions = thisInstance.instance().renderRegions;
-    let mockService;
-    beforeEach(function() {
-      mockService = {
-        getRegions: jest.fn()
-      };
-    });
-
-    it("renders with no regions", function() {
-      mockService.getRegions.mockReturnValue([]);
-
-      expect(
-        renderer.create(renderRegions(null, mockService)).toJSON()
-      ).toMatchSnapshot();
-    });
-
-    it("renders with one region", function() {
-      mockService.getRegions.mockReturnValue(["aws/eu-central-1"]);
-
-      expect(
-        renderer.create(renderRegions(null, mockService)).toJSON()
-      ).toMatchSnapshot();
-    });
-
-    it("renders with multiple regions", function() {
-      mockService.getRegions.mockReturnValue(["aws/eu-central-1", "dc-east"]);
-
-      expect(
-        renderer.create(renderRegions(null, mockService)).toJSON()
-      ).toMatchSnapshot();
+      expect(sortData(data, "version", "ASC").data).toEqual([
+        no,
+        nonSemver,
+        lowSemver,
+        highSemver
+      ]);
+      expect(sortData(data, "version", "DESC").data).toEqual([
+        highSemver,
+        lowSemver,
+        nonSemver,
+        no
+      ]);
     });
   });
 });

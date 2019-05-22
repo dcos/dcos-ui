@@ -1,84 +1,97 @@
 import NodesList from "./NodesList";
 import Node from "./Node";
+import Util from "../utils/Util";
 import ServicesList from "../../../plugins/services/src/js/structs/ServicesList";
 
-const BLANK_NODE = {
+const PRESERVE_KEYS = ["master_info"];
+const MISSING_HEALTH_NODE = {
   health: 3
 };
 
-const mergeData = function(newData, data) {
-  Object.keys(newData).forEach(function(key) {
-    if (Array.isArray(newData[key])) {
-      data[key] = mergeMesosArrays(newData, data, key);
-    } else if (typeof newData[key] === "object" && data[key]) {
-      // We need to recurse over any nested objects.
-      data[key] = mergeData(newData[key], data[key]);
-    } else {
-      // Any other type of value can be replaced.
-      data[key] = newData[key];
-    }
-  });
+// Mutates node data with node health data. This is much faster than mapping and creating new node objects
+const enrichNodeDataWithHealthData = (nodes, healthData) => {
+  nodes.forEach(function(node) {
+    const matchedHealthNode = healthData[node.hostname] || MISSING_HEALTH_NODE;
 
-  return data;
-};
-
-const mergeMesosArrays = function(newData, data, key) {
-  if (key === "frameworks" || key === "slaves") {
-    // We need to merge the objects within the frameworks and slaves arrays.
-    return mergeObjectsById(newData[key], data[key]);
-  } else {
-    // We can replace any other array.
-    return newData[key];
-  }
-};
-
-const mergeObjectsById = function(newData, data = []) {
-  // Merge the incoming data with the old data.
-  return newData.map(function(newDatum) {
-    const oldDatum = data.find(function(datum) {
-      return datum.id === newDatum.id;
-    });
-
-    // These objects don't need to be deeply merged.
-    return Object.assign({}, oldDatum, newDatum);
+    node.health = matchedHealthNode.health;
   });
 };
 
+let storedNodeHealth, storedState;
 class CompositeState {
   constructor(data = {}) {
+    this._refCount = 0;
     this.data = data;
+    this.nodeHealthData = {};
+  }
+
+  /**
+   * Enables the composite state if there is no
+   * one requesting it to be disabled anymore
+   */
+  enable() {
+    this._refCount = Math.max(this._refCount - 1, 0);
+
+    // if this update enables the composite state again, let's update everyting
+    if (!this._isDisabled()) {
+      if (storedNodeHealth) {
+        this.addNodeHealth(storedNodeHealth);
+        storedNodeHealth = null;
+      }
+
+      if (storedState) {
+        this.addState(storedState);
+        storedState = null;
+      }
+    }
+  }
+
+  /**
+   * Disables the composite state
+   */
+  disable() {
+    this._refCount = this._refCount + 1;
+  }
+
+  _isDisabled() {
+    return this._refCount > 0;
   }
 
   addNodeHealth(data) {
+    if (this._isDisabled()) {
+      storedNodeHealth = data;
+
+      return;
+    }
     if (data == null) {
       return;
     }
 
-    const oldData = this.data.slaves || [];
-    const dataByIP = {};
+    // Memoize node health data as an object with "host_ip" keys
+    this.nodeHealthData = Util.keyBy(data, "host_ip");
 
-    data.forEach(function(datum) {
-      dataByIP[datum.host_ip] = datum;
-    });
+    this.data.slaves = this.data.slaves || [];
+    enrichNodeDataWithHealthData(this.data.slaves, this.nodeHealthData);
+  }
 
-    const newData = oldData.map(function(oldDatum) {
-      const matchedNode = dataByIP[oldDatum.hostname] || BLANK_NODE;
+  addState(newData) {
+    if (this._isDisabled()) {
+      storedState = newData;
 
-      return Object.assign({}, oldDatum, matchedNode);
-    });
+      return;
+    }
+    if (newData == null) {
+      return;
+    }
 
     this.data = {
-      ...this.data,
-      slaves: newData
+      ...Util.pluck(this.data, PRESERVE_KEYS),
+      ...newData
     };
-  }
 
-  addState(data) {
-    this.data = mergeData(data, this.data);
-  }
-
-  addSummary(data) {
-    this.data = mergeData(data, this.data);
+    // Reuse memoized node health data
+    this.data.slaves = this.data.slaves || [];
+    enrichNodeDataWithHealthData(this.data.slaves, this.nodeHealthData);
   }
 
   getServiceList() {

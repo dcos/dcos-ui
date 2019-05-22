@@ -24,12 +24,18 @@ import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
-import ServiceStatusTypes from "../../constants/ServiceStatusTypes";
+import * as ServiceStatus from "../../constants/ServiceStatus";
 import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import TaskTable from "./TaskTable";
 
 const METHODS_TO_BIND = ["handleItemCheck"];
+const DSL_FORM_SECTIONS = [
+  TaskStatusDSLSection,
+  TaskZoneDSLSection,
+  TaskRegionDSLSection,
+  FuzzyTextDSLSection
+];
 
 class TasksView extends mixin(SaveStateMixin) {
   constructor() {
@@ -128,10 +134,7 @@ class TasksView extends mixin(SaveStateMixin) {
     const isDeploying = Object.keys(checkedItems).some(function(taskId) {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
-      return (
-        service &&
-        service.getServiceStatus().key === ServiceStatusTypes.DEPLOYING
-      );
+      return service && service.getServiceStatus() === ServiceStatus.DEPLOYING;
     });
 
     const isSDK = Object.keys(checkedItems).some(function(taskId) {
@@ -224,12 +227,7 @@ class TasksView extends mixin(SaveStateMixin) {
       <div className={hostClasses}>
         <DSLFilterField
           filters={filters}
-          formSections={[
-            TaskStatusDSLSection,
-            TaskZoneDSLSection,
-            TaskRegionDSLSection,
-            FuzzyTextDSLSection
-          ]}
+          formSections={DSL_FORM_SECTIONS}
           defaultData={defaultFilterData}
           expression={filterExpression}
           onChange={handleExpressionChange}

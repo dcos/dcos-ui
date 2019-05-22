@@ -126,6 +126,7 @@ class TaskStatsTable extends React.Component {
   renderTime(prop, taskStats) {
     let label = i18nMark("seconds");
     const lifeTimeSeconds = taskStats[prop]();
+    const lifeTimeMs = lifeTimeSeconds * 1000;
     let timeValue = lifeTimeSeconds;
 
     if (lifeTimeSeconds > 3600) {
@@ -137,7 +138,7 @@ class TaskStatsTable extends React.Component {
     timeValue = new Number(parseFloat(timeValue).toFixed()).toLocaleString();
 
     // L10NTODO: Relative time
-    const humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds, 10));
+    const humanReadable = DateUtil.getDuration(parseInt(lifeTimeMs, 10));
 
     return (
       <span>

@@ -1,5 +1,27 @@
 {
-  "plugins": ["transform-runtime", "macros", "syntax-dynamic-import"],
+  "plugins": [
+    "transform-runtime",
+    "macros",
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          // specifying @extension-kid/core here first, as it is the special case being
+          // outside of this repo.
+          "@extension-kid/core": "./node_modules/@extension-kid/core",
+          "@extension-kid": "./packages/@extension-kid",
+          "PluginSDK": "./src/js/plugin-bridge/PluginSDK",
+          "PluginTestUtils": "./src/js/plugin-bridge/PluginTestUtils",
+          "#PLUGINS": "./plugins",
+          "#SRC": "./src",
+          "#LOCALE": "./locale",
+          "#TESTS": "./tests"
+        }
+      }
+    ],
+    "syntax-dynamic-import"
+  ],
   "presets": ["env", "stage-3", "react"],
   "env": {
     "test": {

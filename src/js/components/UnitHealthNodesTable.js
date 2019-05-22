@@ -119,7 +119,7 @@ class UnitHealthNodesTable extends React.Component {
           table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        containerSelector=".gm-scroll-view"
+        containerSelector=".gm-scrollbar-container-fluid-view-width"
         data={this.props.nodes}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{ prop: "health", order: "asc" }}

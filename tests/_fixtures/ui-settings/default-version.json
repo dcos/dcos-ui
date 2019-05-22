@@ -1,5 +1,5 @@
 {
   "default": true,
   "packageVersion": "Default",
-  "buildVersion": "0.0.0-dev+semantic-release"
+  "buildVersion": "int-test+v0.0.0"
 }

@@ -1,6 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
 import * as React from "react";
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import gql from "graphql-tag";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import { take } from "rxjs/operators";
@@ -35,7 +36,7 @@ import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
 import {
   MetronomeSpecValidators,
-  validateFormLabels
+  validateSpec
 } from "./form/helpers/MetronomeJobValidators";
 import {
   jobSpecToOutputParser,
@@ -106,6 +107,7 @@ class JobFormModal extends React.Component<
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.confirmClose = this.confirmClose.bind(this);
     this.handleCancelClose = this.handleCancelClose.bind(this);
+    this.validateSpec = this.validateSpec.bind(this);
   }
 
   componentWillReceiveProps(nextProps: JobFormModalProps) {
@@ -188,6 +190,10 @@ class JobFormModal extends React.Component<
       jobCopy.labels = Object.entries(jobCopy.labels);
     }
 
+    if (jobCopy.run.env) {
+      jobCopy.run.env = Object.entries(jobCopy.run.env);
+    }
+
     const { schedules, _itemData, ...jobOnly } = jobCopy;
     const jobSpec = {
       cmdOnly,
@@ -195,16 +201,18 @@ class JobFormModal extends React.Component<
       job: jobOnly,
       schedule: schedules[0]
     };
-    return jobSpec;
+    return Hooks.applyFilter("jobResponseToSpecParser", jobSpec);
   }
 
   onChange(action: Action) {
     const { submitFailed, jobSpec } = this.state;
     const newJobSpec = jobFormOutputToSpecReducer(action, jobSpec);
+    const specErrors = this.validateSpec(newJobSpec);
+    const outputErrors = this.validateJobOutput(
+      jobSpecToOutputParser(newJobSpec)
+    );
     const validationErrors = submitFailed
-      ? this.validateJobOutput(jobSpecToOutputParser(newJobSpec)).concat(
-          validateFormLabels(newJobSpec)
-        )
+      ? outputErrors.concat(specErrors)
       : [];
     this.setState({ jobSpec: newJobSpec, validationErrors });
   }
@@ -287,15 +295,20 @@ class JobFormModal extends React.Component<
     }
   }
 
+  validateSpec(jobSpec: JobSpec): FormError[] {
+    return Hooks.applyFilter(
+      "jobsValidateSpec",
+      validateSpec(jobSpec),
+      jobSpec
+    );
+  }
+
   handleJobRun() {
     const { jobSpec, formJSONErrors } = this.state;
 
-    // labels must be validated separately based on jobSpec, not jobOutput
-    const labelErrors = validateFormLabels(jobSpec);
-
     const jobOutput = removeBlankProperties(jobSpecToOutputParser(jobSpec));
     const validationErrors = this.validateJobOutput(jobOutput).concat(
-      labelErrors
+      this.validateSpec(jobSpec)
     );
     const totalErrors = validationErrors.concat(formJSONErrors);
     if (totalErrors.length) {
@@ -345,7 +358,9 @@ class JobFormModal extends React.Component<
   validateJobOutput(jobOutput: JobOutput) {
     const validationErrors = DataValidatorUtil.validate(
       jobOutput,
-      Object.values(MetronomeSpecValidators)
+      Object.values(
+        Hooks.applyFilter("metronomeValidators", MetronomeSpecValidators)
+      )
     );
 
     return validationErrors;

@@ -2,15 +2,17 @@ declare module "reactjs-components" {
   import { Component, ReactElement } from "react";
 
   interface ModalProps {
-    backdropClass: string;
-    modalWrapperClass: string;
-    open: boolean;
-    scrollContainerClass: string;
-    showHeader: boolean;
-    footer: ReactElement<any>;
-    header: ReactElement<any>;
-    showFooter: boolean;
-    useGemini: boolean;
+    backdropClass?: string;
+    modalWrapperClass?: string;
+    open?: boolean;
+    scrollContainerClass?: string;
+    showHeader?: boolean;
+    footer?: ReactElement<any>;
+    header?: ReactElement<any>;
+    showFooter?: boolean;
+    useGemini?: boolean;
+    onClose: () => void;
+    modalClass: string;
   }
 
   interface MenuItem {
@@ -69,4 +71,24 @@ declare module "reactjs-components" {
 
   // tslint:disable-next-line:max-classes-per-file
   export class Tooltip extends Component<TooltipProps, {}> {}
+
+  interface SelectProps {
+    className?: string;
+    onChange?: (e?: any) => void;
+    name?: string;
+    placeholder?: string;
+    value?: string | number;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class Select extends Component<SelectProps, {}> {}
+
+  interface SelectOptionProps {
+    value?: string;
+    label?: string;
+    disabled?: boolean;
+  }
+
+  // tslint:disable-next-line:max-classes-per-file
+  export class SelectOption extends Component<SelectOptionProps, {}> {}
 }

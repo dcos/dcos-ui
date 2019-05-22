@@ -1,0 +1,115 @@
+#!/bin/bash
+
+set -e
+
+# path of this file
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+
+# This script is a temporary solution to run the integration tests in a <= 1.GB
+# memory environment and with support for retries per test file. We should
+# replace it with a test runner in the future, please see it more as a proof of
+# concept
+
+## Configuration
+#####################################################################
+
+# Search string passed to `find`
+# Values: String
+SEARCH='*'
+
+# Run headed Chrome instead of headless
+# Values: anything :)
+CYPRESS_HEADED=
+
+# Don't close headed Chrome after spec finishes
+# Values: anything :)
+CYPRESS_NO_EXIT=
+
+# Maximum number of retries
+# Values: n ∈ ℕ
+RETRIES=${RETRIES:-3}
+
+# Stop if file failed $RETRIES times? (turn this off, if you want
+# to test all tests locally but something keeps failing)
+# Values: 0, 1
+STOP_ON_FAIL=${STOP_ON_FAIL:-1}
+
+# Suppresses Cypress output on failures
+# Values: 0, 1
+SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-0}
+
+CLEANUP_TESTS=${CLEANUP_TESTS:-0}
+
+PROXY_PORT=${PROXY_PORT:-4201}
+PROXY_PID=0
+
+# make sure we run in the testing configuration
+NODE_ENV="testing"
+
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)"
+CYPRESS_FOLDER="results"
+TESTS_FOLDER="system-tests"
+
+while getopts 's:hknr:?' flag; do
+  case "${flag}" in
+  s) SEARCH=${OPTARG:-'*'} ;;
+  h) CYPRESS_HEADED="true" ;;
+  n) CYPRESS_NO_EXIT="true" ;;
+  d) DEVELOPMENT="true" ;;
+  r) RETRIES=${OPTARG} ;;
+  ?)
+    echo -e "+--------------------------+"
+    echo -e "| DC/OS System test runner |"
+    echo -e "+--------------------------+\n"
+    echo -e "Don't forget running npm run build:assets first!\n\n"
+    echo -e "Usage: \n"
+    echo -e "\tnpm run test:system -- [-s <FILE_NAME>] [-hnd] [-r <RETRIES>]\n"
+    echo -e "Options:\n"
+    printf "  %-17s %-30s \n" "-s <TestFileName>" "Run single Test File. All files if omitted"
+    printf "  %-17s %-30s \n" "-h" "Run Chrome in Headed mode"
+    printf "  %-17s %-30s \n" "-n" "Don't close Chrome after tests are finished"
+    printf "  %-17s %-30s \n" "-r <NUM_RETRIES>" "Number of retries, 3 by default"
+    printf "  %-17s %-30s \n" "-d" "Development mode, starts devserver in the background"
+    printf "  %-17s %-30s \n" "-?" "Prints this help"
+    echo ""
+    exit 0
+    ;;
+  esac
+done
+
+# Used for datadog reporting
+REPORT=${REPORT_TO_DATADOG:-true}
+DISTRIBUTION=${REPORT_DISTRIBUTION:-oss}
+BRANCH=${REPORT_BRANCH:-$BRANCH_NAME}
+TESTS_FOLDER='system-tests'
+
+# System test related Variables
+CLUSTER_URL="${CLUSTER_URL:-}"
+CLUSTER_AUTH_TOKEN="${CLUSTER_AUTH_TOKEN}"
+CLUSTER_AUTH_INFO="${CLUSTER_AUTH_INFO}"
+INSTALLER_URL="${INSTALLER_URL:-}"
+TEST_UUID="${TEST_UUID:-system-tests-$(date +%s)}"
+
+if [ -z "$CLUSTER_URL" ]; then
+  echo "We need to have a cluster to run the system tests against"
+  exit 1
+fi
+
+if [ -z "$(which dcos)" ]; then
+  echo "DC/OS CLI needs to be installed and setup, aborting"
+  exit 1
+fi
+
+source "$SCRIPT_PATH/utils/tests-functions"
+
+# it takes a while until marathon actually responds after cluster started :(
+echo "Pinging Marathon on ${CLUSTER_URL}…"
+until $(curl -k --output /dev/null -H "Cookie: dcos-acs-auth-cookie=${CLUSTER_AUTH_TOKEN};" --silent --head --fail ${CLUSTER_URL}/service/marathon/ping); do
+  echo "Timed out, trying again in 30s…"
+  sleep 30
+done
+echo "Successfull pinged Marathon on ${CLUSTER_URL}."
+
+setup
+trap teardown EXIT
+run_tests

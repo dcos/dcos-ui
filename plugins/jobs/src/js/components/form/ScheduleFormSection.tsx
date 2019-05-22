@@ -14,6 +14,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { FormOutput, FormError, ConcurrentPolicy } from "./helpers/JobFormData";
 import { getFieldError } from "./helpers/ErrorUtil";
+import { JobDataPlaceholders } from "./helpers/DefaultFormData";
 
 interface ScheduleSectionProps {
   formData: FormOutput;
@@ -45,7 +46,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
 
     return (
       <div className="form-section">
-        <Trans render="h1" className="short-bottom">
+        <Trans render="h1" className="flush-top short-bottom">
           Schedule
         </Trans>
         <div className="form-row-pad-bottom">
@@ -104,6 +105,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
             <FieldInput
               name="schedule.cron"
               type="text"
+              placeholder="* * * * *"
               value={formData.cronSchedule}
             />
             <FieldHelp>
@@ -135,6 +137,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               name="schedule.timezone"
               type="text"
               value={formData.timezone}
+              placeholder={JobDataPlaceholders.timezone}
             />
             <FieldError>{timezoneErrors}</FieldError>
           </FormGroup>
@@ -158,6 +161,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               name="schedule.startingDeadlineSeconds"
               type="number"
               value={formData.startingDeadline}
+              placeholder={JobDataPlaceholders.startingDeadlineSeconds}
             />
             <FieldHelp>
               <Trans render="span">

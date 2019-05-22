@@ -3,34 +3,6 @@ require("./formChildCommands");
 require("./utils/ServicesUtil");
 
 Cypress.Commands.add("configureCluster", function(configuration) {
-  if (Object.keys(configuration).length === 0) {
-    return;
-  }
-
-  if (Cypress.env("FULL_INTEGRATION_TEST")) {
-    // Assume login if not explicitly set to false
-    if (configuration.logIn !== false) {
-      cy.request(
-        "POST",
-        Cypress.env("CLUSTER_URL") + "/acs/api/v1/auth/login",
-        { password: "deleteme", uid: "bootstrapuser" }
-      ).then(function(response) {
-        var cookies = response.headers["set-cookie"];
-        cookies.forEach(function(cookie) {
-          var sessionID = cookie.split("=")[0];
-          // Set cookies for cypress
-          cy.setCookie(sessionID, response.body.token);
-          // Set cookies for application
-          cy.window().then(function(win) {
-            win.document.cookie = cookie;
-          });
-        });
-      });
-    }
-
-    return;
-  }
-
   router.clearRoutes();
   cy.server();
 
@@ -57,7 +29,8 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   if (
     configuration.mesos === "1-task-healthy" ||
-    configuration.mesos === "1-task-healthy-with-region"
+    configuration.mesos === "1-task-healthy-with-region" ||
+    configuration.mesos === "1-task-healthy-with-offers"
   ) {
     cy.route({
       method: "POST",
@@ -68,7 +41,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -101,6 +74,13 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
+
+    if (configuration.mesos === "1-task-healthy-with-offers") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/offers-queue"
+      );
+    }
   }
 
   if (configuration.mesos === "1-task-healthy-with-region") {
@@ -141,7 +121,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -174,7 +154,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:1-service-with-executor-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -233,7 +213,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -260,7 +240,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -292,7 +272,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -364,7 +344,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -407,7 +387,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -438,7 +418,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -556,7 +536,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       }
     }).route({
       method: "POST",
-      url: /mesos\/api\/v1\?get_master/,
+      url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
         "Content-Type": "application/json"
@@ -718,12 +698,6 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 
   // Metadata
   router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
-});
-
-Cypress.Commands.add("clusterCleanup", function(fn) {
-  if (Cypress.env("FULL_INTEGRATION_TEST")) {
-    fn();
-  }
 });
 
 Cypress.Commands.add("visitUrl", function(options) {

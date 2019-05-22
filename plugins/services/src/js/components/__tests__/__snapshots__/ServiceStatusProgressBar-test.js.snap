@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServiceProgressBar displays a (0 / 1) ProgressBar 1`] = `
+<div
+  className="tooltip-wrapper text-align-center"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="status-bar flex-box status-bar--large staged"
+  />
+</div>
+`;
+
+exports[`ServiceProgressBar displays a (0 / 10) ProgressBar 1`] = `
+<div
+  className="tooltip-wrapper text-align-center"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="status-bar flex-box status-bar--large staged"
+  />
+</div>
+`;
+
+exports[`ServiceProgressBar displays a (3 / 4) ProgressBar 1`] = `
+<div
+  className="tooltip-wrapper text-align-center"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="status-bar flex-box status-bar--large staged"
+  >
+    <span
+      className="bar success"
+      style={
+        Object {
+          "width": "75%",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`ServiceProgressBar displays a (10 / 10) ProgressBar 1`] = `
+<div
+  className="tooltip-wrapper text-align-center"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="status-bar flex-box status-bar--large staged"
+  >
+    <span
+      className="bar success"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+</div>
+`;

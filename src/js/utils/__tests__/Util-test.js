@@ -70,6 +70,31 @@ describe("Util", function() {
     });
   });
 
+  describe("#pluck", function() {
+    it("returns a copy of the object", function() {
+      var obj = { foo: "bar" };
+      var newObject = Util.pluck(obj, []);
+
+      newObject.foo = "modified";
+
+      expect(obj.foo).toEqual("bar");
+    });
+
+    it("allows multiple keys", function() {
+      var obj = {
+        foo: "bar",
+        qq: "zzz",
+        three: "pie"
+      };
+      var newObject = Util.pluck(obj, ["foo", "three"]);
+
+      expect(Object.keys(newObject).length).toEqual(2);
+      expect(newObject.foo).toEqual("bar");
+      expect(newObject.qq).toEqual(undefined);
+      expect(newObject.three).toEqual("pie");
+    });
+  });
+
   describe("#last", function() {
     describe("with incorrect input", function() {
       it("returns null for objects", function() {

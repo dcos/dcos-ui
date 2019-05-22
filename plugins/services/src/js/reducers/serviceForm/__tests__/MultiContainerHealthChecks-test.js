@@ -1,3 +1,5 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const Batch = require("#SRC/js/structs/Batch");
 const {
   COMMAND,
@@ -7,7 +9,6 @@ const {
 } = require("../../../constants/HealthCheckProtocols");
 const MultiContainerHealthChecks = require("../MultiContainerHealthChecks");
 const MesosCommandTypes = require("../../../constants/MesosCommandTypes");
-const Transaction = require("#SRC/js/structs/Transaction");
 const {
   ADD_ITEM,
   REMOVE_ITEM,
