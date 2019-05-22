@@ -417,6 +417,8 @@ class JobFormModal extends React.Component<
       activeTab
     } = this.state;
 
+    const { isEdit } = this.props;
+
     return (
       <JobForm
         errors={this.getAllErrors()}
@@ -427,6 +429,7 @@ class JobFormModal extends React.Component<
         jobSpec={jobSpec}
         showAllErrors={showValidationErrors}
         onErrorsChange={this.handleFormErrorsChange}
+        isEdit={isEdit}
       />
     );
   }
