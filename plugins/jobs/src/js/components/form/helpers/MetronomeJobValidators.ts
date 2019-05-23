@@ -156,7 +156,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (jobId == undefined) {
       return [];
     }
-    return jobId && jobIdRegex.test(jobId)
+
+    // we're currently testing for a trailing "-" separately because the regex crashes
+    // browsers for longer strings that end with a "-".
+    return jobId && !jobId.endsWith("-") && jobIdRegex.test(jobId)
       ? []
       : [{ path: ["job", "id"], message }];
   },
