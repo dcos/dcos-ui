@@ -420,6 +420,7 @@ class CreateServiceModal extends Component {
         this.setState({
           activeTab: null,
           apiErrors: [],
+          formErrors: [],
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
@@ -434,6 +435,7 @@ class CreateServiceModal extends Component {
         this.setState({
           activeTab: null,
           apiErrors: [],
+          formErrors: [],
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
@@ -448,6 +450,7 @@ class CreateServiceModal extends Component {
         this.setState({
           activeTab: null,
           apiErrors: [],
+          formErrors: [],
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceJsonActive: true,
