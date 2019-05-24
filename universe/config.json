@@ -1,31 +1,27 @@
 {
   "type": "object",
+  "description": "DC/OS UI as a service.",
   "properties": {
-    "ui": {
+    "service": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "description": "dcos-ui marathon app name",
-          "required": true,
+          "title": "DC/OS UI service name",
+          "description": "The name of the DC/OS UI service instance.",
           "default": "dcos-ui"
-        }
-      },
-      "required": ["name"]
-    },
-    "mom": {
-      "type": "object",
-      "properties": {
-        "name": {
+        },
+        "marathon": {
           "type": "string",
-          "description": "Marathon/MoM app name",
-          "required": true,
+          "title": "Marathon on Marathon service name",
+          "description": "The Marathon-on-Marathon service name the UI instance should connect to.",
           "default": "marathon-user"
         }
       },
-      "required": ["name"]
+      "required": [
+        "dcos-ui",
+        "marathon"
+      ]
     }
-
-  },
-  "required": ["ui", "mom"]
+  }
 }

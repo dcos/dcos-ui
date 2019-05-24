@@ -1,13 +1,13 @@
 {
   "labels": {
-    "DCOS_SERVICE_NAME": "{{ui.name}}",
+    "DCOS_SERVICE_NAME": "{{service.name}}",
     "DCOS_SERVICE_SCHEME": "http",
     "DCOS_SERVICE_PORT_INDEX": "0"
   },
-  "id": "/{{ui.name}}",
+  "id": "/{{service.name}}",
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
-  "cmd": "sed -i -e 's/\\/assets/\\.\\/assets/g' dist/index.html ; \\\nsed -i -e 's~<head>~<head><script  type=\"text/javascript\">window.resourceBaseUrl = \"/service/{{ui.name}}/assets/\"</script>~g' dist/index.html ; \\\nsed -i -e 's~process.env.MARATHON_NAME~\"{{mom.name}}\"~g' dist/index.html ; \\\nsed -i -e 's~process.env.MARATHON_API_PREFIX~\"/service/{{mom.name}}/v2\"~g' dist/index.html ; \\\npython3 -m http.server --directory dist --bind 0.0.0.0 8080",
+  "cmd": "sed -i -e 's/\\/assets/\\.\\/assets/g' dist/index.html ; \\\nsed -i -e 's~<head>~<head><script  type=\"text/javascript\">window.resourceBaseUrl = \"/service/{{service.name}}/assets/\"</script>~g' dist/index.html ; \\\nsed -i -e 's~MARATHON_NAME = \"marathon\"~MARATHON_NAME = \"{{service.marathon}}\"~g' dist/index.html ; \\\nsed -i -e 's~MARATHON_API_PREFIX = \"/service/marathon/v2\"~MARATHON_API_PREFIX = \"/service/{{service.marathon}}/v2\"~g' dist/index.html ; \\\npython3 -m http.server --directory dist --bind 0.0.0.0 8080",
   "container": {
     "portMappings": [
       {
@@ -30,7 +30,7 @@
   "disk": 0,
   "fetch": [
     {
-      "uri": "{{resource.assets.uri.dcos-ui-bundle}}",
+      "uri": "{{resource.assets.uris.dcos-ui-bundle}}",
       "extract": true,
       "executable": false,
       "cache": false
