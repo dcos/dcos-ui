@@ -100,11 +100,24 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     }
   }
 
-  if (configuration.mesos === "1-pod") {
+  if (configuration.mesos === "1-pod" || "1-pod-delayed") {
     router
       .route(/history\/last/, "fx:marathon-1-pod-group/summary")
-      .route(/state-summary/, "fx:marathon-1-pod-group/summary")
-      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups");
+      .route(/state-summary/, "fx:marathon-1-pod-group/summary");
+
+    if (configuration.mesos === "1-pod") {
+      router.route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-pod-group/groups"
+      );
+    }
+
+    if (configuration.mesos === "1-pod-delayed") {
+      router.route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-pod-group/groups-delayed"
+      );
+    }
   }
 
   if (configuration.mesos === "1-empty-group") {
@@ -294,7 +307,10 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
-  if (configuration.mesos === "1-service-recovering") {
+  if (
+    configuration.mesos === "1-service-recovering" ||
+    configuration.mesos === "1-service-delayed"
+  ) {
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
       .route(
@@ -305,10 +321,37 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/recovering/deployments"
       )
-      .route(
+      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
+      .route(/history\/last/, "fx:marathon-1-task/summary")
+      .route(/state-summary/, "fx:marathon-1-task/summary");
+
+    if (configuration.mesos === "1-service-recovering") {
+      router.route(
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/recovering/queue"
+      );
+    }
+
+    if (configuration.mesos === "1-service-delayed") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/delayed/queue"
+      );
+    }
+  }
+
+  if (configuration.mesos === "1-service-delayed") {
+    router
+      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
+      .route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-task/recovering/groups"
       )
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/recovering/deployments"
+      )
+      .route(/service\/marathon\/v2\/queue/, "fx:marathon-1-task/delayed/queue")
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");

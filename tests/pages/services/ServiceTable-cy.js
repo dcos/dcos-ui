@@ -22,6 +22,40 @@ describe("Service Table", function() {
       .click();
   }
 
+  context("Service status", function() {
+    it("shows correct status and icon for a delayed service", function() {
+      cy.configureCluster({
+        mesos: "1-service-delayed",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      cy.get(".service-status-icon-wrapper")
+        .contains("Delayed")
+        .should("exist"); // Text
+      cy.get(".service-status-icon-wrapper")
+        .find('svg[aria-label="system-yield icon"]')
+        .should("exist"); // Icon
+    });
+
+    it("shows correct status and icon for a delayed pod", function() {
+      cy.configureCluster({
+        mesos: "1-pod-delayed",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      cy.get(".service-status-icon-wrapper")
+        .contains("Delayed")
+        .should("exist"); // Text
+      cy.get(".service-status-icon-wrapper")
+        .find('svg[aria-label="system-yield icon"]')
+        .should("exist"); // Icon
+    });
+  });
+
   context("Destroy Action", function() {
     beforeEach(function() {
       cy.configureCluster({
@@ -397,16 +431,16 @@ describe("Service Table", function() {
     });
 
     it("group status is an aggregate of children", function() {
-      cy.get('.status-bar-text')
+      cy.get(".status-bar-text")
         .eq(1)
-        .contains("Running (3 of 3)")
+        .contains("Running (3 of 3)");
     });
 
     it("shows service status counts in group tooltip", function() {
-      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(1)
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
-    })
+    });
   });
 });
