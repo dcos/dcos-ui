@@ -1,4 +1,5 @@
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import ApplicationSpec from "./ApplicationSpec";
 import FrameworkUtil from "../utils/FrameworkUtil";
@@ -218,5 +219,10 @@ module.exports = class Application extends Service {
 
   findTaskById(taskId) {
     return (this.get("tasks") || []).find(task => task.id === taskId);
+  }
+
+  isDelayed() {
+    const queue = this.getQueue();
+    return findNestedPropertyInObject(queue, "delay.overdue") === false;
   }
 };
