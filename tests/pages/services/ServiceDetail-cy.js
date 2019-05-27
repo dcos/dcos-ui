@@ -244,4 +244,33 @@ describe("Service Detail Page", function() {
       cy.get(".container").contains("Download Config");
     });
   });
+
+  context("Delayed service", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-delayed",
+        nodeHealth: true
+      });
+    });
+
+    it("shows debug tab when clicked", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fsleep"
+      });
+
+      cy.get(".menu-tabbed-item")
+        .contains("Debug")
+        .click();
+
+      cy.get(".menu-tabbed-item .active")
+        .contains("Debug")
+        .get(".page-body-content")
+        .contains("Last Changes");
+      cy.contains(
+        "DC/OS has delayed the launching of this service due to failures."
+      );
+
+      cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
+    });
+  });
 });
