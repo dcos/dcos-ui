@@ -70,7 +70,7 @@ pipeline {
 
           post {
             always {
-              archiveArtifacts "results/**/*"
+              archiveArtifacts "preflight*, results/**/*, *journald.log, /root/*journald.log"
               junit "results/results.xml"
             }
           }
