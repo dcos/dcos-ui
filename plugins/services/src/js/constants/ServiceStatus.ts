@@ -160,7 +160,7 @@ function fromHttpCode(code: number): Status | null {
 }
 
 function showProgressBar(status: Status): boolean {
-  return [DEPLOYING, WAITING, DELAYED, RECOVERING, DELETING].includes(status);
+  return [DEPLOYING, WAITING, RECOVERING, DELETING].includes(status);
 }
 
 function toIcon(status: Status): StatusIcon | null {

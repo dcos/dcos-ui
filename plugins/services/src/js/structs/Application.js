@@ -138,6 +138,10 @@ module.exports = class Application extends Service {
       return ServiceStatus.STOPPED;
     }
 
+    if (this.isDelayed()) {
+      return ServiceStatus.DELAYED;
+    }
+
     if (queue != null && (deployments == null || deployments.length < 1)) {
       return ServiceStatus.RECOVERING;
     }
