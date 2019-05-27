@@ -565,4 +565,37 @@ describe("Application", function() {
       expect(service.findTaskById("unknown")).toEqual(undefined);
     });
   });
+
+  describe("#isDelayed", function() {
+    it("return false when not delayed", function() {
+      const service = new Application({
+        queue: {
+          delay: {
+            overdue: true
+          }
+        }
+      });
+      expect(service.isDelayed()).toEqual(false);
+    });
+
+    it("return false when property is missing", function() {
+      const service = new Application({
+        queue: {
+          delay: {}
+        }
+      });
+      expect(service.isDelayed()).toEqual(false);
+    });
+
+    it("return true when delayed", function() {
+      const service = new Application({
+        queue: {
+          delay: {
+            overdue: false
+          }
+        }
+      });
+      expect(service.isDelayed()).toEqual(true);
+    });
+  });
 });
