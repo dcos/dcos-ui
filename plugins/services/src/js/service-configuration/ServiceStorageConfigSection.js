@@ -15,10 +15,12 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   shouldExcludeItem() {
     const { appConfig } = this.props;
 
-    return !Util.findNestedPropertyInObject(
+    const volumes = Util.findNestedPropertyInObject(
       appConfig,
-      "container.volumes.length"
+      "container.volumes"
     );
+
+    return !volumes.some(v => v.persistent || v.external || v.hostPath);
   }
 
   /**
@@ -143,27 +145,31 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
       }
 
       // Host
-      return [
-        {
-          heading: <Trans id={VolumeDefinitions.HOST.name} render="span" />,
-          headingLevel: 2
-        },
-        {
-          key: `container.volumes.${index}.hostPath`,
-          label: <Trans render="span">Host Path</Trans>
-        },
-        {
-          key: `container.volumes.${index}.containerPath`,
-          label: <Trans render="span">Container Path</Trans>
-        },
-        {
-          key: `container.volumes.${index}.mode`,
-          label: <Trans render="span">Mode</Trans>
-        }
-      ];
+      if (volume.hostPath) {
+        return [
+          {
+            heading: <Trans id={VolumeDefinitions.HOST.name} render="span" />,
+            headingLevel: 2
+          },
+          {
+            key: `container.volumes.${index}.hostPath`,
+            label: <Trans render="span">Host Path</Trans>
+          },
+          {
+            key: `container.volumes.${index}.containerPath`,
+            label: <Trans render="span">Container Path</Trans>
+          },
+          {
+            key: `container.volumes.${index}.mode`,
+            label: <Trans render="span">Mode</Trans>
+          }
+        ];
+      }
+
+      return null;
     });
 
-    config.values = config.values.concat(...volumesConfig);
+    config.values = config.values.concat(...volumesConfig.filter(v => v));
 
     return config;
   }

@@ -494,7 +494,7 @@ class MultiContainerHealthChecksFormSection extends Component {
             wrapperClassName="tooltip-wrapper text-align-center"
             wrapText={true}
           >
-            <Icon color="light-grey" id="circle-question" size="mini" />
+            <InfoTooltipIcon />
           </Tooltip>
         </FormGroupHeadingContent>
       </FormGroupHeading>

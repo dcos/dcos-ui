@@ -568,7 +568,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       .getItems()
       .map((virtualNetwork, index) => {
         return (
-          <Trans render={<option key={index} value={virtualNetwork.value} />}>
+          <Trans
+            key={index}
+            render={<option key={index} value={virtualNetwork.value} />}
+          >
             Virtual Network: {virtualNetwork.text}
           </Trans>
         );
@@ -590,8 +593,12 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     const selections = (
       <FieldSelect name="networks.0.network" value={selectedValue}>
-        <Trans render={<option value={HOST} />}>Host</Trans>
-        <Trans render={<option value={BRIDGE} />}>Bridge</Trans>
+        <Trans key="host" render={<option value={HOST} key="host" />}>
+          Host
+        </Trans>
+        <Trans key="bridge" render={<option value={BRIDGE} key="bridge" />}>
+          Bridge
+        </Trans>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
