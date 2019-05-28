@@ -100,24 +100,21 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     }
   }
 
-  if (configuration.mesos === "1-pod" || "1-pod-delayed") {
+  if (configuration.mesos === "1-pod") {
     router
       .route(/history\/last/, "fx:marathon-1-pod-group/summary")
-      .route(/state-summary/, "fx:marathon-1-pod-group/summary");
+      .route(/state-summary/, "fx:marathon-1-pod-group/summary")
+      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups");
+  }
 
-    if (configuration.mesos === "1-pod") {
-      router.route(
-        /service\/marathon\/v2\/groups/,
-        "fx:marathon-1-pod-group/groups"
-      );
-    }
-
-    if (configuration.mesos === "1-pod-delayed") {
-      router.route(
+  if (configuration.mesos === "1-pod-delayed") {
+    router
+      .route(/history\/last/, "fx:marathon-1-pod-group/summary")
+      .route(/state-summary/, "fx:marathon-1-pod-group/summary")
+      .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-pod-group/groups-delayed"
       );
-    }
   }
 
   if (configuration.mesos === "1-empty-group") {
@@ -307,10 +304,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
-  if (
-    configuration.mesos === "1-service-recovering" ||
-    configuration.mesos === "1-service-delayed"
-  ) {
+  if (configuration.mesos === "1-service-recovering") {
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
       .route(
@@ -321,23 +315,13 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/recovering/deployments"
       )
+      .route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/recovering/queue"
+      )
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
-
-    if (configuration.mesos === "1-service-recovering") {
-      router.route(
-        /service\/marathon\/v2\/queue/,
-        "fx:marathon-1-task/recovering/queue"
-      );
-    }
-
-    if (configuration.mesos === "1-service-delayed") {
-      router.route(
-        /service\/marathon\/v2\/queue/,
-        "fx:marathon-1-task/delayed/queue"
-      );
-    }
   }
 
   if (configuration.mesos === "1-service-delayed") {
@@ -744,39 +728,24 @@ Cypress.Commands.add("configureCluster", function(configuration) {
 });
 
 Cypress.Commands.add("visitUrl", function(options) {
-  var callback = function() {};
-
-  if (options.logIn && options.remoteLogIn) {
-    callback = function(win) {
-      // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
+  cy.visit(Cypress.env("CLUSTER_URL") + "/#" + options.url, {
+    onBeforeLoad(win) {
       win.document.cookie =
-        "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K";
-    };
-  } else {
-    callback = function(win) {
-      // {"uid":"ui-bot","description":"UI Automated Test Bot"}
-      win.document.cookie =
-        "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
-    };
-  }
+        options.logIn && options.remoteLogIn
+          ? // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
+            "dcos-acs-info-cookie=eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K"
+          : // {"uid":"ui-bot","description":"UI Automated Test Bot"}
+            "dcos-acs-info-cookie=eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
 
-  if (options.identify && options.fakeAnalytics) {
-    var identifyCallback = callback;
-    callback = function(win) {
-      identifyCallback(win);
+      // mock a global analytics object
       win.analytics = {
         initialized: true,
         page() {},
         push() {},
         track() {}
       };
-    };
-  }
-
-  var url = Cypress.env("CLUSTER_URL") + "/#" + options.url;
-  cy.visit(url, { onBeforeLoad: callback });
+    }
+  });
 });
 
 Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
