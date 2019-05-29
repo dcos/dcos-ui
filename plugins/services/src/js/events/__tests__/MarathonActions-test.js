@@ -697,15 +697,6 @@ describe("MarathonActions", function() {
         );
       });
 
-      it("sends data to the correct URL with the force=true parameter", function() {
-        MarathonActions.resetDelayedService(app, true);
-        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
-
-        expect(thisConfiguration.url).toEqual(
-          `${Config.rootUrl}/service/marathon/v2/queue//test/delay?force=true`
-        );
-      });
-
       it("uses DELETE for the request method", function() {
         expect(thisConfiguration.method).toEqual("DELETE");
       });
@@ -767,15 +758,6 @@ describe("MarathonActions", function() {
       it("sends data to the correct URL", function() {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/queue//test/delay`
-        );
-      });
-
-      it("sends data to the correct URL with the force=true parameter", function() {
-        MarathonActions.resetDelayedService(pod, true);
-        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
-
-        expect(thisConfiguration.url).toEqual(
-          `${Config.rootUrl}/service/marathon/v2/queue//test/delay?force=true`
         );
       });
 

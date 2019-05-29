@@ -115,6 +115,21 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups");
   }
 
+  if (configuration.mesos === "1-pod-delayed") {
+    router
+      .route(/history\/last/, "fx:marathon-1-pod-group/summary")
+      .route(/state-summary/, "fx:marathon-1-pod-group/summary")
+      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups")
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/deployments"
+      )
+      .route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-pod-group/groups-delayed-queue"
+      );
+  }
+
   if (configuration.mesos === "1-empty-group") {
     router.route(/marathon\/v2\/groups/, "fx:marathon-1-group/groups");
   }
