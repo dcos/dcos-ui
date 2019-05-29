@@ -22,9 +22,11 @@ RUN set -x \
   # Install node & npm
   && curl -o- https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar -C /usr/local --strip-components=1 -zx \
   && npm install -g npm@${NPM_VERSION} \
+  # Debian Jessie mirrors were removed
+  && echo "deb http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list \
+  && sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list \
+  && apt-get -o Acquire::Check-Valid-Until=false update \
   # Install cypress dependencies & JRE (required by Jenkins)
-  && echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list \
-  && apt-get update \
   && apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 lsof \
   && apt-get install -t jessie-backports -y openjdk-8-jre-headless ca-certificates-java \
   && apt-get clean \
