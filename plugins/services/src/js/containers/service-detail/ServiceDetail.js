@@ -29,6 +29,7 @@ const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
 const METHODS_TO_BIND = [
   "handleEditClearError",
@@ -122,6 +123,9 @@ class ServiceDetail extends mixin(TabsMixin) {
       case SCALE:
         modalHandlers.scaleService({ service });
         break;
+      case RESET_DELAYED:
+        modalHandlers.resetDelayedService({ service });
+        break; 
       case OPEN:
         modalHandlers.openServiceUI({ service });
         break;
@@ -200,6 +204,13 @@ class ServiceDetail extends mixin(TabsMixin) {
       actions.push({
         label: i18nMark("Scale"),
         onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
+      });
+    }
+
+    if (service.isDelayed()) {
+      actions.push({
+        label: i18nMark("Reset Delay"),
+        onItemSelect: this.onActionsItemSelection.bind(this, RESET_DELAYED)
       });
     }
 
@@ -316,7 +327,8 @@ ServiceDetail.contextTypes = {
     restartService: PropTypes.func,
     stopService: PropTypes.func,
     deleteService: PropTypes.func,
-    openService: PropTypes.func
+    openService: PropTypes.func,
+    resetDelayedService: PropTypes.func
   }).isRequired,
   router: routerShape
 };

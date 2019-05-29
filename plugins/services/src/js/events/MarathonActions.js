@@ -244,7 +244,7 @@ var MarathonActions = {
     });
   },
 
-  resetDelayedService(service, force = false) {
+  resetDelayedService(service) {
     if (!(service instanceof Service)) {
       if (process.env.NODE_ENV !== "production") {
         throw new TypeError("service is not an instance of Service");
@@ -253,24 +253,21 @@ var MarathonActions = {
       return;
     }
 
-    let url = buildURI(`/queue/${service.getId()}/delay`);
-
-    if (force === true) {
-      url += "?force=true";
-    }
+    const url = buildURI(`/queue/${service.getId()}/delay`);
 
     RequestUtil.json({
       url,
       method: "DELETE",
-      data: force,
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS
+          type: REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
+          serviceName: service.getName()
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+          serviceName: service.getName(),
           data: RequestUtil.parseResponseBody(xhr),
           xhr
         });

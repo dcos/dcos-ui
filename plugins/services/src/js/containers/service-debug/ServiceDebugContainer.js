@@ -269,7 +269,7 @@ class ServiceDebugContainer extends React.Component {
     return <span>{value}</span>;
   }
 
-  getWaitingForResourcesNotice() {
+  getUnableToStartNotice() {
     const { service } = this.props;
 
     if (service instanceof Framework) {
@@ -285,18 +285,25 @@ class ServiceDebugContainer extends React.Component {
     const waitingSince = DateUtil.strToMs(queue.since);
     const timeWaiting = Date.now() - waitingSince;
 
-    // If the service has been waiting for less than five minutes, we don't
-    // display the warning.
-    if (timeWaiting < 1000 * 60 * 5) {
-      return null;
-    }
-
-    let message, primaryAction;
+    let message,
+      primaryAction,
+      secondaryAction = null;
 
     if (service.isDelayed()) {
       message = (
         <Trans render="span">
           DC/OS has delayed the launching of this service due to failures.
+        </Trans>
+      );
+      secondaryAction = (
+        <Trans render="span">
+          <a
+            className="clickable"
+            target="_blank"
+            onClick={() => MarathonStore.resetDelayedService(service)}
+          >
+            Retry now
+          </a>
         </Trans>
       );
       primaryAction = (
@@ -309,7 +316,9 @@ class ServiceDebugContainer extends React.Component {
           </a>{" "}
         </Trans>
       );
-    } else {
+      // If the service has been waiting for less than five minutes, we don't
+      // display the warning.
+    } else if (timeWaiting >= 1000 * 60 * 5) {
       /* L10NTODO: Relative time */
       message = (
         <Trans render="span">
@@ -339,6 +348,7 @@ class ServiceDebugContainer extends React.Component {
           appearance="warning"
           message={message}
           primaryAction={primaryAction}
+          secondaryAction={secondaryAction}
         />
       </div>
     );
@@ -378,7 +388,7 @@ class ServiceDebugContainer extends React.Component {
   render() {
     return (
       <div className="container">
-        {this.getWaitingForResourcesNotice()}
+        {this.getUnableToStartNotice()}
         <ConfigurationMap>
           <ConfigurationMapSection>
             <Trans render={<ConfigurationMapHeading />}>Last Changes</Trans>
