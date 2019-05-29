@@ -26,6 +26,7 @@ cat <<EOF >${CLUSTER_CONFIG}
 launch_config_version: 1
 deployment_name: dcos-ui-system-test-$(date +%s)
 installer_url: ${1:-$INSTALLER_URL}
+auto_set_selinux: true
 platform: aws
 provider: onprem
 aws_region: us-west-2
