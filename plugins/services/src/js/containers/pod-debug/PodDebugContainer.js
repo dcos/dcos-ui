@@ -12,6 +12,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import TimeAgo from "#SRC/js/components/TimeAgo";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import DeclinedOffersHelpText from "../../constants/DeclinedOffersHelpText";
 import DeclinedOffersTable from "../../components/DeclinedOffersTable";
@@ -207,30 +208,54 @@ class PodDebugTabView extends React.Component {
       return null;
     }
 
+    let message, primaryAction;
+
+    if (this.props.pod.isDelayed()) {
+      message = (
+        <Trans render="span">
+          DC/OS has delayed the launching of this service due to failures.
+        </Trans>
+      );
+      primaryAction = (
+        <Trans render="span">
+          <a
+            href={MetadataStore.buildDocsURI("/services#service-status")}
+            target="_blank"
+          >
+            More information
+          </a>{" "}
+        </Trans>
+      );
+    } else {
+      /* L10NTODO: Relative time */
+      message = (
+        <Trans render="span">
+          DC/OS has been waiting for resources and is unable to complete this
+          deployment for {DateUtil.getDuration(timeWaiting)}.
+        </Trans>
+      );
+      primaryAction = (
+        <Trans
+          render={
+            <div
+              className="clickable button-link button-primary"
+              onClick={this.handleJumpToRecentOffersClick}
+              tabIndex={0}
+              role="button"
+            />
+          }
+        >
+          See recent resource offers
+        </Trans>
+      );
+    }
+
     return (
       <div className="infoBoxWrapper">
         <InfoBoxInline
           appearance="warning"
-          message={
-            <Trans render="span">
-              DC/OS has been waiting for resources and is unable to complete
-              this deployment for {DateUtil.getDuration(timeWaiting)}.
-            </Trans>
-          }
-          primaryAction={
-            <Trans
-              render={
-                <div
-                  className="clickable button-link button-primary"
-                  onClick={this.handleJumpToRecentOffersClick}
-                  tabIndex={0}
-                  role="button"
-                />
-              }
-            >
-              See recent resource offers
-            </Trans>
-          }
+          message={message}
+          primaryAction={primaryAction}
         />
       </div>
     );
