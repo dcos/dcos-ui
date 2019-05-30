@@ -154,7 +154,7 @@ describe("Service Detail Page", function() {
         cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
       });
 
-      it("can filter tasks by zone", function() {
+      it.only("can filter tasks by 1", function() {
         // wait for zones to load
         cy.wait(2500);
 
