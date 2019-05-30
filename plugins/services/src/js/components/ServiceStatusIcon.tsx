@@ -13,6 +13,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 // @ts-ignore
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
 import * as ServiceStatus from "../constants/ServiceStatus";
+import Application from "../structs/Application";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
@@ -147,6 +148,13 @@ class ServiceStatusIcon extends React.Component<{
 
     if (queue == null) {
       return false;
+    }
+
+    if (
+      (service instanceof Application || service instanceof Pod) &&
+      service.isDelayed()
+    ) {
+      return true;
     }
 
     return (
