@@ -56,6 +56,8 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
 } from "../../constants/ActionTypes";
@@ -122,6 +124,7 @@ const METHODS_TO_BIND = [
   "editGroup",
   "deleteService",
   "editService",
+  "resetDelayedService",
   "restartService",
   "onStoreChange"
 ];
@@ -237,6 +240,12 @@ class ServicesContainer extends React.Component {
     return MarathonActions.restartService(...arguments);
   }
 
+  resetDelayedService() {
+    this.setPendingAction(ActionKeys.SERVICE_RESET_DELAY);
+
+    return MarathonActions.resetDelayedService(...arguments);
+  }
+
   handleServerAction(payload) {
     const { action } = payload;
 
@@ -299,6 +308,13 @@ class ServicesContainer extends React.Component {
         break;
       case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_RESTART);
+        break;
+
+      case REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR:
+        this.unsetPendingAction(ActionKeys.SERVICE_RESET_DELAY, action.data);
+        break;
+      case REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS:
+        this.unsetPendingAction(ActionKeys.SERVICE_RESET_DELAY);
         break;
 
       case REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS:
@@ -416,6 +432,7 @@ class ServicesContainer extends React.Component {
       editGroup: this.editGroup,
       deleteService: this.deleteService,
       editService: this.editService,
+      resetDelayedService: this.resetDelayedService,
       restartService: this.restartService
     };
   }
