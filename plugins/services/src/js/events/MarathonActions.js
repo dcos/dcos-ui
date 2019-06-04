@@ -32,6 +32,8 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
@@ -235,6 +237,37 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
+  resetDelayedService(service) {
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== "production") {
+        throw new TypeError("service is not an instance of Service");
+      }
+
+      return;
+    }
+
+    const url = buildURI(`/queue/${service.getId()}/delay`);
+
+    RequestUtil.json({
+      url,
+      method: "DELETE",
+      success() {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
+          serviceName: service.getName()
+        });
+      },
+      error(xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+          serviceName: service.getName(),
           data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
