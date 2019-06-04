@@ -4,7 +4,8 @@ import {
   PROP_CONFLICT,
   PROP_DEPRECATED,
   PROP_MISSING_ONE,
-  SYNTAX_ERROR
+  SYNTAX_ERROR,
+  GENERIC
 } from "../constants/ServiceErrorTypes";
 import ContainerConstants from "../constants/ContainerConstants";
 import PlacementValidators from "./PlacementsValidators";
@@ -198,6 +199,40 @@ const MarathonAppValidators = {
             variables: { name: "labels" }
           };
         });
+    }
+
+    // No errors
+    return [];
+  },
+
+  /**
+   * @param {Object} app - The data to validate
+   * @returns {Array} Returns an array with validation errors
+   */
+  validateProfileVolumes(app) {
+    if (
+      ValidatorUtil.isDefined(app.container) &&
+      ValidatorUtil.isDefined(app.container.volumes)
+    ) {
+      return app.container.volumes.reduce(function(accumulator, volume, index) {
+        if (
+          !ValidatorUtil.isDefined(volume.persistent) ||
+          !ValidatorUtil.isDefined(volume.persistent.profileName)
+        ) {
+          return accumulator;
+        }
+
+        if (volume.persistent.type !== "mount") {
+          accumulator.push({
+            path: ["container", "volumes", index, "persistent", "type"],
+            message: "Must be mount for volumes with profile name",
+            type: GENERIC,
+            variables: { name: "type" }
+          });
+        }
+
+        return accumulator;
+      }, []);
     }
 
     // No errors

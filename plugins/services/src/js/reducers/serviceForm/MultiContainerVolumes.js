@@ -68,12 +68,14 @@ module.exports = {
     if (name === "type" && value === VolumeConstants.type.host) {
       newState[index].host = this.hostPaths[index];
     }
-    if (
-      name === "type" &&
-      (value === VolumeConstants.type.localPersistent ||
-        value === VolumeConstants.type.dss)
-    ) {
+    if (name === "type" && value === VolumeConstants.type.localPersistent) {
       newState[index].persistent = { size: this.localSize[index] };
+    }
+    if (name === "type" && value === VolumeConstants.type.dss) {
+      newState[index].persistent = {
+        size: this.localSize[index],
+        type: "mount"
+      };
     }
     if (name === "size") {
       this.localSize[index] = value;
