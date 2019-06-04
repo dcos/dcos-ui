@@ -26,11 +26,17 @@ export interface JobRun<Env, Secrets> {
   secrets?: Secrets;
 }
 
-export type JobSpecData = Job<ArrayLabels, EnvModel, JobSecretExposure[]>;
+export interface JobSpecData
+  extends Job<ArrayLabels, EnvModel, JobSecretExposure[]> {
+  schedules?: JobSchedule[];
+}
 
 export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
-export interface JobOutput {
+export interface JobOutput extends JobOutputData {
+  schedules?: JobSchedule[];
+}
+export interface JobAPIOutput {
   job: JobOutputData;
   schedule?: JobSchedule;
 }
@@ -58,7 +64,6 @@ export interface JobSpec {
   cmdOnly: boolean;
   container?: Container | null;
   job: JobSpecData;
-  schedule?: JobSchedule;
 }
 
 export type EnvModel = Array<[string, string]>;

@@ -36,7 +36,7 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => {
         Advanced Settings
       </Trans>
       <Trans render="p">Advanced settings of the container.</Trans>
-      <p>{getForcePullSection(data, path)}</p>
+      <div className="form-group">{getForcePullSection(data, path)}</div>
     </div>
   );
 };

@@ -47,6 +47,7 @@ const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED
 
 const METHODS_TO_BIND = [
   "handleServiceAction",
@@ -178,6 +179,9 @@ class ServicesTable extends React.Component {
         break;
       case SCALE:
         modalHandlers.scaleService({ service });
+        break;
+      case RESET_DELAYED:
+        modalHandlers.resetDelayedService({ service });
         break;
       case OPEN:
         modalHandlers.openServiceUI({ service });
@@ -445,7 +449,8 @@ ServicesTable.contextTypes = {
     restartService: PropTypes.func,
     resumeService: PropTypes.func,
     stopService: PropTypes.func,
-    deleteService: PropTypes.func
+    deleteService: PropTypes.func,
+    resetDelayedService: PropTypes.func
   }).isRequired,
   router: routerShape
 };

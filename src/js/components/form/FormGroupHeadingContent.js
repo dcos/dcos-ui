@@ -7,6 +7,14 @@ import Config from "../../config/Config";
 function getTitle(children) {
   if (typeof children === "string") {
     return children;
+  } else if (
+    children.props &&
+    children.props.render &&
+    children.props.id &&
+    typeof children.props.id === "string"
+  ) {
+    // If child is a trans component with render & id, return its id
+    return children.props.id;
   }
 
   if (Config.environment === "development") {

@@ -48,7 +48,7 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
           </FieldLabel>
         );
       }
-      const argErrors = getFieldError(`job.run.args.${index}`, errors);
+      const argErrors = getFieldError(`run.args.${index}`, errors);
 
       return (
         <FormRow key={index}>

@@ -7,6 +7,7 @@ export enum ServiceActionItem {
   RESTART = "restart",
   RESUME = "resume",
   SCALE = "scale",
+  RESET_DELAYED = "reset_delayed",
   STOP = "stop",
   MORE = "more",
   KILL_POD_INSTANCES = "kill_pod_instances",

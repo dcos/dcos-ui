@@ -12,7 +12,7 @@ class GeneralConfigSection extends BaseConfig<JobOutput> {
     const { config } = this.props;
     switch (row.key) {
       case "containerImage":
-        return !(config.job.run.ucr || config.job.run.docker);
+        return !(config.run.ucr || config.run.docker);
       case undefined:
         return false;
       default:
@@ -34,38 +34,38 @@ class GeneralConfigSection extends BaseConfig<JobOutput> {
           headingLevel: 1
         },
         {
-          key: "job.id",
+          key: "id",
           label: <Trans>Job ID</Trans>
         },
         {
-          key: "job.description",
+          key: "description",
           label: <Trans>Description</Trans>
         },
         {
-          key: "job.run.cpus",
+          key: "run.cpus",
           label: <Trans>CPU</Trans>
         },
         {
-          key: "job.run.mem",
+          key: "run.mem",
           label: <Trans>Mem</Trans>
         },
         {
-          key: "job.run.disk",
+          key: "run.disk",
           label: <Trans>Disk</Trans>
         },
         {
-          key: "job.run.gpus",
+          key: "run.gpus",
           label: <Trans>GPU</Trans>
         },
         {
-          key: "job.run.cmd",
+          key: "run.cmd",
           label: <Trans>Command</Trans>
         },
         {
           key: "containerImage",
           label: <Trans>Container Image</Trans>,
           transformValue(_: any, config: JobOutput) {
-            const { ucr, docker } = config.job.run;
+            const { ucr, docker } = config.run;
             if (ucr) {
               return getDisplayValue(ucr.image && ucr.image.id);
             }

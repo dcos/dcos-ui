@@ -1,6 +1,3 @@
-**/node_modules/**
-/dist/**
-/docs/**
-/jest/**
-/schema/**
-/webpack/modules/**
+node_modules/**
+dist/**
+docs/**

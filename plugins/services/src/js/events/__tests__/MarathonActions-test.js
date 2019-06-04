@@ -677,6 +677,136 @@ describe("MarathonActions", function() {
     });
   });
 
+  describe("#resetDelayedService", function() {
+    describe("app", function() {
+      const app = new Application({ id: "/test" });
+
+      beforeEach(function() {
+        spyOn(RequestUtil, "json");
+        MarathonActions.resetDelayedService(app);
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+      });
+
+      it("calls #json from the RequestUtil", function() {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it("sends data to the correct URL", function() {
+        expect(thisConfiguration.url).toEqual(
+          `${Config.rootUrl}/service/marathon/v2/queue//test/delay`
+        );
+      });
+
+      it("uses DELETE for the request method", function() {
+        expect(thisConfiguration.method).toEqual("DELETE");
+      });
+
+      it("dispatches the correct action when successful", function() {
+        var id = AppDispatcher.register(function(payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type).toEqual(
+            ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS
+          );
+        });
+
+        thisConfiguration.success({});
+      });
+
+      it("dispatches the correct action when unsuccessful", function() {
+        var id = AppDispatcher.register(function(payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type).toEqual(
+            ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR
+          );
+        });
+
+        thisConfiguration.error({ message: "error", response: "{}" });
+      });
+
+      it("dispatches the xhr when unsuccessful", function() {
+        var id = AppDispatcher.register(function(payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: "bar",
+            responseJSON: { description: "baz" }
+          });
+        });
+
+        thisConfiguration.error({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        });
+      });
+    });
+
+    describe("pods", function() {
+      const pod = new Pod({ id: "/test" });
+
+      beforeEach(function() {
+        spyOn(RequestUtil, "json");
+        MarathonActions.resetDelayedService(pod);
+        thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
+      });
+
+      it("calls #json from the RequestUtil", function() {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it("sends data to the correct URL", function() {
+        expect(thisConfiguration.url).toEqual(
+          `${Config.rootUrl}/service/marathon/v2/queue//test/delay`
+        );
+      });
+
+      it("uses DELETE for the request method", function() {
+        expect(thisConfiguration.method).toEqual("DELETE");
+      });
+
+      it("dispatches the correct action when successful", function() {
+        var id = AppDispatcher.register(function(payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type).toEqual(
+            ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS
+          );
+        });
+
+        thisConfiguration.success({});
+      });
+
+      it("dispatches the correct action when unsuccessful", function() {
+        var id = AppDispatcher.register(function(payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type).toEqual(
+            ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR
+          );
+        });
+
+        thisConfiguration.error({ message: "error", response: "{}" });
+      });
+
+      it("dispatches the xhr when unsuccessful", function() {
+        var id = AppDispatcher.register(function(payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.xhr).toEqual({
+            foo: "bar",
+            responseJSON: { description: "baz" }
+          });
+        });
+
+        thisConfiguration.error({
+          foo: "bar",
+          responseJSON: { description: "baz" }
+        });
+      });
+    });
+  });
+
   describe("#restartService", function() {
     describe("app", function() {
       const app = new Application({ id: "/test" });
