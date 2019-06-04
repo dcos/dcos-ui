@@ -198,6 +198,87 @@ describe("Service Table", function() {
     });
   });
 
+  context("Reset Delay Action", function() {
+    context("Delayed service", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-delayed",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+
+        openDropdown("sleep");
+        clickDropdownAction("Reset Delay");
+      });
+
+      it("shows a toast notification", function() {
+        cy.route({
+          method: "DELETE",
+          url: /marathon\/v2\/queue\/\/sleep\/delay/,
+          response: []
+        });
+        cy.get(".toasts-container").should("exist");
+      });
+    });
+
+    context("Non-delayed service", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+
+        openDropdown("sleep");
+      });
+
+      it("doesn't have a reset delayed action", function() {
+        cy.get(".dropdown-menu-items")
+          .contains("Reset Delay")
+          .should("not.exist");
+      });
+    });
+
+    context("Delayed pod", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-pod-delayed",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+
+        openDropdown("podses");
+        clickDropdownAction("Reset Delay");
+      });
+
+      it("shows a toast notification", function() {
+        cy.route({
+          method: "DELETE",
+          url: /marathon\/v2\/queue\/\/podses\/delay/,
+          response: []
+        });
+        cy.get(".toasts-container").should("exist");
+      });
+    });
+
+    context("Non-delayed pod", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-pod",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+        openDropdown("podses");
+      });
+
+      it("doesn't have a reset delayed action", function() {
+        cy.get(".dropdown-menu-items")
+          .contains("Reset Delay")
+          .should("not.exist");
+      });
+    });
+  });
+
   context("SDK Services", function() {
     beforeEach(function() {
       cy.configureCluster({
@@ -397,16 +478,16 @@ describe("Service Table", function() {
     });
 
     it("group status is an aggregate of children", function() {
-      cy.get('.status-bar-text')
+      cy.get(".status-bar-text")
         .eq(1)
-        .contains("Running (3 of 3)")
+        .contains("Running (3 of 3)");
     });
 
     it("shows service status counts in group tooltip", function() {
-      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(1)
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
-    })
+    });
   });
 });
