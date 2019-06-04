@@ -1,7 +1,8 @@
 const MarathonAppValidators = require("../MarathonAppValidators");
 const {
   PROP_MISSING_ONE,
-  SYNTAX_ERROR
+  SYNTAX_ERROR,
+  GENERIC
 } = require("../../constants/ServiceErrorTypes");
 
 const APPCONTAINERID_ERRORS = [
@@ -380,6 +381,116 @@ describe("MarathonAppValidators", function() {
           variables: {
             name: "labels"
           }
+        }
+      ]);
+    });
+  });
+
+  describe("#validateProfileVolumes", function() {
+    it("does not return error if container ist not specified", function() {
+      const spec = {};
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
+    });
+
+    it("does not return error if volumes is not specified", function() {
+      const spec = { container: {} };
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
+    });
+
+    it("does not return error for local host volumes", function() {
+      const spec = {
+        container: {
+          volumes: [
+            {
+              containerPath: "path",
+              mode: "RW"
+            }
+          ]
+        }
+      };
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
+    });
+
+    it("does not return error for external volumes", function() {
+      const spec = {
+        container: {
+          volumes: [
+            {
+              external: {
+                name: "name",
+                provider: "dvdi",
+                options: {
+                  "dvdi/driver": "rexray"
+                },
+                size: 3
+              },
+              mode: "RW",
+              containerPath: "path"
+            }
+          ]
+        }
+      };
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
+    });
+
+    it("does not return error for local persistent volumes", function() {
+      const spec = {
+        container: {
+          volumes: [
+            {
+              persistent: {
+                size: 3
+              },
+              mode: "RW",
+              containerPath: "path"
+            }
+          ]
+        }
+      };
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
+    });
+
+    it("does not return error if volume type is `mount`", function() {
+      const spec = {
+        container: {
+          volumes: [
+            {
+              persistent: {
+                type: "mount",
+                size: 3,
+                profileName: "profile"
+              },
+              mode: "RW",
+              containerPath: "path"
+            }
+          ]
+        }
+      };
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
+    });
+
+    it("returns error if volume type is not `mount`", function() {
+      const spec = {
+        container: {
+          volumes: [
+            {
+              persistent: {
+                type: "root",
+                size: 3,
+                profileName: "profile"
+              },
+              mode: "RW",
+              containerPath: "path"
+            }
+          ]
+        }
+      };
+      expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([
+        {
+          path: ["container", "volumes", 0, "persistent", "type"],
+          message: "Must be mount for volumes with profile name",
+          type: GENERIC,
+          variables: { name: "type" }
         }
       ]);
     });
