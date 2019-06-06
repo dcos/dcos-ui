@@ -10,9 +10,12 @@ import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import Node from "#SRC/js/structs/Node";
 import { SortDirection } from "#PLUGINS/nodes/src/js/types/SortDirection";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
+import { columnWidthsStorageKey } from "../components/NodesTable";
 
 const NodeIp = React.memo(
   ({
@@ -87,4 +90,8 @@ const comparators = [compareNodesByIp];
 export function ipSorter(data: Node[], sortDirection: SortDirection): Node[] {
   const reverse = sortDirection !== "ASC";
   return sort(data, comparators, { reverse });
+}
+
+export function ipWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).host;
 }

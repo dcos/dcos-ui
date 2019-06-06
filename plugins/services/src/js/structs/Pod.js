@@ -131,6 +131,10 @@ module.exports = class Pod extends Service {
       return ServiceStatus.STOPPED;
     }
 
+    if (this.isDelayed()) {
+      return ServiceStatus.DELAYED;
+    }
+
     if (scalingInstances !== nonterminalInstances) {
       return ServiceStatus.DEPLOYING;
     }
