@@ -19,9 +19,7 @@ interface KeyValue {
 
 class LabelsConfigSection extends BaseConfig<JobOutput> {
   shouldExcludeItem(_: Value<JobOutput>) {
-    const {
-      job: { labels }
-    } = this.props.config;
+    const { labels } = this.props.config;
 
     return labels == null || Object.keys(labels).length === 0;
   }
@@ -39,7 +37,7 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
           headingLevel: 1
         },
         {
-          key: "job.labels",
+          key: "labels",
           render(labels: JobLabels) {
             const columns = [
               {

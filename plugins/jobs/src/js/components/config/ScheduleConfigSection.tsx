@@ -3,14 +3,15 @@ import { Trans } from "@lingui/macro";
 
 import BaseConfig, { Value } from "#SRC/js/components/BaseConfig";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { getDisplayValue } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput, JobSchedule } from "../form/helpers/JobFormData";
 
 class ScheduleConfigSection extends BaseConfig<JobOutput> {
   shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
-    if (config.schedule) {
-      const prop = findNestedPropertyInObject(config, row.key);
+    if (config.schedules && config.schedules[0]) {
+      const prop = findNestedPropertyInObject(config.schedules[0], row.key);
       return row.key != null && !(prop != null && prop !== "");
     }
     return true;
@@ -29,33 +30,63 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
           headingLevel: 1
         },
         {
-          key: "schedule.id",
-          label: <Trans>Schedule ID</Trans>
+          key: "id",
+          label: <Trans>Schedule ID</Trans>,
+          transformValue(_: any, config: JobOutput) {
+            const { schedules } = config;
+            const schedule = schedules && schedules[0];
+            return getDisplayValue(schedule && schedule.id);
+          }
         },
         {
-          key: "schedule.cron",
-          label: <Trans>CRON</Trans>
+          key: "cron",
+          label: <Trans>CRON</Trans>,
+          transformValue(_: any, config: JobOutput) {
+            const { schedules } = config;
+            const schedule = schedules && schedules[0];
+            return getDisplayValue(schedule && schedule.cron);
+          }
         },
         {
-          key: "schedule.timezone",
-          label: <Trans>Timezone</Trans>
+          key: "timezone",
+          label: <Trans>Timezone</Trans>,
+          transformValue(_: any, config: JobOutput) {
+            const { schedules } = config;
+            const schedule = schedules && schedules[0];
+            return getDisplayValue(schedule && schedule.timezone);
+          }
         },
         {
-          key: "schedule.startingDeadlineSeconds",
-          label: <Trans>Starting Deadline</Trans>
+          key: "startingDeadlineSeconds",
+          label: <Trans>Starting Deadline</Trans>,
+          transformValue(_: any, config: JobOutput) {
+            const { schedules } = config;
+            const schedule = schedules && schedules[0];
+            return getDisplayValue(
+              schedule && schedule.startingDeadlineSeconds
+            );
+          }
         },
         {
-          key: "schedule.concurrencyPolicy",
-          label: <Trans>Concurrency Policy</Trans>
+          key: "concurrencyPolicy",
+          label: <Trans>Concurrency Policy</Trans>,
+          transformValue(_: any, config: JobOutput) {
+            const { schedules } = config;
+            const schedule = schedules && schedules[0];
+            return getDisplayValue(schedule && schedule.concurrencyPolicy);
+          }
         },
         {
-          key: "schedule.enabled",
+          key: "enabled",
           label: <Trans>Enabled</Trans>,
           transformValue(_: any, config: JobOutput) {
-            const { schedule } = config;
+            const { schedules } = config;
+            const schedule = schedules && schedules[0];
             return `${
-              (schedule as JobSchedule).enabled != null
-                ? (schedule as JobSchedule).enabled
+              schedule
+                ? (schedule as JobSchedule).enabled != null
+                  ? (schedule as JobSchedule).enabled
+                  : ""
                 : ""
             }`;
           }

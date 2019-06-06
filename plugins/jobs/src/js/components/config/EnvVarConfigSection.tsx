@@ -20,9 +20,7 @@ interface KeyValue {
 class EnvVarConfigSection extends BaseConfig<JobOutput> {
   shouldExcludeItem(_: Value<JobOutput>) {
     const {
-      job: {
-        run: { env }
-      }
+      run: { env }
     } = this.props.config;
 
     return env == null || Object.keys(env).length === 0;
@@ -41,7 +39,7 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
           headingLevel: 1
         },
         {
-          key: "job.run.env",
+          key: "run.env",
           render(env: JobEnv) {
             const columns = [
               {
