@@ -14,7 +14,7 @@ describe("Sidebar", function() {
 
   context("Sidebar Items", function() {
     it("opens nested items in the sidebar when clicked", function() {
-      cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/dashboard", identify: true });
 
       cy.get(".sidebar-sections .sidebar-menu-item")
         .contains("Settings")
@@ -38,7 +38,7 @@ describe("Sidebar", function() {
     });
 
     it("marks the active tab as selected", function() {
-      cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/dashboard", identify: true });
 
       cy.get(".sidebar-sections .sidebar-menu-item")
         .contains("Jobs")
@@ -63,11 +63,7 @@ describe("Sidebar", function() {
       it(`renders nested route ${
         nestedRoute.url
       } with parent selected when visiting directly`, function() {
-        cy.visitUrl({
-          url: nestedRoute.url,
-          identify: true,
-          fakeAnalytics: true
-        });
+        cy.visitUrl({ url: nestedRoute.url, identify: true });
 
         cy.get(".sidebar-sections .sidebar-menu-item")
           .contains(nestedRoute.parentMenuLabel)
@@ -101,7 +97,7 @@ describe("Sidebar", function() {
   context("Sidebar toggle", function() {
     beforeEach(function() {
       cy.clearLocalStorage();
-      cy.visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/dashboard", identify: true });
     });
 
     it("adds the proper class to the .sidebar-wrapper element", function() {

@@ -44,6 +44,7 @@ import ContainerServiceFormSection from "../forms/ContainerServiceFormSection";
 import CreateServiceJsonOnly from "./CreateServiceJsonOnly";
 import EnvironmentFormSection from "../forms/EnvironmentFormSection";
 import MarathonAppValidators from "../../validators/MarathonAppValidators";
+import MarathonPodValidators from "../../validators/MarathonPodValidators";
 import MarathonErrorUtil from "../../utils/MarathonErrorUtil";
 import CreateServiceModalServicePicker from "./CreateServiceModalServicePicker";
 import CreateServiceModalForm from "./CreateServiceModalForm";
@@ -95,11 +96,13 @@ const APP_VALIDATORS = [
   MarathonAppValidators.validateConstraints,
   MarathonAppValidators.validateLabels,
   MarathonAppValidators.mustNotContainUris,
+  MarathonAppValidators.validateProfileVolumes,
   VipLabelsValidators.mustContainPort
 ];
 
 const POD_VALIDATORS = [
   PodValidators.Pod,
+  MarathonPodValidators.validateProfileVolumes,
   VipLabelsValidators.mustContainPort,
   PlacementsValidators.mustHaveUniqueOperatorField
 ];
@@ -420,6 +423,7 @@ class CreateServiceModal extends Component {
         this.setState({
           activeTab: null,
           apiErrors: [],
+          formErrors: [],
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
@@ -434,6 +438,7 @@ class CreateServiceModal extends Component {
         this.setState({
           activeTab: null,
           apiErrors: [],
+          formErrors: [],
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
@@ -448,6 +453,7 @@ class CreateServiceModal extends Component {
         this.setState({
           activeTab: null,
           apiErrors: [],
+          formErrors: [],
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceJsonActive: true,

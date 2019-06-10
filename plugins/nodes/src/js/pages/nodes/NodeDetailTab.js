@@ -59,6 +59,9 @@ class NodeDetailTab extends PureComponent {
 
   render() {
     const { node } = this.props;
+    if (!node) {
+      return null;
+    }
     const resources = node.get("resources");
 
     return (
@@ -165,7 +168,7 @@ class NodeDetailTab extends PureComponent {
 }
 
 NodeDetailTab.propTypes = {
-  node: PropTypes.instanceOf(Node).isRequired
+  node: PropTypes.instanceOf(Node)
 };
 
 module.exports = NodeDetailTab;

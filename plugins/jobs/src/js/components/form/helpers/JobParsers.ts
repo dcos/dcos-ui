@@ -142,25 +142,26 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   }
 
   if (
-    jobSpecCopy.schedule &&
-    jobSpecCopy.schedule.startingDeadlineSeconds === ""
+    jobSpecCopy.job.schedules &&
+    Array.isArray(jobSpecCopy.job.schedules) &&
+    jobSpecCopy.job.schedules.length
   ) {
-    delete jobSpecCopy.schedule.startingDeadlineSeconds;
-  }
-  if (jobSpecCopy.schedule) {
-    const filteredSchedule = filterEmptyValues(jobSpecCopy.schedule);
-    if (
-      !Object.keys(filteredSchedule).length ||
-      schedulePropertiesCanBeDiscarded(filteredSchedule)
-    ) {
-      jobSpecCopy.schedule = undefined;
+    const schedule = jobSpecCopy.job.schedules[0];
+    if (schedule && schedule.startingDeadlineSeconds === "") {
+      delete schedule.startingDeadlineSeconds;
+    }
+    if (schedule) {
+      const filteredSchedule = filterEmptyValues(schedule);
+      if (
+        !Object.keys(filteredSchedule).length ||
+        schedulePropertiesCanBeDiscarded(filteredSchedule)
+      ) {
+        delete jobSpecCopy.job.schedules;
+      }
     }
   }
 
-  const jobOutput = {
-    job: jobSpecCopy.job,
-    schedule: jobSpecCopy.schedule
-  };
+  const jobOutput = jobSpecCopy.job;
 
   return Hooks.applyFilter("jobSpecToOutputParser", jobOutput);
 }
@@ -193,6 +194,11 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   );
   const placementConstraints =
     constraints && Array.isArray(constraints) ? constraints : [];
+  const schedules = findNestedPropertyInObject(jobSpec, "job.schedules");
+  let schedule = {};
+  if (schedules && Array.isArray(schedules) && schedules.length) {
+    schedule = schedules[0];
+  }
 
   return {
     jobId: jobSpec.job.id,
@@ -217,36 +223,37 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     labels: jobSpec.job.labels,
     artifacts: run.artifacts,
     args,
-    scheduleId: findNestedPropertyInObject(jobSpec, "schedule.id"),
-    cronSchedule: findNestedPropertyInObject(jobSpec, "schedule.cron"),
-    scheduleEnabled: findNestedPropertyInObject(jobSpec, "schedule.enabled"),
-    timezone: findNestedPropertyInObject(jobSpec, "schedule.timezone"),
+    scheduleId: findNestedPropertyInObject(schedule, "id"),
+    cronSchedule: findNestedPropertyInObject(schedule, "cron"),
+    scheduleEnabled: findNestedPropertyInObject(schedule, "enabled"),
+    timezone: findNestedPropertyInObject(schedule, "timezone"),
     startingDeadline: findNestedPropertyInObject(
-      jobSpec,
-      "schedule.startingDeadlineSeconds"
-    ),
-    concurrencyPolicy: findNestedPropertyInObject(
-      jobSpec,
-      "schedule.concurrencyPolicy"
+      schedule,
+      "startingDeadlineSeconds"
     ),
     volumes: findNestedPropertyInObject(jobSpec, "job.run.volumes") || [],
-    placementConstraints
+    placementConstraints,
+    concurrencyPolicy: findNestedPropertyInObject(schedule, "concurrencyPolicy")
   };
 };
 
 export const removeBlankProperties = (jobSpec: JobOutput): JobOutput => {
   const jobSpecCopy = deepCopy(jobSpec);
-  const job = filterEmptyValues(jobSpecCopy.job);
+  const job = filterEmptyValues(jobSpecCopy);
   job.run = filterEmptyValues(job.run);
-  let schedule = jobSpecCopy.schedule;
+  const schedules = job.schedules;
+  let schedule;
+  if (schedules && Array.isArray(schedules) && schedules.length) {
+    schedule = schedules[0];
+  }
   if (schedule) {
-    const filteredSchedule = filterEmptyValues(jobSpecCopy.schedule);
+    const filteredSchedule = filterEmptyValues(schedule);
     schedule = Object.keys(filteredSchedule).length
       ? filteredSchedule
       : undefined;
   }
-  return {
-    job,
-    schedule
-  };
+  if (!schedule) {
+    delete job.schedules;
+  }
+  return job;
 };

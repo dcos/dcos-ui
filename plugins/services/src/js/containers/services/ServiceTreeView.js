@@ -122,6 +122,9 @@ class ServiceTreeView extends React.Component {
             isFiltered={filterExpression.defined}
             modalHandlers={modalHandlers}
             services={services}
+            hideTable={this.context.router.routes.some(
+              ({ isFullscreenModal }) => isFullscreenModal
+            )}
           />
         </div>
         {children}

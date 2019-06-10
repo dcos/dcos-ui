@@ -84,7 +84,7 @@ var NodesAgents = createReactClass({
 
   getInitialState() {
     return Object.assign(
-      { selectedResource: "cpus", nodesHealth: null },
+      { selectedResource: "cpus", nodesHealth: [] },
       DEFAULT_FILTER_OPTIONS
     );
   },

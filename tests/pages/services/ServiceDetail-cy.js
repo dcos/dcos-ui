@@ -244,4 +244,100 @@ describe("Service Detail Page", function() {
       cy.get(".container").contains("Download Config");
     });
   });
+
+  context("Delayed service", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-delayed",
+        nodeHealth: true
+      });
+    });
+
+    it("shows debug tab when clicked", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fsleep"
+      });
+
+      cy.get(".menu-tabbed-item")
+        .contains("Debug")
+        .click();
+
+      cy.get(".menu-tabbed-item .active")
+        .contains("Debug")
+        .get(".page-body-content")
+        .contains("Last Changes");
+      cy.contains(
+        "DC/OS has delayed the launching of this service due to failures."
+      );
+      cy.get("a")
+        .contains("More information")
+        .should("have.attr", "href");
+      cy.get("a")
+        .contains("Retry now")
+        .click();
+      cy.route({
+        method: "DELETE",
+        url: /marathon\/v2\/queue\/\/sleep\/delay/,
+        response: []
+      });
+      cy.get(".toasts-container").should("exist");
+      cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
+    });
+  });
+
+  context("Actions", function() {
+    function openDropdown() {
+      cy.get(".button-narrow").click();
+    }
+
+    function clickDropdownAction(actionText) {
+      cy.get(".dropdown-menu-items")
+        .contains(actionText)
+        .click();
+    }
+
+    context("Reset Delay Action", function() {
+      context("Delayed service", function() {
+        beforeEach(function() {
+          cy.configureCluster({
+            mesos: "1-task-delayed",
+            nodeHealth: true
+          });
+          cy.visitUrl({
+            url: "/services/detail/%2Fsleep"
+          });
+          openDropdown("sleep");
+          clickDropdownAction("Reset Delay");
+        });
+
+        it("shows a toast notification", function() {
+          cy.route({
+            method: "DELETE",
+            url: /marathon\/v2\/queue\/\/sleep\/delay/,
+            response: []
+          });
+          cy.get(".toasts-container").should("exist");
+        });
+      });
+
+      context("Non-delayed service", function() {
+        beforeEach(function() {
+          cy.configureCluster({
+            mesos: "1-task-healthy",
+            nodeHealth: true
+          });
+          cy.visitUrl({
+            url: "/services/detail/%2Fsleep"
+          });
+          openDropdown("sleep");
+        });
+
+        it("doesn't have a reset delayed action", function() {
+          cy.get(".dropdown-menu-items")
+            .contains("Reset Delay")
+            .should("not.exist");
+        });
+      });
+    });
+  });
 });
