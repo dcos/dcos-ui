@@ -23,7 +23,10 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
       run: { env }
     } = this.props.config;
 
-    return env == null || Object.keys(env).length === 0;
+    return (
+      env == null ||
+      Object.keys(env).filter(key => typeof env[key] !== "object").length === 0
+    );
   }
 
   getMountType() {
