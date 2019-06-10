@@ -33,6 +33,8 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_ERROR,
@@ -72,6 +74,8 @@ import {
   MARATHON_SERVICE_DELETE_SUCCESS,
   MARATHON_SERVICE_EDIT_ERROR,
   MARATHON_SERVICE_EDIT_SUCCESS,
+  MARATHON_SERVICE_RESET_DELAY_ERROR,
+  MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   MARATHON_SERVICE_RESTART_ERROR,
   MARATHON_SERVICE_RESTART_SUCCESS,
   MARATHON_SERVICE_VERSION_CHANGE,
@@ -157,6 +161,8 @@ class MarathonStore extends GetSetBaseStore {
         serviceDeleteSuccess: MARATHON_SERVICE_DELETE_SUCCESS,
         serviceEditError: MARATHON_SERVICE_EDIT_ERROR,
         serviceEditSuccess: MARATHON_SERVICE_EDIT_SUCCESS,
+        serviceResetDelayError: MARATHON_SERVICE_RESET_DELAY_ERROR,
+        serviceResetDelaySuccess: MARATHON_SERVICE_RESET_DELAY_SUCCESS,
         serviceRestartError: MARATHON_SERVICE_RESTART_ERROR,
         serviceRestartSuccess: MARATHON_SERVICE_RESTART_SUCCESS,
         taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
@@ -227,6 +233,12 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
           this.emit(MARATHON_SERVICE_RESTART_SUCCESS);
+          break;
+        case REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR:
+          this.emit(MARATHON_SERVICE_RESET_DELAY_ERROR, action.data);
+          break;
+        case REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS:
+          this.emit(MARATHON_SERVICE_RESET_DELAY_SUCCESS);
           break;
         case REQUEST_MARATHON_GROUPS_SUCCESS:
           this.injectGroupsWithPackageImages(action.data);
@@ -352,6 +364,10 @@ class MarathonStore extends GetSetBaseStore {
 
   editService() {
     return MarathonActions.editService(...arguments);
+  }
+
+  resetDelayedService() {
+    return MarathonActions.resetDelayedService(...arguments);
   }
 
   restartService() {

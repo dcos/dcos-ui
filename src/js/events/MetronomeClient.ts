@@ -5,7 +5,7 @@ import { Observable, throwError } from "rxjs";
 import Config from "../config/Config";
 import {
   JobSchedule,
-  JobOutput
+  JobAPIOutput
 } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 import { switchMap, catchError } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
@@ -160,7 +160,7 @@ const defaultHeaders = {
 };
 
 export function createJob(
-  data: JobOutput
+  data: JobAPIOutput
 ): Observable<RequestResponse<JobDetailResponse>> {
   const jobRequest = request(`${Config.metronomeAPI}/v1/jobs`, {
     method: "POST",
@@ -208,7 +208,7 @@ export function deleteJob(
 
 export function updateJob(
   jobID: string,
-  data: JobOutput,
+  data: JobAPIOutput,
   existingSchedule: boolean = true
 ): Observable<RequestResponse<JobDetailResponse>> {
   const updateJobRequest = request(`${Config.metronomeAPI}/v1/jobs/${jobID}`, {

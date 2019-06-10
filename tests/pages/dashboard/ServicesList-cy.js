@@ -3,7 +3,7 @@ describe("ServicesList", function() {
     beforeEach(function() {
       cy.configureCluster({
         mesos: "1-task-healthy"
-      }).visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
+      }).visitUrl({ url: "/dashboard", identify: true });
     });
 
     it("shows an acceptable number of components", function() {

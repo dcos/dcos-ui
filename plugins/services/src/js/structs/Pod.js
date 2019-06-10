@@ -1,3 +1,5 @@
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+
 import HealthStatus from "../constants/HealthStatus";
 import PodInstanceList from "./PodInstanceList";
 import PodSpec from "./PodSpec";
@@ -129,6 +131,10 @@ module.exports = class Pod extends Service {
       return ServiceStatus.STOPPED;
     }
 
+    if (this.isDelayed()) {
+      return ServiceStatus.DELAYED;
+    }
+
     if (scalingInstances !== nonterminalInstances) {
       return ServiceStatus.DEPLOYING;
     }
@@ -236,5 +242,10 @@ module.exports = class Pod extends Service {
     }
 
     return this._regions;
+  }
+
+  isDelayed() {
+    const queue = this.getQueue();
+    return findNestedPropertyInObject(queue, "delay.overdue") === false;
   }
 };

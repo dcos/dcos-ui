@@ -48,7 +48,8 @@ const serviceRoutes = [
           {
             type: Route,
             path: "create",
-            component: CreateServiceModal
+            component: CreateServiceModal,
+            isFullscreenModal: true
           },
           {
             type: Route,
@@ -57,7 +58,8 @@ const serviceRoutes = [
               {
                 type: Route,
                 path: "create",
-                component: CreateServiceModal
+                component: CreateServiceModal,
+                isFullscreenModal: true
               }
             ]
           }

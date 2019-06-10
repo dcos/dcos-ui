@@ -194,4 +194,100 @@ describe("Pod Detail Page", function() {
       });
     });
   });
+
+  context("Delayed pod", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-pod-delayed",
+        nodeHealth: true
+      });
+    });
+
+    it("shows debug tab when clicked", function() {
+      cy.visitUrl({
+        url: "/services/detail/%2Fpodses"
+      });
+
+      cy.get(".menu-tabbed-item")
+        .contains("Debug")
+        .click();
+
+      cy.get(".menu-tabbed-item .active")
+        .contains("Debug")
+        .get(".page-body-content")
+        .contains("Last Changes");
+      cy.contains(
+        "DC/OS has delayed the launching of this service due to failures."
+      );
+      cy.get("a")
+        .contains("More information")
+        .should("have.attr", "href");
+      cy.get("a")
+        .contains("Retry now")
+        .click();
+      cy.route({
+        method: "DELETE",
+        url: /marathon\/v2\/queue\/\/podses\/delay/,
+        response: []
+      });
+      cy.get(".toasts-container").should("exist");
+      cy.hash().should("match", /services\/detail\/%2Fpodses\/debug.*/);
+    });
+  });
+
+  context("Actions", function() {
+    function openDropdown() {
+      cy.get(".button-narrow").click();
+    }
+
+    function clickDropdownAction(actionText) {
+      cy.get(".dropdown-menu-items")
+        .contains(actionText)
+        .click();
+    }
+
+    context("Reset Delay Action", function() {
+      context("Delayed pod", function() {
+        beforeEach(function() {
+          cy.configureCluster({
+            mesos: "1-pod-delayed",
+            nodeHealth: true
+          });
+          cy.visitUrl({
+            url: "/services/detail/%2Fpodses"
+          });
+          openDropdown("podses");
+          clickDropdownAction("Reset Delay");
+        });
+
+        it("shows a toast notification", function() {
+          cy.route({
+            method: "DELETE",
+            url: /marathon\/v2\/queue\/\/podses\/delay/,
+            response: []
+          });
+          cy.get(".toasts-container").should("exist");
+        });
+      });
+
+      context("Non-delayed pod", function() {
+        beforeEach(function() {
+          cy.configureCluster({
+            mesos: "1-pod",
+            nodeHealth: true
+          });
+          cy.visitUrl({
+            url: "/services/detail/%2Fpodses"
+          });
+          openDropdown("podses");
+        });
+
+        it("doesn't have a reset delayed action", function() {
+          cy.get(".dropdown-menu-items")
+            .contains("Reset Delay")
+            .should("not.exist");
+        });
+      });
+    });
+  });
 });

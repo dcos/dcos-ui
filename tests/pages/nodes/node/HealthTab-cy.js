@@ -8,7 +8,7 @@ describe("Node Health Tab [0fa]", function() {
 
   context("Navigate to tab [0fb]", function() {
     it("navigates to health tab [0fc]", function() {
-      cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/nodes", identify: true });
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
       )
@@ -27,7 +27,7 @@ describe("Node Health Tab [0fa]", function() {
 
   context("Health Tab [0fd]", function() {
     beforeEach(function() {
-      cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/nodes", identify: true });
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
       )

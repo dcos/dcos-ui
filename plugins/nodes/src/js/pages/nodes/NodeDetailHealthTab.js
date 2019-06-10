@@ -9,6 +9,9 @@ import HealthTab from "../../components/HealthTab";
 class NodeDetailHealthTab extends React.Component {
   render() {
     const { node } = this.props;
+    if (!node) {
+      return null;
+    }
     const units = NodeHealthStore.getUnits(node.hostname);
 
     return <HealthTab node={node} units={units} params={this.props.params} />;
@@ -20,7 +23,7 @@ NodeDetailHealthTab.contextTypes = {
 };
 
 NodeDetailHealthTab.propTypes = {
-  node: PropTypes.instanceOf(Node).isRequired
+  node: PropTypes.instanceOf(Node)
 };
 
 module.exports = NodeDetailHealthTab;
