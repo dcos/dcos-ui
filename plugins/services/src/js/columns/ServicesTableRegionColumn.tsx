@@ -9,11 +9,17 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
 
+const emptyRegionPlaceholder = "N/A";
+
 const ServiceRegion = React.memo(({ regions }: { regions: string }) => (
   <TextCell>
-    <Tooltip elementTag="span" wrapText={true} content={regions}>
-      {regions}
-    </Tooltip>
+    {regions === emptyRegionPlaceholder ? (
+      regions
+    ) : (
+      <Tooltip elementTag="span" wrapText={true} content={regions}>
+        {regions}
+      </Tooltip>
+    )}
   </TextCell>
 ));
 
@@ -26,7 +32,7 @@ export function regionRendererFactory(localRegion: string | undefined) {
     );
 
     if (regions.length === 0) {
-      regions.push("N/A");
+      regions.push(emptyRegionPlaceholder);
     }
 
     return <ServiceRegion regions={regions.join(", ")} />;
