@@ -112,6 +112,23 @@ describe("Volumes", function() {
         { name: "foo", persistent: { size: 1 } }
       ]);
     });
+    it("handles DSS type", function() {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "type"], "DSS"));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "size"], "1"));
+      batch = batch.add(
+        new Transaction(["volumeMounts", 0, "profileName"], "dev")
+      );
+
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
+        {
+          name: "foo",
+          persistent: { size: 1, type: "mount", profileName: "dev" }
+        }
+      ]);
+    });
   });
 
   describe("#FormReducer", function() {

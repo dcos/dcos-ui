@@ -30,7 +30,8 @@ import {
   JobSpec,
   JobOutput,
   Action,
-  Container
+  Container,
+  JobAPIOutput
 } from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
@@ -144,7 +145,7 @@ class JobFormModal extends React.Component<
     const jobSpec = job
       ? this.getJobSpecFromResponse(job)
       : getDefaultJobSpec();
-    const hasSchedule = !!(jobSpec.schedule && jobSpec.schedule.id);
+    const hasSchedule = !!(jobSpec.job.schedules && jobSpec.job.schedules[0]);
     const jobOutput = jobSpecToOutputParser(jobSpec);
     const initialState = {
       jobSpec,
@@ -194,12 +195,11 @@ class JobFormModal extends React.Component<
       jobCopy.run.env = Object.entries(jobCopy.run.env);
     }
 
-    const { schedules, _itemData, ...jobOnly } = jobCopy;
+    const { _itemData, ...jobOnly } = jobCopy;
     const jobSpec = {
       cmdOnly,
       container,
-      job: jobOnly,
-      schedule: schedules[0]
+      job: jobOnly
     };
     return Hooks.applyFilter("jobResponseToSpecParser", jobSpec);
   }
@@ -242,16 +242,23 @@ class JobFormModal extends React.Component<
   getSubmitAction(jobOutput: JobOutput) {
     const { isEdit } = this.props;
     const { hasSchedule, scheduleFailure } = this.state;
+    const data: JobAPIOutput = {
+      job: jobOutput
+    };
+    if (jobOutput.schedules) {
+      data.schedule = jobOutput.schedules[0];
+      delete jobOutput.schedules;
+    }
     if (isEdit || scheduleFailure) {
       const editContext = {
-        jobId: jobOutput.job.id,
-        data: jobOutput,
+        jobId: jobOutput.id,
+        data,
         existingSchedule: hasSchedule
       };
       return dataLayer.query(editJobMutation, editContext);
     } else {
       const createContext = {
-        data: jobOutput
+        data
       };
       return dataLayer.query(createJobMutation, createContext);
     }

@@ -26,6 +26,7 @@ const OPEN = ServiceActionItem.OPEN;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
 const METHODS_TO_BIND = [
   "handleActionDisabledModalOpen",
@@ -112,6 +113,9 @@ class PodDetail extends mixin(TabsMixin) {
       case SCALE:
         modalHandlers.scaleService({ service: pod });
         break;
+      case RESET_DELAYED:
+        modalHandlers.resetDelayedService({ service: pod });
+        break;
       case OPEN:
         modalHandlers.openServiceUI({ service: pod });
         break;
@@ -161,6 +165,13 @@ class PodDetail extends mixin(TabsMixin) {
       actions.push({
         label: i18nMark("Scale"),
         onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
+      });
+    }
+
+    if (pod.isDelayed()) {
+      actions.push({
+        label: i18nMark("Reset Delay"),
+        onItemSelect: this.onActionsItemSelection.bind(this, RESET_DELAYED)
       });
     }
 

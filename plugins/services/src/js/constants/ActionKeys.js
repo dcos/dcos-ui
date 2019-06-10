@@ -6,6 +6,7 @@ module.exports = {
   SERVICE_CREATE: "serviceCreate",
   SERVICE_DELETE: "serviceDelete",
   SERVICE_EDIT: "serviceEdit",
+  SERVICE_RESET_DELAY: "serviceResetDelay",
   SERVICE_RESTART: "serviceRestart",
   POD_INSTANCES_KILL: "killPodInstances",
   TASK_KILL: "taskKill"

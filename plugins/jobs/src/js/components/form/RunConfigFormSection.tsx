@@ -380,13 +380,13 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
               <FormGroup
                 className="column-6"
                 showError={Boolean(
-                  showErrors && getFieldError(`job.labels.${i}`, errors)
+                  showErrors && getFieldError(`labels.${i}`, errors)
                 )}
               >
                 <FieldAutofocus>
                   <FieldInput name={`key.${i}.labels`} value={key} />
                   <FieldError>
-                    {getFieldError(`job.labels.${i}`, errors)}
+                    {getFieldError(`labels.${i}`, errors)}
                   </FieldError>
                 </FieldAutofocus>
                 <span className="emphasis form-colon">:</span>

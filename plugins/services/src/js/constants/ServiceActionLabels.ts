@@ -8,6 +8,7 @@ interface ServiceActionLabelsInterface {
   open: string;
   scale: string;
   scale_by: string;
+  reset_delayed: string;
   stop: string;
 }
 
@@ -18,6 +19,7 @@ const ServiceActionLabels: ServiceActionLabelsInterface = {
   resume: i18nMark("Resume"),
   open: i18nMark("Open Service"),
   scale: i18nMark("Scale"),
+  reset_delayed: i18nMark("Reset Delay"),
   scale_by: i18nMark("Scale By"),
   stop: i18nMark("Stop")
 };
