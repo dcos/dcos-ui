@@ -5,7 +5,7 @@ import React from "react";
 import { omit } from "../../utils/Util";
 
 const FieldInput = props => {
-  const { className, type } = props;
+  const { className, inputRef, type } = props;
   const classes = classNames("form-control", className);
 
   let toggleIndicator;
@@ -15,7 +15,11 @@ const FieldInput = props => {
 
   return (
     <span>
-      <input className={classes} {...omit(props, ["className"])} />
+      <input
+        className={classes}
+        ref={inputRef}
+        {...omit(props, ["className", "inputRef"])}
+      />
       {toggleIndicator}
     </span>
   );

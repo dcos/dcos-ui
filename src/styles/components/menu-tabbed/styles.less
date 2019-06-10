@@ -11,11 +11,13 @@
   }
 
   .menu-tabbed-container-fixed {
+    // force the menu to it's own composite layer to fix a bug in
+    // Firefox 63 and below on Windows and Linux
+    transform: translateZ(0);
 
     .menu-tabbed-vertical {
       height: 100%;
       position: fixed;
-      top: 135px;
     }
   }
 

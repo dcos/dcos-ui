@@ -2,7 +2,7 @@ describe("Dashboard Time Series Charts [057]", function() {
   beforeEach(function() {
     cy.configureCluster({
       mesos: "1-task-healthy"
-    }).visitUrl({ url: "/dashboard", identify: true, fakeAnalytics: true });
+    }).visitUrl({ url: "/dashboard", identify: true });
   });
 
   context("ResourceTimeSeriesChart [058]", function() {

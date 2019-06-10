@@ -223,6 +223,21 @@ class ServiceModals extends React.Component {
     );
   }
 
+  getResetDelayAction() {
+    const { actions, onClose, modalProps } = this.props;
+    const key = ActionKeys.SERVICE_RESET_DELAY;
+    const { service } = modalProps;
+    const open = modalProps.id === ServiceActionItem.RESET_DELAYED;
+    const resetDelayedService = actions.resetDelayedService;
+
+    if (!open) {
+      return null;
+    }
+    resetDelayedService(service);
+    onClose(key);
+    return null;
+  }
+
   render() {
     return (
       <div>
@@ -232,6 +247,7 @@ class ServiceModals extends React.Component {
         {this.getResumeModal()}
         {this.getScaleModal()}
         {this.getStopModal()}
+        {this.getResetDelayAction()}
       </div>
     );
   }
@@ -243,7 +259,8 @@ const actionPropTypes = PropTypes.shape({
   deleteGroup: PropTypes.func,
   editGroup: PropTypes.func,
   deleteService: PropTypes.func,
-  restartService: PropTypes.func
+  restartService: PropTypes.func,
+  resetDelayedService: PropTypes.func
 }).isRequired;
 
 ServiceModals.propTypes = {

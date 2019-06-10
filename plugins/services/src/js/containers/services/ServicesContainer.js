@@ -6,6 +6,11 @@ import { i18nMark } from "@lingui/react";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { NotificationServiceType } from "@extension-kid/notification-service";
+import {
+  ToastNotification,
+  ToastAppearance
+} from "@extension-kid/toast-notifications";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
@@ -21,6 +26,7 @@ import {
   REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
   REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR
 } from "#SRC/js/constants/ActionTypes";
+import container from "#SRC/js/container";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
@@ -56,6 +62,8 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
 } from "../../constants/ActionTypes";
@@ -80,6 +88,8 @@ const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeNoHealthchecksFilter(),
   new ServiceNameTextFilter()
 ]);
+
+const notificationService = container.get(NotificationServiceType);
 
 /**
  * Increments error count for each fetch type when we have a request error and
@@ -122,8 +132,11 @@ const METHODS_TO_BIND = [
   "editGroup",
   "deleteService",
   "editService",
+  "resetDelayedService",
   "restartService",
-  "onStoreChange"
+  "onStoreChange",
+  "getResetDelaySuccessToast",
+  "getResetDelayErrorToast"
 ];
 
 class ServicesContainer extends React.Component {
@@ -237,6 +250,12 @@ class ServicesContainer extends React.Component {
     return MarathonActions.restartService(...arguments);
   }
 
+  resetDelayedService() {
+    this.setPendingAction(ActionKeys.SERVICE_RESET_DELAY);
+
+    return MarathonActions.resetDelayedService(...arguments);
+  }
+
   handleServerAction(payload) {
     const { action } = payload;
 
@@ -299,6 +318,19 @@ class ServicesContainer extends React.Component {
         break;
       case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_RESTART);
+        break;
+
+      case REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR:
+        notificationService.push(
+          this.getResetDelayErrorToast(action.serviceName)
+        );
+        this.unsetPendingAction(ActionKeys.SERVICE_RESET_DELAY, action.data);
+        break;
+      case REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS:
+        notificationService.push(
+          this.getResetDelaySuccessToast(action.serviceName)
+        );
+        this.unsetPendingAction(ActionKeys.SERVICE_RESET_DELAY);
         break;
 
       case REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS:
@@ -398,9 +430,10 @@ class ServicesContainer extends React.Component {
       openServiceUI(props) {
         global.open(props.service.getWebURL(), "_blank");
       },
-      // All methods below work on ServiceTree and Service types
+      // All methods below (except resetDelayedService) work on ServiceTree and Service types
       deleteService: props => set(ServiceActionItem.DELETE, props),
       editService: props => set(ServiceActionItem.EDIT, props),
+      resetDelayedService: props => set(ServiceActionItem.RESET_DELAYED, props),
       restartService: props => set(ServiceActionItem.RESTART, props),
       resumeService: props => set(ServiceActionItem.RESUME, props),
       scaleService: props => set(ServiceActionItem.SCALE, props),
@@ -416,6 +449,7 @@ class ServicesContainer extends React.Component {
       editGroup: this.editGroup,
       deleteService: this.deleteService,
       editService: this.editService,
+      resetDelayedService: this.resetDelayedService,
       restartService: this.restartService
     };
   }
@@ -573,6 +607,32 @@ class ServicesContainer extends React.Component {
     );
   }
 
+  getResetDelaySuccessToast(serviceName) {
+    const title = i18nMark("Reset Delay Successful");
+    const description = i18nMark(
+      `Delay has cleared and ${serviceName} is now relaunching.`
+    );
+
+    return new ToastNotification(title, {
+      appearance: ToastAppearance.Success,
+      autodismiss: true,
+      description
+    });
+  }
+
+  getResetDelayErrorToast(serviceName) {
+    const title = i18nMark("Reset Delay Failed");
+    const description = i18nMark(
+      `Delay reset failed and did not relaunch ${serviceName}. Please try again.`
+    );
+
+    return new ToastNotification(title, {
+      appearance: ToastAppearance.Danger,
+      autodismiss: true,
+      description
+    });
+  }
+
   render() {
     const { children, params, routes } = this.props;
     const { fetchErrors, isLoading, itemId } = this.state;
@@ -638,7 +698,8 @@ ServicesContainer.childContextTypes = {
     resumeService: PropTypes.func,
     scaleService: PropTypes.func,
     stopService: PropTypes.func,
-    openServiceUI: PropTypes.func
+    openServiceUI: PropTypes.func,
+    resetDelayedService: PropTypes.func
   })
 };
 
