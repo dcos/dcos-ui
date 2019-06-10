@@ -85,11 +85,11 @@ class JobsForm extends React.Component<JobsFormProps> {
 
   getJSONEditorData(jobSpec: JobSpec): JobOutput {
     const jobJSON = jobSpecToOutputParser(jobSpec);
-    if (jobJSON.hasOwnProperty("schedule") && jobJSON.schedule === undefined) {
+    if (jobJSON.hasOwnProperty("schedule") && jobJSON.schedules === undefined) {
       // jobSpecToOutputParser returns object with `schedule: undefined` if there is no schedule present,
       // but this triggers an update of the JSONEditor and leads to issues where the state of the JSON in the
       // editor is replaced with old values.
-      delete jobJSON.schedule;
+      delete jobJSON.schedules;
     }
     return jobJSON;
   }

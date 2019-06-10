@@ -76,6 +76,10 @@ class PodStorageConfigSection extends React.Component {
     const { volumes = [], containers = [] } = this.props.appConfig;
     const volumeSummary = volumes.reduce((memo, volume) => {
       let type = VolumeConstants.type.unknown;
+      if (volume.secret) {
+        // This is a secret volume so it will be displayed separately
+        return memo;
+      }
       if (volume.host != null) {
         type = VolumeConstants.type.host;
       }

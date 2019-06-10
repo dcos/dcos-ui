@@ -102,17 +102,14 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
         }
 
         const containerPathErrors = getFieldError(
-          `job.run.volumes.${index}.containerPath`,
+          `run.volumes.${index}.containerPath`,
           errors
         );
         const hostPathErrors = getFieldError(
-          `job.run.volumes.${index}.hostPath`,
+          `run.volumes.${index}.hostPath`,
           errors
         );
-        const modeErrors = getFieldError(
-          `job.run.volumes.${index}.mode`,
-          errors
-        );
+        const modeErrors = getFieldError(`run.volumes.${index}.mode`, errors);
 
         return (
           <FormRow key={`volume-${index}`}>

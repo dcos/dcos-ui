@@ -213,7 +213,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
 
     return [
-      <FormRow>
+      <FormRow key="lb-address">
         <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FieldInput
@@ -559,7 +559,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       .getItems()
       .map((virtualNetwork, index) => {
         return (
-          <Trans render={<option key={index} value={virtualNetwork.value} />}>
+          <Trans
+            key={index}
+            render={<option key={index} value={virtualNetwork.value} />}
+          >
             Virtual Network: {virtualNetwork.text}
           </Trans>
         );
@@ -583,7 +586,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect name="networks.0" value={network}>
-        <Trans render={<option value={HOST} />}>Host</Trans>
+        <Trans key="host" render={<option value={HOST} key="host" />}>
+          Host
+        </Trans>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );

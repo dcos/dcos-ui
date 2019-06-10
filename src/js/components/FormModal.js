@@ -82,19 +82,15 @@ class FormModal extends React.Component {
       if (buttonDefinition.onClick) {
         handleOnClick = buttonDefinition.onClick;
       }
-
       return (
-        <Trans
-          id={buttonDefinition.text}
-          render={
-            <button
-              className={buttonClassSet}
-              disabled={this.props.disabled}
-              key={i}
-              onClick={handleOnClick}
-            />
-          }
-        />
+        <button
+          className={buttonClassSet}
+          disabled={this.props.disabled}
+          key={i}
+          onClick={handleOnClick}
+        >
+          <Trans id={buttonDefinition.text} />
+        </button>
       );
     });
   }

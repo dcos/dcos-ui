@@ -105,19 +105,19 @@ class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
         const valueIsRequired = (OperatorTypes[constraint.operator] || {})
           .requiresValue;
         const operatorErrors = getFieldError(
-          `job.run.placement.constraints.${index}.operator`,
+          `run.placement.constraints.${index}.operator`,
           errors
         );
         const fieldErrors = getFieldError(
-          `job.run.placement.constraints.${index}.attribute`,
+          `run.placement.constraints.${index}.attribute`,
           errors
         );
         const valueErrors = getFieldError(
-          `job.run.placement.constraints.${index}.value`,
+          `run.placement.constraints.${index}.value`,
           errors
         );
         const generalConstraintError = getFieldError(
-          `job.run.placement.constraints.${index}`,
+          `run.placement.constraints.${index}`,
           errors
         );
 

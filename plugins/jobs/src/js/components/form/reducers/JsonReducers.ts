@@ -13,68 +13,59 @@ export const jsonReducers = {
     const valueCopy = deepCopy(value);
 
     if (
-      !valueCopy.job ||
-      Object.prototype.toString.call(valueCopy.job) !== "[object Object]"
+      !valueCopy ||
+      Object.prototype.toString.call(valueCopy) !== "[object Object]"
     ) {
       const newState = {
         job: stateCopy.job,
-        schedule: {
-          ...stateCopy.schedule,
-          ...valueCopy.schedule
-        },
         cmdOnly: stateCopy.cmdOnly,
         container: stateCopy.container
       };
-      if (!Object.keys(newState.schedule).length) {
-        newState.schedule = undefined;
-      }
       return newState;
     }
 
     // Can't check `typeof run === "object"` because that will return true for
     // arrays, null...
     if (
-      !valueCopy.job.run ||
-      Object.prototype.toString.call(valueCopy.job.run) !== "[object Object]"
+      !valueCopy.run ||
+      Object.prototype.toString.call(valueCopy.run) !== "[object Object]"
     ) {
       const newState = {
         cmdOnly: stateCopy.cmdOnly,
         container: stateCopy.container,
         job: {
           ...stateCopy.job,
-          ...valueCopy.job,
+          ...valueCopy,
           run: {
             ...stateCopy.job.run
           }
-        },
-        schedule: valueCopy.schedule
+        }
       };
       return newState;
     }
 
-    valueCopy.job.labels = isObject(valueCopy.job.labels)
-      ? Object.entries(valueCopy.job.labels)
-      : valueCopy.job.labels;
+    valueCopy.labels = isObject(valueCopy.labels)
+      ? Object.entries(valueCopy.labels)
+      : valueCopy.labels;
 
-    valueCopy.job.run.env = isObject(valueCopy.job.run.env)
-      ? Object.entries(valueCopy.job.run.env)
-      : valueCopy.job.run.env;
+    valueCopy.run.env = isObject(valueCopy.run.env)
+      ? Object.entries(valueCopy.run.env)
+      : valueCopy.run.env;
 
-    const cmdOnly = !(valueCopy.job.run.docker || valueCopy.job.run.ucr);
+    const cmdOnly = !(valueCopy.run.docker || valueCopy.run.ucr);
 
     // Try to assign `container` based first off of whether the new value from JSON contains a `docker` or
     // `ucr` property. If not, check if the previous state had a `container` specified (remember the last container
     // option the user had chosen). Finally, default to "ucr".
-    const container = valueCopy.job.run.docker
+    const container = valueCopy.run.docker
       ? Container.Docker
-      : valueCopy.job.run.ucr
+      : valueCopy.run.ucr
       ? Container.UCR
       : stateCopy.container || Container.UCR;
 
     const newState = {
       ...stateCopy,
-      job: valueCopy.job,
-      schedule: valueCopy.schedule,
+      job: valueCopy,
       cmdOnly,
       container
     };

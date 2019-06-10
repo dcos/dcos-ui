@@ -494,4 +494,36 @@ describe("Pod", function() {
       ).toEqual(undefined);
     });
   });
+  describe("#isDelayed", function() {
+    it("return false when not delayed", function() {
+      const pod = new Pod({
+        queue: {
+          delay: {
+            overdue: true
+          }
+        }
+      });
+      expect(pod.isDelayed()).toEqual(false);
+    });
+
+    it("return false when property is missing", function() {
+      const pod = new Pod({
+        queue: {
+          delay: {}
+        }
+      });
+      expect(pod.isDelayed()).toEqual(false);
+    });
+
+    it("return true when delayed", function() {
+      const pod = new Pod({
+        queue: {
+          delay: {
+            overdue: false
+          }
+        }
+      });
+      expect(pod.isDelayed()).toEqual(true);
+    });
+  });
 });

@@ -276,6 +276,68 @@ describe("Service Form Modal", function() {
           cy.get(".infoBoxWrapper").should("not.be.visible");
           cy.get("input[name=id]").should("have.value", "/foo");
         });
+
+        context("Clearing JSON errors when re-opening", function() {
+          beforeEach(function() {
+            openServiceModal();
+          });
+
+          it("clears JSON errors when re-opening the single container service form", function() {
+            openServiceForm(); // Select "Single container".
+            cy.get(".modal .toggle-button + span").click(); // Open the JSON Editor.
+            cy.get(".button")
+              .contains("Review & Run")
+              .click(); // Try to submit.
+            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".modal-header button")
+              .contains("Back")
+              .click(); // Go back.
+            cy.contains("button", "Discard").click(); // Confirm.
+            openServiceForm(); // Select "Single container" again.
+            cy.get(".ace_editor").should("exist"); // The JSON Editor should be open.
+            cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
+          });
+
+          it("clears JSON errors when re-opening the pod form", function() {
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("Multi-container (Pod)")
+              .click(); // Select "Pod".
+            cy.get(".modal .toggle-button + span").click(); // Open the JSON Editor.
+            cy.get(".form-group")
+              .find('.form-control[name="id"]')
+              .type("{backspace}"); // Introduce an error by deleting the ID.
+            cy.get(".button")
+              .contains("Review & Run")
+              .click(); // Try to submit.
+            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".modal-header button")
+              .contains("Back")
+              .click(); // Go back.
+            cy.contains("button", "Discard").click(); // Confirm.
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("Multi-container (Pod)")
+              .click(); // Select "Pod" again.
+            cy.get(".ace_editor").should("exist"); // The JSON Editor should be open.
+            cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
+          });
+
+          it("clears JSON errors when re-opening the JSON form", function() {
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("JSON Configuration")
+              .click(); // Select "JSON Configuration".
+            cy.get(".button")
+              .contains("Review & Run")
+              .click(); // Try to submit.
+            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".modal-header button")
+              .contains("Back")
+              .click(); // Go back.
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("JSON Configuration")
+              .click(); // Select "JSON Configuration" again.
+            cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
+          });
+        });
       });
     });
 

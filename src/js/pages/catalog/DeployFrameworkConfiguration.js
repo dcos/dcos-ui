@@ -16,7 +16,8 @@ const METHODS_TO_BIND = [
   "handleGoBack",
   "handleRun",
   "onFormDataChange",
-  "onFormErrorChange"
+  "onFormErrorChange",
+  "onCosmosPackagesStoreInstallError"
 ];
 class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   constructor(props) {
@@ -143,6 +144,9 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
         isInitialDeploy={true}
         onFormDataChange={this.onFormDataChange}
         onFormErrorChange={this.onFormErrorChange}
+        onCosmosPackagesStoreInstallError={
+          this.onCosmosPackagesStoreInstallError
+        }
       />
     );
   }

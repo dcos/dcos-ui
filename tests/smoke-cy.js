@@ -3,7 +3,7 @@ describe("DC/OS UI [00j]", function() {
     cy.configureCluster({
       mesos: "1-task-healthy",
       nodeHealth: true
-    }).visitUrl({ url: "/", identify: true, fakeAnalytics: true });
+    }).visitUrl({ url: "/", identify: true });
   });
 
   context("Dashboard [00k]", function() {

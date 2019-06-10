@@ -336,7 +336,7 @@ describe("DCOSStore", function() {
       ]);
 
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
-        "Recovering"
+        "Delayed"
       );
     });
 
