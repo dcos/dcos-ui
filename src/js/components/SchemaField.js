@@ -244,7 +244,7 @@ class SchemaField extends Component {
         {requiredSymbol}
         <FormGroupHeadingContent primary={false}>
           <Tooltip
-            content={description}
+            content={<div dangerouslySetInnerHTML={{ __html: description }} />}
             interactive={true}
             maxWidth={300}
             wrapText={true}
