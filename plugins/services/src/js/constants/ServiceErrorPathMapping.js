@@ -207,6 +207,10 @@ const ServiceErrorPathMapping = [
     name: i18nMark("Volumes name")
   },
   {
+    match: /^containers\.[0-9]+\.volumeMounts\.[0-9]+\.mountPath/,
+    name: i18nMark("Volumes mount path")
+  },
+  {
     match: /^volumes\.[0-9]+\.name/,
     name: i18nMark("Volumes name")
   },
