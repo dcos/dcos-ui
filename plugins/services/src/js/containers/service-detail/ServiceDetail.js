@@ -125,7 +125,7 @@ class ServiceDetail extends mixin(TabsMixin) {
         break;
       case RESET_DELAYED:
         modalHandlers.resetDelayedService({ service });
-        break; 
+        break;
       case OPEN:
         modalHandlers.openServiceUI({ service });
         break;
@@ -274,7 +274,13 @@ class ServiceDetail extends mixin(TabsMixin) {
     const { children, actions, errors, params, routes, service } = this.props;
     const { actionDisabledModalOpen, actionDisabledID } = this.state;
     const breadcrumbs = (
-      <ServiceBreadcrumbs params={params} serviceID={service.id} />
+      <ServiceBreadcrumbs
+        params={params}
+        serviceID={service.id}
+        instancesCount={service.getInstancesCount()}
+        runningInstances={service.getRunningInstancesCount()}
+        serviceStatus={service.getServiceStatus()}
+      />
     );
     const clonedProps = {
       params,

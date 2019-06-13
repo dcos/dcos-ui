@@ -49,12 +49,23 @@ class ServiceBreadcrumbs extends React.Component {
     const hasTaskIDChanged = this.props.taskID !== nextProps.taskID;
     const hasTaskNameChanged = this.props.taskName !== nextProps.taskName;
     const hasExtraChanged = !isEqual(this.props.extra, nextProps.extra);
+    const hasInstancesChanged =
+      this.props.instancesCount !== nextProps.instancesCount;
+    const hasRunningInstancesChanged =
+      this.props.runningInstances !== nextProps.runningInstances;
+    const hasStatusChanged = !isEqual(
+      this.props.serviceStatus,
+      nextProps.serviceStatus
+    );
 
     return (
       hasServiceIDChanged ||
       hasTaskIDChanged ||
       hasTaskNameChanged ||
-      hasExtraChanged
+      hasExtraChanged ||
+      hasInstancesChanged ||
+      hasRunningInstancesChanged ||
+      hasStatusChanged
     );
   }
 
@@ -282,7 +293,10 @@ ServiceBreadcrumbs.propTypes = {
   extra: PropTypes.arrayOf(PropTypes.node),
   serviceID: PropTypes.string,
   taskID: PropTypes.string,
-  taskName: PropTypes.string
+  taskName: PropTypes.string,
+  instancesCount: PropTypes.number,
+  runningInstancesCount: PropTypes.number,
+  serviceStatus: PropTypes.object
 };
 
 module.exports = ServiceBreadcrumbs;
