@@ -486,6 +486,7 @@
   "Must be specified when using the Docker Engine runtime": "",
   "Must be specified when using the Docker Engine runtime. You can change runtimes under \"Advanced Settings\"": "",
   "Must be unique": "",
+  "Must be valid": "",
   "Must contain a property that matches `||pattern||`": "必须包含匹配 `||pattern||` 的属性",
   "Must contain at least one item": "",
   "Must contain at least ||value|| items in the array": "必须至少包含阵列中的 ||value|| 项",
