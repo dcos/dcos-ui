@@ -3,14 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 
 class Breadcrumb extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    return (
-      this.props.isCaret !== nextProps.isCaret ||
-      this.props.isIcon !== nextProps.isIcon ||
-      this.props.title !== nextProps.title
-    );
-  }
-
   render() {
     const { children, isCaret, isIcon } = this.props;
 
