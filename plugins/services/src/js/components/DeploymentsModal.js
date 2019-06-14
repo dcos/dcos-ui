@@ -25,6 +25,7 @@ import ServiceUtil from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
+import TableUtil from "#SRC/js/utils/TableUtil";
 
 import defaultServiceImage from "../../img/icon-service-default-small@2x.png";
 import MarathonActions from "../events/MarathonActions";
@@ -37,7 +38,7 @@ const columnClasses = {
 };
 const columnHeadings = ResourceTableUtil.renderHeading({
   id: i18nMark("Affected Services"),
-  startTime: i18nMark("Started"),
+  version: i18nMark("Started"),
   status: i18nMark("Status"),
   action: null
 });
@@ -177,6 +178,10 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 
   getColumns() {
+    const sortFunction = TableUtil.getSortFunction("id", function(item, prop) {
+      return item[prop];
+    });
+
     return [
       {
         className: columnClassNameGetter,
@@ -187,8 +192,10 @@ class DeploymentsModal extends mixin(StoreMixin) {
       {
         className: columnClassNameGetter,
         heading: columnHeadings,
-        prop: "startTime",
-        render: this.renderStartTime
+        prop: "version",
+        render: this.renderStartTime,
+        sortable: true,
+        sortFunction
       },
       {
         className: columnClassNameGetter,
