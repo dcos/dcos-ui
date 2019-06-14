@@ -143,8 +143,6 @@ class DeploymentsModal extends mixin(StoreMixin) {
     if (deploymentToRollback != null) {
       this.setState({ awaitingRevertDeploymentResponse: true });
       MarathonActions.revertDeployment(deploymentToRollback.getId());
-
-      this.props.onClose();
     }
   }
 
@@ -429,6 +427,10 @@ class DeploymentsModal extends mixin(StoreMixin) {
       </ModalHeading>
     );
 
+    const rollbackActionText = awaitingRevertDeploymentResponse
+      ? i18n._(t`Rolling back...`)
+      : i18n._(t`Continue Rollback`);
+
     if (deploymentToRollback != null) {
       return (
         <Confirm
@@ -441,7 +443,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           leftButtonClassName="button button-primary-link"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
-          rightButtonText={i18n._(t`Continue Rollback`)}
+          rightButtonText={rollbackActionText}
           showHeader={true}
         >
           <div className="text-align-center">
@@ -527,7 +529,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 
   renderRollbackError(deploymentRollbackError) {
-    if (deploymentRollbackError != null) {
+    if (typeof deploymentRollbackError === "string") {
       return (
         <p className="text-error-state flush-bottom">
           {deploymentRollbackError}
