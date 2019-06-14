@@ -1498,7 +1498,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Host Port")
         .contents()
-        .should("deep.equal", ["Auto Assigned"]);
+        .should("deep.equal", ["—"]);
 
       cy.root()
         .configurationSection("Service Endpoints")
@@ -1695,7 +1695,7 @@ describe("Services", function() {
         .children("table")
         .getTableColumn("Host Port")
         .contents()
-        .should("deep.equal", ["Auto Assigned", "Auto Assigned"]);
+        .should("deep.equal", ["—", "4200"]);
 
       cy.root()
         .configurationSection("Service Endpoints")
