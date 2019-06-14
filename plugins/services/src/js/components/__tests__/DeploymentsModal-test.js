@@ -1,3 +1,4 @@
+import Item from "#SRC/js/structs/Item";
 /* eslint-disable no-unused-vars */
 const React = require("react");
 /* eslint-enable no-unused-vars */
@@ -32,6 +33,28 @@ describe("DeploymentsModal", function() {
         })
       );
       expect(text).toContain("revert the affected service");
+    });
+  });
+
+  describe("#renderStatus", function() {
+    it("Returns N/A for empty Application", function() {
+      const app = new Application({
+        deployment: {}
+      });
+
+      expect(
+        DeploymentsModal.WrappedComponent.prototype.renderStatus(null, app, {})
+      ).toEqual("N/A");
+    });
+
+    it("Returns null for Item without getStatus function", function() {
+      const item = new Item({
+        deployment: {}
+      });
+
+      expect(
+        DeploymentsModal.WrappedComponent.prototype.renderStatus(null, item, {})
+      ).toEqual(null);
     });
   });
 });
