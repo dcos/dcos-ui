@@ -116,6 +116,9 @@ class ServiceRestartModal extends React.PureComponent {
     } = this.props;
     const serviceName = service.getName();
     const serviceLabel = i18n._(this.getServiceLabel());
+    const restartActionText = isPending
+      ? i18n._(t`Restarting...`)
+      : i18n._(t`Restart`) + ` ${serviceLabel}`;
 
     return (
       <Confirm
@@ -125,7 +128,7 @@ class ServiceRestartModal extends React.PureComponent {
         onClose={onClose}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link flush-left"
-        rightButtonText={i18n._(t`Restart`) + ` ${serviceLabel}`}
+        rightButtonText={restartActionText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={() =>
           restartService(service, this.shouldForceUpdate())

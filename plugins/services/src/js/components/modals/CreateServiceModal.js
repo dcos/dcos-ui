@@ -815,7 +815,10 @@ class CreateServiceModal extends Component {
         {
           className: runButtonClassNames,
           clickHandler: this.handleServiceRun,
-          label: runButtonLabel
+          label: this.state.isPending
+            ? i18nMark("Deploying...")
+            : runButtonLabel,
+          disabled: this.state.isPending
         }
       ];
     }
@@ -892,6 +895,7 @@ class CreateServiceModal extends Component {
       isJSONModeActive: false,
       isOpen: true,
       isPending: false,
+      submitDisabled: false,
       service,
       serviceSpec,
       serviceFormActive: isEdit, // Switch directly to form/json if edit

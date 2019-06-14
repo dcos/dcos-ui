@@ -54,6 +54,10 @@ class JobStopRunModal extends React.Component {
       rightButtonText = i18n._(t`Stop Job Runs`);
     }
 
+    if (disabled) {
+      rightButtonText = i18n._(t`Stopping...`);
+    }
+
     return (
       <Confirm
         closeByBackdropClick={true}
