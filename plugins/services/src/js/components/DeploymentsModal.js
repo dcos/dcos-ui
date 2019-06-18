@@ -490,7 +490,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
       {});
     }
 
-    let statusText = !item.isStale ? item.getStatus() : null;
+    let statusText = !item.isStale && item.getStatus ? item.getStatus() : null;
     const itemId = item.isStale ? item.serviceID : item.id;
 
     if (currentActions[itemId] != null) {
@@ -586,3 +586,4 @@ class DeploymentsModal extends mixin(StoreMixin) {
 }
 
 module.exports = withI18n()(DeploymentsModal);
+module.exports.WrappedComponent = DeploymentsModal;
