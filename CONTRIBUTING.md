@@ -473,6 +473,14 @@ page.
 
 Before you start, please make sure you are configured against a new and empty cluster (See `webpack/proxy.dev.js`).
 We need a real cluster to work with and the tests are going to make changes to that cluster.
+We also need to run these commands (replacing the cluster url with a real one):
+```
+export CLUSTER_URL=http://example-cluster.com
+export PROXY_PORT="4200"
+export URLPREFIX="${CLUSTER_URL}/acs/api/v1";
+export CLUSTER_AUTH_INFO=$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64);
+export CLUSTER_AUTH_TOKEN=$(curl -s --insecure -X POST  --header "Content-Type: application/json" --data '{"uid": "bootstrapuser", "password": "deleteme"}' ${URLPREFIX}/auth/login | jq -r .token)
+```
 
 #### Without Plugins
 
@@ -482,7 +490,7 @@ Run DC/OS UI in testing mode (you have to close `npm start`).
 npm config delete externalplugins
 npm start
 # In a different shell
-npm run test:system:local
+npm run test:system
 ```
 
 #### With Plugins
@@ -492,19 +500,19 @@ npm config set externalplugins <path>
 npm run test:system:plugins:setup
 npm start
 # In a different shell
-npm run test:system:local
+npm run test:system
 ```
 
 #### Running a single system test
 
 To run a single system test, run the following command, where `Filename` is replaced by the name of the system test you want to run, without `-cy` or `.js`.
 ```
-npm run test:system:local -- -s Filename
+npm run test:system -- -s Filename -hn
 ```
 
-Example for running `../system-tests/services/test-apps-cy.js`:
+Example for running `../system-tests/services/test-jobs-cy.js`:
 ```
-npm run test:system:local -- -s test-apps
+npm run test:system -- -s "test-jobs" -hn
 ```
 
 ## i18n
