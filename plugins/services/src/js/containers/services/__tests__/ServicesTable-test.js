@@ -63,7 +63,7 @@ describe("ServicesTable", () => {
       const highSemver = framework("2.3.0-3.0.16");
       const lowSemver = framework("2.3.0-1.1.0");
       const nonSemver = framework("not-semver-beta");
-      const no = new Framework();
+      const no = framework("");
 
       const data = [highSemver, lowSemver, nonSemver, no];
 
