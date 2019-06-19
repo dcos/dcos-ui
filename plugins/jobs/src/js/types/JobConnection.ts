@@ -70,24 +70,17 @@ function compareJobs(
   sortBy: SortOption = "ID",
   sortDirection: SortDirection = "ASC"
 ): number {
-  let result;
-
+  const direction = sortDirection === "ASC" ? 1 : -1;
   switch (sortBy) {
     case "ID":
-      result = compareJobById(a, b);
-      break;
+      return compareJobById(a, b) * direction;
     case "STATUS":
-      result = compareJobByStatus(a, b);
-      break;
+      return compareJobByStatus(a, b) * direction;
     case "LAST_RUN":
-      result = compareJobByLastRun(a, b);
-      break;
+      return compareJobByLastRun(a, b) * direction;
     default:
-      result = 0;
+      return 0;
   }
-
-  const direction = sortDirection === "ASC" ? 1 : -1;
-  return result * direction;
 }
 
 function compareJobById(a: Job, b: Job): number {

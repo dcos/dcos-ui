@@ -29,43 +29,22 @@ type JobRun {
 }
 `;
 
-export function JobRunTypeResolver(
-  run: MetronomeActiveJobRun | JobHistoryRun
-): JobRun {
-  return {
-    jobID: JobRunFieldResolvers.jobID(run),
-    dateCreated: JobRunFieldResolvers.dateCreated(run),
-    dateFinished: JobRunFieldResolvers.dateFinished(run),
-    status: JobRunFieldResolvers.status(run), // TODO: derive from where it comes from before passing to this function
-    tasks: JobRunFieldResolvers.tasks(run)
-  };
-}
+type Run = MetronomeActiveJobRun | JobHistoryRun;
 
-export const JobRunFieldResolvers = {
-  dateCreated(run: MetronomeActiveJobRun | JobHistoryRun): number | null {
-    return DateUtil.strToMs(run.createdAt);
-  },
-  dateFinished(run: MetronomeActiveJobRun | JobHistoryRun): number | null {
-    if (isActiveJobRun(run)) {
-      return run.completedAt ? DateUtil.strToMs(run.completedAt) : null;
-    }
+export const JobRunTypeResolver = (run: Run): JobRun => ({
+  jobID: run.id,
+  dateCreated: DateUtil.strToMs(run.createdAt),
+  dateFinished: dateFinished(run),
+  status: run.status,
+  tasks: JobTaskConnectionTypeResolver(isActiveJobRun(run) ? run.tasks : [])
+});
 
-    return DateUtil.strToMs(run.finishedAt);
-  },
-
-  jobID(run: MetronomeActiveJobRun | JobHistoryRun): string {
-    return run.id;
-  },
-
-  status(run: MetronomeActiveJobRun | JobHistoryRun): JobStatus {
-    return run.status;
-  },
-
-  tasks(run: MetronomeActiveJobRun | JobHistoryRun): JobTaskConnection {
-    return JobTaskConnectionTypeResolver(isActiveJobRun(run) ? run.tasks : []);
+function dateFinished(run: Run) {
+  if (isActiveJobRun(run)) {
+    return run.completedAt ? DateUtil.strToMs(run.completedAt) : null;
   }
-};
-
-export function isActiveJobRun(arg: any): arg is MetronomeActiveJobRun {
-  return arg.jobId !== undefined;
+  return DateUtil.strToMs(run.finishedAt);
 }
+
+export const isActiveJobRun = (arg: Run): arg is MetronomeActiveJobRun =>
+  (arg as any).jobId !== undefined;
