@@ -697,7 +697,7 @@
   "Sets the dcos-gen-resolvconf.service to be run once a minute.": "将 dcos-gen-resolvconf.service 设置为每 运行一次。",
   "Sets the dcos-signal.service interval at once an hour.": "将 dcos-signal.service 间隔设置为每小时一次。",
   "Settings": "设置",
-  "Showing {currentLength} of {totalLength} {name}": "显示 {totalLength} {name} 的 {currentLength} ",
+  "Showing {currentLength} of {totalLength} {name}": "显示{totalLength}个{name}中的{currentLength}个",
   "Sign Out": "退出",
   "Single Container": "单个容器",
   "Size": "大小",
