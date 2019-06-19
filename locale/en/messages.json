@@ -880,6 +880,7 @@
   "Volumes name": "",
   "Volumes size": "",
   "Waiting": "",
+  "Waiting until the scheduler task is up and running.": "",
   "Warning": "",
   "Warning:": "",
   "We are unable to retrieve the version {0} versions. Please try again.": "",

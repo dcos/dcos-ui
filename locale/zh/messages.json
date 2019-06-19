@@ -880,6 +880,7 @@
   "Volumes name": "",
   "Volumes size": "",
   "Waiting": "正在等待",
+  "Waiting until the scheduler task is up and running.": "",
   "Warning": "警告",
   "Warning:": "警告：",
   "We are unable to retrieve the version {0} versions. Please try again.": "我们无法检索版本中的版本 {0}。请重试。",
