@@ -30,6 +30,138 @@ describe("Service", function() {
         disk: 0
       });
     });
+
+    it("returns correct resource data for a single instance", function() {
+      expect(
+        new Service({
+          getSpec() {
+            return {
+              get(attribute) {
+                return this[attribute];
+              },
+              getResources() {
+                return {
+                  cpus: 20,
+                  mem: 10,
+                  gpus: 0,
+                  disk: 0
+                };
+              }
+            };
+          },
+          getInstancesCount() {
+            return 1;
+          }
+        }).getResources()
+      ).toEqual({
+        cpus: 20,
+        mem: 10,
+        gpus: 0,
+        disk: 0
+      });
+    });
+
+    it("returns correct resource data for multiple instances", function() {
+      expect(
+        new Service({
+          getSpec() {
+            return {
+              get(attribute) {
+                return this[attribute];
+              },
+              getResources() {
+                return {
+                  cpus: 20,
+                  mem: 10,
+                  gpus: 0,
+                  disk: 0
+                };
+              }
+            };
+          },
+          getInstancesCount() {
+            return 2;
+          }
+        }).getResources()
+      ).toEqual({
+        cpus: 40,
+        mem: 20,
+        gpus: 0,
+        disk: 0
+      });
+    });
+
+    it("returns correct resource data for a single instance with executor resources", function() {
+      expect(
+        new Service({
+          getSpec() {
+            return {
+              get(attribute) {
+                return this[attribute];
+              },
+              getResources() {
+                return {
+                  cpus: 20,
+                  mem: 10,
+                  gpus: 0,
+                  disk: 0
+                };
+              },
+              executorResources: {
+                cpus: 10,
+                mem: 10,
+                gpus: 0,
+                disk: 0
+              }
+            };
+          },
+          getInstancesCount() {
+            return 1;
+          }
+        }).getResources()
+      ).toEqual({
+        cpus: 30,
+        mem: 20,
+        gpus: 0,
+        disk: 0
+      });
+    });
+
+    it("returns correct resource data for multiple instances with executor resources", function() {
+      expect(
+        new Service({
+          getSpec() {
+            return {
+              get(attribute) {
+                return this[attribute];
+              },
+              getResources() {
+                return {
+                  cpus: 20,
+                  mem: 10,
+                  gpus: 0,
+                  disk: 0
+                };
+              },
+              executorResources: {
+                cpus: 10,
+                mem: 10,
+                gpus: 0,
+                disk: 0
+              }
+            };
+          },
+          getInstancesCount() {
+            return 2;
+          }
+        }).getResources()
+      ).toEqual({
+        cpus: 60,
+        mem: 40,
+        gpus: 0,
+        disk: 0
+      });
+    });
   });
 
   describe("#getRegions", function() {
