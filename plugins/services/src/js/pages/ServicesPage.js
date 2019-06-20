@@ -1,9 +1,9 @@
 import { i18nMark } from "@lingui/react";
 import React from "react";
-import createReactClass from "create-react-class";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
+import mixin from "reactjs-mixin";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
@@ -12,28 +12,11 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 
-var ServicesPage = createReactClass({
-  contextTypes: {
-    router: routerShape
-  },
-
-  mixins: [TabsMixin, StoreMixin],
-
-  displayName: "ServicesPage",
-
-  statics: {
-    routeConfig: {
-      label: i18nMark("Services"),
-      icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-      matches: /^\/services/
-    }
-  },
-
-  getInitialState() {
-    return {
-      currentTab: "/services/overview"
-    };
-  },
+class ServicesPage extends mixin(StoreMixin, TabsMixin) {
+  constructor() {
+    super(...arguments);
+    this.state = this.getInitialState();
+  }
 
   componentWillMount() {
     this.store_listeners = [
@@ -43,15 +26,21 @@ var ServicesPage = createReactClass({
       "/services/overview": i18nMark("Services")
     };
     this.updateCurrentTab();
-  },
+  }
 
   componentDidMount() {
     CosmosPackagesStore.fetchAvailablePackages();
-  },
+  }
 
   componentDidUpdate() {
     this.updateCurrentTab();
-  },
+  }
+
+  getInitialState() {
+    return {
+      currentTab: "/services/overview"
+    };
+  }
 
   updateCurrentTab() {
     let currentTab = RouterUtil.reconstructPathFromRoutes(this.props.routes);
@@ -68,7 +57,7 @@ var ServicesPage = createReactClass({
     if (this.state.currentTab !== currentTab) {
       this.setState({ currentTab });
     }
-  },
+  }
 
   getNavigation() {
     if (RouterUtil.shouldHideNavigation(this.props.routes)) {
@@ -76,11 +65,21 @@ var ServicesPage = createReactClass({
     }
 
     return <ul className="menu-tabbed">{this.tabs_getRoutedTabs()}</ul>;
-  },
+  }
 
   render() {
     return this.props.children;
   }
-});
+}
+
+ServicesPage.contextTypes = {
+  router: routerShape
+};
+
+ServicesPage.routeConfig = {
+  label: i18nMark("Services"),
+  icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
+  matches: /^\/services/
+};
 
 module.exports = ServicesPage;
