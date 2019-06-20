@@ -398,6 +398,14 @@ describe("Service Table", function() {
         .contains("Open Service")
         .should("exist");
     });
+
+    it("shows the full version for a framework", function() {
+      cy.get(".ReactVirtualized__Grid__innerScrollContainer")
+        .last() // Bottom right part of the table.
+        .children()
+        .eq(1) // Version column for the first row.
+        .contains("1.0.0-2.0.0");
+    });
   });
 
   context("SDK Groups", function() {
