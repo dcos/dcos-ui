@@ -16,7 +16,7 @@ import Loader from "../components/Loader";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
 import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
-import HealthSorting from "../../../plugins/services/src/js/constants/HealthSorting";
+import StatusSorting from "../../../plugins/services/src/js/constants/StatusSorting";
 import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 import Page from "../components/Page";
@@ -154,11 +154,13 @@ var DashboardPage = createReactClass({
   getServicesList() {
     const services = this.state.dcosServices;
 
-    const sortedServices = services.sort(function(service, other) {
-      const health = service.getHealth();
-      const otherHealth = other.getHealth();
+    const sortedServices = services.sort(function(firstService, secondService) {
+      const firstStatusCategory = firstService.getServiceStatus().category;
+      const secondStatusCategory = secondService.getServiceStatus().category;
 
-      return HealthSorting[health.key] - HealthSorting[otherHealth.key];
+      return (
+        StatusSorting[firstStatusCategory] - StatusSorting[secondStatusCategory]
+      );
     });
 
     return sortedServices.slice(0, this.props.servicesListLength);
