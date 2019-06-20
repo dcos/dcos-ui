@@ -37,7 +37,4 @@ function compare(a: Version, b: Version) {
 
 const fromService = (service: Service | Pod) => service.getVersion();
 
-const toDisplayVersion = (v: Version) =>
-  FrameworkUtil.extractBaseTechVersion(v);
-
-export { compare, fromService, toDisplayVersion };
+export { compare, fromService };

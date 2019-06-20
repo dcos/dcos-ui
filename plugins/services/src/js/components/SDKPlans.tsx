@@ -10,6 +10,7 @@ import {
 } from "rxjs";
 import {
   map,
+  filter,
   distinctUntilChanged,
   retryWhen,
   delay,
@@ -20,10 +21,15 @@ import {
   switchMap
 } from "rxjs/operators";
 import gql from "graphql-tag";
-import Loader from "#SRC/js/components/Loader";
+import { Trans } from "@lingui/macro";
+
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 // @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import {
+  Status,
+  RUNNING
+} from "#PLUGINS/services/src/js/constants/ServiceStatus";
 
 import {
   Service,
@@ -59,8 +65,12 @@ const ErrorScreen = () => {
   return <RequestErrorMsg />;
 };
 
-const LoadingScreen = () => {
-  return <Loader />;
+const WaitingScreen = () => {
+  return (
+    <Trans render="div" className="plan-sdk-deploying">
+      Waiting until the scheduler task is up and running.
+    </Trans>
+  );
 };
 
 const selectedPlan$ = new BehaviorSubject<string>("");
@@ -70,8 +80,9 @@ const handleSelectPlan = (name: string) => {
 
 const SDKPlans = componentFromStream(props$ => {
   const serviceId$ = (props$ as Observable<{
-    service: { getId: () => string };
+    service: { getId: () => string; getServiceStatus: () => Status };
   }>).pipe(
+    filter(props => props.service.getServiceStatus() === RUNNING),
     map((props: { service: { getId: () => string } }) => props.service.getId()),
     distinctUntilChanged()
   );
@@ -122,7 +133,7 @@ const SDKPlans = componentFromStream(props$ => {
       )
     ),
     catchError(() => of(<ErrorScreen />)),
-    startWith(<LoadingScreen />)
+    startWith(<WaitingScreen />)
   );
 });
 

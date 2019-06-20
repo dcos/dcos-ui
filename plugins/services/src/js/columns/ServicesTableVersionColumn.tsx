@@ -12,21 +12,13 @@ import * as Version from "../utils/Version";
 import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
 
-const ServiceVersion = React.memo(
-  ({
-    rawVersion,
-    displayVersion
-  }: {
-    rawVersion: string;
-    displayVersion: string;
-  }) => (
-    <TextCell>
-      <Tooltip content={rawVersion} wrapText={true}>
-        {displayVersion}
-      </Tooltip>
-    </TextCell>
-  )
-);
+const ServiceVersion = React.memo(({ rawVersion }: { rawVersion: string }) => (
+  <TextCell>
+    <Tooltip content={rawVersion} wrapText={true}>
+      {rawVersion}
+    </Tooltip>
+  </TextCell>
+));
 
 export function versionRenderer(
   service: Service | Pod | ServiceTree
@@ -35,13 +27,9 @@ export function versionRenderer(
     return null;
   }
 
-  const rawVersion = Version.fromService(service);
-  const displayVersion =
-    service instanceof Framework ? Version.toDisplayVersion(rawVersion) : "";
-
-  return (
-    <ServiceVersion rawVersion={rawVersion} displayVersion={displayVersion} />
-  );
+  const rawVersion =
+    service instanceof Framework ? Version.fromService(service) : "";
+  return <ServiceVersion rawVersion={rawVersion} />;
 }
 
 export function versionWidth(_: WidthArgs) {
