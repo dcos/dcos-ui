@@ -92,7 +92,12 @@ const ServiceErrorMessages = [
     )
   },
   {
-    path: /^environment\./,
+    path: /^environment\.[^.]+$/,
+    type: "GENERIC",
+    message: i18nMark("Must be valid")
+  },
+  {
+    path: /^environment\..*\./,
     type: "GENERIC",
     message: i18nMark("Must be defined")
   }

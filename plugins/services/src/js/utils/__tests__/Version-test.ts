@@ -20,11 +20,4 @@ describe("Version", () => {
       ).toEqual("2018-09-13T21:42:41.611Z");
     });
   });
-
-  describe("#toDisplayVersion", () => {
-    const version = Version.fromService(
-      new Framework({ labels: { DCOS_PACKAGE_VERSION: "2.3.0-1.1.0" } })
-    );
-    expect(Version.toDisplayVersion(version)).toEqual("1.1.0");
-  });
 });
