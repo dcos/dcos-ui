@@ -120,9 +120,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 prop: keys.port,
                 className: getColumnClassNameFn(),
                 render(prop, row) {
-                  return appDefinition.requirePorts
-                    ? getDisplayValue(row[prop])
-                    : "Auto Assigned";
+                  return getDisplayValue(row[prop]) || "Auto Assigned";
                 },
                 sortable: true
               },

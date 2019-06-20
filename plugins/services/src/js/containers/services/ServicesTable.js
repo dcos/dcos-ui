@@ -62,7 +62,7 @@ const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
-const RESET_DELAYED = ServiceActionItem.RESET_DELAYED
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
 const METHODS_TO_BIND = [
   "handleServiceAction",
@@ -76,10 +76,7 @@ const serviceToVersion = serviceTreeNode => {
     return "";
   }
 
-  return pipe(
-    Version.fromService,
-    Version.toDisplayVersion
-  )(serviceTreeNode);
+  return pipe(Version.fromService)(serviceTreeNode);
 };
 
 function sortForColumn(name) {
