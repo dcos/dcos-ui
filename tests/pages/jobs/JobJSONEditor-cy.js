@@ -527,11 +527,11 @@ describe("Job JSON Editor", function() {
 
     cy.root()
       .get(".button")
-      .contains("Add Arg")
+      .contains("Add Argument")
       .click();
 
     cy.root()
-      .getFormGroupInputFor("Arg")
+      .getFormGroupInputFor("Arguments")
       .type(arg);
 
     // Check JSON mode
