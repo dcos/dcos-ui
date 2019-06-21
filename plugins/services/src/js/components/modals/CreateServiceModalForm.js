@@ -637,6 +637,7 @@ class CreateServiceModalForm extends Component {
           <MultiContainerNetworkingFormSection
             data={data}
             errors={errorMap}
+            handleTabChange={this.props.handleTabChange}
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem}
           />
