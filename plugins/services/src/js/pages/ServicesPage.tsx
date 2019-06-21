@@ -1,5 +1,5 @@
 import { i18nMark } from "@lingui/react";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
@@ -7,12 +7,24 @@ import mixin from "reactjs-mixin";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
+// @ts-ignore
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+// @ts-ignore
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
-
+// @ts-ignore
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 
 class ServicesPage extends mixin(StoreMixin, TabsMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
+
+  static routeConfig = {
+    label: i18nMark("Services"),
+    icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
+    matches: /^\/services/
+  };
+
   constructor() {
     super(...arguments);
     this.state = this.getInitialState();
@@ -72,14 +84,4 @@ class ServicesPage extends mixin(StoreMixin, TabsMixin) {
   }
 }
 
-ServicesPage.contextTypes = {
-  router: routerShape
-};
-
-ServicesPage.routeConfig = {
-  label: i18nMark("Services"),
-  icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-  matches: /^\/services/
-};
-
-module.exports = ServicesPage;
+export default ServicesPage;
