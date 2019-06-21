@@ -1,11 +1,12 @@
 import Transaction from "#SRC/js/structs/Transaction";
+import ContainerConstants from "../../../constants/ContainerConstants";
 
 const PortMappings = require("../PortMappings");
 const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
+
 const {
   type: { DOCKER }
-} = require("../../../constants/ContainerConstants");
-
+} = ContainerConstants;
 describe("#JSONParser", function() {
   describe("PortMappings", function() {
     it("adds portDefinition with details", function() {
