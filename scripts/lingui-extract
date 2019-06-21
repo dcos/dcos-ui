@@ -18,9 +18,6 @@ function eeSanityCheck {
 # the .babelrc file. lingui extract cannot extract messages from macros that
 # are outside of the package due to the way packages are resolved from each source file. 
 function patch {
-  info "Swapping .linguirc for external plugin extraction"
-  mv "$SCRIPT_PATH/../.linguirc" "$SCRIPT_PATH/../.tmp.linguirc"
-  cp "$SCRIPT_PATH/../plugins-ee/.linguirc.ee" "$SCRIPT_PATH/../.linguirc"
   info "Hiding .babelrc for external plugin extraction"
   mv "$SCRIPT_PATH/../plugins-ee/.babelrc" "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc"
 }
@@ -28,9 +25,6 @@ function patch {
 function unpatch {
   mv "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc" "$SCRIPT_PATH/../plugins-ee/.babelrc"
   info "Restored .babelrc"
-  rm "$SCRIPT_PATH/../.linguirc"
-  mv "$SCRIPT_PATH/../.tmp.linguirc" "$SCRIPT_PATH/../.linguirc"
-  info "Restored .linguirc"
 }
 
 title "lingui extract"
@@ -40,16 +34,18 @@ if [[ $* == *--verbose* ]]; then
   VERBOSE="--verbose "
 fi
 
-if [[ $? == 0 ]]; then
+if [[ $* == *--unpatch ]]; then
+  unpatch
+else
   info "Extracting message catalogs for dcos-ui..."
-  eval "lingui extract $VERBOSE--clean"
+  eval "lingui extract $VERBOSE--clean --config ./linguirc"
   if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
     eeSanityCheck
-    info "Extracting message catalogs for dcos-ui-plugins-private"
-    patch
-    eval "lingui extract $VERBOSE--clean"
-    unpatch
+    if [[ $? == 0 ]]; then
+      info "Extracting message catalogs for dcos-ui-plugins-private"
+      patch
+      eval "lingui extract $VERBOSE--clean  --config ./plugins-ee/.linguirc"
+      unpatch
+    fi
   fi
-elif [[ $* == *--unpatch ]]; then
-  unpatch
 fi
