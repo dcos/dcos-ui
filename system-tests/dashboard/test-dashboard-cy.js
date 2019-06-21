@@ -273,21 +273,30 @@ describe("Dashboard", function() {
       createService(serviceRunningDefinition);
       cy.visitUrl("dashboard");
 
-      cy.get(".list-unstyled")
-        .eq(0)
-        .children()
-        .eq(0)
-        .contains("delayed");
-      cy.get(".list-unstyled")
-        .eq(0)
-        .children()
-        .eq(1)
-        .contains("dashboard-test-service");
+      cy.get(".dashboard-health-list")
+        .contains("delayed")
+        .should("exist");
+      cy.wait(1000);
+
+      // cy.get(".list-unstyled")
+      //   .eq(0)
+      //   .children()
+      //   .eq(0)
+      //   .should("have.class", "list-item")
+      //   .contains("delayed")
+      //   .should("exist");
+      // cy.get(".list-unstyled")
+      //   .eq(0)
+      //   .children()
+      //   .eq(1)
+      //   .contains("running")
+      //   .should("exist");
       cy.get(".list-unstyled")
         .eq(0)
         .children()
         .eq(2)
-        .contains("stopped");
+        .contains("stopped")
+        .should("exist");
     });
   });
 });

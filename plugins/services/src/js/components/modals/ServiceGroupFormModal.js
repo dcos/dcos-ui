@@ -37,9 +37,26 @@ class ServiceGroupFormModal extends React.PureComponent {
   }
 
   getErrorMessage() {
-    const { errors } = this.props;
+    const { errors, i18n } = this.props;
     if (!errors) {
       return null;
+    }
+
+    // The server error message for duplicate group name looks like
+    // "Group /name is already created. Use PUT to change this group."
+    // So we check the second sentence and if it matches
+    // we add our custom translatable error message.
+    if (
+      errors.split(".")[errors.split(".").length - 2] ===
+      " Use PUT to change this group"
+    ) {
+      return (
+        <h4 className="text-align-center text-danger flush-top">
+          {i18n._(
+            t`A group with the same name already exists. Try a different name.`
+          )}
+        </h4>
+      );
     }
 
     return (
@@ -58,9 +75,9 @@ class ServiceGroupFormModal extends React.PureComponent {
         required: true,
         showLabel: false,
         writeType: "input",
-        validation: ServiceValidatorUtil.isValidServiceID,
+        validation: ServiceValidatorUtil.isValidGroupID,
         validationErrorText: i18n._(
-          t`Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash.`
+          t`Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot.`
         )
       }
     ];
