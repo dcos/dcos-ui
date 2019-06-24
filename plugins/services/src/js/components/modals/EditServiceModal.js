@@ -20,7 +20,9 @@ class EditServiceModal extends Component {
 
     // Service not found
     if (!service) {
-      hashHistory.push("/services/404");
+      if (hashHistory && hashHistory.push) {
+        hashHistory.push("/services/404");
+      }
 
       return null;
     }
