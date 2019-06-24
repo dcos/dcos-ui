@@ -5,7 +5,6 @@ import React from "react";
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import CompositeState from "#SRC/js/structs/CompositeState";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
@@ -98,7 +97,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   getFilteredNodes(filters = this.state.filters) {
-    return CompositeState.getNodesList().filter(filters);
+    return this.props.hosts.filter(filters);
   }
 
   // TODO: remove set Filters and only filter at the top level;

@@ -79,6 +79,10 @@ class HostsPageContent extends React.PureComponent {
   onResetFilter() {
     this.props.onResetFilter(...arguments);
 
+    this.setState({
+      filterExpression: new DSLExpression("")
+    });
+
     if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
       this.serviceFilter.setDropdownValue("default");
     }
@@ -150,6 +154,8 @@ class HostsPageContent extends React.PureComponent {
       new NodesZoneFilter(newZones),
       ...(hasMaintenance() ? [NodesStatusFilter] : [])
     ];
+
+    this.props.onFilterChange(new DSLExpression(query), filters);
 
     this.setState({
       filterExpression: new DSLExpression(query),
