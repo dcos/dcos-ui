@@ -1,0 +1,24 @@
+{
+  "type": "GET_ROLES",
+  "get_roles": {
+    "roles": [
+      {
+        "name": "*",
+        "weight": 1.0
+      },
+      {
+        "name": "dev",
+        "resources": [
+          {
+            "name": "",
+            "scalar": {
+              "value": 0.0
+            },
+            "type": "SCALAR"
+          }
+        ],
+        "weight": 2.5
+      }
+    ]
+  }
+}
