@@ -51,7 +51,9 @@ function getMesosHosts(state) {
 }
 
 var DEFAULT_FILTER_OPTIONS = {
-  filterExpression: new DSLExpression("")
+  filterExpression: new DSLExpression(""),
+  byServiceFilter: null,
+  DSLFilteredLength: null
 };
 
 var NodesAgents = createReactClass({
@@ -164,7 +166,11 @@ var NodesAgents = createReactClass({
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
 
-    this.resetQueryParams(["searchString", "filterExpression"]);
+    this.resetQueryParams([
+      "searchString",
+      "filterExpression",
+      "filterService"
+    ]);
   },
 
   handleSearchStringChange(searchString = "") {
@@ -177,7 +183,9 @@ var NodesAgents = createReactClass({
     this.setQueryParam("searchString", searchString);
   },
 
-  handleByServiceFilterChange(byServiceFilter) {
+  handleByServiceFilterChange(byServiceFilter, filteredLength) {
+    this.setState({ DSLFilteredLength: filteredLength });
+
     if (byServiceFilter === "") {
       byServiceFilter = null;
     }
@@ -221,7 +229,8 @@ var NodesAgents = createReactClass({
     );
   },
 
-  getViewTypeRadioButtons(resetFilter) {
+  getViewTypeRadioButtons() {
+    const { filterExpression, byServiceFilter } = this.state;
     const isGridActive = /\/nodes\/agents\/grid\/?/i.test(
       this.props.location.pathname
     );
@@ -234,9 +243,18 @@ var NodesAgents = createReactClass({
       active: isGridActive
     });
 
+    const isFiltering =
+      (filterExpression && filterExpression.defined) || !!byServiceFilter;
+
+    const filterURL =
+      "?filterExpression=" + encodeURIComponent(filterExpression.value);
+
     return (
       <div className="flush-bottom">
-        <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
+        <Link
+          className={listClassSet}
+          to={isFiltering ? "/nodes/agents" + filterURL : "/nodes/agents"}
+        >
           <Trans render="span" className="invisible">
             List
           </Trans>
@@ -244,8 +262,11 @@ var NodesAgents = createReactClass({
         </Link>
         <Link
           className={gridClassSet}
-          onClick={resetFilter}
-          to="/nodes/agents/grid"
+          to={
+            isFiltering
+              ? "/nodes/agents/grid" + filterURL
+              : "/nodes/agents/grid"
+          }
         >
           <Trans render="span" className="invisible">
             Grid
@@ -257,12 +278,21 @@ var NodesAgents = createReactClass({
   },
 
   getHostsPageContent() {
-    const { filterExpression, byServiceFilter, selectedResource } = this.state;
+    const {
+      filterExpression,
+      byServiceFilter,
+      selectedResource,
+      DSLFilteredLength
+    } = this.state;
     var data = this.internalStorage_get();
     const nodesList = data.nodes || [];
+    const filteredLength = byServiceFilter
+      ? DSLFilteredLength
+      : nodesList.getItems().length;
 
     const nodesHealth = this.state.nodesHealth;
-    const isFiltering = filterExpression && filterExpression.defined;
+    const isFiltering =
+      (filterExpression && filterExpression.defined) || !!byServiceFilter;
 
     const isNodesTableContainer =
       this.props.children && this.props.children.type === NodesTableContainer;
@@ -283,10 +313,7 @@ var NodesAgents = createReactClass({
           byServiceFilter={byServiceFilter}
           filterButtonContent={this.getButtonContent}
           filterItemList={nodesHealth}
-          filteredNodeCount={Math.min(
-            nodesList.getItems().length,
-            NODES_DISPLAY_LIMIT
-          )}
+          filteredNodeCount={Math.min(filteredLength, NODES_DISPLAY_LIMIT)}
           handleFilterChange={this.handleByServiceFilterChange}
           hosts={nodesList}
           allHosts={CompositeState.getNodesList()}
@@ -298,7 +325,7 @@ var NodesAgents = createReactClass({
           selectedResource={selectedResource}
           services={data.services}
           totalNodeCount={data.totalNodes}
-          viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}
+          viewTypeRadioButtons={this.getViewTypeRadioButtons()}
         >
           {this.props.children}
         </HostsPageContent>
