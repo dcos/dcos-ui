@@ -67,26 +67,6 @@ export function createService(serviceDefinition) {
     .should("exist");
 }
 
-export function createNonRunningService(serviceDefinition, status) {
-  validateServiceId(serviceDefinition.id);
-  const serviceName = serviceDefinition.id.split("/").pop();
-
-  cy.exec(
-    `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
-  );
-  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-  cy.get(".page-body-content .service-table", {
-    timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-  })
-    .contains(serviceName, {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-    .should("exist");
-  cy.get(".page-body-content .service-table")
-    .contains(status, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-    .should("exist");
-}
-
 /**
  * Deletes a service from group TEST_UUID using the dcos CLI.
  *
