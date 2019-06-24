@@ -5,7 +5,7 @@ import {
   isActiveJobRun
 } from "#PLUGINS/jobs/src/js/types/JobRun";
 import { ActiveJobRun as MetronomeActiveJobRun } from "#SRC/js/events/MetronomeClient";
-import { JobHistoryRun } from "#PLUGINS/jobs/src/js/types/JobHistoryRun";
+import { HistoricJobRun } from "#PLUGINS/jobs/src/js/types/HistoricJobRun";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
 export interface JobRunConnection {
@@ -22,7 +22,7 @@ type JobRunConnection {
 `;
 
 export function JobRunConnectionTypeResolver(
-  runs: Array<MetronomeActiveJobRun | JobHistoryRun>
+  runs: Array<MetronomeActiveJobRun | HistoricJobRun>
 ): JobRunConnection {
   return {
     longestRunningActiveRun: longestRunningActiveRun(runs),
@@ -31,7 +31,7 @@ export function JobRunConnectionTypeResolver(
 }
 
 const longestRunningActiveRun = (
-  runs: Array<MetronomeActiveJobRun | JobHistoryRun>
+  runs: Array<MetronomeActiveJobRun | HistoricJobRun>
 ): JobRun | null => {
   const activeRuns = runs.filter(run => isActiveJobRun(run));
   if (!activeRuns.length) {

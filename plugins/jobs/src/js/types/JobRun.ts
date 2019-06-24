@@ -7,7 +7,7 @@ import { ActiveJobRun as MetronomeActiveJobRun } from "#SRC/js/events/MetronomeC
 import { JobStatus } from "#PLUGINS/jobs/src/js/types/JobStatus";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import { JobRunStatusSchema } from "#PLUGINS/jobs/src/js/types/JobRunStatus";
-import { JobHistoryRun } from "#PLUGINS/jobs/src/js/types/JobHistoryRun";
+import { HistoricJobRun } from "#PLUGINS/jobs/src/js/types/HistoricJobRun";
 
 export interface JobRun {
   dateCreated: number | null;
@@ -29,7 +29,9 @@ type JobRun {
 }
 `;
 
-type Run = MetronomeActiveJobRun | JobHistoryRun;
+type Run = MetronomeActiveJobRun | HistoricJobRun;
+export const isActiveJobRun = (run: Run): run is MetronomeActiveJobRun =>
+  !(run as HistoricJobRun).finishedAt;
 
 export const JobRunTypeResolver = (run: Run): JobRun => ({
   jobID: run.id,
@@ -38,7 +40,6 @@ export const JobRunTypeResolver = (run: Run): JobRun => ({
   status: run.status,
   tasks: JobTaskConnectionTypeResolver(isActiveJobRun(run) ? run.tasks : [])
 });
-
 function dateFinished(run: Run) {
   if (isActiveJobRun(run)) {
     return run.completedAt ? DateUtil.strToMs(run.completedAt) : null;
@@ -46,5 +47,3 @@ function dateFinished(run: Run) {
   return DateUtil.strToMs(run.finishedAt);
 }
 
-export const isActiveJobRun = (arg: Run): arg is MetronomeActiveJobRun =>
-  (arg as any).jobId !== undefined;

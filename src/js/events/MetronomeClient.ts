@@ -120,11 +120,11 @@ export interface JobHistorySummary {
 }
 
 interface JobHistory extends JobHistorySummary {
-  successfulFinishedRuns: JobHistoryRun[];
-  failedFinishedRuns: JobHistoryRun[];
+  successfulFinishedRuns: HistoricJobRun[];
+  failedFinishedRuns: HistoricJobRun[];
 }
 
-interface JobHistoryRun {
+interface HistoricJobRun {
   id: string;
   createdAt: string;
   finishedAt: string;
