@@ -56,18 +56,23 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   componentWillMount() {
     this.onStateStoreSuccess();
+    const { location, hosts, networks } = this.props;
+
+    const filters = {
+      health: location.query.filterHealth || "all",
+      name: location.query.searchString || "",
+      service: location.query.filterService || null
+    };
+
+    this.setFilters(hosts, networks, filters);
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      location: { query },
-      hosts,
-      networks
-    } = nextProps;
+    const { location, hosts, networks } = nextProps;
     const filters = {
-      health: query.filterHealth || "all",
-      name: query.searchString || "",
-      service: query.filterService || null
+      health: location.query.filterHealth || "all",
+      name: location.query.searchString || "",
+      service: location.query.filterService || null
     };
 
     // when trying to optimize here, please account for data that may change in `hosts`,
@@ -79,20 +84,18 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     const { networks = [] } = this.props;
 
     return new NodesList({
-      items: CompositeState.getNodesList()
-        .getItems()
-        .map(node => {
-          const hostname = node.getHostName();
-          const network = networks.find(
-            network => network.private_ip === hostname
-          );
+      items: this.props.hosts.getItems().map(node => {
+        const hostname = node.getHostName();
+        const network = networks.find(
+          network => network.private_ip === hostname
+        );
 
-          if (network == null) {
-            return node;
-          }
+        if (network == null) {
+          return node;
+        }
 
-          return new Node({ ...node.toJSON(), network });
-        })
+        return new Node({ ...node.toJSON(), network });
+      })
     }).filter(filters);
   }
 
