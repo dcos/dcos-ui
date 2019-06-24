@@ -27,7 +27,7 @@ import {
   JobStatus,
   JobStatusSchema
 } from "#PLUGINS/jobs/src/js/types/JobStatus";
-import { JobHistoryRun } from "#PLUGINS/jobs/src/js/types/JobHistoryRun";
+import { HistoricJobRun } from "#PLUGINS/jobs/src/js/types/HistoricJobRun";
 import {
   JobDockerTypeResolver,
   JobDocker,
@@ -155,10 +155,10 @@ function AddStatusToHistoryJobRuns(
 
   return JobRunConnectionTypeResolver([
     ...job.history.successfulFinishedRuns.map(
-      (run): JobHistoryRun => ({ ...run, status: "COMPLETED" })
+      (run): HistoricJobRun => ({ ...run, status: "COMPLETED" })
     ),
     ...job.history.failedFinishedRuns.map(
-      (run): JobHistoryRun => ({ ...run, status: "FAILED" })
+      (run): HistoricJobRun => ({ ...run, status: "FAILED" })
     ),
     ...(job.activeRuns || [])
   ]);
