@@ -8,7 +8,10 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  greyLightDarken1
+  greyLightDarken1,
+  iconSizeXxs,
+  success,
+  error
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
@@ -394,20 +397,45 @@ class TaskTable extends React.Component {
     const failing = ["TASK_ERROR", "TASK_FAILED"].includes(state);
     const running = ["TASK_RUNNING", "TASK_STARTING"].includes(state);
 
-    const statusClass = classNames({
-      dot: true,
-      flush: true,
-      inactive: !activeState || transitional,
-      success: healthy && running,
-      running: unknown && running,
-      danger: dangerState || unhealthy || failing
-    });
+    const getStatusIcon = () => {
+      // inactive
+      if (!activeState || transitional) {
+        return <span className="dot flush inactive" />;
+      }
+
+      // success
+      if (healthy && running) {
+        return (
+          <Icon
+            shape={SystemIcons.CircleCheck}
+            size={iconSizeXxs}
+            color={success}
+          />
+        );
+      }
+
+      // running
+      if (unknown && running) {
+        return <span className="dot flush running" />;
+      }
+
+      // danger
+      if (dangerState || unhealthy || failing) {
+        return (
+          <Icon
+            shape={SystemIcons.CircleClose}
+            size={iconSizeXxs}
+            color={error}
+          />
+        );
+      }
+    };
 
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <div className="table-cell-icon table-cell-task-dot task-status-indicator">
           <Tooltip anchor="center" content={tooltipContent}>
-            <span className={statusClass} />
+            {getStatusIcon()}
           </Tooltip>
         </div>
       </div>
