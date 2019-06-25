@@ -226,7 +226,12 @@ class JSONEditor extends React.Component {
     const lastError = this.jsonError;
 
     // Calculate what the next state is going to be
-    const { jsonValue, jsonMeta, jsonError } = this.getNewJsonState(jsonText);
+    const getNewJsonState = this.getNewJsonState(jsonText);
+    if (getNewJsonState === null) {
+      return; // No change.
+    }
+
+    const { jsonValue, jsonMeta, jsonError } = getNewJsonState;
 
     // Update the `isTyping` flag
     this.isTyping = true;
