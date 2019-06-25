@@ -50,6 +50,31 @@ describe("JobUtil", function() {
       ]);
     });
 
+    it("adds docker parameters without docker image", function() {
+      const job = JobUtil.createJobFromFormModel({
+        general: { id: "test" },
+        docker_parameters: {
+          items: [
+            {
+              key: "env",
+              value: "var"
+            }
+          ]
+        }
+      });
+
+      expect(job.toJSON().run).toEqual({
+        docker: {
+          parameters: [
+            {
+              key: "env",
+              value: "var"
+            }
+          ]
+        }
+      });
+    });
+
     it("job schedule maintains id and policy", function() {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
