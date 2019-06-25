@@ -38,7 +38,7 @@ export const JobRunTypeResolver = (run: Run): JobRun => ({
   dateCreated: DateUtil.strToMs(run.createdAt),
   dateFinished: dateFinished(run),
   status: run.status,
-  tasks: JobTaskConnectionTypeResolver(isActiveJobRun(run) ? run.tasks : [])
+  tasks: JobTaskConnectionTypeResolver(run.tasks)
 });
 function dateFinished(run: Run) {
   if (isActiveJobRun(run)) {
@@ -46,4 +46,3 @@ function dateFinished(run: Run) {
   }
   return DateUtil.strToMs(run.finishedAt);
 }
-
