@@ -6,6 +6,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { MountService } from "foundation-ui";
 import { routerShape } from "react-router";
 
+import Config from "#SRC/js/config/Config";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import SidebarActions from "#SRC/js/events/SidebarActions";
@@ -137,6 +138,13 @@ export default class ClusterHeader extends mixin(StoreMixin) {
         html: <Trans render="label">Support</Trans>,
         id: "header-support",
         selectable: false
+      },
+      {
+        html: <Trans render="span">Support Portal</Trans>,
+        id: "support-portal",
+        onClick() {
+          global.open(Config.supportPortalURI, "_blank");
+        }
       },
       {
         html: <Trans render="span">Documentation</Trans>,
