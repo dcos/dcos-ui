@@ -124,7 +124,7 @@ interface JobHistory extends JobHistorySummary {
   failedFinishedRuns: HistoricJobRun[];
 }
 
-interface HistoricJobRun {
+export interface HistoricJobRun {
   id: string;
   createdAt: string;
   finishedAt: string;

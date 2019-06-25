@@ -1,7 +1,8 @@
 import {
   GenericJobResponse as MetronomeGenericJobResponse,
   JobResponse as MetronomeJobResponse,
-  isDetailResponse as isMetronomeJobDetailResponse
+  isDetailResponse as isMetronomeJobDetailResponse,
+  HistoricJobRun
 } from "#SRC/js/events/MetronomeClient";
 import {
   JobRunConnection,
@@ -27,7 +28,6 @@ import {
   JobStatus,
   JobStatusSchema
 } from "#PLUGINS/jobs/src/js/types/JobStatus";
-import { HistoricJobRun } from "#PLUGINS/jobs/src/js/types/HistoricJobRun";
 import {
   JobDockerTypeResolver,
   JobDocker,
@@ -35,6 +35,7 @@ import {
 } from "#PLUGINS/jobs/src/js/types/JobDocker";
 import { JobLabel, LabelSchema } from "#PLUGINS/jobs/src/js/types/JobLabel";
 import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
+import { JobTaskStatus } from "./JobTaskStatus";
 
 export interface Job {
   activeRuns: JobRunConnection | null;
@@ -101,7 +102,7 @@ export function JobTypeResolver(job: MetronomeGenericJobResponse): Job {
         : null,
     id: job.id,
     jobRuns: isMetronomeJobDetailResponse(job)
-      ? AddStatusToHistoryJobRuns(job)
+      ? convertHistoricJobRuns(job)
       : null,
     json: JSON.stringify(cleanJobJSON(job)),
     mem: job.run.mem,
@@ -125,7 +126,7 @@ export function JobTypeResolver(job: MetronomeGenericJobResponse): Job {
 
 const scheduleStatus = (job: MetronomeGenericJobResponse): JobStatus => {
   const scheduleConnection = JobScheduleConnectionTypeResolver(job.schedules);
-  const jobRunConnection = AddStatusToHistoryJobRuns(job);
+  const jobRunConnection = convertHistoricJobRuns(job);
 
   if (jobRunConnection.longestRunningActiveRun !== null) {
     return jobRunConnection.longestRunningActiveRun.status;
@@ -146,20 +147,33 @@ const scheduleStatus = (job: MetronomeGenericJobResponse): JobStatus => {
   return "COMPLETED";
 };
 
-function AddStatusToHistoryJobRuns(
+function convertHistoricJobRuns(
   job: MetronomeGenericJobResponse
 ): JobRunConnection {
   if (!isMetronomeJobDetailResponse(job)) {
     return JobRunConnectionTypeResolver(job.activeRuns || []);
   }
 
+  const toJobRunTask = (jobStatus: JobStatus, taskStatus: JobTaskStatus) => (
+    run: HistoricJobRun
+  ) => ({
+    ...run,
+    status: jobStatus,
+    tasks: (run.tasks || []).map((id: string) => ({
+      id,
+      status: taskStatus,
+      createdAt: run.createdAt,
+      finishedAt: run.finishedAt
+    }))
+  });
+
   return JobRunConnectionTypeResolver([
-    ...job.history.successfulFinishedRuns.map(
-      (run): HistoricJobRun => ({ ...run, status: "COMPLETED" })
+    ...job.activeRuns,
+    ...(job.history.successfulFinishedRuns || []).map(
+      toJobRunTask("COMPLETED", "TASK_FINISHED")
     ),
-    ...job.history.failedFinishedRuns.map(
-      (run): HistoricJobRun => ({ ...run, status: "FAILED" })
-    ),
-    ...(job.activeRuns || [])
+    ...(job.history.failedFinishedRuns || []).map(
+      toJobRunTask("FAILED", "TASK_FAILED")
+    )
   ]);
 }
