@@ -46,7 +46,7 @@ const JobUtil = {
         id: null
       },
       labels = {},
-      docker,
+      docker = {},
       docker_parameters,
       schedule
     } = formModel;
@@ -72,16 +72,22 @@ const JobUtil = {
       cmd: general.cmd,
       cpus: general.cpus,
       mem: general.mem,
-      disk: general.disk
+      disk: general.disk,
+      docker
     });
 
-    if (docker && docker.image) {
-      Object.assign(spec.run, { docker });
-      if (docker_parameters != null && docker_parameters.items != null) {
-        spec.run.docker.parameters = docker_parameters.items;
-      } else {
-        spec.run.docker.parameters = [];
-      }
+    if (docker_parameters != null && docker_parameters.items != null) {
+      spec.run.docker.parameters = docker_parameters.items;
+    } else {
+      spec.run.docker.parameters = [];
+    }
+
+    if (
+      spec.run.docker &&
+      !spec.run.docker.image &&
+      spec.run.docker.parameters.length === 0
+    ) {
+      delete spec.run.docker;
     }
 
     // default values for id and policy
