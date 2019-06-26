@@ -7,11 +7,11 @@ export const GroupTypes = `
   }
   
   type ServiceGroupQuota {
-    enforced: Boolean!
+    enforced: Boolean!    
     cpus: QuotaResources
     memory: QuotaResources
     disk: QuotaResources
-    gpu: QuotaResources
+    gpus: QuotaResources
   }
   
   type ServiceGroup {
