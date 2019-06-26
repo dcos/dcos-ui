@@ -38,5 +38,8 @@ export default {
   // Use fixtures to mock API requests
   useFixtures: false,
   // Use uiConfigurationFixture defined above
-  useUIConfigFixtures: false
+  useUIConfigFixtures: false,
+  features: {
+    quota: false
+  }
 };
