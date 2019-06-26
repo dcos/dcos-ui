@@ -2,15 +2,14 @@ import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
-import {
-  ROUTE_ACCESS_PREFIX,
-  FRAMEWORK_ID_VALID_CHARACTERS
-} from "../constants/FrameworkConstants";
 import FrameworkUtil from "../utils/FrameworkUtil";
 import * as ServiceStatus from "../constants/ServiceStatus";
 
 import Application from "./Application";
 import FrameworkSpec from "./FrameworkSpec";
+
+const ROUTE_ACCESS_PREFIX = "dcos:adminrouter:service:";
+const FRAMEWORK_ID_VALID_CHARACTERS = "\\w-";
 
 const getHighestPriorityStatus = tasks => {
   const statuses = tasks

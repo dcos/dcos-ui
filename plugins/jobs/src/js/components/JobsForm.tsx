@@ -50,6 +50,7 @@ interface JobsFormProps {
   onErrorsChange: (errors: FormError[], type?: string) => void;
   showAllErrors: boolean;
   i18n: any;
+  isEdit: boolean;
 }
 
 interface NavigationItem {
@@ -146,7 +147,7 @@ class JobsForm extends React.Component<JobsFormProps> {
   }
 
   getTabContent() {
-    const { jobSpec, errors, showAllErrors, i18n } = this.props;
+    const { jobSpec, errors, showAllErrors, i18n, isEdit } = this.props;
     const formOutput = this.getFormOutput(jobSpec);
     const translatedErrors = translateErrorMessages(errors, i18n);
     const pluginTabProps = {
@@ -170,6 +171,7 @@ class JobsForm extends React.Component<JobsFormProps> {
           formData={formOutput}
           errors={translatedErrors}
           showErrors={showAllErrors}
+          isEdit={isEdit}
         />
       </TabView>,
       <TabView id="container" key="container">

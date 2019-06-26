@@ -5,41 +5,11 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 # Import utils
 source "${SCRIPT_PATH}/utils/message"
 
-function eeSanityCheck {
-  if [ -f "$SCRIPT_PATH/../.tmp.linguirc" ]; then
-    warning ".tmp.linguirc file found. Did this script fail previously? Try running with --unpatch to fix"
-    return 1
-  else
-    return 0
-  fi
-}
-
-# lingui config file from the plugins-ee/ is swapped into the workspace. The original
-# file is temporary renamed and copied back at the end of the operation
-function patch {
-  info "Swapping .linguirc for external plugin extraction"
-  mv "$SCRIPT_PATH/../.linguirc" "$SCRIPT_PATH/../.tmp.linguirc"
-  cp "$SCRIPT_PATH/../plugins-ee/.linguirc.ee" "$SCRIPT_PATH/../.linguirc"
-}
-
-function unpatch {
-  rm "$SCRIPT_PATH/../.linguirc"
-  mv "$SCRIPT_PATH/../.tmp.linguirc" "$SCRIPT_PATH/../.linguirc"
-  info "Restored .linguirc"
-}
-
 title "lingui compile"
 
-if [[ $? == 0 ]]; then
-  info "Compiling message catalogs for dcos-ui..."
-  eval "lingui compile"
-  if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
-    eeSanityCheck
-    info "Compiling message catalogs for dcos-ui-plugins-private"
-    patch
-    eval "lingui compile"
-    unpatch
-  fi
-elif [[ $* == *--unpatch ]]; then
-  unpatch
+info "Compiling message catalogs for dcos-ui..."
+eval "lingui compile --config ./linguirc"
+if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
+  info "Compiling message catalogs for dcos-ui-plugins-private"
+  eval "lingui compile --config ./plugins-ee/.linguirc"
 fi

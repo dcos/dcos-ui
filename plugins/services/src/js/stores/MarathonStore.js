@@ -421,17 +421,6 @@ class MarathonStore extends GetSetBaseStore {
     return this.get("info");
   }
 
-  getServiceHealth(name) {
-    const appName = name.toLowerCase();
-    const marathonApps = this.get("apps");
-
-    if (!marathonApps[appName]) {
-      return HealthStatus.NA;
-    }
-
-    return marathonApps[appName].health;
-  }
-
   getServiceImages(name) {
     const appName = name.toLowerCase();
     let appImages = null;
