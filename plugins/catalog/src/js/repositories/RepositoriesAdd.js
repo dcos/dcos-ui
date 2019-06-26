@@ -27,10 +27,14 @@ const getErrorMessage = (response = {}) => {
     return response;
   }
 
-  return (
-    response.description ||
-    response.message || <Trans render="span">An error has occurred.</Trans>
-  );
+  if (response) {
+    return (
+      response.description ||
+      response.message || <Trans render="span">An error has occurred.</Trans>
+    );
+  }
+
+  return <Trans render="span">An error has occurred.</Trans>;
 };
 
 const addPackageRepositoryMutation = gql`
