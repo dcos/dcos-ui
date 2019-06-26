@@ -4,7 +4,7 @@ export const typeDefs = `
   ${GroupTypes}
   
   extend type Query {
-    group(id: String!): ServiceGroup!
+    group(id: String!): ServiceGroup
     groups: [ServiceGroup!]!
   }
 `;

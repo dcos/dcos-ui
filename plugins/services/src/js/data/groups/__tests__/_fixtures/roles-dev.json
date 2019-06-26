@@ -2,30 +2,35 @@
   "roles": [
     {
       "name": "*",
-      "weight": 1.0
-    },
-    {
-      "name": "10000_apps",
       "weight": 1.0,
       "resources": {
-        "cpus": 1.5,
+        "cpus": 1.0,
+        "disk": 133.0,
+        "gpus": 0,
+        "mem": 1104.0
+      }
+    },
+    {
+      "name": "dev",
+      "resources": {
+        "cpus": 0,
         "disk": 0,
         "gpus": 0,
-        "mem": 256.0
+        "mem": 0
       },
       "quota": {
         "role": "dev",
         "guarantee": {
-          "cpus": 2.0,
+          "cpus": 0,
           "disk": 0,
           "gpus": 0,
-          "mem": 512.0
+          "mem": 0
         },
         "limit": {
-          "cpus": 3.0,
+          "cpus": 0,
           "disk": 0,
           "gpus": 0,
-          "mem": 1024.0
+          "mem": 0
         }
       }
     }

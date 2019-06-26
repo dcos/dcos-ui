@@ -1,10 +1,29 @@
+const mockMarathonGet = jest.fn();
+const mockRequest = jest.fn();
+jest.mock("../../../stores/MarathonStore", () => ({
+  get: mockMarathonGet
+}));
+jest.mock("@dcos/http-service", () => ({
+  request: mockRequest
+}));
+
 import { Container } from "@extension-kid/core";
 import { DataLayer, DataLayerType } from "@extension-kid/data-layer";
 import gql from "graphql-tag";
 import { marbles } from "rxjs-marbles/jest";
+import { take } from "rxjs/operators";
 
 import { createTestContainer } from "../../__tests__/extension-test";
-import { take } from "rxjs/operators";
+import ServiceTree from "../../../structs/ServiceTree";
+//@ts-ignore
+import MarathonUtil from "../../../utils/MarathonUtil";
+
+const marathonGroups = require("./_fixtures/marathon-groups.json");
+const rolesDev = require("./_fixtures/roles-dev.json");
+
+function makeServiceTree(groupsResponse = {}): ServiceTree {
+  return new ServiceTree(MarathonUtil.parseGroups(groupsResponse));
+}
 
 describe("Services Data Layer - Groups", () => {
   let container: Container;
@@ -12,27 +31,94 @@ describe("Services Data Layer - Groups", () => {
   beforeEach(() => {
     container = createTestContainer();
     dl = container.get<DataLayer>(DataLayerType);
+
+    jest.clearAllMocks();
   });
 
   describe("Query - groups", () => {
     it(
-      "returns an empty array",
+      "handles query with quota",
       marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesDev)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
         const query = gql`
           query {
             groups {
               id
+              quota {
+                enforced
+                cpus
+                memory
+                disk
+                gpus
+              }
             }
           }
         `;
         const expected$ = m.cold("(a|)", {
           a: {
             data: {
-              groups: []
+              groups: [
+                {
+                  id: "/dev",
+                  quota: {
+                    enforced: true,
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                },
+                {
+                  id: "/staging",
+                  quota: {
+                    enforced: false,
+                    cpus: undefined,
+                    memory: undefined,
+                    disk: undefined,
+                    gpus: undefined
+                  }
+                },
+                {
+                  id: "/prod",
+                  quota: {
+                    enforced: false,
+                    cpus: undefined,
+                    memory: undefined,
+                    disk: undefined,
+                    gpus: undefined
+                  }
+                }
+              ]
             }
           }
         });
-        m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
+        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
       })
     );
   });
@@ -41,13 +127,22 @@ describe("Services Data Layer - Groups", () => {
     it(
       "returns a group when given id",
       marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesDev)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
         const query = gql`
           query {
-            group(id: "/test") {
+            group(id: "/dev") {
               id
-              quota {
-                enforced
-              }
+              quota
             }
           }
         `;
@@ -55,15 +150,35 @@ describe("Services Data Layer - Groups", () => {
           a: {
             data: {
               group: {
-                id: "/test",
+                id: "/dev",
                 quota: {
-                  enforced: false
+                  enforced: true,
+                  cpus: {
+                    guarantee: 0,
+                    limit: 0,
+                    consumed: 0
+                  },
+                  memory: {
+                    guarantee: 0,
+                    limit: 0,
+                    consumed: 0
+                  },
+                  disk: {
+                    guarantee: 0,
+                    limit: 0,
+                    consumed: 0
+                  },
+                  gpus: {
+                    guarantee: 0,
+                    limit: 0,
+                    consumed: 0
+                  }
                 }
               }
             }
           }
         });
-        m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
+        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
       })
     );
 
@@ -86,6 +201,40 @@ describe("Services Data Layer - Groups", () => {
           "Group resolver arguments aren't valid for type ServiceGroupQueryArgs"
         );
         m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
+      })
+    );
+
+    // Skip until our reactive graphql can be updated through data-service
+    it.skip(
+      "returns undefined if group not found",
+      marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesDev)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
+        const query = gql`
+          query {
+            group(id: "/test") {
+              id
+              quota
+            }
+          }
+        `;
+        const expected$ = m.cold("(a|)", {
+          a: {
+            data: {
+              group: undefined
+            }
+          }
+        });
+        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
       })
     );
   });
