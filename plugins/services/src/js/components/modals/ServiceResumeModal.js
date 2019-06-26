@@ -60,7 +60,7 @@ class ServiceResumeModal extends React.PureComponent {
     let { message: errorMsg = "", details } = errors;
     const hasDetails = details && details.length !== 0;
 
-    if (hasDetails) {
+    if (hasDetails && Array.isArray(details)) {
       errorMsg = details.reduce(function(memo, error) {
         return `${memo} ${error.errors.join(" ")}`;
       }, "");
