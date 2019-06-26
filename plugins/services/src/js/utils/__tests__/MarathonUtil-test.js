@@ -327,6 +327,28 @@ describe("MarathonUtil", function() {
 
       expect(instance.items[0]).toEqual({ id: "/alpha" });
     });
+
+    it("correctly parses enforceRole", function() {
+      var instance = MarathonUtil.parseGroups({
+        id: "/",
+        apps: [{ id: "/alpha" }],
+        groups: [
+          { id: "/foo", apps: [{ id: "/foo/beta" }], enforceRole: true },
+          { id: "/bar", apps: [{ id: "/bar/beta-01" }], enforceRole: false },
+          { id: "/baz", apps: [{ id: "/baz/beta-02" }] }
+        ]
+      });
+
+      expect(instance).toEqual({
+        id: "/",
+        items: [
+          { id: "/foo", items: [{ id: "/foo/beta" }], enforceRole: true },
+          { id: "/bar", items: [{ id: "/bar/beta-01" }], enforceRole: false },
+          { id: "/baz", items: [{ id: "/baz/beta-02" }] },
+          { id: "/alpha" }
+        ]
+      });
+    });
   });
   describe("#parsePods", function() {
     it("contains a pod without volumes", function() {
