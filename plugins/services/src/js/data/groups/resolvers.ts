@@ -26,6 +26,7 @@ const isGroupArgs = (
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
   return {
     id: serviceTree.getId(),
+    name: serviceTree.getName(),
     quota: {
       enforced: serviceTree.getEnforceRole() === true
     }

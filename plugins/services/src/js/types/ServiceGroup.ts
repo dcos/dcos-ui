@@ -15,5 +15,6 @@ export type ServiceGroupQuota = {
 
 export type ServiceGroup = {
   id: string;
+  name: string;
   quota?: null | ServiceGroupQuota;
 };
