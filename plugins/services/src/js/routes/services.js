@@ -65,6 +65,13 @@ const serviceRoutes = [
           }
         ]
       },
+      // Service Quota routes
+      {
+        type: Route,
+        component: ServicesContainer,
+        path: "quota",
+        children: []
+      },
       // Service Detail routes
       {
         type: Redirect,
