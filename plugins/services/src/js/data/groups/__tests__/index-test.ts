@@ -121,6 +121,144 @@ describe("Services Data Layer - Groups", () => {
         m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
       })
     );
+
+    it(
+      "handles query for filtering enforce quota",
+      marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesDev)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
+        const query = gql`
+          query {
+            groups(filter: $filter) {
+              id
+              quota {
+                enforced
+                cpus
+                memory
+                disk
+                gpus
+              }
+            }
+          }
+        `;
+        const expected$ = m.cold("(a|)", {
+          a: {
+            data: {
+              groups: [
+                {
+                  id: "/dev",
+                  quota: {
+                    enforced: true,
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        });
+        m.expect(
+          dl
+            .query(query, {
+              filter: JSON.stringify({ quota: { enforced: true } })
+            })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
+      })
+    );
+
+    it(
+      "handles query for filtering enforce quota is false",
+      marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesDev)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
+        const query = gql`
+          query {
+            groups(filter: $filter) {
+              id
+              quota {
+                enforced
+                cpus
+                memory
+                disk
+                gpus
+              }
+            }
+          }
+        `;
+        const expected$ = m.cold("(a|)", {
+          a: {
+            data: {
+              groups: [
+                {
+                  id: "/staging",
+                  quota: {
+                    enforced: false,
+                    cpus: undefined,
+                    memory: undefined,
+                    disk: undefined,
+                    gpus: undefined
+                  }
+                },
+                {
+                  id: "/prod",
+                  quota: {
+                    enforced: false,
+                    cpus: undefined,
+                    memory: undefined,
+                    disk: undefined,
+                    gpus: undefined
+                  }
+                }
+              ]
+            }
+          }
+        });
+        m.expect(
+          dl
+            .query(query, {
+              filter: JSON.stringify({ quota: { enforced: false } })
+            })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
+      })
+    );
   });
 
   describe("Query - group", () => {
