@@ -26,6 +26,12 @@
           "disk": 0,
           "gpus": 0,
           "mem": 1024.0
+        },
+        "consumption": {
+          "cpus": 1.5,
+          "disk": 0,
+          "gpus": 0,
+          "mem": 256.0
         }
       }
     }
