@@ -179,7 +179,7 @@ export default class NodesTable extends React.Component<
     };
   }
 
-  handleSortClick(columnName: string): void {
+  handleSortClick = (columnName: string) => () => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -196,15 +196,15 @@ export default class NodesTable extends React.Component<
         )
       );
     }
-  }
+  };
 
-  handleResize(columnName: string, resizedColWidth: number) {
+  handleResize = (columnName: string) => (resizedColWidth: number) => {
     const savedColWidths = TableColumnResizeStore.get(columnWidthsStorageKey);
     TableColumnResizeStore.set(columnWidthsStorageKey, {
       ...savedColWidths,
       [columnName]: resizedColWidth
     });
-  }
+  };
 
   shouldComponentUpdate(
     nextProps: NodesTableProps,
@@ -237,7 +237,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Host</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "host")}
+            sortHandler={this.handleSortClick("host")}
             sortDirection={sortColumn === "host" ? sortDirection : null}
           />
         }
@@ -248,7 +248,7 @@ export default class NodesTable extends React.Component<
             : 120
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "host")}
+        onResize={this.handleResize("host")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "host")
             ? ipWidth
@@ -260,7 +260,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Health</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "health")}
+            sortHandler={this.handleSortClick("health")}
             sortDirection={sortColumn === "health" ? sortDirection : null}
           />
         }
@@ -276,7 +276,7 @@ export default class NodesTable extends React.Component<
             : 100
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "health")}
+        onResize={this.handleResize("health")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "health")
             ? healthWidth
@@ -298,7 +298,7 @@ export default class NodesTable extends React.Component<
               : 125
           }
           resizable={true}
-          onResize={this.handleResize.bind(null, "publicIP")}
+          onResize={this.handleResize("publicIP")}
           width={
             TableUtil.isColWidthCustom(columnWidthsStorageKey, "publicIP")
               ? publicIPWidth
@@ -311,7 +311,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Type</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "type")}
+            sortHandler={this.handleSortClick("type")}
             sortDirection={sortColumn === "type" ? sortDirection : null}
           />
         }
@@ -322,7 +322,7 @@ export default class NodesTable extends React.Component<
             : 70
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "type")}
+        onResize={this.handleResize("type")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "type")
             ? typeWidth
@@ -334,7 +334,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Region</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "region")}
+            sortHandler={this.handleSortClick("region")}
             sortDirection={sortColumn === "region" ? sortDirection : null}
           />
         }
@@ -345,7 +345,7 @@ export default class NodesTable extends React.Component<
             : 170
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "region")}
+        onResize={this.handleResize("region")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
             ? regionWidth
@@ -357,7 +357,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Zone</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "zone")}
+            sortHandler={this.handleSortClick("zone")}
             sortDirection={sortColumn === "zone" ? sortDirection : null}
           />
         }
@@ -368,7 +368,7 @@ export default class NodesTable extends React.Component<
             : 100
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "zone")}
+        onResize={this.handleResize("zone")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "zone")
             ? zoneWidth
@@ -380,7 +380,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Tasks</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "tasks")}
+            sortHandler={this.handleSortClick("tasks")}
             sortDirection={sortColumn === "tasks" ? sortDirection : null}
             textAlign="right"
           />
@@ -397,7 +397,7 @@ export default class NodesTable extends React.Component<
             : 80
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "tasks")}
+        onResize={this.handleResize("tasks")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "tasks")
             ? tasksWidth
@@ -409,7 +409,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">CPU</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "cpu")}
+            sortHandler={this.handleSortClick("cpu")}
             sortDirection={sortColumn === "cpu" ? sortDirection : null}
           />
         }
@@ -421,7 +421,7 @@ export default class NodesTable extends React.Component<
             : 110
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "cpu")}
+        onResize={this.handleResize("cpu")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
             ? cpuWidth
@@ -433,7 +433,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Mem</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "mem")}
+            sortHandler={this.handleSortClick("mem")}
             sortDirection={sortColumn === "mem" ? sortDirection : null}
           />
         }
@@ -445,7 +445,7 @@ export default class NodesTable extends React.Component<
             : 110
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "mem")}
+        onResize={this.handleResize("mem")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
             ? memWidth
@@ -457,7 +457,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">Disk</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "disk")}
+            sortHandler={this.handleSortClick("disk")}
             sortDirection={sortColumn === "disk" ? sortDirection : null}
           />
         }
@@ -469,7 +469,7 @@ export default class NodesTable extends React.Component<
             : 110
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "disk")}
+        onResize={this.handleResize("disk")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
             ? diskWidth
@@ -481,7 +481,7 @@ export default class NodesTable extends React.Component<
         header={
           <SortableHeaderCell
             columnContent={<Trans render="span">GPU</Trans>}
-            sortHandler={this.handleSortClick.bind(null, "gpu")}
+            sortHandler={this.handleSortClick("gpu")}
             sortDirection={sortColumn === "gpu" ? sortDirection : null}
           />
         }
@@ -493,7 +493,7 @@ export default class NodesTable extends React.Component<
             : 110
         }
         resizable={true}
-        onResize={this.handleResize.bind(null, "gpu")}
+        onResize={this.handleResize("gpu")}
         width={
           TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
             ? gpuWidth
