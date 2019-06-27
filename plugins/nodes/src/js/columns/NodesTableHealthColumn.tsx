@@ -1,11 +1,8 @@
 import * as React from "react";
 import { TextCell } from "@dcos/ui-kit";
-import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 import Node from "#SRC/js/structs/Node";
-import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
-import { columnWidthsStorageKey } from "../components/NodesTable";
 import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 const NodeHealth = ({
@@ -32,8 +29,4 @@ export function healthSorter(
 ): Node[] {
   const sortedData = data.sort(UnitHealthUtil.getHealthSortFunction);
   return sortDirection === "ASC" ? sortedData : sortedData.reverse();
-}
-
-export function healthWidth(_: WidthArgs) {
-  return TableColumnResizeStore.get(columnWidthsStorageKey).health;
 }

@@ -16,56 +16,24 @@ import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 
 import { SortDirection } from "../types/SortDirection";
 
-import { ipSorter, ipRenderer, ipWidth } from "../columns/NodesTableIpColumn";
-import {
-  typeSorter,
-  typeRenderer,
-  typeWidth
-} from "../columns/NodesTableTypeColumn";
+import { ipSorter, ipRenderer } from "../columns/NodesTableIpColumn";
+import { typeSorter, typeRenderer } from "../columns/NodesTableTypeColumn";
 import {
   regionSorter,
-  regionRenderer,
-  regionWidth
+  regionRenderer
 } from "../columns/NodesTableRegionColumn";
-import {
-  zoneSorter,
-  zoneRenderer,
-  zoneWidth
-} from "../columns/NodesTableZoneColumn";
+import { zoneSorter, zoneRenderer } from "../columns/NodesTableZoneColumn";
 import {
   healthSorter,
-  healthRenderer,
-  healthWidth
+  healthRenderer
 } from "../columns/NodesTableHealthColumn";
-import {
-  tasksSorter,
-  tasksRenderer,
-  tasksWidth
-} from "../columns/NodesTableTasksColumn";
-import {
-  cpuSorter,
-  cpuRenderer,
-  cpuWidth
-} from "../columns/NodesTableCPUColumn";
-import {
-  memSorter,
-  memRenderer,
-  memWidth
-} from "../columns/NodesTableMemColumn";
-import {
-  diskSorter,
-  diskRenderer,
-  diskWidth
-} from "../columns/NodesTableDiskColumn";
-import {
-  gpuSorter,
-  gpuRenderer,
-  gpuWidth
-} from "../columns/NodesTableGPUColumn";
+import { tasksSorter, tasksRenderer } from "../columns/NodesTableTasksColumn";
+import { cpuSorter, cpuRenderer } from "../columns/NodesTableCPUColumn";
+import { memSorter, memRenderer } from "../columns/NodesTableMemColumn";
+import { diskSorter, diskRenderer } from "../columns/NodesTableDiskColumn";
+import { gpuSorter, gpuRenderer } from "../columns/NodesTableGPUColumn";
 
-import PublicIPColumn, {
-  publicIPWidth
-} from "../columns/NodesTablePublicIPColumn";
+import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
 
 interface NodesTableProps {
   withPublicIP: boolean;
@@ -83,6 +51,12 @@ interface NodesTableState {
 type SortFunction<T> = (data: T[], sortDirection: SortDirection) => T[];
 
 export const columnWidthsStorageKey = "nodesTableColWidths";
+
+const hasCustomWidth = (column: string) =>
+  TableUtil.isColWidthCustom(columnWidthsStorageKey, column);
+
+const customWidthFor = (column: string) => () =>
+  TableColumnResizeStore.get(columnWidthsStorageKey)[column];
 
 export default class NodesTable extends React.Component<
   NodesTableProps,
@@ -242,18 +216,10 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={ipRenderer}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "host")
-            ? undefined
-            : 120
-        }
+        minWidth={hasCustomWidth("host") ? undefined : 120}
         resizable={true}
         onResize={this.handleResize("host")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "host")
-            ? ipWidth
-            : undefined
-        }
+        width={hasCustomWidth("host") ? customWidthFor("host") : undefined}
       />,
       <Column
         key="health"
@@ -265,23 +231,11 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={healthRenderer}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "health")
-            ? undefined
-            : 80
-        }
-        maxWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "health")
-            ? undefined
-            : 100
-        }
+        minWidth={hasCustomWidth("health") ? undefined : 80}
+        maxWidth={hasCustomWidth("health") ? undefined : 100}
         resizable={true}
         onResize={this.handleResize("health")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "health")
-            ? healthWidth
-            : undefined
-        }
+        width={hasCustomWidth("health") ? customWidthFor("health") : undefined}
       />,
       withPublicIP ? (
         <Column
@@ -292,17 +246,11 @@ export default class NodesTable extends React.Component<
             </HeaderCell>
           }
           cellRenderer={PublicIPColumn}
-          minWidth={
-            TableUtil.isColWidthCustom(columnWidthsStorageKey, "publicIP")
-              ? undefined
-              : 125
-          }
+          minWidth={hasCustomWidth("publicIP") ? undefined : 125}
           resizable={true}
           onResize={this.handleResize("publicIP")}
           width={
-            TableUtil.isColWidthCustom(columnWidthsStorageKey, "publicIP")
-              ? publicIPWidth
-              : undefined
+            hasCustomWidth("publicIP") ? customWidthFor("publicIP") : undefined
           }
         />
       ) : null,
@@ -316,18 +264,10 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={typeRenderer}
-        maxWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "type")
-            ? undefined
-            : 70
-        }
+        maxWidth={hasCustomWidth("type") ? undefined : 70}
         resizable={true}
         onResize={this.handleResize("type")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "type")
-            ? typeWidth
-            : undefined
-        }
+        width={hasCustomWidth("type") ? customWidthFor("type") : undefined}
       />,
       <Column
         key="region"
@@ -339,18 +279,10 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={this.regionRenderer}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
-            ? undefined
-            : 170
-        }
+        minWidth={hasCustomWidth("region") ? undefined : 170}
         resizable={true}
         onResize={this.handleResize("region")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
-            ? regionWidth
-            : undefined
-        }
+        width={hasCustomWidth("region") ? customWidthFor("region") : undefined}
       />,
       <Column
         key="zone"
@@ -362,18 +294,10 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={zoneRenderer}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "zone")
-            ? undefined
-            : 100
-        }
+        minWidth={hasCustomWidth("zone") ? undefined : 100}
         resizable={true}
         onResize={this.handleResize("zone")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "zone")
-            ? zoneWidth
-            : undefined
-        }
+        width={hasCustomWidth("zone") ? customWidthFor("zone") : undefined}
       />,
       <Column
         key="tasks"
@@ -386,23 +310,11 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={tasksRenderer}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "tasks")
-            ? undefined
-            : 60
-        }
-        maxWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "tasks")
-            ? undefined
-            : 80
-        }
+        minWidth={hasCustomWidth("tasks") ? undefined : 60}
+        maxWidth={hasCustomWidth("tasks") ? undefined : 80}
         resizable={true}
         onResize={this.handleResize("tasks")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "tasks")
-            ? tasksWidth
-            : undefined
-        }
+        width={hasCustomWidth("tasks") ? customWidthFor("tasks") : undefined}
       />,
       <Column
         key="cpu"
@@ -414,19 +326,11 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={cpuRenderer}
-        growToFill={!TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
-            ? undefined
-            : 110
-        }
+        growToFill={!hasCustomWidth("cpu")}
+        minWidth={hasCustomWidth("cpu") ? undefined : 110}
         resizable={true}
         onResize={this.handleResize("cpu")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
-            ? cpuWidth
-            : undefined
-        }
+        width={hasCustomWidth("cpu") ? customWidthFor("cpu") : undefined}
       />,
       <Column
         key="mem"
@@ -438,19 +342,11 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={memRenderer}
-        growToFill={!TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
-            ? undefined
-            : 110
-        }
+        growToFill={!hasCustomWidth("mem")}
+        minWidth={hasCustomWidth("mem") ? undefined : 110}
         resizable={true}
         onResize={this.handleResize("mem")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
-            ? memWidth
-            : undefined
-        }
+        width={hasCustomWidth("mem") ? customWidthFor("mem") : undefined}
       />,
       <Column
         key="disk"
@@ -462,19 +358,11 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={diskRenderer}
-        growToFill={!TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
-            ? undefined
-            : 110
-        }
+        growToFill={!hasCustomWidth("disk")}
+        minWidth={hasCustomWidth("disk") ? undefined : 110}
         resizable={true}
         onResize={this.handleResize("disk")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
-            ? diskWidth
-            : undefined
-        }
+        width={hasCustomWidth("disk") ? customWidthFor("disk") : undefined}
       />,
       <Column
         key="gpu"
@@ -486,19 +374,11 @@ export default class NodesTable extends React.Component<
           />
         }
         cellRenderer={gpuRenderer}
-        growToFill={!TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")}
-        minWidth={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
-            ? undefined
-            : 110
-        }
+        growToFill={!hasCustomWidth("gpu")}
+        minWidth={hasCustomWidth("gpu") ? undefined : 110}
         resizable={true}
         onResize={this.handleResize("gpu")}
-        width={
-          TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
-            ? gpuWidth
-            : undefined
-        }
+        width={hasCustomWidth("gpu") ? customWidthFor("gpu") : undefined}
       />
     ].filter((col): col is React.ReactElement => col !== null);
 
