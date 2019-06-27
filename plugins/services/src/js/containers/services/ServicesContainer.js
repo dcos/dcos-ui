@@ -48,6 +48,7 @@ import ServiceModals from "../../components/modals/ServiceModals";
 import ServiceNameTextFilter from "../../filters/ServiceNameTextFilter";
 import ServiceTree from "../../structs/ServiceTree";
 import ServiceTreeView from "./ServiceTreeView";
+import ServicesQuotaView from "./ServicesQuotaView";
 
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
@@ -610,7 +611,13 @@ class ServicesContainer extends React.Component {
   }
 
   getServiceQuota(item) {
-    return this.getServiceTree(item);
+    const { children, params, routes } = this.props;
+    return (
+      <ServicesQuotaView params={params} routes={routes} serviceTree={item}>
+        {children}
+        {this.getModals(item)}
+      </ServicesQuotaView>
+    );
   }
 
   getResetDelaySuccessToast(serviceName) {
