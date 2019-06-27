@@ -9,7 +9,7 @@ describe("Job JSON Editor", function() {
   });
 
   it("renders proper JSON for a simple job", function() {
-    const jobName = "job-with-inline-shell-script";
+    const jobName = "simple";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -49,22 +49,20 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              cmd: cmdline
-            }
+          id: fullJobName,
+          description: "",
+          run: {
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            cmd: cmdline
           }
         }
       ]);
   });
 
   it("renders proper JSON for a job with default container image", function() {
-    const jobName = "job-with-docker-config";
+    const jobName = "default";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -112,20 +110,18 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              gpus: 1,
-              cmd: cmdline,
-              ucr: {
-                image: {
-                  id: "nginx",
-                  kind: "docker"
-                }
+          id: fullJobName,
+          description: "",
+          run: {
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            gpus: 1,
+            cmd: cmdline,
+            ucr: {
+              image: {
+                id: "nginx",
+                kind: "docker"
               }
             }
           }
@@ -164,7 +160,7 @@ describe("Job JSON Editor", function() {
   });
 
   it("renders proper JSON for a job using UCR with advanced options", () => {
-    const jobName = "job-with-ucr-config";
+    const jobName = "ucr";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -252,29 +248,27 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              gpus: 1,
-              cmd: cmdline,
-              ucr: {
-                image: {
-                  id: "nginx",
-                  kind: "docker",
-                  forcePull: true
-                }
-              },
-              maxLaunchDelay: 1,
-              taskKillGracePeriodSeconds: 2,
-              user: "user1",
-              restart: {
-                policy: "ON_FAILURE",
-                activeDeadlineSeconds: 3
+          id: fullJobName,
+          description: "",
+          run: {
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            gpus: 1,
+            cmd: cmdline,
+            ucr: {
+              image: {
+                id: "nginx",
+                kind: "docker",
+                forcePull: true
               }
+            },
+            maxLaunchDelay: 1,
+            taskKillGracePeriodSeconds: 2,
+            user: "user1",
+            restart: {
+              policy: "ON_FAILURE",
+              activeDeadlineSeconds: 3
             }
           }
         }
@@ -282,7 +276,7 @@ describe("Job JSON Editor", function() {
   });
 
   it("renders proper JSON for a job using Docker with advanced options", () => {
-    const jobName = "job-with-docker-config";
+    const jobName = "docker";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -344,19 +338,17 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              cmd: cmdline,
-              docker: {
-                image: "nginx",
-                forcePullImage: true,
-                privileged: true
-              }
+          id: fullJobName,
+          description: "",
+          run: {
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            cmd: cmdline,
+            docker: {
+              image: "nginx",
+              forcePullImage: true,
+              privileged: true
             }
           }
         }
@@ -364,7 +356,7 @@ describe("Job JSON Editor", function() {
   });
 
   it("renders proper JSON for a job using Docker with parameters", () => {
-    const jobName = "job-with-docker-config";
+    const jobName = "params";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
     const dockerParam = {
@@ -443,20 +435,18 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              cmd: cmdline,
-              docker: {
-                image: "nginx",
-                forcePullImage: true,
-                privileged: true,
-                parameters: [dockerParam]
-              }
+          id: fullJobName,
+          description: "",
+          run: {
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            cmd: cmdline,
+            docker: {
+              image: "nginx",
+              forcePullImage: true,
+              privileged: true,
+              parameters: [dockerParam]
             }
           }
         }
@@ -464,7 +454,7 @@ describe("Job JSON Editor", function() {
   });
 
   it("renders proper JSON for a job using Docker with args", () => {
-    const jobName = "job-with-docker-config";
+    const jobName = "args";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
     const arg = "arg";
@@ -536,20 +526,18 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              args: [arg],
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              cmd: cmdline,
-              docker: {
-                image: "nginx",
-                forcePullImage: true,
-                privileged: true
-              }
+          id: fullJobName,
+          description: "",
+          run: {
+            args: [arg],
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            cmd: cmdline,
+            docker: {
+              image: "nginx",
+              forcePullImage: true,
+              privileged: true
             }
           }
         }
@@ -557,7 +545,7 @@ describe("Job JSON Editor", function() {
   });
 
   it("renders proper JSON for a job with a schedule", () => {
-    const jobName = "job-with-schedule";
+    const jobName = "schedule";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
     const scheduleId = "schedule-id";
@@ -625,24 +613,24 @@ describe("Job JSON Editor", function() {
       .asJson()
       .should("deep.equal", [
         {
-          job: {
-            id: fullJobName,
-            description: "",
-            run: {
-              cpus: 1,
-              mem: 32,
-              disk: 0,
-              cmd: cmdline
-            }
+          id: fullJobName,
+          description: "",
+          run: {
+            cpus: 1,
+            mem: 32,
+            disk: 0,
+            cmd: cmdline
           },
-          schedule: {
-            enabled: true,
-            startingDeadlineSeconds: startingDeadline,
-            id: scheduleId,
-            timezone,
-            cron,
-            concurrencyPolicy: "ALLOW"
-          }
+          schedules: [
+            {
+              enabled: true,
+              startingDeadlineSeconds: startingDeadline,
+              id: scheduleId,
+              timezone,
+              cron,
+              concurrencyPolicy: "ALLOW"
+            }
+          ]
         }
       ]);
   });

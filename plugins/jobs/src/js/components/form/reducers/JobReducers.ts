@@ -17,7 +17,11 @@ import {
   grantRuntimePrivilegesReducers,
   containerImageReducers
 } from "./ContainerReducers";
-import { enabledReducers, concurrencyPolicyReducers } from "./ScheduleReducers";
+import {
+  enabledReducers,
+  concurrencyPolicyReducers,
+  schedulesReducers
+} from "./ScheduleReducers";
 
 type DefaultReducerFunction = (
   value: string,
@@ -75,7 +79,8 @@ const combinedReducers: CombinedReducers = {
   labels,
   artifacts,
   activeDeadlineSeconds,
-  restartPolicy
+  restartPolicy,
+  schedules: schedulesReducers
 };
 
 export function jobFormOutputToSpecReducer(

@@ -62,60 +62,60 @@ const isUniqIn = <T>(list: T[]) =>
 
 export const MetronomeSpecValidators: MetronomeValidators = {
   validate(formData: JobOutput): FormError[] {
-    const { run } = formData.job;
+    const { run } = formData;
     const parameters = (run.docker && run.docker.parameters) || [];
 
     // prettier-ignore
     return pipe(
       // IS BOOLEAN
 
-      isBoolean(_ => "job.run.docker.forcePullImage", [run.docker && run.docker.forcePullImage]),
-      isBoolean(_ => "job.run.docker.privileged", [run.docker && run.docker.privileged]),
-      isBoolean(_ => "job.run.ucr.privileged", [run.ucr && run.ucr.privileged]),
-      isBoolean(_ => "job.run.ucr.image.forcePull", [run.ucr && run.ucr.image&& run.ucr.image.forcePull]),
+      isBoolean(_ => "run.docker.forcePullImage", [run.docker && run.docker.forcePullImage]),
+      isBoolean(_ => "run.docker.privileged", [run.docker && run.docker.privileged]),
+      isBoolean(_ => "run.ucr.privileged", [run.ucr && run.ucr.privileged]),
+      isBoolean(_ => "run.ucr.image.forcePull", [run.ucr && run.ucr.image&& run.ucr.image.forcePull]),
 
       // IS NUMBER
 
-      isNumber(_ => "job.run.cpus", [run.cpus]),
-      isNumber(_ => "job.run.disk", [run.disk]),
-      isNumber(_ => "job.run.gpus", [run.gpus]),
-      isNumber(_ => "job.run.maxLaunchDelay", [run.maxLaunchDelay]),
-      isNumber(_ => "job.run.mem", [run.mem]),
-      isNumber(_ => "job.run.restart.activeDeadlineSeconds", [run.restart && run.restart.activeDeadlineSeconds]),
-      isNumber(_ => "job.run.taskKillGracePeriodSeconds", [run.taskKillGracePeriodSeconds]),
+      isNumber(_ => "run.cpus", [run.cpus]),
+      isNumber(_ => "run.disk", [run.disk]),
+      isNumber(_ => "run.gpus", [run.gpus]),
+      isNumber(_ => "run.maxLaunchDelay", [run.maxLaunchDelay]),
+      isNumber(_ => "run.mem", [run.mem]),
+      isNumber(_ => "run.restart.activeDeadlineSeconds", [run.restart && run.restart.activeDeadlineSeconds]),
+      isNumber(_ => "run.taskKillGracePeriodSeconds", [run.taskKillGracePeriodSeconds]),
 
       // IS OBJECT
 
-      isObject(_ => "job.labels", [formData.job.labels]),
-      isObject(_ => "job.run.docker", [run.docker]),
-      isObject(_ => "job.run.ucr", [run.ucr]),
-      isObject(_ => "job.run.ucr.image", [run.ucr && run.ucr.image]),
+      isObject(_ => "labels", [formData.labels]),
+      isObject(_ => "run.docker", [run.docker]),
+      isObject(_ => "run.ucr", [run.ucr]),
+      isObject(_ => "run.ucr.image", [run.ucr && run.ucr.image]),
 
       // IS PRESENT
 
-      isPresent(_ => "job.id", [formData.job.id]),
-      isPresent(_ => "job.run.cpus", [run.cpus]),
-      isPresent(_ => "job.run.disk", [run.disk]),
-      isPresent(_ => "job.run.mem", [run.mem]),
-      isPresent(i => `job.labels.${i}.key`, Object.keys(formData.job.labels || [])),
-      isPresent(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
-      isPresent(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
-      isPresent(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
+      isPresent(_ => "id", [formData.id]),
+      isPresent(_ => "run.cpus", [run.cpus]),
+      isPresent(_ => "run.disk", [run.disk]),
+      isPresent(_ => "run.mem", [run.mem]),
+      isPresent(i => `labels.${i}.key`, Object.keys(formData.labels || [])),
+      isPresent(i => `run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
+      isPresent(i => `run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
+      isPresent(i => `run.docker.parameters.${i}.value`, parameters.map(_ => _.value)),
 
       // IS STRING
 
-      isString(_ => "job.id", [formData.job.id]),
-      isString(_ => "job.run.cmd", [run.cmd]),
-      isString(_ => "job.run.docker.image", [run.docker && run.docker.image]),
-      isString(_ => "job.run.restart.policy", [run.restart && run.restart.policy]),
-      isString(_ => "job.run.ucr.image.id", [run.ucr && run.ucr.image && run.ucr.image.id]),
-      isString(_ => "job.run.user", [run.user]),
-      isString(i => `job.labels.${i}.key`, Object.keys(formData.job.labels || [])),
-      isString(i => `job.labels.${i}.value`, Object.values(formData.job.labels || [])),
-      isString(i => `job.run.args.${i}`, run.args || []),
-      isString(i => `job.run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
-      isString(i => `job.run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
-      isString(i => `job.run.docker.parameters.${i}.value`, parameters.map(_ => _.value))
+      isString(_ => "id", [formData.id]),
+      isString(_ => "run.cmd", [run.cmd]),
+      isString(_ => "run.docker.image", [run.docker && run.docker.image]),
+      isString(_ => "run.restart.policy", [run.restart && run.restart.policy]),
+      isString(_ => "run.ucr.image.id", [run.ucr && run.ucr.image && run.ucr.image.id]),
+      isString(_ => "run.user", [run.user]),
+      isString(i => `labels.${i}.key`, Object.keys(formData.labels || [])),
+      isString(i => `labels.${i}.value`, Object.values(formData.labels || [])),
+      isString(i => `run.args.${i}`, run.args || []),
+      isString(i => `run.artifacts.${i}.uri`, (run.artifacts || []).map(_ => _.uri)),
+      isString(i => `run.docker.parameters.${i}.key`, parameters.map(_ => _.key)),
+      isString(i => `run.docker.parameters.${i}.value`, parameters.map(_ => _.value))
 
       // pipe only infers 10 steps, so we need a cast here
     )([]) as FormError[];
@@ -125,7 +125,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
    * Ensure ID contains only allowed characters.
    */
   jobIdIsValid(formData: JobOutput): FormError[] {
-    const jobId = findNestedPropertyInObject(formData, "job.id");
+    const jobId = findNestedPropertyInObject(formData, "id");
     const jobIdRegex = /^([a-z0-9]([a-z0-9-]*[a-z0-9]+)*)([.][a-z0-9]([a-z0-9-]*[a-z0-9]+)*)*$/;
     const message = i18nMark(
       "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
@@ -133,17 +133,14 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (jobId == undefined) {
       return [];
     }
-    return jobId && jobIdRegex.test(jobId)
-      ? []
-      : [{ path: ["job", "id"], message }];
+    return jobId && jobIdRegex.test(jobId) ? [] : [{ path: ["id"], message }];
   },
 
   /**
    * Ensure that the user has provided either one of `cmd` or `args`, or a container image field.
    * Ensure that the user has not provided both `cmd` and `args`.
    */
-  containsCmdArgsOrContainer(formData: JobOutput): FormError[] {
-    const { job } = formData;
+  containsCmdArgsOrContainer(job: JobOutput): FormError[] {
     const hasCmd = findNestedPropertyInObject(job, "run.cmd");
     const hasArgs =
       findNestedPropertyInObject(job, "run.args") &&
@@ -157,11 +154,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
       return [
         {
-          path: ["job", "run", "cmd"],
+          path: ["run", "cmd"],
           message: notBothMessage
         },
         {
-          path: ["job", "run", "args"],
+          path: ["run", "args"],
           message: notBothMessage
         }
       ];
@@ -192,14 +189,14 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     );
 
     const containerImageErrorPath = job.run.ucr
-      ? ["job", "run", "ucr", "image", "id"]
+      ? ["run", "ucr", "image", "id"]
       : job.run.docker
-      ? ["job", "run", "docker", "image"]
+      ? ["run", "docker", "image"]
       : [];
 
     return [
-      { path: ["job", "run", "cmd"], message },
-      { path: ["job", "run", "args"], message },
+      { path: ["run", "cmd"], message },
+      { path: ["run", "args"], message },
       { path: containerImageErrorPath, message }
     ];
   },
@@ -208,11 +205,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
    * Ensure there is a container image if a container is specified
    */
   mustContainImageOnDockerOrUCR(formData: JobOutput) {
-    const docker = findNestedPropertyInObject(formData, "job.run.docker");
+    const docker = findNestedPropertyInObject(formData, "run.docker");
     if (docker && !docker.image) {
       return [
         {
-          path: ["job", "run", "docker", "image"],
+          path: ["run", "docker", "image"],
           message: i18nMark(
             "Must be specified when using the Docker Engine runtime."
           )
@@ -220,11 +217,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       ];
     }
 
-    const ucr = findNestedPropertyInObject(formData, "job.run.ucr");
+    const ucr = findNestedPropertyInObject(formData, "run.ucr");
     if (ucr && (!ucr.image || !ucr.image.id)) {
       return [
         {
-          path: ["job", "run", "ucr", "image", "id"],
+          path: ["run", "ucr", "image", "id"],
           message: i18nMark("Must be specified when using UCR.")
         }
       ];
@@ -237,12 +234,12 @@ export const MetronomeSpecValidators: MetronomeValidators = {
    * Ensure GPUs are used only with UCR
    */
   gpusOnlyWithUCR(formData: JobOutput) {
-    const gpus = findNestedPropertyInObject(formData, "job.run.gpus");
-    const docker = findNestedPropertyInObject(formData, "job.run.docker");
+    const gpus = findNestedPropertyInObject(formData, "run.gpus");
+    const docker = findNestedPropertyInObject(formData, "run.docker");
     if ((gpus || gpus === 0) && docker) {
       return [
         {
-          path: ["job", "run", "gpus"],
+          path: ["run", "gpus"],
           message: i18nMark("GPUs are only available with UCR.")
         }
       ];
@@ -252,16 +249,16 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   oneOfUcrOrDocker(formData: JobOutput) {
-    const docker = findNestedPropertyInObject(formData, "job.run.docker");
-    const ucr = findNestedPropertyInObject(formData, "job.run.ucr");
+    const docker = findNestedPropertyInObject(formData, "run.docker");
+    const ucr = findNestedPropertyInObject(formData, "run.ucr");
     if (docker && ucr) {
       return [
         {
-          path: ["job", "run", "docker"],
+          path: ["run", "docker"],
           message: i18nMark("Only one of UCR or Docker is allowed.")
         },
         {
-          path: ["job", "run", "ucr"],
+          path: ["run", "ucr"],
           message: i18nMark("Only one of UCR or Docker is allowed.")
         }
       ];
@@ -270,21 +267,21 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   checkTypesOfUcrProps(formData: JobOutput) {
-    const ucr = findNestedPropertyInObject(formData, "job.run.ucr");
+    const ucr = findNestedPropertyInObject(formData, "run.ucr");
     const errors: FormError[] = [];
 
     if (ucr == undefined) {
       return errors;
     }
 
-    const kind = findNestedPropertyInObject(formData, "job.run.ucr.image.kind");
+    const kind = findNestedPropertyInObject(formData, "run.ucr.image.kind");
 
     if (
       kind != undefined &&
       (kind !== UcrImageKind.Docker && kind !== UcrImageKind.Appc)
     ) {
       errors.push({
-        path: ["job", "run", "ucr", "image", "kind"],
+        path: ["run", "ucr", "image", "kind"],
         message: i18nMark("Image kind must be one of `docker` or `appc`.")
       });
     }
@@ -292,28 +289,28 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   valuesAreWithinRange(formData: JobOutput) {
-    const cpus = findNestedPropertyInObject(formData, "job.run.cpus");
-    const mem = findNestedPropertyInObject(formData, "job.run.mem");
-    const disk = findNestedPropertyInObject(formData, "job.run.disk");
+    const cpus = findNestedPropertyInObject(formData, "run.cpus");
+    const mem = findNestedPropertyInObject(formData, "run.mem");
+    const disk = findNestedPropertyInObject(formData, "run.disk");
     const errors = [];
 
     if (cpus != undefined && typeof cpus === "number" && cpus < 0.01) {
       errors.push({
-        path: ["job", "run", "cpus"],
+        path: ["run", "cpus"],
         message: i18nMark("Minimum value is 0.01.")
       });
     }
 
     if (mem != undefined && typeof mem === "number" && mem < 32) {
       errors.push({
-        path: ["job", "run", "mem"],
+        path: ["run", "mem"],
         message: i18nMark("Minimum value is 32.")
       });
     }
 
     if (disk != undefined && typeof disk === "number" && disk < 0) {
       errors.push({
-        path: ["job", "run", "disk"],
+        path: ["run", "disk"],
         message: i18nMark("Minimum value is 0.")
       });
     }
@@ -322,11 +319,11 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   gpusWithinRange(formData: JobOutput) {
-    const gpus = findNestedPropertyInObject(formData, "job.run.gpus");
+    const gpus = findNestedPropertyInObject(formData, "run.gpus");
     if (gpus && typeof gpus === "number" && gpus < 0) {
       return [
         {
-          path: ["job", "run", "gpus"],
+          path: ["run", "gpus"],
           message: i18nMark("Minimum value is 0.")
         }
       ];
@@ -335,13 +332,13 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   noEmptyArgs(formData: JobOutput) {
-    const args = formData.job.run.args;
+    const args = formData.run.args;
     const errors: FormError[] = [];
     if (args && Array.isArray(args)) {
       args.forEach((arg, index) => {
         if (arg === "" || arg == undefined) {
           errors.push({
-            path: ["job", "run", "args", `${index}`],
+            path: ["run", "args", `${index}`],
             message: i18nMark("Arg cannot be empty.")
           });
         }
@@ -351,13 +348,13 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   argsUsedOnlyWithDocker(formData: JobOutput) {
-    const args = formData.job.run.args;
-    const docker = formData.job.run.docker;
+    const args = formData.run.args;
+    const docker = formData.run.docker;
 
     if (args && !docker) {
       return [
         {
-          path: ["job", "run", "args"],
+          path: ["run", "args"],
           message: i18nMark("Args can only be used with Docker.")
         }
       ];
@@ -366,7 +363,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   noDuplicateArgs(formData: JobOutput) {
-    const args = formData.job.run && formData.job.run.args;
+    const args = formData.run && formData.run.args;
     const errors: FormError[] = [];
     const map: { [key: string]: number } = {};
     const dupIndex: number[] = [];
@@ -385,7 +382,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
       dupIndex.forEach(errorIndex => {
         errors.push({
-          path: ["job", "run", "args", `${errorIndex}`],
+          path: ["run", "args", `${errorIndex}`],
           message: i18nMark("No duplicate args.")
         });
       });
@@ -394,7 +391,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   noDuplicateParams(formData: JobOutput) {
-    const docker = formData.job.run && formData.job.run.docker;
+    const docker = formData.run && formData.run.docker;
     const errors: FormError[] = [];
     const map: { [key: string]: number } = {};
     const dupIndex: number[] = [];
@@ -414,7 +411,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
       dupIndex.forEach(errorIndex => {
         errors.push({
-          path: ["job", "run", "docker", "parameters", `${errorIndex}`],
+          path: ["run", "docker", "parameters", `${errorIndex}`],
           message: i18nMark("No duplicate parameters.")
         });
       });
@@ -423,11 +420,16 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   scheduleHasId(formData: JobOutput) {
-    const { schedule } = formData;
-    if (schedule && !schedule.id) {
+    const { schedules } = formData;
+    if (
+      schedules &&
+      Array.isArray(schedules) &&
+      schedules.length &&
+      !schedules[0].id
+    ) {
       return [
         {
-          path: ["schedule", "id"],
+          path: ["schedules", "0", "id"],
           message: i18nMark("ID is required.")
         }
       ];
@@ -436,11 +438,16 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   scheduleHasCron(formData: JobOutput) {
-    const { schedule } = formData;
-    if (schedule && !schedule.cron) {
+    const { schedules } = formData;
+    if (
+      schedules &&
+      Array.isArray(schedules) &&
+      schedules.length &&
+      !schedules[0].cron
+    ) {
       return [
         {
-          path: ["schedule", "cron"],
+          path: ["schedules", "0", "cron"],
           message: i18nMark("CRON schedule is required.")
         }
       ];
@@ -449,40 +456,46 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   },
 
   scheduleIdIsValid(formData: JobOutput) {
-    const { schedule } = formData;
+    const { schedules } = formData;
     const idRegex = /^([a-z0-9][a-z0-9\\-]*[a-z0-9]+)$/;
     const message = i18nMark(
       "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash."
     );
-    if (!schedule) {
+    if (!schedules || !Array.isArray(schedules) || !schedules.length) {
       return [];
     }
+    const schedule = schedules[0];
     if (schedule.id && typeof schedule.id !== "string") {
       return [
         {
-          path: ["schedule", "id"],
+          path: ["schedules", "0", "id"],
           message: i18nMark("Schedule ID must be a string.")
         }
       ];
     }
     return schedule && schedule.id && idRegex.test(schedule.id)
       ? []
-      : [{ path: ["schedule", "id"], message }];
+      : [{ path: ["schedules", "0", "id"], message }];
   },
 
   scheduleStartingDeadlineIsValid(formData: JobOutput) {
-    const { schedule } = formData;
+    const { schedules } = formData;
     const errors = [];
-    if (schedule && schedule.startingDeadlineSeconds != undefined) {
-      if (typeof schedule.startingDeadlineSeconds !== "number") {
+    if (
+      schedules &&
+      Array.isArray(schedules) &&
+      schedules.length &&
+      schedules[0].startingDeadlineSeconds != undefined
+    ) {
+      if (typeof schedules[0].startingDeadlineSeconds !== "number") {
         errors.push({
-          path: ["schedule", "startingDeadlineSeconds"],
+          path: ["schedules", "0", "startingDeadlineSeconds"],
           message: i18nMark("Starting deadline must be a number.")
         });
       }
-      if (schedule.startingDeadlineSeconds < 1) {
+      if (schedules[0].startingDeadlineSeconds < 1) {
         errors.push({
-          path: ["schedule", "startingDeadlineSeconds"],
+          path: ["schedules", "0", "startingDeadlineSeconds"],
           message: i18nMark("Minimum value is 1.")
         });
       }
@@ -496,7 +509,7 @@ export function validateFormLabels(jobSpec: JobSpec): FormError[] {
   const message = i18nMark("Cannot have multiple labels with the same key.");
 
   return pipe(
-    allUniq(_ => "job.labels", [labels], message),
-    isUniqIn(labels)(i => `job.labels.${i}`, labels, message)
+    allUniq(_ => "labels", [labels], message),
+    isUniqIn(labels)(i => `labels.${i}`, labels, message)
   )([]);
 }
