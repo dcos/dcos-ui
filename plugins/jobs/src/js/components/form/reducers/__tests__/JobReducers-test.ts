@@ -50,16 +50,14 @@ describe("JobReducers", () => {
     describe("Override action", () => {
       it("overrides current state with JSON value while maintaining container options", () => {
         const jsonValue = {
-          job: {
-            id: "newId",
-            description: "desc",
-            run: {
-              cmd: "foo",
-              cpus: 1,
-              disk: 0,
-              mem: 32,
-              gpus: 0
-            }
+          id: "newId",
+          description: "desc",
+          run: {
+            cmd: "foo",
+            cpus: 1,
+            disk: 0,
+            mem: 32,
+            gpus: 0
           }
         };
         const expected = {
@@ -90,18 +88,16 @@ describe("JobReducers", () => {
 
       it("adds container image value to both container objects in job spec if present", () => {
         const jsonValue = {
-          job: {
-            id: "newId",
-            description: "desc",
-            run: {
-              cmd: "foo",
-              cpus: 1,
-              disk: 0,
-              mem: 32,
-              gpus: 0,
-              docker: {
-                image: "bar"
-              }
+          id: "newId",
+          description: "desc",
+          run: {
+            cmd: "foo",
+            cpus: 1,
+            disk: 0,
+            mem: 32,
+            gpus: 0,
+            docker: {
+              image: "bar"
             }
           }
         };

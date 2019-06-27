@@ -36,7 +36,7 @@ import {
   JobSchema
 } from "#PLUGINS/jobs/src/js/types/Job";
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
-import { JobOutput } from "../components/form/helpers/JobFormData";
+import { JobAPIOutput } from "../components/form/helpers/JobFormData";
 import { JobSchedule } from "../types/JobSchedule";
 
 export interface Query {
@@ -52,11 +52,11 @@ export interface ResolverArgs {
   pollingInterval: number;
   runJob: (id: string) => Observable<RequestResponse<JobLink>>;
   createJob: (
-    data: JobOutput
+    data: JobAPIOutput
   ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   updateJob: (
     id: string,
-    data: JobOutput,
+    data: JobAPIOutput,
     existingSchedule?: boolean
   ) => Observable<RequestResponse<MetronomeJobDetailResponse>>;
   updateSchedule: (

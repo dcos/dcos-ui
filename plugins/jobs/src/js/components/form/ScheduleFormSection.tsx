@@ -36,11 +36,11 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
         lowercase letters (`a-z`). The id may not begin or end with a dash.
       </Trans>
     );
-    const idErrors = getFieldError("schedule.id", errors);
-    const cronErrors = getFieldError("schedule.cron", errors);
-    const timezoneErrors = getFieldError("schedule.timezone", errors);
+    const idErrors = getFieldError("schedules.0.id", errors);
+    const cronErrors = getFieldError("schedules.0.cron", errors);
+    const timezoneErrors = getFieldError("schedules.0.timezone", errors);
     const deadlineErrors = getFieldError(
-      "schedule.startingDeadlineSeconds",
+      "schedules.0.startingDeadlineSeconds",
       errors
     );
 
@@ -83,7 +83,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput
-              name="schedule.id"
+              name="id.schedules"
               type="text"
               value={formData.scheduleId}
             />
@@ -103,7 +103,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput
-              name="schedule.cron"
+              name="cron.schedules"
               type="text"
               placeholder="* * * * *"
               value={formData.cronSchedule}
@@ -134,7 +134,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput
-              name="schedule.timezone"
+              name="timezone.schedules"
               type="text"
               value={formData.timezone}
               placeholder={JobDataPlaceholders.timezone}
@@ -158,7 +158,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput
-              name="schedule.startingDeadlineSeconds"
+              name="startingDeadlineSeconds.schedules"
               type="number"
               value={formData.startingDeadline}
               placeholder={JobDataPlaceholders.startingDeadlineSeconds}

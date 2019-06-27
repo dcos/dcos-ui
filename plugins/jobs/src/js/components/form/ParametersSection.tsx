@@ -62,15 +62,15 @@ class ParametersSection extends React.Component<
         );
       }
       const keyErrors = getFieldError(
-        `job.run.docker.parameters.${index}.key`,
+        `run.docker.parameters.${index}.key`,
         errors
       );
       const valueErrors = getFieldError(
-        `job.run.docker.parameters.${index}.value`,
+        `run.docker.parameters.${index}.value`,
         errors
       );
       const generalParamError = getFieldError(
-        `job.run.docker.parameters.${index}`,
+        `run.docker.parameters.${index}`,
         errors
       );
 

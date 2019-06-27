@@ -6,10 +6,20 @@ export interface JobNoLabels {
 
 export interface JobFormData extends JobNoLabels {
   labels?: ArrayLabels;
+  schedules?: JobSchedule[];
 }
 
 export interface JobOutputData extends JobNoLabels {
   labels?: JobLabels;
+}
+
+export interface JobOutput extends JobOutputData {
+  schedules?: JobSchedule[];
+}
+
+export interface JobAPIOutput {
+  job: JobOutputData;
+  schedule?: JobSchedule;
 }
 
 export enum ConcurrentPolicy {
@@ -35,7 +45,6 @@ export interface JobSpec {
   cmdOnly: boolean;
   container?: Container | null;
   job: JobFormData;
-  schedule?: JobSchedule;
 }
 
 export interface FormOutput {
@@ -66,11 +75,6 @@ export interface FormOutput {
   retryTime?: number;
   labels?: ArrayLabels;
   artifacts?: JobArtifact[];
-}
-
-export interface JobOutput {
-  job: JobOutputData;
-  schedule?: JobSchedule;
 }
 
 // Labels used internally to track form state
