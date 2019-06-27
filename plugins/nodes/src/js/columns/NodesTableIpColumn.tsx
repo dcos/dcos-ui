@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import sort from "array-sort";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 import ipToInt from "ip-to-int";
@@ -12,7 +11,6 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Node from "#SRC/js/structs/Node";
-import { SortDirection } from "#PLUGINS/nodes/src/js/types/SortDirection";
 
 const NodeIp = React.memo(
   ({
@@ -68,7 +66,7 @@ export function ipRenderer(data: Node): React.ReactNode {
   );
 }
 
-function compareNodesByIp(a: Node, b: Node): number {
+export function compareByIp(a: Node, b: Node): number {
   try {
     const ipA = ipToInt(a.getIp()).toInt();
     const ipB = ipToInt(b.getIp()).toInt();
@@ -81,10 +79,4 @@ function compareNodesByIp(a: Node, b: Node): number {
       .toLowerCase()
       .localeCompare(b.getHostName().toLowerCase());
   }
-}
-
-const comparators = [compareNodesByIp];
-export function ipSorter(data: Node[], sortDirection: SortDirection): Node[] {
-  const reverse = sortDirection !== "ASC";
-  return sort(data, comparators, { reverse });
 }
