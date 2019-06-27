@@ -16,6 +16,7 @@ export const GroupTypes = `
   
   type ServiceGroup {
     id: String!
+    name: String!
     quota: ServiceGroupQuota
   }
 `;

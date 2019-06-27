@@ -14,7 +14,9 @@ export function nameRenderer(group: ServiceGroup) {
         <span className="icon-margin-right">
           <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
         </span>
-        <span className="table-cell-value table-cell-flex-box">{group.id}</span>
+        <span className="table-cell-value table-cell-flex-box">
+          {group.name}
+        </span>
       </div>
     </TextCell>
   );
