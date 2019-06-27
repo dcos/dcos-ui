@@ -21,27 +21,12 @@ type JobTaskConnection {
 export function JobTaskConnectionTypeResolver(
   tasks: MetronomeJobRunTask[]
 ): JobTaskConnection {
+  const nodes: JobTask[] = tasks.map(JobTaskTypeResolver);
   return {
-    longestRunningTask: JobTaskConnectionFieldResolvers.longestRunningTask(
-      tasks
-    ),
-    nodes: JobTaskConnectionFieldResolvers.nodes(tasks)
+    longestRunningTask:
+      [...nodes].sort(
+        (a, b) => (a.dateStarted || Infinity) - (b.dateStarted || Infinity)
+      )[0] || null,
+    nodes
   };
 }
-
-export const JobTaskConnectionFieldResolvers = {
-  longestRunningTask(tasks: MetronomeJobRunTask[]): JobTask | null {
-    if (!tasks.length) {
-      return null;
-    }
-    const parsedTasks = this.nodes(tasks);
-    const sortedTasks = [...parsedTasks].sort(
-      (a, b) => (a.dateStarted || Infinity) - (b.dateStarted || Infinity)
-    );
-
-    return sortedTasks[0];
-  },
-  nodes(tasks: MetronomeJobRunTask[]): JobTask[] {
-    return tasks.map(task => JobTaskTypeResolver(task));
-  }
-};

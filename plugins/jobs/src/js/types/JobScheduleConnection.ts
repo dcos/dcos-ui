@@ -16,14 +16,6 @@ type ScheduleConnection {
 }
 `;
 
-export function JobScheduleConnectionTypeResolver(
+export const JobScheduleConnectionTypeResolver = (
   schedules: MetronomeSchedule[]
-): JobScheduleConnection {
-  return { nodes: JobScheduleConnectionFieldResolvers.nodes(schedules) };
-}
-
-export const JobScheduleConnectionFieldResolvers = {
-  nodes(schedules: MetronomeSchedule[]): JobSchedule[] {
-    return schedules.map(JobScheduleTypeResolver);
-  }
-};
+): JobScheduleConnection => ({ nodes: schedules.map(JobScheduleTypeResolver) });
