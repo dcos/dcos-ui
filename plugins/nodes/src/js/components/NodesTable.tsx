@@ -7,6 +7,7 @@ import {
 } from "@dcos/ui-kit/dist/packages";
 import { Trans } from "@lingui/macro";
 import isEqual from "lodash/isEqual";
+import sort from "array-sort";
 
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
@@ -16,24 +17,22 @@ import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 
 import { SortDirection } from "../types/SortDirection";
 
-import { ipSorter, ipRenderer } from "../columns/NodesTableIpColumn";
-import { typeSorter, typeRenderer } from "../columns/NodesTableTypeColumn";
+import { ipRenderer, compareByIp } from "../columns/NodesTableIpColumn";
+import { typeRenderer, compareByType } from "../columns/NodesTableTypeColumn";
 import {
-  regionSorter,
+  compareByRegion,
   regionRenderer
 } from "../columns/NodesTableRegionColumn";
-import { zoneSorter, zoneRenderer } from "../columns/NodesTableZoneColumn";
-import {
-  healthSorter,
-  healthRenderer
-} from "../columns/NodesTableHealthColumn";
-import { tasksSorter, tasksRenderer } from "../columns/NodesTableTasksColumn";
-import { cpuSorter, cpuRenderer } from "../columns/NodesTableCPUColumn";
-import { memSorter, memRenderer } from "../columns/NodesTableMemColumn";
-import { diskSorter, diskRenderer } from "../columns/NodesTableDiskColumn";
-import { gpuSorter, gpuRenderer } from "../columns/NodesTableGPUColumn";
+import { zoneRenderer, compareByZone } from "../columns/NodesTableZoneColumn";
+import { healthRenderer } from "../columns/NodesTableHealthColumn";
+import { tasksRenderer, getTasks } from "../columns/NodesTableTasksColumn";
+import { getCpuUsage, cpuRenderer } from "../columns/NodesTableCPUColumn";
+import { memRenderer, getMemUsage } from "../columns/NodesTableMemColumn";
+import { diskRenderer, getDiskUsage } from "../columns/NodesTableDiskColumn";
+import { gpuRenderer, getGpuUsage } from "../columns/NodesTableGPUColumn";
 
 import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
+import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 interface NodesTableProps {
   withPublicIP: boolean;
@@ -57,6 +56,21 @@ const hasCustomWidth = (column: string) =>
 
 const customWidthFor = (column: string) => () =>
   TableColumnResizeStore.get(columnWidthsStorageKey)[column];
+
+function compareByHostname(a: Node, b: Node): number {
+  return a
+    .getHostName()
+    .toLowerCase()
+    .localeCompare(b.getHostName().toLowerCase());
+}
+
+const sorter = (comparator: (a: Node, b: Node) => number) => (
+  data: Node[],
+  sortDirection: SortDirection
+): Node[] =>
+  sort(data, [comparator, compareByHostname], {
+    reverse: sortDirection !== "ASC"
+  });
 
 export default class NodesTable extends React.Component<
   NodesTableProps,
@@ -82,25 +96,26 @@ export default class NodesTable extends React.Component<
   retrieveSortFunction(sortColumn: string): SortFunction<Node> {
     switch (sortColumn) {
       case "host":
-        return ipSorter;
+        return sorter(compareByIp);
       case "type":
-        return typeSorter;
+        return sorter(compareByType);
       case "region":
-        return regionSorter;
+        return sorter(compareByRegion);
       case "zone":
-        return zoneSorter;
+        return sorter(compareByZone);
       case "health":
-        return healthSorter;
+        return sorter(UnitHealthUtil.getHealthSortFunction);
       case "tasks":
-        return tasksSorter;
+        return sorter((a, b) => getTasks(a) - getTasks(b));
       case "cpu":
-        return cpuSorter;
+        return sorter((a, b) => getCpuUsage(a) - getCpuUsage(b));
       case "mem":
-        return memSorter;
+        return sorter((a, b) => getMemUsage(a) - getMemUsage(b));
       case "disk":
-        return diskSorter;
+        return sorter((a, b) => getDiskUsage(a) - getDiskUsage(b));
       case "gpu":
-        return gpuSorter;
+        return sorter((a, b) => getGpuUsage(a) - getGpuUsage(b));
+
       default:
         return (data, _sortDirection) => data;
     }
