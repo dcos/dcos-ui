@@ -103,6 +103,20 @@ describe("Packages Tab", function() {
     cy.get(".panel-content h2").should("contain", "An Error Occurred");
   });
 
+  it("shows error message when the response is empty", function() {
+    cy.route({
+      method: "POST",
+      url: /package\/search/,
+      status: 400,
+      response: {}
+    }).visitUrl({ url: "/catalog", logIn: true });
+
+    cy.get(".panel-content h2").should("contain", "An Error Occurred");
+    cy.get(".errorsAlert-message")
+      .contains("Looks Like Something is Wrong. Please try again.")
+      .should("exist");
+  });
+
   context("searching", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/catalog", logIn: true });
