@@ -19,6 +19,7 @@ const ServicesQuotaOverview = componentFromStream(() => {
         query {
           groups(filter: $groupsFilter) {
             id
+            name
             quota
           }
         }
