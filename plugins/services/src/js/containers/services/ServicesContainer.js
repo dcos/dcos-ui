@@ -146,7 +146,9 @@ const METHODS_TO_BIND = [
   "restartService",
   "onStoreChange",
   "getResetDelaySuccessToast",
-  "getResetDelayErrorToast"
+  "getResetDelayErrorToast",
+  "getServiceTree",
+  "getServiceQuota"
 ];
 
 class ServicesContainer extends React.Component {
@@ -617,6 +619,10 @@ class ServicesContainer extends React.Component {
     );
   }
 
+  getServiceQuota(item) {
+    return this.getServiceTree(item);
+  }
+
   getResetDelaySuccessToast(serviceName) {
     const title = i18nTranslate(i18nMark("Reset Delay Successful"));
     const description = i18nTranslate(
@@ -688,6 +694,10 @@ class ServicesContainer extends React.Component {
       return this.getServiceTree(item);
     }
 
+    if (currentRoutePath.startsWith("/services/quota")) {
+      return this.getServiceQuota(item);
+    }
+
     if (item instanceof Pod) {
       return this.getPodDetail(item);
     }
@@ -729,7 +739,7 @@ ServicesContainer.contextTypes = {
 ServicesContainer.routeConfig = {
   label: i18nMark("Services"),
   icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-  matches: /^\/services\/(detail|overview)/
+  matches: /^\/services\/(detail|overview|quota)/
 };
 
 module.exports = ServicesContainer;
