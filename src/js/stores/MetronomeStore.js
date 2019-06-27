@@ -193,7 +193,7 @@ class MetronomeStore extends EventEmitter {
 
   removeOldJobs(jobs) {
     this.data.jobMap.forEach((job, id) => {
-      if (!jobs.includes(id)) {
+      if (jobs && !jobs.includes(id)) {
         this.data.jobMap.delete(id);
       }
     });
