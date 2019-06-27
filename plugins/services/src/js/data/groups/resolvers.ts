@@ -72,27 +72,26 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                   ? val
                   : undefined;
               };
-              const {
-                resources: groupResources,
-                quota: groupQuota
-              } = groupRole;
-              if (groupQuota && groupQuota.guarantee) {
-                result.cpus.guarantee = getValue(groupQuota.guarantee.cpus);
-                result.memory.guarantee = getValue(groupQuota.guarantee.mem);
-                result.disk.guarantee = getValue(groupQuota.guarantee.disk);
-                result.gpus.guarantee = getValue(groupQuota.guarantee.gpus);
-              }
-              if (groupQuota && groupQuota.limit) {
-                result.cpus.limit = getValue(groupQuota.limit.cpus);
-                result.memory.limit = getValue(groupQuota.limit.mem);
-                result.disk.limit = getValue(groupQuota.limit.disk);
-                result.gpus.limit = getValue(groupQuota.limit.gpus);
-              }
-              if (groupResources) {
-                result.cpus.consumed = getValue(groupResources.cpus);
-                result.memory.consumed = getValue(groupResources.mem);
-                result.disk.consumed = getValue(groupResources.disk);
-                result.gpus.consumed = getValue(groupResources.gpus);
+              const { quota: groupQuota } = groupRole;
+              if (groupQuota) {
+                if (groupQuota.guarantee) {
+                  result.cpus.guarantee = getValue(groupQuota.guarantee.cpus);
+                  result.memory.guarantee = getValue(groupQuota.guarantee.mem);
+                  result.disk.guarantee = getValue(groupQuota.guarantee.disk);
+                  result.gpus.guarantee = getValue(groupQuota.guarantee.gpus);
+                }
+                if (groupQuota.limit) {
+                  result.cpus.limit = getValue(groupQuota.limit.cpus);
+                  result.memory.limit = getValue(groupQuota.limit.mem);
+                  result.disk.limit = getValue(groupQuota.limit.disk);
+                  result.gpus.limit = getValue(groupQuota.limit.gpus);
+                }
+                if (groupQuota.consumption) {
+                  result.cpus.consumed = getValue(groupQuota.consumption.cpus);
+                  result.memory.consumed = getValue(groupQuota.consumption.mem);
+                  result.disk.consumed = getValue(groupQuota.consumption.disk);
+                  result.gpus.consumed = getValue(groupQuota.consumption.gpus);
+                }
               }
             }
             return of(result);

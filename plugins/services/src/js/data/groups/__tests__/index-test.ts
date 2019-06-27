@@ -37,7 +37,7 @@ describe("Services Data Layer - Groups", () => {
 
   describe("Query - groups", () => {
     it(
-      "handles query with quota",
+      "handles query for all groups",
       marbles(m => {
         const marathonServiceTree = makeServiceTree(marathonGroups);
         const roles$ = m.cold("(a|)", {
