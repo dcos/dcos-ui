@@ -12,6 +12,7 @@ import { fetchServiceGroups, fetchRoles } from "./fetchers";
 import ServiceTree from "../../structs/ServiceTree";
 import { ServiceGroup, ServiceGroupQuota } from "../../types/ServiceGroup";
 import { MesosRole } from "../../types/MesosRoles";
+import { filterByObject } from "../../filters/GenericObject";
 
 export interface ServiceGroupQueryArgs {
   id: string;
@@ -29,6 +30,21 @@ function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
       enforced: serviceTree.getEnforceRole() === true
     }
   };
+}
+
+function processServiceGroupFilter(
+  groups: ServiceGroup[],
+  filterArg: unknown
+): ServiceGroup[] {
+  if (typeof filterArg !== "string") {
+    return groups;
+  }
+  try {
+    const filter = JSON.parse(filterArg);
+    return groups.filter(group => filterByObject(group, filter));
+  } catch {
+    return groups;
+  }
 }
 
 export interface ResolverArgs {
@@ -118,8 +134,15 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           })
         );
       },
-      groups() {
-        return groups$.pipe(map(groups => groups.map(processServiceGroup)));
+      groups(_parent = {}, args: Record<string, unknown> = {}) {
+        return groups$.pipe(
+          map(groups => groups.map(processServiceGroup)),
+          map(groups =>
+            args["filter"] && args["filter"] !== ""
+              ? processServiceGroupFilter(groups, args["filter"])
+              : groups
+          )
+        );
       }
     }
   };
