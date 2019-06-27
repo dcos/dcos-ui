@@ -9,6 +9,7 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import Page from "#SRC/js/components/Page";
+import Config from "#SRC/js/config/Config";
 
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
 import EmptyServiceTree from "./EmptyServiceTree";
@@ -64,6 +65,26 @@ class ServiceTreeView extends React.Component {
     return null;
   }
 
+  getTabs() {
+    if (!Config.features || !Config.features.quota) {
+      return [];
+    }
+    const { serviceTree } = this.props;
+    if (serviceTree.id === "/") {
+      return [
+        {
+          label: i18nMark("Services"),
+          routePath: "/services/overview"
+        },
+        {
+          label: i18nMark("Quota"),
+          routePath: "/services/quota"
+        }
+      ];
+    }
+    return [];
+  }
+
   render() {
     const {
       children,
@@ -83,12 +104,14 @@ class ServiceTreeView extends React.Component {
     const createService = () => {
       this.context.router.push(routePath);
     };
+    const tabs = this.getTabs();
 
     if (isEmpty) {
       return (
         <Page>
           <Page.Header
             breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+            tabs={tabs}
           />
           <EmptyServiceTree
             onCreateGroup={modalHandlers.createGroup}
@@ -114,6 +137,7 @@ class ServiceTreeView extends React.Component {
             label: i18nMark("Run a Service")
           }}
           supplementalContent={<DeploymentStatusIndicator />}
+          tabs={tabs}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
