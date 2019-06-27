@@ -18,5 +18,6 @@ export type MesosRole = {
     principal?: string;
     guarantee?: MesosResources;
     limit?: MesosResources;
+    consumption?: MesosResources;
   };
 };
