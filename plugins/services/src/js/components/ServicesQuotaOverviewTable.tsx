@@ -9,7 +9,6 @@ import { cpuRenderer } from "../columns/QuotaOverviewCPUConsumedColumn";
 import { memRenderer } from "../columns/QuotaOverviewMemoryConsumedColumn";
 import { diskRenderer } from "../columns/QuotaOverviewDiskConsumedColumn";
 import { gpuRenderer } from "../columns/QuotaOverviewGPUConsumedColumn";
-import { actionsRenderer } from "../columns/QuotaOverviewActionsColumn";
 
 export interface ServicesQuotaOverviewTableProps {
   groups: ServiceGroup[];
@@ -62,13 +61,6 @@ class ServicesQuotaOverviewTable extends React.Component<
               </HeaderCell>
             }
             cellRenderer={gpuRenderer}
-          />
-          <Column
-            header={null}
-            cellRenderer={actionsRenderer}
-            growToFill={true}
-            minWidth={24}
-            maxWidth={36}
           />
         </Table>
       </div>
