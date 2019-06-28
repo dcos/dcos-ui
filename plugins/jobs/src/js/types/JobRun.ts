@@ -7,7 +7,7 @@ import { ActiveJobRun as MetronomeActiveJobRun } from "#SRC/js/events/MetronomeC
 import { JobStatus } from "#PLUGINS/jobs/src/js/types/JobStatus";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import { JobRunStatusSchema } from "#PLUGINS/jobs/src/js/types/JobRunStatus";
-import { JobHistoryRun } from "#PLUGINS/jobs/src/js/types/JobHistoryRun";
+import { HistoricJobRun } from "#PLUGINS/jobs/src/js/types/HistoricJobRun";
 
 export interface JobRun {
   dateCreated: number | null;
@@ -29,43 +29,20 @@ type JobRun {
 }
 `;
 
-export function JobRunTypeResolver(
-  run: MetronomeActiveJobRun | JobHistoryRun
-): JobRun {
-  return {
-    jobID: JobRunFieldResolvers.jobID(run),
-    dateCreated: JobRunFieldResolvers.dateCreated(run),
-    dateFinished: JobRunFieldResolvers.dateFinished(run),
-    status: JobRunFieldResolvers.status(run), // TODO: derive from where it comes from before passing to this function
-    tasks: JobRunFieldResolvers.tasks(run)
-  };
-}
+type Run = MetronomeActiveJobRun | HistoricJobRun;
+export const isActiveJobRun = (run: Run): run is MetronomeActiveJobRun =>
+  !(run as HistoricJobRun).finishedAt;
 
-export const JobRunFieldResolvers = {
-  dateCreated(run: MetronomeActiveJobRun | JobHistoryRun): number | null {
-    return DateUtil.strToMs(run.createdAt);
-  },
-  dateFinished(run: MetronomeActiveJobRun | JobHistoryRun): number | null {
-    if (isActiveJobRun(run)) {
-      return run.completedAt ? DateUtil.strToMs(run.completedAt) : null;
-    }
-
-    return DateUtil.strToMs(run.finishedAt);
-  },
-
-  jobID(run: MetronomeActiveJobRun | JobHistoryRun): string {
-    return run.id;
-  },
-
-  status(run: MetronomeActiveJobRun | JobHistoryRun): JobStatus {
-    return run.status;
-  },
-
-  tasks(run: MetronomeActiveJobRun | JobHistoryRun): JobTaskConnection {
-    return JobTaskConnectionTypeResolver(isActiveJobRun(run) ? run.tasks : []);
+export const JobRunTypeResolver = (run: Run): JobRun => ({
+  jobID: run.id,
+  dateCreated: DateUtil.strToMs(run.createdAt),
+  dateFinished: dateFinished(run),
+  status: run.status,
+  tasks: JobTaskConnectionTypeResolver(run.tasks)
+});
+function dateFinished(run: Run) {
+  if (isActiveJobRun(run)) {
+    return run.completedAt ? DateUtil.strToMs(run.completedAt) : null;
   }
-};
-
-export function isActiveJobRun(arg: any): arg is MetronomeActiveJobRun {
-  return arg.jobId !== undefined;
+  return DateUtil.strToMs(run.finishedAt);
 }

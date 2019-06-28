@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
-import MetronomeStore from "../../stores/MetronomeStore";
 import ModalHeading from "../modals/ModalHeading";
+
+import * as MetronomeClient from "../../events/MetronomeClient";
 
 const METHODS_TO_BIND = ["handleButtonConfirm"];
 
@@ -35,8 +36,15 @@ class JobStopRunModal extends mixin(StoreMixin) {
   handleButtonConfirm() {
     const { selectedItems, jobID } = this.props;
     // TODO DCOS-8763 introduce support for multiple job run IDs
+
     if (selectedItems.length === 1) {
-      MetronomeStore.stopJobRun(jobID, selectedItems[0]);
+      const jobRunID = selectedItems[0];
+
+      if (jobID == null || jobRunID == null) {
+        return;
+      }
+
+      MetronomeClient.stopJobRun(jobID, jobRunID).subscribe();
     }
 
     this.setState({ pendingRequest: true });
