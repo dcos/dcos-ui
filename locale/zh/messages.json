@@ -214,6 +214,8 @@
   "Degraded": "",
   "Degraded (Awaiting Resources)": "",
   "Degraded (Recovering)": "",
+  "Delay has cleared and {serviceName} is now relaunching.": "",
+  "Delay reset failed and did not relaunch {serviceName}. Please try again.": "",
   "Delayed": "已延迟",
   "Delete": "删除",
   "Delete Group": "删除组",
