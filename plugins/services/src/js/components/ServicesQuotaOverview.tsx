@@ -4,6 +4,7 @@ import { map, startWith, catchError } from "rxjs/operators";
 import { componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { DataLayer, DataLayerType } from "@extension-kid/data-layer";
+import Loader from "#SRC/js/components/Loader";
 
 import container from "#SRC/js/container";
 
@@ -35,7 +36,7 @@ const ServicesQuotaOverview = componentFromStream(() => {
         return <ServicesQuotaOverviewTable groups={groups} />;
       }),
       catchError(() => of(<div>Error getting groups with Quota</div>)),
-      startWith(<div>Loading groups with quota</div>)
+      startWith(<Loader />)
     );
 });
 
