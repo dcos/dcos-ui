@@ -28,7 +28,8 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
       deployErrors: null,
       formErrors: {},
       formData: null,
-      hasError: false
+      hasError: false,
+      isPending: false
     };
 
     this.store_listeners = [
@@ -77,10 +78,15 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
         params.packageName
       )}?${qs.stringify(query)}`
     );
+
+    this.setState({ isPending: false });
   }
 
   onCosmosPackagesStoreInstallError(deployErrors) {
-    this.setState({ deployErrors });
+    this.setState({
+      deployErrors,
+      isPending: false
+    });
   }
 
   handleRun() {
@@ -89,6 +95,8 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     const name = packageDetails.getName();
     const version = packageDetails.getVersion();
     CosmosPackagesStore.installPackage(name, version, formData);
+
+    this.setState({ isPending: true });
   }
 
   handleGoBack() {
@@ -147,6 +155,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
         onCosmosPackagesStoreInstallError={
           this.onCosmosPackagesStoreInstallError
         }
+        isPending={this.state.isPending}
       />
     );
   }

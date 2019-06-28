@@ -108,6 +108,9 @@ class ServiceStopModal extends React.PureComponent {
     const { isPending, onClose, open, service, stopItem, i18n } = this.props;
     const serviceLabel = this.getServiceLabel();
     const serviceName = service.getName();
+    const stopActionText = isPending
+      ? i18n._(t`Stopping...`)
+      : i18n._(t`Stop`) + ` ${serviceLabel}`;
 
     return (
       <Confirm
@@ -117,7 +120,7 @@ class ServiceStopModal extends React.PureComponent {
         onClose={onClose}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link flush-left"
-        rightButtonText={i18n._(t`Stop`) + ` ${serviceLabel}`}
+        rightButtonText={stopActionText}
         rightButtonCallback={() => stopItem(this.shouldForceUpdate())}
         rightButtonClassName="button button-danger"
         showHeader={true}

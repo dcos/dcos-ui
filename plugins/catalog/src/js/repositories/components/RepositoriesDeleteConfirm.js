@@ -37,7 +37,9 @@ const RepositoriesDeleteConfirm = ({
       <Trans render="span">Delete Repository</Trans>
     </ModalHeading>
   );
-  const rightButtonText = i18nMark("Delete Repository");
+  const rightButtonText = pendingRequest
+    ? i18nMark("Deleting...")
+    : i18nMark("Delete Repository");
 
   return (
     <Confirm
