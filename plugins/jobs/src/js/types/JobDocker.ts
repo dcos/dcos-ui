@@ -11,20 +11,9 @@ type Docker {
 }
 `;
 
-export function JobDockerTypeResolver(
+export const JobDockerTypeResolver = (
   docker: MetronomeJobDocker
-): JobDocker | null {
-  return {
-    forcePullImage: JobDockerFieldResolvers.forcePullImage(docker),
-    image: JobDockerFieldResolvers.image(docker)
-  };
-}
-
-export const JobDockerFieldResolvers = {
-  forcePullImage(docker: MetronomeJobDocker): boolean {
-    return docker.forcePullImage;
-  },
-  image(docker: MetronomeJobDocker): string {
-    return docker.image;
-  }
-};
+): JobDocker | null => ({
+  forcePullImage: docker.forcePullImage,
+  image: docker.image
+});

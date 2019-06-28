@@ -15,6 +15,11 @@ const ACTION_DISPLAY_NAMES = {
   stop: i18nMark("Stop")
 };
 
+const ACTION_DISPLAY_NAMES_CONTINUOUS = {
+  restart: i18nMark("Restarting..."),
+  stop: i18nMark("Stopping...")
+};
+
 class KillPodInstanceModal extends React.PureComponent {
   constructor() {
     super(...arguments);
@@ -95,8 +100,8 @@ class KillPodInstanceModal extends React.PureComponent {
     return (
       <div>
         <Trans render="p">
-          You are about to {i18n._(action).toLowerCase()} {instanceCountContent}.
-          Are you sure you want to continue?
+          You are about to {i18n._(action).toLowerCase()} {instanceCountContent}
+          . Are you sure you want to continue?
         </Trans>
         {this.getErrorMessage()}
       </div>
@@ -119,6 +124,10 @@ class KillPodInstanceModal extends React.PureComponent {
 
     if (this.shouldForceUpdate()) {
       buttonText = i18n._(t`Force`) + " " + buttonText;
+    }
+
+    if (isPending) {
+      buttonText = i18n._(ACTION_DISPLAY_NAMES_CONTINUOUS[action]);
     }
 
     const killAction = () =>

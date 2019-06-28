@@ -57,9 +57,9 @@ class FrameworkConfiguration extends Component {
 
   deleteDeployErrors() {
     if (this.props.onCosmosPackagesStoreInstallError) {
-      this.props.onCosmosPackagesStoreInstallError(null)
+      this.props.onCosmosPackagesStoreInstallError(null);
     } else {
-      this.props.onCosmosPackagesStoreServiceUpdateError(null)
+      this.props.onCosmosPackagesStoreServiceUpdateError(null);
     }
   }
 
@@ -158,16 +158,18 @@ class FrameworkConfiguration extends Component {
 
   getPrimaryActions() {
     const { jsonEditorActive, reviewActive } = this.state;
-    const { formErrors } = this.props;
+    const { formErrors, isPending } = this.props;
+    const runButtonLabel = reviewActive
+      ? i18nMark("Run Service")
+      : i18nMark("Review & Run");
 
     const actions = [
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleServiceReview,
-        label: reviewActive
-          ? i18nMark("Run Service")
-          : i18nMark("Review & Run"),
-        disabled: Object.keys(formErrors).some(tab => formErrors[tab] > 0)
+        label: isPending ? i18nMark("Installing...") : runButtonLabel,
+        disabled:
+          isPending || Object.keys(formErrors).some(tab => formErrors[tab] > 0)
       }
     ];
 
@@ -204,7 +206,8 @@ class FrameworkConfiguration extends Component {
         By running this service you agree to the{" "}
         <a href={termsUrl} target="_blank" title={termsAndConditions}>
           terms and conditions
-        </a>.
+        </a>
+        .
       </Trans>
     );
   }

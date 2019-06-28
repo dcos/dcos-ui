@@ -32,6 +32,12 @@ module.exports = class ServiceTree extends Tree {
     if (options.id || typeof options.id == "string") {
       this.id = options.id;
     }
+    if (
+      options.enforceRole !== undefined &&
+      typeof options.enforceRole === "boolean"
+    ) {
+      this.enforceRole = options.enforceRole;
+    }
 
     // Converts items into instances of ServiceTree, Application or Framework
     // based on their properties.
@@ -98,6 +104,10 @@ module.exports = class ServiceTree extends Tree {
 
   getId() {
     return this.id;
+  }
+
+  getEnforceRole() {
+    return this.enforceRole;
   }
 
   getServiceFromTaskID(taskID) {
@@ -251,6 +261,18 @@ module.exports = class ServiceTree extends Tree {
       }
 
       return services;
+    }, []);
+
+    return new List({ items });
+  }
+
+  getGroups() {
+    const items = this.reduceItems(function(groups, item) {
+      if (item instanceof ServiceTree) {
+        groups.push(item);
+      }
+
+      return groups;
     }, []);
 
     return new List({ items });

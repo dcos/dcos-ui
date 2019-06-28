@@ -1,6 +1,5 @@
 import { cleanJobJSON } from "../utils/CleanJSONUtil";
 import Item from "./Item";
-import JobRunList from "./JobRunList";
 import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
@@ -9,10 +8,6 @@ import {
 import { findNestedPropertyInObject } from "../utils/Util";
 
 module.exports = class Job extends Item {
-  getActiveRuns() {
-    return new JobRunList({ items: this.get("activeRuns") });
-  }
-
   getCommand() {
     const { cmd } = this.get("run") || {};
 
