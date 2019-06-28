@@ -3,10 +3,14 @@ import { i18nMark, withI18n } from "@lingui/react";
 import * as React from "react";
 import { Confirm } from "reactjs-components";
 
-function modalLabel(jobId, stopCurrentJobRuns) {
+function modalLabel(stopCurrentJobRuns, disabled) {
   const defaultLabel = i18nMark("Delete Job");
 
   const stopCurrentRunsLabel = i18nMark("Stop Current Runs and Delete Job");
+
+  if (disabled) {
+    return i18nMark("Deleting...");
+  }
 
   return stopCurrentJobRuns ? stopCurrentRunsLabel : defaultLabel;
 }
@@ -44,7 +48,7 @@ const JobDeleteModal = ({
   stopCurrentJobRuns,
   i18n
 }) => {
-  const label = modalLabel(jobId, stopCurrentJobRuns);
+  const label = modalLabel(stopCurrentJobRuns, disabled);
 
   return (
     <Confirm

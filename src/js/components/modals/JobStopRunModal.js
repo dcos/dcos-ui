@@ -98,8 +98,13 @@ class JobStopRunModal extends mixin(StoreMixin) {
   render() {
     const { onClose, open, selectedItems, i18n } = this.props;
     // L10NTODO: Pluralize
-    const rightButtonText =
-      selectedItems.length > 1 ? "Stop Job Runs" : "Stop Job Run";
+    const affirmText =
+      selectedItems.length > 1
+        ? i18n._(t`Stop Job Runs`)
+        : i18n._(t`Stop Job Run`);
+    const rightButtonText = this.state.pendingRequest
+      ? i18n._(t`Stopping...`)
+      : affirmText;
 
     const selectedItemsLength = selectedItems.length;
 
@@ -113,7 +118,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
         leftButtonText={i18n._(t`Cancel`)}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link"
-        rightButtonText={i18n._(rightButtonText)}
+        rightButtonText={rightButtonText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}
         showHeader={true}

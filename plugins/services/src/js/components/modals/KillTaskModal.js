@@ -14,6 +14,11 @@ const ACTION_DISPLAY_NAMES = {
   stop: i18nMark("Stop")
 };
 
+const ACTION_DISPLAY_NAMES_CONTINUOUS = {
+  restart: i18nMark("Restarting..."),
+  stop: i18nMark("Stopping...")
+};
+
 class KillTaskModal extends React.PureComponent {
   constructor() {
     super(...arguments);
@@ -120,6 +125,10 @@ class KillTaskModal extends React.PureComponent {
 
     if (this.shouldForceUpdate()) {
       buttonText = i18n._(t`Force`) + " " + buttonText;
+    }
+
+    if (isPending) {
+      buttonText = ACTION_DISPLAY_NAMES_CONTINUOUS[action];
     }
 
     const killTasksAction = () =>
