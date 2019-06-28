@@ -79,6 +79,8 @@ class AddRepositoryFormModal extends React.Component {
   }
 
   getButtonDefinition() {
+    const { pendingRequest } = this.props;
+
     return [
       {
         text: i18nMark("Cancel"),
@@ -86,7 +88,9 @@ class AddRepositoryFormModal extends React.Component {
         isClose: true
       },
       {
-        text: i18nMark("Add Repository"),
+        text: pendingRequest
+          ? i18nMark("Adding...")
+          : i18nMark("Add Repository"),
         className: "button button-primary",
         isSubmit: true
       }

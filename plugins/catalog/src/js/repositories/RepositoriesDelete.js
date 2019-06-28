@@ -1,7 +1,7 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
 
-import { Subject, of } from "rxjs";
+import { Subject, of, BehaviorSubject } from "rxjs";
 import {
   combineLatest,
   startWith,
@@ -48,27 +48,27 @@ const removePackageRepositoryGraphql = (name, uri) =>
   });
 
 const deleteEvent$ = new Subject();
+const pendingRequest$ = new BehaviorSubject(false);
 const deleteRepository$ = deleteEvent$.pipe(
   switchMap(repository => {
     return removePackageRepositoryGraphql(repository.name, repository.url).pipe(
-      startWith({ pendingRequest: true }),
       map(result => {
         return {
-          result,
-          pendingRequest: false
+          result
         };
       }),
       tap(() => {
+        pendingRequest$.next(false);
         repository.complete();
       })
     );
   }),
   startWith({ pendingRequest: false }),
   catchError(error => {
+    pendingRequest$.next(false);
     return deleteRepository$.pipe(
       startWith({
-        error: getErrorMessage(error.response),
-        pendingRequest: false
+        error: getErrorMessage(error.response)
       })
     );
   })
@@ -76,21 +76,30 @@ const deleteRepository$ = deleteEvent$.pipe(
 
 const RepositoriesDelete = componentFromStream(props$ => {
   return props$.pipe(
-    combineLatest(deleteRepository$, (props, response) => {
-      return {
-        open: !!props.repository || response.pendingRequest,
-        ...props,
-        ...response
-      };
-    }),
+    combineLatest(
+      pendingRequest$,
+      deleteRepository$.pipe(startWith({})),
+      (props, pendingRequest, response) => {
+        return {
+          open: !!props.repository || pendingRequest,
+          isPending: pendingRequest,
+          ...props,
+          ...response
+        };
+      }
+    ),
     map(props => {
       return (
         <RepositoriesDeleteConfirm
           onCancel={props.onClose}
-          onDelete={() =>
-            deleteEvent$.next({ complete: props.onClose, ...props.repository })
-          }
-          pendingRequest={props.pendingRequest}
+          onDelete={() => {
+            pendingRequest$.next(true);
+            return deleteEvent$.next({
+              complete: props.onClose,
+              ...props.repository
+            });
+          }}
+          pendingRequest={props.isPending}
           repository={props.repository}
           deleteError={props.error}
           open={props.open}

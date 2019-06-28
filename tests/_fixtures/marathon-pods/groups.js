@@ -191,6 +191,7 @@ module.exports = {
   groups: [
     {
       id: "/10000_apps",
+      enforceRole: true,
       apps: [...Array(10000).keys()].map(i => ({
         id: `/sleep_${i}`,
         cmd: "sleep 3000",

@@ -7,7 +7,7 @@ import { DataLayerType } from "@extension-kid/data-layer";
 import gql from "graphql-tag";
 import { Trans } from "@lingui/macro";
 
-import { Subject } from "rxjs";
+import { Subject, BehaviorSubject } from "rxjs";
 import {
   switchMap,
   catchError,
@@ -55,6 +55,7 @@ const addRepositoryGraphql = (name, uri, index) =>
   });
 
 const addRepositoryEvent$ = new Subject();
+const pendingRequest$ = new BehaviorSubject(false);
 const addRepository$ = addRepositoryEvent$.pipe(
   switchMap(repository => {
     return addRepositoryGraphql(
@@ -63,16 +64,17 @@ const addRepository$ = addRepositoryEvent$.pipe(
       repository.priority
     ).pipe(
       tap(() => {
+        pendingRequest$.next(false);
         repository.complete();
       })
     );
   }),
   catchError(error => {
+    pendingRequest$.next(false);
     // Add the error as value and continue
     return addRepository$.pipe(
       startWith({
-        error: getErrorMessage(error.response),
-        pendingRequest: false
+        error: getErrorMessage(error.response)
       })
     );
   })
@@ -80,19 +82,28 @@ const addRepository$ = addRepositoryEvent$.pipe(
 
 const RepositoriesAdd = componentFromStream(props$ => {
   return props$.pipe(
-    combineLatest(addRepository$.pipe(startWith({})), (props, result) => {
-      return (
-        <AddRepositoryFormModal
-          numberOfRepositories={props.numberOfRepositories}
-          open={props.open}
-          addRepository={value =>
-            addRepository$.next({ complete: props.onClose, ...value })
-          }
-          onClose={props.onClose}
-          errorMsg={result.error}
-        />
-      );
-    })
+    combineLatest(
+      pendingRequest$,
+      addRepository$.pipe(startWith({})),
+      (props, pendingRequest, result) => {
+        return (
+          <AddRepositoryFormModal
+            pendingRequest={pendingRequest}
+            numberOfRepositories={props.numberOfRepositories}
+            open={props.open}
+            addRepository={value => {
+              pendingRequest$.next(true);
+              return addRepositoryEvent$.next({
+                complete: props.onClose,
+                ...value
+              });
+            }}
+            onClose={props.onClose}
+            errorMsg={result.error}
+          />
+        );
+      }
+    )
   );
 });
 
