@@ -243,6 +243,19 @@ class ActionsModal extends mixin(StoreMixin) {
 
     const heading = <ModalHeading>{this.props.actionText.title}</ModalHeading>;
 
+    const actionText = ((action, isPending) => {
+      switch (action) {
+        case "add":
+          return isPending ? "adding..." : "add";
+        case "remove":
+          return isPending ? "removing..." : "remove";
+        case "delete":
+          return isPending ? "deleting..." : "delete";
+        default:
+          return action;
+      }
+    })(action, this.state.pendingRequest);
+
     return (
       <Confirm
         disabled={this.state.pendingRequest}
@@ -252,7 +265,7 @@ class ActionsModal extends mixin(StoreMixin) {
         leftButtonCallback={this.handleButtonCancel}
         leftButtonClassName="button button-primary-link flush-left"
         rightButtonCallback={this.handleButtonConfirm}
-        rightButtonText={StringUtil.capitalize(action)}
+        rightButtonText={StringUtil.capitalize(actionText)}
         showHeader={true}
         useGemini={false}
         {...props}
