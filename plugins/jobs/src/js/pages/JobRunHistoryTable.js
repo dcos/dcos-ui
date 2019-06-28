@@ -165,11 +165,8 @@ class JobRunHistoryTable extends React.Component {
     ];
   }
 
-  // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData(job) {
-    const jobRuns = job.jobRuns.nodes;
-
-    return jobRuns.map(function(jobRun) {
+    return job.jobRuns.nodes.map(function(jobRun) {
       const children = jobRun.tasks.nodes.map(function(jobTask) {
         const startedAt = jobTask.dateStarted;
         const finishedAt = jobTask.dateCompleted;

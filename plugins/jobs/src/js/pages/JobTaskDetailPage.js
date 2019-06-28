@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
 import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -54,9 +55,15 @@ class JobTaskDetailPage extends React.Component {
           tabs={tabs}
           iconID={ProductIcons.Jobs}
         />
-        <TaskDetail params={params} routes={routes}>
-          {this.props.children}
-        </TaskDetail>
+        {task ? (
+          <TaskDetail params={params} routes={routes}>
+            {this.props.children}
+          </TaskDetail>
+        ) : (
+          <Trans>
+            The data related to that task has already been cleaned up.
+          </Trans>
+        )}
       </Page>
     );
   }

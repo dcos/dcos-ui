@@ -928,6 +928,45 @@ describe("ServiceTree", function() {
     });
   });
 
+  describe("#getGroups", function() {
+    beforeEach(function() {
+      thisInstance = new ServiceTree({
+        id: "/group",
+        items: [
+          {
+            id: "group/test",
+            items: []
+          },
+          {
+            id: "/group/alpha"
+          },
+          {
+            id: "/group/beta",
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
+            }
+          },
+          {
+            id: "/group/gamma",
+            labels: {
+              RANDOM_LABEL: "random"
+            }
+          }
+        ],
+        filterProperties: {
+          id(item) {
+            return item.getId();
+          }
+        }
+      });
+    });
+
+    it("returns an array with all the sub-groups in the group", function() {
+      const groups = thisInstance.getGroups();
+      expect(groups.getItems().length).toEqual(1);
+    });
+  });
+
   describe("#getRunningInstancesCount", function() {
     const fooService = new Application();
     const barService = new Application({
@@ -1143,6 +1182,52 @@ describe("ServiceTree", function() {
       const labels = thisInstance.getLabels();
       expect(labels.length).toEqual(0);
       expect(labels).toEqual([]);
+    });
+  });
+
+  describe("#getEnforceRole", function() {
+    it("returns enforceRole when true", function() {
+      thisInstance = new ServiceTree({
+        id: "/group",
+        enforceRole: true,
+        items: [],
+        filterProperties: {
+          id(item) {
+            return item.getId();
+          }
+        }
+      });
+
+      expect(thisInstance.getEnforceRole()).toEqual(true);
+    });
+
+    it("returns enforceRole when false", function() {
+      thisInstance = new ServiceTree({
+        id: "/group",
+        enforceRole: false,
+        items: [],
+        filterProperties: {
+          id(item) {
+            return item.getId();
+          }
+        }
+      });
+
+      expect(thisInstance.getEnforceRole()).toEqual(false);
+    });
+
+    it("returns undefined when enforceRole not set", function() {
+      thisInstance = new ServiceTree({
+        id: "/group",
+        items: [],
+        filterProperties: {
+          id(item) {
+            return item.getId();
+          }
+        }
+      });
+
+      expect(thisInstance.getEnforceRole()).toBeUndefined();
     });
   });
 });

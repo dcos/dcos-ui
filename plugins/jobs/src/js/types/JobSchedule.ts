@@ -17,33 +17,12 @@ type Schedule {
 }
 `;
 
-export function JobScheduleTypeResolver(
+export const JobScheduleTypeResolver = (
   schedule: MetronomeSchedule
-): JobSchedule {
-  return {
-    cron: JobScheduleFieldResolvers.cron(schedule),
-    enabled: JobScheduleFieldResolvers.enabled(schedule),
-    id: JobScheduleFieldResolvers.id(schedule),
-    startingDeadlineSeconds: JobScheduleFieldResolvers.startingDeadlineSeconds(
-      schedule
-    ),
-    timezone: JobScheduleFieldResolvers.timezone(schedule)
-  };
-}
-export const JobScheduleFieldResolvers = {
-  cron(schedule: MetronomeSchedule): string {
-    return schedule.cron;
-  },
-  enabled(schedule: MetronomeSchedule): boolean {
-    return schedule.enabled;
-  },
-  id(schedule: MetronomeSchedule): string {
-    return schedule.id;
-  },
-  startingDeadlineSeconds(schedule: MetronomeSchedule): number {
-    return schedule.startingDeadlineSeconds;
-  },
-  timezone(schedule: MetronomeSchedule): string {
-    return schedule.timezone;
-  }
-};
+): JobSchedule => ({
+  cron: schedule.cron,
+  enabled: schedule.enabled,
+  id: schedule.id,
+  startingDeadlineSeconds: schedule.startingDeadlineSeconds,
+  timezone: schedule.timezone
+});
