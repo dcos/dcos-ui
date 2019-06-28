@@ -47,8 +47,6 @@ interface NodesTableState {
   sortColumn: string;
 }
 
-type SortFunction<T> = (data: T[], sortDirection: SortDirection) => T[];
-
 export const columnWidthsStorageKey = "nodesTableColWidths";
 
 const hasCustomWidth = (column: string) =>
@@ -64,14 +62,15 @@ function compareByHostname(a: Node, b: Node): number {
     .localeCompare(b.getHostName().toLowerCase());
 }
 
-const sorter = (comparator: (a: Node, b: Node) => number) => (
+const sorter = (
   data: Node[],
+  comparator: (a: Node, b: Node) => number,
   sortDirection: SortDirection
-): Node[] =>
-  sort(data, [comparator, compareByHostname], {
+): Node[] => {
+  return sort(data, [comparator, compareByHostname], {
     reverse: sortDirection !== "ASC"
   });
-
+};
 export default class NodesTable extends React.Component<
   NodesTableProps,
   NodesTableState
@@ -93,79 +92,39 @@ export default class NodesTable extends React.Component<
       regionRenderer(this.props.masterRegion, data);
   }
 
-  retrieveSortFunction(sortColumn: string): SortFunction<Node> {
+  sorterFor(sortColumn: string): (a: Node, b: Node) => number {
     switch (sortColumn) {
       case "host":
-        return sorter(compareByIp);
+        return compareByIp;
       case "type":
-        return sorter(compareByType);
+        return compareByType;
       case "region":
-        return sorter(compareByRegion);
+        return compareByRegion;
       case "zone":
-        return sorter(compareByZone);
+        return compareByZone;
       case "health":
-        return sorter(UnitHealthUtil.getHealthSortFunction);
+        return UnitHealthUtil.getHealthSortFunction;
       case "tasks":
-        return sorter((a, b) => getTasks(a) - getTasks(b));
+        return (a, b) => getTasks(a) - getTasks(b);
       case "cpu":
-        return sorter((a, b) => getCpuUsage(a) - getCpuUsage(b));
+        return (a, b) => getCpuUsage(a) - getCpuUsage(b);
       case "mem":
-        return sorter((a, b) => getMemUsage(a) - getMemUsage(b));
+        return (a, b) => getMemUsage(a) - getMemUsage(b);
       case "disk":
-        return sorter((a, b) => getDiskUsage(a) - getDiskUsage(b));
+        return (a, b) => getDiskUsage(a) - getDiskUsage(b);
       case "gpu":
-        return sorter((a, b) => getGpuUsage(a) - getGpuUsage(b));
-
+        return (a, b) => getGpuUsage(a) - getGpuUsage(b);
       default:
-        return (data, _sortDirection) => data;
+        return () => 0;
     }
   }
 
-  updateData(
-    data: Node[] | null,
-    sortColumn: string,
-    sortDirection: SortDirection,
-    currentSortDirection?: SortDirection,
-    currentSortColumn?: string
-  ): NodesTableState {
-    if (data === null) {
-      return {
-        data: null,
-        sortDirection,
-        sortColumn
-      };
-    }
-
-    const copiedData = data.slice();
-    if (
-      sortDirection === currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return {
-        data: copiedData,
-        sortDirection,
-        sortColumn
-      };
-    }
-
-    if (
-      sortDirection !== currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return {
-        data: copiedData.reverse(),
-        sortDirection,
-        sortColumn
-      };
-    }
-
-    const sortFunction = this.retrieveSortFunction(sortColumn);
-
-    return {
-      data: sortFunction(copiedData, sortDirection),
-      sortDirection,
-      sortColumn
-    };
+  sortData(
+    data: Node[],
+    sortColumn: string = this.state.sortColumn,
+    sortDirection: SortDirection = this.state.sortDirection
+  ): Node[] {
+    return sorter(data.slice(), this.sorterFor(sortColumn), sortDirection);
   }
 
   handleSortClick = (columnName: string) => () => {
@@ -175,15 +134,11 @@ export default class NodesTable extends React.Component<
         : "ASC";
 
     if (this.state.data !== null) {
-      this.setState(
-        this.updateData(
-          this.state.data,
-          columnName,
-          toggledDirection,
-          this.state.sortDirection,
-          this.state.sortColumn
-        )
-      );
+      this.setState({
+        data: this.sortData(this.state.data, columnName, toggledDirection),
+        sortColumn: columnName,
+        sortDirection: toggledDirection
+      });
     }
   };
 
@@ -203,13 +158,9 @@ export default class NodesTable extends React.Component<
   }
 
   componentWillReceiveProps(nextProps: NodesTableProps): void {
-    this.setState(
-      this.updateData(
-        nextProps.hosts ? nextProps.hosts.getItems() : null,
-        this.state.sortColumn,
-        this.state.sortDirection
-      )
-    );
+    this.setState({
+      data: nextProps.hosts ? this.sortData(nextProps.hosts.getItems()) : null
+    });
   }
 
   render() {
