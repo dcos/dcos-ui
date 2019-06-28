@@ -1,11 +1,18 @@
-import { Component, ReactElement } from "react";
+import { Component } from "react";
+import { ClassValue } from "classnames";
+
+interface ActionItem {
+  className?: ClassValue;
+  label: string;
+  onItemSelect: () => void;
+}
 
 interface PageHeaderProps {
-  actions?: [];
-  addButton?: Array<{}> | {};
+  actions?: ActionItem[];
+  addButton?: ActionItem[] | ActionItem;
   breadcrumbs?: React.ReactNode;
   supplementalContent?: React.ReactNode;
-  tabs?: [];
+  tabs?: Array<{ label: string; routePath: string }>;
   disabledActions?: boolean;
 }
 

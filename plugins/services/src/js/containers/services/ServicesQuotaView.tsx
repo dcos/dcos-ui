@@ -3,7 +3,7 @@ import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
 
-import Page from "#SRC/js/components/Page";
+import Page, { Header } from "#SRC/js/components/Page";
 //@ts-ignore
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
 //@ts-ignore
@@ -51,8 +51,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
 
     return (
       <Page dontScroll={true} flushBottom={true}>
-        //@ts-ignore
-        <Page.Header
+        <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.getId()} />}
           actions={[
             {
