@@ -17,7 +17,7 @@ describe("Nodes Page", function() {
         .should("contain", "167.114.218.156");
     });
 
-    it("shows only healthy node", function() {
+    it.only("shows only healthy node", function() {
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("is:healthy");
 
