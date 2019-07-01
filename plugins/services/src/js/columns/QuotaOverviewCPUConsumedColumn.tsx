@@ -2,24 +2,24 @@ import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Cell, Tooltip } from "@dcos/ui-kit";
 
-import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
+import {
+  ServiceGroup,
+  QuotaResources
+} from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 const className = `color-${ResourcesUtil.getResourceColor("cpus")}`;
 
-interface Quota {
-  guarantee: number;
-  limit: number;
-  consumed: number;
-}
-
-function getCPUConsumedPercent(cpuQuota: Quota) {
+function getCPUConsumedPercent(cpuQuota: QuotaResources) {
+  if (!cpuQuota.consumed || !cpuQuota.limit) {
+    return 0;
+  }
   return (cpuQuota.consumed / cpuQuota.limit) * 100;
 }
 
-function getCPUConsumedText(cpuQuota: Quota) {
+function getCPUConsumedText(cpuQuota: QuotaResources) {
   return (
     <Trans render="span">
       {cpuQuota.consumed} of {cpuQuota.limit} Cores
@@ -32,7 +32,7 @@ function noLimit() {
 }
 
 export function cpuRenderer(group: ServiceGroup) {
-  const cpuQuota: Quota | undefined = findNestedPropertyInObject(
+  const cpuQuota: QuotaResources | undefined = findNestedPropertyInObject(
     group.quota,
     "cpus"
   );
