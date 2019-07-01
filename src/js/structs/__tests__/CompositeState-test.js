@@ -53,10 +53,8 @@ describe("CompositeState", function() {
     });
 
     it("preserves the master_info key", function() {
-      CompositeState.addState({
-        other_key: "foo-id",
-        master_info: { foo: "bar" }
-      });
+      CompositeState.addMasterInfo({ foo: "bar" });
+      CompositeState.addState({ other_key: "foo-id" });
       CompositeState.addState({ bar: "baz" });
 
       expect(CompositeState.data).toEqual({

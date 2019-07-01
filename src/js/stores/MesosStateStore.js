@@ -92,7 +92,7 @@ class MesosStateStore extends GetSetBaseStore {
           this.getMaster(),
           JSON.parse(response)
         );
-        CompositeState.addState(master);
+        CompositeState.addMasterInfo(master.master_info);
         this.setMaster(master);
       })
     );
