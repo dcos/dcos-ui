@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TextCell } from "@dcos/ui-kit";
+import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 import Node from "#SRC/js/structs/Node";
 
@@ -20,3 +21,5 @@ export function healthRenderer(data: Node): React.ReactNode {
   const health = data.getHealth();
   return <NodeHealthMemo classNames={health.classNames} title={health.title} />;
 }
+
+export const healthRank = UnitHealthUtil.getHealthSorting;

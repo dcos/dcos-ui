@@ -18,17 +18,11 @@ import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import { SortDirection } from "../types/SortDirection";
 
 import { ipRenderer, compareByIp } from "../columns/NodesTableIpColumn";
-import {
-  statusRenderer,
-  compareByStatus
-} from "../columns/NodesTableStatusColumn";
-import { typeRenderer, compareByType } from "../columns/NodesTableTypeColumn";
-import {
-  compareByRegion,
-  regionRenderer
-} from "../columns/NodesTableRegionColumn";
-import { zoneRenderer, compareByZone } from "../columns/NodesTableZoneColumn";
-import { healthRenderer } from "../columns/NodesTableHealthColumn";
+import { statusRenderer, getStatus } from "../columns/NodesTableStatusColumn";
+import { typeRenderer, getType } from "../columns/NodesTableTypeColumn";
+import { regionRenderer, getRegion } from "../columns/NodesTableRegionColumn";
+import { zoneRenderer, getZone } from "../columns/NodesTableZoneColumn";
+import { healthRenderer, healthRank } from "../columns/NodesTableHealthColumn";
 import { tasksRenderer, getTasks } from "../columns/NodesTableTasksColumn";
 import { getCpuUsage, cpuRenderer } from "../columns/NodesTableCPUColumn";
 import { memRenderer, getMemUsage } from "../columns/NodesTableMemColumn";
@@ -36,7 +30,6 @@ import { diskRenderer, getDiskUsage } from "../columns/NodesTableDiskColumn";
 import { gpuRenderer, getGpuUsage } from "../columns/NodesTableGPUColumn";
 
 import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
-import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 interface NodesTableProps {
   withPublicIP: boolean;
@@ -102,15 +95,13 @@ export default class NodesTable extends React.Component<
       case "host":
         return compareByIp;
       case "type":
-        return compareByType;
+        return (a, b) => getType(a).localeCompare(getType(b));
       case "region":
-        return compareByRegion;
+        return (a, b) => getRegion(a).localeCompare(getRegion(b));
       case "zone":
-        return compareByZone;
+        return (a, b) => getZone(a).localeCompare(getZone(b));
       case "health":
-        return (a, b) =>
-          UnitHealthUtil.getHealthSorting(a) -
-          UnitHealthUtil.getHealthSorting(b);
+        return (a, b) => healthRank(a) - healthRank(b);
       case "tasks":
         return (a, b) => getTasks(a) - getTasks(b);
       case "cpu":
@@ -122,7 +113,7 @@ export default class NodesTable extends React.Component<
       case "gpu":
         return (a, b) => getGpuUsage(a) - getGpuUsage(b);
       case "status":
-        return compareByStatus;
+        return (a, b) => getStatus(a) - getStatus(b);
       default:
         return () => 0;
     }

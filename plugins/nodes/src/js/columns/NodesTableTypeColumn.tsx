@@ -17,9 +17,4 @@ export function typeRenderer(data: Node): React.ReactNode {
   return <NodeType isPublic={data.isPublic()} />;
 }
 
-export function compareByType(a: Node, b: Node): number {
-  return a
-    .isPublic()
-    .toString()
-    .localeCompare(b.isPublic().toString());
-}
+export const getType = (a: Node) => a.isPublic().toString();
