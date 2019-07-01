@@ -1,3 +1,5 @@
+import * as Status from "#PLUGINS/nodes/src/js/types/Status";
+
 import Item from "./Item";
 import TaskStates from "../../../plugins/services/src/js/constants/TaskStates";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
@@ -20,6 +22,26 @@ class Node extends Item {
 
   getServiceIDs() {
     return this.get("framework_ids");
+  }
+
+  getStatus() {
+    const drainInfo = this.get("drain_info");
+    const deactivated = this.get("deactivated");
+    const active =
+      typeof deactivated === "undefined" && typeof drainInfo === "undefined";
+
+    if (drainInfo) {
+      return {
+        drained: Status.drained,
+        draining: Status.draining
+      }[drainInfo];
+    } else if (deactivated) {
+      return Status.deactivated;
+    } else if (active) {
+      return Status.active;
+    } else {
+      return Status.unknown;
+    }
   }
 
   isActive() {
