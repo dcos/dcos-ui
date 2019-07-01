@@ -955,7 +955,7 @@
   "{0} Version": "",
   "{0} is being installed.": "",
   "{0} of {1} Cores": "",
-  "{0} of {1} GiB": "",
+  "{0} of {1} MiB": "",
   "{0} your group by {updateDescription} from the DC/OS CLI.": "",
   "{0} {packagesWord} found": "",
   "{completedSteps} out of {totalSteps} steps completed.": "",
