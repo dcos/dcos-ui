@@ -22,7 +22,7 @@ function getMemoryConsumedPercent(memoryQuota: Quota) {
 function getMemoryConsumedText(memoryQuota: Quota) {
   return (
     <Trans render="span">
-      {memoryQuota.consumed} of {memoryQuota.limit} GiB
+      {memoryQuota.consumed} of {memoryQuota.limit} MiB
     </Trans>
   );
 }
