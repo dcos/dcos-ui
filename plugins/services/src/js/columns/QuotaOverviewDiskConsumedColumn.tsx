@@ -2,24 +2,24 @@ import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Cell, Tooltip } from "@dcos/ui-kit";
 
-import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
+import {
+  ServiceGroup,
+  QuotaResources
+} from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 const className = `color-${ResourcesUtil.getResourceColor("disk")}`;
 
-interface Quota {
-  guarantee: number;
-  limit: number;
-  consumed: number;
-}
-
-function getDiskConsumedPercent(diskQuota: Quota) {
+function getDiskConsumedPercent(diskQuota: QuotaResources) {
+  if (!diskQuota.consumed || !diskQuota.limit) {
+    return 0;
+  }
   return (diskQuota.consumed / diskQuota.limit) * 100;
 }
 
-function getDiskConsumedText(diskQuota: Quota) {
+function getDiskConsumedText(diskQuota: QuotaResources) {
   return (
     <Trans render="span">
       {diskQuota.consumed} of {diskQuota.limit} MiB
@@ -32,7 +32,7 @@ function noLimit() {
 }
 
 export function diskRenderer(group: ServiceGroup) {
-  const diskQuota: Quota | undefined = findNestedPropertyInObject(
+  const diskQuota: QuotaResources | undefined = findNestedPropertyInObject(
     group.quota,
     "disk"
   );

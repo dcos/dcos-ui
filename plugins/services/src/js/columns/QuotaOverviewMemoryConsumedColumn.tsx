@@ -2,24 +2,24 @@ import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Cell, Tooltip } from "@dcos/ui-kit";
 
-import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
+import {
+  ServiceGroup,
+  QuotaResources
+} from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 const className = `color-${ResourcesUtil.getResourceColor("mem")}`;
 
-interface Quota {
-  guarantee: number;
-  limit: number;
-  consumed: number;
-}
-
-function getMemoryConsumedPercent(memoryQuota: Quota) {
+function getMemoryConsumedPercent(memoryQuota: QuotaResources) {
+  if (!memoryQuota.consumed || !memoryQuota.limit) {
+    return 0;
+  }
   return (memoryQuota.consumed / memoryQuota.limit) * 100;
 }
 
-function getMemoryConsumedText(memoryQuota: Quota) {
+function getMemoryConsumedText(memoryQuota: QuotaResources) {
   return (
     <Trans render="span">
       {memoryQuota.consumed} of {memoryQuota.limit} MiB
@@ -32,7 +32,7 @@ function noLimit() {
 }
 
 export function memRenderer(group: ServiceGroup) {
-  const memoryQuota: Quota | undefined = findNestedPropertyInObject(
+  const memoryQuota: QuotaResources | undefined = findNestedPropertyInObject(
     group.quota,
     "memory"
   );
