@@ -22,7 +22,7 @@ function getDiskConsumedPercent(diskQuota: Quota) {
 function getDiskConsumedText(diskQuota: Quota) {
   return (
     <Trans render="span">
-      {diskQuota.consumed} of {diskQuota.limit} Cores
+      {diskQuota.consumed} of {diskQuota.limit} MiB
     </Trans>
   );
 }

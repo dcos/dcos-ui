@@ -956,7 +956,7 @@
   "{0} Version": "{0} 版本",
   "{0} is being installed.": "{0} 正在安装。",
   "{0} of {1} Cores": "",
-  "{0} of {1} GiB": "",
+  "{0} of {1} MiB": "",
   "{0} your group by {updateDescription} from the DC/OS CLI.": "从  DC/OS CLI 通过{updateDescription} {0} 组",
   "{0} {packagesWord} found": "已找到 {0} {packagesWord}",
   "{completedSteps} out of {totalSteps} steps completed.": "",
