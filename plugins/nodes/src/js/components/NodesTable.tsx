@@ -108,7 +108,9 @@ export default class NodesTable extends React.Component<
       case "zone":
         return compareByZone;
       case "health":
-        return UnitHealthUtil.getHealthSortFunction;
+        return (a, b) =>
+          UnitHealthUtil.getHealthSorting(a) -
+          UnitHealthUtil.getHealthSorting(b);
       case "tasks":
         return (a, b) => getTasks(a) - getTasks(b);
       case "cpu":
