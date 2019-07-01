@@ -3,7 +3,6 @@ import Node from "./Node";
 import Util from "../utils/Util";
 import ServicesList from "../../../plugins/services/src/js/structs/ServicesList";
 
-const PRESERVE_KEYS = ["master_info"];
 const MISSING_HEALTH_NODE = {
   health: 3
 };
@@ -22,6 +21,7 @@ class CompositeState {
   constructor(data = {}) {
     this._refCount = 0;
     this.data = data;
+    this.masterInfo = null;
     this.nodeHealthData = {};
   }
 
@@ -74,6 +74,10 @@ class CompositeState {
     enrichNodeDataWithHealthData(this.data.slaves, this.nodeHealthData);
   }
 
+  addMasterInfo(masterInfo) {
+    this.masterInfo = masterInfo;
+  }
+
   addState(newData) {
     if (this._isDisabled()) {
       storedState = newData;
@@ -84,10 +88,10 @@ class CompositeState {
       return;
     }
 
-    this.data = {
-      ...Util.pluck(this.data, PRESERVE_KEYS),
-      ...newData
-    };
+    if (this.masterInfo) {
+      newData["master_info"] = this.masterInfo;
+    }
+    this.data = newData;
 
     // Reuse memoized node health data
     this.data.slaves = this.data.slaves || [];
