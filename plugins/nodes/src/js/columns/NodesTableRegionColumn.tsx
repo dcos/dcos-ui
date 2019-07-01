@@ -22,9 +22,4 @@ export function regionRenderer(
   return <NodeRegion regionName={regionName} />;
 }
 
-export function compareByRegion(a: Node, b: Node): number {
-  return a
-    .getRegionName()
-    .toLowerCase()
-    .localeCompare(b.getRegionName().toLowerCase());
-}
+export const getRegion = (a: Node) => a.getRegionName().toLowerCase();

@@ -21,5 +21,4 @@ export function statusRenderer(data: Node): React.ReactNode {
   return <StatusCell status={status} />;
 }
 
-export const compareByStatus = (a: Node, b: Node): number =>
-  a.getStatus().priority - b.getStatus().priority;
+export const getStatus = (a: Node) => a.getStatus().priority;

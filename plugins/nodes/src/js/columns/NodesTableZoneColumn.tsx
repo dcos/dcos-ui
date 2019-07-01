@@ -12,9 +12,4 @@ export function zoneRenderer(data: Node): React.ReactNode {
   return <NodeZone name={data.getZoneName()} />;
 }
 
-export function compareByZone(a: Node, b: Node): number {
-  return a
-    .getZoneName()
-    .toLowerCase()
-    .localeCompare(b.getZoneName().toLowerCase());
-}
+export const getZone = (a: Node) => a.getZoneName().toLowerCase();
