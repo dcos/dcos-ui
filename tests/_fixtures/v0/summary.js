@@ -68,6 +68,10 @@ module.exports = {
     TASK_STARTING: 0,
     active: true,
     attributes: {},
+    deactivated: Math.random() < 0.2 ? true : undefined,
+    drain_info: ["drained", "draining", undefined][
+      Math.floor(Math.random() * 3)
+    ],
     framework_ids: ["20150827-210452-1695027628-5050-1445-0000"],
     hostname: `dcos-${i}`,
     id: `b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S${i}`,

@@ -18,6 +18,10 @@ import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import { SortDirection } from "../types/SortDirection";
 
 import { ipRenderer, compareByIp } from "../columns/NodesTableIpColumn";
+import {
+  statusRenderer,
+  compareByStatus
+} from "../columns/NodesTableStatusColumn";
 import { typeRenderer, compareByType } from "../columns/NodesTableTypeColumn";
 import {
   compareByRegion,
@@ -36,6 +40,7 @@ import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 interface NodesTableProps {
   withPublicIP: boolean;
+  withMaintenanceMode: boolean;
   hosts: NodesList;
   nodeHealthResponse: boolean;
   masterRegion: string;
@@ -114,6 +119,8 @@ export default class NodesTable extends React.Component<
         return (a, b) => getDiskUsage(a) - getDiskUsage(b);
       case "gpu":
         return (a, b) => getGpuUsage(a) - getGpuUsage(b);
+      case "status":
+        return compareByStatus;
       default:
         return () => 0;
     }
@@ -165,7 +172,7 @@ export default class NodesTable extends React.Component<
 
   render() {
     const { data, sortColumn, sortDirection } = this.state;
-    const { withPublicIP } = this.props;
+    const { withMaintenanceMode, withPublicIP } = this.props;
 
     if (data === null) {
       return <Loader />;
@@ -187,6 +194,26 @@ export default class NodesTable extends React.Component<
         onResize={this.handleResize("host")}
         width={hasCustomWidth("host") ? customWidthFor("host") : undefined}
       />,
+
+      withMaintenanceMode ? (
+        <Column
+          key="status"
+          header={
+            <SortableHeaderCell
+              columnContent={<Trans render="span">Status</Trans>}
+              sortHandler={this.handleSortClick("status")}
+              sortDirection={sortColumn === "status" ? sortDirection : null}
+            />
+          }
+          cellRenderer={statusRenderer}
+          minWidth={hasCustomWidth("status") ? undefined : 120}
+          resizable={true}
+          onResize={this.handleResize("status")}
+          width={
+            hasCustomWidth("status") ? customWidthFor("status") : undefined
+          }
+        />
+      ) : null,
       <Column
         key="health"
         header={
