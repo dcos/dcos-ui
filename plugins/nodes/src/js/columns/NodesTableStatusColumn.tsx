@@ -15,10 +15,9 @@ const StatusCell = React.memo(({ status }: { status: Status }) => (
   </Cell>
 ));
 
-export function statusRenderer(data: Node): React.ReactNode {
-  const status = data.getStatus();
-
+export function statusRenderer(node: Node): React.ReactNode {
+  const status = Status.fromNode(node);
   return <StatusCell status={status} />;
 }
 
-export const getStatus = (a: Node) => a.getStatus().priority;
+export const getStatus = (node: Node) => Status.fromNode(node).priority;

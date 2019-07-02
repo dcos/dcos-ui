@@ -124,15 +124,15 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
     // Detecting whether DCOS already supports maintenance mode.
     // We might want to remove this flag at some point in the future.
-    const hasMaintenanceMode = CompositeState.getNodesList().list.some(
-      el =>
-        typeof el.drain_info !== "undefined" ||
-        typeof el.deactivated !== "undefined"
+    const hasMaintenanceData = CompositeState.getNodesList().list.some(
+      node =>
+        node.get("drain_info") !== undefined ||
+        node.get("deactivated") !== undefined
     );
     return (
       <NodesTable
         withPublicIP={networks.length > 0}
-        withMaintenanceMode={hasMaintenanceMode}
+        withMaintenanceStatus={hasMaintenanceData}
         hosts={filteredNodes}
         nodeHealthResponse={nodeHealthResponse}
         masterRegion={masterRegion}
