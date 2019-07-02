@@ -1,3 +1,5 @@
+require("../../../_support/utils/ServicesUtil");
+
 describe("Nodes Detail Page", function() {
   beforeEach(function() {
     cy.configureCluster({
@@ -20,6 +22,7 @@ describe("Nodes Detail Page", function() {
         .click({ force: true });
 
       cy.hash().should("match", /nodes\/[a-zA-Z0-9-]+/);
+
       cy.get(".page-header").should(function($title) {
         expect($title).to.contain(nodeName);
       });
@@ -32,6 +35,31 @@ describe("Nodes Detail Page", function() {
       cy.get(".page-body-content h3").should(function($title) {
         expect($title).to.contain("Error finding node");
       });
+    });
+  });
+
+  context("Node Details", function() {
+    it("shows node status", function() {
+      cy.visitUrl({
+        url: `/nodes/20151002-000353-1695027628-5050-1177-S0/details`,
+        identify: true
+      });
+
+      cy.get("h1.configuration-map-heading").should(function($h1) {
+        // Should have found 2 elements
+        expect($h1).to.have.length(2);
+
+        // First should be Status
+        expect($h1.eq(0)).to.contain("Status");
+
+        // Second should be Resources
+        expect($h1.eq(1)).to.contain("Resources");
+      });
+
+      cy.root()
+        .configurationSection("Status")
+        .configurationMapValue("Status")
+        .contains("Draining");
     });
   });
 });

@@ -46,9 +46,7 @@
       "TASK_STARTING": 0,
       "active": true,
       "attributes": {},
-      "framework_ids": [
-        "20150827-210452-1695027628-5050-1445-0000"
-      ],
+      "framework_ids": ["20150827-210452-1695027628-5050-1445-0000"],
       "hostname": "dcos-01",
       "domain": {
         "fault_domain": {
@@ -87,7 +85,9 @@
         "disk": 0,
         "mem": 16,
         "ports": "[10000-10000]"
-      }
+      },
+      "deactivated": true,
+      "drain_info": { "state": "DRAINING", "config": {} }
     },
     {
       "TASK_ERROR": 0,
@@ -100,9 +100,7 @@
       "TASK_STARTING": 0,
       "active": true,
       "attributes": {},
-      "framework_ids": [
-        "20150827-210452-1695027628-5050-1445-0000"
-      ],
+      "framework_ids": ["20150827-210452-1695027628-5050-1445-0000"],
       "hostname": "dcos-01",
       "id": "20151002-000353-1695027628-5050-1177-S0",
       "offered_resources": {
@@ -134,12 +132,15 @@
         "mem": 2933,
         "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
       },
+
       "used_resources": {
         "cpus": 0.1,
         "disk": 0,
         "mem": 16,
         "ports": "[10000-10000]"
-      }
+      },
+      "deactivated": true,
+      "drain_info": { "state": "DRAINED", "config": {} }
     },
     {
       "TASK_ERROR": 0,
@@ -152,9 +153,7 @@
       "TASK_STARTING": 0,
       "active": true,
       "attributes": {},
-      "framework_ids": [
-        "20150827-210452-1695027628-5050-1445-0000"
-      ],
+      "framework_ids": ["20150827-210452-1695027628-5050-1445-0000"],
       "hostname": "dcos-02",
       "id": "20151002-000353-1695027628-5050-1177-S1",
       "domain": {
@@ -206,9 +205,7 @@
       "TASK_STARTING": 0,
       "active": true,
       "attributes": {},
-      "framework_ids": [
-        "20150827-210452-1695027628-5050-1445-0000"
-      ],
+      "framework_ids": ["20150827-210452-1695027628-5050-1445-0000"],
       "hostname": "dcos-03",
       "id": "20151002-000353-1695027628-5050-1177-S2",
       "domain": {
