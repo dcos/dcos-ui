@@ -46,13 +46,14 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       this.context.router.push("/services/overview/create");
     };
     const tabs = this.getTabs();
-
-    const content = <ServicesQuotaOverview />;
+    const id: string = serviceTree.getId();
+    //@ts-ignore
+    const content = <ServicesQuotaOverview id={id} />;
 
     return (
       <Page dontScroll={true} flushBottom={true}>
         <Header
-          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.getId()} />}
+          breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
           actions={[
             {
               onItemSelect: modalHandlers.createGroup,

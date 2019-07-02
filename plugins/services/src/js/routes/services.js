@@ -70,9 +70,14 @@ const serviceRoutes = [
         type: Route,
         component: ServicesContainer,
         path: "quota",
-        children: []
+        children: [
+          {
+            type: Route,
+            path: ":id",
+            isTab: true
+          }
+        ]
       },
-      // Service Detail routes
       {
         type: Redirect,
         from: "/services/detail/:id",
