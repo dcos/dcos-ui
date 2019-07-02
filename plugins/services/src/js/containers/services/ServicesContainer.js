@@ -27,6 +27,7 @@ import {
   REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR
 } from "#SRC/js/constants/ActionTypes";
 import container from "#SRC/js/container";
+import { TYPES } from "#SRC/js/types/containerTypes";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
@@ -90,6 +91,15 @@ const SERVICE_FILTERS = new DSLFilterList([
 ]);
 
 const notificationService = container.get(NotificationServiceType);
+
+function i18nTranslate(id, values) {
+  const i18n = container.get(TYPES.I18n);
+  if (i18n) {
+    return i18n._(id, values);
+  } else {
+    return id;
+  }
+}
 
 /**
  * Increments error count for each fetch type when we have a request error and
@@ -608,9 +618,10 @@ class ServicesContainer extends React.Component {
   }
 
   getResetDelaySuccessToast(serviceName) {
-    const title = i18nMark("Reset Delay Successful");
-    const description = i18nMark(
-      `Delay has cleared and ${serviceName} is now relaunching.`
+    const title = i18nTranslate(i18nMark("Reset Delay Successful"));
+    const description = i18nTranslate(
+      i18nMark("Delay has cleared and {serviceName} is now relaunching."),
+      { serviceName }
     );
 
     return new ToastNotification(title, {
@@ -621,9 +632,12 @@ class ServicesContainer extends React.Component {
   }
 
   getResetDelayErrorToast(serviceName) {
-    const title = i18nMark("Reset Delay Failed");
-    const description = i18nMark(
-      `Delay reset failed and did not relaunch ${serviceName}. Please try again.`
+    const title = i18nTranslate(i18nMark("Reset Delay Failed"));
+    const description = i18nTranslate(
+      i18nMark(
+        "Delay reset failed and did not relaunch {serviceName}. Please try again."
+      ),
+      { serviceName }
     );
 
     return new ToastNotification(title, {
