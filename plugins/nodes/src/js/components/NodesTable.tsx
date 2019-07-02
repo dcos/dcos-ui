@@ -33,7 +33,7 @@ import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
 
 interface NodesTableProps {
   withPublicIP: boolean;
-  withMaintenanceMode: boolean;
+  withMaintenanceStatus: boolean;
   hosts: NodesList;
   nodeHealthResponse: boolean;
   masterRegion: string;
@@ -165,7 +165,7 @@ export default class NodesTable extends React.Component<
 
   render() {
     const { data, sortColumn, sortDirection } = this.state;
-    const { withMaintenanceMode, withPublicIP } = this.props;
+    const { withMaintenanceStatus, withPublicIP } = this.props;
 
     if (data === null) {
       return <Loader />;
@@ -188,7 +188,7 @@ export default class NodesTable extends React.Component<
         width={hasCustomWidth("host") ? customWidthFor("host") : undefined}
       />,
 
-      withMaintenanceMode ? (
+      withMaintenanceStatus ? (
         <Column
           key="status"
           header={
