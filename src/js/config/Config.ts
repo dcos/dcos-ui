@@ -10,6 +10,7 @@ interface IConfiguration {
   cosmosAPIPrefix: string;
   delayAfterErrorCount: number;
   documentationURI: string;
+  supportPortalURI: string;
   downloadsURI: string;
   environment?: string;
   fullProductName: string;
@@ -53,6 +54,7 @@ let Config: IConfiguration = {
   secretsAPIPrefix: "/secrets/v1",
   delayAfterErrorCount: 5,
   documentationURI: "https://docs.mesosphere.com",
+  supportPortalURI: "https://support.mesosphere.com",
   mesosDocsURI: "https://mesos.apache.org/documentation/latest/",
   downloadsURI: "https://downloads.dcos.io",
   environment: process.env.NODE_ENV,

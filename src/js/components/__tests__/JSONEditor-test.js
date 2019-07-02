@@ -170,6 +170,17 @@ describe("JSONEditor", function() {
 
       expect(onChangeHandler).toBeCalledWith(JSON.parse(validJSONText));
     });
+
+    it("does not crash when getNewJsonState is null", function() {
+      const instance = ReactDOM.render(
+        <JSONEditor value={123} />,
+        thisContainer
+      );
+
+      instance.handleChange("123");
+
+      expect(instance.jsonText).toEqual("123"); // No change.
+    });
   });
 
   describe("#updateLocalJsonState", function() {
