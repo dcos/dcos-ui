@@ -60,7 +60,7 @@ class ServiceResumeModal extends React.PureComponent {
     let { message: errorMsg = "", details } = errors;
     const hasDetails = details && details.length !== 0;
 
-    if (hasDetails) {
+    if (hasDetails && Array.isArray(details)) {
       errorMsg = details.reduce(function(memo, error) {
         return `${memo} ${error.errors.join(" ")}`;
       }, "");
@@ -150,6 +150,9 @@ class ServiceResumeModal extends React.PureComponent {
         <Trans render="span">Resume Service</Trans>
       </ModalHeading>
     );
+    const rightButtonText = isPending
+      ? i18n._(t`Resuming...`)
+      : i18n._(t`Resume Service`);
 
     return (
       <Confirm
@@ -159,7 +162,7 @@ class ServiceResumeModal extends React.PureComponent {
         onClose={onClose}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link flush-left"
-        rightButtonText={i18n._(t`Resume Service`)}
+        rightButtonText={rightButtonText}
         rightButtonClassName="button button-primary"
         rightButtonCallback={this.handleConfirmation}
         showHeader={true}

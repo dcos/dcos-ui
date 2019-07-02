@@ -161,9 +161,9 @@ class SystemLogStore extends BaseStore {
         // keep connection open, if we receive data later, we want to show it.
         this.emit(SYSTEM_LOG_CHANGE, subscriptionID, APPEND);
       }
-      // Let's wait 2 x stateRefresh ~ 2 errors,
+      // Let's wait 2 x Config.getRefreshRate() ~ 2 errors,
       // as we do in other views
-    }, Config.stateRefresh * 2);
+    }, Config.getRefreshRate() * 2);
 
     // Return received subscriptionID
     return subscriptionID;

@@ -151,7 +151,8 @@ class ServiceDestroyModal extends React.PureComponent {
       <div>
         <Trans render="p">
           This action <strong>CANNOT</strong> be undone. This will permanently
-          delete the <strong>{serviceName}</strong> {serviceLabel.toLowerCase()}.
+          delete the <strong>{serviceName}</strong> {serviceLabel.toLowerCase()}
+          .
         </Trans>
         <div className="form-group flush-bottom">
           <Trans render="label">Type "{serviceName}" to confirm</Trans>
@@ -160,7 +161,7 @@ class ServiceDestroyModal extends React.PureComponent {
             onChange={this.handleChangeInputFieldDestroy}
             type="text"
             value={this.state.serviceNameConfirmationValue}
-            autoFocus
+            autoFocus={true}
           />
         </div>
       </div>
@@ -168,9 +169,11 @@ class ServiceDestroyModal extends React.PureComponent {
   }
 
   getDestroyServiceModal() {
-    const { open, i18n } = this.props;
+    const { open, i18n, isPending } = this.props;
     const serviceLabel = this.getServiceLabel();
-    const itemText = i18n._(t`Delete`) + ` ${serviceLabel}`;
+    const itemText = isPending
+      ? i18n._(t`Deleting...`)
+      : i18n._(t`Delete`) + ` ${serviceLabel}`;
 
     return (
       <Confirm

@@ -43,7 +43,15 @@ class CosmosErrorMessage extends React.Component {
       );
     }
 
-    return <Trans id={message} render="span" />;
+    if (message) {
+      return <Trans id={message} render="span" />;
+    }
+
+    return (
+      <Trans render="span">
+        Looks Like Something is Wrong. Please try again.
+      </Trans>
+    );
   }
 
   getDetails() {

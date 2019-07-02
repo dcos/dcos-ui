@@ -123,7 +123,7 @@ describe("Tasks Table", function() {
       it("correctly shows health", function() {
         cy.get("@tds")
           .eq(7)
-          .find(".dot")
+          .find(".task-status-indicator")
           .trigger("mouseover");
         cy.get(".tooltip").contains("Healthy");
       });

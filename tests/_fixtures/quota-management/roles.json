@@ -1,0 +1,33 @@
+{
+  "roles": [
+    {
+      "name": "*",
+      "weight": 1.0
+    },
+    {
+      "name": "10000_apps",
+      "weight": 1.0,
+      "resources": {
+        "cpus": 1.5,
+        "disk": 0,
+        "gpus": 0,
+        "mem": 256.0
+      },
+      "quota": {
+        "role": "dev",
+        "guarantee": {
+          "cpus": 2.0,
+          "disk": 0,
+          "gpus": 0,
+          "mem": 512.0
+        },
+        "limit": {
+          "cpus": 3.0,
+          "disk": 0,
+          "gpus": 0,
+          "mem": 1024.0
+        }
+      }
+    }
+  ]
+}
