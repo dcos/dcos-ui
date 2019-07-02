@@ -79,6 +79,28 @@ describe("Job Details", function() {
         expect($children.length).to.equal(20);
       });
     });
+
+    it("expands a row for already finished job runs", function() {
+      cy.get(".page table tbody tr .is-expandable").as("tableRows");
+      cy.get("@tableRows")
+        .eq(1)
+        .as("successfulHistoricRun");
+      cy.get("@tableRows")
+        .eq(2)
+        .as("failedHistoricRun");
+
+      // make sure that we don't render those tasks in the dom already
+      cy.contains("completedTask.42").should("not.exist");
+      cy.contains("failedTask.42").should("not.exist");
+
+      // expand the historic tasks
+      cy.get("@successfulHistoricRun").click();
+      cy.get("@failedHistoricRun").click();
+
+      // check that they are in the dom now
+      cy.contains("completedTask.42");
+      cy.contains("failedTask.42");
+    });
   });
 
   context("Configuration Tab", function() {

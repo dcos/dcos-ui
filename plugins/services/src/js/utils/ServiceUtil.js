@@ -102,12 +102,6 @@ const ServiceUtil = {
     return "";
   },
 
-  getServiceNameFromTaskID(taskID) {
-    const serviceName = taskID.split(".")[0].split("_");
-
-    return serviceName[serviceName.length - 1];
-  },
-
   isSDKService(service) {
     return (
       service &&

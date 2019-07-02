@@ -159,6 +159,13 @@ describe("MarathonStore", function() {
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual("deployment-id");
     });
+
+    it("emits an error if the data is not an array", function() {
+      thisHandler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_ERROR, thisHandler);
+      MarathonStore.processMarathonDeployments({ id: "deployment-id" });
+      expect(thisHandler).toBeCalled();
+    });
   });
 
   describe("#processMarathonInfoRequest", function() {

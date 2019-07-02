@@ -454,7 +454,7 @@ class JobFormModal extends React.Component<
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleJobRun,
-        label: i18nMark("Submit"),
+        label: processing ? i18nMark("Submitting...") : i18nMark("Submit"),
         disabled: processing
       }
     ];

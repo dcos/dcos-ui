@@ -79,18 +79,27 @@ class UserFormModal extends mixin(StoreMixin) {
   }
 
   getButtonDefinition() {
-    return Hooks.applyFilter("userFormModalButtonDefinition", [
-      {
-        text: i18nMark("Cancel"),
-        className: "button button-primary-link",
-        isClose: true
-      },
-      {
-        text: i18nMark("Add User"),
-        className: "button button-primary",
-        isSubmit: true
-      }
-    ]);
+    const { props, state } = this;
+
+    return Hooks.applyFilter(
+      "userFormModalButtonDefinition",
+      [
+        {
+          text: i18nMark("Cancel"),
+          className: "button button-primary-link",
+          isClose: true
+        },
+        {
+          text: state.disableNewUser
+            ? i18nMark("Adding...")
+            : i18nMark("Add User"),
+          className: "button button-primary",
+          isSubmit: true
+        }
+      ],
+      props,
+      state
+    );
   }
 
   getNewUserFormDefinition() {

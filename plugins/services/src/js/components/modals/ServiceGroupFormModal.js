@@ -93,7 +93,7 @@ class ServiceGroupFormModal extends React.PureComponent {
         isClose: true
       },
       {
-        text: i18nMark("Create Group"),
+        text: isPending ? i18nMark("Creating...") : i18nMark("Create Group"),
         className: "button button-primary",
         isSubmit: true
       }

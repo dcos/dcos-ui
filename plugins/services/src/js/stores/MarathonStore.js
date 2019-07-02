@@ -546,9 +546,13 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonDeployments(data) {
-    const deployments = new DeploymentsList({ items: data });
-    this.set({ deployments });
-    this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
+    if (Array.isArray(data)) {
+      const deployments = new DeploymentsList({ items: data });
+      this.set({ deployments });
+      this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
+    } else {
+      this.processMarathonDeploymentsError();
+    }
   }
 
   processMarathonDeploymentsError() {
