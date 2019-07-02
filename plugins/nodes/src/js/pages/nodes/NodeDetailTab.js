@@ -2,6 +2,8 @@ import { Trans, DateFormat } from "@lingui/macro";
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { request } from "@dcos/mesos-client";
+import { Icon } from "@dcos/ui-kit";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -18,6 +20,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import Units from "#SRC/js/utils/Units";
 import Loader from "#SRC/js/components/Loader";
+import { Status } from "../../types/Status";
 
 class NodeDetailTab extends PureComponent {
   constructor() {
@@ -57,12 +60,24 @@ class NodeDetailTab extends PureComponent {
     });
   }
 
+  hasMaintenanceData() {
+    const { node } = this.props;
+
+    // Detecting whether DCOS already supports maintenance mode.
+    // We might want to remove this flag at some point in the future.
+    return (
+      node.get("drain_info") !== undefined ||
+      node.get("deactivated") !== undefined
+    );
+  }
+
   render() {
     const { node } = this.props;
     if (!node) {
       return null;
     }
     const resources = node.get("resources");
+    const status = Status.fromNode(node);
 
     return (
       <div className="container">
@@ -74,14 +89,16 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapLabel>
               <ConfigurationMapValue>{node.id}</ConfigurationMapValue>
             </ConfigurationMapRow>
-            <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                <Trans render="span">Active</Trans>
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {StringUtil.capitalize(node.active.toString().toLowerCase())}
-              </ConfigurationMapValue>
-            </ConfigurationMapRow>
+            {!this.hasMaintenanceData() && (
+              <ConfigurationMapRow>
+                <ConfigurationMapLabel>
+                  <Trans render="span">Active</Trans>
+                </ConfigurationMapLabel>
+                <ConfigurationMapValue>
+                  {StringUtil.capitalize(node.active.toString().toLowerCase())}
+                </ConfigurationMapValue>
+              </ConfigurationMapRow>
+            )}
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 <Trans render="span">Registered</Trans>
@@ -124,6 +141,34 @@ class NodeDetailTab extends PureComponent {
             </ConfigurationMapRow>
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
+          {this.hasMaintenanceData() && (
+            <ConfigurationMapSection>
+              <ConfigurationMapHeading>
+                <Trans render="span">Status</Trans>
+              </ConfigurationMapHeading>
+              <ConfigurationMapRow>
+                <ConfigurationMapLabel>
+                  <Trans render="span">Active</Trans>
+                </ConfigurationMapLabel>
+                <ConfigurationMapValue>
+                  {StringUtil.capitalize(node.active.toString().toLowerCase())}
+                </ConfigurationMapValue>
+              </ConfigurationMapRow>
+              <ConfigurationMapRow>
+                <ConfigurationMapLabel>
+                  <Trans render="span">Status</Trans>
+                </ConfigurationMapLabel>
+                <ConfigurationMapValue>
+                  <span>
+                    <Icon {...status.icon} size={iconSizeXs} />
+                    <span style={{ marginLeft: "7px" }}>
+                      {status.displayName}
+                    </span>
+                  </span>
+                </ConfigurationMapValue>
+              </ConfigurationMapRow>
+            </ConfigurationMapSection>
+          )}
           <ConfigurationMapSection>
             <ConfigurationMapHeading>
               <Trans render="span">Resources</Trans>
