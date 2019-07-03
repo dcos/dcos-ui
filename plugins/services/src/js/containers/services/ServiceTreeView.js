@@ -7,7 +7,7 @@ import { Trans } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import Page from "#SRC/js/components/Page";
 
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
@@ -146,7 +146,7 @@ ServiceTreeView.defaultProps = {
 };
 
 ServiceTreeView.propTypes = {
-  filters: PropTypes.instanceOf(DSLFilterList).isRequired,
+  filters: PropTypes.instanceOf(Array).isRequired,
   filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
   isEmpty: PropTypes.bool,
   children: PropTypes.node,

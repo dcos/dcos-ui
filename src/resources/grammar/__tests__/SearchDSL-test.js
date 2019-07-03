@@ -2,7 +2,6 @@ import DSLFilterTypes from "../../../js/constants/DSLFilterTypes";
 import DSLFilter from "../../../js/structs/DSLFilter";
 
 const DSLCombinerTypes = require("../../../js/constants/DSLCombinerTypes");
-const DSLFilterList = require("../../../js/structs/DSLFilterList");
 const List = require("../../../js/structs/List");
 const SearchDSL = require("../SearchDSL");
 
@@ -231,11 +230,11 @@ describe("SearchDSL", function() {
 
     describe("Filtering", function() {
       beforeEach(function() {
-        thisFilters = new DSLFilterList([
+        thisFilters = [
           new AttribFilter(),
           new FuzzyTextFilter(),
           new ExactTextFilter()
-        ]);
+        ];
 
         thisMockResultset = new List({
           items: [

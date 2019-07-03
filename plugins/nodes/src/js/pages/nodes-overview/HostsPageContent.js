@@ -4,7 +4,6 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -40,11 +39,11 @@ class HostsPageContent extends React.PureComponent {
     this.state = {
       expression: "",
       filterExpression: new DSLExpression(""),
-      filters: new DSLFilterList([
+      filters: [
         new NodesHealthFilter(),
         new NodesTextFilter(),
         new NodesTypeFilter()
-      ]),
+      ],
       defaultFilterData: { regions: [], zones: [] }
     };
 
@@ -127,13 +126,13 @@ class HostsPageContent extends React.PureComponent {
       return;
     }
 
-    const filters = new DSLFilterList([
+    const filters = [
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
       NodesRegionFilter,
       new NodesZoneFilter(newZones)
-    ]);
+    ];
 
     this.setState({
       filterExpression: new DSLExpression(query),

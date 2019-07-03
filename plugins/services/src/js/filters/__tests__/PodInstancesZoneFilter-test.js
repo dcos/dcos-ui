@@ -1,6 +1,5 @@
 jest.mock("../../utils/TaskUtil");
 
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var PodInstancesZoneFilter = require("../PodInstancesZoneFilter");
 var List = require("#SRC/js/structs/List");
@@ -31,7 +30,7 @@ describe("PodInstancesZoneFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
-    const filters = new DSLFilterList([new PodInstancesZoneFilter(["zone-1"])]);
+    const filters = [new PodInstancesZoneFilter(["zone-1"])];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

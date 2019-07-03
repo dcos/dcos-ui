@@ -3,7 +3,6 @@ import DSLFilterTypes from "../../constants/DSLFilterTypes";
 
 const DSLASTNodes = require("../../structs/DSLASTNodes");
 const DSLCombinerTypes = require("../../constants/DSLCombinerTypes");
-const DSLFilterList = require("../../structs/DSLFilterList");
 const DSLParserUtil = require("../DSLParserUtil");
 const List = require("../../structs/List");
 
@@ -80,7 +79,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([new AttribFilter()]);
+      const filters = [new AttribFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
@@ -114,7 +113,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([new ExactFilter()]);
+      const filters = [new ExactFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "exact" }
@@ -147,7 +146,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([new FuzzyFilter()]);
+      const filters = [new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "fuzzy" },
@@ -187,10 +186,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([
-        new AttribFilter(),
-        new FuzzyFilter()
-      ]);
+      const filters = [new AttribFilter(), new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute fuzzy" }
@@ -229,10 +225,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([
-        new AttribFilter(),
-        new FuzzyFilter()
-      ]);
+      const filters = [new AttribFilter(), new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
