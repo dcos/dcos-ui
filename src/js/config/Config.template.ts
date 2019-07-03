@@ -7,6 +7,10 @@ export default {
   // Override cluster's uiConfiguration for development
   uiConfigurationFixture: {
     uiConfiguration: {
+      features: {
+        maintenance: false,
+        quota: false
+      },
       plugins: {
         banner: {
           enabled: false
@@ -38,8 +42,5 @@ export default {
   // Use fixtures to mock API requests
   useFixtures: false,
   // Use uiConfigurationFixture defined above
-  useUIConfigFixtures: false,
-  features: {
-    quota: false
-  }
+  useUIConfigFixtures: false
 };

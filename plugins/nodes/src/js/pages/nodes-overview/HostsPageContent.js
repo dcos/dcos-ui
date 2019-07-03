@@ -10,6 +10,9 @@ import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import NodesList from "#SRC/js/structs/NodesList";
 
 import ResourceSwitchDropdown from "#SRC/js/components/ResourceSwitchDropdown";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+// @ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import FilterByFramework from "../../../../../services/src/js/components/FilterByFramework";
 
@@ -27,27 +30,36 @@ import NodesTextFilter from "../../filters/NodesTextFilter";
 import NodesTypeFilter from "../../filters/NodesTypeFilter";
 
 const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
-const DSL_FORM_SECTIONS = [
+
+const dslFormSections = () => [
   NodesHealthDSLSection,
   NodesTypeDSLSection,
-  NodesStatusDSLSection,
+  ...(hasMaintenance() ? [NodesStatusDSLSection] : []),
   NodesRegionDSLFilter,
   NodesZoneDSLFilter
 ];
+
+const hasMaintenance = () =>
+  findNestedPropertyInObject(
+    ConfigStore.get("config"),
+    "uiConfiguration.features.maintenance"
+  );
 
 class HostsPageContent extends React.PureComponent {
   constructor() {
     super(...arguments);
 
+    const filters = [
+      new NodesHealthFilter(),
+      new NodesTextFilter(),
+      new NodesTypeFilter(),
+      ...(hasMaintenance() ? [NodesStatusFilter] : [])
+    ];
+
     this.state = {
       expression: "",
       filterExpression: new DSLExpression(""),
-      filters: [
-        new NodesHealthFilter(),
-        new NodesTextFilter(),
-        new NodesTypeFilter(),
-        NodesStatusFilter
-      ],
+      filters,
       defaultFilterData: { regions: [], zones: [] }
     };
 
@@ -134,9 +146,9 @@ class HostsPageContent extends React.PureComponent {
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
-      NodesStatusFilter,
       NodesRegionFilter,
-      new NodesZoneFilter(newZones)
+      new NodesZoneFilter(newZones),
+      ...(hasMaintenance() ? [NodesStatusFilter] : [])
     ];
 
     this.setState({
@@ -153,7 +165,7 @@ class HostsPageContent extends React.PureComponent {
       <div className="column-12 flush-left">
         <DSLFilterField
           filters={filters}
-          formSections={DSL_FORM_SECTIONS}
+          formSections={dslFormSections()}
           expression={filterExpression}
           onChange={this.onFilterChangeHandler}
           defaultData={defaultFilterData}

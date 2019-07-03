@@ -40,9 +40,6 @@ interface IConfiguration {
   useFixtures?: boolean;
   version: string;
   virtualNetworksApi: string;
-  features?: {
-    quota?: boolean;
-  };
 }
 
 let Config: IConfiguration = {
@@ -82,9 +79,6 @@ let Config: IConfiguration = {
   },
   getLongPollingInterval() {
     return this.stateLongPoll;
-  },
-  features: {
-    quota: false
   }
 };
 

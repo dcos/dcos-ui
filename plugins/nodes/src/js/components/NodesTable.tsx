@@ -14,6 +14,9 @@ import Node from "#SRC/js/structs/Node";
 import Loader from "#SRC/js/components/Loader";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+// @ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import { SortDirection } from "../types/SortDirection";
 
@@ -33,7 +36,6 @@ import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
 
 interface NodesTableProps {
   withPublicIP: boolean;
-  withMaintenanceStatus: boolean;
   hosts: NodesList;
   nodeHealthResponse: boolean;
   masterRegion: string;
@@ -165,7 +167,12 @@ export default class NodesTable extends React.Component<
 
   render() {
     const { data, sortColumn, sortDirection } = this.state;
-    const { withMaintenanceStatus, withPublicIP } = this.props;
+    const { withPublicIP } = this.props;
+
+    const hasMaintenance = findNestedPropertyInObject(
+      ConfigStore.get("config"),
+      "uiConfiguration.features.maintenance"
+    );
 
     if (data === null) {
       return <Loader />;
@@ -188,7 +195,7 @@ export default class NodesTable extends React.Component<
         width={hasCustomWidth("host") ? customWidthFor("host") : undefined}
       />,
 
-      withMaintenanceStatus ? (
+      hasMaintenance ? (
         <Column
           key="status"
           header={

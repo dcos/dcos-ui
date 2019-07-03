@@ -15,6 +15,8 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -60,17 +62,6 @@ class NodeDetailTab extends PureComponent {
     });
   }
 
-  hasMaintenanceData() {
-    const { node } = this.props;
-
-    // Detecting whether DCOS already supports maintenance mode.
-    // We might want to remove this flag at some point in the future.
-    return (
-      node.get("drain_info") !== undefined ||
-      node.get("deactivated") !== undefined
-    );
-  }
-
   render() {
     const { node } = this.props;
     if (!node) {
@@ -78,6 +69,11 @@ class NodeDetailTab extends PureComponent {
     }
     const resources = node.get("resources");
     const status = Status.fromNode(node);
+
+    const hasMaintenance = findNestedPropertyInObject(
+      ConfigStore.get("config"),
+      "uiConfiguration.features.maintenance"
+    );
 
     return (
       <div className="container">
@@ -89,7 +85,7 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapLabel>
               <ConfigurationMapValue>{node.id}</ConfigurationMapValue>
             </ConfigurationMapRow>
-            {!this.hasMaintenanceData() && (
+            {!hasMaintenance && (
               <ConfigurationMapRow>
                 <ConfigurationMapLabel>
                   <Trans render="span">Active</Trans>
@@ -141,7 +137,7 @@ class NodeDetailTab extends PureComponent {
             </ConfigurationMapRow>
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
-          {this.hasMaintenanceData() && (
+          {hasMaintenance && (
             <ConfigurationMapSection>
               <ConfigurationMapHeading>
                 <Trans render="span">Status</Trans>
