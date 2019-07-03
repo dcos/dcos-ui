@@ -144,22 +144,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         return new Date(a) - new Date(b);
       })
       .map(version => {
-        const localeVersion = new Date(version).toLocaleString();
-        let itemCaption = localeVersion;
-        if (version === service.getVersion()) {
-          itemCaption = (
-            <span className="badge-container flex">
-              <span className="badge-container-text services-version-text text-overflow">
-                <DateFormat
-                  value={version}
-                  format={DateUtil.getFormatOptions()}
-                />
-              </span>
-              <Trans render={<Badge />}>Active</Trans>
-            </span>
-          );
-        }
-
         return {
           id: version,
           html: (
@@ -182,7 +166,17 @@ class ServiceConfiguration extends mixin(StoreMixin) {
                 className="button-split-content-item flex-item-grow-1 text-overflow"
                 title={version}
               >
-                {itemCaption}
+                <span className="badge-container flex">
+                  <span className="badge-container-text services-version-text text-overflow">
+                    <DateFormat
+                      value={version}
+                      format={DateUtil.getFormatOptions()}
+                    />
+                  </span>
+                  {version === service.getVersion() && (
+                    <Trans render={<Badge />}>Active</Trans>
+                  )}
+                </span>
               </span>
             </div>
           )
