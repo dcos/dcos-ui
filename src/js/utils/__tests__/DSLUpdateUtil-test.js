@@ -1,7 +1,8 @@
-const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLCombinerTypes = require("../../constants/DSLCombinerTypes");
-const DSLExpression = require("../../structs/DSLExpression");
+import DSLCombinerTypes from "../../constants/DSLCombinerTypes";
 import DSLFilterTypes from "../../constants/DSLFilterTypes";
+
+const DSLASTNodes = require("../../structs/DSLASTNodes");
+const DSLExpression = require("../../structs/DSLExpression");
 const DSLUpdateUtil = require("../DSLUpdateUtil");
 const DSLUtil = require("../DSLUtil");
 
