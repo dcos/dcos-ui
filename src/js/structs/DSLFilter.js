@@ -31,19 +31,6 @@ class DSLFilter {
     return resultset;
   }
 
-  /**
-   * Return typeahead components for the given state of the filter
-   *
-   * @abstract
-   * @param {DSLFilterTypes} filterType -
-   *  The filter type (ex. fuzzy or attribute)
-   * @param {Object} filterArguments - The filter arguments
-   * @returns {Array} Returns an array of React.Components to display in the typeahead dropdown
-   */
-  filterTypeahead(filterType, filterArguments) {
-    return [];
-  }
-
   /* eslint-enable no-unused-vars */
 }
 
