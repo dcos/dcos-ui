@@ -1,4 +1,5 @@
-const DSLFilter = require("../DSLFilter");
+import DSLFilter from "../DSLFilter";
+
 const DSLFilterList = require("../DSLFilterList");
 
 describe("DSLFilterList", function() {

@@ -1,6 +1,6 @@
 import List from "./List";
 
-export default class Tree<A> extends List {
+export default class Tree<A> extends List<A> {
   flattenItems(): List;
   filterItems<A>(callback: (a: A) => boolean): Tree<A>;
   filterItemsByText(filterText: string, filterProperties: any): any;

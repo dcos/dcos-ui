@@ -1,24 +1,24 @@
 import Item from "./Item";
 
-export default class List {
-  add(item: any): Number;
-  getItems(): any[];
+export default class List<A> {
+  add(item: any): number;
+  getItems(): A[];
   getFilterProperties(): object;
-  last(): any;
-  combine(list: List): List;
+  last(): A;
+  combine(list: List<A>): List<A>;
   filterItems(
-    callback: (item: any, index: Number, list: List) => boolean
-  ): List;
-  filterItemsByText(filterText: string, filterProperties: object): List;
-  findItem(callback: (item: any) => boolean): any;
-  mapItems(callback: (item: any, index: number) => any): List;
-  reduceItems(
+    callback: (item: A, index: number, list: List<A>) => boolean
+  ): List<A>;
+  filterItemsByText(filterText: string, filterProperties: object): List<A>;
+  findItem(callback: (item: A) => boolean): A | null;
+  mapItems<B>(callback: (item: A, index: number) => B): List<B>;
+  reduceItems<B>(
     callback: (
-      previousValue: any,
-      currentValue: any,
-      index: Number,
-      list: List
-    ) => any,
-    initialValue: any
-  ): any;
+      previousValue: B,
+      currentValue: A,
+      index: number,
+      list: List<A>
+    ) => B,
+    initialValue: B
+  ): B;
 }

@@ -1,6 +1,7 @@
-const DSLFilterTypes = require("../../../js/constants/DSLFilterTypes");
+import DSLFilterTypes from "../../../js/constants/DSLFilterTypes";
+import DSLFilter from "../../../js/structs/DSLFilter";
+
 const DSLCombinerTypes = require("../../../js/constants/DSLCombinerTypes");
-const DSLFilter = require("../../../js/structs/DSLFilter");
 const DSLFilterList = require("../../../js/structs/DSLFilterList");
 const List = require("../../../js/structs/List");
 const SearchDSL = require("../SearchDSL");
