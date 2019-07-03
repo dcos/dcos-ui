@@ -121,7 +121,8 @@ module.exports = {
         information in accordance with our{" "}
         <a href="https://mesosphere.com/privacy/" target="_blank">
           Privacy Policy
-        </a>.
+        </a>
+        .
       </p>
     );
   },
@@ -137,7 +138,8 @@ module.exports = {
           target="_blank"
         >
           Privacy Policy
-        </a>.
+        </a>
+        .
       </p>
     );
   }

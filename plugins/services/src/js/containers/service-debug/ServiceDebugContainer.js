@@ -342,7 +342,7 @@ class ServiceDebugContainer extends React.Component {
       );
     }
 
-    if(! message) {
+    if (!message) {
       return null;
     }
 

@@ -33,7 +33,8 @@ const Schedule = {
             target="_blank"
           >
             View documentation
-          </a>.
+          </a>
+          .
         </span>
       ),
       type: "string",
@@ -68,7 +69,8 @@ const Schedule = {
             target="_blank"
           >
             TZ format
-          </a>, e.g. America/New_York.
+          </a>
+          , e.g. America/New_York.
         </span>
       ),
       type: "string",

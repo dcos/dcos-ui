@@ -24,7 +24,8 @@ export default class PlacementSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 

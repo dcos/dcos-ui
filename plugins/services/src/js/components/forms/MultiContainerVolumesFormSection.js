@@ -269,7 +269,8 @@ class MultiContainerVolumesFormSection extends Component {
         DC/OS offers several storage options.{" "}
         <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 

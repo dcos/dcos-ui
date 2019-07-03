@@ -122,7 +122,8 @@ class LoginPage extends mixin(StoreMixin) {
                 target="_blank"
               >
                 documentation
-              </a>.
+              </a>
+              .
             </Trans>
           </p>
         </Modal>
