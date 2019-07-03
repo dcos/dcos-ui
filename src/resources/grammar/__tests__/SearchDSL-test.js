@@ -230,11 +230,11 @@ describe("SearchDSL", function() {
 
     describe("Filtering", function() {
       beforeEach(function() {
-        thisFilters = new DSLFilterList().add(
+        thisFilters = new DSLFilterList([
           new AttribFilter(),
           new FuzzyTextFilter(),
           new ExactTextFilter()
-        );
+        ]);
 
         thisMockResultset = new List({
           items: [

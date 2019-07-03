@@ -31,9 +31,9 @@ describe("PodInstancesRegionFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 
-    const filters = new DSLFilterList().add(
+    const filters = new DSLFilterList([
       new PodInstancesRegionFilter(["region-1"])
-    );
+    ]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

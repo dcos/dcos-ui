@@ -17,9 +17,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:catalog");
 
-    const filters = new DSLFilterList().add(
-      new ServiceAttributeIsCatalogFilter()
-    );
+    const filters = new DSLFilterList([new ServiceAttributeIsCatalogFilter()]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -30,9 +28,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
-    const filters = new DSLFilterList().add(
-      new ServiceAttributeIsCatalogFilter()
-    );
+    const filters = new DSLFilterList([new ServiceAttributeIsCatalogFilter()]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
@@ -41,9 +37,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:CataLOg");
 
-    const filters = new DSLFilterList().add(
-      new ServiceAttributeIsCatalogFilter()
-    );
+    const filters = new DSLFilterList([new ServiceAttributeIsCatalogFilter()]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
