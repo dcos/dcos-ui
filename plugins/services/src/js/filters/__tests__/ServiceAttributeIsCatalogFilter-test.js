@@ -1,5 +1,4 @@
 var Application = require("../../structs/Application");
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var Framework = require("../../structs/Framework");
 var List = require("#SRC/js/structs/List");
 var Pod = require("../../structs/Pod");
@@ -17,7 +16,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:catalog");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsCatalogFilter()]);
+    const filters = [new ServiceAttributeIsCatalogFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -28,7 +27,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsCatalogFilter()]);
+    const filters = [new ServiceAttributeIsCatalogFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
@@ -37,7 +36,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:CataLOg");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsCatalogFilter()]);
+    const filters = [new ServiceAttributeIsCatalogFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

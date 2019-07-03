@@ -1,6 +1,5 @@
 import * as ServiceStatus from "../../constants/ServiceStatus";
 
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var ServiceAttributeIsFilter = require("../ServiceAttributeIsFilter");
 var List = require("#SRC/js/structs/List");
@@ -37,7 +36,7 @@ describe("ServiceAttributeIsFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:deploying");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsFilter()]);
+    const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -48,7 +47,7 @@ describe("ServiceAttributeIsFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:running");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsFilter()]);
+    const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1]
@@ -59,7 +58,7 @@ describe("ServiceAttributeIsFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:stopped");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsFilter()]);
+    const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[2]
@@ -70,7 +69,7 @@ describe("ServiceAttributeIsFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsFilter()]);
+    const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
@@ -79,7 +78,7 @@ describe("ServiceAttributeIsFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:dEpLOYING");
 
-    const filters = new DSLFilterList([new ServiceAttributeIsFilter()]);
+    const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

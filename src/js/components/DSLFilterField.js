@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import DSLFilterList from "../structs/DSLFilterList";
 import DSLInputField from "./DSLInputField";
 import DSLExpression from "../structs/DSLExpression";
 import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
@@ -142,7 +141,7 @@ DSLFilterField.defaultProps = {
 
 DSLFilterField.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired,
-  filters: PropTypes.instanceOf(DSLFilterList).isRequired,
+  filters: PropTypes.instanceOf(Array).isRequired,
   formSections: PropTypes.array,
   onChange: PropTypes.func
 };

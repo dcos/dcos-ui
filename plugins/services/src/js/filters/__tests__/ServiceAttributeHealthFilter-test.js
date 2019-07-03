@@ -1,4 +1,3 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var HealthStatus = require("../../constants/HealthStatus");
 var ServiceAttributeHealthFilter = require("../ServiceAttributeHealthFilter");
@@ -36,7 +35,7 @@ describe("ServiceAttributeHealthFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:healthy");
 
-    const filters = new DSLFilterList([new ServiceAttributeHealthFilter()]);
+    const filters = [new ServiceAttributeHealthFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -47,7 +46,7 @@ describe("ServiceAttributeHealthFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:unhealthy");
 
-    const filters = new DSLFilterList([new ServiceAttributeHealthFilter()]);
+    const filters = [new ServiceAttributeHealthFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1]
@@ -58,7 +57,7 @@ describe("ServiceAttributeHealthFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
-    const filters = new DSLFilterList([new ServiceAttributeHealthFilter()]);
+    const filters = [new ServiceAttributeHealthFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
@@ -67,7 +66,7 @@ describe("ServiceAttributeHealthFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:hEaLThY");
 
-    const filters = new DSLFilterList([new ServiceAttributeHealthFilter()]);
+    const filters = [new ServiceAttributeHealthFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

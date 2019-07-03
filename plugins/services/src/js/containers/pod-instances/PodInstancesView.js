@@ -9,7 +9,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -199,7 +199,7 @@ PodInstancesView.propTypes = {
   pod: PropTypes.instanceOf(Pod).isRequired,
   totalInstances: PropTypes.number.isRequired,
   handleExpressionChange: PropTypes.func.isRequired,
-  filters: PropTypes.instanceOf(DSLFilterList)
+  filters: PropTypes.instanceOf(Array)
 };
 
 module.exports = withI18n()(PodInstancesView);

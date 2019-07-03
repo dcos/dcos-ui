@@ -18,7 +18,7 @@ import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
@@ -80,7 +80,7 @@ import {
   MARATHON_SERVICE_VERSIONS_ERROR
 } from "../../constants/EventTypes";
 
-const SERVICE_FILTERS = new DSLFilterList([
+const SERVICE_FILTERS = [
   new ServiceAttributeHealthFilter(),
   new ServiceAttributeHasVolumesFilter(),
   new ServiceAttributeIsFilter(),
@@ -88,7 +88,7 @@ const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeIsCatalogFilter(),
   new ServiceAttributeNoHealthchecksFilter(),
   new ServiceNameTextFilter()
-]);
+];
 
 const notificationService = container.get(NotificationServiceType);
 

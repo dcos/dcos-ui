@@ -15,7 +15,6 @@ import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
@@ -31,10 +30,7 @@ import NodesTableContainer from "./nodes/nodes-table/NodesTableContainer";
 const NODES_DISPLAY_LIMIT = 300;
 
 function getMesosHosts(state) {
-  const {
-    filterExpression = new DSLExpression(""),
-    filters = new DSLFilterList([])
-  } = state;
+  const { filterExpression = new DSLExpression(""), filters = [] } = state;
   const states = MesosSummaryStore.get("states");
   const lastState = states.lastSuccessful();
   const nodes = CompositeState.getNodesList();

@@ -7,7 +7,7 @@ import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import Util from "#SRC/js/utils/Util";
 
 import PodInstanceStatusFilter from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
@@ -48,10 +48,7 @@ class PodInstancesContainer extends React.Component {
       lastUpdate: 0,
       pendingActions: {},
       filterExpression: new DSLExpression(""),
-      filters: new DSLFilterList([
-        new PodInstanceStatusFilter(),
-        new PodInstanceTextFilter()
-      ]),
+      filters: [new PodInstanceStatusFilter(), new PodInstanceTextFilter()],
       defaultFilterData: { zones: [], regions: [] }
     };
 
@@ -152,12 +149,12 @@ class PodInstancesContainer extends React.Component {
       return;
     }
 
-    const filters = new DSLFilterList([
+    const filters = [
       new PodInstanceStatusFilter(),
       new PodInstancesZoneFilter(newZones),
       new PodInstancesRegionFilter(newRegions),
       new PodInstanceTextFilter()
-    ]);
+    ];
 
     this.setState({
       filterExpression: new DSLExpression(query),

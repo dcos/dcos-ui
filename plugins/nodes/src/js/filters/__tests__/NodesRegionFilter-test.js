@@ -1,6 +1,5 @@
 import NodesRegionFilter from "../NodesRegionFilter";
 
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var List = require("#SRC/js/structs/List");
 
@@ -18,7 +17,7 @@ describe("NodesRegionFilter", function() {
     const nodes = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 
-    const filters = new DSLFilterList([NodesRegionFilter]);
+    const filters = [NodesRegionFilter];
 
     expect(
       expr

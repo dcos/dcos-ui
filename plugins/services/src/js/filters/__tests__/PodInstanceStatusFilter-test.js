@@ -1,4 +1,3 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var PodInstanceStatusFilter = require("../PodInstanceStatusFilter");
 var List = require("#SRC/js/structs/List");
@@ -24,7 +23,7 @@ describe("PodInstanceStatusFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
-    const filters = new DSLFilterList([new PodInstanceStatusFilter()]);
+    const filters = [new PodInstanceStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -35,7 +34,7 @@ describe("PodInstanceStatusFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 
-    const filters = new DSLFilterList([new PodInstanceStatusFilter()]);
+    const filters = [new PodInstanceStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1]

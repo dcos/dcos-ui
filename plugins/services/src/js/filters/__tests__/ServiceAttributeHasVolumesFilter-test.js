@@ -1,4 +1,3 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
 var List = require("#SRC/js/structs/List");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var ServiceAttributeHasVolumesFilter = require("../ServiceAttributeHasVolumesFilter");
@@ -31,7 +30,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:volumes");
 
-    const filters = new DSLFilterList([new ServiceAttributeHasVolumesFilter()]);
+    const filters = [new ServiceAttributeHasVolumesFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1],
@@ -43,7 +42,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:foo");
 
-    const filters = new DSLFilterList([new ServiceAttributeHasVolumesFilter()]);
+    const filters = [new ServiceAttributeHasVolumesFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
@@ -52,7 +51,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:vOLumEs");
 
-    const filters = new DSLFilterList([new ServiceAttributeHasVolumesFilter()]);
+    const filters = [new ServiceAttributeHasVolumesFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1],
