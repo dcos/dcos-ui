@@ -27,7 +27,7 @@ describe("TaskNameTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("node");
 
-    const filters = new DSLFilterList().add(new TaskNameTextFilter());
+    const filters = new DSLFilterList([new TaskNameTextFilter()]);
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([
       thisMockItems[1],
@@ -39,7 +39,7 @@ describe("TaskNameTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("d9a23");
 
-    const filters = new DSLFilterList().add(new TaskNameTextFilter());
+    const filters = new DSLFilterList([new TaskNameTextFilter()]);
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([thisMockItems[0]]);
   });
@@ -48,7 +48,7 @@ describe("TaskNameTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"cassandra"');
 
-    const filters = new DSLFilterList().add(new TaskNameTextFilter());
+    const filters = new DSLFilterList([new TaskNameTextFilter()]);
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([thisMockItems[0]]);
   });

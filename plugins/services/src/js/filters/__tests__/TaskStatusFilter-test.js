@@ -21,7 +21,7 @@ describe("TaskStatusFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
-    const filters = new DSLFilterList().add(new TasksStatusFilter());
+    const filters = new DSLFilterList([new TasksStatusFilter()]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -32,7 +32,7 @@ describe("TaskStatusFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 
-    const filters = new DSLFilterList().add(new TasksStatusFilter());
+    const filters = new DSLFilterList([new TasksStatusFilter()]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1]

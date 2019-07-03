@@ -17,9 +17,7 @@ describe("DSLFilterList", function() {
 
     const matchInst = new MatchFilter();
     const unmatchInst = new UnmatchFilter();
-    let filters = new DSLFilterList();
-
-    filters = filters.add(matchInst, unmatchInst);
+    const filters = new DSLFilterList([matchInst, unmatchInst]);
 
     expect(filters.getMatchingFilters(0, {})).toEqual([matchInst]);
   });

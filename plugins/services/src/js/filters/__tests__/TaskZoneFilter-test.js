@@ -31,7 +31,7 @@ describe("TasksZoneFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
-    const filters = new DSLFilterList().add(new TasksZoneFilter(["zone-1"]));
+    const filters = new DSLFilterList([new TasksZoneFilter(["zone-1"])]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

@@ -31,9 +31,7 @@ describe("PodInstancesZoneFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
-    const filters = new DSLFilterList().add(
-      new PodInstancesZoneFilter(["zone-1"])
-    );
+    const filters = new DSLFilterList([new PodInstancesZoneFilter(["zone-1"])]);
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]

@@ -25,9 +25,7 @@ describe("NodesRegionFilter", function() {
     const nodes = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 
-    const filters = new DSLFilterList().add(
-      new NodesRegionFilter(["region-1"])
-    );
+    const filters = new DSLFilterList([new NodesRegionFilter(["region-1"])]);
 
     expect(
       expr

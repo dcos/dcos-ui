@@ -9,18 +9,7 @@ class DSLFilterList {
    * @param {Array} [filters] - An array with the initial filters
    */
   constructor(filters = []) {
-    this.add = this.add.bind(filters);
     this.getMatchingFilters = this.getMatchingFilters.bind(filters);
-  }
-
-  /**
-   * Add a filter to the list of filters
-   *
-   * @param {...DSLFilter} filter - The filter to plug
-   * @returns {DSLFilterList} Returns a new DSLFilterList object
-   */
-  add(...filters) {
-    return new DSLFilterList(this.concat(filters));
   }
 
   /**

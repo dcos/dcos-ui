@@ -24,7 +24,7 @@ describe("NodesTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("10.0");
 
-    const filters = new DSLFilterList().add(new NodesTextFilter());
+    const filters = new DSLFilterList([new NodesTextFilter()]);
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([
       thisMockItems[0],
@@ -36,7 +36,7 @@ describe("NodesTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"10.1.8.229"');
 
-    const filters = new DSLFilterList().add(new NodesTextFilter());
+    const filters = new DSLFilterList([new NodesTextFilter()]);
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([thisMockItems[2]]);
   });
