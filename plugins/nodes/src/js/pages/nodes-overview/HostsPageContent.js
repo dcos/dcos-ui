@@ -110,14 +110,10 @@ class HostsPageContent extends React.PureComponent {
 
     const newRegions = Array.from(
       new Set(
-        allHosts.getItems().reduce(function(prev, host) {
-          if (host.getRegionName() === "N/A") {
-            return prev;
-          }
-          prev.push(host.getRegionName());
-
-          return prev;
-        }, [])
+        allHosts
+          .getItems()
+          .map(h => h.getRegionName())
+          .filter(name => name !== "N/A")
       )
     );
 
@@ -135,7 +131,7 @@ class HostsPageContent extends React.PureComponent {
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
-      new NodesRegionFilter(newRegions),
+      NodesRegionFilter,
       new NodesZoneFilter(newZones)
     ]);
 
