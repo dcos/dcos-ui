@@ -15,7 +15,8 @@ export default {
       requirement, it is declined and DC/OS retries.{" "}
       <a href={summaryDocsURL} target="_blank">
         Learn more
-      </a>.
+      </a>
+      .
     </Trans>
   )
 };

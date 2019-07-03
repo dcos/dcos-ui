@@ -44,7 +44,8 @@ class VirtualNetworksTable extends React.Component {
             return (
               <span>
                 IPv4: {overlay.getSubnet()}
-                <br />IPv6: {overlay.getSubnet6()}
+                <br />
+                IPv6: {overlay.getSubnet6()}
               </span>
             );
           }
@@ -63,7 +64,8 @@ class VirtualNetworksTable extends React.Component {
             return (
               <span>
                 IPv4: {overlay.getPrefix()}
-                <br />IPv6: {overlay.getPrefix6()}
+                <br />
+                IPv6: {overlay.getPrefix6()}
               </span>
             );
           }

@@ -170,7 +170,7 @@ class TranslatableState {
   }
 }
 
-function useImportSyntax(j, root) {
+function usesImportSyntax(j, root) {
   return (
     root.find(j.ImportDeclaration, {
       importKind: "value"
@@ -191,7 +191,7 @@ function findFirstImport(j, root) {
 }
 
 function addTransImport(j, root) {
-  if (useImportSyntax(j, root)) {
+  if (usesImportSyntax(j, root)) {
     const path = findFirstImport(j, root);
     if (path) {
       const importStatement = j.importDeclaration(
