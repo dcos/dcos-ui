@@ -342,6 +342,10 @@ class ServiceDebugContainer extends React.Component {
       );
     }
 
+    if(! message) {
+      return null;
+    }
+
     return (
       <div className="infoBoxWrapper">
         <InfoBoxInline
