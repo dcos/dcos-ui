@@ -1,10 +1,11 @@
-import { Trans } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import React from "react";
 import { Table } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { formatResource } from "#SRC/js/utils/Units";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import ContainerConstants from "../constants/ContainerConstants";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
@@ -240,7 +241,17 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
         },
         {
           key: "version",
-          label: <Trans render="span">Version</Trans>
+          label: <Trans render="span">Version</Trans>,
+          transformValue(value = []) {
+            const timeString = new Date(value);
+
+            return (
+              <DateFormat
+                value={timeString}
+                format={DateUtil.getFormatOptions()}
+              />
+            );
+          }
         },
         {
           key: "fetch",
