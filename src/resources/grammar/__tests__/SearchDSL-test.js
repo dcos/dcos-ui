@@ -1,7 +1,7 @@
 import DSLFilterTypes from "../../../js/constants/DSLFilterTypes";
 import DSLFilter from "../../../js/structs/DSLFilter";
+import DSLCombinerTypes from "../../../js/constants/DSLCombinerTypes";
 
-const DSLCombinerTypes = require("../../../js/constants/DSLCombinerTypes");
 const List = require("../../../js/structs/List");
 const SearchDSL = require("../SearchDSL");
 

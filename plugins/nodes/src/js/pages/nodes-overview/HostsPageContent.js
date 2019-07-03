@@ -14,12 +14,14 @@ import ResourceSwitchDropdown from "#SRC/js/components/ResourceSwitchDropdown";
 import FilterByFramework from "../../../../../services/src/js/components/FilterByFramework";
 
 import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
+import NodesStatusDSLSection from "../../components/dsl/NodesStatusDSLSection";
 import NodesTypeDSLSection from "../../components/dsl/NodesTypeDSLSection";
 import NodesRegionDSLFilter from "../../components/dsl/NodesRegionDSLFilter";
 import NodesZoneDSLFilter from "../../components/dsl/NodesZoneDSLFilter";
 
 import NodesHealthFilter from "../../filters/NodesHealthFilter";
 import NodesRegionFilter from "../../filters/NodesRegionFilter";
+import NodesStatusFilter from "../../filters/NodesStatusFilter";
 import NodesZoneFilter from "../../filters/NodesZoneFilter";
 import NodesTextFilter from "../../filters/NodesTextFilter";
 import NodesTypeFilter from "../../filters/NodesTypeFilter";
@@ -28,6 +30,7 @@ const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
 const DSL_FORM_SECTIONS = [
   NodesHealthDSLSection,
   NodesTypeDSLSection,
+  NodesStatusDSLSection,
   NodesRegionDSLFilter,
   NodesZoneDSLFilter
 ];
@@ -42,7 +45,8 @@ class HostsPageContent extends React.PureComponent {
       filters: [
         new NodesHealthFilter(),
         new NodesTextFilter(),
-        new NodesTypeFilter()
+        new NodesTypeFilter(),
+        NodesStatusFilter
       ],
       defaultFilterData: { regions: [], zones: [] }
     };
@@ -130,6 +134,7 @@ class HostsPageContent extends React.PureComponent {
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
+      NodesStatusFilter,
       NodesRegionFilter,
       new NodesZoneFilter(newZones)
     ];

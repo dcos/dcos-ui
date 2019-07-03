@@ -41,5 +41,14 @@ export type Status = {
 };
 
 export const Status = {
+  // The filters to be displayed in the NodesPage.
+  // Should not be a concern of this module but feels still better than exporting
+  // the statuses.
+  filters: {
+    active,
+    deactivated,
+    draining,
+    drained
+  },
   fromNode
 };
