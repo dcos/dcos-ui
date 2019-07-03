@@ -1,7 +1,10 @@
 {
   "uiConfiguration": {
     "plugins": {
-      
+
+    },
+    "features": {
+      "maintenance": true
     }
   }
 }
