@@ -25,49 +25,23 @@ interface ServicesQuotaOverViewTableState {
   sortColumn: string;
 }
 
-function sortData(
-  groups: ServiceGroup[],
-  sortColumn: string,
-  sortDirection: SortDirection,
-  currentSortDirection?: SortDirection,
-  currentSortColumn?: string
-): ServicesQuotaOverViewTableState {
-  const copiedGroups = groups.slice();
-  if (sortColumn === currentSortColumn) {
-    return {
-      groups:
-        sortDirection === currentSortDirection
-          ? copiedGroups
-          : copiedGroups.reverse(),
-      sortColumn,
-      sortDirection
-    };
-  }
-
-  return {
-    groups: sort(copiedGroups, sortForColumn(sortColumn), {
-      reverse: sortDirection !== "ASC"
-    }),
-    sortColumn,
-    sortDirection
-  };
-}
-
-function sortForColumn(columnName: string): any {
+function sortForColumn(
+  columnName: string
+): (a: ServiceGroup, b: ServiceGroup) => number {
   switch (columnName) {
     case "name":
-      return (a: ServiceGroup, b: ServiceGroup) => a.name.localeCompare(b.name);
+      return (a, b) => a.name.localeCompare(b.name);
     case "cpus":
-      return (a: ServiceGroup, b: ServiceGroup) =>
+      return (a, b) =>
         getQuotaPercentage(a, "cpus") - getQuotaPercentage(b, "cpus");
     case "mem":
-      return (a: ServiceGroup, b: ServiceGroup) =>
+      return (a, b) =>
         getQuotaPercentage(a, "memory") - getQuotaPercentage(b, "memory");
     case "disk":
-      return (a: ServiceGroup, b: ServiceGroup) =>
+      return (a, b) =>
         getQuotaPercentage(a, "disk") - getQuotaPercentage(b, "disk");
     case "gpus":
-      return (a: ServiceGroup, b: ServiceGroup) =>
+      return (a, b) =>
         getQuotaPercentage(a, "gpus") - getQuotaPercentage(b, "gpus");
     default:
       return () => 0;
@@ -97,36 +71,33 @@ class ServicesQuotaOverviewTable extends React.Component<
       sortColumn: "name",
       sortDirection: "ASC"
     };
-
-    this.handleSortClick = this.handleSortClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps: ServicesQuotaOverviewTableProps) {
-    this.setState(
-      sortData(
-        nextProps.groups ? nextProps.groups : [],
-        this.state.sortColumn,
-        this.state.sortDirection
-      )
-    );
+    this.setState({ groups: this.sortData(nextProps.groups || []) });
   }
 
-  handleSortClick(columnName: string): void {
+  handleSortClick = (columnName: string) => () => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
         : "ASC";
 
-    this.setState(
-      sortData(
-        this.state.groups,
-        columnName,
-        toggledDirection,
-        this.state.sortDirection,
-        this.state.sortColumn
-      )
-    );
-  }
+    this.setState({
+      groups: this.sortData(this.state.groups, columnName, toggledDirection),
+      sortColumn: columnName,
+      sortDirection: toggledDirection
+    });
+  };
+
+  sortData = (
+    groups: ServiceGroup[],
+    sortColumn: string = this.state.sortColumn,
+    sortDirection: SortDirection = this.state.sortDirection
+  ): ServiceGroup[] =>
+    sort(groups.slice(), sortForColumn(sortColumn), {
+      reverse: sortDirection !== "ASC"
+    });
 
   render() {
     const { groups, sortColumn, sortDirection } = this.state;
@@ -139,7 +110,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             header={
               <SortableHeaderCell
                 columnContent={<Trans render="span">Name</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "name")}
+                sortHandler={this.handleSortClick("name")}
                 sortDirection={sortColumn === "name" ? sortDirection : null}
               />
             }
@@ -150,7 +121,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             header={
               <SortableHeaderCell
                 columnContent={<Trans render="span">CPU Consumed</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "cpus")}
+                sortHandler={this.handleSortClick("cpus")}
                 sortDirection={sortColumn === "cpus" ? sortDirection : null}
               />
             }
@@ -161,7 +132,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             header={
               <SortableHeaderCell
                 columnContent={<Trans render="span">Memory Consumed</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "mem")}
+                sortHandler={this.handleSortClick("mem")}
                 sortDirection={sortColumn === "mem" ? sortDirection : null}
               />
             }
@@ -172,7 +143,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             header={
               <SortableHeaderCell
                 columnContent={<Trans render="span">Disk Consumed</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "disk")}
+                sortHandler={this.handleSortClick("disk")}
                 sortDirection={sortColumn === "disk" ? sortDirection : null}
               />
             }
@@ -183,7 +154,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             header={
               <SortableHeaderCell
                 columnContent={<Trans render="span">GPU Consumed</Trans>}
-                sortHandler={this.handleSortClick.bind(null, "gpus")}
+                sortHandler={this.handleSortClick("gpus")}
                 sortDirection={sortColumn === "gpus" ? sortDirection : null}
               />
             }
