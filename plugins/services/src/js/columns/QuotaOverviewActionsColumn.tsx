@@ -8,8 +8,7 @@ import {
 
 import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
 
-// @ts-ignore
-export function actionsRenderer(group: ServiceGroup) {
+export function actionsRenderer(_group: ServiceGroup) {
   return (
     <Cell>
       <span className="icon-margin-right">

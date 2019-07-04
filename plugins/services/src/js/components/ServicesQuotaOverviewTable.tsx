@@ -3,10 +3,7 @@ import { Trans } from "@lingui/macro";
 import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";
 
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-
-import { ServiceGroup, QuotaResources } from "../types/ServiceGroup";
-
+import { ServiceGroup } from "../types/ServiceGroup";
 import { nameRenderer } from "../columns/QuotaOverviewNameColumn";
 import { cpuRenderer } from "../columns/QuotaOverviewCPUConsumedColumn";
 import { memRenderer } from "../columns/QuotaOverviewMemoryConsumedColumn";
@@ -25,6 +22,10 @@ interface ServicesQuotaOverViewTableState {
   sortColumn: string;
 }
 
+const compatatorFor = (prop: string) => (a: ServiceGroup, b: ServiceGroup) =>
+  ServiceGroup.getQuotaPercentage(a, prop) -
+  ServiceGroup.getQuotaPercentage(b, prop);
+
 function sortForColumn(
   columnName: string
 ): (a: ServiceGroup, b: ServiceGroup) => number {
@@ -32,31 +33,16 @@ function sortForColumn(
     case "name":
       return (a, b) => a.name.localeCompare(b.name);
     case "cpus":
-      return (a, b) =>
-        getQuotaPercentage(a, "cpus") - getQuotaPercentage(b, "cpus");
+      return compatatorFor("cpus");
     case "mem":
-      return (a, b) =>
-        getQuotaPercentage(a, "memory") - getQuotaPercentage(b, "memory");
+      return compatatorFor("memory");
     case "disk":
-      return (a, b) =>
-        getQuotaPercentage(a, "disk") - getQuotaPercentage(b, "disk");
+      return compatatorFor("disk");
     case "gpus":
-      return (a, b) =>
-        getQuotaPercentage(a, "gpus") - getQuotaPercentage(b, "gpus");
+      return compatatorFor("gpus");
     default:
       return () => 0;
   }
-}
-
-function getQuotaPercentage(group: ServiceGroup, resource: string) {
-  const resourceQuota: QuotaResources | undefined = findNestedPropertyInObject(
-    group.quota,
-    resource
-  );
-  if (!resourceQuota || !resourceQuota.consumed || !resourceQuota.limit) {
-    return 0;
-  }
-  return (resourceQuota.consumed / resourceQuota.limit) * 100;
 }
 
 class ServicesQuotaOverviewTable extends React.Component<
