@@ -128,10 +128,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             const group = groups.find(
               serviceTree => serviceTree.getId() === args.id
             );
-            if (group) {
-              return processServiceGroup(group);
-            }
-            return null;
+            return group ? processServiceGroup(group) : null;
           })
         );
       },

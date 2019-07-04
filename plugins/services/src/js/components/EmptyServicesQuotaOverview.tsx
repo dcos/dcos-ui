@@ -12,19 +12,16 @@ interface EmptyServicesQuotaOverviewProps {
 }
 
 class EmptyServicesQuotaOverview extends React.PureComponent<
-  EmptyServicesQuotaOverviewProps,
-  {}
+  EmptyServicesQuotaOverviewProps
 > {
   constructor(props: EmptyServicesQuotaOverviewProps) {
     super(props);
-
-    this.backToServices = this.backToServices.bind(this);
   }
-  backToServices() {
+  backToServices = () => {
     if (this.props.router) {
       this.props.router.push("/services/overview");
     }
-  }
+  };
   render() {
     const footer = (
       <div className="button-collection flush-bottom">
