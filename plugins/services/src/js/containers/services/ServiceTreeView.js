@@ -9,7 +9,7 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 
 import Page from "#SRC/js/components/Page";
-import Config from "#SRC/js/config/Config";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
 import EmptyServiceTree from "./EmptyServiceTree";
@@ -66,7 +66,9 @@ class ServiceTreeView extends React.Component {
   }
 
   getTabs() {
-    if (!Config.features || !Config.features.quota) {
+    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
+
+    if (!quota) {
       return [];
     }
     const { serviceTree } = this.props;
