@@ -28,12 +28,12 @@ const ServicesQuotaOverview = componentFromStream(() => {
       { groupsFilter: JSON.stringify({ quota: { enforced: true } }) }
     )
     .pipe(
-      map(response => response.data.groups),
-      map(groups => {
-        if (groups.length === 0) {
-          return <EmptyServicesQuotaOverview />;
-        }
-        return <ServicesQuotaOverviewTable groups={groups} />;
+      map(({ data: { groups } }) => {
+        return groups.length > 0 ? (
+          <ServicesQuotaOverviewTable groups={groups} />
+        ) : (
+          <EmptyServicesQuotaOverview />
+        );
       }),
       catchError(() => of(<div>Error getting groups with Quota</div>)),
       startWith(<Loader />)
