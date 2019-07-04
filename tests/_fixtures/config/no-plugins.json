@@ -1,10 +1,11 @@
 {
   "uiConfiguration": {
+    "features": {
+      "maintenance": true,
+      "quota": true
+    },
     "plugins": {
 
-    },
-    "features": {
-      "maintenance": true
     }
   }
 }
