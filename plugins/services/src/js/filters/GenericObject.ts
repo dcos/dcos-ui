@@ -1,35 +1,15 @@
-export function filterByObject(
-  value: Record<string, unknown>,
-  filterObj: Record<string, unknown>
-): boolean {
-  for (let key in filterObj) {
-    if (key.length === 0) {
-      continue;
-    }
-    if (!(key in value)) {
-      if (filterObj[key] === undefined) {
-        continue;
-      }
-      return false;
-    }
-    if (typeof filterObj[key] === typeof value[key]) {
-      if (typeof value[key] === "object") {
-        if (value[key] instanceof Array) {
-          //TODO: Support arrays
-          continue;
-        } else if (
-          !filterByObject(value[key] as object, filterObj[key] as object)
-        ) {
-          return false;
-        }
-        continue;
-      }
-      if (value[key] !== filterObj[key]) {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-  return true;
+type Rec = Record<string, unknown>;
+
+export function filterByObject(containing: Rec, shouldBePresent: Rec): boolean {
+  const presentKeys = Object.keys(containing);
+  const shouldBePresentEntries = Object.entries(shouldBePresent);
+
+  return shouldBePresentEntries.every(([key, value]) =>
+    presentKeys.includes(key) ? matches(containing[key], value) : false
+  );
 }
+
+const matches = (a: unknown, b: unknown) =>
+  isRecord(a) && isRecord(b) ? filterByObject(a, b) : a === b;
+
+const isRecord = (a: unknown): a is Rec => typeof a === "object" && a !== null;
