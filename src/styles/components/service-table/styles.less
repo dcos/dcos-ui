@@ -60,6 +60,15 @@
   .status-waiting-indicator {
     margin-left: @base-spacing-unit * 1/4;
   }
+
+  .quota-info {
+    margin-bottom: @base-spacing-unit;
+
+    span {
+      font-size: 14px;
+      margin-left: @base-spacing-unit * 1/3;
+    }
+  }
 }
 
 & when (@service-table-enabled) and (@layout-screen-small-enabled) {

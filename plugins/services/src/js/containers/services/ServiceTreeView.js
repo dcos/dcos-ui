@@ -4,6 +4,9 @@ import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
+import { InfoBoxInline, Icon } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
@@ -51,6 +54,52 @@ class ServiceTreeView extends React.Component {
           />
         </div>
       </div>
+    );
+  }
+
+  getNoLimitInfobox() {
+    const { serviceTree } = this.props;
+
+    // TODO: remove feature flag
+    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
+    const { rolesCount, groupRolesCount } = serviceTree.getRoleLength();
+
+    if (
+      !quota ||
+      !serviceTree ||
+      serviceTree.id === "/" ||
+      !serviceTree.getEnforceRole() ||
+      rolesCount === groupRolesCount
+    ) {
+      return null;
+    }
+
+    return (
+      <InfoBoxInline
+        className="quota-info"
+        appearance="default"
+        message={
+          <React.Fragment>
+            <Icon
+              shape={SystemIcons.CircleInformation}
+              size={iconSizeXs}
+              color="currentColor"
+            />
+            {serviceTree.list.length === 1 ? (
+              <Trans render="span">
+                1 of 1 service does not have limit. Please upgrade to be
+                included in quota.
+              </Trans>
+            ) : (
+              <Trans render="span">
+                {rolesCount - groupRolesCount} of {serviceTree.list.length}{" "}
+                services do not have limit. Please upgrade to be included in
+                quota.
+              </Trans>
+            )}
+          </React.Fragment>
+        }
+      />
     );
   }
 
@@ -117,6 +166,8 @@ class ServiceTreeView extends React.Component {
       serviceTree.id === ROOT_ID
         ? "/services/overview/create"
         : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
+    const isRoleEnforced =
+      serviceTree.id !== "/" && serviceTree.getEnforceRole();
 
     const createService = () => {
       this.context.router.push(routePath);
@@ -159,13 +210,16 @@ class ServiceTreeView extends React.Component {
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
           {this.getSearchHeader()}
+          {this.getNoLimitInfobox()}
           <ServicesTable
             isFiltered={filterExpression.defined}
+            isRoleEnforced={isRoleEnforced}
             modalHandlers={modalHandlers}
             services={services}
             hideTable={this.context.router.routes.some(
               ({ isFullscreenModal }) => isFullscreenModal
             )}
+            serviceTreeId={serviceTree.id}
           />
         </div>
         {children}

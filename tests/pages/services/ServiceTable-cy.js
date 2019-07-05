@@ -627,4 +627,26 @@ describe("Service Table", function() {
       cy.get(".tooltip").contains("1 Stopped");
     });
   });
+
+  context("Quota groups", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("Shows no limit banner and badge if services have no quota enforced", function() {
+      cy.get(".table-cell-link-primary")
+        .contains("2_apps")
+        .click();
+      cy.get(".quota-info")
+        .contains("Please upgrade to be included in quota.")
+        .should("exist");
+      cy.get(".quota-no-limit")
+        .contains("No Limit")
+        .should("exist");
+    });
+  });
 });
