@@ -224,7 +224,7 @@ describe("Service Form Modal", function() {
             .contains("Placement")
             .click();
 
-          cy.get(".menu-tabbed-item")
+          cy.get(".modal-wrapper .menu-tabbed-item")
             .contains("Service")
             .click();
 
@@ -1986,7 +1986,7 @@ describe("Service Form Modal", function() {
 
     context("Multi-container (pod)", function() {
       beforeEach(function() {
-        cy.get(".menu-tabbed-item-label")
+        cy.get(".modal-wrapper .menu-tabbed-item-label")
           .eq(0)
           .click()
           .get(".menu-tabbed-view h1")
