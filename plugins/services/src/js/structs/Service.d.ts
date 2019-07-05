@@ -21,5 +21,6 @@ export default class Service extends Item {
   getRunningInstancesCount(): number;
   getTasksSummary(): object;
   getResources(): any;
+  getRole(): string;
   toJSON(): any;
 }

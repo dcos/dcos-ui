@@ -12,4 +12,5 @@ export default class Pod extends Service {
   getVolumesData(): any;
   getRegions(): any;
   isDelayed(): boolean;
+  getRole(): string;
 }

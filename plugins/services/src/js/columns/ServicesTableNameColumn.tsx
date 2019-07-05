@@ -1,6 +1,8 @@
 import * as React from "react";
-import { TextCell, Icon } from "@dcos/ui-kit";
+import { TextCell, Icon, Badge } from "@dcos/ui-kit";
 import { Link } from "react-router";
+import { Trans } from "@lingui/macro";
+
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
@@ -14,19 +16,25 @@ import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
 import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+//@ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 const ServiceName = React.memo(
   ({
     isFiltered,
+    isRoleEnforced,
     id,
     isGroup,
+    isNoLimit,
     name,
     image,
     webUrl
   }: {
     isFiltered: boolean;
+    isRoleEnforced: boolean;
     id: string;
     isGroup: boolean;
+    isNoLimit: boolean;
     name: string;
     image: string | null;
     webUrl: string | null;
@@ -35,16 +43,33 @@ const ServiceName = React.memo(
       ? `/services/overview/${id}`
       : `/services/detail/${id}`;
 
+    // TODO: remove feature flag
+    //@ts-ignore
+    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
+
+    const badge =
+      isRoleEnforced && isNoLimit && quota ? (
+        <Badge>
+          <Trans render="span" className="quota-no-limit">
+            No Limit
+          </Trans>
+        </Badge>
+      ) : null;
+
     return (
       <TextCell>
         <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
           <Link className="table-cell-icon" to={serviceLink}>
             {getImage(image, isGroup)}
           </Link>
-          <span className="table-cell-value table-cell-flex-box">
+          <span
+            className="table-cell-value table-cell-flex-box"
+            style={{ marginRight: "7px" }}
+          >
             {getServiceLink(id, name, isGroup, isFiltered)}
             {getOpenInNewWindowLink(webUrl)}
           </span>
+          {badge}
         </div>
       </TextCell>
     );
@@ -53,6 +78,7 @@ const ServiceName = React.memo(
 
 export function nameRenderer(
   isFiltered: boolean,
+  isRoleEnforced: boolean,
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
   // These do not work with instanceof ServiceTree due to TS
@@ -65,14 +91,27 @@ export function nameRenderer(
       ? service.getWebURL()
       : null;
 
+  const IDArray = service.getId().split("/");
+  // If the service is in a top-level group,
+  // IDArray would look like ["","group-name","service-name"]
+
+  const isNoLimit =
+    service instanceof Pod || service instanceof Service
+      ? IDArray.length > 2 &&
+        service.getRole() !== IDArray[1] &&
+        service.getName() === IDArray[2]
+      : false;
+
   return (
     <ServiceName
       id={encodeURIComponent(service.getId().toString())}
       isGroup={service instanceof ServiceTree}
+      isNoLimit={isNoLimit}
       name={service.getName()}
       image={image}
       webUrl={webUrl}
       isFiltered={isFiltered}
+      isRoleEnforced={isRoleEnforced}
     />
   );
 }

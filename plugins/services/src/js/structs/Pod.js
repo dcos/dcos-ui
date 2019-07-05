@@ -248,4 +248,8 @@ module.exports = class Pod extends Service {
     const queue = this.getQueue();
     return findNestedPropertyInObject(queue, "delay.overdue") === false;
   }
+
+  getRole() {
+    return this.get("role") || "";
+  }
 };
