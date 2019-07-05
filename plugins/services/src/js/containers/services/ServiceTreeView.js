@@ -67,8 +67,12 @@ class ServiceTreeView extends React.Component {
 
   getTabs() {
     const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
+    // Workaround for Cypress.
+    const createModalOpen = this.context.router.routes.some(
+      ({ isFullscreenModal }) => isFullscreenModal
+    );
 
-    if (!quota) {
+    if (!quota || createModalOpen) {
       return [];
     }
     const { serviceTree } = this.props;
