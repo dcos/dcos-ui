@@ -14,10 +14,6 @@ describe("GenericObject", () => {
       expect(filterByObject({ foo: true }, { foo: false })).toEqual(false);
       expect(filterByObject({ foo: true }, { foo: true })).toEqual(true);
     });
-    it("can filter for undefined", () => {
-      expect(filterByObject({ foo: true }, { foo: undefined })).toEqual(false);
-      expect(filterByObject({ foo: true }, { bar: undefined })).toEqual(false);
-    });
     it("can filter deeply nested keys", () => {
       expect(
         filterByObject(
@@ -33,7 +29,7 @@ describe("GenericObject", () => {
       ).toEqual(false);
     });
     it("can filter on multiple keys", () => {
-      expect(
+          expect(
         filterByObject({ foo: true, bar: "baz" }, { foo: true, bar: "baz" })
       ).toEqual(true);
       expect(
