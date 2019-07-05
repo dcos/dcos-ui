@@ -250,7 +250,7 @@ class PodInstancesTable extends React.Component {
       const addressComponents = container
         .getEndpoints()
         .map(function(endpoint, i) {
-          return (
+          return [
             <a
               className="text-muted"
               href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
@@ -259,8 +259,9 @@ class PodInstancesTable extends React.Component {
               title="Open in a new window"
             >
               {endpoint.allocatedHostPort}
-            </a>
-          );
+            </a>,
+            " "
+          ];
         });
 
       return {
