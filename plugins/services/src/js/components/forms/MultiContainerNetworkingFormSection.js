@@ -602,7 +602,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     const networkTypeTooltipContent = (
       <Trans render="span">
-        Choose BRIDGE, HOST, or USER networking. Refer to the{" "}
+        Refer to the{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
