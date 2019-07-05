@@ -97,7 +97,7 @@
     "@types/events": "1.2.0",
     "@types/graphql": "14.0.7",
     "@types/jest": "22.2.3",
-    "@types/lingui__core": "2.2.1",
+    "@types/lingui__core": "2.7.0",
     "@types/lingui__macro": "2.7.2",
     "@types/lingui__react": "2.5.2",
     "@types/lodash.isequal": "4.5.5",
