@@ -10,9 +10,9 @@ describe("Service Table", function() {
     cy.get(".ReactVirtualized__Grid")
       .eq(-1) // bottom right grid
       .scrollTo("right"); // scroll to the actions column
-    cy.get(".dropdown").should("not.to.have.length", 1);
-    cy.get(".dropdown")
-      .eq(1)
+    cy.get(".actions-dropdown").should("not.to.have.length", 0);
+    cy.get(".actions-dropdown")
+      .eq(0)
       .click();
   }
 
