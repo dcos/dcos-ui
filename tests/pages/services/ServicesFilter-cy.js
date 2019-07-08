@@ -112,7 +112,13 @@ describe("Services Filter", function() {
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
-        .should("deep.equal", ["group-with-pods", "net", "podEFGH"]);
+        .should("deep.equal", [
+          "10_apps",
+          "10000_apps",
+          "group-with-pods",
+          "net",
+          "podEFGH"
+        ]);
     });
   });
 
