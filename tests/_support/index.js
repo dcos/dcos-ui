@@ -31,7 +31,8 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     configuration.mesos === "1-task-healthy" ||
     configuration.mesos === "1-task-healthy-with-region" ||
     configuration.mesos === "1-task-healthy-with-offers" ||
-    configuration.mesos === "1-task-delayed"
+    configuration.mesos === "1-task-delayed" ||
+    configuration.mesos === "1-task-healthy-with-quota"
   ) {
     cy.route({
       method: "POST",
@@ -88,6 +89,10 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/delayed-queue"
       );
+    }
+
+    if (configuration.mesos === "1-task-healthy-with-quota") {
+      router.route(/mesos\/roles/, "fx:quota-management/roles");
     }
   }
 
