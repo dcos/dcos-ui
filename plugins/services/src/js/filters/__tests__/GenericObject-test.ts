@@ -29,7 +29,7 @@ describe("GenericObject", () => {
       ).toEqual(false);
     });
     it("can filter on multiple keys", () => {
-          expect(
+      expect(
         filterByObject({ foo: true, bar: "baz" }, { foo: true, bar: "baz" })
       ).toEqual(true);
       expect(
