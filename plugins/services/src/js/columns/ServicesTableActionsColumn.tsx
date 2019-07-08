@@ -78,7 +78,7 @@ function renderServiceActionsDropdown(
       dropdownMenuClassName="dropdown-menu"
       dropdownMenuListClassName="dropdown-menu-list"
       dropdownMenuListItemClassName="clickable"
-      wrapperClassName="dropdown flush-bottom table-cell-icon"
+      wrapperClassName="dropdown flush-bottom table-cell-icon actions-dropdown"
       items={actions}
       persistentID={MORE}
       onItemSelection={onActionsItemSelection.bind(
