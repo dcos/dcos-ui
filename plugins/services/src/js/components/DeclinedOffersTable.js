@@ -23,7 +23,7 @@ import Units from "#SRC/js/utils/Units";
 import DeclinedOffersReasons from "../constants/DeclinedOffersReasons";
 
 class DeclinedOffersTable extends React.Component {
-  areResourcesUnmatched(requestedResource, receivedResource) {
+  areResourcesMatched(requestedResource, receivedResource) {
     if (Array.isArray(receivedResource)) {
       return receivedResource.includes(requestedResource);
     }
@@ -101,7 +101,7 @@ class DeclinedOffersTable extends React.Component {
     return (prop, row) => {
       const { unmatchedResource = [] } = row;
       const isResourceUnmatched = unmatchedResource.includes(resource);
-      const receivedResourceClasses = classNames({
+      let receivedResourceClasses = classNames({
         "text-danger": isResourceUnmatched
       });
 
@@ -114,17 +114,18 @@ class DeclinedOffersTable extends React.Component {
 
       if (isResourceUnmatched) {
         icon = <Icon color={red} shape={SystemIcons.Close} size={iconSizeXs} />;
-
         if (
           unmatchedResource.includes(DeclinedOffersReasons.UNFULFILLED_ROLE) &&
-          this.areResourcesUnmatched(requestedResource, receivedResource)
+          this.areResourcesMatched(requestedResource, receivedResource)
         ) {
+          receivedResourceClasses = "";
+
           requestedResourceSuffix = (
             <Trans render="span">(Role: {summary.roles.requested})</Trans>
           );
           receivedResourceSuffix = (
             <Trans className="text-nowrap" render="span">
-              (Role: {row.offered.roles})
+              (Role: <span className="text-danger">{row.offered.roles}</span>)
             </Trans>
           );
         }
