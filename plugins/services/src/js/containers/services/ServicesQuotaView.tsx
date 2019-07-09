@@ -25,16 +25,29 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
   static propTypes = {
     serviceTree: PropTypes.instanceOf(ServiceTree)
   };
+  constructor(props: ServicesQuotaViewProps) {
+    super(props);
+
+    this.getTabs = this.getTabs.bind(this);
+  }
 
   getTabs() {
+    const { serviceTree } = this.props;
+
     return [
       {
         label: i18nMark("Services"),
-        routePath: "/services/overview"
+        routePath:
+          serviceTree.getId() === "/"
+            ? "/services/overview"
+            : `/services/overview/${encodeURIComponent(serviceTree.getId())}`
       },
       {
         label: i18nMark("Quota"),
-        routePath: "/services/quota"
+        routePath:
+          serviceTree.getId() === "/"
+            ? "/services/quota"
+            : `/services/quota/${encodeURIComponent(serviceTree.getId())}`
       }
     ];
   }
