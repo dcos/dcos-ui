@@ -28,7 +28,7 @@ class VirtualNetworkDetailsTab extends React.Component {
                 <Trans render="span">IP Subnet</Trans>
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
-                {overlay.getSubnet()}
+                {overlay.getSubnet() || overlay.getSubnet6()}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>
