@@ -14,8 +14,6 @@ import { gpuRenderer } from "../columns/QuotaOverviewGPUConsumedColumn";
 
 import { SortDirection } from "../types/SortDirection";
 
-import Loader from "#SRC/js/components/Loader";
-
 export interface ServicesQuotaOverviewTableProps {
   groups: ServiceGroup[];
 }
