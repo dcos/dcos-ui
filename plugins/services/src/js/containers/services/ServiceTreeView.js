@@ -29,6 +29,8 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
+const EMPTY_DIR = "/";
+
 class ServiceTreeView extends React.Component {
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
@@ -76,15 +78,24 @@ class ServiceTreeView extends React.Component {
       return [];
     }
     const { serviceTree } = this.props;
-    if (serviceTree.id === "/") {
+    if (
+      serviceTree.getId() === EMPTY_DIR ||
+      typeof serviceTree.getEnforceRole() === "boolean"
+    ) {
       return [
         {
           label: i18nMark("Services"),
-          routePath: "/services/overview"
+          routePath:
+            serviceTree.id === EMPTY_DIR
+              ? "/services/overview"
+              : `/services/overview/${encodeURIComponent(serviceTree.id)}`
         },
         {
           label: i18nMark("Quota"),
-          routePath: "/services/quota"
+          routePath:
+            serviceTree.id === EMPTY_DIR
+              ? "/services/quota"
+              : `/services/quota/${encodeURIComponent(serviceTree.id)}`
         }
       ];
     }
@@ -103,7 +114,7 @@ class ServiceTreeView extends React.Component {
     const { modalHandlers } = this.context;
     // Only add id if service is not root
     const routePath =
-      serviceTree.id === "/"
+      serviceTree.id === EMPTY_DIR
         ? "/services/overview/create"
         : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
 
