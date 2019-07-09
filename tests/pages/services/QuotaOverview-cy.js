@@ -70,6 +70,14 @@ describe("Quota Tab", function() {
         cy.get(".quota-table").should("exist");
       });
 
+      it("Shows the info banner for services with no limit", function() {
+        cy.get(".quota-info")
+          .contains(
+            "1 group has services not limited by quota. Update service roles to have quota enforced."
+          )
+          .should("exist");
+      });
+
       it("Shows the correct headings", function() {
         cy.get(".ReactVirtualized__Grid")
           .eq(0)

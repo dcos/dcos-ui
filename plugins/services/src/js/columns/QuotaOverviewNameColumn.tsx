@@ -1,12 +1,13 @@
-import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
+import * as React from "react";
 import { Icon, TextCell } from "@dcos/ui-kit";
 import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import * as React from "react";
 import { Link } from "react-router";
+
+import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
 
 export function nameRenderer(group: ServiceGroup) {
   const serviceLink = `/services/quota/${encodeURIComponent(group.id)}`;
@@ -18,7 +19,7 @@ export function nameRenderer(group: ServiceGroup) {
           <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
         </span>
         <Link
-          className="table-cell-value table-cell-flex-box table-cell-link-primary"
+          className="table-cell-value table-cell-flex-box table-cell-link-primary table-content-spacing-right"
           to={serviceLink}
         >
           {group.name}

@@ -1,6 +1,14 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
-import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
+import {
+  Column,
+  Table,
+  SortableHeaderCell,
+  InfoBoxInline,
+  Icon
+} from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import sort from "array-sort";
 
 import Loader from "#SRC/js/components/Loader";
@@ -93,6 +101,44 @@ class ServicesQuotaOverviewTable extends React.Component<
       reverse: sortDirection !== "ASC"
     });
 
+  getNoLimitInfobox() {
+    const { groups } = this.state;
+    const noLimitGroups = groups.filter(
+      group => group.quota && group.quota.limitStatus !== "Enforced"
+    );
+
+    if (!noLimitGroups.length) {
+      return null;
+    }
+
+    return (
+      <InfoBoxInline
+        className="quota-info"
+        appearance="default"
+        message={
+          <React.Fragment>
+            <Icon
+              shape={SystemIcons.CircleInformation}
+              size={iconSizeXs}
+              color="currentColor"
+            />
+            {noLimitGroups.length === 1 ? (
+              <Trans render="span">
+                1 group has services not limited by quota. Update service roles
+                to have quota enforced.
+              </Trans>
+            ) : (
+              <Trans render="span">
+                {noLimitGroups.length} groups have services not limited by
+                quota. Update service roles to have quota enforced.
+              </Trans>
+            )}
+          </React.Fragment>
+        }
+      />
+    );
+  }
+
   render() {
     const { groups, sortColumn, sortDirection } = this.state;
 
@@ -102,6 +148,7 @@ class ServicesQuotaOverviewTable extends React.Component<
 
     return (
       <div className="table-wrapper quota-table">
+        {this.getNoLimitInfobox()}
         <Table data={groups}>
           <Column
             key="name"

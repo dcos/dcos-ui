@@ -253,6 +253,137 @@ describe("Services Data Layer - Groups", () => {
         m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
       })
     );
+
+    it(
+      "aggregates roles",
+      marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonRoleGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesAll)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
+        const query = gql`
+          query {
+            groups {
+              id
+              name
+              quota
+            }
+          }
+        `;
+        const expected$ = m.cold("(a|)", {
+          a: {
+            data: {
+              groups: [
+                {
+                  id: "/dev",
+                  name: "dev",
+                  quota: {
+                    enforced: true,
+                    limitStatus: "Enforced",
+                    serviceRoles: {
+                      count: 2,
+                      groupRoleCount: 2
+                    },
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                },
+                {
+                  id: "/staging",
+                  name: "staging",
+                  quota: {
+                    enforced: true,
+                    limitStatus: "Partially Enforced",
+                    serviceRoles: {
+                      count: 2,
+                      groupRoleCount: 1
+                    },
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                },
+                {
+                  id: "/prod",
+                  name: "prod",
+                  quota: {
+                    enforced: true,
+                    limitStatus: "Not Enforced",
+                    serviceRoles: {
+                      count: 1,
+                      groupRoleCount: 0
+                    },
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        });
+        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
+      })
+    );
   });
 
   describe("Query - group", () => {
