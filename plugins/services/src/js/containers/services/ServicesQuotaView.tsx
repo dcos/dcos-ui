@@ -44,10 +44,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       },
       {
         label: i18nMark("Quota"),
-        routePath:
-          serviceTree.getId() === "/"
-            ? "/services/quota"
-            : `/services/quota/${encodeURIComponent(serviceTree.getId())}`
+        routePath: "/services/quota"
       }
     ];
   }
