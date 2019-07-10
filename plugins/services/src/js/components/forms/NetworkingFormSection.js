@@ -709,7 +709,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     const tooltipContent = (
       <Trans>
-        Choose container/bridge, host, or container networking. Refer to the{" "}
+        Refer to the{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
