@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "scripts": {},
   "dependencies": {
-    "@dcos/http-service": "2.0.0"
+    "@dcos/http-service": "2.3.2"
   },
   "peerDependencies": {
     "rxjs": "^6.3.3"
