@@ -172,7 +172,7 @@
     "semantic-release-jira": "1.2.3",
     "speed-measure-webpack-plugin": "1.2.2",
     "style-loader": "0.20.1",
-    "stylelint": "7.2.0",
+    "stylelint": "^7.13.0",
     "stylelint-config-dcos": "0.0.3",
     "ts-jest": "22.4.6",
     "ts-loader": "5.3.3",
