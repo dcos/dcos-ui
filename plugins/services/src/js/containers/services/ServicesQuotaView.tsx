@@ -68,7 +68,6 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       id === ROOT_ID ? (
         <ServicesQuotaOverview />
       ) : (
-        //@ts-ignore
         <ServicesQuotaOverviewDetail id={id} />
       );
 

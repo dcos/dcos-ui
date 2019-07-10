@@ -123,7 +123,9 @@ export interface ServicesQuotaOverviewDetailProps {
   id: string;
 }
 
-const ServicesQuotaOverviewDetail = componentFromStream(props$ => {
+const ServicesQuotaOverviewDetail = componentFromStream<
+  ServicesQuotaOverviewDetailProps
+>(props$ => {
   const dl = container.get<DataLayer>(DataLayerType);
   const id$ = (props$ as Observable<ServicesQuotaOverviewDetailProps>).pipe(
     map(props => props.id),
