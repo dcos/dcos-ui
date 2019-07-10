@@ -85,10 +85,7 @@ class ServiceTreeView extends React.Component {
       return [
         {
           label: i18nMark("Services"),
-          routePath:
-            serviceTree.id === EMPTY_DIR
-              ? "/services/overview"
-              : `/services/overview/${encodeURIComponent(serviceTree.id)}`
+          routePath: "/services/overview"
         },
         {
           label: i18nMark("Quota"),
