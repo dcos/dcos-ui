@@ -8,7 +8,7 @@
     "rxjs": "^6.3.3"
   },
   "dependencies": {
-    "@dcos/http-service": "2.0.0"
+    "@dcos/http-service": "2.3.2"
   },
   "devDependencies": {
     "@types/events": "1.2.0",
