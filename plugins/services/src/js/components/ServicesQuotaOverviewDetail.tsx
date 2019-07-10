@@ -69,11 +69,22 @@ function getQuotaConsumedOfLimit(
   );
 }
 
+const titleFor = (resource: string): string => {
+  switch (resource) {
+    case "cpus":
+      return "CPUs";
+    case "gpus":
+      return "GPUs";
+    case "disk":
+      return "Disk";
+    case "memory":
+      return "Memory";
+  }
+  return "";
+};
+
 function getCard(group: ServiceGroup, resource: string): React.ReactNode {
-  const title =
-    resource === "cpus" || resource === "gpus"
-      ? resource.slice(0, -1).toUpperCase()
-      : resource[0].toUpperCase() + resource.slice(1);
+  const title = titleFor(resource);
   const percent = getQuotaPercentage(group, resource);
   const className = `color-${ResourcesUtil.getResourceColor(
     resource === "memory" ? "mem" : resource
@@ -108,13 +119,13 @@ function getCard(group: ServiceGroup, resource: string): React.ReactNode {
   );
 }
 
-export interface ServicesQuotaOverviewProps {
+export interface ServicesQuotaOverviewDetailProps {
   id: string;
 }
 
 const ServicesQuotaOverviewDetail = componentFromStream(props$ => {
   const dl = container.get<DataLayer>(DataLayerType);
-  const id$ = (props$ as Observable<ServicesQuotaOverviewProps>).pipe(
+  const id$ = (props$ as Observable<ServicesQuotaOverviewDetailProps>).pipe(
     map(props => props.id),
     distinctUntilChanged()
   );

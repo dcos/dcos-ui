@@ -9,9 +9,7 @@ import * as React from "react";
 import { Link } from "react-router";
 
 export function nameRenderer(group: ServiceGroup) {
-  const serviceLink = `/services/quota/${encodeURIComponent(
-    group.id.toString()
-  )}`;
+  const serviceLink = `/services/quota/${encodeURIComponent(group.id)}`;
 
   return (
     <TextCell>
