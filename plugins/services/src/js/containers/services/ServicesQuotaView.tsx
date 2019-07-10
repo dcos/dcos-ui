@@ -13,7 +13,7 @@ import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewD
 
 import ServiceTree from "../../structs/ServiceTree";
 
-const EMPTY_ID = "/";
+const ROOT_ID = "/";
 
 interface ServicesQuotaViewProps {
   serviceTree: ServiceTree;
@@ -48,7 +48,10 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       },
       {
         label: i18nMark("Quota"),
-        routePath: "/services/quota"
+        routePath:
+          serviceTree.getId() === "/"
+            ? "/services/quota"
+            : `/services/quota/${encodeURIComponent(serviceTree.getId())}`
       }
     ];
   }
@@ -62,7 +65,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
     const content =
-      id === EMPTY_ID ? (
+      id === ROOT_ID ? (
         <ServicesQuotaOverview />
       ) : (
         //@ts-ignore
