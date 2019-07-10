@@ -9,7 +9,11 @@ import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicato
 //@ts-ignore
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServicesQuotaOverview from "../../components/ServicesQuotaOverview";
+import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewDetail";
+
 import ServiceTree from "../../structs/ServiceTree";
+
+const EMPTY_ID = "/";
 
 interface ServicesQuotaViewProps {
   serviceTree: ServiceTree;
@@ -57,8 +61,13 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     };
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
-    //@ts-ignore
-    const content = <ServicesQuotaOverview id={id} />;
+    const content =
+      id === EMPTY_ID ? (
+        <ServicesQuotaOverview />
+      ) : (
+        //@ts-ignore
+        <ServicesQuotaOverviewDetail id={id} />
+      );
 
     return (
       <Page dontScroll={true} flushBottom={true}>
