@@ -1,11 +1,11 @@
 .quota-details {
   display: flex;
   margin: auto;
-  margin-top: @base-spacing-unit * 0.5;
+  margin-top: @base-spacing-unit * 1/2;
   width: @quota-details-width;
 
   .quota-card {
-    margin: @quota-card-margin;
+    margin: auto;
     text-align: center;
     width: @quota-card-width;
 
@@ -19,13 +19,33 @@
     }
 
     .quota-card-label {
-      margin-bottom: @base-spacing-unit * 0.5;
+      margin-bottom: @base-spacing-unit * 1/2;
     }
 
     .quota-progress-bar {
       margin: auto;
       margin-bottom: @base-spacing-unit * 2;
       width: @quota-progress-bar-width;
+    }
+  }
+}
+
+@media screen and (max-width: 1700px) {
+
+  .quota-details {
+
+    .quota-card {
+      margin: @base-spacing-unit * 1/2;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  .quota-details {
+
+    .quota-card {
+      margin: @base-spacing-unit * 1/4;
     }
   }
 }
