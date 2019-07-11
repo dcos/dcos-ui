@@ -19,7 +19,9 @@ import ServiceTree from "../../../structs/ServiceTree";
 import MarathonUtil from "../../../utils/MarathonUtil";
 
 const marathonGroups = require("./_fixtures/marathon-groups.json");
+const marathonRoleGroups = require("./_fixtures/marathon-groups-with-roles.json");
 const rolesDev = require("./_fixtures/roles-dev.json");
+const rolesAll = require("./_fixtures/roles-all.json");
 
 function makeServiceTree(groupsResponse = {}): ServiceTree {
   return new ServiceTree(MarathonUtil.parseGroups(groupsResponse));
@@ -31,7 +33,6 @@ describe("Services Data Layer - Groups", () => {
   beforeEach(() => {
     container = createTestContainer();
     dl = container.get<DataLayer>(DataLayerType);
-
     jest.clearAllMocks();
   });
 
@@ -259,6 +260,137 @@ describe("Services Data Layer - Groups", () => {
         ).toBeObservable(expected$);
       })
     );
+
+    it(
+      "aggregates roles",
+      marbles(m => {
+        const marathonServiceTree = makeServiceTree(marathonRoleGroups);
+        const roles$ = m.cold("(a|)", {
+          a: {
+            code: 200,
+            message: "OK",
+            response: JSON.stringify(rolesAll)
+          }
+        });
+        mockMarathonGet.mockReturnValue(marathonServiceTree);
+        mockRequest.mockReturnValue(roles$);
+
+        const query = gql`
+          query {
+            groups {
+              id
+              name
+              quota
+            }
+          }
+        `;
+        const expected$ = m.cold("(a|)", {
+          a: {
+            data: {
+              groups: [
+                {
+                  id: "/dev",
+                  name: "dev",
+                  quota: {
+                    enforced: true,
+                    limitStatus: "Enforced",
+                    serviceRoles: {
+                      count: 2,
+                      groupRoleCount: 2
+                    },
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                },
+                {
+                  id: "/staging",
+                  name: "staging",
+                  quota: {
+                    enforced: true,
+                    limitStatus: "Partially Enforced",
+                    serviceRoles: {
+                      count: 2,
+                      groupRoleCount: 1
+                    },
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                },
+                {
+                  id: "/prod",
+                  name: "prod",
+                  quota: {
+                    enforced: true,
+                    limitStatus: "Not Enforced",
+                    serviceRoles: {
+                      count: 1,
+                      groupRoleCount: 0
+                    },
+                    cpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    memory: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    disk: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    },
+                    gpus: {
+                      guarantee: 0,
+                      limit: 0,
+                      consumed: 0
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        });
+        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
+      })
+    );
   });
 
   describe("Query - group", () => {
@@ -291,6 +423,11 @@ describe("Services Data Layer - Groups", () => {
                 id: "/dev",
                 quota: {
                   enforced: true,
+                  limitStatus: "Enforced",
+                  serviceRoles: {
+                    count: 0,
+                    groupRoleCount: 0
+                  },
                   cpus: {
                     guarantee: 0,
                     limit: 0,
@@ -339,40 +476,6 @@ describe("Services Data Layer - Groups", () => {
           "Group resolver arguments aren't valid for type ServiceGroupQueryArgs"
         );
         m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
-      })
-    );
-
-    // Skip until our reactive graphql can be updated through data-service
-    it.skip(
-      "returns undefined if group not found",
-      marbles(m => {
-        const marathonServiceTree = makeServiceTree(marathonGroups);
-        const roles$ = m.cold("(a|)", {
-          a: {
-            code: 200,
-            message: "OK",
-            response: JSON.stringify(rolesDev)
-          }
-        });
-        mockMarathonGet.mockReturnValue(marathonServiceTree);
-        mockRequest.mockReturnValue(roles$);
-
-        const query = gql`
-          query {
-            group(id: "/test") {
-              id
-              quota
-            }
-          }
-        `;
-        const expected$ = m.cold("(a|)", {
-          a: {
-            data: {
-              group: undefined
-            }
-          }
-        });
-        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
       })
     );
   });

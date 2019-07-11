@@ -10,9 +10,15 @@ import {
 
 import { fetchServiceGroups, fetchRoles } from "./fetchers";
 import ServiceTree from "../../structs/ServiceTree";
-import { ServiceGroup, ServiceGroupQuota } from "../../types/ServiceGroup";
+import {
+  ServiceGroup,
+  ServiceGroupQuota,
+  ServiceGroupQuotaLimit,
+  ServiceGroupQuotaRoles
+} from "../../types/ServiceGroup";
 import { MesosRole } from "../../types/MesosRoles";
 import { filterByObject } from "../../filters/GenericObject";
+import Service from "#PLUGINS/services/src/js/structs/Service";
 
 export interface ServiceGroupQueryArgs {
   id: string;
@@ -23,15 +29,53 @@ const isGroupArgs = (
   return (args as ServiceGroupQueryArgs).id !== undefined;
 };
 
+function getQuotaLimit(
+  roles: ServiceGroupQuotaRoles | undefined
+): ServiceGroupQuotaLimit {
+  if (roles === undefined) {
+    return "N/A";
+  }
+  // All roles are group role or 0 roles.
+  if (!roles.count || roles.count === roles.groupRoleCount) {
+    return "Enforced";
+  }
+
+  // At least one role and 0 group roles.
+  if (roles.count && !roles.groupRoleCount) {
+    return "Not Enforced";
+  }
+
+  // At least one group role, at least one non-group role.
+  if (roles.groupRoleCount && roles.count > roles.groupRoleCount) {
+    return "Partially Enforced";
+  }
+
+  return "N/A";
+}
+
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
+  const groupName = serviceTree.getName();
+  const serviceRoles = serviceTree.reduceItems(
+    (roles: ServiceGroupQuotaRoles, item: Service) => {
+      if (item instanceof ServiceTree) {
+        return roles;
+      }
+      roles.count++;
+      if (groupName && item.getRole() === groupName) {
+        roles.groupRoleCount++;
+      }
+      return roles;
+    },
+    { count: 0, groupRoleCount: 0 }
+  );
   return {
     id: serviceTree.getId(),
-    name: serviceTree.getName(),
+    name: groupName,
     quota: {
-      enforced: serviceTree.getEnforceRole() === true
-    },
-    rolesLength: serviceTree.getAllRolesLength(),
-    groupRolesLength: serviceTree.getGroupRolesLength()
+      enforced: serviceTree.getEnforceRole() === true,
+      limitStatus: "N/A",
+      serviceRoles
+    }
   };
 }
 
@@ -77,7 +121,9 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         return roles$.pipe(
           switchMap((roles: MesosRole[]) => {
             const result: ServiceGroupQuota = {
-              enforced: quota.enforced
+              enforced: quota.enforced,
+              limitStatus: quota.limitStatus,
+              serviceRoles: quota.serviceRoles
             };
             result.cpus = {};
             result.memory = {};
@@ -86,6 +132,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
 
             const groupRole = roles.find(role => id === `/${role.name}`);
             if (groupRole) {
+              result.limitStatus = getQuotaLimit(quota.serviceRoles);
               const getValue = (val: unknown) => {
                 return val !== undefined && typeof val === "number"
                   ? val

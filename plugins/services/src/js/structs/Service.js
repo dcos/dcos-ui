@@ -137,6 +137,10 @@ module.exports = class Service extends Item {
     };
   }
 
+  getRole() {
+    return this.get("role") || "";
+  }
+
   toJSON() {
     return this.get();
   }
