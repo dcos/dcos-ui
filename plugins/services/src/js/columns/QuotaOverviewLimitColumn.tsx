@@ -24,11 +24,13 @@ export function limitRenderer(group: ServiceGroup) {
   let icon = null;
   if (limit === "Enforced") {
     icon = (
-      <Icon color={blue} shape={SystemIcons.CircleCheck} size={iconSizeXs} />
+      <div className="table-content-spacing-right table-content-inline-block">
+        <Icon color={blue} shape={SystemIcons.CircleCheck} size={iconSizeXs} />
+      </div>
     );
   } else if (limit === "Partially Enforced") {
     icon = (
-      <div className="table-content-spacing-right table-content--inline-block">
+      <div className="table-content-spacing-right table-content-inline-block">
         <Tooltip
           id="quota-limit-tooltip"
           trigger={
@@ -51,11 +53,13 @@ export function limitRenderer(group: ServiceGroup) {
     );
   } else if (limit === "Not Enforced") {
     icon = (
-      <Icon
-        color={greyLight}
-        shape={SystemIcons.CircleMinus}
-        size={iconSizeXs}
-      />
+      <div className="table-content-spacing-right table-content-inline-block">
+        <Icon
+          color={greyLight}
+          shape={SystemIcons.CircleMinus}
+          size={iconSizeXs}
+        />
+      </div>
     );
   }
 
