@@ -9,30 +9,16 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import * as React from "react";
 import { Trans } from "@lingui/macro";
 
-function getQuotaLimit(roles: number, groupRoles: number): string {
-  // All roles are group role or 0 roles.
-  if (!roles || roles === groupRoles) {
-    return "Enforced";
-  }
-
-  // At least one role and 0 group roles.
-  if (roles && !groupRoles) {
-    return "Not Enforced";
-  }
-
-  // At least one group role, at least one non-group role.
-  if (groupRoles && roles > groupRoles) {
-    return "Partially Enforced";
-  }
-
-  return "N/A";
-}
-
 export function limitRenderer(group: ServiceGroup) {
-  const roles = group.rolesLength;
-  const groupRoles = group.groupRolesLength;
-
-  const limit = getQuotaLimit(roles, groupRoles);
+  const limit = group.quota ? group.quota.limitStatus : "N/A";
+  const roles =
+    group.quota && group.quota.serviceRoles
+      ? group.quota.serviceRoles.count
+      : 0;
+  const groupRoles =
+    group.quota && group.quota.serviceRoles
+      ? group.quota.serviceRoles.groupRoleCount
+      : 0;
   const limitNumber = roles - groupRoles;
 
   let icon = null;
