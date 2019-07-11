@@ -29,7 +29,9 @@ function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
     name: serviceTree.getName(),
     quota: {
       enforced: serviceTree.getEnforceRole() === true
-    }
+    },
+    rolesLength: serviceTree.getAllRolesLength(),
+    groupRolesLength: serviceTree.getGroupRolesLength()
   };
 }
 

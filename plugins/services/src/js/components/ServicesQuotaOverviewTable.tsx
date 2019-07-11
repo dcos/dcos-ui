@@ -1,12 +1,13 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
-import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
+import { Column, Table, SortableHeaderCell, HeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";
 
 import Loader from "#SRC/js/components/Loader";
 
 import { ServiceGroup } from "../types/ServiceGroup";
 import { nameRenderer } from "../columns/QuotaOverviewNameColumn";
+import { limitRenderer } from "../columns/QuotaOverviewLimitColumn";
 import { cpuRenderer } from "../columns/QuotaOverviewCPUConsumedColumn";
 import { memRenderer } from "../columns/QuotaOverviewMemoryConsumedColumn";
 import { diskRenderer } from "../columns/QuotaOverviewDiskConsumedColumn";
@@ -107,6 +108,15 @@ class ServicesQuotaOverviewTable extends React.Component<
               />
             }
             cellRenderer={nameRenderer}
+          />
+          <Column
+            key="limit"
+            header={
+              <HeaderCell>
+                <Trans render="span">Quota Limit</Trans>
+              </HeaderCell>
+            }
+            cellRenderer={limitRenderer}
           />
           <Column
             key="cpus"

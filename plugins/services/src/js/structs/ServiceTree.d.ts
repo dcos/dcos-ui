@@ -43,6 +43,8 @@ declare class ServiceTree extends Tree<Service> {
   getFrameworks(): any;
   getVolumes(): any;
   getLabels(): any;
+  getGroupRolesLength(): number;
+  getAllRolesLength(): number;
 }
 
 export { ServiceTree as default, ServiceTreeStatusSummary };

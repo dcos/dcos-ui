@@ -23,6 +23,8 @@ const ServicesQuotaOverview = componentFromStream(() => {
             id
             name
             quota
+            rolesLength
+            groupRolesLength
           }
         }
       `,

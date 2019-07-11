@@ -21,7 +21,7 @@ export function gpuRenderer(group: ServiceGroup) {
             )}
             total={100}
           />
-          <div className="table-content-spacing-left">
+          <div className="table-content-spacing-left table-content--inline-block">
             <Tooltip
               id="quota-gpu-tooltip"
               trigger={
