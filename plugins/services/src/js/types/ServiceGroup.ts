@@ -19,6 +19,8 @@ export type ServiceGroup = {
   id: string;
   name: string;
   quota?: null | ServiceGroupQuota;
+  rolesLength: number;
+  groupRolesLength: number;
 };
 
 function getQuotaPercentage(group: ServiceGroup, resource: string) {

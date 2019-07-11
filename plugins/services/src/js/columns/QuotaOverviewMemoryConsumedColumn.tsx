@@ -22,7 +22,7 @@ export function memRenderer(group: ServiceGroup) {
             )}
             total={100}
           />
-          <div className="table-content-spacing-left">
+          <div className="table-content-spacing-left table-content--inline-block">
             <Tooltip
               id="quota-memory-tooltip"
               trigger={

@@ -56,7 +56,7 @@ describe("Quota Tab", function() {
           .children()
           .first()
           .children()
-          .last()
+          .eq(1)
           .contains(name);
       }
 
@@ -75,6 +75,7 @@ describe("Quota Tab", function() {
           .eq(0)
           .contains("Name")
           .should("exist");
+        cy.get(".TopRightGrid_ScrollWrapper").contains("Quota Limit");
         cy.get(".TopRightGrid_ScrollWrapper")
           .contains("CPU Consumed")
           .should("exist");
@@ -95,7 +96,7 @@ describe("Quota Tab", function() {
           .children()
           .first()
           .children()
-          .should("to.have.length", 2);
+          .should("to.have.length", 4);
       });
 
       it("Sorts the table by name", function() {
@@ -103,35 +104,35 @@ describe("Quota Tab", function() {
           .eq(0)
           .contains("Name")
           .click();
-        getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getFirstRowName("2_apps");
+        getSecondRowName("10000_apps");
 
         cy.get(".ReactVirtualized__Grid")
           .eq(0)
           .contains("Name")
           .click();
-        getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getFirstRowName("1_app");
+        getSecondRowName("10_apps");
       });
 
       it("Sorts the table by CPU consumed", function() {
         clickHeading("CPU Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getSecondRowName("1_app");
 
         clickHeading("CPU Consumed");
         getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getSecondRowName("2_apps");
       });
 
       it("Sorts the table by Memory consumed", function() {
         clickHeading("Memory Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getSecondRowName("1_app");
 
         clickHeading("Memory Consumed");
         getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getSecondRowName("1_app");
       });
 
       it("Sorts the table by Disk consumed", function() {
@@ -141,7 +142,7 @@ describe("Quota Tab", function() {
 
         clickHeading("Disk Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getSecondRowName("1_app");
       });
 
       it("Sorts the table by GPU consumed", function() {
@@ -151,7 +152,7 @@ describe("Quota Tab", function() {
 
         clickHeading("GPU Consumed");
         getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getSecondRowName("1_app");
       });
     });
 

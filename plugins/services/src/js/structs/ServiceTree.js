@@ -370,4 +370,13 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeLabels;
     }, []);
   }
+
+  getGroupRolesLength() {
+    return this.list.filter(app => app.role && app.role === this.getName())
+      .length;
+  }
+
+  getAllRolesLength() {
+    return this.list.filter(app => app.role).length;
+  }
 };

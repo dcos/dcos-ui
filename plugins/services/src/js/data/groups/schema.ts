@@ -18,5 +18,7 @@ export const GroupTypes = `
     id: String!
     name: String!
     quota: ServiceGroupQuota
+    rolesLength: Int!
+    groupRolesLength: Int!
   }
 `;
