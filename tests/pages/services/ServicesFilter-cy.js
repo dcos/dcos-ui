@@ -119,6 +119,7 @@ describe("Services Filter", function() {
           "2_apps",
           "group-with-pods",
           "net",
+          "podEFGH",
           "podEFGH"
         ]);
     });

@@ -21,7 +21,7 @@ export function cpuRenderer(group: ServiceGroup) {
             )}
             total={100}
           />
-          <div className="table-content-spacing-left table-content--inline-block">
+          <div className="table-content-spacing-left table-content-inline-block">
             <Tooltip
               id="quota-cpu-tooltip"
               trigger={
