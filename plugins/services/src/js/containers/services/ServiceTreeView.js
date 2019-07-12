@@ -32,8 +32,6 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
-const ROOT_ID = "/";
-
 class ServiceTreeView extends React.Component {
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
@@ -67,7 +65,7 @@ class ServiceTreeView extends React.Component {
     if (
       !quota ||
       !serviceTree ||
-      serviceTree.id === "/" ||
+      serviceTree.isRoot() ||
       !serviceTree.getEnforceRole() ||
       rolesCount === groupRolesCount
     ) {
@@ -128,23 +126,21 @@ class ServiceTreeView extends React.Component {
     }
     const { serviceTree } = this.props;
     if (
-      serviceTree.getId() === ROOT_ID ||
+      serviceTree.isRoot() ||
       typeof serviceTree.getEnforceRole() === "boolean"
     ) {
       return [
         {
           label: i18nMark("Services"),
-          routePath:
-            serviceTree.id === ROOT_ID
-              ? "/services/overview"
-              : `/services/overview/${encodeURIComponent(serviceTree.id)}`
+          routePath: serviceTree.isRoot()
+            ? "/services/overview"
+            : `/services/overview/${encodeURIComponent(serviceTree.id)}`
         },
         {
           label: i18nMark("Quota"),
-          routePath:
-            serviceTree.id === ROOT_ID
-              ? "/services/quota"
-              : `/services/quota/${encodeURIComponent(serviceTree.id)}`
+          routePath: serviceTree.isRoot()
+            ? "/services/quota"
+            : `/services/quota/${encodeURIComponent(serviceTree.id)}`
         }
       ];
     }
@@ -162,12 +158,11 @@ class ServiceTreeView extends React.Component {
 
     const { modalHandlers } = this.context;
     // Only add id if service is not root
-    const routePath =
-      serviceTree.id === ROOT_ID
-        ? "/services/overview/create"
-        : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
+    const routePath = serviceTree.isRoot()
+      ? "/services/overview/create"
+      : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
     const isRoleEnforced =
-      serviceTree.id !== "/" && serviceTree.getEnforceRole();
+      !serviceTree.isRoot() && serviceTree.getEnforceRole();
 
     const createService = () => {
       this.context.router.push(routePath);

@@ -391,4 +391,8 @@ module.exports = class ServiceTree extends Tree {
       { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
     );
   }
+
+  isRoot() {
+    return this.getId() === "/";
+  }
 };

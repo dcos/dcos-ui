@@ -50,6 +50,7 @@ declare class ServiceTree extends Tree<Service> {
   getVolumes(): any;
   getLabels(): any;
   getRoleLength(roleName: string | null = null): ServiceTreeRoleLength;
+  isRoot(): boolean;
 }
 
 export { ServiceTree as default, ServiceTreeStatusSummary };
