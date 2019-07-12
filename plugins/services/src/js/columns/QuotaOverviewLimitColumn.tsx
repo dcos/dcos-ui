@@ -7,7 +7,7 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import * as React from "react";
-import { Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 
 export function limitRenderer(group: ServiceGroup) {
   const limit = group.quota ? group.quota.limitStatus : "N/A";
@@ -22,45 +22,62 @@ export function limitRenderer(group: ServiceGroup) {
   const limitNumber = roles - groupRoles;
 
   let icon = null;
-  if (limit === "Enforced") {
-    icon = (
-      <div className="table-content-spacing-right table-content-inline-block">
-        <Icon color={blue} shape={SystemIcons.CircleCheck} size={iconSizeXs} />
-      </div>
-    );
-  } else if (limit === "Partially Enforced") {
-    icon = (
-      <div className="table-content-spacing-right table-content-inline-block">
-        <Tooltip
-          id="quota-limit-tooltip"
-          trigger={
-            <Icon
-              color={greyLight}
-              shape={SystemIcons.CircleMinus}
-              size={iconSizeXs}
+  switch (limit) {
+    case "Enforced":
+      icon = (
+        <div className="table-content-spacing-right table-content-inline-block">
+          <Icon
+            color={blue}
+            shape={SystemIcons.CircleCheck}
+            size={iconSizeXs}
+          />
+        </div>
+      );
+      break;
+    case "Partially Enforced":
+      icon = (
+        <div className="table-content-spacing-right table-content-inline-block">
+          <Tooltip
+            id="quota-limit-tooltip"
+            trigger={
+              <Icon
+                color={greyLight}
+                shape={SystemIcons.CircleMinus}
+                size={iconSizeXs}
+              />
+            }
+          >
+            <Plural
+              value={limitNumber}
+              one="# service has no quota limit."
+              other="# services have no quota limit."
             />
-          }
-        >
-          {limitNumber === 1 ? (
-            <Trans render="span">1 service has no quota limit.</Trans>
-          ) : (
-            <Trans render="span">
-              {limitNumber} services have no quota limit.
-            </Trans>
-          )}
-        </Tooltip>
-      </div>
-    );
-  } else if (limit === "Not Enforced") {
-    icon = (
-      <div className="table-content-spacing-right table-content-inline-block">
-        <Icon
-          color={greyLight}
-          shape={SystemIcons.CircleMinus}
-          size={iconSizeXs}
-        />
-      </div>
-    );
+          </Tooltip>
+        </div>
+      );
+      break;
+    case "Not Enforced":
+      icon = (
+        <div className="table-content-spacing-right table-content-inline-block">
+          <Icon
+            color={greyLight}
+            shape={SystemIcons.CircleMinus}
+            size={iconSizeXs}
+          />
+        </div>
+      );
+      break;
+    case "N/A":
+      icon = (
+        <div className="table-content-spacing-right table-content-inline-block">
+          <Icon
+            color={greyLight}
+            shape={SystemIcons.CircleMinus}
+            size={iconSizeXs}
+          />
+        </div>
+      );
+      break;
   }
 
   return (
