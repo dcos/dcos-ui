@@ -18,7 +18,6 @@ import {
 } from "../../types/ServiceGroup";
 import { MesosRole } from "../../types/MesosRoles";
 import { filterByObject } from "../../filters/GenericObject";
-import Service from "#PLUGINS/services/src/js/structs/Service";
 import { i18nMark } from "@lingui/core";
 
 export interface ServiceGroupQueryArgs {
@@ -56,26 +55,17 @@ function getQuotaLimit(
 
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
   const groupName = serviceTree.getName();
-  const serviceRoles = serviceTree.reduceItems(
-    (roles: ServiceGroupQuotaRoles, item: Service) => {
-      if (item instanceof ServiceTree) {
-        return roles;
-      }
-      roles.count++;
-      if (groupName && item.getRole() === groupName) {
-        roles.groupRoleCount++;
-      }
-      return roles;
-    },
-    { count: 0, groupRoleCount: 0 }
-  );
+  const serviceRoles = serviceTree.getRoleLength();
   return {
     id: serviceTree.getId(),
     name: groupName,
     quota: {
       enforced: serviceTree.getEnforceRole() === true,
       limitStatus: "N/A",
-      serviceRoles
+      serviceRoles: {
+        count: serviceRoles.servicesCount,
+        groupRoleCount: serviceRoles.groupRolesCount
+      }
     }
   };
 }
