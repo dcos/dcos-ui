@@ -1,6 +1,6 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
-import { Column, Table, SortableHeaderCell, HeaderCell } from "@dcos/ui-kit";
+import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";
 
 import Loader from "#SRC/js/components/Loader";
@@ -35,6 +35,11 @@ function sortForColumn(
   switch (columnName) {
     case "name":
       return (a, b) => a.name.localeCompare(b.name);
+    case "limit":
+      return (a, b) =>
+        (a.quota ? a.quota.limitStatus : "N/A").localeCompare(
+          b.quota ? b.quota.limitStatus : "N/A"
+        );
     case "cpus":
       return compatatorFor("cpus");
     case "mem":
@@ -112,9 +117,11 @@ class ServicesQuotaOverviewTable extends React.Component<
           <Column
             key="limit"
             header={
-              <HeaderCell>
-                <Trans render="span">Quota Limit</Trans>
-              </HeaderCell>
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Quota Limit</Trans>}
+                sortHandler={this.handleSortClick("limit")}
+                sortDirection={sortColumn === "limit" ? sortDirection : null}
+              />
             }
             cellRenderer={limitRenderer}
           />

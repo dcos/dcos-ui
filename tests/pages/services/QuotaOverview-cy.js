@@ -115,6 +115,16 @@ describe("Quota Tab", function() {
         getSecondRowName("10_apps");
       });
 
+      it("Sorts the table by quota limit", function() {
+        clickHeading("Quota Limit");
+        getFirstRowName("2_apps");
+        getSecondRowName("1_app");
+
+        clickHeading("Quota Limit");
+        getFirstRowName("10_apps");
+        getSecondRowName("10000_apps");
+      });
+
       it("Sorts the table by CPU consumed", function() {
         clickHeading("CPU Consumed");
         getFirstRowName("10000_apps");
