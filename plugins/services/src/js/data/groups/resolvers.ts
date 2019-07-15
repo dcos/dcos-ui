@@ -10,15 +10,13 @@ import {
 
 import { fetchServiceGroups, fetchRoles } from "./fetchers";
 import ServiceTree from "../../structs/ServiceTree";
-import {
-  ServiceGroup,
-  ServiceGroupQuota,
-  ServiceGroupQuotaLimit,
-  ServiceGroupQuotaRoles
-} from "../../types/ServiceGroup";
+import { ServiceGroup, ServiceGroupQuota } from "../../types/ServiceGroup";
 import { MesosRole } from "../../types/MesosRoles";
-import { filterByObject } from "../../filters/GenericObject";
-import { i18nMark } from "@lingui/core";
+import {
+  getQuotaLimit,
+  quotaHasLimit,
+  populateResourcesFromRole
+} from "#PLUGINS/services/src/js/utils/QuotaUtil";
 
 export interface ServiceGroupQueryArgs {
   id: string;
@@ -28,30 +26,6 @@ const isGroupArgs = (
 ): args is ServiceGroupQueryArgs => {
   return (args as ServiceGroupQueryArgs).id !== undefined;
 };
-
-function getQuotaLimit(
-  roles: ServiceGroupQuotaRoles | undefined
-): ServiceGroupQuotaLimit {
-  if (roles === undefined || roles === null) {
-    return i18nMark("N/A") as ServiceGroupQuotaLimit;
-  }
-  // All roles are group role or 0 roles.
-  if (!roles.count || roles.count === roles.groupRoleCount) {
-    return i18nMark("Enforced") as ServiceGroupQuotaLimit;
-  }
-
-  // At least one role and 0 group roles.
-  if (roles.count && !roles.groupRoleCount) {
-    return i18nMark("Not Enforced") as ServiceGroupQuotaLimit;
-  }
-
-  // At least one group role, at least one non-group role.
-  if (roles.groupRoleCount && roles.count > roles.groupRoleCount) {
-    return i18nMark("Partially Enforced") as ServiceGroupQuotaLimit;
-  }
-
-  return i18nMark("N/A") as ServiceGroupQuotaLimit;
-}
 
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
   const groupName = serviceTree.getName();
@@ -68,21 +42,6 @@ function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
       }
     }
   };
-}
-
-function processServiceGroupFilter(
-  groups: ServiceGroup[],
-  filterArg: unknown
-): ServiceGroup[] {
-  if (typeof filterArg !== "string") {
-    return groups;
-  }
-  try {
-    const filter = JSON.parse(filterArg);
-    return groups.filter(group => filterByObject(group, filter));
-  } catch {
-    return groups;
-  }
 }
 
 export interface ResolverArgs {
@@ -111,45 +70,18 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         const { id, quota } = parent;
         return roles$.pipe(
           switchMap((roles: MesosRole[]) => {
-            const result: ServiceGroupQuota = {
+            let result: ServiceGroupQuota = {
               enforced: quota.enforced,
               limitStatus: quota.limitStatus,
               serviceRoles: quota.serviceRoles
             };
-            result.cpus = {};
-            result.memory = {};
-            result.disk = {};
-            result.gpus = {};
 
             const groupRole = roles.find(role => id === `/${role.name}`);
             if (groupRole) {
+              result = populateResourcesFromRole(result, groupRole);
+            }
+            if (quotaHasLimit(result)) {
               result.limitStatus = getQuotaLimit(quota.serviceRoles);
-              const getValue = (val: unknown) => {
-                return val !== undefined && typeof val === "number"
-                  ? val
-                  : undefined;
-              };
-              const { quota: groupQuota } = groupRole;
-              if (groupQuota) {
-                if (groupQuota.guarantee) {
-                  result.cpus.guarantee = getValue(groupQuota.guarantee.cpus);
-                  result.memory.guarantee = getValue(groupQuota.guarantee.mem);
-                  result.disk.guarantee = getValue(groupQuota.guarantee.disk);
-                  result.gpus.guarantee = getValue(groupQuota.guarantee.gpus);
-                }
-                if (groupQuota.limit) {
-                  result.cpus.limit = getValue(groupQuota.limit.cpus);
-                  result.memory.limit = getValue(groupQuota.limit.mem);
-                  result.disk.limit = getValue(groupQuota.limit.disk);
-                  result.gpus.limit = getValue(groupQuota.limit.gpus);
-                }
-                if (groupQuota.consumption) {
-                  result.cpus.consumed = getValue(groupQuota.consumption.cpus);
-                  result.memory.consumed = getValue(groupQuota.consumption.mem);
-                  result.disk.consumed = getValue(groupQuota.consumption.disk);
-                  result.gpus.consumed = getValue(groupQuota.consumption.gpus);
-                }
-              }
             }
             return of(result);
           })
@@ -172,15 +104,8 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           })
         );
       },
-      groups(_parent = {}, args: Record<string, unknown> = {}) {
-        return groups$.pipe(
-          map(groups => groups.map(processServiceGroup)),
-          map(groups =>
-            args.filter && args.filter !== ""
-              ? processServiceGroupFilter(groups, args.filter)
-              : groups
-          )
-        );
+      groups() {
+        return groups$.pipe(map(groups => groups.map(processServiceGroup)));
       }
     }
   };
