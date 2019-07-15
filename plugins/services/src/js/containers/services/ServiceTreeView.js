@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
-import { Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 import { InfoBoxInline, Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -61,12 +61,13 @@ class ServiceTreeView extends React.Component {
     // TODO: remove feature flag
     const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
     const { rolesCount, groupRolesCount } = serviceTree.getRoleLength();
+    const nonLimited = rolesCount - groupRolesCount;
 
     if (
       !quota ||
       serviceTree.isRoot() ||
       !serviceTree.getEnforceRole() ||
-      rolesCount === groupRolesCount
+      !nonLimited
     ) {
       return null;
     }
@@ -82,18 +83,12 @@ class ServiceTreeView extends React.Component {
               size={iconSizeXs}
               color="currentColor"
             />
-            {serviceTree.list.length === 1 ? (
-              <Trans render="span">
-                1 of 1 service does not have limit. Please upgrade to be
-                included in quota.
-              </Trans>
-            ) : (
-              <Trans render="span">
-                {rolesCount - groupRolesCount} of {serviceTree.list.length}{" "}
-                services do not have limit. Please upgrade to be included in
-                quota.
-              </Trans>
-            )}
+            <Plural
+              render="span"
+              value={nonLimited}
+              one={`# service is not limited by quota. Update role to have quota enforced.`}
+              other={`# services are not limited by quota. Update role to have quota enforced.`}
+            />
           </React.Fragment>
         }
       />
