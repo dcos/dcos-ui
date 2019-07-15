@@ -32,7 +32,7 @@ const isGroupArgs = (
 function getQuotaLimit(
   roles: ServiceGroupQuotaRoles | undefined
 ): ServiceGroupQuotaLimit {
-  if (roles === undefined) {
+  if (roles === undefined || roles === null) {
     return i18nMark("N/A") as ServiceGroupQuotaLimit;
   }
   // All roles are group role or 0 roles.
