@@ -24,7 +24,7 @@ class PageHeader extends React.Component {
         pageHeaderSectionSecondaryClassName,
         supplementalContent,
         tabs,
-        disabledActions,
+        actionsDisabled,
         pageHeaderContentClassName,
         pageHeaderActionsPrimaryClassName
       }
@@ -91,7 +91,7 @@ class PageHeader extends React.Component {
                 actions={actions}
                 addButton={addButton}
                 supplementalContent={supplementalContent}
-                disabledActions={disabledActions}
+                actionsDisabled={actionsDisabled}
               />
             </div>
           </div>
@@ -114,7 +114,7 @@ const classProps = PropTypes.oneOfType([
 PageHeader.defaultProps = {
   actions: [],
   tabs: [],
-  disabledActions: false
+  actionsDisabled: false
 };
 
 PageHeader.propTypes = {
@@ -131,7 +131,7 @@ PageHeader.propTypes = {
   secondaryContentDetail: PropTypes.node,
   supplementalContent: PropTypes.node,
   tabs: PropTypes.array,
-  disabledActions: PropTypes.bool,
+  actionsDisabled: PropTypes.bool,
   pageHeaderContentClassName: classProps,
   pageHeaderActionsPrimaryClassNam: classProps
 };

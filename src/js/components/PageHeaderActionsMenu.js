@@ -34,7 +34,7 @@ const PageHeaderActionsMenu = ({
   anchorRight,
   children,
   iconID,
-  disabledActions
+  actionsDisabled
 }) => {
   return (
     <Dropdown
@@ -47,7 +47,7 @@ const PageHeaderActionsMenu = ({
       dropdownMenuClassName="dropdown-menu"
       dropdownMenuListClassName="dropdown-menu-list"
       wrapperClassName="dropdown"
-      disabled={disabledActions}
+      disabled={actionsDisabled}
     />
   );
 };
@@ -68,7 +68,7 @@ PageHeaderActionsMenu.propTypes = {
     })
   ),
   iconID: PropTypes.string,
-  disabledActions: PropTypes.bool
+  actionsDisabled: PropTypes.bool
 };
 
 module.exports = PageHeaderActionsMenu;

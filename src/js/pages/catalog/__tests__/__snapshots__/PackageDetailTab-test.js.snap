@@ -4,6 +4,7 @@ exports[`PackageDetailTab #render does not render stale data when the service is
 <Page>
   <PageHeader
     actions={Array []}
+    actionsDisabled={false}
     breadcrumbs={
       <PackageDetailBreadcrumbs
         cosmosPackage={
@@ -559,7 +560,6 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
         isLoading={true}
       />
     }
-    disabledActions={false}
     tabs={Array []}
   />
   <Loader
@@ -575,6 +575,7 @@ exports[`PackageDetailTab #render renders an infobox, when a dependency of the s
 <Page>
   <PageHeader
     actions={Array []}
+    actionsDisabled={false}
     breadcrumbs={
       <PackageDetailBreadcrumbs
         cosmosPackage={
@@ -1133,7 +1134,6 @@ Please follow the instructions at http://docs.mesosphere.com/services/marathon/#
         isLoading={true}
       />
     }
-    disabledActions={false}
     tabs={Array []}
   />
   <div>
