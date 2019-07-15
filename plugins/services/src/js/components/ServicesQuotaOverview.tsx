@@ -11,6 +11,7 @@ import container from "#SRC/js/container";
 
 import ServicesQuotaOverviewTable from "./ServicesQuotaOverviewTable";
 import EmptyServicesQuotaOverview from "./EmptyServicesQuotaOverview";
+import { groupHasQuotaLimit } from "../utils/QuotaUtil";
 
 const ServicesQuotaOverview = componentFromStream(() => {
   const dl = container.get<DataLayer>(DataLayerType);
@@ -19,17 +20,18 @@ const ServicesQuotaOverview = componentFromStream(() => {
     .query(
       gql`
         query {
-          groups(filter: $groupsFilter) {
+          groups {
             id
             name
             quota
           }
         }
       `,
-      { groupsFilter: JSON.stringify({ quota: { enforced: true } }) }
+      {}
     )
     .pipe(
-      map(({ data: { groups } }) => {
+      map(({ data: { groups } }) => groups.filter(groupHasQuotaLimit)),
+      map(groups => {
         return groups.length > 0 ? (
           <ServicesQuotaOverviewTable groups={groups} />
         ) : (
