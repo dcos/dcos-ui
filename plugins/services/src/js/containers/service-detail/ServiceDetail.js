@@ -310,7 +310,7 @@ class ServiceDetail extends mixin(TabsMixin) {
           tabs={this.getTabs()}
           breadcrumbs={breadcrumbs}
           iconID={ProductIcons.Services}
-          disabledActions={
+          actionsDisabled={
             service.getServiceStatus() === ServiceStatus.DELETING
           }
         />
