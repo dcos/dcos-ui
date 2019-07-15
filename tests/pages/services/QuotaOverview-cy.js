@@ -196,6 +196,15 @@ describe("Quota Tab", function() {
         cy.get(".quota-details").should("exist");
       });
 
+      it("Shows the info banner for services with no limit", function() {
+        cy.visitUrl({ url: "/services/quota/%2F2_apps" });
+        cy.get(".quota-info")
+          .contains(
+            "1 service is not limited by quota. Update role to have quota enforced."
+          )
+          .should("exist");
+      });
+
       it("Shows the correct number of cards", function() {
         cy.get(".quota-card").should("have.length", 4);
       });
