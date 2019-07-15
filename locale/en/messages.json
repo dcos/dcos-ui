@@ -970,7 +970,7 @@
   "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration.": "",
   "{limitNumber, plural, one {# service has no quota limit.} other {# services have no quota limit.}}": "",
   "{logName} Log is Currently Empty": "",
-  "{nonLimited, plural, one {# service is not limited by Quota. Update role to have quota enforced.} other {# services are not limited by Quota. Update role to have quota enforced.}}": "",
+  "{nonLimited, plural, one {# service is not limited by quota. Update role to have quota enforced.} other {# services are not limited by quota. Update role to have quota enforced.}}": "",
   "{runningInstances, plural, one {# instance running out of {instancesCount}} other {# instances running out of {instancesCount}}}": "",
   "{runningInstances} {0} running out of {instancesCount}": "",
   "{watching} out of {totalFound}": ""
