@@ -37,7 +37,6 @@ import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
 interface NodesTableProps {
   withPublicIP: boolean;
   hosts: NodesList;
-  nodeHealthResponse: boolean;
   masterRegion: string;
 }
 

@@ -20,7 +20,6 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.state = {
       filteredNodes: null,
       filters: { health: "all", name: "", service: null },
-      nodeHealthResponse: false,
       masterRegion: null
     };
     this.store_listeners = [
@@ -106,10 +105,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   onNodeHealthStoreSuccess() {
-    this.setState({
-      filteredNodes: this.getFilteredNodes(),
-      nodeHealthResponse: true
-    });
+    this.setState({ filteredNodes: this.getFilteredNodes() });
   }
 
   onStateStoreSuccess() {
@@ -119,7 +115,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   render() {
-    const { nodeHealthResponse, filteredNodes, masterRegion } = this.state;
+    const { filteredNodes, masterRegion } = this.state;
     const { networks = [] } = this.props;
 
     // Detecting whether DCOS already supports maintenance mode.
@@ -128,7 +124,6 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       <NodesTable
         withPublicIP={networks.length > 0}
         hosts={filteredNodes}
-        nodeHealthResponse={nodeHealthResponse}
         masterRegion={masterRegion}
       />
     );
