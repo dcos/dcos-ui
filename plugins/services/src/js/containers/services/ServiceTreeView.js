@@ -64,7 +64,6 @@ class ServiceTreeView extends React.Component {
 
     if (
       !quota ||
-      !serviceTree ||
       serviceTree.isRoot() ||
       !serviceTree.getEnforceRole() ||
       rolesCount === groupRolesCount
