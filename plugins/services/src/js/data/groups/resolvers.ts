@@ -176,8 +176,8 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         return groups$.pipe(
           map(groups => groups.map(processServiceGroup)),
           map(groups =>
-            args["filter"] && args["filter"] !== ""
-              ? processServiceGroupFilter(groups, args["filter"])
+            args.filter && args.filter !== ""
+              ? processServiceGroupFilter(groups, args.filter)
               : groups
           )
         );

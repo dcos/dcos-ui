@@ -41,12 +41,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
@@ -96,10 +91,9 @@ describe("Services", function() {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .getFormGroupInputFor('CPUs *')
-      //   .contents('equal', '0.5');
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .contents("equal", "0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -172,13 +166,9 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .root()
-      //   .getFormGroupInputFor('CPUs *')
-      //   .type('{selectall}0.1');
-      //
+      cy.root()
+        .getFormGroupInputFor("CPUs *")
+        .type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
@@ -274,12 +264,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .type("nginx");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}32");
@@ -410,12 +395,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .type("python:3");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}32");
@@ -500,12 +480,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "python:3");
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "32");
@@ -554,16 +529,9 @@ describe("Services", function() {
         .getFormGroupInputFor("Container Image")
         .type("python:3");
 
-      // Hack to allow entering decimals in number fields
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "text");
       cy.root()
         .getFormGroupInputFor("CPUs *")
         .type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "number");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -695,16 +663,9 @@ describe("Services", function() {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      // Hack to allow entering decimals in number fields
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "text");
       cy.root()
         .getFormGroupInputFor("CPUs *")
         .type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "number");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -832,12 +793,8 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
+
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
@@ -956,12 +913,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}32");
@@ -1117,12 +1069,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
@@ -1252,12 +1199,7 @@ describe("Services", function() {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      //
-      // TODO: Due to a bug in cypress you cannot type values with dots
-      // cy
-      //   .get('input[name=cpus]')
-      //   .type('{selectall}0.5');
-      //
+      cy.get("input[name=cpus]").type("{selectall}0.5");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{selectall}10");
@@ -1363,16 +1305,9 @@ describe("Services", function() {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      // Hack to allow entering decimals in number fields
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "text");
       cy.root()
         .getFormGroupInputFor("CPUs *")
         .type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "number");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -1444,16 +1379,9 @@ describe("Services", function() {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      // Hack to allow entering decimals in number fields
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "text");
       cy.root()
         .getFormGroupInputFor("CPUs *")
         .type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .invoke("attr", "type", "number");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
