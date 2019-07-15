@@ -49,12 +49,9 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       service: query.filterService || null
     };
 
-    if (
-      this.props.location.query.filterExpression !== query.filterExpression ||
-      this.props.location.query.filterService !== query.filterService
-    ) {
-      this.setFilters(hosts, networks, filters);
-    }
+    // when trying to optimize here, please account for data that may change in `hosts`,
+    // like `TASK_RUNNING`, `resources.*` or `drain_info`.
+    this.setFilters(hosts, networks, filters);
   }
 
   getFilteredNodes(filters = this.state.filters) {
