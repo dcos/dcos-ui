@@ -10,12 +10,7 @@ import {
 
 import { fetchServiceGroups, fetchRoles } from "./fetchers";
 import ServiceTree from "../../structs/ServiceTree";
-import {
-  ServiceGroup,
-  ServiceGroupQuota,
-  ServiceGroupQuotaLimit,
-  ServiceGroupQuotaRoles
-} from "../../types/ServiceGroup";
+import { ServiceGroup, ServiceGroupQuota } from "../../types/ServiceGroup";
 import { MesosRole } from "../../types/MesosRoles";
 import {
   getQuotaLimit,
@@ -31,30 +26,6 @@ const isGroupArgs = (
 ): args is ServiceGroupQueryArgs => {
   return (args as ServiceGroupQueryArgs).id !== undefined;
 };
-
-function getQuotaLimit(
-  roles: ServiceGroupQuotaRoles | undefined
-): ServiceGroupQuotaLimit {
-  if (roles === undefined) {
-    return i18nMark("N/A") as ServiceGroupQuotaLimit;
-  }
-  // All roles are group role or 0 roles.
-  if (!roles.count || roles.count === roles.groupRoleCount) {
-    return i18nMark("Enforced") as ServiceGroupQuotaLimit;
-  }
-
-  // At least one role and 0 group roles.
-  if (roles.count && !roles.groupRoleCount) {
-    return i18nMark("Not Enforced") as ServiceGroupQuotaLimit;
-  }
-
-  // At least one group role, at least one non-group role.
-  if (roles.groupRoleCount && roles.count > roles.groupRoleCount) {
-    return i18nMark("Partially Enforced") as ServiceGroupQuotaLimit;
-  }
-
-  return i18nMark("N/A") as ServiceGroupQuotaLimit;
-}
 
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
   const groupName = serviceTree.getName();
