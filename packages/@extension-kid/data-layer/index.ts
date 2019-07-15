@@ -15,7 +15,7 @@ export {
   DataLayer
 };
 
-function getExtensionModule<T>(extension: { new (...args: any[]): T }) {
+function getExtensionModule<T>(extension: new (...args: any[]) => T) {
   if (!extension) {
     return null;
   }
