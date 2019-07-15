@@ -642,7 +642,9 @@ describe("Service Table", function() {
         .contains("2_apps")
         .click();
       cy.get(".quota-info")
-        .contains("Please upgrade to be included in quota.")
+        .contains(
+          "1 service is not limited by quota. Update role to have quota enforced."
+        )
         .should("exist");
       cy.get(".quota-no-limit")
         .contains("No Limit")
