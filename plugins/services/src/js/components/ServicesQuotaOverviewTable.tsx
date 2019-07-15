@@ -1,5 +1,5 @@
 import React from "react";
-import { Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 import {
   Column,
   Table,
@@ -122,17 +122,14 @@ class ServicesQuotaOverviewTable extends React.Component<
               size={iconSizeXs}
               color="currentColor"
             />
-            {noLimitGroups.length === 1 ? (
-              <Trans render="span">
-                1 group has services not limited by quota. Update service roles
-                to have quota enforced.
-              </Trans>
-            ) : (
-              <Trans render="span">
-                {noLimitGroups.length} groups have services not limited by
-                quota. Update service roles to have quota enforced.
-              </Trans>
-            )}
+            <Plural
+              render="span"
+              value={noLimitGroups.length}
+              one={`# group has services not limited by quota. Update service roles
+              to have quota enforced.`}
+              other={`# groups have services not limited by
+              quota. Update service roles to have quota enforced.`}
+            />
           </React.Fragment>
         }
       />
