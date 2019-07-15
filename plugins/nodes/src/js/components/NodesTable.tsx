@@ -87,7 +87,6 @@ export default class NodesTable extends React.Component<
       sortDirection: "ASC"
     };
 
-    this.handleSortClick = this.handleSortClick.bind(this);
     this.regionRenderer = (data: Node) =>
       regionRenderer(this.props.masterRegion, data);
   }
