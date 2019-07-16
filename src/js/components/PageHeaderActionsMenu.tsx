@@ -1,36 +1,43 @@
 import { Dropdown } from "reactjs-components";
-import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Icon } from "@dcos/ui-kit";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
-const getMenuItems = (children, iconID) => [
-  {
-    className: "hidden",
-    html: <Icon shape={iconID} size={iconSizeXs} color="currentColor" />,
-    id: "trigger"
-  },
-  ...React.Children.map(children, getDropdownItemFromComponent)
-];
+const trigger = (iconID: SystemIcons) => ({
+  className: "hidden",
+  html: <Icon shape={iconID} size={iconSizeXs} color="currentColor" />,
+  id: "trigger"
+});
 
-const handleItemSelection = item => {
+const handleItemSelection = (item: { onItemSelect: () => void }) => {
   if (item.onItemSelect) {
     item.onItemSelect();
   }
 };
 
-const getDropdownItemFromComponent = (child, index) => ({
+const getDropdownItemFromComponent = (child: JSX.Element, index: number) => ({
   onItemSelect: child.props.onItemSelect,
   html: child,
   id: index
 });
 
-const PageHeaderActionsMenu = ({ children, iconID, actionsDisabled }) => (
+export default ({
+  children,
+  iconID = SystemIcons.EllipsisVertical,
+  actionsDisabled
+}: {
+  children: JSX.Element | JSX.Element[];
+  iconID: SystemIcons;
+  actionsDisabled: boolean;
+}) => (
   <Dropdown
     anchorRight={true}
     buttonClassName="button button-primary-link button-narrow"
-    items={getMenuItems(children, iconID)}
+    items={[
+      trigger(iconID),
+      ...React.Children.map(children, getDropdownItemFromComponent)
+    ]}
     onItemSelection={handleItemSelection}
     persistentID="trigger"
     transition={true}
@@ -40,22 +47,3 @@ const PageHeaderActionsMenu = ({ children, iconID, actionsDisabled }) => (
     disabled={actionsDisabled}
   />
 );
-
-PageHeaderActionsMenu.defaultProps = {
-  iconID: SystemIcons.EllipsisVertical
-};
-
-PageHeaderActionsMenu.propTypes = {
-  // anchorRight gets passed to Dropdown. It's truthy here unlike in the Dropdown.
-  children: PropTypes.arrayOf(
-    PropTypes.shape({
-      props: PropTypes.shape({
-        onItemSelect: PropTypes.func
-      })
-    })
-  ),
-  iconID: PropTypes.string,
-  actionsDisabled: PropTypes.bool
-};
-
-export default PageHeaderActionsMenu;
