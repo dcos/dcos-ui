@@ -244,7 +244,7 @@ describe("QuotaUtil", () => {
         name: "unit-test",
         weight: 0,
         quota: {
-          consumption: {
+          consumed: {
             cpus: 3,
             mem: 100,
             disk: 0,
