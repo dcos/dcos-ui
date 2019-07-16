@@ -4,6 +4,7 @@ import {
   Column,
   Table,
   SortableHeaderCell,
+  SpacingBox,
   InfoBoxInline,
   Icon
 } from "@dcos/ui-kit";
@@ -112,27 +113,28 @@ class ServicesQuotaOverviewTable extends React.Component<
     }
 
     return (
-      <InfoBoxInline
-        className="quota-info"
-        appearance="default"
-        message={
-          <React.Fragment>
-            <Icon
-              shape={SystemIcons.CircleInformation}
-              size={iconSizeXs}
-              color="currentColor"
-            />
-            <Plural
-              render="span"
-              value={noLimitGroups.length}
-              one={`# group has services not limited by quota. Update service roles
-              to have quota enforced.`}
-              other={`# groups have services not limited by
-              quota. Update service roles to have quota enforced.`}
-            />
-          </React.Fragment>
-        }
-      />
+      <SpacingBox side="bottom" spacingSize="l">
+        <InfoBoxInline
+          appearance="default"
+          message={
+            <React.Fragment>
+              <Icon
+                shape={SystemIcons.CircleInformation}
+                size={iconSizeXs}
+                color="currentColor"
+              />
+              <Plural
+                render={<span id="quota-no-limit-infobox" />}
+                value={noLimitGroups.length}
+                one={`# group has services not limited by quota. Update service roles
+                to have quota enforced.`}
+                other={`# groups have services not limited by
+                quota. Update service roles to have quota enforced.`}
+              />
+            </React.Fragment>
+          }
+        />
+      </SpacingBox>
     );
   }
 
