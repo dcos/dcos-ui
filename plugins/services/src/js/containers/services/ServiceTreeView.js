@@ -4,7 +4,7 @@ import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
 import { Trans, Plural } from "@lingui/macro";
-import { InfoBoxInline, Icon } from "@dcos/ui-kit";
+import { InfoBoxInline, Icon, SpacingBox } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
@@ -73,25 +73,26 @@ class ServiceTreeView extends React.Component {
     }
 
     return (
-      <InfoBoxInline
-        className="quota-info"
-        appearance="default"
-        message={
-          <React.Fragment>
-            <Icon
-              shape={SystemIcons.CircleInformation}
-              size={iconSizeXs}
-              color="currentColor"
-            />
-            <Plural
-              render="span"
-              value={nonLimited}
-              one={`# service is not limited by quota. Update role to have quota enforced.`}
-              other={`# services are not limited by quota. Update role to have quota enforced.`}
-            />
-          </React.Fragment>
-        }
-      />
+      <SpacingBox side="bottom" spacingSize="l">
+        <InfoBoxInline
+          appearance="default"
+          message={
+            <React.Fragment>
+              <Icon
+                shape={SystemIcons.CircleInformation}
+                size={iconSizeXs}
+                color="currentColor"
+              />
+              <Plural
+                render="span"
+                value={nonLimited}
+                one={`# service is not limited by quota. Update role to have quota enforced.`}
+                other={`# services are not limited by quota. Update role to have quota enforced.`}
+              />
+            </React.Fragment>
+          }
+        />
+      </SpacingBox>
     );
   }
 
