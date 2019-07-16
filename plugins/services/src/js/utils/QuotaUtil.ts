@@ -57,11 +57,11 @@ export function populateResourcesFromRole(
       quota.disk.limit = getValue(groupQuota.limit.disk);
       quota.gpus.limit = getValue(groupQuota.limit.gpus);
     }
-    if (groupQuota.consumption) {
-      quota.cpus.consumed = getValue(groupQuota.consumption.cpus);
-      quota.memory.consumed = getValue(groupQuota.consumption.mem);
-      quota.disk.consumed = getValue(groupQuota.consumption.disk);
-      quota.gpus.consumed = getValue(groupQuota.consumption.gpus);
+    if (groupQuota.consumed) {
+      quota.cpus.consumed = getValue(groupQuota.consumed.cpus);
+      quota.memory.consumed = getValue(groupQuota.consumed.mem);
+      quota.disk.consumed = getValue(groupQuota.consumed.disk);
+      quota.gpus.consumed = getValue(groupQuota.consumed.gpus);
     }
   }
 

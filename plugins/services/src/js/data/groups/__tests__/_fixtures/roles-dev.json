@@ -32,7 +32,7 @@
           "gpus": 0,
           "mem": 0
         },
-        "consumption": {
+        "consumed": {
           "cpus": 0,
           "disk": 0,
           "gpus": 0,

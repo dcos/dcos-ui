@@ -27,7 +27,7 @@
           "gpus": 10,
           "mem": 1024.0
         },
-        "consumption": {
+        "consumed": {
           "cpus": 1.5,
           "disk": 0,
           "gpus": 2,
@@ -58,7 +58,7 @@
           "gpus": 0,
           "mem": 1024.0
         },
-        "consumption": {
+        "consumed": {
           "cpus": 0.5,
           "disk": 5,
           "gpus": 0,
@@ -89,7 +89,7 @@
           "gpus": 2.0,
           "mem": 2048.0
         },
-        "consumption": {
+        "consumed": {
           "cpus": 0.5,
           "disk": 0,
           "gpus": 0,
@@ -120,7 +120,7 @@
           "gpus": 2.0,
           "mem": 2048.0
         },
-        "consumption": {
+        "consumed": {
           "cpus": 1.0,
           "disk": 0,
           "gpus": 0,
