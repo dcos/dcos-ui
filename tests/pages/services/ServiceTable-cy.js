@@ -397,16 +397,29 @@ describe("Service Table", function() {
     });
 
     it("group status is an aggregate of children", function() {
-      cy.get('.status-bar-text')
+      cy.get(".status-bar-text")
         .eq(1)
-        .contains("Running (3 of 3)")
+        .contains("Running (3 of 3)");
     });
 
     it("shows service status counts in group tooltip", function() {
-      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(1)
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
-    })
+    });
+
+    it("group status shows the highest priority", function() {
+      cy.get(".status-bar-text")
+        .eq(0)
+        .contains("Running (1 of 2)");
+    });
+
+    it("shows service status counts in group tooltip", function() {
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
+        .eq(0)
+        .trigger("mouseover");
+      cy.get(".tooltip").contains("1 Stopped");
+    });
   });
 });

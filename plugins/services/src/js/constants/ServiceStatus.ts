@@ -122,12 +122,12 @@ const WAITING: Status = {
 ///////////////////////////////////////////////////////////////////////////////
 
 const STOPPED: Status = {
-  priority: 2,
+  priority: 1,
   displayName: i18nMark("Stopped"),
   category: StatusCategory.STOPPED
 };
 const RUNNING: Status = {
-  priority: 1,
+  priority: 2,
   displayName: i18nMark("Running"),
   category: StatusCategory.RUNNING
 };
