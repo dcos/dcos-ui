@@ -71,7 +71,7 @@ describe("Quota Tab", function() {
       });
 
       it("Shows the info banner for services with no limit", function() {
-        cy.get(".quota-info")
+        cy.get("#quota-no-limit-infobox")
           .contains(
             "1 group has services not limited by quota. Update service roles to have quota enforced."
           )
