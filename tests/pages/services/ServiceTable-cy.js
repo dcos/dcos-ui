@@ -613,5 +613,18 @@ describe("Service Table", function() {
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
     });
+
+    it("group status shows the highest priority", function() {
+      cy.get(".status-bar-text")
+        .eq(0)
+        .contains("Running (1 of 2)");
+    });
+
+    it("shows service status counts in group tooltip", function() {
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
+        .eq(0)
+        .trigger("mouseover");
+      cy.get(".tooltip").contains("1 Stopped");
+    });
   });
 });
