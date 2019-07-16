@@ -80,20 +80,10 @@ class PageHeaderActions extends React.Component {
     }
   }
 
-  renderSupplementalContent() {
-    const { supplementalContent } = this.props;
-
-    if (supplementalContent == null) {
-      return null;
-    }
-
-    return supplementalContent;
-  }
-
   render() {
     return (
       <div className="page-header-actions-inner">
-        {this.renderSupplementalContent()}
+        {this.props.supplementalContent}
         <div className="button-collection-flush-bottom">
           {this.renderAddButton()}
           {this.renderActionsMenu()}
