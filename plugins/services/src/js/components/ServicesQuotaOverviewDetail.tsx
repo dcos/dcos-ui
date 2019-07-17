@@ -10,7 +10,7 @@ import {
 import { componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { DataLayer, DataLayerType } from "@extension-kid/data-layer";
-import { InfoBoxInline, Icon } from "@dcos/ui-kit";
+import { InfoBoxInline, Icon, SpacingBox } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
@@ -135,26 +135,28 @@ function getNoLimitInfobox(group: ServiceGroup) {
   }
 
   return (
-    <InfoBoxInline
-      className="quota-info"
-      appearance="default"
-      message={
-        <React.Fragment>
-          <Icon
-            shape={SystemIcons.CircleInformation}
-            size={iconSizeXs}
-            color="currentColor"
-          />
-          <Plural
-            value={nonLimited}
-            one="# service is not limited by quota. Update role to have quota
+    <SpacingBox side="bottom" spacingSize="l">
+      <InfoBoxInline
+        className="quota-info"
+        appearance="default"
+        message={
+          <React.Fragment>
+            <Icon
+              shape={SystemIcons.CircleInformation}
+              size={iconSizeXs}
+              color="currentColor"
+            />
+            <Plural
+              value={nonLimited}
+              one="# service is not limited by quota. Update role to have quota
             enforced."
-            other="# services are not limited by quota. Update role to
+              other="# services are not limited by quota. Update role to
             have quota enforced."
-          />
-        </React.Fragment>
-      }
-    />
+            />
+          </React.Fragment>
+        }
+      />
+    </SpacingBox>
   );
 }
 
