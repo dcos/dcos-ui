@@ -6,11 +6,14 @@ import { i18nMark } from "@lingui/react";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { DataLayerType } from "@extension-kid/data-layer";
 import { NotificationServiceType } from "@extension-kid/notification-service";
 import {
   ToastNotification,
   ToastAppearance
 } from "@extension-kid/toast-notifications";
+import gql from "graphql-tag";
+import { map } from "rxjs/operators";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
@@ -91,6 +94,7 @@ const SERVICE_FILTERS = [
   new ServiceNameTextFilter()
 ];
 
+const dl = container.get(DataLayerType);
 const notificationService = container.get(NotificationServiceType);
 
 function i18nTranslate(id, values) {
@@ -132,6 +136,19 @@ function countFetchErrors(fetchErrors, action) {
   }
 }
 
+function getMesosRoles$() {
+  return dl
+    .query(
+      gql`
+        query {
+          roles
+        }
+      `,
+      {}
+    )
+    .pipe(map(result => result.data.roles));
+}
+
 const METHODS_TO_BIND = [
   "handleServerAction",
   "handleFilterExpressionChange",
@@ -162,7 +179,8 @@ class ServicesContainer extends React.Component {
       filterExpression: new DSLExpression(),
       isLoading: true,
       lastUpdate: 0,
-      pendingActions: {}
+      pendingActions: {},
+      roles: []
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -176,6 +194,12 @@ class ServicesContainer extends React.Component {
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
+    const roles$ = getMesosRoles$();
+    if (roles$) {
+      this.rolesSub = roles$.subscribe(roles => {
+        this.setState({ roles });
+      });
+    }
   }
 
   componentWillMount() {
@@ -190,6 +214,10 @@ class ServicesContainer extends React.Component {
     AppDispatcher.unregister(this.dispatcher);
 
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
+
+    if (this.rolesSub) {
+      this.rolesSub.unsubscribe();
+    }
   }
 
   getChildContext() {
@@ -590,7 +618,7 @@ class ServicesContainer extends React.Component {
 
   getServiceTree(item) {
     const { children, params, routes } = this.props;
-    const { filterExpression } = this.state;
+    const { filterExpression, roles } = this.state;
 
     const isEmpty = item.getItems().length === 0;
     let filteredServices = item;
@@ -613,6 +641,7 @@ class ServicesContainer extends React.Component {
         routes={routes}
         services={filteredServices.getItems()}
         serviceTree={item}
+        roles={roles}
       >
         {children}
         {this.getModals(item)}
