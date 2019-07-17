@@ -641,7 +641,7 @@ describe("Service Table", function() {
       cy.get(".table-cell-link-primary")
         .contains("2_apps")
         .click();
-      cy.get(".quota-info")
+      cy.get("#quota-no-limit-infobox")
         .contains(
           "1 service is not limited by quota. Update role to have quota enforced."
         )

@@ -84,7 +84,7 @@ class ServiceTreeView extends React.Component {
                 color="currentColor"
               />
               <Plural
-                render="span"
+                render={<span id="quota-no-limit-infobox" />}
                 value={nonLimited}
                 one={`# service is not limited by quota. Update role to have quota enforced.`}
                 other={`# services are not limited by quota. Update role to have quota enforced.`}
