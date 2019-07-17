@@ -5,6 +5,7 @@ import {
   ServiceGroupQuotaRoles
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import { MesosRole } from "#PLUGINS/services/src/js/types/MesosRoles";
+import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
 
 describe("QuotaUtil", () => {
   describe("#quotaHasLimit", () => {
@@ -331,6 +332,45 @@ describe("QuotaUtil", () => {
         groupRoleCount: 5
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Partially Enforced");
+    });
+  });
+
+  describe("#serviceTreeHasQuota", () => {
+    it("returns false if serviceTree is root", () => {
+      expect(QuotaUtil.serviceTreeHasQuota(new ServiceTree(), [])).toEqual(
+        false
+      );
+    });
+    it("returns false if serviceTree is not a top-level group", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev/test" }), [])
+      ).toEqual(false);
+    });
+    it("returns false if there is no matching role", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [])
+      ).toEqual(false);
+    });
+    it("returns false if role has not quota", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [
+          { name: "dev", weight: 1.0 }
+        ])
+      ).toEqual(false);
+    });
+    it("returns false if role has quota, but no limits", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [
+          { name: "dev", weight: 1.0, quota: { limit: {} } }
+        ])
+      ).toEqual(false);
+    });
+    it("returns true if role has quota and at least one limit", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [
+          { name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } }
+        ])
+      ).toEqual(true);
     });
   });
 });
