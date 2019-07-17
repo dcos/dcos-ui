@@ -120,22 +120,20 @@ class ServiceTreeView extends React.Component {
       return [];
     }
     const { serviceTree } = this.props;
-    if (
-      serviceTree.isRoot() ||
-      typeof serviceTree.getEnforceRole() === "boolean"
-    ) {
+    const id = serviceTree.getId();
+    if (id.split("/").length <= 2) {
       return [
         {
           label: i18nMark("Services"),
           routePath: serviceTree.isRoot()
             ? "/services/overview"
-            : `/services/overview/${encodeURIComponent(serviceTree.id)}`
+            : `/services/overview/${encodeURIComponent(id)}`
         },
         {
           label: i18nMark("Quota"),
           routePath: serviceTree.isRoot()
             ? "/services/quota"
-            : `/services/quota/${encodeURIComponent(serviceTree.id)}`
+            : `/services/quota/${encodeURIComponent(id)}`
         }
       ];
     }
