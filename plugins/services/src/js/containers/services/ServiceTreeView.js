@@ -12,7 +12,6 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 
 import Page from "#SRC/js/components/Page";
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
 import EmptyServiceTree from "./EmptyServiceTree";
@@ -58,17 +57,10 @@ class ServiceTreeView extends React.Component {
   getNoLimitInfobox() {
     const { serviceTree } = this.props;
 
-    // TODO: remove feature flag
-    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
     const { rolesCount, groupRolesCount } = serviceTree.getRoleLength();
     const nonLimited = rolesCount - groupRolesCount;
 
-    if (
-      !quota ||
-      serviceTree.isRoot() ||
-      !serviceTree.getEnforceRole() ||
-      !nonLimited
-    ) {
+    if (serviceTree.isRoot() || !serviceTree.getEnforceRole() || !nonLimited) {
       return null;
     }
 
@@ -110,13 +102,12 @@ class ServiceTreeView extends React.Component {
   }
 
   getTabs() {
-    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
     // Workaround for Cypress.
     const createModalOpen = this.context.router.routes.some(
       ({ isFullscreenModal }) => isFullscreenModal
     );
 
-    if (!quota || createModalOpen) {
+    if (createModalOpen) {
       return [];
     }
     const { serviceTree } = this.props;

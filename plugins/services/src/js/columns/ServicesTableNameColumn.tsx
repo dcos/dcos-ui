@@ -16,8 +16,6 @@ import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
 import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
-//@ts-ignore
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 const ServiceName = React.memo(
   ({
@@ -43,12 +41,8 @@ const ServiceName = React.memo(
       ? `/services/overview/${id}`
       : `/services/detail/${id}`;
 
-    // TODO: remove feature flag
-    //@ts-ignore
-    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
-
     const badge =
-      isRoleEnforced && isNoLimit && quota ? (
+      isRoleEnforced && isNoLimit ? (
         <Badge>
           <Trans render="span" className="quota-no-limit">
             No Limit
