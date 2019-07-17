@@ -106,6 +106,9 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
       },
       groups() {
         return groups$.pipe(map(groups => groups.map(processServiceGroup)));
+      },
+      roles() {
+        return roles$;
       }
     }
   };
