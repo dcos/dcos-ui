@@ -64,7 +64,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
   return {
     ServiceGroup: {
       quota(parent: ServiceGroup) {
-        if (!parent.quota || !parent.quota.enforced) {
+        if (!parent.quota) {
           return of({ enforced: false });
         }
         const { id, quota } = parent;
