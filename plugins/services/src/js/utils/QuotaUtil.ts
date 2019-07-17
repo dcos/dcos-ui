@@ -6,7 +6,8 @@ import {
   ServiceGroupQuotaLimit,
   ServiceGroupQuotaRoles
 } from "../types/ServiceGroup";
-import { MesosRole } from "#PLUGINS/services/src/js/types/MesosRoles";
+import { MesosRole } from "../types/MesosRoles";
+import ServiceTree from "../structs/ServiceTree";
 
 export function quotaHasLimit(
   quota: ServiceGroupQuota | null | undefined
@@ -95,4 +96,26 @@ export function getQuotaLimit(
   }
 
   return i18nMark("N/A") as ServiceGroupQuotaLimit;
+}
+
+export function serviceTreeHasQuota(
+  item: ServiceTree,
+  roles: MesosRole[]
+): boolean {
+  if (item.isRoot()) {
+    return false;
+  }
+  if (item.getId().split("/").length > 2) {
+    //This is not a top-level group, don't bother checking for quota
+    return false;
+  }
+  const role = roles.find(role => role.name === item.getName());
+  if (!role) {
+    return false;
+  }
+  return !!(
+    role.quota &&
+    role.quota.limit &&
+    Object.keys(role.quota.limit).length > 0
+  );
 }
