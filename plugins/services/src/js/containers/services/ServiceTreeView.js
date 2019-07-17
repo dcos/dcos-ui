@@ -231,7 +231,8 @@ ServiceTreeView.propTypes = {
       PropTypes.instanceOf(ServiceTree)
     ])
   ).isRequired,
-  serviceTree: PropTypes.instanceOf(ServiceTree)
+  serviceTree: PropTypes.instanceOf(ServiceTree),
+  roles: PropTypes.array
 };
 
 module.exports = ServiceTreeView;
