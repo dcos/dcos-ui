@@ -193,15 +193,20 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         cpus: {
+          consumed: 0,
           limit: 3
         },
         memory: {
+          consumed: 0,
           limit: 100
         },
         disk: {
+          consumed: 0,
           limit: 0
         },
-        gpus: {}
+        gpus: {
+          consumed: 0
+        }
       });
     });
     it("populates guarantee values", () => {
@@ -224,13 +229,18 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         cpus: {
+          consumed: 0,
           guarantee: 3
         },
         memory: {
+          consumed: 0,
           guarantee: 100
         },
-        disk: {},
+        disk: {
+          consumed: 0
+        },
         gpus: {
+          consumed: 0,
           guarantee: 1
         }
       });
