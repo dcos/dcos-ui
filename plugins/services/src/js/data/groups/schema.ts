@@ -26,4 +26,27 @@ export const GroupTypes = `
     name: String!
     quota: ServiceGroupQuota
   }
+  
+  type MesosResources {
+    cpus: Float
+    disk: Float
+    gpus: Float
+    mem: Float
+    ports: String
+  }
+  
+  type MesosQuota {
+    role: String
+    guarantee: MesosResources
+    limit: MesosResources
+    consumed: MesosResources
+  }
+  
+  type MesosRole {
+    name: String!
+    weight: Float!
+    frameworks: [String!]
+    resources: MesosResources
+    quota: MesosQuota
+  }
 `;

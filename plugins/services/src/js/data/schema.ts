@@ -9,5 +9,6 @@ export const typeDefs = `
     group(id: String!): ServiceGroup
     groups: [ServiceGroup!]!
     service(id: String!): Service
+    roles: [MesosRole!]!
   }
 `;
