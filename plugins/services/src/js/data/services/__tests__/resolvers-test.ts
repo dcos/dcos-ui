@@ -16,7 +16,7 @@ import {
   fetchPlans,
   ServicePlanResponse
 } from "#PLUGINS/services/src/js/data/ServicePlansClient";
-import { ResolverArgs } from "#PLUGINS/services/src/js/data";
+import { ResolverArgs } from "#PLUGINS/services/src/js/data/resolvers";
 import { of } from "rxjs";
 
 function makeFakePlanResponse(): ServicePlanResponse {
