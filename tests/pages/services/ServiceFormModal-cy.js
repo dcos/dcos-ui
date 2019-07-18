@@ -8,6 +8,8 @@ describe("Service Form Modal", function() {
       cy.get(".page-header-actions button")
         .first()
         .click();
+
+      cy.contains("Run a Service").click();
     }
 
     function clickRunService() {

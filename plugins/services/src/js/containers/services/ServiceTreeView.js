@@ -173,16 +173,16 @@ class ServiceTreeView extends React.Component {
       <Page dontScroll={true} flushBottom={true}>
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-          actions={[
+          addButton={[
+            {
+              onItemSelect: createService,
+              label: i18nMark("Run a Service")
+            },
             {
               onItemSelect: modalHandlers.createGroup,
               label: i18nMark("Create Group")
             }
           ]}
-          addButton={{
-            onItemSelect: createService,
-            label: i18nMark("Run a Service")
-          }}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
