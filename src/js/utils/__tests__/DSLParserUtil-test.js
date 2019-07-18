@@ -1,8 +1,8 @@
+import DSLFilter from "../../structs/DSLFilter";
+import DSLFilterTypes from "../../constants/DSLFilterTypes";
+import DSLCombinerTypes from "../../constants/DSLCombinerTypes";
+
 const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLCombinerTypes = require("../../constants/DSLCombinerTypes");
-const DSLFilter = require("../../structs/DSLFilter");
-const DSLFilterList = require("../../structs/DSLFilterList");
-const DSLFilterTypes = require("../../constants/DSLFilterTypes");
 const DSLParserUtil = require("../DSLParserUtil");
 const List = require("../../structs/List");
 
@@ -79,7 +79,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([new AttribFilter()]);
+      const filters = [new AttribFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
@@ -113,7 +113,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([new ExactFilter()]);
+      const filters = [new ExactFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "exact" }
@@ -146,7 +146,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([new FuzzyFilter()]);
+      const filters = [new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "fuzzy" },
@@ -186,10 +186,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([
-        new AttribFilter(),
-        new FuzzyFilter()
-      ]);
+      const filters = [new AttribFilter(), new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute fuzzy" }
@@ -228,10 +225,7 @@ describe("DSLParserUtil", function() {
 
       expect(typeof filter).toEqual("function");
 
-      const filters = new DSLFilterList([
-        new AttribFilter(),
-        new FuzzyFilter()
-      ]);
+      const filters = [new AttribFilter(), new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },

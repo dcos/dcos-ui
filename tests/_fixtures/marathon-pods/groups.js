@@ -1,5 +1,5 @@
 const createFrameworks = () =>
-  [418, 200, 500, 204, 202, 203, 205, 206, 420, 421, 426, 503].map(
+  [318, 200, 500, 204, 202, 203, 205, 206, 320, 321, 326, 503].map(
     statusCode => ({
       id: `/${statusCode}-hello-world`,
       backoffFactor: 1.15,
@@ -191,6 +191,7 @@ module.exports = {
   groups: [
     {
       id: "/10000_apps",
+      enforceRole: true,
       apps: [...Array(10000).keys()].map(i => ({
         id: `/sleep_${i}`,
         cmd: "sleep 3000",
@@ -230,6 +231,178 @@ module.exports = {
       groups: [],
       pods: [],
       version: "2015-08-28T01:26:14.620Z"
+    },
+    {
+      id: "/10_apps",
+      enforceRole: true,
+      apps: [...Array(10).keys()].map(i => ({
+        id: `/10_apps/sleep_${i}`,
+        cmd: "sleep 3000",
+        args: null,
+        user: null,
+        env: {},
+        instances: 1,
+        cpus: 0.1,
+        mem: 16,
+        disk: 0,
+        executor: "",
+        constraints: [],
+        uris: [],
+        storeUrls: [],
+        ports: [10000],
+        requirePorts: false,
+        backoffSeconds: 1,
+        backoffFactor: 1.15,
+        maxLaunchDelaySeconds: 3600,
+        container: null,
+        healthChecks: [],
+        dependencies: [],
+        upgradeStrategy: {
+          minimumHealthCapacity: 1,
+          maximumOverCapacity: 1
+        },
+        labels: {},
+        acceptedResourceRoles: null,
+        version: "2015-08-28T01:26:14.620Z",
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        deployments: [],
+        role: "slave_public"
+      })),
+      dependencies: [],
+      groups: [],
+      pods: [],
+      version: "2015-08-28T01:26:14.620Z"
+    },
+    {
+      id: "/2_apps",
+      enforceRole: true,
+      apps: [
+        {
+          id: "/2_apps/sleep_0",
+          cmd: "sleep 3000",
+          args: null,
+          user: null,
+          env: {},
+          instances: 1,
+          cpus: 0.1,
+          mem: 16,
+          disk: 0,
+          executor: "",
+          constraints: [],
+          uris: [],
+          storeUrls: [],
+          ports: [10000],
+          requirePorts: false,
+          backoffSeconds: 1,
+          backoffFactor: 1.15,
+          maxLaunchDelaySeconds: 3600,
+          container: null,
+          healthChecks: [],
+          dependencies: [],
+          upgradeStrategy: {
+            minimumHealthCapacity: 1,
+            maximumOverCapacity: 1
+          },
+          labels: {},
+          acceptedResourceRoles: null,
+          version: "2015-08-28T01:26:14.620Z",
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          deployments: [],
+          role: "2_apps"
+        },
+        {
+          id: "/2_apps/sleep_no_limit",
+          cmd: "sleep 3000",
+          args: null,
+          user: null,
+          env: {},
+          instances: 1,
+          cpus: 0.1,
+          mem: 16,
+          disk: 0,
+          executor: "",
+          constraints: [],
+          uris: [],
+          storeUrls: [],
+          ports: [10000],
+          requirePorts: false,
+          backoffSeconds: 1,
+          backoffFactor: 1.15,
+          maxLaunchDelaySeconds: 3600,
+          container: null,
+          healthChecks: [],
+          dependencies: [],
+          upgradeStrategy: {
+            minimumHealthCapacity: 1,
+            maximumOverCapacity: 1
+          },
+          labels: {},
+          acceptedResourceRoles: null,
+          version: "2019-01-01T01:26:14.620Z",
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          deployments: [],
+          role: "slave_public"
+        }
+      ],
+      dependencies: [],
+      groups: [],
+      pods: [],
+      version: "2015-08-28T01:26:14.620Z"
+    },
+    {
+      id: "/1_app",
+      enforceRole: true,
+      apps: [
+        {
+          id: "/1_app/sleep_1",
+          cmd: "sleep 3000",
+          args: null,
+          user: null,
+          env: {},
+          instances: 1,
+          cpus: 0.1,
+          mem: 16,
+          disk: 0,
+          executor: "",
+          constraints: [],
+          uris: [],
+          storeUrls: [],
+          ports: [10000],
+          requirePorts: false,
+          backoffSeconds: 1,
+          backoffFactor: 1.15,
+          maxLaunchDelaySeconds: 3600,
+          container: null,
+          healthChecks: [],
+          dependencies: [],
+          upgradeStrategy: {
+            minimumHealthCapacity: 1,
+            maximumOverCapacity: 1
+          },
+          labels: {},
+          acceptedResourceRoles: null,
+          version: "2015-08-28T01:26:14.620Z",
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          deployments: [],
+          role: "1_app"
+        }
+      ],
+      dependencies: [],
+      groups: [],
+      pods: [],
+      version: "2019-01-01T01:26:14.620Z"
     }
   ],
   pods: [],

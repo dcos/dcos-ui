@@ -1,3 +1,4 @@
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import HealthSorting from "../../../plugins/services/src/js/constants/HealthSorting";
 import UnitHealthStatus from "../constants/UnitHealthStatus";
 import Util from "./Util";
@@ -140,6 +141,18 @@ var TableUtil = {
    */
   getHealthSortingOrder() {
     return TableUtil.sortHealthValues;
+  },
+
+  /**
+   * Checks if localstorage has a
+   * value for a column's width
+   *
+   * @param {String} colWidthsStorageKey
+   * @param {String} columnKey
+   * @returns {Boolean} whether column was resized
+   */
+  isColWidthCustom(colWidthsStorageKey, columnKey) {
+    return Boolean(TableColumnResizeStore.get(colWidthsStorageKey)[columnKey]);
   }
 };
 

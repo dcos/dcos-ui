@@ -1,10 +1,11 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const {
   ADD_ITEM,
   REMOVE_ITEM,
   SET
 } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const Volumes = require("../Volumes");
 
 describe("Volumes", function() {
@@ -761,7 +762,8 @@ describe("Volumes", function() {
                 containerPath: "/dev/null",
                 persistent: {
                   size: 1,
-                  profileName: "devnull"
+                  profileName: "devnull",
+                  type: "mount"
                 },
                 mode: "RW"
               }
@@ -775,7 +777,8 @@ describe("Volumes", function() {
               containerPath: "/dev/null",
               persistent: {
                 size: 1,
-                profileName: "devnull"
+                profileName: "devnull",
+                type: "mount"
               },
               mode: "RW"
             },
@@ -805,7 +808,77 @@ describe("Volumes", function() {
             containerPath: null,
             persistent: {
               size: null,
-              profileName: null
+              profileName: null,
+              type: "mount"
+            },
+            mode: "RW"
+          }
+        ]);
+      });
+
+      it("returns DSS volume after changing the type", function() {
+        let batch = new Batch();
+
+        batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
+        batch = batch.add(
+          new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
+        );
+        batch = batch.add(
+          new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+        );
+        batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
+        batch = batch.add(new Transaction(["volumes", 0, "mode"], "RW", SET));
+        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
+        batch = batch.add(
+          new Transaction(["volumes", 0, "profileName"], "dev", SET)
+        );
+
+        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          {
+            containerPath: "/dev/null",
+            persistent: {
+              size: 1024,
+              profileName: "dev",
+              type: "mount"
+            },
+            mode: "RW"
+          }
+        ]);
+      });
+
+      it("persists persists volume type", function() {
+        let batch = new Batch();
+
+        batch = batch.add(
+          new Transaction(
+            ["volumes"],
+            {
+              containerPath: null,
+              persistent: {
+                size: 1024,
+                type: "test"
+              },
+              mode: "RW"
+            },
+            ADD_ITEM
+          )
+        );
+
+        batch = batch.add(
+          new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+        );
+        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
+        batch = batch.add(
+          new Transaction(["volumes", 0, "profileName"], "dev", SET)
+        );
+
+        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          {
+            containerPath: "/dev/null",
+            persistent: {
+              size: 1024,
+              profileName: "dev",
+              type: "test"
             },
             mode: "RW"
           }
@@ -826,7 +899,8 @@ describe("Volumes", function() {
             containerPath: null,
             persistent: {
               size: null,
-              profileName: "dev"
+              profileName: "dev",
+              type: "mount"
             },
             mode: "RW"
           }

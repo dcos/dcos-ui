@@ -1,33 +1,37 @@
 import * as React from "react";
 import { TextCell } from "@dcos/ui-kit";
 import { Tooltip } from "reactjs-components";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
-import ServiceTableUtil from "../utils/ServiceTableUtil";
+// @ts-ignore
+import Framework from "../structs/Framework";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
+import * as Version from "../utils/Version";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
+import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+
+const ServiceVersion = React.memo(({ rawVersion }: { rawVersion: string }) => (
+  <TextCell>
+    <Tooltip content={rawVersion} wrapText={true}>
+      {rawVersion}
+    </Tooltip>
+  </TextCell>
+));
 
 export function versionRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const version = ServiceTableUtil.getFormattedVersion(service);
-  if (!version) {
+  if (service instanceof ServiceTree) {
     return null;
   }
 
-  return (
-    <TextCell>
-      <Tooltip content={version.rawVersion} wrapText={true}>
-        {version.displayVersion}
-      </Tooltip>
-    </TextCell>
-  );
+  const rawVersion =
+    service instanceof Framework ? Version.fromService(service) : "";
+  return <ServiceVersion rawVersion={rawVersion} />;
 }
 
-export function versionSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "version");
+export function versionWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).version;
 }

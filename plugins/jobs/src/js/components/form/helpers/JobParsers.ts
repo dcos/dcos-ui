@@ -1,3 +1,4 @@
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import {
   deepCopy,
   findNestedPropertyInObject,
@@ -9,9 +10,19 @@ import {
   DockerParameter,
   FormOutput,
   JobOutput,
-  JobSpec
+  JobSpec,
+  PlacementConstraint
 } from "./JobFormData";
 import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
+import { isArray } from "util";
+
+function isPresent(value: any) {
+  return value != null && value !== "";
+}
+
+// Array<[string, T]> => Record<string, T>
+const zipObject = <T>(list: Array<[string, T]>): Record<string, T> =>
+  list.reduce<Record<string, T>>((acc, [k, v]) => ({ ...acc, [k]: v }), {});
 
 export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   const jobSpecCopy = deepCopy(jobSpec);
@@ -68,6 +79,40 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       }
     }
 
+    // VOLUMES
+
+    const { volumes } = jobSpecCopy.job.run;
+    if (volumes && Array.isArray(volumes)) {
+      jobSpecCopy.job.run.volumes = volumes.filter(
+        ({ hostPath, containerPath, mode }) => hostPath || containerPath || mode
+      );
+      if (!jobSpecCopy.job.run.volumes.length) {
+        delete jobSpecCopy.job.run.volumes;
+      }
+    }
+
+    // PLACEMENT
+    if (
+      jobSpecCopy.job.run.placement &&
+      jobSpecCopy.job.run.placement.constraints &&
+      isArray(jobSpecCopy.job.run.placement.constraints)
+    ) {
+      jobSpecCopy.job.run.placement.constraints = (jobSpecCopy.job.run.placement
+        .constraints as PlacementConstraint[])
+        .filter(
+          ({ operator, attribute, value }) =>
+            isPresent(operator) || isPresent(attribute) || isPresent(value)
+        )
+        .map(({ operator, attribute, value }) => ({
+          operator,
+          attribute,
+          value
+        }));
+      if (!jobSpecCopy.job.run.placement.constraints.length) {
+        delete jobSpecCopy.job.run.placement;
+      }
+    }
+
     // RUN CONFIG
     const { artifacts } = jobSpecCopy.job.run;
     jobSpecCopy.job.run.artifacts = Array.isArray(artifacts)
@@ -75,39 +120,50 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
       : artifacts;
 
     try {
-      const labels = (jobSpec.job.labels || []).reduce<Record<string, string>>(
-        (acc, [k, v]) => ({ ...acc, [k]: v }),
-        {}
-      );
+      // filter out empty keys ("")
+      const labels = zipObject((jobSpec.job.labels || []).filter(([k]) => k));
 
       // don't show labels in JSON-editor unless we actually have key-value-pairs
       jobSpecCopy.job.labels =
         Object.keys(labels).length > 0 ? labels : undefined;
-    } catch {}
-  }
+    } catch {
+      // someone entered invalid stuff in the JSON editor
+    }
 
-  if (
-    jobSpecCopy.schedule &&
-    jobSpecCopy.schedule.startingDeadlineSeconds === ""
-  ) {
-    delete jobSpecCopy.schedule.startingDeadlineSeconds;
-  }
-  if (jobSpecCopy.schedule) {
-    const filteredSchedule = filterEmptyValues(jobSpecCopy.schedule);
-    if (
-      !Object.keys(filteredSchedule).length ||
-      schedulePropertiesCanBeDiscarded(filteredSchedule)
-    ) {
-      jobSpecCopy.schedule = undefined;
+    // ENVIRONMENT
+    try {
+      // filter out empty keys ("")
+      const env = zipObject((jobSpec.job.run.env || []).filter(([k]) => k));
+      // don't show labels in JSON-editor unless we actually have key-value-pairs
+      jobSpecCopy.job.run.env = Object.keys(env).length > 0 ? env : undefined;
+    } catch {
+      // someone entered invalid stuff in the JSON editor
     }
   }
 
-  const jobOutput = {
-    job: jobSpecCopy.job,
-    schedule: jobSpecCopy.schedule
-  };
+  if (
+    jobSpecCopy.job.schedules &&
+    Array.isArray(jobSpecCopy.job.schedules) &&
+    jobSpecCopy.job.schedules.length
+  ) {
+    const schedule = jobSpecCopy.job.schedules[0];
+    if (schedule && schedule.startingDeadlineSeconds === "") {
+      delete schedule.startingDeadlineSeconds;
+    }
+    if (schedule) {
+      const filteredSchedule = filterEmptyValues(schedule);
+      if (
+        !Object.keys(filteredSchedule).length ||
+        schedulePropertiesCanBeDiscarded(filteredSchedule)
+      ) {
+        delete jobSpecCopy.job.schedules;
+      }
+    }
+  }
 
-  return jobOutput;
+  const jobOutput = jobSpecCopy.job;
+
+  return Hooks.applyFilter("jobSpecToOutputParser", jobOutput);
 }
 
 export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
@@ -132,6 +188,17 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   const grantRuntimePrivileges =
     container === Container.Docker &&
     findNestedPropertyInObject(jobSpec, "job.run.docker.privileged");
+  const constraints = findNestedPropertyInObject(
+    jobSpec,
+    "job.run.placement.constraints"
+  );
+  const placementConstraints =
+    constraints && Array.isArray(constraints) ? constraints : [];
+  const schedules = findNestedPropertyInObject(jobSpec, "job.schedules");
+  let schedule = {};
+  if (schedules && Array.isArray(schedules) && schedules.length) {
+    schedule = schedules[0];
+  }
 
   return {
     jobId: jobSpec.job.id,
@@ -142,6 +209,7 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     containerImage,
     imageForcePull,
     grantRuntimePrivileges,
+    env: run.env || [],
     cpus: run.cpus,
     gpus: run.gpus,
     mem: run.mem,
@@ -155,34 +223,37 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     labels: jobSpec.job.labels,
     artifacts: run.artifacts,
     args,
-    scheduleId: findNestedPropertyInObject(jobSpec, "schedule.id"),
-    cronSchedule: findNestedPropertyInObject(jobSpec, "schedule.cron"),
-    scheduleEnabled: findNestedPropertyInObject(jobSpec, "schedule.enabled"),
-    timezone: findNestedPropertyInObject(jobSpec, "schedule.timezone"),
+    scheduleId: findNestedPropertyInObject(schedule, "id"),
+    cronSchedule: findNestedPropertyInObject(schedule, "cron"),
+    scheduleEnabled: findNestedPropertyInObject(schedule, "enabled"),
+    timezone: findNestedPropertyInObject(schedule, "timezone"),
     startingDeadline: findNestedPropertyInObject(
-      jobSpec,
-      "schedule.startingDeadlineSeconds"
+      schedule,
+      "startingDeadlineSeconds"
     ),
-    concurrencyPolicy: findNestedPropertyInObject(
-      jobSpec,
-      "schedule.concurrencyPolicy"
-    )
+    volumes: findNestedPropertyInObject(jobSpec, "job.run.volumes") || [],
+    placementConstraints,
+    concurrencyPolicy: findNestedPropertyInObject(schedule, "concurrencyPolicy")
   };
 };
 
 export const removeBlankProperties = (jobSpec: JobOutput): JobOutput => {
   const jobSpecCopy = deepCopy(jobSpec);
-  const job = filterEmptyValues(jobSpecCopy.job);
+  const job = filterEmptyValues(jobSpecCopy);
   job.run = filterEmptyValues(job.run);
-  let schedule = jobSpecCopy.schedule;
+  const schedules = job.schedules;
+  let schedule;
+  if (schedules && Array.isArray(schedules) && schedules.length) {
+    schedule = schedules[0];
+  }
   if (schedule) {
-    const filteredSchedule = filterEmptyValues(jobSpecCopy.schedule);
+    const filteredSchedule = filterEmptyValues(schedule);
     schedule = Object.keys(filteredSchedule).length
       ? filteredSchedule
       : undefined;
   }
-  return {
-    job,
-    schedule
-  };
+  if (!schedule) {
+    delete job.schedules;
+  }
+  return job;
 };

@@ -1,6 +1,5 @@
 const DeploymentsList = require("../../structs/DeploymentsList");
 const EventTypes = require("../../constants/EventTypes");
-const HealthLabels = require("../../constants/HealthLabels");
 const HealthTypes = require("../../constants/HealthTypes");
 const MarathonStore = require("../MarathonStore");
 const MockAppMetadata = require("./fixtures/MockAppMetadata");
@@ -50,19 +49,6 @@ describe("MarathonStore", function() {
         MockMarathonResponse.hasHealth.items[0]
       );
       expect(health.key).toEqual("HEALTHY");
-    });
-  });
-
-  describe("#getServiceHealth", function() {
-    it("returns NA when health is not available", function() {
-      var health = MarathonStore.getServiceHealth("foo");
-      expect(HealthLabels[health.key]).toEqual(HealthLabels.NA);
-    });
-
-    it("returns health for service", function() {
-      MarathonStore.processMarathonGroups(MockMarathonResponse.hasHealth);
-      var health = MarathonStore.getServiceHealth("Framework 1");
-      expect(HealthLabels[health.key]).toEqual(HealthLabels.HEALTHY);
     });
   });
 
@@ -172,6 +158,13 @@ describe("MarathonStore", function() {
       const deployments = thisHandler.mock.calls[0][0];
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual("deployment-id");
+    });
+
+    it("emits an error if the data is not an array", function() {
+      thisHandler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_ERROR, thisHandler);
+      MarathonStore.processMarathonDeployments({ id: "deployment-id" });
+      expect(thisHandler).toBeCalled();
     });
   });
 

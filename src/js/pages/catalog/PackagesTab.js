@@ -239,12 +239,11 @@ class PackagesTab extends mixin(StoreMixin) {
       if (foundPackagesLength < 1) {
         return (
           <Trans render="div" className="clearfix">
-            No results were found for your search: "{this.state.searchString}" (<a
-              className="clickable"
-              onClick={this.clearInput}
-            >
+            No results were found for your search: "{this.state.searchString}" (
+            <a className="clickable" onClick={this.clearInput}>
               view all
-            </a>)
+            </a>
+            )
           </Trans>
         );
       }

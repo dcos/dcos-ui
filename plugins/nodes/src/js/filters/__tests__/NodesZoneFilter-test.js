@@ -1,5 +1,4 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var NodesZoneFilter = require("../NodesZoneFilter");
 var List = require("#SRC/js/structs/List");
 
@@ -25,7 +24,7 @@ describe("NodesZoneFilter", function() {
     const nodes = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
-    const filters = new DSLFilterList().add(new NodesZoneFilter(["zone-1"]));
+    const filters = [new NodesZoneFilter(["zone-1"])];
 
     expect(
       expr

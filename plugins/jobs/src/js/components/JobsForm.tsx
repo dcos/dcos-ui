@@ -1,7 +1,9 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import classNames from "classnames";
 import * as React from "react";
+import { MountService } from "foundation-ui";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
@@ -21,8 +23,11 @@ import {
 } from "./form/helpers/JobFormData";
 import GeneralFormSection from "./form/GeneralFormSection";
 import ContainerFormSection from "./form/ContainerFormSection";
+import EnvironmentFormSection from "./form/EnvironmentFormSection";
 import RunConfigFormSection from "./form/RunConfigFormSection";
 import ScheduleFormSection from "./form/ScheduleFormSection";
+import VolumesFormSection from "./form/VolumesFormSection";
+import PlacementSection from "./form/PlacementSection";
 import {
   jobSpecToOutputParser,
   jobSpecToFormOutputParser
@@ -35,7 +40,7 @@ const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-interface JobFormProps {
+interface JobsFormProps {
   onChange: (action: Action) => void;
   jobSpec: JobSpec;
   activeTab: string;
@@ -45,6 +50,7 @@ interface JobFormProps {
   onErrorsChange: (errors: FormError[], type?: string) => void;
   showAllErrors: boolean;
   i18n: any;
+  isEdit: boolean;
 }
 
 interface NavigationItem {
@@ -53,23 +59,18 @@ interface NavigationItem {
   label: string;
 }
 
-class JobModalForm extends React.Component<JobFormProps> {
-  static navigationItems: NavigationItem[] = [
+class JobsForm extends React.Component<JobsFormProps> {
+  static readonly navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
+    { id: "environment", key: "environment", label: i18nMark("Environment") },
+    { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
+    { id: "placement", key: "placement", label: i18nMark("Placement") },
     { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
   ];
 
-  static tabList = JobModalForm.navigationItems.map(item => (
-    <TabButton
-      id={item.id}
-      label={<Trans render="span" id={item.label} />}
-      key={item.key}
-    />
-  ));
-
-  constructor(props: Readonly<JobFormProps>) {
+  constructor(props: Readonly<JobsFormProps>) {
     super(props);
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -80,15 +81,16 @@ class JobModalForm extends React.Component<JobFormProps> {
     this.getJSONEditorData = this.getJSONEditorData.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
+    this.getFormOutput = this.getFormOutput.bind(this);
   }
 
   getJSONEditorData(jobSpec: JobSpec): JobOutput {
     const jobJSON = jobSpecToOutputParser(jobSpec);
-    if (jobJSON.hasOwnProperty("schedule") && jobJSON.schedule === undefined) {
+    if (jobJSON.hasOwnProperty("schedule") && jobJSON.schedules === undefined) {
       // jobSpecToOutputParser returns object with `schedule: undefined` if there is no schedule present,
       // but this triggers an update of the JSONEditor and leads to issues where the state of the JSON in the
       // editor is replaced with old values.
-      delete jobJSON.schedule;
+      delete jobJSON.schedules;
     }
     return jobJSON;
   }
@@ -144,19 +146,157 @@ class JobModalForm extends React.Component<JobFormProps> {
     };
   }
 
+  getTabContent() {
+    const { jobSpec, errors, showAllErrors, i18n, isEdit } = this.props;
+    const formOutput = this.getFormOutput(jobSpec);
+    const translatedErrors = translateErrorMessages(errors, i18n);
+    const pluginTabProps = {
+      errors: translatedErrors,
+      data: formOutput,
+      pathMapping: ServiceErrorPathMapping,
+      hideTopLevelErrors: !showAllErrors,
+      showErrors: showAllErrors,
+      onAddItem: this.handleAddItem,
+      onRemoveItem: this.handleRemoveItem
+    };
+
+    const tabs = [
+      <TabView id="general" key="general">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <GeneralFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          isEdit={isEdit}
+        />
+      </TabView>,
+      <TabView id="container" key="container">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <ContainerFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>,
+      <TabView id="schedule" key="schedule">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <ScheduleFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+        />
+      </TabView>,
+      <TabView id="environment" key="environment">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <EnvironmentFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>,
+      <TabView id="volumes" key="volumes">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <VolumesFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>,
+      <TabView id="placement" key="placement">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <MountService.Mount
+          type="CreateJob:PlacementSection"
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        >
+          <PlacementSection
+            formData={formOutput}
+            errors={translatedErrors}
+            showErrors={showAllErrors}
+            onAddItem={this.handleAddItem}
+            onRemoveItem={this.handleRemoveItem}
+          />
+        </MountService.Mount>
+      </TabView>,
+      <TabView id="run_config" key="run_config">
+        <ErrorsAlert
+          errors={translatedErrors}
+          pathMapping={ServiceErrorPathMapping}
+          hideTopLevelErrors={!showAllErrors}
+        />
+        <RunConfigFormSection
+          formData={formOutput}
+          errors={translatedErrors}
+          showErrors={showAllErrors}
+          onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleRemoveItem}
+        />
+      </TabView>
+    ];
+
+    return Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
+  }
+
+  getFormOutput(jobSpec: JobSpec) {
+    return Hooks.applyFilter(
+      "jobSpecToFormOutputParser",
+      jobSpecToFormOutputParser(jobSpec),
+      jobSpec
+    );
+  }
+
   render() {
     const {
       activeTab,
       handleTabChange,
       isJSONModeActive,
       jobSpec,
-      errors,
-      showAllErrors,
-      i18n
+      errors
     } = this.props;
     const jobJSON = this.getJSONEditorData(jobSpec);
-    const formOutput = jobSpecToFormOutputParser(jobSpec);
-    const translatedErrors = translateErrorMessages(errors, i18n);
+    const tabList = Hooks.applyFilter(
+      "createJobTabList",
+      JobsForm.navigationItems
+    ).map((item: NavigationItem) => (
+      <TabButton
+        id={item.id}
+        label={<Trans render="span" id={item.label} />}
+        key={item.key}
+      />
+    ));
 
     const jsonEditorPlaceholderClasses = classNames(
       "modal-full-screen-side-panel-placeholder",
@@ -181,61 +321,8 @@ class JobModalForm extends React.Component<JobFormProps> {
                   handleTabChange={handleTabChange}
                   vertical={true}
                 >
-                  <TabButtonList>{JobModalForm.tabList}</TabButtonList>
-                  <TabViewList>
-                    <TabView id="general">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <GeneralFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                      />
-                    </TabView>
-                    <TabView id="container">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <ContainerFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                        onAddItem={this.handleAddItem}
-                        onRemoveItem={this.handleRemoveItem}
-                      />
-                    </TabView>
-                    <TabView id="schedule">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <ScheduleFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                      />
-                    </TabView>
-                    <TabView id="run_config">
-                      <ErrorsAlert
-                        errors={translatedErrors}
-                        pathMapping={ServiceErrorPathMapping}
-                        hideTopLevelErrors={!showAllErrors}
-                      />
-                      <RunConfigFormSection
-                        formData={formOutput}
-                        errors={translatedErrors}
-                        showErrors={showAllErrors}
-                        onAddItem={this.handleAddItem}
-                        onRemoveItem={this.handleRemoveItem}
-                      />
-                    </TabView>
-                  </TabViewList>
+                  <TabButtonList>{tabList}</TabButtonList>
+                  <TabViewList>{this.getTabContent()}</TabViewList>
                 </Tabs>
               </form>
             </div>
@@ -262,4 +349,4 @@ class JobModalForm extends React.Component<JobFormProps> {
   }
 }
 
-export default withI18n()(JobModalForm);
+export default withI18n()(JobsForm);

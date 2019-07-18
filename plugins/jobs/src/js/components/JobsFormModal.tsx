@@ -1,6 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
 import * as React from "react";
+import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import gql from "graphql-tag";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import { take } from "rxjs/operators";
@@ -29,13 +30,14 @@ import {
   JobSpec,
   JobOutput,
   Action,
-  Container
+  Container,
+  JobAPIOutput
 } from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
 import {
   MetronomeSpecValidators,
-  validateFormLabels
+  validateSpec
 } from "./form/helpers/MetronomeJobValidators";
 import {
   jobSpecToOutputParser,
@@ -106,6 +108,7 @@ class JobFormModal extends React.Component<
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.confirmClose = this.confirmClose.bind(this);
     this.handleCancelClose = this.handleCancelClose.bind(this);
+    this.validateSpec = this.validateSpec.bind(this);
   }
 
   componentWillReceiveProps(nextProps: JobFormModalProps) {
@@ -142,7 +145,7 @@ class JobFormModal extends React.Component<
     const jobSpec = job
       ? this.getJobSpecFromResponse(job)
       : getDefaultJobSpec();
-    const hasSchedule = !!(jobSpec.schedule && jobSpec.schedule.id);
+    const hasSchedule = !!(jobSpec.job.schedules && jobSpec.job.schedules[0]);
     const jobOutput = jobSpecToOutputParser(jobSpec);
     const initialState = {
       jobSpec,
@@ -188,23 +191,28 @@ class JobFormModal extends React.Component<
       jobCopy.labels = Object.entries(jobCopy.labels);
     }
 
-    const { schedules, _itemData, ...jobOnly } = jobCopy;
+    if (jobCopy.run.env) {
+      jobCopy.run.env = Object.entries(jobCopy.run.env);
+    }
+
+    const { _itemData, ...jobOnly } = jobCopy;
     const jobSpec = {
       cmdOnly,
       container,
-      job: jobOnly,
-      schedule: schedules[0]
+      job: jobOnly
     };
-    return jobSpec;
+    return Hooks.applyFilter("jobResponseToSpecParser", jobSpec);
   }
 
   onChange(action: Action) {
     const { submitFailed, jobSpec } = this.state;
     const newJobSpec = jobFormOutputToSpecReducer(action, jobSpec);
+    const specErrors = this.validateSpec(newJobSpec);
+    const outputErrors = this.validateJobOutput(
+      jobSpecToOutputParser(newJobSpec)
+    );
     const validationErrors = submitFailed
-      ? this.validateJobOutput(jobSpecToOutputParser(newJobSpec)).concat(
-          validateFormLabels(newJobSpec)
-        )
+      ? outputErrors.concat(specErrors)
       : [];
     this.setState({ jobSpec: newJobSpec, validationErrors });
   }
@@ -234,16 +242,23 @@ class JobFormModal extends React.Component<
   getSubmitAction(jobOutput: JobOutput) {
     const { isEdit } = this.props;
     const { hasSchedule, scheduleFailure } = this.state;
+    const data: JobAPIOutput = {
+      job: jobOutput
+    };
+    if (jobOutput.schedules) {
+      data.schedule = jobOutput.schedules[0];
+      delete jobOutput.schedules;
+    }
     if (isEdit || scheduleFailure) {
       const editContext = {
-        jobId: jobOutput.job.id,
-        data: jobOutput,
+        jobId: jobOutput.id,
+        data,
         existingSchedule: hasSchedule
       };
       return dataLayer.query(editJobMutation, editContext);
     } else {
       const createContext = {
-        data: jobOutput
+        data
       };
       return dataLayer.query(createJobMutation, createContext);
     }
@@ -287,15 +302,20 @@ class JobFormModal extends React.Component<
     }
   }
 
+  validateSpec(jobSpec: JobSpec): FormError[] {
+    return Hooks.applyFilter(
+      "jobsValidateSpec",
+      validateSpec(jobSpec),
+      jobSpec
+    );
+  }
+
   handleJobRun() {
     const { jobSpec, formJSONErrors } = this.state;
 
-    // labels must be validated separately based on jobSpec, not jobOutput
-    const labelErrors = validateFormLabels(jobSpec);
-
     const jobOutput = removeBlankProperties(jobSpecToOutputParser(jobSpec));
     const validationErrors = this.validateJobOutput(jobOutput).concat(
-      labelErrors
+      this.validateSpec(jobSpec)
     );
     const totalErrors = validationErrors.concat(formJSONErrors);
     if (totalErrors.length) {
@@ -345,7 +365,9 @@ class JobFormModal extends React.Component<
   validateJobOutput(jobOutput: JobOutput) {
     const validationErrors = DataValidatorUtil.validate(
       jobOutput,
-      Object.values(MetronomeSpecValidators)
+      Object.values(
+        Hooks.applyFilter("metronomeValidators", MetronomeSpecValidators)
+      )
     );
 
     return validationErrors;
@@ -395,6 +417,8 @@ class JobFormModal extends React.Component<
       activeTab
     } = this.state;
 
+    const { isEdit } = this.props;
+
     return (
       <JobForm
         errors={this.getAllErrors()}
@@ -405,6 +429,7 @@ class JobFormModal extends React.Component<
         jobSpec={jobSpec}
         showAllErrors={showValidationErrors}
         onErrorsChange={this.handleFormErrorsChange}
+        isEdit={isEdit}
       />
     );
   }
@@ -429,7 +454,7 @@ class JobFormModal extends React.Component<
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleJobRun,
-        label: i18nMark("Submit"),
+        label: processing ? i18nMark("Submitting...") : i18nMark("Submit"),
         disabled: processing
       }
     ];

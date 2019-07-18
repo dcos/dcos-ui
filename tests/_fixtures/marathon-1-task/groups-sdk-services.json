@@ -38,7 +38,8 @@
           "labels": {
             "DCOS_COMMONS_API_VERSION": "v1",
             "DCOS_PACKAGE_NAME": "test",
-            "DCOS_PACKAGE_FRAMEWORK_NAME": "/services/sdk-sleep"
+            "DCOS_PACKAGE_FRAMEWORK_NAME": "/services/sdk-sleep",
+            "DCOS_PACKAGE_VERSION": "1.0.0-2.0.0"
           },
           "acceptedResourceRoles": null,
           "version": "2015-08-28T01:26:14.620Z",
@@ -168,6 +169,41 @@
           "version": "2015-08-28T01:26:14.620Z",
           "tasksStaged": 0,
           "tasksRunning": 1,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 0,
+          "deployments": []
+        },
+        {
+          "id": "/other/app2",
+          "cmd": "sleep 3000",
+          "args": null,
+          "user": null,
+          "env": {},
+          "instances": 0,
+          "cpus": 0.1,
+          "mem": 16,
+          "disk": 0,
+          "executor": "",
+          "constraints": [],
+          "uris": [],
+          "storeUrls": [],
+          "ports": [10000],
+          "requirePorts": false,
+          "backoffSeconds": 1,
+          "backoffFactor": 1.15,
+          "maxLaunchDelaySeconds": 3600,
+          "container": null,
+          "healthChecks": [],
+          "dependencies": [],
+          "upgradeStrategy": {
+            "minimumHealthCapacity": 1,
+            "maximumOverCapacity": 1
+          },
+          "labels": {},
+          "acceptedResourceRoles": null,
+          "version": "2015-08-28T01:26:14.620Z",
+          "tasksStaged": 0,
+          "tasksRunning": 0,
           "tasksHealthy": 0,
           "tasksUnhealthy": 0,
           "deployments": []

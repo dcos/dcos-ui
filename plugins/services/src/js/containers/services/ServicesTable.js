@@ -3,9 +3,10 @@ import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
+import sort from "array-sort";
 
 import { componentFromStream } from "@dcos/data-service";
-import { combineLatest } from "rxjs";
+import { combineLatest, pipe } from "rxjs";
 import { map } from "rxjs/operators";
 import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -17,58 +18,51 @@ import CompositeState from "#SRC/js/structs/CompositeState";
 
 import Loader from "#SRC/js/components/Loader";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import {
   MesosMasterRequestType,
   getMasterRegionName
 } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
-
-import { isSDKService } from "../../utils/ServiceUtil";
+import TableUtil from "#SRC/js/utils/TableUtil";
 
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
-import ServiceActionLabels from "../../constants/ServiceActionLabels";
-import * as ServiceStatus from "../../constants/ServiceStatus";
 import ServiceTree from "../../structs/ServiceTree";
-import Pod from "../../structs/Pod";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
+import * as Version from "../../utils/Version";
 
-import {
-  nameRenderer,
-  nameSorter
-} from "../../columns/ServicesTableNameColumn";
+import { nameRenderer, nameWidth } from "../../columns/ServicesTableNameColumn";
 import {
   statusRenderer,
-  statusSorter
+  statusWidth
 } from "../../columns/ServicesTableStatusColumn";
 import {
   versionRenderer,
-  versionSorter
+  versionWidth
 } from "../../columns/ServicesTableVersionColumn";
 import {
   regionRendererFactory,
-  regionSorter
+  regionWidth
 } from "../../columns/ServicesTableRegionColumn";
 import {
   instancesRenderer,
-  instancesSorter
+  instancesWidth
 } from "../../columns/ServicesTableInstancesColumn";
-import { cpuRenderer, cpuSorter } from "../../columns/ServicesTableCPUColumn";
-import { memRenderer, memSorter } from "../../columns/ServicesTableMemColumn";
-import {
-  diskRenderer,
-  diskSorter
-} from "../../columns/ServicesTableDiskColumn";
-import { gpuRenderer, gpuSorter } from "../../columns/ServicesTableGPUColumn";
+import { cpuRenderer, cpuWidth } from "../../columns/ServicesTableCPUColumn";
+import { memRenderer, memWidth } from "../../columns/ServicesTableMemColumn";
+import { diskRenderer, diskWidth } from "../../columns/ServicesTableDiskColumn";
+import { gpuRenderer, gpuWidth } from "../../columns/ServicesTableGPUColumn";
+
 import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn";
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
-const MORE = ServiceActionItem.MORE;
 const OPEN = ServiceActionItem.OPEN;
 const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
 const METHODS_TO_BIND = [
   "handleServiceAction",
@@ -76,6 +70,74 @@ const METHODS_TO_BIND = [
   "handleActionDisabledModalClose",
   "handleSortClick"
 ];
+
+const serviceToVersion = serviceTreeNode => {
+  if (serviceTreeNode instanceof ServiceTree) {
+    return "";
+  }
+
+  return pipe(Version.fromService)(serviceTreeNode);
+};
+
+function sortForColumn(name) {
+  switch (name) {
+    case "name":
+      return (a, b) => a.getName().localeCompare(b.getName());
+    case "status":
+      return (a, b) =>
+        b.getServiceStatus().priority - a.getServiceStatus().priority;
+    case "version":
+      return (a, b) =>
+        Version.compare(serviceToVersion(a), serviceToVersion(b));
+    case "region":
+      return (a, b) => {
+        return (a.getRegions()[0] || "") < (b.getRegions()[0] || "") ? 1 : -1;
+      };
+    case "instances":
+      return (a, b) => a.getInstancesCount() - b.getInstancesCount();
+    case "cpus":
+      return (a, b) => a.getResources().cpus - b.getResources().cpus;
+    case "mem":
+      return (a, b) => a.getResources().mem - b.getResources().mem;
+    case "disk":
+      return (a, b) => a.getResources().disk - b.getResources().disk;
+    case "gpus":
+      return (a, b) => a.getResources().gpus - b.getResources().gpus;
+    default:
+      return () => 0;
+  }
+}
+
+function sortData(
+  data,
+  sortColumn,
+  sortDirection,
+  currentSortDirection,
+  currentSortColumn
+) {
+  const copiedData = data.slice();
+
+  if (sortColumn === currentSortColumn) {
+    return {
+      data:
+        sortDirection === currentSortDirection
+          ? copiedData
+          : copiedData.reverse(),
+      sortColumn,
+      sortDirection
+    };
+  }
+
+  return {
+    data: sort(copiedData, sortForColumn(sortColumn), {
+      reverse: sortDirection !== "ASC"
+    }),
+    sortColumn,
+    sortDirection
+  };
+}
+
+export const columnWidthsStorageKey = "servicesTableColWidths";
 
 class ServicesTable extends React.Component {
   constructor(props) {
@@ -112,7 +174,7 @@ class ServicesTable extends React.Component {
     this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
 
     this.setState(
-      this.updateData(
+      sortData(
         nextProps.services,
         this.state.sortColumn,
         this.state.sortDirection
@@ -131,6 +193,9 @@ class ServicesTable extends React.Component {
         break;
       case SCALE:
         modalHandlers.scaleService({ service });
+        break;
+      case RESET_DELAYED:
+        modalHandlers.resetDelayedService({ service });
         break;
       case OPEN:
         modalHandlers.openServiceUI({ service });
@@ -158,49 +223,6 @@ class ServicesTable extends React.Component {
     this.setState({ actionDisabledService: null, actionDisabledID: null });
   }
 
-  getOpenInNewWindowLink(service) {
-    // This might be a serviceTree and therefore we need this check
-    // And getWebURL might therefore not be available
-    if (!this.hasWebUI(service)) {
-      return null;
-    }
-
-    return (
-      <a
-        className="table-cell-icon"
-        href={service.getWebURL()}
-        target="_blank"
-        title="Open in a new window"
-      >
-        <span className="icon-margin-left">
-          <Icon
-            color={greyDark}
-            shape={SystemIcons.OpenExternal}
-            size={iconSizeXs}
-          />
-        </span>
-      </a>
-    );
-  }
-
-  getImage(service) {
-    if (service instanceof ServiceTree) {
-      // Get serviceTree image/icon
-      return (
-        <span className="icon-margin-right">
-          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
-        </span>
-      );
-    }
-
-    // Get service image/icon
-    return (
-      <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
-        <img src={service.getImages()["icon-small"]} />
-      </span>
-    );
-  }
-
   handleSortClick(columnName) {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
@@ -208,7 +230,7 @@ class ServicesTable extends React.Component {
         : "ASC";
 
     this.setState(
-      this.updateData(
+      sortData(
         this.state.data,
         columnName,
         toggledDirection,
@@ -218,156 +240,19 @@ class ServicesTable extends React.Component {
     );
   }
 
-  renderServiceActions(prop, service) {
-    const isGroup = service instanceof ServiceTree;
-    const isPod = service instanceof Pod;
-    const isSingleInstanceApp = service.getLabels()
-      .MARATHON_SINGLE_INSTANCE_APP;
-    const instancesCount = service.getInstancesCount();
-    const scaleTextID = isGroup
-      ? ServiceActionLabels.scale_by
-      : ServiceActionLabels[SCALE];
-    const isSDK = isSDKService(service);
-
-    const actions = [];
-
-    actions.push({
-      className: "hidden",
-      id: MORE,
-      html: "",
-      selectedHtml: (
-        <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-      )
-    });
-
-    if (this.hasWebUI(service)) {
-      actions.push({
-        id: OPEN,
-        html: <Trans render="span" id={ServiceActionLabels.open} />
-      });
-    }
-
-    if (!isGroup) {
-      actions.push({
-        id: EDIT,
-        html: <Trans render="span" id={ServiceActionLabels.edit} />
-      });
-    }
-
-    // isSingleInstanceApp = Framework main scheduler
-    // instancesCount = service instances
-    if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
-      actions.push({
-        id: SCALE,
-        html: <Trans render="span" id={scaleTextID} />
-      });
-    }
-
-    if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
-      actions.push({
-        id: RESTART,
-        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />
-      });
-    }
-
-    if (instancesCount > 0 && !isSDK) {
-      actions.push({
-        id: STOP,
-        html: <Trans render="span" id={ServiceActionLabels[STOP]} />
-      });
-    }
-
-    if (!isGroup && instancesCount === 0 && !isSDK) {
-      actions.push({
-        id: RESUME,
-        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />
-      });
-    }
-
-    actions.push({
-      id: DELETE,
-      html: (
-        <Trans
-          render="span"
-          className="text-danger"
-          id={ServiceActionLabels[DELETE]}
-        />
-      )
-    });
-
-    if (service.getServiceStatus() === ServiceStatus.DELETING) {
-      return this.renderServiceActionsDropdown(service, actions);
-    }
-
-    return (
-      <Tooltip content={<Trans render="span">More actions</Trans>}>
-        {this.renderServiceActionsDropdown(service, actions)}
-      </Tooltip>
-    );
-  }
-
-  retrieveSortFunction(sortColumn) {
-    switch (sortColumn) {
-      case "name":
-        return nameSorter;
-      case "status":
-        return statusSorter;
-      case "version":
-        return versionSorter;
-      case "region":
-        return regionSorter;
-      case "instances":
-        return instancesSorter;
-      case "cpus":
-        return cpuSorter;
-      case "mem":
-        return memSorter;
-      case "disk":
-        return diskSorter;
-      case "gpus":
-        return gpuSorter;
-      default:
-        return (data, _sortDirection) => data;
-    }
-  }
-
   sortGroupsOnTop(data) {
     const groups = data.filter(service => service instanceof ServiceTree);
     const services = data.filter(service => !(service instanceof ServiceTree));
 
-    return groups.concat(services);
+    return [...groups, ...services];
   }
 
-  updateData(
-    data,
-    sortColumn,
-    sortDirection,
-    currentSortDirection,
-    currentSortColumn
-  ) {
-    const copiedData = data.slice();
-
-    if (
-      sortDirection === currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return { data: copiedData, sortDirection, sortColumn };
-    }
-
-    if (
-      sortDirection !== currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return { data: copiedData.reverse(), sortDirection, sortColumn };
-    }
-
-    const sortFunction = this.retrieveSortFunction(sortColumn);
-
-    return {
-      data: sortFunction(copiedData, sortDirection),
-      sortDirection,
-      sortColumn
-    };
+  handleResize(columnName, resizedColWidth) {
+    const savedColWidths = TableColumnResizeStore.get(columnWidthsStorageKey);
+    TableColumnResizeStore.set(columnWidthsStorageKey, {
+      ...savedColWidths,
+      [columnName]: resizedColWidth
+    });
   }
 
   render() {
@@ -388,7 +273,12 @@ class ServicesTable extends React.Component {
     }
     const sortedGroups = this.sortGroupsOnTop(data);
 
-    return (
+    // Hiding the table when the create service modal is open.
+    //
+    // This is a workaround for an issue where Cypress' `type`
+    // command would not work as expected when there is a table
+    // with many resizable columns in the DOM
+    return this.props.hideTable ? null : (
       <div className="table-wrapper service-table">
         <Table
           data={sortedGroups.slice()}
@@ -405,10 +295,24 @@ class ServicesTable extends React.Component {
             cellRenderer={nameRenderer.bind(
               null,
               this.props.isFiltered,
+              this.props.isRoleEnforced,
               ...arguments
             )}
-            growToFill={true}
-            minWidth={200}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")
+                ? undefined
+                : 200
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "name")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")
+                ? nameWidth
+                : undefined
+            }
           />
 
           <Column
@@ -452,8 +356,21 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={statusRenderer}
-            growToFill={true}
-            minWidth={210}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "status")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "status")
+                ? undefined
+                : 210
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "status")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "status")
+                ? statusWidth
+                : undefined
+            }
           />
 
           <Column
@@ -465,8 +382,21 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={versionRenderer}
-            growToFill={true}
-            maxWidth={120}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "version")
+            }
+            maxWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "version")
+                ? undefined
+                : 120
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "version")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "version")
+                ? versionWidth
+                : undefined
+            }
           />
 
           <Column
@@ -478,9 +408,26 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={this.regionRenderer}
-            growToFill={true}
-            minWidth={60}
-            maxWidth={150}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
+                ? undefined
+                : 60
+            }
+            maxWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
+                ? undefined
+                : 150
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "region")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
+                ? regionWidth
+                : undefined
+            }
           />
 
           <Column
@@ -495,9 +442,26 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={instancesRenderer}
-            growToFill={true}
-            minWidth={100}
-            maxWidth={120}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
+                ? undefined
+                : 100
+            }
+            maxWidth={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
+                ? undefined
+                : 120
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "instances")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
+                ? instancesWidth
+                : undefined
+            }
           />
 
           <Column
@@ -510,9 +474,26 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={cpuRenderer}
-            minWidth={70}
-            maxWidth={100}
-            growToFill={true}
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
+                ? undefined
+                : 70
+            }
+            maxWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
+                ? undefined
+                : 100
+            }
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "cpu")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
+                ? cpuWidth
+                : undefined
+            }
           />
 
           <Column
@@ -525,9 +506,26 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={memRenderer}
-            growToFill={true}
-            minWidth={120}
-            maxWidth={150}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
+                ? undefined
+                : 120
+            }
+            maxWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
+                ? undefined
+                : 150
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "mem")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
+                ? memWidth
+                : undefined
+            }
           />
 
           <Column
@@ -540,9 +538,26 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={diskRenderer}
-            growToFill={true}
-            minWidth={100}
-            maxWidth={120}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
+                ? undefined
+                : 100
+            }
+            maxWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
+                ? undefined
+                : 120
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "disk")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
+                ? diskWidth
+                : undefined
+            }
           />
 
           <Column
@@ -555,9 +570,26 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={gpuRenderer}
-            growToFill={true}
-            minWidth={50}
-            maxWidth={70}
+            growToFill={
+              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
+            }
+            minWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
+                ? undefined
+                : 50
+            }
+            maxWidth={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
+                ? undefined
+                : 70
+            }
+            resizable={true}
+            onResize={this.handleResize.bind(null, "gpu")}
+            width={
+              TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
+                ? gpuWidth
+                : undefined
+            }
           />
 
           <Column
@@ -586,7 +618,8 @@ ServicesTable.contextTypes = {
     restartService: PropTypes.func,
     resumeService: PropTypes.func,
     stopService: PropTypes.func,
-    deleteService: PropTypes.func
+    deleteService: PropTypes.func,
+    resetDelayedService: PropTypes.func
   }).isRequired,
   router: routerShape
 };
@@ -598,6 +631,7 @@ ServicesTable.defaultProps = {
 
 ServicesTable.propTypes = {
   isFiltered: PropTypes.bool,
+  isRoleEnforced: PropTypes.bool,
   services: PropTypes.array
 };
 
@@ -616,4 +650,6 @@ function withMasterRegionName(Component) {
   );
 }
 
-module.exports = withMasterRegionName(ServicesTable);
+const Component = withMasterRegionName(ServicesTable);
+
+export { Component as default, sortData };

@@ -25,16 +25,13 @@ describe("Tasks Table", function() {
 
       it("shows the contents of the Mesos sandbox", function() {
         const numberOfItems = 13;
-        const numberOfSpacers = 2;
         cy.get(".page-body-content tbody tr").should(function($rows) {
-          expect($rows.length).to.equal(numberOfItems + numberOfSpacers);
+          expect($rows.length).to.equal(numberOfItems);
         });
       });
 
       it("shows directories as well as files", function() {
-        cy.get(".page-body-content  .table-virtual-list").contains(
-          "jre1.7.0_76"
-        );
+        cy.get(".page-body-content").contains("jre1.7.0_76");
       });
     });
   });
@@ -126,7 +123,7 @@ describe("Tasks Table", function() {
       it("correctly shows health", function() {
         cy.get("@tds")
           .eq(7)
-          .find(".dot")
+          .find(".task-status-indicator")
           .trigger("mouseover");
         cy.get(".tooltip").contains("Healthy");
       });
@@ -280,13 +277,13 @@ describe("Tasks Table", function() {
       cy.visitUrl({ url: "/services/detail/%2Fsleep/tasks" });
       cy.get("th.task-table-column-host-address").click();
 
-      cy.get(":nth-child(2) > .task-table-column-host-address").contains(
+      cy.get(":nth-child(1) > .task-table-column-host-address").contains(
         "dcos-01"
       );
-      cy.get(":nth-child(3) > .task-table-column-host-address").contains(
+      cy.get(":nth-child(2) > .task-table-column-host-address").contains(
         "dcos-02"
       );
-      cy.get(":nth-child(4) > .task-table-column-host-address").contains(
+      cy.get(":nth-child(3) > .task-table-column-host-address").contains(
         "dcos-03"
       );
     });
@@ -296,13 +293,13 @@ describe("Tasks Table", function() {
       cy.get("th.task-table-column-host-address").click();
       cy.get("th.task-table-column-host-address").click();
 
-      cy.get(":nth-child(2) > .task-table-column-host-address").contains(
+      cy.get(":nth-child(1) > .task-table-column-host-address").contains(
         "dcos-03"
       );
-      cy.get(":nth-child(3) > .task-table-column-host-address").contains(
+      cy.get(":nth-child(2) > .task-table-column-host-address").contains(
         "dcos-02"
       );
-      cy.get(":nth-child(4) > .task-table-column-host-address").contains(
+      cy.get(":nth-child(3) > .task-table-column-host-address").contains(
         "dcos-01"
       );
     });
@@ -313,13 +310,13 @@ describe("Tasks Table", function() {
       cy.get("th.task-table-column-region-address").click();
 
       cy.get(
-        ':nth-child(2) > .task-table-column-region-address:contains("ap-northeast-1")'
+        ':nth-child(1) > .task-table-column-region-address:contains("ap-northeast-1")'
+      );
+      cy.get(
+        ':nth-child(2) > .task-table-column-region-address:contains("eu-central-1")'
       );
       cy.get(
         ':nth-child(3) > .task-table-column-region-address:contains("eu-central-1")'
-      );
-      cy.get(
-        ':nth-child(4) > .task-table-column-region-address:contains("eu-central-1")'
       );
     });
 
@@ -330,13 +327,13 @@ describe("Tasks Table", function() {
       cy.get("th.task-table-column-region-address").click();
 
       cy.get(
+        ':nth-child(1) > .task-table-column-region-address:contains("eu-central-1")'
+      );
+      cy.get(
         ':nth-child(2) > .task-table-column-region-address:contains("eu-central-1")'
       );
       cy.get(
-        ':nth-child(3) > .task-table-column-region-address:contains("eu-central-1")'
-      );
-      cy.get(
-        ':nth-child(4) > .task-table-column-region-address:contains("ap-northeast-1")'
+        ':nth-child(3) > .task-table-column-region-address:contains("ap-northeast-1")'
       );
     });
 
@@ -346,13 +343,13 @@ describe("Tasks Table", function() {
       cy.get("th.task-table-column-zone-address").click();
 
       cy.get(
-        ':nth-child(2) > .task-table-column-zone-address:contains("ap-northeast-1a")'
+        ':nth-child(1) > .task-table-column-zone-address:contains("ap-northeast-1a")'
       );
       cy.get(
-        ':nth-child(3) > .task-table-column-zone-address:contains("eu-central-1b")'
+        ':nth-child(2) > .task-table-column-zone-address:contains("eu-central-1b")'
       );
       cy.get(
-        ':nth-child(4) > .task-table-column-zone-address:contains("eu-central-1c")'
+        ':nth-child(3) > .task-table-column-zone-address:contains("eu-central-1c")'
       );
     });
 
@@ -363,13 +360,13 @@ describe("Tasks Table", function() {
       cy.get("th.task-table-column-zone-address").click();
 
       cy.get(
-        ':nth-child(2) > .task-table-column-zone-address:contains("eu-central-1c")'
+        ':nth-child(1) > .task-table-column-zone-address:contains("eu-central-1c")'
       );
       cy.get(
-        ':nth-child(3) > .task-table-column-zone-address:contains("eu-central-1b")'
+        ':nth-child(2) > .task-table-column-zone-address:contains("eu-central-1b")'
       );
       cy.get(
-        ':nth-child(4) > .task-table-column-zone-address:contains("ap-northeast-1a")'
+        ':nth-child(3) > .task-table-column-zone-address:contains("ap-northeast-1a")'
       );
     });
   });

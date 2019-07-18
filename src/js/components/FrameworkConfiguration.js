@@ -29,7 +29,8 @@ const METHODS_TO_BIND = [
   "handleFocusFieldChange",
   "handleCloseConfirmModal",
   "handleConfirmGoBack",
-  "handleFormSubmit"
+  "handleFormSubmit",
+  "deleteDeployErrors"
 ];
 
 class FrameworkConfiguration extends Component {
@@ -46,13 +47,20 @@ class FrameworkConfiguration extends Component {
       jsonEditorActive: false,
       isConfirmOpen: false,
       isOpen: true,
-      liveValidate: false,
-      showCosmosErrors: true
+      liveValidate: false
     };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  deleteDeployErrors() {
+    if (this.props.onCosmosPackagesStoreInstallError) {
+      this.props.onCosmosPackagesStoreInstallError(null);
+    } else {
+      this.props.onCosmosPackagesStoreServiceUpdateError(null);
+    }
   }
 
   handleFocusFieldChange(activeTab, focusField) {
@@ -74,6 +82,7 @@ class FrameworkConfiguration extends Component {
   }
 
   handleEditConfigurationButtonClick() {
+    this.deleteDeployErrors();
     const { activeTab, focusField } = getFirstTabAndField(
       this.props.packageDetails
     );
@@ -93,7 +102,8 @@ class FrameworkConfiguration extends Component {
     const { reviewActive } = this.state;
 
     if (reviewActive) {
-      this.setState({ reviewActive: false, showCosmosErrors: false });
+      this.deleteDeployErrors();
+      this.setState({ reviewActive: false });
 
       return;
     }
@@ -106,7 +116,6 @@ class FrameworkConfiguration extends Component {
     const { reviewActive } = this.state;
 
     if (reviewActive) {
-      this.setState({ showCosmosErrors: true });
       handleRun();
 
       return;
@@ -149,16 +158,18 @@ class FrameworkConfiguration extends Component {
 
   getPrimaryActions() {
     const { jsonEditorActive, reviewActive } = this.state;
-    const { formErrors } = this.props;
+    const { formErrors, isPending } = this.props;
+    const runButtonLabel = reviewActive
+      ? i18nMark("Run Service")
+      : i18nMark("Review & Run");
 
     const actions = [
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleServiceReview,
-        label: reviewActive
-          ? i18nMark("Run Service")
-          : i18nMark("Review & Run"),
-        disabled: Object.keys(formErrors).some(tab => formErrors[tab] > 0)
+        label: isPending ? i18nMark("Installing...") : runButtonLabel,
+        disabled:
+          isPending || Object.keys(formErrors).some(tab => formErrors[tab] > 0)
       }
     ];
 
@@ -195,7 +206,8 @@ class FrameworkConfiguration extends Component {
         By running this service you agree to the{" "}
         <a href={termsUrl} target="_blank" title={termsAndConditions}>
           terms and conditions
-        </a>.
+        </a>
+        .
       </Trans>
     );
   }
@@ -265,10 +277,9 @@ class FrameworkConfiguration extends Component {
       );
     }
 
-    let errorsAlert = null;
-    if (deployErrors && this.state.showCosmosErrors) {
-      errorsAlert = <CosmosErrorMessage error={deployErrors} />;
-    }
+    const errorsAlert = deployErrors ? (
+      <CosmosErrorMessage error={deployErrors} />
+    ) : null;
 
     return (
       <div className="flex-item-grow-1">

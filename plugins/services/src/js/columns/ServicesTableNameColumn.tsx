@@ -1,46 +1,117 @@
 import * as React from "react";
-import { TextCell, Icon } from "@dcos/ui-kit";
+import { TextCell, Icon, Badge } from "@dcos/ui-kit";
 import { Link } from "react-router";
+import { Trans } from "@lingui/macro";
+
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
-import ServiceTableUtil from "../utils/ServiceTableUtil";
+import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+
+const ServiceName = React.memo(
+  ({
+    isFiltered,
+    isRoleEnforced,
+    id,
+    isGroup,
+    isNoLimit,
+    name,
+    image,
+    webUrl
+  }: {
+    isFiltered: boolean;
+    isRoleEnforced: boolean;
+    id: string;
+    isGroup: boolean;
+    isNoLimit: boolean;
+    name: string;
+    image: string | null;
+    webUrl: string | null;
+  }) => {
+    const serviceLink = isGroup
+      ? `/services/overview/${id}`
+      : `/services/detail/${id}`;
+
+    const badge =
+      isRoleEnforced && isNoLimit ? (
+        <Badge>
+          <Trans render="span" className="quota-no-limit">
+            No Limit
+          </Trans>
+        </Badge>
+      ) : null;
+
+    return (
+      <TextCell>
+        <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
+          <Link className="table-cell-icon" to={serviceLink}>
+            {getImage(image, isGroup)}
+          </Link>
+          <span
+            className="table-cell-value table-cell-flex-box"
+            style={{ marginRight: "7px" }}
+          >
+            {getServiceLink(id, name, isGroup, isFiltered)}
+            {getOpenInNewWindowLink(webUrl)}
+          </span>
+          {badge}
+        </div>
+      </TextCell>
+    );
+  }
+);
 
 export function nameRenderer(
   isFiltered: boolean,
+  isRoleEnforced: boolean,
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const id: string = encodeURIComponent(service.getId().toString());
-  const isGroup = service instanceof ServiceTree;
-  const serviceLink = isGroup
-    ? `/services/overview/${id}`
-    : `/services/detail/${id}`;
+  // These do not work with instanceof ServiceTree due to TS
+  const image =
+    service instanceof Pod || service instanceof Service
+      ? service.getImages()["icon-small"]
+      : null;
+  const webUrl =
+    service instanceof Pod || (service instanceof Service && hasWebUI(service))
+      ? service.getWebURL()
+      : null;
+
+  const IDArray = service.getId().split("/");
+  // If the service is in a top-level group,
+  // IDArray would look like ["","group-name","service-name"]
+
+  const isNoLimit =
+    service instanceof Pod || service instanceof Service
+      ? IDArray.length > 2 &&
+        service.getRole() !== IDArray[1] &&
+        service.getName() === IDArray[2]
+      : false;
 
   return (
-    <TextCell>
-      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
-        <Link className="table-cell-icon" to={serviceLink}>
-          {getImage(service)}
-        </Link>
-        <span className="table-cell-value table-cell-flex-box">
-          {getServiceLink(service, isFiltered)}
-          {getOpenInNewWindowLink(service)}
-        </span>
-      </div>
-    </TextCell>
+    <ServiceName
+      id={encodeURIComponent(service.getId().toString())}
+      isGroup={service instanceof ServiceTree}
+      isNoLimit={isNoLimit}
+      name={service.getName()}
+      image={image}
+      webUrl={webUrl}
+      isFiltered={isFiltered}
+      isRoleEnforced={isRoleEnforced}
+    />
   );
 }
 
-function getImage(service: any): any {
-  if (service instanceof ServiceTree) {
+function getImage(image: string | null, isGroup: boolean): React.ReactNode {
+  if (isGroup) {
     // Get serviceTree image/icon
     return (
       <span className="icon-margin-right">
@@ -52,14 +123,17 @@ function getImage(service: any): any {
   // Get service image/icon
   return (
     <span className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
-      <img src={service.getImages()["icon-small"]} />
+      <img src={image as string} />
     </span>
   );
 }
 
-function getServiceLink(service: any, isFiltered: boolean): any {
-  const id = encodeURIComponent(service.getId());
-  const isGroup = service instanceof ServiceTree;
+function getServiceLink(
+  id: string,
+  name: string,
+  isGroup: boolean,
+  isFiltered: boolean
+): React.ReactNode {
   const serviceLink = isGroup
     ? `/services/overview/${id}`
     : `/services/detail/${id}`;
@@ -77,22 +151,22 @@ function getServiceLink(service: any, isFiltered: boolean): any {
 
   return (
     <Link className="table-cell-link-primary" to={serviceLink}>
-      {service.getName()}
+      {name}
     </Link>
   );
 }
 
-function getOpenInNewWindowLink(service: any): any {
+function getOpenInNewWindowLink(webUrl: string | null): React.ReactNode {
   // This might be a serviceTree and therefore we need this check
   // And getWebURL might therefore not be available
-  if (!hasWebUI(service)) {
+  if (!webUrl) {
     return null;
   }
 
   return (
     <a
       className="table-cell-icon table-display-on-row-hover"
-      href={service.getWebURL()}
+      href={webUrl}
       target="_blank"
       title="Open in a new window"
     >
@@ -115,9 +189,6 @@ function hasWebUI(service: any): any {
   );
 }
 
-export function nameSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "name");
+export function nameWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).name;
 }

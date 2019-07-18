@@ -22,7 +22,7 @@ describe("ServicePodConnectionEndpointList", function() {
       expect(elements.length).toEqual(2);
 
       const rows = thisInstance.find(".configuration-map-row.table-row");
-      expect(rows.length).toEqual(6);
+      expect(rows.length).toEqual(8);
     });
   });
 });

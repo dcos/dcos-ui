@@ -37,6 +37,16 @@ describe("Nodes Page", function() {
         .should("contain", "167.114.218.156");
     });
 
+    it("shows only draining nodes", function() {
+      cy.get(".filter-input-text").as("filterInputText");
+      cy.get("@filterInputText").type("status:draining");
+
+      cy.get("@hostnames")
+        .should("not.contain", "dcos-01")
+        .should("not.contain", "167.114.218.156")
+        .should("contain", "167.114.218.155");
+    });
+
     it("shows only nodes with service", function() {
       cy.get("@filterBar")
         .contains("Filter by Framework")
@@ -49,6 +59,26 @@ describe("Nodes Page", function() {
         .should("not.contain", "167.114.218.156")
         .should("not.contain", "167.114.218.155")
         .should("contain", "dcos-01");
+    });
+
+    it("shows only private nodes", function() {
+      cy.get(".filter-input-text").as("filterInputText");
+      cy.get("@filterInputText").type("is:private");
+
+      cy.get("@hostnames")
+        .should("contain", "dcos-01")
+        .should("contain", "167.114.218.156")
+        .should("contain", "167.114.218.155");
+    });
+
+    it("shows only public nodes", function() {
+      cy.get(".filter-input-text").as("filterInputText");
+      cy.get("@filterInputText").type("is:public");
+
+      cy.get("@hostnames")
+        .should("not.contain", "dcos-01")
+        .should("not.contain", "167.114.218.156")
+        .should("not.contain", "167.114.218.155");
     });
   });
 

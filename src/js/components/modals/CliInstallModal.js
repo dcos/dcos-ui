@@ -137,7 +137,8 @@ class CliInstallModal extends React.Component {
               color="currentColor"
             />
             Download dcos.exe
-          </a>.
+          </a>
+          .
         </Trans>
         {steps}
       </ol>
@@ -173,7 +174,8 @@ class CliInstallModal extends React.Component {
           issues or questions, please refer to our{" "}
           <a href={MetadataStore.buildDocsURI("/cli/install")} target="_blank">
             documentation
-          </a>.
+          </a>
+          .
         </Trans>
         <div className="button-group">{this.getOSButtons()}</div>
         {this.getCliInstructions()}

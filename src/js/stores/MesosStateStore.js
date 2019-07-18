@@ -92,7 +92,7 @@ class MesosStateStore extends GetSetBaseStore {
           this.getMaster(),
           JSON.parse(response)
         );
-        CompositeState.addState(master);
+        CompositeState.addMasterInfo(master.master_info);
         this.setMaster(master);
       })
     );
@@ -268,8 +268,7 @@ class MesosStateStore extends GetSetBaseStore {
     return tasks
       .filter(
         task =>
-          task.isStartedByMarathon &&
-          task.id.startsWith(`${taskIdPrefix}.instance`)
+          task.isStartedByMarathon && task.id.startsWith(`${taskIdPrefix}.`)
       )
       .concat(serviceTasks)
       .map(task => MesosStateUtil.flagSDKTask(task, service));

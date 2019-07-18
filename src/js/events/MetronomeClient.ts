@@ -1,25 +1,23 @@
 import { request, RequestResponse } from "@dcos/http-service";
-// TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
-// tslint:disable-next-line:no-submodule-imports
 import { Observable, throwError } from "rxjs";
 import Config from "../config/Config";
 import {
   JobSchedule,
-  JobOutput
+  JobAPIOutput
 } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 import { switchMap, catchError } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
 
 export interface GenericJobResponse {
   id: string;
-  labels: LabelResponse;
+  labels: Record<string, string>;
   activeRuns?: ActiveJobRun[];
   run: {
     cpus: number;
     mem: number;
     disk: number;
     cmd: string;
-    env: object;
+    env: { [key: string]: string };
     placement: {
       constraints: any[];
     };
@@ -36,7 +34,7 @@ export interface GenericJobResponse {
   schedules: Schedule[];
 }
 
-export interface JobUCR {
+interface JobUCR {
   image: {
     id: string;
     kind?: string;
@@ -56,15 +54,6 @@ export interface JobDetailResponse extends GenericJobResponse {
   history: JobHistory;
 }
 
-interface LabelResponse {
-  [key: string]: string;
-}
-
-export interface JobLabels {
-  key: string;
-  value: string;
-}
-
 export interface JobDocker {
   secrets: object;
   forcePullImage: boolean;
@@ -81,7 +70,7 @@ export interface Schedule {
   timezone: string;
 }
 
-export type JobStatus =
+type JobStatus =
   | "ACTIVE"
   | "FAILED"
   | "INITIAL"
@@ -130,22 +119,19 @@ export interface JobHistorySummary {
   lastFailureAt: string | null;
 }
 
-export interface JobHistory extends JobHistorySummary {
-  successfulFinishedRuns: JobHistoryRun[];
-  failedFinishedRuns: JobHistoryRun[];
+interface JobHistory extends JobHistorySummary {
+  successfulFinishedRuns: HistoricJobRun[];
+  failedFinishedRuns: HistoricJobRun[];
 }
 
-export interface JobHistoryRun {
+export interface HistoricJobRun {
   id: string;
   createdAt: string;
   finishedAt: string;
+  tasks?: string[];
 }
 
 export interface JobData {
-  id: string;
-}
-
-export interface ScheduleData {
   id: string;
 }
 
@@ -160,7 +146,7 @@ const defaultHeaders = {
 };
 
 export function createJob(
-  data: JobOutput
+  data: JobAPIOutput
 ): Observable<RequestResponse<JobDetailResponse>> {
   const jobRequest = request(`${Config.metronomeAPI}/v1/jobs`, {
     method: "POST",
@@ -208,7 +194,7 @@ export function deleteJob(
 
 export function updateJob(
   jobID: string,
-  data: JobOutput,
+  data: JobAPIOutput,
   existingSchedule: boolean = true
 ): Observable<RequestResponse<JobDetailResponse>> {
   const updateJobRequest = request(`${Config.metronomeAPI}/v1/jobs/${jobID}`, {

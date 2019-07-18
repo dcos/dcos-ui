@@ -1,15 +1,44 @@
-export interface JobNoLabels {
+export interface Job<Labels, Env, Secrets> {
   id: string;
   description?: string;
-  run: JobRun;
+  labels?: Labels;
+  run: JobRun<Env, Secrets>;
 }
 
-export interface JobFormData extends JobNoLabels {
-  labels?: ArrayLabels;
+export interface JobRun<Env, Secrets> {
+  args?: string[];
+  artifacts?: JobArtifact[];
+  cmd?: string;
+  cpus: number;
+  gpus?: number;
+  disk: number;
+  ucr?: UcrContainer;
+  docker?: DockerContainer;
+  env?: Env;
+  maxLaunchDelay?: number;
+  mem: number;
+  placement?: JobPlacement;
+  user?: string;
+  taskKillGracePeriodSeconds?: number;
+  restart?: JobRestart;
+  activeDeadlineSeconds?: number;
+  volumes?: Array<JobVolume | SecretVolume>;
+  secrets?: Secrets;
 }
 
-export interface JobOutputData extends JobNoLabels {
-  labels?: JobLabels;
+export interface JobSpecData
+  extends Job<ArrayLabels, EnvModel, JobSecretExposure[]> {
+  schedules?: JobSchedule[];
+}
+
+export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
+
+export interface JobOutput extends JobOutputData {
+  schedules?: JobSchedule[];
+}
+export interface JobAPIOutput {
+  job: JobOutputData;
+  schedule?: JobSchedule;
 }
 
 export enum ConcurrentPolicy {
@@ -34,8 +63,16 @@ export enum Container {
 export interface JobSpec {
   cmdOnly: boolean;
   container?: Container | null;
-  job: JobFormData;
-  schedule?: JobSchedule;
+  job: JobSpecData;
+}
+
+export type EnvModel = Array<[string, string]>;
+
+export interface JobSecretExposure {
+  exposureType: "" | "envVar" | "file";
+  exposureValue: string;
+  key: string;
+  secretPath: string;
 }
 
 export interface FormOutput {
@@ -65,12 +102,11 @@ export interface FormOutput {
   restartPolicy?: RestartPolicy;
   retryTime?: number;
   labels?: ArrayLabels;
+  env: EnvModel;
+  secrets?: JobSecretExposure[];
   artifacts?: JobArtifact[];
-}
-
-export interface JobOutput {
-  job: JobOutputData;
-  schedule?: JobSchedule;
+  volumes: Array<SecretVolume | JobVolume>;
+  placementConstraints?: PlacementConstraint[];
 }
 
 // Labels used internally to track form state
@@ -79,29 +115,6 @@ export type ArrayLabels = Array<[string, string]>;
 // Labels in the form expected by the API
 export interface JobLabels {
   [key: string]: string;
-}
-
-export interface JobRun {
-  args?: string[];
-  artifacts?: JobArtifact[];
-  cmd?: string;
-  cpus: number;
-  gpus?: number;
-  disk: number;
-  ucr?: UcrContainer;
-  docker?: DockerContainer;
-  env?: JobEnv;
-  maxLaunchDelay?: number;
-  mem: number;
-  placement?: JobPlacement;
-  user?: string;
-  taskKillGracePeriodSeconds?: number;
-  restart?: JobRestart;
-  activeDeadlineSeconds?: number;
-  volumes?: Array<JobVolume | SecretVolume>;
-  secrets?: {
-    [key: string]: FileBasedSecret;
-  };
 }
 
 export interface JobArtifact {
@@ -152,7 +165,7 @@ export interface JobPlacement {
 }
 
 export enum ConstraintOperator {
-  Eq = "EQ",
+  Is = "IS",
   Like = "LIKE",
   Unlike = "UNLIKE"
 }
@@ -160,6 +173,7 @@ export interface PlacementConstraint {
   attribute: string;
   operator: ConstraintOperator;
   value?: string;
+  type?: string;
 }
 
 export enum RestartPolicy {
@@ -190,6 +204,10 @@ export interface SecretVolume {
 
 export interface FileBasedSecret {
   source: string;
+}
+
+export interface JobSecrets {
+  [key: string]: FileBasedSecret;
 }
 
 export interface FormError {

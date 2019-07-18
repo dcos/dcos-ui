@@ -13,6 +13,8 @@ import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldError from "#SRC/js/components/form/FieldError";
 import { FormOutput, FormError } from "./helpers/JobFormData";
 import { getFieldError } from "./helpers/ErrorUtil";
+import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
+import { Tooltip } from "reactjs-components";
 
 interface ArgsSectionProps {
   formData: FormOutput;
@@ -35,6 +37,13 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
       showErrors
     } = this.props;
 
+    const argTooltipContent = (
+      <Trans>
+        Arguments are a Docker only feature and will pass docker arguments to
+        the container at startup.
+      </Trans>
+    );
+
     return args.map((arg: string, index: number) => {
       let label = null;
       if (index === 0) {
@@ -42,13 +51,21 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
           <FieldLabel>
             <FormGroupHeading>
               <FormGroupHeadingContent primary={true}>
-                <Trans>Arg</Trans>
+                <Trans>Arguments</Trans>{" "}
+                <Tooltip
+                  content={argTooltipContent}
+                  interactive={true}
+                  maxWidth={300}
+                  wrapText={true}
+                >
+                  <InfoTooltipIcon />
+                </Tooltip>
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
         );
       }
-      const argErrors = getFieldError(`job.run.args.${index}`, errors);
+      const argErrors = getFieldError(`run.args.${index}`, errors);
 
       return (
         <FormRow key={index}>
@@ -84,7 +101,7 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
         <FormRow>
           <FormGroup className="column-12">
             <AddButton onClick={onAddItem("args")}>
-              <Trans>Add Arg</Trans>
+              <Trans>Add Argument</Trans>
             </AddButton>
           </FormGroup>
         </FormRow>

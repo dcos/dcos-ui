@@ -12,6 +12,7 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import TimeAgo from "#SRC/js/components/TimeAgo";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 import DeclinedOffersHelpText from "../../constants/DeclinedOffersHelpText";
 import DeclinedOffersTable from "../../components/DeclinedOffersTable";
@@ -191,7 +192,7 @@ class PodDebugTabView extends React.Component {
     );
   }
 
-  getWaitingForResourcesNotice() {
+  getUnableToStartNotice() {
     const queue = this.props.pod.getQueue();
 
     if (queue == null || queue.since == null) {
@@ -201,36 +202,70 @@ class PodDebugTabView extends React.Component {
     const waitingSince = DateUtil.strToMs(queue.since);
     const timeWaiting = Date.now() - waitingSince;
 
-    // If the service has been waiting for less than five minutes, we don't
-    // display the warning.
-    if (timeWaiting < 1000 * 60 * 5) {
-      return null;
+    let message,
+      primaryAction,
+      secondaryAction = null;
+
+    if (this.props.pod.isDelayed()) {
+      message = (
+        <Trans render="span">
+          DC/OS has delayed the launching of this service due to failures.
+        </Trans>
+      );
+      secondaryAction = (
+        <Trans render="span">
+          <a
+            className="clickable"
+            target="_blank"
+            onClick={() => MarathonStore.resetDelayedService(this.props.pod)}
+          >
+            Retry now
+          </a>
+        </Trans>
+      );
+      primaryAction = (
+        <Trans render="span">
+          <a
+            href={MetadataStore.buildDocsURI("/services#service-status")}
+            target="_blank"
+          >
+            More information
+          </a>{" "}
+        </Trans>
+      );
+      // If the service has been waiting for less than five minutes, we don't
+      // display the warning.
+    } else if (timeWaiting >= 1000 * 60 * 5) {
+      /* L10NTODO: Relative time */
+      message = (
+        <Trans render="span">
+          DC/OS has been waiting for resources and is unable to complete this
+          deployment for {DateUtil.getDuration(timeWaiting)}.
+        </Trans>
+      );
+      primaryAction = (
+        <Trans
+          render={
+            <div
+              className="clickable button-link button-primary"
+              onClick={this.handleJumpToRecentOffersClick}
+              tabIndex={0}
+              role="button"
+            />
+          }
+        >
+          See recent resource offers
+        </Trans>
+      );
     }
 
     return (
       <div className="infoBoxWrapper">
         <InfoBoxInline
           appearance="warning"
-          message={
-            <Trans render="span">
-              DC/OS has been waiting for resources and is unable to complete
-              this deployment for {DateUtil.getDuration(timeWaiting)}.
-            </Trans>
-          }
-          primaryAction={
-            <Trans
-              render={
-                <div
-                  className="clickable button-link button-primary"
-                  onClick={this.handleJumpToRecentOffersClick}
-                  tabIndex={0}
-                  role="button"
-                />
-              }
-            >
-              See recent resource offers
-            </Trans>
-          }
+          message={message}
+          primaryAction={primaryAction}
+          secondaryAction={secondaryAction}
         />
       </div>
     );
@@ -245,7 +280,7 @@ class PodDebugTabView extends React.Component {
   render() {
     return (
       <div className="container">
-        {this.getWaitingForResourcesNotice()}
+        {this.getUnableToStartNotice()}
         <ConfigurationMap>
           {this.getLastVersionChange()}
           {this.getTerminationHistory()}

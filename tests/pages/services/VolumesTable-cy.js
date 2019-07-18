@@ -16,14 +16,13 @@ describe("Volumes", function() {
 
     it("shows the correct number of volumes in the table", function() {
       cy.get(".table tbody tr").should(function($rows) {
-        // 3 rows of volumes + 2 rows for VirtualList = 5 rows total.
-        expect($rows.length).to.equal(5);
+        expect($rows.length).to.equal(3);
       });
     });
 
     it("renders the correct IDs in the table", function() {
       cy.get(".table tbody tr").should(function($rows) {
-        var children = $rows[1].children;
+        var children = $rows[0].children;
         expect(children[0].textContent).to.equal(
           "sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201"
         );

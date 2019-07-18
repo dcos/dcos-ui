@@ -1,8 +1,7 @@
 {
   "defaultCommandTimeout": 60000,
   "env": {
-    "CLUSTER_URL": "http://localhost:4200",
-    "FULL_INTEGRATION_TEST": false
+    "CLUSTER_URL": "http://localhost:4200"
   },
 
   "integrationFolder": "tests",
@@ -10,6 +9,5 @@
   "supportFile": "tests/_support",
   "waitForAnimations": true,
   "videoUploadOnPasses": false,
-  "numTestsKeptInMemory": 0,
   "chromeWebSecurity": false
 }

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
-import classNames from "classnames";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
@@ -350,7 +349,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
           <Trans render="p">
             Attach metadata to expose additional information in other services.
           </Trans>
-          <div className={classNames({ hidden: labels.length === 0 })}>
+          {labels.length > 0 ? (
             <FormRow>
               <FormGroup className="column-6 short-bottom">
                 <FieldLabel>
@@ -375,19 +374,19 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
                 <DeleteRowButton />
               </span>
             </FormRow>
-          </div>
+          ) : null}
           {labels.map(([key, value], i) => (
             <FormRow key={i}>
               <FormGroup
                 className="column-6"
                 showError={Boolean(
-                  showErrors && getFieldError(`job.labels.${i}`, errors)
+                  showErrors && getFieldError(`labels.${i}`, errors)
                 )}
               >
                 <FieldAutofocus>
                   <FieldInput name={`key.${i}.labels`} value={key} />
                   <FieldError>
-                    {getFieldError(`job.labels.${i}`, errors)}
+                    {getFieldError(`labels.${i}`, errors)}
                   </FieldError>
                 </FieldAutofocus>
                 <span className="emphasis form-colon">:</span>

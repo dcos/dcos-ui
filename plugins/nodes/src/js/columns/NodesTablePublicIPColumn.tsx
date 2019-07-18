@@ -5,15 +5,14 @@ import { Trans } from "@lingui/macro";
 
 import Node from "#SRC/js/structs/Node";
 
-const noPublicIps = (
-  <TextCell>
-    <Trans>N/A</Trans>
-  </TextCell>
-);
 const NodePublicIp = React.memo(
   ({ firstIp, allIps }: { firstIp: string; allIps: string }) => {
     if (!firstIp) {
-      return noPublicIps;
+      return (
+        <TextCell>
+          <Trans>N/A</Trans>
+        </TextCell>
+      );
     }
 
     if (!allIps) {

@@ -1,5 +1,4 @@
 const Job = require("../Job");
-const JobRunList = require("../JobRunList");
 const {
   DEFAULT_CPUS,
   DEFAULT_DISK,
@@ -7,14 +6,6 @@ const {
 } = require("../../constants/JobResources");
 
 describe("Job", function() {
-  describe("#getActiveRuns", function() {
-    it("returns an instance of JobActiveRunList", function() {
-      const job = new Job({ id: "foo", activeRuns: [] });
-
-      expect(job.getActiveRuns() instanceof JobRunList).toBeTruthy();
-    });
-  });
-
   describe("#getCommand", function() {
     it("returns the command", function() {
       const job = new Job({ id: "foo", run: { cmd: "foo" } });

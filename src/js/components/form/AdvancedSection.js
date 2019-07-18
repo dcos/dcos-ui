@@ -18,6 +18,14 @@ class AdvancedSection extends React.Component {
     });
   }
 
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.shouldExpand) {
+      return { isExpanded: true };
+    } else {
+      return null;
+    }
+  }
+
   handleHeadingClick() {
     this.setState({ isExpanded: !this.state.isExpanded });
   }
@@ -53,7 +61,8 @@ AdvancedSection.propTypes = {
     PropTypes.array,
     PropTypes.object,
     PropTypes.string
-  ])
+  ]),
+  shouldExpand: PropTypes.bool
 };
 
 module.exports = AdvancedSection;

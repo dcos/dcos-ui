@@ -28,7 +28,8 @@ class ArtifactsSection extends Component {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 

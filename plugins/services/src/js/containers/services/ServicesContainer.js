@@ -6,6 +6,11 @@ import { i18nMark } from "@lingui/react";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { NotificationServiceType } from "@extension-kid/notification-service";
+import {
+  ToastNotification,
+  ToastAppearance
+} from "@extension-kid/toast-notifications";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
@@ -13,7 +18,7 @@ import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
@@ -21,6 +26,8 @@ import {
   REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
   REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR
 } from "#SRC/js/constants/ActionTypes";
+import container from "#SRC/js/container";
+import { TYPES } from "#SRC/js/types/containerTypes";
 
 import ActionKeys from "../../constants/ActionKeys";
 import MarathonActions from "../../events/MarathonActions";
@@ -42,6 +49,7 @@ import ServiceModals from "../../components/modals/ServiceModals";
 import ServiceNameTextFilter from "../../filters/ServiceNameTextFilter";
 import ServiceTree from "../../structs/ServiceTree";
 import ServiceTreeView from "./ServiceTreeView";
+import ServicesQuotaView from "./ServicesQuotaView";
 
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
@@ -56,6 +64,8 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
 } from "../../constants/ActionTypes";
@@ -71,7 +81,7 @@ import {
   MARATHON_SERVICE_VERSIONS_ERROR
 } from "../../constants/EventTypes";
 
-const SERVICE_FILTERS = new DSLFilterList([
+const SERVICE_FILTERS = [
   new ServiceAttributeHealthFilter(),
   new ServiceAttributeHasVolumesFilter(),
   new ServiceAttributeIsFilter(),
@@ -79,7 +89,18 @@ const SERVICE_FILTERS = new DSLFilterList([
   new ServiceAttributeIsCatalogFilter(),
   new ServiceAttributeNoHealthchecksFilter(),
   new ServiceNameTextFilter()
-]);
+];
+
+const notificationService = container.get(NotificationServiceType);
+
+function i18nTranslate(id, values) {
+  const i18n = container.get(TYPES.I18n);
+  if (i18n) {
+    return i18n._(id, values);
+  } else {
+    return id;
+  }
+}
 
 /**
  * Increments error count for each fetch type when we have a request error and
@@ -122,8 +143,13 @@ const METHODS_TO_BIND = [
   "editGroup",
   "deleteService",
   "editService",
+  "resetDelayedService",
   "restartService",
-  "onStoreChange"
+  "onStoreChange",
+  "getResetDelaySuccessToast",
+  "getResetDelayErrorToast",
+  "getServiceTree",
+  "getServiceQuota"
 ];
 
 class ServicesContainer extends React.Component {
@@ -237,6 +263,12 @@ class ServicesContainer extends React.Component {
     return MarathonActions.restartService(...arguments);
   }
 
+  resetDelayedService() {
+    this.setPendingAction(ActionKeys.SERVICE_RESET_DELAY);
+
+    return MarathonActions.resetDelayedService(...arguments);
+  }
+
   handleServerAction(payload) {
     const { action } = payload;
 
@@ -299,6 +331,19 @@ class ServicesContainer extends React.Component {
         break;
       case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_RESTART);
+        break;
+
+      case REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR:
+        notificationService.push(
+          this.getResetDelayErrorToast(action.serviceName)
+        );
+        this.unsetPendingAction(ActionKeys.SERVICE_RESET_DELAY, action.data);
+        break;
+      case REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS:
+        notificationService.push(
+          this.getResetDelaySuccessToast(action.serviceName)
+        );
+        this.unsetPendingAction(ActionKeys.SERVICE_RESET_DELAY);
         break;
 
       case REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS:
@@ -398,9 +443,10 @@ class ServicesContainer extends React.Component {
       openServiceUI(props) {
         global.open(props.service.getWebURL(), "_blank");
       },
-      // All methods below work on ServiceTree and Service types
+      // All methods below (except resetDelayedService) work on ServiceTree and Service types
       deleteService: props => set(ServiceActionItem.DELETE, props),
       editService: props => set(ServiceActionItem.EDIT, props),
+      resetDelayedService: props => set(ServiceActionItem.RESET_DELAYED, props),
       restartService: props => set(ServiceActionItem.RESTART, props),
       resumeService: props => set(ServiceActionItem.RESUME, props),
       scaleService: props => set(ServiceActionItem.SCALE, props),
@@ -416,6 +462,7 @@ class ServicesContainer extends React.Component {
       editGroup: this.editGroup,
       deleteService: this.deleteService,
       editService: this.editService,
+      resetDelayedService: this.resetDelayedService,
       restartService: this.restartService
     };
   }
@@ -573,6 +620,46 @@ class ServicesContainer extends React.Component {
     );
   }
 
+  getServiceQuota(item) {
+    const { children, params, routes } = this.props;
+    return (
+      <ServicesQuotaView params={params} routes={routes} serviceTree={item}>
+        {children}
+        {this.getModals(item)}
+      </ServicesQuotaView>
+    );
+  }
+
+  getResetDelaySuccessToast(serviceName) {
+    const title = i18nTranslate(i18nMark("Reset Delay Successful"));
+    const description = i18nTranslate(
+      i18nMark("Delay has cleared and {serviceName} is now relaunching."),
+      { serviceName }
+    );
+
+    return new ToastNotification(title, {
+      appearance: ToastAppearance.Success,
+      autodismiss: true,
+      description
+    });
+  }
+
+  getResetDelayErrorToast(serviceName) {
+    const title = i18nTranslate(i18nMark("Reset Delay Failed"));
+    const description = i18nTranslate(
+      i18nMark(
+        "Delay reset failed and did not relaunch {serviceName}. Please try again."
+      ),
+      { serviceName }
+    );
+
+    return new ToastNotification(title, {
+      appearance: ToastAppearance.Danger,
+      autodismiss: true,
+      description
+    });
+  }
+
   render() {
     const { children, params, routes } = this.props;
     const { fetchErrors, isLoading, itemId } = this.state;
@@ -614,6 +701,10 @@ class ServicesContainer extends React.Component {
       return this.getServiceTree(item);
     }
 
+    if (currentRoutePath.startsWith("/services/quota")) {
+      return this.getServiceQuota(item);
+    }
+
     if (item instanceof Pod) {
       return this.getPodDetail(item);
     }
@@ -638,7 +729,8 @@ ServicesContainer.childContextTypes = {
     resumeService: PropTypes.func,
     scaleService: PropTypes.func,
     stopService: PropTypes.func,
-    openServiceUI: PropTypes.func
+    openServiceUI: PropTypes.func,
+    resetDelayedService: PropTypes.func
   })
 };
 
@@ -654,7 +746,7 @@ ServicesContainer.contextTypes = {
 ServicesContainer.routeConfig = {
   label: i18nMark("Services"),
   icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-  matches: /^\/services\/(detail|overview)/
+  matches: /^\/services\/(detail|overview|quota)/
 };
 
 module.exports = ServicesContainer;

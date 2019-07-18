@@ -22,8 +22,16 @@ class Node extends Item {
     return this.get("framework_ids");
   }
 
+  getDrainInfo() {
+    return this.get("drain_info");
+  }
+
   isActive() {
     return this.get("active");
+  }
+
+  isDeactivated() {
+    return this.get("deactivated");
   }
 
   getDomain() {

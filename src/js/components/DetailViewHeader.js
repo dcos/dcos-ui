@@ -38,15 +38,13 @@ class DetailViewHeader extends React.Component {
   }
 
   getSubTitle() {
-    const { subTitle, subTitleClassName } = this.props;
+    const { subTitle } = this.props;
 
     if (subTitle == null) {
       return null;
     }
 
-    const subtitleClasses = classNames("emphasize", subTitleClassName);
-
-    return <div className={subtitleClasses}>{subTitle}</div>;
+    return <div className="emphasize">{subTitle}</div>;
   }
 
   renderActionButtons() {
@@ -133,8 +131,7 @@ DetailViewHeader.propTypes = {
   detailViewHeaderContentHeadingClassNames: classPropType,
   detailViewHeaderContentWrapperClassNames: classPropType,
   titleClassName: classPropType,
-  iconClassName: classPropType,
-  subTitleClassName: classPropType
+  iconClassName: classPropType
 };
 
 module.exports = DetailViewHeader;

@@ -1,5 +1,6 @@
 import Service from "./Service";
 import { StatusCategories } from "#SRC/js/constants/StatusIcon";
+import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
 import { StatusCategory } from "../constants/ServiceStatus";
 
@@ -11,12 +12,20 @@ interface ServiceTreeStatusSummary {
   };
 }
 
+interface ServiceTreeRoleLength {
+  servicesCount: number;
+  rolesCount: number;
+  groupRolesCount: number;
+}
+
 declare class ServiceTree extends Tree<Service> {
+  constructor(options = {});
   getDeployments(): object[] | null;
   getQueue(): null;
   getRegions(): any[];
   getHealth(): any;
   getId(): string;
+  getEnforceRole(): boolean | undefined;
   getServiceFromTaskID(taskID: number): any;
   getTaskFromTaskID(taskID: any): any;
   getItemParent(id: any, parent: any): any;
@@ -33,12 +42,15 @@ declare class ServiceTree extends Tree<Service> {
     total: number;
   };
   getServiceStatus(): Status | null;
-  getServices(): any;
+  getServices(): List;
+  getGroups(): List;
   getTasksSummary(): any;
   getRunningInstancesCount(): number;
   getFrameworks(): any;
   getVolumes(): any;
   getLabels(): any;
+  getRoleLength(roleName: string | null = null): ServiceTreeRoleLength;
+  isRoot(): boolean;
 }
 
 export { ServiceTree as default, ServiceTreeStatusSummary };

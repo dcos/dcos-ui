@@ -1,0 +1,32 @@
+.quota-details {
+  display: grid;
+  grid-gap: @base-spacing-unit;
+  grid-template-columns: repeat(auto-fit, minmax(@quota-card-min-width, 1fr));
+
+  .quota-card {
+    text-align: center;
+
+    .quota-card-title {
+      margin-bottom: @base-spacing-unit * 2;
+    }
+
+    .quota-card-main {
+      font-size: @quota-font-size-large;
+      margin-bottom: @base-spacing-unit;
+    }
+
+    .unit {
+      font-weight: @quota-main-font-weight;
+    }
+
+    .quota-card-label {
+      margin-bottom: @base-spacing-unit * 1/2;
+    }
+
+    .quota-progress-bar {
+      margin: auto;
+      margin-bottom: @base-spacing-unit * 2;
+      width: @quota-progress-bar-width;
+    }
+  }
+}

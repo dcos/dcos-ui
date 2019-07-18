@@ -1,9 +1,8 @@
 import * as React from "react";
 import { TextCell } from "@dcos/ui-kit";
-
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
+
 import Node from "#SRC/js/structs/Node";
-import { SortDirection } from "plugins/nodes/src/js/types/SortDirection";
 
 const NodeHealth = ({
   classNames,
@@ -23,10 +22,4 @@ export function healthRenderer(data: Node): React.ReactNode {
   return <NodeHealthMemo classNames={health.classNames} title={health.title} />;
 }
 
-export function healthSorter(
-  data: Node[],
-  sortDirection: SortDirection
-): Node[] {
-  const sortedData = data.sort(UnitHealthUtil.getHealthSortFunction);
-  return sortDirection === "ASC" ? sortedData : sortedData.reverse();
-}
+export const healthRank = UnitHealthUtil.getHealthSorting;

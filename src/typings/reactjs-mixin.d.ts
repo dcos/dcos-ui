@@ -3,5 +3,5 @@ declare module "reactjs-mixin" {
 
   // Had to go with any.
   // This should be the way of declaring it properly https://github.com/Microsoft/TypeScript/pull/13743
-  export default function mixin(mixin: object): any;
+  export default function mixin(...mixin: object[]): any;
 }

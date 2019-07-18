@@ -134,6 +134,102 @@ describe("Service Form Modal", function() {
             .contains("Service ID must be defined")
             .should("not.be.visible");
         });
+
+        it("displays an error badge for the Services tab", function() {
+          openServiceModal();
+          openServiceForm();
+
+          cy.get('.form-control[name="id"]')
+            .type("{selectall}{backspace}")
+            .blur();
+
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".errorsAlert-listItem")
+            .should(function($items) {
+              expect($items.length).to.equal(2);
+            })
+            .then(function($items) {
+              cy.get('.active > .menu-tabbed-item-label span[role="button"]')
+                .contains($items.length.toString())
+                .should("be.visible");
+            });
+
+          cy.get('.form-control[name="id"]')
+            .type("/hello-world")
+            .blur();
+
+          cy.get('.form-control[name="container.docker.image"]')
+            .type("nginx")
+            .blur();
+
+          cy.get(
+            '.active > .menu-tabbed-item-label span[role="button"]'
+          ).should("not.be.visible");
+        });
+        it("displays an error badge for a container tab", function() {
+          openServiceModal();
+          cy.get(".create-service-modal-service-picker-option")
+            .contains("Multi-container (Pod)")
+            .click();
+
+          cy.get(".menu-tabbed-item")
+            .contains("container-1")
+            .click();
+
+          cy.get('.form-control[name="containers.0.name"]')
+            .type("{selectall}{backspace}")
+            .type("!!!")
+            .blur();
+
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".errorsAlert-listItem")
+            .should(function($items) {
+              expect($items.length).to.equal(1);
+            })
+            .then(function($items) {
+              cy.get('.active > .menu-tabbed-item-label span[role="button"]')
+                .contains($items.length.toString())
+                .should("be.visible");
+            });
+
+          cy.get('.form-control[name="containers.0.name"]')
+            .type("{selectall}{backspace}")
+            .type("hello-world")
+            .blur();
+
+          cy.get(
+            '.active > .menu-tabbed-item-label span[role="button"]'
+          ).should("not.be.visible");
+        });
+        it("focuses the last field with an error when clicking to a tab with an error", function() {
+          openServiceModal();
+          openServiceForm();
+
+          cy.get('.form-control[name="id"]')
+            .type("{selectall}{backspace}")
+            .type("{selectall}{backspace}")
+            .blur();
+
+          cy.get(".modal-full-screen-actions")
+            .contains("button", "Review & Run")
+            .click();
+
+          cy.get(".menu-tabbed-item")
+            .contains("Placement")
+            .click();
+
+          cy.get(".modal-wrapper .menu-tabbed-item")
+            .contains("Service")
+            .click();
+
+          cy.focused().should("have.attr.name", "cmd");
+        });
       });
 
       describe("JSON errors", function() {
@@ -179,6 +275,68 @@ describe("Service Form Modal", function() {
 
           cy.get(".infoBoxWrapper").should("not.be.visible");
           cy.get("input[name=id]").should("have.value", "/foo");
+        });
+
+        context("Clearing JSON errors when re-opening", function() {
+          beforeEach(function() {
+            openServiceModal();
+          });
+
+          it("clears JSON errors when re-opening the single container service form", function() {
+            openServiceForm(); // Select "Single container".
+            cy.get(".modal .toggle-button + span").click(); // Open the JSON Editor.
+            cy.get(".button")
+              .contains("Review & Run")
+              .click(); // Try to submit.
+            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".modal-header button")
+              .contains("Back")
+              .click(); // Go back.
+            cy.contains("button", "Discard").click(); // Confirm.
+            openServiceForm(); // Select "Single container" again.
+            cy.get(".ace_editor").should("exist"); // The JSON Editor should be open.
+            cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
+          });
+
+          it("clears JSON errors when re-opening the pod form", function() {
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("Multi-container (Pod)")
+              .click(); // Select "Pod".
+            cy.get(".modal .toggle-button + span").click(); // Open the JSON Editor.
+            cy.get(".form-group")
+              .find('.form-control[name="id"]')
+              .type("{backspace}"); // Introduce an error by deleting the ID.
+            cy.get(".button")
+              .contains("Review & Run")
+              .click(); // Try to submit.
+            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".modal-header button")
+              .contains("Back")
+              .click(); // Go back.
+            cy.contains("button", "Discard").click(); // Confirm.
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("Multi-container (Pod)")
+              .click(); // Select "Pod" again.
+            cy.get(".ace_editor").should("exist"); // The JSON Editor should be open.
+            cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
+          });
+
+          it("clears JSON errors when re-opening the JSON form", function() {
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("JSON Configuration")
+              .click(); // Select "JSON Configuration".
+            cy.get(".button")
+              .contains("Review & Run")
+              .click(); // Try to submit.
+            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".modal-header button")
+              .contains("Back")
+              .click(); // Go back.
+            cy.get(".create-service-modal-service-picker-option")
+              .contains("JSON Configuration")
+              .click(); // Select "JSON Configuration" again.
+            cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
+          });
         });
       });
     });
@@ -247,6 +405,83 @@ describe("Service Form Modal", function() {
           expect(nodeList[0].textContent).to.contain('"instances": 1');
           expect(nodeList[0].textContent).to.contain('"mem": 128');
         });
+      });
+    });
+
+    describe("switching to multi-container", function() {
+      beforeEach(function() {
+        openServiceModal();
+        openServiceForm();
+        cy.get("a.clickable")
+          .contains("Add another container")
+          .click();
+        cy.get(".button-primary")
+          .contains("Switch to Pod")
+          .click();
+      });
+
+      it("successfully switches to multi-container", function() {
+        cy.get("span")
+          .contains("Add Container")
+          .should("exist");
+      });
+
+      it("successfully adds a container and opens the container tab", function() {
+        cy.get("span")
+          .contains("Add Container")
+          .click();
+        cy.get(".pod-narrow")
+          .contains("container-1")
+          .should("exist")
+          .click();
+        cy.get("h1")
+          .contains("Container")
+          .should("exist");
+      });
+
+      it("successfully opens the placement tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Placement")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Placement")
+          .should("exist");
+      });
+
+      it("successfully opens the networking tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Networking")
+          .click();
+        cy.get("h1.flush-top")
+          .contains("Networking")
+          .should("exist");
+      });
+
+      it("successfully opens the volumes tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Volumes")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Volumes")
+          .should("exist");
+      });
+
+      it("successfully opens the health checks tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Health Checks")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Health Checks")
+          .should("exist");
+      });
+
+      it("successfully opens the environment variables tab", function() {
+        cy.get(".menu-tabbed-item-label")
+          .contains("Environment")
+          .click();
+        cy.get(".form-group-heading-content")
+          .contains("Environment")
+          .should("exist");
       });
     });
   });
@@ -807,6 +1042,45 @@ describe("Service Form Modal", function() {
             "disabled"
           );
         });
+      });
+
+      it("Should show asterisk next to Container Image if Docker is selected", function() {
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("bottom");
+        cy.get(".flex-align-items-center")
+          .contains("Docker")
+          .click();
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("top");
+        cy.get(".form-group-heading")
+          .contains("Container Image")
+          .parents(".form-group-heading")
+          .should("contain", "*");
+      });
+
+      it("Should expand Advanced settings they contain errors", function() {
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("bottom");
+        cy.get(".advanced-section-content")
+          .find('.form-control[name="gpus"]')
+          .type("-1");
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("top");
+        cy.get("a.clickable") // Close advanced settings
+          .contains("More Settings")
+          .click();
+        cy.get(".button")
+          .contains("Review & Run")
+          .click();
+        cy.get(".infoBoxWrapper").should("exist");
+        cy.get(".gm-scroll-view")
+          .last()
+          .scrollTo("bottom");
+        cy.get(".form-group").contains("GPUs"); // The advanced settings have expanded
       });
     });
 
@@ -1476,10 +1750,11 @@ describe("Service Form Modal", function() {
         });
 
         it('Should remove "Environment Variable" form fields when remove button clicked', function() {
-          cy.contains(".form-row", "Key").within(function() {
-            // Click delete button
-            cy.get("a.button").click();
-          });
+          // Click delete button
+          cy.get('.form-control[name="env.0.key"]')
+            .closest(".form-row")
+            .find("a.button")
+            .click();
 
           cy.get('.form-control[name="env.0.key"]').should("not.exist");
         });
@@ -1516,10 +1791,11 @@ describe("Service Form Modal", function() {
         });
 
         it('Should remove "Label" form fields when remove button clicked', function() {
-          cy.contains(".form-row", "Key").within(function() {
-            // Click delete button
-            cy.get("a.button").click();
-          });
+          // Click delete button
+          cy.get('.form-control[name="labels.0.key"]')
+            .closest(".form-row")
+            .find("a.button")
+            .click();
 
           cy.get('.form-control[name="labels.0.key"]').should("not.exist");
         });
@@ -1710,7 +1986,7 @@ describe("Service Form Modal", function() {
 
     context("Multi-container (pod)", function() {
       beforeEach(function() {
-        cy.get(".menu-tabbed-item-label")
+        cy.get(".modal-wrapper .menu-tabbed-item-label")
           .eq(0)
           .click()
           .get(".menu-tabbed-view h1")
@@ -1855,6 +2131,350 @@ describe("Service Form Modal", function() {
       cy.get(".form-control[name='containers.0.endpoints.0.vipPort']").type(5);
 
       cy.contains(".marathon.l4lb.thisdcos.directory:5005");
+    });
+  });
+
+  context("Comprehensible error messages", function() {
+    function clickReviewAndRun() {
+      cy.get(".button-primary")
+        .contains("Review & Run")
+        .click();
+    }
+
+    function openTab(tab) {
+      cy.get(".menu-tabbed-item-label")
+        .contains(tab)
+        .click();
+    }
+
+    function typeInInput(inputName, text) {
+      cy.get(".create-service-modal-form")
+        .find('.form-control[name="' + inputName + '"]')
+        .type(text);
+    }
+
+    function clearInput(inputName) {
+      cy.get(".create-service-modal-form")
+        .find('.form-control[name="' + inputName + '"]')
+        .clear();
+    }
+
+    function clickCheckbox(text) {
+      cy.get(".create-service-modal-form")
+        .contains(text)
+        .click();
+    }
+
+    function clickButton(text) {
+      cy.get(".button")
+        .contains(text)
+        .click();
+    }
+
+    function clickDropdownItem(parent, item) {
+      cy.get(".dropdown-toggle")
+        .contains(parent)
+        .click();
+      cy.get(".dropdown-menu-items")
+        .contains(item)
+        .click();
+    }
+
+    function clickSelectItem(name, item) {
+      cy.get(".form-control-select")
+        .find('[name="' + name + '"]')
+        .select(item);
+    }
+
+    function errorMessageShouldContain(text) {
+      cy.get(".infoBoxWrapper").should("exist");
+      cy.get(".infoBoxWrapper").should("contain", text);
+    }
+
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-empty-group",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/overview/create" });
+    });
+
+    context("Single Container", function() {
+      beforeEach(function() {
+        cy.get(".create-service-modal-service-picker-option")
+          .contains("Single Container")
+          .click();
+      });
+
+      context("Service Tab", function() {
+        context("Advanced Settings", function() {
+          function scrollToTop() {
+            cy.get(".gm-scroll-view")
+              .last()
+              .scrollTo("top");
+          }
+
+          beforeEach(function() {
+            cy.get("a.clickable")
+              .contains("More Settings")
+              .click();
+            cy.get(".gm-scroll-view")
+              .last()
+              .scrollTo("bottom");
+          });
+
+          it("displays comprehensible error for invalid gpu value", function() {
+            typeInInput("gpus", "-1");
+            scrollToTop();
+            clickReviewAndRun();
+            errorMessageShouldContain(
+              "GPUs must be bigger than or equal to 0."
+            );
+          });
+
+          it("displays comprehensible error for invalid disk value", function() {
+            typeInInput("disk", "-1");
+            scrollToTop();
+            clickReviewAndRun();
+            errorMessageShouldContain(
+              "Disk must be bigger than or equal to 0."
+            );
+          });
+
+          it("displays comprehensible error for missing container image when docker is selected", function() {
+            cy.get(".flex-align-items-center")
+              .contains("Docker")
+              .click();
+            scrollToTop();
+            clickReviewAndRun();
+            errorMessageShouldContain(
+              'Container Image must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings".'
+            );
+          });
+        });
+      });
+
+      context("Placement Tab", function() {
+        beforeEach(function() {
+          openTab("Placement");
+        });
+
+        it("displays comprehensible error for invalid advanced constraint value", function() {
+          clickButton("Add Placement Constraint");
+          clickDropdownItem("Select ...", "Group By");
+          typeInInput("constraints.0.fieldName", "1");
+          typeInInput("constraints.0.value", "-1");
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Placement advanced constraints values must only contain characters between 0-9 for operator GROUP_BY."
+          );
+        });
+      });
+
+      context("Networking Tab", function() {
+        beforeEach(function() {
+          openTab("Networking");
+        });
+
+        it("displays comprehensible error for invalid service endpoint values", function() {
+          clickSelectItem("networks.0.network", "Bridge");
+          clickButton("Add Service Endpoint");
+          clickCheckbox("Assign Automatically");
+          clickCheckbox("Enable Load Balanced Service Address");
+          typeInInput("portDefinitions.0.containerPort", "-1");
+          typeInInput("portDefinitions.0.name", "-1");
+          typeInInput("portDefinitions.0.hostPort", "-1");
+          typeInInput("portDefinitions.0.vipPort", "-1");
+
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Service endpoint container ports must be bigger than or equal to 0."
+          );
+          errorMessageShouldContain(
+            "Service endpoint host ports must be bigger than or equal to 0."
+          );
+          errorMessageShouldContain(
+            "Service endpoint names may only contain digits (0-9), dashes (-) and lowercase letters (a-z) e.g. web-server. The name may not begin or end with a dash."
+          );
+          errorMessageShouldContain(
+            "Service endpoint host ports label for VIP must be in the following format: <ip-addres|name>:<port>."
+          );
+        });
+      });
+
+      context("Volumes tab", function() {
+        beforeEach(function() {
+          openTab("Volumes");
+        });
+
+        it("displays comprehensible error for missing properties for Host Volume", function() {
+          clickButton("Add Volume");
+          clickDropdownItem("Select ...", "Host Volume");
+          typeInInput("volumes.0.containerPath", "1");
+          clickReviewAndRun();
+          errorMessageShouldContain("Volume properties must be defined.");
+        });
+
+        it("displays comprehensible error for missing properties for Local Persistent Volume", function() {
+          clickButton("Add Volume");
+          clickDropdownItem("Select ...", "Local Persistent Volume");
+          typeInInput("volumes.0.containerPath", "1");
+          clickReviewAndRun();
+          errorMessageShouldContain("Volume properties must be defined.");
+        });
+      });
+
+      context("Environment tab", function() {
+        beforeEach(function() {
+          openTab("Environment");
+        });
+
+        it("displays comprehensible error for missing environment label key", function() {
+          clickButton("Add Label");
+          typeInInput("labels.0.key", " ");
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Environment variable label keys must not start or end with whitespace characters."
+          );
+        });
+      });
+    });
+
+    context("Multi Container", function() {
+      beforeEach(function() {
+        cy.get(".create-service-modal-service-picker-option")
+          .contains("Multi-container (Pod)")
+          .click();
+      });
+
+      context("Container Tab", function() {
+        beforeEach(function() {
+          openTab("container-1");
+        });
+
+        it("displays comprehensible error for missing containers", function() {
+          clearInput("containers.0.name");
+          clearInput("containers.0.resources.cpus");
+          clearInput("containers.0.resources.mem");
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Containers must contain at least one item."
+          );
+        });
+
+        it("displays comprehensible error for missing container name", function() {
+          clearInput("containers.0.name");
+          clickReviewAndRun();
+          errorMessageShouldContain("Container names must be defined.");
+        });
+
+        it("displays comprehensible error for invalid container cpu value", function() {
+          clearInput("containers.0.resources.cpus");
+          typeInInput("containers.0.resources.cpus", "-1");
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Container CPUs must be bigger than or equal to 0.001."
+          );
+        });
+
+        it("displays comprehensible error for invalid container memory value", function() {
+          clearInput("containers.0.resources.mem");
+          typeInInput("containers.0.resources.mem", "-1");
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Container Memory must be bigger than or equal to 0.001."
+          );
+        });
+      });
+
+      context("Networking Tab", function() {
+        beforeEach(function() {
+          openTab("Networking");
+        });
+
+        it("displays comprehensible error for invalid service endpoint values", function() {
+          clickButton("Add Service Endpoint");
+          clickCheckbox("Assign Automatically");
+          clickCheckbox("TCP");
+          clickCheckbox("Enable Load Balanced Service Address");
+
+          typeInInput("containers.0.endpoints.0.name", "-1");
+          typeInInput("containers.0.endpoints.0.hostPort", "-1");
+          typeInInput("containers.0.endpoints.0.vipPort", "-1");
+
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Service endpoint host ports must be bigger than or equal to 0."
+          );
+          errorMessageShouldContain(
+            "Service endpoint names may only contain digits (0-9), dashes (-) and lowercase letters (a-z) e.g. web-server. The name may not begin or end with a dash."
+          );
+          errorMessageShouldContain(
+            "Service endpoint protocol must be selected."
+          );
+          errorMessageShouldContain(
+            "Service endpoint host ports label for VIP must be in the following format: <ip-addres|name>:<port>."
+          );
+        });
+      });
+
+      context("Volumes Tab", function() {
+        beforeEach(function() {
+          openTab("Volumes");
+        });
+
+        it("displays comprehensible error for invalid properties for volumes", function() {
+          clickButton("Add Volume");
+          clickDropdownItem("Select ...", "Local Persistent Volume");
+          typeInInput("volumeMounts.0.name", " ");
+          typeInInput("volumeMounts.0.size", "-1");
+          typeInInput("volumeMounts.0.mountPath.0", " ");
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Volumes name may only contain digits (0-9), dashes (-) and lowercase letters (a-z) e.g. web-server. The name may not begin or end with a dash."
+          );
+          errorMessageShouldContain(
+            "Volumes size must be bigger than or equal to 0."
+          );
+        });
+      });
+
+      context("Health Checks Tab", function() {
+        beforeEach(function() {
+          openTab("Health Checks");
+        });
+
+        it("displays comprehensible error for invalid properties for health checks", function() {
+          clickButton("Add Health Check");
+          clickSelectItem("containers.0.healthCheck.protocol", "HTTP");
+          clickButton("Advanced Health Check Settings");
+          [
+            "containers.0.healthCheck.http.path",
+            "containers.0.healthCheck.gracePeriodSeconds",
+            "containers.0.healthCheck.intervalSeconds",
+            "containers.0.healthCheck.timeoutSeconds",
+            "containers.0.healthCheck.maxConsecutiveFailures"
+          ].forEach(function(input) {
+            typeInInput(input, "-1");
+          });
+          clickReviewAndRun();
+          errorMessageShouldContain(
+            "Health check service endpoint must be defined."
+          );
+          errorMessageShouldContain(
+            "Health check grace periods must be bigger than or equal to 0."
+          );
+          errorMessageShouldContain(
+            "Health check intervals must be bigger than or equal to 0."
+          );
+          errorMessageShouldContain(
+            "Health check max failures must be bigger than or equal to 0."
+          );
+          errorMessageShouldContain(
+            "Health check timeouts must be bigger than or equal to 0."
+          );
+        });
+      });
     });
   });
 });

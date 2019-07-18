@@ -116,13 +116,29 @@ module.exports = class Service extends Item {
       gpus = 0,
       disk = 0
     } = this.getSpec().getResources();
+    let executorCpus = 0;
+    let executorMem = 0;
+    let executorGpus = 0;
+    let executorDisk = 0;
+
+    if (this.getSpec().get("executorResources")) {
+      const executor = this.getSpec().get("executorResources");
+      executorCpus = executor.cpus ? executor.cpus : 0;
+      executorMem = executor.mem ? executor.mem : 0;
+      executorGpus = executor.gpus ? executor.gpus : 0;
+      executorDisk = executor.disk ? executor.disk : 0;
+    }
 
     return {
-      cpus: cpus * instances,
-      mem: mem * instances,
-      gpus: gpus * instances,
-      disk: disk * instances
+      cpus: (cpus + executorCpus) * instances,
+      mem: (mem + executorMem) * instances,
+      gpus: (gpus + executorGpus) * instances,
+      disk: (disk + executorDisk) * instances
     };
+  }
+
+  getRole() {
+    return this.get("role") || "";
   }
 
   toJSON() {

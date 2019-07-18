@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "groups": [
+    {
+      "id": "/dev",
+      "enforceRole": true,
+      "groups": [],
+      "apps": []
+    },
+    {
+      "id": "/staging",
+      "enforceRole": false,
+      "groups": [],
+      "apps": []
+    },
+    {
+      "id": "/prod",
+      "groups": [],
+      "apps": []
+    }
+  ],
+  "apps": [],
+  "pods": []
+}

@@ -31,7 +31,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
     const unitTitle = unit.getTitle();
 
     crumbs.push(
-      <Breadcrumb key={1} title="unitTitle">
+      <Breadcrumb key={1} title={unitTitle}>
         <BreadcrumbTextContent>
           <Link to={`/components/${unit.get("id")}`}>{unitTitle}</Link>
         </BreadcrumbTextContent>

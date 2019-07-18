@@ -33,6 +33,7 @@ import VipLabelUtil from "../../utils/VipLabelUtil";
 
 import { FormReducer as networks } from "../../reducers/serviceForm/MultiContainerNetwork";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
+import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
 
 const { CONTAINER, HOST } = Networking.type;
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
@@ -52,13 +53,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         suppressUpdate: true
       }
     ];
-  }
-
-  isHostNetwork() {
-    const networkType =
-      findNestedPropertyInObject(this.props.data, "networks.0.mode") || HOST;
-
-    return networkType === HOST;
   }
 
   onVirtualNetworksStoreSuccess() {
@@ -101,13 +95,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(endpoint, index, containerIndex) {
     let placeholder;
-    let environmentVariableName = "$ENDPOINT_{NAME}";
-    if (endpoint.name && typeof endpoint.name === "string") {
-      environmentVariableName = environmentVariableName.replace(
-        "{NAME}",
-        endpoint.name.toUpperCase()
-      );
-    }
+    const environmentVariableName = getHostPortPlaceholder(endpoint.name, true);
     let value = endpoint.hostPort;
     const { errors } = this.props;
     const hostPortError = findNestedPropertyInObject(
@@ -131,7 +119,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -218,12 +207,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         balancer and attach this service.{" "}
         <a href={loadBalancerDocsURI} target="_blank">
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
     return [
-      <FormRow>
+      <FormRow key="lb-address">
         <FormGroup className="column-12" showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FieldInput
@@ -264,11 +254,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       data: { id, portsAutoAssign }
     } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
-    const defaultVipPort = this.isHostNetwork() ? hostPort : containerPort;
+    const defaultVipPort = isHostNetwork(this.props.data)
+      ? hostPort
+      : containerPort;
 
     // clear placeholder when HOST network portsAutoAssign is true
     const placeholder =
-      this.isHostNetwork() && portsAutoAssign ? "" : defaultVipPort;
+      isHostNetwork(this.props.data) && portsAutoAssign ? "" : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError = findNestedPropertyInObject(
@@ -386,7 +378,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           target="_blank"
         >
           More information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 
@@ -501,6 +494,24 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
   getServiceEndpoints() {
     const { containers } = this.props.data;
+    const { handleTabChange } = this.props;
+
+    if (!containers || !containers.length) {
+      return (
+        <div>
+          <Trans render="p">
+            Please{" "}
+            <a
+              onClick={handleTabChange.bind(null, "services")}
+              className="clickable"
+            >
+              add a container
+            </a>{" "}
+            before configuring Endpoints.
+          </Trans>
+        </div>
+      );
+    }
 
     return containers.map((container, index) => {
       const { endpoints = [] } = container;
@@ -548,7 +559,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       .getItems()
       .map((virtualNetwork, index) => {
         return (
-          <Trans render={<option key={index} value={virtualNetwork.value} />}>
+          <Trans
+            key={index}
+            render={<option key={index} value={virtualNetwork.value} />}
+          >
             Virtual Network: {virtualNetwork.text}
           </Trans>
         );
@@ -572,7 +586,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <FieldSelect name="networks.0" value={network}>
-        <Trans render={<option value={HOST} />}>Host</Trans>
+        <Trans key="host" render={<option value={HOST} key="host" />}>
+          Host
+        </Trans>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
@@ -586,7 +602,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     const networkTypeTooltipContent = (
       <Trans render="span">
-        Choose BRIDGE, HOST, or USER networking. Refer to the{" "}
+        Refer to the{" "}
         <a
           href={MetadataStore.buildDocsURI(
             "/deploying-services/service-ports/"
@@ -608,7 +624,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         and ports.{" "}
         <a href={serviceEndpointsDocsURI} target="_blank">
           More Information
-        </a>.
+        </a>
+        .
       </Trans>
     );
 

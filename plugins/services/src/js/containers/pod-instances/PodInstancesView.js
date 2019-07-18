@@ -9,7 +9,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -24,6 +24,12 @@ import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
 const METHODS_TO_BIND = ["handleKillClick", "handleSelectionChange"];
+const DSL_FORM_SECTIONS = [
+  TaskStatusDSLSection,
+  TaskZoneDSLSection,
+  TaskRegionDSLSection,
+  FuzzyTextDSLSection
+];
 
 class PodInstancesView extends React.Component {
   constructor() {
@@ -92,12 +98,7 @@ class PodInstancesView extends React.Component {
       <div className={hostClasses}>
         <DSLFilterField
           filters={filters}
-          formSections={[
-            TaskStatusDSLSection,
-            TaskZoneDSLSection,
-            TaskRegionDSLSection,
-            FuzzyTextDSLSection
-          ]}
+          formSections={DSL_FORM_SECTIONS}
           defaultData={defaultFilterData}
           expression={filterExpression}
           onChange={handleExpressionChange}
@@ -198,7 +199,7 @@ PodInstancesView.propTypes = {
   pod: PropTypes.instanceOf(Pod).isRequired,
   totalInstances: PropTypes.number.isRequired,
   handleExpressionChange: PropTypes.func.isRequired,
-  filters: PropTypes.instanceOf(DSLFilterList)
+  filters: PropTypes.instanceOf(Array)
 };
 
 module.exports = withI18n()(PodInstancesView);

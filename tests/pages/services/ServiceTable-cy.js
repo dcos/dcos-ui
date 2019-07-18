@@ -10,9 +10,9 @@ describe("Service Table", function() {
     cy.get(".ReactVirtualized__Grid")
       .eq(-1) // bottom right grid
       .scrollTo("right"); // scroll to the actions column
-    cy.get(".dropdown").should("not.to.have.length", 1);
-    cy.get(".dropdown")
-      .eq(1)
+    cy.get(".actions-dropdown").should("not.to.have.length", 0);
+    cy.get(".actions-dropdown")
+      .eq(0)
       .click();
   }
 
@@ -21,6 +21,40 @@ describe("Service Table", function() {
       .contains(actionText)
       .click();
   }
+
+  context("Service status", function() {
+    it("shows correct status and icon for a delayed service", function() {
+      cy.configureCluster({
+        mesos: "1-service-delayed",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      cy.get(".service-status-icon-wrapper")
+        .contains("Delayed")
+        .should("exist"); // Text
+      cy.get(".service-status-icon-wrapper")
+        .find('svg[aria-label="system-yield icon"]')
+        .should("exist"); // Icon
+    });
+
+    it("shows correct status and icon for a delayed pod", function() {
+      cy.configureCluster({
+        mesos: "1-pod-delayed",
+        nodeHealth: true
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      cy.get(".service-status-icon-wrapper")
+        .contains("Delayed")
+        .should("exist"); // Text
+      cy.get(".service-status-icon-wrapper")
+        .find('svg[aria-label="system-yield icon"]')
+        .should("exist"); // Icon
+    });
+  });
 
   context("Destroy Action", function() {
     beforeEach(function() {
@@ -198,6 +232,87 @@ describe("Service Table", function() {
     });
   });
 
+  context("Reset Delay Action", function() {
+    context("Delayed service", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-delayed",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+
+        openDropdown("sleep");
+        clickDropdownAction("Reset Delay");
+      });
+
+      it("shows a toast notification", function() {
+        cy.route({
+          method: "DELETE",
+          url: /marathon\/v2\/queue\/\/sleep\/delay/,
+          response: []
+        });
+        cy.get(".toasts-container").should("exist");
+      });
+    });
+
+    context("Non-delayed service", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+
+        openDropdown("sleep");
+      });
+
+      it("doesn't have a reset delayed action", function() {
+        cy.get(".dropdown-menu-items")
+          .contains("Reset Delay")
+          .should("not.exist");
+      });
+    });
+
+    context("Delayed pod", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-pod-delayed",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+
+        openDropdown("podses");
+        clickDropdownAction("Reset Delay");
+      });
+
+      it("shows a toast notification", function() {
+        cy.route({
+          method: "DELETE",
+          url: /marathon\/v2\/queue\/\/podses\/delay/,
+          response: []
+        });
+        cy.get(".toasts-container").should("exist");
+      });
+    });
+
+    context("Non-delayed pod", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-pod",
+          nodeHealth: true
+        });
+        cy.visitUrl({ url: "/services/overview" });
+        openDropdown("podses");
+      });
+
+      it("doesn't have a reset delayed action", function() {
+        cy.get(".dropdown-menu-items")
+          .contains("Reset Delay")
+          .should("not.exist");
+      });
+    });
+  });
+
   context("SDK Services", function() {
     beforeEach(function() {
       cy.configureCluster({
@@ -283,6 +398,14 @@ describe("Service Table", function() {
         .contains("Open Service")
         .should("exist");
     });
+
+    it("shows the full version for a framework", function() {
+      cy.get(".ReactVirtualized__Grid__innerScrollContainer")
+        .last() // Bottom right part of the table.
+        .children()
+        .eq(1) // Version column for the first row.
+        .contains("1.0.0-2.0.0");
+    });
   });
 
   context("SDK Groups", function() {
@@ -337,7 +460,89 @@ describe("Service Table", function() {
 
       cy.get(".modal").should("not.exist");
     });
+
+    context("Create groups modal", function() {
+      beforeEach(function() {
+        cy.get("button.button-narrow")
+          .eq(-1)
+          .click();
+        cy.get("li.is-selectable")
+          .contains("Create Group")
+          .click();
+      });
+
+      it("displays an error for a group name starting with a dot", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type(".test");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name ending with a dot", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type("test.");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name starting with a dash", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type("-test");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name ending with a dash", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type("test-");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+
+      it("displays an error for a group name containing unallowed symbols", function() {
+        cy.get(".form-group")
+          .find('.form-control[name="id"]')
+          .type(".te$t");
+        cy.get(".button-primary")
+          .contains("Create Group")
+          .click();
+        cy.get(".form-control-feedback")
+          .contains(
+            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+          )
+          .should("exist");
+      });
+    });
   });
+
   context("Region Column", function() {
     context("Single Region", () => {
       beforeEach(function() {
@@ -397,16 +602,53 @@ describe("Service Table", function() {
     });
 
     it("group status is an aggregate of children", function() {
-      cy.get('.status-bar-text')
+      cy.get(".status-bar-text")
         .eq(1)
-        .contains("Running (3 of 3)")
+        .contains("Running (3 of 3)");
     });
 
     it("shows service status counts in group tooltip", function() {
-      cy.get('.service-status-icon-wrapper > .tooltip-wrapper')
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(1)
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
-    })
+    });
+
+    it("group status shows the highest priority", function() {
+      cy.get(".status-bar-text")
+        .eq(0)
+        .contains("Running (1 of 2)");
+    });
+
+    it("shows service status counts in group tooltip", function() {
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
+        .eq(0)
+        .trigger("mouseover");
+      cy.get(".tooltip").contains("1 Stopped");
+    });
+  });
+
+  context("Quota groups", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("Shows no limit banner and badge if services have no quota enforced", function() {
+      cy.get(".table-cell-link-primary")
+        .contains("2_apps")
+        .click();
+      cy.get("#quota-no-limit-infobox")
+        .contains(
+          "1 service is not limited by quota. Update role to have quota enforced."
+        )
+        .should("exist");
+      cy.get(".quota-no-limit")
+        .contains("No Limit")
+        .should("exist");
+    });
   });
 });

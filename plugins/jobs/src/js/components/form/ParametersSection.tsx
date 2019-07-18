@@ -39,38 +39,16 @@ class ParametersSection extends React.Component<
     } = this.props;
 
     return dockerParams.map((parameter: DockerParameter, index: number) => {
-      let nameLabel = null;
-      let valueLabel = null;
-      if (index === 0) {
-        nameLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans>Parameter Name</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-        valueLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans>Parameter Value</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-      }
       const keyErrors = getFieldError(
-        `job.run.docker.parameters.${index}.key`,
+        `run.docker.parameters.${index}.key`,
         errors
       );
       const valueErrors = getFieldError(
-        `job.run.docker.parameters.${index}.value`,
+        `run.docker.parameters.${index}.value`,
         errors
       );
       const generalParamError = getFieldError(
-        `job.run.docker.parameters.${index}`,
+        `run.docker.parameters.${index}`,
         errors
       );
 
@@ -81,7 +59,6 @@ class ParametersSection extends React.Component<
             required={false}
             showError={Boolean(showErrors && (keyErrors || generalParamError))}
           >
-            {nameLabel}
             <FieldAutofocus>
               <FieldInput
                 name={`key.${index}.dockerParams`}
@@ -99,7 +76,6 @@ class ParametersSection extends React.Component<
               showErrors && (valueErrors || generalParamError)
             )}
           >
-            {valueLabel}
             <FieldInput
               name={`value.${index}.dockerParams`}
               type="text"
@@ -107,7 +83,7 @@ class ParametersSection extends React.Component<
             />
             <FieldError>{valueErrors}</FieldError>
           </FormGroup>
-          <FormGroup hasNarrowMargins={true} applyLabelOffset={index === 0}>
+          <FormGroup hasNarrowMargins={true}>
             <DeleteRowButton onClick={onRemoveItem("dockerParams", index)} />
           </FormGroup>
         </FormRow>
@@ -117,10 +93,36 @@ class ParametersSection extends React.Component<
 
   render() {
     const { onAddItem } = this.props;
+    const paramsLines = this.getParamsInputs();
 
     return (
       <div className="form-section">
-        {this.getParamsInputs()}
+        {paramsLines.length > 0 ? (
+          <FormRow>
+            <FormGroup className="column-6 short-bottom">
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    <Trans>Parameter Name</Trans>
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+            </FormGroup>
+            <FormGroup className="column-6 short-bottom">
+              <FieldLabel>
+                <FormGroupHeading>
+                  <FormGroupHeadingContent primary={true}>
+                    <Trans>Parameter Value</Trans>
+                  </FormGroupHeadingContent>
+                </FormGroupHeading>
+              </FieldLabel>
+            </FormGroup>
+            <div style={{ visibility: "hidden", height: "0" }}>
+              <DeleteRowButton />
+            </div>
+          </FormRow>
+        ) : null}
+        {paramsLines}
         <FormRow>
           <FormGroup className="column-12">
             <AddButton onClick={onAddItem("dockerParams")}>

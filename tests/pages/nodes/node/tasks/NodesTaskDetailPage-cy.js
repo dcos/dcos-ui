@@ -8,7 +8,7 @@ describe("Nodes Task Detail Page", function() {
 
   context("Navigate to node task detail page", function() {
     it("navigates to node task detail page", function() {
-      cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/nodes", identify: true });
       cy.get("a.table-cell-link-primary")
         .eq(0)
         .click({ force: true });
@@ -21,7 +21,7 @@ describe("Nodes Task Detail Page", function() {
     });
 
     it("loads page with data after hard reload", function() {
-      cy.visitUrl({ url: "/nodes", identify: true, fakeAnalytics: true });
+      cy.visitUrl({ url: "/nodes", identify: true });
       cy.get("a.table-cell-link-primary")
         .eq(0)
         .click({ force: true });

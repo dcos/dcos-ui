@@ -1,6 +1,6 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
-var NodesRegionFilter = require("../NodesRegionFilter");
+import NodesRegionFilter from "../NodesRegionFilter";
+
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
@@ -8,16 +8,8 @@ let thisMockItems;
 describe("NodesRegionFilter", function() {
   beforeEach(function() {
     thisMockItems = [
-      {
-        getRegionName() {
-          return "region-1";
-        }
-      },
-      {
-        getRegionName() {
-          return "region-22";
-        }
-      }
+      { getRegionName: () => "region-1" },
+      { getRegionName: () => "region-22" }
     ];
   });
 
@@ -25,9 +17,7 @@ describe("NodesRegionFilter", function() {
     const nodes = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 
-    const filters = new DSLFilterList().add(
-      new NodesRegionFilter(["region-1"])
-    );
+    const filters = [NodesRegionFilter];
 
     expect(
       expr

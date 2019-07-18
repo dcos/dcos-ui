@@ -181,6 +181,8 @@
       "attributes": {
         
       },
+      "deactivated": true,
+      "drain_info": { "state": "DRAINING", "config": {} },
       "framework_ids": [
         "20150827-210452-1695027628-5050-1445-0001"
       ],

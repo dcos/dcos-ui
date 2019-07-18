@@ -4,38 +4,62 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import NodesList from "#SRC/js/structs/NodesList";
 
 import ResourceSwitchDropdown from "#SRC/js/components/ResourceSwitchDropdown";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+// @ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import FilterByFramework from "../../../../../services/src/js/components/FilterByFramework";
 
 import NodesHealthDSLSection from "../../components/dsl/NodesHealthDSLSection";
+import NodesStatusDSLSection from "../../components/dsl/NodesStatusDSLSection";
+import NodesTypeDSLSection from "../../components/dsl/NodesTypeDSLSection";
 import NodesRegionDSLFilter from "../../components/dsl/NodesRegionDSLFilter";
 import NodesZoneDSLFilter from "../../components/dsl/NodesZoneDSLFilter";
 
 import NodesHealthFilter from "../../filters/NodesHealthFilter";
 import NodesRegionFilter from "../../filters/NodesRegionFilter";
+import NodesStatusFilter from "../../filters/NodesStatusFilter";
 import NodesZoneFilter from "../../filters/NodesZoneFilter";
 import NodesTextFilter from "../../filters/NodesTextFilter";
+import NodesTypeFilter from "../../filters/NodesTypeFilter";
 
 const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
+
+const dslFormSections = () => [
+  NodesHealthDSLSection,
+  NodesTypeDSLSection,
+  ...(hasMaintenance() ? [NodesStatusDSLSection] : []),
+  NodesRegionDSLFilter,
+  NodesZoneDSLFilter
+];
+
+const hasMaintenance = () =>
+  findNestedPropertyInObject(
+    ConfigStore.get("config"),
+    "uiConfiguration.features.maintenance"
+  );
 
 class HostsPageContent extends React.PureComponent {
   constructor() {
     super(...arguments);
 
+    const filters = [
+      new NodesHealthFilter(),
+      new NodesTextFilter(),
+      new NodesTypeFilter(),
+      ...(hasMaintenance() ? [NodesStatusFilter] : [])
+    ];
+
     this.state = {
       expression: "",
       filterExpression: new DSLExpression(""),
-      filters: new DSLFilterList([
-        new NodesHealthFilter(),
-        new NodesTextFilter()
-      ]),
+      filters,
       defaultFilterData: { regions: [], zones: [] }
     };
 
@@ -101,14 +125,10 @@ class HostsPageContent extends React.PureComponent {
 
     const newRegions = Array.from(
       new Set(
-        allHosts.getItems().reduce(function(prev, host) {
-          if (host.getRegionName() === "N/A") {
-            return prev;
-          }
-          prev.push(host.getRegionName());
-
-          return prev;
-        }, [])
+        allHosts
+          .getItems()
+          .map(h => h.getRegionName())
+          .filter(name => name !== "N/A")
       )
     );
 
@@ -122,12 +142,14 @@ class HostsPageContent extends React.PureComponent {
       return;
     }
 
-    const filters = new DSLFilterList([
+    const filters = [
       new NodesHealthFilter(),
       new NodesTextFilter(),
-      new NodesRegionFilter(newRegions),
-      new NodesZoneFilter(newZones)
-    ]);
+      new NodesTypeFilter(),
+      NodesRegionFilter,
+      new NodesZoneFilter(newZones),
+      ...(hasMaintenance() ? [NodesStatusFilter] : [])
+    ];
 
     this.setState({
       filterExpression: new DSLExpression(query),
@@ -143,11 +165,7 @@ class HostsPageContent extends React.PureComponent {
       <div className="column-12 flush-left">
         <DSLFilterField
           filters={filters}
-          formSections={[
-            NodesHealthDSLSection,
-            NodesRegionDSLFilter,
-            NodesZoneDSLFilter
-          ]}
+          formSections={dslFormSections()}
           expression={filterExpression}
           onChange={this.onFilterChangeHandler}
           defaultData={defaultFilterData}

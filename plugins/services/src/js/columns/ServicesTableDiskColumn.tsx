@@ -1,28 +1,26 @@
 import * as React from "react";
 import { NumberCell } from "@dcos/ui-kit";
+import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
+import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import Units from "#SRC/js/utils/Units";
-import { SortDirection } from "plugins/services/src/js/types/SortDirection";
-import ServiceTableUtil from "../utils/ServiceTableUtil";
+import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
+
+export const ServiceDisk = React.memo(({ resource }: { resource: string }) => (
+  <NumberCell>
+    <span>{Units.formatResource("disk", resource)}</span>
+  </NumberCell>
+));
 
 export function diskRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
-  const resource = service.getResources()[`disk`];
-
-  return (
-    <NumberCell>
-      <span>{Units.formatResource("disk", resource)}</span>
-    </NumberCell>
-  );
+  return <ServiceDisk resource={service.getResources()[`disk`]} />;
 }
 
-export function diskSorter(
-  data: Array<Service | Pod | ServiceTree>,
-  sortDirection: SortDirection
-): any {
-  return ServiceTableUtil.sortData(data, sortDirection, "disk");
+export function diskWidth(_: WidthArgs) {
+  return TableColumnResizeStore.get(columnWidthsStorageKey).disk;
 }

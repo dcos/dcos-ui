@@ -28,19 +28,20 @@ function processTransaction(state, { type, path, value }) {
     });
   }
 
-  if (type === SET && name === "type") {
+  if (type === SET && name === "type" && newState[index]) {
     newState[index].type = value;
   }
 
   if (
     type === SET &&
     CONSTRAINT_FIELDS.includes(name) &&
+    newState[index] &&
     !(requiresEmptyValue(newState[index].operator) && name === "value")
   ) {
     newState[index][name] = value;
   }
 
-  if (name === "operator" && requiresEmptyValue(value)) {
+  if (name === "operator" && requiresEmptyValue(value) && newState[index]) {
     newState[index].value = null;
   }
 

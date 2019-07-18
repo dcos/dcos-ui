@@ -5,7 +5,7 @@ import React from "react";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterList from "#SRC/js/structs/DSLFilterList";
+
 import Tree from "#SRC/js/structs/Tree";
 
 import TasksStatusFilter from "#PLUGINS/services/src/js/filters/TasksStatusFilter";
@@ -37,10 +37,7 @@ class TasksContainer extends React.Component {
   constructor() {
     super(...arguments);
 
-    const filters = new DSLFilterList([
-      new TasksStatusFilter(),
-      new TaskNameTextFilter()
-    ]);
+    const filters = [new TasksStatusFilter(), new TaskNameTextFilter()];
     this.state = {
       actionErrors: {},
       pendingActions: {},
@@ -170,12 +167,12 @@ class TasksContainer extends React.Component {
       return;
     }
 
-    const filters = new DSLFilterList([
+    const filters = [
       new TasksStatusFilter(),
       new TasksZoneFilter(newZones),
       new TasksRegionFilter(newRegions),
       new TaskNameTextFilter()
-    ]);
+    ];
 
     this.setState({
       filterExpression: new DSLExpression(query),

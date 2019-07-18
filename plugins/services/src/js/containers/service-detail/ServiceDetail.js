@@ -29,6 +29,7 @@ const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
 const METHODS_TO_BIND = [
   "handleEditClearError",
@@ -122,6 +123,9 @@ class ServiceDetail extends mixin(TabsMixin) {
       case SCALE:
         modalHandlers.scaleService({ service });
         break;
+      case RESET_DELAYED:
+        modalHandlers.resetDelayedService({ service });
+        break;
       case OPEN:
         modalHandlers.openServiceUI({ service });
         break;
@@ -203,6 +207,13 @@ class ServiceDetail extends mixin(TabsMixin) {
       });
     }
 
+    if (service.isDelayed()) {
+      actions.push({
+        label: i18nMark("Reset Delay"),
+        onItemSelect: this.onActionsItemSelection.bind(this, RESET_DELAYED)
+      });
+    }
+
     if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: i18nMark("Stop"),
@@ -263,7 +274,13 @@ class ServiceDetail extends mixin(TabsMixin) {
     const { children, actions, errors, params, routes, service } = this.props;
     const { actionDisabledModalOpen, actionDisabledID } = this.state;
     const breadcrumbs = (
-      <ServiceBreadcrumbs params={params} serviceID={service.id} />
+      <ServiceBreadcrumbs
+        params={params}
+        serviceID={service.id}
+        instancesCount={service.getInstancesCount()}
+        runningInstances={service.getRunningInstancesCount()}
+        serviceStatus={service.getServiceStatus()}
+      />
     );
     const clonedProps = {
       params,
@@ -316,7 +333,8 @@ ServiceDetail.contextTypes = {
     restartService: PropTypes.func,
     stopService: PropTypes.func,
     deleteService: PropTypes.func,
-    openService: PropTypes.func
+    openService: PropTypes.func,
+    resetDelayedService: PropTypes.func
   }).isRequired,
   router: routerShape
 };

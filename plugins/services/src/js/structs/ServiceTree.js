@@ -34,6 +34,12 @@ module.exports = class ServiceTree extends Tree {
     if (options.id || typeof options.id == "string") {
       this.id = options.id;
     }
+    if (
+      options.enforceRole !== undefined &&
+      typeof options.enforceRole === "boolean"
+    ) {
+      this.enforceRole = options.enforceRole;
+    }
 
     // Converts items into instances of ServiceTree, Application or Framework
     // based on their properties.
@@ -106,6 +112,10 @@ module.exports = class ServiceTree extends Tree {
 
   getId() {
     return this.id;
+  }
+
+  getEnforceRole() {
+    return this.enforceRole;
   }
 
   getServiceFromTaskID(taskID) {
@@ -264,6 +274,18 @@ module.exports = class ServiceTree extends Tree {
     return new List({ items });
   }
 
+  getGroups() {
+    const items = this.reduceItems(function(groups, item) {
+      if (item instanceof ServiceTree) {
+        groups.push(item);
+      }
+
+      return groups;
+    }, []);
+
+    return new List({ items });
+  }
+
   getTasksSummary() {
     return this.reduceItems(
       function(taskSummary, item) {
@@ -355,5 +377,30 @@ module.exports = class ServiceTree extends Tree {
 
       return serviceTreeLabels;
     }, []);
+  }
+
+  getRoleLength(roleName = null) {
+    const name = roleName || this.getName();
+    return this.reduceItems(
+      (roles, item) => {
+        if (item instanceof ServiceTree) {
+          return roles;
+        }
+        roles.servicesCount++;
+        const itemRole = item.getRole();
+        if (itemRole) {
+          roles.rolesCount++;
+          if (itemRole === name) {
+            roles.groupRolesCount++;
+          }
+        }
+        return roles;
+      },
+      { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
+    );
+  }
+
+  isRoot() {
+    return this.getId() === "/";
   }
 };

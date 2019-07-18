@@ -9,6 +9,7 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 import { isSDKService } from "../utils/ServiceUtil";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
+import Application from "../structs/Application";
 import ServiceActionLabels from "../constants/ServiceActionLabels";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceTree from "../structs/ServiceTree";
@@ -21,6 +22,7 @@ const OPEN = ServiceActionItem.OPEN;
 const RESTART = ServiceActionItem.RESTART;
 const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
+const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 const STOP = ServiceActionItem.STOP;
 
 function hasWebUI(service: Service | Pod | ServiceTree) {
@@ -76,7 +78,7 @@ function renderServiceActionsDropdown(
       dropdownMenuClassName="dropdown-menu"
       dropdownMenuListClassName="dropdown-menu-list"
       dropdownMenuListItemClassName="clickable"
-      wrapperClassName="dropdown flush-bottom table-cell-icon"
+      wrapperClassName="dropdown flush-bottom table-cell-icon actions-dropdown"
       items={actions}
       persistentID={MORE}
       onItemSelection={onActionsItemSelection.bind(
@@ -140,6 +142,17 @@ export function actionsRendererFactory(
       actions.push({
         id: SCALE,
         html: <Trans render="span" id={scaleTextID} />
+      });
+    }
+
+    if (
+      !isGroup &&
+      (service instanceof Application || service instanceof Pod) &&
+      service.isDelayed()
+    ) {
+      actions.push({
+        id: RESET_DELAYED,
+        html: <Trans render="span" id={ServiceActionLabels.reset_delayed} />
       });
     }
 

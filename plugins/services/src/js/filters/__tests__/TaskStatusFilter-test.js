@@ -1,5 +1,4 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var TasksStatusFilter = require("../TasksStatusFilter");
 var List = require("#SRC/js/structs/List");
 
@@ -21,7 +20,7 @@ describe("TaskStatusFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
-    const filters = new DSLFilterList().add(new TasksStatusFilter());
+    const filters = [new TasksStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0]
@@ -32,7 +31,7 @@ describe("TaskStatusFilter", function() {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 
-    const filters = new DSLFilterList().add(new TasksStatusFilter());
+    const filters = [new TasksStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1]

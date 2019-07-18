@@ -1,5 +1,4 @@
-var DSLFilterList = require("#SRC/js/structs/DSLFilterList");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL.jison");
+var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var NodesTextFilter = require("../NodesTextFilter");
 var List = require("#SRC/js/structs/List");
 
@@ -24,7 +23,7 @@ describe("NodesTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("10.0");
 
-    const filters = new DSLFilterList().add(new NodesTextFilter());
+    const filters = [new NodesTextFilter()];
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([
       thisMockItems[0],
@@ -36,7 +35,7 @@ describe("NodesTextFilter", function() {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"10.1.8.229"');
 
-    const filters = new DSLFilterList().add(new NodesTextFilter());
+    const filters = [new NodesTextFilter()];
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([thisMockItems[2]]);
   });

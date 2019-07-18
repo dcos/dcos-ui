@@ -1,0 +1,44 @@
+{
+  "roles": [
+    {
+      "name": "*",
+      "weight": 1.0,
+      "resources": {
+        "cpus": 1.0,
+        "disk": 133.0,
+        "gpus": 0,
+        "mem": 1104.0
+      }
+    },
+    {
+      "name": "dev",
+      "resources": {
+        "cpus": 0,
+        "disk": 0,
+        "gpus": 0,
+        "mem": 0
+      },
+      "quota": {
+        "role": "dev",
+        "guarantee": {
+          "cpus": 0,
+          "disk": 0,
+          "gpus": 0,
+          "mem": 0
+        },
+        "limit": {
+          "cpus": 0,
+          "disk": 0,
+          "gpus": 0,
+          "mem": 0
+        },
+        "consumed": {
+          "cpus": 0,
+          "disk": 0,
+          "gpus": 0,
+          "mem": 0
+        }
+      }
+    }
+  ]
+}

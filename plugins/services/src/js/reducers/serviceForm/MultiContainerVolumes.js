@@ -20,7 +20,11 @@ function transformContainers(memo, container, containerIndex) {
 }
 
 module.exports = {
-  JSONReducer(state = [], { type, path, value }, counterIndex) {
+  MultiContainerVolumeMountsJSONReducer(
+    state = [],
+    { type, path, value },
+    counterIndex
+  ) {
     if (counterIndex === 0) {
       state = [];
     }
@@ -33,19 +37,20 @@ module.exports = {
     if (this.localSize == null) {
       this.localSize = [];
     }
-
-    if (base !== "volumeMounts") {
-      return state;
+    if (this.volumes == null) {
+      this.volumes = [];
     }
 
-    let newState = state.slice();
+    if (base !== "volumeMounts") {
+      return this.volumes.slice();
+    }
 
     switch (type) {
       case ADD_ITEM:
-        newState.push(Object.assign({}, value));
+        this.volumes.push(Object.assign({}, value));
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((item, index) => index !== value);
+        this.volumes = this.volumes.filter((item, index) => index !== value);
         this.hostPaths = this.hostPaths.filter(
           (item, index) => index !== value
         );
@@ -56,51 +61,53 @@ module.exports = {
     }
 
     if (name === "type" && value !== VolumeConstants.type.host) {
-      delete newState[index].host;
+      delete this.volumes[index].host;
     }
     if (
       name === "type" &&
       value !== VolumeConstants.type.localPersistent &&
       value !== VolumeConstants.type.dss
     ) {
-      delete newState[index].persistent;
+      delete this.volumes[index].persistent;
     }
     if (name === "type" && value === VolumeConstants.type.host) {
-      newState[index].host = this.hostPaths[index];
+      this.volumes[index].host = this.hostPaths[index];
     }
-    if (
-      name === "type" &&
-      (value === VolumeConstants.type.localPersistent ||
-        value === VolumeConstants.type.dss)
-    ) {
-      newState[index].persistent = { size: this.localSize[index] };
+    if (name === "type" && value === VolumeConstants.type.localPersistent) {
+      this.volumes[index].persistent = { size: this.localSize[index] };
+    }
+    if (name === "type" && value === VolumeConstants.type.dss) {
+      this.volumes[index].persistent = {
+        size: this.localSize[index],
+        type: "mount"
+      };
     }
     if (name === "size") {
       this.localSize[index] = value;
-      newState[index].persistent.size = parseInt(value, 10);
+      this.volumes[index].persistent.size = parseInt(value, 10);
     }
     if (name === "profileName") {
-      newState[index].persistent.profileName = value;
+      this.volumes[index].persistent.profileName = value;
     }
     if (name === "persistent") {
       if (value.size != null) {
         this.localSize[index] = value.size;
       }
 
-      newState[index].persistent = value;
+      this.volumes[index].persistent = value;
     }
     if (name === "name") {
-      newState[index].name = value;
+      this.volumes[index].name = value;
     }
     if (name === "hostPath") {
       this.hostPaths[index] = value;
-      newState[index].host = value;
+      this.volumes[index].host = value;
     }
 
-    return newState;
+    return this.volumes.slice();
   },
 
-  JSONParser(state) {
+  MultiContainerVolumeMountsJSONParser(state) {
     if (state == null) {
       return [];
     }

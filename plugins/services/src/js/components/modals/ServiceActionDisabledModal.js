@@ -168,7 +168,8 @@ class ServiceActionDisabledModal extends React.Component {
           Editing this service is only available on{" "}
           <a href="https://mesosphere.com/product/" target="_blank">
             Mesosphere Enterprise DC/OS
-          </a>.
+          </a>
+          .
         </Trans>
       </MountService.Mount>
     );

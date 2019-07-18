@@ -17,7 +17,6 @@ import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
-import StatusMapping from "../../constants/StatusMapping";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskStates from "../../constants/TaskStates";
 
@@ -256,14 +255,12 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
     const taskState = task.get("state");
     const serviceStatus = TaskStates[taskState].displayName;
-    const serviceStatusClassSet = StatusMapping[serviceStatus] || "";
 
     return (
       <DetailViewHeader
         icon={taskIcon}
         iconClassName="icon-app-container  icon-image-container"
         subTitle={<Trans render="span" id={serviceStatus} />}
-        subTitleClassName={serviceStatusClassSet}
         navigationTabs={navigationTabs}
         title={task.getName()}
       />

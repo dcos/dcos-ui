@@ -20,6 +20,12 @@ describe("Job Actions", function() {
         .should("to.have.value", "foo");
     });
 
+    it("disables the job ID input", function() {
+      cy.get(".form-group")
+        .find('.form-control[name="job.id"]')
+        .should("be.disabled");
+    });
+
     it("closes modal on successful API request", function() {
       cy.route({
         method: "PUT",

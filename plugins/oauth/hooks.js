@@ -234,7 +234,8 @@ module.exports = Object.assign({}, StoreMixin, {
           target="_blank"
         >
           Privacy Policy
-        </a>.
+        </a>
+        .
       </p>
     );
   }

@@ -20,9 +20,9 @@ describe("JobParsers", () => {
       };
 
       const parsed = jobSpecToOutputParser(input as JobSpec);
-      expect(parsed.job.run.docker).toBe(undefined);
-      expect(parsed.job.run.ucr).toBe(undefined);
-      expect(parsed.job.run.gpus).toBe(0);
+      expect(parsed.run.docker).toBe(undefined);
+      expect(parsed.run.ucr).toBe(undefined);
+      expect(parsed.run.gpus).toBe(0);
     });
 
     it("returns object with only container property indicated by `container` if cmdOnly false", () => {
@@ -38,8 +38,8 @@ describe("JobParsers", () => {
       };
 
       const parsed = jobSpecToOutputParser(input as JobSpec);
-      expect(parsed.job.run.docker).toEqual({});
-      expect(parsed.job.run.ucr).toBe(undefined);
+      expect(parsed.run.docker).toEqual({});
+      expect(parsed.run.ucr).toBe(undefined);
     });
 
     it("returns object with only docker and no gpus if `container` is docker and cmdOnly is false", () => {
@@ -56,9 +56,9 @@ describe("JobParsers", () => {
       };
 
       const parsed = jobSpecToOutputParser(input as JobSpec);
-      expect(parsed.job.run.docker).toEqual({});
-      expect(parsed.job.run.ucr).toBe(undefined);
-      expect(parsed.job.run.gpus).toBe(undefined);
+      expect(parsed.run.docker).toEqual({});
+      expect(parsed.run.ucr).toBe(undefined);
+      expect(parsed.run.gpus).toBe(undefined);
     });
   });
 
@@ -94,8 +94,11 @@ describe("JobParsers", () => {
       disk: 0,
       dockerParams: [],
       args: [],
+      env: [],
       grantRuntimePrivileges: undefined,
-      imageForcePull: undefined
+      imageForcePull: undefined,
+      volumes: [],
+      placementConstraints: []
     };
 
     it("transforms JobSpec to FormOutput", () => {

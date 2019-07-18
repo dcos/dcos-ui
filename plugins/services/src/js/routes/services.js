@@ -48,7 +48,8 @@ const serviceRoutes = [
           {
             type: Route,
             path: "create",
-            component: CreateServiceModal
+            component: CreateServiceModal,
+            isFullscreenModal: true
           },
           {
             type: Route,
@@ -57,13 +58,26 @@ const serviceRoutes = [
               {
                 type: Route,
                 path: "create",
-                component: CreateServiceModal
+                component: CreateServiceModal,
+                isFullscreenModal: true
               }
             ]
           }
         ]
       },
-      // Service Detail routes
+      // Service Quota routes
+      {
+        type: Route,
+        component: ServicesContainer,
+        path: "quota",
+        children: [
+          {
+            type: Route,
+            path: ":id",
+            isTab: true
+          }
+        ]
+      },
       {
         type: Redirect,
         from: "/services/detail/:id",

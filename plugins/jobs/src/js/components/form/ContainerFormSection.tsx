@@ -40,7 +40,9 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     );
     return (
       formData.cmdOnly && (
-        <InfoBoxInline appearance="warning" message={message} />
+        <div className="form-row-pad-bottom">
+          <InfoBoxInline message={message} />
+        </div>
       )
     );
   }
@@ -169,7 +171,7 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     return (
       <div className="form-section">
         {this.getDisabledBanner()}
-        <Trans render="h1" className="short-bottom">
+        <Trans render="h1" className="flush-top short-bottom">
           Container Runtime
         </Trans>
         <Trans render="p">

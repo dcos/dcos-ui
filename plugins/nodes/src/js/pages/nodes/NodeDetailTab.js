@@ -2,6 +2,8 @@ import { Trans, DateFormat } from "@lingui/macro";
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { request } from "@dcos/mesos-client";
+import { Icon } from "@dcos/ui-kit";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -13,11 +15,14 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import Units from "#SRC/js/utils/Units";
 import Loader from "#SRC/js/components/Loader";
+import { Status } from "../../types/Status";
 
 class NodeDetailTab extends PureComponent {
   constructor() {
@@ -59,7 +64,16 @@ class NodeDetailTab extends PureComponent {
 
   render() {
     const { node } = this.props;
+    if (!node) {
+      return null;
+    }
     const resources = node.get("resources");
+    const status = Status.fromNode(node);
+
+    const hasMaintenance = findNestedPropertyInObject(
+      ConfigStore.get("config"),
+      "uiConfiguration.features.maintenance"
+    );
 
     return (
       <div className="container">
@@ -71,14 +85,16 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapLabel>
               <ConfigurationMapValue>{node.id}</ConfigurationMapValue>
             </ConfigurationMapRow>
-            <ConfigurationMapRow>
-              <ConfigurationMapLabel>
-                <Trans render="span">Active</Trans>
-              </ConfigurationMapLabel>
-              <ConfigurationMapValue>
-                {StringUtil.capitalize(node.active.toString().toLowerCase())}
-              </ConfigurationMapValue>
-            </ConfigurationMapRow>
+            {!hasMaintenance && (
+              <ConfigurationMapRow>
+                <ConfigurationMapLabel>
+                  <Trans render="span">Active</Trans>
+                </ConfigurationMapLabel>
+                <ConfigurationMapValue>
+                  {StringUtil.capitalize(node.active.toString().toLowerCase())}
+                </ConfigurationMapValue>
+              </ConfigurationMapRow>
+            )}
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 <Trans render="span">Registered</Trans>
@@ -121,6 +137,34 @@ class NodeDetailTab extends PureComponent {
             </ConfigurationMapRow>
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
+          {hasMaintenance && (
+            <ConfigurationMapSection>
+              <ConfigurationMapHeading>
+                <Trans render="span">Status</Trans>
+              </ConfigurationMapHeading>
+              <ConfigurationMapRow>
+                <ConfigurationMapLabel>
+                  <Trans render="span">Active</Trans>
+                </ConfigurationMapLabel>
+                <ConfigurationMapValue>
+                  {StringUtil.capitalize(node.active.toString().toLowerCase())}
+                </ConfigurationMapValue>
+              </ConfigurationMapRow>
+              <ConfigurationMapRow>
+                <ConfigurationMapLabel>
+                  <Trans render="span">Status</Trans>
+                </ConfigurationMapLabel>
+                <ConfigurationMapValue>
+                  <span>
+                    <Icon {...status.icon} size={iconSizeXs} />
+                    <span style={{ marginLeft: "7px" }}>
+                      {status.displayName}
+                    </span>
+                  </span>
+                </ConfigurationMapValue>
+              </ConfigurationMapRow>
+            </ConfigurationMapSection>
+          )}
           <ConfigurationMapSection>
             <ConfigurationMapHeading>
               <Trans render="span">Resources</Trans>
@@ -165,7 +209,7 @@ class NodeDetailTab extends PureComponent {
 }
 
 NodeDetailTab.propTypes = {
-  node: PropTypes.instanceOf(Node).isRequired
+  node: PropTypes.instanceOf(Node)
 };
 
 module.exports = NodeDetailTab;

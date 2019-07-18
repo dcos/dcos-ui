@@ -1,4 +1,5 @@
 import { cleanServiceJSON } from "#SRC/js/utils/CleanJSONUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import ApplicationSpec from "./ApplicationSpec";
 import FrameworkUtil from "../utils/FrameworkUtil";
@@ -65,7 +66,9 @@ module.exports = class Application extends Service {
    * @override
    */
   getImages() {
-    return FrameworkUtil.getServiceImages(this.getMetadata().images);
+    const images = this.getMetadata().images || this.get("images");
+
+    return FrameworkUtil.getServiceImages(images);
   }
 
   /**
@@ -133,6 +136,10 @@ module.exports = class Application extends Service {
 
     if (instances === 0 && tasksRunning === 0) {
       return ServiceStatus.STOPPED;
+    }
+
+    if (this.isDelayed()) {
+      return ServiceStatus.DELAYED;
     }
 
     if (queue != null && (deployments == null || deployments.length < 1)) {
@@ -216,5 +223,10 @@ module.exports = class Application extends Service {
 
   findTaskById(taskId) {
     return (this.get("tasks") || []).find(task => task.id === taskId);
+  }
+
+  isDelayed() {
+    const queue = this.getQueue();
+    return findNestedPropertyInObject(queue, "delay.overdue") === false;
   }
 };

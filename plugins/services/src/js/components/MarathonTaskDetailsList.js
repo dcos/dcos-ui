@@ -94,7 +94,9 @@ class MarathonTaskDetailsList extends React.Component {
           <ConfigurationMapLabel>
             <Trans render="span">Version</Trans>
           </ConfigurationMapLabel>
-          <ConfigurationMapValue>{task.version}</ConfigurationMapValue>
+          <ConfigurationMapValue>
+            {this.getTimeField(task.version)}
+          </ConfigurationMapValue>
         </ConfigurationMapRow>
       </ConfigurationMapSection>
     );

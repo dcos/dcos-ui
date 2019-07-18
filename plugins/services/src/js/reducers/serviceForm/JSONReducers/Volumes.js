@@ -39,7 +39,7 @@ const mapVolumes = function(volume) {
 
   if (volume.type === "DSS") {
     return {
-      persistent: volume.persistent,
+      persistent: Object.assign({ type: "mount" }, volume.persistent),
       mode: volume.mode,
       containerPath: volume.containerPath
     };

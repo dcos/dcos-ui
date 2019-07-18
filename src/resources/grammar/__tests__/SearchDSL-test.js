@@ -1,9 +1,9 @@
-const DSLFilterTypes = require("../../../js/constants/DSLFilterTypes");
-const DSLCombinerTypes = require("../../../js/constants/DSLCombinerTypes");
-const DSLFilter = require("../../../js/structs/DSLFilter");
-const DSLFilterList = require("../../../js/structs/DSLFilterList");
+import DSLFilterTypes from "../../../js/constants/DSLFilterTypes";
+import DSLFilter from "../../../js/structs/DSLFilter";
+import DSLCombinerTypes from "../../../js/constants/DSLCombinerTypes";
+
 const List = require("../../../js/structs/List");
-const SearchDSL = require("../SearchDSL.jison");
+const SearchDSL = require("../SearchDSL");
 
 // Handles 'attrib:?'
 class AttribFilter extends DSLFilter {
@@ -230,11 +230,11 @@ describe("SearchDSL", function() {
 
     describe("Filtering", function() {
       beforeEach(function() {
-        thisFilters = new DSLFilterList().add(
+        thisFilters = [
           new AttribFilter(),
           new FuzzyTextFilter(),
           new ExactTextFilter()
-        );
+        ];
 
         thisMockResultset = new List({
           items: [

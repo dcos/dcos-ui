@@ -1,4 +1,5 @@
-const DSLFilterTypes = require("../../constants/DSLFilterTypes");
+import DSLFilterTypes from "../../constants/DSLFilterTypes";
+
 const DSLExpressionPart = require("../DSLExpressionPart");
 
 describe("DSLExpressionPart", function() {

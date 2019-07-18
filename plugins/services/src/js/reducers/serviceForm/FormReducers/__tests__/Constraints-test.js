@@ -1,6 +1,7 @@
+import Transaction from "#SRC/js/structs/Transaction";
+
 const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
-const Transaction = require("#SRC/js/structs/Transaction");
 const Constraints = require("../Constraints");
 
 describe("Constraints", function() {
@@ -71,6 +72,14 @@ describe("Constraints", function() {
           value: null
         }
       ]);
+    });
+
+    it("does not crash when type is Set, name is type and newState[index] is undefined", function() {
+      const batch = new Batch([
+        new Transaction(["constraints", 0, "type"], "hostname", SET)
+      ]);
+
+      expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([]);
     });
   });
 });

@@ -27,20 +27,17 @@ Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](ht
 
 1.  Clone this repo:
 
-
 ```sh
 git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
 ```
 
 2.  Install dependencies:
 
-
 ```sh
 npm i
 ```
 
 3.  Add developer files for config overrides:
-
 
 ```sh
 npm run util:scaffold
@@ -58,6 +55,9 @@ DC/OS UI comes bundled with some internal plugins within the `/plugins` director
 # for dcos-ui-plugins-private
 npm config set externalplugins ../dcos-ui-plugins-private
 
+# to simplify development of external plugins and enable automated translation catalog extraction
+npm run util:env:link-externalplugins
+
 # for your own plugins
 npm config set externalplugins ../path/to/plugins
 ```
@@ -65,7 +65,6 @@ npm config set externalplugins ../path/to/plugins
 Note that `dcos-ui-plugins-private` currently _must_ be set up at `../dcos-ui-plugins-private`. You also might want to copy its `Config.template.js` to `src/js/config/Config.dev.ts` to enable the enterprise edition.
 
 5.  Start the development server:
-
 
 ```sh
 npm start

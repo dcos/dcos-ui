@@ -217,7 +217,8 @@ function getResourceTooltipContent(resource, data) {
       {explanatoryText}{" "}
       <a href={docsURI} target="_blank">
         <Trans render="span">Learn more</Trans>
-      </a>.
+      </a>
+      .
     </span>
   );
 }

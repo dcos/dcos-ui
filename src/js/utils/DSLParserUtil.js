@@ -2,8 +2,6 @@ import DSLFilterTypes from "../constants/DSLFilterTypes";
 import DSLCombinerTypes from "../constants/DSLCombinerTypes";
 import { FilterNode, CombinerNode } from "../structs/DSLASTNodes";
 
-import DSLFilterList from "../structs/DSLFilterList";
-
 /**
  * Factory for filter-combining functions (operators)
  *
@@ -93,12 +91,6 @@ function filterFunctionFactory(ast) {
    * @returns {List} resultset - A new instance of a List, containing the results
    */
   return function(filters, resultset) {
-    if (!(filters instanceof DSLFilterList)) {
-      throw TypeError(
-        "Expecting first argument to be an instance of DSLFilterList"
-      );
-    }
-
     // Apply matching filters from the filters database to the current
     // result set, and produce the new resultset.
     //
@@ -109,10 +101,10 @@ function filterFunctionFactory(ast) {
     // contains both Nodes and Services, you could plug two different filters,
     // one that knows how to handle Nodes and one that knows how to handle
     // Services. However, since both are operating on the same `is:XXX` token
-    // the will be both fetched from the `getMatchingFilters` function.
+    // the will be both be applied.
     //
     return filters
-      .getMatchingFilters(ast.filterType, ast.filterParams)
+      .filter(f => f.filterCanHandle(ast.filterType, ast.filterParams))
       .reduce(function(currentResultset, filter) {
         return currentResultset.combine(
           filter.filterApply(resultset, ast.filterType, ast.filterParams)
@@ -122,7 +114,7 @@ function filterFunctionFactory(ast) {
 }
 
 /**
- * The following functions are used by the JISON parser in order to parse
+ * The following functions are used by the JISON generated code in order to parse
  * the expression into a properly nested set of functions and AST nodes.
  *
  * @name DSLParserUtil

@@ -11,10 +11,6 @@ pipeline {
     }
   }
 
-  environment {
-    INSTALLER_URL= "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
-  }
-
   options {
     timeout(time: 3, unit: "HOURS")
     disableConcurrentBuilds()
@@ -87,7 +83,7 @@ pipeline {
       }
     }
 
-    stage("Test") {
+    stage("Test current versions") {
       parallel {
         stage("Integration Test") {
           environment {
@@ -100,7 +96,6 @@ pipeline {
           post {
             always {
               archiveArtifacts "cypress/**/*"
-              // We currently want flaky test runs be marked as success
               junit "cypress/results.xml"
             }
           }
@@ -117,7 +112,7 @@ pipeline {
               ]
             ]) {
               sh '''
-                ./system-tests/_scripts/launch-cluster.sh
+                INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
                 export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
                 export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
                 export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
@@ -126,6 +121,139 @@ pipeline {
               '''
             }
           }
+
+          post {
+            always {
+              archiveArtifacts "results/**/*"
+              junit "results/results.xml"
+              withCredentials([
+                [
+                  $class: "AmazonWebServicesCredentialsBinding",
+                  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                  accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+                ]
+              ]) {
+                sh "./system-tests/_scripts/delete-cluster.sh"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // TODO: get these (and above) stages running in parallel
+    stage("System Test 1.13 nightly") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ]
+        ]) {
+          sh '''
+            INSTALLER_URL="https://downloads.dcos.io/dcos/testing/1.13/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
+            export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+            export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
+            export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
+            DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+            npm run test:system
+          '''
+        }
+      }
+
+      post {
+        always {
+          archiveArtifacts "results/**/*"
+          junit "results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./system-tests/_scripts/delete-cluster.sh"
+          }
+        }
+      }
+    }
+
+    stage("System Test 1.13.0") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ]
+        ]) {
+          sh '''
+            INSTALLER_URL="https://downloads.dcos.io/dcos/stable/1.13.0/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
+            export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+            export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
+            export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
+            DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+            npm run test:system
+          '''
+        }
+      }
+
+      post {
+        always {
+          archiveArtifacts "results/**/*"
+          junit "results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./system-tests/_scripts/delete-cluster.sh"
+          }
+        }
+      }
+    }
+
+    stage("System Test 1.12 nightly") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ]
+        ]) {
+          sh '''
+            INSTALLER_URL="https://downloads.dcos.io/dcos/testing/1.12/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
+            export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+            export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
+            export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
+            DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+            npm run test:system
+          '''
         }
       }
 

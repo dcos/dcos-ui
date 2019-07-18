@@ -33,6 +33,8 @@ import {
   REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
+  REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
   REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_ERROR,
@@ -72,6 +74,8 @@ import {
   MARATHON_SERVICE_DELETE_SUCCESS,
   MARATHON_SERVICE_EDIT_ERROR,
   MARATHON_SERVICE_EDIT_SUCCESS,
+  MARATHON_SERVICE_RESET_DELAY_ERROR,
+  MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   MARATHON_SERVICE_RESTART_ERROR,
   MARATHON_SERVICE_RESTART_SUCCESS,
   MARATHON_SERVICE_VERSION_CHANGE,
@@ -83,6 +87,7 @@ import {
   VISIBILITY_CHANGE
 } from "../constants/EventTypes";
 import Framework from "../structs/Framework";
+import Application from "../structs/Application";
 import ServiceImages from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
@@ -156,6 +161,8 @@ class MarathonStore extends GetSetBaseStore {
         serviceDeleteSuccess: MARATHON_SERVICE_DELETE_SUCCESS,
         serviceEditError: MARATHON_SERVICE_EDIT_ERROR,
         serviceEditSuccess: MARATHON_SERVICE_EDIT_SUCCESS,
+        serviceResetDelayError: MARATHON_SERVICE_RESET_DELAY_ERROR,
+        serviceResetDelaySuccess: MARATHON_SERVICE_RESET_DELAY_SUCCESS,
         serviceRestartError: MARATHON_SERVICE_RESTART_ERROR,
         serviceRestartSuccess: MARATHON_SERVICE_RESTART_SUCCESS,
         taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
@@ -226,6 +233,12 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
           this.emit(MARATHON_SERVICE_RESTART_SUCCESS);
+          break;
+        case REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR:
+          this.emit(MARATHON_SERVICE_RESET_DELAY_ERROR, action.data);
+          break;
+        case REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS:
+          this.emit(MARATHON_SERVICE_RESET_DELAY_SUCCESS);
           break;
         case REQUEST_MARATHON_GROUPS_SUCCESS:
           this.injectGroupsWithPackageImages(action.data);
@@ -353,6 +366,10 @@ class MarathonStore extends GetSetBaseStore {
     return MarathonActions.editService(...arguments);
   }
 
+  resetDelayedService() {
+    return MarathonActions.resetDelayedService(...arguments);
+  }
+
   restartService() {
     return MarathonActions.restartService(...arguments);
   }
@@ -402,17 +419,6 @@ class MarathonStore extends GetSetBaseStore {
 
   getInstanceInfo() {
     return this.get("info");
-  }
-
-  getServiceHealth(name) {
-    const appName = name.toLowerCase();
-    const marathonApps = this.get("apps");
-
-    if (!marathonApps[appName]) {
-      return HealthStatus.NA;
-    }
-
-    return marathonApps[appName].health;
   }
 
   getServiceImages(name) {
@@ -470,7 +476,12 @@ class MarathonStore extends GetSetBaseStore {
     data.items.forEach(item => {
       if (item.items && Array.isArray(item.items)) {
         this.injectGroupsWithPackageImages(item);
-      } else if (ServiceValidatorUtil.isFrameworkResponse(item)) {
+      } else if (
+        (ServiceValidatorUtil.isFrameworkResponse(item) ||
+          ServiceValidatorUtil.isApplicationResponse(item)) &&
+        item.labels &&
+        item.labels.DCOS_PACKAGE_NAME
+      ) {
         item["images"] = CosmosPackagesStore.getPackageImages()[
           item.labels.DCOS_PACKAGE_NAME
         ];
@@ -489,6 +500,14 @@ class MarathonStore extends GetSetBaseStore {
     const apps = groups.reduceItems(function(map, item) {
       if (item instanceof Framework) {
         map[item.getFrameworkName().toLowerCase()] = {
+          health: item.getHealth(),
+          images: item.getImages(),
+          snapshot: item.get()
+        };
+      }
+
+      if (item instanceof Application) {
+        map[item.getName().toLowerCase()] = {
           health: item.getHealth(),
           images: item.getImages(),
           snapshot: item.get()
@@ -527,9 +546,13 @@ class MarathonStore extends GetSetBaseStore {
   }
 
   processMarathonDeployments(data) {
-    const deployments = new DeploymentsList({ items: data });
-    this.set({ deployments });
-    this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
+    if (Array.isArray(data)) {
+      const deployments = new DeploymentsList({ items: data });
+      this.set({ deployments });
+      this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
+    } else {
+      this.processMarathonDeploymentsError();
+    }
   }
 
   processMarathonDeploymentsError() {

@@ -8,7 +8,6 @@ import AppReducer from "./AppReducer";
 import AppHooks from "./AppHooks";
 import Config from "../config/Config";
 import Hooks from "./Hooks";
-import PluginSDKStruct from "./PluginSDKStruct";
 import Loader from "./Loader";
 
 const hooks = new Hooks();
@@ -28,9 +27,7 @@ const reducers = {
 };
 
 // Default pass through function when devTools are not enabled
-let devToolIfEnabled = function(f) {
-  return f;
-};
+let devToolIfEnabled = f => f;
 
 // Inject middleware to observe actions and state
 if (
@@ -230,7 +227,7 @@ const getSDK = function(pluginID, config) {
     };
   }
 
-  const SDK = new PluginSDKStruct({
+  const SDK = {
     addStoreConfig,
     constants,
     onDispatch,
@@ -239,7 +236,7 @@ const getSDK = function(pluginID, config) {
     dispatch: createDispatcher(pluginID),
     Hooks: hooks,
     Store: StoreAPI
-  });
+  };
 
   extendSDK(SDK, getActionsAPI(SDK));
 

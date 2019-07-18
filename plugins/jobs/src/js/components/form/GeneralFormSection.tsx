@@ -19,6 +19,7 @@ interface GeneralProps {
   formData: FormOutput;
   errors: FormError[];
   showErrors: boolean;
+  isEdit: boolean;
 }
 
 function getFieldError(path: string, errors: FormError[]) {
@@ -52,10 +53,10 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     );
     const gpusDisabled = !formData.cmdOnly && formData.container !== "ucr";
 
-    const cpusError = getFieldError("job.run.cpus", errors);
-    const gpusError = getFieldError("job.run.gpus", errors);
-    const memError = getFieldError("job.run.mem", errors);
-    const diskError = getFieldError("job.run.disk", errors);
+    const cpusError = getFieldError("run.cpus", errors);
+    const gpusError = getFieldError("run.gpus", errors);
+    const memError = getFieldError("run.mem", errors);
+    const diskError = getFieldError("run.disk", errors);
 
     return (
       <FormRow>
@@ -150,9 +151,9 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     const containerImage = formData.containerImage;
 
     const containerImageErrors =
-      getFieldError("job.run.docker.image", errors) ||
-      getFieldError("job.run.ucr.image.id", errors);
-    const cmdErrors = getFieldError("job.run.cmd", errors);
+      getFieldError("run.docker.image", errors) ||
+      getFieldError("run.ucr.image.id", errors);
+    const cmdErrors = getFieldError("run.cmd", errors);
 
     return (
       <div className="form-section">
@@ -165,21 +166,21 @@ class GeneralFormSection extends React.Component<GeneralProps> {
         <FormGroup>
           <FieldLabel>
             <FieldInput
-              checked={formData.cmdOnly}
-              name="cmdOnly"
-              type="radio"
-              value={true}
-            />
-            <Trans render="span">Command Only</Trans>
-          </FieldLabel>
-          <FieldLabel>
-            <FieldInput
               checked={!formData.cmdOnly}
               name="cmdOnly"
               type="radio"
               value={false}
             />
             <Trans render="span">Container Image</Trans>
+          </FieldLabel>
+          <FieldLabel>
+            <FieldInput
+              checked={formData.cmdOnly}
+              name="cmdOnly"
+              type="radio"
+              value={true}
+            />
+            <Trans render="span">Command Only</Trans>
           </FieldLabel>
         </FormGroup>
         {!formData.cmdOnly && (
@@ -263,7 +264,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
   }
 
   render() {
-    const { formData, errors, showErrors } = this.props;
+    const { formData, errors, showErrors, isEdit } = this.props;
 
     const idTooltipContent = (
       <Trans>
@@ -274,7 +275,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
       </Trans>
     );
     const descTooltipContent = <Trans>A description of this job.</Trans>;
-    const idError = getFieldError("job.id", errors);
+    const idError = getFieldError("id", errors);
 
     return (
       <div className="form-section">
@@ -301,7 +302,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeading>
             </FieldLabel>
             <FieldAutofocus>
-              <FieldInput name="job.id" type="text" value={formData.jobId} />
+              <FieldInput
+                name="job.id"
+                type="text"
+                disabled={isEdit}
+                value={formData.jobId}
+              />
             </FieldAutofocus>
             <FieldError>{idError}</FieldError>
           </FormGroup>

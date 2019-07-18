@@ -16,7 +16,8 @@ const METHODS_TO_BIND = [
   "handleGoBack",
   "handleRun",
   "onFormDataChange",
-  "onFormErrorChange"
+  "onFormErrorChange",
+  "onCosmosPackagesStoreInstallError"
 ];
 class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   constructor(props) {
@@ -27,7 +28,8 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
       deployErrors: null,
       formErrors: {},
       formData: null,
-      hasError: false
+      hasError: false,
+      isPending: false
     };
 
     this.store_listeners = [
@@ -76,10 +78,15 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
         params.packageName
       )}?${qs.stringify(query)}`
     );
+
+    this.setState({ isPending: false });
   }
 
   onCosmosPackagesStoreInstallError(deployErrors) {
-    this.setState({ deployErrors });
+    this.setState({
+      deployErrors,
+      isPending: false
+    });
   }
 
   handleRun() {
@@ -88,6 +95,8 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     const name = packageDetails.getName();
     const version = packageDetails.getVersion();
     CosmosPackagesStore.installPackage(name, version, formData);
+
+    this.setState({ isPending: true });
   }
 
   handleGoBack() {
@@ -143,6 +152,10 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
         isInitialDeploy={true}
         onFormDataChange={this.onFormDataChange}
         onFormErrorChange={this.onFormErrorChange}
+        onCosmosPackagesStoreInstallError={
+          this.onCosmosPackagesStoreInstallError
+        }
+        isPending={this.state.isPending}
       />
     );
   }

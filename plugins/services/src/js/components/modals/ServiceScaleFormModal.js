@@ -139,7 +139,7 @@ class ServiceScaleFormModal extends React.PureComponent {
         isClose: true
       },
       {
-        text: i18nMark("Scale Service"),
+        text: isPending ? i18nMark("Scaling...") : i18nMark("Scale Service"),
         className: "button button-primary",
         isSubmit: true
       }

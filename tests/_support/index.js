@@ -3,34 +3,6 @@ require("./formChildCommands");
 require("./utils/ServicesUtil");
 
 Cypress.Commands.add("configureCluster", function(configuration) {
-  if (Object.keys(configuration).length === 0) {
-    return;
-  }
-
-  if (Cypress.env("FULL_INTEGRATION_TEST")) {
-    // Assume login if not explicitly set to false
-    if (configuration.logIn !== false) {
-      cy.request(
-        "POST",
-        Cypress.env("CLUSTER_URL") + "/acs/api/v1/auth/login",
-        { password: "deleteme", uid: "bootstrapuser" }
-      ).then(function(response) {
-        var cookies = response.headers["set-cookie"];
-        cookies.forEach(function(cookie) {
-          var sessionID = cookie.split("=")[0];
-          // Set cookies for cypress
-          cy.setCookie(sessionID, response.body.token);
-          // Set cookies for application
-          cy.window().then(function(win) {
-            win.document.cookie = cookie;
-          });
-        });
-      });
-    }
-
-    return;
-  }
-
   router.clearRoutes();
   cy.server();
 
@@ -58,7 +30,9 @@ Cypress.Commands.add("configureCluster", function(configuration) {
   if (
     configuration.mesos === "1-task-healthy" ||
     configuration.mesos === "1-task-healthy-with-region" ||
-    configuration.mesos === "1-task-healthy-with-offers"
+    configuration.mesos === "1-task-healthy-with-offers" ||
+    configuration.mesos === "1-task-delayed" ||
+    configuration.mesos === "1-task-healthy-with-quota"
   ) {
     cy.route({
       method: "POST",
@@ -109,6 +83,17 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         "fx:marathon-1-task/offers-queue"
       );
     }
+
+    if (configuration.mesos === "1-task-delayed") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/delayed-queue"
+      );
+    }
+
+    if (configuration.mesos === "1-task-healthy-with-quota") {
+      router.route(/mesos\/roles/, "fx:quota-management/roles");
+    }
   }
 
   if (configuration.mesos === "1-task-healthy-with-region") {
@@ -128,11 +113,42 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     }
   }
 
-  if (configuration.mesos === "1-pod") {
+  if (
+    configuration.mesos === "1-pod" ||
+    configuration.mesos === "1-pod-delayed"
+  ) {
+    router
+      .route(/history\/last/, "fx:marathon-1-pod-group/summary")
+      .route(/state-summary/, "fx:marathon-1-pod-group/summary");
+
+    if (configuration.mesos === "1-pod") {
+      router.route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-pod-group/groups"
+      );
+    }
+
+    if (configuration.mesos === "1-pod-delayed") {
+      router.route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-pod-group/groups-delayed"
+      );
+    }
+  }
+
+  if (configuration.mesos === "1-pod-delayed") {
     router
       .route(/history\/last/, "fx:marathon-1-pod-group/summary")
       .route(/state-summary/, "fx:marathon-1-pod-group/summary")
-      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups");
+      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups")
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/deployments"
+      )
+      .route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-pod-group/groups-delayed-queue"
+      );
   }
 
   if (configuration.mesos === "1-empty-group") {
@@ -322,7 +338,10 @@ Cypress.Commands.add("configureCluster", function(configuration) {
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
-  if (configuration.mesos === "1-service-recovering") {
+  if (
+    configuration.mesos === "1-service-recovering" ||
+    configuration.mesos === "1-service-delayed"
+  ) {
     router
       .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
       .route(
@@ -333,10 +352,37 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/recovering/deployments"
       )
-      .route(
+      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
+      .route(/history\/last/, "fx:marathon-1-task/summary")
+      .route(/state-summary/, "fx:marathon-1-task/summary");
+
+    if (configuration.mesos === "1-service-recovering") {
+      router.route(
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/recovering/queue"
+      );
+    }
+
+    if (configuration.mesos === "1-service-delayed") {
+      router.route(
+        /service\/marathon\/v2\/queue/,
+        "fx:marathon-1-task/delayed/queue"
+      );
+    }
+  }
+
+  if (configuration.mesos === "1-service-delayed") {
+    router
+      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
+      .route(
+        /service\/marathon\/v2\/groups/,
+        "fx:marathon-1-task/recovering/groups"
       )
+      .route(
+        /service\/marathon\/v2\/deployments/,
+        "fx:marathon-1-task/recovering/deployments"
+      )
+      .route(/service\/marathon\/v2\/queue/, "fx:marathon-1-task/delayed/queue")
       .route(/history\/minute/, "fx:marathon-1-task/history-minute")
       .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
@@ -728,46 +774,25 @@ Cypress.Commands.add("configureCluster", function(configuration) {
   router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
 });
 
-Cypress.Commands.add("clusterCleanup", function(fn) {
-  if (Cypress.env("FULL_INTEGRATION_TEST")) {
-    fn();
-  }
-});
-
 Cypress.Commands.add("visitUrl", function(options) {
-  var callback = function() {};
-
-  if (options.logIn && options.remoteLogIn) {
-    callback = function(win) {
-      // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
+  cy.visit(Cypress.env("CLUSTER_URL") + "/#" + options.url, {
+    onBeforeLoad(win) {
       win.document.cookie =
-        "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K";
-    };
-  } else {
-    callback = function(win) {
-      // {"uid":"ui-bot","description":"UI Automated Test Bot"}
-      win.document.cookie =
-        "dcos-acs-info-cookie=" +
-        "eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
-    };
-  }
+        options.logIn && options.remoteLogIn
+          ? // {"uid":"ui-bot","description":"UI Automated Test Bot","is_remote":true}
+            "dcos-acs-info-cookie=eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCIsImlzX3JlbW90ZSI6dHJ1ZX0K"
+          : // {"uid":"ui-bot","description":"UI Automated Test Bot"}
+            "dcos-acs-info-cookie=eyJ1aWQiOiJ1aS1ib3QiLCJkZXNjcmlwdGlvbiI6IlVJIEF1dG9tYXRlZCBUZXN0IEJvdCJ9Cg==";
 
-  if (options.identify && options.fakeAnalytics) {
-    var identifyCallback = callback;
-    callback = function(win) {
-      identifyCallback(win);
+      // mock a global analytics object
       win.analytics = {
         initialized: true,
         page() {},
         push() {},
         track() {}
       };
-    };
-  }
-
-  var url = Cypress.env("CLUSTER_URL") + "/#" + options.url;
-  cy.visit(url, { onBeforeLoad: callback });
+    }
+  });
 });
 
 Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
