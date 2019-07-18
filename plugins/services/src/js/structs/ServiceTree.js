@@ -370,4 +370,29 @@ module.exports = class ServiceTree extends Tree {
       return serviceTreeLabels;
     }, []);
   }
+
+  getRoleLength(roleName = null) {
+    const name = roleName || this.getName();
+    return this.reduceItems(
+      (roles, item) => {
+        if (item instanceof ServiceTree) {
+          return roles;
+        }
+        roles.servicesCount++;
+        const itemRole = item.getRole();
+        if (itemRole) {
+          roles.rolesCount++;
+          if (itemRole === name) {
+            roles.groupRolesCount++;
+          }
+        }
+        return roles;
+      },
+      { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
+    );
+  }
+
+  isRoot() {
+    return this.getId() === "/";
+  }
 };

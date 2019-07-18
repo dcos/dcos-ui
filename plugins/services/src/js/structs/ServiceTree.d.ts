@@ -12,6 +12,12 @@ interface ServiceTreeStatusSummary {
   };
 }
 
+interface ServiceTreeRoleLength {
+  servicesCount: number;
+  rolesCount: number;
+  groupRolesCount: number;
+}
+
 declare class ServiceTree extends Tree<Service> {
   constructor(options = {});
   getDeployments(): object[] | null;
@@ -43,6 +49,8 @@ declare class ServiceTree extends Tree<Service> {
   getFrameworks(): any;
   getVolumes(): any;
   getLabels(): any;
+  getRoleLength(roleName: string | null = null): ServiceTreeRoleLength;
+  isRoot(): boolean;
 }
 
 export { ServiceTree as default, ServiceTreeStatusSummary };

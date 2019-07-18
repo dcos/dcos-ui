@@ -1230,4 +1230,72 @@ describe("ServiceTree", function() {
       expect(thisInstance.getEnforceRole()).toBeUndefined();
     });
   });
+
+  describe("#isRoot", function() {
+    it("returns true when id is /", function() {
+      thisInstance = new ServiceTree({
+        id: "/"
+      });
+
+      expect(thisInstance.isRoot()).toEqual(true);
+    });
+
+    it("returns false when id is not /", function() {
+      thisInstance = new ServiceTree({
+        id: "/group"
+      });
+
+      expect(thisInstance.isRoot()).toEqual(false);
+    });
+  });
+
+  describe("#getRoleLength", function() {
+    it("returns the correct numbers", function() {
+      thisInstance = new ServiceTree({
+        id: "/group",
+        items: [
+          {
+            role: "slave_public"
+          }
+        ]
+      });
+
+      expect(thisInstance.getRoleLength()).toEqual({
+        servicesCount: 1,
+        rolesCount: 1,
+        groupRolesCount: 0
+      });
+    });
+
+    it("return the correct numbers for nested groups", function() {
+      thisInstance = new ServiceTree({
+        id: "/group",
+        items: [
+          new ServiceTree({
+            id: "/group/group2",
+            items: [
+              {
+                role: "group"
+              },
+              {
+                role: "slave_public"
+              }
+            ]
+          }),
+          {
+            role: "group"
+          },
+          {
+            role: "slave_public"
+          }
+        ]
+      });
+
+      expect(thisInstance.getRoleLength()).toEqual({
+        servicesCount: 4,
+        rolesCount: 4,
+        groupRolesCount: 2
+      });
+    });
+  });
 });

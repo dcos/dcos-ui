@@ -13,8 +13,6 @@ import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewD
 
 import ServiceTree from "../../structs/ServiceTree";
 
-const ROOT_ID = "/";
-
 interface ServicesQuotaViewProps {
   serviceTree: ServiceTree;
 }
@@ -41,17 +39,15 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     return [
       {
         label: i18nMark("Services"),
-        routePath:
-          serviceTree.getId() === ROOT_ID
-            ? "/services/overview"
-            : `/services/overview/${encodeURIComponent(serviceTree.getId())}`
+        routePath: serviceTree.isRoot()
+          ? "/services/overview"
+          : `/services/overview/${encodeURIComponent(serviceTree.getId())}`
       },
       {
         label: i18nMark("Quota"),
-        routePath:
-          serviceTree.getId() === ROOT_ID
-            ? "/services/quota"
-            : `/services/quota/${encodeURIComponent(serviceTree.getId())}`
+        routePath: serviceTree.isRoot()
+          ? "/services/quota"
+          : `/services/quota/${encodeURIComponent(serviceTree.getId())}`
       }
     ];
   }
@@ -64,12 +60,11 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     };
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
-    const content =
-      id === ROOT_ID ? (
-        <ServicesQuotaOverview />
-      ) : (
-        <ServicesQuotaOverviewDetail id={id} />
-      );
+    const content = serviceTree.isRoot() ? (
+      <ServicesQuotaOverview />
+    ) : (
+      <ServicesQuotaOverviewDetail id={id} />
+    );
 
     return (
       <Page dontScroll={true} flushBottom={true}>

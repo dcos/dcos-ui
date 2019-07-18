@@ -613,5 +613,42 @@ describe("Service Table", function() {
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
     });
+
+    it("group status shows the highest priority", function() {
+      cy.get(".status-bar-text")
+        .eq(0)
+        .contains("Running (1 of 2)");
+    });
+
+    it("shows service status counts in group tooltip", function() {
+      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
+        .eq(0)
+        .trigger("mouseover");
+      cy.get(".tooltip").contains("1 Stopped");
+    });
+  });
+
+  context("Quota groups", function() {
+    beforeEach(function() {
+      cy.configureCluster({
+        mesos: "1-task-healthy",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/overview" });
+    });
+
+    it("Shows no limit banner and badge if services have no quota enforced", function() {
+      cy.get(".table-cell-link-primary")
+        .contains("2_apps")
+        .click();
+      cy.get("#quota-no-limit-infobox")
+        .contains(
+          "1 service is not limited by quota. Update role to have quota enforced."
+        )
+        .should("exist");
+      cy.get(".quota-no-limit")
+        .contains("No Limit")
+        .should("exist");
+    });
   });
 });

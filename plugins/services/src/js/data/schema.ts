@@ -5,6 +5,6 @@ export const typeDefs = `
   
   extend type Query {
     group(id: String!): ServiceGroup
-    groups(filter: String): [ServiceGroup!]!
+    groups: [ServiceGroup!]!
   }
 `;

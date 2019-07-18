@@ -1,0 +1,60 @@
+{
+  "id": "/",
+  "groups": [
+    {
+      "id": "/dev",
+      "enforceRole": true,
+      "groups": [
+        {
+          "id": "/dev/team-1",
+          "groups": [],
+          "apps": [
+            {
+              "id": "/dev/team-1/sleepy",
+              "cmd": "sleep 1000",
+              "role": "dev"
+            }
+          ]
+        }
+      ],
+      "apps": [
+        {
+          "id": "/dev/sleepy",
+          "cmd": "sleep 1000",
+          "role": "dev"
+        }
+      ]
+    },
+    {
+      "id": "/staging",
+      "enforceRole": true,
+      "groups": [],
+      "apps": [
+        {
+          "id": "/staging/sleepy-01",
+          "cmd": "sleep 1000",
+          "role": "slave_public"
+        },
+        {
+          "id": "/staging/sleepy-02",
+          "cmd": "sleep 1000",
+          "role": "staging"
+        }
+      ]
+    },
+    {
+      "id": "/prod",
+      "enforceRole": true,
+      "groups": [],
+      "apps": [
+        {
+          "id": "/prod/sleepy-01",
+          "cmd": "sleep 1000",
+          "role": "slave_public"
+        }
+      ]
+    }
+  ],
+  "apps": [],
+  "pods": []
+}

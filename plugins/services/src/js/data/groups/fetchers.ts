@@ -14,8 +14,14 @@ export function fetchServiceGroups(): Observable<ServiceTree[]> {
   if (!(serviceTree instanceof ServiceTree)) {
     return of([]);
   }
-  const groupsList = serviceTree.getGroups();
-  const groups = groupsList.getItems() as ServiceTree[];
+  const groups = serviceTree
+    .getItems()
+    .reduce((groups: ServiceTree[], item) => {
+      if (item instanceof ServiceTree) {
+        groups.push(item);
+      }
+      return groups;
+    }, []);
   return of(groups);
 }
 

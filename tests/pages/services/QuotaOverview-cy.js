@@ -56,7 +56,7 @@ describe("Quota Tab", function() {
           .children()
           .first()
           .children()
-          .last()
+          .eq(1)
           .contains(name);
       }
 
@@ -70,11 +70,20 @@ describe("Quota Tab", function() {
         cy.get(".quota-table").should("exist");
       });
 
+      it("Shows the info banner for services with no limit", function() {
+        cy.get("#quota-no-limit-infobox")
+          .contains(
+            "1 group has services not limited by quota. Update service roles to have quota enforced."
+          )
+          .should("exist");
+      });
+
       it("Shows the correct headings", function() {
         cy.get(".ReactVirtualized__Grid")
           .eq(0)
           .contains("Name")
           .should("exist");
+        cy.get(".TopRightGrid_ScrollWrapper").contains("Quota Limit");
         cy.get(".TopRightGrid_ScrollWrapper")
           .contains("CPU Consumed")
           .should("exist");
@@ -95,7 +104,7 @@ describe("Quota Tab", function() {
           .children()
           .first()
           .children()
-          .should("to.have.length", 2);
+          .should("to.have.length", 4);
       });
 
       it("Sorts the table by name", function() {
@@ -103,13 +112,23 @@ describe("Quota Tab", function() {
           .eq(0)
           .contains("Name")
           .click();
-        getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getFirstRowName("2_apps");
+        getSecondRowName("10000_apps");
 
         cy.get(".ReactVirtualized__Grid")
           .eq(0)
           .contains("Name")
           .click();
+        getFirstRowName("1_app");
+        getSecondRowName("10_apps");
+      });
+
+      it("Sorts the table by quota limit", function() {
+        clickHeading("Quota Limit");
+        getFirstRowName("2_apps");
+        getSecondRowName("1_app");
+
+        clickHeading("Quota Limit");
         getFirstRowName("10_apps");
         getSecondRowName("10000_apps");
       });
@@ -117,21 +136,21 @@ describe("Quota Tab", function() {
       it("Sorts the table by CPU consumed", function() {
         clickHeading("CPU Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getSecondRowName("1_app");
 
         clickHeading("CPU Consumed");
         getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getSecondRowName("2_apps");
       });
 
       it("Sorts the table by Memory consumed", function() {
         clickHeading("Memory Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getSecondRowName("1_app");
 
         clickHeading("Memory Consumed");
         getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getSecondRowName("1_app");
       });
 
       it("Sorts the table by Disk consumed", function() {
@@ -141,7 +160,7 @@ describe("Quota Tab", function() {
 
         clickHeading("Disk Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("10_apps");
+        getSecondRowName("1_app");
       });
 
       it("Sorts the table by GPU consumed", function() {
@@ -151,7 +170,7 @@ describe("Quota Tab", function() {
 
         clickHeading("GPU Consumed");
         getFirstRowName("10_apps");
-        getSecondRowName("10000_apps");
+        getSecondRowName("1_app");
       });
     });
 
@@ -175,6 +194,15 @@ describe("Quota Tab", function() {
           .contains("10000_apps")
           .should("exist");
         cy.get(".quota-details").should("exist");
+      });
+
+      it("Shows the info banner for services with no limit", function() {
+        cy.visitUrl({ url: "/services/quota/%2F2_apps" });
+        cy.get(".quota-info")
+          .contains(
+            "1 service is not limited by quota. Update role to have quota enforced."
+          )
+          .should("exist");
       });
 
       it("Shows the correct number of cards", function() {

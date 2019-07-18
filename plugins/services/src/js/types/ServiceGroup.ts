@@ -7,8 +7,21 @@ export type QuotaResources = {
   consumed?: number;
 };
 
+export type ServiceGroupQuotaRoles = {
+  count: number;
+  groupRoleCount: number;
+};
+
+export type ServiceGroupQuotaLimit =
+  | "Enforced"
+  | "Not Enforced"
+  | "Partially Enforced"
+  | "N/A";
+
 export type ServiceGroupQuota = {
   enforced: boolean;
+  limitStatus: ServiceGroupQuotaLimit;
+  serviceRoles?: ServiceGroupQuotaRoles;
   cpus?: QuotaResources;
   memory?: QuotaResources;
   disk?: QuotaResources;

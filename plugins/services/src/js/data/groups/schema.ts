@@ -6,8 +6,15 @@ export const GroupTypes = `
     consumed: Float
   }
   
+  type ServiceGroupQuotaRoles {
+    count: Int!
+    groupRoleCount: Int!
+  }
+  
   type ServiceGroupQuota {
     enforced: Boolean!    
+    limitStatus: String!
+    serviceRoles: ServiceGroupQuotaRoles
     cpus: QuotaResources
     memory: QuotaResources
     disk: QuotaResources

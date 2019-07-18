@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans, Plural } from "@lingui/macro";
 import React from "react";
 import { of, Observable } from "rxjs";
 import {
@@ -10,6 +10,9 @@ import {
 import { componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { DataLayer, DataLayerType } from "@extension-kid/data-layer";
+import { InfoBoxInline, Icon, SpacingBox } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Loader from "#SRC/js/components/Loader";
 import container from "#SRC/js/container";
@@ -119,6 +122,44 @@ function getCard(group: ServiceGroup, resource: string): React.ReactNode {
   );
 }
 
+function getNoLimitInfobox(group: ServiceGroup) {
+  if (!group.quota || !group.quota.serviceRoles) {
+    return null;
+  }
+
+  const { count, groupRoleCount } = group.quota.serviceRoles;
+  const nonLimited = count - groupRoleCount;
+
+  if (!nonLimited) {
+    return null;
+  }
+
+  return (
+    <SpacingBox side="bottom" spacingSize="l">
+      <InfoBoxInline
+        className="quota-info"
+        appearance="default"
+        message={
+          <React.Fragment>
+            <Icon
+              shape={SystemIcons.CircleInformation}
+              size={iconSizeXs}
+              color="currentColor"
+            />
+            <Plural
+              value={nonLimited}
+              one="# service is not limited by quota. Update role to have quota
+            enforced."
+              other="# services are not limited by quota. Update role to
+            have quota enforced."
+            />
+          </React.Fragment>
+        }
+      />
+    </SpacingBox>
+  );
+}
+
 export interface ServicesQuotaOverviewDetailProps {
   id: string;
 }
@@ -158,11 +199,14 @@ const ServicesQuotaOverviewDetail = componentFromStream<
       }
 
       return (
-        <div className="quota-details">
-          {getCard(group, "cpus")}
-          {getCard(group, "memory")}
-          {getCard(group, "disk")}
-          {getCard(group, "gpus")}
+        <div>
+          {getNoLimitInfobox(group)}
+          <div className="quota-details">
+            {getCard(group, "cpus")}
+            {getCard(group, "memory")}
+            {getCard(group, "disk")}
+            {getCard(group, "gpus")}
+          </div>
         </div>
       );
     }),
