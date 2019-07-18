@@ -149,6 +149,7 @@ function fromHttpCode(code: number): Status | null {
     204: DEPLOYING_AWAITING_RESOURCES,
     205: DEGRADED_RECOVERING,
     206: DEGRADED,
+    208: DELAYED,
     318: INITIALIZING,
     320: BACKING_UP,
     321: RESTORING,
