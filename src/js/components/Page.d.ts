@@ -13,7 +13,7 @@ interface PageHeaderProps {
   breadcrumbs?: React.ReactNode;
   supplementalContent?: React.ReactNode;
   tabs?: Array<{ label: string; routePath: string }>;
-  disabledActions?: boolean;
+  actionsDisabled?: boolean;
 }
 
 interface PageProps {

@@ -26,13 +26,13 @@ const getDropdownAction = (action, index) => {
 
 class PageHeaderActions extends React.Component {
   renderActionsMenu() {
-    const { actions, disabledActions } = this.props;
+    const { actions, actionsDisabled } = this.props;
 
     if (actions.length > 0) {
       const dropdownElements = actions.map(getDropdownAction);
 
       return (
-        <PageHeaderActionsMenu disabledActions={disabledActions}>
+        <PageHeaderActionsMenu actionsDisabled={actionsDisabled}>
           {dropdownElements}
         </PageHeaderActionsMenu>
       );
@@ -40,7 +40,7 @@ class PageHeaderActions extends React.Component {
   }
 
   renderAddButton() {
-    const { addButton, disabledActions } = this.props;
+    const { addButton, actionsDisabled } = this.props;
 
     if (Array.isArray(addButton) && addButton.length > 0) {
       const dropdownElements = addButton.map(getDropdownAction);
@@ -48,7 +48,7 @@ class PageHeaderActions extends React.Component {
       return (
         <PageHeaderActionsMenu
           iconID={SystemIcons.Plus}
-          disabledActions={disabledActions}
+          actionsDisabled={actionsDisabled}
         >
           {dropdownElements}
         </PageHeaderActionsMenu>
@@ -80,20 +80,10 @@ class PageHeaderActions extends React.Component {
     }
   }
 
-  renderSupplementalContent() {
-    const { supplementalContent } = this.props;
-
-    if (supplementalContent == null) {
-      return null;
-    }
-
-    return supplementalContent;
-  }
-
   render() {
     return (
       <div className="page-header-actions-inner">
-        {this.renderSupplementalContent()}
+        {this.props.supplementalContent}
         <div className="button-collection-flush-bottom">
           {this.renderAddButton()}
           {this.renderActionsMenu()}
@@ -105,7 +95,7 @@ class PageHeaderActions extends React.Component {
 
 PageHeaderActions.defaultProps = {
   actions: [],
-  disabledActions: false
+  actionsDisabled: false
 };
 
 const classProps = PropTypes.oneOfType([
@@ -129,7 +119,7 @@ PageHeaderActions.propTypes = {
     PropTypes.oneOfType([PropTypes.node, menuActionsProps])
   ),
   supplementalContent: PropTypes.node,
-  disabledActions: PropTypes.bool
+  actionsDisabled: PropTypes.bool
 };
 
 module.exports = PageHeaderActions;
