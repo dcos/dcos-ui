@@ -10,7 +10,6 @@ import {
 } from "rxjs";
 import {
   map,
-  filter,
   distinctUntilChanged,
   retryWhen,
   delay,
@@ -27,10 +26,6 @@ import container from "#SRC/js/container";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 // @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
-import {
-  Status,
-  RUNNING
-} from "#PLUGINS/services/src/js/constants/ServiceStatus";
 
 import {
   Service,
@@ -81,9 +76,8 @@ const handleSelectPlan = (name: string) => {
 
 const SDKPlans = componentFromStream(props$ => {
   const serviceId$ = (props$ as Observable<{
-    service: { getId: () => string; getServiceStatus: () => Status };
+    service: { getId: () => string };
   }>).pipe(
-    filter(props => props.service.getServiceStatus() === RUNNING),
     map((props: { service: { getId: () => string } }) => props.service.getId()),
     distinctUntilChanged()
   );
