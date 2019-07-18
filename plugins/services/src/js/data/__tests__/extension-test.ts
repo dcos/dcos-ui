@@ -5,12 +5,15 @@ import dataLayerContainerModuleFactory, {
 } from "@extension-kid/data-layer";
 
 import extensionFactory from "../extension";
+import { ContainerModule } from "inversify";
 
-export function createTestContainer(): Container {
+export function createTestContainer(
+  module: ContainerModule | null = null
+): Container {
   const container = new Container();
 
   container.load(dataLayerContainerModuleFactory());
-  const servicesModule = extensionFactory();
+  const servicesModule = module || extensionFactory();
   if (servicesModule) {
     container.load(servicesModule);
   } else {

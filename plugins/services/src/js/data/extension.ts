@@ -9,15 +9,24 @@ import Config from "#SRC/js/config/Config";
 import { typeDefs } from "./schema";
 import { resolvers } from "./resolvers";
 
+import {
+  fetchPlanDetails as fetchServicePlanDetail,
+  fetchPlans as fetchServicePlans
+} from "./ServicePlansClient";
+
+const serviceResolvers = resolvers({
+  fetchServicePlans,
+  fetchServicePlanDetail,
+  pollingInterval: Config.getRefreshRate()
+});
+
 const ServicesType = Symbol("ServiceDataLayer");
 @injectable()
 class ServicesExtension implements DataLayerExtensionInterface {
   id = ServicesType;
 
   getResolvers() {
-    return resolvers({
-      pollingInterval: Config.getRefreshRate()
-    });
+    return serviceResolvers;
   }
 
   getTypeDefinitions() {
