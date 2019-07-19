@@ -295,7 +295,7 @@ class ServicesTable extends React.Component {
             cellRenderer={nameRenderer.bind(
               null,
               this.props.isFiltered,
-              this.props.isRoleEnforced,
+              this.props.hasQuota,
               ...arguments
             )}
             growToFill={
@@ -631,7 +631,7 @@ ServicesTable.defaultProps = {
 
 ServicesTable.propTypes = {
   isFiltered: PropTypes.bool,
-  isRoleEnforced: PropTypes.bool,
+  hasQuota: PropTypes.bool,
   services: PropTypes.array
 };
 

@@ -150,8 +150,6 @@ class ServiceTreeView extends React.Component {
     const routePath = serviceTree.isRoot()
       ? "/services/overview/create"
       : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
-    const isRoleEnforced =
-      !serviceTree.isRoot() && serviceTree.getEnforceRole();
     const hasQuota = serviceTreeHasQuota(serviceTree, roles);
 
     const createService = () => {
@@ -198,7 +196,7 @@ class ServiceTreeView extends React.Component {
           {this.getNoLimitInfobox(hasQuota)}
           <ServicesTable
             isFiltered={filterExpression.defined}
-            isRoleEnforced={isRoleEnforced}
+            hasQuota={hasQuota}
             modalHandlers={modalHandlers}
             services={services}
             hideTable={this.context.router.routes.some(
