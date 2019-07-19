@@ -631,7 +631,7 @@ describe("Service Table", function() {
   context("Quota groups", function() {
     beforeEach(function() {
       cy.configureCluster({
-        mesos: "1-task-healthy",
+        mesos: "1-task-healthy-with-quota",
         nodeHealth: true
       });
       cy.visitUrl({ url: "/services/overview" });
