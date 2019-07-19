@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { componentFromStream, graphqlObservable } from "@dcos/data-service";
+import { componentFromStream } from "@dcos/data-service";
 import {
   Observable,
   throwError,
@@ -10,7 +10,6 @@ import {
 } from "rxjs";
 import {
   map,
-  filter,
   distinctUntilChanged,
   retryWhen,
   delay,
@@ -23,25 +22,23 @@ import {
 import gql from "graphql-tag";
 import { Trans } from "@lingui/macro";
 
+import container from "#SRC/js/container";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 // @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
-import {
-  Status,
-  RUNNING
-} from "#PLUGINS/services/src/js/constants/ServiceStatus";
 
 import {
   Service,
   compare as ServiceCompare
 } from "#PLUGINS/services/src/js/types/Service";
-import { default as schema } from "#PLUGINS/services/src/js/data";
 import SDKPlansTab from "#PLUGINS/services/src/js/components/SDKPlansTab";
+import DataLayer, { DataLayerType } from "@extension-kid/data-layer/dataLayer";
 
 const getGraphQL = (
   serviceId: string
 ): Observable<{ data: { service: Service } }> => {
-  return graphqlObservable(
+  const dl = container.get<DataLayer>(DataLayerType);
+  return dl.query(
     gql`
       query {
         service(id: $serviceId) {
@@ -56,7 +53,6 @@ const getGraphQL = (
         }
       }
     `,
-    schema,
     { serviceId }
   );
 };
@@ -80,9 +76,8 @@ const handleSelectPlan = (name: string) => {
 
 const SDKPlans = componentFromStream(props$ => {
   const serviceId$ = (props$ as Observable<{
-    service: { getId: () => string; getServiceStatus: () => Status };
+    service: { getId: () => string };
   }>).pipe(
-    filter(props => props.service.getServiceStatus() === RUNNING),
     map((props: { service: { getId: () => string } }) => props.service.getId()),
     distinctUntilChanged()
   );

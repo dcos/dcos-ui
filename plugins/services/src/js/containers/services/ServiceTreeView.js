@@ -23,6 +23,7 @@ import ServiceOtherDSLSection from "../../components/dsl/ServiceOtherDSLSection"
 import ServicesTable from "./ServicesTable";
 import ServiceStatusDSLSection from "../../components/dsl/ServiceStatusDSLSection";
 import ServiceTree from "../../structs/ServiceTree";
+import { serviceTreeHasQuota } from "../../utils/QuotaUtil";
 
 const DSL_FORM_SECTIONS = [
   ServiceStatusDSLSection,
@@ -54,13 +55,16 @@ class ServiceTreeView extends React.Component {
     );
   }
 
-  getNoLimitInfobox() {
+  getNoLimitInfobox(hasQuota) {
+    if (!hasQuota) {
+      return null;
+    }
     const { serviceTree } = this.props;
 
-    const { rolesCount, groupRolesCount } = serviceTree.getRoleLength();
-    const nonLimited = rolesCount - groupRolesCount;
+    const { servicesCount, groupRolesCount } = serviceTree.getRoleLength();
+    const nonLimited = servicesCount - groupRolesCount;
 
-    if (serviceTree.isRoot() || !serviceTree.getEnforceRole() || !nonLimited) {
+    if (!nonLimited) {
       return null;
     }
 
@@ -101,7 +105,7 @@ class ServiceTreeView extends React.Component {
     return null;
   }
 
-  getTabs() {
+  getTabs(hasQuota) {
     // Workaround for Cypress.
     const createModalOpen = this.context.router.routes.some(
       ({ isFullscreenModal }) => isFullscreenModal
@@ -112,7 +116,7 @@ class ServiceTreeView extends React.Component {
     }
     const { serviceTree } = this.props;
     const id = serviceTree.getId();
-    if (id.split("/").length <= 2) {
+    if (serviceTree.isRoot() || hasQuota) {
       return [
         {
           label: i18nMark("Services"),
@@ -137,7 +141,8 @@ class ServiceTreeView extends React.Component {
       filterExpression,
       isEmpty,
       serviceTree,
-      services
+      services,
+      roles
     } = this.props;
 
     const { modalHandlers } = this.context;
@@ -145,13 +150,12 @@ class ServiceTreeView extends React.Component {
     const routePath = serviceTree.isRoot()
       ? "/services/overview/create"
       : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
-    const isRoleEnforced =
-      !serviceTree.isRoot() && serviceTree.getEnforceRole();
+    const hasQuota = serviceTreeHasQuota(serviceTree, roles);
 
     const createService = () => {
       this.context.router.push(routePath);
     };
-    const tabs = this.getTabs();
+    const tabs = this.getTabs(hasQuota);
 
     if (isEmpty) {
       return (
@@ -189,10 +193,10 @@ class ServiceTreeView extends React.Component {
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
           {this.getSearchHeader()}
-          {this.getNoLimitInfobox()}
+          {this.getNoLimitInfobox(hasQuota)}
           <ServicesTable
             isFiltered={filterExpression.defined}
-            isRoleEnforced={isRoleEnforced}
+            hasQuota={hasQuota}
             modalHandlers={modalHandlers}
             services={services}
             hideTable={this.context.router.routes.some(
@@ -231,7 +235,8 @@ ServiceTreeView.propTypes = {
       PropTypes.instanceOf(ServiceTree)
     ])
   ).isRequired,
-  serviceTree: PropTypes.instanceOf(ServiceTree)
+  serviceTree: PropTypes.instanceOf(ServiceTree),
+  roles: PropTypes.array
 };
 
 module.exports = ServiceTreeView;

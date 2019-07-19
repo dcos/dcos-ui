@@ -20,7 +20,7 @@ import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
 const ServiceName = React.memo(
   ({
     isFiltered,
-    isRoleEnforced,
+    hasQuota,
     id,
     isGroup,
     isNoLimit,
@@ -29,7 +29,7 @@ const ServiceName = React.memo(
     webUrl
   }: {
     isFiltered: boolean;
-    isRoleEnforced: boolean;
+    hasQuota: boolean;
     id: string;
     isGroup: boolean;
     isNoLimit: boolean;
@@ -42,7 +42,7 @@ const ServiceName = React.memo(
       : `/services/detail/${id}`;
 
     const badge =
-      isRoleEnforced && isNoLimit ? (
+      hasQuota && isNoLimit ? (
         <Badge>
           <Trans render="span" className="quota-no-limit">
             No Limit
@@ -72,7 +72,7 @@ const ServiceName = React.memo(
 
 export function nameRenderer(
   isFiltered: boolean,
-  isRoleEnforced: boolean,
+  hasQuota: boolean,
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
   // These do not work with instanceof ServiceTree due to TS
@@ -105,7 +105,7 @@ export function nameRenderer(
       image={image}
       webUrl={webUrl}
       isFiltered={isFiltered}
-      isRoleEnforced={isRoleEnforced}
+      hasQuota={hasQuota}
     />
   );
 }

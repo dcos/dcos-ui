@@ -14,6 +14,7 @@ import { marbles } from "rxjs-marbles/jest";
 import { take } from "rxjs/operators";
 
 import { createTestContainer } from "../../__tests__/extension-test";
+import TestModule, { TestResolverArgs } from "../../__tests__/test-module";
 import ServiceTree from "../../../structs/ServiceTree";
 //@ts-ignore
 import MarathonUtil from "../../../utils/MarathonUtil";
@@ -28,13 +29,20 @@ function makeServiceTree(groupsResponse = {}): ServiceTree {
 }
 
 describe("Services Data Layer - Groups", () => {
-  let container: Container;
-  let dl: DataLayer;
+  let container: Container | null = null;
+  let dl: DataLayer | null = null;
   beforeEach(() => {
-    container = createTestContainer();
-    dl = container.get<DataLayer>(DataLayerType);
     jest.clearAllMocks();
   });
+  afterEach(() => {
+    dl = null;
+    container = null;
+  });
+  function setupDL(args: TestResolverArgs | null = null): DataLayer {
+    container = createTestContainer(TestModule(args));
+    dl = container.get<DataLayer>(DataLayerType);
+    return dl;
+  }
 
   describe("Query - groups", () => {
     it(
@@ -50,6 +58,8 @@ describe("Services Data Layer - Groups", () => {
         });
         mockMarathonGet.mockReturnValue(marathonServiceTree);
         mockRequest.mockReturnValue(roles$);
+
+        dl = setupDL({ pollingInterval: m.time("--|") });
 
         const query = gql`
           query {
@@ -126,6 +136,8 @@ describe("Services Data Layer - Groups", () => {
     it(
       "aggregates roles",
       marbles(m => {
+        dl = setupDL({ pollingInterval: m.time("--|") });
+
         const marathonServiceTree = makeServiceTree(marathonRoleGroups);
         const roles$ = m.cold("(a|)", {
           a: {
@@ -257,6 +269,8 @@ describe("Services Data Layer - Groups", () => {
     it(
       "aggregates roles",
       marbles(m => {
+        dl = setupDL({ pollingInterval: m.time("--|") });
+
         const marathonServiceTree = makeServiceTree(marathonRoleGroups);
         const roles$ = m.cold("(a|)", {
           a: {
@@ -390,6 +404,8 @@ describe("Services Data Layer - Groups", () => {
     it(
       "returns a group when given id",
       marbles(m => {
+        dl = setupDL({ pollingInterval: m.time("--|") });
+
         const marathonServiceTree = makeServiceTree(marathonGroups);
         const roles$ = m.cold("(a|)", {
           a: {
@@ -453,6 +469,8 @@ describe("Services Data Layer - Groups", () => {
     it(
       "returns an error when query not given an id",
       marbles(m => {
+        dl = setupDL({ pollingInterval: m.time("--|") });
+
         const query = gql`
           query {
             group {
