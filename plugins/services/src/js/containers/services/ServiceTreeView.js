@@ -10,6 +10,7 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import Page from "#SRC/js/components/Page";
 
@@ -31,6 +32,11 @@ const DSL_FORM_SECTIONS = [
   ServiceOtherDSLSection,
   FuzzyTextDSLSection
 ];
+
+function quotaFeatureEnabled() {
+  const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
+  return quota === true;
+}
 
 class ServiceTreeView extends React.Component {
   getFilterBar() {
@@ -155,6 +161,14 @@ class ServiceTreeView extends React.Component {
     const createService = () => {
       this.context.router.push(routePath);
     };
+    let createGroup;
+    if (serviceTree.isRoot() && quotaFeatureEnabled()) {
+      createGroup = () => {
+        this.context.router.push("/services/overview/create_group");
+      };
+    } else {
+      createGroup = modalHandlers.createGroup;
+    }
     const tabs = this.getTabs(hasQuota);
 
     if (isEmpty) {
@@ -165,7 +179,7 @@ class ServiceTreeView extends React.Component {
             tabs={tabs}
           />
           <EmptyServiceTree
-            onCreateGroup={modalHandlers.createGroup}
+            onCreateGroup={createGroup}
             onCreateService={createService}
           />
           {children}
@@ -183,7 +197,7 @@ class ServiceTreeView extends React.Component {
               label: i18nMark("Run a Service")
             },
             {
-              onItemSelect: modalHandlers.createGroup,
+              onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
           ]}

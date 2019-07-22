@@ -1,5 +1,5 @@
 import { IResolvers } from "graphql-tools";
-import { of, throwError, timer } from "rxjs";
+import { Observable, of, throwError, timer } from "rxjs";
 import {
   map,
   exhaustMap,
@@ -18,6 +18,8 @@ import {
   populateResourcesFromRole
 } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 
+import { createGroup } from "../MarathonClient";
+
 export interface ServiceGroupQueryArgs {
   id: string;
 }
@@ -25,6 +27,24 @@ const isGroupArgs = (
   args: Record<string, any>
 ): args is ServiceGroupQueryArgs => {
   return (args as ServiceGroupQueryArgs).id !== undefined;
+};
+export interface GroupCreateArgs {
+  data: {
+    id?: string;
+    name: string;
+    enforceRole: boolean;
+    quota?: {
+      cpus?: number;
+      mem?: number;
+      disk?: number;
+      gpus?: number;
+    };
+  };
+}
+const isGroupCreateArgs = (
+  args: Record<string, unknown>
+): args is GroupCreateArgs => {
+  return (args as GroupCreateArgs).data !== undefined;
 };
 
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
@@ -109,6 +129,23 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
       },
       roles() {
         return roles$;
+      }
+    },
+    Mutation: {
+      createGroup(
+        _parent = {},
+        args: Record<string, unknown> = {}
+      ): Observable<string> {
+        if (!isGroupCreateArgs(args)) {
+          return throwError(
+            "createGroup mutation arguments aren't valid for type GroupCreateArgs"
+          );
+        }
+        return createGroup(`/${args.data.name}`, args.data.enforceRole).pipe(
+          map(() => {
+            return "SUCCESS";
+          })
+        );
       }
     }
   };

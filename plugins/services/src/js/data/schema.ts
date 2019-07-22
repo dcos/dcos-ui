@@ -11,4 +11,8 @@ export const typeDefs = `
     service(id: String!): Service
     roles: [MesosRole!]!
   }
+  
+  extend type Mutation {
+    createGroup(data: GroupWithQuota!): String!
+  }
 `;

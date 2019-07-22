@@ -49,4 +49,18 @@ export const GroupTypes = `
     resources: MesosResources
     quota: MesosQuota
   }
+  
+  type GroupQuota {
+    cpus: Float
+    mem: Float
+    disk: Float
+    gpus: Float
+  }
+  
+  type GroupWithQuota {
+    id: String,
+    name: String!
+    enforceRole: Boolean!
+    quota: GroupQuota
+  }
 `;
