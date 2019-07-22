@@ -243,7 +243,6 @@ class HostsPageContent extends React.PureComponent {
 
 HostsPageContent.propTypes = {
   byServiceFilter: PropTypes.string,
-  filterButtonContent: PropTypes.func,
   filterInputText: PropTypes.node,
   filterItemList: PropTypes.array.isRequired,
   filteredNodeCount: PropTypes.number.isRequired,
