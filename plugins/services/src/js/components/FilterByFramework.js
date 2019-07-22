@@ -89,14 +89,6 @@ const FilterByService = createReactClass({
     });
   },
 
-  getSelectedId(id) {
-    if (id == null) {
-      return defaultId;
-    }
-
-    return id;
-  },
-
   setDropdownValue(id) {
     this.dropdown.setState({
       selectedID: id
@@ -112,7 +104,7 @@ const FilterByService = createReactClass({
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
-        initialID={this.getSelectedId(this.props.byFrameworkFilter)}
+        initialID={this.props.byFrameworkFilter || defaultId}
         onItemSelection={this.handleItemSelection}
         ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"

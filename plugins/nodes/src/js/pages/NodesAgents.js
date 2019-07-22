@@ -5,7 +5,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { Badge, Icon } from "@dcos/ui-kit";
+import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -20,7 +20,6 @@ import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
-import StringUtil from "#SRC/js/utils/StringUtil";
 
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
@@ -144,7 +143,7 @@ var NodesAgents = createReactClass({
   },
 
   resetFilter() {
-    const state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    const state = { ...DEFAULT_FILTER_OPTIONS };
 
     this.setState(state);
 
@@ -158,11 +157,8 @@ var NodesAgents = createReactClass({
   },
 
   handleSearchStringChange(searchString = "") {
-    var stateChanges = Object.assign({}, this.state, {
-      searchString
-    });
-
-    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(stateChanges) };
+    const params = { ...this.state, searchString };
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
     this.setState({ searchString });
     this.setQueryParam("searchString", searchString);
   },
@@ -174,20 +170,15 @@ var NodesAgents = createReactClass({
       byServiceFilter = null;
     }
 
-    var stateChanges = Object.assign({}, this.state, {
-      byServiceFilter
-    });
-
-    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(stateChanges) };
+    const params = { ...this.state, byServiceFilter };
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
     this.setState({ byServiceFilter });
     this.setQueryParam("filterService", byServiceFilter);
   },
 
   handleHealthFilterChange(filterExpression, filters) {
-    this.mesosHosts = {
-      ...this.mesosHosts,
-      ...getMesosHosts({ filterExpression, filters })
-    };
+    const params = { filterExpression, filters };
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
     this.setState({ filterExpression, filters });
     this.setQueryParam("filterExpression", filterExpression.value);
   },
@@ -215,28 +206,19 @@ var NodesAgents = createReactClass({
     const isFiltering =
       (filterExpression && filterExpression.defined) || !!byServiceFilter;
 
-    const filterURL =
-      "?filterExpression=" + encodeURIComponent(filterExpression.value);
+    const params = isFiltering
+      ? "?filterExpression=" + encodeURIComponent(filterExpression.value)
+      : "";
 
     return (
       <div className="flush-bottom">
-        <Link
-          className={listClassSet}
-          to={isFiltering ? "/nodes/agents" + filterURL : "/nodes/agents"}
-        >
+        <Link className={listClassSet} to={`/nodes/agents${params}`}>
           <Trans render="span" className="invisible">
             List
           </Trans>
           <Icon shape={SystemIcons.List} size={iconSizeXs} />
         </Link>
-        <Link
-          className={gridClassSet}
-          to={
-            isFiltering
-              ? "/nodes/agents/grid" + filterURL
-              : "/nodes/agents/grid"
-          }
-        >
+        <Link className={gridClassSet} to={`/nodes/agents/grid${params}`}>
           <Trans render="span" className="invisible">
             Grid
           </Trans>
