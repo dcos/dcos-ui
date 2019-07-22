@@ -98,13 +98,11 @@ var NodesAgents = createReactClass({
   },
 
   updateNodeHealth() {
-    const nodesHealth = CompositeState.getNodesList()
-      .getItems()
-      .map(function(node) {
-        return node.getHealth();
-      });
-
-    this.setState({ nodesHealth });
+    this.setState({
+      nodesHealth: CompositeState.getNodesList()
+        .getItems()
+        .map(node => node.getHealth())
+    });
   },
   onNodeHealthStoreSuccess() {
     this.updateNodeHealth();
@@ -241,7 +239,6 @@ var NodesAgents = createReactClass({
       ? DSLFilteredLength
       : nodesList.getItems().length;
 
-    const nodesHealth = this.state.nodesHealth;
     const isFiltering =
       (filterExpression && filterExpression.defined) || !!byServiceFilter;
 
@@ -262,7 +259,6 @@ var NodesAgents = createReactClass({
         />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
-          filterItemList={nodesHealth}
           filteredNodeCount={Math.min(filteredLength, NODES_DISPLAY_LIMIT)}
           handleFilterChange={this.handleByServiceFilterChange}
           hosts={nodesList}
