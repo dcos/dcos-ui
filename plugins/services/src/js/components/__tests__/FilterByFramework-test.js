@@ -65,18 +65,4 @@ describe("FilterByFramework", function() {
       expect(items.length).toEqual(MockFrameworks.frameworks.length + 1);
     });
   });
-
-  describe("#getSelectedId", function() {
-    it("returns the same number when given a number", function() {
-      expect(thisInstance.getSelectedId(0)).toEqual(0);
-    });
-
-    it("returns the same string when given a string", function() {
-      expect(thisInstance.getSelectedId("thisIsAnID")).toEqual("thisIsAnID");
-    });
-
-    it("returns the default id when given null", function() {
-      expect(thisInstance.getSelectedId(null)).toEqual("default");
-    });
-  });
 });

@@ -40,7 +40,7 @@ const FilterByService = createReactClass({
     }
   },
 
-  getItemHtml(framework, appearance = "default") {
+  getItemHtml(framework, appearance) {
     return (
       <span className="badge-container">
         <span className="badge-container-text">{framework.get("name")}</span>
@@ -58,34 +58,18 @@ const FilterByService = createReactClass({
       // This is literally the worst way of doing this.
       slave_ids: new Array(this.props.totalHostsCount)
     });
-    const items = [defaultItem].concat(this.props.frameworks);
 
-    return items.map(framework => {
-      const frameworkId = framework.get("id");
-      const selectedHtml = this.getItemHtml(framework);
-      const dropdownHtml = <a>{selectedHtml}</a>;
-
-      var item = {
-        id: framework.get("id"),
-        name: framework.get("name"),
-        html: dropdownHtml,
-        selectedHtml
-      };
-
-      if (frameworkId === this.props.byFrameworkFilter) {
-        item.selectedHtml = this.getItemHtml(framework, "outline");
-      }
-
-      if (frameworkId === defaultId) {
-        item.selectedHtml = <Trans render="span">Filter by Framework</Trans>;
-      }
-
-      return item;
-    });
-  },
-
-  getSelectedId(id = defaultId) {
-    return id;
+    return [defaultItem].concat(this.props.frameworks).map(framework => ({
+      id: framework.get("id"),
+      name: framework.get("name"),
+      html: <a>{this.getItemHtml(framework, "default")}</a>,
+      selectedHtml:
+        framework.get("id") === defaultId ? (
+          <Trans render="span">Filter by Framework</Trans>
+        ) : (
+          this.getItemHtml(framework, "outline")
+        )
+    }));
   },
 
   setDropdownValue(id) {
@@ -101,7 +85,7 @@ const FilterByService = createReactClass({
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
-        initialID={this.getSelectedId(this.props.byFrameworkFilter)}
+        initialID={this.props.byFrameworkFilter || defaultId}
         onItemSelection={this.handleItemSelection}
         ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
