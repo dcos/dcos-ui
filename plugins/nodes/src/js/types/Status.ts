@@ -34,6 +34,20 @@ const fromNode = (n: Node) => {
   }
 };
 
+export enum StatusAction {
+  DRAIN = "drain"
+}
+
+export const allActions = [StatusAction.DRAIN];
+
+export const actionAllowed = (action: StatusAction, status: Status) => {
+  if (status === active) {
+    return action === StatusAction.DRAIN;
+  }
+
+  return false;
+};
+
 export type Status = {
   displayName: string;
   icon: StatusIcon;

@@ -12,6 +12,7 @@ import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
 import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
 import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
+import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeModal";
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
@@ -20,8 +21,10 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.state = {
       filteredNodes: null,
       filters: { health: "all", name: "", service: null },
-      masterRegion: null
+      masterRegion: null,
+      selectedNodeToDrain: null
     };
+
     this.store_listeners = [
       {
         events: ["success"],
@@ -31,6 +34,9 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       },
       { name: "state", events: ["success"], suppressUpdate: true }
     ];
+
+    this.handleNodeAction = this.handleNodeAction.bind(this);
+    this.handleDrainClose = this.handleDrainClose.bind(this);
   }
 
   componentWillMount() {
@@ -111,16 +117,34 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     });
   }
 
+  handleNodeAction(node, action) {
+    if (action === "drain") {
+      this.setState({ selectedNodeToDrain: node });
+    }
+  }
+
+  handleDrainClose() {
+    this.setState({ selectedNodeToDrain: null });
+  }
+
   render() {
-    const { filteredNodes, masterRegion } = this.state;
+    const { filteredNodes, masterRegion, selectedNodeToDrain } = this.state;
     const { networks = [] } = this.props;
 
     return (
-      <NodesTable
-        withPublicIP={networks.length > 0}
-        hosts={filteredNodes}
-        masterRegion={masterRegion}
-      />
+      <React.Fragment>
+        <NodesTable
+          withPublicIP={networks.length > 0}
+          hosts={filteredNodes}
+          masterRegion={masterRegion}
+          onNodeAction={this.handleNodeAction}
+        />
+        <DrainNodeModal
+          open={selectedNodeToDrain != null}
+          node={selectedNodeToDrain}
+          onClose={this.handleDrainClose}
+        />
+      </React.Fragment>
     );
   }
 }

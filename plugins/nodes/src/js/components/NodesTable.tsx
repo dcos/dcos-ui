@@ -14,6 +14,7 @@ import Node from "#SRC/js/structs/Node";
 import Loader from "#SRC/js/components/Loader";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 // @ts-ignore
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 
@@ -30,6 +31,7 @@ import { getCpuUsage, cpuRenderer } from "../columns/NodesTableCPUColumn";
 import { memRenderer, getMemUsage } from "../columns/NodesTableMemColumn";
 import { diskRenderer, getDiskUsage } from "../columns/NodesTableDiskColumn";
 import { gpuRenderer, getGpuUsage } from "../columns/NodesTableGPUColumn";
+import { generateActionsRenderer } from "../columns/NodesTableActionsColumn";
 
 import PublicIPColumn from "../columns/NodesTablePublicIPColumn";
 
@@ -37,6 +39,7 @@ interface NodesTableProps {
   withPublicIP: boolean;
   hosts: NodesList;
   masterRegion: string;
+  onNodeAction: (node: Node, actionId: string) => void;
 }
 
 interface NodesTableState {
@@ -169,6 +172,11 @@ export default class NodesTable extends React.Component<
     if (data === null) {
       return <Loader />;
     }
+
+    const hasMaintenance = findNestedPropertyInObject(
+      ConfigStore.get("config"),
+      "uiConfiguration.features.maintenance"
+    );
 
     const columns = [
       <Column
@@ -359,7 +367,21 @@ export default class NodesTable extends React.Component<
         resizable={true}
         onResize={this.handleResize("gpu")}
         width={hasCustomWidth("gpu") ? customWidthFor("gpu") : undefined}
-      />
+      />,
+      hasMaintenance ? (
+        <Column
+          key="actions"
+          header={
+            <HeaderCell>
+              <span />
+            </HeaderCell>
+          }
+          cellRenderer={generateActionsRenderer(this.props.onNodeAction)}
+          growToFill={true}
+          minWidth={24}
+          maxWidth={36}
+        />
+      ) : null
     ].filter((col): col is React.ReactElement => col !== null);
 
     return (

@@ -8,7 +8,7 @@ import Node from "#SRC/js/structs/Node";
 
 const StatusCell = React.memo(({ status }: { status: Status }) => (
   <Cell>
-    <span>
+    <span className="flex flex-align-items-center">
       <Icon {...status.icon} size={iconSizeXs} />
       <span style={{ marginLeft: "7px" }}>{status.displayName}</span>
     </span>
