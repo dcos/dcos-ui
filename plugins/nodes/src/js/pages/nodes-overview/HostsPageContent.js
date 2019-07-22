@@ -92,18 +92,11 @@ class HostsPageContent extends React.PureComponent {
 
   propsToState(props) {
     const { allHosts } = props;
-    const {
-      defaultFilterData: { regions },
-      defaultFilterData: { zones }
-    } = this.state;
+    const { regions, zones } = this.state.defaultFilterData;
 
-    let query = props.location.query["filterExpression"];
-
-    if (query === undefined) {
-      query = "";
-    } else {
-      query = decodeURIComponent(query);
-    }
+    const query = decodeURIComponent(
+      props.location.query["filterExpression"] || ""
+    );
 
     const newZones = Array.from(
       new Set(
