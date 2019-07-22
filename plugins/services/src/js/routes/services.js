@@ -8,6 +8,7 @@ import NotFoundPage from "#SRC/js/pages/NotFoundPage";
 import ServicesContainer from "../containers/services/ServicesContainer";
 import CreateServiceModal from "../components/modals/CreateServiceModal";
 import EditServiceModal from "../components/modals/EditServiceModal";
+import ServiceRootGroupModal from "../components/modals/ServiceRootGroupModal";
 import ServicesPage from "../pages/ServicesPage";
 import ServiceTaskDetailPage from "../pages/task-details/ServiceTaskDetailPage";
 import ServiceVolumeContainer from "../containers/volume-detail/ServiceVolumeContainer";
@@ -49,6 +50,12 @@ const serviceRoutes = [
             type: Route,
             path: "create",
             component: CreateServiceModal,
+            isFullscreenModal: true
+          },
+          {
+            type: Route,
+            path: "create_group",
+            component: ServiceRootGroupModal,
             isFullscreenModal: true
           },
           {
