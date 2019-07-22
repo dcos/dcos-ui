@@ -18,8 +18,8 @@ import DSLExpression from "#SRC/js/structs/DSLExpression";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
-import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
+import Util from "#SRC/js/utils/Util";
 
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
@@ -57,7 +57,7 @@ var DEFAULT_FILTER_OPTIONS = {
 var NodesAgents = createReactClass({
   displayName: "NodesAgents",
 
-  mixins: [QueryParamsMixin, StoreMixin],
+  mixins: [StoreMixin],
 
   statics: {
     routeConfig: {
@@ -147,11 +147,14 @@ var NodesAgents = createReactClass({
 
     this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(state) };
 
-    this.resetQueryParams([
-      "searchString",
-      "filterExpression",
-      "filterService"
-    ]);
+    this.context.router.push({
+      pathname: this.props.location.pathname,
+      query: Util.omit(this.props.location.query, [
+        "searchString",
+        "filterExpression",
+        "filterService"
+      ])
+    });
   },
 
   handleSearchStringChange(searchString = "") {
@@ -159,6 +162,17 @@ var NodesAgents = createReactClass({
     this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
     this.setState({ searchString });
     this.setQueryParam("searchString", searchString);
+  },
+
+  setQueryParam(paramKey, paramValue) {
+    const query = { ...this.props.location.query };
+    if (paramValue) {
+      query[paramKey] = paramValue;
+    } else {
+      delete query[paramKey];
+    }
+
+    this.context.router.push({ pathname: this.props.location.pathname, query });
   },
 
   handleByServiceFilterChange(byServiceFilter, filteredLength) {
