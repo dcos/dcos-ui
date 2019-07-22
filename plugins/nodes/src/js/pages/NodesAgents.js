@@ -317,17 +317,15 @@ var NodesAgents = createReactClass({
   },
 
   getContents(isEmpty) {
-    if (isEmpty) {
-      return this.getEmptyHostsPageContent();
-    } else {
-      return this.getHostsPageContent();
-    }
+    return isEmpty
+      ? this.getEmptyHostsPageContent()
+      : this.getHostsPageContent();
   },
 
   render() {
-    var data = this.internalStorage_get();
+    const data = this.internalStorage_get();
     const statesProcessed = MesosSummaryStore.get("statesProcessed");
-    var isEmpty = statesProcessed && data.totalNodes === 0;
+    const isEmpty = statesProcessed && data.totalNodes === 0;
 
     return this.getContents(isEmpty);
   }
