@@ -7,13 +7,12 @@ import { graphqlObservable, componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
 
 import CompositeState from "#SRC/js/structs/CompositeState";
-import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
 import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
 import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 
-class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
+class NodesTableContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
