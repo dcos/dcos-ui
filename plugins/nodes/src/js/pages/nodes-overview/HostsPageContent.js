@@ -10,9 +10,6 @@ import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import NodesList from "#SRC/js/structs/NodesList";
 
 import ResourceSwitchDropdown from "#SRC/js/components/ResourceSwitchDropdown";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-// @ts-ignore
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import FilterByFramework from "../../../../../services/src/js/components/FilterByFramework";
 
@@ -34,16 +31,10 @@ const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
 const dslFormSections = () => [
   NodesHealthDSLSection,
   NodesTypeDSLSection,
-  ...(hasMaintenance() ? [NodesStatusDSLSection] : []),
+  NodesStatusDSLSection,
   NodesRegionDSLFilter,
   NodesZoneDSLFilter
 ];
-
-const hasMaintenance = () =>
-  findNestedPropertyInObject(
-    ConfigStore.get("config"),
-    "uiConfiguration.features.maintenance"
-  );
 
 class HostsPageContent extends React.PureComponent {
   constructor() {
@@ -53,7 +44,7 @@ class HostsPageContent extends React.PureComponent {
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
-      ...(hasMaintenance() ? [NodesStatusFilter] : [])
+      NodesStatusFilter
     ];
 
     this.state = {
@@ -148,7 +139,7 @@ class HostsPageContent extends React.PureComponent {
       new NodesTypeFilter(),
       NodesRegionFilter,
       new NodesZoneFilter(newZones),
-      ...(hasMaintenance() ? [NodesStatusFilter] : [])
+      NodesStatusFilter
     ];
 
     this.setState({
