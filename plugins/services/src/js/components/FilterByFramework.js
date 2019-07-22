@@ -40,9 +40,7 @@ const FilterByService = createReactClass({
     }
   },
 
-  getItemHtml(framework, isSelected = false) {
-    const appearance = isSelected ? "outline" : "default";
-
+  getItemHtml(framework, appearance = "default") {
     return (
       <span className="badge-container">
         <span className="badge-container-text">{framework.get("name")}</span>
@@ -75,7 +73,7 @@ const FilterByService = createReactClass({
       };
 
       if (frameworkId === this.props.byFrameworkFilter) {
-        item.selectedHtml = this.getItemHtml(framework, true);
+        item.selectedHtml = this.getItemHtml(framework, "outline");
       }
 
       if (frameworkId === defaultId) {
@@ -86,18 +84,12 @@ const FilterByService = createReactClass({
     });
   },
 
-  getSelectedId(id) {
-    if (id == null) {
-      return defaultId;
-    }
-
+  getSelectedId(id = defaultId) {
     return id;
   },
 
   setDropdownValue(id) {
-    this.dropdown.setState({
-      selectedID: id
-    });
+    this.dropdown.setState({ selectedID: id });
   },
 
   render() {
@@ -121,4 +113,4 @@ const FilterByService = createReactClass({
   }
 });
 
-module.exports = FilterByService;
+export default FilterByService;
