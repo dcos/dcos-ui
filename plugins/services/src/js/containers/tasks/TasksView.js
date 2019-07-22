@@ -99,6 +99,8 @@ class TasksView extends mixin(SaveStateMixin) {
       inverse: inverseStyle
     });
 
+    console.log(tasks);
+
     return (
       <TaskTable
         checkedItemsMap={checkedItems}
