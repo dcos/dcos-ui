@@ -211,24 +211,6 @@ var NodesAgents = createReactClass({
     }
   },
 
-  getButtonContent(filterName, count) {
-    const dotClassSet = classNames({
-      dot: filterName !== "all",
-      danger: filterName === "unhealthy",
-      success: filterName === "healthy"
-    });
-
-    return (
-      <span className="badge-container button-align-content label flush">
-        <span className={dotClassSet} />
-        <span className="badge-container-text">
-          <span>{StringUtil.capitalize(filterName)}</span>
-        </span>
-        <Badge>{count || 0}</Badge>
-      </span>
-    );
-  },
-
   getViewTypeRadioButtons() {
     const { filterExpression, byServiceFilter } = this.state;
     const isGridActive = /\/nodes\/agents\/grid\/?/i.test(
@@ -311,7 +293,6 @@ var NodesAgents = createReactClass({
         />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
-          filterButtonContent={this.getButtonContent}
           filterItemList={nodesHealth}
           filteredNodeCount={Math.min(filteredLength, NODES_DISPLAY_LIMIT)}
           handleFilterChange={this.handleByServiceFilterChange}
