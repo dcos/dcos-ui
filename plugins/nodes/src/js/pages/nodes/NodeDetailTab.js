@@ -15,8 +15,6 @@ import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
 import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 import Node from "#SRC/js/structs/Node";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -70,11 +68,6 @@ class NodeDetailTab extends PureComponent {
     const resources = node.get("resources");
     const status = Status.fromNode(node);
 
-    const hasMaintenance = findNestedPropertyInObject(
-      ConfigStore.get("config"),
-      "uiConfiguration.features.maintenance"
-    );
-
     return (
       <div className="container">
         <ConfigurationMap>
@@ -85,16 +78,6 @@ class NodeDetailTab extends PureComponent {
               </ConfigurationMapLabel>
               <ConfigurationMapValue>{node.id}</ConfigurationMapValue>
             </ConfigurationMapRow>
-            {!hasMaintenance && (
-              <ConfigurationMapRow>
-                <ConfigurationMapLabel>
-                  <Trans render="span">Active</Trans>
-                </ConfigurationMapLabel>
-                <ConfigurationMapValue>
-                  {StringUtil.capitalize(node.active.toString().toLowerCase())}
-                </ConfigurationMapValue>
-              </ConfigurationMapRow>
-            )}
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
                 <Trans render="span">Registered</Trans>
@@ -137,34 +120,32 @@ class NodeDetailTab extends PureComponent {
             </ConfigurationMapRow>
           </ConfigurationMapSection>
           <HashMapDisplay hash={node.attributes} headline="Attributes" />
-          {hasMaintenance && (
-            <ConfigurationMapSection>
-              <ConfigurationMapHeading>
+          <ConfigurationMapSection>
+            <ConfigurationMapHeading>
+              <Trans render="span">Status</Trans>
+            </ConfigurationMapHeading>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
+                <Trans render="span">Active</Trans>
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {StringUtil.capitalize(node.active.toString().toLowerCase())}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+            <ConfigurationMapRow>
+              <ConfigurationMapLabel>
                 <Trans render="span">Status</Trans>
-              </ConfigurationMapHeading>
-              <ConfigurationMapRow>
-                <ConfigurationMapLabel>
-                  <Trans render="span">Active</Trans>
-                </ConfigurationMapLabel>
-                <ConfigurationMapValue>
-                  {StringUtil.capitalize(node.active.toString().toLowerCase())}
-                </ConfigurationMapValue>
-              </ConfigurationMapRow>
-              <ConfigurationMapRow>
-                <ConfigurationMapLabel>
-                  <Trans render="span">Status</Trans>
-                </ConfigurationMapLabel>
-                <ConfigurationMapValue>
-                  <span>
-                    <Icon {...status.icon} size={iconSizeXs} />
-                    <span style={{ marginLeft: "7px" }}>
-                      {status.displayName}
-                    </span>
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                <span>
+                  <Icon {...status.icon} size={iconSizeXs} />
+                  <span style={{ marginLeft: "7px" }}>
+                    {status.displayName}
                   </span>
-                </ConfigurationMapValue>
-              </ConfigurationMapRow>
-            </ConfigurationMapSection>
-          )}
+                </span>
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+          </ConfigurationMapSection>
           <ConfigurationMapSection>
             <ConfigurationMapHeading>
               <Trans render="span">Resources</Trans>
