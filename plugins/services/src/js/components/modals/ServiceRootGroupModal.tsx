@@ -1,21 +1,14 @@
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
-import { I18n, i18nMark } from "@lingui/core";
 import gql from "graphql-tag";
 import { DataLayer, DataLayerType } from "@extension-kid/data-layer";
-import {
-  NotificationService,
-  NotificationServiceType
-} from "@extension-kid/notification-service";
-import {
-  ToastAppearance,
-  ToastNotification
-} from "@extension-kid/toast-notifications";
 import { take } from "rxjs/operators";
+import { Icon, InfoBoxInline } from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import container from "#SRC/js/container";
-import { TYPES } from "#SRC/js/types/containerTypes";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -33,10 +26,6 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
 const dl = container.get<DataLayer>(DataLayerType);
-const notificationService = container.get<NotificationService>(
-  NotificationServiceType
-);
-const i18n = container.get<I18n>(TYPES.I18n);
 
 const groupCreateMutation = gql`
   mutation {
@@ -59,6 +48,7 @@ interface GroupFormData {
 
 interface GroupFormErrors {
   name?: React.ReactNode | React.ReactNode[];
+  misc?: React.ReactNode | React.ReactNode[];
 }
 
 interface ServiceRootGroupModalState {
@@ -77,6 +67,7 @@ const METHODS_TO_BIND: string[] = [
   "handleFormChange",
   "handleSave",
   "getHeader",
+  "getMiscErrors",
   "getModalContent",
   "getSaveAction",
   "validateFormData"
@@ -107,18 +98,6 @@ function updateData(
     data[fieldPath[0]] = value;
   }
   return data;
-}
-
-function groupCreateFailedToast(name: string): ToastNotification {
-  const title = i18n._(i18nMark("Create Group Failed"));
-  const description = i18n._(i18nMark("Unable to create group {groupName}."), {
-    groupName: name
-  });
-  return new ToastNotification(title, {
-    appearance: ToastAppearance.Danger,
-    autodismiss: true,
-    description
-  });
 }
 
 class ServiceRootGroupModal extends React.Component<
@@ -176,24 +155,39 @@ class ServiceRootGroupModal extends React.Component<
       .subscribe({
         next: () => this.handleClose(),
         error: e => {
-          if (e.message === "Conflict") {
-            this.setState({
-              errors: {
-                name: (
-                  <Trans>
-                    A group with the same name already exists. Try a different
-                    name.
-                  </Trans>
-                )
-              },
-              isPending: false
-            });
-            return;
+          switch (e.message) {
+            case "Conflict":
+              this.setState({
+                errors: {
+                  name: (
+                    <Trans>
+                      A group with the same name already exists. Try a different
+                      name.
+                    </Trans>
+                  )
+                },
+                isPending: false
+              });
+              return;
+            case "Forbidden":
+              this.setState({
+                errors: {
+                  misc: (
+                    <Trans>You do not have permission to create a group.</Trans>
+                  )
+                },
+                isPending: false
+              });
+              return;
+            default:
+              this.setState({
+                errors: {
+                  misc: <span>Unable to create group: {e.message}</span>
+                },
+                isPending: false
+              });
+              return;
           }
-          notificationService.push(
-            groupCreateFailedToast(this.state.data.name)
-          );
-          this.handleClose();
         }
       });
   }
@@ -220,7 +214,7 @@ class ServiceRootGroupModal extends React.Component<
           type="secondary"
         />
         <FullScreenModalHeaderTitle>
-          <Trans>Create Group</Trans>
+          <Trans>New Group</Trans>
         </FullScreenModalHeaderTitle>
         <FullScreenModalHeaderActions
           actions={[
@@ -240,6 +234,7 @@ class ServiceRootGroupModal extends React.Component<
     const { data, isPending, errors } = this.state;
     return (
       <form className="container" onChange={this.handleFormChange}>
+        {this.getMiscErrors()}
         <Trans render="h1" className="flush-top short-bottom">
           General
         </Trans>
@@ -279,6 +274,43 @@ class ServiceRootGroupModal extends React.Component<
           </FormGroup>
         </FormRow>
       </form>
+    );
+  }
+
+  getMiscErrors() {
+    const { errors } = this.state;
+    if (!Boolean(errors.misc)) {
+      return null;
+    }
+    const { misc } = errors;
+    const errorMessages = Array.isArray(misc) ? misc : [misc];
+    const errorItems = errorMessages.map((message, index) => {
+      return (
+        <li key={index} className="errorsAlert-listItem">
+          {message}
+        </li>
+      );
+    });
+    return (
+      <div className="infoBoxWrapper">
+        <InfoBoxInline
+          appearance="danger"
+          message={
+            <div className="flex">
+              <div>
+                <Icon
+                  shape={SystemIcons.Yield}
+                  size={iconSizeXs}
+                  color="currentColor"
+                />
+              </div>
+              <div className="errorsAlert-message">
+                <ul className="errorsAlert-list">{errorItems}</ul>
+              </div>
+            </div>
+          }
+        />
+      </div>
     );
   }
 
