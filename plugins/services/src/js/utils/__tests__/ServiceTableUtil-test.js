@@ -137,10 +137,10 @@ describe("ServiceTableUtil", function() {
     });
 
     describe("compare item status", function() {
-      it("returns stopped first if it has lower status when sorting in ascending order", function() {
+      it("returns stopped second if it has higher status when sorting in ascending order", function() {
         expect(
-          thisCompareFunction([healthyService, stoppedService], "ASC", "status")
-        ).toEqual([stoppedService, healthyService]);
+          thisCompareFunction([stoppedService, healthyService], "ASC", "status")
+        ).toEqual([healthyService, stoppedService]);
       });
 
       it("returns healthy first if it has higher status when sorting in descending order", function() {
@@ -150,7 +150,7 @@ describe("ServiceTableUtil", function() {
             "DESC",
             "status"
           )
-        ).toEqual([healthyService, stoppedService]);
+        ).toEqual([stoppedService, healthyService]);
       });
     });
 
