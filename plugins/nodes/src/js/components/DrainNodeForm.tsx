@@ -31,8 +31,12 @@ function DrainNodeForm(props: Props) {
   );
 
   const handleChangeMaxGracePeriod = (e: React.FormEvent<HTMLFormElement>) => {
-    const { value } = e.target as HTMLInputElement;
-    onChange({ maxGracePeriod: parseInt(value, 10) });
+    const el = e.target as HTMLInputElement;
+    onChange({
+      maxGracePeriod: el.checkValidity()
+        ? parseInt(el.value, 10)
+        : formData.maxGracePeriod
+    });
   };
 
   const handleChangeDecommission = (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,6 +68,7 @@ function DrainNodeForm(props: Props) {
           id="max_grace_period"
           name="max_grace_period"
           type="number"
+          min="0"
           placeholder="Enter in seconds"
           value={formData.maxGracePeriod || ""}
           onChange={handleChangeMaxGracePeriod}
