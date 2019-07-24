@@ -1,23 +1,18 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import ConfigStore from "#SRC/js/stores/ConfigStore";
-
 import ActionKeys from "../../constants/ActionKeys";
 import ServiceTree from "../../structs/ServiceTree";
 
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceDestroyModal from "./ServiceDestroyModal";
 import ServiceGroupFormModal from "./ServiceGroupFormModal";
-import ServiceRootGroupModal from "./ServiceRootGroupModal";
 import ServiceRestartModal from "./ServiceRestartModal";
 import ServiceResumeModal from "./ServiceResumeModal";
 import ServiceScaleFormModal from "./ServiceScaleFormModal";
 import ServiceSpecUtil from "../../utils/ServiceSpecUtil";
 import ServiceStopModal from "./ServiceStopModal";
 import DisabledGroupDestroyModal from "./DisabledGroupDestroyModal";
-
-const ROOT_ID = "/";
 
 class ServiceModals extends React.Component {
   getGroupModal() {
@@ -36,20 +31,6 @@ class ServiceModals extends React.Component {
 
     const key = ActionKeys.GROUP_CREATE;
     const { service } = modalProps;
-    const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
-    if (service.getId() === ROOT_ID && quota) {
-      return (
-        <ServiceRootGroupModal
-          createGroup={actions.createGroup}
-          clearError={() => clearError(key)}
-          isPending={!!pendingActions[key]}
-          errors={actionErrors[key]}
-          parentGroupId={service.getId()}
-          open={modalProps.id === ServiceActionItem.CREATE_GROUP}
-          onClose={() => onClose(key)}
-        />
-      );
-    }
 
     return (
       <ServiceGroupFormModal

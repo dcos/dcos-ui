@@ -475,8 +475,8 @@ describe("Service Table", function() {
         cy.get(".form-group")
           .find('.form-control[name="id"]')
           .type(".test");
-        cy.get(".button-primary")
-          .contains("Create Group")
+        cy.get(".modal-full-screen-actions-primary")
+          .contains("Create")
           .click();
         cy.get(".form-control-feedback")
           .contains(
@@ -489,8 +489,8 @@ describe("Service Table", function() {
         cy.get(".form-group")
           .find('.form-control[name="id"]')
           .type("test.");
-        cy.get(".button-primary")
-          .contains("Create Group")
+        cy.get(".modal-full-screen-actions-primary")
+          .contains("Create")
           .click();
         cy.get(".form-control-feedback")
           .contains(
@@ -503,8 +503,8 @@ describe("Service Table", function() {
         cy.get(".form-group")
           .find('.form-control[name="id"]')
           .type("-test");
-        cy.get(".button-primary")
-          .contains("Create Group")
+        cy.get(".modal-full-screen-actions-primary")
+          .contains("Create")
           .click();
         cy.get(".form-control-feedback")
           .contains(
@@ -517,8 +517,8 @@ describe("Service Table", function() {
         cy.get(".form-group")
           .find('.form-control[name="id"]')
           .type("test-");
-        cy.get(".button-primary")
-          .contains("Create Group")
+        cy.get(".modal-full-screen-actions-primary")
+          .contains("Create")
           .click();
         cy.get(".form-control-feedback")
           .contains(
@@ -531,8 +531,8 @@ describe("Service Table", function() {
         cy.get(".form-group")
           .find('.form-control[name="id"]')
           .type(".te$t");
-        cy.get(".button-primary")
-          .contains("Create Group")
+        cy.get(".modal-full-screen-actions-primary")
+          .contains("Create")
           .click();
         cy.get(".form-control-feedback")
           .contains(
