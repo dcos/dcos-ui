@@ -69,9 +69,17 @@ const generateActionsRenderer = (
 
     return (
       <Cell>
-        <Tooltip content={<Trans render="span">More actions</Trans>}>
-          {renderActionsDropdown(data, actions, handleAction.bind(null, data))}
-        </Tooltip>
+        {actions.length > 1 ? (
+          <Tooltip content={<Trans render="span">Actions</Trans>}>
+            {renderActionsDropdown(
+              data,
+              actions,
+              handleAction.bind(null, data)
+            )}
+          </Tooltip>
+        ) : (
+          <span />
+        )}
       </Cell>
     );
   };
