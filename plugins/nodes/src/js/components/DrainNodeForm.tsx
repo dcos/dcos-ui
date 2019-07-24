@@ -24,7 +24,11 @@ interface DrainOptions {
 function DrainNodeForm(props: Props) {
   const { formData, onChange } = props;
 
-  const helpText = <Trans>Help Text TBD</Trans>;
+  const helpText = (
+    <Trans>
+      The maximum amount of time allowed for tasks to gracefully terminate.
+    </Trans>
+  );
 
   const handleChangeMaxGracePeriod = (e: React.FormEvent<HTMLFormElement>) => {
     const { value } = e.target as HTMLInputElement;
