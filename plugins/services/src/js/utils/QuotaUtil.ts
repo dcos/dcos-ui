@@ -118,3 +118,15 @@ export function serviceTreeHasQuota(
     Object.keys(role.quota.limit).length > 0
   );
 }
+
+export function formatQuotaValueForDisplay(value: number): number {
+  //@ts-ignore
+  return +(Math.round(value + "e+2") + "e-2");
+}
+
+export function formatQuotaPercentageForDisplay(
+  usedValue: number,
+  totalValue: number
+): number {
+  return Math.round((100 * usedValue) / totalValue) || 0;
+}

@@ -1,5 +1,6 @@
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { i18nMark } from "@lingui/react";
+import { formatQuotaPercentageForDisplay } from "../utils/QuotaUtil";
 
 export type QuotaResources = {
   guarantee?: number;
@@ -46,7 +47,10 @@ function getQuotaPercentage(group: ServiceGroup, resource: string) {
   if (!resourceQuota || !resourceQuota.consumed || !resourceQuota.limit) {
     return 0;
   }
-  return (resourceQuota.consumed / resourceQuota.limit) * 100;
+  return formatQuotaPercentageForDisplay(
+    resourceQuota.consumed,
+    resourceQuota.limit
+  );
 }
 
 const getQuota = (

@@ -21,6 +21,7 @@ import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 import { ServiceGroup, QuotaResources } from "../types/ServiceGroup";
+import * as QuotaUtil from "../utils/QuotaUtil";
 
 export interface ServicesQuotaOverviewDetailProps {
   id: string;
@@ -42,7 +43,10 @@ function getQuotaPercentage(
     return 0;
   }
 
-  return (resourceQuota.consumed / resourceQuota.limit) * 100;
+  return QuotaUtil.formatQuotaPercentageForDisplay(
+    resourceQuota.consumed,
+    resourceQuota.limit
+  );
 }
 
 function getQuotaConsumedOfLimit(
@@ -57,19 +61,15 @@ function getQuotaConsumedOfLimit(
   if (!resourceQuota || !resourceQuota.limit) {
     return null;
   }
+  const consumed = QuotaUtil.formatQuotaValueForDisplay(
+    resourceQuota.consumed || 0
+  );
+  const limit = QuotaUtil.formatQuotaValueForDisplay(resourceQuota.limit);
 
   if (resource === "cpus" || resource === "gpus") {
-    return (
-      <Trans>
-        {resourceQuota.consumed} of {resourceQuota.limit} Cores
-      </Trans>
-    );
+    return <Trans id="{0} of {1} Cores" values={{ 0: consumed, 1: limit }} />;
   }
-  return (
-    <Trans>
-      {resourceQuota.consumed} of {resourceQuota.limit} MiB
-    </Trans>
-  );
+  return <Trans id="{0} of {1} MiB" values={{ 0: consumed, 1: limit }} />;
 }
 
 const titleFor = (resource: string): string => {
