@@ -30,8 +30,7 @@ const isGroupArgs = (
 };
 export interface GroupCreateArgs {
   data: {
-    id?: string;
-    name: string;
+    id: string;
     enforceRole: boolean;
     quota?: {
       cpus?: number;
@@ -141,7 +140,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             "createGroup mutation arguments aren't valid for type GroupCreateArgs"
           );
         }
-        return createGroup(`/${args.data.name}`, args.data.enforceRole).pipe(
+        return createGroup(args.data.id, args.data.enforceRole).pipe(
           map(() => {
             return "SUCCESS";
           })

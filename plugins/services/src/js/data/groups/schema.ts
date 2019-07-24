@@ -58,8 +58,7 @@ export const GroupTypes = `
   }
   
   type GroupWithQuota {
-    id: String,
-    name: String!
+    id: String!
     enforceRole: Boolean!
     quota: GroupQuota
   }

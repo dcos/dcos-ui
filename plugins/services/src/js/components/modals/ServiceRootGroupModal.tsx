@@ -34,8 +34,7 @@ const groupCreateMutation = gql`
 `;
 
 interface GroupFormData {
-  id?: string;
-  name: string;
+  id: string;
   enforceRole: boolean;
   quota: {
     cpus: string;
@@ -47,7 +46,7 @@ interface GroupFormData {
 }
 
 interface GroupFormErrors {
-  name?: React.ReactNode | React.ReactNode[];
+  id?: React.ReactNode | React.ReactNode[];
   misc?: React.ReactNode | React.ReactNode[];
 }
 
@@ -75,14 +74,14 @@ const METHODS_TO_BIND: string[] = [
 
 function newData(): GroupFormData {
   return {
-    name: "",
+    id: "",
+    enforceRole: true,
     quota: {
       cpus: "",
       mem: "",
       disk: "",
       gpus: ""
-    },
-    enforceRole: true
+    }
   };
 }
 
@@ -98,6 +97,13 @@ function updateData(
     data[fieldPath[0]] = value;
   }
   return data;
+}
+
+function getPathFromGroupId(id: string): string {
+  if (id.startsWith("/")) {
+    return id;
+  }
+  return `/${id}`;
 }
 
 class ServiceRootGroupModal extends React.Component<
@@ -159,7 +165,7 @@ class ServiceRootGroupModal extends React.Component<
             case "Conflict":
               this.setState({
                 errors: {
-                  name: (
+                  id: (
                     <Trans>
                       A group with the same name already exists. Try a different
                       name.
@@ -221,7 +227,7 @@ class ServiceRootGroupModal extends React.Component<
             {
               className: "button-primary flush-vertical",
               clickHandler: this.handleSave,
-              label: "Save"
+              label: "Create"
             }
           ]}
           type="primary"
@@ -241,7 +247,7 @@ class ServiceRootGroupModal extends React.Component<
         <FormRow>
           <FormGroup
             className="column-12 column-medium-4"
-            showError={Boolean(errors.name)}
+            showError={Boolean(errors.id)}
           >
             <FieldLabel>
               <FormGroupHeading required={true}>
@@ -252,13 +258,13 @@ class ServiceRootGroupModal extends React.Component<
             </FieldLabel>
             <FieldAutofocus>
               <FieldInput
-                name="name"
+                name="id"
                 type="text"
-                value={data.name}
+                value={data.id}
                 disabled={this.props.isEdit || isPending}
               />
             </FieldAutofocus>
-            <FieldError>{errors.name}</FieldError>
+            <FieldError>{errors.id}</FieldError>
           </FormGroup>
         </FormRow>
         <FormRow>
@@ -270,7 +276,7 @@ class ServiceRootGroupModal extends React.Component<
                 </Trans>
               </FormGroupHeading>
             </FieldLabel>
-            <div>{`/${data.name}`}</div>
+            <div>{getPathFromGroupId(data.id)}</div>
           </FormGroup>
         </FormRow>
       </form>
@@ -328,8 +334,8 @@ class ServiceRootGroupModal extends React.Component<
     let errors: GroupFormErrors = {};
     const { data } = this.state;
     // Validate Name
-    if (!ServiceValidatorUtil.isValidGroupID(data.name)) {
-      errors.name = (
+    if (!ServiceValidatorUtil.isValidGroupID(data.id)) {
+      errors.id = (
         <Trans>
           Group name must be at least 1 character and may only contain digits
           (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may
