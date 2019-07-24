@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { request } from "@dcos/mesos-client";
 import { Trans } from "@lingui/macro";
 import { Modal } from "reactjs-components";
+import { InfoBoxInline } from "@dcos/ui-kit";
 
 import Node from "#SRC/js/structs/Node";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
@@ -35,6 +36,11 @@ function DrainNodeModal(props: Props) {
     DEFAULT_DRAIN_OPTIONS
   );
 
+  const [inProgress, setInProgress] = useState<boolean>(false);
+  const [networkError, setNetworkError] = useState<React.ReactElement | null>(
+    null
+  );
+
   const handleDrainOptions = (options: Partial<DrainOptions>) => {
     setDrainOptions({ ...drainOptions, ...options });
   };
@@ -60,12 +66,30 @@ function DrainNodeModal(props: Props) {
     }
 
     if (node != null) {
+      setInProgress(true);
       request({
         type: "DRAIN_AGENT",
         drain_agent: { agent_id: { value: node.getID() } },
         ...options
-      }).subscribe(() => {
-        onClose();
+      }).subscribe({
+        next: () => {
+          setNetworkError(null);
+          setInProgress(false);
+          onClose();
+        },
+        error: ({ code, message }: { code: number; message: string }) => {
+          setNetworkError(
+            code === 0 ? (
+              <Trans>Network is offline</Trans>
+            ) : (
+              <Trans>
+                Unable to complete request. Please try again. The error returned
+                was {code} {message}
+              </Trans>
+            )
+          );
+          setInProgress(false);
+        }
       });
     }
   };
@@ -84,7 +108,7 @@ function DrainNodeModal(props: Props) {
         <button
           className="button button-primary"
           onClick={handleDrain.bind(null, props.node)}
-          disabled={false}
+          disabled={inProgress}
         >
           <Trans>Drain</Trans>
         </button>
@@ -106,6 +130,15 @@ function DrainNodeModal(props: Props) {
         </ModalHeading>
       }
     >
+      {networkError && (
+        <div className="form-row-pad-bottom">
+          <InfoBoxInline
+            className="error-unanchored"
+            appearance="danger"
+            message={networkError}
+          />
+        </div>
+      )}
       {node && (
         <DrainNodeForm onChange={handleDrainOptions} formData={drainOptions} />
       )}
