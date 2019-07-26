@@ -919,6 +919,8 @@
   "Use Group Role": "",
   "Use Legacy Role": "",
   "Use cron format to set your schedule, e.g. 0 0 20 * *. <0>View documentation</0>.": "",
+  "Use group role": "",
+  "Use legacy role": "",
   "Use this text area to customize your configuration via JSON.": "",
   "User": "",
   "User Preferences": "",
