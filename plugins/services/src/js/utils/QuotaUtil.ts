@@ -120,7 +120,7 @@ export function serviceTreeHasQuota(
 }
 
 export function formatQuotaValueForDisplay(value: number): number {
-  return Math.round(value * 100) / 100;
+  return +value.toFixed(2);
 }
 
 export function formatQuotaPercentageForDisplay(
