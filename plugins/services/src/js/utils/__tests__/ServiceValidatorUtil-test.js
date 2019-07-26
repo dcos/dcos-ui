@@ -1,4 +1,4 @@
-const ServiceValidatorUtil = require("../ServiceValidatorUtil");
+import ServiceValidatorUtil from "../ServiceValidatorUtil";
 
 describe("ServiceValidatorUtil", function() {
   describe("#isValidServiceID", function() {
