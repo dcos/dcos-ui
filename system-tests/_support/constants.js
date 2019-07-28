@@ -5,7 +5,7 @@ const Timeouts = {
    * This should include the time required for the service to download it's
    * resources, allocate volumes and start the containers.
    */
-  SERVICE_DEPLOYMENT_TIMEOUT: 60000,
+  SERVICE_DEPLOYMENT_TIMEOUT: 180000,
 
   /**
    * How long to wait until an job is fully deployed.

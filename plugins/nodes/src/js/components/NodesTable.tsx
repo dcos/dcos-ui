@@ -14,7 +14,6 @@ import Node from "#SRC/js/structs/Node";
 import Loader from "#SRC/js/components/Loader";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 // @ts-ignore
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 
@@ -167,11 +166,6 @@ export default class NodesTable extends React.Component<
     const { data, sortColumn, sortDirection } = this.state;
     const { withPublicIP } = this.props;
 
-    const hasMaintenance = findNestedPropertyInObject(
-      ConfigStore.get("config"),
-      "uiConfiguration.features.maintenance"
-    );
-
     if (data === null) {
       return <Loader />;
     }
@@ -192,26 +186,21 @@ export default class NodesTable extends React.Component<
         onResize={this.handleResize("host")}
         width={hasCustomWidth("host") ? customWidthFor("host") : undefined}
       />,
-
-      hasMaintenance ? (
-        <Column
-          key="status"
-          header={
-            <SortableHeaderCell
-              columnContent={<Trans render="span">Status</Trans>}
-              sortHandler={this.handleSortClick("status")}
-              sortDirection={sortColumn === "status" ? sortDirection : null}
-            />
-          }
-          cellRenderer={statusRenderer}
-          minWidth={hasCustomWidth("status") ? undefined : 120}
-          resizable={true}
-          onResize={this.handleResize("status")}
-          width={
-            hasCustomWidth("status") ? customWidthFor("status") : undefined
-          }
-        />
-      ) : null,
+      <Column
+        key="status"
+        header={
+          <SortableHeaderCell
+            columnContent={<Trans render="span">Status</Trans>}
+            sortHandler={this.handleSortClick("status")}
+            sortDirection={sortColumn === "status" ? sortDirection : null}
+          />
+        }
+        cellRenderer={statusRenderer}
+        minWidth={hasCustomWidth("status") ? undefined : 120}
+        resizable={true}
+        onResize={this.handleResize("status")}
+        width={hasCustomWidth("status") ? customWidthFor("status") : undefined}
+      />,
       <Column
         key="health"
         header={
