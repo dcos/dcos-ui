@@ -20,6 +20,7 @@ import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import FormRow from "#SRC/js/components/form/FormRow";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -194,123 +195,155 @@ class ServiceRootGroupModal extends React.Component<
   getModalContent() {
     const { data, errors } = this.state;
     return (
-      <form className="container" onChange={this.handleFormChange}>
-        <ErrorsPanel errors={this.state.errors.form} />
-        <Trans render="h1" className="flush-top short-bottom">
-          General
-        </Trans>
-        <FormRow>
-          <FormGroup
-            className="column-12 column-medium-4"
-            showError={Boolean(errors.id)}
-          >
-            <FieldLabel>
-              <FormGroupHeading required={true}>
-                <Trans render={<FormGroupHeadingContent primary={true} />}>
-                  Name
-                </Trans>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldAutofocus>
-              <FieldInput
-                name="id"
-                type="text"
-                value={data.id}
-                disabled={this.props.isEdit}
-              />
-            </FieldAutofocus>
-            <FieldError>{errors.id}</FieldError>
-          </FormGroup>
-        </FormRow>
-        <FormRow>
-          <FormGroup className="column-12">
-            <FieldLabel>
-              <FormGroupHeading>
-                <Trans render={<FormGroupHeadingContent primary={false} />}>
-                  Path
-                </Trans>
-              </FormGroupHeading>
-            </FieldLabel>
-            <div>{getPathFromGroupId(data.id)}</div>
-          </FormGroup>
-        </FormRow>
-        <h2 className="short-bottom">
-          <FormGroupHeading>
-            <Trans render={<FormGroupHeadingContent primary={true} />}>
-              Quota
-            </Trans>
-          </FormGroupHeading>
-        </h2>
-        <Trans render="p">
-          Define the maximum amount of resources that can be used by services in
-          this group.
-        </Trans>
-        <FormRow>
-          <FormGroup
-            className="column-2"
-            showError={errors.quota && Boolean(errors.quota.cpus)}
-          >
-            <FieldLabel>
-              <FormGroupHeading>
-                <Trans render={<FormGroupHeadingContent />}>CPUs</Trans>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldAutofocus>
-              <FieldInput
-                name="quota.cpus"
-                type="text"
-                value={data.quota.cpus}
-              />
-              <FieldError>
-                {errors.quota && errors.quota.cpus ? errors.quota.cpus : null}
-              </FieldError>
-            </FieldAutofocus>
-          </FormGroup>
-          <FormGroup
-            className="column-2"
-            showError={errors.quota && Boolean(errors.quota.mem)}
-          >
-            <FieldLabel>
-              <FormGroupHeading>
-                <Trans render={<FormGroupHeadingContent />}>Mem (MiB)</Trans>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldInput name="quota.mem" type="text" value={data.quota.mem} />
-            <FieldError>
-              {errors.quota && errors.quota.mem ? errors.quota.mem : null}
-            </FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-2"
-            showError={errors.quota && Boolean(errors.quota.disk)}
-          >
-            <FieldLabel>
-              <FormGroupHeading>
-                <Trans render={<FormGroupHeadingContent />}>Disk (MiB)</Trans>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldInput name="quota.disk" type="text" value={data.quota.disk} />
-            <FieldError>
-              {errors.quota && errors.quota.disk ? errors.quota.disk : null}
-            </FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-2"
-            showError={errors.quota && Boolean(errors.quota.gpus)}
-          >
-            <FieldLabel>
-              <FormGroupHeading>
-                <Trans render={<FormGroupHeadingContent />}>GPUs</Trans>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldInput name="quota.gpus" type="text" value={data.quota.gpus} />
-            <FieldError>
-              {errors.quota && errors.quota.gpus ? errors.quota.gpus : null}
-            </FieldError>
-          </FormGroup>
-        </FormRow>
-        {this.getAdvancedSettings()}
-      </form>
+      <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
+        <FluidGeminiScrollbar>
+          <div className="modal-body-padding-surrogate create-service-modal-form-container">
+            <form className="container" onChange={this.handleFormChange}>
+              <ErrorsPanel errors={this.state.errors.form} />
+              <Trans render="h1" className="flush-top short-bottom">
+                General
+              </Trans>
+              <FormRow>
+                <FormGroup
+                  className="column-12 column-medium-4"
+                  showError={Boolean(errors.id)}
+                >
+                  <FieldLabel>
+                    <FormGroupHeading required={true}>
+                      <Trans
+                        render={<FormGroupHeadingContent primary={true} />}
+                      >
+                        Name
+                      </Trans>
+                    </FormGroupHeading>
+                  </FieldLabel>
+                  <FieldAutofocus>
+                    <FieldInput
+                      name="id"
+                      type="text"
+                      value={data.id}
+                      disabled={this.props.isEdit}
+                    />
+                  </FieldAutofocus>
+                  <FieldError>{errors.id}</FieldError>
+                </FormGroup>
+              </FormRow>
+              <FormRow>
+                <FormGroup className="column-12">
+                  <FieldLabel>
+                    <FormGroupHeading>
+                      <Trans
+                        render={<FormGroupHeadingContent primary={false} />}
+                      >
+                        Path
+                      </Trans>
+                    </FormGroupHeading>
+                  </FieldLabel>
+                  <div>{getPathFromGroupId(data.id)}</div>
+                </FormGroup>
+              </FormRow>
+              <h2 className="short-bottom">
+                <FormGroupHeading>
+                  <Trans render={<FormGroupHeadingContent primary={true} />}>
+                    Quota
+                  </Trans>
+                </FormGroupHeading>
+              </h2>
+              <Trans render="p">
+                Define the maximum amount of resources that can be used by
+                services in this group.
+              </Trans>
+              <FormRow>
+                <FormGroup
+                  className="column-2"
+                  showError={errors.quota && Boolean(errors.quota.cpus)}
+                >
+                  <FieldLabel>
+                    <FormGroupHeading>
+                      <Trans render={<FormGroupHeadingContent />}>CPUs</Trans>
+                    </FormGroupHeading>
+                  </FieldLabel>
+                  <FieldAutofocus>
+                    <FieldInput
+                      name="quota.cpus"
+                      type="text"
+                      value={data.quota.cpus}
+                    />
+                    <FieldError>
+                      {errors.quota && errors.quota.cpus
+                        ? errors.quota.cpus
+                        : null}
+                    </FieldError>
+                  </FieldAutofocus>
+                </FormGroup>
+                <FormGroup
+                  className="column-2"
+                  showError={errors.quota && Boolean(errors.quota.mem)}
+                >
+                  <FieldLabel>
+                    <FormGroupHeading>
+                      <Trans render={<FormGroupHeadingContent />}>
+                        Mem (MiB)
+                      </Trans>
+                    </FormGroupHeading>
+                  </FieldLabel>
+                  <FieldInput
+                    name="quota.mem"
+                    type="text"
+                    value={data.quota.mem}
+                  />
+                  <FieldError>
+                    {errors.quota && errors.quota.mem ? errors.quota.mem : null}
+                  </FieldError>
+                </FormGroup>
+                <FormGroup
+                  className="column-2"
+                  showError={errors.quota && Boolean(errors.quota.disk)}
+                >
+                  <FieldLabel>
+                    <FormGroupHeading>
+                      <Trans render={<FormGroupHeadingContent />}>
+                        Disk (MiB)
+                      </Trans>
+                    </FormGroupHeading>
+                  </FieldLabel>
+                  <FieldInput
+                    name="quota.disk"
+                    type="text"
+                    value={data.quota.disk}
+                  />
+                  <FieldError>
+                    {errors.quota && errors.quota.disk
+                      ? errors.quota.disk
+                      : null}
+                  </FieldError>
+                </FormGroup>
+                <FormGroup
+                  className="column-2"
+                  showError={errors.quota && Boolean(errors.quota.gpus)}
+                >
+                  <FieldLabel>
+                    <FormGroupHeading>
+                      <Trans render={<FormGroupHeadingContent />}>GPUs</Trans>
+                    </FormGroupHeading>
+                  </FieldLabel>
+                  <FieldInput
+                    name="quota.gpus"
+                    type="text"
+                    value={data.quota.gpus}
+                  />
+                  <FieldError>
+                    {errors.quota && errors.quota.gpus
+                      ? errors.quota.gpus
+                      : null}
+                  </FieldError>
+                </FormGroup>
+              </FormRow>
+              {this.getAdvancedSettings()}
+            </form>
+          </div>
+        </FluidGeminiScrollbar>
+      </div>
     );
   }
 
