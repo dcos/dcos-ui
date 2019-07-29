@@ -9,6 +9,8 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
+import EventTypes from "#SRC/js/constants/EventTypes";
+import Loader from "#SRC/js/components/Loader";
 
 import TaskDetail from "#PLUGINS/services/src/js/pages/task-details/TaskDetail";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -16,7 +18,34 @@ import Breadcrumbs from "../components/Breadcrumbs";
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
 class JobTaskDetailPage extends React.Component {
+  constructor(...args) {
+    super(...args);
+    this.state = { mesosStateStoreLoaded: false };
+
+    this.handleMesosStateChange = this.handleMesosStateChange.bind(this);
+
+    MesosStateStore.addChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+  }
+
+  handleMesosStateChange() {
+    this.setState({ mesosStateStoreLoaded: true });
+  }
+
+  componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+  }
+
   render() {
+    if (!this.state.mesosStateStoreLoaded) {
+      return <Loader />;
+    }
+
     const { location, params, routes } = this.props;
     const { id, taskID } = params;
 
@@ -30,6 +59,16 @@ class JobTaskDetailPage extends React.Component {
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
+
+    if (!task) {
+      return (
+        <Trans>
+          Either the data related to that task have already been cleaned up or
+          the given task-id does not exist.
+        </Trans>
+      );
+    }
+
     const breadcrumbs = (
       <Breadcrumbs>
         {task ? (
@@ -55,15 +94,9 @@ class JobTaskDetailPage extends React.Component {
           tabs={tabs}
           iconID={ProductIcons.Jobs}
         />
-        {task ? (
-          <TaskDetail params={params} routes={routes}>
-            {this.props.children}
-          </TaskDetail>
-        ) : (
-          <Trans>
-            The data related to that task has already been cleaned up.
-          </Trans>
-        )}
+        <TaskDetail params={params} routes={routes}>
+          {this.props.children}
+        </TaskDetail>
       </Page>
     );
   }
