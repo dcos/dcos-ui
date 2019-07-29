@@ -8,7 +8,6 @@ export default {
   uiConfigurationFixture: {
     uiConfiguration: {
       features: {
-        maintenance: false,
         quota: false
       },
       plugins: {
