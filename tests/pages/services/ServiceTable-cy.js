@@ -480,7 +480,7 @@ describe("Service Table", function() {
           .click();
         cy.get(".form-control-feedback")
           .contains(
-            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+            "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
           )
           .should("exist");
       });
@@ -494,7 +494,7 @@ describe("Service Table", function() {
           .click();
         cy.get(".form-control-feedback")
           .contains(
-            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+            "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
           )
           .should("exist");
       });
@@ -508,7 +508,7 @@ describe("Service Table", function() {
           .click();
         cy.get(".form-control-feedback")
           .contains(
-            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+            "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
           )
           .should("exist");
       });
@@ -522,7 +522,7 @@ describe("Service Table", function() {
           .click();
         cy.get(".form-control-feedback")
           .contains(
-            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+            "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
           )
           .should("exist");
       });
@@ -536,7 +536,7 @@ describe("Service Table", function() {
           .click();
         cy.get(".form-control-feedback")
           .contains(
-            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+            "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
           )
           .should("exist");
       });
