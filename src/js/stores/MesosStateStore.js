@@ -282,9 +282,7 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   setState(state) {
-    this.set({
-      lastMesosState: state
-    });
+    this.set({ lastMesosState: state });
   }
 
   setMaster(master) {
