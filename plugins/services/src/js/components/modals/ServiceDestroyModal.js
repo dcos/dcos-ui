@@ -1,12 +1,19 @@
 import { Trans, t } from "@lingui/macro";
-import { withI18n } from "@lingui/react";
+import { withI18n, i18nMark } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
+import { NotificationServiceType } from "@extension-kid/notification-service";
+import {
+  ToastNotification,
+  ToastAppearance
+} from "@extension-kid/toast-notifications";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import container from "#SRC/js/container";
+import { TYPES } from "#SRC/js/types/containerTypes";
 
 import AppLockedMessage from "./AppLockedMessage";
 import Framework from "../../structs/Framework";
@@ -20,8 +27,20 @@ const METHODS_TO_BIND = [
   "handleChangeInputFieldDestroy",
   "handleModalClose",
   "handleRightButtonClick",
-  "handleFormSubmit"
+  "handleFormSubmit",
+  "getNotification"
 ];
+
+const notificationService = container.get(NotificationServiceType);
+
+function i18nTranslate(id, values) {
+  const i18n = container.get(TYPES.I18n);
+  if (i18n) {
+    return i18n._(id, values);
+  } else {
+    return id;
+  }
+}
 
 class ServiceDestroyModal extends React.PureComponent {
   constructor() {
@@ -48,7 +67,12 @@ class ServiceDestroyModal extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { i18n } = this.props;
     const { errors } = nextProps;
+    const defaultErrorMsg = i18n._(
+      t`The delete action failed. Please try again.`
+    );
+
     if (!errors) {
       this.setState({ errorMsg: null });
 
@@ -61,7 +85,7 @@ class ServiceDestroyModal extends React.PureComponent {
       return;
     }
 
-    let { message: errorMsg = "", details } = errors;
+    let { message: errorMsg = defaultErrorMsg, details } = errors;
     const hasDetails = details && details.length !== 0;
 
     if (hasDetails) {
@@ -82,6 +106,9 @@ class ServiceDestroyModal extends React.PureComponent {
   }
 
   handleModalClose() {
+    if (this.state.errorMsg) {
+      notificationService.push(this.getNotification(this.state.errorMsg));
+    }
     this.setState({ serviceNameConfirmationValue: "" });
     this.props.onClose();
   }
@@ -122,8 +149,26 @@ class ServiceDestroyModal extends React.PureComponent {
     }
 
     return (
-      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
+      <h4 className="text-align-center text-danger flush-bottom">{errorMsg}</h4>
     );
+  }
+
+  getNotification(errorMsg) {
+    const { service } = this.props;
+    const serviceId = service
+      .getId()
+      .split("/")
+      .slice(-1)[0];
+    const title = i18nTranslate(
+      i18nMark('Failed to delete service "{serviceId}"'),
+      { serviceId }
+    );
+
+    return new ToastNotification(title, {
+      appearance: ToastAppearance.Danger,
+      autodismiss: true,
+      description: errorMsg
+    });
   }
 
   redirectToServices() {

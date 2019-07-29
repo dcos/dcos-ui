@@ -1,4 +1,5 @@
-import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
+import * as React from "react";
+import { Trans, Plural } from "@lingui/macro";
 import { Icon, TextCell, Tooltip } from "@dcos/ui-kit";
 import {
   greyLight,
@@ -6,8 +7,11 @@ import {
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import * as React from "react";
-import { Trans, Plural } from "@lingui/macro";
+
+import {
+  ServiceGroup,
+  QuotaLimitStatuses
+} from "#PLUGINS/services/src/js/types/ServiceGroup";
 
 export function limitRenderer(group: ServiceGroup) {
   const limit = group.quota ? group.quota.limitStatus : "N/A";
@@ -23,7 +27,7 @@ export function limitRenderer(group: ServiceGroup) {
 
   let icon = null;
   switch (limit) {
-    case "Enforced":
+    case QuotaLimitStatuses.enforced:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Icon
@@ -34,7 +38,7 @@ export function limitRenderer(group: ServiceGroup) {
         </div>
       );
       break;
-    case "Partially Enforced":
+    case QuotaLimitStatuses.partiallyEnforced:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Tooltip
@@ -56,7 +60,7 @@ export function limitRenderer(group: ServiceGroup) {
         </div>
       );
       break;
-    case "Not Enforced":
+    case QuotaLimitStatuses.notEnforced:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Icon
@@ -67,7 +71,7 @@ export function limitRenderer(group: ServiceGroup) {
         </div>
       );
       break;
-    case "N/A":
+    case QuotaLimitStatuses.na:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Icon

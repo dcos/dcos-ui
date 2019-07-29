@@ -1,9 +1,8 @@
-import { i18nMark } from "@lingui/core";
 import {
   QuotaResources,
   ServiceGroup,
   ServiceGroupQuota,
-  ServiceGroupQuotaLimit,
+  QuotaLimitStatuses,
   ServiceGroupQuotaRoles
 } from "../types/ServiceGroup";
 import { MesosRole } from "../types/MesosRoles";
@@ -76,26 +75,26 @@ export function populateResourcesFromRole(
 
 export function getQuotaLimit(
   roles: ServiceGroupQuotaRoles | undefined | null
-): ServiceGroupQuotaLimit {
+): string {
   if (roles === undefined || roles === null) {
-    return i18nMark("N/A") as ServiceGroupQuotaLimit;
+    return QuotaLimitStatuses.na;
   }
   // All roles are group role or 0 roles.
   if (!roles.count || roles.count === roles.groupRoleCount) {
-    return i18nMark("Enforced") as ServiceGroupQuotaLimit;
+    return QuotaLimitStatuses.enforced;
   }
 
   // At least one role and 0 group roles.
   if (roles.count && !roles.groupRoleCount) {
-    return i18nMark("Not Enforced") as ServiceGroupQuotaLimit;
+    return QuotaLimitStatuses.notEnforced;
   }
 
   // At least one group role, at least one non-group role.
   if (roles.groupRoleCount && roles.count > roles.groupRoleCount) {
-    return i18nMark("Partially Enforced") as ServiceGroupQuotaLimit;
+    return QuotaLimitStatuses.partiallyEnforced;
   }
 
-  return i18nMark("N/A") as ServiceGroupQuotaLimit;
+  return QuotaLimitStatuses.na;
 }
 
 export function serviceTreeHasQuota(
@@ -118,4 +117,15 @@ export function serviceTreeHasQuota(
     role.quota.limit &&
     Object.keys(role.quota.limit).length > 0
   );
+}
+
+export function formatQuotaValueForDisplay(value: number): number {
+  return +value.toFixed(2);
+}
+
+export function formatQuotaPercentageForDisplay(
+  usedValue: number,
+  totalValue: number
+): number {
+  return Math.round((100 * usedValue) / totalValue) || 0;
 }

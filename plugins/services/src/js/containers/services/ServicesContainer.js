@@ -378,7 +378,7 @@ class ServicesContainer extends React.Component {
         this.unsetPendingAction(ActionKeys.SERVICE_DELETE);
         break;
       case REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR:
-        this.unsetPendingAction(ActionKeys.SERVICE_EDIT, action.data);
+        this.unsetPendingAction(ActionKeys.SERVICE_DELETE, action.data);
         break;
     }
   }

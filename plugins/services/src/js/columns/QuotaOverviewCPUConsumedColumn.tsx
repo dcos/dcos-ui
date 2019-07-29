@@ -5,6 +5,7 @@ import { Cell, Tooltip } from "@dcos/ui-kit";
 import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import { formatQuotaValueForDisplay } from "../utils/QuotaUtil";
 
 const className = `color-${ResourcesUtil.getResourceColor("cpus")}`;
 
@@ -29,7 +30,8 @@ export function cpuRenderer(group: ServiceGroup) {
               }
             >
               <Trans render="span">
-                {quota.consumed} of {quota.limit} Cores
+                {formatQuotaValueForDisplay(quota.consumed || 0)} of{" "}
+                {formatQuotaValueForDisplay(quota.limit)} Cores
               </Trans>
             </Tooltip>
           </div>

@@ -231,7 +231,7 @@ describe("Quota Tab", function() {
           .should("exist");
         cy.get(".quota-card-main")
           .eq(1)
-          .contains("12.5%")
+          .contains("13%")
           .should("exist");
         cy.get(".quota-card-main")
           .eq(2)
