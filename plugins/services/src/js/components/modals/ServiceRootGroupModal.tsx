@@ -188,7 +188,7 @@ class ServiceRootGroupModal extends React.Component<
             default:
               this.setState({
                 errors: {
-                  misc: <span>Unable to create group: {e.message}</span>
+                  misc: <Trans>Unable to create group: {e.message}</Trans>
                 },
                 isPending: false
               });
