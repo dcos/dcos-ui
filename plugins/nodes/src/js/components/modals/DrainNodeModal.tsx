@@ -8,6 +8,7 @@ import { InfoBoxInline } from "@dcos/ui-kit";
 
 import Node from "#SRC/js/structs/Node";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
+import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanceActions";
 
 import DrainNodeForm, { DrainOptions } from "../DrainNodeForm";
 
@@ -15,11 +16,6 @@ interface Props {
   open: boolean;
   onClose: () => void;
   node: Node | null;
-}
-
-interface MesosDrainAgentOptions {
-  max_grace_period?: { nanoseconds: number };
-  mark_gone?: { value: boolean };
 }
 
 const DEFAULT_DRAIN_OPTIONS: DrainOptions = {
@@ -54,30 +50,16 @@ function DrainNodeModal(props: Props) {
   }
 
   const handleDrain = (node: Node | null) => {
-    const options: MesosDrainAgentOptions = {};
-    if (drainOptions.maxGracePeriod) {
-      options.max_grace_period = {
-        nanoseconds: drainOptions.maxGracePeriod * 1000000000
-      };
-    }
-
-    if (drainOptions.decommission) {
-      options.mark_gone = { value: true };
-    }
-
     if (node != null) {
       setInProgress(true);
-      request({
-        type: "DRAIN_AGENT",
-        drain_agent: { agent_id: { value: node.getID() } },
-        ...options
-      }).subscribe({
-        next: () => {
+
+      NodeMaintenanceActions.drainNode(node, drainOptions, {
+        onSuccess: () => {
           setNetworkError(null);
           setInProgress(false);
           onClose();
         },
-        error: ({ code, message }: { code: number; message: string }) => {
+        onError: ({ code, message }: { code: number; message: string }) => {
           setNetworkError(
             code === 0 ? (
               <Trans>Network is offline</Trans>

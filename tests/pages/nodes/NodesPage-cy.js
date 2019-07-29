@@ -101,6 +101,36 @@ describe("Nodes Page", function() {
       cy.get(".modal").should("to.have.length", 0);
     });
 
+    it("active nodes can be deactivated via action", function() {
+      cy.route({
+        method: "POST",
+        url: /\/mesos\/api\/v1/,
+        response: []
+      });
+
+      openDropdown("167.114.218.156");
+      clickDropdownAction("Deactivate");
+
+      cy.get(".modal").should("contain", "Deactivate");
+
+      cy.get(".modal .button-danger")
+        .should("contain", "Deactivate")
+        .click();
+
+      cy.get(".modal").should("to.have.length", 0);
+    });
+
+    it("draining nodes can be reactivated via action", function() {
+      cy.route({
+        method: "POST",
+        url: /\/mesos\/api\/v1/,
+        response: []
+      });
+
+      openDropdown("167.114.218.155");
+      clickDropdownAction("Reactivate");
+    });
+
     it("shows only private nodes", function() {
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("is:private");
