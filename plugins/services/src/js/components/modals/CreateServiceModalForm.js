@@ -17,6 +17,10 @@ import ErrorMessageUtil from "#SRC/js/utils/ErrorMessageUtil";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
+import SplitPanel, {
+  PrimaryPanel,
+  SidePanel
+} from "#SRC/js/components/SplitPanel";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
@@ -57,7 +61,8 @@ const METHODS_TO_BIND = [
   "handleJSONPropertyChange",
   "handleJSONErrorStateChange",
   "handleRemoveItem",
-  "handleClickItem"
+  "handleClickItem",
+  "onEditorResize"
 ];
 
 /**
@@ -801,6 +806,10 @@ class CreateServiceModalForm extends Component {
     });
   }
 
+  onEditorResize(newSize) {
+    this.setState({ editorWidth: newSize });
+  }
+
   render() {
     const { appConfig, batch } = this.state;
     const {
@@ -817,14 +826,6 @@ class CreateServiceModalForm extends Component {
     const unmutedErrors = this.getUnmutedErrors();
     const errors = this.getErrors();
 
-    const jsonEditorPlaceholderClasses = classNames(
-      "modal-full-screen-side-panel-placeholder",
-      { "is-visible": isJSONModeActive }
-    );
-    const jsonEditorClasses = classNames("modal-full-screen-side-panel", {
-      "is-visible": isJSONModeActive
-    });
-
     const errorMap = DataValidatorUtil.errorArrayToMap(unmutedErrors);
     const navigationItems = this.getFormNavigationItems(appConfig, data);
     const tabButtonListItems = this.getFormTabList(navigationItems);
@@ -834,8 +835,8 @@ class CreateServiceModalForm extends Component {
     );
 
     return (
-      <div className="flex flex-item-grow-1">
-        <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
+      <SplitPanel onResize={this.onEditorResize}>
+        <PrimaryPanel className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
           <PageHeaderNavigationDropdown
             handleNavigationItemSelection={
               this.handleDropdownNavigationSelection
@@ -886,9 +887,8 @@ class CreateServiceModalForm extends Component {
               </form>
             </div>
           </FluidGeminiScrollbar>
-        </div>
-        <div className={jsonEditorPlaceholderClasses} />
-        <div className={jsonEditorClasses}>
+        </PrimaryPanel>
+        <SidePanel isActive={isJSONModeActive} className="jsonEditorWrapper">
           <Suspense fallback={<div>Loading...</div>}>
             <JSONEditor
               errors={errors}
@@ -900,11 +900,13 @@ class CreateServiceModalForm extends Component {
               theme="monokai"
               height="100%"
               value={appConfig}
-              width="100%"
+              width={
+                this.state.editorWidth ? `${this.state.editorWidth}px` : "100%"
+              }
             />
           </Suspense>
-        </div>
-      </div>
+        </SidePanel>
+      </SplitPanel>
     );
   }
 }
