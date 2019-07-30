@@ -27,18 +27,13 @@ function DeactivateNodeConfirm(props: Props) {
     null
   );
 
-  let [prevOpenState, setPrevOpenState] = useState<boolean | null>(null);
+  const handleClose = () => {
+    setNetworkError(null);
+    setInProgress(false);
+    onClose();
+  };
 
-  // Reset form when closed
-  if (open !== prevOpenState) {
-    if (!open) {
-      setNetworkError(null);
-      setInProgress(false);
-    }
-    setPrevOpenState(open);
-  }
-
-  const handleDeactivate = (node: Node | null, onClose: () => void) => {
+  const handleDeactivate = (node: Node | null) => {
     if (node == null) {
       return;
     }
@@ -46,7 +41,7 @@ function DeactivateNodeConfirm(props: Props) {
     setInProgress(true);
 
     NodeMaintenanceActions.deactivateNode(node, {
-      onSuccess: () => onClose(),
+      onSuccess: handleClose,
       onError: ({ code, message }: { code: number; message: string }) => {
         setInProgress(true);
         setNetworkError(
@@ -73,9 +68,9 @@ function DeactivateNodeConfirm(props: Props) {
       disabled={inProgress}
       header={<Trans render="strong">Deactivate Node</Trans>}
       open={open}
-      onClose={onClose}
-      rightButtonCallback={handleDeactivate.bind(null, node, onClose)}
-      leftButtonCallback={onClose}
+      onClose={handleClose}
+      rightButtonCallback={handleDeactivate.bind(null, node)}
+      leftButtonCallback={handleClose}
       leftButtonClassName="button button-primary-link flush-left"
       leftButtonText={i18n._(i18nMark("Cancel"))}
       rightButtonClassName="button button-danger"
