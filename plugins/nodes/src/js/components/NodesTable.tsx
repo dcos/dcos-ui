@@ -371,11 +371,7 @@ export default class NodesTable extends React.Component<
       hasMaintenance ? (
         <Column
           key="actions"
-          header={
-            <HeaderCell>
-              <span />
-            </HeaderCell>
-          }
+          header=""
           cellRenderer={generateActionsRenderer(this.props.onNodeAction)}
           growToFill={true}
           minWidth={24}
