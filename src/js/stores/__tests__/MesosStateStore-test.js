@@ -62,39 +62,6 @@ describe("MesosStateStore", function() {
     });
   });
 
-  describe("#getServiceFromName", function() {
-    beforeEach(function() {
-      thisGet = MesosStateStore.get;
-    });
-
-    afterEach(function() {
-      MesosStateStore.get = thisGet;
-    });
-
-    it("returns undefined on empty state", function() {
-      MesosStateStore.get = () => null;
-      expect(MesosStateStore.getServiceFromName("unknown")).toBeUndefined();
-
-      MesosStateStore.get = () => ({});
-      expect(MesosStateStore.getServiceFromName("unknown")).toBeUndefined();
-    });
-
-    it("returns the service with the name", function() {
-      MesosStateStore.get = () => ({
-        frameworks: [
-          { name: "marathon" },
-          { name: "zipkin", id: "zipkin_1" },
-          { name: "cassandra" }
-        ]
-      });
-
-      expect(MesosStateStore.getServiceFromName("zipkin")).toEqual({
-        name: "zipkin",
-        id: "zipkin_1"
-      });
-    });
-  });
-
   describe("#getTasksByService", function() {
     beforeEach(function() {
       thisGet = MesosStateStore.get;

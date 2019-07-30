@@ -173,18 +173,6 @@ class MesosStateStore extends GetSetBaseStore {
     );
   }
 
-  getServiceFromName(name) {
-    const services = this.getLastMesosState().frameworks;
-
-    if (services) {
-      return services.find(function(service) {
-        return service.name === name;
-      });
-    }
-
-    return null;
-  }
-
   getNodeFromID(id) {
     const nodes = this.getLastMesosState().slaves;
 
