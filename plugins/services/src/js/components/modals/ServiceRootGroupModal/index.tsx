@@ -388,7 +388,7 @@ class ServiceRootGroupModal extends React.Component<
                   name="enforceRole"
                   value={true}
                 />
-                <Trans>Use group role</Trans>
+                <Trans>Use Group Role</Trans>
                 <SpacingBox side="left" spacingSize="s" tag="span">
                   <Badge>
                     <Trans>Recommended</Trans>
@@ -402,7 +402,7 @@ class ServiceRootGroupModal extends React.Component<
                   name="enforceRole"
                   value={false}
                 />
-                <Trans>Use legacy role</Trans>
+                <Trans>Use Legacy Role</Trans>
               </FieldLabel>
             </FormGroup>
           </FormRow>
