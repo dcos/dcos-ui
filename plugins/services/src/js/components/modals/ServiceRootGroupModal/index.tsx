@@ -20,6 +20,7 @@ import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
+import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import FormRow from "#SRC/js/components/form/FormRow";
 import FormGroup from "#SRC/js/components/form/FormGroup";
@@ -29,6 +30,7 @@ import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 
+import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
   GroupFormData,
   GroupFormErrors
@@ -52,8 +54,10 @@ const groupCreateMutation = gql`
 `;
 
 function getSaveAction(data: GroupFormData) {
+  const newID = formatQuotaID(data.id);
+  const newData = (({ id, ...other }) => ({ id: newID, ...other }))(data);
   return dl.query(groupCreateMutation, {
-    data
+    data: newData
   });
 }
 
@@ -394,6 +398,12 @@ class ServiceRootGroupModal extends React.Component<
                     <Trans>Recommended</Trans>
                   </Badge>
                 </SpacingBox>
+                <FieldHelp>
+                  <Trans>
+                    Allows Quota to be enforced on all the services in the
+                    group.
+                  </Trans>
+                </FieldHelp>
               </FieldLabel>
               <FieldLabel className="text-align-left">
                 <FieldInput
@@ -403,6 +413,11 @@ class ServiceRootGroupModal extends React.Component<
                   value={false}
                 />
                 <Trans>Use Legacy Role</Trans>
+                <FieldHelp>
+                  <Trans>
+                    Will not enforce quota on all services in the group.
+                  </Trans>
+                </FieldHelp>
               </FieldLabel>
             </FormGroup>
           </FormRow>

@@ -129,3 +129,11 @@ export function formatQuotaPercentageForDisplay(
 ): number {
   return Math.round((100 * usedValue) / totalValue) || 0;
 }
+
+export function formatQuotaID(id: string) {
+  if (id.startsWith("/")) {
+    return id;
+  }
+
+  return "/" + id;
+}
