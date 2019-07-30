@@ -188,12 +188,12 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
           onNodeAction={this.handleNodeAction}
         />
         <DrainNodeModal
-          open={selectedNodeToDrain != null}
+          open={selectedNodeToDrain !== null}
           node={selectedNodeToDrain}
           onClose={this.handleCloseModal}
         />
         <DeactivateNodeConfirm
-          open={selectedNodeToDeactivate != null}
+          open={selectedNodeToDeactivate !== null}
           node={selectedNodeToDeactivate}
           onClose={this.handleCloseModal}
         />
