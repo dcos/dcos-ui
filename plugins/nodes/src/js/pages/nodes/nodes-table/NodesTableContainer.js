@@ -14,6 +14,7 @@ import {
 import gql from "graphql-tag";
 
 import container from "#SRC/js/container";
+import MesosSummaryActions from "#SRC/js/events/MesosSummaryActions";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
@@ -141,7 +142,9 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       this.setState({ selectedNodeToDeactivate: node });
     } else if (action === "reactivate") {
       NodeMaintenanceActions.reactivateNode(node, {
-        onSuccess: () => {},
+        onSuccess: () => {
+          MesosSummaryActions.fetchSummary();
+        },
         onError: ({ code, message }) => {
           notificationService.push(
             new ToastNotification(i18n._(i18nMark("Cannot Reactivate Node")), {
@@ -168,6 +171,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       selectedNodeToDrain: null,
       selectedNodeToDeactivate: null
     });
+    MesosSummaryActions.fetchSummary();
   }
 
   render() {
