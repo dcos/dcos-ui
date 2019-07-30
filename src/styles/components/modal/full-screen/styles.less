@@ -28,17 +28,17 @@
     .modal-body {
       display: flex;
       flex: 1 0 auto;
-      min-height: 100%;
+      flex-direction: column;
+      height: 100%;
       overflow: hidden;
+    }
+
+    .splitPanels {
+      flex-grow: 1;
     }
 
     .modal-body-offset {
       margin: -@modal-full-screen-body-padding-vertical -@modal-full-screen-body-padding-horizontal;
-
-      & > .gm-scrollbar-container {
-        flex: 1 1 auto;
-        height: auto;
-      }
     }
   }
 
@@ -83,28 +83,6 @@
 
   .modal-full-screen-actions-secondary {
     margin-right: @base-spacing-unit * 1/2;
-  }
-
-  .modal-full-screen-side-panel {
-    height: 100%;
-    position: absolute;
-    right: @modal-full-screen-side-panel-width * -1;
-    top: 0;
-    transition: right 0.35s, visibility 0.35s;
-    visibility: hidden;
-    width: @modal-full-screen-side-panel-width;
-    will-change: right;
-    z-index: @z-index-modal-side-panel;
-
-    &.is-visible {
-      right: 0;
-      transition: right 0.35s;
-      visibility: visible;
-    }
-  }
-
-  .modal-full-screen-side-panel-placeholder {
-    display: none;
   }
 }
 
@@ -198,22 +176,6 @@
 
     .modal-full-screen-actions-secondary {
       left: @pod-margin-left-screen-large;
-    }
-
-    .modal-full-screen-side-panel {
-      right: @modal-full-screen-side-panel-width-screen-large * -1;
-      width: @modal-full-screen-side-panel-width-screen-large;
-    }
-
-    .modal-full-screen-side-panel-placeholder {
-      display: block;
-      flex-shrink: 0;
-      transition: width 0.35s;
-      width: 0;
-
-      &.is-visible {
-        width: @modal-full-screen-side-panel-width-screen-large;
-      }
     }
   }
 }
