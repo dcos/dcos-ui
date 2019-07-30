@@ -9,7 +9,6 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
-import EventTypes from "#SRC/js/constants/EventTypes";
 import Loader from "#SRC/js/components/Loader";
 
 import TaskDetail from "#PLUGINS/services/src/js/pages/task-details/TaskDetail";
@@ -22,23 +21,9 @@ class JobTaskDetailPage extends React.Component {
     super(...args);
     this.state = { mesosStateStoreLoaded: false };
 
-    this.handleMesosStateChange = this.handleMesosStateChange.bind(this);
-
-    MesosStateStore.addChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.handleMesosStateChange
-    );
-  }
-
-  handleMesosStateChange() {
-    this.setState({ mesosStateStoreLoaded: true });
-  }
-
-  componentWillUnmount() {
-    MesosStateStore.removeChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.handleMesosStateChange
-    );
+    MesosStateStore.ready.then(() => {
+      this.setState({ mesosStateStoreLoaded: true });
+    });
   }
 
   render() {

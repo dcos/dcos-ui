@@ -56,8 +56,13 @@ class JobRunHistoryTable extends React.Component {
 
     this.state = {
       checkedItems: {},
-      isStopRunModalShown: null
+      isStopRunModalShown: null,
+      mesosStateStoreLoaded: false
     };
+
+    MesosStateStore.ready.then(() => {
+      this.setState({ mesosStateStoreLoaded: true });
+    });
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -248,6 +253,11 @@ class JobRunHistoryTable extends React.Component {
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       const taskID = row.taskID;
+
+      if (!this.state.mesosStateStoreLoaded) {
+        return <Trans>Loading...</Trans>;
+      }
+
       // It may be that the data only *seems* to be present because we don't
       // remove tasks from the MesosStateStore when they're garbage collected in
       // the background.

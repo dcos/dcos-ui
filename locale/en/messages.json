@@ -449,6 +449,7 @@
   "Load balance the service internally (layer 4), and create a service address. For external (layer 7) load balancing, create an external load balancer and attach this service. <0>More Information</0>.": "",
   "Load balance this service internally at {hostName}": "",
   "Loading selected version": "",
+  "Loading...": "",
   "Local Persistent Volume": "",
   "Log out": "",
   "Logrotate allows for the automatic rotation compression, removal, and mailing of log files.": "",
