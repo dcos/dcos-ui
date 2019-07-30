@@ -39,6 +39,10 @@ class MesosStateStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 
+    this.ready = new Promise(resolve => {
+      this.resolve = resolve;
+    });
+
     this.getSet_data = {
       lastMesosState: {}
     };
@@ -94,11 +98,15 @@ class MesosStateStore extends GetSetBaseStore {
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const data$ = mesos$.pipe(
-      merge(masterRequest$),
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
       tap(state => {
         this.set({ lastMesosState: state });
+
+        // This is the moment that we first have full information from the
+        // mesos-stream. We'll see a couple MESOS_STATE_CHANGED before though
+        // (with empty data) because of the way the stream is currently modeled.
+        this.resolve();
       }, console.error)
     );
 
