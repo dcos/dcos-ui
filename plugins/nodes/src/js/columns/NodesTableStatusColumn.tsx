@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Trans } from "@lingui/macro";
 import { Cell, Icon } from "@dcos/ui-kit";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
@@ -10,7 +11,9 @@ const StatusCell = React.memo(({ status }: { status: Status }) => (
   <Cell>
     <span className="flex flex-align-items-center">
       <Icon {...status.icon} size={iconSizeXs} />
-      <span style={{ marginLeft: "7px" }}>{status.displayName}</span>
+      <span style={{ marginLeft: "7px" }}>
+        <Trans id={status.displayName} />
+      </span>
     </span>
   </Cell>
 ));
