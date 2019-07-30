@@ -18,7 +18,7 @@ import {
   populateResourcesFromRole
 } from "../../utils/QuotaUtil";
 
-import { createGroup } from "../MarathonClient";
+import { createGroup, editGroup } from "../MarathonClient";
 import { updateQuota } from "../MesosClient";
 import { GroupFormData } from "../../types/GroupForm";
 
@@ -134,6 +134,27 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           );
         }
         return createGroup(args.data.id, args.data.enforceRole).pipe(
+          map(() => {
+            return "SUCCESS";
+          }),
+          switchMap(groupResp => {
+            if (groupResp !== "SUCCESS") {
+              return of(groupResp);
+            }
+            return updateQuota(args.data.id, args.data.quota);
+          })
+        );
+      },
+      editGroup(
+        _parent = {},
+        args: Record<string, unknown> = {}
+      ): Observable<string> {
+        if (!isGroupCreateArgs(args)) {
+          return throwError(
+            "editGroup mutation arguments aren't valid for type GroupCreateArgs"
+          );
+        }
+        return editGroup(args.data.id, args.data.enforceRole).pipe(
           map(() => {
             return "SUCCESS";
           }),

@@ -144,7 +144,8 @@ class ServicesTable extends React.Component {
     super(...arguments);
     this.actionsRenderer = actionsRendererFactory(
       this.handleActionDisabledModalOpen.bind(this),
-      this.handleServiceAction.bind(this)
+      this.handleServiceAction.bind(this),
+      this.props.isRoot
     );
 
     this.state = {
@@ -632,7 +633,8 @@ ServicesTable.defaultProps = {
 ServicesTable.propTypes = {
   isFiltered: PropTypes.bool,
   hasQuota: PropTypes.bool,
-  services: PropTypes.array
+  services: PropTypes.array,
+  isRoot: PropTypes.bool
 };
 
 function withMasterRegionName(Component) {

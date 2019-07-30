@@ -3,8 +3,10 @@ import { hashHistory } from "react-router";
 
 import EditFrameworkConfiguration from "#PLUGINS/services/src/js/pages/EditFrameworkConfiguration";
 import CreateServiceModal from "#PLUGINS/services/src/js/components/modals/CreateServiceModal";
+import ServiceRootGroupModal from "#PLUGINS/services/src/js/components/modals/ServiceRootGroupModal/index";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
+import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
 
 class EditServiceModal extends Component {
   render() {
@@ -30,6 +32,10 @@ class EditServiceModal extends Component {
       service.getLabels().DCOS_PACKAGE_METADATA != null
     ) {
       return <EditFrameworkConfiguration {...this.props} />;
+    }
+
+    if (service instanceof ServiceTree) {
+      return <ServiceRootGroupModal id={id} {...this.props} />;
     }
 
     return <CreateServiceModal {...this.props} />;

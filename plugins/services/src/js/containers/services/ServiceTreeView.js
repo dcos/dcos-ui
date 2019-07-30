@@ -153,7 +153,8 @@ class ServiceTreeView extends React.Component {
 
     const { modalHandlers } = this.context;
     // Only add id if service is not root
-    const routePath = serviceTree.isRoot()
+    const isRoot = serviceTree.isRoot();
+    const routePath = isRoot
       ? "/services/overview/create"
       : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
     const hasQuota = serviceTreeHasQuota(serviceTree, roles);
@@ -162,7 +163,7 @@ class ServiceTreeView extends React.Component {
       this.context.router.push(routePath);
     };
     let createGroup;
-    if (serviceTree.isRoot() && quotaFeatureEnabled()) {
+    if (isRoot && quotaFeatureEnabled()) {
       createGroup = () => {
         this.context.router.push("/services/overview/create_group");
       };
@@ -216,7 +217,7 @@ class ServiceTreeView extends React.Component {
             hideTable={this.context.router.routes.some(
               ({ isFullscreenModal }) => isFullscreenModal
             )}
-            serviceTreeId={serviceTree.id}
+            isRoot={isRoot}
           />
         </div>
         {children}

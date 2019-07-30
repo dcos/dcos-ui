@@ -4,7 +4,9 @@ import { I18n } from "@lingui/core";
 import { Trans } from "@lingui/macro";
 import gql from "graphql-tag";
 import { DataLayer, DataLayerType } from "@extension-kid/data-layer";
+
 import { take } from "rxjs/operators";
+
 import { Badge, SpacingBox } from "@dcos/ui-kit";
 import set from "lodash.set";
 import { Tooltip } from "reactjs-components";
@@ -29,6 +31,7 @@ import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingCon
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
+import Loader from "#SRC/js/components/Loader";
 
 import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
@@ -40,6 +43,7 @@ import GroupModalHeader from "./Header";
 import ErrorsPanel from "./ErrorsPanel";
 import {
   emptyGroupFormData,
+  groupFormDataFromGraphql,
   getPathFromGroupId,
   validateGroupFormData
 } from "./utils";
@@ -53,24 +57,51 @@ const groupCreateMutation = gql`
   }
 `;
 
-function getSaveAction(data: GroupFormData) {
+const groupEditMutation = gql`
+  mutation {
+    editGroup(data: $data)
+  }
+`;
+
+function getSaveAction(data: GroupFormData, isEdit: boolean) {
   const newID = formatQuotaID(data.id);
   const newData = (({ id, ...other }) => ({ id: newID, ...other }))(data);
-  return dl.query(groupCreateMutation, {
+  if (!isEdit) {
+    return dl.query(groupCreateMutation, {
+      data: newData
+    });
+  }
+  return dl.query(groupEditMutation, {
     data: newData
   });
+}
+
+function getGroup(id: string) {
+  return dl.query(
+    gql`
+      query {
+        group(id: $id) {
+          id
+          name
+          quota
+        }
+      }
+    `,
+    { id }
+  );
 }
 
 interface ServiceRootGroupModalState {
   isOpen: boolean;
   isPending: boolean;
   expandAdvancedSettings: boolean;
-  data: GroupFormData;
+  data: GroupFormData | null;
+  originalData: GroupFormData | null;
   errors: GroupFormErrors;
 }
 
 interface ServiceRootGroupModalProps {
-  isEdit: boolean;
+  id: string;
 }
 
 const METHODS_TO_BIND: string[] = [
@@ -79,7 +110,8 @@ const METHODS_TO_BIND: string[] = [
   "handleAdvancedSectionClick",
   "handleClose",
   "handleFormChange",
-  "handleSave"
+  "handleSave",
+  "getGroupFormData"
 ];
 
 class ServiceRootGroupModal extends React.Component<
@@ -90,7 +122,9 @@ class ServiceRootGroupModal extends React.Component<
     router: routerShape
   };
   static defaultProps = {
-    isEdit: false
+    isEdit: false,
+    group: null,
+    id: ""
   };
 
   constructor() {
@@ -98,6 +132,7 @@ class ServiceRootGroupModal extends React.Component<
     super(...arguments);
 
     this.state = this.getInitialState();
+    this.getGroupFormData();
 
     METHODS_TO_BIND.forEach(method => {
       // @ts-ignore
@@ -113,6 +148,7 @@ class ServiceRootGroupModal extends React.Component<
       isPending: false,
       expandAdvancedSettings: false,
       data: emptyGroupFormData(),
+      originalData: null,
       errors: {}
     };
   }
@@ -130,16 +166,27 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   handleSave() {
-    if (this.state.isPending) {
+    // const {} = this.state;
+    if (this.state.isPending || !this.state.data) {
       return;
     }
-    const errors = validateGroupFormData(this.state.data, this.props.isEdit);
+    const isEdit = !!this.props.id;
+
+    if (
+      JSON.stringify(this.state.data) ===
+      JSON.stringify(this.state.originalData)
+    ) {
+      // No changes.
+      return this.handleClose();
+    }
+    const errors = validateGroupFormData(this.state.data, isEdit);
     if (errors) {
       this.setState({ errors });
       return;
     }
+
     this.setState({ isPending: true });
-    getSaveAction(this.state.data)
+    getSaveAction(this.state.data, isEdit)
       .pipe(take(1))
       .subscribe({
         next: () => this.handleClose(),
@@ -196,8 +243,36 @@ class ServiceRootGroupModal extends React.Component<
     });
   }
 
+  getGroupFormData(): void {
+    const { id } = this.props;
+    if (!!id) {
+      getGroup(id)
+        .pipe(take(1))
+        .subscribe({
+          next: groupData => {
+            const data = groupFormDataFromGraphql(groupData.data.group);
+            this.setState({
+              data,
+              originalData: JSON.parse(JSON.stringify(data))
+            });
+          }
+        });
+    }
+    this.setState({
+      data: emptyGroupFormData()
+    });
+  }
+
   getModalContent() {
-    const { data, errors } = this.state;
+    const { id } = this.props;
+    const { errors, data } = this.state;
+    // If id exists, then we must be editing.
+    const isEdit = !!id;
+
+    if (!data) {
+      return <Loader />;
+    }
+
     return (
       <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
         <FluidGeminiScrollbar>
@@ -226,7 +301,7 @@ class ServiceRootGroupModal extends React.Component<
                       name="id"
                       type="text"
                       value={data.id}
-                      disabled={this.props.isEdit}
+                      disabled={isEdit}
                     />
                   </FieldAutofocus>
                   <FieldError>{errors.id}</FieldError>
@@ -352,13 +427,20 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   getAdvancedSettings() {
-    const { data } = this.state;
+    const { data, originalData } = this.state;
     const roleEnforcementTooltipContent = (
       <Trans>
         Select role type that will be enforced to all services added inside this
         group
       </Trans>
     );
+
+    if (!data) {
+      return;
+    }
+
+    const isDisabled =
+      !!this.props.id && originalData && originalData.enforceRole;
 
     return (
       <AdvancedSection shouldExpand={this.state.expandAdvancedSettings}>
@@ -391,6 +473,7 @@ class ServiceRootGroupModal extends React.Component<
                   type="radio"
                   name="enforceRole"
                   value={true}
+                  disabled={isDisabled}
                 />
                 <Trans>Use Group Role</Trans>
                 <SpacingBox side="left" spacingSize="s" tag="span">
@@ -411,6 +494,7 @@ class ServiceRootGroupModal extends React.Component<
                   type="radio"
                   name="enforceRole"
                   value={false}
+                  disabled={isDisabled}
                 />
                 <Trans>Use Legacy Role</Trans>
                 <FieldHelp>
@@ -427,7 +511,7 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   handleFormChange(event: React.FormEvent<HTMLFormElement>) {
-    if (this.state.isPending) {
+    if (this.state.isPending || !this.state.data) {
       return;
     }
     const target = event.target as HTMLInputElement;
@@ -456,12 +540,13 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   render() {
+    const isEdit = !!this.props.id;
     return (
       <FullScreenModal
         header={
           <GroupModalHeader
             i18n={i18n}
-            isEdit={this.props.isEdit}
+            isEdit={isEdit}
             onClose={this.handleClose}
             onSave={this.handleSave}
           />
