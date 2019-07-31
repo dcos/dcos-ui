@@ -1,31 +1,23 @@
 import mixin from "reactjs-mixin";
 import React from "react";
-import { i18nMark, withI18n } from "@lingui/react";
-import { Trans } from "@lingui/macro";
+import { withI18n } from "@lingui/react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { map, catchError } from "rxjs/operators";
 import { combineLatest, of } from "rxjs";
 import { graphqlObservable, componentFromStream } from "@dcos/data-service";
-import { NotificationServiceType } from "@extension-kid/notification-service";
-import {
-  ToastNotification,
-  ToastAppearance
-} from "@extension-kid/toast-notifications";
 import gql from "graphql-tag";
 
-import container from "#SRC/js/container";
 import MesosSummaryActions from "#SRC/js/events/MesosSummaryActions";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
+import { generateDefaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
 import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
 import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeModal";
 import DeactivateNodeConfirm from "#PLUGINS/nodes/src/js/components/modals/DeactivateNodeConfirm";
 import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanceActions";
-
-const notificationService = container.get(NotificationServiceType);
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
@@ -145,23 +137,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
         onSuccess: () => {
           MesosSummaryActions.fetchSummary();
         },
-        onError: ({ code, message }) => {
-          notificationService.push(
-            new ToastNotification(i18n._(i18nMark("Cannot Reactivate Node")), {
-              appearance: ToastAppearance.Danger,
-              autodismiss: true,
-              description:
-                code === 0 ? (
-                  <Trans>Network is offline</Trans>
-                ) : (
-                  <Trans>
-                    Unable to complete request. Please try again. The error
-                    returned was {code} {message}
-                  </Trans>
-                )
-            })
-          );
-        }
+        onError: generateDefaultNetworkErrorHandler(i18n)
       });
     }
   }
