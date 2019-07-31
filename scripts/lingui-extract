@@ -1,31 +1,8 @@
 #!/usr/bin/env bash
-
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
 # Import utils
 source "${SCRIPT_PATH}/utils/message"
-
-function eeSanityCheck {
-  if [ ! -f "$SCRIPT_PATH/../plugins-ee/.babelrc" ]; then
-    warning "plugins-ee/.babelrc file not found. Did this script fail previously? Try running with --unpatch to fix"
-    return 1
-  else
-    return 0
-  fi
-}
-
-# This function temporarily replaces the lingui config and temporarily hides
-# the .babelrc file. lingui extract cannot extract messages from macros that
-# are outside of the package due to the way packages are resolved from each source file. 
-function patch {
-  info "Hiding .babelrc for external plugin extraction"
-  mv "$SCRIPT_PATH/../plugins-ee/.babelrc" "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc"
-}
-
-function unpatch {
-  mv "$SCRIPT_PATH/../plugins-ee/.tmp.babelrc" "$SCRIPT_PATH/../plugins-ee/.babelrc"
-  info "Restored .babelrc"
-}
 
 title "lingui extract"
 
@@ -34,18 +11,11 @@ if [[ $* == *--verbose* ]]; then
   VERBOSE="--verbose "
 fi
 
-if [[ $* == *--unpatch ]]; then
-  unpatch
-else
-  info "Extracting message catalogs for dcos-ui..."
-  eval "lingui extract $VERBOSE--clean --config ./linguirc"
-  if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
-    eeSanityCheck
-    if [[ $? == 0 ]]; then
-      info "Extracting message catalogs for dcos-ui-plugins-private"
-      patch
-      eval "lingui extract $VERBOSE--clean  --config ./plugins-ee/.linguirc"
-      unpatch
-    fi
+info "Extracting message catalogs for dcos-ui..."
+eval "lingui extract $VERBOSE--clean --config ./linguirc"
+if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
+  if [[ $? == 0 ]]; then
+    info "Extracting message catalogs for dcos-ui-plugins-private"
+    eval "lingui extract $VERBOSE--clean  --config ./plugins-ee/.linguirc"
   fi
 fi
