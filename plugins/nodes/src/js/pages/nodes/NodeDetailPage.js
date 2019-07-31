@@ -14,6 +14,9 @@ import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import { generateDefaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+// @ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import { Status, actionAllowed, StatusAction } from "../../types/Status";
 import DrainNodeModal from "../../components/modals/DrainNodeModal";
@@ -139,6 +142,15 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   getActions() {
+    const hasMaintenance = findNestedPropertyInObject(
+      ConfigStore.get("config"),
+      "uiConfiguration.features.maintenance"
+    );
+
+    if (!hasMaintenance) {
+      return [];
+    }
+
     const actions = [];
     const { node } = this.props;
     const status = Status.fromNode(node);
