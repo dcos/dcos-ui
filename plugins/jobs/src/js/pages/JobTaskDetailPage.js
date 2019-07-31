@@ -48,8 +48,8 @@ class JobTaskDetailPage extends React.Component {
     if (!task) {
       return (
         <Trans>
-          Either the data related to that task has already been cleaned up or
-          the given task-id does not exist.
+          Either the data related to this task has already been cleaned up or
+          the given Task ID does not exist.
         </Trans>
       );
     }
