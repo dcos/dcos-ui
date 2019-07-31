@@ -284,7 +284,7 @@
   "Edit or add a group to add quota and start monitoring your group consumption.": "",
   "Edit {0}": "",
   "Editing this service is only available on <0>Mesosphere Enterprise DC/OS</0>.": "",
-  "Either the data related to that task has already been cleaned up or the given task-id does not exist.": "",
+  "Either the data related to this task has already been cleaned up or the given Task ID does not exist.": "",
   "Elected": "",
   "Enable Load Balanced Service Address": "",
   "Enable Schedule": "",

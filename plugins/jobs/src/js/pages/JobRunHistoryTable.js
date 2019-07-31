@@ -263,29 +263,26 @@ class JobRunHistoryTable extends React.Component {
       // the background.
       const dataSeemsStillPresent = !!MesosStateStore.getTaskFromTaskID(taskID);
 
-      const link = (
-        <Link
-          className="table-cell-link-secondary"
-          to={`/jobs/detail/${this.props.job.id}/tasks/${taskID}`}
-          title={taskID}
-        >
-          <CollapsingString endLength={15} string={taskID} />
-        </Link>
-      );
-      const hint = (
-        <Tooltip
-          preferredDirections={["top-left", "bottom-left"]}
-          trigger={<span>{taskID}</span>}
-        >
-          <Trans>
-            The data related to this task has already been cleaned up.
-          </Trans>
-        </Tooltip>
-      );
-
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
-          {dataSeemsStillPresent ? link : hint}
+          {dataSeemsStillPresent ? (
+            <Link
+              className="table-cell-link-secondary"
+              to={`/jobs/detail/${this.props.job.id}/tasks/${taskID}`}
+              title={taskID}
+            >
+              <CollapsingString endLength={15} string={taskID} />
+            </Link>
+          ) : (
+            <Tooltip
+              preferredDirections={["bottom-left"]}
+              trigger={<span>{taskID}</span>}
+            >
+              <Trans>
+                The data related to this task has already been cleaned up.
+              </Trans>
+            </Tooltip>
+          )}
         </div>
       );
     }
