@@ -1,0 +1,112 @@
+@import '~@dcos/ui-kit/dist/packages/design-tokens/build/less/_designTokens';
+
+.splitPanels {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.panel {
+  flex: 0 0 auto;
+  overflow: auto;
+}
+
+.panel--primary {
+  flex: 1 1 auto;
+}
+
+.splitPanels-separator {
+  background-color: @greyLight-lighten-5;
+  bottom: 0;
+  cursor: col-resize;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: @transition-timing transform, @transition-timing right;
+
+  svg {
+    fill: @text-color-secondary;
+  }
+
+  &:hover,
+  &:active {
+    background-color: @grey-light-lighten-4;
+
+    svg {
+      fill: @text-color-primary;
+    }
+  }
+}
+
+.splitPanels-separator--active {
+  right: @modal-full-screen-side-panel-width;
+  width: 16px;
+}
+
+.splitPanels-resizeIconWrapper {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.noUserSelect {
+  user-select: none;
+}
+
+.modal-full-screen-side-panel {
+  height: 100%;
+  position: absolute;
+  right: @modal-full-screen-side-panel-width * -1;
+  top: 0;
+  transition: right @transition-timing, visibility @transition-timing;
+  visibility: hidden;
+  width: @modal-full-screen-side-panel-width;
+  will-change: right;
+  z-index: @z-index-modal-side-panel;
+
+  &.is-visible {
+    right: 0;
+    transition: right @transition-timing;
+    visibility: visible;
+  }
+}
+
+.modal-full-screen-side-panel-placeholder {
+  display: none;
+}
+
+.jsonEditorWrapper {
+
+  > div {
+    min-width: 100%;
+  }
+}
+
+& when (@modal-full-screen-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .modal-full-screen-side-panel {
+      right: @modal-full-screen-side-panel-width-screen-large * -1;
+      width: @modal-full-screen-side-panel-width-screen-large;
+    }
+
+    .splitPanels-separator {
+      right: @modal-full-screen-side-panel-width-screen-large;
+    }
+
+    .modal-full-screen-side-panel-placeholder {
+      display: block;
+      flex-shrink: 0;
+      transition: width @transition-timing;
+      width: 0;
+
+      &.is-visible {
+        width: @modal-full-screen-side-panel-width-screen-large;
+      }
+    }
+  }
+}
