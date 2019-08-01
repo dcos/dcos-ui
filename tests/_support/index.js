@@ -834,3 +834,14 @@ Cypress.Commands.add("visitUrl", function(options) {
 Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
   router.getAPIResponse(endpoint, callback);
 });
+
+beforeEach(function() {
+  // now this runs prior to every test
+  // across all files no matter what
+  const settings = JSON.parse(localStorage.getItem("dcosUserSettings"));
+
+  if (settings && settings.JSONEditor) {
+    delete settings.JSONEditor;
+    localStorage.setItem("dcosUserSettings", JSON.stringify(settings));
+  }
+});
