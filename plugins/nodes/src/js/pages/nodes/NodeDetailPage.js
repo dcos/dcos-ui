@@ -1,4 +1,4 @@
-import { i18nMark, withI18n } from "@lingui/react";
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
@@ -13,7 +13,7 @@ import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
-import { generateDefaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
+import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 // @ts-ignore
 import ConfigStore from "#SRC/js/stores/ConfigStore";
@@ -180,7 +180,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   handleNodeAction(action) {
-    const { i18n, node } = this.props;
+    const { node } = this.props;
 
     // TODO: Status#StatusAction enum
     if (action === "drain") {
@@ -190,7 +190,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     } else if (action === "reactivate") {
       NodeMaintenanceActions.reactivateNode(node, {
         onSuccess: () => {},
-        onError: generateDefaultNetworkErrorHandler(i18n)
+        onError: defaultNetworkErrorHandler
       });
     }
   }
@@ -271,4 +271,4 @@ NodeDetailPage.contextTypes = {
   router: routerShape
 };
 
-module.exports = withNode(withI18n()(NodeDetailPage));
+module.exports = withNode(NodeDetailPage);

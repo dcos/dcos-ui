@@ -1,6 +1,8 @@
+import { I18n } from "@lingui/core";
 import { i18nMark } from "@lingui/react";
 
-// @ts-ignore
+import { TYPES } from "#SRC/js/types/containerTypes";
+
 import {
   ToastNotification,
   ToastAppearance
@@ -12,27 +14,34 @@ import {
   NotificationServiceType
 } from "@extension-kid/notification-service";
 
-const notificationService = container.get(
+const notificationService = container.get<NotificationService>(
   NotificationServiceType
-) as NotificationService;
+);
 
-const generateDefaultNetworkErrorHandler = (i18n: any) => {
-  return ({ message, code }: { message: string; code: number }) => {
-    notificationService.push(
-      new ToastNotification(i18n._(i18nMark("Cannot Reactivate Node")), {
-        appearance: ToastAppearance.Danger,
-        autodismiss: true,
-        description:
-          code === 0
-            ? i18n._(i18nMark("Network is offline"))
-            : i18n._(
-                i18nMark(
-                  "Unable to complete request. Please try again. The error returned was:"
-                )
-              ) + ` ${code} ${message}`
-      })
-    );
-  };
+const i18n = container.get<I18n>(TYPES.I18n);
+
+const defaultNetworkErrorHandler = ({
+  message,
+  code
+}: {
+  message: string;
+  code: number;
+}) => {
+  notificationService.push(
+    new ToastNotification(i18n._(i18nMark("Cannot Reactivate Node")), {
+      appearance: ToastAppearance.Danger,
+      autodismiss: true,
+      description:
+        code === 0
+          ? i18n._(i18nMark("Network is offline"))
+          : i18n._(
+              i18nMark(
+                "Unable to complete request. Please try again. The error returned was: {message}"
+              ),
+              { message: ` ${code} ${message}` }
+            )
+    })
+  );
 };
 
-export { generateDefaultNetworkErrorHandler };
+export { defaultNetworkErrorHandler };

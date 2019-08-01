@@ -1,6 +1,5 @@
 import mixin from "reactjs-mixin";
 import React from "react";
-import { withI18n } from "@lingui/react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { map, catchError } from "rxjs/operators";
 import { combineLatest, of } from "rxjs";
@@ -12,7 +11,7 @@ import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
-import { generateDefaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
+import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
 import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
 import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeModal";
@@ -125,8 +124,6 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   handleNodeAction(node, action) {
-    const { i18n } = this.props;
-
     // TODO: Status#StatusAction enum
     if (action === "drain") {
       this.setState({ selectedNodeToDrain: node });
@@ -137,7 +134,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
         onSuccess: () => {
           MesosSummaryActions.fetchSummary();
         },
-        onError: generateDefaultNetworkErrorHandler(i18n)
+        onError: defaultNetworkErrorHandler
       });
     }
   }
@@ -198,12 +195,10 @@ const networks$ = graphqlObservable(
   catchError(() => of([]))
 );
 
-const NodesTableContainerWithI18n = withI18n()(NodesTableContainer);
-
 module.exports = componentFromStream(props$ =>
   combineLatest(props$, networks$).pipe(
     map(([props, networks]) => (
-      <NodesTableContainerWithI18n {...props} networks={networks} />
+      <NodesTableContainer {...props} networks={networks} />
     ))
   )
 );
