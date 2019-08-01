@@ -50,6 +50,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
+      "@styles": path.resolve(__dirname, "../src/styles"),
       "#EXTERNAL_PLUGINS": path.resolve(
         __dirname,
         `../${process.env.npm_config_externalplugins || "../plugins"}`
