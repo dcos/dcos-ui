@@ -33,7 +33,7 @@ const isGroupArgs = (
 export interface GroupCreateArgs {
   data: GroupFormData;
 }
-const isGroupCreateArgs = (
+const isGroupMutationArgs = (
   args: Record<string, unknown>
 ): args is GroupCreateArgs => {
   return (args as GroupCreateArgs).data !== undefined;
@@ -128,7 +128,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         _parent = {},
         args: Record<string, unknown> = {}
       ): Observable<string> {
-        if (!isGroupCreateArgs(args)) {
+        if (!isGroupMutationArgs(args)) {
           return throwError(
             "createGroup mutation arguments aren't valid for type GroupCreateArgs"
           );
@@ -149,11 +149,12 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         _parent = {},
         args: Record<string, unknown> = {}
       ): Observable<string> {
-        if (!isGroupCreateArgs(args)) {
+        if (!isGroupMutationArgs(args)) {
           return throwError(
             "editGroup mutation arguments aren't valid for type GroupCreateArgs"
           );
         }
+        // TODO: Check types and be smart about API calls.
         return editGroup(args.data.id, args.data.enforceRole).pipe(
           map(() => {
             return "SUCCESS";
