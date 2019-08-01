@@ -1,19 +1,43 @@
+import Container from "@extension-kid/core/dist/src/Container";
+
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
   request: mockRequest
 }));
 
+import DataLayer, { DataLayerType } from "@extension-kid/data-layer/dataLayer";
+import dataLayerContainerModuleFactory from "@extension-kid/data-layer";
 import { marbles, observe } from "rxjs-marbles/jest";
 import { of } from "rxjs";
 import { catchError, take } from "rxjs/operators";
 import gql from "graphql-tag";
-import { graphqlObservable } from "@dcos/data-service";
 
-import { default as schema } from "#SRC/js/data/cosmos";
+import extensionFactory from "#SRC/js/data/cosmos";
+
+function createTestContainer() {
+  const container = new Container();
+  container.load(dataLayerContainerModuleFactory());
+  const uiUpdateModule = extensionFactory();
+  if (uiUpdateModule) {
+    container.load(uiUpdateModule);
+  } else {
+    throw new Error("Failed to get ui data-layer extension module");
+  }
+  return container;
+}
 
 describe("Cosmos data-layer", () => {
+  let container: Container | null = null;
+  let dl: DataLayer | null = null;
   beforeEach(() => {
     jest.clearAllMocks();
+
+    container = createTestContainer();
+    dl = container.get<DataLayer>(DataLayerType);
+  });
+  afterEach(() => {
+    dl = null;
+    container = null;
   });
 
   describe("package", () => {
@@ -37,8 +61,11 @@ describe("Cosmos data-layer", () => {
             }
           }
         `;
+        if (dl === null) {
+          throw new Error();
+        }
 
-        const queryResult$ = graphqlObservable(query, schema, {
+        const queryResult$ = dl.query(query, {
           packageName: "dcos-ui"
         });
         const result$ = queryResult$.pipe(take(1));
@@ -88,8 +115,11 @@ describe("Cosmos data-layer", () => {
             }
           }
         `;
+        if (dl === null) {
+          throw new Error();
+        }
 
-        const queryResult$ = graphqlObservable(query, schema, {
+        const queryResult$ = dl.query(query, {
           packageName: "dcos-ui"
         });
 
@@ -121,16 +151,21 @@ describe("Cosmos data-layer", () => {
             }
           }
         `;
+        if (dl === null) {
+          throw new Error();
+        }
 
-        return graphqlObservable(query, schema, {
-          packageName: "dcos-ui"
-        }).pipe(
-          take(1),
-          catchError(() => {
-            expect(mockRequest.mock.calls.length).toEqual(3);
-            return of({});
+        return dl
+          .query(query, {
+            packageName: "dcos-ui"
           })
-        );
+          .pipe(
+            take(1),
+            catchError(() => {
+              expect(mockRequest.mock.calls.length).toEqual(3);
+              return of({});
+            })
+          );
       })
     );
   });
