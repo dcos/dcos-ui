@@ -1,11 +1,15 @@
 import { of, throwError } from "rxjs";
 import { map, retry, switchMap } from "rxjs/operators";
-import { makeExecutableSchema } from "graphql-tools";
 import { CosmosClient } from "cosmos-client";
 
 import Config from "#SRC/js/config/Config";
 import { PackageSchema } from "#SRC/js/data/cosmos/Package";
 import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
+import { injectable } from "inversify";
+import {
+  DataLayerExtensionInterface,
+  getExtensionModule
+} from "@extension-kid/data-layer";
 
 const client = CosmosClient(Config.rootUrl);
 type PossibleQueryArgs = Partial<PackageQueryArgs>;
@@ -18,7 +22,7 @@ function isPackageQueryArgs(args: PossibleQueryArgs): args is PackageQueryArgs {
   return typeof args.name === "string";
 }
 
-const resolvers = {
+export const resolvers = {
   Package: {
     versions(parent: { name: string }) {
       if (typeof parent.name !== "string" || parent.name.length === 0) {
@@ -50,15 +54,28 @@ const resolvers = {
   }
 };
 
-const baseSchema = `
-type Query {
+export const schema = `
+${PackageVersionSchema}
+${PackageSchema}
+
+extend type Query {
   package(name: String!): Package
 }
 `;
 
-export const schema = makeExecutableSchema({
-  typeDefs: [PackageVersionSchema, PackageSchema, baseSchema],
-  resolvers
-});
+export const CosmosDataLayer = Symbol("CosmosDataLayer");
 
-export default schema;
+@injectable()
+class CosmosExtension implements DataLayerExtensionInterface {
+  id = CosmosDataLayer;
+
+  getResolvers() {
+    return resolvers;
+  }
+
+  getTypeDefinitions() {
+    return schema;
+  }
+}
+
+export default (_context = {}) => getExtensionModule(CosmosExtension);
