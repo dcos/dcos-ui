@@ -53,7 +53,7 @@ DC/OS UI comes bundled with some internal plugins within the `/plugins` director
 
 ```sh
 # for dcos-ui-plugins-private
-npm config set externalplugins ../dcos-ui-plugins-private
+npm config set externalplugins ./plugins-ee
 
 # to simplify development of external plugins and enable automated translation catalog extraction
 npm run util:env:link-externalplugins
@@ -62,7 +62,7 @@ npm run util:env:link-externalplugins
 npm config set externalplugins ../path/to/plugins
 ```
 
-Note that `dcos-ui-plugins-private` currently _must_ be set up at `../dcos-ui-plugins-private`. You also might want to copy its `Config.template.js` to `src/js/config/Config.dev.ts` to enable the enterprise edition.
+Note that `dcos-ui-plugins-private` currently _must_ be set up at `./plugins-ee` for CI and all tooling to work. You also might want to copy its `Config.template.js` to `src/js/config/Config.dev.ts` to enable the enterprise edition.
 
 5.  Start the development server:
 

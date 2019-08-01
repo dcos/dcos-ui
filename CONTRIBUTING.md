@@ -565,7 +565,7 @@ Add this part to your `jsconfig.json` in the root of this project
     "paths": {
       "#SRC/*": ["dcos-ui/src/*"],
       "#LOCALE/*": ["dcos-ui/locale/*"],
-      "#EXTERNAL_PLUGINS/*": ["dcos-ui-plugins-private/*"],
+      "#EXTERNAL_PLUGINS/*": ["dcos-ui/plugins-ee/*"],
       "#PLUGINS/*": ["dcos-ui/plugins/*"]
     }
   }

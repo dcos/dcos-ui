@@ -35,7 +35,7 @@
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
       "#LOCALE/*": ["locale/*"],
-      "#EXTERNAL_PLUGINS/*": ["../dcos-ui-plugins-private/*"],
+      "#EXTERNAL_PLUGINS/*": ["plugins-ee/*"],
       "#PLUGINS/*": ["plugins/*"]
     }
   },
