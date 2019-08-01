@@ -35,7 +35,7 @@ module.exports = {
   moduleFileExtensions: ["js", "json", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
-    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/../dcos-ui-plugins-private/$1",
+    "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/plugins-ee/$1",
     "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.js"
   },
   timers: "fake",
