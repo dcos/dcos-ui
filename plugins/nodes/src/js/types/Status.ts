@@ -35,17 +35,22 @@ const fromNode = (n: Node) => {
 };
 
 export enum StatusAction {
-  DRAIN = "drain"
+  DRAIN = "drain",
+  DEACTIVATE = "deactivate",
+  REACTIVATE = "reactivate"
 }
 
-export const allActions = [StatusAction.DRAIN];
-
 export const actionAllowed = (action: StatusAction, status: Status) => {
-  if (status === active) {
-    return action === StatusAction.DRAIN;
+  switch (action) {
+    case StatusAction.DRAIN:
+      return status === active;
+    case StatusAction.DEACTIVATE:
+      return status === active;
+    case StatusAction.REACTIVATE:
+      return status !== active;
+    default:
+      return false;
   }
-
-  return false;
 };
 
 export type Status = {

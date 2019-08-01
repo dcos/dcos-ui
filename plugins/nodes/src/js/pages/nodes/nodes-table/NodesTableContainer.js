@@ -1,11 +1,20 @@
 import mixin from "reactjs-mixin";
 import React from "react";
+import { i18nMark, withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { map, catchError } from "rxjs/operators";
 import { combineLatest, of } from "rxjs";
 import { graphqlObservable, componentFromStream } from "@dcos/data-service";
+import { NotificationServiceType } from "@extension-kid/notification-service";
+import {
+  ToastNotification,
+  ToastAppearance
+} from "@extension-kid/toast-notifications";
 import gql from "graphql-tag";
 
+import container from "#SRC/js/container";
+import MesosSummaryActions from "#SRC/js/events/MesosSummaryActions";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
@@ -13,6 +22,10 @@ import Node from "#SRC/js/structs/Node";
 import { default as schema } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
 import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeModal";
+import DeactivateNodeConfirm from "#PLUGINS/nodes/src/js/components/modals/DeactivateNodeConfirm";
+import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanceActions";
+
+const notificationService = container.get(NotificationServiceType);
 
 class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   constructor() {
@@ -22,7 +35,9 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
       filteredNodes: null,
       filters: { health: "all", name: "", service: null },
       masterRegion: null,
-      selectedNodeToDrain: null
+      selectedNodeToDrain: null,
+      selectedNodeToDeactivate: null,
+      reactivateNetworkError: false
     };
 
     this.store_listeners = [
@@ -36,7 +51,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     ];
 
     this.handleNodeAction = this.handleNodeAction.bind(this);
-    this.handleDrainClose = this.handleDrainClose.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentWillMount() {
@@ -118,17 +133,54 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   handleNodeAction(node, action) {
+    const { i18n } = this.props;
+
+    // TODO: Status#StatusAction enum
     if (action === "drain") {
       this.setState({ selectedNodeToDrain: node });
+    } else if (action === "deactivate") {
+      this.setState({ selectedNodeToDeactivate: node });
+    } else if (action === "reactivate") {
+      NodeMaintenanceActions.reactivateNode(node, {
+        onSuccess: () => {
+          MesosSummaryActions.fetchSummary();
+        },
+        onError: ({ code, message }) => {
+          notificationService.push(
+            new ToastNotification(i18n._(i18nMark("Cannot Reactivate Node")), {
+              appearance: ToastAppearance.Danger,
+              autodismiss: true,
+              description:
+                code === 0 ? (
+                  <Trans>Network is offline</Trans>
+                ) : (
+                  <Trans>
+                    Unable to complete request. Please try again. The error
+                    returned was {code} {message}
+                  </Trans>
+                )
+            })
+          );
+        }
+      });
     }
   }
 
-  handleDrainClose() {
-    this.setState({ selectedNodeToDrain: null });
+  handleCloseModal() {
+    this.setState({
+      selectedNodeToDrain: null,
+      selectedNodeToDeactivate: null
+    });
+    MesosSummaryActions.fetchSummary();
   }
 
   render() {
-    const { filteredNodes, masterRegion, selectedNodeToDrain } = this.state;
+    const {
+      filteredNodes,
+      masterRegion,
+      selectedNodeToDrain,
+      selectedNodeToDeactivate
+    } = this.state;
     const { networks = [] } = this.props;
 
     return (
@@ -140,9 +192,14 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
           onNodeAction={this.handleNodeAction}
         />
         <DrainNodeModal
-          open={selectedNodeToDrain != null}
+          open={selectedNodeToDrain !== null}
           node={selectedNodeToDrain}
-          onClose={this.handleDrainClose}
+          onClose={this.handleCloseModal}
+        />
+        <DeactivateNodeConfirm
+          open={selectedNodeToDeactivate !== null}
+          node={selectedNodeToDeactivate}
+          onClose={this.handleCloseModal}
         />
       </React.Fragment>
     );
@@ -165,10 +222,12 @@ const networks$ = graphqlObservable(
   catchError(() => of([]))
 );
 
+const NodesTableContainerWithI18n = withI18n()(NodesTableContainer);
+
 module.exports = componentFromStream(props$ =>
   combineLatest(props$, networks$).pipe(
     map(([props, networks]) => (
-      <NodesTableContainer {...props} networks={networks} />
+      <NodesTableContainerWithI18n {...props} networks={networks} />
     ))
   )
 );

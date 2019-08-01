@@ -56,7 +56,7 @@ describe("Job Details", function() {
 
       cy.get("@tableRow")
         .find("td:nth-child(2) .expanding-table-child")
-        .should(function($children) {
+        .should($children => {
           expect($children.length).to.equal(2);
         });
     });
@@ -65,19 +65,17 @@ describe("Job Details", function() {
       cy.get(".page table tbody tr .is-expandable").as("tableRows");
       cy.get("@tableRows")
         .first()
-        .as("tableRowA");
+        .click();
       cy.get("@tableRows")
         .last()
-        .as("tableRowB");
+        .click();
 
-      cy.get("@tableRowA").click();
-      cy.get("@tableRowB").click();
-
-      // 5 table columns (started column is sometimes hidden) each with 4
-      // expanding-table-child cells = 20.
-      cy.get(".page table .expanding-table-child").should(function($children) {
-        expect($children.length).to.equal(20);
-      });
+      cy.get(".job-run-history-table-column-id .expanding-table-child").should(
+        $children => {
+          // two jobs with two tasks each
+          expect($children.length).to.equal(4);
+        }
+      );
     });
 
     it("expands a row for already finished job runs", function() {
@@ -100,6 +98,10 @@ describe("Job Details", function() {
       // check that they are in the dom now
       cy.contains("completedTask.42");
       cy.contains("failedTask.42");
+
+      // check that the tooltip is present as the tasks from above are not
+      // present in MesosStateStore
+      cy.contains("The data related to this task has already been cleaned up.");
     });
   });
 

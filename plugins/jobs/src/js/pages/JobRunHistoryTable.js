@@ -4,8 +4,9 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
-import { Icon } from "@dcos/ui-kit";
+import { Icon, Tooltip } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+
 import {
   greyDark,
   iconSizeXs
@@ -20,6 +21,7 @@ import ExpandingTable from "#SRC/js/components/ExpandingTable";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import JobStopRunModal from "#SRC/js/components/modals/JobStopRunModal";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
@@ -54,8 +56,13 @@ class JobRunHistoryTable extends React.Component {
 
     this.state = {
       checkedItems: {},
-      isStopRunModalShown: null
+      isStopRunModalShown: null,
+      mesosStateStoreLoaded: false
     };
+
+    MesosStateStore.ready.then(() => {
+      this.setState({ mesosStateStoreLoaded: true });
+    });
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -246,17 +253,36 @@ class JobRunHistoryTable extends React.Component {
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       const taskID = row.taskID;
-      const id = this.props.job.id;
+
+      if (!this.state.mesosStateStoreLoaded) {
+        return <Trans>Loading...</Trans>;
+      }
+
+      // It may be that the data only *seems* to be present because we don't
+      // remove tasks from the MesosStateStore when they're garbage collected in
+      // the background.
+      const dataSeemsStillPresent = !!MesosStateStore.getTaskFromTaskID(taskID);
 
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
-          <Link
-            className="table-cell-link-secondary text-overflow"
-            to={`/jobs/detail/${id}/tasks/${taskID}`}
-            title={taskID}
-          >
-            <CollapsingString endLength={15} string={taskID} />
-          </Link>
+          {dataSeemsStillPresent ? (
+            <Link
+              className="table-cell-link-secondary"
+              to={`/jobs/detail/${this.props.job.id}/tasks/${taskID}`}
+              title={taskID}
+            >
+              <CollapsingString endLength={15} string={taskID} />
+            </Link>
+          ) : (
+            <Tooltip
+              preferredDirections={["bottom-left"]}
+              trigger={<span>{taskID}</span>}
+            >
+              <Trans>
+                The data related to this task has already been cleaned up.
+              </Trans>
+            </Tooltip>
+          )}
         </div>
       );
     }
