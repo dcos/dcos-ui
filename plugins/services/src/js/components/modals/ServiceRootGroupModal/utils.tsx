@@ -42,10 +42,10 @@ export function groupFormDataFromGraphql(data: ServiceGroup): GroupFormData {
     enforceRole: enforceRole !== undefined ? enforceRole : true,
     quota: {
       force: false,
-      cpus: cpus !== undefined ? cpus : "",
-      mem: mem !== undefined ? mem : "",
-      disk: disk !== undefined ? disk : "",
-      gpus: gpus !== undefined ? gpus : ""
+      cpus: cpus !== undefined ? cpus + "" : "",
+      mem: mem !== undefined ? mem + "" : "",
+      disk: disk !== undefined ? disk + "" : "",
+      gpus: gpus !== undefined ? gpus + "" : ""
     }
   };
 }

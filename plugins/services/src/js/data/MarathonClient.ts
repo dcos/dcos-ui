@@ -58,7 +58,7 @@ export function editGroup(
 ): Observable<CreateGroupResponse> {
   return request(buildMarathonURI("/groups/" + id), {
     method: "PUT",
-    body: JSON.stringify({ id, enforceRole })
+    body: JSON.stringify({ enforceRole })
   }).pipe(
     map(reqResp => {
       const { code } = reqResp;
@@ -68,9 +68,6 @@ export function editGroup(
         }) as CreateGroupErrorResponse;
         let message: string;
         switch (reqResp.code) {
-          case 409:
-            message = "Conflict - Group";
-            break;
           case 403:
             message = "Forbidden - Group";
             break;

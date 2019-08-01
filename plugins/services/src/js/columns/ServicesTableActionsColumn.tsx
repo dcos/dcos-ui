@@ -98,8 +98,7 @@ function renderServiceActionsDropdown(
 
 export function actionsRendererFactory(
   handleActionDisabledModalOpen: any,
-  handleServiceAction: any,
-  isRoot: boolean
+  handleServiceAction: any
 ): React.ReactNode {
   return (service: Service | Pod | ServiceTree) => {
     const isGroup = service instanceof ServiceTree;
@@ -130,6 +129,7 @@ export function actionsRendererFactory(
       });
     }
 
+    const isRoot = service.getId().split("/").length <= 2;
     if (!isGroup || isRoot) {
       actions.push({
         id: EDIT,

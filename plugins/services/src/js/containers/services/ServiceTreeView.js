@@ -217,7 +217,6 @@ class ServiceTreeView extends React.Component {
             hideTable={this.context.router.routes.some(
               ({ isFullscreenModal }) => isFullscreenModal
             )}
-            isRoot={isRoot}
           />
         </div>
         {children}

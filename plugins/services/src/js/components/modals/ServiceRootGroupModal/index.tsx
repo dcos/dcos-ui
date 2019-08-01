@@ -64,15 +64,15 @@ const groupEditMutation = gql`
 `;
 
 function getSaveAction(data: GroupFormData, isEdit: boolean) {
-  const newID = formatQuotaID(data.id);
-  const newData = (({ id, ...other }) => ({ id: newID, ...other }))(data);
   if (!isEdit) {
+    const newID = formatQuotaID(data.id);
+    const newData = (({ id, ...other }) => ({ id: newID, ...other }))(data);
     return dl.query(groupCreateMutation, {
       data: newData
     });
   }
   return dl.query(groupEditMutation, {
-    data: newData
+    data
   });
 }
 
@@ -98,6 +98,7 @@ interface ServiceRootGroupModalState {
   data: GroupFormData | null;
   originalData: GroupFormData | null;
   errors: GroupFormErrors;
+  isEdit: boolean;
 }
 
 interface ServiceRootGroupModalProps {
@@ -122,8 +123,6 @@ class ServiceRootGroupModal extends React.Component<
     router: routerShape
   };
   static defaultProps = {
-    isEdit: false,
-    group: null,
     id: ""
   };
 
@@ -132,7 +131,6 @@ class ServiceRootGroupModal extends React.Component<
     super(...arguments);
 
     this.state = this.getInitialState();
-    this.getGroupFormData();
 
     METHODS_TO_BIND.forEach(method => {
       // @ts-ignore
@@ -140,16 +138,21 @@ class ServiceRootGroupModal extends React.Component<
     });
   }
 
+  componentDidMount() {
+    this.getGroupFormData();
+  }
+
   getInitialState(
-    _props: ServiceRootGroupModalProps = this.props
+    props: ServiceRootGroupModalProps = this.props
   ): ServiceRootGroupModalState {
     return {
       isOpen: true,
       isPending: false,
       expandAdvancedSettings: false,
-      data: emptyGroupFormData(),
+      data: !!props.id ? null : emptyGroupFormData(),
       originalData: null,
-      errors: {}
+      errors: {},
+      isEdit: !!props.id
     };
   }
 
@@ -166,27 +169,23 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   handleSave() {
-    // const {} = this.state;
-    if (this.state.isPending || !this.state.data) {
+    const { isPending, data, originalData, isEdit } = this.state;
+    if (isPending || !data) {
       return;
     }
-    const isEdit = !!this.props.id;
 
-    if (
-      JSON.stringify(this.state.data) ===
-      JSON.stringify(this.state.originalData)
-    ) {
+    if (originalData && JSON.stringify(data) === JSON.stringify(originalData)) {
       // No changes.
       return this.handleClose();
     }
-    const errors = validateGroupFormData(this.state.data, isEdit);
+    const errors = validateGroupFormData(data, isEdit);
     if (errors) {
       this.setState({ errors });
       return;
     }
 
     this.setState({ isPending: true });
-    getSaveAction(this.state.data, isEdit)
+    getSaveAction(data, isEdit)
       .pipe(take(1))
       .subscribe({
         next: () => this.handleClose(),
@@ -194,7 +193,7 @@ class ServiceRootGroupModal extends React.Component<
           //TODO: If error creating quota switch to Edit Mode for group, must
           // Be done after edit mode supported.
           switch (e.message) {
-            case "Conflict - Group":
+            case "Conflict":
               this.setState({
                 errors: {
                   id: <Trans>Name already exists. Try a different name.</Trans>,
@@ -258,16 +257,11 @@ class ServiceRootGroupModal extends React.Component<
           }
         });
     }
-    this.setState({
-      data: emptyGroupFormData()
-    });
   }
 
   getModalContent() {
-    const { id } = this.props;
-    const { errors, data } = this.state;
+    const { errors, data, isEdit } = this.state;
     // If id exists, then we must be editing.
-    const isEdit = !!id;
 
     if (!data) {
       return <Loader />;
@@ -278,7 +272,7 @@ class ServiceRootGroupModal extends React.Component<
         <FluidGeminiScrollbar>
           <div className="modal-body-padding-surrogate create-service-modal-form-container">
             <form className="container" onChange={this.handleFormChange}>
-              <ErrorsPanel errors={this.state.errors.form} />
+              <ErrorsPanel errors={errors.form} />
               <Trans render="h1" className="flush-top short-bottom">
                 General
               </Trans>
@@ -427,7 +421,7 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   getAdvancedSettings() {
-    const { data, originalData } = this.state;
+    const { data, originalData, expandAdvancedSettings, isEdit } = this.state;
     const roleEnforcementTooltipContent = (
       <Trans>
         Select role type that will be enforced to all services added inside this
@@ -439,11 +433,10 @@ class ServiceRootGroupModal extends React.Component<
       return;
     }
 
-    const isDisabled =
-      !!this.props.id && originalData && originalData.enforceRole;
+    const isDisabled = isEdit && originalData && originalData.enforceRole;
 
     return (
-      <AdvancedSection shouldExpand={this.state.expandAdvancedSettings}>
+      <AdvancedSection shouldExpand={expandAdvancedSettings}>
         <AdvancedSectionLabel onClick={this.handleAdvancedSectionClick}>
           <Trans>Advanced Settings</Trans>
         </AdvancedSectionLabel>
@@ -540,7 +533,7 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   render() {
-    const isEdit = !!this.props.id;
+    const isEdit = this.state.isEdit;
     return (
       <FullScreenModal
         header={
