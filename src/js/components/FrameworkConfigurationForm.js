@@ -2,7 +2,6 @@ import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React, { Component, Suspense, lazy } from "react";
-import classNames from "classnames";
 import SchemaForm from "react-jsonschema-form";
 import { MountService } from "foundation-ui";
 import { InfoBoxInline } from "@dcos/ui-kit";
@@ -17,6 +16,10 @@ import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
 import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
 import SchemaField from "#SRC/js/components/SchemaField";
+import SplitPanel, {
+  PrimaryPanel,
+  SidePanel
+} from "#SRC/js/components/SplitPanel";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
 import FrameworkConfigurationConstants from "#SRC/js/constants/FrameworkConfigurationConstants";
@@ -56,7 +59,8 @@ const METHODS_TO_BIND = [
   "handleJSONChange",
   "handleBadgeClick",
   "validate",
-  "jsonSchemaErrorList"
+  "jsonSchemaErrorList",
+  "onEditorResize"
 ];
 
 class FrameworkConfigurationForm extends Component {
@@ -220,6 +224,10 @@ class FrameworkConfigurationForm extends Component {
     this.probeErrorsSchemaForm();
   }
 
+  onEditorResize(newSize) {
+    this.setState({ editorWidth: newSize });
+  }
+
   probeErrorsSchemaForm() {
     const { errorSchema } = this.schemaForm.state;
 
@@ -323,14 +331,6 @@ class FrameworkConfigurationForm extends Component {
       );
     };
 
-    const jsonEditorPlaceholderClasses = classNames(
-      "modal-full-screen-side-panel-placeholder",
-      { "is-visible": jsonEditorActive }
-    );
-    const jsonEditorClasses = classNames("modal-full-screen-side-panel", {
-      "is-visible": jsonEditorActive
-    });
-
     const schema = packageDetails.getConfig();
 
     let defaultConfigWarningMessage = null;
@@ -351,8 +351,8 @@ class FrameworkConfigurationForm extends Component {
     }
 
     return (
-      <div className="flex flex-item-grow-1">
-        <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
+      <SplitPanel onResize={this.onEditorResize}>
+        <PrimaryPanel className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
           <PageHeaderNavigationDropdown
             handleNavigationItemSelection={
               this.handleDropdownNavigationSelection
@@ -395,9 +395,8 @@ class FrameworkConfigurationForm extends Component {
               </div>
             </div>
           </FluidGeminiScrollbar>
-        </div>
-        <div className={jsonEditorPlaceholderClasses} />
-        <div className={jsonEditorClasses}>
+        </PrimaryPanel>
+        <SidePanel isActive={jsonEditorActive} className="jsonEditorWrapper">
           <Suspense fallback={<JSONEditorLoading isSidePanel={true} />}>
             <JSONEditor
               errors={this.getErrorsForJSONEditor()}
@@ -407,11 +406,13 @@ class FrameworkConfigurationForm extends Component {
               theme="monokai"
               height="100%"
               value={formData}
-              width="100%"
+              width={
+                this.state.editorWidth ? `${this.state.editorWidth}px` : "100%"
+              }
             />
           </Suspense>
-        </div>
-      </div>
+        </SidePanel>
+      </SplitPanel>
     );
   }
 }
